@@ -2,22 +2,22 @@
 # Site Configuration
 # =================================================================================
 
-title               :   Artificial Nouveau                         # The site title (if blank, full name will be used instead)
-full_name           :   Ahnjili Zhuparris                  # The full site name (if blank, title will be used instead)
-email               :   'your@gmail.com'                # Your email address
-lang                :   en                              # Site language (en for English)
-encoding            :   utf-8                           # Site encoding (utf-8 for Unicode)
-icon                :   '/assets/favicon/favicon.ico'   # Site favicon
-logo                :   '/assets/logo/logo.jpg'         # Site logo, also used in jekyll-seo-tag
-home-bg             :   '/assets/images/home-bg.jpg'    # Home background image
-url                 :   'https://www.artificialnouveau.com/' # Site URL (if using a custom domain)
-baseurl             :   ''                              # Site base URL (add if site is not at root)
-repo                :   'https://github.com/' # Site repository, also used in jekyll-seo-tag
-description         :   > # Site description and default description, also used in jekyll-seo-tag
-    Ahnjili is a data scientist, Ph.D. candidate, artist, and science communicator. Ahnjili's academic research focuses on developing smartphones- and wearables-based biomarkers that can be used to monitor one’s mental and physical wellbeing for clinical trials.
-keywords            :   > # For SEO
-    jekyll, theme, minimal, responsive, blog, portfolio, fast, seo, social, web, development
-footer_text         :   '© 2021 Inkstream'  # Footer text
+title        :  Artificial Nouveau             # The site title (if blank, full name will be used instead)
+full_name      :  Ahnjili Zhuparris         # The full site name (if blank, title will be used instead)
+email        :  'your@gmail.com'        # Your email address
+lang        :  en               # Site language (en for English)
+encoding      :  utf-8              # Site encoding (utf-8 for Unicode)
+icon        :  '/assets/favicon/favicon.ico'  # Site favicon
+logo        :  '/assets/logo/logo.jpg'     # Site logo, also used in jekyll-seo-tag
+home-bg       :  '/assets/images/home-bg.jpg'  # Home background image
+url         :  'https://www.artificialnouveau.com/' # Site URL (if using a custom domain)
+baseurl       :  ''               # Site base URL (add if site is not at root)
+repo        :  'https://github.com/' # Site repository, also used in jekyll-seo-tag
+description     :  > # Site description and default description, also used in jekyll-seo-tag
+  Ahnjili is a data scientist, Ph.D. candidate, artist, and science communicator. Ahnjili's academic research focuses on developing smartphones- and wearables-based biomarkers that can be used to monitor one’s mental and physical wellbeing for clinical trials.
+keywords      :  > # For SEO
+  jekyll, theme, minimal, responsive, blog, portfolio, fast, seo, social, web, development
+footer_text     :  '© 2021 Inkstream' # Footer text
 
 
 
@@ -35,22 +35,20 @@ footer_text         :   '© 2021 Inkstream'  # Footer text
 # =================================================================================
 
 social_links: # Leave blank according to your need
-   social_links:
- github_username: academicpages  # Keep your existing username
-  researchgate_username: "Ahnjili-Zhuparris"
-  instagram_username: "@artificialnouveau"
-  scholar_username: "6Xpqd-IAAAAJ&hl=en&oi=ao"  # Scholar uses user ID, not username
-  pubmed_id: "ahnjili+zhuparris"  # PubMed uses publication ID, not username  
-  orcid_id: "0000-0002-1413-1648"
+  linkedin_username    :         # Your LinkedIn username
+  github_username     :  academicpages       # Your GitHub username
+  twitter_username    :  mohdirfan57       # Your Twitter username
+  stackoveflow_username  :  13520260/mohd-irfan   # Your Stackoverflow username
+  codepen_username    :  mohdirfan57       # Your Codepen username
 
 user:
-    name        :   Ahnjili Zhuparris                # Your name (required)
-    bio         :   'A Data Scientist, Science Communicator, and Artist.'    # Short bio, You can also provide a links.
-    profession  :   ''             # Your profession (optional)
-    location    :   ' The Netherlands, New York, Hong Kong'                     # Your location (optional)
-    email       :                # Your email address (optional)
+  name    :  Ahnjili Zhuparris        # Your name (required)
+  bio     :  'A Data Scientist, Science Communicator, and Artist.'  # Short bio, You can also provide a links.
+  profession :  ''       # Your profession (optional)
+  location  :  ' The Netherlands, New York, Hong Kong'           # Your location (optional)
+  email    :        # Your email address (optional)
 
-download_resume: '/assets/resume/resume.pdf'    # Add the path to your resume
+download_resume: '/assets/resume/resume.pdf'  # Add the path to your resume
 
 
 
@@ -62,59 +60,59 @@ download_resume: '/assets/resume/resume.pdf'    # Add the path to your resume
 markdown: kramdown
 highlighter: rouge
 kramdown:
-    input: GFM
-    syntax_highlighter_opts:
-        css_class: "highlight"
-        span:
-            line_numbers: false
-        block:
-            line_numbers: false
-            start_line: 1
+  input: GFM
+  syntax_highlighter_opts:
+    css_class: "highlight"
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+      start_line: 1
 
 # Includes & excludes
 include: ["_pages", "blog", "_posts"]
 exclude:
-    - README.md
-    - LICENSE
-    - CODE_OF_CONDUCT.md
-    - CNAME
-    - Gemfile
-    - Gemfile.lock
-    - inkstream.gemspec
-    - .jekyll-cache
-    - /demo/
-    # - CONTRIBUTING.md
-    # - INSTALL.md
+  - README.md
+  - LICENSE
+  - CODE_OF_CONDUCT.md
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - inkstream.gemspec
+  - .jekyll-cache
+  - /demo/
+  # - CONTRIBUTING.md
+  # - INSTALL.md
 
 # Plugins
 plugins:
-    - jekyll-paginate
-    - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-seo-tag
 
 # Defaults
 defaults:
-    - # Page settings
-        scope:
-            path: ""
-            type: "pages"
-        values:
-            layout: "page"
-    - # Post settings
-        scope:
-            path: ""
-            type: "posts"
-        values:
-            layout: "post"
-    -
-        scope:
-            path: ""
-        values:
-            image: '/assets/images/posts/default-post-img.jpg' # Default post image
-    # - # Sitemap settings
-    #     scope:
-    #         path: "assets"
-    #     values:
-    #         sitemap: false
+  - # Page settings
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  - # Post settings
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  -
+    scope:
+      path: ""
+    values:
+      image: '/assets/images/posts/default-post-img.jpg' # Default post image
+  # - # Sitemap settings
+  #   scope:
+  #     path: "assets"
+  #   values:
+  #     sitemap: false
 
 
 
@@ -124,74 +122,74 @@ defaults:
 
 # Nav Links
 navigation_header:
-    -
-        title: Home
-        url: /
-        icon: home
-    -
-        title: Gallery
-        url: /blog/
-        icon: blog
-    -
-        title: Upcoming events
-        url: /about/
-        icon: user
+  -
+    title: Home
+    url: /
+    icon: home
+  -
+    title: Gallery
+    url: /blog/
+    icon: blog
+  -
+    title: Upcoming events
+    url: /about/
+    icon: user
 
 navigation_footer:
-    -
-        title: 
-        url: h
+  -
+    title: 
+    url: h
 
 # Gem settings (jekyll-paginate, jekyll-seo-tag)
-paginate            : 5         # jekyll-paginate > items per page
-paginate_path       : blog/:num # jekyll-paginate > blog page
-pinned              : false     # jekyll-seo-tag > pin the post to the top of the list
-author              : Agnjilli # jekyll-seo-tag > default author
+paginate      : 5     # jekyll-paginate > items per page
+paginate_path    : blog/:num # jekyll-paginate > blog page
+pinned       : false   # jekyll-seo-tag > pin the post to the top of the list
+author       : Agnjilli # jekyll-seo-tag > default author
 twitter:
-    username:  # jekyll-seo-tag > Owners twitter username
+  username: # jekyll-seo-tag > Owners twitter username
 social: # jekyll-seo-tag > social overrides
-    name: Ahnjilli # jekyll-seo-tag > real name
-    links: # jekyll-seo-tag > social aliases (sameAs)
-        - https://twitter.com/ # Add your Twitter URL
-        - https://www.linkedin.com/in/ # Add your LinkedIn URL
-        - https://github.com/ # Add your GitHub URL
+  name: Ahnjilli # jekyll-seo-tag > real name
+  links: # jekyll-seo-tag > social aliases (sameAs)
+    - https://twitter.com/ # Add your Twitter URL
+    - https://www.linkedin.com/in/ # Add your LinkedIn URL
+    - https://github.com/ # Add your GitHub URL
 
 # 4. Jekyll settings
 # sass:
-#     style: compressed # Style compression
+#   style: compressed # Style compression
 # permalink: pretty # Permalink style (/YYYY/MM/DD/page-name/)
 # excerpt_separator: <!-- more --> # Marks end of excerpt in posts
 # timezone: Europe/London # Timezone for blog posts and alike
 
 # 5. Jekyll collections settings
 collections:
-    posts:
-        title: Posts # Needed for Siteleaf
-        output: true
-        description: 'My thoughts and ideas' # The post list page content
-        pin: true # Pin the post to the top of the list
-        image: 'https://picsum.photos/2560/600?image=866'
+  posts:
+    title: Posts # Needed for Siteleaf
+    output: true
+    description: 'My thoughts and ideas' # The post list page content
+    pin: true # Pin the post to the top of the list
+    image: 'https://picsum.photos/2560/600?image=866'
 
 # 8. Site favicons & manifest icons
 favicons: # Favicons are also used in the manifest file. Syntax is 'size: path'
-    '16': '/assets/favicon/favicon-16x16.png'
-    '32': '/assets/favicon/favicon-32x32.png'
-    '150': '/assets/favicon/mstile-150x150.png'
-    '180': '/assets/favicon/apple-touch-icon.png'
-    '192': '/assets/favicon/android-chrome-192x192.png'
-    '512': '/assets/favicon/android-chrome-512x512.png'
-    webmanifest: '/assets/favicon/site.webmanifest'
-    safari: '/assets/favicon/safari-pinned-tab.svg'
+  '16': '/assets/favicon/favicon-16x16.png'
+  '32': '/assets/favicon/favicon-32x32.png'
+  '150': '/assets/favicon/mstile-150x150.png'
+  '180': '/assets/favicon/apple-touch-icon.png'
+  '192': '/assets/favicon/android-chrome-192x192.png'
+  '512': '/assets/favicon/android-chrome-512x512.png'
+  webmanifest: '/assets/favicon/site.webmanifest'
+  safari: '/assets/favicon/safari-pinned-tab.svg'
 
 
-#     Email: true
+#   Email: true
 
 # # Load custom fonts from fonts.google.com etc
 # #
 # # TIP: Try to keep the number of urls as low to reduce the performance cost
-# #      If multiple fonts can be requested in a single url opt for this
+# #   If multiple fonts can be requested in a single url opt for this
 # fonts:
-#     preconnect_urls:
-#         - https://fonts.gstatic.com
-#     font_urls:
-#         - https://use.fontawesome.com/releases/v5.7.1/js/all.js
+#   preconnect_urls:
+#     - https://fonts.gstatic.com
+#   font_urls:
+#     - https://use.fontawesome.com/releases/v5.7.1/js/all.js
