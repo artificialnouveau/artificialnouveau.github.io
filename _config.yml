@@ -124,17 +124,17 @@ defaults:
 # Nav Links
 navigation_header:
   -
-    title: Home
+    title: About Me
     url: /
-    icon: home
+    icon: fa-solid fa-user
   -
     title: Gallery
-    url: /blog/
-    icon: blog
+    url: /gallery/
+    icon: fa-regular fa-image
   -
-    title: Upcoming events
-    url: /about/
-    icon: user
+    title: Upcoming Events
+    url: /events/
+    icon: fa-regular fa-calendar
 
 navigation_footer:
   -
