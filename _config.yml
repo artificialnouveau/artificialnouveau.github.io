@@ -35,11 +35,12 @@ footer_text     :  '© 2021 Inkstream' # Footer text
 # =================================================================================
 
 social_links: # Leave blank according to your need
-  linkedin_username    :         # Your LinkedIn username
-  github_username     :  academicpages       # Your GitHub username
-  twitter_username    :  mohdirfan57       # Your Twitter username
-  stackoveflow_username  :  13520260/mohd-irfan   # Your Stackoverflow username
-  codepen_username    :  mohdirfan57       # Your Codepen username
+  github_username: academicpages  # Keep your existing username
+  researchgate_username: "your_researchgate_username"
+  instagram_username: "your_instagram_username"
+  scholar_username: "your_scholar_id"  # Scholar uses user ID, not username
+  pubmed_id: "your_pubmed_id"  # PubMed uses publication ID, not username  
+  orcid_id: "your_orcid_id"
 
 user:
   name    :  Ahnjili Zhuparris        # Your name (required)
