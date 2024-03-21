@@ -10,7 +10,7 @@
         {% endif %}
         {% assign icon = item.icon %}
         <li class="nav-item {% if item.url == page.url %} active {% endif %}">
-            <a class="nav-link" href="{{ url }}"><i class="fas fa-{{ icon }} fa-fw mr-2"></i>
+            <a class="nav-link" href="{{ url }}"><i class="{{ icon }} fa-fw mr-2"></i>
                 {{ item.title }}
                 {% if item.url == page.url %}
                 <span class="sr-only">(current)</span>
