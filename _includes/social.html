@@ -20,17 +20,10 @@
 {% endif %}
 {% if site.social_links.scholar_username %} <li class="list-inline-item">
   <a href="https://scholar.google.com/citations?user={{ site.social_links.scholar_username }}" target="_blank">
-    <i class="fab fa-google-scholar fa-fw"></i> </a>
-</li>
-{% endif %}
-{% if site.social_links.pubmed_id %} <li class="list-inline-item">
-  <a href="https://pubmed.ncbi.nlm.nih.gov/?term={{ site.social_links.pubmed_id }}" target="_blank">
-    <i class="fab fa-pubmed fa-fw"></i> </a>
-</li>
-{% endif %}
+<i class="fa-brands fa-google-scholar"></i></li>
+
 {% if site.social_links.orcid_id %}
 <li class="list-inline-item">
   <a href="https://orcid.org/{{ site.social_links.orcid_id }}" target="_blank">
-    <i class="fab fa-orcid fa-fw"></i> </a>
-</li>
+<i class="fa-brands fa-orcid"></i></li>
 {% endif %}
