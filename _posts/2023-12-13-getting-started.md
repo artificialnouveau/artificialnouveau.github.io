@@ -4,7 +4,5 @@ image: assets/images/posts/welcome.jpg
 pinned: true
 ---
 
-Welcome to the blog. This is the first post. And this is a welcome post. You can write anything you want here.
-
-
+<video controls="" autoplay="" name="media"><source src="https://muhammad-sultan.github.io/assets/portfolio/voiceclone.mp4" type="video/mp4"></video>
 
