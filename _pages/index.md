@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="{{ '/assets/style.css' }}">  
-</head>
-<body>
+---
+title: Home
+permalink: /
+---
+<style>
+ h2 {
+  color: #FF70A6; /* Change this to your desired color */
+  text-align: center; /* Change this to your desired alignment */
+ }
+</style>
 
 ## <center><span style="color: #FF70A6;">About</span></center>
 
