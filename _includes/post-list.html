@@ -17,18 +17,13 @@
                 <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
             </h3>
             <p class="card-text">{{ post.excerpt | markdownify | truncatewords: 42 }}</p>
-            <a href="{{ site.baseurl }}{{ post.url }}" class="btn btn-primary">Read more &rarr;</a>
+            <a href="{{ site.baseurl }}{{ post.url }}" class="btn btn-primary">View &rarr;</a>
         </div>
     </div>
 
     <div class="card-footer text-muted d-flex justify-content-between">
         <span class="date">Published on {{ post.date | date: "%b %-d, %Y" }}</span>
-        <span class="comment"><a href="#">4 comments</a></span>
-        <span class="time align-content-end">
-            <i class="fas fa-clock fa-fw mr-1"></i>
-            {{ words | divided_by: 180 | append: ' min read' }} &bull;
-            {{ words }} words
-        </span>
+       
     </div>
 </div>
 {% endif %}
@@ -50,17 +45,13 @@
                 <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
             </h3>
             <p class="card-text">{{ page.excerpt | markdownify | truncatewords: 42 }}</p>
-            <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">Read more &rarr;</a>
+            <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">View &rarr;</a>
         </div>
     </div>
 
     <div class="card-footer text-muted d-flex justify-content-between">
         <span class="date">Published on {{ page.date | date: "%b %-d, %Y" }}</span>
-        <span class="comment"><a href="#">4 comments</a></span>
-        <span class="time align-content-end">
-            <i class="fas fa-clock fa-fw mr-1"></i>{{ words | divided_by: 180 | append: ' min read' }} &bull; {{ words
-            }} words
-        </span>
+        
     </div>
 </div>
 {% endunless %}
@@ -80,17 +71,13 @@
                 <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
             </h3>
             <p class="card-text">{{ page.excerpt | markdownify | truncatewords: 42 }}</p>
-            <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">Read more &rarr;</a>
+            <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">View &rarr;</a>
         </div>
     </div>
     <div class="card-footer text-muted d-flex justify-content-between">
         <span class="date">Published on {{ page.date | date: "%b %-d, %Y" }}</span>
-        <span class="comment"><a href="#">4 comments</a></span>
-        <span class="time align-content-end">
-            <i class="fas fa-clock fa-fw mr-1"></i>{{ words | divided_by: 180 | append: ' min read' }} &bull; {{ words
-            }}
-            words
-        </span>
+        
+        
     </div>
 </div>
 {% endfor %}
