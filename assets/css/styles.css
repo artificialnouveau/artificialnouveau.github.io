@@ -1,9 +1,5 @@
-/*!
- * Bootstrap v4.3.0 (https://getbootstrap.com/)
- * Copyright 2011-2019 The Bootstrap Authors
- * Copyright 2011-2019 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
 :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -10659,7 +10655,7 @@ h6 {
 }
 
 .header .blog-name a {
-    color: #FF70A6;
+    color: #ffffff;
 }
 
 .header .blog-name a:hover {
