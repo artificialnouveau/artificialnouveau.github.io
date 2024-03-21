@@ -8,11 +8,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
   .video-container {
   width: 80%;
   margin: 0 auto; /* Center the video horizontally (optional) */
-    padding-right:50px;
 }
 
 video {
-  width: 100%; /* Stretch the video to fill the container's width */
+      padding-right:50px;
+
 }
 
 </style>
