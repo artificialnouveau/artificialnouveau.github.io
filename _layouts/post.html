@@ -26,26 +26,12 @@ layout: default
                             seconds_in_a_year %} Posted {{ time_difference | divided_by: seconds_in_a_month | round }}
                             months ago {% else %} Posted {{ time_difference | divided_by: seconds_in_a_year | round }}
                             years ago {% endif %} </span>
-                            {% capture words %}
-                            {{ page.content | number_of_words }}
-                            {% endcapture %}
-                            <span class="time">{{ words | divided_by: 180 }} min read</span>
-                            <span class="time">{{ words }} words</span>
-                            <span class="comment">
-                                <a href="#">4 comments</a>
-                            </span>
+                            
                 </div>
             </header>
 
             <div class="blog-post-body">
-                <figure class="blog-banner">
-                    <a href="{{ page.image | relative_url }}">
-                        <img class="img-fluid rounded-left rounded-right shadow-sm" src="{{ page.image | relative_url }}"
-                            alt="{{ page.title }}" style="max-height: 400px; width: 100%;">
-                    </a>
-                    <figcaption class="mt-2 text-center image-caption">Image: {{ page.title | capitalize }}
-                    </figcaption>
-                </figure>
+               
 
                 {{ content | markdownify}}
             </div>
