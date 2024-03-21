@@ -1,5 +1,5 @@
 ---
-title: About
+title: Upcoming Events
 permalink: /events/
 ---
 
