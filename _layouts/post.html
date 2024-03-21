@@ -9,7 +9,7 @@ layout: default
     <article class="blog-post px-3 py-5 p-md-5">
         <div class="container">
             <header class="blog-post-header">
-                <h2 class="title mb-2">{{ page.title }}</h2>
+                <h2 class="title mb-2" style="color: #FF70A6; ">{{ page.title }}</h2>
                 <div class="meta mb-3">
                     <span class="date">
                         {% assign current_date = site.time | date: "%s" %}
@@ -36,7 +36,6 @@ layout: default
                 {{ content | markdownify}}
             </div>
 
-            {% include post-comments.html %}
 
         </div><!--//container-->
     </article>
