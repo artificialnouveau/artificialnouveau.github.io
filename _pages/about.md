@@ -12,10 +12,6 @@ permalink: /events/
  
 * The Hmm: [Ask Us Anything: Hotline on AI Advice](https://thehmm.nl/event/ask-us-anything-hotline-on-ai-advice/) (Dec 6th 2023)
   
-#### Upcoming Talks
- 
-
-
 #### Upcoming Workshops
  
 * HKU: Introduction to Computer Vision-based Open Source Intelligence (TBD)
