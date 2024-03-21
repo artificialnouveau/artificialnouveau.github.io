@@ -3,22 +3,52 @@ title: Upcoming Events
 permalink: /events/
 ---
 
-## About Me
+<style> h2 { color: #FF70A6; /* Change this to your desired color */ text-align: center; /* Change this to your desired alignment */ } </style>
+Upcoming Exhibitions
+======
+* New Media Art Conference hosted by the CICA Museum in Seoul, Korea (June 29th to July 2024)
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.
+Upcoming Panels
+======
+* The Hmm: [Ask Us Anything: Hotline on AI Advice](https://thehmm.nl/event/ask-us-anything-hotline-on-ai-advice/) (Dec 6th 2023)
+  
+Upcoming Talks
+======
 
-![About Me](/assets/images/about.jpg)
 
-##### About The Blog
+Upcoming Workshops
+======
+* HKU: Introduction to Computer Vision-based Open Source Intelligence (TBD)
+* HKU: Introduction to Generative AI images (TBD)
 
-Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus.
 
-##### My Skills and Experiences
 
-Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
 
-##### Side Projects
+Previous Exhibitions (an incomplete list)
+======
+* Some of the artworks were submitted under the name 'Oz Laputan'
+* IMPAKT Festival: [VOICES](https://impakt.nl/festival/2023/exhibition/reclaiming-digital-agency) (November 1-5 2023)
+* Ars Electronica: [VOICES](https://impakt.nl/events/2023/exhibition/code-ars-electronica-2023/) (September 2023)
+* [Identity 2.0: This Machine is Black](https://identity20.org/thismachineisblack/) (August 2021)
+* [BlkArthouse Juneteenth Exhibition: “What is Black Art?”](https://www.blkarthouse.com/art-exhibitions) (June 2021)
 
-Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
+Previous Panels (an incomplete list)
+======
+* IMPAKT festival: [OUR FUTURE WITH AI](https://impakt.nl/festival/2023/panel-discussion/our-future-with-ai) (November 4th 2023 15:30 - 16:45)
 
-![Promo Banner](assets/images/promo-banner.jpg)
+    
+Previous Talks (an incomplete list)
+======
+* Impact festival: [The role of surveillance and counter surveillance in art](https://www.pact-zollverein.de/en/platforms/impact) (November 8th - 12th 2023)
+* [Articulating Data Conference: Repurposing Surveillance](https://articulatingdata.com/) (May 24 - 26th 2023)
+
+
+Previous Workshops (an incomplete list)
+======
+* See [Teaching](https://artificialnouveau.github.io/teaching/) for more detailed descriptions of previous workshops
+* iii: [Beginners Guide to Generative AI art with Ahnjili ZhuParris](https://instrumentinventors.org/agenda/beginners-guide-to-generative-ai-art-with-ahnjili-zhuparris) (November 25th 2023)
+* Piet Zwart Institute: Beginners Guide to Voice Analysis (November 20th 2023)
+* AKI ArtEZ University of the Arts: More-than-Human Perspectives and Generative Ecosystems: The AI Nature Artist (November 8th 2023)
+* IMPAKT Festival: [Deepfakes: Creation and Detection](https://impakt.nl/festival/2023/workshop/deepfakes-creation-and-detection) (November 4th 2023 12:00 - 15:00)
+* IMPAKT Festival: [Speed Dating Data Experience](https://impakt.nl/festival/2023/workshop/speed-dating-data-experience) (November 3rd 2023 13:45 - 14:45)
+* iii: [Beginners Guide to Generative AI art with Ahnjili ZhuParris](https://instrumentinventors.org/agenda/beginners-guide-to-generative-ai-art-with-ahnjili-zhuparris) (October 30th 2022)
