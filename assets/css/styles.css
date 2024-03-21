@@ -2492,7 +2492,7 @@ textarea.form-control.is-invalid {
 .btn {
     display: inline-block;
     font-weight: 400;
-    color: #292929;
+    color: #FF70A6;
     text-align: center;
     vertical-align: middle;
     user-select: none;
@@ -2512,7 +2512,7 @@ textarea.form-control.is-invalid {
 }
 
 .btn:hover {
-    color: #292929;
+    color: #FF70A6;
     text-decoration: none
 }
 
@@ -2534,14 +2534,14 @@ fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #6C51A4;
-    border-color: #6C51A4
+    background-color: #FF70A6;
+    border-color: #FF70A6;
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #5b448a;
-    border-color: #564082
+    background-color: #FF70A6;
+    border-color: #FF70A6;
 }
 
 .btn-primary:focus,
@@ -2552,7 +2552,7 @@ fieldset:disabled a.btn {
 .btn-primary.disabled,
 .btn-primary:disabled {
     color: #fff;
-    background-color: #6C51A4;
+    background-color: #FF70A6;
     border-color: #6C51A4
 }
 
@@ -2560,8 +2560,8 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled).active,
 .show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #564082;
-    border-color: #503c79
+    background-color: #FF70A6;
+    border-color: #503c79'
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus,
