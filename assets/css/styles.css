@@ -10655,11 +10655,11 @@ h6 {
 .header .blog-name {
     font-weight: bold;
     font-size: 1.5rem;
-    color: #fff
+    color: #FF70A6;
 }
 
 .header .blog-name a {
-    color: #fff
+    color: #FF70A6;
 }
 
 .header .blog-name a:hover {
@@ -10667,7 +10667,7 @@ h6 {
 }
 
 .header .btn-primary {
-    background: rgba(0, 0, 0, 0.3);
+    background: #FF70A6;
     border-color: transparent;
     font-size: 1rem;
     padding-top: 0.5rem
@@ -10703,6 +10703,7 @@ h6 {
 
 .header .nav-item {
     font-weight: bold
+    color:#FF70A6;
 }
 
 .header .nav-item.active .nav-link {
