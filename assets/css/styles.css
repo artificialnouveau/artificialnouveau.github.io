@@ -10699,11 +10699,11 @@ h6 {
 
 .header .nav-item {
     font-weight: bold;
-    color:#FF70A6 !important;
+    color: #FF70A6 !important;
 }
 
 .header .nav-item.active .nav-link {
-    color: rgba(0, 0, 0, 0.5)
+    color: #FF70A6;
 }
 
 .header .nav-item.active .nav-link:hover {
