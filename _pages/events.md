@@ -3,7 +3,10 @@ title: Upcoming Events
 permalink: /events/
 ---
 
-<style> h4 { color: #FF70A6; /* Change this to your desired color */  } </style>
+<style> h4 { color: #FF70A6;
+            /* Change this to your desired color */
+             text-transform: uppercase;
+} </style>
 #### Upcoming Exhibitions
  
 * New Media Art Conference hosted by the CICA Museum in Seoul, Korea (June 29th to July 2024)
