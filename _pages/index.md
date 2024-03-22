@@ -33,7 +33,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 ## Exhibitions
 
 
-| 2024 | NEW MEDIA ART CONFERENCE |
+| 2024 |         NEW MEDIA ART CONFERENCE |
 |---|---|
 | | Seoul |
 
