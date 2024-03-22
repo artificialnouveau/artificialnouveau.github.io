@@ -162,7 +162,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | coda story |
 |  | Caitlin Thompson |
 |  | United States |
-|  | Future Wake: the AI art project that predicts police violence <br> Winner of the Mozilla Creative Media award for 2021, an interactive website calculates when and where fatal encounters with <br> law enforcement will occur — and tells the stories of the victims |
+|  | Future Wake: the AI art project that predicts police violence <br> Winner of the Mozilla Creative Media award for 2021, an interactive website calculates <br> when and where fatal encounters with law enforcement will occur <br> — and tells the stories of the victims |
 
 > **[http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/](http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/)**
 
