@@ -1,6 +1,6 @@
 ---
-title: Home
-permalink: /
+title: Upcoming Events
+permalink: /events/
 ---
 
 <style>
