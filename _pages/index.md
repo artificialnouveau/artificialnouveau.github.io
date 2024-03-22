@@ -130,11 +130,11 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | Wevers, R Edited by Ponzanesi, S. and Leurs, Koen. |
 |  | Amsterdam, Netherlands |
 
- | 2022 -      |  Can AI imagine the next victims of police violence? Future Wake explores injustice <br> through code |
+ | 2022 -      |  Can AI imagine the next victims of police violence? <br> Future Wake explores injustice through code |
 |---|------------|
 |  | It's Nice That |
 |  | London, United Kingdom |
-|  | What are the issues with using AI for predictive policing? Could it reduce crime or does it reinforce racial biases in the criminal justice system? The co-founder of art project Future Wake examines unjust policing using AI and storytelling. |
+|  | What are the issues with using AI for predictive policing? <br> Could it reduce crime or does it reinforce racial biases in the criminal justice system? <br> The co-founder of art project Future Wake examines unjust policing using AI and storytelling. |
 
 >  **[http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122](http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122)**
 
@@ -153,7 +153,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | Fast Company |
 |  | Mark Sullivan |
 |  | United States |
-|  | A searing critique of predictive policing, Future Wake uses past data on police violence to predict where it might occur in the future—and who will be targeted. |
+|  | A searing critique of predictive policing, Future Wake uses past data on police violence <br> to predict where it might occur in the future—and who will be targeted. |
 
 > **[http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake](http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake)**
 
@@ -162,7 +162,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | coda story |
 |  | Caitlin Thompson |
 |  | United States |
-|  | Future Wake: the AI art project that predicts police violence Winner of the Mozilla Creative Media award for 2021, an interactive website calculates when and where fatal encounters with law enforcement will occur — and tells the stories of the victims |
+|  | Future Wake: the AI art project that predicts police violence <br> Winner of the Mozilla Creative Media award for 2021, an interactive website calculates when and where fatal encounters with law enforcement will occur — and tells the stories of the victims |
 
 > **[http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/](http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/)**
 
