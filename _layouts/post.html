@@ -10,24 +10,7 @@ layout: default
         <div class="container">
             <header class="blog-post-header">
                 <h2 class="title mb-2" style="color: #FF70A6; ">{{ page.title }}</h2>
-                <div class="meta mb-3">
-                    <span class="date">
-                        {% assign current_date = site.time | date: "%s" %}
-                        {% assign post_date = page.date | date: "%s" %}
-
-                        {% assign time_difference = current_date | minus: post_date %}
-                        {% assign seconds_in_a_day = 86400 %}
-                        {% assign seconds_in_a_month = 2628000 %}
-                        {% assign seconds_in_a_year = 31536000 %}
-
-                        {% if time_difference < seconds_in_a_day %} Posted {{ time_difference | divided_by: 60 | round
-                            }} minutes ago {% elsif time_difference < seconds_in_a_month %} Posted {{ time_difference |
-                            divided_by: seconds_in_a_day | round }} days ago {% elsif time_difference <
-                            seconds_in_a_year %} Posted {{ time_difference | divided_by: seconds_in_a_month | round }}
-                            months ago {% else %} Posted {{ time_difference | divided_by: seconds_in_a_year | round }}
-                            years ago {% endif %} </span>
-                            
-                </div>
+               
             </header>
 
             <div class="blog-post-body">
