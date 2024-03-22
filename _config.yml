@@ -7,7 +7,7 @@ full_name      :  Ahnjili Zhuparris         # The full site name (if blank, titl
 email        :  'your@gmail.com'        # Your email address
 lang        :  en               # Site language (en for English)
 encoding      :  utf-8              # Site encoding (utf-8 for Unicode)
-icon        :  '/assets/favicon/favicon.ico'  # Site favicon
+icon        :  '/logo.jpg'  # Site favicon
 logo        :  '/logo.jpg'     # Site logo, also used in jekyll-seo-tag
 home-bg       :  '/assets/images/home-bg.jpg'  # Home background image
 url         :  'https://www.artificialnouveau.com/' # Site URL (if using a custom domain)
@@ -173,14 +173,14 @@ collections:
 
 # 8. Site favicons & manifest icons
 favicons: # Favicons are also used in the manifest file. Syntax is 'size: path'
-  '16': '/assets/favicon/favicon-16x16.png'
-  '32': '/assets/favicon/favicon-32x32.png'
-  '150': '/assets/favicon/mstile-150x150.png'
-  '180': '/assets/favicon/apple-touch-icon.png'
-  '192': '/assets/favicon/android-chrome-192x192.png'
-  '512': '/assets/favicon/android-chrome-512x512.png'
-  webmanifest: '/assets/favicon/site.webmanifest'
-  safari: '/assets/favicon/safari-pinned-tab.svg'
+  '16': '/logo.jpg'
+  '32': '/logo.jpg'
+  '150': '/logo.jpg'
+  '180': '/logo.jpg'
+  '192': '/logo.jpg'
+  '512': '/logo.jpg'
+  webmanifest: '/logo.jpg'
+  safari: '/logo.jpg'
 
 
 #   Email: true
