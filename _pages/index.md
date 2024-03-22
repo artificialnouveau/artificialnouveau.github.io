@@ -9,19 +9,21 @@ permalink: /
   table, th, td {
     border: none;
 }
-table td:nth-child(2) {
+table th {
+  text-transform: uppercase;
 }
+
 
  }
 </style>
 
-## <center><span style="color: #FF70A6;">About</span></center>
+## <center><span style="color: #FF70A6;">ABOUT</span></center>
 
 Ahnjili is a New York-born, Hong Kong-raised, Netherlands-based data scientist, Ph.D. candidate, artist, and science communicator. Ahnjili’s academic research focuses on developing smartphone- and wearables-based biomarkers that can be used to monitor one’s mental and physical wellbeing for clinical trials. Ahnjili’s artistic research and science communication focuses on educating the public about A.I. and algorithmic violence, which refers to the violence that is justified or created by an automated decision-making system. Her projects have previously focused on investigating the correlation between hormonal cycles and internet patterns, developing a predictive policing system to predict police brutality, and creating fashion police drones.
 
 Ahnjili also has an interest in the influence of psychedelic drugs on cognition and lifestyle. She completed her Cognitive Neuroscience MSc at Radboud University (Netherlands), where her master’s thesis focused on the effects of mindfulness, Ritalin, and LSD on cognitive flexibility. Since then she has continued to do quantitative and qualitative research on recreational drug use with the Global Drug Survey and Quantified Citizen.
 
-## Education
+## EDUCATION
 
 | 2019 - 2024     | PhD in Advanced Data Analytics |
 |---|------------|
@@ -38,7 +40,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 | | Edinburgh University | 
 | | Diploma |
 
-## Projects
+## PROJECTS
 
 | 2022 -     | SHIBBOLETH: CREATION OF A HYBRID VOICE |
 |---|------------|
@@ -47,7 +49,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 > We produced a ‘dual voice’ - that transforms fluidly from a recognizable voice of Speaker A to a voice of a Speaker B while speaking. With the "switch" happening at points of sonic uncertainty in the voice output, where a certain articulation or tonal quality could belong to either speaker. The generated algorithm was used in the ‘The 8th Letter’ theater performance of Effi and Amir (November 2022/ **[https://effiandamir.net/index.php?id=538](https://effiandamir.net/index.php?id=538)**).
 
-## Exhibitions
+## EXHIBITIONS
 
 
 | 2024 -     | NEW MEDIA ART CONFERENCE |
@@ -101,7 +103,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 > During the residency we developed algoliterary publications. These are publishing experiments with algorithms and literary, scientific, and activist datasets about trees and nature. We ask ourselves: who and what is excluded, made invisible or exploited in the existent representations, discourses, tools, and practices? To address these questions, we used decision tree algorithms to sort the histories of tree nomenclature. **[algoliterarypublishing.net/](algoliterarypublishing.net/)**
 
-## Commissions
+## COMMISSIONS
 
  | 2023 -     | DIGITAL PIONEERS: A VISIONARY PRELUDE |
 |---|------------|
@@ -109,4 +111,64 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | Utrecht, Netherlands |
 
 > "Digital Pioneers: A Visionary Prelude" is a digital artwork that blends technology and art, creating a cheeky introduction to the IMPAKT festival 2023. This piece features deepfake representations of three prominent tech CEOs, not as mere figures of authority, but as digital orators guiding the audience through the evolving landscape of technology and art. Each CEO's deepfake delivers a segment of the festival's introduction, focusing on themes closely aligned with their real-world contributions and visions. The first segment delves into the transformative power of technology in art, emphasizing innovation and the breaking of traditional boundaries. The second part addresses the ethical considerations and societal impacts of tech advancements, encouraging viewers to ponder the responsibilities that come with innovation. The final segment looks to the future, inspiring a dialogue about the potential of technology in shaping new forms of artistic expression. The artwork is not just a visual spectacle but an auditory experience as well. The deepfakes' voices have been modulated to create a harmonious symphony, symbolizing the unity and collaborative potential within the tech and art communities. "Digital Pioneers" does more than just introduce a festival; it stands as a testament to the ever-blurring lines between human creativity and technological prowess, inviting viewers to explore the endless possibilities at the intersection of art and technology. **[http://www.impaktfestival.nl/]([algoliterarypublishing.net/](http://www.impaktfestival.nl/)http://www.impaktfestival.nl/)**
+
+## SALES/WORKS IN COLLECTIONS
+
+ | 2021 -     | Identity 2.0 |
+|---|------------|
+|  | This Machine Is Black |
+|  | London, Verenigd Koninkrijk |
+
+> This exhibition explored how Afrofuturism can be used to remove (or at least alleviate) the normative pressure that AI puts on non-normative bodies. Although with a few exceptions, the black experience has largely been invisible in AI datasets. I trained a series of generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic.
+
+## PUBLICATIONS
+
+ | 2024 -     | Embodying Data, Shifting Perspective: a conversation with Ahnjili Zhuparris on Future Wake. In: Doing Digital Migration Studies. |
+|---|------------|
+|  | Book |
+|  | Amsterdam: Amsterdam University Press |
+|  | Wevers, R Edited by Ponzanesi, S. and Leurs, Koen. |
+|  | Amsterdam, Netherlands |
+
+ | 2022 -     | Can AI imagine the next victims of police violence? Future Wake explores injustice through code |
+|---|------------|
+|  | It's Nice That |
+|  | London, United Kingdom |
+|  | **[http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122](http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122)** |
+|  | What are the issues with using AI for predictive policing? Could it reduce crime or does it reinforce racial biases in the criminal justice system? The co-founder of art project Future Wake examines unjust policing using AI and storytelling. |
+
+ | 2021 -     | Supermens: Ahnjili op Tinder |
+|---|------------|
+|  | Book |
+|  | Bot Uitgevers |
+|  | Peter Joost |
+|  | Netherlands |
+|  | **[http://www.peterjoosten.net/supermens/](http://www.peterjoosten.net/supermens/)** |
+|  | De cyclus van vrouwen meten in relatie tot Tinder |
+
+ | 2021 -     | This horrifying AI model predicts future instances of police brutality |
+|---|------------|
+|  | Fast Company |
+|  | Mark Sullivan |
+|  | United States |
+|  | **[http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake](http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake)** |
+|  | A searing critique of predictive policing, Future Wake uses past data on police violence to predict where it might occur in the future—and who will be targeted. |
+
+ | 2021 -     | Future Wake: the AI art project that predicts police violence |
+|---|------------|
+|  | coda story |
+|  | Caitlin Thompson |
+|  | United States |
+|  | **[http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/](http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/)** |
+|  | Future Wake: the AI art project that predicts police violence Winner of the Mozilla Creative Media award for 2021, an interactive website calculates when and where fatal encounters with law enforcement will occur — and tells the stories of the victims |
+
+ | 2021 -     | Artists create AI that predicts who the police will kill next |
+|---|------------|
+|  | The next web |
+|  | Thomas Macaulay |
+|  | Netherlands |
+|  | **[http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next](http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next)** |
+|  | Future Wake tells the stories of potential victims |
+
+
 
