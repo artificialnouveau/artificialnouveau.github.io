@@ -223,7 +223,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 | | On-going | 
 
 
-| 2023     | - Instruction of The Introduction to Machine Listening for Artists workshops (taught at Piet Zwart Institute) |
+| 2023     | - Instruction of The Introduction to Machine Listening for Artists workshops <br> (taught at Piet Zwart Institute) |
 |---|------------|
 | | On-going | 
 
@@ -233,7 +233,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 | | On-going | 
 
 
-| 2023 -    | Instruction of The Introduction to Computer-Vision Surveillance for Artists workshops (taught at HKU) |
+| 2023 -    | Instruction of The Introduction to Computer-Vision Surveillance for Artists workshops <br> (taught at HKU) |
 |---|------------|
 | | On-going | 
 
