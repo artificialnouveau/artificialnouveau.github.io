@@ -21,7 +21,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
     * Effi & Amir,
     * Brussels, Belgium
 
-> We produced a ‘dual voice’ - that transforms fluidly from a recognizable voice of Speaker A to a voice of a Speaker B while speaking. With the "switch" happening at points of sonic uncertainty in the voice output, where a certain articulation or tonal quality could belong to either speaker. The generated algorithm was used in the ‘The 8th Letter’ theater performance of Effi and Amir (November 2022/ https://effiandamir.net/index.php?id=538).
+> We produced a ‘dual voice’ - that transforms fluidly from a recognizable voice of Speaker A to a voice of a Speaker B while speaking. With the "switch" happening at points of sonic uncertainty in the voice output, where a certain articulation or tonal quality could belong to either speaker. The generated algorithm was used in the ‘The 8th Letter’ theater performance of Effi and Amir (November 2022/ **[https://effiandamir.net/index.php?id=538](https://effiandamir.net/index.php?id=538)**).
 
 ## Exhibitions
 
@@ -36,21 +36,21 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
     * Utrecht, Netherlands
 
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.
-impakt.nl/events/2023/exhibition/code-ars-electronica-2023/
-
+**[impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/)**
 * **VOICES (2023)**
   * Ars Electronica
   * Linz, Austria
-> VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.
-impakt.nl/events/2023/exhibition/code-ars-electronica-2023/
+ 
+> VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023. **[impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/)**
+
 * **Articulating Data (2023)**
     * Edinburgh, United Kingdom
 
 > Babble-on is a web-based installation allowing users to create personalized babble tapes by recording 2-3 sentences into a microphone. The audio is sliced and remixed to maintain the same audio properties of their voices. Users can download their tapes to disguise their conversations from audio surveillance. Presented at the Articulating Data conference 2023.
-articulatingdata.com/
+**[articulatingdata.com/](articulatingdata.com/)**
 
 * **This Machine Is Black (2021)**
     * Identity 2.0
     * London, United Kingdom
 
-> This exhibition explored how Afrofutur
+> This exhibition explored how Afrofuturism can be used to remove (or at least alleviate) the normative pressure that AI puts on non-normative bodies. Although with a few exceptions, the black experience has largely been invisible in AI datasets. I trained a series of generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic. **[www.identity20.org/thismachineisblack/](www.identity20.org/thismachineisblack/)**
