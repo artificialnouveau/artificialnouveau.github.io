@@ -172,6 +172,17 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | **[http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next](http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next)** |
 |  | Future Wake tells the stories of potential victims |
 
+## REVIEWS
+
+ | 2021      |  Artists create AI that predicts who the police will kill next |
+|---|------------|
+|  | The next web |
+|  | Thomas Macaulay |
+|  | Netherlands |
+|  | **[http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next](http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next)** |
+|  | Future Wake tells the stories of potential victims |
+
+
 | 2023 -   | Ahnjili ZhuParris & Jan Zuiderveld - Artificial Intelligence, Autonomous Objects & Algorithmic Violence |
 |---|------------|
 | | Radio |
