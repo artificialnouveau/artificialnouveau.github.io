@@ -7,6 +7,7 @@ permalink: /
   color: #FF70A6; /* Change this to your desired color */
   text-align: center; /* Change this to your desired alignment */
   table, th, td {
+ 
     border: none;
 }
 
@@ -28,15 +29,12 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > We produced a ‘dual voice’ - that transforms fluidly from a recognizable voice of Speaker A to a voice of a Speaker B while speaking. With the "switch" happening at points of sonic uncertainty in the voice output, where a certain articulation or tonal quality could belong to either speaker. The generated algorithm was used in the ‘The 8th Letter’ theater performance of Effi and Amir (November 2022/ **[https://effiandamir.net/index.php?id=538](https://effiandamir.net/index.php?id=538)**).
 
 ## Exhibitions
-| 2024    | NEW MEDIA ART CONFERENCE  |
-| -------- | ------- |
-|   | CICA Museum,    |
-|  | Seoul, Republic of Korea     |
 
-YEAR  | PROJECT
--------|---------
-2024  | NEW MEDIA ART CONFERENCE
-       | CICA Museum, Seoul, Republic of Korea
+
+| 2024 | NEW MEDIA ART CONFERENCE |
+|---|---|
+| | Seoul |
+
 
 
 > Fashion Police Drones In June 2024 at the CICA Museum, the Fashion Police Drone installation will be presented at the New Media Arts Conference in Korea. The Fashion Police Drones, armed with custom fashion recognition algorithms, will track individuals based on audience-defined criteria for "fashion crimes". Through this interactive experience, the exhibition challenges conventional perspectives about drone and AI applications, sparking discussions about the evolving landscape of surveillance and the ethical use of AI-driven technologies in our contemporary world. I aim to trigger the audience’s curiosity about the boundaries of surveillance, the potential consequences of automation in military application and law enforcement, and the societal implications of cultural profiling.
