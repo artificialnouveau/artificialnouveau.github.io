@@ -7,7 +7,7 @@ permalink: /
   color: #FF70A6; /* Change this to your desired color */
   text-align: center; /* Change this to your desired alignment */
   table, th, td {
- 
+ padding-right:40px;
     border: none;
 }
 
