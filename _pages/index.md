@@ -123,19 +123,20 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## PUBLICATIONS
 
- | 2024 -       |  Embodying Data, Shifting Perspective: a conversation with Ahnjili Zhuparris on <br>Future Wake. In: Doing Digital Migration Studies. |
+ | 2024 -       |  Embodying Data, Shifting Perspective: a conversation with Ahnjili Zhuparris on <br> Future Wake. In: Doing Digital Migration Studies. |
 |---|------------|
 |  | Book |
 |  | Amsterdam: Amsterdam University Press |
 |  | Wevers, R Edited by Ponzanesi, S. and Leurs, Koen. |
 |  | Amsterdam, Netherlands |
 
- | 2022 -      |  Can AI imagine the next victims of police violence? Future Wake explores injustice <br>through code |
+ | 2022 -      |  Can AI imagine the next victims of police violence? Future Wake explores injustice <br> through code |
 |---|------------|
 |  | It's Nice That |
 |  | London, United Kingdom |
-|  | **[http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122](http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122)** |
 |  | What are the issues with using AI for predictive policing? Could it reduce crime or does it reinforce racial biases in the criminal justice system? The co-founder of art project Future Wake examines unjust policing using AI and storytelling. |
+
+>  **[http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122](http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122)**
 
  | 2021 -     |  Supermens: Ahnjili op Tinder |
 |---|------------|
@@ -143,34 +144,36 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | Bot Uitgevers |
 |  | Peter Joost |
 |  | Netherlands |
-|  | **[http://www.peterjoosten.net/supermens/](http://www.peterjoosten.net/supermens/)** |
 |  | De cyclus van vrouwen meten in relatie tot Tinder |
 
+>  **[http://www.peterjoosten.net/supermens/](http://www.peterjoosten.net/supermens/)**
 
  | 2021 -     |  This horrifying AI model predicts future instances of police brutality |
 |---|----------------|
 |  | Fast Company |
 |  | Mark Sullivan |
 |  | United States |
-|  | **[http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake](http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake)** |
 |  | A searing critique of predictive policing, Future Wake uses past data on police violence to predict where it might occur in the future—and who will be targeted. |
 
+> **[http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake](http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake)**
 
  | 2021 -    |  Future Wake: the AI art project that predicts police violence |
 |---|---------------------------------|
 |  | coda story |
 |  | Caitlin Thompson |
 |  | United States |
-|  | **[http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/](http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/)** |
 |  | Future Wake: the AI art project that predicts police violence Winner of the Mozilla Creative Media award for 2021, an interactive website calculates when and where fatal encounters with law enforcement will occur — and tells the stories of the victims |
+
+> **[http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/](http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/)**
 
  | 2021  -    |  Artists create AI that predicts who the police will kill next |
 |---|------------|
 |  | The next web |
 |  | Thomas Macaulay |
 |  | Netherlands |
-|  | **[http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next](http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next)** |
 |  | Future Wake tells the stories of potential victims |
+
+>**[http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next](http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next)**
 
 ## REVIEWS
 
@@ -214,7 +217,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 ## SECONDARY ART-RELATED ACTIVITIES
 
 
-| 2023     |  Instruction of The Introduction to Deep Fakes workshops <br> (taught at IMPAKT festival) |
+| 2023 -     |  Instruction of The Introduction to Deep Fakes workshops <br> (taught at IMPAKT festival) |
 |---|------------|
 | | On-going | 
 
