@@ -23,9 +23,10 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## Projects
 
-* **SHIBBOLETH: CREATION OF A HYBRID VOICE (2022)**
-    * Effi & Amir,
-    * Brussels, Belgium
+| 2022 -     | SHIBBOLETH: CREATION OF A HYBRID VOICE |
+|---|------------|
+| | Effi & Amir, | 
+| | Brussels, Belgium |
 
 > We produced a ‘dual voice’ - that transforms fluidly from a recognizable voice of Speaker A to a voice of a Speaker B while speaking. With the "switch" happening at points of sonic uncertainty in the voice output, where a certain articulation or tonal quality could belong to either speaker. The generated algorithm was used in the ‘The 8th Letter’ theater performance of Effi and Amir (November 2022/ **[https://effiandamir.net/index.php?id=538](https://effiandamir.net/index.php?id=538)**).
 
