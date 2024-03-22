@@ -174,21 +174,13 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## REVIEWS
 
- | 2021      |  Artists create AI that predicts who the police will kill next |
-|---|------------|
-|  | The next web |
-|  | Thomas Macaulay |
-|  | Netherlands |
-|  | **[http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next](http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next)** |
-|  | Future Wake tells the stories of potential victims |
-
-
 | 2023 -   | Ahnjili ZhuParris & Jan Zuiderveld - Artificial Intelligence, Autonomous Objects & Algorithmic Violence |
 |---|------------|
 | | Radio |
 | | Cross Pollination |
 | | The Hague, Netherlands |
 | | **[http://podcasts.apple.com/us/podcast/cross-pollination/id1632059837?i=1000639042537](http://podcasts.apple.com/us/podcast/cross-pollination/id1632059837?i=1000639042537)** |
+
 > Ahnjili is a machine learning engineer, Ph.D. candidate, artist, and science communicator currently working at an AI startup that specializes in developing deep learning models for facial augmentation. Ahnjili’s academic research centers around the development of biomarkers for monitoring mental and physical well-being using smartphones and wearables, with a particular focus on their application in clinical trials. Ahnjili's artistic research and science communication efforts are dedicated to raising awareness about A.I. and algorithmic violence, which encompasses the violence that may arise from or be justified by automated decision-making systems. Through her work, Ahnjili aims to educate the public and promote discussions about the ethical implications of these technologies in our society.
 
 | 2020 -   | On Data |
@@ -197,6 +189,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 | | Bartalk |
 | | The Hague, Netherlands |
 | | **[http://bartalkdh.files.wordpress.com/2021/07/bartalk-podcast-22_-translation-episode-1-1.pdf](http://bartalkdh.files.wordpress.com/2021/07/bartalk-podcast-22_-translation-episode-1-1.pdf)** |
+
 > BARTALK is a lecture, performance, and storytelling series that usually takes place in different bars in the Hague. Each of our podcast seasons has a different theme featuring one guest per episode offering their unique perspective.
 
 ## AWARDS & GRANTS
@@ -205,6 +198,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |---|------------|
 | | European Festivals Fund for Emerging Artists |
 | | Netherlands |
+
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.
 
 
@@ -212,6 +206,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |---|------------|
 | | Mozilla Foundation |
 | | United States |
+
 > MOZILLA CREATIVE MEDIA AWARDS: Future Wake **[www.futurewake.com](www.futurewake.com)** is an interactive art project turns the practice of predictive policing upside down, instead, it allows citizens to predict police brutality. We used to machine learning to predict who, when and how the next victim would die. Further, we used deepfake algorithms to generate the faces of the next victims.
 
 
