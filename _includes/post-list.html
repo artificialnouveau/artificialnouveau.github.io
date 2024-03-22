@@ -46,10 +46,7 @@
         </div>
     </div>
 
-    <div class="card-footer text-muted d-flex justify-content-between">
-        <span class="date">Published on {{ page.date | date: "%b %-d, %Y" }}</span>
-        
-    </div>
+   
 </div>
 {% endunless %}
 {% endfor %}
@@ -71,11 +68,7 @@
             <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">View &rarr;</a>
         </div>
     </div>
-    <div class="card-footer text-muted d-flex justify-content-between">
-        <span class="date">Published on {{ page.date | date: "%b %-d, %Y" }}</span>
-        
-        
-    </div>
+    
 </div>
 {% endfor %}
 {% include post-pagination.html %}
