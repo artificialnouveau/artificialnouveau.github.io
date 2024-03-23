@@ -16,7 +16,7 @@
           <h3 class="card-title">
             <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
           </h3>
-          <p class="card-text">{{ post.excerpt | markdownify | truncatewords: 42 }}</p>
+          <p class="card-text">{{ post.excerpt | markdownify |   truncatewords: 25 }}</p>
           <a href="{{ site.baseurl }}{{ post.url }}" class="btn btn-primary">View &rarr;</a>
         </div>
       </div>
@@ -36,7 +36,7 @@
           <h3 class="card-title">
             <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
           </h3>
-          <p class="card-text">{{ page.excerpt | markdownify | truncatewords: 42 }}</p>
+          <p class="card-text">{{ page.excerpt | markdownify |   truncatewords: 25 }}</p>
           <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">View &rarr;</a>
         </div>
       </div>
@@ -54,7 +54,7 @@
         <h3 class="card-title">
           <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
         </h3>
-        <p class="card-text">{{ page.excerpt | markdownify | truncatewords: 42 }}</p>
+        <p class="card-text">{{ page.excerpt | markdownify |   truncatewords: 25 }}</p>
         <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">View &rarr;</a>
       </div>
     </div>
