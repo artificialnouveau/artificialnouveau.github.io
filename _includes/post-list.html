@@ -20,8 +20,6 @@
             <a href="{{ site.baseurl }}{{ post.url }}" class="btn btn-primary">View &rarr;</a>
         </div>
     </div>
-
-    
 </div>
 {% endif %}
 {% endfor %}
@@ -36,7 +34,7 @@
 <div class="card my-4 shadow-lg">
     <div class="d-flex justify-content-between">
         <img class="card-img-top" src="{{ page.image | relative_url }}" alt="{{ page.title }}"
-            style=" object-fit: cover;">
+            style="object-fit: cover;">
         <div class="card-body">
             <h3 class="card-title">
                 <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
@@ -45,8 +43,6 @@
             <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">View &rarr;</a>
         </div>
     </div>
-
-   
 </div>
 {% endunless %}
 {% endfor %}
@@ -59,7 +55,7 @@
 <div class="card shadow-sm my-4">
     <div class="d-flex justify-content-between">
         <img class="card-img-top" src="{{ page.image | relative_url }}" alt="{{ page.title }}"
-            style="width: 30%; object-fit: cover;">
+            style="width: 100%; object-fit: cover;">
         <div class="card-body">
             <h3 class="card-title">
                 <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
@@ -68,7 +64,6 @@
             <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">View &rarr;</a>
         </div>
     </div>
-    
 </div>
 {% endfor %}
 {% include post-pagination.html %}
