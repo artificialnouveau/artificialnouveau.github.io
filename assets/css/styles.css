@@ -4807,7 +4807,7 @@ input[type="button"].btn-block {
 }
 
 .card-img {
-  width: 100%;
+  width: 30%;
   border-radius: calc(.25rem - 1px);
 }
 
@@ -4836,6 +4836,9 @@ input[type="button"].btn-block {
 @media (min-width: 576px) {
   .card {
     flex-direction: row; /* Arrange elements horizontally */
+  }
+.card-img {
+    width: 100%; /* Set image width to 30% */
   }
 
   .card-img-top {
