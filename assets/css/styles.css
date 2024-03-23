@@ -4817,7 +4817,7 @@ input[type="button"].btn-block {
 }
 
 .card-img-bottom {
-  width: 100%;
+  width: 30%;
   border-bottom-right-radius: calc(.25rem - 1px);
   border-bottom-left-radius: calc(.25rem - 1px);
 }
@@ -4838,15 +4838,23 @@ input[type="button"].btn-block {
     flex-direction: row; /* Arrange elements horizontally */
   }
 .card-img {
-    width: 100%; /* Set image width to 30% */
+    width: 30%; 
   }
 
   .card-img-top {
-    width: 100%; /* Set image width to 30% */
+    width: 30%; 
   }
 
   .card-body {
     flex: 1; /* Allow card body to fill remaining space */
+  }
+}
+@media (max-width: 575px) { /* Target screens less than 576px */
+  .card {
+    flex-direction: column; /* Stack elements on phones */
+  }
+  .card-img {
+    width: 100%; /* Images are always 100% width on phones */
   }
 }
 
