@@ -4742,10 +4742,16 @@ input[type="button"].btn-block {
 }
 
 @media (max-width: 575px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+
   .card-img-top {
     width: 100%;
   }
 }
+
 
 
 .accordion>.card {
