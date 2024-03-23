@@ -4709,8 +4709,6 @@ input[type="button"].btn-block {
 
 .card {
   position: relative;
-  display: flex;
-  flex-direction: column; /* Stack elements vertically by default */
   min-width: 0;
   word-wrap: break-word;
   background-color: #ffffff;
@@ -4723,45 +4721,29 @@ input[type="button"].btn-block {
   padding: 0.75rem;
 }
 
-.card-img {
-  width: 30%; /* Set image width to 30% on all screens */
-  border-radius: calc(.25rem - 1px);
-}
-
 .card-img-top {
-  width: 100%; /* Set image width to 100% on phones */
+  width: 100%;
   object-fit: cover;
 }
 
-.card-img-bottom {
-  width: 30%;
-  border-bottom-right-radius: calc(.25rem - 1px);
-  border-bottom-left-radius: calc(.25rem - 1px);
-}
-
-/* Media queries for different screen sizes */
-
 @media (min-width: 576px) {
   .card {
-    flex-direction: row; /* Arrange elements horizontally on larger screens */
-  }
-
-  .card-img {
-    width: 30%; /* Set image width to 30% on larger screens */
+    display: flex;
+    flex-direction: row;
   }
 
   .card-img-top {
-    width: 30%; /* Set image width to 30% on larger screens */
+    width: 30%;
   }
 
   .card-body {
-    flex: 1; /* Allow card body to fill remaining space */
+    flex: 1;
   }
 }
 
-@media (max-width: 575px) { /* Target screens less than 576px */
-  .card-img {
-    width: 100%; /* Images are always 100% width on phones */
+@media (max-width: 575px) {
+  .card-img-top {
+    width: 100%;
   }
 }
 
