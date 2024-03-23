@@ -4710,7 +4710,7 @@ input[type="button"].btn-block {
 .card {
   position: relative;
   display: flex;
-  flex-direction: row; /* Arrange elements horizontally by default */
+  flex-direction: column; /* Stack elements vertically by default */
   min-width: 0;
   word-wrap: break-word;
   background-color: #ffffff;
@@ -4719,101 +4719,18 @@ input[type="button"].btn-block {
   border-radius: .25rem;
 }
 
-.card>hr {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-.card>.list-group:first-child .list-group-item:first-child {
-  border-top-left-radius: .25rem;
-  border-top-right-radius: .25rem;
-}
-
-.card>.list-group:last-child .list-group-item:last-child {
-  border-bottom-right-radius: .25rem;
-  border-bottom-left-radius: .25rem;
-}
-
 .card-body {
-  flex: 1; /* Allow card body to fill remaining space on desktops/tablets */
   padding: 0.75rem;
 }
 
-.card-title {
-  margin-bottom: .75rem;
-}
-
-.card-subtitle {
-  margin-top: -.375rem;
-  margin-bottom: 0;
-}
-
-.card-text:last-child {
-  margin-bottom: 0;
-}
-
-.card-link:hover {
-  text-decoration: none;
-}
-
-.card-link+.card-link {
-  margin-left: 1.25rem;
-}
-
-.card-header {
-  padding: .75rem 1.25rem;
-  margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-.card-header:first-child {
-  border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
-}
-
-.card-header+.list-group .list-group-item:first-child {
-  border-top: 0;
-}
-
-.card-footer {
-  padding: .75rem 1.25rem;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-.card-footer:last-child {
-  border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
-}
-
-.card-header-tabs {
-  margin-right: -.625rem;
-  margin-bottom: -.75rem;
-  margin-left: -.625rem;
-  border-bottom: 0;
-}
-
-.card-header-pills {
-  margin-right: -.625rem;
-  margin-left: -.625rem;
-}
-
-.card-img-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1.25rem;
-}
-
 .card-img {
-  width: 30%;
+  width: 30%; /* Set image width to 30% on all screens */
   border-radius: calc(.25rem - 1px);
 }
 
 .card-img-top {
-  width: 30%; /* Set image width to 30% on desktops/tablets */
-  object-fit: cover; /* Ensure image covers the container */
+  width: 100%; /* Set image width to 100% on phones */
+  object-fit: cover;
 }
 
 .card-img-bottom {
@@ -4822,41 +4739,32 @@ input[type="button"].btn-block {
   border-bottom-left-radius: calc(.25rem - 1px);
 }
 
-.card-deck {
-  display: flex;
-  flex-direction: column;
-}
-
-.card-deck .card {
-  margin-bottom: 15px;
-}
-
 /* Media queries for different screen sizes */
 
 @media (min-width: 576px) {
   .card {
-    flex-direction: row; /* Arrange elements horizontally */
+    flex-direction: row; /* Arrange elements horizontally on larger screens */
   }
-.card-img {
-    width: 30%; 
+
+  .card-img {
+    width: 30%; /* Set image width to 30% on larger screens */
   }
 
   .card-img-top {
-    width: 30%; 
+    width: 30%; /* Set image width to 30% on larger screens */
   }
 
   .card-body {
     flex: 1; /* Allow card body to fill remaining space */
   }
 }
+
 @media (max-width: 575px) { /* Target screens less than 576px */
-  .card {
-    flex-direction: column; /* Stack elements on phones */
-  }
   .card-img {
     width: 100%; /* Images are always 100% width on phones */
   }
 }
+
 
 .accordion>.card {
     overflow: hidden
