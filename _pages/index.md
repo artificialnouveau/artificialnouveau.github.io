@@ -56,14 +56,14 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > Fashion Police Drones In June 2024 at the CICA Museum, the Fashion Police Drone installation will be presented at the New Media Arts Conference in Korea. The Fashion Police Drones, armed with custom fashion recognition algorithms, will track individuals based on audience-defined criteria for "fashion crimes". Through this interactive experience, the exhibition challenges conventional perspectives about drone and AI applications, sparking discussions about the evolving landscape of surveillance and the ethical use of AI-driven technologies in our contemporary world. I aim to trigger the audience’s curiosity about the boundaries of surveillance, the potential consequences of automation in military application and law enforcement, and the societal implications of cultural profiling.
 
 
- | 2023  | VOICES |
+ | 2023   | VOICES |
 |---|------------|
 |  | IMPAKT festival, Utrecht, Netherlands |
 
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.
 **[impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/)**
 
-  | 2023 | VOICES |
+  | 2023  | VOICES |
 |---|------------|
 |  | Ars Electronica, Linz, Austria |
 
