@@ -2,7 +2,7 @@
 title: "Generated met Python"
 image: /assets/portfolio/anxiety.jpg
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+This collection of algorithmically generated artwork how Afrofuturism can be used to remove (or at least alleviate) the normative pressure that AI puts on non-normative bodies. Although with a few exceptions, the black experience has largely been invisible in AI datasets. I trained a series of generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic. This artwork was exhibited at Identity 2.0 in 2021. https://www.onyxmagazine.co.uk/onyx-blog/identity2-0
 
 <figure>
 <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/machineisblack1.jpg" alt="The Machine is Black 1" style="width: 100%;">
