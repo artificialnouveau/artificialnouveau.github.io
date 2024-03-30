@@ -3,7 +3,15 @@ title: "Beginner's Guide to AI Art Workshop at iii, 2023"
 image: /assets/portfolio/voiceclone.jpg
 
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+By pitting two algorithms against another, Generative Adversarial Networks (GANs) have been used to create images and text convincing enough to fool the human eye and mind. GANs have made computer graphics come alive and given artists new tools for experimentation. You may have seen GANs used to generate photographs of human faces,create realistic images of cats based on sketches, or write a new bible.
+
+In this workshop, you’ll learn about how to use and customize GANS for text-to-text generation, text-to-image generation, and image-to-image generation. No coding experience is necessary, as Ahnjili will be providing you with Python code to play with your own GANs.
+
+Participant Requirements
+
+    Basic computer skills are required such as downloading, installing, and launching applications, as well as familiarity with your operating system.
+    Must bring own laptop
+
 <style>
   .video-container {
   width: 100%;
