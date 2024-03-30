@@ -3,8 +3,7 @@
 # =================================================================================
 
 title        :  Artificial Nouveau             # The site title (if blank, full name will be used instead)
-full_name      :  Ahnjili Zhuparris         # The full site name (if blank, title will be used instead)
-email        :  'your@gmail.com'        # Your email address
+full_name      :  Ahnjili ZhuParris         # The full site name (if blank, title will be used instead)
 lang        :  en               # Site language (en for English)
 encoding      :  utf-8              # Site encoding (utf-8 for Unicode)
 icon        :  '/logo.jpg'  # Site favicon
@@ -14,7 +13,7 @@ url         :  'https://www.artificialnouveau.com/' # Site URL (if using a custo
 baseurl       :  ''               # Site base URL (add if site is not at root)
 repo        :  'https://github.com/' # Site repository, also used in jekyll-seo-tag
 description     :  > # Site description and default description, also used in jekyll-seo-tag
-  Ahnjili is a data scientist, Ph.D. candidate, artist, and science communicator. Ahnjili's academic research focuses on developing smartphones- and wearables-based biomarkers that can be used to monitor one’s mental and physical wellbeing for clinical trials.
+  Ahnjili is an AI engineer, Ph.D. candidate, artist, and science communicator.
 keywords      :  > # For SEO
   jekyll, theme, minimal, responsive, blog, portfolio, fast, seo, social, web, development
 footer_text     :  '© 2021 Inkstream' # Footer text
@@ -35,16 +34,16 @@ footer_text     :  '© 2021 Inkstream' # Footer text
 # =================================================================================
 
 social_links: # Leave blank according to your need
-  github_username: academicpages  # Keep your existing username
-  researchgate_username: "your_researchgate_username"
-  instagram_username: "your_instagram_username"
-  scholar_username: "your_scholar_id"  # Scholar uses user ID, not username
-  pubmed_id: "your_pubmed_id"  # PubMed uses publication ID, not username  
-  orcid_id: "your_orcid_id"
+  github_username: artificialnouveau  # Keep your existing username
+  researchgate_username: "https://www.researchgate.net/profile/Ahnjili-Zhuparris"
+  instagram_username: "@artificialnouveau"
+  scholar_username: "6Xpqd-IAAAAJ"  # Scholar uses user ID, not username
+  pubmed_id: "https://www.ncbi.nlm.nih.gov/pubmed/?term=ahnjili+zhuparris"  # PubMed uses publication ID, not username  
+  orcid_id: "0000-0002-1413-1648"
 
 user:
-  name    :  Ahnjili Zhuparris        # Your name (required)
-  bio     :  'A Data Scientist, Science Communicator, and Artist.'  # Short bio, You can also provide a links.
+  name    :  Ahnjili ZhuParris        # Your name (required)
+  bio     :  'AI engineer, Science Communicator, and Artist.'  # Short bio, You can also provide a links.
   profession :  ''       # Your profession (optional)
   location  :  ' The Netherlands, New York, Hong Kong'           # Your location (optional)
   email    :        # Your email address (optional)
