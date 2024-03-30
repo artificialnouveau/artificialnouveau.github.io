@@ -2,7 +2,13 @@
 title: "Are Pigeons Better than AI? Interview with the Hmm"
 image: /assets/portfolio/hmminterview.jpg
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+What data is being used to train ChatGPT? Is AI really coming for your job? And how does DALL·E know how to paint? The Hmm Hotline is here, to answer all your questions, speculations, or anxieties regarding AI. Join us during our live radio show, where a panel of experts—from artists to philosophers to researchers—will answer all your questions live. Can’t wait to share your worries, dreams, or contemplations about artificial intelligence? Then call our hotline and leave us an anonymous voice message during the weeks leading up to the live radio show.
+
+🗓 Date: Wednesday 6 December, 2023
+📍 Location: PickUp Club, NDSM plein 79, 1033 WC, Amsterdam
+
+Speakers: Eva Torenent, Derek Lomas, Ahnjili ZhuParris
+
 <style>
   .video-container {
   width: 100%;
