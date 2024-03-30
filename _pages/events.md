@@ -14,25 +14,18 @@ permalink: /events/
 #### Upcoming Exhibitions
 
 **New Media Art Conference** hosted by the CICA Museum in Seoul, Korea  
-(June 29th to July 2024)
-
-#### Upcoming Panels
-
-**The Hmm: Ask Us Anything: Hotline on AI Advice**  
-[https://thehmm.nl/event/ask-us-anything-hotline-on-ai-advice/](https://thehmm.nl/event/ask-us-anything-hotline-on-ai-advice/)  
-(Dec 6th 2023)
+(June 29th to July 1st 2024)
 
 #### Upcoming Workshops
 
-**HKU: Introduction to Computer Vision-based Open Source Intelligence**  
-(TBD)  
+AKI: **Intermediate Guide to Generative AI**  
+(April 2024)
 
-**HKU: Introduction to Generative AI images**  
-(TBD)
+Oscillation Festival: **Beginners Guide to Voice Cloning with Ahnjili ZhuParris**  
+[https://instrumentinventors.org/agenda/intro-to-voice-cloning-workshop-with-ahnjili-zhuparris/](https://instrumentinventors.org/agenda/intro-to-voice-cloning-workshop-with-ahnjili-zhuparris/)
+(April 2024)
 
 #### Previous Exhibitions (an incomplete list)
-
-Some of the artworks were submitted under the name 'Oz Laputan'
 
 IMPAKT Festival: **VOICES**  
 [[http://impakt.nl/news/2023/theme-announced-for-the-impakt-festival-2023/](http://impakt.nl/news/2023/theme-announced-for-the-impakt-festival-2023/)]  
@@ -68,7 +61,19 @@ Impact festival: **The role of surveillance and counter surveillance in art**
 
 #### Previous Workshops (an incomplete list)
 
-See [Teaching](https://artificialnouveau.github.io/teaching/) for more detailed descriptions of previous workshops
+iii: **Beginners Guide to Voice Cloning with Ahnjili ZhuParris**  
+[https://instrumentinventors.org/agenda/intro-to-voice-cloning-workshop-with-ahnjili-zhuparris/](https://instrumentinventors.org/agenda/intro-to-voice-cloning-workshop-with-ahnjili-zhuparris/)
+(March 2024)
+
+HKU: **Introduction to Computer Vision-based Open Source Intelligence**  
+(March 2024)
+
+HKU: **Introduction to Generative AI images**  
+(February 2024)
+
+The Hmm: **Ask Us Anything: Hotline on AI Advice**  
+[https://thehmm.nl/event/ask-us-anything-hotline-on-ai-advice/](https://thehmm.nl/event/ask-us-anything-hotline-on-ai-advice/)  
+(Dec 6th 2023)
 
 iii: **Beginners Guide to Generative AI art with Ahnjili ZhuParris**  
 [[https://instrumentinventors.org/agenda/beginners-guide-to-generative-ai-art/](https://instrumentinventors.org/agenda/beginners-guide-to-generative-ai-art/)]  
