@@ -37,7 +37,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |---|------------|
 | | Edinburgh University | 
 
-## PROJECTS
+## COLLABORATIONS
 
 | 2022 -  2024  | SHIBBOLETH: CREATION OF A HYBRID VOICE |
 |---|------------|
