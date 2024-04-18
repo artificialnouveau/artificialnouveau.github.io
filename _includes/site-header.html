@@ -18,7 +18,7 @@
 
                 <!-- Bio Section Start-->
                 <div class="bio mb-3">
-                    Hi, my name is {{ site.user.name }}.
+                  
                     <p>
                         {{ site.user.bio }}
                     </p>
@@ -35,8 +35,12 @@
             {% include nav-header.html %}
 
             <div class="my-2 my-md-3">
-                <a class="btn btn-primary" href="{{ site.download_resume | relative_url}}" target="_blank"
-                    download="{{ site.title }}-resume">Download Resume</a>
+                <a class="btn btn-primary" href="/assets/ai.pdf" target="_blank"
+                    download="AZhuParris-AI-resume">Download AI Resume</a>
+            </div>
+            <div class="my-2 my-md-3">
+                <a class="btn btn-primary" href="/assets/creative.pdf" target="_blank"
+                    download="AZhuParris-creative-resume">Download Creative Resume</a>
             </div>
         </div>
     </nav>
