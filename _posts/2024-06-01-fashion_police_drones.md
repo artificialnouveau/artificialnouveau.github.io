@@ -12,29 +12,29 @@ On June 29th 2024, I will also present my Fashion Police Drones at the [New Medi
 
 
 <figure>
-  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/drone_5.png" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: 100%;">
+  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/drone_5.png" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
   <figcaption class="mt-2 text-center image-caption">Image: Generated met DeepFakes</figcaption>
 </figure>
 
 <figure>
-  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/drone_1.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: 100%;">
+  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/drone_1.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
   <figcaption class="mt-2 text-center image-caption">Image: Generated met DeepFakes</figcaption>
 </figure>
 
 <figure>
-  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/drone_2.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: 100%;">
+  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/drone_2.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
   <figcaption class="mt-2 text-center image-caption">Image: Generated met DeepFakes</figcaption>
 </figure>
 
 <figure>
-  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/drone_3.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: 100%;">
+  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/drone_3.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
   <figcaption class="mt-2 text-center image-caption">Image: Generated met DeepFakes</figcaption>
 </figure>
 
 <figure>
-  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/drone_4.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: 100%;">
-  <figcaption class="mt-2 text-center image-caption">Image: Generated met DeepFakes</figcaption>
-</figure>
+  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/drone_4.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
+  <figcaption class="mt-2 text-ce
+
 
 
  
