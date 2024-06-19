@@ -25,6 +25,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 <br>
 ## EDUCATION
 <br>
+
 | 2020 - 2024 &nbsp;&nbsp;&nbsp;| PhD in Medicine |
 |---|------------|
 | | Leiden University  | 
@@ -40,6 +41,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 <br>
 ## AWARDS, FELLOWSHIPS & GRANTS
 <br>
+
 | 2024 &nbsp;&nbsp;&nbsp;| Fresh Perspective |
 |---|------------|
 | | Stimulering Fonds |
@@ -85,6 +87,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## EXHIBITIONS
 <br>
+
 | 2024 -  2024 &nbsp;&nbsp;&nbsp;| NEW MEDIA ART CONFERENCE |
 |---|------------|
 | | CICA Museum, Seoul, Republic of Korea |
@@ -92,7 +95,8 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > Fashion Police Drones In June 2024 at the CICA Museum, the Fashion Police Drone installation will be presented at the New Media Arts Conference in Korea. The Fashion Police Drones, armed with custom fashion recognition algorithms, will track individuals based on audience-defined criteria for "fashion crimes". Through this interactive experience, the exhibition challenges conventional perspectives about drone and AI applications, sparking discussions about the evolving landscape of surveillance and the ethical use of AI-driven technologies in our contemporary world. I aim to trigger the audience’s curiosity about the boundaries of surveillance, the potential consequences of automation in military application and law enforcement, and the societal implications of cultural profiling.
 
 <br>
- | 2023 &nbsp;&nbsp;&nbsp;| VOICES |
+
+| 2023 &nbsp;&nbsp;&nbsp;| VOICES |
 |---|------------|
 |  | IMPAKT festival, Utrecht, Netherlands |
 
@@ -100,14 +104,16 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 **[impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/)**
 
 <br>
-  | 2023 &nbsp;&nbsp;&nbsp;| VOICES |
+
+| 2023 &nbsp;&nbsp;&nbsp;| VOICES |
 |---|------------|
 |  | Ars Electronica, Linz, Austria |
 
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023. **[impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/)**
 
 <br>
-  | 2023 &nbsp;&nbsp;&nbsp;| Articulating Data |
+
+| 2023 &nbsp;&nbsp;&nbsp;| Articulating Data |
 |---|------------|
 |  | Edinburgh, United Kingdom |
 
@@ -115,7 +121,8 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 **[articulatingdata.com/](articulatingdata.com/)**
 
 <br>
-  | 2021 &nbsp;&nbsp;&nbsp;| This Machine Is Black |
+
+| 2021 &nbsp;&nbsp;&nbsp;| This Machine Is Black |
 |---|------------|
 |  | Identity 2.0, London, United Kingdom |
 
@@ -125,14 +132,15 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## INTERNATIONAL EXCHANGES/RESIDENCIES
 <br>
-  | 2023 &nbsp;&nbsp;&nbsp;| IMPAKT|
+
+| 2023 &nbsp;&nbsp;&nbsp;| IMPAKT|
 |---|------------|
 |  | CODE: Reclaiming Digital Rights, Netherlands |
 
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023. **[impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/](impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/)**
 <br>
 
- | 2022 &nbsp;&nbsp;&nbsp;| ANAIS BERCK |
+| 2022 &nbsp;&nbsp;&nbsp;| ANAIS BERCK |
 |---|------------|
 |  | ANAÏS BERCK: AN ALGOLITERARY PUBLISHING HOUSE, Belgium |
 
@@ -141,6 +149,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## COMMISSIONS
 <br>
+
 | 2024 &nbsp;&nbsp;&nbsp;| Screen-to-Soundscape/Techno Disobedience |
 |---|------------|
 |  | Constant, The Processing Foundation, The Simulerings Fonds |
@@ -149,7 +158,8 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > Screen-to-Soundscape adopts a creative and experimental approach to reimagining screen reader voices. The project aims to develop a speculative design prototype that transforms a browser or screen into an immersive soundscape. This prototype will feature multiple layered voices reading all readable text in unison with spatial audio enabling users to discern the text's location within the browser. The motivation behind this initiative is to overcome the inherent limitations of traditional screen readers by offering users with visual impairments a more intuitive and immersive way to navigate digital content. This not only benefits users with visual impairments but also provides a richer, more engaging web experience for all users. This project was supported by Constant, the Processing Foundation, and the Stimulerings Fonds.
 
 <br>
- | 2023 &nbsp;&nbsp;&nbsp;| DIGITAL PIONEERS: A VISIONARY PRELUDE |
+
+| 2023 &nbsp;&nbsp;&nbsp;| DIGITAL PIONEERS: A VISIONARY PRELUDE |
 |---|------------|
 |  | Stichting Impakt |
 |  | Utrecht, Netherlands |
@@ -158,7 +168,9 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 <br>
 
 ## SALES/WORKS IN COLLECTIONS
- | 2021 &nbsp;&nbsp;&nbsp;| Identity 2.0 |
+<br>
+
+| 2021 &nbsp;&nbsp;&nbsp;| Identity 2.0 |
 |---|------------|
 |  | This Machine Is Black |
 |  | London, Verenigd Koninkrijk |
@@ -168,7 +180,8 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## PUBLICATIONS
 <br>
- | 2024 &nbsp;&nbsp;&nbsp;|  Embodying Data, Shifting Perspective: a conversation with Ahnjili Zhuparris on <br> Future Wake. In: Doing Digital Migration Studies. |
+
+| 2024 &nbsp;&nbsp;&nbsp;|  Embodying Data, Shifting Perspective: a conversation with Ahnjili Zhuparris on <br> Future Wake. In: Doing Digital Migration Studies. |
 |---|------------|
 |  | Book |
 |  | Amsterdam: Amsterdam University Press |
@@ -185,7 +198,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 >  **[http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122](http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122)**
 <br>
 
- | 2021 &nbsp;&nbsp;&nbsp;|  Supermens: Ahnjili op Tinder |
+| 2021 &nbsp;&nbsp;&nbsp;|  Supermens: Ahnjili op Tinder |
 |---|------------|
 |  | Book |
 |  | Bot Uitgevers |
@@ -195,7 +208,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 >  **[http://www.peterjoosten.net/supermens/](http://www.peterjoosten.net/supermens/)**
 <br>
 
- | 2021 &nbsp;&nbsp;&nbsp;|  This horrifying AI model predicts future instances of police brutality |
+| 2021 &nbsp;&nbsp;&nbsp;|  This horrifying AI model predicts future instances of police brutality |
 |---|----------------|
 |  | Fast Company |
 |  | Mark Sullivan |
@@ -204,7 +217,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > **[http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake](http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake)**
 <br>
 
- | 2021 &nbsp;&nbsp;&nbsp;|  Future Wake: the AI art project that predicts police violence |
+| 2021 &nbsp;&nbsp;&nbsp;|  Future Wake: the AI art project that predicts police violence |
 |---|---------------------------------|
 |  | coda story |
 |  | Caitlin Thompson |
@@ -213,7 +226,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > **[http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/](http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/)**
 <br>
 
- | 2021 &nbsp;&nbsp;&nbsp;|  Artists create AI that predicts who the police will kill next |
+| 2021 &nbsp;&nbsp;&nbsp;|  Artists create AI that predicts who the police will kill next |
 |---|------------|
 |  | The next web |
 |  | Thomas Macaulay |
@@ -224,6 +237,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## REVIEWS
 <br>
+
 | 2023 &nbsp;&nbsp;&nbsp;| Ahnjili ZhuParris & Jan Zuiderveld - Artificial Intelligence, Autonomous Objects <br>& Algorithmic Violence |
 |---|------------|
 | | Radio |
@@ -234,6 +248,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > **[http://podcasts.apple.com/us/podcast/cross-pollination/id1632059837?i=1000639042537](http://podcasts.apple.com/us/podcast/cross-pollination/id1632059837?i=1000639042537)**
 
 <br>
+
 | 2020 &nbsp;&nbsp;&nbsp;| On Data |
 |---|------------|
 | | Radio |
@@ -246,22 +261,28 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## SECONDARY ART-RELATED ACTIVITIES
 <br>
+
 | 2023 -     &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Deep Fakes workshops <br> (taught at IMPAKT festival) |
 |---|------------|
 | | On-going | 
 <br>
+
 | 2023 -     &nbsp;&nbsp;&nbsp;| Instruction of The Introduction to AI for artists workshops <br>(taught at UAL) |
 |---|------------|
 | | On-going | 
 <br>
+
 | 2023 -    &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Machine Listening for Artists workshops <br> (taught at Piet Zwart Institute) |
 |---|------------|
 | | On-going | 
 <br>
+
 | 2022 -    &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Generative AI workshops <br>(taught at iii) |
 |---|------------------|
 | | On-going | 
+
 <br>
+
 | 2022 -   &nbsp;&nbsp;&nbsp; | Instruction of The Introduction to Computer-Vision Surveillance for Artists workshops <br> (taught at HKU) |
 |---|------------|
 | | On-going | 
