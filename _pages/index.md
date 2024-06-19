@@ -21,7 +21,7 @@ table th {
 
 Ahnjili Zhuparris, PhD (NL, USA), is an AI engineer and AI artist, working between New York and the Netherlands. As an AI engineer, Ahnjili develops AI applications for the medical and cosmetic industry. Ahnjili’s academic research centers around the development of biomarkers for monitoring mental and physical wellbeing using machine learning and smartphones and wearables data. Ahnjili's artistic research and science communication efforts are dedicated to raising awareness about A.I. and algorithmic violence, which encompasses the violence that may arise from or be justified by automated decision-making systems. Through her work, Ahnjili aims to educate the public and promote discussions about the ethical implications of these technologies in our society.
 
-Ahnjili holds a PhD in Neuropharmacology from Leiden University, Master’s in Cognitive Neuroscience from Radboud University and a Bachelor's in Neuroscience from the University of Edinburgh. She is a recipient of the Mozilla Creative Media Award. Ahnjili’s work has garnered support from the Mozilla Foundation (US), IMPAKT(NL), and Constant (BE) and has showcased her work at Ars Electronica (AU), Articulating Data (UK), and the CICA Museum (KR).
+Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive Neuroscience from Radboud University and a Bachelor's in Neuroscience from the University of Edinburgh. She is a recipient of the Mozilla Creative Media Award. Ahnjili’s work has garnered support from the Mozilla Foundation (US), IMPAKT(NL), and Constant (BE) and has showcased her work at Ars Electronica (AU), Articulating Data (UK), and the CICA Museum (KR).
 
 <br>
 ## EDUCATION
