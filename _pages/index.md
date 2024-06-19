@@ -138,10 +138,10 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 | 2024 &nbsp;&nbsp;&nbsp;| Screen-to-Soundscape/Techno Disobedience |
 |---|------------|
-|  | Constant |
-|  | Brussels, Belgium |
+|  | Constant, The Processing Foundation, The Simulerings Fonds |
+|  | Belgium, USA, Netherlands |
 
-> "TTS" adopts a creative and experimental approach to reimagining screen reader voices. The aim is to develop a speculative design prototype that transforms a browser or screen into an immersive soundscape. This prototype would feature multiple layered voices reading all the readable text in unison, with spatial audio enabling participants to discern the text's location within the browser. Time permitting, I also plan to incorporate non-textual, visual information into the soundscape, enriching the background audio and enhancing the user experience.
+> Screen-to-Soundscape adopts a creative and experimental approach to reimagining screen reader voices. The project aims to develop a speculative design prototype that transforms a browser or screen into an immersive soundscape. This prototype will feature multiple layered voices reading all readable text in unison with spatial audio enabling users to discern the text's location within the browser. The motivation behind this initiative is to overcome the inherent limitations of traditional screen readers by offering users with visual impairments a more intuitive and immersive way to navigate digital content. This not only benefits users with visual impairments but also provides a richer, more engaging web experience for all users. This project was supported by Constant, the Processing Foundation, and the Stimulerings Fonds.
 
 
  | 2023 &nbsp;&nbsp;&nbsp;| DIGITAL PIONEERS: A VISIONARY PRELUDE |
