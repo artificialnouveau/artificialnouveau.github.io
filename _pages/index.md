@@ -22,9 +22,9 @@ table th {
 Ahnjili is a New York-born, Hong Kong-raised, Netherlands-based data scientist, Ph.D. candidate, artist, and science communicator. Ahnjili’s academic research focuses on developing smartphone- and wearables-based biomarkers that can be used to monitor one’s mental and physical wellbeing for clinical trials. Ahnjili’s artistic research and science communication focuses on educating the public about A.I. and algorithmic violence, which refers to the violence that is justified or created by an automated decision-making system. Her projects have previously focused on investigating the correlation between hormonal cycles and internet patterns, developing a predictive policing system to predict police brutality, and creating fashion police drones.
 
 Ahnjili also has an interest in the influence of psychedelic drugs on cognition and lifestyle. She completed her Cognitive Neuroscience MSc at Radboud University (Netherlands), where her master’s thesis focused on the effects of mindfulness, Ritalin, and LSD on cognitive flexibility. Since then she has continued to do quantitative and qualitative research on recreational drug use with the Global Drug Survey and Quantified Citizen.
-
+<br>
 ## EDUCATION
-
+<br>
 | 2020 - 2024 &nbsp;&nbsp;&nbsp;| PhD in Medicine |
 |---|------------|
 | | Leiden University  | 
@@ -37,16 +37,16 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |---|------------|
 | | Edinburgh University | 
 
-
+<br>
 ## AWARDS, FELLOWSHIPS & GRANTS
-
+<br>
 | 2024 &nbsp;&nbsp;&nbsp;| Fresh Perspective |
 |---|------------|
 | | Stimulering Fonds |
 | | Netherlands |
 
 > Our project 'Screen-to-Soundscape', received the 2024 Fresh Perspective grant from the StimuleringsFonds. This project focuses on cross-sector collaborative projects that offer new perspectives on current crises including the climate crisis, discrimination, migration and asylum crisis, social and opportunity inequality or the housing crisis.
-
+<br>
 
 | 2024 &nbsp;&nbsp;&nbsp;| Processing Foundation Fellowship |
 |---|------------|
@@ -54,7 +54,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 | | USA |
 
 > Our project 'Screen-to-Soundscape', received the 2024 Processing Foundation Fellowship. Fellowships are an essential element of the Processing foundation’s work in developing tools of community power, connection, stewardship and in nurturing the aims/needs of the people and communities who use our software.
-
+<br>
 
 | 2023 &nbsp;&nbsp;&nbsp;| European Festivals Fund for Emerging Artists |
 |---|------------|
@@ -62,7 +62,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 | | Netherlands |
 
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.
-
+<br>
 
 | 2021 &nbsp;&nbsp;&nbsp;| MOZILLA CREATIVE MEDIA AWARDS  |
 |---|------------|
@@ -70,9 +70,10 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 | | United States |
 
 > MOZILLA CREATIVE MEDIA AWARDS: Future Wake **[www.futurewake.com](www.futurewake.com)** is an interactive art project turns the practice of predictive policing upside down, instead, it allows citizens to predict police brutality. We used to machine learning to predict who, when and how the next victim would die. Further, we used deepfake algorithms to generate the faces of the next victims.
-
+<br>
 
 ## COLLABORATIONS
+<br>
 
 | 2022 -  2024 &nbsp;&nbsp;&nbsp;|      SHIBBOLETH: CREATION OF A HYBRID VOICE |
 |---|------------|
@@ -80,17 +81,17 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 | | Brussels, Belgium |
 
 > We produced a ‘dual voice’ - that transforms fluidly from a recognizable voice of Speaker A to a voice of a Speaker B while speaking. With the "switch" happening at points of sonic uncertainty in the voice output, where a certain articulation or tonal quality could belong to either speaker. The generated algorithm was used in the ‘The 8th Letter’ theater performance of Effi and Amir (November 2022/ **[https://effiandamir.net/index.php?id=538](https://effiandamir.net/index.php?id=538)**).
+<br>
 
 ## EXHIBITIONS
-
-
+<br>
 | 2024 -  2024 &nbsp;&nbsp;&nbsp;| NEW MEDIA ART CONFERENCE |
 |---|------------|
 | | CICA Museum, Seoul, Republic of Korea |
 
 > Fashion Police Drones In June 2024 at the CICA Museum, the Fashion Police Drone installation will be presented at the New Media Arts Conference in Korea. The Fashion Police Drones, armed with custom fashion recognition algorithms, will track individuals based on audience-defined criteria for "fashion crimes". Through this interactive experience, the exhibition challenges conventional perspectives about drone and AI applications, sparking discussions about the evolving landscape of surveillance and the ethical use of AI-driven technologies in our contemporary world. I aim to trigger the audience’s curiosity about the boundaries of surveillance, the potential consequences of automation in military application and law enforcement, and the societal implications of cultural profiling.
 
-
+<br>
  | 2023 &nbsp;&nbsp;&nbsp;| VOICES |
 |---|------------|
 |  | IMPAKT festival, Utrecht, Netherlands |
@@ -98,13 +99,14 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.
 **[impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/)**
 
+<br>
   | 2023 &nbsp;&nbsp;&nbsp;| VOICES |
 |---|------------|
 |  | Ars Electronica, Linz, Austria |
 
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023. **[impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/)**
 
-
+<br>
   | 2023 &nbsp;&nbsp;&nbsp;| Articulating Data |
 |---|------------|
 |  | Edinburgh, United Kingdom |
@@ -112,30 +114,33 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > Babble-on is a web-based installation allowing users to create personalized babble tapes by recording 2-3 sentences into a microphone. The audio is sliced and remixed to maintain the same audio properties of their voices. Users can download their tapes to disguise their conversations from audio surveillance. Presented at the Articulating Data conference 2023.
 **[articulatingdata.com/](articulatingdata.com/)**
 
-
+<br>
   | 2021 &nbsp;&nbsp;&nbsp;| This Machine Is Black |
 |---|------------|
 |  | Identity 2.0, London, United Kingdom |
 
 > This exhibition explored how Afrofuturism can be used to remove (or at least alleviate) the normative pressure that AI puts on non-normative bodies. Although with a few exceptions, the black experience has largely been invisible in AI datasets. I trained a series of generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic. **[www.identity20.org/thismachineisblack/](www.identity20.org/thismachineisblack/)**
 
+<br>
 
 ## INTERNATIONAL EXCHANGES/RESIDENCIES
-
+<br>
   | 2023 &nbsp;&nbsp;&nbsp;| IMPAKT|
 |---|------------|
 |  | CODE: Reclaiming Digital Rights, Netherlands |
 
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023. **[impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/](impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/)**
+<br>
 
  | 2022 &nbsp;&nbsp;&nbsp;| ANAIS BERCK |
 |---|------------|
 |  | ANAÏS BERCK: AN ALGOLITERARY PUBLISHING HOUSE, Belgium |
 
 > During the residency we developed algoliterary publications. These are publishing experiments with algorithms and literary, scientific, and activist datasets about trees and nature. We ask ourselves: who and what is excluded, made invisible or exploited in the existent representations, discourses, tools, and practices? To address these questions, we used decision tree algorithms to sort the histories of tree nomenclature. **[algoliterarypublishing.net/](algoliterarypublishing.net/)**
+<br>
 
 ## COMMISSIONS
-
+<br>
 | 2024 &nbsp;&nbsp;&nbsp;| Screen-to-Soundscape/Techno Disobedience |
 |---|------------|
 |  | Constant, The Processing Foundation, The Simulerings Fonds |
@@ -143,31 +148,33 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 > Screen-to-Soundscape adopts a creative and experimental approach to reimagining screen reader voices. The project aims to develop a speculative design prototype that transforms a browser or screen into an immersive soundscape. This prototype will feature multiple layered voices reading all readable text in unison with spatial audio enabling users to discern the text's location within the browser. The motivation behind this initiative is to overcome the inherent limitations of traditional screen readers by offering users with visual impairments a more intuitive and immersive way to navigate digital content. This not only benefits users with visual impairments but also provides a richer, more engaging web experience for all users. This project was supported by Constant, the Processing Foundation, and the Stimulerings Fonds.
 
-
+<br>
  | 2023 &nbsp;&nbsp;&nbsp;| DIGITAL PIONEERS: A VISIONARY PRELUDE |
 |---|------------|
 |  | Stichting Impakt |
 |  | Utrecht, Netherlands |
 
 > "Digital Pioneers: A Visionary Prelude" is a digital artwork that blends technology and art, creating a cheeky introduction to the IMPAKT festival 2023. This piece features deepfake representations of three prominent tech CEOs, not as mere figures of authority, but as digital orators guiding the audience through the evolving landscape of technology and art. Each CEO's deepfake delivers a segment of the festival's introduction, focusing on themes closely aligned with their real-world contributions and visions. The first segment delves into the transformative power of technology in art, emphasizing innovation and the breaking of traditional boundaries. The second part addresses the ethical considerations and societal impacts of tech advancements, encouraging viewers to ponder the responsibilities that come with innovation. The final segment looks to the future, inspiring a dialogue about the potential of technology in shaping new forms of artistic expression. The artwork is not just a visual spectacle but an auditory experience as well. The deepfakes' voices have been modulated to create a harmonious symphony, symbolizing the unity and collaborative potential within the tech and art communities. "Digital Pioneers" does more than just introduce a festival; it stands as a testament to the ever-blurring lines between human creativity and technological prowess, inviting viewers to explore the endless possibilities at the intersection of art and technology. **[http://www.impaktfestival.nl/]([algoliterarypublishing.net/](http://www.impaktfestival.nl/)http://www.impaktfestival.nl/)**
+<br>
 
 ## SALES/WORKS IN COLLECTIONS
-
  | 2021 &nbsp;&nbsp;&nbsp;| Identity 2.0 |
 |---|------------|
 |  | This Machine Is Black |
 |  | London, Verenigd Koninkrijk |
 
 > This exhibition explored how Afrofuturism can be used to remove (or at least alleviate) the normative pressure that AI puts on non-normative bodies. Although with a few exceptions, the black experience has largely been invisible in AI datasets. I trained a series of generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic.
+<br>
 
 ## PUBLICATIONS
-
+<br>
  | 2024 &nbsp;&nbsp;&nbsp;|  Embodying Data, Shifting Perspective: a conversation with Ahnjili Zhuparris on <br> Future Wake. In: Doing Digital Migration Studies. |
 |---|------------|
 |  | Book |
 |  | Amsterdam: Amsterdam University Press |
 |  | Wevers, R Edited by Ponzanesi, S. and Leurs, Koen. |
 |  | Amsterdam, Netherlands |
+<br>
 
  | 2022 &nbsp;&nbsp;&nbsp;|  Can AI imagine the next victims of police violence? <br> Future Wake explores injustice through code |
 |---|------------|
@@ -176,6 +183,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | What are the issues with using AI for predictive policing? <br> Could it reduce crime or does it reinforce racial biases in the criminal justice system? <br> The co-founder of art project Future Wake examines unjust policing using AI and <br> storytelling. |
 
 >  **[http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122](http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122)**
+<br>
 
  | 2021 &nbsp;&nbsp;&nbsp;|  Supermens: Ahnjili op Tinder |
 |---|------------|
@@ -184,8 +192,8 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | Peter Joost |
 |  | Netherlands |
 |  | De cyclus van vrouwen meten in relatie tot Tinder |
-
 >  **[http://www.peterjoosten.net/supermens/](http://www.peterjoosten.net/supermens/)**
+<br>
 
  | 2021 &nbsp;&nbsp;&nbsp;|  This horrifying AI model predicts future instances of police brutality |
 |---|----------------|
@@ -193,8 +201,8 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | Mark Sullivan |
 |  | United States |
 |  | A searing critique of predictive policing, Future Wake uses past data on police violence <br> to predict where it might occur in the future—and who will be targeted. |
-
 > **[http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake](http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake)**
+<br>
 
  | 2021 &nbsp;&nbsp;&nbsp;|  Future Wake: the AI art project that predicts police violence |
 |---|---------------------------------|
@@ -202,8 +210,8 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | Caitlin Thompson |
 |  | United States |
 |  | Future Wake: the AI art project that predicts police violence <br> Winner of the Mozilla Creative Media award for 2021, an interactive website calculates <br> when and where fatal encounters with law enforcement will occur <br> — and tells the stories of the victims |
-
 > **[http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/](http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/)**
+<br>
 
  | 2021 &nbsp;&nbsp;&nbsp;|  Artists create AI that predicts who the police will kill next |
 |---|------------|
@@ -211,11 +219,11 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |  | Thomas Macaulay |
 |  | Netherlands |
 |  | Future Wake tells the stories of potential victims |
-
 >**[http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next](http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next)**
+<br>
 
 ## REVIEWS
-
+<br>
 | 2023 &nbsp;&nbsp;&nbsp;| Ahnjili ZhuParris & Jan Zuiderveld - Artificial Intelligence, Autonomous Objects <br>& Algorithmic Violence |
 |---|------------|
 | | Radio |
@@ -225,41 +233,35 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > Ahnjili is a machine learning engineer, Ph.D. candidate, artist, and science communicator currently working at an AI startup that specializes in developing deep learning models for facial augmentation. Ahnjili’s academic research centers around the development of biomarkers for monitoring mental and physical well-being using smartphones and wearables, with a particular focus on their application in clinical trials. Ahnjili's artistic research and science communication efforts are dedicated to raising awareness about A.I. and algorithmic violence, which encompasses the violence that may arise from or be justified by automated decision-making systems. Through her work, Ahnjili aims to educate the public and promote discussions about the ethical implications of these technologies in our society.
 > **[http://podcasts.apple.com/us/podcast/cross-pollination/id1632059837?i=1000639042537](http://podcasts.apple.com/us/podcast/cross-pollination/id1632059837?i=1000639042537)**
 
+<br>
 | 2020 &nbsp;&nbsp;&nbsp;| On Data |
 |---|------------|
 | | Radio |
 | | Bartalk |
 | | The Hague, Netherlands |
-
-
 > BARTALK is a lecture, performance, and storytelling series that usually takes place in different bars in the Hague. Each of our podcast seasons has a different theme featuring one guest per episode offering their unique perspective.
 > **[http://bartalkdh.files.wordpress.com/2021/07/bartalk-podcast-22_-translation-episode-1-1.pdf](http://bartalkdh.files.wordpress.com/2021/07/bartalk-podcast-22_-translation-episode-1-1.pdf)**
-
+<br>
 
 
 ## SECONDARY ART-RELATED ACTIVITIES
-
-
+<br>
 | 2023 -     &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Deep Fakes workshops <br> (taught at IMPAKT festival) |
 |---|------------|
 | | On-going | 
-
-
+<br>
 | 2023 -     &nbsp;&nbsp;&nbsp;| Instruction of The Introduction to AI for artists workshops <br>(taught at UAL) |
 |---|------------|
 | | On-going | 
-
-
+<br>
 | 2023 -    &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Machine Listening for Artists workshops <br> (taught at Piet Zwart Institute) |
 |---|------------|
 | | On-going | 
-
-
+<br>
 | 2022 -    &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Generative AI workshops <br>(taught at iii) |
 |---|------------------|
 | | On-going | 
-
-
+<br>
 | 2022 -   &nbsp;&nbsp;&nbsp; | Instruction of The Introduction to Computer-Vision Surveillance for Artists workshops <br> (taught at HKU) |
 |---|------------|
 | | On-going | 
