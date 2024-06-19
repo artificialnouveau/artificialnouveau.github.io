@@ -37,9 +37,44 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 |---|------------|
 | | Edinburgh University | 
 
+
+## AWARDS, FELLOWSHIPS & GRANTS
+
+| 2024 | Fresh Perspective |
+|---|------------|
+| | Stimulering Fonds |
+| | Netherlands |
+
+> Our project 'Screen-to-Soundscape', received the 2024 Fresh Perspective grant from the StimuleringsFonds. This project focuses on cross-sector collaborative projects that offer new perspectives on current crises including the climate crisis, discrimination, migration and asylum crisis, social and opportunity inequality or the housing crisis.
+
+
+| 2024 | Processing Foundation Fellowship |
+|---|------------|
+| | Processing Foundation |
+| | USA |
+
+> Our project 'Screen-to-Soundscape', received the 2024 Processing Foundation Fellowship. Fellowships are an essential element of the Processing foundation’s work in developing tools of community power, connection, stewardship and in nurturing the aims/needs of the people and communities who use our software.
+
+
+| 2023 | European Festivals Fund for Emerging Artists |
+|---|------------|
+| | European Festivals Fund for Emerging Artists |
+| | Netherlands |
+
+> VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.
+
+
+| 2021  | MOZILLA CREATIVE MEDIA AWARDS  |
+|---|------------|
+| | Mozilla Foundation |
+| | United States |
+
+> MOZILLA CREATIVE MEDIA AWARDS: Future Wake **[www.futurewake.com](www.futurewake.com)** is an interactive art project turns the practice of predictive policing upside down, instead, it allows citizens to predict police brutality. We used to machine learning to predict who, when and how the next victim would die. Further, we used deepfake algorithms to generate the faces of the next victims.
+
+
 ## COLLABORATIONS
 
-| 2022 -  2024  | SHIBBOLETH: CREATION OF A HYBRID VOICE |
+| 2022 -  2024  |      SHIBBOLETH: CREATION OF A HYBRID VOICE |
 |---|------------|
 | | Effi & Amir, | 
 | | Brussels, Belgium |
@@ -63,14 +98,14 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.
 **[impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/)**
 
-  | 2023  | VOICES |
+  | 2023    | VOICES |
 |---|------------|
 |  | Ars Electronica, Linz, Austria |
 
 > VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023. **[impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/)**
 
 
-  | 2023  | Articulating Data |
+  | 2023    | Articulating Data |
 |---|------------|
 |  | Edinburgh, United Kingdom |
 
@@ -78,7 +113,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 **[articulatingdata.com/](articulatingdata.com/)**
 
 
-  | 2021 | This Machine Is Black |
+  | 2021     | This Machine Is Black |
 |---|------------|
 |  | Identity 2.0, London, United Kingdom |
 
@@ -200,22 +235,6 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 > BARTALK is a lecture, performance, and storytelling series that usually takes place in different bars in the Hague. Each of our podcast seasons has a different theme featuring one guest per episode offering their unique perspective.
 > **[http://bartalkdh.files.wordpress.com/2021/07/bartalk-podcast-22_-translation-episode-1-1.pdf](http://bartalkdh.files.wordpress.com/2021/07/bartalk-podcast-22_-translation-episode-1-1.pdf)**
 
-## AWARDS & GRANTS
-
-| 2023 -   | VOICES |
-|---|------------|
-| | European Festivals Fund for Emerging Artists |
-| | Netherlands |
-
-> VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.
-
-
-| 2021 -   | MOZILLA CREATIVE MEDIA AWARDS  |
-|---|------------|
-| | Mozilla Foundation |
-| | United States |
-
-> MOZILLA CREATIVE MEDIA AWARDS: Future Wake **[www.futurewake.com](www.futurewake.com)** is an interactive art project turns the practice of predictive policing upside down, instead, it allows citizens to predict police brutality. We used to machine learning to predict who, when and how the next victim would die. Further, we used deepfake algorithms to generate the faces of the next victims.
 
 
 ## SECONDARY ART-RELATED ACTIVITIES
