@@ -19,9 +19,10 @@ table th {
 
 ## <center><span style="color: #FF70A6;">ABOUT</span></center>
 
-Ahnjili is a New York-born, Hong Kong-raised, Netherlands-based data scientist, Ph.D. candidate, artist, and science communicator. Ahnjili’s academic research focuses on developing smartphone- and wearables-based biomarkers that can be used to monitor one’s mental and physical wellbeing for clinical trials. Ahnjili’s artistic research and science communication focuses on educating the public about A.I. and algorithmic violence, which refers to the violence that is justified or created by an automated decision-making system. Her projects have previously focused on investigating the correlation between hormonal cycles and internet patterns, developing a predictive policing system to predict police brutality, and creating fashion police drones.
+Ahnjili Zhuparris, PhD (NL, USA), is an AI engineer and AI artist, working between New York and the Netherlands. As an AI engineer, Ahnjili develops AI applications for the medical and cosmetic industry. Ahnjili’s academic research centers around the development of biomarkers for monitoring mental and physical wellbeing using machine learning and smartphones and wearables data. Ahnjili's artistic research and science communication efforts are dedicated to raising awareness about A.I. and algorithmic violence, which encompasses the violence that may arise from or be justified by automated decision-making systems. Through her work, Ahnjili aims to educate the public and promote discussions about the ethical implications of these technologies in our society.
 
-Ahnjili also has an interest in the influence of psychedelic drugs on cognition and lifestyle. She completed her Cognitive Neuroscience MSc at Radboud University (Netherlands), where her master’s thesis focused on the effects of mindfulness, Ritalin, and LSD on cognitive flexibility. Since then she has continued to do quantitative and qualitative research on recreational drug use with the Global Drug Survey and Quantified Citizen.
+Ahnjili holds a PhD in Neuropharmacology from Leiden University, Master’s in Cognitive Neuroscience from Radboud University and a Bachelor's in Neuroscience from the University of Edinburgh. She is a recipient of the Mozilla Creative Media Award. Ahnjili’s work has garnered support from the Mozilla Foundation (US), IMPAKT(NL), and Constant (BE) and has showcased her work at Ars Electronica (AU), Articulating Data (UK), and the CICA Museum (KR).
+
 <br>
 ## EDUCATION
 <br>
