@@ -136,7 +136,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## COMMISSIONS
 
- | 2024  | Techno Disobedience |
+ | 2024  | Screen-to-Soundscape/Techno Disobedience |
 |---|------------|
 |  | Constant |
 |  | Brussels, Belgium |
@@ -260,7 +260,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 | | On-going | 
 
 
-| 2023 -    | Instruction of The Introduction to Computer-Vision Surveillance for Artists workshops <br> (taught at HKU) |
+| 2022 -    | Instruction of The Introduction to Computer-Vision Surveillance for Artists workshops <br> (taught at HKU) |
 |---|------------|
 | | On-going | 
 
