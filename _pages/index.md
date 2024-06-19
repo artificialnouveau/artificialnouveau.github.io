@@ -25,7 +25,7 @@ Ahnjili also has an interest in the influence of psychedelic drugs on cognition 
 
 ## EDUCATION
 
-| 2020 - 2024     | PhD in Advanced Data Analytics |
+| 2020 - 2024     | PhD in Medicine |
 |---|------------|
 | | Leiden University  | 
 
