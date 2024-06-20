@@ -104,15 +104,8 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | |  |
 | | Text from [Kurina Sohn's website](https://kurinasohn.com/deepest-unknown-v1.html) |
 | | Deepest Unknown v.1 is an artistic collaboration with AI, generating speculative stories and images that illuminate the mysteries and potential losses of remote underwater environments. The project envision life beyond our limitations while exploring our connection with water and the ecological consequences of human actions. Through digital tools and mechanical techniques, the project transports viewers into alternative realities, expanding our comprehension of deep ocean ecologies. The analysis of individual sea creatures prompts a reassessment of our relationship with water and recognizes technology's impact on our perception of nature.
-
-<br>
-
-Deepest Unknown installation v.1 engaged the audience through a mix of graphic videos and deep-sea soundscapes. The video featured a creature created using customized StabelDiffusion AI, incorporating a deep-sea dataset and marine debris images. The storytelling aspect involved a dialogue with GPT-2, where human prompts were displayed in italics and the AI-generated script in bold. The physical space featured a DALL:E2 AI-designed zero-gravity chair and a diagram illustrating the various ways we experience nature, encouraging visitors to reflect on our relationship with the natural world.
-
-<br>
-
-Deepest Unknown is realised by collaboration with Ahnjili Zhuparris (Customising StableDiffusion AI), Colette Aliman (Deep-sea soundscape design), Tiiu Meiner (Co-writing GPT-2 video script), Tivon Rice (‘models for environmental literacy’ GPT-2 dataset), Taegwon Bae(Film Art Directing , 3D Art), Changju Yoon(UnrealEngine engineering), Seungmin Lee(film editing, VFX post processing), YoungJae Nah(animator), and Marsha van Leersum(Assistant).   |
-| |  |
+| | Deepest Unknown installation v.1 engaged the audience through a mix of graphic videos and deep-sea soundscapes. The video featured a creature created using customized StabelDiffusion AI, incorporating a deep-sea dataset and marine debris images. The storytelling aspect involved a dialogue with GPT-2, where human prompts were displayed in italics and the AI-generated script in bold. The physical space featured a DALL:E2 AI-designed zero-gravity chair and a diagram illustrating the various ways we experience nature, encouraging visitors to reflect on our relationship with the natural world.|
+| |  Deepest Unknown is realised by collaboration with Ahnjili Zhuparris (Customising StableDiffusion AI), Colette Aliman (Deep-sea soundscape design), Tiiu Meiner (Co-writing GPT-2 video script), Tivon Rice (‘models for environmental literacy’ GPT-2 dataset), Taegwon Bae(Film Art Directing , 3D Art), Changju Yoon(UnrealEngine engineering), Seungmin Lee(film editing, VFX post processing), YoungJae Nah(animator), and Marsha van Leersum(Assistant).   |
 | | [Kurina Sohn's website](https://kurinasohn.com/deepest-unknown-v1.html) |
 
 <br>
