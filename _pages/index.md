@@ -89,6 +89,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | | Brussels, Belgium |
 | |  |
 | | We produced a ‘dual voice’ - that transforms fluidly from a recognizable voice of Speaker A to a voice of a Speaker B while speaking. With the "switch" happening at points of sonic uncertainty in the voice output, where a certain articulation or tonal quality could belong to either speaker. The generated algorithm was used in the ‘The 8th Letter’ theater performance of Effi and Amir  |
+| |  |
 | | ([https://effiandamir.net/index.php?id=538](https://effiandamir.net/index.php?id=538)). |
 
 <br>
@@ -110,6 +111,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | IMPAKT festival, Utrecht, Netherlands |
 | |  |
 |  | VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023. |
+| |  |
 |  | [impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/) |
 
 <br>
@@ -119,6 +121,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | Ars Electronica, Linz, Austria |
 | |  |
 |  | VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.  |
+| |  |
 |  | [impakt.nl/events/2023/exhibition/code-ars-electronica-2023/](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/) |
 
 <br>
@@ -128,6 +131,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | Edinburgh, United Kingdom |
 | |  |
 |  | Babble-on is a web-based installation allowing users to create personalized babble tapes by recording 2-3 sentences into a microphone. The audio is sliced and remixed to maintain the same audio properties of their voices. Users can download their tapes to disguise their conversations from audio surveillance. Presented at the Articulating Data conference 2023. |
+| |  |
 |  | [articulatingdata.com/](articulatingdata.com/) |
 
 <br>
@@ -137,6 +141,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | Identity 2.0, London, United Kingdom |
 | |  |
 |  | This exhibition explored how Afrofuturism can be used to remove (or at least alleviate) the normative pressure that AI puts on non-normative bodies. Although with a few exceptions, the black experience has largely been invisible in AI datasets. I trained a series of generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic. |
+| |  |
 |  | [www.identity20.org/thismachineisblack/](www.identity20.org/thismachineisblack/) |
 
 <br>
@@ -150,6 +155,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | CODE: Reclaiming Digital Rights, Netherlands |
 | |  |
 |  | VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.  |
+| |  |
 |  | [impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/](impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/) |
 
 <br>
@@ -159,6 +165,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | ANAÏS BERCK: AN ALGOLITERARY PUBLISHING HOUSE, Belgium |
 | |  |
 |  | During the residency we developed algoliterary publications. These are publishing experiments with algorithms and literary, scientific, and activist datasets about trees and nature. We ask ourselves: who and what is excluded, made invisible or exploited in the existent representations, discourses, tools, and practices? To address these questions, we used decision tree algorithms to sort the histories of tree nomenclature.  |
+| |  |
 |  | [algoliterarypublishing.net/](algoliterarypublishing.net/) |
 
 <br>
@@ -182,6 +189,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | Utrecht, Netherlands |
 | |  |
 |  | "Digital Pioneers: A Visionary Prelude" is a digital artwork that blends technology and art, creating a cheeky introduction to the IMPAKT festival 2023. This piece features deepfake representations of three prominent tech CEOs, not as mere figures of authority, but as digital orators guiding the audience through the evolving landscape of technology and art. Each CEO's deepfake delivers a segment of the festival's introduction, focusing on themes closely aligned with their real-world contributions and visions. The first segment delves into the transformative power of technology in art, emphasizing innovation and the breaking of traditional boundaries. The second part addresses the ethical considerations and societal impacts of tech advancements, encouraging viewers to ponder the responsibilities that come with innovation. The final segment looks to the future, inspiring a dialogue about the potential of technology in shaping new forms of artistic expression. The artwork is not just a visual spectacle but an auditory experience as well. The deepfakes' voices have been modulated to create a harmonious symphony, symbolizing the unity and collaborative potential within the tech and art communities. "Digital Pioneers" does more than just introduce a festival; it stands as a testament to the ever-blurring lines between human creativity and technological prowess, inviting viewers to explore the endless possibilities at the intersection of art and technology. |
+| |  |
 |  | [http://www.impaktfestival.nl/]([algoliterarypublishing.net/](http://www.impaktfestival.nl/)http://www.impaktfestival.nl/) |
 
 <br>
@@ -210,7 +218,9 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | Amsterdam: Amsterdam University Press |
 |  | Wevers, R Edited by Ponzanesi, S. and Leurs, Koen. |
 |  | Amsterdam, Netherlands |
-| |  |
+|  |  |
+| |  This chapter discusses the artistic project Future Wake (2021) by Ahnjili Zhuparris and Tim van Ommeren that examines predictive policing. By shifting the focus from possible future crime offenders to possible future victims of fatal police encounters, using visual and affective means rather than expert knowledge and statistics, the artwork activates critical reflection on the politics and logics of predictive policing systems. The chapter first situates predictive policing in a context of securitization, and discusses how it enhances structures of discrimination. In the second part, Wevers interviews artist Zhuparris about the aims of Future Wake, discussing the artistic and technical process of creating the project, the politics of data, and the role of art in critical discussion on surveillance and AI.|
+|  |  |
 | |[https://research.hanze.nl/en/publications/embodying-data-shifting-perspective-a-conversation-with-ahnjili-z](https://research.hanze.nl/en/publications/embodying-data-shifting-perspective-a-conversation-with-ahnjili-z)|
 
 <br>
@@ -221,6 +231,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | London, United Kingdom |
 | |  |
 |  | What are the issues with using AI for predictive policing? <br> Could it reduce crime or does it reinforce racial biases in the criminal justice system? <br> The co-founder of art project Future Wake examines unjust policing using AI and <br> storytelling. |
+| |  |
 |  | [http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122](http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122)|
 
 <br>
@@ -244,6 +255,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | United States |
 | |  |
 |  | A searing critique of predictive policing, Future Wake uses past data on police violence <br> to predict where it might occur in the future—and who will be targeted. |
+| |  |
 |  | [http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake](http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake)|
 
 <br>
@@ -255,6 +267,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 |  | United States |
 | |  |
 |  | Future Wake: the AI art project that predicts police violence <br> Winner of the Mozilla Creative Media award for 2021, an interactive website calculates <br> when and where fatal encounters with law enforcement will occur <br> — and tells the stories of the victims |
+| |  |
 |  | [http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/](http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/)|
 
 <br>
@@ -280,6 +293,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | | The Hague, Netherlands |
 | |  |
 | | Ahnjili is a machine learning engineer, Ph.D. candidate, artist, and science communicator currently working at an AI startup that specializes in developing deep learning models for facial augmentation. Ahnjili’s academic research centers around the development of biomarkers for monitoring mental and physical well-being using smartphones and wearables, with a particular focus on their application in clinical trials. Ahnjili's artistic research and science communication efforts are dedicated to raising awareness about A.I. and algorithmic violence, which encompasses the violence that may arise from or be justified by automated decision-making systems. Through her work, Ahnjili aims to educate the public and promote discussions about the ethical implications of these technologies in our society. |
+| |  |
 | | [http://podcasts.apple.com/us/podcast/cross-pollination/id1632059837?i=1000639042537](http://podcasts.apple.com/us/podcast/cross-pollination/id1632059837?i=1000639042537) |
 
 <br>
@@ -289,14 +303,13 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | | Radio |
 | | Bartalk |
 | | The Hague, Netherlands |
-| | BARTALK is a lecture, performance, and storytelling series that usually takes place in different bars in the Hague. Each of our podcast seasons has a different theme featuring one guest per episode offering their unique perspective. |
 | |  |
-| | [http://bartalkdh.files.wordpress.com/2021/07/bartalk-podcast-22_-translation-episode-1-1.pdf](http://bartalkdh.files.wordpress.com/2021/07/bartalk-podcast-22_-translation-episode-1-1.pdf) |
+| | BARTALK is a lecture, performance, and storytelling series that usually takes place in different bars in the Hague. Each of our podcast seasons has a different theme featuring one guest per episode offering their unique perspective. |
 
 <br>
 
-
 ## SECONDARY ART-RELATED ACTIVITIES
+
 <br>
 
 | 2023 -     &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Deep Fakes workshops <br> (taught at IMPAKT festival) |
