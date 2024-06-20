@@ -333,14 +333,14 @@ Deepest Unknown is realised by collaboration with Ahnjili Zhuparris (Customising
 
 <br>
 
-| 2023 - Ongoing &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Deep Fakes workshops |
+| 2023 - Ongoing &nbsp;&nbsp;&nbsp;|  The Introduction to Deep Fakes workshops |
 |---|------------|
 | | IMPAKT FESTIVAL (NL) | 
 | | Student Union of Arts at University of Arts London (UAL) (UK) | 
 
 <br>
 
-| 2023 - Ongoing  &nbsp;&nbsp;&nbsp;| Instruction of The Introduction to AI for artists workshops |
+| 2023 - Ongoing  &nbsp;&nbsp;&nbsp;| The Introduction to AI for artists workshops |
 |---|------------|
 | | HKU: Hogeschool voor de Kunsten Utrecht (NL) | 
 | | ArtEZ University of the Arts (NL) | 
@@ -350,14 +350,14 @@ Deepest Unknown is realised by collaboration with Ahnjili Zhuparris (Customising
 
 <br>
 
-| 2022 - Ongoing  &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Generative AI workshops|
+| 2022 - Ongoing  &nbsp;&nbsp;&nbsp;|   Introduction to Generative AI workshops|
 |---|------------------|
 | | HKU: Hogeschool voor de Kunsten Utrecht (NL) | 
 | | iii: Instrument Inventors (NL) |
 
 <br>
 
-| 2022 - 2023  &nbsp;&nbsp;&nbsp; | Instruction of The Introduction to Computer-Vision Surveillance for Artists workshops|
+| 2022 - 2023  &nbsp;&nbsp;&nbsp; | Introduction to Computer-Vision Surveillance for Artists workshops|
 |---|------------|
 | | HKU: Hogeschool voor de Kunsten Utrecht (NL)| 
 
