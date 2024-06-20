@@ -329,35 +329,35 @@ Deepest Unknown is realised by collaboration with Ahnjili Zhuparris (Customising
 
 <br>
 
-## SECONDARY ART-RELATED ACTIVITIES
+## SELECTED WORKSHOPS AND TALKS
 
 <br>
 
-| 2023 -     &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Deep Fakes workshops <br> (taught at IMPAKT festival) |
+| 2023 - Ongoing &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Deep Fakes workshops |
 |---|------------|
-| | On-going | 
+| | IMPAKT FESTIVAL (NL) | 
+| | Student Union of Arts at University of Arts London (UAL) (UK) | 
 
 <br>
 
-| 2023 -     &nbsp;&nbsp;&nbsp;| Instruction of The Introduction to AI for artists workshops <br>(taught at UAL) |
+| 2023 - Ongoing  &nbsp;&nbsp;&nbsp;| Instruction of The Introduction to AI for artists workshops |
 |---|------------|
-| | On-going | 
+| | HKU: Hogeschool voor de Kunsten Utrecht (NL) | 
+| | ArtEZ University of the Arts (NL) | 
+| | Piet Zwart Institute (NL) | 
+| | ArtEZ University of the Arts (NL) | 
+| | iii: Instrument Inventors (NL) |
 
 <br>
 
-| 2023 -    &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Machine Listening for Artists workshops <br> (taught at Piet Zwart Institute) |
-|---|------------|
-| | On-going | 
-
-<br>
-
-| 2022 -    &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Generative AI workshops <br>(taught at iii) |
+| 2022 - Ongoing  &nbsp;&nbsp;&nbsp;|  Instruction of The Introduction to Generative AI workshops|
 |---|------------------|
-| | On-going | 
+| | HKU: Hogeschool voor de Kunsten Utrecht (NL) | 
+| | iii: Instrument Inventors (NL) |
 
 <br>
 
-| 2022 -   &nbsp;&nbsp;&nbsp; | Instruction of The Introduction to Computer-Vision Surveillance for Artists workshops <br> (taught at HKU) |
+| 2022 - 2023  &nbsp;&nbsp;&nbsp; | Instruction of The Introduction to Computer-Vision Surveillance for Artists workshops|
 |---|------------|
-| | On-going | 
+| | HKU: Hogeschool voor de Kunsten Utrecht (NL)| 
 
