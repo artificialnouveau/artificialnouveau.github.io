@@ -9,8 +9,13 @@ This documentary explores the emerging field of synthetic biology, where DNA is 
 
 
 <div class="video-container">
-  <video controls autoplay name="media">
-    <source src="https://player.vimeo.com/video/22153761?app_id=122963" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <iframe 
+    src="https://player.vimeo.com/video/22153761?app_id=122963" 
+    width="100%" 
+    height="480" 
+    frameborder="0" 
+    allow="autoplay; fullscreen" 
+    allowfullscreen>
+  </iframe>
 </div>
+
