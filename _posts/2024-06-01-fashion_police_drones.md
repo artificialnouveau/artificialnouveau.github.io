@@ -13,6 +13,34 @@ On June 29th 2024, I will also present my Fashion Police Drones at the [New Medi
 
 <div class="row justify-content-center">
   <figure class="col-6">
+    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/crossdress.jpg" alt="CICA magazine image 1" style="max-height: 400px; width: auto;">
+    <figcaption class="mt-2 text-center image-caption">CICA magazine image 1. Illustration done by Peter van Dijk (wwww.petervandijkcomics.com)</figcaption>
+  </figure>
+</div>
+
+<div class="row justify-content-center">
+  <figure class="col-6">
+    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/hijab.jpg" alt="CICA magazine image 2" style="max-height: 400px; width: auto;">
+    <figcaption class="mt-2 text-center image-caption">CICA magazine image 2. Illustration done by Peter van Dijk (wwww.petervandijkcomics.com)</figcaption>
+  </figure>
+</div>
+
+<div class="row justify-content-center">
+  <figure class="col-6">
+    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/burka.jpg" alt="CICA magazine image 3" style="max-height: 400px; width: auto;">
+    <figcaption class="mt-2 text-center image-caption">CICA magazine image 3. Illustration done by Peter van Dijk (wwww.petervandijkcomics.com)</figcaption>
+  </figure>
+</div>
+
+<div class="row justify-content-center">
+  <figure class="col-6">
+    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/socksnsandals.jpg" alt="CICA magazine image 4" style="max-height: 400px; width: auto;">
+    <figcaption class="mt-2 text-center image-caption">CICA magazine image 4. Illustration done by Peter van Dijk (wwww.petervandijkcomics.com)</figcaption>
+  </figure>
+</div>
+
+<div class="row justify-content-center">
+  <figure class="col-6">
     <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/drone_5.png" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
     <figcaption class="mt-2 text-center image-caption">Fashion Police Drones at CPDP</figcaption>
   </figure>
@@ -28,20 +56,6 @@ On June 29th 2024, I will also present my Fashion Police Drones at the [New Medi
 <div class="row justify-content-center">
   <figure class="col-6">
     <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/drone_2.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
-    <figcaption class="mt-2 text-center image-caption">Fashion Police Drones at CPDP</figcaption>
-  </figure>
-</div>
-
-<div class="row justify-content-center">
-  <figure class="col-6">
-    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/drone_3.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
-    <figcaption class="mt-2 text-center image-caption">Fashion Police Drones at CPDP</figcaption>
-  </figure>
-</div>
-
-<div class="row justify-content-center">
-  <figure class="col-6">
-    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/drone_4.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
     <figcaption class="mt-2 text-center image-caption">Fashion Police Drones at CPDP</figcaption>
   </figure>
 </div>
