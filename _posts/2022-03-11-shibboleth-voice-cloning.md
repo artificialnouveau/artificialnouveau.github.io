@@ -27,3 +27,13 @@ Together with Effi & Amir and Jonathan Reus, we produced a ‘dual voice’ - th
 
 </div>
 
+
+<figure>
+  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/the8th_02.jpg" alt="The 8th Letter Performance" style="max-height: 400px; width: 100%;">
+  <figcaption class="mt-2 text-center image-caption">Image: The 8th Letter Performance</figcaption>
+</figure>
+
+<figure>
+  <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/the8th_04.jpg" alt="The 8th Letter Performance" style="max-height: 400px; width: 100%;">
+  <figcaption class="mt-2 text-center image-caption">Image: The 8th Letter Performance</figcaption>
+</figure>
