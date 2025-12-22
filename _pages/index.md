@@ -19,9 +19,9 @@ table th {
 
 ## <center><span style="color: #FF70A6;">ABOUT</span></center>
 
-Ahnjili Zhuparris, PhD (NL, USA), is an AI engineer and AI artist, working between New York and the Netherlands. As an AI engineer, Ahnjili develops AI applications for the medical and cosmetic industry. Ahnjili’s academic research centers around the development of biomarkers for monitoring mental and physical wellbeing using machine learning and smartphones and wearables data. Ahnjili's artistic research and science communication efforts are dedicated to raising awareness about A.I. and algorithmic violence, which encompasses the violence that may arise from or be justified by automated decision-making systems. Through her work, Ahnjili aims to educate the public and promote discussions about the ethical implications of these technologies in our society.
+Ahnjili ZhuParris, PhD (NL/USA), is a media researcher, computer vision AI engineer, and computational artist working between New York and the Netherlands. She develops AI applications for non-profits, as well as the medical and cosmetic industries while creating research-driven artistic work that raises awareness about AI and algorithmic violence, which is harm emerging from or justified by automated decision-making systems. 
 
-Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive Neuroscience from Radboud University and a Bachelor's in Neuroscience from the University of Edinburgh. She is a recipient of the Mozilla Creative Media Award. Ahnjili’s work has garnered support from the Mozilla Foundation (US), IMPAKT(NL), and Constant (BE) and has showcased her work at Ars Electronica (AU), Articulating Data (UK), and the CICA Museum (KR).
+Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive Neuroscience from Radboud University and a Bachelor's in Neuroscience from the University of Edinburgh. She is a recipient of the Mozilla Creative Media Award, a Processing Foundation Fellow and a Public AI Creative Fellow. Ahnjili’s work has garnered support from the Mozilla Foundation (US), IMPAKT(NL), and Constant (BE) and has showcased her work at Ars Electronica (AU), Articulating Data (UK), and the CICA Museum (KR).
 
 <br>
 ## EDUCATION
@@ -41,6 +41,15 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 
 <br>
 ## AWARDS, FELLOWSHIPS & GRANTS
+<br>
+
+| 2025 &nbsp;&nbsp;&nbsp;| Fresh Perspective |
+|---|------------|
+| | Public AI Creative Fellowship, MetaGOV |
+| | USA |
+| |  |
+| | Details to come. |
+
 <br>
 
 | 2024 &nbsp;&nbsp;&nbsp;| Fresh Perspective |
