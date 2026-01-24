@@ -2,18 +2,15 @@
 layout: default
 ---
 
-<!-- Header -->
-{% include site-header.html %}
+<header class="gallery-header">
+    <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
+        <h1>Media Gallery</h1>
+    </div>
+</header>
 
-<div class="main-wrapper">
-
-    <section class="gallery-section">
-        <div class="container">
-            <h1>Media Gallery</h1>
-            {% include post-list.html %}
-        </div>
-    </section>
-
-    <!-- Footer -->
-    {% include site-footer.html %}
-</div>
+<section class="gallery-section">
+    <div class="container">
+        {% include post-list.html %}
+    </div>
+</section>

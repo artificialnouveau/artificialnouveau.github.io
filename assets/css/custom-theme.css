@@ -706,24 +706,32 @@ a, button, input, textarea, select {
     animation: scanPulse 2s ease-in-out infinite;
 }
 
-/* Gallery Section Styles */
-.gallery-section {
-    padding: 4rem 2rem;
-    min-height: 100vh;
+/* Gallery Header Styles */
+.gallery-header {
+    padding: 3rem 0;
+    text-align: center;
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: 3rem;
 }
 
-.gallery-section h1 {
+.gallery-header h1 {
     text-align: center;
     font-size: 3.5rem;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
     color: var(--color-text);
     text-shadow:
         0 0 20px rgba(255, 16, 240, 0.6),
         0 0 40px rgba(0, 240, 255, 0.4);
     animation: glow 3s ease-in-out infinite;
+}
+
+/* Gallery Section Styles */
+.gallery-section {
+    padding: 4rem 2rem;
+    min-height: 100vh;
 }
 
 .gallery-grid {
