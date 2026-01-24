@@ -2,39 +2,6 @@
 layout: default
 ---
 
-<style>
-    .theme-bg-image {
-        background-image: url("{{ site.home-bg | relative_url }}");
-        /* Replace 'path/to/your/image.jpg' with the actual path to your image */
-        background-size: cover;
-        background-position: center;
-        /* shadow */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .theme-bg-image .container {
-        background-color: rgba(255, 255, 255, 0.8);
-        /* Adjust the alpha value to change the opacity of the background */
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        /* Adjust the shadow as needed */
-    }
-</style>
-
-<!-- Header -->
-{% include site-header.html %}
-
-<!-- Main Wrapper Start -->
-<div class="main-wrapper">
- 
-
-    <!-- End Page Content -->
-    <section class="blog-list px-3 py-5 p-md-5">
-        <div class="container">
-            {{ content }}
-        </div>
-    </section>
-    <!-- Footer -->
+<div class="vaporwave-page">
+    {{ content }}
 </div>
-<!--Main Wrapper End -->

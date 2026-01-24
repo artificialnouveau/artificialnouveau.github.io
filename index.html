@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahnjili ZhuParris, PhD — AI Engineer, Artist & Researcher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Vaporwave Aesthetic Theme */
+
+        :root {
+            --color-bg: #0a0014;
+            --color-text: #f0f0ff;
+            --color-accent: #ff10f0;
+            --color-accent-cyan: #00f0ff;
+            --color-accent-purple: #b010ff;
+            --color-muted: #b8a8d8;
+            --color-border: #3a1f5f;
+            --color-card-bg: #1a0828;
+            --font-display: 'Archivo', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-display);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Multi-layered background with gradients - STATIC */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(255, 16, 240, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 60%, rgba(0, 240, 255, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(176, 16, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Film grain texture overlay - STATIC */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            z-index: -1;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Slight pixelation effect */
+        * {
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header / Hero */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: 8rem 2rem 4rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        /* Retro grid pattern */
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 300px;
+            background-image:
+                linear-gradient(rgba(255, 16, 240, 0.3) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(255, 16, 240, 0.3) 2px, transparent 2px),
+                linear-gradient(rgba(0, 240, 255, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.2) 1px, transparent 1px);
+            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+            background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: bottom;
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--color-accent-cyan);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            margin-bottom: 2rem;
+            text-shadow:
+                0 0 10px rgba(255, 16, 240, 0.8),
+                0 0 20px rgba(255, 16, 240, 0.6),
+                0 0 30px rgba(255, 16, 240, 0.4),
+                0 0 40px rgba(255, 16, 240, 0.2);
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px rgba(255, 16, 240, 0.8),
+                    0 0 20px rgba(255, 16, 240, 0.6),
+                    0 0 30px rgba(255, 16, 240, 0.4),
+                    0 0 40px rgba(255, 16, 240, 0.2);
+            }
+            50% {
+                text-shadow:
+                    0 0 15px rgba(255, 16, 240, 1),
+                    0 0 30px rgba(255, 16, 240, 0.8),
+                    0 0 45px rgba(255, 16, 240, 0.6),
+                    0 0 60px rgba(255, 16, 240, 0.4);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            color: var(--color-muted);
+            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 2rem;
+            margin-top: 0;
+            text-shadow:
+                0 0 10px rgba(0, 240, 255, 0.8),
+                0 0 20px rgba(0, 240, 255, 0.5),
+                0 0 30px rgba(0, 240, 255, 0.3);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            text-shadow:
+                0 0 8px rgba(176, 16, 255, 0.6),
+                0 0 16px rgba(176, 16, 255, 0.4);
+        }
+
+        p {
+            color: var(--color-text);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(255, 16, 240, 0.3);
+        }
+
+        a:hover {
+            color: var(--color-accent-cyan);
+            text-shadow:
+                0 0 10px rgba(0, 240, 255, 0.8),
+                0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            border-bottom: 2px solid var(--color-border);
+            box-shadow: 0 2px 20px rgba(176, 16, 255, 0.1);
+        }
+
+        /* Tables with vaporwave styling */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        table td {
+            color: var(--color-text);
+            border-bottom: 1px solid var(--color-border);
+            padding: 1rem 1.5rem;
+            vertical-align: top;
+        }
+
+        table tr {
+            transition: all 0.3s ease;
+        }
+
+        table tr:hover {
+            background: linear-gradient(90deg,
+                rgba(255, 16, 240, 0.1) 0%,
+                rgba(26, 8, 40, 0.5) 50%,
+                rgba(255, 16, 240, 0.1) 100%);
+            box-shadow: inset 0 0 20px rgba(255, 16, 240, 0.2);
+        }
+
+        /* Content blocks for exhibitions, awards, etc. */
+        .content-block {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg,
+                rgba(26, 8, 40, 0.4) 0%,
+                rgba(10, 0, 20, 0.5) 100%);
+            border-left: 3px solid var(--color-accent);
+            box-shadow: -3px 0 15px rgba(255, 16, 240, 0.3);
+        }
+
+        .content-block h3 {
+            margin-top: 0;
+        }
+
+        .year-label {
+            font-family: var(--font-mono);
+            color: var(--color-accent-cyan);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+        }
+
+        .location {
+            color: var(--color-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg,
+                rgba(255, 16, 240, 0.2) 0%,
+                rgba(176, 16, 255, 0.2) 100%);
+            border: 2px solid var(--color-accent);
+            color: var(--color-accent);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 0.75rem 1.5rem;
+            display: inline-block;
+            margin: 1rem 1rem 1rem 0;
+            transition: all 0.3s ease;
+            box-shadow:
+                0 0 10px rgba(255, 16, 240, 0.5),
+                0 0 20px rgba(255, 16, 240, 0.3),
+                inset 0 0 10px rgba(255, 16, 240, 0.2);
+            text-shadow: 0 0 5px rgba(255, 16, 240, 0.8);
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg,
+                rgba(255, 16, 240, 0.4) 0%,
+                rgba(0, 240, 255, 0.3) 100%);
+            color: var(--color-text);
+            border-color: var(--color-accent-cyan);
+            box-shadow:
+                0 0 20px rgba(0, 240, 255, 0.8),
+                0 0 40px rgba(0, 240, 255, 0.5),
+                inset 0 0 20px rgba(0, 240, 255, 0.3);
+            text-shadow:
+                0 0 10px rgba(0, 240, 255, 1),
+                0 0 20px rgba(0, 240, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Drone cursor styles */
+        .drone {
+            will-change: transform;
+            transition: filter 0.3s ease;
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+
+        .drone.cursor {
+            filter: drop-shadow(0 0 15px #ff10f0) drop-shadow(0 0 30px #ff10f0);
+        }
+
+        .drone.autonomous {
+            filter: drop-shadow(0 0 15px #00f0ff) drop-shadow(0 0 30px #b010ff);
+        }
+
+        /* Hide default cursor */
+        body, a, button, input, textarea, select {
+            cursor: none !important;
+        }
+
+        /* Scan line animation */
+        @keyframes scanPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            header {
+                min-height: auto;
+                padding: 5rem 1.5rem 3rem;
+            }
+
+            header::after {
+                height: 150px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .content-block {
+                padding: 1.5rem;
+                margin: 2rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container hero-content">
+            <div class="hero-eyebrow">AI Engineer × Artist × Researcher</div>
+            <h1>Ahnjili ZhuParris, PhD</h1>
+            <p class="hero-subtitle">Exposing algorithmic violence through computational art and critical AI research</p>
+            <div style="text-align: center;">
+                <a href="/assets/resume/ai.pdf" class="btn">AI Resume</a>
+                <a href="/assets/resume/creative.pdf" class="btn">Creative Resume</a>
+                <a href="/gallery/" class="btn">Gallery</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <h2>ABOUT</h2>
+            <p>Ahnjili ZhuParris, PhD (NL/USA), is a media researcher, computer vision AI engineer, and computational artist working between New York and the Netherlands. She develops AI applications for non-profits, as well as the medical and cosmetic industries while creating research-driven artistic work that raises awareness about AI and algorithmic violence, which is harm emerging from or justified by automated decision-making systems.</p>
+            <p>Ahnjili holds a PhD in Medicine from Leiden University, Master's in Cognitive Neuroscience from Radboud University and a Bachelor's in Neuroscience from the University of Edinburgh. She is a recipient of the Mozilla Creative Media Award, a Processing Foundation Fellow and a Public AI Creative Fellow. Ahnjili's work has garnered support from the Mozilla Foundation (US), IMPAKT(NL), and Constant (BE) and has showcased her work at Ars Electronica (AU), Articulating Data (UK), and the CICA Museum (KR).</p>
+        </div>
+    </section>
+
+    <section id="featured-projects">
+        <div class="container">
+            <h2>FEATURED PROJECTS</h2>
+
+            <div class="content-block">
+                <h3><span class="year-label">2025</span> <a href="/2025/01/01/deepfake.html" style="color: inherit; text-decoration: none;">DEEPFAKE: A Video Essay</a></h3>
+                <p>A critical video essay exploring the implications and technology behind deepfake media, examining the ethical considerations and societal impacts of synthetic media generation.</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2024</span> <a href="/2024/06/01/fashion_police_drones.html" style="color: inherit; text-decoration: none;">Fashion Police Drones</a></h3>
+                <p>Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. This installation highlights the whimsical aspects of fashion norms while prompting serious reflection on discrimination and privacy.</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2024</span> <a href="/2024/07/01/screen-to-soundscape.html" style="color: inherit; text-decoration: none;">Screen-to-Soundscape</a></h3>
+                <p>An experimental approach to re-imaging screen readers, developing a free and open-source explorative tool that transforms a screen into an immersive soundscape with spatial audio and rich descriptive alt-text for blind and visually impaired users.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <h2>EDUCATION</h2>
+            <table>
+                <tr>
+                    <td style="width: 180px;"><span class="year-label">2020 - 2024</span></td>
+                    <td><strong>PhD in Medicine</strong><br>Leiden University</td>
+                </tr>
+                <tr>
+                    <td><span class="year-label">2016 - 2018</span></td>
+                    <td><strong>MSc in Cognitive Neuroscience</strong><br>Radboud Universiteit</td>
+                </tr>
+                <tr>
+                    <td><span class="year-label">2012 - 2016</span></td>
+                    <td><strong>BSc in Biomedical Sciences (with Honours)</strong><br>Edinburgh University</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="awards">
+        <div class="container">
+            <h2>AWARDS, FELLOWSHIPS & GRANTS</h2>
+
+            <div class="content-block">
+                <h3><span class="year-label">2025</span> Public AI</h3>
+                <p class="location">Public AI Creative Fellowship, MetaGOV • USA</p>
+                <p>Details to come.</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2024</span> Fresh Perspective</h3>
+                <p class="location">Stimulering Fonds • Netherlands</p>
+                <p>Our project 'Screen-to-Soundscape', received the 2024 Fresh Perspective grant from the StimuleringsFonds. This project focuses on cross-sector collaborative projects that offer new perspectives on current crises including the climate crisis, discrimination, migration and asylum crisis, social and opportunity inequality or the housing crisis.</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2024</span> Processing Foundation Fellowship</h3>
+                <p class="location">Processing Foundation • USA</p>
+                <p>Our project 'Screen-to-Soundscape', received the 2024 Processing Foundation Fellowship. Fellowships are an essential element of the Processing foundation's work in developing tools of community power, connection, stewardship and in nurturing the aims/needs of the people and communities who use our software.</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2023</span> European Festivals Fund for Emerging Artists</h3>
+                <p class="location">European Festivals Fund for Emerging Artists • Netherlands</p>
+                <p>VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted "the European Festivals Fund for Emerging Artists". This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2021</span> Mozilla Creative Media Awards</h3>
+                <p class="location">Mozilla Foundation • United States</p>
+                <p>MOZILLA CREATIVE MEDIA AWARDS: Future Wake <a href="http://www.futurewake.com">www.futurewake.com</a> is an interactive art project turns the practice of predictive policing upside down, instead, it allows citizens to predict police brutality. We used to machine learning to predict who, when and how the next victim would die. Further, we used deepfake algorithms to generate the faces of the next victims.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="collaborations">
+        <div class="container">
+            <h2>COLLABORATIONS</h2>
+
+            <div class="content-block">
+                <h3><span class="year-label">2022 - 2024</span> Shibboleth: Creation of a Hybrid Voice</h3>
+                <p class="location">Effi & Amir • Brussels, Belgium</p>
+                <p>We produced a 'dual voice' - that transforms fluidly from a recognizable voice of Speaker A to a voice of a Speaker B while speaking. With the "switch" happening at points of sonic uncertainty in the voice output, where a certain articulation or tonal quality could belong to either speaker. The generated algorithm was used in the 'The 8th Letter' theater performance of Effi and Amir.</p>
+                <p><a href="https://effiandamir.net/index.php?id=538">More info from Effi and Amir's website</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2023</span> Deepest Darkest Unknown</h3>
+                <p class="location">Kurina Sohn • Netherlands</p>
+                <p>Deepest Unknown v.1 is an artistic collaboration with AI, generating speculative stories and images that illuminate the mysteries and potential losses of remote underwater environments. The project envision life beyond our limitations while exploring our connection with water and the ecological consequences of human actions. Through digital tools and mechanical techniques, the project transports viewers into alternative realities, expanding our comprehension of deep ocean ecologies.</p>
+                <p>Deepest Unknown installation v.1 engaged the audience through a mix of graphic videos and deep-sea soundscapes. The video featured a creature created using customized StabelDiffusion AI, incorporating a deep-sea dataset and marine debris images. The storytelling aspect involved a dialogue with GPT-2, where human prompts were displayed in italics and the AI-generated script in bold.</p>
+                <p>Deepest Unknown is realised by collaboration with Ahnjili Zhuparris (Customising StableDiffusion AI), Colette Aliman (Deep-sea soundscape design), Tiiu Meiner (Co-writing GPT-2 video script), Tivon Rice ('models for environmental literacy' GPT-2 dataset), Taegwon Bae(Film Art Directing , 3D Art), Changju Yoon(UnrealEngine engineering), Seungmin Lee(film editing, VFX post processing), YoungJae Nah(animator), and Marsha van Leersum(Assistant).</p>
+                <p><a href="https://kurinasohn.com/deepest-unknown-v1.html">Kurina Sohn's website</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="exhibitions">
+        <div class="container">
+            <h2>EXHIBITIONS</h2>
+
+            <div class="content-block">
+                <h3><span class="year-label">2024</span> New Media Art Conference</h3>
+                <p class="location">CICA Museum, Seoul, Republic of Korea</p>
+                <p>Fashion Police Drones In June 2024 at the CICA Museum, the Fashion Police Drone installation will be presented at the New Media Arts Conference in Korea. The Fashion Police Drones, armed with custom fashion recognition algorithms, will track individuals based on audience-defined criteria for "fashion crimes". Through this interactive experience, the exhibition challenges conventional perspectives about drone and AI applications, sparking discussions about the evolving landscape of surveillance and the ethical use of AI-driven technologies in our contemporary world. I aim to trigger the audience's curiosity about the boundaries of surveillance, the potential consequences of automation in military application and law enforcement, and the societal implications of cultural profiling.</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2023</span> VOICES</h3>
+                <p class="location">IMPAKT festival, Utrecht, Netherlands</p>
+                <p>VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted "the European Festivals Fund for Emerging Artists". This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.</p>
+                <p><a href="http://impakt.nl/events/2023/exhibition/code-ars-electronica-2023/">More info on the IMPAKT website</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2023</span> VOICES</h3>
+                <p class="location">Ars Electronica, Linz, Austria</p>
+                <p>VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted "the European Festivals Fund for Emerging Artists". This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.</p>
+                <p><a href="http://www.impakt.nl/events/2023/exhibition/code-ars-electronica-2023/">More info from the IMPAKT website</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2023</span> Articulating Data</h3>
+                <p class="location">Edinburgh, United Kingdom</p>
+                <p>Babble-on is a web-based installation allowing users to create personalized babble tapes by recording 2-3 sentences into a microphone. The audio is sliced and remixed to maintain the same audio properties of their voices. Users can download their tapes to disguise their conversations from audio surveillance. Presented at the Articulating Data conference 2023.</p>
+                <p><a href="http://articulatingdata.com/">More information on Articulating Data website</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2021</span> This Machine Is Black</h3>
+                <p class="location">Identity 2.0, London, United Kingdom</p>
+                <p>This exhibition explored how Afrofuturism can be used to remove (or at least alleviate) the normative pressure that AI puts on non-normative bodies. Although with a few exceptions, the black experience has largely been invisible in AI datasets. I trained a series of generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic.</p>
+                <p><a href="http://www.identity20.org/thismachineisblack/">More information on the Identity 2.0 website</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="residencies">
+        <div class="container">
+            <h2>INTERNATIONAL EXCHANGES/RESIDENCIES</h2>
+
+            <div class="content-block">
+                <h3><span class="year-label">2023</span> IMPAKT</h3>
+                <p class="location">CODE: Reclaiming Digital Rights, Netherlands</p>
+                <p>VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted "the European Festivals Fund for Emerging Artists". This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.</p>
+                <p><a href="http://www.impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/">More information on the IMPAKT website</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2022</span> Anaïs Berck</h3>
+                <p class="location">Anaïs Berck: An Algoliterary Publishing House, Belgium</p>
+                <p>During the residency we developed algoliterary publications. These are publishing experiments with algorithms and literary, scientific, and activist datasets about trees and nature. We ask ourselves: who and what is excluded, made invisible or exploited in the existent representations, discourses, tools, and practices? To address these questions, we used decision tree algorithms to sort the histories of tree nomenclature.</p>
+                <p><a href="http://www.algoliterarypublishing.net/">More information on the Algoliterary Publishing website</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="commissions">
+        <div class="container">
+            <h2>COMMISSIONS</h2>
+
+            <div class="content-block">
+                <h3><span class="year-label">2024</span> Screen-to-Soundscape/Techno Disobedience</h3>
+                <p class="location">Constant, The Processing Foundation, The Simulerings Fonds • Belgium, USA, Netherlands</p>
+                <p>Screen-to-Soundscape adopts a creative and experimental approach to reimagining screen reader voices. The project aims to develop a speculative design prototype that transforms a browser or screen into an immersive soundscape. This prototype will feature multiple layered voices reading all readable text in unison with spatial audio enabling users to discern the text's location within the browser. The motivation behind this initiative is to overcome the inherent limitations of traditional screen readers by offering users with visual impairments a more intuitive and immersive way to navigate digital content. This not only benefits users with visual impairments but also provides a richer, more engaging web experience for all users. This project was supported by Constant, the Processing Foundation, and the Stimulerings Fonds.</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2023</span> Digital Pioneers: A Visionary Prelude</h3>
+                <p class="location">Stichting Impakt • Utrecht, Netherlands</p>
+                <p>"Digital Pioneers: A Visionary Prelude" is a digital artwork that blends technology and art, creating a cheeky introduction to the IMPAKT festival 2023. This piece features deepfake representations of three prominent tech CEOs, not as mere figures of authority, but as digital orators guiding the audience through the evolving landscape of technology and art. Each CEO's deepfake delivers a segment of the festival's introduction, focusing on themes closely aligned with their real-world contributions and visions. The first segment delves into the transformative power of technology in art, emphasizing innovation and the breaking of traditional boundaries. The second part addresses the ethical considerations and societal impacts of tech advancements, encouraging viewers to ponder the responsibilities that come with innovation. The final segment looks to the future, inspiring a dialogue about the potential of technology in shaping new forms of artistic expression. The artwork is not just a visual spectacle but an auditory experience as well. The deepfakes' voices have been modulated to create a harmonious symphony, symbolizing the unity and collaborative potential within the tech and art communities. "Digital Pioneers" does more than just introduce a festival; it stands as a testament to the ever-blurring lines between human creativity and technological prowess, inviting viewers to explore the endless possibilities at the intersection of art and technology.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="collections">
+        <div class="container">
+            <h2>SALES/WORKS IN COLLECTIONS</h2>
+
+            <div class="content-block">
+                <h3><span class="year-label">2021</span> Identity 2.0</h3>
+                <p class="location">This Machine Is Black • London, United Kingdom</p>
+                <p>This exhibition explored how Afrofuturism can be used to remove (or at least alleviate) the normative pressure that AI puts on non-normative bodies. Although with a few exceptions, the black experience has largely been invisible in AI datasets. I trained a series of generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="publications">
+        <div class="container">
+            <h2>PUBLICATIONS</h2>
+
+            <div class="content-block">
+                <h3><span class="year-label">2024</span> Embodying Data, Shifting Perspective</h3>
+                <p class="location">Book • Amsterdam: Amsterdam University Press • Wevers, R Edited by Ponzanesi, S. and Leurs, Koen. • Amsterdam, Netherlands</p>
+                <p>This chapter discusses the artistic project Future Wake (2021) by Ahnjili Zhuparris and Tim van Ommeren that examines predictive policing. By shifting the focus from possible future crime offenders to possible future victims of fatal police encounters, using visual and affective means rather than expert knowledge and statistics, the artwork activates critical reflection on the politics and logics of predictive policing systems. The chapter first situates predictive policing in a context of securitization, and discusses how it enhances structures of discrimination. In the second part, Wevers interviews artist Zhuparris about the aims of Future Wake, discussing the artistic and technical process of creating the project, the politics of data, and the role of art in critical discussion on surveillance and AI.</p>
+                <p><a href="https://research.hanze.nl/en/publications/embodying-data-shifting-perspective-a-conversation-with-ahnjili-z">You can find the full PDF here</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2022</span> Can AI imagine the next victims of police violence?</h3>
+                <p class="location">It's Nice That • London, United Kingdom</p>
+                <p>What are the issues with using AI for predictive policing? Could it reduce crime or does it reinforce racial biases in the criminal justice system? The co-founder of art project Future Wake examines unjust policing using AI and storytelling.</p>
+                <p><a href="http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122">You can find the full article on the Its Nice That website</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2021</span> Supermens: Ahnjili op Tinder</h3>
+                <p class="location">Book • Bot Uitgevers • Peter Joost • Netherlands</p>
+                <p>De cyclus van vrouwen meten in relatie tot Tinder</p>
+                <p><a href="http://www.peterjoosten.net/supermens/">You can find more about the book on Peter Joosten's website</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2021</span> This horrifying AI model predicts future instances of police brutality</h3>
+                <p class="location">Fast Company • Mark Sullivan • United States</p>
+                <p>A searing critique of predictive policing, Future Wake uses past data on police violence to predict where it might occur in the future—and who will be targeted.</p>
+                <p><a href="http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake">You can find the full article on the Fast Company website</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2021</span> Future Wake: the AI art project that predicts police violence</h3>
+                <p class="location">coda story • Caitlin Thompson • United States</p>
+                <p>Future Wake: the AI art project that predicts police violence. Winner of the Mozilla Creative Media award for 2021, an interactive website calculates when and where fatal encounters with law enforcement will occur — and tells the stories of the victims.</p>
+                <p><a href="http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/">You can find the full article on the Coda Story website</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2021</span> Artists create AI that predicts who the police will kill next</h3>
+                <p class="location">The next web • Thomas Macaulay • Netherlands</p>
+                <p>Future Wake tells the stories of potential victims</p>
+                <p><a href="http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next">You can find the full article on The Next Web website</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews">
+        <div class="container">
+            <h2>INTERVIEWS</h2>
+
+            <div class="content-block">
+                <h3><span class="year-label">2023</span> Ahnjili ZhuParris & Jan Zuiderveld - Artificial Intelligence, Autonomous Objects & Algorithmic Violence</h3>
+                <p class="location">Radio • Cross Pollination • The Hague, Netherlands</p>
+                <p>Ahnjili is a machine learning engineer, Ph.D. candidate, artist, and science communicator currently working at an AI startup that specializes in developing deep learning models for facial augmentation. Ahnjili's academic research centers around the development of biomarkers for monitoring mental and physical well-being using smartphones and wearables, with a particular focus on their application in clinical trials. Ahnjili's artistic research and science communication efforts are dedicated to raising awareness about A.I. and algorithmic violence, which encompasses the violence that may arise from or be justified by automated decision-making systems. Through her work, Ahnjili aims to educate the public and promote discussions about the ethical implications of these technologies in our society.</p>
+                <p><a href="http://podcasts.apple.com/us/podcast/cross-pollination/id1632059837?i=1000639042537">You can find the full podcast on Apple podcasts</a></p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2020</span> On Data</h3>
+                <p class="location">Radio • Bartalk • The Hague, Netherlands</p>
+                <p>BARTALK is a lecture, performance, and storytelling series that usually takes place in different bars in the Hague. Each of our podcast seasons has a different theme featuring one guest per episode offering their unique perspective.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="workshops">
+        <div class="container">
+            <h2>SELECTED WORKSHOPS AND TALKS</h2>
+
+            <div class="content-block">
+                <h3><span class="year-label">2023 - Ongoing</span> The Introduction to Deep Fakes workshops</h3>
+                <p>IMPAKT FESTIVAL (NL)<br>
+                Student Union of Arts at University of Arts London (UAL) (UK)</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2023 - Ongoing</span> The Introduction to AI for artists workshops</h3>
+                <p>HKU: Hogeschool voor de Kunsten Utrecht (NL)<br>
+                ArtEZ University of the Arts (NL)<br>
+                Piet Zwart Institute (NL)<br>
+                iii: Instrument Inventors (NL)</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2022 - Ongoing</span> Introduction to Generative AI workshops</h3>
+                <p>HKU: Hogeschool voor de Kunsten Utrecht (NL)<br>
+                iii: Instrument Inventors (NL)</p>
+            </div>
+
+            <div class="content-block">
+                <h3><span class="year-label">2022 - 2023</span> Introduction to Computer-Vision Surveillance for Artists workshops</h3>
+                <p>HKU: Hogeschool voor de Kunsten Utrecht (NL)</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Drone Cursor System
+        class Drone {
+            constructor(color, isAutonomous = false) {
+                this.x = window.innerWidth / 2;
+                this.y = window.innerHeight / 2;
+                this.targetX = this.x;
+                this.targetY = this.y;
+                this.velocityX = 0;
+                this.velocityY = 0;
+                this.rotation = 0;
+                this.tilt = 0;
+                this.color = color;
+                this.isAutonomous = isAutonomous;
+                this.propellerRotation = 0;
+
+                this.element = this.createDroneElement();
+                document.body.appendChild(this.element);
+
+                this.lastMoveTime = Date.now();
+                this.isMoving = false;
+            }
+
+            createDroneElement() {
+                const drone = document.createElement('div');
+                drone.className = `drone ${this.isAutonomous ? 'autonomous' : 'cursor'}`;
+
+                const svg = `
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g class="drone-body">
+                            <rect x="40" y="40" width="20" height="20" fill="${this.color}" stroke="${this.color}" stroke-width="2" rx="2"/>
+                            <circle cx="50" cy="50" r="6" fill="rgba(0,0,0,0.8)"/>
+                            ${this.isAutonomous ? `
+                                <circle cx="50" cy="50" r="4" fill="#b010ff" opacity="0.8"/>
+                                <circle cx="50" cy="50" r="2" fill="#ff10f0" opacity="0.9"/>
+                            ` : ''}
+                            <line x1="50" y1="50" x2="20" y2="20" stroke="${this.color}" stroke-width="3"/>
+                            <line x1="50" y1="50" x2="80" y2="20" stroke="${this.color}" stroke-width="3"/>
+                            <line x1="50" y1="50" x2="20" y2="80" stroke="${this.color}" stroke-width="3"/>
+                            <line x1="50" y1="50" x2="80" y2="80" stroke="${this.color}" stroke-width="3"/>
+                        </g>
+                        <g class="propeller" data-propeller="1" style="transform-origin: 20px 20px">
+                            <ellipse cx="20" cy="20" rx="8" ry="3" fill="${this.color}" opacity="0.6"/>
+                            <ellipse cx="20" cy="20" rx="3" ry="8" fill="${this.color}" opacity="0.4"/>
+                        </g>
+                        <g class="propeller" data-propeller="2" style="transform-origin: 80px 20px">
+                            <ellipse cx="80" cy="20" rx="8" ry="3" fill="${this.color}" opacity="0.6"/>
+                            <ellipse cx="80" cy="20" rx="3" ry="8" fill="${this.color}" opacity="0.4"/>
+                        </g>
+                        <g class="propeller" data-propeller="3" style="transform-origin: 20px 80px">
+                            <ellipse cx="20" cy="80" rx="8" ry="3" fill="${this.color}" opacity="0.6"/>
+                            <ellipse cx="20" cy="80" rx="3" ry="8" fill="${this.color}" opacity="0.4"/>
+                        </g>
+                        <g class="propeller" data-propeller="4" style="transform-origin: 80px 80px">
+                            <ellipse cx="80" cy="80" rx="8" ry="3" fill="${this.color}" opacity="0.6"/>
+                            <ellipse cx="80" cy="80" rx="3" ry="8" fill="${this.color}" opacity="0.4"/>
+                        </g>
+                        ${this.isAutonomous ? `
+                            <line class="scan-line" x1="50" y1="50" x2="50" y2="0" stroke="#00f0ff" stroke-width="1" opacity="0.6">
+                                <animateTransform
+                                    attributeName="transform"
+                                    type="rotate"
+                                    from="0 50 50"
+                                    to="360 50 50"
+                                    dur="3s"
+                                    repeatCount="indefinite"/>
+                            </line>
+                        ` : ''}
+                    </svg>
+                `;
+
+                drone.innerHTML = svg;
+                return drone;
+            }
+
+            setTarget(x, y) {
+                this.targetX = x;
+                this.targetY = y;
+            }
+
+            update() {
+                const ease = this.isAutonomous ? 0.03 : 0.15;
+                const dx = this.targetX - this.x;
+                const dy = this.targetY - this.y;
+
+                this.velocityX = dx * ease;
+                this.velocityY = dy * ease;
+
+                this.x += this.velocityX;
+                this.y += this.velocityY;
+
+                const speed = Math.sqrt(this.velocityX ** 2 + this.velocityY ** 2);
+                this.isMoving = speed > 0.5;
+
+                if (this.isMoving) {
+                    this.lastMoveTime = Date.now();
+                }
+
+                if (speed > 0.1) {
+                    const angle = Math.atan2(this.velocityY, this.velocityX);
+                    this.rotation = angle * (180 / Math.PI);
+                    this.tilt = Math.min(speed * 2, 15);
+                } else {
+                    this.tilt *= 0.9;
+                }
+
+                this.propellerRotation += speed * 10 + 5;
+
+                this.element.style.left = `${this.x}px`;
+                this.element.style.top = `${this.y}px`;
+                this.element.style.transform = `
+                    translate(-50%, -50%)
+                    rotate(${this.rotation}deg)
+                    rotateX(${this.tilt}deg)
+                `;
+
+                const propellers = this.element.querySelectorAll('.propeller');
+                propellers.forEach((prop, index) => {
+                    const offset = index * 90;
+                    prop.style.transform = `rotate(${this.propellerRotation + offset}deg)`;
+                });
+            }
+
+            hasStoppedMoving() {
+                return Date.now() - this.lastMoveTime > 100;
+            }
+        }
+
+        // Initialize drones
+        let mouseDrone, autonomousDrone;
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+
+        function initDrones() {
+            mouseDrone = new Drone('#ff10f0', false);
+            autonomousDrone = new Drone('#00f0ff', true);
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animate() {
+                mouseDrone.setTarget(mouseX, mouseY);
+                mouseDrone.update();
+
+                if (mouseDrone.hasStoppedMoving()) {
+                    autonomousDrone.setTarget(mouseDrone.x, mouseDrone.y);
+                } else {
+                    autonomousDrone.setTarget(autonomousDrone.x, autonomousDrone.y);
+                }
+
+                autonomousDrone.update();
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initDrones);
+        } else {
+            initDrones();
+        }
+    </script>
+</body>
+</html>
