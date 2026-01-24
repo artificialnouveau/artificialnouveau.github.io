@@ -6,20 +6,17 @@ layout: default
 
 <div class="main-wrapper">
 
-    <article class="blog-post px-3 py-5 p-md-5">
+    <article class="project-post">
         <div class="container">
-            <header class="blog-post-header">
-                <h2 class="title mb-2">{{ page.title }}</h2>
-               
+            <header class="project-post-header">
+                <a href="{{ site.baseurl }}/gallery/" class="back-link">← Back to Gallery</a>
+                <div class="year-badge">{{ page.date | date: "%Y" }}</div>
+                <h1>{{ page.title }}</h1>
             </header>
 
-            <div class="blog-post-body">
-               
-
-                {{ content | markdownify}}
+            <div class="project-content">
+                {{ content }}
             </div>
-
-
         </div>
     </article>
 
