@@ -1,63 +1,12 @@
-{% if page.url == "/gallery/" %}
+<div class="gallery-grid">
   {% for post in site.posts %}
-    {% if post.pinned == true %}
-      {% capture words %}
-        {{ post.content | number_of_words }}
-      {% endcapture %}
-      <div class="card my-4 shadow-lg">
-        <div>
-          <!-- pinned -->
-          <small class="text-muted position-absolute" style="top: 10px; left: 10px; z-index: 1;">
-            <span class="badge-warning rounded">📌 <strong>Pinned</strong> &nbsp;</span>
-          </small>
-          <img class="card-img-top" src="{{ post.image | relative_url }}" alt="{{ post.title }}" style="object-fit: cover;">
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">
-            <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-          </h3>
-          <p class="card-text">{{ post.excerpt | markdownify |   truncatewords: 25 }}</p>
-          <a href="{{ site.baseurl }}{{ post.url }}" class="btn btn-primary">View &rarr;</a>
-        </div>
+    <a href="{{ site.baseurl }}{{ post.url }}" class="gallery-card">
+      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="gallery-image">
+      <div class="gallery-content">
+        <span class="year-badge">{{ post.date | date: "%Y" }}</span>
+        <h2 class="gallery-title">{{ post.title }}</h2>
+        <p class="gallery-excerpt">{{ post.excerpt | markdownify | strip_html | truncatewords: 25 }}</p>
       </div>
-    {% endif %}
+    </a>
   {% endfor %}
-{% endif %}
-
-{% if paginator.posts %}
-  {% for page in paginator.posts %}
-    {% unless page.pinned %}
-      {% capture words %}
-        {{ page.content | number_of_words }}
-      {% endcapture %}
-      <div class="card my-4 shadow-lg">
-        <img class="card-img-top" src="{{ page.image | relative_url }}" alt="{{ page.title }}" style="object-fit: cover;">
-        <div class="card-body">
-          <h3 class="card-title">
-            <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
-          </h3>
-          <p class="card-text">{{ page.excerpt | markdownify |   truncatewords: 25 }}</p>
-          <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">View &rarr;</a>
-        </div>
-      </div>
-    {% endunless %}
-  {% endfor %}
-  {% include post-pagination.html %}
-{% else %}
-  {% for page in site.posts %}
-    {% capture words %}
-      {{ page.content | number_of_words }}
-    {% endcapture %}
-    <div class="card shadow-sm my-4">
-      <img class="card-img-top" src="{{ page.image | relative_url }}" alt="{{ page.title }}" style="object-fit: cover;">
-      <div class="card-body">
-        <h3 class="card-title">
-          <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
-        </h3>
-        <p class="card-text">{{ page.excerpt | markdownify |   truncatewords: 25 }}</p>
-        <a href="{{ site.baseurl }}{{ page.url }}" class="btn btn-primary">View &rarr;</a>
-      </div>
-    </div>
-  {% endfor %}
-  {% include post-pagination.html %}
-{% endif %}
+</div>
