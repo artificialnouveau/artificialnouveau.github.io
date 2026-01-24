@@ -2,22 +2,8 @@
 title: Home
 permalink: /
 ---
-<style>
- h2 {
-  color: #FF70A6; /* Change this to your desired color */
-  text-align: center; /* Change this to your desired alignment */
-  table, th, td {
-    border: none;
-}
-table th {
-  text-transform: uppercase;
-}
 
-
- }
-</style>
-
-## <center><span style="color: #FF70A6;">ABOUT</span></center>
+## ABOUT
 
 Ahnjili ZhuParris, PhD (NL/USA), is a media researcher, computer vision AI engineer, and computational artist working between New York and the Netherlands. She develops AI applications for non-profits, as well as the medical and cosmetic industries while creating research-driven artistic work that raises awareness about AI and algorithmic violence, which is harm emerging from or justified by automated decision-making systems. 
 
