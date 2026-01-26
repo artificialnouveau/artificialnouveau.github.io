@@ -154,6 +154,16 @@ class Drone {
     }
 }
 
+// Detect if device is mobile/touch device
+function isMobileDevice() {
+    return (
+        ('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0) ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    );
+}
+
 // Initialize drones
 let mouseDrone, autonomousDrone;
 let mouseX = window.innerWidth / 2;
@@ -162,6 +172,12 @@ let lastMouseDroneX = mouseX;
 let lastMouseDroneY = mouseY;
 
 function initDrones() {
+    // Don't initialize custom cursor on mobile devices
+    if (isMobileDevice()) {
+        console.log('Mobile device detected - using default cursor');
+        return;
+    }
+
     // Hide default cursor
     document.body.style.cursor = 'none';
     document.querySelectorAll('a, button, input, textarea, select').forEach(el => {

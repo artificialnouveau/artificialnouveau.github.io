@@ -687,9 +687,11 @@ center {
     filter: drop-shadow(0 0 15px #00f0ff) drop-shadow(0 0 30px #b010ff);
 }
 
-/* Hide cursor on interactive elements */
-a, button, input, textarea, select {
-    cursor: none !important;
+/* Hide cursor on interactive elements - only on desktop/mouse devices */
+@media (hover: hover) and (pointer: fine) {
+    a, button, input, textarea, select {
+        cursor: none !important;
+    }
 }
 
 /* Scan line animation for autonomous drone */
