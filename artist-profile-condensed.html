@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahnjili ZhuParris, PhD - Artist Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* A4-optimized Terminal Vaporwave Theme */
+
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #000000;
+            --color-accent: #ff10f0;
+            --color-accent-cyan: #00a0d0;
+            --color-muted: #666666;
+            --color-border: #00a0d0;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* A4 page setup - 210mm x 297mm */
+        @page {
+            size: A4 portrait;
+            margin: 15mm;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-mono);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.4;
+            font-size: 9pt;
+            width: 180mm;
+            margin: 0 auto;
+            padding: 15mm;
+        }
+
+        @media print {
+            body {
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
+
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+
+            .entry {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media screen {
+            body {
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                margin: 20px auto;
+            }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 8pt;
+            margin-bottom: 12pt;
+        }
+
+        .name {
+            font-size: 18pt;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 4pt;
+        }
+
+        .name::before {
+            content: '> ';
+            color: var(--color-accent-cyan);
+        }
+
+        .tagline {
+            font-size: 8pt;
+            letter-spacing: 0.15em;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            margin-bottom: 6pt;
+        }
+
+        .contact {
+            font-size: 7.5pt;
+            color: var(--color-muted);
+        }
+
+        .contact a {
+            color: var(--color-accent-cyan);
+            text-decoration: none;
+            margin: 0 4pt;
+        }
+
+        /* Sections */
+        h2 {
+            font-size: 11pt;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent-cyan);
+            border-left: 3px solid var(--color-accent);
+            padding-left: 6pt;
+            margin-top: 12pt;
+            margin-bottom: 6pt;
+        }
+
+        h2::before {
+            content: '$ ';
+            color: var(--color-accent);
+        }
+
+        /* Entry blocks */
+        .entry {
+            margin-bottom: 8pt;
+            padding: 6pt 0 6pt 10pt;
+            border-left: 1px solid var(--color-accent-cyan);
+        }
+
+        .entry-header {
+            font-weight: 700;
+            font-size: 9pt;
+            margin-bottom: 2pt;
+        }
+
+        .year {
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        .year::before {
+            content: '[ ';
+        }
+
+        .year::after {
+            content: ' ] ';
+        }
+
+        .location {
+            color: var(--color-muted);
+            font-size: 7.5pt;
+            margin-bottom: 3pt;
+        }
+
+        .description {
+            font-size: 8pt;
+            line-height: 1.4;
+            color: var(--color-text);
+        }
+
+        /* Compact list */
+        .compact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .compact-list li {
+            padding: 3pt 0 3pt 10pt;
+            font-size: 8pt;
+            border-left: 1px solid rgba(0, 160, 208, 0.3);
+            margin-bottom: 4pt;
+        }
+
+        .compact-list li::before {
+            content: '> ';
+            color: var(--color-accent);
+            margin-right: 4pt;
+        }
+
+        /* Grid layout for education */
+        .two-column {
+            display: grid;
+            grid-template-columns: 80pt 1fr;
+            gap: 8pt;
+            margin-bottom: 6pt;
+            padding: 4pt 0;
+            border-bottom: 1px dotted rgba(0, 160, 208, 0.3);
+        }
+
+        .two-column .year {
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--color-border);
+            padding-top: 6pt;
+            margin-top: 12pt;
+            text-align: center;
+            font-size: 7pt;
+            color: var(--color-muted);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="name">Ahnjili ZhuParris, PhD</div>
+        <div class="tagline">AI Engineer × Artist × Researcher</div>
+        <div class="contact">
+            <a href="mailto:contact@ahnjili.com">contact@ahnjili.com</a> •
+            <a href="https://artificialnouveau.github.io">artificialnouveau.github.io</a>
+        </div>
+    </div>
+
+    <!-- About -->
+    <div class="entry">
+        <div class="description">
+            Media researcher, computer vision AI engineer, and computational artist working between New York and the Netherlands. PhD in Medicine from Leiden University. Mozilla Creative Media Award recipient, Processing Foundation Fellow, and Public AI Creative Fellow. Creates research-driven artistic work exposing algorithmic violence and harm emerging from automated decision-making systems.
+        </div>
+    </div>
+
+    <!-- Education -->
+    <h2>Education</h2>
+    <div class="two-column">
+        <div><span class="year">2020-2024</span></div>
+        <div><strong>PhD in Medicine</strong>, Leiden University</div>
+    </div>
+    <div class="two-column">
+        <div><span class="year">2016-2018</span></div>
+        <div><strong>MSc Cognitive Neuroscience</strong>, Radboud University</div>
+    </div>
+    <div class="two-column">
+        <div><span class="year">2012-2016</span></div>
+        <div><strong>BSc Biomedical Sciences (Honours)</strong>, University of Edinburgh</div>
+    </div>
+
+    <!-- Recent Projects -->
+    <h2>Recent Projects (2024-2025)</h2>
+
+    <div class="entry">
+        <div class="entry-header"><span class="year">2025</span> DEEPFAKE: A Video Essay</div>
+        <div class="description">
+            Critical video essay exploring implications and technology behind deepfake media, examining ethical considerations and societal impacts of synthetic media generation.
+        </div>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header"><span class="year">2024</span> Fashion Police Drones</div>
+        <div class="location">CICA Museum, Seoul, Republic of Korea</div>
+        <div class="description">
+            Interactive installation transforming drones into arbiters of fashion. Audience sets criteria for "fashion norms" via platform. Custom fashion recognition algorithms track individuals. Exhibited at New Media Arts Conference, Korea.
+        </div>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header"><span class="year">2024</span> Screen-to-Soundscape</div>
+        <div class="location">Supported by Constant, Processing Foundation, Stimulerings Fonds</div>
+        <div class="description">
+            Free and open-source experimental screen reader transforming browsers into immersive soundscapes. Features spatial audio and rich alt-text for blind and visually impaired users. Awarded Fresh Perspective grant and Processing Foundation Fellowship.
+        </div>
+    </div>
+
+    <!-- Key Awards -->
+    <h2>Key Awards & Fellowships</h2>
+
+    <div class="entry">
+        <div class="entry-header"><span class="year">2025</span> Public AI Creative Fellowship</div>
+        <div class="location">MetaGOV, USA</div>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header"><span class="year">2024</span> Processing Foundation Fellowship</div>
+        <div class="location">Processing Foundation, USA</div>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header"><span class="year">2024</span> Fresh Perspective Grant</div>
+        <div class="location">Stimulering Fonds, Netherlands</div>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header"><span class="year">2023</span> European Festivals Fund for Emerging Artists</div>
+        <div class="location">For VOICES installation at Ars Electronica</div>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header"><span class="year">2021</span> Mozilla Creative Media Award</div>
+        <div class="location">Mozilla Foundation, USA - For Future Wake project</div>
+    </div>
+
+    <!-- Notable Exhibitions (Recent) -->
+    <h2>Notable Exhibitions (2023-2024)</h2>
+
+    <ul class="compact-list">
+        <li><strong>2024:</strong> CICA Museum New Media Art Conference, Seoul, KR — Fashion Police Drones</li>
+        <li><strong>2023:</strong> Ars Electronica, Linz, AT — VOICES interactive installation</li>
+        <li><strong>2023:</strong> IMPAKT Festival, Utrecht, NL — VOICES installation</li>
+        <li><strong>2023:</strong> Articulating Data Conference, Edinburgh, UK — Babble-on installation</li>
+    </ul>
+
+    <!-- Selected Publications -->
+    <h2>Selected Publications</h2>
+
+    <div class="entry">
+        <div class="entry-header"><span class="year">2024</span> Embodying Data, Shifting Perspective</div>
+        <div class="location">Amsterdam University Press (Book Chapter)</div>
+        <div class="description">
+            Examines Future Wake project and predictive policing, shifting focus from offenders to victims of fatal police encounters.
+        </div>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header"><span class="year">2022</span> Can AI imagine the next victims of police violence?</div>
+        <div class="location">It's Nice That, London</div>
+    </div>
+
+    <!-- Teaching -->
+    <h2>Selected Teaching (2022-Present)</h2>
+
+    <ul class="compact-list">
+        <li><strong>Introduction to Deepfakes:</strong> IMPAKT Festival (NL), UAL London (UK)</li>
+        <li><strong>Introduction to AI for Artists:</strong> HKU Utrecht (NL), ArtEZ (NL), Piet Zwart Institute (NL)</li>
+        <li><strong>Generative AI:</strong> HKU Utrecht (NL), iii Instrument Inventors (NL)</li>
+        <li><strong>Computer Vision Surveillance for Artists:</strong> HKU Utrecht (NL)</li>
+    </ul>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Last updated: February 2025</p>
+    </div>
+</body>
+</html>
