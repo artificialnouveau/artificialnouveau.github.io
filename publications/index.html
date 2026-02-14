@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Terminal — Ahnjili ZhuParris</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg: #0a0014;
+            --color-text: #00f0ff;
+            --color-accent: #ff10f0;
+            --color-accent-cyan: #00f0ff;
+            --color-accent-purple: #b010ff;
+            --color-muted: #b8a8d8;
+            --color-border: #00f0ff;
+            --color-card-bg: #000000;
+            --font-display: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-display);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 9999;
+            background: repeating-linear-gradient(0deg,
+                rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px,
+                transparent 1px, transparent 2px);
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 1000;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .back-btn:hover { opacity: 1; }
+
+        /* Terminal container */
+        .terminal {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 60px 20px 40px;
+        }
+
+        /* Boot sequence */
+        .boot-line {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            opacity: 0;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .boot-line.visible {
+            opacity: 1;
+        }
+        .boot-line .highlight {
+            color: var(--color-accent-cyan);
+            font-weight: 700;
+        }
+        .boot-line .pink {
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        #boot-sequence {
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+            padding-bottom: 20px;
+        }
+
+        /* Search bar */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .search-bar.visible { opacity: 1; }
+        .search-bar label {
+            color: var(--color-accent);
+            margin-right: 8px;
+            white-space: nowrap;
+        }
+        .search-bar input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--color-accent-cyan);
+            color: var(--color-accent-cyan);
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            outline: none;
+            flex: 1;
+            padding: 4px 0;
+            caret-color: var(--color-accent);
+        }
+        .search-bar input::placeholder {
+            color: rgba(184, 168, 216, 0.4);
+        }
+
+        /* Filter tags */
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .filter-tags.visible { opacity: 1; }
+        .filter-tag {
+            background: transparent;
+            border: 1px solid var(--color-muted);
+            color: var(--color-muted);
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .filter-tag:hover {
+            border-color: var(--color-accent-cyan);
+            color: var(--color-accent-cyan);
+        }
+        .filter-tag.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: #000;
+        }
+
+        /* Paper list */
+        #paper-list {
+            list-style: none;
+        }
+
+        /* Paper entry */
+        .paper-entry {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.3s, transform 0.3s;
+            margin-bottom: 2px;
+            cursor: pointer;
+            border-left: 2px solid transparent;
+            padding: 8px 12px;
+        }
+        .paper-entry.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .paper-entry:hover {
+            background: rgba(0, 240, 255, 0.04);
+            border-left-color: var(--color-accent-cyan);
+        }
+        .paper-entry.expanded {
+            border-left-color: var(--color-accent);
+            background: rgba(255, 16, 240, 0.04);
+        }
+
+        .paper-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 6px;
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .paper-prefix {
+            color: var(--color-muted);
+            opacity: 0.5;
+        }
+
+        .paper-year {
+            color: var(--color-accent);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .paper-title {
+            color: var(--color-accent-cyan);
+            font-weight: 700;
+        }
+
+        .paper-sep {
+            color: var(--color-muted);
+            opacity: 0.4;
+        }
+
+        .paper-journal {
+            color: var(--color-muted);
+            font-style: italic;
+        }
+
+        .paper-citations {
+            color: var(--color-accent);
+            white-space: nowrap;
+            font-size: 0.75rem;
+        }
+
+        /* Abstract area */
+        .paper-abstract {
+            display: none;
+            padding: 12px 0 8px 20px;
+            font-size: 0.78rem;
+            line-height: 1.7;
+            color: rgba(184, 168, 216, 0.85);
+            border-top: 1px solid rgba(255, 16, 240, 0.1);
+            margin-top: 8px;
+        }
+        .paper-abstract.open {
+            display: block;
+        }
+        .paper-abstract .abstract-text {
+            margin-bottom: 10px;
+        }
+        .paper-abstract .cursor-blink {
+            display: inline-block;
+            width: 8px;
+            height: 14px;
+            background: var(--color-accent);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .paper-abstract .paper-authors {
+            color: rgba(184, 168, 216, 0.5);
+            font-size: 0.72rem;
+            margin-bottom: 6px;
+        }
+
+        .paper-abstract .paper-link {
+            display: inline-block;
+            margin-top: 6px;
+            color: var(--color-accent-cyan);
+            text-decoration: none;
+            font-size: 0.72rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .paper-abstract .paper-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .paper-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 8px;
+        }
+        .paper-tags span {
+            font-size: 0.6rem;
+            padding: 1px 6px;
+            border: 1px solid rgba(176, 16, 255, 0.3);
+            color: var(--color-accent-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* No results */
+        .no-results {
+            color: var(--color-accent);
+            font-size: 0.85rem;
+            padding: 20px 12px;
+            opacity: 0.7;
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .terminal { padding: 50px 12px 30px; }
+            .paper-header { font-size: 0.75rem; }
+            .paper-entry { padding: 6px 8px; }
+            .back-btn { font-size: 0.75rem; }
+            .boot-line { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="/" class="back-btn">&lt; BACK</a>
+
+<div class="terminal">
+
+    <div id="boot-sequence">
+        <div class="boot-line" data-delay="0">&gt; INITIALIZING RESEARCH DATABASE...</div>
+        <div class="boot-line" data-delay="400">&gt; LOADING <span class="highlight">34</span> PUBLICATIONS...</div>
+        <div class="boot-line" data-delay="800">&gt; TOTAL CITATIONS: <span class="pink" id="total-citations">0</span></div>
+        <div class="boot-line" data-delay="1200">&gt; YEARS ACTIVE: <span class="highlight">2019</span> &mdash; <span class="highlight">2024</span></div>
+        <div class="boot-line" data-delay="1600">&gt; READY. <span class="highlight">CLICK ANY ENTRY TO READ ABSTRACT.</span></div>
+    </div>
+
+    <div class="search-bar" id="search-bar">
+        <label>SEARCH &gt;</label>
+        <input type="text" id="search-input" placeholder="title, journal, or year..." autocomplete="off">
+    </div>
+
+    <div class="filter-tags" id="filter-tags">
+        <button class="filter-tag" data-tag="WEARABLES">WEARABLES</button>
+        <button class="filter-tag" data-tag="PEDIATRICS">PEDIATRICS</button>
+        <button class="filter-tag" data-tag="CNS">CNS</button>
+        <button class="filter-tag" data-tag="DRUG SURVEY">DRUG SURVEY</button>
+        <button class="filter-tag" data-tag="ML">ML</button>
+        <button class="filter-tag" data-tag="CLINICAL TRIALS">CLINICAL TRIALS</button>
+        <button class="filter-tag" data-tag="PRESS">PRESS</button>
+        <button class="filter-tag" data-tag="OTHER">OTHER</button>
+    </div>
+
+    <ul id="paper-list"></ul>
+    <div class="no-results" id="no-results">&gt; NO MATCHING RECORDS FOUND.</div>
+</div>
+
+<script>
+const papers = [
+  {
+    year: 2024,
+    title: "Embodying Data, Shifting Perspective: a conversation with Ahnjili Zhuparris on Future Wake",
+    authors: "R Wevers, A Zhuparris. Edited by Ponzanesi, S. and Leurs, Koen.",
+    journal: "Amsterdam University Press (Book Chapter)",
+    citations: 0,
+    abstract: "This chapter discusses the artistic project Future Wake (2021) by Ahnjili Zhuparris and Tim van Ommeren that examines predictive policing. By shifting the focus from possible future crime offenders to possible future victims of fatal police encounters, using visual and affective means rather than expert knowledge and statistics, the artwork activates critical reflection on the politics and logics of predictive policing systems. The chapter first situates predictive policing in a context of securitization, and discusses how it enhances structures of discrimination. In the second part, Wevers interviews artist Zhuparris about the aims of Future Wake, discussing the artistic and technical process of creating the project, the politics of data, and the role of art in critical discussion on surveillance and AI.",
+    url: "https://research.hanze.nl/en/publications/embodying-data-shifting-perspective-a-conversation-with-ahnjili-z",
+    tags: ["PRESS", "OTHER"]
+  },
+  {
+    year: 2024,
+    title: "Lesional skin of seborrheic dermatitis patients is characterized by skin barrier dysfunction and correlating alterations in the stratum corneum ceramide composition",
+    authors: "M Saghari, L Pagan, A Zhuparris, et al.",
+    journal: "Experimental Dermatology",
+    citations: 32,
+    abstract: "Seborrheic dermatitis (SD) is a chronic inflammatory skin disease characterized by erythematous papulosquamous lesions in sebum rich areas such as the face and scalp. Its pathophysiology involves skin barrier dysfunction and alterations in lipid composition.",
+    url: "https://scholar.google.com/scholar?q=Lesional+skin+of+seborrheic+dermatitis+patients+ceramide",
+    tags: ["CLINICAL TRIALS", "OTHER"]
+  },
+  {
+    year: 2024,
+    title: "Disproportional inflation of clinical trial costs: why we should care, and what we should do about it",
+    authors: "HJ Hijma, A Zhuparris, EJ van Hoogdalem, et al.",
+    journal: "Nature Reviews Drug Discovery",
+    citations: 3,
+    abstract: "Clinical trial costs seem to be inflating excessively, without a clear increase in the value of the information gained. Here, we highlight factors that could be driving this trend and discuss potential solutions.",
+    url: "https://scholar.google.com/scholar?q=Disproportional+inflation+clinical+trial+costs",
+    tags: ["CLINICAL TRIALS", "OTHER"]
+  },
+  {
+    year: 2024,
+    title: "Evaluation of single-strain Prevotella histicola on KLH-driven immune responses in healthy volunteers: A randomized controlled trial with EDP1815",
+    authors: "P Gal, HW Grievink, ES Klaassen, A Zhuparris, et al.",
+    journal: "Medicine in Microecology",
+    citations: 1,
+    abstract: "Introduction: EDP1815 is a single-strain of Prevotella histicola with preclinical immunomodulatory properties. The aim of this study was to evaluate pharmacodynamic effects of EDP1815 in healthy volunteers.",
+    url: "https://scholar.google.com/scholar?q=Evaluation+single-strain+Prevotella+histicola",
+    tags: ["CLINICAL TRIALS", "OTHER"]
+  },
+  {
+    year: 2024,
+    title: "Development of machine learning-derived mHealth composite biomarkers for trial@home clinical trials",
+    authors: "A Zhuparris",
+    journal: "Leiden University (PhD Thesis)",
+    citations: 0,
+    abstract: "This research focuses on creating composite biomarkers that can classify diagnoses, estimate symptom severity, and detect treatment effects using data from wearable sensors and smartphones for remote clinical trials.",
+    url: "https://scholar.google.com/scholar?q=Development+machine+learning+mHealth+composite+biomarkers",
+    tags: ["WEARABLES", "ML", "CNS"]
+  },
+  {
+    year: 2023,
+    title: "Treatment Detection and Movement Disorder Society-Unified Parkinson's Disease Rating Scale, Part III Estimation Using Finger Tapping Tasks",
+    authors: "A ZhuParris, E Thijssen, WO Elzinga, et al.",
+    journal: "Movement Disorders",
+    citations: 18,
+    abstract: "The validation of objective and easy-to-implement biomarkers that can monitor the effects of fast-acting drugs among Parkinson's disease (PD) patients would benefit antiparkinsonian drug development.",
+    url: "https://scholar.google.com/scholar?q=Treatment+Detection+Parkinson+Finger+Tapping",
+    tags: ["WEARABLES", "ML", "CNS"]
+  },
+  {
+    year: 2023,
+    title: "Machine learning techniques for developing remotely monitored central nervous system biomarkers using wearable sensors: a narrative literature review",
+    authors: "A ZhuParris, AA de Goede, IE Yocarini, W Kraaij, et al.",
+    journal: "Sensors",
+    citations: 14,
+    abstract: "Background: Central nervous system (CNS) disorders benefit from ongoing monitoring to assess disease progression and treatment efficacy. Mobile health (mHealth) technologies offer opportunities for continuous, objective assessment in naturalistic settings.",
+    url: "https://scholar.google.com/scholar?q=Machine+learning+techniques+remotely+monitored+CNS+biomarkers",
+    tags: ["WEARABLES", "ML", "CNS"]
+  },
+  {
+    year: 2023,
+    title: "A multimodal, comprehensive characterization of a cutaneous wound model in healthy volunteers",
+    authors: "J Boltjes, ML de Kam, A Zhuparris, et al.",
+    journal: "Experimental Dermatology",
+    citations: 9,
+    abstract: "Development of pharmacological interventions for wound treatment is challenging due to both poorly understood wound healing mechanisms and heterogeneous patient populations.",
+    url: "https://scholar.google.com/scholar?q=multimodal+characterization+cutaneous+wound+model",
+    tags: ["CLINICAL TRIALS", "OTHER"]
+  },
+  {
+    year: 2023,
+    title: "A smartphone-and wearable-based biomarker for the estimation of unipolar depression severity",
+    authors: "A Zhuparris, G Maleki, L van Londen, I Koopmans, et al.",
+    journal: "Scientific Reports",
+    citations: 7,
+    abstract: "Drug development for mood disorders can greatly benefit from the development of robust, reliable, and objective biomarkers. The incorporation of smartphones and wearable devices in clinical research offers new opportunities.",
+    url: "https://scholar.google.com/scholar?q=smartphone+wearable+biomarker+depression+severity",
+    tags: ["WEARABLES", "ML", "CNS"]
+  },
+  {
+    year: 2023,
+    title: "Smartphone and wearable sensors for the estimation of facioscapulohumeral muscular dystrophy disease severity: cross-sectional study",
+    authors: "A Zhuparris, G Maleki, I Koopmans, RJ Doll, et al.",
+    journal: "JMIR Formative Research",
+    citations: 5,
+    abstract: "Background: Facioscapulohumeral muscular dystrophy (FSHD) is a progressive neuromuscular disease. Its slow and variable progression makes the development of new treatments challenging.",
+    url: "https://scholar.google.com/scholar?q=Smartphone+wearable+sensors+FSHD",
+    tags: ["WEARABLES", "ML"]
+  },
+  {
+    year: 2022,
+    title: "Can AI imagine the next victims of police violence? Future Wake explores injustice through code",
+    authors: "A Zhuparris",
+    journal: "It's Nice That",
+    citations: 0,
+    abstract: "What are the issues with using AI for predictive policing? Could it reduce crime or does it reinforce racial biases in the criminal justice system? The co-founder of art project Future Wake examines unjust policing using AI and storytelling.",
+    url: "http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122",
+    tags: ["PRESS"]
+  },
+  {
+    year: 2022,
+    title: "Impacts of changes in alcohol consumption patterns during the first 2020 COVID-19 restrictions for people with and without mental health and neurodevelopmental disorders",
+    authors: "C Puljevic, G Gilchrist, L Potts, A Zhuparris, et al.",
+    journal: "International Journal of Environmental Research and Public Health",
+    citations: 23,
+    abstract: "Background: The initial period of COVID-19-related restrictions affected substance use in some population groups. We explored how changes in alcohol use at the beginning of the pandemic differed by mental health status.",
+    url: "https://scholar.google.com/scholar?q=alcohol+consumption+COVID-19+mental+health",
+    tags: ["DRUG SURVEY", "OTHER"]
+  },
+  {
+    year: 2022,
+    title: "Development and technical validation of a smartphone-based pediatric cough detection algorithm",
+    authors: "MD Kruizinga, A Zhuparris, E Dessing, et al.",
+    journal: "Pediatric Pulmonology",
+    citations: 23,
+    abstract: "Introduction: Coughing is a common symptom in pediatric lung disease and cough frequency has been shown to be correlated to disease activity in several conditions. Automated cough detection using smartphones offers opportunities for objective monitoring.",
+    url: "https://scholar.google.com/scholar?q=smartphone+pediatric+cough+detection+algorithm",
+    tags: ["PEDIATRICS", "ML", "WEARABLES"]
+  },
+  {
+    year: 2022,
+    title: "Clinical validation of digital biomarkers for paediatric patients with asthma and cystic fibrosis: potential for clinical trials and clinical care",
+    authors: "Y Yavuz, ML de Kam, A Zhuparris, et al.",
+    journal: "European Respiratory Journal",
+    citations: 17,
+    abstract: "Background: Digital biomarkers are a promising novel method to capture clinical data in a home setting. However, clinical validation prior to implementation is of vital importance.",
+    url: "https://scholar.google.com/scholar?q=digital+biomarkers+pediatric+asthma+cystic+fibrosis",
+    tags: ["PEDIATRICS", "WEARABLES", "CLINICAL TRIALS"]
+  },
+  {
+    year: 2022,
+    title: "2022 Drug Trend Report: Time, Music, Clubbing, Age, and Diet",
+    authors: "E Davies, J Ferris, A ZhuParris, et al.",
+    journal: "Global Drug Survey",
+    citations: 17,
+    abstract: "GDS2022, our current survey, is our 10th. To help promote the survey we wanted to produce some data stories that get people thinking about drugs and the people who use them.",
+    url: "https://scholar.google.com/scholar?q=Drug+Trend+Report+2022+Global+Drug+Survey",
+    tags: ["DRUG SURVEY"]
+  },
+  {
+    year: 2022,
+    title: "Objective monitoring of facioscapulohumeral dystrophy during clinical trials using a smartphone app and wearables: observational study",
+    authors: "G Maleki, A Zhuparris, I Koopmans, RJ Doll, et al.",
+    journal: "JMIR Formative Research",
+    citations: 13,
+    abstract: "Background: Facioscapulohumeral dystrophy (FSHD) is a progressive muscle dystrophy disorder leading to significant disability. Currently, FSHD symptom severity is assessed by validated clinical scales during clinic visits.",
+    url: "https://scholar.google.com/scholar?q=objective+monitoring+FSHD+smartphone+wearables",
+    tags: ["WEARABLES", "ML", "CLINICAL TRIALS"]
+  },
+  {
+    year: 2021,
+    title: "Global Drug Survey (GDS) 2020: Psychedelics key findings report",
+    authors: "C Timmerman, E Davies, LJ Maier, A Zhuparris, et al.",
+    journal: "Global Drug Survey",
+    citations: 123,
+    abstract: "Key findings from the 2020 Global Drug Survey on psychedelic substance use patterns, motivations, and outcomes from a large international sample.",
+    url: "https://scholar.google.com/scholar?q=Global+Drug+Survey+2020+Psychedelics",
+    tags: ["DRUG SURVEY"]
+  },
+  {
+    year: 2021,
+    title: "A study of novel exploratory tools, digital technologies, and central nervous system biomarkers to characterize unipolar depression",
+    authors: "RR Jagesar, N Jongs, MJ Kas, A Zhuparris, et al.",
+    journal: "Frontiers in Psychiatry",
+    citations: 35,
+    abstract: "Background: Digital technologies have the potential to provide objective and precise tools to detect depression-related symptoms. Deployment of digital technologies in clinical research may enhance traditional methods of assessment.",
+    url: "https://scholar.google.com/scholar?q=digital+technologies+CNS+biomarkers+depression",
+    tags: ["WEARABLES", "ML", "CNS"]
+  },
+  {
+    year: 2021,
+    title: "Towards remote monitoring in pediatric care and clinical trials: Tolerability, repeatability and reference values of candidate digital endpoints derived from physical activity",
+    authors: "MD Kruizinga, N Heide, A Moll, A Zhuparris, Y Yavuz, et al.",
+    journal: "PLoS One",
+    citations: 26,
+    abstract: "Background: Digital devices and wearables allow for the measurement of a wide range of health-related parameters in a non-invasive manner, which may be particularly valuable in pediatric populations.",
+    url: "https://scholar.google.com/scholar?q=remote+monitoring+pediatric+digital+endpoints+physical+activity",
+    tags: ["PEDIATRICS", "WEARABLES", "CLINICAL TRIALS"]
+  },
+  {
+    year: 2021,
+    title: "Supermens: Ahnjili op Tinder",
+    authors: "Peter Joosten",
+    journal: "Bot Uitgevers (Book)",
+    citations: 0,
+    abstract: "De cyclus van vrouwen meten in relatie tot Tinder.",
+    url: "http://www.peterjoosten.net/supermens/",
+    tags: ["PRESS"]
+  },
+  {
+    year: 2021,
+    title: "This horrifying AI model predicts future instances of police brutality",
+    authors: "Mark Sullivan",
+    journal: "Fast Company",
+    citations: 0,
+    abstract: "A searing critique of predictive policing, Future Wake uses past data on police violence to predict where it might occur in the future\u2014and who will be targeted.",
+    url: "http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake",
+    tags: ["PRESS"]
+  },
+  {
+    year: 2021,
+    title: "Future Wake: the AI art project that predicts police violence",
+    authors: "Caitlin Thompson",
+    journal: "Coda Story",
+    citations: 0,
+    abstract: "Winner of the Mozilla Creative Media award for 2021, an interactive website calculates when and where fatal encounters with law enforcement will occur \u2014 and tells the stories of the victims.",
+    url: "http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/",
+    tags: ["PRESS"]
+  },
+  {
+    year: 2021,
+    title: "Artists create AI that predicts who the police will kill next",
+    authors: "Thomas Macaulay",
+    journal: "The Next Web",
+    citations: 0,
+    abstract: "Future Wake tells the stories of potential victims.",
+    url: "http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next",
+    tags: ["PRESS"]
+  },
+  {
+    year: 2021,
+    title: "The world's favorite drug: What we have learned about alcohol from over 500,000 respondents to the Global Drug Survey",
+    authors: "EL Davies, C Puljevic, D Connolly, A Zhuparris, et al.",
+    journal: "The Handbook of Alcohol Use",
+    citations: 11,
+    abstract: "The Global Drug Survey (GDS) runs the world's largest anonymous annual web survey of drug use. This chapter provides an overview of GDS history and methods before presenting key findings on alcohol use patterns.",
+    url: "https://scholar.google.com/scholar?q=Global+Drug+Survey+alcohol+500000+respondents",
+    tags: ["DRUG SURVEY"]
+  },
+  {
+    year: 2021,
+    title: "Development and technical validation of a smartphone-based cry detection algorithm",
+    authors: "A ZhuParris, MD Kruizinga, M Gent, E Dessing, et al.",
+    journal: "Frontiers in Pediatrics",
+    citations: 10,
+    abstract: "Introduction: The duration and frequency of crying of an infant can be indicative of its health. Manual tracking and labeling of crying is laborious, subjective, and sometimes inaccurate.",
+    url: "https://scholar.google.com/scholar?q=smartphone+cry+detection+algorithm",
+    tags: ["PEDIATRICS", "ML", "WEARABLES"]
+  },
+  {
+    year: 2021,
+    title: "A cross-sectional study in healthy elderly subjects aimed at development of an algorithm to increase identification of Alzheimer pathology for the purpose of clinical trials enrollment",
+    authors: "S Prins, A Zhuparris, EP Hart, RJ Doll, et al.",
+    journal: "Alzheimer's Research & Therapy",
+    citations: 8,
+    abstract: "Background: In the current study, we aimed to develop an algorithm based on biomarkers obtained through non- or minimally invasive procedures to identify healthy elderly subjects with Alzheimer pathology.",
+    url: "https://scholar.google.com/scholar?q=algorithm+Alzheimer+pathology+clinical+trials",
+    tags: ["ML", "CNS", "CLINICAL TRIALS"]
+  },
+  {
+    year: 2021,
+    title: "Postdischarge recovery after acute pediatric lung disease can be quantified with digital biomarkers",
+    authors: "MD Kruizinga, A Moll, A Zhuparris, D Ziagkos, et al.",
+    journal: "Respiration",
+    citations: 7,
+    abstract: "Background: Pediatric patients admitted for acute lung disease are treated and monitored in the hospital, after which full recovery is achieved at home. Many studies report in-hospital outcomes, but post-discharge recovery is rarely quantified.",
+    url: "https://scholar.google.com/scholar?q=postdischarge+recovery+pediatric+lung+disease+digital+biomarkers",
+    tags: ["PEDIATRICS", "WEARABLES", "CLINICAL TRIALS"]
+  },
+  {
+    year: 2020,
+    title: "Technical validity and usability of a novel smartphone-connected spirometry device for pediatric patients with asthma and cystic fibrosis",
+    authors: "E Essers, FE Stuurman, A Zhuparris, et al.",
+    journal: "Pediatric Pulmonology",
+    citations: 37,
+    abstract: "Background: Diagnosis and follow-up of respiratory diseases traditionally rely on pulmonary function tests (PFTs), which are currently performed in hospitals and require trained personnel.",
+    url: "https://scholar.google.com/scholar?q=smartphone+spirometry+pediatric+asthma+cystic+fibrosis",
+    tags: ["PEDIATRICS", "WEARABLES"]
+  },
+  {
+    year: 2020,
+    title: "Global Drug Survey 2019: Key findings report",
+    authors: "MJ Barratt, LJ Maier, A Aldridge, A Zhuparris, et al.",
+    journal: "Global Drug Survey",
+    citations: 34,
+    abstract: "GDS draws on a diverse network of experts from the fields of medicine, toxicology, public health, psychology, chemistry, policy, criminology, sociology, harm reduction, and addiction.",
+    url: "https://scholar.google.com/scholar?q=Global+Drug+Survey+2019",
+    tags: ["DRUG SURVEY"]
+  },
+  {
+    year: 2020,
+    title: "GDS COVID key findings report",
+    authors: "AR Winstock, A Zhuparris, G Gilchrist, EL Davies, et al.",
+    journal: "Global Drug Survey",
+    citations: 13,
+    abstract: "Background: The Global Drug Survey (GDS) Special Edition on COVID-19 was developed as part of a global effort to better understand the impact of the pandemic on people's substance use and mental health.",
+    url: "https://scholar.google.com/scholar?q=GDS+COVID+key+findings",
+    tags: ["DRUG SURVEY"]
+  },
+  {
+    year: 2020,
+    title: "Usefulness of plasma amyloid as a prescreener for the earliest Alzheimer pathological changes depends on the study population",
+    authors: "S Prins, A Zhuparris, GJ Groeneveld",
+    journal: "Annals of Neurology",
+    citations: 7,
+    abstract: "Recently, Verberk et al showed that plasma amyloid-beta 42/40 ratio has potential to identify Alzheimer pathological changes in subjects with subjective memory decline.",
+    url: "https://scholar.google.com/scholar?q=plasma+amyloid+prescreener+Alzheimer",
+    tags: ["CNS", "OTHER"]
+  },
+  {
+    year: 2020,
+    title: "GDS Special Edition on Covid-19",
+    authors: "AR Winstock, E Davies, G Gilchrist, A Zhuparris, et al.",
+    journal: "Global Interim Report",
+    citations: 3,
+    abstract: "Special edition of the Global Drug Survey examining the impact of COVID-19 restrictions on substance use patterns and mental health.",
+    url: "https://scholar.google.com/scholar?q=Global+Drug+Survey+COVID-19",
+    tags: ["DRUG SURVEY"]
+  },
+  {
+    year: 2019,
+    title: "Descriptive assemblage of psychedelic microdosing: Netnographic study of Youtube videos and on-going research projects",
+    authors: "A Hupli, M Berning, A Zhuparris, J Fadiman",
+    journal: "Performance Enhancement & Health",
+    citations: 39,
+    abstract: "Background: Despite increasing clinical and neuroscientific research, pharmacological neuroenhancement literature rarely discusses psychedelic drugs. However, psychedelic microdosing has gained increasing attention.",
+    url: "https://scholar.google.com/scholar?q=psychedelic+microdosing+netnographic+Youtube",
+    tags: ["DRUG SURVEY"]
+  }
+];
+
+// Compute total citations
+const totalCitations = papers.reduce((sum, p) => sum + p.citations, 0);
+
+// Collect unique tags for filtering
+const filterCategories = ["WEARABLES", "PEDIATRICS", "CNS", "DRUG SURVEY", "ML", "CLINICAL TRIALS", "OTHER"];
+
+let activeTag = null;
+let typingTimer = null;
+
+// Boot sequence
+function runBootSequence() {
+    const lines = document.querySelectorAll('.boot-line');
+    lines.forEach((line) => {
+        const delay = parseInt(line.dataset.delay, 10);
+        setTimeout(() => {
+            line.classList.add('visible');
+        }, delay);
+    });
+
+    // Set total citations with count-up effect
+    const citEl = document.getElementById('total-citations');
+    setTimeout(() => {
+        let current = 0;
+        const step = Math.ceil(totalCitations / 30);
+        const interval = setInterval(() => {
+            current += step;
+            if (current >= totalCitations) {
+                current = totalCitations;
+                clearInterval(interval);
+            }
+            citEl.textContent = current;
+        }, 30);
+    }, 800);
+
+    // Show search and filters after boot
+    setTimeout(() => {
+        document.getElementById('search-bar').classList.add('visible');
+        document.getElementById('filter-tags').classList.add('visible');
+    }, 1800);
+
+    // Render papers after boot
+    setTimeout(() => {
+        renderPapers(papers);
+        revealPapers();
+    }, 2000);
+}
+
+function renderPapers(list) {
+    const ul = document.getElementById('paper-list');
+    ul.innerHTML = '';
+
+    list.forEach((paper, i) => {
+        const li = document.createElement('li');
+        li.className = 'paper-entry';
+        li.dataset.index = i;
+
+        const citText = paper.citations > 0 ? `Cited by ${paper.citations}` : '';
+
+        li.innerHTML = `
+            <div class="paper-header">
+                <span class="paper-prefix">&gt;</span>
+                <span class="paper-year">[${paper.year}]</span>
+                <span class="paper-title">${escapeHtml(paper.title)}</span>
+                <span class="paper-sep">&mdash;</span>
+                <span class="paper-journal">${escapeHtml(paper.journal)}</span>
+                ${citText ? `<span class="paper-sep">&mdash;</span><span class="paper-citations">${citText}</span>` : ''}
+            </div>
+            <div class="paper-abstract" id="abstract-${i}">
+                <div class="paper-authors">${escapeHtml(paper.authors)}</div>
+                <div class="abstract-text"></div>
+                <div class="paper-tags">${paper.tags.map(t => `<span>${t}</span>`).join('')}</div>
+                <a class="paper-link" href="${paper.url}" target="_blank" rel="noopener">&gt; ${paper.url.includes('scholar.google') ? 'VIEW ON SCHOLAR' : 'READ FULL ARTICLE'}</a>
+            </div>
+        `;
+
+        li.addEventListener('click', () => toggleAbstract(li, paper, i));
+        ul.appendChild(li);
+    });
+
+    document.getElementById('no-results').style.display = list.length === 0 ? 'block' : 'none';
+}
+
+function revealPapers() {
+    const entries = document.querySelectorAll('.paper-entry');
+    entries.forEach((entry, i) => {
+        setTimeout(() => {
+            entry.classList.add('visible');
+        }, i * 50);
+    });
+}
+
+function toggleAbstract(li, paper, index) {
+    const absDiv = document.getElementById(`abstract-${index}`);
+    const isOpen = absDiv.classList.contains('open');
+
+    // Close all others
+    document.querySelectorAll('.paper-abstract.open').forEach(el => {
+        el.classList.remove('open');
+        el.closest('.paper-entry').classList.remove('expanded');
+        el.querySelector('.abstract-text').innerHTML = '';
+    });
+
+    if (typingTimer) {
+        clearInterval(typingTimer);
+        typingTimer = null;
+    }
+
+    if (!isOpen) {
+        li.classList.add('expanded');
+        absDiv.classList.add('open');
+        typeText(absDiv.querySelector('.abstract-text'), paper.abstract);
+    }
+}
+
+function typeText(el, text) {
+    el.innerHTML = '';
+    let i = 0;
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor-blink';
+
+    typingTimer = setInterval(() => {
+        if (i < text.length) {
+            // Add characters in small chunks for speed
+            const chunk = text.substring(i, Math.min(i + 3, text.length));
+            el.innerHTML = escapeHtml(text.substring(0, i + chunk.length)) + cursor.outerHTML;
+            i += chunk.length;
+        } else {
+            el.innerHTML = escapeHtml(text) + cursor.outerHTML;
+            clearInterval(typingTimer);
+            typingTimer = null;
+        }
+    }, 15);
+}
+
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// Search
+document.getElementById('search-input').addEventListener('input', function () {
+    filterPapers();
+});
+
+// Filter tags
+document.querySelectorAll('.filter-tag').forEach(btn => {
+    btn.addEventListener('click', function () {
+        const tag = this.dataset.tag;
+        if (activeTag === tag) {
+            activeTag = null;
+            this.classList.remove('active');
+        } else {
+            document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+            activeTag = tag;
+            this.classList.add('active');
+        }
+        filterPapers();
+    });
+});
+
+function filterPapers() {
+    const query = document.getElementById('search-input').value.toLowerCase().trim();
+
+    let filtered = papers.filter(p => {
+        const matchesSearch = !query ||
+            p.title.toLowerCase().includes(query) ||
+            p.journal.toLowerCase().includes(query) ||
+            p.authors.toLowerCase().includes(query) ||
+            String(p.year).includes(query);
+
+        const matchesTag = !activeTag || p.tags.includes(activeTag);
+
+        return matchesSearch && matchesTag;
+    });
+
+    // Close any open abstracts
+    if (typingTimer) {
+        clearInterval(typingTimer);
+        typingTimer = null;
+    }
+
+    renderPapers(filtered);
+    // Reveal immediately when filtering
+    document.querySelectorAll('.paper-entry').forEach(entry => {
+        entry.classList.add('visible');
+    });
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', runBootSequence);
+</script>
+
+</body>
+</html>
