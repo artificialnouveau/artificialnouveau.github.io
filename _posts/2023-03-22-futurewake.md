@@ -95,6 +95,9 @@ Enter your zip code and demographics below. The system will estimate your likeli
   <!-- Breakdown -->
   <div id="fw-breakdown" style="margin-top:1.5rem; padding:1rem; border-left:3px solid #00f0ff; background:rgba(0,240,255,0.03);"></div>
 
+  <!-- Cause of death -->
+  <div id="fw-cause-of-death" style="margin-top:1.5rem;"></div>
+
   <!-- Comparison bars -->
   <div id="fw-comparisons" style="margin-top:1.5rem;"></div>
 
@@ -249,6 +252,20 @@ Enter your zip code and demographics below. The system will estimate your likeli
     await delay(400);
 
     log('', '#000');
+    log('━━━ CAUSE OF DEATH ANALYSIS ━━━', '#ff10f0');
+    await delay(400);
+    if (stats.cause_of_death) {
+      var codTotal = stats.cause_of_death_total || 1;
+      var causes = Object.entries(stats.cause_of_death).sort(function(a,b) { return b[1] - a[1]; });
+      for (var ci = 0; ci < causes.length; ci++) {
+        var pct = (causes[ci][1] / codTotal * 100).toFixed(1);
+        log('  ' + causes[ci][0] + ': ' + pct + '% (' + causes[ci][1].toLocaleString() + ' cases)', '#b8a8d8');
+        await delay(200);
+      }
+    }
+    await delay(400);
+
+    log('', '#000');
     log('━━━ COMPUTING COMPOSITE RISK SCORE ━━━', '#ff10f0');
     await delay(500);
 
@@ -306,6 +323,29 @@ Enter your zip code and demographics below. The system will estimate your likeli
       '<div><span style="color:#00f0ff;">Age (' + ageBracket + '):</span> ' + ageRate.toFixed(2) + ' per million/yr — <span style="color:' + (ageMultiplier > 1.2 ? '#ff10f0' : '#00f0ff') + '">' + ageMultiplier.toFixed(2) + 'x national avg</span></div>' +
       (zip && zipIncidents > 0 ? '<div><span style="color:#00f0ff;">Zip (' + zip + '):</span> ' + zipIncidents + ' incidents recorded</div>' : '') +
       '</div>';
+
+    // Cause of death breakdown
+    var codEl = document.getElementById('fw-cause-of-death');
+    if (stats.cause_of_death) {
+      var codTotal = stats.cause_of_death_total || 1;
+      var codIcons = { 'Gunshot': '&#x1F52B;', 'Vehicle': '&#x1F697;', 'Taser': '&#x26A1;', 'Physical Restraint': '&#x1F6D1;', 'Beaten': '&#x270A;', 'Other': '&#x2753;' };
+      var codHtml = '<h4 style="color:#ff10f0; font-size:0.8rem; margin-bottom:0.75rem;">Cause of Death Breakdown</h4>';
+      var causes = Object.entries(stats.cause_of_death).sort(function(a,b) { return b[1] - a[1]; });
+      causes.forEach(function(entry) {
+        var cause = entry[0], count = entry[1];
+        var pct = (count / codTotal * 100);
+        var barColor = cause === 'Gunshot' ? '#ff10f0' : cause === 'Vehicle' ? '#ffaa00' : cause === 'Taser' ? '#b010ff' : '#00f0ff';
+        codHtml += '<div style="margin-bottom:0.5rem;">' +
+          '<div style="display:flex; justify-content:space-between; font-size:0.6rem; margin-bottom:0.2rem;">' +
+          '<span style="color:#b8a8d8;">' + cause + '</span>' +
+          '<span style="color:' + barColor + ';">' + count.toLocaleString() + ' (' + pct.toFixed(1) + '%)</span>' +
+          '</div>' +
+          '<div style="background:rgba(0,240,255,0.1); height:8px; width:100%;">' +
+          '<div style="background:' + barColor + '; height:100%; width:' + pct + '%; transition:width 0.5s;"></div>' +
+          '</div></div>';
+      });
+      codEl.innerHTML = codHtml;
+    }
 
     // Comparison bars
     var comp = document.getElementById('fw-comparisons');
