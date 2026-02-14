@@ -9,18 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Vaporwave Aesthetic Theme */
+        /* Vaporwave Terminal Aesthetic Theme */
 
         :root {
             --color-bg: #0a0014;
-            --color-text: #f0f0ff;
+            --color-text: #00f0ff;
             --color-accent: #ff10f0;
             --color-accent-cyan: #00f0ff;
             --color-accent-purple: #b010ff;
             --color-muted: #b8a8d8;
-            --color-border: #3a1f5f;
-            --color-card-bg: #1a0828;
-            --font-display: 'Archivo', sans-serif;
+            --color-border: #00f0ff;
+            --color-card-bg: #000000;
+            --color-window-chrome: #1a1a1a;
+            --font-display: 'JetBrains Mono', monospace;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
@@ -39,7 +40,7 @@
             position: relative;
         }
 
-        /* Multi-layered background with gradients - STATIC */
+        /* Terminal scanline effect */
         body::before {
             content: '';
             position: fixed;
@@ -47,15 +48,24 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -3;
-            background:
-                radial-gradient(ellipse at 20% 30%, rgba(255, 16, 240, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 60%, rgba(0, 240, 255, 0.12) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(176, 16, 255, 0.1) 0%, transparent 50%);
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
             pointer-events: none;
+            animation: scanline 8s linear infinite;
         }
 
-        /* Film grain texture overlay - STATIC */
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+
+        /* CRT phosphor glow overlay */
         body::after {
             content: '';
             position: fixed;
@@ -63,18 +73,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.05;
+            opacity: 0.03;
             z-index: -1;
             pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 240, 255, 0.1) 100%);
         }
 
-        /* Slight pixelation effect */
+        /* Terminal text rendering */
         * {
-            image-rendering: -moz-crisp-edges;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: pixelated;
+            image-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
         .container {
@@ -94,25 +104,17 @@
             border-bottom: 2px solid var(--color-border);
         }
 
-        /* Retro grid pattern */
+        /* Terminal ASCII border pattern */
         header::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 300px;
-            background-image:
-                linear-gradient(rgba(255, 16, 240, 0.3) 2px, transparent 2px),
-                linear-gradient(90deg, rgba(255, 16, 240, 0.3) 2px, transparent 2px),
-                linear-gradient(rgba(0, 240, 255, 0.2) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 240, 255, 0.2) 1px, transparent 1px);
-            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-            background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
-            transform: perspective(500px) rotateX(60deg);
-            transform-origin: bottom;
+            height: 2px;
+            background: var(--color-accent-cyan);
+            box-shadow: 0 0 10px var(--color-accent-cyan);
             pointer-events: none;
-            opacity: 0.4;
             z-index: 0;
         }
 
@@ -133,33 +135,25 @@
 
         h1 {
             font-size: clamp(2.5rem, 8vw, 6rem);
-            font-weight: 900;
-            line-height: 0.95;
-            letter-spacing: -0.03em;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: 0.1em;
             margin-bottom: 2rem;
+            color: var(--color-accent);
             text-shadow:
-                0 0 10px rgba(255, 16, 240, 0.8),
-                0 0 20px rgba(255, 16, 240, 0.6),
-                0 0 30px rgba(255, 16, 240, 0.4),
-                0 0 40px rgba(255, 16, 240, 0.2);
-            animation: titlePulse 3s ease-in-out infinite;
+                2px 2px 0 rgba(0, 240, 255, 0.5),
+                0 0 20px rgba(255, 16, 240, 0.4);
+            text-transform: uppercase;
+        }
+
+        h1::before {
+            content: '> ';
+            color: var(--color-accent-cyan);
         }
 
         @keyframes titlePulse {
-            0%, 100% {
-                text-shadow:
-                    0 0 10px rgba(255, 16, 240, 0.8),
-                    0 0 20px rgba(255, 16, 240, 0.6),
-                    0 0 30px rgba(255, 16, 240, 0.4),
-                    0 0 40px rgba(255, 16, 240, 0.2);
-            }
-            50% {
-                text-shadow:
-                    0 0 15px rgba(255, 16, 240, 1),
-                    0 0 30px rgba(255, 16, 240, 0.8),
-                    0 0 45px rgba(255, 16, 240, 0.6),
-                    0 0 60px rgba(255, 16, 240, 0.4);
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
         }
 
         .hero-subtitle {
@@ -172,85 +166,117 @@
 
         h2 {
             font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             margin-top: 0;
-            text-shadow:
-                0 0 10px rgba(0, 240, 255, 0.8),
-                0 0 20px rgba(0, 240, 255, 0.5),
-                0 0 30px rgba(0, 240, 255, 0.3);
+            color: var(--color-accent-cyan);
+            text-shadow: 0 0 5px rgba(0, 240, 255, 0.6);
+            border-left: 4px solid var(--color-accent);
+            padding-left: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        h2::before {
+            content: '$ ';
+            color: var(--color-accent);
+            margin-right: 0.5rem;
         }
 
         h3 {
             font-size: clamp(1.2rem, 2.5vw, 1.8rem);
             margin-top: 2rem;
             margin-bottom: 1rem;
-            text-shadow:
-                0 0 8px rgba(176, 16, 255, 0.6),
-                0 0 16px rgba(176, 16, 255, 0.4);
+            color: var(--color-accent-purple);
+            text-shadow: 0 0 3px rgba(176, 16, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        h3::before {
+            content: '>> ';
+            color: var(--color-accent-cyan);
+            margin-right: 0.3rem;
         }
 
         p {
             color: var(--color-text);
             line-height: 1.8;
             margin-bottom: 1.5rem;
+            font-family: var(--font-mono);
         }
 
         a {
-            color: var(--color-accent);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 5px rgba(255, 16, 240, 0.3);
+            color: var(--color-accent-cyan);
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-decoration-color: var(--color-accent-cyan);
+            transition: all 0.2s ease;
+            text-shadow: 0 0 3px rgba(0, 240, 255, 0.3);
         }
 
         a:hover {
-            color: var(--color-accent-cyan);
-            text-shadow:
-                0 0 10px rgba(0, 240, 255, 0.8),
-                0 0 20px rgba(0, 240, 255, 0.4);
+            color: var(--color-accent);
+            text-decoration-color: var(--color-accent);
+            text-shadow: 0 0 5px rgba(255, 16, 240, 0.5);
+            background: rgba(255, 16, 240, 0.1);
+            padding: 0 2px;
         }
 
-        /* Sections */
+        /* Terminal window sections */
         section {
             padding: 6rem 2rem;
-            border-bottom: 2px solid var(--color-border);
-            box-shadow: 0 2px 20px rgba(176, 16, 255, 0.1);
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
         }
 
-        /* Tables with vaporwave styling */
-        table {
-            border-collapse: collapse;
+        section::before {
+            content: '────────────────────────────────────────────────────────────────────────';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
             width: 100%;
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--color-accent-cyan);
+            opacity: 0.4;
+            overflow: hidden;
+            white-space: nowrap;
+            letter-spacing: -2px;
+        }
+
+        /* Terminal tables */
+        table {
+            border: 1px solid var(--color-accent-cyan);
+            color: var(--color-text);
+            background-color: var(--color-card-bg);
             margin: 2rem 0;
+            font-family: var(--font-mono);
+            width: 100%;
+            border-collapse: collapse;
         }
 
         table td {
             color: var(--color-text);
-            border-bottom: 1px solid var(--color-border);
+            border-bottom: 1px dotted rgba(0, 240, 255, 0.3);
             padding: 1rem 1.5rem;
             vertical-align: top;
         }
 
         table tr {
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         table tr:hover {
-            background: linear-gradient(90deg,
-                rgba(255, 16, 240, 0.1) 0%,
-                rgba(26, 8, 40, 0.5) 50%,
-                rgba(255, 16, 240, 0.1) 100%);
-            box-shadow: inset 0 0 20px rgba(255, 16, 240, 0.2);
+            background: rgba(255, 16, 240, 0.05);
+            border-left: 2px solid var(--color-accent);
         }
 
-        /* Content blocks for exhibitions, awards, etc. */
+        /* Terminal content blocks */
         .content-block {
-            margin: 3rem 0;
-            padding: 2rem;
-            background: linear-gradient(135deg,
-                rgba(26, 8, 40, 0.4) 0%,
-                rgba(10, 0, 20, 0.5) 100%);
-            border-left: 3px solid var(--color-accent);
-            box-shadow: -3px 0 15px rgba(255, 16, 240, 0.3);
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 2px solid var(--color-accent-cyan);
         }
 
         .content-block h3 {
@@ -259,54 +285,67 @@
 
         .year-label {
             font-family: var(--font-mono);
-            color: var(--color-accent-cyan);
+            color: var(--color-accent);
             font-weight: 700;
-            font-size: 1.1rem;
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .year-label::before {
+            content: '[ ';
+        }
+
+        .year-label::after {
+            content: ' ]';
         }
 
         .location {
             color: var(--color-muted);
             font-size: 0.95rem;
             margin-bottom: 1rem;
+            font-family: var(--font-mono);
         }
 
-        /* Buttons */
+        /* Terminal-style buttons */
         .btn {
-            background: linear-gradient(135deg,
-                rgba(255, 16, 240, 0.2) 0%,
-                rgba(176, 16, 255, 0.2) 100%);
-            border: 2px solid var(--color-accent);
-            color: var(--color-accent);
+            background: var(--color-card-bg);
+            border: 2px solid var(--color-accent-cyan);
+            color: var(--color-accent-cyan);
             font-family: var(--font-mono);
             font-size: 0.85rem;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             padding: 0.75rem 1.5rem;
             display: inline-block;
             margin: 1rem 1rem 1rem 0;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             box-shadow:
-                0 0 10px rgba(255, 16, 240, 0.5),
-                0 0 20px rgba(255, 16, 240, 0.3),
-                inset 0 0 10px rgba(255, 16, 240, 0.2);
-            text-shadow: 0 0 5px rgba(255, 16, 240, 0.8);
+                inset 0 0 0 1px rgba(0, 240, 255, 0.2),
+                0 0 10px rgba(0, 240, 255, 0.3);
+            text-shadow: none;
+            text-decoration: none;
+        }
+
+        .btn::before {
+            content: '[ ';
+            color: var(--color-accent);
+        }
+
+        .btn::after {
+            content: ' ]';
+            color: var(--color-accent);
         }
 
         .btn:hover {
-            background: linear-gradient(135deg,
-                rgba(255, 16, 240, 0.4) 0%,
-                rgba(0, 240, 255, 0.3) 100%);
-            color: var(--color-text);
-            border-color: var(--color-accent-cyan);
+            background: rgba(255, 16, 240, 0.1);
+            color: var(--color-accent);
+            border-color: var(--color-accent);
             box-shadow:
-                0 0 20px rgba(0, 240, 255, 0.8),
-                0 0 40px rgba(0, 240, 255, 0.5),
-                inset 0 0 20px rgba(0, 240, 255, 0.3);
-            text-shadow:
-                0 0 10px rgba(0, 240, 255, 1),
-                0 0 20px rgba(0, 240, 255, 0.6);
-            transform: translateY(-2px);
+                inset 0 0 0 1px rgba(255, 16, 240, 0.4),
+                0 0 15px rgba(255, 16, 240, 0.5);
+            text-shadow: none;
+            transform: none;
+            padding: 0.75rem 1.5rem;
         }
 
         /* Drone cursor styles */
