@@ -70,7 +70,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | | Mozilla Foundation |
 | | United States |
 | |  |
-| | MOZILLA CREATIVE MEDIA AWARDS: Future Wake **[www.futurewake.com](www.futurewake.com)** is an interactive art project turns the practice of predictive policing upside down, instead, it allows citizens to predict police brutality. We used to machine learning to predict who, when and how the next victim would die. Further, we used deepfake algorithms to generate the faces of the next victims. |
+| | MOZILLA CREATIVE MEDIA AWARDS: Future Wake **[www.futurewake.com](https://www.futurewake.com)** is an interactive art project turns the practice of predictive policing upside down, instead, it allows citizens to predict police brutality. We used to machine learning to predict who, when and how the next victim would die. Further, we used deepfake algorithms to generate the faces of the next victims. |
 
 <br>
 
@@ -123,7 +123,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | |  |
 |  | VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023. |
 | |  |
-|  | [More info on the IMPAKT website](impakt.nl/events/2023/exhibition/code-ars-electronica-2023/) |
+|  | [More info on the IMPAKT website](https://impakt.nl/events/2023/exhibition/code-ars-electronica-2023/) |
 
 <br>
 
@@ -133,7 +133,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | |  |
 |  | VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.  |
 | |  |
-|  | [More info from the IMPAKT website](www.impakt.nl/events/2023/exhibition/code-ars-electronica-2023/) |
+|  | [More info from the IMPAKT website](https://www.impakt.nl/events/2023/exhibition/code-ars-electronica-2023/) |
 
 <br>
 
@@ -143,7 +143,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | |  |
 |  | Babble-on is a web-based installation allowing users to create personalized babble tapes by recording 2-3 sentences into a microphone. The audio is sliced and remixed to maintain the same audio properties of their voices. Users can download their tapes to disguise their conversations from audio surveillance. Presented at the Articulating Data conference 2023. |
 | |  |
-|  | [More information on Articulating Data website](articulatingdata.com/) |
+|  | [More information on Articulating Data website](https://articulatingdata.com/) |
 
 <br>
 
@@ -153,7 +153,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | |  |
 |  | This exhibition explored how Afrofuturism can be used to remove (or at least alleviate) the normative pressure that AI puts on non-normative bodies. Although with a few exceptions, the black experience has largely been invisible in AI datasets. I trained a series of generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic. |
 | |  |
-|  | [More information on the Identity 2.0 website](www.identity20.org/thismachineisblack/) |
+|  | [More information on the Identity 2.0 website](https://www.identity20.org/thismachineisblack/) |
 
 <br>
 
@@ -167,7 +167,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | |  |
 |  | VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted “the European Festivals Fund for Emerging Artists”. This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.  |
 | |  |
-|  | [More information on the IMPAKT website](www.impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/) |
+|  | [More information on the IMPAKT website](https://www.impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/) |
 
 <br>
 
@@ -177,7 +177,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master’s in Cognitive 
 | |  |
 |  | During the residency we developed algoliterary publications. These are publishing experiments with algorithms and literary, scientific, and activist datasets about trees and nature. We ask ourselves: who and what is excluded, made invisible or exploited in the existent representations, discourses, tools, and practices? To address these questions, we used decision tree algorithms to sort the histories of tree nomenclature.  |
 | |  |
-|  | [More information on the Algoliterary Publishing website](wwww.algoliterarypublishing.net/) |
+|  | [More information on the Algoliterary Publishing website](https://www.algoliterarypublishing.net/) |
 
 <br>
 

@@ -8,7 +8,7 @@ Our motivation is to provide a more intuitive and engaging navigation experience
 
 Screen-to-Soundscape is supported by the Constant Foundation, The Processing Foundation, and the Stimuleringsfonds.
 
-Read more about Screen-to-Soundscape on [www.screentosoundscape.com](www.screentosoundscape.com)
+Read more about Screen-to-Soundscape on [www.screentosoundscape.com](https://www.screentosoundscape.com)
 
 ---
 
