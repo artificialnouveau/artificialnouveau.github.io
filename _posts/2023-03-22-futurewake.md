@@ -27,12 +27,13 @@ Enter your zip code and demographics below. The system will estimate your likeli
 
 <div style="max-width: 500px; margin: 0 auto;">
   <div style="margin-bottom: 1rem;">
-    <label style="font-size:0.7rem; color:#00f0ff; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.3rem;">Zip Code</label>
+    <label style="font-size:0.7rem; color:#00f0ff; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.3rem;">Zip Code <span style="color:#b8a8d8; font-size:0.6rem; text-transform:none;">(or select state below)</span></label>
     <input type="text" id="fw-zip" maxlength="5" placeholder="e.g. 90210" style="width:100%; padding:0.6rem; background:#000; border:1px solid rgba(0,240,255,0.3); color:#00f0ff; font-family:'JetBrains Mono',monospace; font-size:0.85rem;">
+    <div id="fw-zip-state-hint" style="font-size:0.6rem; color:#b8a8d8; margin-top:0.2rem; min-height:1em;"></div>
   </div>
 
-  <div style="margin-bottom: 1rem;">
-    <label style="font-size:0.7rem; color:#00f0ff; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.3rem;">State</label>
+  <div id="fw-state-row" style="margin-bottom: 1rem;">
+    <label style="font-size:0.7rem; color:#00f0ff; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.3rem;">State <span style="color:#b8a8d8; font-size:0.6rem; text-transform:none;">(auto-filled from zip code if provided)</span></label>
     <select id="fw-state" style="width:100%; padding:0.6rem; background:#000; border:1px solid rgba(0,240,255,0.3); color:#00f0ff; font-family:'JetBrains Mono',monospace; font-size:0.85rem;">
       <option value="">Select state...</option>
     </select>
@@ -61,8 +62,17 @@ Enter your zip code and demographics below. The system will estimate your likeli
   </div>
 
   <div style="margin-bottom: 1.5rem;">
-    <label style="font-size:0.7rem; color:#00f0ff; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.3rem;">Age</label>
-    <input type="number" id="fw-age" min="0" max="120" placeholder="e.g. 30" style="width:100%; padding:0.6rem; background:#000; border:1px solid rgba(0,240,255,0.3); color:#00f0ff; font-family:'JetBrains Mono',monospace; font-size:0.85rem;">
+    <label style="font-size:0.7rem; color:#00f0ff; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.3rem;">Age Group</label>
+    <select id="fw-age-group" style="width:100%; padding:0.6rem; background:#000; border:1px solid rgba(0,240,255,0.3); color:#00f0ff; font-family:'JetBrains Mono',monospace; font-size:0.85rem;">
+      <option value="">Select...</option>
+      <option value="Under 18">Under 18</option>
+      <option value="18-24">18–24</option>
+      <option value="25-34">25–34</option>
+      <option value="35-44">35–44</option>
+      <option value="45-54">45–54</option>
+      <option value="55-64">55–64</option>
+      <option value="65+">65+</option>
+    </select>
   </div>
 
   <div style="text-align:center;">
@@ -113,9 +123,36 @@ Enter your zip code and demographics below. The system will estimate your likeli
     stateSelect.appendChild(opt);
   });
 
+  var zipInput = document.getElementById('fw-zip');
+  var zipHint = document.getElementById('fw-zip-state-hint');
+
   // Load stats
   fetch('/futurewake/mpv_stats.json').then(function(r) { return r.json(); }).then(function(d) {
     stats = d;
+  });
+
+  // Auto-fill state from zip code as user types
+  zipInput.addEventListener('input', function() {
+    if (!stats) return;
+    var zip = zipInput.value.trim();
+    var foundState = null;
+
+    if (zip.length === 5 && stats.zip_to_state && stats.zip_to_state[zip]) {
+      foundState = stats.zip_to_state[zip];
+    } else if (zip.length >= 3 && stats.zip_prefix_to_state && stats.zip_prefix_to_state[zip.substring(0, 3)]) {
+      foundState = stats.zip_prefix_to_state[zip.substring(0, 3)];
+    }
+
+    if (foundState) {
+      stateSelect.value = foundState;
+      zipHint.textContent = '> Detected state: ' + foundState;
+      zipHint.style.color = '#00f0ff';
+    } else if (zip.length >= 3) {
+      zipHint.textContent = '> State not detected from zip';
+      zipHint.style.color = '#b8a8d8';
+    } else {
+      zipHint.textContent = '';
+    }
   });
 
   function log(msg, color) {
@@ -128,16 +165,6 @@ Enter your zip code and demographics below. The system will estimate your likeli
   }
 
   function delay(ms) { return new Promise(function(r) { setTimeout(r, ms); }); }
-
-  function getAgeBracket(age) {
-    if (age < 18) return 'Under 18';
-    if (age < 25) return '18-24';
-    if (age < 35) return '25-34';
-    if (age < 45) return '35-44';
-    if (age < 55) return '45-54';
-    if (age < 65) return '55-64';
-    return '65+';
-  }
 
   function riskColor(rate) {
     if (rate > 8) return '#ff10f0';
@@ -165,10 +192,21 @@ Enter your zip code and demographics below. The system will estimate your likeli
     var state = document.getElementById('fw-state').value;
     var race = document.getElementById('fw-race').value;
     var gender = document.getElementById('fw-gender').value;
-    var age = parseInt(document.getElementById('fw-age').value);
+    var ageBracket = document.getElementById('fw-age-group').value;
 
-    if (!state || !race || !gender || isNaN(age)) {
-      alert('Please fill in all fields.');
+    // Auto-resolve state from zip if state not selected
+    if (!state && zip.length === 5 && stats.zip_to_state && stats.zip_to_state[zip]) {
+      state = stats.zip_to_state[zip];
+    } else if (!state && zip.length >= 3 && stats.zip_prefix_to_state && stats.zip_prefix_to_state[zip.substring(0, 3)]) {
+      state = stats.zip_prefix_to_state[zip.substring(0, 3)];
+    }
+
+    if (!state && !zip) {
+      alert('Please enter a zip code or select a state.');
+      return;
+    }
+    if (!race || !gender || !ageBracket) {
+      alert('Please fill in all demographic fields.');
       return;
     }
 
@@ -187,7 +225,6 @@ Enter your zip code and demographics below. The system will estimate your likeli
     log('━━━ ANALYZING DEMOGRAPHIC RISK FACTORS ━━━', '#ff10f0');
     await delay(400);
 
-    var ageBracket = getAgeBracket(age);
     var stateRate = stats.state_rates[state] || 0;
     var raceRate = stats.race_rates[race] || 0;
     var genderRate = stats.gender_rates[gender] || 0;
