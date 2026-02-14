@@ -95,16 +95,43 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
     }
   });
 
+  function stopAllAudio() {
+    stopSpatialAudio();
+    speechSynthesis.cancel();
+    blocks.forEach(function(b) {
+      b.style.borderColor = 'rgba(0,240,255,0.15)';
+      b.style.boxShadow = 'none';
+      b.style.background = 'rgba(0,0,0,0.3)';
+    });
+  }
+
   function stopSpatialAudio() {
     if (activeGain) {
       try { activeGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); } catch(e) {}
     }
     if (activeOscillator) {
+      if (activeOscillator._osc2) { try { activeOscillator._osc2.stop(); } catch(e) {} }
+      if (activeOscillator._gain2) { try { activeOscillator._gain2.gain.value = 0; } catch(e) {} }
       try { activeOscillator.stop(audioCtx.currentTime + 0.15); } catch(e) {}
       activeOscillator = null;
       activeGain = null;
     }
   }
+
+  // Stop all audio when clicking outside the demo area
+  document.addEventListener('click', function(e) {
+    if (!spatialEnabled) return;
+    var demoArea = document.getElementById('hear-this-page');
+    if (!demoArea.contains(e.target)) {
+      stopAllAudio();
+    }
+  });
+
+  // Stop all audio when leaving the page
+  window.addEventListener('beforeunload', function() { stopAllAudio(); });
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) stopAllAudio();
+  });
 
   function playSpatialTone(block) {
     stopSpatialAudio();
