@@ -87,6 +87,119 @@
             text-rendering: optimizeLegibility;
         }
 
+        /* Collapsible sections */
+        details {
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+        }
+
+        details::before {
+            content: '────────────────────────────────────────────────────────────────────────';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--color-accent-cyan);
+            opacity: 0.4;
+            overflow: hidden;
+            white-space: nowrap;
+            letter-spacing: -2px;
+        }
+
+        details summary {
+            cursor: pointer;
+            padding: 2rem 2rem;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: background 0.2s;
+        }
+
+        details summary::-webkit-details-marker { display: none; }
+
+        details summary:hover {
+            background: rgba(0, 240, 255, 0.04);
+        }
+
+        details summary h2 {
+            margin-bottom: 0;
+            flex: 1;
+        }
+
+        details summary::after {
+            content: '[ + ]';
+            font-family: var(--font-mono);
+            color: var(--color-accent);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        details[open] summary::after {
+            content: '[ - ]';
+            color: var(--color-accent-cyan);
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+        }
+
+        details > .container {
+            padding: 2rem 2rem 4rem;
+        }
+
+        /* Publications link section */
+        .publications-link-section {
+            padding: 2rem;
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+        }
+
+        .publications-link-section::before {
+            content: '────────────────────────────────────────────────────────────────────────';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--color-accent-cyan);
+            opacity: 0.4;
+            overflow: hidden;
+            white-space: nowrap;
+            letter-spacing: -2px;
+        }
+
+        .publications-link-section a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: background 0.2s;
+            padding: 0;
+        }
+
+        .publications-link-section a:hover {
+            background: rgba(255, 16, 240, 0.06);
+            padding: 0;
+        }
+
+        .publications-link-section a h2 {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .publications-link-section a::after {
+            content: '[ → ]';
+            font-family: var(--font-mono);
+            color: var(--color-accent);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -242,6 +355,14 @@
             overflow: hidden;
             white-space: nowrap;
             letter-spacing: -2px;
+        }
+
+        /* Remove duplicate border from sections inside details */
+        details section {
+            border-bottom: none;
+        }
+        details section::before {
+            display: none;
         }
 
         /* Terminal tables */
@@ -452,9 +573,9 @@
         </div>
     </section>
 
-    <section id="education">
+    <details id="education">
+        <summary><h2>EDUCATION</h2></summary>
         <div class="container">
-            <h2>EDUCATION</h2>
             <table>
                 <tr>
                     <td style="width: 180px;"><span class="year-label">2020 - 2024</span></td>
@@ -470,11 +591,11 @@
                 </tr>
             </table>
         </div>
-    </section>
+    </details>
 
-    <section id="awards">
+    <details id="awards">
+        <summary><h2>AWARDS, FELLOWSHIPS &amp; GRANTS</h2></summary>
         <div class="container">
-            <h2>AWARDS, FELLOWSHIPS & GRANTS</h2>
 
             <div class="content-block">
                 <h3><span class="year-label">2025</span> Public AI</h3>
@@ -506,11 +627,11 @@
                 <p>MOZILLA CREATIVE MEDIA AWARDS: Future Wake <a href="http://www.futurewake.com">www.futurewake.com</a> is an interactive art project turns the practice of predictive policing upside down, instead, it allows citizens to predict police brutality. We used to machine learning to predict who, when and how the next victim would die. Further, we used deepfake algorithms to generate the faces of the next victims.</p>
             </div>
         </div>
-    </section>
+    </details>
 
-    <section id="collaborations">
+    <details id="collaborations">
+        <summary><h2>COLLABORATIONS</h2></summary>
         <div class="container">
-            <h2>COLLABORATIONS</h2>
 
             <div class="content-block">
                 <h3><span class="year-label">2022 - 2024</span> Shibboleth: Creation of a Hybrid Voice</h3>
@@ -528,11 +649,11 @@
                 <p><a href="https://kurinasohn.com/deepest-unknown-v1.html">Kurina Sohn's website</a></p>
             </div>
         </div>
-    </section>
+    </details>
 
-    <section id="exhibitions">
+    <details id="exhibitions">
+        <summary><h2>EXHIBITIONS</h2></summary>
         <div class="container">
-            <h2>EXHIBITIONS</h2>
 
             <div class="content-block">
                 <h3><span class="year-label">2024</span> New Media Art Conference</h3>
@@ -568,11 +689,11 @@
                 <p><a href="http://www.identity20.org/thismachineisblack/">More information on the Identity 2.0 website</a></p>
             </div>
         </div>
-    </section>
+    </details>
 
-    <section id="residencies">
+    <details id="residencies">
+        <summary><h2>INTERNATIONAL EXCHANGES/RESIDENCIES</h2></summary>
         <div class="container">
-            <h2>INTERNATIONAL EXCHANGES/RESIDENCIES</h2>
 
             <div class="content-block">
                 <h3><span class="year-label">2023</span> IMPAKT</h3>
@@ -588,11 +709,11 @@
                 <p><a href="http://www.algoliterarypublishing.net/">More information on the Algoliterary Publishing website</a></p>
             </div>
         </div>
-    </section>
+    </details>
 
-    <section id="commissions">
+    <details id="commissions">
+        <summary><h2>COMMISSIONS</h2></summary>
         <div class="container">
-            <h2>COMMISSIONS</h2>
 
             <div class="content-block">
                 <h3><span class="year-label">2024</span> Screen-to-Soundscape/Techno Disobedience</h3>
@@ -606,11 +727,11 @@
                 <p>"Digital Pioneers: A Visionary Prelude" is a digital artwork that blends technology and art, creating a cheeky introduction to the IMPAKT festival 2023. This piece features deepfake representations of three prominent tech CEOs, not as mere figures of authority, but as digital orators guiding the audience through the evolving landscape of technology and art. Each CEO's deepfake delivers a segment of the festival's introduction, focusing on themes closely aligned with their real-world contributions and visions. The first segment delves into the transformative power of technology in art, emphasizing innovation and the breaking of traditional boundaries. The second part addresses the ethical considerations and societal impacts of tech advancements, encouraging viewers to ponder the responsibilities that come with innovation. The final segment looks to the future, inspiring a dialogue about the potential of technology in shaping new forms of artistic expression. The artwork is not just a visual spectacle but an auditory experience as well. The deepfakes' voices have been modulated to create a harmonious symphony, symbolizing the unity and collaborative potential within the tech and art communities. "Digital Pioneers" does more than just introduce a festival; it stands as a testament to the ever-blurring lines between human creativity and technological prowess, inviting viewers to explore the endless possibilities at the intersection of art and technology.</p>
             </div>
         </div>
-    </section>
+    </details>
 
-    <section id="collections">
+    <details id="collections">
+        <summary><h2>SALES/WORKS IN COLLECTIONS</h2></summary>
         <div class="container">
-            <h2>SALES/WORKS IN COLLECTIONS</h2>
 
             <div class="content-block">
                 <h3><span class="year-label">2021</span> Identity 2.0</h3>
@@ -618,59 +739,17 @@
                 <p>This exhibition explored how Afrofuturism can be used to remove (or at least alleviate) the normative pressure that AI puts on non-normative bodies. Although with a few exceptions, the black experience has largely been invisible in AI datasets. I trained a series of generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic.</p>
             </div>
         </div>
-    </section>
+    </details>
 
-    <section id="publications">
-        <div class="container">
+    <div class="publications-link-section">
+        <a href="/publications/">
             <h2>PUBLICATIONS</h2>
+        </a>
+    </div>
 
-            <div class="content-block">
-                <h3><span class="year-label">2024</span> Embodying Data, Shifting Perspective</h3>
-                <p class="location">Book • Amsterdam: Amsterdam University Press • Wevers, R Edited by Ponzanesi, S. and Leurs, Koen. • Amsterdam, Netherlands</p>
-                <p>This chapter discusses the artistic project Future Wake (2021) by Ahnjili Zhuparris and Tim van Ommeren that examines predictive policing. By shifting the focus from possible future crime offenders to possible future victims of fatal police encounters, using visual and affective means rather than expert knowledge and statistics, the artwork activates critical reflection on the politics and logics of predictive policing systems. The chapter first situates predictive policing in a context of securitization, and discusses how it enhances structures of discrimination. In the second part, Wevers interviews artist Zhuparris about the aims of Future Wake, discussing the artistic and technical process of creating the project, the politics of data, and the role of art in critical discussion on surveillance and AI.</p>
-                <p><a href="https://research.hanze.nl/en/publications/embodying-data-shifting-perspective-a-conversation-with-ahnjili-z">You can find the full PDF here</a></p>
-            </div>
-
-            <div class="content-block">
-                <h3><span class="year-label">2022</span> Can AI imagine the next victims of police violence?</h3>
-                <p class="location">It's Nice That • London, United Kingdom</p>
-                <p>What are the issues with using AI for predictive policing? Could it reduce crime or does it reinforce racial biases in the criminal justice system? The co-founder of art project Future Wake examines unjust policing using AI and storytelling.</p>
-                <p><a href="http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122">You can find the full article on the Its Nice That website</a></p>
-            </div>
-
-            <div class="content-block">
-                <h3><span class="year-label">2021</span> Supermens: Ahnjili op Tinder</h3>
-                <p class="location">Book • Bot Uitgevers • Peter Joost • Netherlands</p>
-                <p>De cyclus van vrouwen meten in relatie tot Tinder</p>
-                <p><a href="http://www.peterjoosten.net/supermens/">You can find more about the book on Peter Joosten's website</a></p>
-            </div>
-
-            <div class="content-block">
-                <h3><span class="year-label">2021</span> This horrifying AI model predicts future instances of police brutality</h3>
-                <p class="location">Fast Company • Mark Sullivan • United States</p>
-                <p>A searing critique of predictive policing, Future Wake uses past data on police violence to predict where it might occur in the future—and who will be targeted.</p>
-                <p><a href="http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake">You can find the full article on the Fast Company website</a></p>
-            </div>
-
-            <div class="content-block">
-                <h3><span class="year-label">2021</span> Future Wake: the AI art project that predicts police violence</h3>
-                <p class="location">coda story • Caitlin Thompson • United States</p>
-                <p>Future Wake: the AI art project that predicts police violence. Winner of the Mozilla Creative Media award for 2021, an interactive website calculates when and where fatal encounters with law enforcement will occur — and tells the stories of the victims.</p>
-                <p><a href="http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/">You can find the full article on the Coda Story website</a></p>
-            </div>
-
-            <div class="content-block">
-                <h3><span class="year-label">2021</span> Artists create AI that predicts who the police will kill next</h3>
-                <p class="location">The next web • Thomas Macaulay • Netherlands</p>
-                <p>Future Wake tells the stories of potential victims</p>
-                <p><a href="http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next">You can find the full article on The Next Web website</a></p>
-            </div>
-        </div>
-    </section>
-
-    <section id="reviews">
+    <details id="reviews">
+        <summary><h2>INTERVIEWS</h2></summary>
         <div class="container">
-            <h2>INTERVIEWS</h2>
 
             <div class="content-block">
                 <h3><span class="year-label">2023</span> Ahnjili ZhuParris & Jan Zuiderveld - Artificial Intelligence, Autonomous Objects & Algorithmic Violence</h3>
@@ -685,11 +764,11 @@
                 <p>BARTALK is a lecture, performance, and storytelling series that usually takes place in different bars in the Hague. Each of our podcast seasons has a different theme featuring one guest per episode offering their unique perspective.</p>
             </div>
         </div>
-    </section>
+    </details>
 
-    <section id="workshops">
+    <details id="workshops">
+        <summary><h2>SELECTED WORKSHOPS AND TALKS</h2></summary>
         <div class="container">
-            <h2>SELECTED WORKSHOPS AND TALKS</h2>
 
             <div class="content-block">
                 <h3><span class="year-label">2023 - Ongoing</span> The Introduction to Deep Fakes workshops</h3>
@@ -716,7 +795,7 @@
                 <p>HKU: Hogeschool voor de Kunsten Utrecht (NL)</p>
             </div>
         </div>
-    </section>
+    </details>
 
     <script>
         // Drone Cursor System
