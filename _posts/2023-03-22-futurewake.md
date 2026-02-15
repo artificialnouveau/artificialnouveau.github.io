@@ -364,3 +364,46 @@ Enter your zip code and demographics below. The system will estimate your likeli
   });
 })();
 </script>
+
+---
+
+<div style="margin-top: 3rem;">
+
+<h2 style="text-align:center;">Selected Publications</h2>
+
+<div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(0,240,255,0.03); border-left: 3px solid #ff10f0;">
+<h4 style="margin-top:0;"><span style="color:#ff10f0;">[2024]</span> Embodying Data, Shifting Perspective</h4>
+<p style="font-size:0.8rem; color:#b8a8d8; margin-bottom:0.5rem;">Book &bull; Amsterdam: Amsterdam University Press &bull; Wevers, R Edited by Ponzanesi, S. and Leurs, Koen.</p>
+<p style="font-size:0.8rem;">This chapter discusses the artistic project Future Wake (2021) by Ahnjili Zhuparris and Tim van Ommeren that examines predictive policing. By shifting the focus from possible future crime offenders to possible future victims of fatal police encounters, using visual and affective means rather than expert knowledge and statistics, the artwork activates critical reflection on the politics and logics of predictive policing systems. The chapter first situates predictive policing in a context of securitization, and discusses how it enhances structures of discrimination. In the second part, Wevers interviews artist Zhuparris about the aims of Future Wake, discussing the artistic and technical process of creating the project, the politics of data, and the role of art in critical discussion on surveillance and AI.</p>
+<p style="font-size:0.75rem;"><a href="https://research.hanze.nl/en/publications/embodying-data-shifting-perspective-a-conversation-with-ahnjili-z" target="_blank">You can find the full PDF here</a></p>
+</div>
+
+<div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(0,240,255,0.03); border-left: 3px solid #00f0ff;">
+<h4 style="margin-top:0;"><span style="color:#ff10f0;">[2022]</span> Can AI imagine the next victims of police violence?</h4>
+<p style="font-size:0.8rem; color:#b8a8d8; margin-bottom:0.5rem;">It's Nice That &bull; London, United Kingdom</p>
+<p style="font-size:0.8rem;">What are the issues with using AI for predictive policing? Could it reduce crime or does it reinforce racial biases in the criminal justice system? The co-founder of art project Future Wake examines unjust policing using AI and storytelling.</p>
+<p style="font-size:0.75rem;"><a href="http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122" target="_blank">You can find the full article on the Its Nice That website</a></p>
+</div>
+
+<div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(0,240,255,0.03); border-left: 3px solid #00f0ff;">
+<h4 style="margin-top:0;"><span style="color:#ff10f0;">[2021]</span> This horrifying AI model predicts future instances of police brutality</h4>
+<p style="font-size:0.8rem; color:#b8a8d8; margin-bottom:0.5rem;">Fast Company &bull; Mark Sullivan &bull; United States</p>
+<p style="font-size:0.8rem;">A searing critique of predictive policing, Future Wake uses past data on police violence to predict where it might occur in the future&mdash;and who will be targeted.</p>
+<p style="font-size:0.75rem;"><a href="http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake" target="_blank">You can find the full article on the Fast Company website</a></p>
+</div>
+
+<div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(0,240,255,0.03); border-left: 3px solid #00f0ff;">
+<h4 style="margin-top:0;"><span style="color:#ff10f0;">[2021]</span> Future Wake: the AI art project that predicts police violence</h4>
+<p style="font-size:0.8rem; color:#b8a8d8; margin-bottom:0.5rem;">Coda Story &bull; Caitlin Thompson &bull; United States</p>
+<p style="font-size:0.8rem;">Winner of the Mozilla Creative Media award for 2021, an interactive website calculates when and where fatal encounters with law enforcement will occur &mdash; and tells the stories of the victims.</p>
+<p style="font-size:0.75rem;"><a href="http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/" target="_blank">You can find the full article on the Coda Story website</a></p>
+</div>
+
+<div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(0,240,255,0.03); border-left: 3px solid #00f0ff;">
+<h4 style="margin-top:0;"><span style="color:#ff10f0;">[2021]</span> Artists create AI that predicts who the police will kill next</h4>
+<p style="font-size:0.8rem; color:#b8a8d8; margin-bottom:0.5rem;">The Next Web &bull; Thomas Macaulay &bull; Netherlands</p>
+<p style="font-size:0.8rem;">Future Wake tells the stories of potential victims.</p>
+<p style="font-size:0.75rem;"><a href="http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next" target="_blank">You can find the full article on The Next Web website</a></p>
+</div>
+
+</div>
