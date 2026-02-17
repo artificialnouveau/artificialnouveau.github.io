@@ -283,17 +283,49 @@ function renderGallery(articles, galleryId, countId) {
   withImg.forEach(a => {
     const card = document.createElement('div');
     card.className = 'card';
-    const sHtml = (a.sentences || []).slice(0, 3)
-      .map(s => '<div class="sentence">' + esc(trunc(s, 160)) + '</div>').join('');
-    card.innerHTML =
-      '<div class="card-img-wrap">' +
-        '<img src="' + esc(a.images[0]) + '" alt="' + esc(a.title) + '" loading="lazy" onerror="this.closest(\'.card\').style.display=\'none\'">' +
-        '<div class="card-overlay">' +
-          '<h3>' + esc(a.title) + '</h3>' +
-          (sHtml || '<div class="sentence">Article related to femicide coverage</div>') +
-          '<a href="' + esc(a.url) + '" target="_blank" rel="noopener" class="read-link">Read original \u2192</a>' +
-        '</div>' +
-      '</div>';
+
+    const wrap = document.createElement('div');
+    wrap.className = 'card-img-wrap';
+
+    const img = document.createElement('img');
+    img.src = a.images[0];
+    img.alt = a.title;
+    img.loading = 'lazy';
+    img.onerror = function() { card.style.display = 'none'; };
+
+    const overlay = document.createElement('div');
+    overlay.className = 'card-overlay';
+
+    const h3 = document.createElement('h3');
+    h3.textContent = a.title;
+    overlay.appendChild(h3);
+
+    const sents = (a.sentences || []).slice(0, 3);
+    if (sents.length) {
+      sents.forEach(s => {
+        const d = document.createElement('div');
+        d.className = 'sentence';
+        d.textContent = trunc(s, 160);
+        overlay.appendChild(d);
+      });
+    } else {
+      const d = document.createElement('div');
+      d.className = 'sentence';
+      d.textContent = 'Article related to femicide coverage';
+      overlay.appendChild(d);
+    }
+
+    const link = document.createElement('a');
+    link.href = a.url;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.className = 'read-link';
+    link.textContent = 'Read original \u2192';
+    overlay.appendChild(link);
+
+    wrap.appendChild(img);
+    wrap.appendChild(overlay);
+    card.appendChild(wrap);
     gallery.appendChild(card);
   });
 }
@@ -303,13 +335,46 @@ function renderTexts(articles, textsId) {
   articles.forEach(a => {
     const block = document.createElement('div');
     block.className = 'atb';
-    const img = (a.images && a.images[0])
-      ? '<img class="atb-img" src="' + esc(a.images[0]) + '" loading="lazy" onerror="this.style.display=\'none\'">' : '';
-    const sents = (a.sentences || []).map(s => '<div class="atb-sentence">' + esc(s) + '</div>').join('');
-    const desc = (!sents && a.description) ? '<div class="atb-sentence">' + esc(a.description) + '</div>' : '';
-    block.innerHTML = img +
-      '<div class="atb-title"><a href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(a.title) + '</a></div>' +
-      (sents || desc || '<div class="atb-sentence">Article covers femicide-related topics.</div>');
+
+    if (a.images && a.images[0]) {
+      const img = document.createElement('img');
+      img.className = 'atb-img';
+      img.src = a.images[0];
+      img.loading = 'lazy';
+      img.onerror = function() { this.style.display = 'none'; };
+      block.appendChild(img);
+    }
+
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'atb-title';
+    const titleLink = document.createElement('a');
+    titleLink.href = a.url;
+    titleLink.target = '_blank';
+    titleLink.rel = 'noopener';
+    titleLink.textContent = a.title;
+    titleDiv.appendChild(titleLink);
+    block.appendChild(titleDiv);
+
+    const sents = a.sentences || [];
+    if (sents.length) {
+      sents.forEach(s => {
+        const d = document.createElement('div');
+        d.className = 'atb-sentence';
+        d.textContent = s;
+        block.appendChild(d);
+      });
+    } else if (a.description) {
+      const d = document.createElement('div');
+      d.className = 'atb-sentence';
+      d.textContent = a.description;
+      block.appendChild(d);
+    } else {
+      const d = document.createElement('div');
+      d.className = 'atb-sentence';
+      d.textContent = 'Article covers femicide-related topics.';
+      block.appendChild(d);
+    }
+
     el.appendChild(block);
   });
 }
