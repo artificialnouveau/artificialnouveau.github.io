@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corporate Average Face</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script defer src="photo-data.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Corporate Average Face</h1>
+      <p class="subtitle">Average faces of executive leadership — per company or across all</p>
+    </header>
+
+    <div id="status" class="status">Loading face detection models…</div>
+
+    <div id="progress-wrap" class="progress-wrap hidden">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
+
+    <!-- Company filter tabs -->
+    <div id="company-tabs" class="company-tabs hidden">
+      <button class="tab active" data-company="all">All Companies</button>
+    </div>
+
+    <p id="gallery-title" class="section-title hidden">Photos — click to toggle inclusion</p>
+    <div id="gallery" class="gallery"></div>
+
+    <div class="controls">
+      <button id="analyze-btn" class="btn primary" disabled>Analyze Faces</button>
+      <button id="clear-btn" class="btn" disabled>Clear Results</button>
+    </div>
+
+    <div id="drop-zone" class="drop-zone hidden">
+      <input type="file" id="file-input" accept="image/*" multiple>
+      <p>Add more photos: drag &amp; drop here, or <label for="file-input" class="browse-link">browse</label></p>
+    </div>
+
+    <div id="faces-section" class="hidden">
+      <p class="section-title">Detected &amp; Aligned Faces</p>
+      <div id="face-strip" class="face-strip"></div>
+    </div>
+
+    <!-- Per-company results -->
+    <div id="company-results" class="hidden">
+      <h2 class="section-title">Average Face per Company</h2>
+      <div id="company-averages" class="company-averages"></div>
+    </div>
+
+    <!-- Combined result -->
+    <div id="result-section" class="result-section hidden">
+      <h2>Combined Average Face</h2>
+      <canvas id="average-canvas" width="300" height="300"></canvas>
+      <p id="result-meta" class="result-meta"></p>
+    </div>
+  </div>
+</body>
+</html>
