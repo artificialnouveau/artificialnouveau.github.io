@@ -297,15 +297,39 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
 Enter a Wikipedia article to explore it as a 3D soundscape. Walk through sections with arrow keys, hear singing bowl beacons from each element's position, and listen to spatial text-to-speech. Best with headphones.
 </p>
 
-<iframe src="https://www.screentosoundscape.com/scripts/realtime.html"
+<div id="proto-wrapper" style="position:relative;">
+<iframe id="proto-iframe" src="https://www.screentosoundscape.com/scripts/realtime.html"
   style="width:100%; height:600px; border:1px solid rgba(0,240,255,0.2); border-radius:6px; background:#1a1a2e;"
   allow="autoplay; microphone"
   loading="lazy"
   title="Screen-to-Soundscape Phase 1 Prototype">
 </iframe>
+</div>
 
 <p style="text-align:center; font-size:0.6rem; color:#b8a8d8; opacity:0.6; margin-top:0.5rem;">
 <a href="https://www.screentosoundscape.com/scripts/realtime.html" target="_blank" style="color:#00f0ff;">Open full-screen</a> for the best experience.
 </p>
 
 </div>
+
+<script>
+(function() {
+  var wrapper = document.getElementById('proto-wrapper');
+  var savedOverflow = '';
+  wrapper.addEventListener('mouseenter', function() {
+    savedOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+  });
+  wrapper.addEventListener('mouseleave', function() {
+    document.body.style.overflow = savedOverflow;
+  });
+  // Also handle touch devices
+  wrapper.addEventListener('touchstart', function() {
+    savedOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+  }, { passive: true });
+  wrapper.addEventListener('touchend', function() {
+    setTimeout(function() { document.body.style.overflow = savedOverflow; }, 300);
+  }, { passive: true });
+})();
+</script>
