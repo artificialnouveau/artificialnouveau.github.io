@@ -291,23 +291,23 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
 
 <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,240,255,0.03); border: 1px solid rgba(0,240,255,0.2);">
 
-<h2 style="text-align:center; margin-top:0;">Phase 1 Prototype: Wikipedia Spatial Audio Explorer</h2>
+<h2 style="text-align:center; margin-top:0;">Phase 1B Prototype: Wikipedia Soundscape Generator</h2>
 
 <p style="text-align:center; color: #b8a8d8; font-size: 0.8rem;">
 Enter a Wikipedia article to explore it as a 3D soundscape. Walk through sections with arrow keys, hear singing bowl beacons from each element's position, and listen to spatial text-to-speech. Best with headphones.
 </p>
 
 <div id="proto-wrapper" style="position:relative;">
-<iframe id="proto-iframe" src="https://www.screentosoundscape.com/scripts/realtime.html"
+<iframe id="proto-iframe" src="https://www.screentosoundscape.com/scripts/phase1bprototype.html"
   style="width:100%; height:600px; border:1px solid rgba(0,240,255,0.2); border-radius:6px; background:#1a1a2e;"
   allow="autoplay; microphone"
   loading="lazy"
-  title="Screen-to-Soundscape Phase 1 Prototype">
+  title="Screen-to-Soundscape Phase 1B Prototype">
 </iframe>
 </div>
 
 <p style="text-align:center; font-size:0.6rem; color:#b8a8d8; opacity:0.6; margin-top:0.5rem;">
-<a href="https://www.screentosoundscape.com/scripts/realtime.html" target="_blank" style="color:#00f0ff;">Open full-screen</a> for the best experience.
+<a href="https://www.screentosoundscape.com/scripts/phase1bprototype.html" target="_blank" style="color:#00f0ff;">Open full-screen</a> for the best experience.
 </p>
 
 </div>
