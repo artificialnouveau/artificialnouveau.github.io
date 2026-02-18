@@ -8,6 +8,8 @@ Our motivation is to provide a more intuitive and engaging navigation experience
 
 Screen-to-Soundscape is supported by the Constant Foundation, The Processing Foundation, and the Stimuleringsfonds.
 
+**Collaborators:** [Alyssa Gersony](https://www.alyssagersony.com), Bruno Defalque, Chris Alexandre, [Colette Aliman](https://www.colettealiman.com), [Dan Xu](https://danxxxu.github.io/), Raphaël Bascour, Vincent Leone, [Vladimir Nani](https://vladnani.com/), Luis Morales-Navarro, Stefan Laureijssen
+
 Read more about Screen-to-Soundscape on [www.screentosoundscape.com](https://www.screentosoundscape.com)
 
 ---
