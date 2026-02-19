@@ -489,9 +489,11 @@
             filter: drop-shadow(0 0 15px #00f0ff) drop-shadow(0 0 30px #b010ff);
         }
 
-        /* Hide default cursor */
-        body, a, button, input, textarea, select {
-            cursor: none !important;
+        /* Hide default cursor — desktop only */
+        @media (hover: hover) and (pointer: fine) {
+            body, a, button, input, textarea, select {
+                cursor: none !important;
+            }
         }
 
         /* Scan line animation */
@@ -501,30 +503,40 @@
         }
 
         @media (max-width: 768px) {
+            /* Hide drones on mobile */
+            .drone { display: none !important; }
+            body, a, button, input, textarea, select {
+                cursor: auto !important;
+            }
+
             section {
-                padding: 4rem 1.5rem;
+                padding: 3rem 1rem;
             }
 
             header {
                 min-height: auto;
-                padding: 5rem 1.5rem 3rem;
+                padding: 4rem 1rem 2rem;
             }
 
             header::after {
-                height: 150px;
+                height: 120px;
             }
 
             h1 {
-                font-size: 2.5rem;
-            }
-
-            h2 {
                 font-size: 2rem;
             }
 
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .container {
+                padding: 0 0.75rem;
+            }
+
             .content-block {
-                padding: 1.5rem;
-                margin: 2rem 0;
+                padding: 1rem;
+                margin: 1.5rem 0;
             }
         }
     </style>
@@ -923,7 +935,14 @@
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight / 2;
 
+        function isMobileDevice() {
+            return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) ||
+                /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+        }
+
         function initDrones() {
+            if (isMobileDevice()) return;
+
             mouseDrone = new Drone('#ff10f0', false);
             autonomousDrone = new Drone('#00f0ff', true);
 
