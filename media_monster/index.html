@@ -1046,6 +1046,15 @@ Paste artist page URLs from any music platform, one per line"></textarea>
       yearEl.className = "poster-year";
       yearEl.textContent = (state.year ? state.year + " · " : "") + state.type + " · " + imdbId;
 
+      // Image type label
+      var typeLabel = document.createElement("div");
+      typeLabel.className = "poster-year";
+      typeLabel.style.marginBottom = "4px";
+      var availableTypes = [];
+      if (state.posterPath) availableTypes.push("Poster");
+      if (state.backdropPath) availableTypes.push("Landscape");
+      typeLabel.textContent = "Available: " + availableTypes.join(", ");
+
       // Poster vs Landscape toggle
       var modeRow = document.createElement("div");
       modeRow.className = "quality-row";
@@ -1068,7 +1077,7 @@ Paste artist page URLs from any music platform, one per line"></textarea>
       if (state.posterPath) {
         var posterBtn = document.createElement("button");
         posterBtn.className = "quality-btn active-imdb";
-        posterBtn.textContent = "Poster";
+        posterBtn.textContent = "Poster (Vertical)";
         posterBtn.dataset.mode = "poster";
         posterBtn.onclick = function () { updateMode("poster"); };
         modeRow.appendChild(posterBtn);
@@ -1076,7 +1085,7 @@ Paste artist page URLs from any music platform, one per line"></textarea>
       if (state.backdropPath) {
         var landscapeBtn = document.createElement("button");
         landscapeBtn.className = "quality-btn" + (!state.posterPath ? " active-imdb" : "");
-        landscapeBtn.textContent = "Landscape";
+        landscapeBtn.textContent = "Landscape (Wide)";
         landscapeBtn.dataset.mode = "landscape";
         landscapeBtn.onclick = function () { updateMode("landscape"); };
         modeRow.appendChild(landscapeBtn);
@@ -1101,21 +1110,55 @@ Paste artist page URLs from any music platform, one per line"></textarea>
         qualityRow.appendChild(btn);
       });
 
-      var dlBtn = document.createElement("button");
-      dlBtn.className = "download-btn";
-      dlBtn.textContent = "Download";
-      dlBtn.onclick = function () {
-        var path = state.mode === "poster" ? state.posterPath : state.backdropPath;
-        var suffix = state.mode === "poster" ? "_poster" : "_backdrop";
-        var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + suffix + ".jpg";
-        downloadImage(posterUrl(path || state.posterPath, state.size), fname);
-      };
+      // Download buttons row
+      var dlRow = document.createElement("div");
+      dlRow.className = "quality-row";
+
+      if (state.posterPath) {
+        var dlPosterBtn = document.createElement("button");
+        dlPosterBtn.className = "download-btn";
+        dlPosterBtn.textContent = "Download Poster";
+        dlPosterBtn.onclick = function () {
+          var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_poster.jpg";
+          downloadImage(posterUrl(state.posterPath, state.size), fname);
+        };
+        dlRow.appendChild(dlPosterBtn);
+      }
+
+      if (state.backdropPath) {
+        var dlLandscapeBtn = document.createElement("button");
+        dlLandscapeBtn.className = "download-btn";
+        dlLandscapeBtn.textContent = "Download Landscape";
+        dlLandscapeBtn.onclick = function () {
+          var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_landscape.jpg";
+          downloadImage(posterUrl(state.backdropPath, state.size), fname);
+        };
+        dlRow.appendChild(dlLandscapeBtn);
+      }
+
+      if (state.posterPath && state.backdropPath) {
+        var dlBothBtn = document.createElement("button");
+        dlBothBtn.className = "download-btn";
+        dlBothBtn.style.background = "#f5c518";
+        dlBothBtn.style.color = "#000";
+        dlBothBtn.textContent = "Download Both";
+        dlBothBtn.onclick = function () {
+          var fname1 = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_poster.jpg";
+          downloadImage(posterUrl(state.posterPath, state.size), fname1);
+          setTimeout(function () {
+            var fname2 = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_landscape.jpg";
+            downloadImage(posterUrl(state.backdropPath, state.size), fname2);
+          }, 400);
+        };
+        dlRow.appendChild(dlBothBtn);
+      }
 
       body.appendChild(titleEl);
       body.appendChild(yearEl);
-      if (state.posterPath && state.backdropPath) body.appendChild(modeRow);
+      body.appendChild(typeLabel);
+      body.appendChild(modeRow);
       body.appendChild(qualityRow);
-      body.appendChild(dlBtn);
+      body.appendChild(dlRow);
       card.appendChild(img);
       card.appendChild(body);
       container.appendChild(card);
