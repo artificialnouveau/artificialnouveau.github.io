@@ -739,7 +739,7 @@ function renderPapers(list) {
         li.className = 'paper-entry';
         li.dataset.index = i;
 
-        const citText = paper.citations > 0 ? `Cited by ${paper.citations}` : '';
+        const citText = paper.citations >= 10 ? `Cited by ${paper.citations}` : '';
 
         li.innerHTML = `
             <div class="paper-header">
