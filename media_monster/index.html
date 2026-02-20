@@ -351,6 +351,51 @@
       display: none;
     }
 
+    .tab.active-avatar {
+      color: #fff;
+      border-bottom-color: #ff4444;
+    }
+    .btn-primary-avatar {
+      background: #ff4444;
+      color: #fff;
+    }
+
+    .results-avatars {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    .avatar-card {
+      background: #1a1a1a;
+      border: 1px solid #282828;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      padding: 16px;
+    }
+    .avatar-card .avatar-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 10px;
+      display: block;
+      background: #222;
+    }
+    .avatar-card .channel-name {
+      font-size: 0.85rem;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+    .avatar-card .channel-handle {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #888;
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
+
     @media (max-width: 600px) {
       .container { padding: 1.5rem 0.75rem; }
       h1 { font-size: 1.4rem; }
@@ -364,12 +409,13 @@
 <body>
   <div class="container">
     <h1>Media Monster</h1>
-    <p class="subtitle">Download YouTube thumbnails, movie/TV posters, or generate news headline cards.</p>
+    <p class="subtitle">Download YouTube thumbnails, channel avatars, movie/TV posters, or generate news headline cards.</p>
 
     <div class="tabs">
       <button class="tab active" onclick="switchTab('youtube')">YouTube Thumbnails</button>
       <button class="tab" onclick="switchTab('imdb')">IMDb Posters</button>
       <button class="tab" onclick="switchTab('news')">News Cards</button>
+      <button class="tab" onclick="switchTab('avatar')">Channel Avatars</button>
     </div>
 
     <!-- ============ YOUTUBE TAB ============ -->
@@ -449,6 +495,32 @@ Paste one or more news article URLs, one per line"></textarea>
       <p class="status" id="news-status"></p>
       <div class="results" id="news-results"></div>
     </div>
+
+    <!-- ============ CHANNEL AVATARS TAB ============ -->
+    <div class="tab-panel" id="panel-avatar">
+      <textarea id="avatar-urls" placeholder="https://www.youtube.com/@MrBeast
+https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw
+https://www.youtube.com/@mkbhd
+Paste one or more YouTube channel URLs, one per line"></textarea>
+
+      <div class="divider">or upload a file</div>
+
+      <div class="drop-zone" id="avatar-drop-zone" onclick="document.getElementById('avatar-file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">The file should contain YouTube channel URLs in any column</p>
+        <input type="file" id="avatar-file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="avatar-file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary-avatar" onclick="fetchAvatars()">Get Avatars</button>
+        <button class="btn-secondary" id="avatar-download-all-btn" onclick="avatarDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="avatarClear()">Clear</button>
+      </div>
+
+      <p class="status" id="avatar-status"></p>
+      <div class="results results-avatars" id="avatar-results"></div>
+    </div>
   </div>
 
   <script>
@@ -456,17 +528,21 @@ Paste one or more news article URLs, one per line"></textarea>
     // TAB SWITCHING
     // ============================================================
     function switchTab(tab) {
-      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb', 'active-news'); });
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb', 'active-news', 'active-avatar'); });
       document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+      var tabs = document.querySelectorAll('.tab');
       if (tab === 'youtube') {
-        document.querySelectorAll('.tab')[0].classList.add('active');
+        tabs[0].classList.add('active');
         document.getElementById('panel-youtube').classList.add('active');
       } else if (tab === 'imdb') {
-        document.querySelectorAll('.tab')[1].classList.add('active-imdb');
+        tabs[1].classList.add('active-imdb');
         document.getElementById('panel-imdb').classList.add('active');
-      } else {
-        document.querySelectorAll('.tab')[2].classList.add('active-news');
+      } else if (tab === 'news') {
+        tabs[2].classList.add('active-news');
         document.getElementById('panel-news').classList.add('active');
+      } else if (tab === 'avatar') {
+        tabs[3].classList.add('active-avatar');
+        document.getElementById('panel-avatar').classList.add('active');
       }
     }
 
@@ -743,8 +819,8 @@ Paste one or more news article URLs, one per line"></textarea>
             item._type = "TV";
           }
 
-          if (item && item.poster_path) {
-            imdbStates[imdbId] = { posterPath: item.poster_path, size: "original", title: item.title || item.name, year: (item.release_date || item.first_air_date || "").substring(0, 4), type: item._type };
+          if (item && (item.poster_path || item.backdrop_path)) {
+            imdbStates[imdbId] = { posterPath: item.poster_path, backdropPath: item.backdrop_path, mode: "poster", size: "original", title: item.title || item.name, year: (item.release_date || item.first_air_date || "").substring(0, 4), type: item._type };
             createPosterCard(imdbId, results);
             loaded++;
           } else {
@@ -779,7 +855,7 @@ Paste one or more news article URLs, one per line"></textarea>
       var img = document.createElement("img");
       img.alt = "Poster for " + state.title;
       img.crossOrigin = "anonymous";
-      img.src = posterUrl(state.posterPath, "original");
+      img.src = posterUrl(state.posterPath || state.backdropPath, "original");
 
       var body = document.createElement("div");
       body.className = "card-body";
@@ -792,6 +868,42 @@ Paste one or more news article URLs, one per line"></textarea>
       yearEl.className = "poster-year";
       yearEl.textContent = (state.year ? state.year + " · " : "") + state.type + " · " + imdbId;
 
+      // Poster vs Landscape toggle
+      var modeRow = document.createElement("div");
+      modeRow.className = "quality-row";
+      modeRow.style.marginBottom = "6px";
+
+      function updateMode(mode) {
+        state.mode = mode;
+        var path = mode === "poster" ? state.posterPath : state.backdropPath;
+        if (path) {
+          img.src = posterUrl(path, state.size);
+          card.className = mode === "poster" ? "thumb-card poster-card" : "thumb-card";
+          img.style.aspectRatio = mode === "poster" ? "2/3" : "16/9";
+        }
+        modeRow.querySelectorAll(".quality-btn").forEach(function (b) {
+          b.classList.remove("active-imdb");
+          if (b.dataset.mode === mode) b.classList.add("active-imdb");
+        });
+      }
+
+      if (state.posterPath) {
+        var posterBtn = document.createElement("button");
+        posterBtn.className = "quality-btn active-imdb";
+        posterBtn.textContent = "Poster";
+        posterBtn.dataset.mode = "poster";
+        posterBtn.onclick = function () { updateMode("poster"); };
+        modeRow.appendChild(posterBtn);
+      }
+      if (state.backdropPath) {
+        var landscapeBtn = document.createElement("button");
+        landscapeBtn.className = "quality-btn" + (!state.posterPath ? " active-imdb" : "");
+        landscapeBtn.textContent = "Landscape";
+        landscapeBtn.dataset.mode = "landscape";
+        landscapeBtn.onclick = function () { updateMode("landscape"); };
+        modeRow.appendChild(landscapeBtn);
+      }
+
       var qualityRow = document.createElement("div");
       qualityRow.className = "quality-row";
       posterSizes.forEach(function (s) {
@@ -801,7 +913,8 @@ Paste one or more news article URLs, one per line"></textarea>
         btn.dataset.size = s.key;
         btn.onclick = function () {
           state.size = s.key;
-          img.src = posterUrl(state.posterPath, s.key);
+          var path = state.mode === "poster" ? state.posterPath : state.backdropPath;
+          img.src = posterUrl(path || state.posterPath, s.key);
           qualityRow.querySelectorAll(".quality-btn").forEach(function (b) {
             b.classList.remove("active-imdb");
             if (b.dataset.size === s.key) b.classList.add("active-imdb");
@@ -814,12 +927,15 @@ Paste one or more news article URLs, one per line"></textarea>
       dlBtn.className = "download-btn";
       dlBtn.textContent = "Download";
       dlBtn.onclick = function () {
-        var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_poster.jpg";
-        downloadImage(posterUrl(state.posterPath, state.size), fname);
+        var path = state.mode === "poster" ? state.posterPath : state.backdropPath;
+        var suffix = state.mode === "poster" ? "_poster" : "_backdrop";
+        var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + suffix + ".jpg";
+        downloadImage(posterUrl(path || state.posterPath, state.size), fname);
       };
 
       body.appendChild(titleEl);
       body.appendChild(yearEl);
+      if (state.posterPath && state.backdropPath) body.appendChild(modeRow);
       body.appendChild(qualityRow);
       body.appendChild(dlBtn);
       card.appendChild(img);
@@ -836,8 +952,10 @@ Paste one or more news article URLs, one per line"></textarea>
       ids.forEach(function (id) {
         setTimeout(function () {
           var state = imdbStates[id];
-          var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_poster.jpg";
-          downloadImage(posterUrl(state.posterPath, state.size), fname);
+          var path = state.mode === "landscape" ? state.backdropPath : state.posterPath;
+          var suffix = state.mode === "landscape" ? "_backdrop" : "_poster";
+          var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + suffix + ".jpg";
+          downloadImage(posterUrl(path || state.posterPath, state.size), fname);
         }, delay);
         delay += 400;
       });
@@ -1205,6 +1323,259 @@ Paste one or more news article URLs, one per line"></textarea>
     }
 
     // ============================================================
+    // CHANNEL AVATARS
+    // ============================================================
+    var avatarStates = {};
+    var avatarCounter = 0;
+
+    function extractChannelUrl(str) {
+      str = str.trim();
+      // Match YouTube channel URLs
+      var match = str.match(/(https?:\/\/(?:www\.)?youtube\.com\/(?:@[\w.-]+|channel\/[\w-]+|c\/[\w.-]+|user\/[\w.-]+))/i);
+      if (match) return match[1];
+      // Match bare @handle
+      if (str.match(/^@[\w.-]+$/)) return "https://www.youtube.com/" + str;
+      return null;
+    }
+
+    function getHandleFromUrl(url) {
+      var match = url.match(/youtube\.com\/(@[\w.-]+)/);
+      if (match) return match[1];
+      match = url.match(/youtube\.com\/channel\/([\w-]+)/);
+      if (match) return match[1];
+      match = url.match(/youtube\.com\/(?:c|user)\/([\w.-]+)/);
+      if (match) return match[1];
+      return url;
+    }
+
+    async function fetchAvatar(channelUrl) {
+      var lastErr = null;
+      for (var p = 0; p < corsProxies.length; p++) {
+        try {
+          var proxyUrl = corsProxies[p](channelUrl);
+          var resp = await fetch(proxyUrl, { signal: AbortSignal.timeout(10000) });
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          var html = await resp.text();
+
+          // Extract channel name from og:title or <title>
+          var nameMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
+                       || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+          var name = nameMatch ? decodeHtmlEntities(nameMatch[1]) : "";
+
+          // Extract avatar from og:image, or look for channel avatar in page data
+          var imgMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+                      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+          if (imgMatch) {
+            var imgUrl = decodeHtmlEntities(imgMatch[1]);
+            // YouTube og:image URLs often have size params, get the largest version
+            imgUrl = imgUrl.replace(/=s\d+-/, "=s900-");
+            return { imageUrl: imgUrl, name: name };
+          }
+
+          throw new Error("No avatar image found");
+        } catch (err) {
+          lastErr = err;
+        }
+      }
+      throw lastErr || new Error("All proxies failed");
+    }
+
+    async function fetchAvatars() {
+      var input = document.getElementById("avatar-urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("avatar-results");
+      var status = document.getElementById("avatar-status");
+      results.innerHTML = "";
+      avatarStates = {};
+      avatarCounter = 0;
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one YouTube channel URL.";
+        return;
+      }
+
+      var urls = [], errors = [];
+      lines.forEach(function (line) {
+        var url = extractChannelUrl(line);
+        if (url) { urls.push({ original: line, url: url }); }
+        else { errors.push(line); }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Not a valid channel URL: " + e;
+        results.appendChild(div);
+      });
+
+      if (urls.length === 0) {
+        status.textContent = "No valid channel URLs found.";
+        return;
+      }
+
+      status.textContent = "Fetching " + urls.length + " avatar" + (urls.length > 1 ? "s" : "") + "...";
+
+      var loaded = 0, failed = 0;
+      for (var i = 0; i < urls.length; i++) {
+        var cardId = "avatar-" + (avatarCounter++);
+        var handle = getHandleFromUrl(urls[i].url);
+        try {
+          var data = await fetchAvatar(urls[i].url);
+          avatarStates[cardId] = { imageUrl: data.imageUrl, name: data.name, handle: handle };
+          createAvatarCard(cardId, results);
+          loaded++;
+        } catch (err) {
+          var div = document.createElement("div");
+          div.className = "error-card";
+          div.textContent = "Could not fetch avatar for " + handle + ": " + err.message;
+          results.appendChild(div);
+          failed++;
+        }
+      }
+
+      status.textContent = loaded + " avatar" + (loaded !== 1 ? "s" : "") + " loaded." + (failed > 0 ? " " + failed + " failed." : "");
+      document.getElementById("avatar-download-all-btn").disabled = loaded === 0;
+    }
+
+    function createAvatarCard(cardId, container) {
+      var state = avatarStates[cardId];
+      var card = document.createElement("div");
+      card.className = "avatar-card";
+      card.id = cardId;
+
+      var img = document.createElement("img");
+      img.className = "avatar-circle";
+      img.alt = (state.name || state.handle) + " avatar";
+      img.src = state.imageUrl;
+
+      var nameEl = document.createElement("div");
+      nameEl.className = "channel-name";
+      nameEl.textContent = state.name || state.handle;
+
+      var handleEl = document.createElement("div");
+      handleEl.className = "channel-handle";
+      handleEl.textContent = state.handle;
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download Circle";
+      dlBtn.onclick = function () { downloadCircularAvatar(cardId); };
+
+      card.appendChild(img);
+      card.appendChild(nameEl);
+      card.appendChild(handleEl);
+      card.appendChild(dlBtn);
+      container.appendChild(card);
+    }
+
+    function downloadCircularAvatar(cardId) {
+      var state = avatarStates[cardId];
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+
+      img.onload = function () {
+        var size = Math.min(img.naturalWidth, img.naturalHeight);
+        var canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        var ctx = canvas.getContext("2d");
+
+        // Clip to circle
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.clip();
+
+        // Draw image centered
+        var sx = (img.naturalWidth - size) / 2;
+        var sy = (img.naturalHeight - size) / 2;
+        ctx.drawImage(img, sx, sy, size, size, 0, 0, size, size);
+
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = (state.name || state.handle).replace(/[^a-zA-Z0-9]/g, "_") + "_avatar.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          // CORS issue — try via proxy
+          downloadCircularAvatarProxy(cardId);
+        }
+      };
+
+      img.onerror = function () {
+        downloadCircularAvatarProxy(cardId);
+      };
+
+      img.src = state.imageUrl;
+    }
+
+    function downloadCircularAvatarProxy(cardId) {
+      var state = avatarStates[cardId];
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+
+      img.onload = function () {
+        var size = Math.min(img.naturalWidth, img.naturalHeight);
+        var canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        var ctx = canvas.getContext("2d");
+
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.clip();
+
+        var sx = (img.naturalWidth - size) / 2;
+        var sy = (img.naturalHeight - size) / 2;
+        ctx.drawImage(img, sx, sy, size, size, 0, 0, size, size);
+
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = (state.name || state.handle).replace(/[^a-zA-Z0-9]/g, "_") + "_avatar.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          alert("Could not download avatar due to CORS restrictions.");
+        }
+      };
+
+      img.onerror = function () {
+        alert("Could not load avatar image for download.");
+      };
+
+      img.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+    }
+
+    function avatarDownloadAll() {
+      var ids = Object.keys(avatarStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("avatar-status");
+      status.textContent = "Downloading " + ids.length + " avatar" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () { downloadCircularAvatar(id); }, delay);
+        delay += 600;
+      });
+      setTimeout(function () { status.textContent = "Downloads started."; }, delay);
+    }
+
+    function avatarClear() {
+      document.getElementById("avatar-urls").value = "";
+      document.getElementById("avatar-results").innerHTML = "";
+      document.getElementById("avatar-status").textContent = "";
+      document.getElementById("avatar-download-all-btn").disabled = true;
+      document.getElementById("avatar-file-info").textContent = "";
+      avatarStates = {};
+    }
+
+    // ============================================================
     // FILE UPLOAD (shared logic)
     // ============================================================
     function setupDropZone(dropZoneId, fileInputId, fileInfoId, extractFn, textareaId) {
@@ -1285,6 +1656,7 @@ Paste one or more news article URLs, one per line"></textarea>
     setupDropZone("drop-zone", "file-input", "file-info", extractVideoId, "urls");
     setupDropZone("imdb-drop-zone", "imdb-file-input", "imdb-file-info", extractImdbId, "imdb-urls");
     setupDropZone("news-drop-zone", "news-file-input", "news-file-info", extractNewsUrl, "news-urls");
+    setupDropZone("avatar-drop-zone", "avatar-file-input", "avatar-file-info", extractChannelUrl, "avatar-urls");
 
     // Ctrl+Enter shortcuts
     document.getElementById("urls").addEventListener("keydown", function (e) {
@@ -1295,6 +1667,9 @@ Paste one or more news article URLs, one per line"></textarea>
     });
     document.getElementById("news-urls").addEventListener("keydown", function (e) {
       if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchNewsCards(); }
+    });
+    document.getElementById("avatar-urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchAvatars(); }
     });
   </script>
 </body>
