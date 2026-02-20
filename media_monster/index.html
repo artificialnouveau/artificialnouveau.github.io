@@ -396,6 +396,77 @@
       word-break: break-all;
     }
 
+    .tab.active-brand {
+      color: #fff;
+      border-bottom-color: #00cc88;
+    }
+    .btn-primary-brand {
+      background: #00cc88;
+      color: #fff;
+    }
+
+    .results-brands {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    .brand-card {
+      background: #1a1a1a;
+      border: 1px solid #282828;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .brand-card .logo-preview {
+      width: 100%;
+      aspect-ratio: 3/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .brand-card .logo-preview.bg-white { background: #ffffff; }
+    .brand-card .logo-preview.bg-dark { background: #1a1a1a; }
+    .brand-card .logo-preview.bg-checker {
+      background: repeating-conic-gradient(#e0e0e0 0% 25%, #fff 0% 50%) 50% / 16px 16px;
+    }
+    .brand-card .logo-preview img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .brand-card .card-body {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .brand-card .brand-name {
+      font-size: 0.85rem;
+      color: #fff;
+      font-weight: 600;
+    }
+    .brand-card .brand-domain {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .bg-toggle {
+      display: flex;
+      gap: 4px;
+    }
+    .bg-toggle button {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 2px solid #383838;
+      padding: 0;
+      cursor: pointer;
+      font-size: 0;
+    }
+    .bg-toggle button.active-bg { border-color: #00cc88; }
+    .bg-toggle .bg-opt-white { background: #fff; }
+    .bg-toggle .bg-opt-dark { background: #1a1a1a; }
+    .bg-toggle .bg-opt-checker { background: repeating-conic-gradient(#e0e0e0 0% 25%, #fff 0% 50%) 50% / 8px 8px; }
+
     @media (max-width: 600px) {
       .container { padding: 1.5rem 0.75rem; }
       h1 { font-size: 1.4rem; }
@@ -416,6 +487,7 @@
       <button class="tab" onclick="switchTab('imdb')">IMDb Posters</button>
       <button class="tab" onclick="switchTab('news')">News Cards</button>
       <button class="tab" onclick="switchTab('avatar')">Channel Avatars</button>
+      <button class="tab" onclick="switchTab('brand')">Brand Logos</button>
     </div>
 
     <!-- ============ YOUTUBE TAB ============ -->
@@ -521,6 +593,33 @@ Paste one or more YouTube channel URLs, one per line"></textarea>
       <p class="status" id="avatar-status"></p>
       <div class="results results-avatars" id="avatar-results"></div>
     </div>
+
+    <!-- ============ BRAND LOGOS TAB ============ -->
+    <div class="tab-panel" id="panel-brand">
+      <textarea id="brand-urls" placeholder="nike.com
+apple.com
+spotify.com
+coca-cola.com
+Enter company domains, one per line"></textarea>
+
+      <div class="divider">or upload a file</div>
+
+      <div class="drop-zone" id="brand-drop-zone" onclick="document.getElementById('brand-file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">The file should contain company domains (e.g. nike.com) in any column</p>
+        <input type="file" id="brand-file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="brand-file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary-brand" onclick="fetchBrandLogos()">Get Logos</button>
+        <button class="btn-secondary" id="brand-download-all-btn" onclick="brandDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="brandClear()">Clear</button>
+      </div>
+
+      <p class="status" id="brand-status"></p>
+      <div class="results results-brands" id="brand-results"></div>
+    </div>
   </div>
 
   <script>
@@ -528,7 +627,7 @@ Paste one or more YouTube channel URLs, one per line"></textarea>
     // TAB SWITCHING
     // ============================================================
     function switchTab(tab) {
-      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb', 'active-news', 'active-avatar'); });
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb', 'active-news', 'active-avatar', 'active-brand'); });
       document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
       var tabs = document.querySelectorAll('.tab');
       if (tab === 'youtube') {
@@ -543,6 +642,9 @@ Paste one or more YouTube channel URLs, one per line"></textarea>
       } else if (tab === 'avatar') {
         tabs[3].classList.add('active-avatar');
         document.getElementById('panel-avatar').classList.add('active');
+      } else if (tab === 'brand') {
+        tabs[4].classList.add('active-brand');
+        document.getElementById('panel-brand').classList.add('active');
       }
     }
 
@@ -1576,6 +1678,258 @@ Paste one or more YouTube channel URLs, one per line"></textarea>
     }
 
     // ============================================================
+    // BRAND LOGOS
+    // ============================================================
+    var brandStates = {};
+    var brandCounter = 0;
+
+    function extractDomainInput(str) {
+      str = str.trim().toLowerCase();
+      if (!str) return null;
+      // Extract domain from URL
+      try {
+        if (str.match(/^https?:\/\//)) {
+          str = new URL(str).hostname;
+        }
+      } catch (e) {}
+      str = str.replace(/^www\./, "");
+      // Must look like a domain
+      if (str.match(/^[\w.-]+\.\w{2,}$/)) return str;
+      return null;
+    }
+
+    function brandLogoUrl(domain) {
+      return "https://logo.clearbit.com/" + domain;
+    }
+
+    function fetchBrandLogos() {
+      var input = document.getElementById("brand-urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("brand-results");
+      var status = document.getElementById("brand-status");
+      results.innerHTML = "";
+      brandStates = {};
+      brandCounter = 0;
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one company domain.";
+        return;
+      }
+
+      var domains = [], errors = [];
+      lines.forEach(function (line) {
+        var d = extractDomainInput(line);
+        if (d) { if (domains.indexOf(d) === -1) domains.push(d); }
+        else { errors.push(line); }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Not a valid domain: " + e;
+        results.appendChild(div);
+      });
+
+      if (domains.length === 0) {
+        status.textContent = "No valid domains found.";
+        return;
+      }
+
+      status.textContent = "Loading " + domains.length + " logo" + (domains.length > 1 ? "s" : "") + "...";
+      var loaded = 0, failed = 0;
+
+      domains.forEach(function (domain) {
+        var cardId = "brand-" + (brandCounter++);
+        var prettyName = domain.replace(/\.\w+$/, "").replace(/^./, function (c) { return c.toUpperCase(); });
+        brandStates[cardId] = { domain: domain, name: prettyName, bg: "white" };
+
+        // Test if logo loads
+        var testImg = new Image();
+        testImg.onload = function () {
+          createBrandCard(cardId, results);
+          loaded++;
+          checkDone();
+        };
+        testImg.onerror = function () {
+          var div = document.createElement("div");
+          div.className = "error-card";
+          div.textContent = "No logo found for " + domain;
+          results.appendChild(div);
+          delete brandStates[cardId];
+          failed++;
+          checkDone();
+        };
+        testImg.src = brandLogoUrl(domain);
+      });
+
+      function checkDone() {
+        if (loaded + failed === domains.length) {
+          status.textContent = loaded + " logo" + (loaded !== 1 ? "s" : "") + " loaded." + (failed > 0 ? " " + failed + " not found." : "");
+          document.getElementById("brand-download-all-btn").disabled = loaded === 0;
+        }
+      }
+    }
+
+    function createBrandCard(cardId, container) {
+      var state = brandStates[cardId];
+      var card = document.createElement("div");
+      card.className = "brand-card";
+      card.id = cardId;
+
+      var preview = document.createElement("div");
+      preview.className = "logo-preview bg-white";
+
+      var img = document.createElement("img");
+      img.src = brandLogoUrl(state.domain);
+      img.alt = state.name + " logo";
+      preview.appendChild(img);
+
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var nameEl = document.createElement("div");
+      nameEl.className = "brand-name";
+      nameEl.textContent = state.name;
+
+      var domainEl = document.createElement("div");
+      domainEl.className = "brand-domain";
+      domainEl.textContent = state.domain;
+
+      // Background toggle
+      var bgToggle = document.createElement("div");
+      bgToggle.className = "bg-toggle";
+
+      var bgs = [
+        { cls: "bg-opt-white", key: "white", label: "White" },
+        { cls: "bg-opt-dark", key: "dark", label: "Dark" },
+        { cls: "bg-opt-checker", key: "checker", label: "Transparent" }
+      ];
+      bgs.forEach(function (bg) {
+        var btn = document.createElement("button");
+        btn.className = bg.cls + (bg.key === "white" ? " active-bg" : "");
+        btn.title = bg.label + " background";
+        btn.textContent = " ";
+        btn.onclick = function () {
+          state.bg = bg.key;
+          preview.className = "logo-preview bg-" + bg.key;
+          bgToggle.querySelectorAll("button").forEach(function (b) { b.classList.remove("active-bg"); });
+          btn.classList.add("active-bg");
+        };
+        bgToggle.appendChild(btn);
+      });
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download Logo";
+      dlBtn.onclick = function () { downloadBrandLogo(cardId); };
+
+      body.appendChild(nameEl);
+      body.appendChild(domainEl);
+      body.appendChild(bgToggle);
+      body.appendChild(dlBtn);
+      card.appendChild(preview);
+      card.appendChild(body);
+      container.appendChild(card);
+    }
+
+    function downloadBrandLogo(cardId) {
+      var state = brandStates[cardId];
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        var ctx = canvas.getContext("2d");
+
+        // Draw background
+        if (state.bg === "white") {
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else if (state.bg === "dark") {
+          ctx.fillStyle = "#1a1a1a";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        // "checker" = transparent, no fill
+
+        ctx.drawImage(img, 0, 0);
+
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = state.domain.replace(/\./g, "_") + "_logo.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          // CORS fallback via proxy
+          downloadBrandLogoProxy(cardId);
+        }
+      };
+      img.onerror = function () { downloadBrandLogoProxy(cardId); };
+      img.src = brandLogoUrl(state.domain);
+    }
+
+    function downloadBrandLogoProxy(cardId) {
+      var state = brandStates[cardId];
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        var ctx = canvas.getContext("2d");
+
+        if (state.bg === "white") {
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else if (state.bg === "dark") {
+          ctx.fillStyle = "#1a1a1a";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        ctx.drawImage(img, 0, 0);
+
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = state.domain.replace(/\./g, "_") + "_logo.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          window.open(brandLogoUrl(state.domain), "_blank");
+        }
+      };
+      img.onerror = function () { window.open(brandLogoUrl(state.domain), "_blank"); };
+      img.src = "https://corsproxy.io/?" + encodeURIComponent(brandLogoUrl(state.domain));
+    }
+
+    function brandDownloadAll() {
+      var ids = Object.keys(brandStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("brand-status");
+      status.textContent = "Downloading " + ids.length + " logo" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () { downloadBrandLogo(id); }, delay);
+        delay += 500;
+      });
+      setTimeout(function () { status.textContent = "Downloads started."; }, delay);
+    }
+
+    function brandClear() {
+      document.getElementById("brand-urls").value = "";
+      document.getElementById("brand-results").innerHTML = "";
+      document.getElementById("brand-status").textContent = "";
+      document.getElementById("brand-download-all-btn").disabled = true;
+      document.getElementById("brand-file-info").textContent = "";
+      brandStates = {};
+    }
+
+    // ============================================================
     // FILE UPLOAD (shared logic)
     // ============================================================
     function setupDropZone(dropZoneId, fileInputId, fileInfoId, extractFn, textareaId) {
@@ -1657,6 +2011,7 @@ Paste one or more YouTube channel URLs, one per line"></textarea>
     setupDropZone("imdb-drop-zone", "imdb-file-input", "imdb-file-info", extractImdbId, "imdb-urls");
     setupDropZone("news-drop-zone", "news-file-input", "news-file-info", extractNewsUrl, "news-urls");
     setupDropZone("avatar-drop-zone", "avatar-file-input", "avatar-file-info", extractChannelUrl, "avatar-urls");
+    setupDropZone("brand-drop-zone", "brand-file-input", "brand-file-info", extractDomainInput, "brand-urls");
 
     // Ctrl+Enter shortcuts
     document.getElementById("urls").addEventListener("keydown", function (e) {
@@ -1670,6 +2025,9 @@ Paste one or more YouTube channel URLs, one per line"></textarea>
     });
     document.getElementById("avatar-urls").addEventListener("keydown", function (e) {
       if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchAvatars(); }
+    });
+    document.getElementById("brand-urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchBrandLogos(); }
     });
   </script>
 </body>
