@@ -467,6 +467,51 @@
     .bg-toggle .bg-opt-dark { background: #1a1a1a; }
     .bg-toggle .bg-opt-checker { background: repeating-conic-gradient(#e0e0e0 0% 25%, #fff 0% 50%) 50% / 8px 8px; }
 
+    .tab.active-artist {
+      color: #fff;
+      border-bottom-color: #1db954;
+    }
+    .btn-primary-artist {
+      background: #1db954;
+      color: #fff;
+    }
+
+    .results-artists {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    .artist-card {
+      background: #1a1a1a;
+      border: 1px solid #282828;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      padding: 16px;
+    }
+    .artist-card .artist-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 10px;
+      display: block;
+      background: #222;
+    }
+    .artist-card .artist-name {
+      font-size: 0.85rem;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+    .artist-card .artist-source {
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: #1db954;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
     @media (max-width: 600px) {
       .container { padding: 1.5rem 0.75rem; }
       h1 { font-size: 1.4rem; }
@@ -488,6 +533,7 @@
       <button class="tab" onclick="switchTab('news')">News Cards</button>
       <button class="tab" onclick="switchTab('avatar')">Channel Avatars</button>
       <button class="tab" onclick="switchTab('brand')">Brand Logos</button>
+      <button class="tab" onclick="switchTab('artist')">Artist Photos</button>
     </div>
 
     <!-- ============ YOUTUBE TAB ============ -->
@@ -620,6 +666,33 @@ Enter company domains, one per line"></textarea>
       <p class="status" id="brand-status"></p>
       <div class="results results-brands" id="brand-results"></div>
     </div>
+
+    <!-- ============ ARTIST PHOTOS TAB ============ -->
+    <div class="tab-panel" id="panel-artist">
+      <textarea id="artist-urls" placeholder="https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
+https://music.apple.com/us/artist/ed-sheeran/183313439
+https://music.youtube.com/channel/UCuHzBCaKmtaLcRAOoazhCPA
+https://music.amazon.com/artists/B001GCTO3O
+Paste artist page URLs from any music platform, one per line"></textarea>
+
+      <div class="divider">or upload a file</div>
+
+      <div class="drop-zone" id="artist-drop-zone" onclick="document.getElementById('artist-file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">The file should contain artist page URLs from Spotify, Apple Music, YouTube Music, or Amazon Music</p>
+        <input type="file" id="artist-file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="artist-file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary-artist" onclick="fetchArtistPhotos()">Get Photos</button>
+        <button class="btn-secondary" id="artist-download-all-btn" onclick="artistDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="artistClear()">Clear</button>
+      </div>
+
+      <p class="status" id="artist-status"></p>
+      <div class="results results-artists" id="artist-results"></div>
+    </div>
   </div>
 
   <script>
@@ -627,7 +700,7 @@ Enter company domains, one per line"></textarea>
     // TAB SWITCHING
     // ============================================================
     function switchTab(tab) {
-      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb', 'active-news', 'active-avatar', 'active-brand'); });
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb', 'active-news', 'active-avatar', 'active-brand', 'active-artist'); });
       document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
       var tabs = document.querySelectorAll('.tab');
       if (tab === 'youtube') {
@@ -645,6 +718,9 @@ Enter company domains, one per line"></textarea>
       } else if (tab === 'brand') {
         tabs[4].classList.add('active-brand');
         document.getElementById('panel-brand').classList.add('active');
+      } else if (tab === 'artist') {
+        tabs[5].classList.add('active-artist');
+        document.getElementById('panel-artist').classList.add('active');
       }
     }
 
@@ -1702,7 +1778,46 @@ Enter company domains, one per line"></textarea>
       return "https://logo.clearbit.com/" + domain;
     }
 
-    function fetchBrandLogos() {
+    async function fetchBrandLogoImage(domain) {
+      // Strategy 1: Try Clearbit logo (often wide/landscape)
+      var clearbitWorks = await testImageLoads(brandLogoUrl(domain));
+      if (clearbitWorks) return { imageUrl: brandLogoUrl(domain), source: "clearbit" };
+
+      // Strategy 2: Fetch the website via CORS proxy, extract og:image
+      for (var p = 0; p < corsProxies.length; p++) {
+        try {
+          var siteUrl = "https://" + domain;
+          var proxyUrl = corsProxies[p](siteUrl);
+          var resp = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+          if (!resp.ok) continue;
+          var html = await resp.text();
+
+          var imgMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+                      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+          if (imgMatch) {
+            var imgUrl = decodeHtmlEntities(imgMatch[1]);
+            // Make relative URLs absolute
+            if (imgUrl.startsWith("/")) imgUrl = "https://" + domain + imgUrl;
+            return { imageUrl: imgUrl, source: "og:image" };
+          }
+        } catch (err) {}
+      }
+
+      // Strategy 3: Google Favicon (small but reliable)
+      return { imageUrl: "https://www.google.com/s2/favicons?domain=" + domain + "&sz=128", source: "favicon" };
+    }
+
+    function testImageLoads(url) {
+      return new Promise(function (resolve) {
+        var img = new Image();
+        img.onload = function () { resolve(true); };
+        img.onerror = function () { resolve(false); };
+        setTimeout(function () { resolve(false); }, 5000);
+        img.src = url;
+      });
+    }
+
+    async function fetchBrandLogos() {
       var input = document.getElementById("brand-urls").value;
       var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
       var results = document.getElementById("brand-results");
@@ -1738,36 +1853,27 @@ Enter company domains, one per line"></textarea>
       status.textContent = "Loading " + domains.length + " logo" + (domains.length > 1 ? "s" : "") + "...";
       var loaded = 0, failed = 0;
 
-      domains.forEach(function (domain) {
+      for (var i = 0; i < domains.length; i++) {
+        var domain = domains[i];
         var cardId = "brand-" + (brandCounter++);
         var prettyName = domain.replace(/\.\w+$/, "").replace(/^./, function (c) { return c.toUpperCase(); });
-        brandStates[cardId] = { domain: domain, name: prettyName, bg: "white" };
 
-        // Test if logo loads
-        var testImg = new Image();
-        testImg.onload = function () {
+        try {
+          var logoData = await fetchBrandLogoImage(domain);
+          brandStates[cardId] = { domain: domain, name: prettyName, bg: "white", imageUrl: logoData.imageUrl, source: logoData.source };
           createBrandCard(cardId, results);
           loaded++;
-          checkDone();
-        };
-        testImg.onerror = function () {
+        } catch (err) {
           var div = document.createElement("div");
           div.className = "error-card";
           div.textContent = "No logo found for " + domain;
           results.appendChild(div);
-          delete brandStates[cardId];
           failed++;
-          checkDone();
-        };
-        testImg.src = brandLogoUrl(domain);
-      });
-
-      function checkDone() {
-        if (loaded + failed === domains.length) {
-          status.textContent = loaded + " logo" + (loaded !== 1 ? "s" : "") + " loaded." + (failed > 0 ? " " + failed + " not found." : "");
-          document.getElementById("brand-download-all-btn").disabled = loaded === 0;
         }
       }
+
+      status.textContent = loaded + " logo" + (loaded !== 1 ? "s" : "") + " loaded." + (failed > 0 ? " " + failed + " not found." : "");
+      document.getElementById("brand-download-all-btn").disabled = loaded === 0;
     }
 
     function createBrandCard(cardId, container) {
@@ -1780,7 +1886,7 @@ Enter company domains, one per line"></textarea>
       preview.className = "logo-preview bg-white";
 
       var img = document.createElement("img");
-      img.src = brandLogoUrl(state.domain);
+      img.src = state.imageUrl;
       img.alt = state.name + " logo";
       preview.appendChild(img);
 
@@ -1868,7 +1974,7 @@ Enter company domains, one per line"></textarea>
         }
       };
       img.onerror = function () { downloadBrandLogoProxy(cardId); };
-      img.src = brandLogoUrl(state.domain);
+      img.src = state.imageUrl;
     }
 
     function downloadBrandLogoProxy(cardId) {
@@ -1900,11 +2006,11 @@ Enter company domains, one per line"></textarea>
           a.click();
           document.body.removeChild(a);
         } catch (e) {
-          window.open(brandLogoUrl(state.domain), "_blank");
+          window.open(state.imageUrl, "_blank");
         }
       };
-      img.onerror = function () { window.open(brandLogoUrl(state.domain), "_blank"); };
-      img.src = "https://corsproxy.io/?" + encodeURIComponent(brandLogoUrl(state.domain));
+      img.onerror = function () { window.open(state.imageUrl, "_blank"); };
+      img.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
     }
 
     function brandDownloadAll() {
@@ -1927,6 +2033,234 @@ Enter company domains, one per line"></textarea>
       document.getElementById("brand-download-all-btn").disabled = true;
       document.getElementById("brand-file-info").textContent = "";
       brandStates = {};
+    }
+
+    // ============================================================
+    // ARTIST PHOTOS
+    // ============================================================
+    var artistStates = {};
+    var artistCounter = 0;
+
+    function detectMusicPlatform(url) {
+      if (/open\.spotify\.com/i.test(url)) return "Spotify";
+      if (/music\.apple\.com/i.test(url)) return "Apple Music";
+      if (/music\.youtube\.com/i.test(url)) return "YouTube Music";
+      if (/music\.amazon/i.test(url)) return "Amazon Music";
+      if (/deezer\.com/i.test(url)) return "Deezer";
+      if (/tidal\.com/i.test(url)) return "Tidal";
+      if (/soundcloud\.com/i.test(url)) return "SoundCloud";
+      return "Music";
+    }
+
+    function extractArtistUrl(str) {
+      str = str.trim();
+      var match = str.match(/(https?:\/\/[^\s"',]+(?:artist|channel|artists)[^\s"',]*)/i);
+      return match ? match[1] : null;
+    }
+
+    async function fetchArtistImage(url) {
+      var lastErr = null;
+      for (var p = 0; p < corsProxies.length; p++) {
+        try {
+          var proxyUrl = corsProxies[p](url);
+          var resp = await fetch(proxyUrl, { signal: AbortSignal.timeout(10000) });
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          var html = await resp.text();
+
+          // Extract name from og:title
+          var nameMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
+                       || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+          var name = nameMatch ? decodeHtmlEntities(nameMatch[1]) : "";
+          // Clean up common suffixes
+          name = name.replace(/\s*[-–|·].*$/, "").replace(/\s*on\s+(Spotify|Apple Music|Amazon Music).*$/i, "").trim();
+
+          // Extract image from og:image
+          var imgMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+                      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+          if (imgMatch) {
+            var imgUrl = decodeHtmlEntities(imgMatch[1]);
+            return { imageUrl: imgUrl, name: name };
+          }
+
+          // Try twitter:image as fallback
+          var twMatch = html.match(/<meta[^>]+(?:name|property)=["']twitter:image["'][^>]+content=["']([^"']+)["']/i)
+                     || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+(?:name|property)=["']twitter:image["']/i);
+          if (twMatch) {
+            return { imageUrl: decodeHtmlEntities(twMatch[1]), name: name };
+          }
+
+          throw new Error("No artist image found");
+        } catch (err) {
+          lastErr = err;
+        }
+      }
+      throw lastErr || new Error("All proxies failed");
+    }
+
+    async function fetchArtistPhotos() {
+      var input = document.getElementById("artist-urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("artist-results");
+      var status = document.getElementById("artist-status");
+      results.innerHTML = "";
+      artistStates = {};
+      artistCounter = 0;
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one artist page URL.";
+        return;
+      }
+
+      var urls = [], errors = [];
+      lines.forEach(function (line) {
+        if (line.match(/^https?:\/\//i)) {
+          urls.push(line);
+        } else {
+          errors.push(line);
+        }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Not a valid URL: " + e;
+        results.appendChild(div);
+      });
+
+      if (urls.length === 0) {
+        status.textContent = "No valid URLs found.";
+        return;
+      }
+
+      status.textContent = "Fetching " + urls.length + " artist photo" + (urls.length > 1 ? "s" : "") + "...";
+
+      var loaded = 0, failed = 0;
+      for (var i = 0; i < urls.length; i++) {
+        var url = urls[i];
+        var cardId = "artist-" + (artistCounter++);
+        var platform = detectMusicPlatform(url);
+
+        try {
+          var data = await fetchArtistImage(url);
+          artistStates[cardId] = { imageUrl: data.imageUrl, name: data.name, platform: platform, url: url };
+          createArtistCard(cardId, results);
+          loaded++;
+        } catch (err) {
+          var div = document.createElement("div");
+          div.className = "error-card";
+          div.textContent = "Could not fetch from " + platform + ": " + err.message;
+          results.appendChild(div);
+          failed++;
+        }
+      }
+
+      status.textContent = loaded + " photo" + (loaded !== 1 ? "s" : "") + " loaded." + (failed > 0 ? " " + failed + " failed." : "");
+      document.getElementById("artist-download-all-btn").disabled = loaded === 0;
+    }
+
+    function createArtistCard(cardId, container) {
+      var state = artistStates[cardId];
+      var card = document.createElement("div");
+      card.className = "artist-card";
+      card.id = cardId;
+
+      var img = document.createElement("img");
+      img.className = "artist-circle";
+      img.alt = (state.name || "Artist") + " photo";
+      img.src = state.imageUrl;
+
+      var nameEl = document.createElement("div");
+      nameEl.className = "artist-name";
+      nameEl.textContent = state.name || "Unknown Artist";
+
+      var sourceEl = document.createElement("div");
+      sourceEl.className = "artist-source";
+      sourceEl.textContent = state.platform;
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download Circle";
+      dlBtn.onclick = function () { downloadCircularArtist(cardId); };
+
+      card.appendChild(img);
+      card.appendChild(nameEl);
+      card.appendChild(sourceEl);
+      card.appendChild(dlBtn);
+      container.appendChild(card);
+    }
+
+    function downloadCircularArtist(cardId) {
+      var state = artistStates[cardId];
+      // Try direct first, then proxy
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+
+      img.onload = function () { renderCircle(img, state); };
+      img.onerror = function () {
+        // Try via CORS proxy
+        var img2 = new Image();
+        img2.crossOrigin = "anonymous";
+        img2.onload = function () { renderCircle(img2, state); };
+        img2.onerror = function () {
+          alert("Could not download image due to CORS restrictions. Try right-clicking the image above and saving manually.");
+        };
+        img2.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+      };
+      img.src = state.imageUrl;
+
+      function renderCircle(imgEl, st) {
+        var size = Math.min(imgEl.naturalWidth, imgEl.naturalHeight);
+        if (size < 10) { alert("Image too small to crop."); return; }
+        var canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        var ctx = canvas.getContext("2d");
+
+        // Clip to circle
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.clip();
+
+        // Draw centered crop
+        var sx = (imgEl.naturalWidth - size) / 2;
+        var sy = (imgEl.naturalHeight - size) / 2;
+        ctx.drawImage(imgEl, sx, sy, size, size, 0, 0, size, size);
+
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = (st.name || "artist").replace(/[^a-zA-Z0-9]/g, "_") + "_circle.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          alert("Could not generate circular image.");
+        }
+      }
+    }
+
+    function artistDownloadAll() {
+      var ids = Object.keys(artistStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("artist-status");
+      status.textContent = "Downloading " + ids.length + " photo" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () { downloadCircularArtist(id); }, delay);
+        delay += 600;
+      });
+      setTimeout(function () { status.textContent = "Downloads started."; }, delay);
+    }
+
+    function artistClear() {
+      document.getElementById("artist-urls").value = "";
+      document.getElementById("artist-results").innerHTML = "";
+      document.getElementById("artist-status").textContent = "";
+      document.getElementById("artist-download-all-btn").disabled = true;
+      document.getElementById("artist-file-info").textContent = "";
+      artistStates = {};
     }
 
     // ============================================================
@@ -2012,6 +2346,7 @@ Enter company domains, one per line"></textarea>
     setupDropZone("news-drop-zone", "news-file-input", "news-file-info", extractNewsUrl, "news-urls");
     setupDropZone("avatar-drop-zone", "avatar-file-input", "avatar-file-info", extractChannelUrl, "avatar-urls");
     setupDropZone("brand-drop-zone", "brand-file-input", "brand-file-info", extractDomainInput, "brand-urls");
+    setupDropZone("artist-drop-zone", "artist-file-input", "artist-file-info", extractArtistUrl, "artist-urls");
 
     // Ctrl+Enter shortcuts
     document.getElementById("urls").addEventListener("keydown", function (e) {
@@ -2028,6 +2363,9 @@ Enter company domains, one per line"></textarea>
     });
     document.getElementById("brand-urls").addEventListener("keydown", function (e) {
       if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchBrandLogos(); }
+    });
+    document.getElementById("artist-urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchArtistPhotos(); }
     });
   </script>
 </body>
