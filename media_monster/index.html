@@ -1919,8 +1919,85 @@ Paste artist page URLs, one per line"></textarea>
       document.getElementById("brand-download-all-btn").disabled = loaded === 0;
     }
 
+    // Remove white/light background from image data
+    function removeWhiteBg(canvas, ctx, threshold) {
+      threshold = threshold || 235;
+      var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      var data = imageData.data;
+      for (var i = 0; i < data.length; i += 4) {
+        var r = data[i], g = data[i + 1], b = data[i + 2];
+        if (r > threshold && g > threshold && b > threshold) {
+          // Fully transparent for very white pixels
+          data[i + 3] = 0;
+        } else if (r > threshold - 20 && g > threshold - 20 && b > threshold - 20) {
+          // Fade out near-white pixels for smooth edges
+          var avg = (r + g + b) / 3;
+          var alpha = Math.round(255 * (1 - (avg - (threshold - 20)) / 20));
+          data[i + 3] = Math.max(0, Math.min(data[i + 3], alpha));
+        }
+      }
+      ctx.putImageData(imageData, 0, 0);
+    }
+
+    function applyBgRemovalToPreview(cardId) {
+      var state = brandStates[cardId];
+      var card = document.getElementById(cardId);
+      var preview = card.querySelector(".logo-preview");
+      var origImg = card.querySelector(".logo-preview img");
+
+      if (state.bgRemoved) {
+        // Replace img with canvas for transparent preview
+        var tempImg = new Image();
+        tempImg.crossOrigin = "anonymous";
+        tempImg.onload = function () {
+          var c = document.createElement("canvas");
+          c.width = tempImg.naturalWidth;
+          c.height = tempImg.naturalHeight;
+          c.style.maxWidth = "100%";
+          c.style.maxHeight = "100%";
+          c.style.objectFit = "contain";
+          c.className = "brand-preview-canvas";
+          var cx = c.getContext("2d");
+          cx.drawImage(tempImg, 0, 0);
+          removeWhiteBg(c, cx);
+          preview.innerHTML = "";
+          preview.appendChild(c);
+          // Switch to checker bg so transparency is visible
+          preview.className = "logo-preview bg-checker";
+          state.bg = "checker";
+          // Update bg toggle buttons
+          card.querySelectorAll(".bg-toggle button").forEach(function (b) {
+            b.classList.remove("active-bg");
+            if (b.classList.contains("bg-opt-checker")) b.classList.add("active-bg");
+          });
+        };
+        tempImg.onerror = function () {
+          // Try via proxy
+          var tempImg2 = new Image();
+          tempImg2.crossOrigin = "anonymous";
+          tempImg2.onload = function () { tempImg.onload.call({ naturalWidth: tempImg2.naturalWidth, naturalHeight: tempImg2.naturalHeight }); };
+          tempImg2.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+        };
+        tempImg.src = state.imageUrl;
+      } else {
+        // Restore original img
+        preview.innerHTML = "";
+        var newImg = document.createElement("img");
+        newImg.src = state.imageUrl;
+        newImg.alt = state.name + " logo";
+        preview.appendChild(newImg);
+        preview.className = "logo-preview bg-white";
+        state.bg = "white";
+        card.querySelectorAll(".bg-toggle button").forEach(function (b) {
+          b.classList.remove("active-bg");
+          if (b.classList.contains("bg-opt-white")) b.classList.add("active-bg");
+        });
+      }
+    }
+
     function createBrandCard(cardId, container) {
       var state = brandStates[cardId];
+      state.bgRemoved = false;
       var card = document.createElement("div");
       card.className = "brand-card";
       card.id = cardId;
@@ -1943,6 +2020,19 @@ Paste artist page URLs, one per line"></textarea>
       var domainEl = document.createElement("div");
       domainEl.className = "brand-domain";
       domainEl.textContent = state.domain;
+
+      // Remove BG toggle
+      var removeBgBtn = document.createElement("button");
+      removeBgBtn.className = "download-btn";
+      removeBgBtn.style.fontSize = "0.75rem";
+      removeBgBtn.textContent = "Remove White BG";
+      removeBgBtn.onclick = function () {
+        state.bgRemoved = !state.bgRemoved;
+        removeBgBtn.textContent = state.bgRemoved ? "Restore Original BG" : "Remove White BG";
+        removeBgBtn.style.background = state.bgRemoved ? "#00cc88" : "";
+        removeBgBtn.style.borderColor = state.bgRemoved ? "#00cc88" : "";
+        applyBgRemovalToPreview(cardId);
+      };
 
       // Background toggle
       var bgToggle = document.createElement("div");
@@ -1974,6 +2064,7 @@ Paste artist page URLs, one per line"></textarea>
 
       body.appendChild(nameEl);
       body.appendChild(domainEl);
+      body.appendChild(removeBgBtn);
       body.appendChild(bgToggle);
       body.appendChild(dlBtn);
       card.appendChild(preview);
@@ -1981,17 +2072,32 @@ Paste artist page URLs, one per line"></textarea>
       container.appendChild(card);
     }
 
-    function downloadBrandLogo(cardId) {
-      var state = brandStates[cardId];
-      var img = new Image();
-      img.crossOrigin = "anonymous";
-      img.onload = function () {
-        var canvas = document.createElement("canvas");
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        var ctx = canvas.getContext("2d");
+    function renderBrandCanvas(imgEl, state) {
+      var canvas = document.createElement("canvas");
+      canvas.width = imgEl.naturalWidth;
+      canvas.height = imgEl.naturalHeight;
+      var ctx = canvas.getContext("2d");
 
-        // Draw background
+      // If bgRemoved, draw image first then strip white, then optionally add bg behind
+      if (state.bgRemoved) {
+        // First pass: draw image and remove white bg
+        ctx.drawImage(imgEl, 0, 0);
+        removeWhiteBg(canvas, ctx);
+
+        // If user selected a non-transparent bg, composite onto that bg
+        if (state.bg === "white" || state.bg === "dark") {
+          var bgCanvas = document.createElement("canvas");
+          bgCanvas.width = canvas.width;
+          bgCanvas.height = canvas.height;
+          var bgCtx = bgCanvas.getContext("2d");
+          bgCtx.fillStyle = state.bg === "white" ? "#ffffff" : "#1a1a1a";
+          bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+          bgCtx.drawImage(canvas, 0, 0);
+          return bgCanvas;
+        }
+        return canvas;
+      } else {
+        // Original image with chosen background
         if (state.bg === "white") {
           ctx.fillStyle = "#ffffff";
           ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -1999,10 +2105,17 @@ Paste artist page URLs, one per line"></textarea>
           ctx.fillStyle = "#1a1a1a";
           ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
-        // "checker" = transparent, no fill
+        ctx.drawImage(imgEl, 0, 0);
+        return canvas;
+      }
+    }
 
-        ctx.drawImage(img, 0, 0);
-
+    function downloadBrandLogo(cardId) {
+      var state = brandStates[cardId];
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = function () {
+        var canvas = renderBrandCanvas(img, state);
         try {
           var dataUrl = canvas.toDataURL("image/png");
           var a = document.createElement("a");
@@ -2012,7 +2125,6 @@ Paste artist page URLs, one per line"></textarea>
           a.click();
           document.body.removeChild(a);
         } catch (e) {
-          // CORS fallback via proxy
           downloadBrandLogoProxy(cardId);
         }
       };
@@ -2025,21 +2137,7 @@ Paste artist page URLs, one per line"></textarea>
       var img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = function () {
-        var canvas = document.createElement("canvas");
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        var ctx = canvas.getContext("2d");
-
-        if (state.bg === "white") {
-          ctx.fillStyle = "#ffffff";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-        } else if (state.bg === "dark") {
-          ctx.fillStyle = "#1a1a1a";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-        }
-
-        ctx.drawImage(img, 0, 0);
-
+        var canvas = renderBrandCanvas(img, state);
         try {
           var dataUrl = canvas.toDataURL("image/png");
           var a = document.createElement("a");
