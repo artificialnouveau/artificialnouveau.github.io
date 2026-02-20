@@ -945,6 +945,13 @@ Paste one news article URL per line"></textarea>
     }
 
     function logoUrl(domain) {
+      // Clearbit gives high-quality company logos
+      return "https://logo.clearbit.com/" + domain;
+    }
+    function logoUrlFallback(domain) {
+      return "https://icons.duckduckgo.com/ip3/" + domain + ".ico";
+    }
+    function logoUrlFallback2(domain) {
       return "https://www.google.com/s2/favicons?domain=" + domain + "&sz=128";
     }
 
@@ -1061,9 +1068,16 @@ Paste one news article URL per line"></textarea>
       var logoSide = document.createElement("div");
       logoSide.className = "logo-side";
       var logoImg = document.createElement("img");
-      logoImg.src = logoUrl(state.domain);
       logoImg.alt = state.domain + " logo";
-      // No crossOrigin — Google Favicons doesn't send CORS headers
+      logoImg.onerror = function () {
+        if (logoImg.src.indexOf("clearbit") !== -1) {
+          logoImg.src = logoUrlFallback(state.domain);
+        } else if (logoImg.src.indexOf("duckduckgo") !== -1) {
+          logoImg.src = logoUrlFallback2(state.domain);
+        }
+        // If all fail, browser shows broken image — acceptable
+      };
+      logoImg.src = logoUrl(state.domain);
       logoSide.appendChild(logoImg);
 
       var headlineSide = document.createElement("div");
@@ -1127,7 +1141,13 @@ Paste one news article URL per line"></textarea>
       ctx.fillStyle = "#f0f0f0";
       ctx.fillRect(0, 0, 80, cardH);
 
-      // Try drawing the favicon via a proxy that supports CORS, otherwise draw text initials
+      // Try drawing logo via CORS proxy, with fallbacks, then text initials
+      var logoSources = [
+        "https://corsproxy.io/?" + encodeURIComponent(logoUrl(state.domain)),
+        "https://corsproxy.io/?" + encodeURIComponent(logoUrlFallback(state.domain)),
+        "https://corsproxy.io/?" + encodeURIComponent(logoUrlFallback2(state.domain))
+      ];
+      var logoAttempt = 0;
       var logoImg = new Image();
       logoImg.crossOrigin = "anonymous";
       logoImg.onload = function () {
@@ -1135,16 +1155,20 @@ Paste one news article URL per line"></textarea>
         drawHeadlineText();
       };
       logoImg.onerror = function () {
-        // Draw text-based logo (first 2 letters of source name)
-        var initials = prettySourceName(state.domain).substring(0, 2).toUpperCase();
-        ctx.fillStyle = "#555";
-        ctx.font = "bold 22px -apple-system, sans-serif";
-        var tw = ctx.measureText(initials).width;
-        ctx.fillText(initials, 40 - tw / 2, cardH / 2 + 8);
-        drawHeadlineText();
+        logoAttempt++;
+        if (logoAttempt < logoSources.length) {
+          logoImg.src = logoSources[logoAttempt];
+        } else {
+          // Draw text-based logo (first 2 letters of source name)
+          var initials = prettySourceName(state.domain).substring(0, 2).toUpperCase();
+          ctx.fillStyle = "#555";
+          ctx.font = "bold 22px -apple-system, sans-serif";
+          var tw = ctx.measureText(initials).width;
+          ctx.fillText(initials, 40 - tw / 2, cardH / 2 + 8);
+          drawHeadlineText();
+        }
       };
-      // Use corsproxy.io to get the favicon with CORS headers
-      logoImg.src = "https://corsproxy.io/?" + encodeURIComponent(logoUrl(state.domain));
+      logoImg.src = logoSources[0];
 
       function drawHeadlineText() {
         // Headline text with word wrap
