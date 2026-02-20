@@ -948,22 +948,37 @@ Paste one news article URL per line"></textarea>
       return "https://www.google.com/s2/favicons?domain=" + domain + "&sz=128";
     }
 
+    // Try multiple CORS proxies in order
+    var corsProxies = [
+      function (u) { return "https://api.allorigins.win/raw?url=" + encodeURIComponent(u); },
+      function (u) { return "https://corsproxy.io/?" + encodeURIComponent(u); },
+      function (u) { return "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u); }
+    ];
+
     async function fetchHeadline(url) {
-      var proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
-      var resp = await fetch(proxyUrl);
-      if (!resp.ok) throw new Error("Fetch failed (" + resp.status + ")");
-      var html = await resp.text();
+      var lastErr = null;
+      for (var p = 0; p < corsProxies.length; p++) {
+        try {
+          var proxyUrl = corsProxies[p](url);
+          var resp = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          var html = await resp.text();
 
-      // Try og:title first
-      var ogMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
-                 || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
-      if (ogMatch) return decodeHtmlEntities(ogMatch[1]);
+          // Try og:title first
+          var ogMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
+                     || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+          if (ogMatch) return decodeHtmlEntities(ogMatch[1]);
 
-      // Fallback to <title>
-      var titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
-      if (titleMatch) return decodeHtmlEntities(titleMatch[1]);
+          // Fallback to <title>
+          var titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+          if (titleMatch) return decodeHtmlEntities(titleMatch[1]);
 
-      throw new Error("No headline found");
+          throw new Error("No headline found in HTML");
+        } catch (err) {
+          lastErr = err;
+        }
+      }
+      throw lastErr || new Error("All proxies failed");
     }
 
     function decodeHtmlEntities(str) {
@@ -1048,7 +1063,7 @@ Paste one news article URL per line"></textarea>
       var logoImg = document.createElement("img");
       logoImg.src = logoUrl(state.domain);
       logoImg.alt = state.domain + " logo";
-      logoImg.crossOrigin = "anonymous";
+      // No crossOrigin — Google Favicons doesn't send CORS headers
       logoSide.appendChild(logoImg);
 
       var headlineSide = document.createElement("div");
@@ -1112,7 +1127,7 @@ Paste one news article URL per line"></textarea>
       ctx.fillStyle = "#f0f0f0";
       ctx.fillRect(0, 0, 80, cardH);
 
-      // Draw logo
+      // Try drawing the favicon via a proxy that supports CORS, otherwise draw text initials
       var logoImg = new Image();
       logoImg.crossOrigin = "anonymous";
       logoImg.onload = function () {
@@ -1120,14 +1135,16 @@ Paste one news article URL per line"></textarea>
         drawHeadlineText();
       };
       logoImg.onerror = function () {
-        // Draw placeholder circle
-        ctx.fillStyle = "#ccc";
-        ctx.beginPath();
-        ctx.arc(40, cardH / 2, 20, 0, 2 * Math.PI);
-        ctx.fill();
+        // Draw text-based logo (first 2 letters of source name)
+        var initials = prettySourceName(state.domain).substring(0, 2).toUpperCase();
+        ctx.fillStyle = "#555";
+        ctx.font = "bold 22px -apple-system, sans-serif";
+        var tw = ctx.measureText(initials).width;
+        ctx.fillText(initials, 40 - tw / 2, cardH / 2 + 8);
         drawHeadlineText();
       };
-      logoImg.src = logoUrl(state.domain);
+      // Use corsproxy.io to get the favicon with CORS headers
+      logoImg.src = "https://corsproxy.io/?" + encodeURIComponent(logoUrl(state.domain));
 
       function drawHeadlineText() {
         // Headline text with word wrap
