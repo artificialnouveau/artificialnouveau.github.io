@@ -1,0 +1,169 @@
+---
+layout: default
+title: Small Tools
+---
+
+<header class="gallery-header">
+    <div class="container">
+        <a href="/" class="back-link">&larr; Back to Home</a>
+        <h1>Small Tools</h1>
+        <p style="color: var(--color-muted); font-family: var(--font-mono); font-size: 0.85rem; margin-top: 0.5rem;">
+            Interactive experiments and utilities &mdash; click to try them out.
+        </p>
+    </div>
+</header>
+
+<section class="gallery-section">
+    <div class="container">
+        <div class="tools-grid">
+
+            <a href="/youtube_thumbnails/" class="tool-card">
+                <div class="tool-icon">&#9654;</div>
+                <div class="tool-info">
+                    <h2>YouTube Thumbnail Downloader</h2>
+                    <p>Grab thumbnails from any YouTube video. Paste URLs or upload a CSV/XLSX file. Choose quality and download instantly. No API key needed.</p>
+                    <span class="tool-tag">UTILITY</span>
+                </div>
+            </a>
+
+            <a href="https://www.screentosoundscape.com/scripts/phase1bprototype.html" target="_blank" rel="noopener" class="tool-card">
+                <div class="tool-icon">&#9835;</div>
+                <div class="tool-info">
+                    <h2>Screen-to-Soundscape</h2>
+                    <p>Transform any Wikipedia article into an immersive 3D spatial audio soundscape. Navigate with keyboard or swipe gestures. Built for blind and sighted users.</p>
+                    <span class="tool-tag">ACCESSIBILITY</span>
+                    <span class="tool-tag">AUDIO</span>
+                </div>
+            </a>
+
+            <a href="/2024/06/01/fashion_police_drones/" class="tool-card">
+                <div class="tool-icon">&#128680;</div>
+                <div class="tool-info">
+                    <h2>Fashion Police Drones</h2>
+                    <p>Are you a fashion criminal? Upload a photo and let the drone scan your outfit for fast-fashion violations, sustainability crimes, and political dress codes.</p>
+                    <span class="tool-tag">AI ART</span>
+                    <span class="tool-tag">INTERACTIVE</span>
+                </div>
+            </a>
+
+            <a href="/2023/12/14/babble/" class="tool-card">
+                <div class="tool-icon">&#128483;</div>
+                <div class="tool-info">
+                    <h2>BabbleOn Remix</h2>
+                    <p>Record your voice, then generate a babble tape &mdash; layered, time-shifted copies of your own speech that mask conversations from surveillance microphones.</p>
+                    <span class="tool-tag">PRIVACY</span>
+                    <span class="tool-tag">AUDIO</span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+
+    .tool-card {
+        display: flex;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: var(--color-card-bg, #000);
+        border: 1px solid var(--color-accent-cyan, #00f0ff);
+        text-decoration: none;
+        color: var(--color-text, #e0e0e0);
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tool-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0, 240, 255, 0.03) 0%, transparent 60%);
+        pointer-events: none;
+    }
+
+    .tool-card:hover {
+        border-color: var(--color-accent, #ff10f0);
+        box-shadow:
+            0 0 20px rgba(255, 16, 240, 0.15),
+            inset 0 0 0 1px rgba(255, 16, 240, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .tool-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 240, 255, 0.2);
+        background: rgba(0, 240, 255, 0.03);
+    }
+
+    .tool-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .tool-info h2 {
+        font-family: var(--font-mono, 'JetBrains Mono', monospace);
+        font-size: 1rem;
+        color: var(--color-accent-cyan, #00f0ff);
+        margin-bottom: 0.4rem;
+        border: none;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .tool-info p {
+        font-family: var(--font-mono, 'JetBrains Mono', monospace);
+        font-size: 0.78rem;
+        color: var(--color-muted, #b8a8d8);
+        line-height: 1.5;
+        margin-bottom: 0.6rem;
+    }
+
+    .tool-tag {
+        display: inline-block;
+        font-family: var(--font-mono, 'JetBrains Mono', monospace);
+        font-size: 0.6rem;
+        padding: 2px 8px;
+        border: 1px solid rgba(176, 16, 255, 0.4);
+        color: var(--color-accent-purple, #b010ff);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-right: 4px;
+    }
+
+    @media (max-width: 768px) {
+        .tools-grid {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .tool-card {
+            padding: 1rem;
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+        }
+
+        .tool-info h2 {
+            font-size: 0.9rem;
+        }
+    }
+</style>
