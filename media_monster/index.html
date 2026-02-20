@@ -320,6 +320,75 @@
       color: #f5c518;
     }
 
+    .tab.active-news {
+      color: #fff;
+      border-bottom-color: #4a9eff;
+    }
+    .btn-primary-news {
+      background: #4a9eff;
+      color: #fff;
+    }
+
+    .news-card-preview {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      min-height: 100px;
+    }
+    .news-card-preview .logo-side {
+      width: 80px;
+      min-width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f0f0;
+      padding: 12px;
+    }
+    .news-card-preview .logo-side img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+    .news-card-preview .headline-side {
+      flex: 1;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+    }
+    .news-card-preview .headline-text {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.35;
+    }
+    .news-card-preview .source-name {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.7rem;
+      color: #888;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .news-card-wrapper {
+      background: #1a1a1a;
+      border: 1px solid #282828;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .news-card-wrapper .card-body {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .news-card-wrapper canvas {
+      display: none;
+    }
+
     @media (max-width: 600px) {
       .container { padding: 1.5rem 0.75rem; }
       h1 { font-size: 1.4rem; }
@@ -333,11 +402,12 @@
 <body>
   <div class="container">
     <h1>Media Monster</h1>
-    <p class="subtitle">Download YouTube thumbnails or movie/TV posters from IMDb links.</p>
+    <p class="subtitle">Download YouTube thumbnails, movie/TV posters, or generate news headline cards.</p>
 
     <div class="tabs">
       <button class="tab active" onclick="switchTab('youtube')">YouTube Thumbnails</button>
       <button class="tab" onclick="switchTab('imdb')">IMDb Posters</button>
+      <button class="tab" onclick="switchTab('news')">News Cards</button>
     </div>
 
     <!-- ============ YOUTUBE TAB ============ -->
@@ -400,6 +470,23 @@ or paste multiple IMDb URLs, one per line"></textarea>
       <p class="status" id="imdb-status"></p>
       <div class="results results-posters" id="imdb-results"></div>
     </div>
+
+    <!-- ============ NEWS CARDS TAB ============ -->
+    <div class="tab-panel" id="panel-news">
+      <textarea id="news-urls" placeholder="https://www.foxnews.com/politics/some-article
+https://www.bbc.com/news/some-article
+https://www.nytimes.com/2024/01/01/some-article
+Paste one news article URL per line"></textarea>
+
+      <div class="btn-row">
+        <button class="btn-primary-news" onclick="fetchNewsCards()">Generate Cards</button>
+        <button class="btn-secondary" id="news-download-all-btn" onclick="newsDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="newsClear()">Clear</button>
+      </div>
+
+      <p class="status" id="news-status"></p>
+      <div class="results" id="news-results"></div>
+    </div>
   </div>
 
   <script>
@@ -407,14 +494,17 @@ or paste multiple IMDb URLs, one per line"></textarea>
     // TAB SWITCHING
     // ============================================================
     function switchTab(tab) {
-      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb'); });
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb', 'active-news'); });
       document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
       if (tab === 'youtube') {
         document.querySelectorAll('.tab')[0].classList.add('active');
         document.getElementById('panel-youtube').classList.add('active');
-      } else {
+      } else if (tab === 'imdb') {
         document.querySelectorAll('.tab')[1].classList.add('active-imdb');
         document.getElementById('panel-imdb').classList.add('active');
+      } else {
+        document.querySelectorAll('.tab')[2].classList.add('active-news');
+        document.getElementById('panel-news').classList.add('active');
       }
     }
 
@@ -804,6 +894,315 @@ or paste multiple IMDb URLs, one per line"></textarea>
     }
 
     // ============================================================
+    // NEWS CARDS
+    // ============================================================
+    var newsStates = {};
+    var newsCounter = 0;
+
+    function extractDomain(url) {
+      try {
+        var hostname = new URL(url).hostname;
+        return hostname.replace(/^www\./, "");
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function prettySourceName(domain) {
+      var names = {
+        "foxnews.com": "Fox News",
+        "bbc.com": "BBC News",
+        "bbc.co.uk": "BBC News",
+        "nytimes.com": "The New York Times",
+        "washingtonpost.com": "The Washington Post",
+        "cnn.com": "CNN",
+        "reuters.com": "Reuters",
+        "apnews.com": "AP News",
+        "theguardian.com": "The Guardian",
+        "aljazeera.com": "Al Jazeera",
+        "nbcnews.com": "NBC News",
+        "abcnews.go.com": "ABC News",
+        "cbsnews.com": "CBS News",
+        "usatoday.com": "USA Today",
+        "wsj.com": "The Wall Street Journal",
+        "politico.com": "Politico",
+        "bloomberg.com": "Bloomberg",
+        "forbes.com": "Forbes",
+        "time.com": "TIME",
+        "npr.org": "NPR",
+        "vice.com": "VICE",
+        "thehill.com": "The Hill",
+        "axios.com": "Axios",
+        "vox.com": "Vox",
+        "buzzfeednews.com": "BuzzFeed News",
+        "dailymail.co.uk": "Daily Mail",
+        "independent.co.uk": "The Independent",
+        "telegraph.co.uk": "The Telegraph",
+        "sky.com": "Sky News",
+        "news.sky.com": "Sky News"
+      };
+      return names[domain] || domain.charAt(0).toUpperCase() + domain.slice(1).replace(/\.\w+$/, "");
+    }
+
+    function logoUrl(domain) {
+      return "https://www.google.com/s2/favicons?domain=" + domain + "&sz=128";
+    }
+
+    async function fetchHeadline(url) {
+      var proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
+      var resp = await fetch(proxyUrl);
+      if (!resp.ok) throw new Error("Fetch failed (" + resp.status + ")");
+      var html = await resp.text();
+
+      // Try og:title first
+      var ogMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
+                 || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+      if (ogMatch) return decodeHtmlEntities(ogMatch[1]);
+
+      // Fallback to <title>
+      var titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+      if (titleMatch) return decodeHtmlEntities(titleMatch[1]);
+
+      throw new Error("No headline found");
+    }
+
+    function decodeHtmlEntities(str) {
+      var textarea = document.createElement("textarea");
+      textarea.innerHTML = str;
+      return textarea.value;
+    }
+
+    async function fetchNewsCards() {
+      var input = document.getElementById("news-urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("news-results");
+      var status = document.getElementById("news-status");
+      results.innerHTML = "";
+      newsStates = {};
+      newsCounter = 0;
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one news article URL.";
+        return;
+      }
+
+      // Filter valid URLs
+      var urls = [], errors = [];
+      lines.forEach(function (line) {
+        if (line.match(/^https?:\/\//i)) {
+          urls.push(line);
+        } else {
+          errors.push(line);
+        }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Not a valid URL: " + e;
+        results.appendChild(div);
+      });
+
+      if (urls.length === 0) {
+        status.textContent = "No valid URLs found.";
+        return;
+      }
+
+      status.textContent = "Fetching " + urls.length + " headline" + (urls.length > 1 ? "s" : "") + "...";
+
+      var loaded = 0, failed = 0;
+      for (var i = 0; i < urls.length; i++) {
+        var url = urls[i];
+        var domain = extractDomain(url);
+        var cardId = "news-" + (newsCounter++);
+
+        try {
+          var headline = await fetchHeadline(url);
+          newsStates[cardId] = { headline: headline, domain: domain, url: url };
+          createNewsCard(cardId, results);
+          loaded++;
+        } catch (err) {
+          // Show card with manual edit option
+          newsStates[cardId] = { headline: "(Could not fetch headline — click to edit)", domain: domain, url: url };
+          createNewsCard(cardId, results);
+          failed++;
+        }
+      }
+
+      status.textContent = loaded + " card" + (loaded !== 1 ? "s" : "") + " generated." + (failed > 0 ? " " + failed + " headline" + (failed > 1 ? "s" : "") + " could not be fetched (click to edit)." : "");
+      document.getElementById("news-download-all-btn").disabled = Object.keys(newsStates).length === 0;
+    }
+
+    function createNewsCard(cardId, container) {
+      var state = newsStates[cardId];
+      var wrapper = document.createElement("div");
+      wrapper.className = "news-card-wrapper";
+      wrapper.id = cardId;
+
+      // Preview div
+      var preview = document.createElement("div");
+      preview.className = "news-card-preview";
+
+      var logoSide = document.createElement("div");
+      logoSide.className = "logo-side";
+      var logoImg = document.createElement("img");
+      logoImg.src = logoUrl(state.domain);
+      logoImg.alt = state.domain + " logo";
+      logoImg.crossOrigin = "anonymous";
+      logoSide.appendChild(logoImg);
+
+      var headlineSide = document.createElement("div");
+      headlineSide.className = "headline-side";
+      var headlineWrap = document.createElement("div");
+      var headlineText = document.createElement("div");
+      headlineText.className = "headline-text";
+      headlineText.textContent = state.headline;
+      headlineText.contentEditable = "true";
+      headlineText.style.cursor = "text";
+      headlineText.style.outline = "none";
+      headlineText.addEventListener("blur", function () {
+        state.headline = headlineText.textContent.trim();
+      });
+      var sourceName = document.createElement("div");
+      sourceName.className = "source-name";
+      sourceName.textContent = prettySourceName(state.domain);
+      headlineWrap.appendChild(headlineText);
+      headlineWrap.appendChild(sourceName);
+      headlineSide.appendChild(headlineWrap);
+
+      preview.appendChild(logoSide);
+      preview.appendChild(headlineSide);
+
+      // Card body with download button
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var urlLabel = document.createElement("div");
+      urlLabel.className = "video-id";
+      urlLabel.textContent = state.domain;
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download Card";
+      dlBtn.onclick = function () { downloadNewsCard(cardId); };
+
+      body.appendChild(urlLabel);
+      body.appendChild(dlBtn);
+      wrapper.appendChild(preview);
+      wrapper.appendChild(body);
+      container.appendChild(wrapper);
+    }
+
+    function downloadNewsCard(cardId) {
+      var state = newsStates[cardId];
+      var canvas = document.createElement("canvas");
+      var scale = 2; // Retina
+      var cardW = 800;
+      var cardH = 200;
+      canvas.width = cardW * scale;
+      canvas.height = cardH * scale;
+      var ctx = canvas.getContext("2d");
+      ctx.scale(scale, scale);
+
+      // Background
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, cardW, cardH);
+
+      // Logo side background
+      ctx.fillStyle = "#f0f0f0";
+      ctx.fillRect(0, 0, 80, cardH);
+
+      // Draw logo
+      var logoImg = new Image();
+      logoImg.crossOrigin = "anonymous";
+      logoImg.onload = function () {
+        ctx.drawImage(logoImg, 16, cardH / 2 - 24, 48, 48);
+        drawHeadlineText();
+      };
+      logoImg.onerror = function () {
+        // Draw placeholder circle
+        ctx.fillStyle = "#ccc";
+        ctx.beginPath();
+        ctx.arc(40, cardH / 2, 20, 0, 2 * Math.PI);
+        ctx.fill();
+        drawHeadlineText();
+      };
+      logoImg.src = logoUrl(state.domain);
+
+      function drawHeadlineText() {
+        // Headline text with word wrap
+        ctx.fillStyle = "#111111";
+        ctx.font = "bold 20px Georgia, 'Times New Roman', serif";
+        var maxWidth = cardW - 80 - 40; // 80 logo side + 20px padding each side
+        var x = 100;
+        var lineHeight = 28;
+        var words = state.headline.split(" ");
+        var line = "";
+        var y = 40;
+        var lines = [];
+
+        for (var i = 0; i < words.length; i++) {
+          var testLine = line + (line ? " " : "") + words[i];
+          var metrics = ctx.measureText(testLine);
+          if (metrics.width > maxWidth && line) {
+            lines.push(line);
+            line = words[i];
+          } else {
+            line = testLine;
+          }
+        }
+        lines.push(line);
+
+        // Vertically center the text block
+        var totalTextH = lines.length * lineHeight + 24; // +24 for source name
+        y = Math.max(30, (cardH - totalTextH) / 2 + 16);
+
+        for (var j = 0; j < lines.length; j++) {
+          ctx.fillText(lines[j], x, y + j * lineHeight);
+        }
+
+        // Source name
+        ctx.fillStyle = "#888888";
+        ctx.font = "600 11px -apple-system, sans-serif";
+        ctx.fillText(prettySourceName(state.domain).toUpperCase(), x, y + lines.length * lineHeight + 16);
+
+        // Download
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = state.domain + "_headline.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          alert("Could not generate image. The publication logo may be blocked by CORS.");
+        }
+      }
+    }
+
+    function newsDownloadAll() {
+      var ids = Object.keys(newsStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("news-status");
+      status.textContent = "Downloading " + ids.length + " card" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () { downloadNewsCard(id); }, delay);
+        delay += 600;
+      });
+      setTimeout(function () { status.textContent = "Downloads started."; }, delay);
+    }
+
+    function newsClear() {
+      document.getElementById("news-urls").value = "";
+      document.getElementById("news-results").innerHTML = "";
+      document.getElementById("news-status").textContent = "";
+      document.getElementById("news-download-all-btn").disabled = true;
+      newsStates = {};
+    }
+
+    // ============================================================
     // FILE UPLOAD (shared logic)
     // ============================================================
     function setupDropZone(dropZoneId, fileInputId, fileInfoId, extractFn, textareaId) {
@@ -884,6 +1283,9 @@ or paste multiple IMDb URLs, one per line"></textarea>
     });
     document.getElementById("imdb-urls").addEventListener("keydown", function (e) {
       if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchPosters(); }
+    });
+    document.getElementById("news-urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchNewsCards(); }
     });
   </script>
 </body>
