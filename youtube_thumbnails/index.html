@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube Thumbnail Downloader</title>
+  <title>Media Poster & Thumbnail Downloader</title>
   <!-- SheetJS for XLSX parsing (client-side, no backend) -->
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <style>
@@ -34,6 +34,38 @@
       font-size: 0.95rem;
     }
 
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #282828;
+    }
+    .tab {
+      padding: 10px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: #888;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    .tab:hover { color: #ccc; }
+    .tab.active {
+      color: #fff;
+      border-bottom-color: #ff0000;
+    }
+    .tab.active-imdb {
+      color: #fff;
+      border-bottom-color: #f5c518;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
     textarea {
       width: 100%;
       min-height: 120px;
@@ -49,6 +81,9 @@
     }
     textarea:focus {
       border-color: #ff0000;
+    }
+    .imdb-panel textarea:focus {
+      border-color: #f5c518;
     }
     textarea::placeholder {
       color: #555;
@@ -77,6 +112,10 @@
       background: #ff0000;
       color: #fff;
     }
+    .btn-primary-imdb {
+      background: #f5c518;
+      color: #000;
+    }
 
     .btn-secondary {
       background: #333;
@@ -97,6 +136,10 @@
       gap: 1.5rem;
     }
 
+    .results-posters {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
     .thumb-card {
       background: #1a1a1a;
       border-radius: 8px;
@@ -112,6 +155,11 @@
       background: #222;
     }
 
+    .thumb-card.poster-card img {
+      aspect-ratio: 2/3;
+      object-fit: cover;
+    }
+
     .thumb-card .card-body {
       padding: 10px 12px;
       display: flex;
@@ -124,6 +172,17 @@
       font-size: 0.8rem;
       color: #888;
       word-break: break-all;
+    }
+
+    .thumb-card .poster-title {
+      font-size: 0.85rem;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .thumb-card .poster-year {
+      font-size: 0.75rem;
+      color: #f5c518;
     }
 
     .thumb-card .quality-row {
@@ -147,6 +206,11 @@
       background: #ff0000;
       color: #fff;
       border-color: #ff0000;
+    }
+    .quality-btn.active-imdb {
+      background: #f5c518;
+      color: #000;
+      border-color: #f5c518;
     }
 
     .download-btn {
@@ -218,46 +282,146 @@
       color: #0f9;
     }
 
+    /* API key section */
+    .api-section {
+      margin-bottom: 16px;
+      padding: 14px;
+      background: rgba(245, 197, 24, 0.04);
+      border: 1px solid rgba(245, 197, 24, 0.15);
+      border-radius: 8px;
+    }
+    .api-section label {
+      font-size: 0.85rem;
+      color: #ccc;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .api-section input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 0.9rem;
+      font-family: monospace;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      border: 1px solid #333;
+      border-radius: 6px;
+      outline: none;
+    }
+    .api-section input[type="text"]:focus {
+      border-color: #f5c518;
+    }
+    .api-section .note {
+      font-size: 0.75rem;
+      color: #777;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    .api-section .note a {
+      color: #f5c518;
+    }
+
     @media (max-width: 600px) {
       .container { padding: 1.5rem 0.75rem; }
       h1 { font-size: 1.4rem; }
       .results { grid-template-columns: 1fr; }
+      .results-posters { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
       .drop-zone { padding: 16px; }
+      .tab { padding: 8px 16px; font-size: 0.85rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>YouTube Thumbnail Downloader</h1>
-    <p class="subtitle">Paste URLs below, or upload a CSV/XLSX file. No API key needed.</p>
+    <h1>Media Poster & Thumbnail Downloader</h1>
+    <p class="subtitle">Download YouTube thumbnails or movie/TV posters from IMDb links.</p>
 
-    <textarea id="urls" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('youtube')">YouTube Thumbnails</button>
+      <button class="tab" onclick="switchTab('imdb')">IMDb Posters</button>
+    </div>
+
+    <!-- ============ YOUTUBE TAB ============ -->
+    <div class="tab-panel active" id="panel-youtube">
+      <textarea id="urls" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ
 https://youtu.be/jNQXAC9IVRw
 https://www.youtube.com/shorts/abc123
 or just paste video IDs like dQw4w9WgXcQ"></textarea>
 
-    <div class="divider">or upload a file</div>
+      <div class="divider">or upload a file</div>
 
-    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-      <p>Drop a CSV or XLSX file here, or click to browse</p>
-      <p class="drop-hint">The file should contain YouTube URLs or video IDs in any column</p>
-      <input type="file" id="file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">The file should contain YouTube URLs or video IDs in any column</p>
+        <input type="file" id="file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="fetchThumbnails()">Get Thumbnails</button>
+        <button class="btn-secondary" id="yt-download-all-btn" onclick="ytDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="ytClear()">Clear</button>
+      </div>
+
+      <p class="status" id="yt-status"></p>
+      <div class="results" id="yt-results"></div>
     </div>
-    <p class="file-info" id="file-info"></p>
 
-    <div class="btn-row">
-      <button class="btn-primary" id="fetch-btn" onclick="fetchThumbnails()">Get Thumbnails</button>
-      <button class="btn-secondary" id="download-all-btn" onclick="downloadAll()" disabled>Download All</button>
-      <button class="btn-secondary" onclick="clearAll()">Clear</button>
+    <!-- ============ IMDB TAB ============ -->
+    <div class="tab-panel" id="panel-imdb">
+      <div class="api-section">
+        <label for="tmdb-key">TMDB API Key (free)</label>
+        <input type="text" id="tmdb-key" placeholder="Enter your TMDB API key (v3 auth)">
+        <p class="note">
+          Get a free API key at <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">themoviedb.org/settings/api</a> (takes 2 minutes).
+          Your key is stored only in this browser session and never saved to disk.
+        </p>
+      </div>
+
+      <textarea id="imdb-urls" placeholder="https://www.imdb.com/title/tt0111161/
+https://www.imdb.com/title/tt0468569/
+tt1375666
+or paste multiple IMDb URLs, one per line"></textarea>
+
+      <div class="divider">or upload a file</div>
+
+      <div class="drop-zone" id="imdb-drop-zone" onclick="document.getElementById('imdb-file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">The file should contain IMDb URLs or title IDs (tt1234567) in any column</p>
+        <input type="file" id="imdb-file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="imdb-file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary-imdb" onclick="fetchPosters()">Get Posters</button>
+        <button class="btn-secondary" id="imdb-download-all-btn" onclick="imdbDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="imdbClear()">Clear</button>
+      </div>
+
+      <p class="status" id="imdb-status"></p>
+      <div class="results results-posters" id="imdb-results"></div>
     </div>
-
-    <p class="status" id="status"></p>
-    <div class="results" id="results"></div>
   </div>
 
   <script>
-    // Thumbnail quality options (highest first)
-    var qualities = [
+    // ============================================================
+    // TAB SWITCHING
+    // ============================================================
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb'); });
+      document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+      if (tab === 'youtube') {
+        document.querySelectorAll('.tab')[0].classList.add('active');
+        document.getElementById('panel-youtube').classList.add('active');
+      } else {
+        document.querySelectorAll('.tab')[1].classList.add('active-imdb');
+        document.getElementById('panel-imdb').classList.add('active');
+      }
+    }
+
+    // ============================================================
+    // YOUTUBE THUMBNAILS
+    // ============================================================
+    var ytQualities = [
       { key: "maxresdefault", label: "Max (1280x720)" },
       { key: "sddefault",     label: "SD (640x480)" },
       { key: "hqdefault",     label: "HQ (480x360)" },
@@ -265,28 +429,19 @@ or just paste video IDs like dQw4w9WgXcQ"></textarea>
       { key: "default",       label: "Default (120x90)" }
     ];
 
-    // Track current selections per video
-    var videoStates = {};
+    var ytStates = {};
 
     function extractVideoId(url) {
       url = url.trim();
       if (!url) return null;
-
       var patterns = [
-        // Standard watch URL
         /(?:youtube\.com\/watch\?.*v=)([a-zA-Z0-9_-]{11})/,
-        // Short URL
         /(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/,
-        // Embed URL
         /(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
-        // Shorts URL
         /(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
-        // Live URL
         /(?:youtube\.com\/live\/)([a-zA-Z0-9_-]{11})/,
-        // Just a video ID
         /^([a-zA-Z0-9_-]{11})$/
       ];
-
       for (var i = 0; i < patterns.length; i++) {
         var match = url.match(patterns[i]);
         if (match) return match[1];
@@ -294,84 +449,71 @@ or just paste video IDs like dQw4w9WgXcQ"></textarea>
       return null;
     }
 
-    function thumbUrl(videoId, quality) {
+    function ytThumbUrl(videoId, quality) {
       return "https://img.youtube.com/vi/" + videoId + "/" + quality + ".jpg";
     }
 
     function fetchThumbnails() {
       var input = document.getElementById("urls").value;
       var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
-      var results = document.getElementById("results");
-      var status = document.getElementById("status");
+      var results = document.getElementById("yt-results");
+      var status = document.getElementById("yt-status");
       results.innerHTML = "";
-      videoStates = {};
+      ytStates = {};
 
       if (lines.length === 0) {
         status.textContent = "Please enter at least one YouTube URL.";
         return;
       }
 
-      var ids = [];
-      var errors = [];
-
+      var ids = [], errors = [];
       lines.forEach(function (line) {
         var id = extractVideoId(line);
-        if (id) {
-          if (ids.indexOf(id) === -1) ids.push(id);
-        } else {
-          errors.push(line);
-        }
+        if (id) { if (ids.indexOf(id) === -1) ids.push(id); }
+        else { errors.push(line); }
       });
 
-      if (errors.length > 0) {
-        errors.forEach(function (e) {
-          var div = document.createElement("div");
-          div.className = "error-card";
-          div.textContent = "Could not parse: " + e;
-          results.appendChild(div);
-        });
-      }
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Could not parse: " + e;
+        results.appendChild(div);
+      });
 
       if (ids.length === 0) {
         status.textContent = "No valid YouTube URLs found.";
-        document.getElementById("download-all-btn").disabled = true;
+        document.getElementById("yt-download-all-btn").disabled = true;
         return;
       }
 
       status.textContent = "Loading " + ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + "...";
-
       var loaded = 0;
       ids.forEach(function (id) {
-        videoStates[id] = { quality: "maxresdefault" };
-        createCard(id, results, function () {
+        ytStates[id] = { quality: "maxresdefault" };
+        createYtCard(id, results, function () {
           loaded++;
           if (loaded === ids.length) {
             status.textContent = ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + " loaded.";
-            document.getElementById("download-all-btn").disabled = false;
+            document.getElementById("yt-download-all-btn").disabled = false;
           }
         });
       });
     }
 
-    function createCard(videoId, container, onLoad) {
+    function createYtCard(videoId, container, onLoad) {
       var card = document.createElement("div");
       card.className = "thumb-card";
-      card.id = "card-" + videoId;
 
       var img = document.createElement("img");
       img.alt = "Thumbnail for " + videoId;
       img.crossOrigin = "anonymous";
-
-      // Try maxres first, fall back to hqdefault if it fails
-      img.src = thumbUrl(videoId, "maxresdefault");
+      img.src = ytThumbUrl(videoId, "maxresdefault");
       img.onerror = function () {
-        // maxres not available — fall back to hqdefault
-        img.src = thumbUrl(videoId, "hqdefault");
-        videoStates[videoId].quality = "hqdefault";
-        // Update active button
-        var btns = card.querySelectorAll(".quality-btn");
-        btns.forEach(function (b) {
-          b.classList.toggle("active", b.dataset.quality === "hqdefault");
+        img.src = ytThumbUrl(videoId, "hqdefault");
+        ytStates[videoId].quality = "hqdefault";
+        card.querySelectorAll(".quality-btn").forEach(function (b) {
+          b.classList.remove("active");
+          if (b.dataset.quality === "hqdefault") b.classList.add("active");
         });
       };
       img.onload = function () { if (onLoad) onLoad(); };
@@ -385,17 +527,17 @@ or just paste video IDs like dQw4w9WgXcQ"></textarea>
 
       var qualityRow = document.createElement("div");
       qualityRow.className = "quality-row";
-
-      qualities.forEach(function (q) {
+      ytQualities.forEach(function (q) {
         var btn = document.createElement("button");
         btn.className = "quality-btn" + (q.key === "maxresdefault" ? " active" : "");
         btn.textContent = q.label;
         btn.dataset.quality = q.key;
         btn.onclick = function () {
-          videoStates[videoId].quality = q.key;
-          img.src = thumbUrl(videoId, q.key);
+          ytStates[videoId].quality = q.key;
+          img.src = ytThumbUrl(videoId, q.key);
           qualityRow.querySelectorAll(".quality-btn").forEach(function (b) {
-            b.classList.toggle("active", b.dataset.quality === q.key);
+            b.classList.remove("active");
+            if (b.dataset.quality === q.key) b.classList.add("active");
           });
         };
         qualityRow.appendChild(btn);
@@ -404,23 +546,17 @@ or just paste video IDs like dQw4w9WgXcQ"></textarea>
       var dlBtn = document.createElement("button");
       dlBtn.className = "download-btn";
       dlBtn.textContent = "Download";
-      dlBtn.onclick = function () { downloadOne(videoId); };
+      dlBtn.onclick = function () { downloadImage(ytThumbUrl(videoId, ytStates[videoId].quality), videoId + "_" + ytStates[videoId].quality + ".jpg"); };
 
       body.appendChild(idLabel);
       body.appendChild(qualityRow);
       body.appendChild(dlBtn);
-
       card.appendChild(img);
       card.appendChild(body);
       container.appendChild(card);
     }
 
-    function downloadOne(videoId) {
-      var quality = videoStates[videoId].quality;
-      var url = thumbUrl(videoId, quality);
-      var filename = videoId + "_" + quality + ".jpg";
-
-      // Try canvas approach for direct download
+    function downloadImage(url, filename) {
       var img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = function () {
@@ -438,151 +574,317 @@ or just paste video IDs like dQw4w9WgXcQ"></textarea>
           a.click();
           document.body.removeChild(a);
         } catch (e) {
-          // CORS blocked — open in new tab instead
           window.open(url, "_blank");
         }
       };
-      img.onerror = function () {
-        window.open(url, "_blank");
-      };
+      img.onerror = function () { window.open(url, "_blank"); };
       img.src = url;
     }
 
-    function downloadAll() {
-      var ids = Object.keys(videoStates);
+    function ytDownloadAll() {
+      var ids = Object.keys(ytStates);
       if (ids.length === 0) return;
-
-      var status = document.getElementById("status");
+      var status = document.getElementById("yt-status");
       status.textContent = "Downloading " + ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + "...";
-
       var delay = 0;
       ids.forEach(function (id) {
-        setTimeout(function () { downloadOne(id); }, delay);
-        delay += 400; // stagger downloads
+        setTimeout(function () {
+          downloadImage(ytThumbUrl(id, ytStates[id].quality), id + "_" + ytStates[id].quality + ".jpg");
+        }, delay);
+        delay += 400;
       });
-
       setTimeout(function () {
-        status.textContent = "Downloads started for " + ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + ".";
+        status.textContent = "Downloads started.";
       }, delay);
     }
 
-    function clearAll() {
+    function ytClear() {
       document.getElementById("urls").value = "";
-      document.getElementById("results").innerHTML = "";
-      document.getElementById("status").textContent = "";
-      document.getElementById("download-all-btn").disabled = true;
-      videoStates = {};
+      document.getElementById("yt-results").innerHTML = "";
+      document.getElementById("yt-status").textContent = "";
+      document.getElementById("yt-download-all-btn").disabled = true;
+      document.getElementById("file-info").textContent = "";
+      ytStates = {};
     }
 
-    // Allow Ctrl+Enter to submit from textarea
-    document.getElementById("urls").addEventListener("keydown", function (e) {
-      if (e.key === "Enter" && e.ctrlKey) {
+    // ============================================================
+    // IMDB POSTERS (via TMDB API)
+    // ============================================================
+    var posterSizes = [
+      { key: "original",  label: "Original" },
+      { key: "w780",      label: "Large (780px)" },
+      { key: "w500",      label: "Medium (500px)" },
+      { key: "w342",      label: "Small (342px)" },
+      { key: "w185",      label: "Thumb (185px)" }
+    ];
+
+    var imdbStates = {};
+
+    function extractImdbId(url) {
+      url = url.trim();
+      if (!url) return null;
+      var match = url.match(/(tt\d{7,})/);
+      return match ? match[1] : null;
+    }
+
+    function getTmdbKey() {
+      return document.getElementById("tmdb-key").value.trim();
+    }
+
+    function posterUrl(posterPath, size) {
+      return "https://image.tmdb.org/t/p/" + size + posterPath;
+    }
+
+    async function fetchPosters() {
+      var apiKey = getTmdbKey();
+      if (!apiKey) {
+        document.getElementById("imdb-status").textContent = "Please enter your TMDB API key above.";
+        return;
+      }
+
+      var input = document.getElementById("imdb-urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("imdb-results");
+      var status = document.getElementById("imdb-status");
+      results.innerHTML = "";
+      imdbStates = {};
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one IMDb URL or title ID.";
+        return;
+      }
+
+      var ids = [], errors = [];
+      lines.forEach(function (line) {
+        var id = extractImdbId(line);
+        if (id) { if (ids.indexOf(id) === -1) ids.push(id); }
+        else { errors.push(line); }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Could not parse IMDb ID from: " + e;
+        results.appendChild(div);
+      });
+
+      if (ids.length === 0) {
+        status.textContent = "No valid IMDb IDs found.";
+        document.getElementById("imdb-download-all-btn").disabled = true;
+        return;
+      }
+
+      status.textContent = "Fetching " + ids.length + " poster" + (ids.length > 1 ? "s" : "") + " from TMDB...";
+
+      var loaded = 0, failed = 0;
+      for (var i = 0; i < ids.length; i++) {
+        var imdbId = ids[i];
+        try {
+          var resp = await fetch("https://api.themoviedb.org/3/find/" + imdbId + "?api_key=" + apiKey + "&external_source=imdb_id");
+          if (!resp.ok) throw new Error("API error " + resp.status);
+          var data = await resp.json();
+
+          var item = null;
+          if (data.movie_results && data.movie_results.length > 0) {
+            item = data.movie_results[0];
+            item._type = "Movie";
+          } else if (data.tv_results && data.tv_results.length > 0) {
+            item = data.tv_results[0];
+            item._type = "TV";
+          }
+
+          if (item && item.poster_path) {
+            imdbStates[imdbId] = { posterPath: item.poster_path, size: "original", title: item.title || item.name, year: (item.release_date || item.first_air_date || "").substring(0, 4), type: item._type };
+            createPosterCard(imdbId, results);
+            loaded++;
+          } else {
+            var div = document.createElement("div");
+            div.className = "error-card";
+            div.textContent = "No poster found for " + imdbId;
+            results.appendChild(div);
+            failed++;
+          }
+        } catch (err) {
+          var div = document.createElement("div");
+          div.className = "error-card";
+          div.textContent = "Error fetching " + imdbId + ": " + err.message;
+          results.appendChild(div);
+          failed++;
+        }
+      }
+
+      if (loaded > 0) {
+        status.textContent = loaded + " poster" + (loaded > 1 ? "s" : "") + " loaded." + (failed > 0 ? " " + failed + " failed." : "");
+        document.getElementById("imdb-download-all-btn").disabled = false;
+      } else {
+        status.textContent = "No posters found." + (failed > 0 ? " " + failed + " failed." : "");
+      }
+    }
+
+    function createPosterCard(imdbId, container) {
+      var state = imdbStates[imdbId];
+      var card = document.createElement("div");
+      card.className = "thumb-card poster-card";
+
+      var img = document.createElement("img");
+      img.alt = "Poster for " + state.title;
+      img.crossOrigin = "anonymous";
+      img.src = posterUrl(state.posterPath, "original");
+
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var titleEl = document.createElement("div");
+      titleEl.className = "poster-title";
+      titleEl.textContent = state.title;
+
+      var yearEl = document.createElement("div");
+      yearEl.className = "poster-year";
+      yearEl.textContent = (state.year ? state.year + " · " : "") + state.type + " · " + imdbId;
+
+      var qualityRow = document.createElement("div");
+      qualityRow.className = "quality-row";
+      posterSizes.forEach(function (s) {
+        var btn = document.createElement("button");
+        btn.className = "quality-btn" + (s.key === "original" ? " active-imdb" : "");
+        btn.textContent = s.label;
+        btn.dataset.size = s.key;
+        btn.onclick = function () {
+          state.size = s.key;
+          img.src = posterUrl(state.posterPath, s.key);
+          qualityRow.querySelectorAll(".quality-btn").forEach(function (b) {
+            b.classList.remove("active-imdb");
+            if (b.dataset.size === s.key) b.classList.add("active-imdb");
+          });
+        };
+        qualityRow.appendChild(btn);
+      });
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download";
+      dlBtn.onclick = function () {
+        var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_poster.jpg";
+        downloadImage(posterUrl(state.posterPath, state.size), fname);
+      };
+
+      body.appendChild(titleEl);
+      body.appendChild(yearEl);
+      body.appendChild(qualityRow);
+      body.appendChild(dlBtn);
+      card.appendChild(img);
+      card.appendChild(body);
+      container.appendChild(card);
+    }
+
+    function imdbDownloadAll() {
+      var ids = Object.keys(imdbStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("imdb-status");
+      status.textContent = "Downloading " + ids.length + " poster" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () {
+          var state = imdbStates[id];
+          var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_poster.jpg";
+          downloadImage(posterUrl(state.posterPath, state.size), fname);
+        }, delay);
+        delay += 400;
+      });
+      setTimeout(function () { status.textContent = "Downloads started."; }, delay);
+    }
+
+    function imdbClear() {
+      document.getElementById("imdb-urls").value = "";
+      document.getElementById("imdb-results").innerHTML = "";
+      document.getElementById("imdb-status").textContent = "";
+      document.getElementById("imdb-download-all-btn").disabled = true;
+      document.getElementById("imdb-file-info").textContent = "";
+      imdbStates = {};
+    }
+
+    // ============================================================
+    // FILE UPLOAD (shared logic)
+    // ============================================================
+    function setupDropZone(dropZoneId, fileInputId, fileInfoId, extractFn, textareaId) {
+      var dz = document.getElementById(dropZoneId);
+      var fi = document.getElementById(fileInputId);
+      var info = document.getElementById(fileInfoId);
+
+      dz.addEventListener("dragover", function (e) { e.preventDefault(); dz.classList.add("drag-over"); });
+      dz.addEventListener("dragleave", function () { dz.classList.remove("drag-over"); });
+      dz.addEventListener("drop", function (e) {
         e.preventDefault();
-        fetchThumbnails();
-      }
-    });
+        dz.classList.remove("drag-over");
+        if (e.dataTransfer.files.length > 0) processFile(e.dataTransfer.files[0], extractFn, textareaId, info);
+      });
+      fi.addEventListener("change", function () {
+        if (fi.files.length > 0) processFile(fi.files[0], extractFn, textareaId, info);
+      });
+    }
 
-    // --- File upload handling ---
-    var dropZone = document.getElementById("drop-zone");
-    var fileInput = document.getElementById("file-input");
-    var fileInfo = document.getElementById("file-info");
-
-    // Drag and drop events
-    dropZone.addEventListener("dragover", function (e) {
-      e.preventDefault();
-      dropZone.classList.add("drag-over");
-    });
-    dropZone.addEventListener("dragleave", function () {
-      dropZone.classList.remove("drag-over");
-    });
-    dropZone.addEventListener("drop", function (e) {
-      e.preventDefault();
-      dropZone.classList.remove("drag-over");
-      if (e.dataTransfer.files.length > 0) {
-        handleFile(e.dataTransfer.files[0]);
-      }
-    });
-
-    fileInput.addEventListener("change", function () {
-      if (fileInput.files.length > 0) {
-        handleFile(fileInput.files[0]);
-      }
-    });
-
-    function handleFile(file) {
+    function processFile(file, extractFn, textareaId, infoEl) {
       var name = file.name.toLowerCase();
-      fileInfo.textContent = "Reading " + file.name + "...";
+      infoEl.textContent = "Reading " + file.name + "...";
 
       if (name.endsWith(".csv") || name.endsWith(".tsv") || name.endsWith(".txt")) {
         var reader = new FileReader();
         reader.onload = function (e) {
-          var text = e.target.result;
-          var ids = extractIdsFromText(text);
-          appendIds(ids, file.name);
+          var ids = extractFromText(e.target.result, extractFn);
+          appendToTextarea(ids, file.name, textareaId, infoEl);
         };
-        reader.onerror = function () {
-          fileInfo.textContent = "Error reading file.";
-        };
+        reader.onerror = function () { infoEl.textContent = "Error reading file."; };
         reader.readAsText(file);
       } else if (name.endsWith(".xlsx") || name.endsWith(".xls")) {
-        if (typeof XLSX === "undefined") {
-          fileInfo.textContent = "XLSX library not loaded. Please try a CSV file instead.";
-          return;
-        }
+        if (typeof XLSX === "undefined") { infoEl.textContent = "XLSX library not loaded."; return; }
         var reader = new FileReader();
         reader.onload = function (e) {
           try {
             var data = new Uint8Array(e.target.result);
-            var workbook = XLSX.read(data, { type: "array" });
+            var wb = XLSX.read(data, { type: "array" });
             var allText = "";
-            workbook.SheetNames.forEach(function (sheetName) {
-              var sheet = workbook.Sheets[sheetName];
-              // Convert sheet to CSV text
-              allText += XLSX.utils.sheet_to_csv(sheet) + "\n";
-            });
-            var ids = extractIdsFromText(allText);
-            appendIds(ids, file.name);
-          } catch (err) {
-            fileInfo.textContent = "Error parsing XLSX: " + err.message;
-          }
+            wb.SheetNames.forEach(function (s) { allText += XLSX.utils.sheet_to_csv(wb.Sheets[s]) + "\n"; });
+            var ids = extractFromText(allText, extractFn);
+            appendToTextarea(ids, file.name, textareaId, infoEl);
+          } catch (err) { infoEl.textContent = "Error parsing file: " + err.message; }
         };
-        reader.onerror = function () {
-          fileInfo.textContent = "Error reading file.";
-        };
+        reader.onerror = function () { infoEl.textContent = "Error reading file."; };
         reader.readAsArrayBuffer(file);
       } else {
-        fileInfo.textContent = "Unsupported file type. Please use CSV, XLSX, TSV, or TXT.";
+        infoEl.textContent = "Unsupported file type.";
       }
     }
 
-    function extractIdsFromText(text) {
-      // Split by common delimiters: newlines, commas, tabs, semicolons
+    function extractFromText(text, extractFn) {
       var tokens = text.split(/[\n\r,;\t]+/);
       var ids = [];
-      tokens.forEach(function (token) {
-        // Remove surrounding quotes
-        token = token.replace(/^["'\s]+|["'\s]+$/g, "");
-        var id = extractVideoId(token);
-        if (id && ids.indexOf(id) === -1) {
-          ids.push(id);
-        }
+      tokens.forEach(function (t) {
+        t = t.replace(/^["'\s]+|["'\s]+$/g, "");
+        var id = extractFn(t);
+        if (id && ids.indexOf(id) === -1) ids.push(id);
       });
       return ids;
     }
 
-    function appendIds(ids, filename) {
-      if (ids.length === 0) {
-        fileInfo.textContent = "No YouTube URLs or video IDs found in " + filename + ".";
-        return;
-      }
-      fileInfo.textContent = "Found " + ids.length + " video" + (ids.length > 1 ? "s" : "") + " in " + filename + ".";
-
-      // Append to textarea (don't overwrite existing content)
-      var textarea = document.getElementById("urls");
-      var existing = textarea.value.trim();
-      var newLines = ids.join("\n");
-      textarea.value = existing ? existing + "\n" + newLines : newLines;
+    function appendToTextarea(ids, filename, textareaId, infoEl) {
+      if (ids.length === 0) { infoEl.textContent = "No IDs found in " + filename + "."; return; }
+      infoEl.textContent = "Found " + ids.length + " ID" + (ids.length > 1 ? "s" : "") + " in " + filename + ".";
+      var ta = document.getElementById(textareaId);
+      var existing = ta.value.trim();
+      ta.value = existing ? existing + "\n" + ids.join("\n") : ids.join("\n");
     }
+
+    // Initialize both drop zones
+    setupDropZone("drop-zone", "file-input", "file-info", extractVideoId, "urls");
+    setupDropZone("imdb-drop-zone", "imdb-file-input", "imdb-file-info", extractImdbId, "imdb-urls");
+
+    // Ctrl+Enter shortcuts
+    document.getElementById("urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchThumbnails(); }
+    });
+    document.getElementById("imdb-urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchPosters(); }
+    });
   </script>
 </body>
 </html>
