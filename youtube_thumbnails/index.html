@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YouTube Thumbnail Downloader</title>
+  <!-- SheetJS for XLSX parsing (client-side, no backend) -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -170,21 +172,78 @@
       font-size: 0.9rem;
     }
 
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0;
+      color: #555;
+      font-size: 0.85rem;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #333;
+    }
+
+    .drop-zone {
+      border: 2px dashed #333;
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: #ff0000;
+      background: rgba(255, 0, 0, 0.05);
+    }
+    .drop-zone p {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+    .drop-zone .drop-hint {
+      color: #555;
+      font-size: 0.8rem;
+    }
+    .drop-zone input[type="file"] {
+      display: none;
+    }
+
+    .file-info {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #0f9;
+    }
+
     @media (max-width: 600px) {
       .container { padding: 1.5rem 0.75rem; }
       h1 { font-size: 1.4rem; }
       .results { grid-template-columns: 1fr; }
+      .drop-zone { padding: 16px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>YouTube Thumbnail Downloader</h1>
-    <p class="subtitle">Paste one or more YouTube URLs (one per line) to grab their thumbnails. No API key needed.</p>
+    <p class="subtitle">Paste URLs below, or upload a CSV/XLSX file. No API key needed.</p>
 
     <textarea id="urls" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ
 https://youtu.be/jNQXAC9IVRw
-https://www.youtube.com/shorts/abc123"></textarea>
+https://www.youtube.com/shorts/abc123
+or just paste video IDs like dQw4w9WgXcQ"></textarea>
+
+    <div class="divider">or upload a file</div>
+
+    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+      <p>Drop a CSV or XLSX file here, or click to browse</p>
+      <p class="drop-hint">The file should contain YouTube URLs or video IDs in any column</p>
+      <input type="file" id="file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+    </div>
+    <p class="file-info" id="file-info"></p>
 
     <div class="btn-row">
       <button class="btn-primary" id="fetch-btn" onclick="fetchThumbnails()">Get Thumbnails</button>
@@ -415,13 +474,115 @@ https://www.youtube.com/shorts/abc123"></textarea>
       videoStates = {};
     }
 
-    // Allow Enter key in textarea without submitting
+    // Allow Ctrl+Enter to submit from textarea
     document.getElementById("urls").addEventListener("keydown", function (e) {
       if (e.key === "Enter" && e.ctrlKey) {
         e.preventDefault();
         fetchThumbnails();
       }
     });
+
+    // --- File upload handling ---
+    var dropZone = document.getElementById("drop-zone");
+    var fileInput = document.getElementById("file-input");
+    var fileInfo = document.getElementById("file-info");
+
+    // Drag and drop events
+    dropZone.addEventListener("dragover", function (e) {
+      e.preventDefault();
+      dropZone.classList.add("drag-over");
+    });
+    dropZone.addEventListener("dragleave", function () {
+      dropZone.classList.remove("drag-over");
+    });
+    dropZone.addEventListener("drop", function (e) {
+      e.preventDefault();
+      dropZone.classList.remove("drag-over");
+      if (e.dataTransfer.files.length > 0) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener("change", function () {
+      if (fileInput.files.length > 0) {
+        handleFile(fileInput.files[0]);
+      }
+    });
+
+    function handleFile(file) {
+      var name = file.name.toLowerCase();
+      fileInfo.textContent = "Reading " + file.name + "...";
+
+      if (name.endsWith(".csv") || name.endsWith(".tsv") || name.endsWith(".txt")) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var text = e.target.result;
+          var ids = extractIdsFromText(text);
+          appendIds(ids, file.name);
+        };
+        reader.onerror = function () {
+          fileInfo.textContent = "Error reading file.";
+        };
+        reader.readAsText(file);
+      } else if (name.endsWith(".xlsx") || name.endsWith(".xls")) {
+        if (typeof XLSX === "undefined") {
+          fileInfo.textContent = "XLSX library not loaded. Please try a CSV file instead.";
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          try {
+            var data = new Uint8Array(e.target.result);
+            var workbook = XLSX.read(data, { type: "array" });
+            var allText = "";
+            workbook.SheetNames.forEach(function (sheetName) {
+              var sheet = workbook.Sheets[sheetName];
+              // Convert sheet to CSV text
+              allText += XLSX.utils.sheet_to_csv(sheet) + "\n";
+            });
+            var ids = extractIdsFromText(allText);
+            appendIds(ids, file.name);
+          } catch (err) {
+            fileInfo.textContent = "Error parsing XLSX: " + err.message;
+          }
+        };
+        reader.onerror = function () {
+          fileInfo.textContent = "Error reading file.";
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        fileInfo.textContent = "Unsupported file type. Please use CSV, XLSX, TSV, or TXT.";
+      }
+    }
+
+    function extractIdsFromText(text) {
+      // Split by common delimiters: newlines, commas, tabs, semicolons
+      var tokens = text.split(/[\n\r,;\t]+/);
+      var ids = [];
+      tokens.forEach(function (token) {
+        // Remove surrounding quotes
+        token = token.replace(/^["'\s]+|["'\s]+$/g, "");
+        var id = extractVideoId(token);
+        if (id && ids.indexOf(id) === -1) {
+          ids.push(id);
+        }
+      });
+      return ids;
+    }
+
+    function appendIds(ids, filename) {
+      if (ids.length === 0) {
+        fileInfo.textContent = "No YouTube URLs or video IDs found in " + filename + ".";
+        return;
+      }
+      fileInfo.textContent = "Found " + ids.length + " video" + (ids.length > 1 ? "s" : "") + " in " + filename + ".";
+
+      // Append to textarea (don't overwrite existing content)
+      var textarea = document.getElementById("urls");
+      var existing = textarea.value.trim();
+      var newLines = ids.join("\n");
+      textarea.value = existing ? existing + "\n" + newLines : newLines;
+    }
   </script>
 </body>
 </html>
