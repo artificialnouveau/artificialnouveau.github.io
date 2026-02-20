@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Thumbnail Downloader</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+
+    .subtitle {
+      color: #888;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      font-size: 0.95rem;
+      font-family: monospace;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      border: 1px solid #333;
+      border-radius: 8px;
+      resize: vertical;
+      outline: none;
+    }
+    textarea:focus {
+      border-color: #ff0000;
+    }
+    textarea::placeholder {
+      color: #555;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.85; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary {
+      background: #ff0000;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #333;
+      color: #e0e0e0;
+    }
+
+    .status {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #888;
+      min-height: 1.2em;
+    }
+
+    .results {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .thumb-card {
+      background: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #282828;
+    }
+
+    .thumb-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      background: #222;
+    }
+
+    .thumb-card .card-body {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .thumb-card .video-id {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #888;
+      word-break: break-all;
+    }
+
+    .thumb-card .quality-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .quality-btn {
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      background: #282828;
+      color: #ccc;
+      border: 1px solid #383838;
+    }
+    .quality-btn:hover {
+      background: #383838;
+    }
+    .quality-btn.active {
+      background: #ff0000;
+      color: #fff;
+      border-color: #ff0000;
+    }
+
+    .download-btn {
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      background: #282828;
+      color: #fff;
+      border: 1px solid #383838;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .download-btn:hover {
+      background: #ff0000;
+      border-color: #ff0000;
+    }
+
+    .error-card {
+      background: #1a1a1a;
+      border: 1px solid #442222;
+      border-radius: 8px;
+      padding: 16px;
+      color: #ff6666;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 1.5rem 0.75rem; }
+      h1 { font-size: 1.4rem; }
+      .results { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>YouTube Thumbnail Downloader</h1>
+    <p class="subtitle">Paste one or more YouTube URLs (one per line) to grab their thumbnails. No API key needed.</p>
+
+    <textarea id="urls" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ
+https://youtu.be/jNQXAC9IVRw
+https://www.youtube.com/shorts/abc123"></textarea>
+
+    <div class="btn-row">
+      <button class="btn-primary" id="fetch-btn" onclick="fetchThumbnails()">Get Thumbnails</button>
+      <button class="btn-secondary" id="download-all-btn" onclick="downloadAll()" disabled>Download All</button>
+      <button class="btn-secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <p class="status" id="status"></p>
+    <div class="results" id="results"></div>
+  </div>
+
+  <script>
+    // Thumbnail quality options (highest first)
+    var qualities = [
+      { key: "maxresdefault", label: "Max (1280x720)" },
+      { key: "sddefault",     label: "SD (640x480)" },
+      { key: "hqdefault",     label: "HQ (480x360)" },
+      { key: "mqdefault",     label: "MQ (320x180)" },
+      { key: "default",       label: "Default (120x90)" }
+    ];
+
+    // Track current selections per video
+    var videoStates = {};
+
+    function extractVideoId(url) {
+      url = url.trim();
+      if (!url) return null;
+
+      var patterns = [
+        // Standard watch URL
+        /(?:youtube\.com\/watch\?.*v=)([a-zA-Z0-9_-]{11})/,
+        // Short URL
+        /(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+        // Embed URL
+        /(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+        // Shorts URL
+        /(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+        // Live URL
+        /(?:youtube\.com\/live\/)([a-zA-Z0-9_-]{11})/,
+        // Just a video ID
+        /^([a-zA-Z0-9_-]{11})$/
+      ];
+
+      for (var i = 0; i < patterns.length; i++) {
+        var match = url.match(patterns[i]);
+        if (match) return match[1];
+      }
+      return null;
+    }
+
+    function thumbUrl(videoId, quality) {
+      return "https://img.youtube.com/vi/" + videoId + "/" + quality + ".jpg";
+    }
+
+    function fetchThumbnails() {
+      var input = document.getElementById("urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("results");
+      var status = document.getElementById("status");
+      results.innerHTML = "";
+      videoStates = {};
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one YouTube URL.";
+        return;
+      }
+
+      var ids = [];
+      var errors = [];
+
+      lines.forEach(function (line) {
+        var id = extractVideoId(line);
+        if (id) {
+          if (ids.indexOf(id) === -1) ids.push(id);
+        } else {
+          errors.push(line);
+        }
+      });
+
+      if (errors.length > 0) {
+        errors.forEach(function (e) {
+          var div = document.createElement("div");
+          div.className = "error-card";
+          div.textContent = "Could not parse: " + e;
+          results.appendChild(div);
+        });
+      }
+
+      if (ids.length === 0) {
+        status.textContent = "No valid YouTube URLs found.";
+        document.getElementById("download-all-btn").disabled = true;
+        return;
+      }
+
+      status.textContent = "Loading " + ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + "...";
+
+      var loaded = 0;
+      ids.forEach(function (id) {
+        videoStates[id] = { quality: "maxresdefault" };
+        createCard(id, results, function () {
+          loaded++;
+          if (loaded === ids.length) {
+            status.textContent = ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + " loaded.";
+            document.getElementById("download-all-btn").disabled = false;
+          }
+        });
+      });
+    }
+
+    function createCard(videoId, container, onLoad) {
+      var card = document.createElement("div");
+      card.className = "thumb-card";
+      card.id = "card-" + videoId;
+
+      var img = document.createElement("img");
+      img.alt = "Thumbnail for " + videoId;
+      img.crossOrigin = "anonymous";
+
+      // Try maxres first, fall back to hqdefault if it fails
+      img.src = thumbUrl(videoId, "maxresdefault");
+      img.onerror = function () {
+        // maxres not available — fall back to hqdefault
+        img.src = thumbUrl(videoId, "hqdefault");
+        videoStates[videoId].quality = "hqdefault";
+        // Update active button
+        var btns = card.querySelectorAll(".quality-btn");
+        btns.forEach(function (b) {
+          b.classList.toggle("active", b.dataset.quality === "hqdefault");
+        });
+      };
+      img.onload = function () { if (onLoad) onLoad(); };
+
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var idLabel = document.createElement("div");
+      idLabel.className = "video-id";
+      idLabel.textContent = videoId;
+
+      var qualityRow = document.createElement("div");
+      qualityRow.className = "quality-row";
+
+      qualities.forEach(function (q) {
+        var btn = document.createElement("button");
+        btn.className = "quality-btn" + (q.key === "maxresdefault" ? " active" : "");
+        btn.textContent = q.label;
+        btn.dataset.quality = q.key;
+        btn.onclick = function () {
+          videoStates[videoId].quality = q.key;
+          img.src = thumbUrl(videoId, q.key);
+          qualityRow.querySelectorAll(".quality-btn").forEach(function (b) {
+            b.classList.toggle("active", b.dataset.quality === q.key);
+          });
+        };
+        qualityRow.appendChild(btn);
+      });
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download";
+      dlBtn.onclick = function () { downloadOne(videoId); };
+
+      body.appendChild(idLabel);
+      body.appendChild(qualityRow);
+      body.appendChild(dlBtn);
+
+      card.appendChild(img);
+      card.appendChild(body);
+      container.appendChild(card);
+    }
+
+    function downloadOne(videoId) {
+      var quality = videoStates[videoId].quality;
+      var url = thumbUrl(videoId, quality);
+      var filename = videoId + "_" + quality + ".jpg";
+
+      // Try canvas approach for direct download
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        try {
+          var dataUrl = canvas.toDataURL("image/jpeg", 0.95);
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          // CORS blocked — open in new tab instead
+          window.open(url, "_blank");
+        }
+      };
+      img.onerror = function () {
+        window.open(url, "_blank");
+      };
+      img.src = url;
+    }
+
+    function downloadAll() {
+      var ids = Object.keys(videoStates);
+      if (ids.length === 0) return;
+
+      var status = document.getElementById("status");
+      status.textContent = "Downloading " + ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + "...";
+
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () { downloadOne(id); }, delay);
+        delay += 400; // stagger downloads
+      });
+
+      setTimeout(function () {
+        status.textContent = "Downloads started for " + ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + ".";
+      }, delay);
+    }
+
+    function clearAll() {
+      document.getElementById("urls").value = "";
+      document.getElementById("results").innerHTML = "";
+      document.getElementById("status").textContent = "";
+      document.getElementById("download-all-btn").disabled = true;
+      videoStates = {};
+    }
+
+    // Allow Enter key in textarea without submitting
+    document.getElementById("urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) {
+        e.preventDefault();
+        fetchThumbnails();
+      }
+    });
+  </script>
+</body>
+</html>
