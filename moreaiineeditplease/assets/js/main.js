@@ -1,5 +1,5 @@
 /**
- * More AI In Ee Edit Please - Main Application
+ * More AI I Need It Please - Main Application
  *
  * Handles tab switching, persona interactions, and mystery box functionality
  */
