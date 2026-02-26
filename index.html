@@ -457,6 +457,21 @@
             color: var(--color-accent);
         }
 
+        .btn-sponsor {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 16, 240, 0.3),
+                0 0 10px rgba(255, 16, 240, 0.4);
+        }
+
+        .btn-sponsor:hover {
+            background: rgba(255, 16, 240, 0.15);
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 16, 240, 0.5),
+                0 0 20px rgba(255, 16, 240, 0.6);
+        }
+
         .btn:hover {
             background: rgba(255, 16, 240, 0.1);
             color: var(--color-accent);
@@ -552,6 +567,7 @@
                 <a href="/gallery/" class="btn">Gallery</a>
                 <a href="/tools/" class="btn">Small Tools</a>
                 <a href="/be-me/" class="btn">Be Me</a>
+                <a href="https://github.com/sponsors/artificialnouveau" class="btn btn-sponsor">♥ Sponsor</a>
             </div>
         </div>
     </header>
