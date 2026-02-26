@@ -145,7 +145,7 @@ a:hover {
         #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3,
         #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3);
     background-size: 200% 100%;
-    animation: rainbow-scroll 3s linear infinite;
+    animation: rainbow-scroll 12s linear infinite;
     color: var(--white);
     padding: 1.5rem 0;
     border: 3px outset var(--win95-gray);
