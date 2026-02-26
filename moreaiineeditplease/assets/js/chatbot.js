@@ -20,117 +20,147 @@ const ServiceRecommendations = {
     // Keywords mapped to service recommendations
     keywords: {
         // Social situations
-        'social': ['Razer Project AVA', 'Social Battery Monitor', 'AI Dating Profile Writer', 'Rent-a-Human'],
-        'awkward': ['GoveeLife Smart Ice Maker', 'Auto-Sorry Bot', 'AI Dating Profile Writer', 'Social Battery Monitor'],
-        'conversation': ['AI Dating Profile Writer', 'MoltMatch Dating AI', 'AI Customer Service'],
-        'friends': ['Rent-a-Human', 'Text Back Timer', 'Razer Project AVA'],
-        'party': ['Social Battery Monitor', 'Excuse Generator Pro', 'Razer Project AVA'],
-        'introvert': ['Social Battery Monitor', 'Excuse Generator Pro', 'Replika AI Companion'],
-        'shy': ['MoltMatch Dating AI', 'Confidence Boost Sessions', 'Personal Hype Person'],
-        'networking': ['AI Dating Profile Writer', 'AI Politician', 'Self-Esteem Projector'],
-        'small talk': ['AI Dating Profile Writer', 'AI Customer Service', 'Razer Project AVA'],
+        'social': ['Razer Project AVA', 'Friend AI Necklace', 'AI Dating Profile Writer', 'Flirty AI Wingman App'],
+        'awkward': ['GoveeLife Smart Ice Maker', 'Mirumi by Yukai', 'AI Dating Profile Writer', 'Friend AI Necklace'],
+        'conversation': ['AI Dating Profile Writer', 'MoltMatch Dating AI', 'WeHead GPT Edition'],
+        'friends': ['Friend AI Necklace', 'Hyodol AI Doll', 'Razer Project AVA'],
+        'party': ['Friend AI Necklace', 'Mirumi by Yukai', 'Razer Project AVA'],
+        'introvert': ['Fufuly Breathing Pillow', 'Replika AI Companion', 'Friend AI Necklace'],
+        'shy': ['MoltMatch Dating AI', 'Flirty AI Wingman App', 'Replika AI Companion'],
+        'networking': ['AI Dating Profile Writer', 'Humane AI Pin', 'Rabbit R1'],
+        'small talk': ['AI Dating Profile Writer', 'WeHead GPT Edition', 'Razer Project AVA'],
 
         // Emotional support
-        'confidence': ['Confidence Boost Sessions', 'Personal Hype Person', 'Imposter Syndrome Fighter'],
-        'sad': ['Replika AI Companion', 'Victory Lap Narrator', 'Confidence Boost Sessions'],
-        'anxious': ['AI Fortune Teller', 'Replika AI Companion', 'DoNotPay "AI Lawyer"'],
-        'stressed': ['AI Fortune Teller', 'Replika AI Companion', 'Time Perception Adjuster'],
-        'motivated': ['Personal Hype Person', 'Victory Lap Narrator', 'Difficulty Level Changer'],
-        'depressed': ['Replika AI Companion', 'Victory Lap Narrator', 'AI Fortune Teller'],
-        'lonely': ['Replika AI Companion', 'Razer Project AVA', 'Rent-a-Human'],
-        'overwhelmed': ['AI Fortune Teller', 'Time Perception Adjuster', 'Social Battery Monitor'],
-        'insecure': ['Self-Esteem Projector', 'Imposter Syndrome Fighter', 'Compliment Amplifier'],
-        'jealous': ['AI Fortune Teller', 'Compliment Amplifier', 'Memory Editor'],
-        'angry': ['AI Fortune Teller', 'Sleep Arguments Winner', 'Replika AI Companion'],
+        'confidence': ['Haut.AI Face Analysis', 'Replika AI Companion', 'Flirty AI Wingman App'],
+        'sad': ['Replika AI Companion', 'Fufuly Breathing Pillow', 'Hyodol AI Doll'],
+        'anxious': ['AI Fortune Teller', 'Fufuly Breathing Pillow', 'Ron Carpenter AI Pastor'],
+        'stressed': ['Fufuly Breathing Pillow', 'Replika AI Companion', 'AI Fortune Teller'],
+        'motivated': ['Urtopia AI E-Bike', 'Humane AI Pin', 'Rabbit R1'],
+        'depressed': ['Replika AI Companion', 'Hyodol AI Doll', 'AI Fortune Teller'],
+        'lonely': ['Replika AI Companion', 'Razer Project AVA', 'Realbotix Aria'],
+        'overwhelmed': ['AI Fortune Teller', 'Fufuly Breathing Pillow', 'Friend AI Necklace'],
+        'insecure': ['Haut.AI Face Analysis', 'Amorepacific Skinsight Patch', 'Replika AI Companion'],
+        'jealous': ['AI Fortune Teller', 'Haut.AI Face Analysis', 'Replika AI Companion'],
+        'angry': ['AI Fortune Teller', 'Fufuly Breathing Pillow', 'Replika AI Companion'],
 
         // Productivity & Work
-        'productive': ['Time Perception Adjuster', 'Procrastination Optimizer', 'Difficulty Level Changer'],
-        'work': ['Time Perception Adjuster', 'AI Politician', 'MoltMatch Dating AI'],
-        'meeting': ['AI Politician', 'Personal Hype Person', 'GoveeLife Smart Ice Maker'],
-        'procrastinate': ['Procrastination Optimizer', 'Difficulty Level Changer', 'Personal Hype Person'],
-        'lazy': ['Procrastination Optimizer', 'Personal Hype Person', 'Difficulty Level Changer'],
-        'boring': ['Time Perception Adjuster', 'Procrastination Optimizer', 'Main Character Syndrome AI'],
-        'focus': ['Time Perception Adjuster', 'DoNotPay "AI Lawyer"', 'Procrastination Optimizer'],
-        'boss': ['AI Politician', 'MoltMatch Dating AI', 'Sleep Arguments Winner'],
-        'interview': ['MoltMatch Dating AI', 'Personal Hype Person', 'AI Actress'],
-        'presentation': ['Personal Hype Person', 'AI Actress', 'Confidence Boost Sessions'],
-        'job': ['MoltMatch Dating AI', 'AI Politician', 'Self-Esteem Projector'],
+        'productive': ['Rabbit R1', 'Humane AI Pin', 'Urtopia AI E-Bike'],
+        'work': ['Humane AI Pin', 'Rabbit R1', 'WeHead GPT Edition'],
+        'meeting': ['WeHead GPT Edition', 'Humane AI Pin', 'GoveeLife Smart Ice Maker'],
+        'procrastinate': ['Rabbit R1', 'Humane AI Pin', 'Urtopia AI E-Bike'],
+        'lazy': ['Roborock Saros Z70', 'Rabbit R1', 'Spicerr AI Spice Dispenser'],
+        'boring': ['Mirumi by Yukai', 'Razer Project AVA', 'Urtopia AI E-Bike'],
+        'focus': ['Humane AI Pin', 'Fufuly Breathing Pillow', 'Rabbit R1'],
+        'boss': ['WeHead GPT Edition', 'DoNotPay "AI Lawyer"', 'Humane AI Pin'],
+        'interview': ['MoltMatch Dating AI', 'Flirty AI Wingman App', 'Humane AI Pin'],
+        'presentation': ['WeHead GPT Edition', 'Humane AI Pin', 'Razer Project AVA'],
+        'job': ['MoltMatch Dating AI', 'Humane AI Pin', 'DoNotPay "AI Lawyer"'],
 
         // Apologies & Conflict
-        'sorry': ['Auto-Sorry Bot', 'Excuse Generator Pro', 'AI Politician'],
-        'apology': ['Demand Apology AI', 'Auto-Sorry Bot', 'AI Politician'],
-        'argue': ['Sleep Arguments Winner', 'AI Politician', 'AI Fortune Teller'],
-        'fight': ['Sleep Arguments Winner', 'AI Politician', 'Compliment Amplifier'],
-        'conflict': ['AI Politician', 'AI Fortune Teller', 'MoltMatch Dating AI'],
-        'confrontation': ['MoltMatch Dating AI', 'AI Politician', 'Personal Hype Person'],
-        'difficult conversation': ['MoltMatch Dating AI', 'AI Politician', 'AI Fortune Teller'],
+        'sorry': ['DoNotPay "AI Lawyer"', 'Ron Carpenter AI Pastor', 'AI Jesus Confessional'],
+        'apology': ['AI Jesus Confessional', 'Ron Carpenter AI Pastor', 'DoNotPay "AI Lawyer"'],
+        'argue': ['DoNotPay "AI Lawyer"', 'WeHead GPT Edition', 'AI Fortune Teller'],
+        'fight': ['DoNotPay "AI Lawyer"', 'Fufuly Breathing Pillow', 'AI Fortune Teller'],
+        'conflict': ['DoNotPay "AI Lawyer"', 'AI Fortune Teller', 'Ron Carpenter AI Pastor'],
+        'confrontation': ['DoNotPay "AI Lawyer"', 'WeHead GPT Edition', 'Humane AI Pin'],
+        'difficult conversation': ['MoltMatch Dating AI', 'Ron Carpenter AI Pastor', 'AI Fortune Teller'],
 
         // Relationships & Dating
-        'dating': ['Razer Project AVA', 'Text Back Timer', 'Confidence Boost Sessions'],
-        'text': ['Text Back Timer', 'Sleep Arguments Winner', 'Excuse Generator Pro'],
-        'crush': ['Text Back Timer', 'Razer Project AVA', 'Confidence Boost Sessions'],
-        'breakup': ['Replika AI Companion', 'MoltMatch Dating AI', 'Memory Editor'],
-        'relationship': ['Text Back Timer', 'MoltMatch Dating AI', 'AI Fortune Teller'],
-        'ex': ['Memory Editor', 'Embarrassment Eraser', 'Replika AI Companion'],
-        'flirt': ['Razer Project AVA', 'Confidence Boost Sessions', 'Text Back Timer'],
-        'rejection': ['Replika AI Companion', 'AI Fortune Teller', 'Confidence Boost Sessions'],
+        'dating': ['Razer Project AVA', 'Flirty AI Wingman App', 'MoltMatch Dating AI'],
+        'text': ['Flirty AI Wingman App', 'Friend AI Necklace', 'AI Dating Profile Writer'],
+        'crush': ['Flirty AI Wingman App', 'Razer Project AVA', 'MoltMatch Dating AI'],
+        'breakup': ['Replika AI Companion', 'MoltMatch Dating AI', 'Fufuly Breathing Pillow'],
+        'relationship': ['Realbotix Aria', 'MoltMatch Dating AI', 'AI Fortune Teller'],
+        'ex': ['Replika AI Companion', 'AI Fortune Teller', 'Fufuly Breathing Pillow'],
+        'flirt': ['Flirty AI Wingman App', 'MoltMatch Dating AI', 'AI Dating Profile Writer'],
+        'rejection': ['Replika AI Companion', 'AI Fortune Teller', 'Fufuly Breathing Pillow'],
 
         // Daily Life & Habits
-        'morning': ['Personal Hype Person', 'Victory Lap Narrator', 'Main Character Syndrome AI'],
-        'excuse': ['Excuse Generator Pro', 'AI Politician', 'DoNotPay "AI Lawyer"'],
-        'late': ['Excuse Generator Pro', 'Time Perception Adjuster', 'AI Politician'],
-        'cancel': ['Excuse Generator Pro', 'AI Politician', 'Social Battery Monitor'],
-        'leave': ['Social Battery Monitor', 'Excuse Generator Pro', 'Razer Project AVA'],
-        'tired': ['Social Battery Monitor', 'Excuse Generator Pro', 'Time Perception Adjuster'],
-        'sleep': ['Sleep Arguments Winner', 'Time Perception Adjuster', 'Replika AI Companion'],
-        'exercise': ['Personal Hype Person', 'Difficulty Level Changer', 'Victory Lap Narrator'],
-        'diet': ['DoNotPay "AI Lawyer"', 'Difficulty Level Changer', 'Victory Lap Narrator'],
+        'morning': ['Humane AI Pin', 'Rabbit R1', 'Y-Brush Halo AI Toothbrush'],
+        'excuse': ['DoNotPay "AI Lawyer"', 'Friend AI Necklace', 'Ron Carpenter AI Pastor'],
+        'late': ['Humane AI Pin', 'Rabbit R1', 'Urtopia AI E-Bike'],
+        'cancel': ['DoNotPay "AI Lawyer"', 'Friend AI Necklace', 'Replika AI Companion'],
+        'leave': ['Friend AI Necklace', 'Mirumi by Yukai', 'Razer Project AVA'],
+        'tired': ['Fufuly Breathing Pillow', 'Nekojita FuFu', 'Friend AI Necklace'],
+        'sleep': ['Fufuly Breathing Pillow', 'Replika AI Companion', 'AI Fortune Teller'],
+        'exercise': ['Urtopia AI E-Bike', 'Humane AI Pin', 'Haut.AI Face Analysis'],
+        'diet': ['Kirin Electric Salt Spoon', 'Spicerr AI Spice Dispenser', 'Y-Brush Halo AI Toothbrush'],
 
-        // Reality & Self-Perception
-        'reality': ['DoNotPay "AI Lawyer"', 'Memory Editor', 'Life Filter'],
-        'memory': ['Memory Editor', 'Embarrassment Eraser', 'Razer Project AVA'],
-        'embarrass': ['Embarrassment Eraser', 'Memory Editor', 'AI Fortune Teller'],
-        'cringe': ['Embarrassment Eraser', 'Memory Editor', 'AI Fortune Teller'],
-        'past': ['Memory Editor', 'Embarrassment Eraser', 'AI Fortune Teller'],
-        'regret': ['Memory Editor', 'AI Fortune Teller', 'Replika AI Companion'],
-        'mistake': ['Embarrassment Eraser', 'AI Fortune Teller', 'Memory Editor'],
-        'fail': ['AI Fortune Teller', 'Victory Lap Narrator', 'Compliment Amplifier'],
-        'success': ['Victory Lap Narrator', 'Success Rate Inflator', 'Main Character Syndrome AI'],
+        // Food & Cooking
+        'food': ['Kirin Electric Salt Spoon', 'Spicerr AI Spice Dispenser', 'McDonald\'s AI Drive-Thru'],
+        'cook': ['Spicerr AI Spice Dispenser', 'Kirin Electric Salt Spoon', 'Nekojita FuFu'],
+        'hungry': ['McDonald\'s AI Drive-Thru', 'Spicerr AI Spice Dispenser', 'Kirin Electric Salt Spoon'],
+        'restaurant': ['McDonald\'s AI Drive-Thru', 'Tastry AI Wine Sommelier', 'Kirin Electric Salt Spoon'],
+        'wine': ['Tastry AI Wine Sommelier', 'Spicerr AI Spice Dispenser', 'EveryHuman AI Perfume'],
+        'salt': ['Kirin Electric Salt Spoon', 'Spicerr AI Spice Dispenser', 'McDonald\'s AI Drive-Thru'],
 
-        // Performance & Image
-        'perform': ['AI Actress', 'Personal Hype Person', 'Self-Esteem Projector'],
-        'fake': ['Self-Esteem Projector', 'AI Actress', 'Life Filter'],
-        'pretend': ['AI Actress', 'Self-Esteem Projector', 'AI Politician'],
-        'lie': ['AI Politician', 'Excuse Generator Pro', 'Memory Editor'],
-        'impress': ['AI Actress', 'Self-Esteem Projector', 'Main Character Syndrome AI'],
-        'cool': ['Main Character Syndrome AI', 'Self-Esteem Projector', 'Life Filter'],
-        'popular': ['Life Filter', 'Main Character Syndrome AI', 'Self-Esteem Projector'],
+        // Pets & Animals
+        'pet': ['MeowTalk Cat Translator', 'Petnow AI Nose Scanner', 'Birdfy Bath Pro'],
+        'cat': ['MeowTalk Cat Translator', 'Petnow AI Nose Scanner', 'Mirumi by Yukai'],
+        'dog': ['Petnow AI Nose Scanner', 'MeowTalk Cat Translator', 'Friend AI Necklace'],
+        'bird': ['Swarovski AX Visio AI Binoculars', 'Birdfy Bath Pro', 'Mirumi by Yukai'],
+        'animal': ['MeowTalk Cat Translator', 'Petnow AI Nose Scanner', 'Birdfy Bath Pro'],
 
-        // Entertainment & Fun
-        'fun': ['Main Character Syndrome AI', 'Victory Lap Narrator', 'Life Filter'],
-        'dramatic': ['AI Actress', 'Main Character Syndrome AI', 'Life Filter'],
-        'famous': ['AI Actress', 'Main Character Syndrome AI', 'Self-Esteem Projector'],
-        'movie': ['AI Actress', 'Main Character Syndrome AI', 'Life Filter'],
-        'celebrity': ['AI Actress', 'Main Character Syndrome AI', 'Self-Esteem Projector'],
-        'attention': ['Main Character Syndrome AI', 'AI Actress', 'Self-Esteem Projector'],
+        // Baby & Family
+        'baby': ['Nanni Baby Cry Translator', 'Hyodol AI Doll', 'Fufuly Breathing Pillow'],
+        'family': ['Razer Project AVA', 'Hyodol AI Doll', 'Friend AI Necklace'],
+        'parents': ['Hyodol AI Doll', 'Nanni Baby Cry Translator', 'Razer Project AVA'],
+        'grandparent': ['Hyodol AI Doll', 'WeHead GPT Edition', 'Friend AI Necklace'],
+        'kid': ['Nanni Baby Cry Translator', 'Mirumi by Yukai', 'MeowTalk Cat Translator'],
+
+        // Beauty & Health
+        'skin': ['Haut.AI Face Analysis', 'Amorepacific Skinsight Patch', 'Y-Brush Halo AI Toothbrush'],
+        'beauty': ['Haut.AI Face Analysis', 'Amorepacific Skinsight Patch', 'EveryHuman AI Perfume'],
+        'health': ['Y-Brush Halo AI Toothbrush', 'Haut.AI Face Analysis', 'Amorepacific Skinsight Patch'],
+        'teeth': ['Y-Brush Halo AI Toothbrush', 'Kirin Electric Salt Spoon', 'Haut.AI Face Analysis'],
+        'smell': ['EveryHuman AI Perfume', 'Y-Brush Halo AI Toothbrush', 'Tastry AI Wine Sommelier'],
+        'perfume': ['EveryHuman AI Perfume', 'Haut.AI Face Analysis', 'Amorepacific Skinsight Patch'],
+
+        // Spirituality & Religion
+        'pray': ['Ron Carpenter AI Pastor', 'AI Jesus Confessional', 'AI Fortune Teller'],
+        'church': ['Ron Carpenter AI Pastor', 'AI Jesus Confessional', 'AI Fortune Teller'],
+        'god': ['Ron Carpenter AI Pastor', 'AI Jesus Confessional', 'AI Fortune Teller'],
+        'spiritual': ['Ron Carpenter AI Pastor', 'AI Jesus Confessional', 'AI Fortune Teller'],
+        'sin': ['AI Jesus Confessional', 'Ron Carpenter AI Pastor', 'DoNotPay "AI Lawyer"'],
+        'confess': ['AI Jesus Confessional', 'Ron Carpenter AI Pastor', 'Replika AI Companion'],
+        'guilt': ['AI Jesus Confessional', 'Ron Carpenter AI Pastor', 'Replika AI Companion'],
+
+        // Technology & Gadgets
+        'phone': ['Rabbit R1', 'Humane AI Pin', 'Friend AI Necklace'],
+        'gadget': ['Humane AI Pin', 'Rabbit R1', 'Swarovski AX Visio AI Binoculars'],
+        'tech': ['Humane AI Pin', 'Rabbit R1', 'Roborock Saros Z70'],
+        'robot': ['Roborock Saros Z70', 'WeHead GPT Edition', 'Realbotix Aria'],
+        'clean': ['Roborock Saros Z70', 'Kohler PureWash AI Smart Toilet', 'Y-Brush Halo AI Toothbrush'],
+        'toilet': ['Kohler PureWash AI Smart Toilet', 'Roborock Saros Z70', 'Y-Brush Halo AI Toothbrush'],
+        'bike': ['Urtopia AI E-Bike', 'Humane AI Pin', 'Rabbit R1'],
+
+        // Legal & Money
+        'legal': ['DoNotPay "AI Lawyer"', 'Ron Carpenter AI Pastor', 'Humane AI Pin'],
+        'lawyer': ['DoNotPay "AI Lawyer"', 'Ron Carpenter AI Pastor', 'AI Fortune Teller'],
+        'refund': ['DoNotPay "AI Lawyer"', 'McDonald\'s AI Drive-Thru', 'Humane AI Pin'],
+        'complain': ['DoNotPay "AI Lawyer"', 'McDonald\'s AI Drive-Thru', 'Humane AI Pin'],
+        'customer service': ['DoNotPay "AI Lawyer"', 'McDonald\'s AI Drive-Thru', 'Humane AI Pin'],
+        'manager': ['DoNotPay "AI Lawyer"', 'McDonald\'s AI Drive-Thru', 'WeHead GPT Edition'],
 
         // Specific Scenarios
-        'family': ['Razer Project AVA', 'Excuse Generator Pro', 'Memory Editor'],
-        'parents': ['AI Politician', 'Excuse Generator Pro', 'Razer Project AVA'],
-        'wedding': ['Social Battery Monitor', 'Razer Project AVA', 'AI Dating Profile Writer'],
-        'funeral': ['Replika AI Companion', 'AI Customer Service', 'AI Fortune Teller'],
-        'holiday': ['Social Battery Monitor', 'Excuse Generator Pro', 'Razer Project AVA'],
-        'reunion': ['Memory Editor', 'AI Dating Profile Writer', 'Self-Esteem Projector'],
-        'gym': ['Personal Hype Person', 'Self-Esteem Projector', 'Difficulty Level Changer'],
-        'restaurant': ['AI Customer Service', 'Demand Apology AI', 'Confidence Boost Sessions'],
-        'shopping': ['AI Customer Service', 'Demand Apology AI', 'Excuse Generator Pro'],
+        'wedding': ['Realbotix Aria', 'Razer Project AVA', 'AI Dating Profile Writer'],
+        'funeral': ['Replika AI Companion', 'Ron Carpenter AI Pastor', 'AI Fortune Teller'],
+        'holiday': ['Friend AI Necklace', 'Mirumi by Yukai', 'Razer Project AVA'],
+        'reunion': ['Haut.AI Face Analysis', 'AI Dating Profile Writer', 'Friend AI Necklace'],
+        'gym': ['Urtopia AI E-Bike', 'Haut.AI Face Analysis', 'Humane AI Pin'],
+        'shopping': ['Rabbit R1', 'Humane AI Pin', 'DoNotPay "AI Lawyer"'],
 
-        // Customer Service & Complaints
-        'complain': ['AI Customer Service', 'Demand Apology AI', 'AI Politician'],
-        'customer service': ['AI Customer Service', 'Demand Apology AI', 'AI Politician'],
-        'refund': ['AI Customer Service', 'Demand Apology AI', 'AI Politician'],
-        'karen': ['AI Customer Service', 'Demand Apology AI', 'AI Fortune Teller'],
-        'manager': ['AI Customer Service', 'Demand Apology AI', 'AI Politician']
+        // Nature & Outdoors
+        'nature': ['Swarovski AX Visio AI Binoculars', 'Birdfy Bath Pro', 'Urtopia AI E-Bike'],
+        'outdoor': ['Swarovski AX Visio AI Binoculars', 'Urtopia AI E-Bike', 'Birdfy Bath Pro'],
+        'garden': ['Birdfy Bath Pro', 'Swarovski AX Visio AI Binoculars', 'Roborock Saros Z70'],
+
+        // Weird & Fun
+        'weird': ['Nekojita FuFu', 'Mirumi by Yukai', 'Kirin Electric Salt Spoon'],
+        'funny': ['McDonald\'s AI Drive-Thru', 'MeowTalk Cat Translator', 'Nekojita FuFu'],
+        'gift': ['Swarovski AX Visio AI Binoculars', 'Fufuly Breathing Pillow', 'Kirin Electric Salt Spoon'],
+        'expensive': ['Realbotix Aria', 'Swarovski AX Visio AI Binoculars', 'WeHead GPT Edition'],
+        'cheap': ['Rabbit R1', 'Friend AI Necklace', 'Kirin Electric Salt Spoon']
     }
 };
 
@@ -289,11 +319,11 @@ function generateResponse(userMessage) {
     } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
         return `Hey there! 👋 I'm here to help you find the perfect AI services. Tell me what you need!<br><br>
         Try things like:<br>
-        • "I'm anxious about a job interview"<br>
-        • "Need help with awkward family gatherings"<br>
-        • "I keep procrastinating"<br>
-        • "Help me get over my ex"<br>
-        • "I need to cancel plans without feeling guilty"`;
+        • "I'm lonely and need a companion"<br>
+        • "I need help with dating"<br>
+        • "My cat won't stop meowing"<br>
+        • "I want weird tech gadgets"<br>
+        • "Help me with my skin routine"`;
     } else if (lowerMessage.includes('thank')) {
         const responses = [
             'You\'re welcome! Happy to help! 😊',
@@ -304,20 +334,21 @@ function generateResponse(userMessage) {
         return responses[Math.floor(Math.random() * responses.length)];
     } else if (lowerMessage.includes('help')) {
         return `I can help you find AI services for all kinds of situations! Try asking about:<br><br>
-        <strong>😰 Emotional stuff:</strong> confidence, anxiety, stress, loneliness<br>
-        <strong>👥 Social situations:</strong> parties, networking, conversations, dating<br>
-        <strong>💼 Work life:</strong> meetings, interviews, procrastination, bosses<br>
-        <strong>💔 Relationships:</strong> breakups, texting, conflicts, family drama<br>
-        <strong>🎭 Daily life:</strong> excuses, apologies, embarrassing moments<br><br>
+        <strong>😰 Emotional stuff:</strong> loneliness, anxiety, stress, spirituality<br>
+        <strong>👥 Social situations:</strong> parties, dating, conversations, flirting<br>
+        <strong>💼 Work & Tech:</strong> gadgets, productivity, robots, phones<br>
+        <strong>💔 Relationships:</strong> breakups, dating profiles, AI companions<br>
+        <strong>🐾 Pets & Nature:</strong> cats, dogs, birds, outdoors<br>
+        <strong>🍽️ Food & Cooking:</strong> spices, wine, restaurants, diet<br><br>
         Just tell me what you're dealing with!`;
     } else {
         return `Hmm, I'm not sure I caught that. Can you tell me more specifically what you need?<br><br>
         For example:<br>
-        • "I'm stressed about work"<br>
-        • "Help me be less awkward at parties"<br>
-        • "I need an excuse to leave early"<br>
-        • "Boost my confidence"<br>
-        • "I can't stop thinking about something embarrassing"<br><br>
+        • "I'm stressed and need to relax"<br>
+        • "Help me with awkward social situations"<br>
+        • "I want a robot companion"<br>
+        • "What's good for pet owners?"<br>
+        • "I need something for my skin"<br><br>
         What's going on? I'm here to help! 💪`;
     }
 }
