@@ -3,6 +3,8 @@ title: "MORE AI! I NEED IT! PLEASE!"
 image: /assets/portfolio/moreai.jpg
 ---
 
+[![MORE AI! I NEED IT! PLEASE!](/assets/portfolio/moreai.jpg)](https://www.artificialnouveau.com/moreaiineedit/index.html)
+
 MORE AI! I NEED IT! PLEASE! is a satirical catalog of the most absurd, questionable, and bewilderingly real AI products flooding the market. Part consumer guide, part cultural critique, it documents a world where artificial intelligence has been shoehorned into every conceivable corner of human existence — from ice makers with "AI NoiseGuard" to $175,000 animatronic companions.
 
 The project is organized into three sections: **AI Automation**, cataloging smart devices that nobody asked for (including McDonald's ill-fated AI drive-thru and a spoon that mildly electrocutes you); **AI Companions**, featuring products designed to fill the void of human connection with silicon and subscriptions (a necklace that eavesdrops on you 24/7, holographic anime girlfriends with eye-tracking, and AI dolls for the elderly); and **Specialized Therapists**, a collection of "expert" AI services ranging from an AI Jesus Confessional installed in a Swiss church to a cat translator with 22 million downloads.
