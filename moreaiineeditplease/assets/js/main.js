@@ -20,84 +20,84 @@ const AppState = {
 
 const MYSTERY_SERVICES = [
     {
-        icon: '🎤',
-        title: 'Shower Concert Critic',
-        desc: 'AI-powered feedback on your shower singing. Includes key suggestions and vocal coaching for soap opera performances.'
+        icon: '🔭',
+        title: 'Swarovski AX Visio AI Binoculars',
+        desc: '$4,799 binoculars with built-in bird identification AI. Point at a bird, it tells you what it is. The most expensive birdwatching flex ever.'
     },
     {
-        icon: '🍕',
-        title: 'Pizza Topping Mediator',
-        desc: 'Resolves pizza topping disputes with diplomatic precision. Suggests compromise solutions that satisfy everyone (or no one).'
+        icon: '🍜',
+        title: 'Nekojita FuFu',
+        desc: 'A tiny robot that blows on your soup to cool it down. From Japan, because your own breath isn\'t good enough anymore.'
     },
     {
-        icon: '🎮',
-        title: 'Video Game NPC Generator',
-        desc: 'Creates custom NPCs based on people in your life. Your boss now gives you side quests!'
+        icon: '🦾',
+        title: 'Roborock Saros Z70',
+        desc: 'Robot vacuum with an extendable robot arm that picks up your socks off the floor. Finally, a vacuum that also cleans up after you.'
     },
     {
-        icon: '🌙',
-        title: 'Dream Interpreter Pro',
-        desc: 'Analyzes your dreams and connects them to your grocery shopping habits. Results may vary wildly.'
+        icon: '🚽',
+        title: 'Kohler PureWash AI Smart Toilet',
+        desc: 'Voice-controlled bidet with personalized wash profiles. "Alexa, wash my—" You get the idea. $400+ for AI-powered cleanliness.'
     },
     {
-        icon: '🎨',
-        title: 'Doodle Analyzer',
-        desc: 'Interprets your meeting doodles as serious art. Provides gallery-worthy descriptions of your stick figures.'
+        icon: '🚲',
+        title: 'Urtopia AI E-Bike',
+        desc: 'An electric bike with ChatGPT on the handlebars. Ask it directions, weather, or existential questions while pedaling. $3,999.'
+    },
+    {
+        icon: '🐦',
+        title: 'Birdfy Bath Pro',
+        desc: 'AI-powered bird bath with camera and species identification. Requires a subscription. Your birds now have a SaaS product.'
+    },
+    {
+        icon: '🐾',
+        title: 'Petnow AI Nose Scanner',
+        desc: 'Identifies your pet by scanning their nose print, like a fingerprint but wetter. Each nose is unique, apparently.'
+    },
+    {
+        icon: '🍷',
+        title: 'Tastry AI Wine Sommelier',
+        desc: 'AI that writes wine reviews without ever tasting wine. Analyzes chemical compounds to describe flavor. Sommeliers hate this one trick.'
+    },
+    {
+        icon: '👃',
+        title: 'EveryHuman AI Perfume',
+        desc: 'AI designs custom fragrances it can\'t smell. Analyzes your personality quiz to create a scent. The nose knows nothing.'
+    },
+    {
+        icon: '💋',
+        title: 'Flirty AI Wingman App',
+        desc: 'AI pickup line generator that crafts contextual openers from dating profile photos. Success rate: unclear. Cringe rate: high.'
+    },
+    {
+        icon: '📌',
+        title: 'Humane AI Pin',
+        desc: '$699 wearable that projects a laser on your palm. Called the worst tech product ever reviewed. Now recalled for overheating.'
+    },
+    {
+        icon: '🐇',
+        title: 'Rabbit R1',
+        desc: '$199 orange gadget meant to replace your phone. Reviewers called it a "useless paperweight." 100K sold before anyone tried it.'
+    },
+    {
+        icon: '📿',
+        title: 'Friend AI Necklace',
+        desc: '$99 pendant that eavesdrops on your life 24/7 and texts you unsolicited commentary. Always listening, always judging.'
+    },
+    {
+        icon: '🗣️',
+        title: 'WeHead GPT Edition',
+        desc: '$4,950 robotic head with 4 screens showing a moving face. Sits on your desk. Tracks you with cameras. Your new best friend.'
     },
     {
         icon: '🐱',
-        title: 'Pet Thought Translator',
-        desc: 'Translates what your pet is thinking. Spoiler: It\'s mostly "feed me" and "why did you leave?"'
+        title: 'MeowTalk Cat Translator',
+        desc: 'App claiming to translate cat meows with 22M+ downloads. Cats don\'t have language, but 22 million people want to believe.'
     },
     {
-        icon: '📚',
-        title: 'Book Ending Spoiler Avoider',
-        desc: 'Monitors your reading speed and prevents accidental glances at the last page. Eye-tracking technology included.'
-    },
-    {
-        icon: '☕',
-        title: 'Coffee Shop Order Optimizer',
-        desc: 'Calculates the perfect level of coffee order complexity to seem sophisticated without annoying the barista.'
-    },
-    {
-        icon: '🎵',
-        title: 'Elevator Music Curator',
-        desc: 'Customizes elevator music based on who\'s in the elevator with you. Awkward silence? Not anymore!'
-    },
-    {
-        icon: '🌮',
-        title: 'Taco Tuesday Enforcer',
-        desc: 'Ensures you never miss Taco Tuesday. Sends increasingly urgent reminders. Will shame you if you eat other food.'
-    },
-    {
-        icon: '🎪',
-        title: 'Life Event Exaggerator',
-        desc: 'Makes mundane events sound epic for social media. "I went to the store" becomes "An adventure of legendary proportions."'
-    },
-    {
-        icon: '🧦',
-        title: 'Sock Matching AI',
-        desc: 'Uses advanced algorithms to reunite lost socks. Success rate: 12%. But that\'s 12% more than you had!'
-    },
-    {
-        icon: '🌈',
-        title: 'Rainbow Forecast',
-        desc: 'Predicts rainbow appearances with unprecedented accuracy. Includes double rainbow probability metrics.'
-    },
-    {
-        icon: '🎯',
-        title: 'Procrastination Optimizer',
-        desc: 'Helps you procrastinate more efficiently. Suggests the perfect productive-feeling tasks to avoid actual work.'
-    },
-    {
-        icon: '🍿',
-        title: 'Movie Plot Predictor',
-        desc: 'Predicts movie endings 10 minutes in. Can be turned off if you actually want to enjoy the film.'
-    },
-    {
-        icon: '🎲',
-        title: 'Decision Paralyzer',
-        desc: 'For people who can\'t decide: This AI presents you with MORE options. Now you really can\'t choose!'
+        icon: '🧂',
+        title: 'Kirin Electric Salt Spoon',
+        desc: 'Mildly electrocutes your tongue to make food taste 1.5x saltier. Won an Ig Nobel Prize. Real product from Kirin brewery.'
     }
 ];
 
