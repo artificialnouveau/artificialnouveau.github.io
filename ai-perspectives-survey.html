@@ -828,9 +828,9 @@
                     count++;
                 });
 
-                // Scale by 2.0 to spread responses toward edges
-                const xAvg = count > 0 ? (xTotal / count) * 2.0 : 0;
-                const yAvg = count > 0 ? (yTotal / count) * 2.0 : 0;
+                // Normalize to -1 to 1 range (max weight is 2, so divide by 2)
+                const xAvg = count > 0 ? (xTotal / count) / 2.0 : 0;
+                const yAvg = count > 0 ? (yTotal / count) / 2.0 : 0;
 
                 return { x: xAvg, y: yAvg };
             };
@@ -948,8 +948,8 @@
                 const { results, archetype } = myResults;
 
                 // Convert coordinates to percentages for positioning (0,0 center = 50%,50%)
-                const dotX = ((results.x + 2) / 4) * 100; // Map -2 to 2 onto 0 to 100
-                const dotY = ((2 - results.y) / 4) * 100; // Invert Y (top is positive)
+                const dotX = ((results.x + 1) / 2) * 100; // Map -1 to 1 onto 0 to 100
+                const dotY = ((1 - results.y) / 2) * 100; // Invert Y (top is positive)
 
                 return (
                     <div className="survey-container">
@@ -979,8 +979,8 @@
                                             const isSameAsUser = Math.abs(result.x - results.x) < 0.01 && Math.abs(result.y - results.y) < 0.01;
                                             if (isSameAsUser) return null;
 
-                                            const otherX = ((result.x + 2) / 4) * 100;
-                                            const otherY = ((2 - result.y) / 4) * 100;
+                                            const otherX = ((result.x + 1) / 2) * 100;
+                                            const otherY = ((1 - result.y) / 2) * 100;
                                             return (
                                                 <div
                                                     key={index}
