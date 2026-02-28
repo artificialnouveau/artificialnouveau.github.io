@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI GOVERNANCE — The Policy Game</title>
+<title>AI GOVERNANCE SIMULATOR</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -60,11 +60,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 .sg{padding:6px 6px 6px 10px;background:var(--surface);border:2px solid #334;border-left:4px solid var(--sg-color,var(--cyan))}
 .sg-title{font-size:10px;color:var(--sg-color,var(--cyan));margin-bottom:5px;text-transform:uppercase;letter-spacing:1px}
 .sr{display:flex;align-items:center;gap:4px;padding:2px 0}
-.sr-icon{font-size:10px;width:16px}
-.sr-name{font-size:9px;color:var(--text2);width:60px}
+.sr-icon{font-size:10px;width:16px;flex-shrink:0}
+.sr-name{font-size:9px;color:var(--text2);width:60px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sr-track{flex:1;height:6px;background:#111;border:1px solid #333;overflow:hidden}
 .sr-fill{height:100%;transition:width .4s steps(8)}
-.sr-val{font-size:8px;min-width:20px;text-align:right}
+.sr-val{font-size:8px;min-width:20px;text-align:right;flex-shrink:0}
 .sr-trend{font-size:8px;min-width:10px}.sr-trend.up{color:var(--green)}.sr-trend.down{color:var(--red)}
 
 /* === RIGHT SIDEBAR === */
@@ -122,9 +122,10 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 .scene-row.front{z-index:2}
 .scene-char{display:flex;flex-direction:column;align-items:center;gap:1px;position:relative;
   transition:margin .5s steps(6)}
-.scene-char.sc-ally{margin:0 -2px}
-.scene-char.sc-foe{margin:0 6px}
-.scene-divider{width:2px;min-height:30px;background:var(--border);opacity:.3;align-self:stretch;margin:0 3px;flex-shrink:0}
+.scene-zones{display:none;justify-content:space-between;padding:0 8px;margin-bottom:2px;position:relative;z-index:1}
+.scene-zones.show{display:flex}
+.zone-label{font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:2px 6px}
+.zone-foe{color:var(--red)}.zone-neutral{color:var(--text3)}.zone-ally{color:var(--green)}
 .scene-char-sprite{image-rendering:pixelated;transition:all .3s}
 .scene-char-sprite canvas{image-rendering:pixelated}
 .scene-char-name{font-size:8px;color:var(--text3);background:rgba(0,0,0,.6);padding:2px 5px}
@@ -308,22 +309,22 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 /* === BREAKING NEWS === */
 #breaking{position:fixed;top:0;left:0;width:100%;height:100%;z-index:95;display:none;
   align-items:center;justify-content:center;background:rgba(0,0,0,.85)}
-#breaking .brk-card{max-width:500px;width:90%;background:#1a0a0a;border:var(--pixel) solid var(--red);padding:0;text-align:center}
+#breaking .brk-card{max-width:500px;width:90%;background:#1a0a0a;border:var(--pixel) solid var(--red);padding:0;text-align:center;overflow:visible}
 #breaking .brk-header{padding:10px;background:var(--red);color:#fff;font-size:12px;letter-spacing:2px;
   animation:brkFlash 1s steps(2) infinite}
 @keyframes brkFlash{0%,100%{opacity:1}50%{opacity:.6}}
 #breaking .brk-bar{height:4px;background:#ff6a80}
 #breaking .brk-body{padding:16px;font-size:11px;color:var(--text);line-height:2.2}
 #breaking .brk-dismiss{padding:8px;font-size:8px;color:var(--text3);border-top:2px solid #333}
-.overlay-close{position:absolute;top:8px;right:10px;font-size:14px;color:var(--text);cursor:pointer;
-  background:none;border:2px solid var(--text3);width:28px;height:28px;display:flex;align-items:center;
+.overlay-close{position:absolute;top:-14px;right:-14px;font-size:14px;color:var(--text);cursor:pointer;
+  background:var(--bg);border:2px solid var(--text3);width:28px;height:28px;display:flex;align-items:center;
   justify-content:center;font-family:'Press Start 2P';z-index:5}
 .overlay-close:hover{border-color:var(--cyan);color:var(--cyan)}
 
 /* === CHARACTER DIALOGUE === */
 #char-dialogue{position:fixed;top:0;left:0;width:100%;height:100%;z-index:88;display:none;
   align-items:center;justify-content:center;background:rgba(0,0,0,.7)}
-#char-dialogue .cd-card{max-width:400px;width:90%;text-align:center;padding:16px}
+#char-dialogue .cd-card{max-width:400px;width:90%;text-align:center;padding:16px;overflow:visible}
 #char-dialogue .cd-sprite{margin:0 auto 8px}
 #char-dialogue .cd-name{font-size:11px;color:var(--cyan);margin-bottom:4px}
 #char-dialogue .cd-mood{display:inline-block;font-size:8px;padding:3px 8px;border:1px solid;margin-bottom:8px}
@@ -346,7 +347,7 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 /* === FLASHBACK === */
 #flashback{position:fixed;top:0;left:0;width:100%;height:100%;z-index:85;display:none;
   align-items:center;justify-content:center;background:rgba(0,0,0,.8)}
-#flashback .fb-card{max-width:480px;width:90%;background:#1a0a2a;border:var(--pixel) solid var(--purple);text-align:center}
+#flashback .fb-card{max-width:480px;width:90%;background:#1a0a2a;border:var(--pixel) solid var(--purple);text-align:center;overflow:visible}
 #flashback .fb-header{padding:10px;background:var(--purple);color:#fff;font-size:11px;letter-spacing:2px}
 #flashback .fb-body{padding:16px;font-size:10px;color:var(--text);line-height:2.2}
 #flashback .fb-event{font-size:12px;color:var(--yellow);margin-bottom:8px}
@@ -357,6 +358,9 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 @media(max-width:768px){
   #game{grid-template-columns:1fr;grid-template-rows:auto 1fr}
   #side-left,#side-right{display:none}
+  .scene-zones{padding:0 4px}
+  .zone-label{font-size:6px;letter-spacing:0;padding:2px 3px}
+  .scene-row{gap:2px;flex-wrap:wrap}
 }
 </style>
 </head>
@@ -367,7 +371,7 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
     <div class="intro-scene" id="intro-sprites">
       <span>🏛️</span><span>💼</span><span>✊</span><span>🎖️</span><span>🌿</span>
     </div>
-    <h1 class="intro-title">AI GOVERNANCE<br>THE POLICY GAME</h1>
+    <h1 class="intro-title">AI GOVERNANCE<br>SIMULATOR</h1>
     <p class="intro-sub">You are a policy advisor navigating the AI revolution.<br>Every decision ripples across factions, economies, and ecosystems.</p>
     <div class="intro-how">
       <h3>HOW TO PLAY</h3>
@@ -391,7 +395,7 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 
 <div id="game">
   <div id="topbar">
-    <div class="logo"><span class="logo-icon">🏛️</span><h1>AI GOVERNANCE</h1></div>
+    <div class="logo"><span class="logo-icon">🏛️</span><h1>AI GOV SIMULATOR</h1></div>
     <span id="round-pill">Q1/20</span>
     <div id="capital-hud"></div>
     <div class="top-stats">
@@ -451,18 +455,18 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 <div id="char-tip"></div>
 <div id="ticker"><div class="ticker-track"></div></div>
 
-<div id="breaking">
-  <div class="brk-card" style="position:relative">
+<div id="breaking" onclick="dismissBreaking()">
+  <div class="brk-card" style="position:relative" onclick="event.stopPropagation()">
     <button class="overlay-close" onclick="dismissBreaking()">X</button>
     <div class="brk-header">BREAKING NEWS</div>
     <div class="brk-bar"></div>
     <div class="brk-body" id="brk-text"></div>
-    <div class="brk-dismiss">CLICK TO DISMISS</div>
+    <div class="brk-dismiss">TAP ANYWHERE TO DISMISS</div>
   </div>
 </div>
 
-<div id="char-dialogue">
-  <div class="cd-card" style="position:relative">
+<div id="char-dialogue" onclick="dismissDialogue()">
+  <div class="cd-card" style="position:relative" onclick="event.stopPropagation()">
     <button class="overlay-close" onclick="dismissDialogue()">X</button>
     <div class="cd-sprite" id="cd-sprite"></div>
     <div class="cd-name" id="cd-name"></div>
@@ -471,12 +475,12 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
   </div>
 </div>
 
-<div id="flashback">
-  <div class="fb-card" style="position:relative">
+<div id="flashback" onclick="dismissFlashback()">
+  <div class="fb-card" style="position:relative" onclick="event.stopPropagation()">
     <button class="overlay-close" onclick="dismissFlashback()">X</button>
     <div class="fb-header">CONSEQUENCES FLASHBACK</div>
     <div class="fb-body" id="fb-body"></div>
-    <div class="fb-dismiss">CLICK TO DISMISS</div>
+    <div class="fb-dismiss">TAP ANYWHERE TO DISMISS</div>
   </div>
 </div>
 
@@ -1435,8 +1439,13 @@ function renderCard(){
   function charHTML(c){
     const s=c.score;
     const thresh=3;
-    const cls=resolved&&s!==0?(s>thresh?'sc-ally react-happy':s<-thresh?'sc-foe react-angry':'react-neutral'):'react-neutral';
-    return `<div class="scene-char ${cls}" id="sc-${c.id}" data-charid="${c.id}">
+    let cls='react-neutral';
+    let margin='margin:0 4px';
+    if(resolved&&s!==0){
+      if(s>thresh){cls='react-happy';margin=`margin:0 ${Math.max(-3,3-s*0.4)}px`;}
+      else if(s<-thresh){cls='react-angry';margin=`margin:0 ${Math.min(16,4+Math.abs(s)*0.5)}px`;}
+    }
+    return `<div class="scene-char ${cls}" id="sc-${c.id}" data-charid="${c.id}" style="${margin}">
       <span class="scene-char-sprite">${c.sprite}</span>
       <span class="scene-char-name">${c.label}</span></div>`;
   }
@@ -1446,15 +1455,17 @@ function renderCard(){
     if(!resolved||!Object.keys(cs).length){
       return `<div class="scene-row ${rowClass}">${chars.map(charHTML).join('')}${rowClass==='front'?playerHTML:''}</div>`;
     }
-    const allies=chars.filter(c=>c.score>3);
-    const foes=chars.filter(c=>c.score<-3);
+    const allies=chars.filter(c=>c.score>3).sort((a,b)=>b.score-a.score);
+    const foes=chars.filter(c=>c.score<-3).sort((a,b)=>a.score-b.score);
     const neutrals=chars.filter(c=>c.score>=-3&&c.score<=3);
-    return `<div class="scene-row ${rowClass}">${foes.map(charHTML).join('')}${foes.length&&(neutrals.length||allies.length)?'<div class="scene-divider"></div>':''}${neutrals.map(charHTML).join('')}${rowClass==='front'?playerHTML:''}${allies.length&&(neutrals.length||foes.length)?'<div class="scene-divider"></div>':''}${allies.map(charHTML).join('')}</div>`;
+    return `<div class="scene-row ${rowClass}">${foes.map(charHTML).join('')}${neutrals.map(charHTML).join('')}${rowClass==='front'?playerHTML:''}${allies.map(charHTML).join('')}</div>`;
   }
 
   const backChars=allChars.filter(c=>c.row==='back');
   const frontChars=allChars.filter(c=>c.row==='front');
-  const sceneHTML=`<div class="scene"><div class="scene-bg"></div>${buildRow(backChars,'back')}${buildRow(frontChars,'front')}</div>`;
+  const zoneShow=resolved&&Object.keys(cs).length?'show':'';
+  const zonesHTML=`<div class="scene-zones ${zoneShow}"><span class="zone-label zone-foe">OPPOSED</span><span class="zone-label zone-neutral">UNDECIDED</span><span class="zone-label zone-ally">ALLIED</span></div>`;
+  const sceneHTML=`<div class="scene"><div class="scene-bg"></div>${zonesHTML}${buildRow(backChars,'back')}${buildRow(frontChars,'front')}</div>`;
 
   // Build reactions strip - only show strongest reactions (top 5)
   let reactionsHTML='';
@@ -1923,6 +1934,15 @@ function dismissFlashback(){
   resumeCountdown();
   if(window._flashbackCallback){const cb=window._flashbackCallback;window._flashbackCallback=null;cb()}
 }
+
+// === ESCAPE KEY TO DISMISS POPUPS ===
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('breaking').style.display==='flex')dismissBreaking();
+    else if(document.getElementById('char-dialogue').style.display==='flex')dismissDialogue();
+    else if(document.getElementById('flashback').style.display==='flex')dismissFlashback();
+  }
+});
 
 // === GLOBAL CHARACTER TOOLTIP ===
 (function(){
