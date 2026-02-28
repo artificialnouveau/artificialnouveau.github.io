@@ -119,7 +119,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 .scene-bg{position:absolute;bottom:0;left:0;right:0;height:24px;background:repeating-linear-gradient(90deg,#1a3a1a 0px,#1a3a1a 8px,#1a4a1a 8px,#1a4a1a 16px);z-index:0}
 .scene-row{display:flex;align-items:flex-end;justify-content:center;gap:6px;position:relative;z-index:1}
 .scene-row.back{margin-bottom:2px;opacity:.85;transform:scale(.9)}
-.scene-row.front{}
+.scene-row.front{z-index:2}
 .scene-char{display:flex;flex-direction:column;align-items:center;gap:1px;position:relative;
   transition:margin .5s steps(6)}
 .scene-char.sc-ally{margin:0 -2px}
@@ -270,14 +270,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 .has-tip:hover::after{display:block}
 .sg.has-tip::after{left:100%;top:0;transform:none}
 
-/* Character hover cards */
-.scene-char{position:relative}
-.char-tooltip{display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);
-  background:#0a0a2a;border:2px solid var(--border);padding:8px;min-width:180px;max-width:220px;z-index:20;
-  text-align:left;pointer-events:none}
-.char-tooltip::after{content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
+/* Character hover cards — global floating tooltip */
+#char-tip{display:none;position:fixed;background:#0a0a2a;border:2px solid var(--border);padding:8px;
+  min-width:180px;max-width:220px;z-index:100;text-align:left;pointer-events:none;
+  font-family:'Press Start 2P',monospace}
+#char-tip::after{content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
   border:6px solid transparent;border-bottom-color:var(--border)}
-.scene-char:hover .char-tooltip{display:block}
 .ct-name{font-size:9px;color:var(--cyan);margin-bottom:4px}
 .ct-role{font-size:7px;color:var(--text2);margin-bottom:4px;line-height:1.6}
 .ct-stance{font-size:7px;color:var(--yellow);line-height:1.4}
@@ -317,6 +315,10 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 #breaking .brk-bar{height:4px;background:#ff6a80}
 #breaking .brk-body{padding:16px;font-size:11px;color:var(--text);line-height:2.2}
 #breaking .brk-dismiss{padding:8px;font-size:8px;color:var(--text3);border-top:2px solid #333}
+.overlay-close{position:absolute;top:8px;right:10px;font-size:14px;color:var(--text);cursor:pointer;
+  background:none;border:2px solid var(--text3);width:28px;height:28px;display:flex;align-items:center;
+  justify-content:center;font-family:'Press Start 2P';z-index:5}
+.overlay-close:hover{border-color:var(--cyan);color:var(--cyan)}
 
 /* === CHARACTER DIALOGUE === */
 #char-dialogue{position:fixed;top:0;left:0;width:100%;height:100%;z-index:88;display:none;
@@ -446,10 +448,12 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
   </div>
 </div>
 
+<div id="char-tip"></div>
 <div id="ticker"><div class="ticker-track"></div></div>
 
 <div id="breaking">
-  <div class="brk-card">
+  <div class="brk-card" style="position:relative">
+    <button class="overlay-close" onclick="dismissBreaking()">X</button>
     <div class="brk-header">BREAKING NEWS</div>
     <div class="brk-bar"></div>
     <div class="brk-body" id="brk-text"></div>
@@ -458,7 +462,8 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 </div>
 
 <div id="char-dialogue">
-  <div class="cd-card">
+  <div class="cd-card" style="position:relative">
+    <button class="overlay-close" onclick="dismissDialogue()">X</button>
     <div class="cd-sprite" id="cd-sprite"></div>
     <div class="cd-name" id="cd-name"></div>
     <div class="cd-mood" id="cd-mood"></div>
@@ -467,7 +472,8 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 </div>
 
 <div id="flashback">
-  <div class="fb-card">
+  <div class="fb-card" style="position:relative">
+    <button class="overlay-close" onclick="dismissFlashback()">X</button>
     <div class="fb-header">CONSEQUENCES FLASHBACK</div>
     <div class="fb-body" id="fb-body"></div>
     <div class="fb-dismiss">CLICK TO DISMISS</div>
@@ -1430,10 +1436,8 @@ function renderCard(){
     const s=c.score;
     const thresh=3;
     const cls=resolved&&s!==0?(s>thresh?'sc-ally react-happy':s<-thresh?'sc-foe react-angry':'react-neutral'):'react-neutral';
-    const bio=CHAR_BIOS[c.id];
-    const tip=bio?`<div class="char-tooltip"><div class="ct-name">${bio.name}</div><div class="ct-role">${bio.role}</div><div class="ct-stance">${bio.stance}</div></div>`:'';
-    return `<div class="scene-char ${cls}" id="sc-${c.id}">
-      ${tip}<span class="scene-char-sprite">${c.sprite}</span>
+    return `<div class="scene-char ${cls}" id="sc-${c.id}" data-charid="${c.id}">
+      <span class="scene-char-sprite">${c.sprite}</span>
       <span class="scene-char-name">${c.label}</span></div>`;
   }
   const playerHTML=`<div class="scene-char" id="sc-player"><span class="scene-char-sprite">${spriteHTML('player',SZ)}</span><span class="scene-char-name">YOU</span></div>`;
@@ -1770,6 +1774,7 @@ function checkBreaking(){
   }
 }
 
+let _breakingAutoTimer=null;
 function showBreaking(){
   if(!breakingQueue.length){breakingActive=false;resumeCountdown();return}
   breakingActive=true;
@@ -1779,14 +1784,13 @@ function showBreaking(){
   const el=document.getElementById('breaking');
   el.style.display='flex';
   addLog('BREAKING: '+msg.slice(0,40)+'...','lb');
-  const dismiss=()=>{
-    el.style.display='none';
-    el.removeEventListener('click',dismiss);
-    if(autoPlayStance){setTimeout(()=>showBreaking(),1500)}
-    else showBreaking();
-  };
-  if(autoPlayStance){setTimeout(dismiss,4000)}
-  else el.addEventListener('click',dismiss);
+  if(autoPlayStance){_breakingAutoTimer=setTimeout(dismissBreaking,4000)}
+}
+function dismissBreaking(){
+  if(_breakingAutoTimer){clearTimeout(_breakingAutoTimer);_breakingAutoTimer=null}
+  document.getElementById('breaking').style.display='none';
+  if(autoPlayStance){setTimeout(()=>showBreaking(),1500)}
+  else showBreaking();
 }
 
 // === FEATURE 3: CHARACTER DIALOGUE ===
@@ -1829,15 +1833,12 @@ function showDialogue(charId,score){
   const el=document.getElementById('char-dialogue');
   el.style.display='flex';
   pauseCountdown();
-
-  const dismiss=()=>{
-    el.style.display='none';
-    el.removeEventListener('click',dismiss);
-    if(dialogueTimer){clearTimeout(dialogueTimer);dialogueTimer=null}
-    resumeCountdown();
-  };
-  dialogueTimer=setTimeout(dismiss,4000);
-  el.addEventListener('click',dismiss);
+  dialogueTimer=setTimeout(dismissDialogue,4000);
+}
+function dismissDialogue(){
+  document.getElementById('char-dialogue').style.display='none';
+  if(dialogueTimer){clearTimeout(dialogueTimer);dialogueTimer=null}
+  resumeCountdown();
 }
 
 // === FEATURE 4: COUNTDOWN TIMER ===
@@ -1914,16 +1915,37 @@ function checkFlashback(callback){
   const el=document.getElementById('flashback');
   el.style.display='flex';
   pauseCountdown();
-
-  const dismiss=()=>{
-    el.style.display='none';
-    el.removeEventListener('click',dismiss);
-    resumeCountdown();
-    if(callback)callback();
-  };
-  if(autoPlayStance){setTimeout(dismiss,3000)}
-  else el.addEventListener('click',dismiss);
+  window._flashbackCallback=callback;
+  if(autoPlayStance){setTimeout(dismissFlashback,3000)}
 }
+function dismissFlashback(){
+  document.getElementById('flashback').style.display='none';
+  resumeCountdown();
+  if(window._flashbackCallback){const cb=window._flashbackCallback;window._flashbackCallback=null;cb()}
+}
+
+// === GLOBAL CHARACTER TOOLTIP ===
+(function(){
+  const tip=document.getElementById('char-tip');
+  document.addEventListener('mouseover',e=>{
+    const sc=e.target.closest('.scene-char[data-charid]');
+    if(!sc)return;
+    const bio=CHAR_BIOS[sc.dataset.charid];
+    if(!bio)return;
+    tip.innerHTML=`<div class="ct-name">${bio.name}</div><div class="ct-role">${bio.role}</div><div class="ct-stance">${bio.stance}</div>`;
+    const rect=sc.getBoundingClientRect();
+    tip.style.display='block';
+    const tipW=tip.offsetWidth;
+    let left=rect.left+rect.width/2-tipW/2;
+    left=Math.max(4,Math.min(window.innerWidth-tipW-4,left));
+    tip.style.left=left+'px';
+    tip.style.top=(rect.bottom+8)+'px';
+  });
+  document.addEventListener('mouseout',e=>{
+    const sc=e.target.closest('.scene-char[data-charid]');
+    if(sc)tip.style.display='none';
+  });
+})();
 
 // Initialize intro screen with pixel sprites
 (function(){
