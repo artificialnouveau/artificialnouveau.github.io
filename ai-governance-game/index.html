@@ -109,8 +109,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 #center-inner{max-width:600px;width:100%}
 
 /* Character scene strip at top */
-.scene{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:12px;
-  background:#0a0a1a;border:var(--pixel) solid var(--border);margin-bottom:8px;min-height:80px;position:relative;overflow:hidden}
+.scene{display:flex;align-items:flex-end;justify-content:center;gap:6px;padding:8px 6px;
+  background:#0a0a1a;border:var(--pixel) solid var(--border);margin-bottom:8px;min-height:70px;position:relative;overflow:hidden}
 .scene-bg{position:absolute;bottom:0;left:0;right:0;height:20px;background:repeating-linear-gradient(90deg,#1a3a1a 0px,#1a3a1a 8px,#1a4a1a 8px,#1a4a1a 16px)}
 .scene-char{display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;z-index:1}
 .scene-char-sprite{image-rendering:pixelated;transition:all .3s}
@@ -267,7 +267,7 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
       <div class="ih">Each quarter, a REAL AI CRISIS hits your desk. Choose your response.</div>
       <div class="ih">Your choices shift 14 STATS and your reputation with 4 FACTIONS.</div>
       <div class="ih">Allocate POLITICAL CAPITAL each round to boost priorities.</div>
-      <div class="ih">Survive 20 QUARTERS. If any faction revolts or a stat collapses — GAME OVER.</div>
+      <div class="ih">Survive 30 QUARTERS. If any faction revolts or a stat collapses — GAME OVER.</div>
     </div>
     <button class="intro-btn" onclick="startGame()">► START GAME</button>
   </div>
@@ -337,7 +337,7 @@ const DEF={innovation:50,gdp:50,public_trust:50,global_stability:50,corporate_in
   international_cooperation:45,public_ai_services:25,carbon:20,water:15};
 const ADEF={doomer:0,accel:0,optimist:0,regulator:0};
 const FDEF={tech:50,citizens:50,military:50,green:50};
-let S,A,F,round,capital,maxR=20,used,prevS={};
+let S,A,F,round,capital,maxR=30,used,prevS={};
 let curEv,curIdx,curAlloc,curPool,resolved;
 
 const FCHARS={
@@ -345,12 +345,32 @@ const FCHARS={
   citizens:{name:'Timnit Gebru',phrases_h:['Justice!','Ethical!','Finally!'],phrases_a:['Harmful!','Biased!','Unjust!']},
   military:{name:'The General',phrases_h:['Sir yes sir!','Funded!','Strong!'],phrases_a:['Weakness!','Defunded!','Risky!']},
   green:{name:'Greta T.',phrases_h:['For Earth!','Hope!','Green win!'],phrases_a:['How dare you!','No future!','Act now!']},
-  dario:{name:'Dario Amodei',phrases_h:['Responsible!','Safety first!','Aligned!'],phrases_a:['Reckless!','Dangerous!','Unethical!']}};
+  dario:{name:'Dario Amodei',phrases_h:['Responsible!','Safety first!','Aligned!'],phrases_a:['Reckless!','Dangerous!','Unethical!']},
+  elon:{name:'Elon Musk',phrases_h:['Based!','Let\'s go!','Build!'],phrases_a:['Woke!','Overreach!','Cringe!']},
+  thiel:{name:'Peter Thiel',phrases_h:['Progress!','Power!','Invest!'],phrases_a:['Luddites!','Stagnation!','Antichrist!']},
+  jensen:{name:'Jensen Huang',phrases_h:['Chips!','Accelerate!','CUDA!'],phrases_a:['Bottleneck!','Supply chain!','No GPUs!']},
+  zuck:{name:'Mark Zuckerberg',phrases_h:['Open source!','Scale!','Connect!'],phrases_a:['Fudged!','Pivot!','Closed!']}};
 
 function getDarioSprite(size=4){
   const safety=100-S.safety_incidents;
   const state=safety>=60?'happy':safety<=30?'angry':'idle';
   return spriteHTML('dario_'+state,size);
+}
+function getElonSprite(size=4){
+  const state=S.innovation>=60&&S.regulation_level<=40?'happy':S.regulation_level>=60?'angry':'idle';
+  return spriteHTML('elon_'+state,size);
+}
+function getThielSprite(size=4){
+  const state=S.corporate_influence>=55?'happy':S.regulation_level>=55?'angry':'idle';
+  return spriteHTML('thiel_'+state,size);
+}
+function getJensenSprite(size=4){
+  const state=S.innovation>=55?'happy':S.innovation<=30?'angry':'idle';
+  return spriteHTML('jensen_'+state,size);
+}
+function getZuckSprite(size=4){
+  const state=S.corporate_influence>=55&&S.innovation>=50?'happy':S.regulation_level>=60?'angry':'idle';
+  return spriteHTML('zuck_'+state,size);
 }
 
 // 8x8 pixel sprites of real AI figures
@@ -509,6 +529,130 @@ const SPRITES={
     '.333333.',
     '.333333.',
     '..3333..'
+  ],
+  // Elon Musk - dark hair, black shirt/jacket
+  elon_idle:[
+    '..3333..',
+    '.333333.',
+    '.3F88F3.',
+    '.388883.',
+    '..3883..',
+    '.000000.',
+    '.000000.',
+    '..0000..'
+  ],
+  elon_happy:[
+    '..3333..',
+    '.333333.',
+    '.3F88F3.',
+    '.38FF83.',
+    '..3FF3..',
+    '.000000.',
+    '.000000.',
+    '..0000..'
+  ],
+  elon_angry:[
+    '..3333..',
+    '.333333.',
+    '.3F00F3.',
+    '.388883.',
+    '..3003..',
+    '.000000.',
+    '.000000.',
+    '..0000..'
+  ],
+  // Peter Thiel - balding/sparse hair, blue suit, white shirt
+  thiel_idle:[
+    '..3838..',
+    '.388883.',
+    '.3F88F3.',
+    '.388883.',
+    '..3883..',
+    '.111111.',
+    '.11F111.',
+    '..1111..'
+  ],
+  thiel_happy:[
+    '..3838..',
+    '.388883.',
+    '.3F88F3.',
+    '.38FF83.',
+    '..3FF3..',
+    '.111111.',
+    '.11F111.',
+    '..1111..'
+  ],
+  thiel_angry:[
+    '..3838..',
+    '.388883.',
+    '.3F00F3.',
+    '.388883.',
+    '..3003..',
+    '.111111.',
+    '.11F111.',
+    '..1111..'
+  ],
+  // Jensen Huang - black hair, leather jacket (black with green NVIDIA accent)
+  jensen_idle:[
+    '..0000..',
+    '.000000.',
+    '.0F88F0.',
+    '.088880.',
+    '..0880..',
+    '.000000.',
+    '.0B00B0.',
+    '..0000..'
+  ],
+  jensen_happy:[
+    '..0000..',
+    '.000000.',
+    '.0F88F0.',
+    '.08FF80.',
+    '..0FF0..',
+    '.000000.',
+    '.0B00B0.',
+    '..0000..'
+  ],
+  jensen_angry:[
+    '..0000..',
+    '.000000.',
+    '.0F00F0.',
+    '.088880.',
+    '..0000..',
+    '.000000.',
+    '.0B00B0.',
+    '..0000..'
+  ],
+  // Mark Zuckerberg - curly brown hair, blue tee (Meta blue), gold chain
+  zuck_idle:[
+    '..5555..',
+    '.555555.',
+    '.5F88F5.',
+    '.588885.',
+    '..5885..',
+    '.1C1C1C.',
+    '.111111.',
+    '..1111..'
+  ],
+  zuck_happy:[
+    '..5555..',
+    '.555555.',
+    '.5F88F5.',
+    '.58FF85.',
+    '..5FF5..',
+    '.1C1C1C.',
+    '.111111.',
+    '..1111..'
+  ],
+  zuck_angry:[
+    '..5555..',
+    '.555555.',
+    '.5F00F5.',
+    '.588885.',
+    '..5005..',
+    '.1C1C1C.',
+    '.111111.',
+    '..1111..'
   ],
   // Player - alien policy advisor, cyan skin, dark suit
   player:[
@@ -697,6 +841,26 @@ const EVENTS=[
   c:[{l:"Back Anthropic's stand",h:"Ethics over contracts",a:"regulator",fx:{regulation_level:6,public_trust:7,arms_race:-4,corporate_influence:-5,gdp:-3,safety_incidents:-3,international_cooperation:3}},
      {l:"Side with Pentagon",h:"National security first",a:"accel",fx:{arms_race:8,innovation:4,safety_incidents:6,public_trust:-7,global_stability:-3,corporate_influence:5}},
      {l:"Broker a compromise",h:"Limited military use with oversight",a:"optimist",fx:{arms_race:2,regulation_level:3,public_trust:2,innovation:-1,international_cooperation:2,safety_incidents:-1}}]},
+{t:"Grok AI Generates Abuse Images",d:"Elon Musk's Grok chatbot generates sexualized images of children. Millions of deepfakes flood X. Global regulators launch investigations.",cat:"public",ref:"https://www.cnbc.com/2026/01/02/musk-grok-ai-bot-safeguard-sexualized-images-children.html",
+  c:[{l:"Emergency ban on AI image gen",h:"Protect children now",a:"doomer",fx:{regulation_level:8,public_trust:5,safety_incidents:-4,innovation:-5,corporate_influence:-6,misinformation:-3}},
+     {l:"Mandatory safety testing",h:"Standards first",a:"regulator",fx:{regulation_level:5,public_trust:3,safety_incidents:-2,innovation:-2,corporate_influence:-3}},
+     {l:"Platform self-policing",h:"Industry handles it",a:"accel",fx:{corporate_influence:4,public_trust:-6,safety_incidents:4,misinformation:5,innovation:2}}]},
+{t:"xAI Builds Colossus in 122 Days",d:"Elon Musk builds a 100,000 GPU data center in Memphis at breakneck speed. Air quality plummets. Natural gas turbines pollute neighborhoods.",cat:"env",ref:"https://www.bloomberg.com/news/features/2024-07-25/in-memphis-elon-musk-s-xai-supercomputer-stirs-hope-and-concern",
+  c:[{l:"Shut it down",h:"Health over compute",a:"doomer",fx:{carbon:-5,water:-3,innovation:-6,gdp:-3,public_trust:4,regulation_level:5}},
+     {l:"Emissions standards",h:"Clean up or close",a:"regulator",fx:{carbon:-3,regulation_level:4,innovation:-2,gdp:-1,public_trust:3}},
+     {l:"More data centers",h:"AI needs compute",a:"accel",fx:{carbon:8,water:5,innovation:6,gdp:4,public_trust:-5,corporate_influence:4}}]},
+{t:"Peter Thiel Calls Greta the Antichrist",d:"Billionaire Peter Thiel delivers lectures calling climate activists and AI safety advocates 'legionnaires of the Antichrist.' Claims regulation will end civilization.",cat:"public",ref:"https://fortune.com/2026/02/04/peter-thiel-antichrist-greta-thunberg-end-of-modernity-billionaires/",
+  c:[{l:"Condemn the rhetoric",h:"Defend activists",a:"regulator",fx:{public_trust:5,regulation_level:3,corporate_influence:-4,misinformation:-2,innovation:-2}},
+     {l:"Free speech",h:"Let billionaires talk",a:"accel",fx:{corporate_influence:5,public_trust:-4,misinformation:4,regulation_level:-3,innovation:2}},
+     {l:"Platform accountability",h:"Moderate extremism",a:"optimist",fx:{misinformation:-3,public_trust:3,regulation_level:2,corporate_influence:-2}}]},
+{t:"NVIDIA Chip Export War",d:"Jensen Huang blasts US chip export controls to China. NVIDIA loses $17B in revenue. China builds its own chips. The AI arms race intensifies.",cat:"summit",ref:"https://fortune.com/2025/05/22/nvidia-ceo-jensen-huang-failure-us-restrictions-chips-semiconductors-china-ai-artificial-intelligence/",
+  c:[{l:"Lift export controls",h:"Free trade",a:"accel",fx:{innovation:5,gdp:5,arms_race:6,international_cooperation:3,global_stability:-4,corporate_influence:4}},
+     {l:"Tighten controls",h:"Security first",a:"doomer",fx:{arms_race:-3,innovation:-4,gdp:-4,international_cooperation:-5,global_stability:3}},
+     {l:"Negotiate tech treaty",h:"Diplomacy",a:"optimist",fx:{international_cooperation:5,global_stability:4,arms_race:-2,innovation:-1,gdp:-2}}]},
+{t:"Meta Fudges Llama 4 Benchmarks",d:"Meta's departing AI chief admits Llama 4 benchmarks were 'fudged.' Safety team warnings were ignored. Trust in open-source AI collapses.",cat:"lab",ref:"https://tech.slashdot.org/story/26/01/02/1449227/results-were-fudged-departing-meta-ai-chief-confirms-llama-4-benchmark-manipulation",
+  c:[{l:"Mandatory audits",h:"Independent testing",a:"regulator",fx:{regulation_level:6,public_trust:4,innovation:-3,corporate_influence:-4,safety_incidents:-3}},
+     {l:"Industry self-correction",h:"Market punishes liars",a:"optimist",fx:{public_trust:2,corporate_influence:-2,innovation:-1,safety_incidents:-1}},
+     {l:"Move fast anyway",h:"Benchmarks don't matter",a:"accel",fx:{innovation:4,safety_incidents:5,public_trust:-6,corporate_influence:3,misinformation:3}}]},
 ];
 
 const SN={innovation:'Innov',gdp:'GDP',public_trust:'Trust',global_stability:'Stabil',
@@ -760,23 +924,31 @@ function renderCard(){
   const cn={lab:'THE LAB',market:'THE MARKET',public:'THE PUBLIC',summit:'THE SUMMIT',env:'ENVIRONMENT'}[ev.cat]||'';
 
   // Build scene characters with pixel sprites (no bubbles - reactions shown in strip below)
+  const SZ=3; // sprite scale - fits 9 characters
   function sceneChar(k,label){
     const fr=window._facR;
     const reaction=resolved&&fr?( fr[k]>3?'react-happy':fr[k]<-3?'react-angry':'react-neutral'):'react-neutral';
     return `<div class="scene-char ${resolved?reaction:'react-neutral'}" id="sc-${k}">
-      <span class="scene-char-sprite">${getFactionSprite(k,4)}</span>
+      <span class="scene-char-sprite">${getFactionSprite(k,SZ)}</span>
       <span class="scene-char-name">${label}</span></div>`;
   }
-  const darioReact=resolved&&window._facR?(window._facR.tech<-2?'react-happy':window._facR.tech>5?'react-angry':'react-neutral'):'react-neutral';
+  function extraChar(name,label,getSpriteFn,reactCondition){
+    const react=resolved&&window._facR?reactCondition():'react-neutral';
+    return `<div class="scene-char ${react}">
+      <span class="scene-char-sprite">${getSpriteFn(SZ)}</span>
+      <span class="scene-char-name">${label}</span></div>`;
+  }
   const sceneHTML=`<div class="scene">
     <div class="scene-bg"></div>
     ${sceneChar('tech','SAM')}
-    <div class="scene-char ${darioReact}" id="sc-dario">
-      <span class="scene-char-sprite">${getDarioSprite(4)}</span>
-      <span class="scene-char-name">DARIO</span></div>
+    ${extraChar('dario','DARIO',getDarioSprite,()=>window._facR.tech<-2?'react-happy':window._facR.tech>5?'react-angry':'react-neutral')}
+    ${extraChar('elon','ELON',getElonSprite,()=>window._facR.tech>3?'react-happy':window._facR.tech<-3?'react-angry':'react-neutral')}
+    ${extraChar('zuck','ZUCK',getZuckSprite,()=>window._facR.tech>2?'react-happy':window._facR.tech<-2?'react-angry':'react-neutral')}
     ${sceneChar('citizens','TIMNIT')}
-    <div class="scene-char" id="sc-player"><span class="scene-char-sprite">${spriteHTML('player',4)}</span><span class="scene-char-name">YOU</span></div>
+    <div class="scene-char" id="sc-player"><span class="scene-char-sprite">${spriteHTML('player',SZ)}</span><span class="scene-char-name">YOU</span></div>
     ${sceneChar('military','GENERAL')}
+    ${extraChar('jensen','JENSEN',getJensenSprite,()=>{const f=window._facR;return(f.tech>3||f.military>3)?'react-happy':'react-neutral'})}
+    ${extraChar('thiel','THIEL',getThielSprite,()=>window._facR.green<-2?'react-happy':window._facR.green>3?'react-angry':'react-neutral')}
     ${sceneChar('green','GRETA')}
   </div>`;
 
@@ -793,12 +965,21 @@ function renderCard(){
         chips.push(`<div class="reaction-chip ${up?'rc-up':'rc-down'}"><span class="rc-name">${charNames[k]}:</span> "${phrase}"</div>`);
       }
     });
-    // Dario reacts opposite to tech
-    if(Math.abs(fr.tech)>3){
-      const up=fr.tech<0;
-      const phrase=up?pick(FCHARS.dario.phrases_h):pick(FCHARS.dario.phrases_a);
-      chips.push(`<div class="reaction-chip ${up?'rc-up':'rc-down'}"><span class="rc-name">DARIO:</span> "${phrase}"</div>`);
-    }
+    // Extra characters react based on stat changes
+    const extras=[
+      {k:'dario',name:'DARIO',up:fr.tech<-3,down:fr.tech>5,check:Math.abs(fr.tech)>3},
+      {k:'elon',name:'ELON',up:fr.tech>4,down:fr.tech<-4||fr.green>3,check:Math.abs(fr.tech)>4||fr.green>3},
+      {k:'zuck',name:'ZUCK',up:fr.tech>3,down:fr.tech<-3,check:Math.abs(fr.tech)>3},
+      {k:'jensen',name:'JENSEN',up:fr.tech>3||fr.military>3,down:fr.tech<-3,check:Math.abs(fr.tech)>3||fr.military>3},
+      {k:'thiel',name:'THIEL',up:fr.green<-3||fr.tech>4,down:fr.green>3,check:Math.abs(fr.green)>3||fr.tech>4}
+    ];
+    extras.forEach(e=>{
+      if(e.check){
+        const up=e.up;
+        const phrase=up?pick(FCHARS[e.k].phrases_h):pick(FCHARS[e.k].phrases_a);
+        chips.push(`<div class="reaction-chip ${up?'rc-up':'rc-down'}"><span class="rc-name">${e.name}:</span> "${phrase}"</div>`);
+      }
+    });
     if(chips.length) reactionsHTML=`<div class="reactions-strip">${chips.join('')}</div>`;
   }
 
@@ -1061,10 +1242,11 @@ function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
 (function(){
   const is=document.getElementById('intro-sprites');
   if(is)is.innerHTML=[
-    spriteHTML('tech_idle',5),spriteHTML('dario_idle',5),spriteHTML('citizen_idle',5),
-    spriteHTML('player',5),
-    spriteHTML('military_idle',5),spriteHTML('green_idle',5)
-  ].map((s,i)=>`<span style="animation:charBob 1s steps(2) infinite;animation-delay:${i*.15}s">${s}</span>`).join('');
+    spriteHTML('tech_idle',4),spriteHTML('dario_idle',4),spriteHTML('elon_idle',4),
+    spriteHTML('zuck_idle',4),spriteHTML('citizen_idle',4),spriteHTML('player',4),
+    spriteHTML('military_idle',4),spriteHTML('jensen_idle',4),spriteHTML('thiel_idle',4),
+    spriteHTML('green_idle',4)
+  ].map((s,i)=>`<span style="animation:charBob 1s steps(2) infinite;animation-delay:${i*.1}s">${s}</span>`).join('');
 })();
 </script>
 </body>
