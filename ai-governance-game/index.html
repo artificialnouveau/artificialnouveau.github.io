@@ -108,16 +108,18 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
   background:linear-gradient(180deg,#0a0a20 0%,#1a1a2e 100%)}
 #center-inner{max-width:600px;width:100%}
 
-/* Character scene strip at top */
-.scene{display:flex;align-items:flex-end;justify-content:center;gap:6px;padding:8px 6px;
-  background:#0a0a1a;border:var(--pixel) solid var(--border);margin-bottom:8px;min-height:70px;position:relative;overflow:hidden}
-.scene-bg{position:absolute;bottom:0;left:0;right:0;height:20px;background:repeating-linear-gradient(90deg,#1a3a1a 0px,#1a3a1a 8px,#1a4a1a 8px,#1a4a1a 16px)}
-.scene-char{display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;z-index:1;
+/* Character scene strip at top - 2 rows */
+.scene{position:relative;background:#0a0a1a;border:var(--pixel) solid var(--border);margin-bottom:8px;
+  min-height:90px;overflow:hidden;padding:4px 6px 24px}
+.scene-bg{position:absolute;bottom:0;left:0;right:0;height:24px;background:repeating-linear-gradient(90deg,#1a3a1a 0px,#1a3a1a 8px,#1a4a1a 8px,#1a4a1a 16px)}
+.scene-row{display:flex;align-items:flex-end;justify-content:center;gap:6px;position:relative;z-index:1}
+.scene-row.back{margin-bottom:2px;opacity:.85;transform:scale(.9)}
+.scene-row.front{}
+.scene-char{display:flex;flex-direction:column;align-items:center;gap:1px;position:relative;
   transition:margin .5s steps(6)}
 .scene-char.sc-ally{margin:0 -2px}
 .scene-char.sc-foe{margin:0 6px}
-.scene-divider{width:2px;min-height:40px;background:var(--border);opacity:.3;align-self:stretch;margin:0 4px;
-  flex-shrink:0;transition:opacity .4s}
+.scene-divider{width:2px;min-height:30px;background:var(--border);opacity:.3;align-self:stretch;margin:0 3px;flex-shrink:0}
 .scene-char-sprite{image-rendering:pixelated;transition:all .3s}
 .scene-char-sprite canvas{image-rendering:pixelated}
 .scene-char-name{font-size:8px;color:var(--text3);background:rgba(0,0,0,.6);padding:2px 5px}
@@ -845,6 +847,39 @@ function factionFx(align,fx){
   return r;
 }
 
+// Per-character values: positive weight = likes stat going UP, negative = likes it going DOWN
+// Based on real positions: https://time.com/7294803/ai-revolution-energy-revolution/
+// Sam Altman: pro-innovation, wants some regulation, defends AI energy use
+// Dario Amodei: pro-safety, pro-regulation, anti-weapons https://fortune.com/article/why-is-anthropic-ceo-dario-amodei-deeply-uncomfortable-companies-in-charge-ai-regulating-themselves/
+// Elon Musk: pro-innovation, anti-regulation, anti-"woke", pro-defense
+// Zuckerberg: pro-open-source, pro-scale, anti-regulation
+// Jensen Huang: pro-compute, pro-trade, anti-export-controls https://fortune.com/2025/05/22/nvidia-ceo-jensen-huang-failure-us-restrictions-chips-semiconductors-china-ai-artificial-intelligence/
+// Peter Thiel: pro-military-AI, anti-climate-activism, anti-regulation https://fortune.com/2026/02/04/peter-thiel-antichrist-greta-thunberg-end-of-modernity-billionaires/
+// Timnit Gebru: pro-ethics, pro-accountability, anti-corporate-power
+// Greta: pro-environment, anti-carbon, anti-corporate https://en.wikipedia.org/wiki/Greta_Thunberg
+// ASML: pro-free-trade, hurt by export controls https://www.bloomberg.com/news/articles/2025-01-15/dutch-align-with-us-export-controls-on-some-asml-chip-tools
+// TSMC: pro-stability, terrified of conflict https://io-fund.com/semiconductors/taiwan-semiconductor-ai-growth-geopolitical-risk
+// Workers: pro-labor-rights, anti-exploitation https://time.com/6247678/openai-chatgpt-kenya-workers/
+const CHAR_VALUES={
+  tech:{innovation:2,gdp:1,corporate_influence:1,public_ai_services:1,regulation_level:-1.5,unemployment:-.3},
+  dario:{safety_incidents:-2,regulation_level:1.5,public_trust:1.5,arms_race:-1.5,international_cooperation:1,misinformation:-1},
+  elon:{innovation:2,corporate_influence:1.5,regulation_level:-2,public_ai_services:1,arms_race:.5},
+  zuck:{innovation:1.5,corporate_influence:1.5,regulation_level:-1.5,public_ai_services:1,gdp:1},
+  jensen:{innovation:2,gdp:1.5,corporate_influence:.8,international_cooperation:1.5,regulation_level:-1},
+  thiel:{corporate_influence:2,arms_race:1.5,innovation:1.5,regulation_level:-2,carbon:.8},
+  citizens:{public_trust:2,regulation_level:1.5,unemployment:-1.5,corporate_influence:-1.5,misinformation:-1,safety_incidents:-1},
+  green:{carbon:-2.5,water:-2,regulation_level:1,public_trust:1,corporate_influence:-1,innovation:-.3},
+  military:{arms_race:1.5,global_stability:1,innovation:.8,regulation_level:-.5},
+  asml:{innovation:1.5,international_cooperation:2,gdp:1,regulation_level:-1,arms_race:-.5},
+  tsmc:{innovation:1,global_stability:2,international_cooperation:1.5,arms_race:-2,regulation_level:.3},
+  workers:{unemployment:-2,public_trust:1.5,regulation_level:1.5,corporate_influence:-1.5,international_cooperation:.5}
+};
+function charScore(id,fx){
+  const v=CHAR_VALUES[id];if(!v)return 0;
+  let s=0;Object.keys(fx).forEach(k=>{if(v[k])s+=fx[k]*v[k]});
+  return s;
+}
+
 const EVENTS=[
 {t:"DeepSeek Releases Open-Source Frontier Model",d:"A Chinese AI lab open-sources a model rivaling GPT-5. Great for research, terrifying for safety teams.",cat:"lab",ref:"https://www.nature.com/articles/d41586-025-00279-0",
   c:[{l:"Celebrate open science",h:"Innovation up, safety down",a:"accel",fx:{innovation:8,safety_incidents:6,corporate_influence:-5,misinformation:4,carbon:3}},
@@ -1052,69 +1087,65 @@ function renderCard(){
   const cc={lab:'c-lab',market:'c-market',public:'c-public',summit:'c-summit',env:'c-env'}[ev.cat]||'';
   const cn={lab:'THE LAB',market:'THE MARKET',public:'THE PUBLIC',summit:'THE SUMMIT',env:'ENVIRONMENT'}[ev.cat]||'';
 
-  // All scene characters with reaction logic
+  // All scene characters - scores computed from CHAR_VALUES (real positions)
   const SZ=3;
-  const fr=window._facR;
+  const cs=window._charScores||{};
   const allChars=[
-    {id:'tech',label:'SAM',sprite:getFactionSprite('tech',SZ),score:fr?.tech||0,isFaction:true},
-    {id:'dario',label:'DARIO',sprite:getDarioSprite(SZ),score:fr?-fr.tech*0.8:0},
-    {id:'elon',label:'ELON',sprite:getElonSprite(SZ),score:fr?(fr.tech-(fr.green||0)*0.5):0},
-    {id:'zuck',label:'ZUCK',sprite:getZuckSprite(SZ),score:fr?fr.tech*0.6:0},
-    {id:'jensen',label:'JENSEN',sprite:getJensenSprite(SZ),score:fr?(fr.tech+fr.military)*0.4:0},
-    {id:'asml',label:'ASML',sprite:getAsmlSprite(SZ),score:fr?(fr.tech*0.3-(fr.military||0)*0.5):0},
-    {id:'tsmc',label:'TSMC',sprite:getTsmcSprite(SZ),score:fr?(fr.tech*0.3-(fr.military||0)*0.6):0},
-    {id:'citizens',label:'TIMNIT',sprite:getFactionSprite('citizens',SZ),score:fr?.citizens||0,isFaction:true},
-    {id:'workers',label:'WORKERS',sprite:getWorkersSprite(SZ),score:fr?(fr.citizens*0.6-(fr.tech||0)*0.3):0},
-    {id:'military',label:'GENERAL',sprite:getFactionSprite('military',SZ),score:fr?.military||0,isFaction:true},
-    {id:'thiel',label:'THIEL',sprite:getThielSprite(SZ),score:fr?(-fr.green*0.6+fr.tech*0.4):0},
-    {id:'green',label:'GRETA',sprite:getFactionSprite('green',SZ),score:fr?.green||0,isFaction:true},
+    // Back row: tech industry figures
+    {id:'tech',label:'SAM',sprite:getFactionSprite('tech',SZ),row:'back'},
+    {id:'dario',label:'DARIO',sprite:getDarioSprite(SZ),row:'back'},
+    {id:'elon',label:'ELON',sprite:getElonSprite(SZ),row:'back'},
+    {id:'zuck',label:'ZUCK',sprite:getZuckSprite(SZ),row:'back'},
+    {id:'jensen',label:'JENSEN',sprite:getJensenSprite(SZ),row:'back'},
+    {id:'thiel',label:'THIEL',sprite:getThielSprite(SZ),row:'back'},
+    // Front row: factions, institutions, civil society
+    {id:'citizens',label:'TIMNIT',sprite:getFactionSprite('citizens',SZ),row:'front'},
+    {id:'workers',label:'WORKERS',sprite:getWorkersSprite(SZ),row:'front'},
+    {id:'asml',label:'ASML',sprite:getAsmlSprite(SZ),row:'front'},
+    {id:'tsmc',label:'TSMC',sprite:getTsmcSprite(SZ),row:'front'},
+    {id:'military',label:'GENERAL',sprite:getFactionSprite('military',SZ),row:'front'},
+    {id:'green',label:'GRETA',sprite:getFactionSprite('green',SZ),row:'front'},
   ];
+  // Assign scores from charScore() results
+  allChars.forEach(c=>{c.score=cs[c.id]||0});
 
-  // Sort into allies/foes for positioning after decision
-  let allies=[],foes=[],neutrals=[];
-  if(resolved&&fr){
-    allChars.forEach(c=>{
-      if(c.score>2)allies.push(c);
-      else if(c.score<-2)foes.push(c);
-      else neutrals.push(c);
-    });
-  } else {
-    neutrals=allChars;
-  }
-
-  // Build scene: foes | divider | neutrals + player + allies
+  // Sort each row into allies/foes for positioning after decision
   function charHTML(c){
-    const cls=resolved&&fr?(c.score>2?'sc-ally react-happy':c.score<-2?'sc-foe react-angry':'react-neutral'):'react-neutral';
+    const s=c.score;
+    const thresh=3;
+    const cls=resolved&&s!==0?(s>thresh?'sc-ally react-happy':s<-thresh?'sc-foe react-angry':'react-neutral'):'react-neutral';
     return `<div class="scene-char ${cls}" id="sc-${c.id}">
       <span class="scene-char-sprite">${c.sprite}</span>
       <span class="scene-char-name">${c.label}</span></div>`;
   }
   const playerHTML=`<div class="scene-char" id="sc-player"><span class="scene-char-sprite">${spriteHTML('player',SZ)}</span><span class="scene-char-name">YOU</span></div>`;
 
-  let sceneContent='';
-  if(resolved&&fr&&(allies.length>0||foes.length>0)){
-    sceneContent=foes.map(charHTML).join('')+
-      (foes.length?'<div class="scene-divider"></div>':'')+
-      neutrals.map(charHTML).join('')+playerHTML+allies.map(charHTML).join('');
-  } else {
-    sceneContent=allChars.map(charHTML).join('')+playerHTML;
+  function buildRow(chars,rowClass){
+    if(!resolved||!Object.keys(cs).length){
+      return `<div class="scene-row ${rowClass}">${chars.map(charHTML).join('')}${rowClass==='front'?playerHTML:''}</div>`;
+    }
+    const allies=chars.filter(c=>c.score>3);
+    const foes=chars.filter(c=>c.score<-3);
+    const neutrals=chars.filter(c=>c.score>=-3&&c.score<=3);
+    return `<div class="scene-row ${rowClass}">${foes.map(charHTML).join('')}${foes.length&&(neutrals.length||allies.length)?'<div class="scene-divider"></div>':''}${neutrals.map(charHTML).join('')}${rowClass==='front'?playerHTML:''}${allies.length&&(neutrals.length||foes.length)?'<div class="scene-divider"></div>':''}${allies.map(charHTML).join('')}</div>`;
   }
-  // Swap player position - put in the middle area
-  const sceneHTML=`<div class="scene"><div class="scene-bg"></div>${sceneContent}</div>`;
 
-  // Build reactions strip
+  const backChars=allChars.filter(c=>c.row==='back');
+  const frontChars=allChars.filter(c=>c.row==='front');
+  const sceneHTML=`<div class="scene"><div class="scene-bg"></div>${buildRow(backChars,'back')}${buildRow(frontChars,'front')}</div>`;
+
+  // Build reactions strip - only show strongest reactions (top 5)
   let reactionsHTML='';
-  if(resolved&&fr){
-    const chips=[];
-    allChars.forEach(c=>{
-      if(Math.abs(c.score)>2){
+  if(resolved&&Object.keys(cs).length){
+    const scored=allChars.map(c=>({...c,abs:Math.abs(c.score)})).filter(c=>c.abs>3).sort((a,b)=>b.abs-a.abs).slice(0,5);
+    if(scored.length){
+      const chips=scored.map(c=>{
         const up=c.score>0;
-        const phrase=up?pick(FCHARS[c.id]?.phrases_h||FCHARS[c.id.replace('workers','workers')]?.phrases_h||['Yes!']):
-                       pick(FCHARS[c.id]?.phrases_a||['No!']);
-        chips.push(`<div class="reaction-chip ${up?'rc-up':'rc-down'}"><span class="rc-name">${c.label}:</span> "${phrase}"</div>`);
-      }
-    });
-    if(chips.length) reactionsHTML=`<div class="reactions-strip">${chips.join('')}</div>`;
+        const phrase=up?pick(FCHARS[c.id]?.phrases_h||['Yes!']):pick(FCHARS[c.id]?.phrases_a||['No!']);
+        return `<div class="reaction-chip ${up?'rc-up':'rc-down'}"><span class="rc-name">${c.label}:</span> "${phrase}"</div>`;
+      });
+      reactionsHTML=`<div class="reactions-strip">${chips.join('')}</div>`;
+    }
   }
 
   let html=sceneHTML+reactionsHTML+`<div class="ev">
@@ -1168,6 +1199,10 @@ function resolve(ei,ci){
   const fr=factionFx(ch.a,ch.fx);
   Object.keys(fr).forEach(k=>{F[k]=clamp(F[k]+fr[k])});
   window._facR=fr;
+
+  // Compute per-character reaction scores from actual choice effects
+  window._charScores={};
+  Object.keys(CHAR_VALUES).forEach(id=>{window._charScores[id]=charScore(id,ch.fx)});
 
   // Screen shake
   document.getElementById('game').classList.add('shake');
