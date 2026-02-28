@@ -1,0 +1,3037 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StemWijzer Rotterdam 2026</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; }
+canvas { image-rendering: pixelated; image-rendering: crisp-edges; cursor: none; }
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<script>
+// ============================================================
+// STEMWIJZER ROTTERDAM 2026 — Isometric Quiz Game
+// Rotterdam Gemeenteraadsverkiezingen 2026 (18 maart)
+// NB: Stellingen en partijposities zijn illustratief, niet officieel.
+// ============================================================
+
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+
+// --- CONSTANTS / CONFIG ---
+const TILE = 32;
+const MAP_W = 60, MAP_H = 60;
+const ISO_W = TILE * 2, ISO_H = TILE;
+const PLAYER_SPEED = 1.8;
+const FPS = 60;
+const FRAME_TIME = 1000 / FPS;
+const NPC_INTERACT_RANGE = 2.5;
+
+let screenW, screenH;
+function resize() {
+  screenW = window.innerWidth;
+  screenH = window.innerHeight;
+  canvas.width = screenW;
+  canvas.height = screenH;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// --- PALETTES ---
+const PAL = {
+  // Player
+  skin: '#e8b796', hair: '#4a3728', shirt: '#c85a30', pants: '#3a5c8a',
+  shoes: '#2a2a2a', outline: '#1a1a1a', white: '#f0f0f0',
+  // Environment base
+  cobble1: '#8a8078', cobble2: '#9a9088', grass1: '#4a8838', grass2: '#5a9848',
+  water1: '#2858a8', water2: '#3868b8', wall: '#6a6058', wallTop: '#7a7068',
+  path1: '#b0a080', path2: '#c0b090',
+  // Zone-specific
+  zWonen: '#c87050', zKlimaat: '#40a848', zVeilig: '#5070b0', zMobiel: '#707070',
+  zEconomie: '#d0a030', zZorg: '#e06080', zOnderwijs: '#6090d0', zCultuur: '#b050b0',
+  zDivers: '#d0a060', zBestuur: '#8080a0',
+  // Decorations
+  brick: '#a05030', roof: '#8b3020', window: '#88bbdd', door: '#604020',
+  crane: '#dd8800', solar: '#3355aa', panel: '#4477cc',
+  tulipR: '#d03050', tulipY: '#e8c020', tulipP: '#a030a0', stem: '#2a6828',
+  tram: '#cc3333', bike: '#555555',
+  // UI
+  uiBg: 'rgba(0,0,0,0.82)', uiBorder: '#5a5040', uiText: '#f0e8d8',
+  gold: '#d8a830', accent: '#e07030', eens: '#40b848', neutraal: '#b0a050',
+  oneens: '#c83838', belangrijk: '#e8c020',
+  // NPC base
+  npcSkin: '#d4a574', npcOutline: '#2a2a2a',
+};
+
+// --- INPUT SYSTEM ---
+const keys = {};
+const justPressed = {};
+window.addEventListener('keydown', e => {
+  if (!keys[e.code]) justPressed[e.code] = true;
+  keys[e.code] = true;
+  e.preventDefault();
+});
+window.addEventListener('keyup', e => { keys[e.code] = false; });
+function consumeKey(code) { if (justPressed[code]) { justPressed[code] = false; return true; } return false; }
+function clearJustPressed() { for (let k in justPressed) justPressed[k] = false; }
+
+// Mouse click tracking for result screen
+let resultRowRects = []; // [{x, y, w, h, partyIdx}]
+canvas.addEventListener('click', e => {
+  if (gameState !== 'result') return;
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  for (const row of resultRowRects) {
+    if (mx >= row.x && mx <= row.x + row.w && my >= row.y && my <= row.y + row.h) {
+      const p = PARTIES[row.partyIdx];
+      if (p.url) window.open(p.url, '_blank');
+      break;
+    }
+  }
+});
+canvas.addEventListener('mousemove', e => {
+  if (gameState !== 'result') { canvas.style.cursor = 'none'; return; }
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  let hovering = false;
+  for (const row of resultRowRects) {
+    if (mx >= row.x && mx <= row.x + row.w && my >= row.y && my <= row.y + row.h) {
+      hovering = true; break;
+    }
+  }
+  canvas.style.cursor = hovering ? 'pointer' : 'default';
+});
+
+// --- ISOMETRIC ENGINE ---
+function worldToScreen(wx, wy) {
+  return {
+    x: (wx - wy) * (ISO_W / 2),
+    y: (wx + wy) * (ISO_H / 2)
+  };
+}
+function screenToWorld(sx, sy) {
+  return {
+    x: (sx / (ISO_W / 2) + sy / (ISO_H / 2)) / 2,
+    y: (sy / (ISO_H / 2) - sx / (ISO_W / 2)) / 2
+  };
+}
+
+const camera = { x: 0, y: 0, targetX: 0, targetY: 0 };
+function updateCamera(target) {
+  const s = worldToScreen(target.x, target.y);
+  camera.targetX = s.x - screenW / 2;
+  camera.targetY = s.y - screenH / 2;
+  camera.x += (camera.targetX - camera.x) * 0.08;
+  camera.y += (camera.targetY - camera.y) * 0.08;
+}
+
+// ============================================================
+// QUIZ DATA: THEMES, STATEMENTS, PARTIES
+// ============================================================
+
+const THEMES = [
+  { id: 'wonen', name: 'Wonen', zone: 0 },
+  { id: 'klimaat', name: 'Klimaat', zone: 1 },
+  { id: 'veiligheid', name: 'Veiligheid', zone: 2 },
+  { id: 'mobiliteit', name: 'Mobiliteit', zone: 3 },
+  { id: 'economie', name: 'Economie', zone: 4 },
+  { id: 'zorg', name: 'Zorg', zone: 5 },
+  { id: 'onderwijs', name: 'Onderwijs', zone: 6 },
+  { id: 'cultuur', name: 'Cultuur & Sport', zone: 7 },
+  { id: 'diversiteit', name: 'Diversiteit', zone: 8 },
+  { id: 'bestuur', name: 'Bestuur', zone: 9 },
+];
+
+// 30 statements, 3 per theme
+const STATEMENTS = [
+  // Wonen (0-2)
+  { theme: 0, text: "Rotterdam moet een quotum van 40% sociale huurwoningen handhaven bij elk nieuwbouwproject.",
+    explanation: "Rotterdam kampt met een groot tekort aan betaalbare woningen. Een quotum zou garanderen dat nieuwbouw ook sociale huur bevat, maar kan projecten vertragen.",
+    arguments: { pro: "Zorgt voor gemengde wijken en voorkomt dat betaalbare woningen verdwijnen.", contra: "Maakt nieuwbouw duurder en kan investeerders afschrikken." } },
+  { theme: 0, text: "Er moeten meer hoogbouwprojecten in het centrum komen om de woningnood op te lossen.",
+    explanation: "Hoogbouw kan veel woningen opleveren op klein oppervlak, maar verandert het stadsbeeld.",
+    arguments: { pro: "Effici\u00ebnt ruimtegebruik dat snel veel woningen oplevert.", contra: "Kan leiden tot windhinder, schaduw en aantasting van het stadsbeeld." } },
+  { theme: 0, text: "Leegstaande kantoorpanden moeten verplicht worden omgebouwd tot woningen.",
+    explanation: "Er staan veel kantoorpanden leeg terwijl er woningnood is. Transformatie kan snel woningen opleveren.",
+    arguments: { pro: "Benut bestaande gebouwen en voorkomt verval van leegstaande panden.", contra: "Niet alle kantoorpanden zijn geschikt voor bewoning; inbreuk op eigendomsrecht." } },
+  // Klimaat (3-5)
+  { theme: 1, text: "Rotterdam The Hague Airport moet sluiten ten gunste van woningbouw en milieuwinst.",
+    explanation: "Het vliegveld ligt op een grote locatie geschikt voor woningbouw. Sluiting vermindert geluidsoverlast en uitstoot.",
+    arguments: { pro: "Ruimte voor duizenden woningen en forse vermindering van CO2-uitstoot.", contra: "Verlies van werkgelegenheid en bereikbaarheid; reizigers moeten naar Schiphol." } },
+  { theme: 1, text: "Groene daken moeten verplicht worden voor alle nieuwe gebouwen in Rotterdam.",
+    explanation: "Groene daken helpen bij waterberging, isolatie en biodiversiteit, maar verhogen de bouwkosten.",
+    arguments: { pro: "Vermindert hittestress, vangt regenwater op en bevordert biodiversiteit.", contra: "Verhoogt bouwkosten en niet alle daken zijn constructief geschikt." } },
+  { theme: 1, text: "Het centrum van Rotterdam moet volledig autovrij worden binnen vijf jaar.",
+    explanation: "Een autovrij centrum verbetert luchtkwaliteit en leefbaarheid, maar heeft gevolgen voor bereikbaarheid.",
+    arguments: { pro: "Schonere lucht, meer ruimte voor voetgangers en fietsers.", contra: "Moeilijker bereikbaar voor bewoners, ondernemers en mensen met een beperking." } },
+  // Veiligheid (6-8)
+  { theme: 2, text: "De gemeente moet investeren in meer cameratoezicht in alle wijken.",
+    explanation: "Cameratoezicht kan helpen bij opsporing maar roept vragen op over privacy en effectiviteit.",
+    arguments: { pro: "Helpt bij opsporing van misdrijven en kan afschrikkend werken.", contra: "Tast de privacy aan en onderzoek toont beperkte preventieve werking." } },
+  { theme: 2, text: "Rotterdam moet een eigen gedoogbeleid voeren voor softdrugs, ongeacht landelijk beleid.",
+    explanation: "Sommige steden willen eigen regie over drugsbeleid, maar dit kan botsen met landelijke wetgeving.",
+    arguments: { pro: "Maakt pragmatisch lokaal beleid mogelijk dat past bij de Rotterdamse situatie.", contra: "Kan leiden tot juridische conflicten en drugstoerisme uit andere steden." } },
+  { theme: 2, text: "Er moeten meer wijkagenten komen, minstens \u00e9\u00e9n per buurt.",
+    explanation: "Wijkagenten kennen de buurt en zijn aanspreekbaar voor bewoners, maar kosten veel capaciteit.",
+    arguments: { pro: "Vergroot het veiligheidsgevoel en verbetert de band tussen politie en bewoners.", contra: "Kost veel politiecapaciteit die elders nodig kan zijn; niet overal is de nood even hoog." } },
+  // Mobiliteit (9-11)
+  { theme: 3, text: "Rotterdam moet jaarlijks \u20ac50 miljoen extra investeren in fietsinfrastructuur.",
+    explanation: "Goede fietsinfrastructuur stimuleert fietsgebruik, maar vergt grote investeringen.",
+    arguments: { pro: "Stimuleert gezond en duurzaam vervoer en vermindert autoverkeer.", contra: "Hoge kosten die ten koste gaan van andere investeringen." } },
+  { theme: 3, text: "De RET moet een nieuwe metrolijn aanleggen naar Rotterdam-Zuid.",
+    explanation: "Rotterdam-Zuid groeit en kan baat hebben bij betere OV-verbindingen.",
+    arguments: { pro: "Verbetert bereikbaarheid en stimuleert economische ontwikkeling.", contra: "Metroprojecten zijn extreem duur en duren jaren." } },
+  { theme: 3, text: "Parkeerkosten in het centrum moeten verdubbeld worden om autogebruik te ontmoedigen.",
+    explanation: "Hogere parkeerkosten kunnen autoverkeer verminderen, maar raken ook bewoners en ondernemers.",
+    arguments: { pro: "Ontmoedigt autogebruik en maakt ruimte vrij voor voetgangers.", contra: "Raakt lagere inkomens het hardst en kan klanten wegjagen." } },
+  // Economie (12-14)
+  { theme: 4, text: "Grote bedrijven in de Rotterdamse haven moeten meer lokale belasting betalen.",
+    explanation: "De haven genereert veel winst maar de omgeving draagt milieulasten. Meer belasting kan worden ge\u00ebrinvesteerd.",
+    arguments: { pro: "Eerlijkere verdeling van lusten en lasten; opbrengst kan naar wijken.", contra: "Kan bedrijven afschrikken en de concurrentiepositie verzwakken." } },
+  { theme: 4, text: "De gemeente moet strenger handhaven op het betalen van het minimumloon.",
+    explanation: "Niet alle werkgevers betalen het minimumloon, vooral in sectoren met veel flexwerk.",
+    arguments: { pro: "Beschermt kwetsbare werknemers tegen uitbuiting.", contra: "Extra handhaving kost geld en kan kleine ondernemers belasten." } },
+  { theme: 4, text: "Rotterdam moet een hogere toeristenbelasting invoeren om de binnenstad leefbaar te houden.",
+    explanation: "Toerisme groeit in Rotterdam. Extra belasting kan overlast compenseren maar maakt de stad duurder.",
+    arguments: { pro: "Opbrengst kan overlast beperken en de stad schoon houden.", contra: "Kan toeristen afschrikken en horecaondernemers benadelen." } },
+  // Zorg (15-17)
+  { theme: 5, text: "De gemeente moet het budget voor geestelijke gezondheidszorg verdubbelen.",
+    explanation: "De wachtlijsten in de GGZ zijn lang en veel Rotterdammers krijgen niet op tijd hulp.",
+    arguments: { pro: "Kortere wachtlijsten en betere hulp voor mensen met psychische problemen.", contra: "Verdubbeling is zeer kostbaar; geld moet elders worden weggehaald." } },
+  { theme: 5, text: "Er moeten meer kleinschalige ouderenzorgcentra in elke wijk komen.",
+    explanation: "Veel ouderen willen in hun eigen buurt oud worden. Kleinschalige zorg biedt persoonlijke aandacht.",
+    arguments: { pro: "Ouderen blijven in hun vertrouwde omgeving met zorg op maat.", contra: "Kleinschalige opzet is duurder per bewoner dan grote instellingen." } },
+  { theme: 5, text: "Rotterdam moet meer investeren in verslavingszorg en harm reduction.",
+    explanation: "Verslavingsproblematiek is zichtbaar in sommige wijken. Harm reduction richt zich op schadebeperking.",
+    arguments: { pro: "Vermindert gezondheidsschade en overlast; bewezen effectief.", contra: "Kan worden gezien als het faciliteren van drugsgebruik." } },
+  // Onderwijs (18-20)
+  { theme: 6, text: "Rotterdamse scholen in achterstandswijken moeten extra financiering krijgen.",
+    explanation: "Scholen in achterstandswijken hebben vaak extra uitdagingen zoals taalachterstand en armoede.",
+    arguments: { pro: "Geeft kinderen in kwetsbare wijken meer kansen op goed onderwijs.", contra: "Kan leiden tot ongelijke behandeling van scholen." } },
+  { theme: 6, text: "Alle nieuwkomers moeten verplicht Nederlandse taalcursussen volgen, betaald door de gemeente.",
+    explanation: "Taalbeheersing is cruciaal voor integratie en arbeidsparticipatie.",
+    arguments: { pro: "Versnelt integratie en vergroot kansen op de arbeidsmarkt.", contra: "Hoge kosten voor de gemeente; verplichting kan als dwingend worden ervaren." } },
+  { theme: 6, text: "De gemeente moet meer betaalbare studentenwoningen bouwen rond de Erasmus Universiteit.",
+    explanation: "Veel studenten hebben moeite om betaalbare woonruimte te vinden in Rotterdam.",
+    arguments: { pro: "Trekt talent aan en houdt studenten in de stad.", contra: "Kan ten koste gaan van woningen voor gezinnen." } },
+  // Cultuur & Sport (21-23)
+  { theme: 7, text: "De vergunningprocedure voor festivals en evenementen moet eenvoudiger worden.",
+    explanation: "Organisatoren klagen over lange procedures en hoge kosten voor evenementen.",
+    arguments: { pro: "Stimuleert het culturele aanbod en helpt kleine organisatoren.", contra: "Kan leiden tot meer overlast als controles worden versoepeld." } },
+  { theme: 7, text: "De gemeente moet meer geld uittrekken voor musea en culturele instellingen.",
+    explanation: "Rotterdamse musea en culturele instellingen hebben beperkte budgetten.",
+    arguments: { pro: "Versterkt het culturele aanbod en maakt cultuur toegankelijker.", contra: "Geld voor cultuur gaat ten koste van andere prioriteiten." } },
+  { theme: 7, text: "Het Rotterdamse nachtleven moet beschermd worden met een speciale status als cultureel erfgoed.",
+    explanation: "Clubs en nachtcultuur staan onder druk door woningbouw en klachten.",
+    arguments: { pro: "Beschermt een belangrijk deel van de stadscultuur.", contra: "Nachtleven veroorzaakt ook overlast; bescherming mag niet ten koste gaan van bewoners." } },
+  // Diversiteit (24-26)
+  { theme: 8, text: "Rotterdam moet een onafhankelijk antidiscriminatiebureau oprichten met bindende bevoegdheden.",
+    explanation: "Discriminatie komt voor op de arbeidsmarkt, woningmarkt en in het dagelijks leven.",
+    arguments: { pro: "Geeft slachtoffers een plek met daadwerkelijke consequenties.", contra: "Bindende bevoegdheden kunnen leiden tot juridische conflicten." } },
+  { theme: 8, text: "De gemeente moet meer investeren in integratieprogramma's voor nieuwkomers.",
+    explanation: "Goede integratie is belangrijk voor sociale cohesie, maar programma's kosten geld.",
+    arguments: { pro: "Helpt nieuwkomers sneller meedoen en voorkomt isolatie.", contra: "Duur en de verantwoordelijkheid ligt ook bij nieuwkomers zelf." } },
+  { theme: 8, text: "Alle gemeentelijke communicatie moet beschikbaar zijn in minstens vijf talen.",
+    explanation: "Rotterdam is divers en veel talen worden gesproken. Meertalige communicatie vergroot toegankelijkheid.",
+    arguments: { pro: "Maakt gemeentelijke diensten toegankelijker voor niet-Nederlandstaligen.", contra: "Hoge vertaalkosten en kan de prikkel om Nederlands te leren verminderen." } },
+  // Bestuur (27-29)
+  { theme: 9, text: "Rotterdammers moeten via referenda direct kunnen meebeslissen over grote gemeentelijke uitgaven.",
+    explanation: "Referenda geven burgers directe invloed maar kunnen complexe beslissingen versimpelen.",
+    arguments: { pro: "Vergroot democratische betrokkenheid en geeft burgers directe invloed.", contra: "Complexe vraagstukken lenen zich slecht voor ja/nee-vragen." } },
+  { theme: 9, text: "Alle vergaderingen en besluitvorming van de gemeente moeten volledig openbaar en livestreamed zijn.",
+    explanation: "Transparantie in bestuur versterkt vertrouwen, maar kan leiden tot minder open discussie.",
+    arguments: { pro: "Vergroot transparantie en stelt burgers in staat het bestuur te controleren.", contra: "Bestuurders discussi\u00ebren mogelijk minder open uit angst voor publiciteit." } },
+  { theme: 9, text: "Wijkraden moeten meer beslissingsbevoegdheid en eigen budget krijgen.",
+    explanation: "Wijkraden staan dicht bij bewoners maar hebben nu beperkte invloed op beleid.",
+    arguments: { pro: "Brengt beslissingen dichter bij bewoners en vergroot betrokkenheid.", contra: "Kan leiden tot versnippering van beleid en ongelijkheid tussen wijken." } },
+];
+
+// English translations for statements
+const TRANSLATIONS = [
+  // Wonen (0-2)
+  { text: "Rotterdam should maintain a quota of 40% social housing in every new construction project.",
+    explanation: "Rotterdam faces a major shortage of affordable housing. A quota would guarantee social housing in new builds, but may delay or increase costs.",
+    arguments: { pro: "Ensures mixed neighborhoods and prevents affordable housing from disappearing.", contra: "Makes new construction more expensive and may deter investors." } },
+  { text: "More high-rise projects should be built in the city center to solve the housing shortage.",
+    explanation: "High-rise can deliver many homes on a small footprint, but changes the cityscape.",
+    arguments: { pro: "Efficient use of space that quickly delivers many homes.", contra: "Can cause wind nuisance, shade, and harm the cityscape." } },
+  { text: "Vacant office buildings should be required to be converted into housing.",
+    explanation: "Many office buildings stand empty while there is a housing shortage. Conversion can quickly deliver homes.",
+    arguments: { pro: "Uses existing buildings and prevents deterioration of vacant properties.", contra: "Not all office buildings are suitable for housing; infringes on property rights." } },
+  // Klimaat (3-5)
+  { text: "Rotterdam The Hague Airport should close in favor of housing construction and environmental benefits.",
+    explanation: "The airport occupies a large site suitable for housing. Closure would reduce noise and emissions.",
+    arguments: { pro: "Space for thousands of homes and significant CO2 reduction.", contra: "Loss of jobs and accessibility; travelers must go to Schiphol." } },
+  { text: "Green roofs should be mandatory for all new buildings in Rotterdam.",
+    explanation: "Green roofs help with water storage, insulation, and biodiversity, but increase construction costs.",
+    arguments: { pro: "Reduces heat stress, captures rainwater, and promotes biodiversity.", contra: "Increases construction costs and not all roofs are structurally suitable." } },
+  { text: "Rotterdam's city center should become completely car-free within five years.",
+    explanation: "A car-free center improves air quality and livability, but affects accessibility.",
+    arguments: { pro: "Cleaner air, more space for pedestrians and cyclists.", contra: "Harder to reach for residents, businesses, and people with disabilities." } },
+  // Veiligheid (6-8)
+  { text: "The municipality should invest in more camera surveillance in all neighborhoods.",
+    explanation: "Camera surveillance can help with detection but raises questions about privacy and effectiveness.",
+    arguments: { pro: "Helps detect crimes and can act as a deterrent.", contra: "Violates privacy and research shows limited preventive effect." } },
+  { text: "Rotterdam should have its own tolerance policy for soft drugs, regardless of national policy.",
+    explanation: "Some cities want more local control over drug policy, but this may conflict with national legislation.",
+    arguments: { pro: "Enables pragmatic local policy that fits Rotterdam's situation.", contra: "May lead to legal conflicts and drug tourism from other cities." } },
+  { text: "There should be more community police officers, at least one per neighborhood.",
+    explanation: "Community officers know the neighborhood and are approachable, but require significant capacity.",
+    arguments: { pro: "Increases the sense of safety and improves police-community relations.", contra: "Requires a lot of police capacity that may be needed elsewhere." } },
+  // Mobiliteit (9-11)
+  { text: "Rotterdam should invest an additional \u20ac50 million per year in cycling infrastructure.",
+    explanation: "Good cycling infrastructure encourages cycling, but requires large investments.",
+    arguments: { pro: "Promotes healthy and sustainable transport and reduces car traffic.", contra: "High costs at the expense of other investments." } },
+  { text: "The RET should build a new metro line to Rotterdam South.",
+    explanation: "Rotterdam South is growing and could benefit from better public transport connections.",
+    arguments: { pro: "Improves accessibility and stimulates economic development.", contra: "Metro projects are extremely expensive and take years." } },
+  { text: "Parking costs in the center should be doubled to discourage car use.",
+    explanation: "Higher parking costs can reduce car traffic, but also affect residents and businesses.",
+    arguments: { pro: "Discourages car use and frees up space for pedestrians.", contra: "Hits lower incomes hardest and may drive away customers." } },
+  // Economie (12-14)
+  { text: "Large companies in the Port of Rotterdam should pay more local taxes.",
+    explanation: "The port generates large profits but the surrounding area bears environmental burdens.",
+    arguments: { pro: "Fairer distribution of benefits and burdens; revenue can go to neighborhoods.", contra: "May deter companies and weaken the port's competitive position." } },
+  { text: "The municipality should more strictly enforce minimum wage payments.",
+    explanation: "Not all employers pay the minimum wage, especially in sectors with many flex workers.",
+    arguments: { pro: "Protects vulnerable workers against exploitation.", contra: "Extra enforcement costs money and may burden small businesses." } },
+  { text: "Rotterdam should introduce a higher tourist tax to keep the city center livable.",
+    explanation: "Tourism is growing in Rotterdam. Extra tax can compensate for nuisance but makes the city more expensive.",
+    arguments: { pro: "Revenue can limit nuisance and keep the city clean.", contra: "May deter tourists and disadvantage hospitality businesses." } },
+  // Zorg (15-17)
+  { text: "The municipality should double the budget for mental health care.",
+    explanation: "Waiting lists for mental health care are long and many Rotterdam residents don't get help in time.",
+    arguments: { pro: "Shorter waiting lists and better help for people with mental health issues.", contra: "Doubling is very costly; money must come from elsewhere." } },
+  { text: "There should be more small-scale elderly care centers in every neighborhood.",
+    explanation: "Many elderly people want to age in their own neighborhood. Small-scale care offers personal attention.",
+    arguments: { pro: "Elderly stay in their familiar environment with tailored care.", contra: "Small-scale setup is more expensive per resident than large institutions." } },
+  { text: "Rotterdam should invest more in addiction care and harm reduction.",
+    explanation: "Addiction problems are visible in some neighborhoods. Harm reduction focuses on limiting damage.",
+    arguments: { pro: "Reduces health damage and nuisance; proven effective.", contra: "Can be seen as facilitating drug use." } },
+  // Onderwijs (18-20)
+  { text: "Rotterdam schools in disadvantaged neighborhoods should receive extra funding.",
+    explanation: "Schools in disadvantaged areas often face extra challenges such as language deficits and poverty.",
+    arguments: { pro: "Gives children in vulnerable neighborhoods better chances for good education.", contra: "Can lead to unequal treatment of schools." } },
+  { text: "All newcomers should be required to take Dutch language courses, paid for by the municipality.",
+    explanation: "Language proficiency is crucial for integration and labor participation.",
+    arguments: { pro: "Accelerates integration and increases job market opportunities.", contra: "High costs for the municipality; obligation can feel coercive." } },
+  { text: "The municipality should build more affordable student housing near Erasmus University.",
+    explanation: "Many students struggle to find affordable housing in Rotterdam.",
+    arguments: { pro: "Attracts talent and keeps students in the city.", contra: "May come at the expense of housing for families." } },
+  // Cultuur & Sport (21-23)
+  { text: "The permit process for festivals and events should be simplified.",
+    explanation: "Organizers complain about lengthy procedures and high costs for events.",
+    arguments: { pro: "Stimulates cultural offerings and helps small organizers.", contra: "May lead to more nuisance if controls are relaxed." } },
+  { text: "The municipality should allocate more money for museums and cultural institutions.",
+    explanation: "Rotterdam's museums and cultural institutions have limited budgets.",
+    arguments: { pro: "Strengthens cultural offerings and makes culture more accessible.", contra: "Money for culture comes at the expense of other priorities." } },
+  { text: "Rotterdam's nightlife should be protected with a special status as cultural heritage.",
+    explanation: "Clubs and night culture are under pressure from housing development and complaints.",
+    arguments: { pro: "Protects an important part of city culture.", contra: "Nightlife also causes nuisance; protection shouldn't come at residents' expense." } },
+  // Diversiteit (24-26)
+  { text: "Rotterdam should establish an independent anti-discrimination bureau with binding powers.",
+    explanation: "Discrimination occurs in the labor market, housing market, and daily life.",
+    arguments: { pro: "Gives victims a place with actual consequences.", contra: "Binding powers can lead to legal conflicts." } },
+  { text: "The municipality should invest more in integration programs for newcomers.",
+    explanation: "Good integration is important for social cohesion, but programs cost money.",
+    arguments: { pro: "Helps newcomers participate faster and prevents isolation.", contra: "Expensive and responsibility also lies with newcomers themselves." } },
+  { text: "All municipal communication should be available in at least five languages.",
+    explanation: "Rotterdam is diverse and many languages are spoken. Multilingual communication increases accessibility.",
+    arguments: { pro: "Makes municipal services more accessible for non-Dutch speakers.", contra: "High translation costs and may reduce incentive to learn Dutch." } },
+  // Bestuur (27-29)
+  { text: "Rotterdam residents should be able to directly co-decide on major municipal spending through referendums.",
+    explanation: "Referendums give citizens direct influence but can oversimplify complex decisions.",
+    arguments: { pro: "Increases democratic involvement and gives citizens direct influence.", contra: "Complex issues don't lend themselves well to yes/no questions." } },
+  { text: "All meetings and decision-making by the municipality should be fully public and livestreamed.",
+    explanation: "Transparency in governance strengthens trust, but can lead to less open discussion.",
+    arguments: { pro: "Increases transparency and enables citizens to monitor governance.", contra: "Officials may discuss less openly for fear of publicity." } },
+  { text: "Neighborhood councils should get more decision-making power and their own budget.",
+    explanation: "Neighborhood councils are close to residents but currently have limited influence on policy.",
+    arguments: { pro: "Brings decisions closer to residents and increases involvement.", contra: "Can lead to fragmented policy and inequality between neighborhoods." } },
+];
+
+let showEnglish = false; // toggle for English translation
+
+// 21 Rotterdam parties with positions per statement (-1, 0, 1)
+// Positions are illustrative — not official StemWijzer data
+const PARTIES = [
+  {
+    name: 'Leefbaar Rotterdam', abbr: 'LR', colors: ['#1a5ba0','#e87830'],
+    url: 'https://leefbaarrotterdam.nl',
+    symbol: 'skyline',
+    pos: [0,1,-1, -1,-1,-1, 1,-1,1, -1,0,0, -1,0,-1, 0,0,-1, 0,-1,-1, -1,-1,-1, -1,-1,-1, 1,0,1]
+  },
+  {
+    name: 'GroenLinks-PvdA',
+    url: 'https://rotterdam.groenlinks.nl', abbr: 'GL-PvdA', colors: ['#40a030','#d03030'],
+    symbol: 'sunleaf',
+    pos: [1,0,1, 1,1,1, -1,0,0, 1,1,1, 1,1,0, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1]
+  },
+  {
+    name: 'VVD',
+    url: 'https://www.vvd.nl/rotterdam', abbr: 'VVD', colors: ['#1a40a0','#e87830'],
+    symbol: 'eagle',
+    pos: [-1,1,-1, -1,-1,-1, 1,-1,1, -1,0,-1, -1,1,-1, 0,-1,-1, 0,-1,0, 1,0,0, -1,0,-1, -1,0,-1]
+  },
+  {
+    name: 'D66',
+    url: 'https://d66.nl/rotterdam', abbr: 'D66', colors: ['#00a86b','#00a0a0'],
+    symbol: 'diamond',
+    pos: [0,1,1, 0,1,1, 0,1,0, 1,1,1, 0,1,0, 1,0,0, 1,1,1, 1,1,1, 1,1,0, 1,1,0]
+  },
+  {
+    name: 'DENK',
+    url: 'https://www.bewegingdenk.nl', abbr: 'DENK', colors: ['#00a0a0','#00a0a0'],
+    symbol: 'speech',
+    pos: [1,0,1, 0,0,-1, 1,-1,1, 0,1,0, 1,1,0, 1,1,0, 1,1,1, 0,1,0, 1,1,1, 1,0,1]
+  },
+  {
+    name: 'Volt',
+    url: 'https://www.voltnederland.org/rotterdam', abbr: 'Volt', colors: ['#5b2d8e','#5b2d8e'],
+    symbol: 'bolt',
+    pos: [0,1,1, 1,1,1, 0,1,0, 1,1,1, 0,1,1, 1,0,1, 1,0,1, 1,1,1, 1,1,1, 1,1,0]
+  },
+  {
+    name: 'Partij voor de Dieren',
+    url: 'https://www.partijvoordedieren.nl/rotterdam', abbr: 'PvdD', colors: ['#00802b','#00802b'],
+    symbol: 'paw',
+    pos: [1,-1,1, 1,1,1, -1,1,-1, 1,0,1, 0,1,1, 1,1,1, 1,0,0, 1,1,1, 1,1,1, 1,1,1]
+  },
+  {
+    name: 'BIJ1',
+    url: 'https://bij1.org/rotterdam', abbr: 'BIJ1', colors: ['#f0d020','#e03080'],
+    symbol: 'fist',
+    pos: [1,-1,1, 1,1,1, -1,1,0, 1,1,1, 1,1,0, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1]
+  },
+  {
+    name: '50PLUS',
+    url: 'https://50pluspartij.nl', abbr: '50+', colors: ['#7b4faa','#888888'],
+    symbol: 'fifty',
+    pos: [1,0,0, -1,0,-1, 1,-1,1, 0,1,0, 0,1,0, 1,1,0, 1,0,0, 0,1,0, 0,1,0, 1,0,1]
+  },
+  {
+    name: 'ChristenUnie',
+    url: 'https://www.christenunie.nl/rotterdam', abbr: 'CU', colors: ['#00529e','#00529e'],
+    symbol: 'cross',
+    pos: [1,0,0, 0,0,-1, 1,-1,1, 0,0,0, 0,1,0, 1,1,1, 1,1,0, 0,1,0, 0,1,0, 0,0,1]
+  },
+  {
+    name: 'SP',
+    url: 'https://rotterdam.sp.nl', abbr: 'SP', colors: ['#dd0000','#ffffff'],
+    symbol: 'tomato',
+    pos: [1,-1,1, 0,1,1, 1,1,1, 1,1,1, 1,1,0, 1,1,1, 1,1,1, 1,1,0, 1,1,1, 1,1,1]
+  },
+  {
+    name: 'CDA',
+    url: 'https://www.cda.nl/rotterdam', abbr: 'CDA', colors: ['#007b2e','#007b2e'],
+    symbol: 'shield',
+    pos: [0,1,0, -1,0,-1, 1,-1,1, 0,0,0, 0,1,0, 0,1,0, 1,1,0, 0,0,0, 0,1,0, 0,0,0]
+  },
+  {
+    name: 'Forum voor Democratie',
+    url: 'https://fvd.nl', abbr: 'FvD', colors: ['#6b1520','#6b1520'],
+    symbol: 'owl',
+    pos: [-1,1,-1, -1,-1,-1, 1,-1,1, -1,-1,-1, -1,0,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1, 1,-1,-1]
+  },
+  {
+    name: 'PARTIJvdSPORT',
+    url: 'https://www.partijvandesport.nl', abbr: 'PvdS', colors: ['#e87830','#e87830'],
+    symbol: 'ball',
+    pos: [0,0,0, 0,0,0, 0,0,0, 1,0,0, 0,0,0, 0,0,0, 0,0,1, 0,0,1, 0,0,0, 0,0,0]
+  },
+  {
+    name: 'Vrede voor Dieren',
+    url: 'https://www.vredevoordieren.nl', abbr: 'VvDieren', colors: ['#40a040','#40a040'],
+    symbol: 'dove',
+    pos: [0,-1,1, 1,1,1, -1,1,-1, 1,0,1, 0,0,1, 1,1,1, 0,0,0, 0,1,1, 1,1,1, 1,1,1]
+  },
+  {
+    name: 'PBAR',
+    url: 'https://www.pbar010.nl', abbr: 'PBAR', colors: ['#cc2020','#cc2020'],
+    symbol: 'heart',
+    pos: [1,0,0, 0,0,0, 0,0,1, 0,0,0, 0,1,0, 1,1,0, 0,0,0, 1,1,0, 1,1,0, 0,0,0]
+  },
+  {
+    name: 'JOU',
+    url: 'https://www.jourotterdam.nl', abbr: 'JOU', colors: ['#2060d0','#2060d0'],
+    symbol: 'star',
+    pos: [0,0,0, 0,0,0, 1,0,1, 0,0,0, 0,0,0, 0,0,0, 1,0,0, 0,0,0, 0,0,1, 1,1,1]
+  },
+  {
+    name: 'Rotterdam NEXT',
+    url: 'https://www.rotterdamnext.nl', abbr: 'NEXT', colors: ['#2090d0','#104080'],
+    symbol: 'arrow',
+    pos: [0,1,1, 0,1,0, 0,0,0, 1,1,0, 0,1,1, 0,0,0, 1,0,1, 1,1,0, 0,0,0, 1,1,0]
+  },
+  {
+    name: 'SGP',
+    url: 'https://rotterdam.sgp.nl', abbr: 'SGP', colors: ['#102060','#e87830'],
+    symbol: 'bible',
+    pos: [0,0,-1, -1,-1,-1, 1,-1,1, -1,0,0, -1,1,-1, 0,1,0, 0,1,0, -1,-1,0, -1,0,-1, 0,0,0]
+  },
+  {
+    name: 'Wij Kleurrijk Rotterdam',
+    url: 'https://www.wijkleurrijkrotterdam.nl', abbr: 'WKR', colors: ['#e03030','#30b030'],
+    symbol: 'rainbow',
+    pos: [1,0,1, 0,0,0, 0,0,1, 0,1,0, 1,1,0, 1,1,0, 1,1,1, 1,1,0, 1,1,1, 1,0,1]
+  },
+  {
+    name: 'Wij van de Wijk',
+    url: 'https://www.wijvandewijk.nl', abbr: 'WvdW', colors: ['#b07840','#704020'],
+    symbol: 'house',
+    pos: [1,0,1, 0,0,-1, 1,0,1, 0,0,0, 0,0,0, 1,1,0, 1,0,0, 0,0,0, 0,1,0, 1,1,1]
+  },
+];
+
+// City selection data
+const CITIES = [
+  { name: 'Rotterdam', available: true },
+  { name: 'Amsterdam', available: false },
+  { name: 'Den Haag', available: false },
+  { name: 'Utrecht', available: false },
+  { name: 'Eindhoven', available: false },
+];
+let selectedCity = 0;
+
+// ============================================================
+// MAP DATA — 60x60 grid with 10 zones
+// ============================================================
+
+// Zone definitions: center coords, radius, tile types
+const ZONES = [
+  { name: 'Wonen', cx: 15, cy: 10, r: 6, floor: 'brick', npcX: 15, npcY: 10, col: PAL.zWonen },
+  { name: 'Klimaat', cx: 45, cy: 10, r: 6, floor: 'park', npcX: 45, npcY: 10, col: PAL.zKlimaat },
+  { name: 'Veiligheid', cx: 10, cy: 25, r: 6, floor: 'cobble', npcX: 10, npcY: 25, col: PAL.zVeilig },
+  { name: 'Mobiliteit', cx: 50, cy: 25, r: 6, floor: 'road', npcX: 50, npcY: 25, col: PAL.zMobiel },
+  { name: 'Economie', cx: 15, cy: 45, r: 6, floor: 'market', npcX: 15, npcY: 45, col: PAL.zEconomie },
+  { name: 'Zorg', cx: 45, cy: 45, r: 6, floor: 'clean', npcX: 45, npcY: 45, col: PAL.zZorg },
+  { name: 'Onderwijs', cx: 10, cy: 55, r: 5, floor: 'school', npcX: 10, npcY: 55, col: PAL.zOnderwijs },
+  { name: 'Cultuur & Sport', cx: 50, cy: 55, r: 5, floor: 'stage', npcX: 50, npcY: 55, col: PAL.zCultuur },
+  { name: 'Diversiteit', cx: 25, cy: 50, r: 5, floor: 'mosaic', npcX: 25, npcY: 50, col: PAL.zDivers },
+  { name: 'Bestuur', cx: 30, cy: 30, r: 7, floor: 'marble', npcX: 30, npcY: 30, col: PAL.zBestuur },
+];
+
+// Tile types: 0=grass, 1=path, 2=water, 3=wall(solid)
+// We generate the map procedurally from zone definitions
+const map = [];
+for (let y = 0; y < MAP_H; y++) {
+  map[y] = [];
+  for (let x = 0; x < MAP_W; x++) {
+    map[y][x] = { type: 0, zone: -1 }; // default grass
+  }
+}
+
+// Place zone floors
+function distSq(x1, y1, x2, y2) { return (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2); }
+
+for (let zi = 0; zi < ZONES.length; zi++) {
+  const z = ZONES[zi];
+  for (let y = 0; y < MAP_H; y++) {
+    for (let x = 0; x < MAP_W; x++) {
+      if (distSq(x, y, z.cx, z.cy) <= z.r * z.r) {
+        map[y][x] = { type: 1, zone: zi };
+      }
+    }
+  }
+}
+
+// Connect zones with paths (simple line paths)
+function carvePath(x1, y1, x2, y2) {
+  let x = x1, y = y1;
+  while (x !== x2 || y !== y2) {
+    if (map[y] && map[y][x] && map[y][x].type === 0) {
+      map[y][x] = { type: 1, zone: -1 };
+    }
+    // Also carve width of 2
+    if (map[y] && map[y][x+1] && map[y][x+1].type === 0) {
+      map[y][x+1] = { type: 1, zone: -1 };
+    }
+    if (x < x2) x++; else if (x > x2) x--;
+    if (x === x2) { if (y < y2) y++; else if (y > y2) y--; }
+  }
+}
+
+// Connect all zones to central hub (Bestuur, zone 9)
+const hub = ZONES[9];
+for (let i = 0; i < 9; i++) {
+  carvePath(ZONES[i].cx, ZONES[i].cy, hub.cx, hub.cy);
+}
+// Also connect adjacent zones for more paths
+carvePath(ZONES[0].cx, ZONES[0].cy, ZONES[1].cx, ZONES[1].cy);
+carvePath(ZONES[2].cx, ZONES[2].cy, ZONES[3].cx, ZONES[3].cy);
+carvePath(ZONES[4].cx, ZONES[4].cy, ZONES[5].cx, ZONES[5].cy);
+carvePath(ZONES[6].cx, ZONES[6].cy, ZONES[8].cx, ZONES[8].cy);
+carvePath(ZONES[7].cx, ZONES[7].cy, ZONES[8].cx, ZONES[8].cy);
+
+// Add water features (decorative canals)
+for (let x = 20; x < 40; x++) {
+  for (let dy = -1; dy <= 0; dy++) {
+    const y = 18 + dy;
+    if (y >= 0 && y < MAP_H && map[y][x].type === 0) map[y][x] = { type: 2, zone: -1 };
+  }
+}
+for (let y = 35; y < 43; y++) {
+  const x = 38;
+  if (map[y][x].type === 0) map[y][x] = { type: 2, zone: -1 };
+  if (map[y][x+1] && map[y][x+1].type === 0) map[y][x+1] = { type: 2, zone: -1 };
+}
+
+// Place walls around zone edges for visual boundaries
+for (let zi = 0; zi < ZONES.length; zi++) {
+  const z = ZONES[zi];
+  for (let y = 0; y < MAP_H; y++) {
+    for (let x = 0; x < MAP_W; x++) {
+      if (map[y][x].zone === zi) {
+        // Check if edge tile
+        const neighbors = [[0,-1],[0,1],[-1,0],[1,0]];
+        for (const [dx, dy] of neighbors) {
+          const nx = x+dx, ny = y+dy;
+          if (nx < 0 || ny < 0 || nx >= MAP_W || ny >= MAP_H) continue;
+          if (map[ny][nx].type === 0) {
+            // Don't wall over paths — only pure grass
+            let isPath = false;
+            for (const [dx2, dy2] of neighbors) {
+              const nnx = nx+dx2, nny = ny+dy2;
+              if (nnx >= 0 && nny >= 0 && nnx < MAP_W && nny < MAP_H && map[nny][nnx].type === 1) isPath = true;
+            }
+            if (!isPath && Math.random() < 0.3) {
+              map[ny][nx] = { type: 3, zone: zi };
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+function isSolid(tx, ty) {
+  if (tx < 0 || ty < 0 || tx >= MAP_W || ty >= MAP_H) return true;
+  return map[ty][tx].type === 3 || map[ty][tx].type === 2;
+}
+
+// ============================================================
+// SPRITE SYSTEM
+// ============================================================
+
+// Draw a pixel on the canvas at scale
+function px(x, y, w, h, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(Math.round(x), Math.round(y), w, h);
+}
+
+// Player sprite (facing direction: 0=down, 1=up, 2=left, 3=right)
+function drawPlayerSprite(sx, sy, dir, frame) {
+  const s = 2; // pixel scale
+  const ox = sx - 8 * s, oy = sy - 20 * s;
+  const walk = Math.sin(frame * 0.3) * 2;
+  // Body
+  px(ox + 5*s, oy + 4*s, 6*s, 6*s, PAL.shirt); // torso
+  px(ox + 6*s, oy + 0*s, 4*s, 5*s, PAL.skin); // head
+  px(ox + 6*s, oy + 0*s, 4*s, 2*s, PAL.hair); // hair
+  // Eyes
+  if (dir !== 1) {
+    px(ox + 7*s, oy + 2*s, 1*s, 1*s, PAL.outline);
+    px(ox + 9*s, oy + 2*s, 1*s, 1*s, PAL.outline);
+  }
+  // Legs
+  const legOff = Math.round(walk);
+  px(ox + 5*s, oy + 10*s, 3*s, 5*s + legOff, PAL.pants);
+  px(ox + 8*s, oy + 10*s, 3*s, 5*s - legOff, PAL.pants);
+  // Shoes
+  px(ox + 5*s, oy + 15*s + legOff, 3*s, 2*s, PAL.shoes);
+  px(ox + 8*s, oy + 15*s - legOff, 3*s, 2*s, PAL.shoes);
+  // Arms
+  if (dir === 2) {
+    px(ox + 3*s, oy + 5*s, 2*s, 5*s, PAL.skin);
+  } else if (dir === 3) {
+    px(ox + 11*s, oy + 5*s, 2*s, 5*s, PAL.skin);
+  } else {
+    px(ox + 3*s, oy + 5*s, 2*s, 4*s + Math.round(walk*0.5), PAL.skin);
+    px(ox + 11*s, oy + 5*s, 2*s, 4*s - Math.round(walk*0.5), PAL.skin);
+  }
+}
+
+// NPC sprites — each zone has a themed NPC
+const NPC_STYLES = [
+  { hat: '#e87830', shirt: '#d09060', item: 'hardhat' },   // Builder
+  { hat: '#40a040', shirt: '#308030', item: 'leaf' },       // Green activist
+  { hat: '#3050a0', shirt: '#3050a0', item: 'badge' },     // Officer
+  { hat: '#cc3333', shirt: '#dddd40', item: 'helmet' },    // Cyclist
+  { hat: '#d0a030', shirt: '#a08030', item: 'apron' },     // Shopkeeper
+  { hat: '#ffffff', shirt: '#ffffff', item: 'stethoscope' }, // Doctor
+  { hat: '#5070b0', shirt: '#405090', item: 'book' },      // Teacher
+  { hat: '#b040b0', shirt: '#9030a0', item: 'beret' },     // Artist
+  { hat: '#d0a060', shirt: '#c09050', item: 'banner' },    // Community leader
+  { hat: '#555570', shirt: '#404060', item: 'chain' },     // Official
+];
+
+function drawNPCSprite(sx, sy, zoneIdx, frame, highlight) {
+  const s = 3; // larger than player so they stand out
+  const ox = sx - 8 * s, oy = sy - 22 * s;
+  const style = NPC_STYLES[zoneIdx] || NPC_STYLES[0];
+  const bob = Math.sin(frame * 0.05) * 2;
+
+  // Glow if highlight
+  if (highlight) {
+    ctx.fillStyle = 'rgba(255,220,100,0.25)';
+    ctx.beginPath();
+    ctx.arc(sx, sy - 8*s, 30, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Body
+  px(ox + 5*s, oy + 6*s + bob, 6*s, 6*s, style.shirt);
+  // Head
+  px(ox + 6*s, oy + 1*s + bob, 4*s, 5*s, PAL.npcSkin);
+  // Hat/headwear
+  px(ox + 5*s, oy + 0*s + bob, 6*s, 2*s, style.hat);
+  // Eyes
+  px(ox + 7*s, oy + 3*s + bob, 1*s, 1*s, PAL.npcOutline);
+  px(ox + 9*s, oy + 3*s + bob, 1*s, 1*s, PAL.npcOutline);
+  // Legs
+  px(ox + 5*s, oy + 12*s + bob, 3*s, 5*s, '#444466');
+  px(ox + 8*s, oy + 12*s + bob, 3*s, 5*s, '#444466');
+  // Shoes
+  px(ox + 5*s, oy + 17*s + bob, 3*s, 2*s, PAL.shoes);
+  px(ox + 8*s, oy + 17*s + bob, 3*s, 2*s, PAL.shoes);
+  // Arms
+  px(ox + 3*s, oy + 7*s + bob, 2*s, 4*s, PAL.npcSkin);
+  px(ox + 11*s, oy + 7*s + bob, 2*s, 4*s, PAL.npcSkin);
+}
+
+// ============================================================
+// PARTY AVATAR SYSTEM — 21 procedural 16px icons
+// ============================================================
+
+const avatarCache = {};
+
+function drawPartyAvatar(x, y, partyIdx, size) {
+  const p = PARTIES[partyIdx];
+  const s = size / 16;
+
+  // Background circle
+  ctx.fillStyle = p.colors[0];
+  ctx.beginPath();
+  ctx.arc(x + size/2, y + size/2, size/2, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Symbol
+  ctx.fillStyle = '#ffffff';
+  const cx = x + size/2, cy = y + size/2;
+
+  switch(p.symbol) {
+    case 'skyline':
+      // City skyline
+      ctx.fillRect(cx-6*s, cy-2*s, 3*s, 6*s);
+      ctx.fillRect(cx-2*s, cy-5*s, 3*s, 9*s);
+      ctx.fillRect(cx+2*s, cy-1*s, 3*s, 5*s);
+      ctx.fillRect(cx+0*s, cy-7*s, 1*s, 3*s); // antenna
+      break;
+    case 'sunleaf':
+      ctx.fillStyle = '#ffdd00';
+      ctx.beginPath(); ctx.arc(cx, cy-2*s, 3*s, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#40cc40';
+      ctx.beginPath(); ctx.ellipse(cx, cy+3*s, 4*s, 2*s, 0, 0, Math.PI*2); ctx.fill();
+      break;
+    case 'eagle':
+      ctx.beginPath();
+      ctx.moveTo(cx, cy-5*s); ctx.lineTo(cx+5*s, cy); ctx.lineTo(cx+3*s, cy+4*s);
+      ctx.lineTo(cx, cy+2*s); ctx.lineTo(cx-3*s, cy+4*s); ctx.lineTo(cx-5*s, cy);
+      ctx.closePath(); ctx.fill();
+      break;
+    case 'diamond':
+      ctx.beginPath();
+      ctx.moveTo(cx, cy-6*s); ctx.lineTo(cx+5*s, cy);
+      ctx.lineTo(cx, cy+6*s); ctx.lineTo(cx-5*s, cy);
+      ctx.closePath(); ctx.fill();
+      break;
+    case 'speech':
+      ctx.beginPath();
+      ctx.arc(cx, cy-1*s, 5*s, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(cx-2*s, cy+3*s); ctx.lineTo(cx+1*s, cy+3*s);
+      ctx.lineTo(cx-1*s, cy+6*s); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = p.colors[0];
+      ctx.fillRect(cx-2*s, cy-2*s, 1*s, 1*s);
+      ctx.fillRect(cx+1*s, cy-2*s, 1*s, 1*s);
+      break;
+    case 'bolt':
+      ctx.beginPath();
+      ctx.moveTo(cx+1*s, cy-6*s); ctx.lineTo(cx-2*s, cy);
+      ctx.lineTo(cx+1*s, cy); ctx.lineTo(cx-1*s, cy+6*s);
+      ctx.lineTo(cx+2*s, cy); ctx.lineTo(cx-1*s, cy);
+      ctx.closePath(); ctx.fill();
+      break;
+    case 'paw':
+      ctx.beginPath(); ctx.arc(cx, cy+1*s, 3*s, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx-3*s, cy-2*s, 1.5*s, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx-1*s, cy-4*s, 1.5*s, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx+2*s, cy-4*s, 1.5*s, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx+4*s, cy-2*s, 1.5*s, 0, Math.PI*2); ctx.fill();
+      break;
+    case 'fist':
+      ctx.fillStyle = p.colors[1] || '#e03080';
+      ctx.fillRect(cx-3*s, cy-4*s, 6*s, 8*s);
+      ctx.fillRect(cx-1*s, cy-6*s, 2*s, 3*s); // thumb up
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(cx-2*s, cy-3*s, 4*s, 1*s);
+      ctx.fillRect(cx-2*s, cy-1*s, 4*s, 1*s);
+      ctx.fillRect(cx-2*s, cy+1*s, 4*s, 1*s);
+      break;
+    case 'fifty':
+      ctx.font = `bold ${8*s}px monospace`;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('50', cx, cy);
+      break;
+    case 'cross':
+      ctx.fillRect(cx-1*s, cy-5*s, 2*s, 10*s);
+      ctx.fillRect(cx-4*s, cy-3*s, 8*s, 2*s);
+      break;
+    case 'tomato':
+      ctx.fillStyle = '#dd0000';
+      ctx.beginPath(); ctx.arc(cx, cy+1*s, 5*s, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#00aa00';
+      ctx.fillRect(cx-1*s, cy-5*s, 2*s, 2*s);
+      ctx.fillRect(cx-3*s, cy-4*s, 6*s, 1*s);
+      break;
+    case 'shield':
+      ctx.beginPath();
+      ctx.moveTo(cx-5*s, cy-5*s); ctx.lineTo(cx+5*s, cy-5*s);
+      ctx.lineTo(cx+5*s, cy+1*s); ctx.lineTo(cx, cy+6*s);
+      ctx.lineTo(cx-5*s, cy+1*s); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = p.colors[0];
+      ctx.beginPath();
+      ctx.moveTo(cx-3*s, cy-3*s); ctx.lineTo(cx+3*s, cy-3*s);
+      ctx.lineTo(cx+3*s, cy); ctx.lineTo(cx, cy+3*s);
+      ctx.lineTo(cx-3*s, cy); ctx.closePath(); ctx.fill();
+      break;
+    case 'owl':
+      ctx.beginPath(); ctx.arc(cx, cy, 5*s, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = p.colors[0];
+      ctx.beginPath(); ctx.arc(cx-2*s, cy-1*s, 2*s, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx+2*s, cy-1*s, 2*s, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#ffcc00';
+      ctx.beginPath(); ctx.arc(cx-2*s, cy-1*s, 1*s, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx+2*s, cy-1*s, 1*s, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#ff8800';
+      ctx.beginPath();
+      ctx.moveTo(cx, cy+1*s); ctx.lineTo(cx-1*s, cy+3*s); ctx.lineTo(cx+1*s, cy+3*s);
+      ctx.closePath(); ctx.fill();
+      break;
+    case 'ball':
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(cx, cy, 5*s, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = '#333';
+      ctx.lineWidth = s;
+      ctx.beginPath(); ctx.arc(cx, cy, 5*s, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx-5*s, cy); ctx.lineTo(cx+5*s, cy); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, 5*s, -0.5, 0.5); ctx.stroke();
+      break;
+    case 'dove':
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, 5*s, 3*s, -0.2, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(cx+3*s, cy-1*s); ctx.lineTo(cx+6*s, cy-4*s);
+      ctx.lineTo(cx+5*s, cy); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#ffaa00';
+      ctx.fillRect(cx-5*s, cy-1*s, 2*s, 1*s);
+      break;
+    case 'heart':
+      ctx.fillStyle = '#ff3050';
+      ctx.beginPath();
+      ctx.arc(cx-2.5*s, cy-1*s, 3*s, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx+2.5*s, cy-1*s, 3*s, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(cx-5*s, cy); ctx.lineTo(cx, cy+5*s); ctx.lineTo(cx+5*s, cy);
+      ctx.closePath(); ctx.fill();
+      break;
+    case 'star':
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const a = (i * 72 - 90) * Math.PI / 180;
+        const r = 5*s;
+        ctx.lineTo(cx + Math.cos(a)*r, cy + Math.sin(a)*r);
+        const a2 = ((i * 72) + 36 - 90) * Math.PI / 180;
+        ctx.lineTo(cx + Math.cos(a2)*r*0.4, cy + Math.sin(a2)*r*0.4);
+      }
+      ctx.closePath(); ctx.fill();
+      break;
+    case 'arrow':
+      ctx.beginPath();
+      ctx.moveTo(cx+5*s, cy); ctx.lineTo(cx, cy-4*s);
+      ctx.lineTo(cx, cy-2*s); ctx.lineTo(cx-5*s, cy-2*s);
+      ctx.lineTo(cx-5*s, cy+2*s); ctx.lineTo(cx, cy+2*s);
+      ctx.lineTo(cx, cy+4*s); ctx.closePath(); ctx.fill();
+      break;
+    case 'bible':
+      ctx.fillRect(cx-4*s, cy-5*s, 8*s, 10*s);
+      ctx.fillStyle = p.colors[0];
+      ctx.fillRect(cx-3*s, cy-4*s, 6*s, 8*s);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(cx-0.5*s, cy-3*s, 1*s, 4*s);
+      ctx.fillRect(cx-2*s, cy-1.5*s, 4*s, 1*s);
+      break;
+    case 'rainbow':
+      const rainbowColors = ['#ff0000','#ff8800','#ffff00','#00cc00','#0066ff','#8800cc'];
+      for (let i = 0; i < 6; i++) {
+        ctx.strokeStyle = rainbowColors[i];
+        ctx.lineWidth = s;
+        ctx.beginPath();
+        ctx.arc(cx, cy+2*s, (6-i)*s, Math.PI, 0);
+        ctx.stroke();
+      }
+      break;
+    case 'house':
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(cx-4*s, cy-1*s, 8*s, 6*s);
+      ctx.beginPath();
+      ctx.moveTo(cx-5*s, cy-1*s); ctx.lineTo(cx, cy-6*s); ctx.lineTo(cx+5*s, cy-1*s);
+      ctx.closePath(); ctx.fill();
+      ctx.fillStyle = p.colors[0];
+      ctx.fillRect(cx-1*s, cy+1*s, 2*s, 4*s); // door
+      break;
+  }
+}
+
+// ============================================================
+// TILE RENDERING
+// ============================================================
+
+function getZoneColor(zone) {
+  if (zone >= 0 && zone < ZONES.length) return ZONES[zone].col;
+  return null;
+}
+
+function drawTile(sx, sy, tx, ty) {
+  const tile = map[ty][tx];
+  const t = tile.type;
+  const z = tile.zone;
+
+  // Base diamond shape
+  ctx.beginPath();
+  ctx.moveTo(sx, sy - ISO_H/2);
+  ctx.lineTo(sx + ISO_W/2, sy);
+  ctx.lineTo(sx, sy + ISO_H/2);
+  ctx.lineTo(sx - ISO_W/2, sy);
+  ctx.closePath();
+
+  if (t === 0) {
+    // Grass
+    ctx.fillStyle = ((tx + ty) % 2 === 0) ? PAL.grass1 : PAL.grass2;
+    ctx.fill();
+    // Random grass detail
+    if ((tx * 7 + ty * 13) % 5 === 0) {
+      ctx.fillStyle = '#3a7830';
+      ctx.fillRect(sx - 4, sy - 2, 2, 4);
+    }
+  } else if (t === 1) {
+    // Path / zone floor
+    const zcol = getZoneColor(z);
+    if (zcol) {
+      ctx.fillStyle = zcol;
+      ctx.globalAlpha = 0.4;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      // Overlay with path pattern
+      ctx.fillStyle = ((tx + ty) % 2 === 0) ? PAL.path1 : PAL.path2;
+      ctx.globalAlpha = 0.6;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    } else {
+      ctx.fillStyle = ((tx + ty) % 2 === 0) ? PAL.path1 : PAL.path2;
+      ctx.fill();
+    }
+    // Zone edge outline
+    if (z >= 0) {
+      ctx.strokeStyle = zcol || '#888';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  } else if (t === 2) {
+    // Water
+    const shimmer = Math.sin((tx + ty) * 0.5 + Date.now() * 0.002) * 0.15;
+    ctx.fillStyle = PAL.water1;
+    ctx.globalAlpha = 0.85 + shimmer;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  } else if (t === 3) {
+    // Wall
+    ctx.fillStyle = PAL.wall;
+    ctx.fill();
+    // Draw wall height
+    ctx.fillStyle = PAL.wallTop;
+    ctx.beginPath();
+    ctx.moveTo(sx - ISO_W/2, sy);
+    ctx.lineTo(sx, sy - ISO_H/2);
+    ctx.lineTo(sx, sy - ISO_H/2 - 12);
+    ctx.lineTo(sx - ISO_W/2, sy - 12);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = PAL.wall;
+    ctx.beginPath();
+    ctx.moveTo(sx, sy - ISO_H/2);
+    ctx.lineTo(sx + ISO_W/2, sy);
+    ctx.lineTo(sx + ISO_W/2, sy - 12);
+    ctx.lineTo(sx, sy - ISO_H/2 - 12);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
+// Zone decorations (drawn on specific tiles)
+function drawZoneDecoration(sx, sy, tx, ty, zone) {
+  if (zone < 0) return;
+  const z = ZONES[zone];
+  const hash = (tx * 31 + ty * 17) % 20;
+  const d2 = distSq(tx, ty, z.cx, z.cy);
+
+  switch(zone) {
+    case 0: // Wonen — buildings, cranes, scaffolding, Te Huur signs, balconies
+      if (hash < 2 && d2 > 9) {
+        // Tall building with balconies
+        const bh = 26 + (hash * 7) % 12;
+        ctx.fillStyle = PAL.brick;
+        ctx.fillRect(sx-8, sy-bh-8, 16, bh);
+        ctx.fillStyle = PAL.roof;
+        ctx.fillRect(sx-10, sy-bh-10, 20, 4);
+        ctx.fillStyle = PAL.window;
+        for (let wy = 0; wy < 3; wy++) {
+          ctx.fillRect(sx-5, sy-bh-4 + wy*8, 4, 4);
+          ctx.fillRect(sx+1, sy-bh-4 + wy*8, 4, 4);
+        }
+        // Balcony railing
+        ctx.fillStyle = '#888';
+        ctx.fillRect(sx-9, sy-bh-4+8, 18, 1);
+        ctx.fillRect(sx-9, sy-bh-4+16, 18, 1);
+      }
+      if (hash === 3 && d2 > 4) {
+        // Scaffolding
+        ctx.strokeStyle = '#a0a0a0';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(sx-6, sy-8); ctx.lineTo(sx-6, sy-32);
+        ctx.moveTo(sx+6, sy-8); ctx.lineTo(sx+6, sy-32);
+        ctx.moveTo(sx-6, sy-16); ctx.lineTo(sx+6, sy-16);
+        ctx.moveTo(sx-6, sy-24); ctx.lineTo(sx+6, sy-24);
+        ctx.stroke();
+      }
+      if (hash === 5) {
+        // Crane
+        ctx.strokeStyle = PAL.crane;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(sx, sy-8); ctx.lineTo(sx, sy-45);
+        ctx.moveTo(sx-15, sy-42); ctx.lineTo(sx+15, sy-42);
+        ctx.stroke();
+      }
+      if (hash === 7 && d2 > 9) {
+        // "Te Huur" sign
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(sx-12, sy-16, 24, 12);
+        ctx.strokeStyle = '#cc3333';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(sx-12, sy-16, 24, 12);
+        ctx.fillStyle = '#cc3333';
+        ctx.font = '7px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('TE HUUR', sx, sy-8);
+        ctx.textAlign = 'left';
+      }
+      break;
+    case 1: // Klimaat — trees, windmill, solar, flower beds, compost, green roofs
+      if (hash < 3 && d2 > 4) {
+        // Tree
+        ctx.fillStyle = '#2a5520';
+        ctx.beginPath(); ctx.arc(sx, sy-18, 8, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = '#5a3520';
+        ctx.fillRect(sx-2, sy-12, 4, 12);
+      }
+      if (hash === 4) {
+        // Windmill
+        ctx.fillStyle = '#cccccc';
+        ctx.fillRect(sx-2, sy-35, 4, 28);
+        const angle = Date.now() * 0.002;
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        for (let i = 0; i < 3; i++) {
+          const a = angle + i * (Math.PI * 2 / 3);
+          ctx.beginPath();
+          ctx.moveTo(sx, sy-35);
+          ctx.lineTo(sx + Math.cos(a)*12, sy-35 + Math.sin(a)*12);
+          ctx.stroke();
+        }
+      }
+      if (hash === 7) {
+        // Solar panel
+        ctx.fillStyle = PAL.solar;
+        ctx.fillRect(sx-8, sy-14, 16, 8);
+        ctx.fillStyle = PAL.panel;
+        ctx.fillRect(sx-7, sy-13, 6, 3);
+        ctx.fillRect(sx+1, sy-13, 6, 3);
+      }
+      if (hash === 9 && d2 > 4) {
+        // Flower bed
+        const flowerColors = [PAL.tulipR, PAL.tulipY, PAL.tulipP];
+        for (let i = 0; i < 3; i++) {
+          ctx.fillStyle = PAL.stem;
+          ctx.fillRect(sx-6+i*5, sy-8, 2, 6);
+          ctx.fillStyle = flowerColors[i];
+          ctx.beginPath(); ctx.arc(sx-5+i*5, sy-10, 3, 0, Math.PI*2); ctx.fill();
+        }
+      }
+      if (hash === 11 && d2 > 9) {
+        // Compost bin
+        ctx.fillStyle = '#5a4020';
+        ctx.fillRect(sx-5, sy-12, 10, 8);
+        ctx.fillStyle = '#40a040';
+        ctx.fillRect(sx-4, sy-14, 8, 3);
+      }
+      break;
+    case 2: // Veiligheid — streetlights, cameras, police car, bollards
+      if (hash < 2 && d2 > 9) {
+        // Streetlight
+        ctx.fillStyle = '#777';
+        ctx.fillRect(sx-1, sy-30, 2, 24);
+        ctx.fillStyle = '#ffee80';
+        ctx.beginPath(); ctx.arc(sx, sy-32, 4, 0, Math.PI*2); ctx.fill();
+      }
+      if (hash === 4 && d2 > 4) {
+        // Security camera
+        ctx.fillStyle = '#555';
+        ctx.fillRect(sx-1, sy-22, 2, 16);
+        ctx.fillStyle = '#333';
+        ctx.fillRect(sx, sy-24, 8, 4);
+        // Lens
+        ctx.fillStyle = '#dd3333';
+        ctx.beginPath(); ctx.arc(sx+8, sy-22, 2, 0, Math.PI*2); ctx.fill();
+      }
+      if (hash === 7 && d2 > 9) {
+        // Police car
+        ctx.fillStyle = '#3050a0';
+        ctx.fillRect(sx-10, sy-10, 20, 8);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(sx-8, sy-12, 6, 3);
+        // Light bar
+        const blink = Math.sin(Date.now() * 0.008) > 0;
+        ctx.fillStyle = blink ? '#3333ff' : '#ff3333';
+        ctx.fillRect(sx-3, sy-14, 6, 2);
+        // Wheels
+        ctx.fillStyle = '#222';
+        ctx.fillRect(sx-9, sy-3, 4, 3);
+        ctx.fillRect(sx+5, sy-3, 4, 3);
+      }
+      if (hash === 10 && d2 > 4) {
+        // Barrier bollards
+        for (let i = 0; i < 3; i++) {
+          ctx.fillStyle = '#888';
+          ctx.fillRect(sx-8+i*6, sy-8, 3, 6);
+          ctx.fillStyle = '#ff8800';
+          ctx.fillRect(sx-8+i*6, sy-8, 3, 2);
+        }
+      }
+      break;
+    case 3: // Mobiliteit — tram tracks, bikes, bus stop, road markings
+      if (hash < 3 && d2 > 4) {
+        // Tram tracks
+        ctx.fillStyle = '#888';
+        ctx.fillRect(sx-12, sy-2, 24, 1);
+        ctx.fillRect(sx-12, sy+2, 24, 1);
+      }
+      if (hash === 5 && d2 > 4) {
+        // Parked bike
+        ctx.strokeStyle = PAL.bike;
+        ctx.lineWidth = 1;
+        // Wheels
+        ctx.beginPath(); ctx.arc(sx-4, sy-4, 4, 0, Math.PI*2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(sx+4, sy-4, 4, 0, Math.PI*2); ctx.stroke();
+        // Frame
+        ctx.beginPath();
+        ctx.moveTo(sx-4, sy-4); ctx.lineTo(sx, sy-10); ctx.lineTo(sx+4, sy-4);
+        ctx.stroke();
+        // Handlebars
+        ctx.beginPath(); ctx.moveTo(sx-2, sy-10); ctx.lineTo(sx+2, sy-10); ctx.stroke();
+      }
+      if (hash === 8 && d2 > 9) {
+        // Bus stop shelter
+        ctx.fillStyle = '#60a0d0';
+        ctx.fillRect(sx-8, sy-20, 16, 2);
+        ctx.fillStyle = '#555';
+        ctx.fillRect(sx-7, sy-18, 2, 14);
+        ctx.fillRect(sx+5, sy-18, 2, 14);
+        // Sign
+        ctx.fillStyle = '#ffcc00';
+        ctx.fillRect(sx-3, sy-26, 6, 6);
+        ctx.fillStyle = '#333';
+        ctx.font = '5px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('H', sx, sy-22);
+        ctx.textAlign = 'left';
+      }
+      if (hash === 11 && d2 > 4) {
+        // Road marking dashes
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = 0.6;
+        ctx.fillRect(sx-10, sy, 6, 2);
+        ctx.fillRect(sx+2, sy, 6, 2);
+        ctx.globalAlpha = 1;
+      }
+      break;
+    case 4: // Economie — market stalls, coins, shop awnings, crates
+      if (hash < 2 && d2 > 9) {
+        // Market stall
+        ctx.fillStyle = '#d0a030';
+        ctx.fillRect(sx-8, sy-12, 16, 6);
+        ctx.fillStyle = '#cc3333';
+        ctx.fillRect(sx-10, sy-16, 20, 4);
+      }
+      if (hash === 4 && d2 > 4) {
+        // Shop awning
+        ctx.fillStyle = '#cc6633';
+        ctx.beginPath();
+        ctx.moveTo(sx-10, sy-18); ctx.lineTo(sx+10, sy-18);
+        ctx.lineTo(sx+12, sy-12); ctx.lineTo(sx-12, sy-12);
+        ctx.closePath(); ctx.fill();
+        // Stripes
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(sx-6, sy-17, 3, 5);
+        ctx.fillRect(sx+2, sy-17, 3, 5);
+      }
+      if (hash === 7 && d2 > 4) {
+        // Coins / cash register
+        ctx.fillStyle = '#d0a030';
+        ctx.beginPath(); ctx.arc(sx-3, sy-6, 4, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(sx+3, sy-8, 3, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = '#b08020';
+        ctx.fillStyle = '#c09028';
+        ctx.font = '6px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('\u20ac', sx-3, sy-4);
+        ctx.textAlign = 'left';
+      }
+      if (hash === 10 && d2 > 9) {
+        // Crates of goods
+        ctx.fillStyle = '#8b6530';
+        ctx.fillRect(sx-6, sy-10, 6, 6);
+        ctx.fillRect(sx+1, sy-8, 5, 5);
+        ctx.fillStyle = '#40a040';
+        ctx.fillRect(sx-5, sy-12, 4, 3);
+      }
+      break;
+    case 5: // Zorg — hospital cross, ambulance, wheelchair ramp, heart monitor
+      if (hash === 1) {
+        // Hospital building with cross
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(sx-10, sy-30, 20, 22);
+        ctx.fillStyle = '#dd3333';
+        ctx.fillRect(sx-2, sy-28, 4, 12);
+        ctx.fillRect(sx-5, sy-24, 10, 4);
+      }
+      if (hash === 5 && d2 > 9) {
+        // Ambulance
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(sx-10, sy-12, 20, 8);
+        ctx.fillStyle = '#dd3333';
+        ctx.fillRect(sx-3, sy-14, 6, 2);
+        // Cross on side
+        ctx.fillRect(sx+2, sy-11, 1, 5);
+        ctx.fillRect(sx, sy-9, 5, 1);
+        // Wheels
+        ctx.fillStyle = '#222';
+        ctx.fillRect(sx-8, sy-5, 4, 3);
+        ctx.fillRect(sx+4, sy-5, 4, 3);
+        // Light
+        ctx.fillStyle = '#3388ff';
+        ctx.fillRect(sx-5, sy-14, 3, 2);
+      }
+      if (hash === 8 && d2 > 4) {
+        // Wheelchair ramp
+        ctx.fillStyle = '#999';
+        ctx.beginPath();
+        ctx.moveTo(sx-8, sy-2); ctx.lineTo(sx+8, sy-8); ctx.lineTo(sx+8, sy-2);
+        ctx.closePath(); ctx.fill();
+        // Railing
+        ctx.strokeStyle = '#666';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(sx-8, sy-4); ctx.lineTo(sx+8, sy-10);
+        ctx.stroke();
+      }
+      if (hash === 12 && d2 > 4) {
+        // Heart monitor line
+        ctx.strokeStyle = '#40dd40';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(sx-8, sy-8);
+        ctx.lineTo(sx-4, sy-8); ctx.lineTo(sx-2, sy-14);
+        ctx.lineTo(sx, sy-4); ctx.lineTo(sx+2, sy-8);
+        ctx.lineTo(sx+8, sy-8);
+        ctx.stroke();
+      }
+      break;
+    case 6: // Onderwijs — school, books, backpack, playground
+      if (hash === 2) {
+        // School building
+        ctx.fillStyle = '#bb8855';
+        ctx.fillRect(sx-10, sy-25, 20, 18);
+        ctx.fillStyle = PAL.roof;
+        ctx.fillRect(sx-12, sy-27, 24, 4);
+        ctx.fillStyle = PAL.window;
+        ctx.fillRect(sx-7, sy-22, 5, 5);
+        ctx.fillRect(sx+2, sy-22, 5, 5);
+      }
+      if (hash === 5 && d2 > 4) {
+        // Stack of books
+        ctx.fillStyle = '#3060d0';
+        ctx.fillRect(sx-5, sy-8, 10, 3);
+        ctx.fillStyle = '#d03030';
+        ctx.fillRect(sx-5, sy-11, 10, 3);
+        ctx.fillStyle = '#30a030';
+        ctx.fillRect(sx-5, sy-14, 10, 3);
+      }
+      if (hash === 8 && d2 > 9) {
+        // Backpack
+        ctx.fillStyle = '#4070b0';
+        ctx.fillRect(sx-4, sy-12, 8, 10);
+        ctx.fillStyle = '#305090';
+        ctx.fillRect(sx-3, sy-10, 6, 4);
+        // Straps
+        ctx.fillStyle = '#333';
+        ctx.fillRect(sx-4, sy-12, 1, 4);
+        ctx.fillRect(sx+3, sy-12, 1, 4);
+      }
+      if (hash === 11 && d2 > 4) {
+        // Playground swing
+        ctx.strokeStyle = '#888';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(sx-6, sy-20); ctx.lineTo(sx+6, sy-20); // top bar
+        ctx.moveTo(sx-3, sy-20); ctx.lineTo(sx-3, sy-6);
+        ctx.moveTo(sx+3, sy-20); ctx.lineTo(sx+3, sy-6);
+        ctx.stroke();
+        ctx.fillStyle = '#a05030';
+        ctx.fillRect(sx-5, sy-7, 4, 2);
+        ctx.fillRect(sx+1, sy-7, 4, 2);
+      }
+      break;
+    case 7: // Cultuur — theater, music notes, sports ball, art easel
+      if (hash === 1) {
+        // Theater
+        ctx.fillStyle = '#b050b0';
+        ctx.fillRect(sx-12, sy-20, 24, 14);
+        ctx.fillStyle = '#8030a0';
+        ctx.beginPath();
+        ctx.moveTo(sx-12, sy-20); ctx.lineTo(sx, sy-30); ctx.lineTo(sx+12, sy-20);
+        ctx.closePath(); ctx.fill();
+      }
+      if (hash === 5 && d2 > 4) {
+        // Music notes
+        ctx.fillStyle = '#333';
+        ctx.beginPath(); ctx.arc(sx-3, sy-6, 3, 0, Math.PI*2); ctx.fill();
+        ctx.fillRect(sx-1, sy-18, 2, 12);
+        ctx.fillRect(sx-1, sy-18, 8, 2);
+        ctx.beginPath(); ctx.arc(sx+5, sy-8, 3, 0, Math.PI*2); ctx.fill();
+        ctx.fillRect(sx+7, sy-18, 2, 10);
+      }
+      if (hash === 8 && d2 > 4) {
+        // Sports ball
+        ctx.fillStyle = '#e87830';
+        ctx.beginPath(); ctx.arc(sx, sy-6, 5, 0, Math.PI*2); ctx.fill();
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(sx, sy-6, 5, 0, Math.PI*2); ctx.stroke();
+      }
+      if (hash === 11 && d2 > 9) {
+        // Art easel
+        ctx.strokeStyle = '#8b6530';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(sx-5, sy-4); ctx.lineTo(sx, sy-24);
+        ctx.moveTo(sx+5, sy-4); ctx.lineTo(sx, sy-24);
+        ctx.stroke();
+        // Canvas
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(sx-6, sy-22, 12, 10);
+        ctx.fillStyle = '#3060d0';
+        ctx.fillRect(sx-4, sy-20, 4, 4);
+        ctx.fillStyle = '#d0a030';
+        ctx.fillRect(sx+1, sy-18, 4, 4);
+      }
+      break;
+    case 8: // Diversiteit — flags/banners, handshake, speech bubbles, diverse figures
+      if (hash < 3 && d2 > 4) {
+        // Colorful flags/banners
+        const flagColors = ['#e03030','#30b030','#3060d0','#d0a030','#b050b0'];
+        ctx.fillStyle = '#666';
+        ctx.fillRect(sx, sy-22, 2, 18);
+        // Triangle flag
+        ctx.fillStyle = flagColors[hash % flagColors.length];
+        ctx.beginPath();
+        ctx.moveTo(sx+2, sy-22); ctx.lineTo(sx+12, sy-18); ctx.lineTo(sx+2, sy-14);
+        ctx.closePath(); ctx.fill();
+      }
+      if (hash === 5 && d2 > 4) {
+        // Handshake symbol
+        ctx.fillStyle = '#d4a574';
+        ctx.fillRect(sx-6, sy-10, 5, 3);
+        ctx.fillStyle = '#8b6530';
+        ctx.fillRect(sx+1, sy-10, 5, 3);
+        // Clasped area
+        ctx.fillStyle = '#c09060';
+        ctx.fillRect(sx-2, sy-11, 4, 5);
+      }
+      if (hash === 8 && d2 > 4) {
+        // Speech bubbles
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = 0.7;
+        ctx.beginPath(); ctx.arc(sx-4, sy-14, 6, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(sx+5, sy-10, 5, 0, Math.PI*2); ctx.fill();
+        ctx.globalAlpha = 1;
+        // Dots inside
+        ctx.fillStyle = '#555';
+        ctx.fillRect(sx-6, sy-15, 2, 2);
+        ctx.fillRect(sx-3, sy-15, 2, 2);
+        ctx.fillRect(sx+3, sy-11, 2, 2);
+        ctx.fillRect(sx+6, sy-11, 2, 2);
+      }
+      if (hash === 11 && d2 > 9) {
+        // Diverse figures (silhouettes)
+        const figColors = ['#d4a574','#8b6530','#f0c8a0'];
+        for (let i = 0; i < 3; i++) {
+          ctx.fillStyle = figColors[i];
+          ctx.beginPath(); ctx.arc(sx-6+i*6, sy-14, 2, 0, Math.PI*2); ctx.fill();
+          ctx.fillRect(sx-7+i*6, sy-12, 3, 6);
+        }
+      }
+      break;
+    case 9: // Bestuur — columns, Dutch flag, podium, ballot box
+      if (hash === 3 && d2 > 16) {
+        // Column
+        ctx.fillStyle = '#c0b8a0';
+        ctx.fillRect(sx-3, sy-35, 6, 28);
+        ctx.fillRect(sx-5, sy-37, 10, 4);
+        ctx.fillRect(sx-5, sy-8, 10, 3);
+      }
+      if (hash === 6 && d2 > 9) {
+        // Dutch flag
+        ctx.fillStyle = '#666';
+        ctx.fillRect(sx, sy-28, 2, 22);
+        // Red
+        ctx.fillStyle = '#ae1c28';
+        ctx.fillRect(sx+2, sy-28, 10, 4);
+        // White
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(sx+2, sy-24, 10, 4);
+        // Blue
+        ctx.fillStyle = '#21468b';
+        ctx.fillRect(sx+2, sy-20, 10, 4);
+      }
+      if (hash === 10 && d2 > 9) {
+        // Podium
+        ctx.fillStyle = '#8b6530';
+        ctx.fillRect(sx-8, sy-8, 16, 6);
+        ctx.fillStyle = '#a07840';
+        ctx.fillRect(sx-6, sy-14, 12, 6);
+      }
+      if (hash === 13 && d2 > 4) {
+        // Ballot box
+        ctx.fillStyle = '#cc3333';
+        ctx.fillRect(sx-5, sy-14, 10, 10);
+        // Slot
+        ctx.fillStyle = '#222';
+        ctx.fillRect(sx-3, sy-13, 6, 2);
+        // Envelope sticking out
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(sx-2, sy-16, 4, 4);
+      }
+      break;
+  }
+}
+
+// Draw zone label when player is nearby
+function drawZoneLabel(zone, sx, sy) {
+  const z = ZONES[zone];
+  ctx.font = 'bold 14px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(0,0,0,0.6)';
+  const tw = ctx.measureText(z.name).width;
+  ctx.fillRect(sx - tw/2 - 6, sy - 50, tw + 12, 20);
+  ctx.fillStyle = z.col;
+  ctx.fillText(z.name, sx, sy - 36);
+}
+
+function drawZoneGroundLabel(zone, sx, sy) {
+  const z = ZONES[zone];
+  const name = z.name.toUpperCase();
+  const done = isZoneComplete(zone);
+
+  ctx.save();
+  ctx.translate(sx, sy);
+  ctx.transform(1, 0, 0, 0.5, 0, 0); // squash vertically to look flat
+
+  ctx.font = 'bold 28px monospace';
+  ctx.textAlign = 'center';
+
+  // Dark background band for readability
+  const tw = ctx.measureText(name).width;
+  ctx.fillStyle = 'rgba(0,0,0,0.65)';
+  ctx.fillRect(-tw/2 - 8, -22, tw + 16, 34);
+
+  // Text — bright white with zone-colored outline effect
+  ctx.globalAlpha = done ? 0.5 : 1;
+
+  // Outline (draw text offset in dark color)
+  ctx.fillStyle = '#000000';
+  ctx.fillText(name, -1, -1);
+  ctx.fillText(name, 1, -1);
+  ctx.fillText(name, -1, 1);
+  ctx.fillText(name, 1, 1);
+
+  // Main text in white
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText(name, 0, 0);
+
+  // Checkmark if done — colored by answer
+  if (done) {
+    ctx.globalAlpha = 0.8;
+    ctx.fillStyle = getZoneAnswerColor(zone);
+    ctx.font = 'bold 20px monospace';
+    ctx.fillText('\u2713', 0, 24);
+  }
+
+  ctx.restore();
+}
+
+// ============================================================
+// ENTITY CLASSES
+// ============================================================
+
+class Entity {
+  constructor(x, y) {
+    this.x = x; this.y = y;
+    this.vx = 0; this.vy = 0;
+    this.dir = 0; // 0=down,1=up,2=left,3=right
+    this.frame = 0;
+    this.moving = false;
+  }
+  update() {
+    this.frame++;
+    const nx = this.x + this.vx;
+    const ny = this.y + this.vy;
+    const tx = Math.floor(nx), ty = Math.floor(ny);
+    if (!isSolid(tx, ty)) {
+      this.x = nx; this.y = ny;
+    } else {
+      // Try sliding
+      const txo = Math.floor(this.x + this.vx), tyo = Math.floor(this.y);
+      if (!isSolid(txo, tyo)) { this.x += this.vx; }
+      else {
+        const txo2 = Math.floor(this.x), tyo2 = Math.floor(this.y + this.vy);
+        if (!isSolid(txo2, tyo2)) { this.y += this.vy; }
+      }
+    }
+    this.vx = 0; this.vy = 0;
+  }
+}
+
+class Player extends Entity {
+  constructor(x, y) {
+    super(x, y);
+  }
+  handleInput() {
+    let dx = 0, dy = 0;
+    // WASD screen-relative (isometric)
+    if (keys['KeyW']) { dx -= 1; dy -= 1; }
+    if (keys['KeyS']) { dx += 1; dy += 1; }
+    if (keys['KeyA']) { dx -= 1; dy += 1; }
+    if (keys['KeyD']) { dx += 1; dy -= 1; }
+    if (dx !== 0 || dy !== 0) {
+      const len = Math.sqrt(dx*dx + dy*dy);
+      this.vx = (dx / len) * PLAYER_SPEED / FPS * 10;
+      this.vy = (dy / len) * PLAYER_SPEED / FPS * 10;
+      this.moving = true;
+      // Direction
+      if (Math.abs(dx) > Math.abs(dy)) {
+        this.dir = dx > 0 ? 3 : 2;
+      } else {
+        this.dir = dy > 0 ? 0 : 1;
+      }
+    } else {
+      this.moving = false;
+    }
+  }
+}
+
+class NPC extends Entity {
+  constructor(x, y, zoneIdx) {
+    super(x, y);
+    this.zoneIdx = zoneIdx;
+    this.homeX = x; this.homeY = y;
+    this.patrolTimer = Math.random() * 200;
+    this.patrolDir = 0;
+    this.statementsAsked = 0; // how many statements delivered
+  }
+  update() {
+    // Simple patrol around home position
+    this.patrolTimer++;
+    if (this.patrolTimer > 120) {
+      this.patrolTimer = 0;
+      this.patrolDir = Math.floor(Math.random() * 5); // 0-3=dirs, 4=stand
+    }
+    const sp = 0.3 / FPS * 10;
+    if (this.patrolDir < 4) {
+      const dirs = [
+        { dx: 0.5, dy: 0.5 }, { dx: -0.5, dy: -0.5 },
+        { dx: -0.5, dy: 0.5 }, { dx: 0.5, dy: -0.5 }
+      ];
+      const d = dirs[this.patrolDir];
+      const nx = this.x + d.dx * sp;
+      const ny = this.y + d.dy * sp;
+      // Stay close to home
+      if (distSq(nx, ny, this.homeX, this.homeY) < 4) {
+        this.vx = d.dx * sp;
+        this.vy = d.dy * sp;
+        this.moving = true;
+      }
+    } else {
+      this.moving = false;
+    }
+    super.update();
+  }
+}
+
+// ============================================================
+// PARTY FOLLOWERS — walk with player, leave on low match
+// ============================================================
+
+class PartyFollower extends Entity {
+  constructor(x, y, partyIdx, slotIdx) {
+    super(x, y);
+    this.partyIdx = partyIdx;
+    this.slotIdx = slotIdx;
+    this.state = 'following'; // following, leaving, gone
+    this.targetX = x;
+    this.targetY = y;
+    this.opacity = 1;
+    this.leaveDir = 0;
+    this.leaveTimer = 0;
+    this.lagFactor = 0.03 + Math.random() * 0.03; // per-follower smoothing
+    this.wobble = Math.random() * Math.PI * 2; // phase offset
+  }
+  update() {
+    this.frame++;
+    if (this.state === 'following') {
+      // Lerp toward target slot position
+      const dx = this.targetX - this.x;
+      const dy = this.targetY - this.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist > 0.05) {
+        this.vx = dx * this.lagFactor;
+        this.vy = dy * this.lagFactor;
+        this.moving = true;
+        // Face movement direction
+        if (Math.abs(dx) > Math.abs(dy)) {
+          this.dir = dx > 0 ? 3 : 2;
+        } else {
+          this.dir = dy > 0 ? 0 : 1;
+        }
+      } else {
+        this.moving = false;
+      }
+      super.update();
+    } else if (this.state === 'leaving') {
+      this.leaveTimer++;
+      // Walk away from player
+      const sp = 0.4 / FPS * 10;
+      const dirs = [
+        { dx: 0.5, dy: 0.5 }, { dx: -0.5, dy: -0.5 },
+        { dx: -0.5, dy: 0.5 }, { dx: 0.5, dy: -0.5 }
+      ];
+      const d = dirs[this.leaveDir];
+      this.vx = d.dx * sp;
+      this.vy = d.dy * sp;
+      this.moving = true;
+      this.dir = this.leaveDir;
+      super.update();
+      // Fade out over ~120 frames
+      this.opacity = Math.max(0, 1 - this.leaveTimer / 120);
+      if (this.leaveTimer >= 120) {
+        this.state = 'gone';
+        this.opacity = 0;
+      }
+    }
+  }
+}
+
+let followers = [];
+
+function createFollowers() {
+  followers = [];
+  for (let i = 0; i < PARTIES.length; i++) {
+    const f = new PartyFollower(player.x, player.y, i, i);
+    followers.push(f);
+  }
+}
+
+function updateFollowers() {
+  // Calculate slot positions in an arc behind the player
+  const activeFollowers = followers.filter(f => f.state === 'following');
+  const total = activeFollowers.length;
+  for (let i = 0; i < total; i++) {
+    const f = activeFollowers[i];
+    // Arc behind player — opposite of player direction
+    const angle = Math.PI + (i - (total - 1) / 2) * 0.3;
+    // Direction offset based on player facing
+    const dirAngles = [Math.PI / 2, -Math.PI / 2, 0, Math.PI]; // down, up, left, right reversed
+    const baseAngle = dirAngles[player.dir] || 0;
+    const dist = 2.0 + (i % 3) * 0.8; // rows of depth
+    f.targetX = player.x + Math.cos(baseAngle + angle) * dist + Math.sin(f.wobble + f.frame * 0.01) * 0.3;
+    f.targetY = player.y + Math.sin(baseAngle + angle) * dist + Math.cos(f.wobble + f.frame * 0.01) * 0.3;
+    f.update();
+  }
+  // Update leaving followers
+  for (const f of followers) {
+    if (f.state === 'leaving') f.update();
+  }
+}
+
+function getLeaveThreshold() {
+  const answered = countAnswered();
+  if (answered <= 5) return 25;
+  if (answered <= 15) return 35;
+  if (answered <= 25) return 40;
+  return 45;
+}
+
+function recalcRunningScores() {
+  if (answers.length === 0) return;
+  const threshold = getLeaveThreshold();
+  for (const f of followers) {
+    if (f.state !== 'following') continue;
+    const p = PARTIES[f.partyIdx];
+    let score = 0, maxScore = 0;
+    for (const a of answers) {
+      const partyPos = p.pos[a.stmtIdx];
+      const weight = a.belangrijk ? 2 : 1;
+      score += a.answer * partyPos * weight;
+      maxScore += Math.abs(partyPos) * weight;
+    }
+    const pct = maxScore > 0 ? Math.round(((score + maxScore) / (2 * maxScore)) * 100) : 50;
+    if (pct < threshold) {
+      // This party leaves
+      f.state = 'leaving';
+      f.leaveTimer = 0;
+      // Walk away from player
+      const dx = f.x - player.x;
+      const dy = f.y - player.y;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        f.leaveDir = dx > 0 ? 3 : 2;
+      } else {
+        f.leaveDir = dy > 0 ? 0 : 1;
+      }
+    }
+  }
+}
+
+function drawFollowerSprite(sx, sy, follower) {
+  const f = follower;
+  const p = PARTIES[f.partyIdx];
+  const oldAlpha = ctx.globalAlpha;
+  ctx.globalAlpha = f.opacity;
+
+  const s = 1.5; // smaller than player
+  const ox = sx - 6 * s, oy = sy - 16 * s;
+  const walk = f.moving ? Math.sin(f.frame * 0.3) * 1.5 : 0;
+
+  // Body in party color
+  px(ox + 4*s, oy + 4*s, 5*s, 5*s, p.colors[0]);
+  // Head
+  px(ox + 4.5*s, oy + 0*s, 4*s, 4.5*s, PAL.npcSkin);
+  // Eyes
+  if (f.dir !== 1) {
+    px(ox + 5.5*s, oy + 2*s, 1*s, 1*s, PAL.outline);
+    px(ox + 7.5*s, oy + 2*s, 1*s, 1*s, PAL.outline);
+  }
+  // Legs
+  const legOff = Math.round(walk);
+  px(ox + 4*s, oy + 9*s, 2.5*s, 4*s + legOff, '#444466');
+  px(ox + 6.5*s, oy + 9*s, 2.5*s, 4*s - legOff, '#444466');
+  // Shoes
+  px(ox + 4*s, oy + 13*s + legOff, 2.5*s, 1.5*s, PAL.shoes);
+  px(ox + 6.5*s, oy + 13*s - legOff, 2.5*s, 1.5*s, PAL.shoes);
+
+  // Wave gesture when leaving
+  if (f.state === 'leaving' && f.leaveTimer < 60) {
+    const waveY = Math.sin(f.leaveTimer * 0.3) * 2;
+    px(ox + 10*s, oy + 1*s + waveY, 2*s, 3*s, PAL.npcSkin); // raised hand
+  }
+
+  // Party avatar above head — larger and higher
+  drawPartyAvatar(sx - 8, oy - 22, f.partyIdx, 16);
+
+  // Party abbreviation label — bigger, floating above
+  const abbr = p.abbr;
+  ctx.font = 'bold 11px monospace';
+  ctx.textAlign = 'center';
+  const tw = ctx.measureText(abbr).width;
+  const labelY = oy - 26;
+  ctx.fillStyle = 'rgba(0,0,0,0.7)';
+  ctx.fillRect(sx - tw/2 - 4, labelY - 10, tw + 8, 14);
+  ctx.fillStyle = p.colors[0];
+  ctx.fillText(abbr, sx, labelY);
+  ctx.textAlign = 'left';
+
+  ctx.globalAlpha = oldAlpha;
+}
+
+// ============================================================
+// QUIZ STATE
+// ============================================================
+
+let gameState = 'title'; // title, citySelect, modeSelect, playing, answering, result
+let quizMode = 0; // 10, 20, or 30
+let currentStatementIdx = -1;
+let answers = []; // {stmtIdx, answer: -1/0/1, belangrijk: bool}
+let answeredZones = new Set(); // zone indices completed
+let currentZoneStmtOffset = 0; // which statement within current zone NPC
+let statementsPerZone = 1;
+let extraBelangrijk = false;
+let nearNPC = null; // reference to nearest interactable NPC
+let activeNPC = null; // NPC currently talking to
+let answerTab = 0; // 0=stem, 1=partijen, 2=meer weten, 3=argumenten
+
+// Get statements for a given zone
+function getZoneStatements(zoneIdx) {
+  const themeStatements = STATEMENTS.filter(s => s.theme === zoneIdx);
+  return themeStatements.slice(0, statementsPerZone);
+}
+
+// Get all statement indices for the quiz
+function getQuizStatements() {
+  const result = [];
+  for (let z = 0; z < 10; z++) {
+    const stmts = STATEMENTS.filter((s, i) => s.theme === z);
+    for (let i = 0; i < statementsPerZone && i < stmts.length; i++) {
+      result.push(STATEMENTS.indexOf(stmts[i]));
+    }
+  }
+  return result;
+}
+
+// Check if a zone is fully answered
+function isZoneComplete(zoneIdx) {
+  const stmts = getZoneStatements(zoneIdx);
+  for (const s of stmts) {
+    const si = STATEMENTS.indexOf(s);
+    if (!answers.find(a => a.stmtIdx === si)) return false;
+  }
+  return true;
+}
+
+// Get color representing the player's overall answer for a zone
+// Green=eens, yellow=geen van beide, red=oneens, based on majority
+function getZoneAnswerColor(zoneIdx) {
+  const stmts = getZoneStatements(zoneIdx);
+  let total = 0;
+  for (const s of stmts) {
+    const si = STATEMENTS.indexOf(s);
+    const a = answers.find(a => a.stmtIdx === si);
+    if (a) total += a.answer;
+  }
+  if (total > 0) return PAL.eens;
+  if (total < 0) return PAL.oneens;
+  return PAL.neutraal;
+}
+
+// Count total answered
+function countAnswered() {
+  return answers.length;
+}
+
+// Calculate results
+function calculateResults() {
+  const results = [];
+  for (let pi = 0; pi < PARTIES.length; pi++) {
+    const p = PARTIES[pi];
+    let score = 0, maxScore = 0;
+    for (const a of answers) {
+      const partyPos = p.pos[a.stmtIdx];
+      const weight = a.belangrijk ? 2 : 1;
+      score += a.answer * partyPos * weight;
+      maxScore += Math.abs(partyPos) * weight;
+    }
+    const pct = maxScore > 0 ? Math.round(((score + maxScore) / (2 * maxScore)) * 100) : 50;
+    results.push({ partyIdx: pi, pct: Math.max(0, Math.min(100, pct)) });
+  }
+  results.sort((a, b) => b.pct - a.pct);
+  return results;
+}
+
+// Get next unanswered zone
+function getNextUnansweredZone() {
+  // Find closest unanswered zone to player
+  let bestZone = -1, bestDist = Infinity;
+  for (let z = 0; z < 10; z++) {
+    if (!isZoneComplete(z)) {
+      const d = distSq(player.x, player.y, ZONES[z].npcX, ZONES[z].npcY);
+      if (d < bestDist) { bestDist = d; bestZone = z; }
+    }
+  }
+  return bestZone;
+}
+
+// ============================================================
+// GAME ENTITIES
+// ============================================================
+
+let player;
+let npcs = [];
+
+function initGame() {
+  // Player starts at hub (Bestuur)
+  player = new Player(hub.cx, hub.cy + 3);
+  npcs = [];
+  for (let i = 0; i < 10; i++) {
+    npcs.push(new NPC(ZONES[i].npcX, ZONES[i].npcY, i));
+  }
+  answers = [];
+  answeredZones = new Set();
+  currentStatementIdx = -1;
+  activeNPC = null;
+  nearNPC = null;
+  createFollowers();
+}
+
+initGame();
+
+// ============================================================
+// SAVE / LOAD
+// ============================================================
+
+function saveGame() {
+  const data = {
+    answers: answers,
+    quizMode: quizMode,
+    playerX: player.x,
+    playerY: player.y,
+    followerStates: followers.map(f => f.state),
+  };
+  localStorage.setItem('stemwijzer2026_save', JSON.stringify(data));
+}
+
+function loadGame() {
+  try {
+    const raw = localStorage.getItem('stemwijzer2026_save');
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    answers = data.answers || [];
+    quizMode = data.quizMode || 20;
+    statementsPerZone = quizMode / 10;
+    player.x = data.playerX || hub.cx;
+    player.y = data.playerY || hub.cy + 3;
+    // Rebuild answeredZones
+    answeredZones = new Set();
+    for (let z = 0; z < 10; z++) {
+      if (isZoneComplete(z)) answeredZones.add(z);
+    }
+    // Restore follower states
+    createFollowers();
+    if (data.followerStates) {
+      for (let i = 0; i < followers.length && i < data.followerStates.length; i++) {
+        if (data.followerStates[i] === 'gone' || data.followerStates[i] === 'leaving') {
+          followers[i].state = 'gone';
+          followers[i].opacity = 0;
+        }
+      }
+    }
+    return true;
+  } catch(e) { return false; }
+}
+
+// ============================================================
+// UPDATE LOOP
+// ============================================================
+
+function updatePlaying() {
+  player.handleInput();
+  player.update();
+  updateCamera(player);
+
+  // Update NPCs
+  for (const npc of npcs) {
+    npc.update();
+  }
+
+  // Update party followers
+  updateFollowers();
+
+  // Find nearest NPC
+  nearNPC = null;
+  let nearDist = Infinity;
+  for (const npc of npcs) {
+    const d = distSq(player.x, player.y, npc.x, npc.y);
+    if (d < NPC_INTERACT_RANGE * NPC_INTERACT_RANGE && d < nearDist) {
+      nearDist = d;
+      nearNPC = npc;
+    }
+  }
+
+  // Interact with NPC
+  if (nearNPC && consumeKey('KeyI')) {
+    const zi = nearNPC.zoneIdx;
+    if (!isZoneComplete(zi)) {
+      // Find next unanswered statement for this zone
+      const stmts = getZoneStatements(zi);
+      for (const s of stmts) {
+        const si = STATEMENTS.indexOf(s);
+        if (!answers.find(a => a.stmtIdx === si)) {
+          currentStatementIdx = si;
+          activeNPC = nearNPC;
+          extraBelangrijk = false;
+          answerTab = 0;
+          gameState = 'answering';
+          break;
+        }
+      }
+    }
+  }
+
+  // Check if all questions answered
+  const totalQ = quizMode;
+  if (countAnswered() >= totalQ) {
+    gameState = 'result';
+    saveGame();
+  }
+}
+
+function updateAnswering() {
+  // Tab navigation
+  if (consumeKey('ArrowLeft')) {
+    answerTab = (answerTab - 1 + 4) % 4;
+  }
+  if (consumeKey('ArrowRight')) {
+    answerTab = (answerTab + 1) % 4;
+  }
+
+  // Answer keys only work on Stem tab (tab 0)
+  if (answerTab === 0) {
+    if (consumeKey('Digit1') || consumeKey('Numpad1')) {
+      answers.push({ stmtIdx: currentStatementIdx, answer: 1, belangrijk: extraBelangrijk });
+      advanceAfterAnswer();
+    }
+    if (consumeKey('Digit2') || consumeKey('Numpad2')) {
+      answers.push({ stmtIdx: currentStatementIdx, answer: 0, belangrijk: extraBelangrijk });
+      advanceAfterAnswer();
+    }
+    if (consumeKey('Digit3') || consumeKey('Numpad3')) {
+      answers.push({ stmtIdx: currentStatementIdx, answer: -1, belangrijk: extraBelangrijk });
+      advanceAfterAnswer();
+    }
+    if (consumeKey('KeyT')) {
+      extraBelangrijk = !extraBelangrijk;
+    }
+  }
+
+  // Toggle English translation on any tab
+  if (consumeKey('KeyE')) {
+    showEnglish = !showEnglish;
+  }
+}
+
+function advanceAfterAnswer() {
+  const zi = activeNPC.zoneIdx;
+  // Check if zone has more unanswered statements
+  const stmts = getZoneStatements(zi);
+  let nextStmt = null;
+  for (const s of stmts) {
+    const si = STATEMENTS.indexOf(s);
+    if (!answers.find(a => a.stmtIdx === si)) {
+      nextStmt = si;
+      break;
+    }
+  }
+  // Recalculate running scores — may trigger followers to leave
+  recalcRunningScores();
+
+  if (nextStmt !== null) {
+    currentStatementIdx = nextStmt;
+    extraBelangrijk = false;
+    answerTab = 0;
+  } else {
+    // Zone complete
+    answeredZones.add(zi);
+    gameState = 'playing';
+    activeNPC = null;
+    saveGame();
+  }
+
+  // Check if all done
+  if (countAnswered() >= quizMode) {
+    gameState = 'result';
+    saveGame();
+  }
+}
+
+// ============================================================
+// RENDERING — UI SCREENS
+// ============================================================
+
+function drawTitleScreen() {
+  // Background
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fillRect(0, 0, screenW, screenH);
+
+  // Rotterdam skyline silhouette
+  const baseY = screenH * 0.55;
+  ctx.fillStyle = '#2a2a4e';
+  // Erasmusbrug shape
+  const bridgeX = screenW * 0.5;
+  ctx.beginPath();
+  ctx.moveTo(bridgeX - 200, baseY);
+  ctx.lineTo(bridgeX - 50, baseY - 120);
+  ctx.lineTo(bridgeX - 40, baseY);
+  ctx.fill();
+  // Buildings
+  const buildings = [
+    { x: -300, w: 40, h: 80 }, { x: -240, w: 50, h: 140 },
+    { x: -180, w: 35, h: 60 }, { x: -130, w: 45, h: 180 },
+    { x: -70, w: 55, h: 100 }, { x: 0, w: 30, h: 70 },
+    { x: 50, w: 60, h: 160 }, { x: 120, w: 40, h: 90 },
+    { x: 170, w: 50, h: 130 }, { x: 230, w: 35, h: 70 },
+  ];
+  ctx.fillStyle = '#2a2a4e';
+  for (const b of buildings) {
+    ctx.fillRect(bridgeX + b.x, baseY - b.h, b.w, b.h);
+    // Windows
+    ctx.fillStyle = '#4a4a6e';
+    for (let wy = baseY - b.h + 10; wy < baseY - 10; wy += 15) {
+      for (let wx = bridgeX + b.x + 5; wx < bridgeX + b.x + b.w - 5; wx += 12) {
+        ctx.fillRect(wx, wy, 5, 6);
+      }
+    }
+    ctx.fillStyle = '#2a2a4e';
+  }
+
+  // Water reflection
+  ctx.fillStyle = '#152040';
+  ctx.fillRect(0, baseY, screenW, screenH - baseY);
+  // Shimmer
+  for (let i = 0; i < 30; i++) {
+    const wx = (i * 47 + Date.now() * 0.01) % screenW;
+    ctx.fillStyle = 'rgba(80,120,200,0.3)';
+    ctx.fillRect(wx, baseY + 5 + (i%4)*8, 20, 2);
+  }
+
+  // Tulips at bottom
+  for (let i = 0; i < 15; i++) {
+    const tx = screenW * 0.15 + i * (screenW * 0.7 / 15);
+    const ty = screenH * 0.85;
+    const colors = [PAL.tulipR, PAL.tulipY, PAL.tulipP];
+    ctx.fillStyle = PAL.stem;
+    ctx.fillRect(tx, ty - 15, 3, 18);
+    ctx.fillStyle = colors[i % 3];
+    ctx.beginPath(); ctx.arc(tx + 1, ty - 18, 6, 0, Math.PI * 2); ctx.fill();
+  }
+
+  // Title
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#f0e8d8';
+  ctx.font = 'bold 48px monospace';
+  ctx.fillText('StemWijzer', screenW/2, screenH * 0.2);
+  ctx.font = 'bold 36px monospace';
+  ctx.fillStyle = PAL.accent;
+  ctx.fillText('Rotterdam 2026', screenW/2, screenH * 0.2 + 50);
+
+  // Subtitle
+  ctx.font = '16px monospace';
+  ctx.fillStyle = '#a0a0b0';
+  ctx.fillText('Gemeenteraadsverkiezingen — 18 maart 2026', screenW/2, screenH * 0.2 + 85);
+
+  // Prompt
+  const blink = Math.sin(Date.now() * 0.004) > 0;
+  if (blink) {
+    ctx.font = '20px monospace';
+    ctx.fillStyle = PAL.gold;
+    ctx.fillText('Druk op een toets om te beginnen', screenW/2, screenH * 0.7);
+  }
+
+  // Disclaimer
+  ctx.font = '11px monospace';
+  ctx.fillStyle = '#606070';
+  ctx.fillText('Stellingen en partijposities zijn illustratief — niet officieel StemWijzer-materiaal', screenW/2, screenH * 0.95);
+}
+
+function drawModeSelect() {
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fillRect(0, 0, screenW, screenH);
+
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 36px monospace';
+  ctx.fillStyle = PAL.uiText;
+  ctx.fillText('Kies je quizmodus', screenW/2, screenH * 0.2);
+
+  const modes = [
+    { key: '1', label: 'Snel', count: 10, desc: '10 stellingen — 1 per thema' },
+    { key: '2', label: 'Normaal', count: 20, desc: '20 stellingen — 2 per thema' },
+    { key: '3', label: 'Volledig', count: 30, desc: '30 stellingen — 3 per thema' },
+  ];
+
+  for (let i = 0; i < modes.length; i++) {
+    const m = modes[i];
+    const y = screenH * 0.35 + i * 100;
+    const boxW = 400, boxH = 70;
+    const bx = screenW/2 - boxW/2;
+
+    ctx.fillStyle = PAL.uiBg;
+    ctx.fillRect(bx, y, boxW, boxH);
+    ctx.strokeStyle = PAL.uiBorder;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(bx, y, boxW, boxH);
+
+    ctx.fillStyle = PAL.gold;
+    ctx.font = 'bold 24px monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText(`[${m.key}]`, bx + 15, y + 30);
+
+    ctx.fillStyle = PAL.uiText;
+    ctx.font = 'bold 22px monospace';
+    ctx.fillText(m.label, bx + 70, y + 30);
+
+    ctx.fillStyle = '#a0a0b0';
+    ctx.font = '14px monospace';
+    ctx.fillText(m.desc, bx + 70, y + 52);
+  }
+
+  ctx.textAlign = 'center';
+  ctx.font = '14px monospace';
+  ctx.fillStyle = '#808090';
+  ctx.fillText('Gebruik WASD om rond te lopen, I om met NPCs te praten', screenW/2, screenH * 0.85);
+}
+
+function drawCitySelect() {
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fillRect(0, 0, screenW, screenH);
+
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 36px monospace';
+  ctx.fillStyle = PAL.uiText;
+  ctx.fillText('Kies je gemeente', screenW/2, screenH * 0.15);
+
+  ctx.font = '14px monospace';
+  ctx.fillStyle = '#a0a0b0';
+  ctx.fillText('Gemeenteraadsverkiezingen 2026', screenW/2, screenH * 0.15 + 35);
+
+  const boxW = 400, boxH = 60;
+  for (let i = 0; i < CITIES.length; i++) {
+    const c = CITIES[i];
+    const y = screenH * 0.28 + i * 75;
+    const bx = screenW/2 - boxW/2;
+    const isSelected = i === selectedCity;
+    const isAvailable = c.available;
+
+    // Box background
+    ctx.fillStyle = isSelected ? 'rgba(208,168,48,0.15)' : PAL.uiBg;
+    ctx.fillRect(bx, y, boxW, boxH);
+    ctx.strokeStyle = isSelected ? PAL.gold : (isAvailable ? PAL.uiBorder : '#404040');
+    ctx.lineWidth = isSelected ? 3 : 1;
+    ctx.strokeRect(bx, y, boxW, boxH);
+
+    // Selection arrow
+    if (isSelected) {
+      ctx.fillStyle = PAL.gold;
+      ctx.font = 'bold 20px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText('\u25b6', bx + 12, y + 35);
+    }
+
+    // City name
+    ctx.textAlign = 'left';
+    ctx.font = isSelected ? 'bold 22px monospace' : '20px monospace';
+    ctx.fillStyle = isAvailable ? (isSelected ? PAL.gold : PAL.uiText) : '#555560';
+    ctx.fillText(c.name, bx + 40, y + 28);
+
+    // Status
+    if (!isAvailable) {
+      ctx.font = '13px monospace';
+      ctx.fillStyle = '#555560';
+      ctx.fillText('Binnenkort beschikbaar', bx + 40, y + 48);
+    } else {
+      ctx.font = '13px monospace';
+      ctx.fillStyle = '#80a080';
+      ctx.fillText('Beschikbaar', bx + 40, y + 48);
+    }
+  }
+
+  ctx.textAlign = 'center';
+  ctx.font = '14px monospace';
+  ctx.fillStyle = '#808090';
+  ctx.fillText('Pijltjestoetsen om te kiezen, Enter om te bevestigen', screenW/2, screenH * 0.9);
+}
+
+function drawHUD() {
+  const total = quizMode;
+  const done = countAnswered();
+
+  // Top-left: progress
+  ctx.fillStyle = PAL.uiBg;
+  ctx.fillRect(10, 10, 220, 50);
+  ctx.strokeStyle = PAL.uiBorder;
+  ctx.lineWidth = 1;
+  ctx.strokeRect(10, 10, 220, 50);
+
+  ctx.textAlign = 'left';
+  ctx.font = 'bold 14px monospace';
+  ctx.fillStyle = PAL.uiText;
+  ctx.fillText(`Stellingen: ${done} / ${total}`, 20, 30);
+
+  // Progress bar
+  ctx.fillStyle = '#333';
+  ctx.fillRect(20, 40, 190, 10);
+  ctx.fillStyle = PAL.eens;
+  ctx.fillRect(20, 40, (done / total) * 190, 10);
+
+  // Zone indicator
+  const tz = Math.floor(player.y) >= 0 && Math.floor(player.y) < MAP_H &&
+             Math.floor(player.x) >= 0 && Math.floor(player.x) < MAP_W
+             ? map[Math.floor(player.y)][Math.floor(player.x)].zone : -1;
+  if (tz >= 0) {
+    ctx.fillStyle = PAL.uiBg;
+    ctx.fillRect(10, 68, 220, 25);
+    ctx.strokeStyle = ZONES[tz].col;
+    ctx.strokeRect(10, 68, 220, 25);
+    ctx.font = '12px monospace';
+    ctx.fillStyle = ZONES[tz].col;
+    ctx.fillText(THEMES[tz].name + (isZoneComplete(tz) ? ' ✓' : ''), 20, 84);
+  }
+
+  // Controls hint (bottom)
+  ctx.textAlign = 'center';
+  ctx.font = '12px monospace';
+  ctx.fillStyle = 'rgba(200,200,200,0.5)';
+  ctx.fillText('WASD = bewegen | I = praten met NPC', screenW/2, screenH - 15);
+}
+
+function drawNPCPrompt() {
+  if (!nearNPC) return;
+  const zi = nearNPC.zoneIdx;
+  if (isZoneComplete(zi)) {
+    // Zone done — show checkmark colored by answer
+    const s = worldToScreen(nearNPC.x, nearNPC.y);
+    const sx = s.x - camera.x, sy = s.y - camera.y - 50;
+    const zoneColor = getZoneAnswerColor(zi);
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 16px monospace';
+    ctx.fillStyle = zoneColor;
+    ctx.fillText('\u2713 Beantwoord', sx, sy);
+    return;
+  }
+
+  const s = worldToScreen(nearNPC.x, nearNPC.y);
+  const sx = s.x - camera.x, sy = s.y - camera.y - 55;
+
+  // Speech bubble
+  const text = 'Druk I om te praten';
+  ctx.font = '14px monospace';
+  const tw = ctx.measureText(text).width;
+
+  ctx.fillStyle = PAL.uiBg;
+  ctx.beginPath();
+  ctx.roundRect(sx - tw/2 - 12, sy - 14, tw + 24, 28, 6);
+  ctx.fill();
+  ctx.strokeStyle = ZONES[zi].col;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Arrow
+  ctx.fillStyle = PAL.uiBg;
+  ctx.beginPath();
+  ctx.moveTo(sx - 6, sy + 14); ctx.lineTo(sx + 6, sy + 14); ctx.lineTo(sx, sy + 22);
+  ctx.closePath(); ctx.fill();
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = PAL.uiText;
+  ctx.font = '14px monospace';
+  ctx.fillText(text, sx, sy + 4);
+}
+
+function drawAnswerOverlay() {
+  if (currentStatementIdx < 0) return;
+  const stmt = STATEMENTS[currentStatementIdx];
+  const theme = THEMES[stmt.theme];
+
+  // Dim background
+  ctx.fillStyle = 'rgba(0,0,0,0.7)';
+  ctx.fillRect(0, 0, screenW, screenH);
+
+  // Panel — taller to fit tabs
+  const pw = Math.min(650, screenW - 40);
+  const ph = 480;
+  const px0 = (screenW - pw) / 2;
+  const py = (screenH - ph) / 2;
+
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fillRect(px0, py, pw, ph);
+  ctx.strokeStyle = ZONES[stmt.theme].col;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(px0, py, pw, ph);
+
+  // Theme header
+  ctx.fillStyle = ZONES[stmt.theme].col;
+  ctx.fillRect(px0, py, pw, 40);
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 18px monospace';
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText(theme.name, screenW/2, py + 26);
+
+  // Statement number + translate toggle
+  const trans = TRANSLATIONS[currentStatementIdx];
+  ctx.font = '13px monospace';
+  ctx.fillStyle = '#a0a0b0';
+  ctx.fillText(`Stelling ${countAnswered() + 1} van ${quizMode}`, screenW/2, py + 60);
+
+  // Translate button (top-right of panel)
+  const eBtnX = px0 + pw - 90;
+  const eBtnY = py + 48;
+  ctx.fillStyle = showEnglish ? '#2a5090' : '#2a2a4e';
+  ctx.fillRect(eBtnX, eBtnY, 80, 22);
+  ctx.strokeStyle = showEnglish ? '#5090d0' : '#555';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(eBtnX, eBtnY, 80, 22);
+  ctx.font = 'bold 11px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = showEnglish ? '#88bbff' : '#8090a0';
+  ctx.fillText('[E] English', eBtnX + 40, eBtnY + 15);
+
+  // Statement text — word wrap
+  const stmtText = showEnglish ? trans.text : stmt.text;
+  ctx.font = '16px monospace';
+  ctx.fillStyle = PAL.uiText;
+  const maxWidth = pw - 60;
+  const words = stmtText.split(' ');
+  let line = '', lineY = py + 85;
+  for (const word of words) {
+    const test = line + (line ? ' ' : '') + word;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      ctx.fillText(line, screenW/2, lineY);
+      line = word;
+      lineY += 22;
+    } else {
+      line = test;
+    }
+  }
+  ctx.fillText(line, screenW/2, lineY);
+
+  // Tab bar
+  const tabNames = ['Stem', 'Partijen', 'Meer weten', 'Argumenten'];
+  const tabY = py + 160;
+  const tabH = 30;
+  const tabW = pw / 4;
+
+  for (let i = 0; i < 4; i++) {
+    const tx = px0 + i * tabW;
+    const isActive = answerTab === i;
+
+    ctx.fillStyle = isActive ? '#2a2a4e' : '#151528';
+    ctx.fillRect(tx, tabY, tabW, tabH);
+    ctx.strokeStyle = isActive ? ZONES[stmt.theme].col : '#333';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(tx, tabY, tabW, tabH);
+
+    // Active tab bottom highlight
+    if (isActive) {
+      ctx.fillStyle = ZONES[stmt.theme].col;
+      ctx.fillRect(tx, tabY + tabH - 2, tabW, 2);
+    }
+
+    ctx.textAlign = 'center';
+    ctx.font = isActive ? 'bold 12px monospace' : '12px monospace';
+    ctx.fillStyle = isActive ? PAL.uiText : '#707080';
+    ctx.fillText(tabNames[i], tx + tabW/2, tabY + 19);
+  }
+
+  // Tab content area
+  const contentY = tabY + tabH + 10;
+  const contentH = py + ph - contentY - 15;
+
+  if (answerTab === 0) {
+    // Stem tab — answer buttons
+    const btnY = contentY + 20;
+    const btnW = 150, btnH = 45, gap = 20;
+    const totalBtnW = btnW * 3 + gap * 2;
+    const startX = (screenW - totalBtnW) / 2;
+
+    const buttons = showEnglish ? [
+      { key: '1', label: 'Agree', col: PAL.eens },
+      { key: '2', label: 'Neither', col: PAL.neutraal },
+      { key: '3', label: 'Disagree', col: PAL.oneens },
+    ] : [
+      { key: '1', label: 'Eens', col: PAL.eens },
+      { key: '2', label: 'Geen van beide', col: PAL.neutraal },
+      { key: '3', label: 'Oneens', col: PAL.oneens },
+    ];
+
+    for (let i = 0; i < 3; i++) {
+      const bx = startX + i * (btnW + gap);
+      const btn = buttons[i];
+
+      ctx.fillStyle = btn.col;
+      ctx.globalAlpha = 0.3;
+      ctx.fillRect(bx, btnY, btnW, btnH);
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = btn.col;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(bx, btnY, btnW, btnH);
+
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 13px monospace';
+      ctx.fillStyle = btn.col;
+      ctx.fillText(`[${btn.key}] ${btn.label}`, bx + btnW/2, btnY + 28);
+    }
+
+    // Extra belangrijk toggle
+    const tbY = btnY + btnH + 30;
+    ctx.font = '14px monospace';
+    ctx.textAlign = 'center';
+    if (extraBelangrijk) {
+      ctx.fillStyle = PAL.belangrijk;
+      ctx.fillText(showEnglish ? '\u2605 Extra important [T]' : '\u2605 Extra belangrijk [T]', screenW/2, tbY);
+    } else {
+      ctx.fillStyle = '#808090';
+      ctx.fillText(showEnglish ? '\u2606 Extra important? Press T' : '\u2606 Extra belangrijk? Druk T', screenW/2, tbY);
+    }
+
+  } else if (answerTab === 1) {
+    // Partijen tab — party positions
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(px0 + 10, contentY, pw - 20, contentH);
+    ctx.clip();
+
+    const colW = (pw - 40) / 3;
+    const rowH = 18;
+    let cy = contentY + 5;
+
+    // Header
+    ctx.font = 'bold 11px monospace';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#a0a0b0';
+    ctx.fillText(showEnglish ? 'Party' : 'Partij', px0 + 20, cy + 12);
+    ctx.textAlign = 'center';
+    ctx.fillText(showEnglish ? 'Position' : 'Positie', px0 + pw - 80, cy + 12);
+    cy += rowH + 4;
+
+    // Separator
+    ctx.fillStyle = '#333';
+    ctx.fillRect(px0 + 20, cy - 2, pw - 40, 1);
+
+    for (let i = 0; i < PARTIES.length; i++) {
+      if (cy + rowH > contentY + contentH) break;
+      const p = PARTIES[i];
+      const pos = p.pos[currentStatementIdx];
+
+      ctx.textAlign = 'left';
+      ctx.font = '11px monospace';
+      ctx.fillStyle = PAL.uiText;
+      ctx.fillText(p.abbr, px0 + 20, cy + 12);
+
+      // Position dot
+      const dotX = px0 + pw - 80;
+      if (pos === 1) {
+        ctx.fillStyle = PAL.eens;
+        ctx.beginPath(); ctx.arc(dotX - 10, cy + 8, 5, 0, Math.PI*2); ctx.fill();
+        ctx.textAlign = 'left';
+        ctx.fillStyle = PAL.eens;
+        ctx.fillText(showEnglish ? 'Agree' : 'Eens', dotX, cy + 12);
+      } else if (pos === -1) {
+        ctx.fillStyle = PAL.oneens;
+        ctx.beginPath(); ctx.arc(dotX - 10, cy + 8, 5, 0, Math.PI*2); ctx.fill();
+        ctx.textAlign = 'left';
+        ctx.fillStyle = PAL.oneens;
+        ctx.fillText(showEnglish ? 'Disagree' : 'Oneens', dotX, cy + 12);
+      } else {
+        ctx.fillStyle = PAL.neutraal;
+        ctx.beginPath(); ctx.arc(dotX - 10, cy + 8, 5, 0, Math.PI*2); ctx.fill();
+        ctx.textAlign = 'left';
+        ctx.fillStyle = PAL.neutraal;
+        ctx.fillText(showEnglish ? 'Neutral' : 'Neutraal', dotX, cy + 12);
+      }
+
+      cy += rowH;
+    }
+
+    ctx.restore();
+
+  } else if (answerTab === 2) {
+    // Meer weten tab — explanation
+    ctx.font = '14px monospace';
+    ctx.fillStyle = PAL.uiText;
+    ctx.textAlign = 'center';
+    const explText = showEnglish
+      ? (trans.explanation || 'No extra information available.')
+      : (stmt.explanation || 'Geen extra informatie beschikbaar.');
+    const explWords = explText.split(' ');
+    let eLine = '', eLineY = contentY + 25;
+    const eMaxW = pw - 60;
+    for (const word of explWords) {
+      const test = eLine + (eLine ? ' ' : '') + word;
+      if (ctx.measureText(test).width > eMaxW && eLine) {
+        ctx.fillText(eLine, screenW/2, eLineY);
+        eLine = word;
+        eLineY += 22;
+      } else {
+        eLine = test;
+      }
+    }
+    ctx.fillText(eLine, screenW/2, eLineY);
+
+  } else if (answerTab === 3) {
+    // Argumenten tab — pro/contra
+    const argsNL = stmt.arguments || { pro: 'Geen argumenten beschikbaar.', contra: 'Geen argumenten beschikbaar.' };
+    const argsEN = trans.arguments || { pro: 'No arguments available.', contra: 'No arguments available.' };
+    const args = showEnglish ? argsEN : argsNL;
+    const argMaxW = pw - 80;
+    let argY = contentY + 20;
+
+    // Pro
+    ctx.font = 'bold 14px monospace';
+    ctx.fillStyle = PAL.eens;
+    ctx.textAlign = 'left';
+    ctx.fillText(showEnglish ? 'For:' : 'Voor:', px0 + 30, argY);
+    argY += 22;
+
+    ctx.font = '13px monospace';
+    ctx.fillStyle = PAL.uiText;
+    const proWords = args.pro.split(' ');
+    let pLine = '';
+    for (const word of proWords) {
+      const test = pLine + (pLine ? ' ' : '') + word;
+      if (ctx.measureText(test).width > argMaxW && pLine) {
+        ctx.fillText(pLine, px0 + 30, argY);
+        pLine = word;
+        argY += 20;
+      } else {
+        pLine = test;
+      }
+    }
+    ctx.fillText(pLine, px0 + 30, argY);
+    argY += 30;
+
+    // Contra
+    ctx.font = 'bold 14px monospace';
+    ctx.fillStyle = PAL.oneens;
+    ctx.fillText(showEnglish ? 'Against:' : 'Tegen:', px0 + 30, argY);
+    argY += 24;
+
+    ctx.font = '13px monospace';
+    ctx.fillStyle = PAL.uiText;
+    const conWords = args.contra.split(' ');
+    let cLine = '';
+    for (const word of conWords) {
+      const test = cLine + (cLine ? ' ' : '') + word;
+      if (ctx.measureText(test).width > argMaxW && cLine) {
+        ctx.fillText(cLine, px0 + 30, argY);
+        cLine = word;
+        argY += 20;
+      } else {
+        cLine = test;
+      }
+    }
+    ctx.fillText(cLine, px0 + 30, argY);
+  }
+
+  // Tab navigation hint at bottom
+  ctx.textAlign = 'center';
+  ctx.font = '11px monospace';
+  ctx.fillStyle = '#606070';
+  ctx.fillText('\u2190 \u2192 wissel tab', screenW/2, py + ph - 5);
+}
+
+function drawNavigationArrows() {
+  const pulse = 0.5 + Math.sin(Date.now() * 0.005) * 0.3;
+
+  for (let zi = 0; zi < 10; zi++) {
+    if (isZoneComplete(zi)) continue;
+
+    const target = ZONES[zi];
+    const dx = target.npcX - player.x;
+    const dy = target.npcY - player.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < 5) continue; // Close enough, no arrow needed
+
+    // Draw pulsing arrow on ground near player pointing toward target
+    const angle = Math.atan2(dy, dx);
+    const arrowDist = 3; // tiles from player
+    const ax = player.x + Math.cos(angle) * arrowDist;
+    const ay = player.y + Math.sin(angle) * arrowDist;
+
+    const s = worldToScreen(ax, ay);
+    const sx = s.x - camera.x;
+    const sy = s.y - camera.y;
+
+    // Arrow shape pointing in direction
+    ctx.save();
+    ctx.translate(sx, sy);
+    // Convert world angle to screen angle (isometric adjustment)
+    const screenAngle = Math.atan2(
+      Math.sin(angle) + Math.cos(angle),
+      Math.cos(angle) - Math.sin(angle)
+    );
+    ctx.rotate(screenAngle);
+
+    ctx.globalAlpha = pulse;
+    ctx.fillStyle = ZONES[zi].col;
+    ctx.beginPath();
+    ctx.moveTo(12, 0);
+    ctx.lineTo(-2, -6);
+    ctx.lineTo(-2, -2);
+    ctx.lineTo(-10, -2);
+    ctx.lineTo(-10, 2);
+    ctx.lineTo(-2, 2);
+    ctx.lineTo(-2, 6);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.globalAlpha = pulse * 0.7;
+    ctx.font = '9px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffffff';
+    ctx.rotate(-screenAngle); // un-rotate for text
+    ctx.fillText(ZONES[zi].name, 0, -12);
+
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+}
+
+function drawResultScreen() {
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fillRect(0, 0, screenW, screenH);
+
+  const results = calculateResults();
+
+  // Title
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 30px monospace';
+  ctx.fillStyle = PAL.uiText;
+  ctx.fillText('Jouw Uitslag', screenW/2, 45);
+  ctx.font = '14px monospace';
+  ctx.fillStyle = '#a0a0b0';
+  ctx.fillText('StemWijzer Rotterdam 2026 — Illustratief', screenW/2, 70);
+
+  // Bar chart
+  const chartX = 60;
+  const chartW = screenW - 120;
+  const barH = 22;
+  const gap = 4;
+  const startY = 95;
+  const avatarSize = 20;
+
+  resultRowRects = [];
+  for (let i = 0; i < results.length; i++) {
+    const r = results[i];
+    const p = PARTIES[r.partyIdx];
+    const y = startY + i * (barH + gap);
+
+    if (y + barH > screenH - 50) break; // Don't overflow
+
+    // Store clickable row rect
+    resultRowRects.push({ x: chartX - 30, y: y - 2, w: chartW + 40, h: barH + 4, partyIdx: r.partyIdx });
+
+    // Highlight top 3
+    const isTop3 = i < 3;
+    if (isTop3) {
+      ctx.fillStyle = 'rgba(255,220,100,0.1)';
+      ctx.fillRect(chartX - 5, y - 2, chartW + 10, barH + 4);
+    }
+
+    // Avatar
+    drawPartyAvatar(chartX, y, r.partyIdx, avatarSize);
+
+    // Party name (underlined to show clickable)
+    ctx.textAlign = 'left';
+    ctx.font = isTop3 ? 'bold 12px monospace' : '11px monospace';
+    ctx.fillStyle = isTop3 ? PAL.gold : PAL.uiText;
+    ctx.fillText(p.abbr, chartX + avatarSize + 8, y + 14);
+    // Underline
+    const abbrW = ctx.measureText(p.abbr).width;
+    ctx.fillRect(chartX + avatarSize + 8, y + 16, abbrW, 1);
+
+    // Bar
+    const barX = chartX + 110;
+    const barMaxW = chartW - 170;
+    ctx.fillStyle = '#333';
+    ctx.fillRect(barX, y + 2, barMaxW, barH - 4);
+
+    const fillW = (r.pct / 100) * barMaxW;
+    ctx.fillStyle = p.colors[0];
+    ctx.globalAlpha = isTop3 ? 1 : 0.7;
+    ctx.fillRect(barX, y + 2, fillW, barH - 4);
+    ctx.globalAlpha = 1;
+
+    // Percentage
+    ctx.textAlign = 'right';
+    ctx.font = isTop3 ? 'bold 13px monospace' : '11px monospace';
+    ctx.fillStyle = isTop3 ? '#ffffff' : '#cccccc';
+    ctx.fillText(`${r.pct}%`, chartX + chartW, y + 15);
+
+    // Medal for top 3
+    if (i === 0) {
+      ctx.fillStyle = '#ffd700'; ctx.font = '14px monospace'; ctx.textAlign = 'left';
+      ctx.fillText('\ud83e\udd47', chartX - 25, y + 16);
+    } else if (i === 1) {
+      ctx.fillStyle = '#c0c0c0'; ctx.font = '14px monospace'; ctx.textAlign = 'left';
+      ctx.fillText('\ud83e\udd48', chartX - 25, y + 16);
+    } else if (i === 2) {
+      ctx.fillStyle = '#cd7f32'; ctx.font = '14px monospace'; ctx.textAlign = 'left';
+      ctx.fillText('\ud83e\udd49', chartX - 25, y + 16);
+    }
+  }
+
+  // Restart prompt
+  ctx.textAlign = 'center';
+  ctx.font = '16px monospace';
+  ctx.fillStyle = PAL.gold;
+  ctx.fillText('Druk R om opnieuw te beginnen', screenW/2, screenH - 40);
+
+  // Click hint
+  ctx.font = '11px monospace';
+  ctx.fillStyle = '#808090';
+  ctx.fillText('Klik op een partij om naar hun website te gaan', screenW/2, screenH - 22);
+
+  // Disclaimer
+  ctx.font = '10px monospace';
+  ctx.fillStyle = '#505060';
+  ctx.fillText('Dit is geen offici\u00eble StemWijzer — stellingen en posities zijn illustratief', screenW/2, screenH - 8);
+}
+
+// ============================================================
+// MAIN RENDER
+// ============================================================
+
+function renderPlaying() {
+  // Clear
+  ctx.fillStyle = '#2a3828';
+  ctx.fillRect(0, 0, screenW, screenH);
+
+  // Determine visible tile range
+  const margin = 4;
+  const topLeft = screenToWorld(camera.x - ISO_W, camera.y - ISO_H * 2);
+  const bottomRight = screenToWorld(camera.x + screenW + ISO_W, camera.y + screenH + ISO_H * 2);
+  const minTX = Math.max(0, Math.floor(topLeft.x) - margin);
+  const minTY = Math.max(0, Math.floor(topLeft.y) - margin);
+  const maxTX = Math.min(MAP_W - 1, Math.ceil(bottomRight.x) + margin);
+  const maxTY = Math.min(MAP_H - 1, Math.ceil(bottomRight.y) + margin);
+
+  // Collect all renderables for depth sorting
+  const renderList = [];
+
+  // Tiles
+  for (let ty = minTY; ty <= maxTY; ty++) {
+    for (let tx = minTX; tx <= maxTX; tx++) {
+      const s = worldToScreen(tx, ty);
+      const sx = s.x - camera.x;
+      const sy = s.y - camera.y;
+      renderList.push({ type: 'tile', tx, ty, sx, sy, depth: tx + ty });
+    }
+  }
+
+  // NPCs
+  for (const npc of npcs) {
+    const s = worldToScreen(npc.x, npc.y);
+    renderList.push({
+      type: 'npc', entity: npc,
+      sx: s.x - camera.x, sy: s.y - camera.y,
+      depth: npc.x + npc.y
+    });
+  }
+
+  // Party followers — only show top parties after first answer
+  if (answers.length > 0) {
+    // Calculate current scores to find top parties
+    const results = calculateResults();
+    const topPartyIndices = new Set(results.slice(0, 5).map(r => r.partyIdx));
+    for (const f of followers) {
+      if (f.state === 'gone') continue;
+      if (!topPartyIndices.has(f.partyIdx)) continue;
+      const fs = worldToScreen(f.x, f.y);
+      renderList.push({
+        type: 'follower', entity: f,
+        sx: fs.x - camera.x, sy: fs.y - camera.y,
+        depth: f.x + f.y
+      });
+    }
+  }
+
+  // Player
+  const ps = worldToScreen(player.x, player.y);
+  renderList.push({
+    type: 'player',
+    sx: ps.x - camera.x, sy: ps.y - camera.y,
+    depth: player.x + player.y
+  });
+
+  // Sort by depth
+  renderList.sort((a, b) => a.depth - b.depth);
+
+  // Render
+  for (const item of renderList) {
+    if (item.type === 'tile') {
+      drawTile(item.sx, item.sy, item.tx, item.ty);
+      // Decorations
+      const tile = map[item.ty][item.tx];
+      if (tile.zone >= 0 && tile.type === 1) {
+        drawZoneDecoration(item.sx, item.sy, item.tx, item.ty, tile.zone);
+      }
+    } else if (item.type === 'npc') {
+      const npc = item.entity;
+      const highlight = nearNPC === npc && !isZoneComplete(npc.zoneIdx);
+      drawNPCSprite(item.sx, item.sy, npc.zoneIdx, npc.frame, highlight);
+    } else if (item.type === 'follower') {
+      drawFollowerSprite(item.sx, item.sy, item.entity);
+    } else if (item.type === 'player') {
+      drawPlayerSprite(item.sx, item.sy, player.dir, player.moving ? player.frame : 0);
+    }
+  }
+
+  // Zone ground labels (overlay, drawn on top of tiles)
+  for (let zi = 0; zi < ZONES.length; zi++) {
+    const z = ZONES[zi];
+    const s = worldToScreen(z.cx, z.cy);
+    const lsx = s.x - camera.x;
+    const lsy = s.y - camera.y;
+    if (lsx > -200 && lsx < screenW + 200 && lsy > -200 && lsy < screenH + 200) {
+      drawZoneGroundLabel(zi, lsx, lsy);
+    }
+  }
+
+  // Navigation arrows (overlay)
+  drawNavigationArrows();
+
+  // HUD
+  drawHUD();
+
+  // NPC interaction prompt
+  drawNPCPrompt();
+}
+
+// ============================================================
+// GAME LOOP
+// ============================================================
+
+let lastTime = 0;
+let accumulator = 0;
+
+function gameLoop(timestamp) {
+  if (!lastTime) lastTime = timestamp;
+  const dt = timestamp - lastTime;
+  lastTime = timestamp;
+  accumulator += dt;
+
+  // Fixed timestep updates
+  while (accumulator >= FRAME_TIME) {
+    accumulator -= FRAME_TIME;
+
+    switch (gameState) {
+      case 'title':
+        // Any key to proceed
+        for (const k in justPressed) {
+          if (justPressed[k]) {
+            // Check for saved game
+            if (loadGame() && answers.length > 0 && answers.length < quizMode) {
+              gameState = 'playing';
+            } else {
+              gameState = 'citySelect';
+              selectedCity = 0;
+            }
+            clearJustPressed();
+            break;
+          }
+        }
+        break;
+
+      case 'citySelect':
+        if (consumeKey('ArrowUp')) {
+          selectedCity = (selectedCity - 1 + CITIES.length) % CITIES.length;
+        }
+        if (consumeKey('ArrowDown')) {
+          selectedCity = (selectedCity + 1) % CITIES.length;
+        }
+        if (consumeKey('Enter') || consumeKey('Space')) {
+          if (CITIES[selectedCity].available) {
+            gameState = 'modeSelect';
+          }
+        }
+        break;
+
+      case 'modeSelect':
+        if (consumeKey('Digit1') || consumeKey('Numpad1')) {
+          quizMode = 10; statementsPerZone = 1;
+          initGame(); gameState = 'playing';
+        }
+        if (consumeKey('Digit2') || consumeKey('Numpad2')) {
+          quizMode = 20; statementsPerZone = 2;
+          initGame(); gameState = 'playing';
+        }
+        if (consumeKey('Digit3') || consumeKey('Numpad3')) {
+          quizMode = 30; statementsPerZone = 3;
+          initGame(); gameState = 'playing';
+        }
+        break;
+
+      case 'playing':
+        updatePlaying();
+        break;
+
+      case 'answering':
+        updateAnswering();
+        break;
+
+      case 'result':
+        if (consumeKey('KeyR')) {
+          localStorage.removeItem('stemwijzer2026_save');
+          gameState = 'title';
+          initGame();
+        }
+        break;
+    }
+
+    clearJustPressed();
+  }
+
+  // Render
+  switch (gameState) {
+    case 'title':
+      drawTitleScreen();
+      break;
+    case 'citySelect':
+      drawCitySelect();
+      break;
+    case 'modeSelect':
+      drawModeSelect();
+      break;
+    case 'playing':
+      renderPlaying();
+      break;
+    case 'answering':
+      renderPlaying();
+      drawAnswerOverlay();
+      break;
+    case 'result':
+      drawResultScreen();
+      break;
+  }
+
+  requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);
+
+</script>
+</body>
+</html>
