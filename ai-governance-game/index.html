@@ -119,11 +119,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 .scene-char.react-happy .scene-char-sprite{animation:charJump .4s steps(3) 3}
 .scene-char.react-angry .scene-char-sprite{animation:charShake .2s steps(2) 5}
 .scene-char.react-neutral .scene-char-sprite{animation:charBob 1.5s steps(2) infinite}
-/* Speech bubbles */
-.scene-bubble{position:absolute;top:-4px;padding:3px 8px;background:#fff;color:#000;font-size:8px;
-  border:2px solid #000;white-space:nowrap;animation:bubblePop .3s steps(3);z-index:2}
-.scene-bubble::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);
-  width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid #000}
+/* Reactions strip below scene */
+.reactions-strip{display:flex;flex-wrap:wrap;gap:4px;padding:6px 10px;background:#0a0a1a;
+  border:var(--pixel) solid var(--border);border-top:none;margin-bottom:8px;margin-top:-8px;animation:slideDown .3s steps(4)}
+.reaction-chip{display:flex;align-items:center;gap:4px;padding:4px 8px;border:2px solid;font-size:8px;
+  background:rgba(0,0,0,.4);animation:bubblePop .3s steps(3)}
+.reaction-chip.rc-up{border-color:var(--green);color:var(--green)}
+.reaction-chip.rc-down{border-color:var(--red);color:var(--red)}
+.reaction-chip .rc-name{font-size:7px;color:var(--text3);margin-right:2px}
 @keyframes bubblePop{from{transform:scale(0)}to{transform:scale(1)}}
 
 /* Player character in center */
@@ -756,33 +759,50 @@ function renderCard(){
   const cc={lab:'c-lab',market:'c-market',public:'c-public',summit:'c-summit',env:'c-env'}[ev.cat]||'';
   const cn={lab:'THE LAB',market:'THE MARKET',public:'THE PUBLIC',summit:'THE SUMMIT',env:'ENVIRONMENT'}[ev.cat]||'';
 
-  // Build scene characters with pixel sprites
+  // Build scene characters with pixel sprites (no bubbles - reactions shown in strip below)
   function sceneChar(k,label){
     const fr=window._facR;
     const reaction=resolved&&fr?( fr[k]>3?'react-happy':fr[k]<-3?'react-angry':'react-neutral'):'react-neutral';
-    const bubble=resolved&&fr&&Math.abs(fr[k])>3?
-      `<div class="scene-bubble" style="color:${fr[k]>0?'#080':'#800'}">${fr[k]>0?pick(FCHARS[k].phrases_h):pick(FCHARS[k].phrases_a)}</div>`:'';
     return `<div class="scene-char ${resolved?reaction:'react-neutral'}" id="sc-${k}">
       <span class="scene-char-sprite">${getFactionSprite(k,4)}</span>
-      <span class="scene-char-name">${label}</span>${bubble}</div>`;
+      <span class="scene-char-name">${label}</span></div>`;
   }
-  // Dario scene character (reacts opposite to reckless tech - cares about safety)
   const darioReact=resolved&&window._facR?(window._facR.tech<-2?'react-happy':window._facR.tech>5?'react-angry':'react-neutral'):'react-neutral';
-  const darioBubble=resolved&&window._facR&&Math.abs(window._facR.tech)>3?
-    `<div class="scene-bubble" style="color:${window._facR.tech<0?'#080':'#800'}">${window._facR.tech<0?pick(FCHARS.dario.phrases_h):pick(FCHARS.dario.phrases_a)}</div>`:'';
   const sceneHTML=`<div class="scene">
     <div class="scene-bg"></div>
     ${sceneChar('tech','SAM')}
     <div class="scene-char ${darioReact}" id="sc-dario">
       <span class="scene-char-sprite">${getDarioSprite(4)}</span>
-      <span class="scene-char-name">DARIO</span>${darioBubble}</div>
+      <span class="scene-char-name">DARIO</span></div>
     ${sceneChar('citizens','TIMNIT')}
     <div class="scene-char" id="sc-player"><span class="scene-char-sprite">${spriteHTML('player',4)}</span><span class="scene-char-name">YOU</span></div>
     ${sceneChar('military','GENERAL')}
     ${sceneChar('green','GRETA')}
   </div>`;
 
-  let html=sceneHTML+`<div class="ev">
+  // Build reactions strip (only shown after resolving a choice)
+  let reactionsHTML='';
+  if(resolved&&window._facR){
+    const fr=window._facR;
+    const chips=[];
+    const charNames={tech:'SAM',citizens:'TIMNIT',military:'GENERAL',green:'GRETA'};
+    ['tech','citizens','military','green'].forEach(k=>{
+      if(Math.abs(fr[k])>2){
+        const up=fr[k]>0;
+        const phrase=up?pick(FCHARS[k].phrases_h):pick(FCHARS[k].phrases_a);
+        chips.push(`<div class="reaction-chip ${up?'rc-up':'rc-down'}"><span class="rc-name">${charNames[k]}:</span> "${phrase}"</div>`);
+      }
+    });
+    // Dario reacts opposite to tech
+    if(Math.abs(fr.tech)>3){
+      const up=fr.tech<0;
+      const phrase=up?pick(FCHARS.dario.phrases_h):pick(FCHARS.dario.phrases_a);
+      chips.push(`<div class="reaction-chip ${up?'rc-up':'rc-down'}"><span class="rc-name">DARIO:</span> "${phrase}"</div>`);
+    }
+    if(chips.length) reactionsHTML=`<div class="reactions-strip">${chips.join('')}</div>`;
+  }
+
+  let html=sceneHTML+reactionsHTML+`<div class="ev">
     <div class="ev-head">
       <div class="ev-meta"><span class="ev-q">Q${round}/${maxR}</span><span class="ev-cat">${cn}</span></div>
       <div class="ev-title">${ev.t}</div>
