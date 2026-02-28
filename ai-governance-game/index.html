@@ -112,7 +112,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 .scene{display:flex;align-items:flex-end;justify-content:center;gap:6px;padding:8px 6px;
   background:#0a0a1a;border:var(--pixel) solid var(--border);margin-bottom:8px;min-height:70px;position:relative;overflow:hidden}
 .scene-bg{position:absolute;bottom:0;left:0;right:0;height:20px;background:repeating-linear-gradient(90deg,#1a3a1a 0px,#1a3a1a 8px,#1a4a1a 8px,#1a4a1a 16px)}
-.scene-char{display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;z-index:1}
+.scene-char{display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;z-index:1;
+  transition:margin .5s steps(6)}
+.scene-char.sc-ally{margin:0 -2px}
+.scene-char.sc-foe{margin:0 6px}
+.scene-divider{width:2px;min-height:40px;background:var(--border);opacity:.3;align-self:stretch;margin:0 4px;
+  flex-shrink:0;transition:opacity .4s}
 .scene-char-sprite{image-rendering:pixelated;transition:all .3s}
 .scene-char-sprite canvas{image-rendering:pixelated}
 .scene-char-name{font-size:8px;color:var(--text3);background:rgba(0,0,0,.6);padding:2px 5px}
@@ -267,7 +272,7 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
       <div class="ih">Each quarter, a REAL AI CRISIS hits your desk. Choose your response.</div>
       <div class="ih">Your choices shift 14 STATS and your reputation with 4 FACTIONS.</div>
       <div class="ih">Allocate POLITICAL CAPITAL each round to boost priorities.</div>
-      <div class="ih">Survive 30 QUARTERS. If any faction revolts or a stat collapses — GAME OVER.</div>
+      <div class="ih">Survive 36 QUARTERS. If any faction revolts or a stat collapses — GAME OVER.</div>
     </div>
     <button class="intro-btn" onclick="startGame()">► START GAME</button>
   </div>
@@ -337,7 +342,7 @@ const DEF={innovation:50,gdp:50,public_trust:50,global_stability:50,corporate_in
   international_cooperation:45,public_ai_services:25,carbon:20,water:15};
 const ADEF={doomer:0,accel:0,optimist:0,regulator:0};
 const FDEF={tech:50,citizens:50,military:50,green:50};
-let S,A,F,round,capital,maxR=30,used,prevS={};
+let S,A,F,round,capital,maxR=36,used,prevS={};
 let curEv,curIdx,curAlloc,curPool,resolved;
 
 const FCHARS={
@@ -349,7 +354,10 @@ const FCHARS={
   elon:{name:'Elon Musk',phrases_h:['Based!','Let\'s go!','Build!'],phrases_a:['Woke!','Overreach!','Cringe!']},
   thiel:{name:'Peter Thiel',phrases_h:['Progress!','Power!','Invest!'],phrases_a:['Luddites!','Stagnation!','Antichrist!']},
   jensen:{name:'Jensen Huang',phrases_h:['Chips!','Accelerate!','CUDA!'],phrases_a:['Bottleneck!','Supply chain!','No GPUs!']},
-  zuck:{name:'Mark Zuckerberg',phrases_h:['Open source!','Scale!','Connect!'],phrases_a:['Fudged!','Pivot!','Closed!']}};
+  zuck:{name:'Mark Zuckerberg',phrases_h:['Open source!','Scale!','Connect!'],phrases_a:['Fudged!','Pivot!','Closed!']},
+  asml:{name:'ASML',phrases_h:['Ship EUV!','Orders up!','Monopoly!'],phrases_a:['Blocked!','Export ban!','Revenue!']},
+  tsmc:{name:'TSMC',phrases_h:['Fabricate!','3 nanometer!','Yield!'],phrases_a:['Invasion?!','Sanctions!','Shortage!']},
+  workers:{name:'Data Workers',phrases_h:['Fair pay!','Seen!','Rights!'],phrases_a:['Exploited!','Invisible!','Trauma!']}};
 
 function getDarioSprite(size=4){
   const safety=100-S.safety_incidents;
@@ -371,6 +379,18 @@ function getJensenSprite(size=4){
 function getZuckSprite(size=4){
   const state=S.corporate_influence>=55&&S.innovation>=50?'happy':S.regulation_level>=60?'angry':'idle';
   return spriteHTML('zuck_'+state,size);
+}
+function getAsmlSprite(size=4){
+  const state=S.innovation>=55&&S.international_cooperation>=50?'happy':S.international_cooperation<=30?'angry':'idle';
+  return spriteHTML('asml_'+state,size);
+}
+function getTsmcSprite(size=4){
+  const state=S.innovation>=55&&S.global_stability>=50?'happy':S.arms_race>=60?'angry':'idle';
+  return spriteHTML('tsmc_'+state,size);
+}
+function getWorkersSprite(size=4){
+  const state=S.unemployment<=20&&S.public_trust>=55?'happy':S.unemployment>=50||S.corporate_influence>=70?'angry':'idle';
+  return spriteHTML('workers_'+state,size);
 }
 
 // 8x8 pixel sprites of real AI figures
@@ -654,6 +674,99 @@ const SPRITES={
     '.111111.',
     '..1111..'
   ],
+  // ASML - Dutch company, orange/blue outfit (Dutch colors)
+  asml_idle:[
+    '..AAAA..',
+    '.AAAAAA.',
+    '.AF88FA.',
+    '.A8888A.',
+    '..A88A..',
+    '.111111.',
+    '.1A1A1A.',
+    '..1111..'
+  ],
+  asml_happy:[
+    '..AAAA..',
+    '.AAAAAA.',
+    '.AF88FA.',
+    '.A8FF8A.',
+    '..AFFA..',
+    '.111111.',
+    '.1A1A1A.',
+    '..1111..'
+  ],
+  asml_angry:[
+    '..AAAA..',
+    '.AAAAAA.',
+    '.AF00FA.',
+    '.A8888A.',
+    '..A00A..',
+    '.111111.',
+    '.1A1A1A.',
+    '..1111..'
+  ],
+  // TSMC - Taiwanese company, green uniform with white accents
+  tsmc_idle:[
+    '..0000..',
+    '.000000.',
+    '.0F88F0.',
+    '.088880.',
+    '..0880..',
+    '.777777.',
+    '.7F7F77.',
+    '..7777..'
+  ],
+  tsmc_happy:[
+    '..0000..',
+    '.000000.',
+    '.0F88F0.',
+    '.08FF80.',
+    '..0FF0..',
+    '.777777.',
+    '.7F7F77.',
+    '..7777..'
+  ],
+  tsmc_angry:[
+    '..0000..',
+    '.000000.',
+    '.0F00F0.',
+    '.088880.',
+    '..0000..',
+    '.777777.',
+    '.7F7F77.',
+    '..7777..'
+  ],
+  // Data workers/content moderators - headset, tired eyes, orange vest
+  workers_idle:[
+    '..6666..',
+    '.666666.',
+    '.6F88F6.',
+    '.688886.',
+    '..6886..',
+    '.AAAAAA.',
+    '.A5A5AA.',
+    '..AAAA..'
+  ],
+  workers_happy:[
+    '..6666..',
+    '.666666.',
+    '.6F88F6.',
+    '.68FF86.',
+    '..6FF6..',
+    '.AAAAAA.',
+    '.A5A5AA.',
+    '..AAAA..'
+  ],
+  workers_angry:[
+    '..6666..',
+    '.666666.',
+    '.6F00F6.',
+    '.688886.',
+    '..6006..',
+    '.AAAAAA.',
+    '.A5A5AA.',
+    '..AAAA..'
+  ],
   // Player - alien policy advisor, cyan skin, dark suit
   player:[
     '..9999..',
@@ -861,6 +974,22 @@ const EVENTS=[
   c:[{l:"Mandatory audits",h:"Independent testing",a:"regulator",fx:{regulation_level:6,public_trust:4,innovation:-3,corporate_influence:-4,safety_incidents:-3}},
      {l:"Industry self-correction",h:"Market punishes liars",a:"optimist",fx:{public_trust:2,corporate_influence:-2,innovation:-1,safety_incidents:-1}},
      {l:"Move fast anyway",h:"Benchmarks don't matter",a:"accel",fx:{innovation:4,safety_incidents:5,public_trust:-6,corporate_influence:3,misinformation:3}}]},
+{t:"ASML Caught in US-China Chip War",d:"The US pressures the Netherlands to block ASML from selling chip-making machines to China. ASML loses 25% of its revenue. China races to build alternatives.",cat:"summit",ref:"https://www.bloomberg.com/news/articles/2025-01-15/dutch-align-with-us-export-controls-on-some-asml-chip-tools",
+  c:[{l:"Support export controls",h:"Contain China",a:"doomer",fx:{arms_race:-3,innovation:-4,international_cooperation:-5,gdp:-3,global_stability:2,corporate_influence:-3}},
+     {l:"Lift restrictions",h:"Free trade in tech",a:"accel",fx:{innovation:5,gdp:4,arms_race:5,international_cooperation:4,global_stability:-3,corporate_influence:4}},
+     {l:"Multilateral chip treaty",h:"Rules-based order",a:"regulator",fx:{international_cooperation:6,global_stability:3,innovation:-1,regulation_level:4,arms_race:-2}}]},
+{t:"TSMC Chips Found in Chinese Weapons",d:"US investigators find TSMC-made chips in Chinese military AI systems. Taiwan denies involvement. A customer secretly funneled the chips.",cat:"summit",ref:"https://www.nbcnews.com/tech/tech-news/ai-chip-tsmc-enflame-techinsights-rcna259342",
+  c:[{l:"Sanction TSMC",h:"Zero tolerance",a:"doomer",fx:{innovation:-6,gdp:-5,arms_race:-2,international_cooperation:-6,global_stability:-4,corporate_influence:-4}},
+     {l:"Joint investigation",h:"Find the leak",a:"regulator",fx:{regulation_level:5,international_cooperation:3,arms_race:-1,innovation:-2,global_stability:2}},
+     {l:"Ignore it",h:"Too important to punish",a:"accel",fx:{arms_race:5,innovation:3,corporate_influence:5,public_trust:-5,global_stability:-3}}]},
+{t:"Content Moderators Sue for PTSD",d:"Thousands of Kenyan data workers who trained AI on violent content develop PTSD. They earn $2/hour. They file a class-action lawsuit.",cat:"public",ref:"https://time.com/6247678/openai-chatgpt-kenya-workers/",
+  c:[{l:"Fair labor standards",h:"Global minimum for AI work",a:"regulator",fx:{unemployment:-3,public_trust:6,regulation_level:5,gdp:-3,corporate_influence:-5,international_cooperation:3}},
+     {l:"Fund mental health",h:"Treatment not prevention",a:"optimist",fx:{public_trust:3,gdp:-1,corporate_influence:-1,unemployment:-1,international_cooperation:2}},
+     {l:"Cost of progress",h:"Markets set wages",a:"accel",fx:{corporate_influence:5,gdp:3,public_trust:-7,unemployment:2,international_cooperation:-4}}]},
+{t:"Taiwan Strait Crisis Threatens Chip Supply",d:"Military tensions spike in the Taiwan Strait. 90% of advanced chips come from TSMC. The world holds its breath.",cat:"summit",ref:"https://io-fund.com/semiconductors/taiwan-semiconductor-ai-growth-geopolitical-risk",
+  c:[{l:"Defend Taiwan",h:"Military commitment",a:"doomer",fx:{arms_race:6,global_stability:-5,innovation:-3,gdp:-4,international_cooperation:-3,carbon:3}},
+     {l:"Diplomatic de-escalation",h:"Talks not tanks",a:"optimist",fx:{global_stability:4,international_cooperation:5,arms_race:-2,innovation:-1}},
+     {l:"Onshore chip production",h:"Build at home",a:"regulator",fx:{innovation:-2,gdp:-5,regulation_level:3,global_stability:2,carbon:4,water:3}}]},
 ];
 
 const SN={innovation:'Innov',gdp:'GDP',public_trust:'Trust',global_stability:'Stabil',
@@ -923,61 +1052,66 @@ function renderCard(){
   const cc={lab:'c-lab',market:'c-market',public:'c-public',summit:'c-summit',env:'c-env'}[ev.cat]||'';
   const cn={lab:'THE LAB',market:'THE MARKET',public:'THE PUBLIC',summit:'THE SUMMIT',env:'ENVIRONMENT'}[ev.cat]||'';
 
-  // Build scene characters with pixel sprites (no bubbles - reactions shown in strip below)
-  const SZ=3; // sprite scale - fits 9 characters
-  function sceneChar(k,label){
-    const fr=window._facR;
-    const reaction=resolved&&fr?( fr[k]>3?'react-happy':fr[k]<-3?'react-angry':'react-neutral'):'react-neutral';
-    return `<div class="scene-char ${resolved?reaction:'react-neutral'}" id="sc-${k}">
-      <span class="scene-char-sprite">${getFactionSprite(k,SZ)}</span>
-      <span class="scene-char-name">${label}</span></div>`;
-  }
-  function extraChar(name,label,getSpriteFn,reactCondition){
-    const react=resolved&&window._facR?reactCondition():'react-neutral';
-    return `<div class="scene-char ${react}">
-      <span class="scene-char-sprite">${getSpriteFn(SZ)}</span>
-      <span class="scene-char-name">${label}</span></div>`;
-  }
-  const sceneHTML=`<div class="scene">
-    <div class="scene-bg"></div>
-    ${sceneChar('tech','SAM')}
-    ${extraChar('dario','DARIO',getDarioSprite,()=>window._facR.tech<-2?'react-happy':window._facR.tech>5?'react-angry':'react-neutral')}
-    ${extraChar('elon','ELON',getElonSprite,()=>window._facR.tech>3?'react-happy':window._facR.tech<-3?'react-angry':'react-neutral')}
-    ${extraChar('zuck','ZUCK',getZuckSprite,()=>window._facR.tech>2?'react-happy':window._facR.tech<-2?'react-angry':'react-neutral')}
-    ${sceneChar('citizens','TIMNIT')}
-    <div class="scene-char" id="sc-player"><span class="scene-char-sprite">${spriteHTML('player',SZ)}</span><span class="scene-char-name">YOU</span></div>
-    ${sceneChar('military','GENERAL')}
-    ${extraChar('jensen','JENSEN',getJensenSprite,()=>{const f=window._facR;return(f.tech>3||f.military>3)?'react-happy':'react-neutral'})}
-    ${extraChar('thiel','THIEL',getThielSprite,()=>window._facR.green<-2?'react-happy':window._facR.green>3?'react-angry':'react-neutral')}
-    ${sceneChar('green','GRETA')}
-  </div>`;
+  // All scene characters with reaction logic
+  const SZ=3;
+  const fr=window._facR;
+  const allChars=[
+    {id:'tech',label:'SAM',sprite:getFactionSprite('tech',SZ),score:fr?.tech||0,isFaction:true},
+    {id:'dario',label:'DARIO',sprite:getDarioSprite(SZ),score:fr?-fr.tech*0.8:0},
+    {id:'elon',label:'ELON',sprite:getElonSprite(SZ),score:fr?(fr.tech-(fr.green||0)*0.5):0},
+    {id:'zuck',label:'ZUCK',sprite:getZuckSprite(SZ),score:fr?fr.tech*0.6:0},
+    {id:'jensen',label:'JENSEN',sprite:getJensenSprite(SZ),score:fr?(fr.tech+fr.military)*0.4:0},
+    {id:'asml',label:'ASML',sprite:getAsmlSprite(SZ),score:fr?(fr.tech*0.3-(fr.military||0)*0.5):0},
+    {id:'tsmc',label:'TSMC',sprite:getTsmcSprite(SZ),score:fr?(fr.tech*0.3-(fr.military||0)*0.6):0},
+    {id:'citizens',label:'TIMNIT',sprite:getFactionSprite('citizens',SZ),score:fr?.citizens||0,isFaction:true},
+    {id:'workers',label:'WORKERS',sprite:getWorkersSprite(SZ),score:fr?(fr.citizens*0.6-(fr.tech||0)*0.3):0},
+    {id:'military',label:'GENERAL',sprite:getFactionSprite('military',SZ),score:fr?.military||0,isFaction:true},
+    {id:'thiel',label:'THIEL',sprite:getThielSprite(SZ),score:fr?(-fr.green*0.6+fr.tech*0.4):0},
+    {id:'green',label:'GRETA',sprite:getFactionSprite('green',SZ),score:fr?.green||0,isFaction:true},
+  ];
 
-  // Build reactions strip (only shown after resolving a choice)
-  let reactionsHTML='';
-  if(resolved&&window._facR){
-    const fr=window._facR;
-    const chips=[];
-    const charNames={tech:'SAM',citizens:'TIMNIT',military:'GENERAL',green:'GRETA'};
-    ['tech','citizens','military','green'].forEach(k=>{
-      if(Math.abs(fr[k])>2){
-        const up=fr[k]>0;
-        const phrase=up?pick(FCHARS[k].phrases_h):pick(FCHARS[k].phrases_a);
-        chips.push(`<div class="reaction-chip ${up?'rc-up':'rc-down'}"><span class="rc-name">${charNames[k]}:</span> "${phrase}"</div>`);
-      }
+  // Sort into allies/foes for positioning after decision
+  let allies=[],foes=[],neutrals=[];
+  if(resolved&&fr){
+    allChars.forEach(c=>{
+      if(c.score>2)allies.push(c);
+      else if(c.score<-2)foes.push(c);
+      else neutrals.push(c);
     });
-    // Extra characters react based on stat changes
-    const extras=[
-      {k:'dario',name:'DARIO',up:fr.tech<-3,down:fr.tech>5,check:Math.abs(fr.tech)>3},
-      {k:'elon',name:'ELON',up:fr.tech>4,down:fr.tech<-4||fr.green>3,check:Math.abs(fr.tech)>4||fr.green>3},
-      {k:'zuck',name:'ZUCK',up:fr.tech>3,down:fr.tech<-3,check:Math.abs(fr.tech)>3},
-      {k:'jensen',name:'JENSEN',up:fr.tech>3||fr.military>3,down:fr.tech<-3,check:Math.abs(fr.tech)>3||fr.military>3},
-      {k:'thiel',name:'THIEL',up:fr.green<-3||fr.tech>4,down:fr.green>3,check:Math.abs(fr.green)>3||fr.tech>4}
-    ];
-    extras.forEach(e=>{
-      if(e.check){
-        const up=e.up;
-        const phrase=up?pick(FCHARS[e.k].phrases_h):pick(FCHARS[e.k].phrases_a);
-        chips.push(`<div class="reaction-chip ${up?'rc-up':'rc-down'}"><span class="rc-name">${e.name}:</span> "${phrase}"</div>`);
+  } else {
+    neutrals=allChars;
+  }
+
+  // Build scene: foes | divider | neutrals + player + allies
+  function charHTML(c){
+    const cls=resolved&&fr?(c.score>2?'sc-ally react-happy':c.score<-2?'sc-foe react-angry':'react-neutral'):'react-neutral';
+    return `<div class="scene-char ${cls}" id="sc-${c.id}">
+      <span class="scene-char-sprite">${c.sprite}</span>
+      <span class="scene-char-name">${c.label}</span></div>`;
+  }
+  const playerHTML=`<div class="scene-char" id="sc-player"><span class="scene-char-sprite">${spriteHTML('player',SZ)}</span><span class="scene-char-name">YOU</span></div>`;
+
+  let sceneContent='';
+  if(resolved&&fr&&(allies.length>0||foes.length>0)){
+    sceneContent=foes.map(charHTML).join('')+
+      (foes.length?'<div class="scene-divider"></div>':'')+
+      neutrals.map(charHTML).join('')+playerHTML+allies.map(charHTML).join('');
+  } else {
+    sceneContent=allChars.map(charHTML).join('')+playerHTML;
+  }
+  // Swap player position - put in the middle area
+  const sceneHTML=`<div class="scene"><div class="scene-bg"></div>${sceneContent}</div>`;
+
+  // Build reactions strip
+  let reactionsHTML='';
+  if(resolved&&fr){
+    const chips=[];
+    allChars.forEach(c=>{
+      if(Math.abs(c.score)>2){
+        const up=c.score>0;
+        const phrase=up?pick(FCHARS[c.id]?.phrases_h||FCHARS[c.id.replace('workers','workers')]?.phrases_h||['Yes!']):
+                       pick(FCHARS[c.id]?.phrases_a||['No!']);
+        chips.push(`<div class="reaction-chip ${up?'rc-up':'rc-down'}"><span class="rc-name">${c.label}:</span> "${phrase}"</div>`);
       }
     });
     if(chips.length) reactionsHTML=`<div class="reactions-strip">${chips.join('')}</div>`;
@@ -1019,15 +1153,7 @@ function renderCard(){
 
   if(resolved){
     wireBudget();
-    // Set character reactions
-    if(window._facR){
-      ['tech','citizens','military','green'].forEach(k=>{
-        const el=document.getElementById('sc-'+k);
-        if(!el)return;
-        const v=window._facR[k]||0;
-        el.className='scene-char '+(v>3?'react-happy':v<-3?'react-angry':'react-neutral');
-      });
-    }
+    // Reactions already set during scene building
   }
   // Scroll to top
   document.getElementById('center').scrollTop=0;
@@ -1242,11 +1368,12 @@ function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
 (function(){
   const is=document.getElementById('intro-sprites');
   if(is)is.innerHTML=[
-    spriteHTML('tech_idle',4),spriteHTML('dario_idle',4),spriteHTML('elon_idle',4),
-    spriteHTML('zuck_idle',4),spriteHTML('citizen_idle',4),spriteHTML('player',4),
-    spriteHTML('military_idle',4),spriteHTML('jensen_idle',4),spriteHTML('thiel_idle',4),
-    spriteHTML('green_idle',4)
-  ].map((s,i)=>`<span style="animation:charBob 1s steps(2) infinite;animation-delay:${i*.1}s">${s}</span>`).join('');
+    spriteHTML('tech_idle',3),spriteHTML('dario_idle',3),spriteHTML('elon_idle',3),
+    spriteHTML('zuck_idle',3),spriteHTML('jensen_idle',3),spriteHTML('asml_idle',3),
+    spriteHTML('player',3),
+    spriteHTML('citizen_idle',3),spriteHTML('workers_idle',3),spriteHTML('tsmc_idle',3),
+    spriteHTML('military_idle',3),spriteHTML('thiel_idle',3),spriteHTML('green_idle',3)
+  ].map((s,i)=>`<span style="animation:charBob 1s steps(2) infinite;animation-delay:${i*.08}s">${s}</span>`).join('');
 })();
 </script>
 </body>
