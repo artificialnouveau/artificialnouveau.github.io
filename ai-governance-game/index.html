@@ -38,11 +38,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 .logo{display:flex;align-items:center;gap:8px}
 .logo-icon{font-size:16px}
 .logo h1{font-size:12px;color:var(--cyan);letter-spacing:1px}
-.top-stats{display:flex;gap:8px}
-.top-stat{padding:4px 8px;background:var(--surface);border:2px solid var(--border)}
-.top-stat-label{font-size:8px;color:var(--text3);display:block;margin-bottom:2px}
-.top-stat-val{font-size:12px}
+.top-stats{display:flex;gap:4px;flex-wrap:wrap}
+.top-stat{padding:6px 10px;background:var(--surface);border:2px solid var(--ts-color,var(--border));
+  position:relative;min-width:80px;text-align:center}
+.top-stat::before{content:attr(data-icon);position:absolute;top:2px;left:4px;font-size:8px;opacity:.6}
+.top-stat-label{font-size:9px;color:var(--ts-color,var(--text2));display:block;margin-bottom:3px;
+  letter-spacing:1px;text-transform:uppercase}
+.top-stat-val{font-size:14px;font-weight:bold}
 .top-stat-val.good{color:var(--green)}.top-stat-val.warn{color:var(--orange)}.top-stat-val.bad{color:var(--red)}
+.top-stat-bar{height:3px;background:#222;margin-top:4px;border-radius:1px;overflow:hidden}
+.top-stat-bar-fill{height:100%;transition:width .4s;border-radius:1px}
 #round-pill{padding:4px 10px;background:var(--border);color:#fff;font-size:10px}
 #capital-hud{display:flex;gap:2px;align-items:center}
 .coin{width:12px;height:12px;background:var(--yellow);border:1px solid #b8860b;display:flex;align-items:center;
@@ -52,11 +57,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 /* === LEFT SIDEBAR === */
 #side-left{display:flex;flex-direction:column;gap:3px;padding:6px;overflow-y:auto;
   background:#0d1530;border-right:var(--pixel) solid var(--border)}
-.sg{padding:6px;background:var(--surface);border:2px solid #334}
-.sg-title{font-size:9px;color:var(--cyan);margin-bottom:4px;text-transform:uppercase}
+.sg{padding:6px 6px 6px 10px;background:var(--surface);border:2px solid #334;border-left:4px solid var(--sg-color,var(--cyan))}
+.sg-title{font-size:10px;color:var(--sg-color,var(--cyan));margin-bottom:5px;text-transform:uppercase;letter-spacing:1px}
 .sr{display:flex;align-items:center;gap:4px;padding:2px 0}
 .sr-icon{font-size:10px;width:16px}
-.sr-name{font-size:8px;color:var(--text2);width:50px}
+.sr-name{font-size:9px;color:var(--text2);width:60px}
 .sr-track{flex:1;height:6px;background:#111;border:1px solid #333;overflow:hidden}
 .sr-fill{height:100%;transition:width .4s steps(8)}
 .sr-val{font-size:8px;min-width:20px;text-align:right}
@@ -237,6 +242,42 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 .intro-btn:hover{background:#ff6a80;transform:scale(1.05)}
 @keyframes btnPulse{0%,100%{box-shadow:0 0 0 0 rgba(233,69,96,.4)}50%{box-shadow:0 0 0 8px rgba(233,69,96,0)}}
 
+/* Auto-play stance buttons */
+.intro-auto{margin-top:12px}
+.intro-auto-label{font-size:8px;color:var(--text3);margin-bottom:8px}
+.stance-btns{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.stance-btn{padding:8px 12px;border:2px solid;font-family:'Press Start 2P';font-size:8px;cursor:pointer;
+  background:transparent;transition:all .15s}
+.stance-btn:hover{transform:scale(1.05)}
+.sb-accel{border-color:var(--cyan);color:var(--cyan)}.sb-accel:hover{background:rgba(24,255,255,.15)}
+.sb-doomer{border-color:var(--red);color:var(--red)}.sb-doomer:hover{background:rgba(255,23,68,.15)}
+.sb-optimist{border-color:var(--green);color:var(--green)}.sb-optimist:hover{background:rgba(0,230,118,.15)}
+.sb-regulator{border-color:var(--orange);color:var(--orange)}.sb-regulator:hover{background:rgba(255,171,0,.15)}
+#autoplay-banner{display:none;grid-column:1/-1;text-align:center;padding:4px 8px;font-size:9px;
+  background:rgba(0,0,0,.8);border-bottom:2px solid var(--ab-color,var(--cyan));color:var(--ab-color,var(--cyan));
+  cursor:pointer}
+#autoplay-banner:hover{opacity:.8}
+
+/* Stat & group hover tooltips */
+.has-tip{position:relative;cursor:help}
+.has-tip::after{content:attr(data-tip);display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:#0a0a2a;border:2px solid var(--border);padding:8px;min-width:200px;max-width:260px;z-index:30;
+  font-size:8px;color:var(--text2);line-height:1.8;white-space:normal;text-align:left;pointer-events:none}
+.has-tip:hover::after{display:block}
+.sg.has-tip::after{left:100%;top:0;transform:none}
+
+/* Character hover cards */
+.scene-char{position:relative}
+.char-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:#0a0a2a;border:2px solid var(--border);padding:8px;min-width:180px;max-width:220px;z-index:20;
+  text-align:left;pointer-events:none}
+.char-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:var(--border)}
+.scene-char:hover .char-tooltip{display:block}
+.ct-name{font-size:9px;color:var(--cyan);margin-bottom:4px}
+.ct-role{font-size:7px;color:var(--text2);margin-bottom:4px;line-height:1.6}
+.ct-stance{font-size:7px;color:var(--yellow);line-height:1.4}
+
 /* Screen effects */
 .flash{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:90;
   animation:fl .3s steps(3) forwards}
@@ -276,7 +317,16 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
       <div class="ih">Allocate POLITICAL CAPITAL each round to boost priorities.</div>
       <div class="ih">Survive 36 QUARTERS. If any faction revolts or a stat collapses — GAME OVER.</div>
     </div>
-    <button class="intro-btn" onclick="startGame()">► START GAME</button>
+    <button class="intro-btn" onclick="startGame()">► PLAY MANUALLY</button>
+    <div class="intro-auto">
+      <p class="intro-auto-label">— or pick a stance to auto-play —</p>
+      <div class="stance-btns">
+        <button class="stance-btn sb-accel" onclick="startAutoPlay('accel')">⚡ E/ACC</button>
+        <button class="stance-btn sb-doomer" onclick="startAutoPlay('doomer')">💀 DOOMER</button>
+        <button class="stance-btn sb-optimist" onclick="startAutoPlay('optimist')">🌟 OPTIMIST</button>
+        <button class="stance-btn sb-regulator" onclick="startAutoPlay('regulator')">📜 REGULATOR</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -286,35 +336,36 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
     <span id="round-pill">Q1/20</span>
     <div id="capital-hud"></div>
     <div class="top-stats">
-      <div class="top-stat"><span class="top-stat-label">INN</span><span class="top-stat-val" id="tp-inn">50</span></div>
-      <div class="top-stat"><span class="top-stat-label">GDP</span><span class="top-stat-val" id="tp-gdp">50</span></div>
-      <div class="top-stat"><span class="top-stat-label">TRST</span><span class="top-stat-val" id="tp-trust">50</span></div>
-      <div class="top-stat"><span class="top-stat-label">STAB</span><span class="top-stat-val" id="tp-stab">50</span></div>
+      <div class="top-stat has-tip" data-icon="⚗" data-tip="How fast AI tech is advancing. Driven by research breakthroughs and open-source models." style="--ts-color:var(--cyan)"><span class="top-stat-label">Innovation</span><span class="top-stat-val" id="tp-inn">50</span><div class="top-stat-bar"><div class="top-stat-bar-fill" id="tpb-inn" style="width:50%;background:var(--cyan)"></div></div></div>
+      <div class="top-stat has-tip" data-icon="📈" data-tip="GDP growth from AI. Corporate profits vs. job displacement and market crashes." style="--ts-color:var(--green)"><span class="top-stat-label">Economy</span><span class="top-stat-val" id="tp-gdp">50</span><div class="top-stat-bar"><div class="top-stat-bar-fill" id="tpb-gdp" style="width:50%;background:var(--green)"></div></div></div>
+      <div class="top-stat has-tip" data-icon="🤝" data-tip="Does the public trust AI systems? Eroded by bias scandals, deepfakes, and corporate secrecy." style="--ts-color:var(--orange)"><span class="top-stat-label">Trust</span><span class="top-stat-val" id="tp-trust">50</span><div class="top-stat-bar"><div class="top-stat-bar-fill" id="tpb-trust" style="width:50%;background:var(--orange)"></div></div></div>
+      <div class="top-stat has-tip" data-icon="🌍" data-tip="Global geopolitical stability. Threatened by AI arms races, chip wars, and unilateral actions." style="--ts-color:var(--purple)"><span class="top-stat-label">Stability</span><span class="top-stat-val" id="tp-stab">50</span><div class="top-stat-bar"><div class="top-stat-bar-fill" id="tpb-stab" style="width:50%;background:var(--purple)"></div></div></div>
     </div>
   </div>
+  <div id="autoplay-banner" onclick="stopAutoPlay()">⚡ AUTO-PLAYING AS <span id="ap-stance"></span> — click to take control</div>
 
   <div id="side-left">
-    <div class="sg"><div class="sg-title">⚗ THE LAB</div>
-      <div class="sr"><span class="sr-icon">🔬</span><span class="sr-name">Innov</span><div class="sr-track"><div class="sr-fill" id="b-innovation" style="width:50%;background:var(--cyan)"></div></div><span class="sr-val" id="v-innovation">50</span><span class="sr-trend" id="t-innovation"></span></div>
+    <div class="sg has-tip" data-tip="Research & development: innovation speed, AI safety incidents, and regulation levels." style="--sg-color:var(--cyan)"><div class="sg-title">⚗ THE LAB</div>
+      <div class="sr"><span class="sr-icon">🔬</span><span class="sr-name">Innovation</span><div class="sr-track"><div class="sr-fill" id="b-innovation" style="width:50%;background:var(--cyan)"></div></div><span class="sr-val" id="v-innovation">50</span><span class="sr-trend" id="t-innovation"></span></div>
       <div class="sr"><span class="sr-icon">⚠</span><span class="sr-name">Safety</span><div class="sr-track"><div class="sr-fill" id="b-safety_incidents" style="width:10%;background:var(--red)"></div></div><span class="sr-val" id="v-safety_incidents">10</span><span class="sr-trend" id="t-safety_incidents"></span></div>
-      <div class="sr"><span class="sr-icon">📜</span><span class="sr-name">Regul</span><div class="sr-track"><div class="sr-fill" id="b-regulation_level" style="width:30%;background:var(--blue)"></div></div><span class="sr-val" id="v-regulation_level">30</span><span class="sr-trend" id="t-regulation_level"></span></div>
+      <div class="sr"><span class="sr-icon">📜</span><span class="sr-name">Regulation</span><div class="sr-track"><div class="sr-fill" id="b-regulation_level" style="width:30%;background:var(--blue)"></div></div><span class="sr-val" id="v-regulation_level">30</span><span class="sr-trend" id="t-regulation_level"></span></div>
     </div>
-    <div class="sg"><div class="sg-title">📊 THE MARKET</div>
+    <div class="sg has-tip" data-tip="Economic impact: GDP growth, corporate power over AI policy, and job losses from automation." style="--sg-color:var(--green)"><div class="sg-title">📈 THE MARKET</div>
       <div class="sr"><span class="sr-icon">📈</span><span class="sr-name">GDP</span><div class="sr-track"><div class="sr-fill" id="b-gdp" style="width:50%;background:var(--green)"></div></div><span class="sr-val" id="v-gdp">50</span><span class="sr-trend" id="t-gdp"></span></div>
-      <div class="sr"><span class="sr-icon">🏢</span><span class="sr-name">Corp</span><div class="sr-track"><div class="sr-fill" id="b-corporate_influence" style="width:40%;background:var(--purple)"></div></div><span class="sr-val" id="v-corporate_influence">40</span><span class="sr-trend" id="t-corporate_influence"></span></div>
-      <div class="sr"><span class="sr-icon">💼</span><span class="sr-name">Unemp</span><div class="sr-track"><div class="sr-fill" id="b-unemployment" style="width:15%;background:var(--orange)"></div></div><span class="sr-val" id="v-unemployment">15</span><span class="sr-trend" id="t-unemployment"></span></div>
+      <div class="sr"><span class="sr-icon">🏢</span><span class="sr-name">Corporate</span><div class="sr-track"><div class="sr-fill" id="b-corporate_influence" style="width:40%;background:var(--purple)"></div></div><span class="sr-val" id="v-corporate_influence">40</span><span class="sr-trend" id="t-corporate_influence"></span></div>
+      <div class="sr"><span class="sr-icon">💼</span><span class="sr-name">Unemploy</span><div class="sr-track"><div class="sr-fill" id="b-unemployment" style="width:15%;background:var(--orange)"></div></div><span class="sr-val" id="v-unemployment">15</span><span class="sr-trend" id="t-unemployment"></span></div>
     </div>
-    <div class="sg"><div class="sg-title">👥 THE PUBLIC</div>
+    <div class="sg has-tip" data-tip="Society's relationship with AI: public trust, access to AI services, and misinformation spread." style="--sg-color:var(--orange)"><div class="sg-title">🤝 THE PUBLIC</div>
       <div class="sr"><span class="sr-icon">🤝</span><span class="sr-name">Trust</span><div class="sr-track"><div class="sr-fill" id="b-public_trust" style="width:50%;background:var(--green)"></div></div><span class="sr-val" id="v-public_trust">50</span><span class="sr-trend" id="t-public_trust"></span></div>
-      <div class="sr"><span class="sr-icon">🤖</span><span class="sr-name">AI Svc</span><div class="sr-track"><div class="sr-fill" id="b-public_ai_services" style="width:25%;background:var(--cyan)"></div></div><span class="sr-val" id="v-public_ai_services">25</span><span class="sr-trend" id="t-public_ai_services"></span></div>
-      <div class="sr"><span class="sr-icon">📰</span><span class="sr-name">Misinf</span><div class="sr-track"><div class="sr-fill" id="b-misinformation" style="width:20%;background:var(--red)"></div></div><span class="sr-val" id="v-misinformation">20</span><span class="sr-trend" id="t-misinformation"></span></div>
+      <div class="sr"><span class="sr-icon">🤖</span><span class="sr-name">AI Svcs</span><div class="sr-track"><div class="sr-fill" id="b-public_ai_services" style="width:25%;background:var(--cyan)"></div></div><span class="sr-val" id="v-public_ai_services">25</span><span class="sr-trend" id="t-public_ai_services"></span></div>
+      <div class="sr"><span class="sr-icon">📰</span><span class="sr-name">Misinfo</span><div class="sr-track"><div class="sr-fill" id="b-misinformation" style="width:20%;background:var(--red)"></div></div><span class="sr-val" id="v-misinformation">20</span><span class="sr-trend" id="t-misinformation"></span></div>
     </div>
-    <div class="sg"><div class="sg-title">🌍 THE SUMMIT</div>
-      <div class="sr"><span class="sr-icon">🌍</span><span class="sr-name">Stabil</span><div class="sr-track"><div class="sr-fill" id="b-global_stability" style="width:50%;background:var(--purple)"></div></div><span class="sr-val" id="v-global_stability">50</span><span class="sr-trend" id="t-global_stability"></span></div>
+    <div class="sg has-tip" data-tip="Geopolitics: global stability, AI arms race escalation, and international cooperation on AI governance." style="--sg-color:var(--purple)"><div class="sg-title">🌍 THE SUMMIT</div>
+      <div class="sr"><span class="sr-icon">🌍</span><span class="sr-name">Stability</span><div class="sr-track"><div class="sr-fill" id="b-global_stability" style="width:50%;background:var(--purple)"></div></div><span class="sr-val" id="v-global_stability">50</span><span class="sr-trend" id="t-global_stability"></span></div>
       <div class="sr"><span class="sr-icon">⚔</span><span class="sr-name">Arms</span><div class="sr-track"><div class="sr-fill" id="b-arms_race" style="width:15%;background:var(--red)"></div></div><span class="sr-val" id="v-arms_race">15</span><span class="sr-trend" id="t-arms_race"></span></div>
-      <div class="sr"><span class="sr-icon">🕊</span><span class="sr-name">Coop</span><div class="sr-track"><div class="sr-fill" id="b-international_cooperation" style="width:45%;background:var(--green)"></div></div><span class="sr-val" id="v-international_cooperation">45</span><span class="sr-trend" id="t-international_cooperation"></span></div>
+      <div class="sr"><span class="sr-icon">🕊</span><span class="sr-name">Cooperate</span><div class="sr-track"><div class="sr-fill" id="b-international_cooperation" style="width:45%;background:var(--green)"></div></div><span class="sr-val" id="v-international_cooperation">45</span><span class="sr-trend" id="t-international_cooperation"></span></div>
     </div>
-    <div class="sg"><div class="sg-title">🌿 ENVIRONMENT</div>
+    <div class="sg has-tip" data-tip="Environmental cost of AI: carbon emissions from training and data centers, water usage for cooling." style="--sg-color:var(--blue)"><div class="sg-title">🌿 ENVIRONMENT</div>
       <div class="sr"><span class="sr-icon">🌡</span><span class="sr-name">Carbon</span><div class="sr-track"><div class="sr-fill" id="b-carbon" style="width:20%;background:var(--red)"></div></div><span class="sr-val" id="v-carbon">20</span><span class="sr-trend" id="t-carbon"></span></div>
       <div class="sr"><span class="sr-icon">💧</span><span class="sr-name">Water</span><div class="sr-track"><div class="sr-fill" id="b-water" style="width:15%;background:var(--blue)"></div></div><span class="sr-val" id="v-water">15</span><span class="sr-trend" id="t-water"></span></div>
     </div>
@@ -325,7 +376,7 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
   <div id="side-right">
     <div class="faction" id="fac-tech"><div class="fac-row"><div class="fac-char"><span class="scene-char-sprite char-idle" id="fc-tech"></span></div><div class="fac-info"><div class="fac-name" style="color:var(--cyan)">BIG TECH <span style="font-size:6px;color:var(--text3)">Sam Altman</span></div><div class="fac-mood-text" id="fm-tech">Watching...</div></div></div><div class="fac-bar"><div class="fac-bar-fill" id="fb-tech" style="width:50%;background:var(--cyan)"></div></div></div>
     <div class="faction" id="fac-citizens"><div class="fac-row"><div class="fac-char"><span class="scene-char-sprite char-idle" id="fc-citizens"></span></div><div class="fac-info"><div class="fac-name" style="color:var(--orange)">CITIZENS <span style="font-size:6px;color:var(--text3)">Timnit Gebru</span></div><div class="fac-mood-text" id="fm-citizens">Watching...</div></div></div><div class="fac-bar"><div class="fac-bar-fill" id="fb-citizens" style="width:50%;background:var(--orange)"></div></div></div>
-    <div class="faction" id="fac-military"><div class="fac-row"><div class="fac-char"><span class="scene-char-sprite char-idle" id="fc-military"></span></div><div class="fac-info"><div class="fac-name" style="color:var(--purple)">MILITARY <span style="font-size:6px;color:var(--text3)">The General</span></div><div class="fac-mood-text" id="fm-military">Watching...</div></div></div><div class="fac-bar"><div class="fac-bar-fill" id="fb-military" style="width:50%;background:var(--purple)"></div></div></div>
+    <div class="faction" id="fac-military"><div class="fac-row"><div class="fac-char"><span class="scene-char-sprite char-idle" id="fc-military"></span></div><div class="fac-info"><div class="fac-name" style="color:var(--purple)">MILITARY <span style="font-size:6px;color:var(--text3)">Pentagon</span></div><div class="fac-mood-text" id="fm-military">Watching...</div></div></div><div class="fac-bar"><div class="fac-bar-fill" id="fb-military" style="width:50%;background:var(--purple)"></div></div></div>
     <div class="faction" id="fac-green"><div class="fac-row"><div class="fac-char"><span class="scene-char-sprite char-idle" id="fc-green"></span></div><div class="fac-info"><div class="fac-name" style="color:var(--green)">GREENS <span style="font-size:6px;color:var(--text3)">Greta T.</span></div><div class="fac-mood-text" id="fm-green">Watching...</div></div></div><div class="fac-bar"><div class="fac-bar-fill" id="fb-green" style="width:50%;background:var(--green)"></div></div></div>
     <div class="align-box">
       <h3>ALIGNMENT</h3>
@@ -350,7 +401,7 @@ let curEv,curIdx,curAlloc,curPool,resolved;
 const FCHARS={
   tech:{name:'Sam Altman',phrases_h:['Ship it!','Profits!','To the moon!'],phrases_a:['Outrageous!','Stifling!','We\'ll leave!']},
   citizens:{name:'Timnit Gebru',phrases_h:['Justice!','Ethical!','Finally!'],phrases_a:['Harmful!','Biased!','Unjust!']},
-  military:{name:'The General',phrases_h:['Sir yes sir!','Funded!','Strong!'],phrases_a:['Weakness!','Defunded!','Risky!']},
+  military:{name:'Pentagon',phrases_h:['Sir yes sir!','Funded!','Strong!'],phrases_a:['Weakness!','Defunded!','Risky!']},
   green:{name:'Greta T.',phrases_h:['For Earth!','Hope!','Green win!'],phrases_a:['How dare you!','No future!','Act now!']},
   dario:{name:'Dario Amodei',phrases_h:['Responsible!','Safety first!','Aligned!'],phrases_a:['Reckless!','Dangerous!','Unethical!']},
   elon:{name:'Elon Musk',phrases_h:['Based!','Let\'s go!','Build!'],phrases_a:['Woke!','Overreach!','Cringe!']},
@@ -880,6 +931,24 @@ function charScore(id,fx){
   return s;
 }
 
+const CHAR_BIOS={
+  tech:{name:'Sam Altman',role:'CEO of OpenAI',stance:'Pro-AGI development, wants "safe" commercial AI, pushes massive scaling'},
+  dario:{name:'Dario Amodei',role:'CEO of Anthropic',stance:'AI safety advocate, "responsible scaling", opposes military AI contracts'},
+  elon:{name:'Elon Musk',role:'Owner of xAI / Grok',stance:'Anti-regulation, builds Colossus data center, feuds with OpenAI'},
+  zuck:{name:'Mark Zuckerberg',role:'CEO of Meta',stance:'Open-source AI models (Llama), "move fast", minimal regulation'},
+  jensen:{name:'Jensen Huang',role:'CEO of NVIDIA',stance:'GPU monopoly, sells to everyone, "AI is the new electricity"'},
+  thiel:{name:'Peter Thiel',role:'Tech investor / Palantir',stance:'Military AI contracts, libertarian, anti-regulation accelerationist'},
+  citizens:{name:'Timnit Gebru',role:'AI Ethics researcher',stance:'Fights AI bias, corporate accountability, justice for affected communities'},
+  green:{name:'Greta Thunberg',role:'Climate activist',stance:'Opposes AI energy waste, water use, demands environmental accountability'},
+  military:{name:'The Pentagon',role:'US Dept. of Defense',stance:'AI for national security, autonomous weapons, surveillance systems'},
+  asml:{name:'ASML',role:'Dutch chip lithography monopoly',stance:'Only EUV machine maker, caught in US-China chip war export controls'},
+  tsmc:{name:'TSMC',role:'Taiwan semiconductor fab',stance:'Makes 90% of advanced chips, geopolitical flashpoint, neutral stance'},
+  workers:{name:'Data Workers',role:'Annotators & content moderators',stance:'Fight for fair wages, mental health support, recognition as essential AI labor'}
+};
+
+let autoPlayStance=null;
+let autoPlayTimer=null;
+
 const EVENTS=[
 {t:"DeepSeek Releases Open-Source Frontier Model",d:"A Chinese AI lab open-sources a model rivaling GPT-5. Great for research, terrifying for safety teams.",cat:"lab",ref:"https://www.nature.com/articles/d41586-025-00279-0",
   c:[{l:"Celebrate open science",h:"Innovation up, safety down",a:"accel",fx:{innovation:8,safety_incidents:6,corporate_influence:-5,misinformation:4,carbon:3}},
@@ -1037,15 +1106,52 @@ const FI={tech:'💼',citizens:'✊',military:'🎖️',green:'🌿'};
 function clamp(v){return Math.max(0,Math.min(100,Math.round(v)))}
 
 function startGame(){
+  autoPlayStance=null;
+  if(autoPlayTimer){clearTimeout(autoPlayTimer);autoPlayTimer=null}
+  document.getElementById('autoplay-banner').style.display='none';
   document.getElementById('intro').classList.add('hide');
   setTimeout(()=>document.getElementById('intro').style.display='none',500);
   S={...DEF};A={...ADEF};F={...FDEF};round=0;capital=3;used=[];prevS={...S};
-  // Initialize sidebar pixel sprites
   ['tech','citizens','military','green'].forEach(k=>{
     const el=document.getElementById('fc-'+k);
     if(el)el.innerHTML=getFactionSprite(k,3);
   });
   nextTurn();
+}
+
+function startAutoPlay(stance){
+  autoPlayStance=stance;
+  const colors={accel:'var(--cyan)',doomer:'var(--red)',optimist:'var(--green)',regulator:'var(--orange)'};
+  const labels={accel:'E/ACC ⚡',doomer:'DOOMER 💀',optimist:'OPTIMIST 🌟',regulator:'REGULATOR 📜'};
+  const banner=document.getElementById('autoplay-banner');
+  banner.style.display='block';
+  banner.style.setProperty('--ab-color',colors[stance]);
+  document.getElementById('ap-stance').textContent=labels[stance];
+  document.getElementById('intro').classList.add('hide');
+  setTimeout(()=>document.getElementById('intro').style.display='none',500);
+  S={...DEF};A={...ADEF};F={...FDEF};round=0;capital=3;used=[];prevS={...S};
+  ['tech','citizens','military','green'].forEach(k=>{
+    const el=document.getElementById('fc-'+k);
+    if(el)el.innerHTML=getFactionSprite(k,3);
+  });
+  nextTurn();
+}
+
+function stopAutoPlay(){
+  autoPlayStance=null;
+  if(autoPlayTimer){clearTimeout(autoPlayTimer);autoPlayTimer=null}
+  document.getElementById('autoplay-banner').style.display='none';
+}
+
+function autoPickChoice(){
+  if(!autoPlayStance||!window._currentEvent)return;
+  const ev=window._currentEvent;
+  // Find the choice that matches our stance
+  let best=0;
+  for(let i=0;i<ev.c.length;i++){
+    if(ev.c[i].a===autoPlayStance){best=i;break}
+  }
+  resolve(window._currentEventIdx,best);
 }
 
 function nextTurn(){
@@ -1079,7 +1185,9 @@ function showEvent(){
   curIdx=EVENTS.indexOf(avail[Math.floor(Math.random()*avail.length)]);
   used.push(curIdx);curEv=EVENTS[curIdx];
   curAlloc={research:0,economy:0,services:0,diplomacy:0};curPool=capital;resolved=false;
+  window._currentEvent=curEv;window._currentEventIdx=curIdx;
   renderCard();
+  if(autoPlayStance){autoPlayTimer=setTimeout(autoPickChoice,1200)}
 }
 
 function renderCard(){
@@ -1103,7 +1211,7 @@ function renderCard(){
     {id:'workers',label:'WORKERS',sprite:getWorkersSprite(SZ),row:'front'},
     {id:'asml',label:'ASML',sprite:getAsmlSprite(SZ),row:'front'},
     {id:'tsmc',label:'TSMC',sprite:getTsmcSprite(SZ),row:'front'},
-    {id:'military',label:'GENERAL',sprite:getFactionSprite('military',SZ),row:'front'},
+    {id:'military',label:'PENTAGON',sprite:getFactionSprite('military',SZ),row:'front'},
     {id:'green',label:'GRETA',sprite:getFactionSprite('green',SZ),row:'front'},
   ];
   // Assign scores from charScore() results
@@ -1114,8 +1222,10 @@ function renderCard(){
     const s=c.score;
     const thresh=3;
     const cls=resolved&&s!==0?(s>thresh?'sc-ally react-happy':s<-thresh?'sc-foe react-angry':'react-neutral'):'react-neutral';
+    const bio=CHAR_BIOS[c.id];
+    const tip=bio?`<div class="char-tooltip"><div class="ct-name">${bio.name}</div><div class="ct-role">${bio.role}</div><div class="ct-stance">${bio.stance}</div></div>`:'';
     return `<div class="scene-char ${cls}" id="sc-${c.id}">
-      <span class="scene-char-sprite">${c.sprite}</span>
+      ${tip}<span class="scene-char-sprite">${c.sprite}</span>
       <span class="scene-char-name">${c.label}</span></div>`;
   }
   const playerHTML=`<div class="scene-char" id="sc-player"><span class="scene-char-sprite">${spriteHTML('player',SZ)}</span><span class="scene-char-name">YOU</span></div>`;
@@ -1237,6 +1347,12 @@ function resolve(ei,ci){
   resolved=true;
   updateAll();
   renderCard();
+  // Auto-play: skip budget and auto-advance after showing result briefly
+  if(autoPlayStance){
+    autoPlayTimer=setTimeout(()=>{
+      applyBud({research:0,economy:0,services:0,diplomacy:0});
+    },1500);
+  }
 }
 
 function budR(icon,name,key,fx,count){
@@ -1324,7 +1440,9 @@ function factionPerk(k,h){
 
 function setTP(id,v){const el=document.getElementById(id);el.textContent=v;
   el.className='top-stat-val '+(v>=60?'good':v>=30?'warn':'bad');
-  el.parentElement.style.animation=v<=25?'pillPulse 1s steps(2) infinite':'none'}
+  el.parentElement.style.animation=v<=25?'pillPulse 1s steps(2) infinite':'none';
+  const bar=document.getElementById(id.replace('tp-','tpb-'));
+  if(bar)bar.style.width=v+'%'}
 
 function checkGO(){
   const r=[];
