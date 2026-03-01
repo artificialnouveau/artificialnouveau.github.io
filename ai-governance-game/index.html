@@ -1490,12 +1490,12 @@ function renderCard(){
   const playerHTML=`<div class="scene-char" id="sc-player"><span class="scene-char-sprite">${spriteHTML('player',SZ)}</span><span class="scene-char-name">YOU</span></div>`;
 
   function buildRow(chars,rowClass){
-    if(!resolved||!Object.keys(cs).length){
-      return `<div class="scene-row ${rowClass}">${chars.map(charHTML).join('')}${rowClass==='front'?playerHTML:''}</div>`;
-    }
-    const allies=chars.filter(c=>c.score>3).sort((a,b)=>b.score-a.score);
-    const foes=chars.filter(c=>c.score<-3).sort((a,b)=>a.score-b.score);
-    const neutrals=chars.filter(c=>c.score>=-3&&c.score<=3);
+    // Use current scores if resolved, otherwise keep last known order
+    const useScores=resolved&&Object.keys(cs).length?cs:(window._lastCharScores||{});
+    const scored=chars.map(c=>({...c,score:useScores[c.id]||0}));
+    const allies=scored.filter(c=>c.score>3).sort((a,b)=>b.score-a.score);
+    const foes=scored.filter(c=>c.score<-3).sort((a,b)=>a.score-b.score);
+    const neutrals=scored.filter(c=>c.score>=-3&&c.score<=3);
     return `<div class="scene-row ${rowClass}">${foes.map(charHTML).join('')}${neutrals.map(charHTML).join('')}${rowClass==='front'?playerHTML:''}${allies.map(charHTML).join('')}</div>`;
   }
 
@@ -1578,6 +1578,7 @@ function resolve(ei,ci){
   // Compute per-character reaction scores from actual choice effects
   window._charScores={};
   Object.keys(CHAR_VALUES).forEach(id=>{window._charScores[id]=charScore(id,ch.fx)});
+  window._lastCharScores={...window._charScores};
 
   // Screen shake
   document.getElementById('game').classList.add('shake');
@@ -1594,8 +1595,13 @@ function resolve(ei,ci){
   const tone=net>2?'og':net<-2?'ob':'om';
 
   const facReacts=[];
+  const cs=window._charScores||{};
   Object.keys(fr).forEach(k=>{
-    if(Math.abs(fr[k])>3)facReacts.push({n:FN[k],v:(fr[k]>0?'+':'')+fr[k],cls:fr[k]>0?'fr-up':'fr-down'});
+    if(Math.abs(fr[k])>3){
+      // Use character score to determine color so it matches dialogue mood
+      const charMood=cs[k]||fr[k];
+      facReacts.push({n:FN[k],v:(fr[k]>0?'+':'')+fr[k],cls:charMood>0?'fr-up':'fr-down'});
+    }
   });
 
   addLog(`Q${round}: ${ch.l}`,net>0?'lg':net<0?'lb':'lw');
