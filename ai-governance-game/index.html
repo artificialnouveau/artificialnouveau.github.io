@@ -31,6 +31,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 
 /* === LAYOUT === */
 #game{display:grid;grid-template-columns:220px 1fr 220px;grid-template-rows:auto 1fr;height:100vh}
+#game.wv-open{grid-template-rows:auto 1fr 180px}
 
 /* === TOP BAR === */
 #topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:8px 12px;
@@ -224,11 +225,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 .end-sl{font-size:7px;color:var(--text3)}.end-sv{font-size:10px;margin-top:2px}
 
 /* Intro */
-#intro{position:fixed;top:0;left:0;width:100%;height:100%;z-index:100;display:flex;align-items:center;
-  justify-content:center;background:var(--bg)}
+#intro{position:fixed;top:0;left:0;width:100%;height:100%;z-index:100;display:flex;align-items:flex-start;
+  justify-content:center;background:var(--bg);overflow-y:auto}
+.intro-c{margin:auto}
 #intro.hide{animation:fadeOut .5s steps(5) forwards}
 @keyframes fadeOut{to{opacity:0;pointer-events:none}}
-.intro-c{text-align:center;max-width:440px;padding:16px}
+.intro-c{text-align:center;max-width:440px;padding:32px 16px}
 .intro-scene{font-size:40px;margin-bottom:12px;display:flex;justify-content:center;gap:8px}
 .intro-scene span{animation:charBob 1s steps(2) infinite}
 .intro-scene span:nth-child(2){animation-delay:.2s}
@@ -298,9 +300,28 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#111}::-webkit-scrollbar-thumb{background:var(--border)}
 
+/* === WORLD VIEW PANEL === */
+#world-view{grid-column:1/-1;background:#0a0a1a;border-top:var(--pixel) solid var(--border);position:relative;overflow:hidden;display:none}
+#game.wv-open #world-view{display:block}
+#world-view .wv-tabs{position:absolute;top:4px;right:8px;z-index:2;display:flex;gap:2px}
+#world-view .wv-tab{padding:3px 8px;font-size:7px;font-family:'Press Start 2P',monospace;
+  background:var(--surface);border:1px solid #334;color:var(--text3);cursor:pointer}
+#world-view .wv-tab:hover{border-color:var(--cyan);color:var(--text2)}
+#world-view .wv-tab.active{border-color:var(--cyan);color:var(--cyan);background:var(--panel)}
+#world-view .wv-label{position:absolute;top:6px;left:8px;font-size:7px;color:var(--text3);
+  font-family:'Press Start 2P',monospace;z-index:2;letter-spacing:1px}
+#wv-canvas{width:100%;height:100%;image-rendering:pixelated;display:block}
+#wv-toggle{position:fixed;bottom:8px;right:8px;z-index:81;padding:6px 10px;font-family:'Press Start 2P',monospace;
+  font-size:8px;background:var(--surface);border:2px solid var(--border);color:var(--text2);cursor:pointer;
+  display:none}
+#wv-toggle:hover{border-color:var(--cyan);color:var(--cyan)}
+#wv-toggle.open{bottom:188px}
+#game.wv-open~#wv-toggle{bottom:188px}
+
 /* === NEWS TICKER === */
 #ticker{position:fixed;bottom:0;left:0;width:100%;height:28px;background:#0a0a1a;border-top:2px solid var(--border);
   overflow:hidden;z-index:80;display:none}
+#game.wv-open~#ticker{bottom:180px}
 #ticker .ticker-track{display:flex;white-space:nowrap;animation:tickerScroll 60s linear infinite}
 #ticker .ticker-item{padding:6px 24px;font-size:8px;color:var(--text2);flex-shrink:0}
 #ticker .ticker-item::before{content:'► ';color:var(--border)}
@@ -357,7 +378,8 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 
 @media(max-width:768px){
   #game{grid-template-columns:1fr;grid-template-rows:auto 1fr}
-  #side-left,#side-right{display:none}
+  #side-left,#side-right,#world-view,#wv-toggle{display:none!important}
+  #ticker{bottom:0!important}
   .scene-zones{padding:0 4px}
   .zone-label{font-size:6px;letter-spacing:0;padding:2px 3px}
   .scene-row{gap:2px;flex-wrap:wrap}
@@ -450,9 +472,21 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
     </div>
     <div id="log"><h3>INTEL</h3><div id="log-entries"></div></div>
   </div>
+
+  <div id="world-view">
+    <span class="wv-label">WORLD VIEW</span>
+    <div class="wv-tabs">
+      <button class="wv-tab active" data-wv="all">ALL</button>
+      <button class="wv-tab" data-wv="infra">INFRA</button>
+      <button class="wv-tab" data-wv="workers">WORKERS</button>
+      <button class="wv-tab" data-wv="users">USERS</button>
+    </div>
+    <canvas id="wv-canvas"></canvas>
+  </div>
 </div>
 
 <div id="char-tip"></div>
+<button id="wv-toggle" onclick="toggleWorldView()">🌍 WORLD VIEW</button>
 <div id="ticker"><div class="ticker-track"></div></div>
 
 <div id="breaking" onclick="dismissBreaking()">
@@ -1318,6 +1352,8 @@ function startGame(){
     if(el)el.innerHTML=getFactionSprite(k,3);
   });
   updateTicker();
+  WorldView.init();WorldView.update(S);
+  document.getElementById('wv-toggle').style.display='block';
   nextTurn();
 }
 
@@ -1338,6 +1374,8 @@ function startAutoPlay(stance){
     if(el)el.innerHTML=getFactionSprite(k,3);
   });
   updateTicker();
+  WorldView.init();WorldView.update(S);
+  document.getElementById('wv-toggle').style.display='block';
   nextTurn();
 }
 
@@ -1660,6 +1698,7 @@ function updateAll(){
     else{sprite.className='scene-char-sprite char-idle';
       mood.textContent=F[k]>=50?'Satisfied':'Uneasy...'}
   });
+  WorldView.update(S);
 }
 
 function factionPerk(k,h){
@@ -1967,14 +2006,579 @@ document.addEventListener('keydown',e=>{
   });
 })();
 
+// === WORLD VIEW SPRITES ===
+Object.assign(SPRITES,{
+  datacenter:[
+    '44444444',
+    '4FFFF4F4',
+    '4F44F4F4',
+    '4FFFF4F4',
+    '4F44F4F4',
+    '4FFFF4F4',
+    '44444444',
+    '33333333'
+  ],
+  smoke_1:[
+    '........',
+    '...44...',
+    '..4444..',
+    '.444444.',
+    '..4444..',
+    '...44...',
+    '........',
+    '........'
+  ],
+  smoke_2:[
+    '........',
+    '..44....',
+    '.4444...',
+    '444444..',
+    '.4444...',
+    '..44....',
+    '........',
+    '........'
+  ],
+  solar_panel:[
+    '11111111',
+    '1F1F1F11',
+    '11111111',
+    '1F1F1F11',
+    '11111111',
+    '...33...',
+    '...33...',
+    '..3333..'
+  ],
+  wind_turbine:[
+    '...FF...',
+    '...F4...',
+    '..FFF4..',
+    '...F4...',
+    '...33...',
+    '...33...',
+    '...33...',
+    '..3333..'
+  ],
+  tree_green:[
+    '...77...',
+    '..7777..',
+    '.777777.',
+    '77777777',
+    '.777777.',
+    '...66...',
+    '...66...',
+    '..6666..'
+  ],
+  tree_dead:[
+    '...33...',
+    '..3.33..',
+    '.3..3.3.',
+    '..3.3...',
+    '...33...',
+    '...66...',
+    '...66...',
+    '..6666..'
+  ],
+  lake_full:[
+    '........',
+    '.111111.',
+    '11111111',
+    '1111F111',
+    '11111111',
+    '1111F111',
+    '.111111.',
+    '........'
+  ],
+  lake_dry:[
+    '........',
+    '........',
+    '..6666..',
+    '.666666.',
+    '.666A66.',
+    '..6666..',
+    '........',
+    '........'
+  ],
+  // Desk (just furniture, no person)
+  desk:[
+    '33333333',
+    '33FFFF33',
+    '.33..33.',
+    '.33..33.'
+  ],
+  // Worker 1: brown hair, light skin, blue shirt
+  worker_1:[
+    '..5555..',
+    '.555555.',
+    '.5F88F5.',
+    '.588885.',
+    '..8888..',
+    '.111111.',
+    '.111111.',
+    '..1..1..'
+  ],
+  // Worker 2: black hair, dark skin, purple top
+  worker_2:[
+    '..0000..',
+    '.000000.',
+    '.0FDDF0.',
+    '.0DDDD0.',
+    '..DDDD..',
+    '.999999.',
+    '.999999.',
+    '..9..9..'
+  ],
+  // Worker 3: red hair, light skin, green shirt
+  worker_3:[
+    '..GGGG..',
+    '.GGGGGG.',
+    '.GF88FG.',
+    '.G8888G.',
+    '..8888..',
+    '.777777.',
+    '.777777.',
+    '..7..7..'
+  ],
+  // Worker 4: blonde, light skin, orange vest
+  worker_4:[
+    '..EEEE..',
+    '.EEEEEE.',
+    '.EF88FE.',
+    '.E8888E.',
+    '..8888..',
+    '.AAAAAA.',
+    '.AAAAAA.',
+    '..A..A..'
+  ],
+  // Worker 5: bald, medium skin, gray suit
+  worker_5:[
+    '........',
+    '..DDDD..',
+    '.DF88FD.',
+    '.D8888D.',
+    '..DDDD..',
+    '.444444.',
+    '.444444.',
+    '..4..4..'
+  ],
+  // Worker 6: short hair, dark skin, cyan top
+  worker_6:[
+    '..0000..',
+    '.000000.',
+    '.0FDDF0.',
+    '.0DDDD0.',
+    '..DDDD..',
+    '.IIIIII.',
+    '.IIIIII.',
+    '..I..I..'
+  ],
+  // Stressed worker overlay: red tint, hunched
+  worker_stressed:[
+    '..GGGG..',
+    '.GGGGGG.',
+    '.GF88FG.',
+    '.G8008G.',
+    '..8888..',
+    '.444444.',
+    '.4G44G4.',
+    '..4..4..'
+  ],
+  robot_worker:[
+    '..4444..',
+    '.4FFFF4.',
+    '.4F11F4.',
+    '.444444.',
+    '.3CCCC3.',
+    '.333333.',
+    '..3..3..',
+    '..3..3..'
+  ],
+  monitor_on:[
+    '33333333',
+    '31111113',
+    '31F11F13',
+    '31111113',
+    '33333333',
+    '...33...',
+    '..3333..',
+    '........'
+  ],
+  user_happy:[
+    '..8888..',
+    '.888888.',
+    '.8F88F8.',
+    '.88FF88.',
+    '..8FF8..',
+    '.444444.',
+    '.444444.',
+    '..4..4..'
+  ],
+  user_worried:[
+    '..8888..',
+    '.888888.',
+    '.8F88F8.',
+    '.888888.',
+    '..8008..',
+    '.444444.',
+    '.444444.',
+    '..4..4..'
+  ],
+  user_angry:[
+    '..8888..',
+    '.888888.',
+    '.8F00F8.',
+    '.888888.',
+    '..8008..',
+    '.GG44GG.',
+    '.444444.',
+    '..4..4..'
+  ],
+  phone:[
+    '........',
+    '........',
+    '........',
+    '....33..',
+    '....31..',
+    '....31..',
+    '....33..',
+    '........'
+  ],
+  easel:[
+    '.EEEEEE.',
+    '.E1111E.',
+    '.EEEEEE.',
+    '..3333..',
+    '.3....3.',
+    '3......3',
+    '........',
+    '........'
+  ],
+  chat_bubble:[
+    '.FFFFFF.',
+    'F111111F',
+    'F111111F',
+    '.FFFFFF.',
+    '..F.....',
+    '.F......',
+    '........',
+    '........'
+  ],
+  deepfake_tv:[
+    '33333333',
+    '3GGGGGG3',
+    '3G8G8GG3',
+    '3GGGGGG3',
+    '3GGFFGG3',
+    '33333333',
+    '...33...',
+    '..3333..'
+  ],
+  protest_sign:[
+    'GGGGGGGG',
+    'GFFFFFFG',
+    'GFGGGFFG',
+    'GGGGGGGG',
+    '...33...',
+    '...33...',
+    '...33...',
+    '...33...'
+  ],
+  companion_bot:[
+    '..1111..',
+    '.1FFFF1.',
+    '.1F11F1.',
+    '.1FFFF1.',
+    '..1111..',
+    '.11CC11.',
+    '..1111..',
+    '..1..1..'
+  ]
+});
+
+// === WORLD VIEW MODULE ===
+const WorldView=(function(){
+  let cvs,ctx,W,H,mode='all',particles=[],tick=0,stats=null,lastFrame=0;
+  const FPS=8,FRAME_MS=1000/FPS;
+  const PX=2; // pixel scale on canvas
+
+  function init(){
+    cvs=document.getElementById('wv-canvas');
+    if(!cvs)return;
+    ctx=cvs.getContext('2d');
+    ctx.imageSmoothingEnabled=false;
+    resize();
+    window.addEventListener('resize',resize);
+    // wire tabs
+    document.querySelectorAll('.wv-tab').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.wv-tab').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        mode=btn.dataset.wv;
+      });
+    });
+    requestAnimationFrame(loop);
+  }
+
+  function resize(){
+    const r=cvs.parentElement.getBoundingClientRect();
+    cvs.width=Math.floor(r.width/PX);
+    cvs.height=Math.floor(r.height/PX);
+    W=cvs.width;H=cvs.height;
+    ctx.imageSmoothingEnabled=false;
+  }
+
+  function update(s){stats={...s};}
+
+  function loop(ts){
+    requestAnimationFrame(loop);
+    if(ts-lastFrame<FRAME_MS)return;
+    lastFrame=ts;
+    if(!stats)return;
+    tick++;
+    ctx.clearRect(0,0,W,H);
+    if(mode==='all'||mode==='infra')drawInfra(mode==='all'?0:0,mode==='all'?H/3:H);
+    if(mode==='all'||mode==='workers')drawWorkers(mode==='all'?H/3:0,mode==='all'?H/3:H);
+    if(mode==='all'||mode==='users')drawUsers(mode==='all'?H*2/3:0,mode==='all'?H/3:H);
+    updateParticles();
+    drawParticles();
+  }
+
+  // -- Helper: draw an 8x8 sprite at (x,y) with given scale
+  function spr(name,x,y,sc){
+    const data=SPRITES[name];if(!data)return;
+    sc=sc||1;
+    for(let r=0;r<data.length;r++){
+      for(let c=0;c<data[r].length;c++){
+        const ch=data[r][c];
+        if(ch!=='.'){
+          ctx.fillStyle=PCOLORS[ch]||'#ff00ff';
+          ctx.fillRect(Math.floor(x+c*sc),Math.floor(y+r*sc),sc,sc);
+        }
+      }
+    }
+  }
+
+  // -- Helper: tinted rect
+  function rect(x,y,w,h,col){
+    ctx.fillStyle=col;
+    ctx.fillRect(Math.floor(x),Math.floor(y),Math.floor(w),Math.floor(h));
+  }
+
+  // -- Particles
+  function spawnSmoke(x,y){
+    particles.push({x,y,vx:(Math.random()-.5)*.3,vy:-Math.random()*.4-.2,life:30+Math.random()*20,
+      col:Math.random()>.5?'#555':'#444',sz:1+Math.random()});
+  }
+
+  function updateParticles(){
+    for(let i=particles.length-1;i>=0;i--){
+      const p=particles[i];
+      p.x+=p.vx;p.y+=p.vy;p.life--;
+      if(p.life<=0)particles.splice(i,1);
+    }
+  }
+
+  function drawParticles(){
+    particles.forEach(p=>{
+      const a=Math.min(1,p.life/15);
+      ctx.globalAlpha=a;
+      ctx.fillStyle=p.col;
+      ctx.fillRect(Math.floor(p.x),Math.floor(p.y),Math.ceil(p.sz),Math.ceil(p.sz));
+    });
+    ctx.globalAlpha=1;
+  }
+
+  // ===== LAYER 1: INFRASTRUCTURE =====
+  function drawInfra(oy,h){
+    const carbon=stats.carbon||20,water=stats.water||15,inn=stats.innovation||50;
+    // Sky color based on carbon
+    let skyCol;
+    if(carbon<25)skyCol='#1a3a6e';
+    else if(carbon<50)skyCol='#2a3a4e';
+    else if(carbon<75)skyCol='#4a3a2e';
+    else skyCol='#5a1a1a';
+    rect(0,oy,W,h,skyCol);
+    // Ground
+    const groundY=oy+h-6;
+    let groundCol=carbon<25?'#1a4a1a':carbon<50?'#2a4a2a':carbon<75?'#4a3a1a':'#3a2a1a';
+    rect(0,groundY,W,6,groundCol);
+
+    const sc=Math.max(1,Math.floor(h/30));
+    // Data centers based on innovation
+    const dcCount=Math.max(1,Math.min(6,Math.floor(inn/16)));
+    const dcSpacing=Math.floor(W/(dcCount+2));
+    for(let i=0;i<dcCount;i++){
+      const dx=dcSpacing*(i+1);
+      spr('datacenter',dx,groundY-8*sc,sc);
+      // Smoke based on carbon
+      if(carbon>25&&tick%Math.max(2,8-Math.floor(carbon/15))===i%4){
+        spawnSmoke(dx+4*sc,oy+h*0.3);
+      }
+    }
+
+    // Solar panels / wind turbines when carbon < 25
+    if(carbon<25){
+      spr('solar_panel',Math.floor(W*0.1),groundY-8*sc,sc);
+      spr('wind_turbine',Math.floor(W*0.85),groundY-10*sc,sc);
+    }
+
+    // Trees
+    const treeType=carbon>60?'tree_dead':'tree_green';
+    spr(treeType,Math.floor(W*0.05),groundY-8*sc,sc);
+    if(carbon<50)spr('tree_green',Math.floor(W*0.92),groundY-8*sc,sc);
+
+    // Water features - multiple lakes/ponds based on water usage
+    const waterSpots=[0.35,0.55,0.7,0.82];
+    for(let i=0;i<waterSpots.length;i++){
+      const lakeX=Math.floor(W*waterSpots[i]);
+      if(water>70){
+        spr('lake_dry',lakeX,groundY-6*sc,sc);
+      }else if(water>50&&i>=2){
+        // Higher water usage dries out smaller ponds first
+        spr('lake_dry',lakeX,groundY-6*sc,sc);
+      }else if(water>30&&i>=3){
+        spr('lake_dry',lakeX,groundY-6*sc,sc);
+      }else{
+        spr('lake_full',lakeX,groundY-6*sc,sc);
+        // Shrink effect
+        if(water>40){
+          const cover=(water-40)/30;
+          rect(lakeX,groundY-6*sc,8*sc*cover,8*sc,groundCol);
+        }
+      }
+    }
+  }
+
+  // ===== LAYER 2: WORKERS =====
+  function drawWorkers(oy,h){
+    const unemp=stats.unemployment||15,corp=stats.corporate_influence||40;
+    // Office bg
+    rect(0,oy,W,h,'#16213e');
+    // Floor
+    const floorY=oy+h-4;
+    rect(0,floorY,W,4,'#1a1a2e');
+    // ceiling line
+    rect(0,oy,W,1,'#223');
+
+    const sc=Math.max(1,Math.floor(h/30));
+    const deskCount=8;
+    const occupiedCount=Math.max(0,Math.min(8,Math.round(8*(1-unemp/100))));
+    const robotReplace=corp>50;
+    const spacing=Math.floor(W/(deskCount+1));
+
+    const workerSprites=['worker_1','worker_2','worker_3','worker_4','worker_5','worker_6'];
+    for(let i=0;i<deskCount;i++){
+      const dx=spacing*(i+1)-4*sc;
+      // Draw desk
+      spr('desk',dx,floorY-4*sc,sc);
+      if(i<occupiedCount){
+        // Pick a varied worker based on desk index
+        const stressed=corp>60&&unemp>30;
+        const wSprite=stressed?'worker_stressed':workerSprites[i%workerSprites.length];
+        spr(wSprite,dx,floorY-12*sc,sc);
+        // Typing animation - pixel flicker on desk monitor area
+        if(tick%4<2){
+          rect(dx+3*sc,floorY-3*sc,2*sc,sc,stressed?'#ff4444':'#40c4ff');
+        }
+      }else{
+        // Empty desk, possibly with robot
+        if(robotReplace){
+          spr('robot_worker',dx,floorY-12*sc,sc);
+        }
+      }
+    }
+
+    // Monitor wall for corporate influence
+    if(corp>30){
+      const monCount=Math.min(4,Math.floor(corp/20));
+      for(let i=0;i<monCount;i++){
+        spr('monitor_on',Math.floor(W*0.02)+i*10*sc,oy+2,sc);
+      }
+    }
+  }
+
+  // ===== LAYER 3: USERS =====
+  function drawUsers(oy,h){
+    const ai=stats.public_ai_services||25,trust=stats.public_trust||50,misinfo=stats.misinformation||20;
+    // Park/city bg
+    rect(0,oy,W,h,'#1a2a1a');
+    // Ground
+    const groundY=oy+h-4;
+    rect(0,groundY,W,4,'#2a3a2a');
+
+    const sc=Math.max(1,Math.floor(h/30));
+    // People count based on AI services — more people now
+    const pplCount=Math.max(4,Math.min(14,Math.floor(ai/7)));
+    const spacing=Math.floor(W/(pplCount+1));
+
+    // Mix of sprites based on trust — vary per person
+    const userSprites=['user_happy','user_worried','user_angry'];
+    function pickUserSprite(i){
+      if(trust>60)return i%5===0?'user_worried':'user_happy';
+      if(trust>30)return i%3===0?'user_angry':i%2===0?'user_happy':'user_worried';
+      return i%4===0?'user_worried':'user_angry';
+    }
+
+    for(let i=0;i<pplCount;i++){
+      const px=spacing*(i+1)-4*sc;
+      const bob=(tick+i)%4<2?0:-1;
+      spr(pickUserSprite(i),px,groundY-8*sc+bob,sc);
+      // Phone/device for some
+      if(ai>25&&i%3!==0){
+        spr('phone',px+6*sc,groundY-5*sc+bob,sc);
+      }
+    }
+
+    // Easels / chatbots when AI > 50
+    if(ai>50){
+      spr('easel',Math.floor(W*0.15),groundY-8*sc,sc);
+      spr('chat_bubble',Math.floor(W*0.5),oy+4,sc);
+    }
+
+    // Deepfake TVs when misinfo > 40
+    if(misinfo>40){
+      const tvCount=Math.min(3,Math.floor((misinfo-40)/15)+1);
+      for(let i=0;i<tvCount;i++){
+        spr('deepfake_tv',Math.floor(W*0.75)+i*12*sc,groundY-8*sc,sc);
+        // Flicker
+        if(tick%6<2){
+          rect(Math.floor(W*0.75)+i*12*sc+sc,groundY-7*sc,6*sc,6*sc,'rgba(255,0,0,0.15)');
+        }
+      }
+    }
+
+    // Protest signs when trust < 30
+    if(trust<30){
+      spr('protest_sign',Math.floor(W*0.1),groundY-14*sc,sc);
+      spr('protest_sign',Math.floor(W*0.88),groundY-14*sc,sc);
+    }
+
+    // AI companion bots when trust > 60 and services > 50
+    if(trust>60&&ai>50){
+      spr('companion_bot',Math.floor(W*0.4),groundY-8*sc,sc);
+      if(ai>75)spr('companion_bot',Math.floor(W*0.65),groundY-8*sc,sc);
+    }
+  }
+
+  return {init,update,resize};
+})();
+
+function toggleWorldView(){
+  const game=document.getElementById('game');
+  const btn=document.getElementById('wv-toggle');
+  game.classList.toggle('wv-open');
+  const open=game.classList.contains('wv-open');
+  btn.textContent=open?'✕ CLOSE VIEW':'🌍 WORLD VIEW';
+  if(open)WorldView.resize();
+}
+
 // Initialize intro screen with pixel sprites
 (function(){
   const is=document.getElementById('intro-sprites');
   if(is)is.innerHTML=[
     spriteHTML('tech_idle',3),spriteHTML('dario_idle',3),spriteHTML('elon_idle',3),
     spriteHTML('zuck_idle',3),spriteHTML('jensen_idle',3),spriteHTML('asml_idle',3),
-    spriteHTML('player',3),
-    spriteHTML('citizen_idle',3),spriteHTML('workers_idle',3),spriteHTML('tsmc_idle',3),
+    spriteHTML('tsmc_idle',3),spriteHTML('player',3),
+    spriteHTML('citizen_idle',3),spriteHTML('workers_idle',3),
     spriteHTML('military_idle',3),spriteHTML('thiel_idle',3),spriteHTML('green_idle',3)
   ].map((s,i)=>`<span style="animation:charBob 1s steps(2) infinite;animation-delay:${i*.08}s">${s}</span>`).join('');
 })();
