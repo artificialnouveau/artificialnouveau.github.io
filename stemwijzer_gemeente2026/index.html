@@ -47,7 +47,7 @@ window.addEventListener('resize', resize);
 // --- PALETTES ---
 const PAL = {
   // Player
-  skin: '#e8b078', hair: '#2a1a10', shirt: '#d04820', pants: '#1a3a6a',
+  skin: '#b8a0d0', hair: '#2a1a10', shirt: '#d04820', pants: '#1a3a6a', // player: neutral lavender
   shoes: '#1a1a1a', outline: '#000000', white: '#f8f8f0',
   // Environment base — flat bold Caulfield colors
   cobble1: '#8a7868', cobble2: '#8a7868', grass1: '#3a8830', grass2: '#3a8830',
@@ -67,7 +67,7 @@ const PAL = {
   gold: '#d8a010', accent: '#d05020', eens: '#28983a', neutraal: '#a09030',
   oneens: '#c82020', belangrijk: '#e8b800',
   // NPC base
-  npcSkin: '#d4a574', npcOutline: '#000000',
+  npcSkin: '#d4a574', npcOutline: '#000000', // default, overridden per character
 };
 
 // --- ZONE AMBIENT COLORS (flat bold Caulfield tints) ---
@@ -1063,7 +1063,8 @@ function drawDetailedFace(cx, cy, headW, headH, skinColor, isNPC) {
   ctx.stroke();
 }
 
-function drawNPCSprite(sx, sy, zoneIdx, frame, highlight) {
+function drawNPCSprite(sx, sy, zoneIdx, frame, highlight, skinTone) {
+  skinTone = skinTone || PAL.npcSkin;
   const s = 3; // larger than player so they stand out
   const ox = sx - 8 * s, oy = sy - 22 * s;
   const style = NPC_STYLES[zoneIdx] || NPC_STYLES[0];
@@ -1086,8 +1087,8 @@ function drawNPCSprite(sx, sy, zoneIdx, frame, highlight) {
   px(ox + 5*s, oy + 17*s + bob, 3*s, 2*s, PAL.shoes);
   px(ox + 8*s, oy + 17*s + bob, 3*s, 2*s, PAL.shoes);
   // Arms
-  px(ox + 3*s, oy + 7*s + bob, 2*s, 4*s, PAL.npcSkin);
-  px(ox + 11*s, oy + 7*s + bob, 2*s, 4*s, PAL.npcSkin);
+  px(ox + 3*s, oy + 7*s + bob, 2*s, 4*s, skinTone);
+  px(ox + 11*s, oy + 7*s + bob, 2*s, 4*s, skinTone);
 
   // Head — hyperrealistic at high zoom, pixel at normal
   if (zoomLevel >= 3) {
@@ -1098,10 +1099,10 @@ function drawNPCSprite(sx, sy, zoneIdx, frame, highlight) {
     const headCY = oy + 3.5*s + bob;
     const headW = 4*s;
     const headH = 5*s;
-    drawDetailedFace(headCX, headCY, headW, headH, PAL.npcSkin, true);
+    drawDetailedFace(headCX, headCY, headW, headH, skinTone, true);
   } else {
     // Head
-    px(ox + 6*s, oy + 1*s + bob, 4*s, 5*s, PAL.npcSkin);
+    px(ox + 6*s, oy + 1*s + bob, 4*s, 5*s, skinTone);
     // Hat/headwear
     px(ox + 5*s, oy + 0*s + bob, 6*s, 2*s, style.hat);
     // Eyes
@@ -2129,7 +2130,8 @@ class NPC extends Entity {
     this.homeX = x; this.homeY = y;
     this.patrolTimer = Math.random() * 200;
     this.patrolDir = 0;
-    this.statementsAsked = 0; // how many statements delivered
+    this.statementsAsked = 0;
+    this.skinTone = SKIN_TONES[zoneIdx % SKIN_TONES.length];
   }
   update() {
     // Simple patrol around home position
@@ -2170,6 +2172,7 @@ class PartyFollower extends Entity {
     this.partyIdx = partyIdx;
     this.slotIdx = slotIdx;
     this.state = 'following'; // following, leaving, gone
+    this.skinTone = SKIN_TONES[(partyIdx * 3 + 7) % SKIN_TONES.length];
     this.targetX = x;
     this.targetY = y;
     this.opacity = 1;
@@ -2237,6 +2240,13 @@ function createFollowers() {
 // WANDERING CROWD — ambient pedestrians in zones
 // ============================================================
 
+// Diverse skin tones representing Rotterdam/Den Haag diaspora
+const SKIN_TONES = [
+  '#f5d0b0', '#e8c098', '#d4a574', '#c68c5a', '#a0704a',
+  '#8a5a38', '#6b4226', '#503020', '#dbb896', '#c49a6c',
+  '#b07848', '#946038', '#7a4a2a',
+];
+
 const WANDERER_COLORS = [
   { shirt: '#d04820', pants: '#1a3a6a' },
   { shirt: '#2868a8', pants: '#3a3a3a' },
@@ -2261,6 +2271,7 @@ class Wanderer extends Entity {
     this.walkTimer = Math.random() * 200;
     this.walkDir = Math.floor(Math.random() * 5);
     this.colorIdx = Math.floor(Math.random() * WANDERER_COLORS.length);
+    this.skinTone = SKIN_TONES[Math.floor(Math.random() * SKIN_TONES.length)];
     this.scale = 0.9 + Math.random() * 0.4; // size variation
   }
   update() {
@@ -2343,8 +2354,8 @@ function drawWandererSprite(sx, sy, wanderer) {
 
   // Body
   px(ox + 3*s, oy + 4*s, 5*s, 5*s, c.shirt);
-  // Head
-  px(ox + 3.5*s, oy + 0*s, 4*s, 4*s, PAL.npcSkin);
+  // Head — diverse skin tone
+  px(ox + 3.5*s, oy + 0*s, 4*s, 4*s, w.skinTone);
   // Eyes
   if (w.dir !== 1) {
     px(ox + 4.5*s, oy + 1.5*s, 0.8*s, 0.8*s, '#000');
@@ -2438,8 +2449,8 @@ function drawFollowerSprite(sx, sy, follower) {
 
   // Body in party color
   px(ox + 4*s, oy + 4*s, 5*s, 5*s, p.colors[0]);
-  // Head
-  px(ox + 4.5*s, oy + 0*s, 4*s, 4.5*s, PAL.npcSkin);
+  // Head — diverse skin tone
+  px(ox + 4.5*s, oy + 0*s, 4*s, 4.5*s, f.skinTone);
   // Eyes
   if (f.dir !== 1) {
     px(ox + 5.5*s, oy + 2*s, 1*s, 1*s, PAL.outline);
@@ -2456,7 +2467,7 @@ function drawFollowerSprite(sx, sy, follower) {
   // Wave gesture when leaving
   if (f.state === 'leaving' && f.leaveTimer < 60) {
     const waveY = Math.sin(f.leaveTimer * 0.3) * 2;
-    px(ox + 10*s, oy + 1*s + waveY, 2*s, 3*s, PAL.npcSkin); // raised hand
+    px(ox + 10*s, oy + 1*s + waveY, 2*s, 3*s, f.skinTone); // raised hand
   }
 
   // Party avatar above head — larger and higher
@@ -3273,7 +3284,7 @@ function drawNPCPrompt() {
 
   // Speech bubble — flat Caulfield with funny greeting
   const greetings = NPC_GREETINGS[zi] || ['Hallo!'];
-  const greetIdx = Math.floor(Date.now() / 4000) % greetings.length;
+  const greetIdx = Math.floor(Date.now() / 8000) % greetings.length;
   const text = greetings[greetIdx] + ' (I)';
   ctx.font = "14px 'Inter', sans-serif";
   const tw = ctx.measureText(text).width;
@@ -3871,7 +3882,7 @@ function renderPlaying() {
       const npc = item.entity;
       const highlight = nearNPC === npc && !isZoneComplete(npc.zoneIdx);
       drawCharacterShadow(item.sx, item.sy, 20, 14);
-      drawNPCSprite(item.sx, item.sy, npc.zoneIdx, npc.frame, highlight);
+      drawNPCSprite(item.sx, item.sy, npc.zoneIdx, npc.frame, highlight, npc.skinTone);
     } else if (item.type === 'wanderer') {
       drawWandererSprite(item.sx, item.sy, item.entity);
     } else if (item.type === 'follower') {
