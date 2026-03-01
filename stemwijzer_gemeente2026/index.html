@@ -2086,11 +2086,11 @@ class Player extends Entity {
   }
   handleInput() {
     let dx = 0, dy = 0;
-    // WASD screen-relative (isometric)
-    if (keys['KeyW']) { dx -= 1; dy -= 1; clickTarget = null; }
-    if (keys['KeyS']) { dx += 1; dy += 1; clickTarget = null; }
-    if (keys['KeyA']) { dx -= 1; dy += 1; clickTarget = null; }
-    if (keys['KeyD']) { dx += 1; dy -= 1; clickTarget = null; }
+    // WASD or Arrow keys screen-relative (isometric)
+    if (keys['KeyW'] || keys['ArrowUp']) { dx -= 1; dy -= 1; clickTarget = null; }
+    if (keys['KeyS'] || keys['ArrowDown']) { dx += 1; dy += 1; clickTarget = null; }
+    if (keys['KeyA'] || keys['ArrowLeft']) { dx -= 1; dy += 1; clickTarget = null; }
+    if (keys['KeyD'] || keys['ArrowRight']) { dx += 1; dy -= 1; clickTarget = null; }
 
     // Click-to-move
     if (dx === 0 && dy === 0 && clickTarget) {
