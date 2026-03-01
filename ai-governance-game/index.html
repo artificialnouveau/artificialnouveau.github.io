@@ -30,8 +30,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Press 
 }
 
 /* === LAYOUT === */
-#game{display:grid;grid-template-columns:220px 1fr 220px;grid-template-rows:auto 1fr;height:100vh}
-#game.wv-open{grid-template-rows:auto 1fr 180px}
+#game{display:grid;grid-template-columns:220px 1fr 220px;grid-template-rows:auto auto auto 1fr;height:100vh}
+#game.wv-open{grid-template-rows:auto auto auto 1fr 180px}
 
 /* === TOP BAR === */
 #topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:8px 12px;
@@ -380,10 +380,71 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 #flashback .fb-fx{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:8px}
 #flashback .fb-dismiss{padding:8px;font-size:8px;color:var(--text3);border-top:2px solid #333}
 
+/* === STORY ARC STRIP === */
+#story-arc{grid-column:1/-1;display:none;align-items:stretch;gap:0;padding:0;
+  background:#0a0a1a;border-bottom:var(--pixel) solid var(--border);overflow-x:auto;overflow-y:hidden;
+  min-height:44px;white-space:nowrap;scrollbar-width:none;position:relative}
+#story-arc::-webkit-scrollbar{display:none}
+#story-arc.show{display:flex}
+#story-arc .arc-label{flex-shrink:0;padding:6px 10px;font-size:7px;color:var(--text3);
+  letter-spacing:1px;text-transform:uppercase;background:#0d0d20;border-right:2px solid #223;
+  display:flex;align-items:center;writing-mode:horizontal-tb}
+.arc-chip{display:inline-flex;flex-direction:column;gap:1px;padding:6px 10px;font-size:8px;
+  font-family:'Press Start 2P',monospace;border-right:1px solid #1a1a3a;flex-shrink:0;
+  cursor:default;transition:background .2s;position:relative}
+.arc-chip:hover{background:rgba(255,255,255,.05)}
+.arc-chip .arc-q{font-size:6px;color:var(--text3);margin-bottom:1px}
+.arc-chip .arc-main{display:flex;align-items:center;gap:4px;font-size:9px}
+.arc-chip .arc-detail{font-size:6px;color:var(--text3);margin-top:2px;max-width:140px;
+  overflow:hidden;text-overflow:ellipsis}
+.arc-chip.arc-good .arc-main{color:var(--green)}
+.arc-chip.arc-bad .arc-main{color:var(--red)}
+.arc-chip.arc-neutral .arc-main{color:var(--yellow)}
+.arc-chip.arc-good{border-bottom:3px solid var(--green);background:rgba(0,230,118,.05)}
+.arc-chip.arc-bad{border-bottom:3px solid var(--red);background:rgba(255,23,68,.05)}
+.arc-chip.arc-neutral{border-bottom:3px solid var(--yellow);background:rgba(255,215,64,.03)}
+.arc-chip.arc-new{animation:arcFlash 1.5s steps(3)}
+@keyframes arcFlash{0%,50%{background:rgba(255,255,255,.12)}100%{background:transparent}}
+.arc-connector{flex-shrink:0;width:16px;display:flex;align-items:center;justify-content:center;
+  color:var(--text3);font-size:8px;opacity:.4}
+
+/* Arc chip hover tooltip — positioned fixed via JS */
+.arc-tooltip-float{display:none;position:fixed;
+  background:#0a0a2a;border:2px solid var(--border);padding:12px 14px;min-width:260px;max-width:340px;
+  z-index:100;white-space:normal;text-align:left;
+  box-shadow:0 6px 20px rgba(0,0,0,.7);font-family:'Press Start 2P',monospace;
+  transition:opacity .15s;opacity:0;pointer-events:none}
+.arc-tooltip-float.show{display:block;opacity:1}
+.arc-tooltip-float::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:var(--border)}
+.att-header{display:flex;align-items:center;gap:6px;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid #223}
+.att-q{font-size:7px;color:var(--text3);padding:2px 5px;border:1px solid #333}
+.att-title{font-size:10px;line-height:1.6}
+.att-story{font-size:9px;color:var(--text);line-height:2;margin-bottom:6px}
+.att-context{font-size:8px;color:var(--text3);line-height:1.8;padding-top:6px;border-top:1px solid #223}
+.att-context .att-event{color:var(--yellow);margin-bottom:2px}
+.att-context .att-choice{color:var(--cyan)}
+
+/* === RECAP OVERLAY === */
+#recap-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:92;display:none;
+  align-items:center;justify-content:center;background:rgba(0,0,0,.85)}
+#recap-overlay .recap-card{max-width:520px;width:90%;max-height:80vh;background:#0a0a2a;
+  border:var(--pixel) solid var(--cyan);overflow:visible;position:relative}
+.recap-header{padding:10px;background:var(--cyan);color:#000;font-size:11px;letter-spacing:2px;text-align:center}
+.recap-body{padding:16px;overflow-y:auto;max-height:60vh}
+.recap-section{margin-bottom:12px}
+.recap-section h4{font-size:9px;color:var(--cyan);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+.recap-section p{font-size:10px;color:var(--text2);line-height:2.2}
+.recap-dismiss{padding:8px;font-size:8px;color:var(--text3);border-top:2px solid #223;text-align:center}
+#recap-btn{display:none;padding:4px 8px;background:var(--surface);border:2px solid var(--cyan);
+  color:var(--cyan);font-family:'Press Start 2P',monospace;font-size:9px;cursor:pointer}
+#recap-btn:hover{background:var(--panel)}
+
 @media(max-width:768px){
-  #game{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  #game{grid-template-columns:1fr;grid-template-rows:auto auto auto 1fr}
   #side-left,#side-right,#world-view,#wv-toggle{display:none!important}
   #ticker{bottom:0!important}
+  #story-arc{display:none!important}
   .scene-zones{padding:0 4px}
   .zone-label{font-size:6px;letter-spacing:0;padding:2px 3px}
   .scene-row{gap:2px;flex-wrap:wrap}
@@ -423,6 +484,7 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
   <div id="topbar">
     <div class="logo"><span class="logo-icon">🏛️</span><h1>AI GOV SIMULATOR</h1></div>
     <span id="round-pill">Q1/20</span>
+    <button id="recap-btn" onclick="showRecap()">📖</button>
     <div id="capital-hud"></div>
     <div class="top-stats">
       <div class="top-stat has-tip" data-icon="⚗" data-tip="How fast AI tech is advancing. Driven by research breakthroughs and open-source models." style="--ts-color:var(--cyan)"><span class="top-stat-label">Innovation</span><span class="top-stat-val" id="tp-inn">50</span><div class="top-stat-bar"><div class="top-stat-bar-fill" id="tpb-inn" style="width:50%;background:var(--cyan)"></div></div></div>
@@ -432,6 +494,7 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
     </div>
   </div>
   <div id="autoplay-banner" onclick="stopAutoPlay()">⚡ AUTO-PLAYING AS <span id="ap-stance"></span> — click to take control</div>
+  <div id="story-arc"></div>
 
   <div id="side-left">
     <div class="sg has-tip" data-tip="Research & development: innovation speed, AI safety incidents, and regulation levels." style="--sg-color:var(--cyan)"><div class="sg-title">⚗ THE LAB</div>
@@ -490,6 +553,7 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 </div>
 
 <div id="char-tip"></div>
+<div class="arc-tooltip-float" id="arc-tip"></div>
 <button id="wv-toggle" onclick="toggleWorldView()">🌍 WORLD VIEW</button>
 <div id="ticker"><div class="ticker-track"></div></div>
 
@@ -519,6 +583,15 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
     <div class="fb-header">CONSEQUENCES FLASHBACK</div>
     <div class="fb-body" id="fb-body"></div>
     <div class="fb-dismiss">TAP ANYWHERE TO DISMISS</div>
+  </div>
+</div>
+
+<div id="recap-overlay" onclick="dismissRecap()">
+  <div class="recap-card" onclick="event.stopPropagation()">
+    <button class="overlay-close" onclick="dismissRecap()">X</button>
+    <div class="recap-header">📖 THE STORY SO FAR</div>
+    <div class="recap-body" id="recap-body"></div>
+    <div class="recap-dismiss">TAP ANYWHERE TO DISMISS</div>
   </div>
 </div>
 
@@ -1084,6 +1157,8 @@ let autoPlayTimer=null;
 
 // === IMMERSIVE FEATURES STATE ===
 let decisionHistory=[];
+let storyArc=[];
+let prevDominant=null;
 let breakingFired=new Set();
 let breakingQueue=[];
 let breakingActive=false;
@@ -1350,7 +1425,10 @@ function startGame(){
   document.getElementById('intro').classList.add('hide');
   setTimeout(()=>document.getElementById('intro').style.display='none',500);
   S={...DEF};A={...ADEF};F={...FDEF};round=0;capital=3;used=[];prevS={...S};
-  decisionHistory=[];breakingFired=new Set();breakingQueue=[];breakingActive=false;stopCountdown();
+  decisionHistory=[];storyArc=[];prevDominant=null;breakingFired=new Set();breakingQueue=[];breakingActive=false;stopCountdown();
+  document.getElementById('story-arc').classList.remove('show');
+  document.getElementById('story-arc').innerHTML='';
+  document.getElementById('recap-btn').style.display='none';
   ['tech','citizens','military','green'].forEach(k=>{
     const el=document.getElementById('fc-'+k);
     if(el)el.innerHTML=getFactionSprite(k,3);
@@ -1372,7 +1450,10 @@ function startAutoPlay(stance){
   document.getElementById('intro').classList.add('hide');
   setTimeout(()=>document.getElementById('intro').style.display='none',500);
   S={...DEF};A={...ADEF};F={...FDEF};round=0;capital=3;used=[];prevS={...S};
-  decisionHistory=[];breakingFired=new Set();breakingQueue=[];breakingActive=false;stopCountdown();
+  decisionHistory=[];storyArc=[];prevDominant=null;breakingFired=new Set();breakingQueue=[];breakingActive=false;stopCountdown();
+  document.getElementById('story-arc').classList.remove('show');
+  document.getElementById('story-arc').innerHTML='';
+  document.getElementById('recap-btn').style.display='none';
   ['tech','citizens','military','green'].forEach(k=>{
     const el=document.getElementById('fc-'+k);
     if(el)el.innerHTML=getFactionSprite(k,3);
@@ -1568,7 +1649,7 @@ function renderCard(){
 function resolve(ei,ci){
   stopCountdown();
   const ev=EVENTS[ei],ch=ev.c[ci];
-  prevS={...S};
+  prevS={...S,_fac:{...F}};
   Object.keys(ch.fx).forEach(k=>{S[k]=clamp(S[k]+(ch.fx[k]||0))});
   A[ch.a]=(A[ch.a]||0)+2;
   // Record for flashback
@@ -1623,6 +1704,7 @@ function resolve(ei,ci){
   renderCard();
   checkBreaking();
   checkDialogue();
+  checkStoryArc(ch);
   // Auto-play: skip budget and auto-advance after showing result briefly
   if(autoPlayStance){
     autoPlayTimer=setTimeout(()=>{
@@ -1787,7 +1869,7 @@ function renderEnd(win,reasons){
   <div class="end">
     <div class="end-title ${win?'win':'lose'}">${win?'YOU SURVIVED!':'GAME OVER'}</div>
     <div class="end-sub">${win?'All 20 quarters as':'Lasted '+round+'/'+maxR+' as'} "${title}"</div>
-    <div class="end-story">${win?getWinText():reasons.join('<br>')}</div>
+    <div class="end-story">${win?getWinText():reasons.join('<br>')}${getArcNarrative()}</div>
     <div class="end-grid">
       <div class="end-s"><div class="end-sl">INN</div><div class="end-sv">${S.innovation}</div></div>
       <div class="end-s"><div class="end-sl">GDP</div><div class="end-sv">${S.gdp}</div></div>
@@ -1819,6 +1901,357 @@ function getWinText(){
   if(F.green>=70)p.push("Greens praise you.");
   if(!p.length)p.push("You survived. History will judge.");
   return p.join('<br>');
+}
+
+// === STORY ARC TRACKER ===
+const ARC_STORIES={
+  faction_allied:{
+    tech:'Silicon Valley rallied behind you. Sam Altman called it "the partnership of the century." Tech lobbying now works in your favor.',
+    citizens:'The people marched — but this time in your support. Timnit Gebru praised your leadership. Public opinion is your shield now.',
+    military:'The Pentagon considers you a trusted ally. Classified briefings land on your desk. Military resources flow to your priorities.',
+    green:'Greta Thunberg called your policies "a blueprint for the future." Green subsidies are reshaping the energy grid in your favor.'},
+  faction_hostile:{
+    tech:'Sam Altman went on a media blitz denouncing your policies. Tech companies are quietly moving operations to Singapore and Dubai.',
+    citizens:'Protesters surrounded your office for three days straight. Timnit Gebru called you "a puppet of corporate interests." Trust is shattered.',
+    military:'The Pentagon stopped returning your calls. Classified AI weapons programs now operate without your oversight. You\'ve lost control.',
+    green:'Greta Thunberg named you in a viral speech. Environmental groups filed coordinated lawsuits. Your data center plans are dead.'},
+  faction_warming:{
+    tech:'Tech CEOs are starting to nod along at your press conferences. The relationship is thawing — keep it up.',
+    citizens:'Community organizers are cautiously optimistic. Town halls are getting friendlier. The public is watching closely.',
+    military:'Defense officials have started inviting you to strategy meetings. Respect is building, but it\'s fragile.',
+    green:'Environmental groups mentioned your policies favorably in a report. It\'s a small win, but the Greens are paying attention.'},
+  faction_souring:{
+    tech:'Tech lobbyists are openly criticizing you at conferences. The next board meeting could turn hostile.',
+    citizens:'Angry letters are piling up. Social media campaigns against your office are gaining traction.',
+    military:'Defense officials questioned your competence in a leaked memo. The relationship is deteriorating fast.',
+    green:'Environmentalists staged a small protest outside your office. It\'s just the beginning if you don\'t change course.'},
+  stat_crisis:{
+    innovation:'The brightest minds are leaving the country. Lab after lab goes dark. The innovation engine that powered your agenda has stalled — possibly for good.',
+    gdp:'Markets are in freefall. Pension funds wiped out overnight. Economists compare it to 2008, but worse — because this time, the machines did it.',
+    public_trust:'Nobody believes a word you say anymore. Every announcement is met with mockery or rage. Governing without trust is like building on quicksand.',
+    global_stability:'The international order is fracturing. Former allies are arming independently. One miscalculation and this becomes a shooting war.',
+    unemployment:'Breadlines form outside automation centers. A generation of workers has been discarded. The social fabric is tearing at the seams.',
+    safety_incidents:'AI systems are failing in hospitals, courtrooms, and power grids. Every day without reform is a coin flip with catastrophe.',
+    arms_race:'Autonomous drones patrol contested borders. Kill decisions happen in milliseconds. Humanity has outsourced war to algorithms.',
+    misinformation:'You can\'t tell what\'s real anymore. Elections are theater. Journalism is dead. Society is drowning in AI-generated noise.',
+    carbon:'Data centers are now the largest single source of emissions. Scientists say you\'ve crossed a point of no return.',
+    water:'Rivers near server farms have run dry. Farmers are protesting. The AI revolution is literally draining the earth.'},
+  stat_surge:{
+    innovation:'Breakthroughs are coming faster than anyone predicted. New models solve problems that seemed impossible last quarter. This is a golden age.',
+    gdp:'The AI economy is booming. New industries emerge weekly. Tax revenues are up, and for once, the growth feels broadly shared.',
+    public_trust:'Citizens genuinely believe in the system you\'ve built. Approval ratings are historic. People feel heard, represented, and protected.',
+    global_stability:'Nations are cooperating on AI governance like never before. A new era of digital diplomacy is taking shape under your leadership.',
+    unemployment:'Retraining programs are working. New AI-adjacent jobs outnumber the ones lost. Workers are cautiously hopeful for the first time in years.',
+    safety_incidents:'Your safety protocols are being adopted worldwide. Not a single major incident this quarter. The model is working.',
+    arms_race:'Historic arms agreements are holding. Military AI is being redirected toward defense and disaster response. The world exhales.',
+    misinformation:'AI-powered fact-checking has turned the tide. Trust in media is recovering. People can tell what\'s real again.',
+    carbon:'Green computing initiatives slashed emissions. Data centers run on renewables. Your environmental record is a model for the world.',
+    water:'Innovative cooling systems cut water usage dramatically. The tech sector is finally sustainable. Environmentalists are cautiously celebrating.'},
+  stat_rising_bad:{
+    unemployment:'Layoff announcements are becoming a weekly ritual. The trend lines are ominous — this could become a full-blown crisis.',
+    safety_incidents:'Near-misses are becoming more frequent. It\'s only a matter of time before something goes catastrophically wrong.',
+    arms_race:'Military budgets are climbing. AI weapons programs are expanding. The arms race is quietly accelerating.',
+    misinformation:'Deepfakes are getting better. Fact-checkers can\'t keep up. The information environment is deteriorating.',
+    carbon:'Emissions from AI compute are climbing fast. Environmental groups are sounding alarms.',
+    water:'Water consumption at server farms is spiking. Local communities are starting to notice.'},
+  stat_rising_good:{
+    innovation:'Research output is climbing steadily. Optimism is returning to the labs.',
+    gdp:'Economic indicators are trending upward. Markets are responding well to your policies.',
+    public_trust:'People are starting to come around. Trust is rebuilding, slowly but visibly.',
+    global_stability:'Diplomatic channels are opening up. International cooperation is gaining momentum.'},
+  stat_dropping_bad:{
+    innovation:'Funding is drying up. Researchers are leaving for the private sector — or other countries entirely.',
+    gdp:'Economic warning signs everywhere. Consumer confidence is sliding.',
+    public_trust:'Trust is eroding. Small scandals that once would have been forgiven now spark outrage.',
+    global_stability:'Cracks in the international coalition are widening. Allies are hedging their bets.'},
+  stat_dropping_good:{
+    unemployment:'Job recovery programs are showing results. The employment picture is slowly brightening.',
+    safety_incidents:'Safety metrics are improving. Your regulatory framework might actually be working.',
+    arms_race:'Military tensions are easing. Diplomatic efforts are paying off.',
+    misinformation:'The flood of fake content is receding. Platform reforms are having an effect.',
+    carbon:'Carbon numbers are trending down. The green computing push is gaining traction.',
+    water:'Water usage is declining at major facilities. Conservation measures are working.'}
+};
+
+// Generate a narrative sentence for a choice based on its effects
+function choiceNarrative(ch){
+  const sorted=Object.entries(ch.fx).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1]));
+  const top=sorted[0];const topK=top[0];const topV=top[1];
+  const name=SN[topK]||topK;
+  const phrases_up={innovation:'pushing innovation forward',gdp:'boosting the economy',public_trust:'winning public trust',
+    global_stability:'steadying global relations',corporate_influence:'empowering corporations',regulation_level:'tightening regulations',
+    international_cooperation:'strengthening alliances',public_ai_services:'expanding AI access'};
+  const phrases_down={innovation:'stifling innovation',gdp:'straining the economy',public_trust:'eroding public trust',
+    global_stability:'destabilizing the world order',unemployment:'creating jobs',safety_incidents:'improving safety',
+    arms_race:'easing military tensions',misinformation:'fighting disinformation',carbon:'cutting emissions',water:'conserving water',
+    corporate_influence:'reining in corporate power',regulation_level:'loosening regulations'};
+  const phrases_up_bad={unemployment:'costing jobs',safety_incidents:'risking safety',arms_race:'fueling the arms race',
+    misinformation:'spreading confusion',carbon:'increasing emissions',water:'consuming more water'};
+  const badStats=['unemployment','safety_incidents','arms_race','misinformation','carbon','water'];
+  const bad=badStats.includes(topK);
+  let verb;
+  if(topV>0)verb=bad?(phrases_up_bad[topK]||`raising ${name}`):(phrases_up[topK]||`raising ${name}`);
+  else verb=bad?(phrases_down[topK]||`lowering ${name}`):(phrases_down[topK]||`lowering ${name}`);
+  let sentence=`A bold move — ${verb}`;
+  if(sorted.length>1){
+    const s2=sorted[1];const n2=SN[s2[0]]||s2[0];
+    const bad2=badStats.includes(s2[0]);
+    const dir2=s2[1]>0?(bad2?'worsening':'improving'):(bad2?'improving':'worsening');
+    sentence+=`, while ${dir2} ${n2.toLowerCase()}`;
+  }
+  return sentence+'.';
+}
+
+function checkStoryArc(ch){
+  const FNm={tech:'Big Tech',citizens:'Citizens',military:'Military',green:'Greens'};
+  const prevFac=prevS._fac||{};
+  const beforeLen=storyArc.length;
+
+  // Faction crosses 75 (allied) or drops below 20 (hostile)
+  ['tech','citizens','military','green'].forEach(k=>{
+    if(F[k]>=75&&(prevFac[k]||50)<75)
+      storyArc.push({round,icon:'🤝',text:`${FNm[k]} Allied`,detail:ARC_STORIES.faction_allied[k],cls:'arc-good'});
+    else if(F[k]<=20&&(prevFac[k]||50)>20)
+      storyArc.push({round,icon:'💔',text:`${FNm[k]} Hostile`,detail:ARC_STORIES.faction_hostile[k],cls:'arc-bad'});
+  });
+
+  // Faction crosses 60 or drops below 35 (early warning)
+  ['tech','citizens','military','green'].forEach(k=>{
+    if(F[k]>=60&&(prevFac[k]||50)<60&&F[k]<75)
+      storyArc.push({round,icon:'📈',text:`${FNm[k]} Warming`,detail:ARC_STORIES.faction_warming[k],cls:'arc-good'});
+    else if(F[k]<=35&&(prevFac[k]||50)>35&&F[k]>20)
+      storyArc.push({round,icon:'📉',text:`${FNm[k]} Souring`,detail:ARC_STORIES.faction_souring[k],cls:'arc-bad'});
+  });
+
+  // Stat hits extreme (>80 or <15)
+  const critStats={innovation:'Innovation',gdp:'GDP',public_trust:'Trust',global_stability:'Stability',
+    unemployment:'Unemployment',safety_incidents:'Safety Risk',arms_race:'Arms Race',
+    misinformation:'Misinfo',carbon:'Carbon',water:'Water'};
+  const badStats=['unemployment','safety_incidents','arms_race','misinformation','carbon','water'];
+  Object.keys(critStats).forEach(k=>{
+    const bad=badStats.includes(k);
+    if(S[k]>80&&(prevS[k]||50)<=80)
+      storyArc.push({round,icon:bad?'🔥':'🚀',text:`${critStats[k]} ${bad?'CRISIS':'SURGE'}`,
+        detail:bad?ARC_STORIES.stat_crisis[k]:ARC_STORIES.stat_surge[k],cls:bad?'arc-bad':'arc-good'});
+    if(S[k]<15&&(prevS[k]||50)>=15)
+      storyArc.push({round,icon:bad?'✅':'⚠',text:`${critStats[k]} ${bad?'Contained':'FAILING'}`,
+        detail:bad?ARC_STORIES.stat_surge[k]:ARC_STORIES.stat_crisis[k],cls:bad?'arc-good':'arc-bad'});
+  });
+
+  // Stat crosses danger zone (>60 or <25) — early warning
+  Object.keys(critStats).forEach(k=>{
+    const bad=badStats.includes(k);
+    if(S[k]>60&&(prevS[k]||50)<=60&&S[k]<=80){
+      const story=bad?(ARC_STORIES.stat_rising_bad[k]||''):(ARC_STORIES.stat_rising_good[k]||'');
+      if(story)storyArc.push({round,icon:bad?'⚠':'📈',text:`${critStats[k]} Rising`,detail:story,cls:bad?'arc-bad':'arc-good'});
+    }
+    if(S[k]<25&&(prevS[k]||50)>=25&&S[k]>=15){
+      const story=bad?(ARC_STORIES.stat_dropping_good[k]||''):(ARC_STORIES.stat_dropping_bad[k]||'');
+      if(story)storyArc.push({round,icon:bad?'📉':'⚠',text:`${critStats[k]} Dropping`,detail:story,cls:bad?'arc-good':'arc-bad'});
+    }
+  });
+
+  // Dominant alignment changes
+  const dom=getTitle();
+  if(prevDominant&&dom!==prevDominant)
+    storyArc.push({round,icon:'🔄',text:`Shift: "${dom}"`,detail:`Your governing philosophy has visibly shifted. Pundits debate whether you\'ve evolved or lost your way. The world is recalibrating.`,cls:'arc-neutral'});
+  prevDominant=dom;
+
+  // Choices with narrative consequence
+  if(ch){
+    const mag=Object.values(ch.fx).reduce((a,v)=>a+Math.abs(v),0);
+    const net=Object.values(ch.fx).reduce((a,v)=>a+v,0);
+    if(mag>15){
+      storyArc.push({round,icon:net>=0?'⚡':'💥',text:ch.l.length>22?ch.l.slice(0,20)+'..':ch.l,
+        detail:choiceNarrative(ch),cls:net>=0?'arc-good':'arc-bad'});
+    } else if(mag>8){
+      storyArc.push({round,icon:'📋',text:ch.l.length>22?ch.l.slice(0,20)+'..':ch.l,
+        detail:choiceNarrative(ch),cls:'arc-neutral'});
+    }
+  }
+
+  renderStoryArc(storyArc.length>beforeLen);
+  if(round>=3)document.getElementById('recap-btn').style.display='inline-block';
+}
+
+function renderStoryArc(hasNew){
+  if(!storyArc.length)return;
+  const el=document.getElementById('story-arc');
+  el.classList.add('show');
+  let html='<span class="arc-label">STORY</span>';
+  storyArc.forEach((e,i)=>{
+    if(i>0)html+=`<span class="arc-connector">›</span>`;
+    const isNew=hasNew&&i>=storyArc.length-1;
+    html+=`<span class="arc-chip ${e.cls}${isNew?' arc-new':''}" data-arc-idx="${i}">
+      <span class="arc-q">Q${e.round}</span>
+      <span class="arc-main">${e.icon} ${e.text}</span>
+      ${e.detail?`<span class="arc-detail">${e.detail}</span>`:''}
+    </span>`;
+  });
+  el.innerHTML=html;
+  el.scrollLeft=el.scrollWidth;
+  el.querySelectorAll('.arc-chip[data-arc-idx]').forEach(chip=>{
+    chip.addEventListener('mouseenter',showArcTip);
+    chip.addEventListener('mouseleave',hideArcTip);
+  });
+}
+
+function buildArcTipHTML(e){
+  const dh=decisionHistory.find(d=>d.round===e.round);
+  const color=e.cls==='arc-good'?'var(--green)':e.cls==='arc-bad'?'var(--red)':'var(--yellow)';
+  let h=`<div class="att-header"><span class="att-q">Q${e.round}</span><span class="att-title" style="color:${color}">${e.icon} ${e.text}</span></div>`;
+  if(e.detail)h+=`<div class="att-story">${e.detail}</div>`;
+  if(dh){
+    h+=`<div class="att-context"><div class="att-event">📰 ${dh.eventTitle}</div><div class="att-choice">► "${dh.choiceLabel}"</div></div>`;
+  }
+  return h;
+}
+
+let _arcTipTarget=null;
+function showArcTip(ev){
+  const idx=parseInt(ev.currentTarget.dataset.arcIdx);
+  const e=storyArc[idx];if(!e)return;
+  _arcTipTarget=ev.currentTarget;
+  const tip=document.getElementById('arc-tip');
+  tip.innerHTML=buildArcTipHTML(e);
+  // Show off-screen first to measure
+  tip.style.left='-9999px';tip.style.top='-9999px';
+  tip.classList.add('show');
+  positionArcTip();
+}
+
+function positionArcTip(){
+  if(!_arcTipTarget)return;
+  const tip=document.getElementById('arc-tip');
+  const rect=_arcTipTarget.getBoundingClientRect();
+  const tipW=tip.offsetWidth;
+  const tipH=tip.offsetHeight;
+  let left=rect.left+rect.width/2-tipW/2;
+  if(left<8)left=8;
+  if(left+tipW>window.innerWidth-8)left=window.innerWidth-8-tipW;
+  // Position above the chip; if not enough room, go below
+  let top=rect.top-tipH-10;
+  if(top<8)top=rect.bottom+10;
+  tip.style.left=left+'px';
+  tip.style.top=top+'px';
+}
+
+function hideArcTip(){
+  _arcTipTarget=null;
+  document.getElementById('arc-tip').classList.remove('show');
+}
+
+// Reposition tooltip on scroll so it doesn't get cut off
+document.addEventListener('DOMContentLoaded',()=>{
+  const arc=document.getElementById('story-arc');
+  if(arc)arc.addEventListener('scroll',()=>{if(_arcTipTarget)positionArcTip()});
+});
+
+// === RECAP OVERLAY ===
+function showRecap(){
+  document.getElementById('recap-body').innerHTML=generateRecap();
+  document.getElementById('recap-overlay').style.display='flex';
+}
+function dismissRecap(){
+  document.getElementById('recap-overlay').style.display='none';
+}
+function generateRecap(){
+  const title=getTitle();
+  const FNm={tech:'Big Tech',citizens:'Citizens',military:'Military',green:'Greens'};
+  const badStats=['unemployment','safety_incidents','arms_race','misinformation','carbon','water'];
+  let html='';
+
+  // Opening
+  html+=`<div class="recap-section"><h4>The Journey</h4><p>After ${round} quarters as "${title}", `;
+  html+=autoPlayStance?`operating under an ${autoPlayStance} philosophy, `:'';
+  html+=`your tenure has shaped the AI landscape. You've made ${decisionHistory.length} decisions that rippled across factions, economies, and ecosystems.</p></div>`;
+
+  // Timeline of turning points with consequences
+  if(storyArc.length){
+    html+=`<div class="recap-section"><h4>Timeline</h4>`;
+    storyArc.forEach(e=>{
+      html+=`<div style="display:flex;gap:8px;margin-bottom:6px;padding:4px 0;border-bottom:1px solid #1a1a3a">
+        <span style="flex-shrink:0;font-size:8px;color:var(--text3)">Q${e.round}</span>
+        <span class="arc-chip ${e.cls}" style="border-right:none;padding:2px 6px;flex-shrink:0">
+          <span class="arc-main" style="font-size:8px">${e.icon} ${e.text}</span>
+        </span>
+        ${e.detail?`<span style="font-size:8px;color:var(--text2);line-height:1.8">${e.detail}</span>`:''}
+      </div>`;
+    });
+    html+=`</div>`;
+  }
+
+  // Faction standings with relationship arcs
+  html+=`<div class="recap-section"><h4>Faction Relations</h4>`;
+  ['tech','citizens','military','green'].forEach(k=>{
+    const v=F[k];
+    const color=v>=75?'var(--green)':v<=20?'var(--red)':v>=50?'var(--text2)':'var(--orange)';
+    const status=v>=75?'ALLIED':v<=20?'HOSTILE':v>=50?'Satisfied':'Uneasy';
+    const perk=v>=75?factionPerk(k,true):v<=20?factionPerk(k,false):'';
+    html+=`<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+      <span style="font-size:9px;width:70px;color:${color}">${FNm[k]}</span>
+      <div style="flex:1;height:6px;background:#111;border:1px solid #333;overflow:hidden">
+        <div style="width:${v}%;height:100%;background:${color}"></div>
+      </div>
+      <span style="font-size:8px;color:${color};min-width:28px">${v}</span>
+      <span style="font-size:7px;color:${color}">${status}</span>
+    </div>`;
+    if(perk)html+=`<div style="font-size:7px;color:${color};margin:-2px 0 4px 76px">${perk}</div>`;
+  });
+  html+=`</div>`;
+
+  // All stats overview
+  const snames={innovation:'Innovation',gdp:'GDP',public_trust:'Trust',global_stability:'Stability',
+    corporate_influence:'Corp Power',unemployment:'Unemployment',safety_incidents:'Safety Risk',
+    arms_race:'Arms Race',misinformation:'Misinfo',regulation_level:'Regulation',
+    international_cooperation:'Intl Coop',public_ai_services:'AI Services',carbon:'Carbon',water:'Water'};
+  html+=`<div class="recap-section"><h4>State of the World</h4>`;
+  Object.keys(snames).forEach(k=>{
+    const v=S[k];const bad=badStats.includes(k);
+    const isGood=bad?v<30:v>60;const isBad=bad?v>60:v<30;
+    const color=isGood?'var(--green)':isBad?'var(--red)':'var(--text3)';
+    const warn=v>=80||v<=15;
+    html+=`<div style="display:flex;align-items:center;gap:4px;margin-bottom:2px${warn?';background:rgba(255,255,255,.03)':''}">
+      <span style="font-size:7px;width:65px;color:${color}">${snames[k]}</span>
+      <div style="flex:1;height:4px;background:#111;border:1px solid #222;overflow:hidden">
+        <div style="width:${v}%;height:100%;background:${color}"></div>
+      </div>
+      <span style="font-size:7px;color:${color};min-width:18px;text-align:right">${v}</span>
+      ${warn?'<span style="font-size:7px">⚠</span>':''}
+    </div>`;
+  });
+  html+=`</div>`;
+
+  // Outlook
+  const goodCount=Object.keys(DEF).filter(k=>badStats.includes(k)?S[k]<30:S[k]>60).length;
+  const crisisCount=Object.keys(DEF).filter(k=>badStats.includes(k)?S[k]>70:S[k]<25).length;
+  const outlook=goodCount>=8?'The outlook is bright — your policies are working.':
+    goodCount>=5?'The situation is mixed — challenges remain.':
+    crisisCount>=3?'Multiple crises are spiraling. Drastic action needed.':
+    'The outlook is grim — your leadership is being questioned.';
+  html+=`<div class="recap-section"><h4>Outlook</h4><p>${outlook}</p></div>`;
+  return html;
+}
+
+// === ENHANCED END SCREEN ===
+function getArcNarrative(){
+  if(!storyArc.length)return'';
+  // Show the most impactful moments (good, bad, and neutral — up to 8)
+  const important=storyArc.filter(e=>e.cls!=='arc-neutral').concat(
+    storyArc.filter(e=>e.cls==='arc-neutral')
+  ).slice(0,8);
+  let html='<div style="margin-top:12px;padding-top:8px;border-top:2px solid #223">';
+  html+='<div style="color:var(--cyan);margin-bottom:8px;font-size:9px;letter-spacing:1px">YOUR STORY:</div>';
+  important.forEach(e=>{
+    const color=e.cls==='arc-good'?'var(--green)':e.cls==='arc-bad'?'var(--red)':'var(--yellow)';
+    html+=`<div style="display:flex;gap:6px;margin-bottom:4px;padding:3px 0">
+      <span style="font-size:7px;color:var(--text3);flex-shrink:0">Q${e.round}</span>
+      <span style="font-size:8px;color:${color};flex-shrink:0">${e.icon} ${e.text}</span>
+      ${e.detail?`<span style="font-size:7px;color:var(--text3)">${e.detail}</span>`:''}
+    </div>`;
+  });
+  html+='</div>';
+  return html;
 }
 
 function addLog(t,c='li'){
