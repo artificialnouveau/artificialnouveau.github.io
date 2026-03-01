@@ -355,6 +355,10 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
   font-size:10px;color:var(--text);line-height:2.2;position:relative}
 #char-dialogue .cd-bubble::after{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);
   border:8px solid transparent;border-bottom-color:var(--border)}
+#char-dialogue.mood-happy .cd-bubble{border-color:var(--green)}
+#char-dialogue.mood-happy .cd-bubble::after{border-bottom-color:var(--green)}
+#char-dialogue.mood-angry .cd-bubble{border-color:var(--red)}
+#char-dialogue.mood-angry .cd-bubble::after{border-bottom-color:var(--red)}
 
 /* === COUNTDOWN TIMER === */
 .countdown{padding:6px 12px;border-bottom:2px solid #223}
@@ -1470,18 +1474,19 @@ function renderCard(){
     {id:'military',label:'PENTAGON',sprite:getFactionSprite('military',SZ),row:'front'},
     {id:'green',label:'GRETA',sprite:getFactionSprite('green',SZ),row:'front'},
   ];
-  // Assign scores from charScore() results
-  allChars.forEach(c=>{c.score=cs[c.id]||0});
+  // Use last known scores to persist positions between turns
+  const lastCS=window._lastCharScores||{};
+  allChars.forEach(c=>{c.score=cs[c.id]||lastCS[c.id]||0});
 
-  // Sort each row into allies/foes for positioning after decision
+  // Sort each row into allies/foes for positioning
   function charHTML(c){
     const s=c.score;
     const thresh=3;
     let cls='react-neutral';
     let margin='margin:0 4px';
-    if(resolved&&s!==0){
-      if(s>thresh){cls='react-happy';margin=`margin:0 ${Math.max(-3,3-s*0.4)}px`;}
-      else if(s<-thresh){cls='react-angry';margin=`margin:0 ${Math.min(16,4+Math.abs(s)*0.5)}px`;}
+    if(s!==0){
+      if(s>thresh){cls=resolved?'react-happy':'react-neutral';margin=`margin:0 ${Math.max(-3,3-s*0.4)}px`;}
+      else if(s<-thresh){cls=resolved?'react-angry':'react-neutral';margin=`margin:0 ${Math.min(16,4+Math.abs(s)*0.5)}px`;}
     }
     return `<div class="scene-char ${cls}" id="sc-${c.id}" data-charid="${c.id}" style="${margin}">
       <span class="scene-char-sprite">${c.sprite}</span>
@@ -1490,18 +1495,15 @@ function renderCard(){
   const playerHTML=`<div class="scene-char" id="sc-player"><span class="scene-char-sprite">${spriteHTML('player',SZ)}</span><span class="scene-char-name">YOU</span></div>`;
 
   function buildRow(chars,rowClass){
-    // Use current scores if resolved, otherwise keep last known order
-    const useScores=resolved&&Object.keys(cs).length?cs:(window._lastCharScores||{});
-    const scored=chars.map(c=>({...c,score:useScores[c.id]||0}));
-    const allies=scored.filter(c=>c.score>3).sort((a,b)=>b.score-a.score);
-    const foes=scored.filter(c=>c.score<-3).sort((a,b)=>a.score-b.score);
-    const neutrals=scored.filter(c=>c.score>=-3&&c.score<=3);
+    const allies=chars.filter(c=>c.score>3).sort((a,b)=>b.score-a.score);
+    const foes=chars.filter(c=>c.score<-3).sort((a,b)=>a.score-b.score);
+    const neutrals=chars.filter(c=>c.score>=-3&&c.score<=3);
     return `<div class="scene-row ${rowClass}">${foes.map(charHTML).join('')}${neutrals.map(charHTML).join('')}${rowClass==='front'?playerHTML:''}${allies.map(charHTML).join('')}</div>`;
   }
 
   const backChars=allChars.filter(c=>c.row==='back');
   const frontChars=allChars.filter(c=>c.row==='front');
-  const zoneShow=resolved&&Object.keys(cs).length?'show':'';
+  const zoneShow=(Object.keys(cs).length||Object.keys(lastCS).length)?'show':'';
   const zonesHTML=`<div class="scene-zones ${zoneShow}"><span class="zone-label zone-foe">OPPOSED</span><span class="zone-label zone-neutral">UNDECIDED</span><span class="zone-label zone-ally">ALLIED</span></div>`;
   const sceneHTML=`<div class="scene"><div class="scene-bg"></div>${zonesHTML}${buildRow(backChars,'back')}${buildRow(frontChars,'front')}</div>`;
 
@@ -1548,6 +1550,7 @@ function renderCard(){
       ${budR('💰','Economy','economy','+GDP -Unemp',curAlloc.economy)}
       ${budR('🏥','Services','services','+Trust +Svc',curAlloc.services)}
       ${budR('🕊','Diplomacy','diplomacy','+Stab +Coop',curAlloc.diplomacy)}
+      <div class="countdown"><div class="cd-bar"><div class="cd-fill" id="bud-timer-fill" style="width:100%"></div></div><div class="cd-label" id="bud-timer-label">15s</div></div>
       <div class="bud-go"><button class="btn btn-go" id="bud-ok">NEXT QUARTER ►</button></div>
     </div>`;
   }
@@ -1634,13 +1637,45 @@ function budR(icon,name,key,fx,count){
     <div class="br-ctrl"><button class="br-btn bm" data-k="${key}">-</button><span class="br-num" id="bn-${key}">${count}</span><button class="br-btn bp" data-k="${key}">+</button></div></div>`;
 }
 
+let budTimer=null,budRemaining=0;
 function wireBudget(){
   document.querySelectorAll('.bp').forEach(b=>{b.onclick=()=>{
     const k=b.dataset.k;if(curPool>0){curAlloc[k]++;curPool--;updateBudgetUI()}}});
   document.querySelectorAll('.bm').forEach(b=>{b.onclick=()=>{
     const k=b.dataset.k;if(curAlloc[k]>0){curAlloc[k]--;curPool++;updateBudgetUI()}}});
-  document.getElementById('bud-ok').onclick=()=>applyBud(curAlloc);
+  document.getElementById('bud-ok').onclick=()=>{stopBudTimer();applyBud(curAlloc)};
   updateBudgetUI();
+  startBudTimer();
+}
+function startBudTimer(){
+  if(autoPlayStance)return;
+  stopBudTimer();
+  budRemaining=15;
+  updateBudTimerUI();
+  budTimer=setInterval(()=>{
+    budRemaining--;
+    updateBudTimerUI();
+    if(budRemaining<=0){
+      stopBudTimer();
+      // Auto-allocate all capital to research (first option)
+      curAlloc.research+=curPool;curPool=0;
+      updateBudgetUI();
+      addLog('TIMEOUT: Capital auto-allocated to Research.','lw');
+      applyBud(curAlloc);
+    }
+  },1000);
+}
+function stopBudTimer(){
+  if(budTimer){clearInterval(budTimer);budTimer=null}
+}
+function updateBudTimerUI(){
+  const fill=document.getElementById('bud-timer-fill');
+  const label=document.getElementById('bud-timer-label');
+  if(!fill||!label)return;
+  const pct=(budRemaining/15)*100;
+  fill.style.width=pct+'%';
+  fill.className='cd-fill'+(budRemaining<=5?' danger':budRemaining<=10?' warn':'');
+  label.textContent=budRemaining+'s';
 }
 
 function updateBudgetUI(){
@@ -1657,6 +1692,7 @@ function updateBudgetUI(){
 }
 
 function applyBud(a){
+  stopBudTimer();
   prevS={...S};
   S.innovation=clamp(S.innovation+a.research*3);S.safety_incidents=clamp(S.safety_incidents-a.research*2);
   S.gdp=clamp(S.gdp+a.economy*3);S.unemployment=clamp(S.unemployment-a.economy*2);
@@ -1887,6 +1923,8 @@ function showDialogue(charId,score){
   document.getElementById('cd-text').textContent=quote;
 
   const el=document.getElementById('char-dialogue');
+  el.classList.remove('mood-happy','mood-angry');
+  el.classList.add('mood-'+mood);
   el.style.display='flex';
   pauseCountdown();
   dialogueTimer=setTimeout(dismissDialogue,4000);
@@ -2466,8 +2504,8 @@ const WorldView=(function(){
     rect(0,oy,W,1,'#223');
 
     const sc=Math.max(1,Math.floor(h/30));
-    const deskCount=8;
-    const occupiedCount=Math.max(0,Math.min(8,Math.round(8*(1-unemp/100))));
+    const deskCount=6;
+    const occupiedCount=Math.max(0,Math.min(6,Math.round(6*(1-unemp/100))));
     const robotReplace=corp>50;
     const spacing=Math.floor(W/(deskCount+1));
 
