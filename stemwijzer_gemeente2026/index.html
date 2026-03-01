@@ -2606,7 +2606,7 @@ function triggerPartyReactions(stmtIdx, playerAnswer) {
       text = NEUTRAL_REACTIONS[Math.floor(Math.random() * NEUTRAL_REACTIONS.length)];
       agree = 0;
     }
-    const maxTimer = 420; // ~7 seconds at 60fps
+    const maxTimer = 840; // ~14 seconds at 60fps
     partyReactions.push({
       partyIdx: p.idx,
       text: text,
