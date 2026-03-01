@@ -2484,19 +2484,68 @@ function drawFollowerSprite(sx, sy, follower) {
 let partyReactions = []; // { partyIdx, text, timer, maxTimer, agree }
 
 const AGREE_REACTIONS = [
-  'Goed gekozen!', 'Helemaal mee eens!', 'Precies!', 'Daar staan wij ook voor!',
-  'Zo is het!', 'Onze stem ook!', 'Top!', 'Wij denken er net zo over!',
-  'Verstandig!', 'Dat steunen wij!', 'Juiste keuze!', 'Mooi zo!'
+  'Eindelijk iemand met hersenen!', 'Dit staat letterlijk in ons programma!',
+  'Wij gaan dit op een poster zetten.', 'Onze stagiair heeft dit ook bedacht!',
+  'Precies! Zie pagina 47 van ons verkiezingsprogramma.', 'U bent welkom op ons congres!',
+  'Dit gaan we tweeten!', 'Daar krijgt u een gratis balpen voor.',
+  'Wacht, dit is precies wat onze fractievoorzitter gisteren zei na twee wijntjes.',
+  'Gefeliciteerd, u denkt als een politicus!', 'Mooi! Nu nog 3 miljard vinden.',
+  'Top! We hadden al een persbericht klaar.', 'U snapt het. De rest van Nederland niet.',
 ];
 const DISAGREE_REACTIONS = [
-  'Daar zijn wij het niet mee eens.', 'Jammer...', 'Wij zien dat anders.',
-  'Niet onze lijn.', 'Dat betwijfelen wij.', 'Hmm, wij denken anders.',
-  'Daar staan wij niet achter.', 'Helaas!', 'Wij kiezen een ander pad.',
-  'Dat zouden wij niet doen.', 'Lastig...', 'Niet ons standpunt.'
+  'Heeft u ons programma wel gelezen? Nee? Wij ook niet.', 'Jammer, maar we respecteren uw foute mening.',
+  'Daar gaan we een commissie voor oprichten.', 'Onze wethouder is het hier niet mee eens, maar die is het nergens mee eens.',
+  'Dit gaat ons pijn doen bij de peilingen.', 'We gaan dit intern bespreken (lees: negeren).',
+  'Uw mening is genoteerd en zal worden gearchiveerd.', 'Hmm, heeft u overwogen om op een andere partij te stemmen?',
+  'Dit is waarom wij 14 vergaderingen per week hebben.', 'Genoteerd! *verscheurt briefje*',
+  'We komen hier in de volgende raadsvergadering op terug. Over 6 maanden.',
+  'Dit standpunt is in strijd met onze kernwaarden (die we vorige week hebben gewijzigd).',
 ];
 const NEUTRAL_REACTIONS = [
-  'Interessant.', 'Daar moeten wij over nadenken.', 'Genuanceerd.',
-  'Wij begrijpen beide kanten.', 'Complex vraagstuk.', 'Hmm...'
+  'Ah, de beroemde Nederlandse consensus.', 'Een polderstandpunt, heel verstandig.',
+  'Wij noemen dit "strategische ambiguiteit".', 'Onze fractie is het hier ook niet over eens.',
+  'Dit is precies waarom vergaderingen 4 uur duren.', 'Genuanceerd! Daar winnen we geen zetel mee.',
+  'U zou een goede politicus zijn.', 'We gaan hier een werkgroep voor oprichten.',
+];
+
+// Funny NPC greetings per zone (De Speld style)
+const NPC_GREETINGS = [
+  // 0: Wonen
+  ['Welkom in de woningcrisis!', 'Zoekt u ook al 8 jaar een huurwoning?',
+   'Hier bouwen we dromen! En soms ook huizen.', 'Leuk dat u er bent. Wilt u een tiny house?'],
+  // 1: Klimaat
+  ['Welkom in het groenste stukje asfalt van Rotterdam!', 'Heeft u uw CO2 al gecompenseerd vandaag?',
+   'Wij recyclen hier zelfs onze meningen.', 'Eén boom geleden was dit een parkeerplaats.'],
+  // 2: Veiligheid
+  ['U bent nu veilig. Waarschijnlijk.', 'Welkom! Uw fiets is al gestolen, maar verder is het veilig.',
+   'Hier hangt een camera. En daar. En daar ook.', 'Wij handhaven hier streng (behalve op dinsdag).'],
+  // 3: Mobiliteit
+  ['Welkom! U staat in de file.', 'De metro komt over 3 minuten. Of 30.',
+   'Fietsen is gezond! Zolang u niet wordt aangereden.', 'Hier komt straks een tunnel. Of een brug. We weten het nog niet.'],
+  // 4: Economie
+  ['Welkom op de markt! Alles wordt duurder.', 'Heeft u al een side hustle?',
+   'Hier bloeien de bedrijven! De MKBers wat minder.', 'De economie groeit! Uw salaris helaas niet.'],
+  // 5: Zorg
+  ['Welkom! De wachtlijst is 14 weken.', 'Neem een nummertje. U bent nummer 3.847.',
+   'Wij zorgen voor u! Na de bezuiniging.', 'De huisarts kan u zien in maart. Van volgend jaar.'],
+  // 6: Onderwijs
+  ['Welkom! Er is een lerarentekort.', 'Hier leren kinderen de toekomst! Als er een juf is.',
+   'Wij investeren in onderwijs! *kijkt naar begroting* Oh.', 'De school is net gerenoveerd. In 1987.'],
+  // 7: Cultuur & Sport
+  ['Welkom in het culturele hart! We hebben een budget van 12 euro.',
+   'Hier vieren we diversiteit in kunst! Zolang het niet te veel kost.',
+   'Sport is belangrijk! De sporthal is alleen dicht wegens bezuinigingen.',
+   'Cultuursubsidie aanvragen? Reken op 6 maanden papierwerk.'],
+  // 8: Diversiteit
+  ['Welkom! Hier is iedereen welkom. Staat ook in de folder.',
+   'Wij omarmen diversiteit! Het staat in ons beleidsplan van 2019.',
+   'Inclusiviteit is onze kernwaarde! *checkt spreadsheet*',
+   'Hier praten we met elkaar. Soms zelfs naar elkaar.'],
+  // 9: Bestuur
+  ['Welkom in het centrum van de macht! Of wat ervan over is.',
+   'Hier worden beslissingen genomen! En daarna teruggedraaid.',
+   'De burgemeester is in vergadering. Al sinds 2018.',
+   'Transparantie is ons motto! *sluit deur*'],
 ];
 
 function triggerPartyReactions(stmtIdx, playerAnswer) {
@@ -3222,8 +3271,10 @@ function drawNPCPrompt() {
   const s = worldToScreen(nearNPC.x, nearNPC.y);
   const sx = s.x - camera.x, sy = s.y - camera.y - 70;
 
-  // Speech bubble — flat Caulfield
-  const text = 'Druk I om te praten';
+  // Speech bubble — flat Caulfield with funny greeting
+  const greetings = NPC_GREETINGS[zi] || ['Hallo!'];
+  const greetIdx = Math.floor(Date.now() / 4000) % greetings.length;
+  const text = greetings[greetIdx] + ' (I)';
   ctx.font = "14px 'Inter', sans-serif";
   const tw = ctx.measureText(text).width;
 
