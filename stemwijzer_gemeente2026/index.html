@@ -3499,13 +3499,6 @@ function drawTitleScreen() {
   ctx.moveTo(0, baseY); ctx.lineTo(screenW, baseY);
   ctx.stroke();
 
-  // City labels on water
-  ctx.font = "bold 13px 'Inter', sans-serif";
-  ctx.fillStyle = '#a0c8f0';
-  ctx.textAlign = 'center';
-  ctx.fillText('Rotterdam', midX - screenW * 0.2, baseY + 20);
-  ctx.fillText('Den Haag', midX + screenW * 0.2, baseY + 20);
-
   // Tulips — bold flat with outlines
   ctx.lineWidth = 2;
   ctx.strokeStyle = '#000';
@@ -3548,7 +3541,7 @@ function drawTitleScreen() {
   ctx.font = "bold 20px 'Inter', sans-serif";
   ctx.fillStyle = '#000000';
   ctx.textAlign = 'center';
-  ctx.fillText('Druk op een toets om te beginnen / Klik om te beginnen', screenW/2, screenH * 0.58);
+  ctx.fillText('Druk op een toets om te beginnen / Klik om te beginnen', screenW/2, baseY + 80);
 
   // Disclaimer
   ctx.font = "11px 'Inter', sans-serif";
