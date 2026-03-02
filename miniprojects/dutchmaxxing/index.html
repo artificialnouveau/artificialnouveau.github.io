@@ -5134,7 +5134,13 @@ function collectNOSCardVocab(cardIdx) {
   const seen = new Set();
   const vocab = [];
   spans.forEach(sp => {
-    const nl = sp.textContent.replace(sp.querySelector('.nos-vocab-tip')?.textContent || '', '').trim();
+    // Get only the direct text, excluding the tooltip child span
+    let nl = '';
+    for (const node of sp.childNodes) {
+      if (node.nodeType === 3) nl += node.textContent; // text nodes only
+    }
+    nl = nl.trim();
+    if (!nl) return;
     const en = sp.dataset.en;
     const level = sp.dataset.level;
     const key = nl.toLowerCase();
@@ -5191,6 +5197,17 @@ function exportNOSVocabPDF(cardIdx) {
   }
 
   rows += '<div class="tip">Totaal: ' + vocab.length + ' woorden (' + verbVocab.length + ' werkwoorden)</div>';
+
+  // Include saved translations if any
+  if (typeof savedTranslations !== 'undefined' && savedTranslations.length > 0) {
+    rows += '<h2>Mijn Opgeslagen Vertalingen</h2>';
+    rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th></tr></thead><tbody>';
+    savedTranslations.forEach(t => {
+      rows += '<tr><td style="font-weight:700;color:#D40920">' + escapeHTML(t.nl) + '</td><td>' + escapeHTML(t.en) + '</td></tr>';
+    });
+    rows += '</tbody></table>';
+    rows += '<div class="tip">' + savedTranslations.length + ' opgeslagen vertalingen</div>';
+  }
 
   generatePDFContent('Leeshoek — ' + art.title, rows);
 }
