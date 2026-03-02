@@ -51,7 +51,7 @@ let screenW, screenH, dpr = 1;
 let touchDrag = null; // {startX, startY, lastX, lastY} for swipe-to-scroll
 let pinchDist0 = 0; // initial pinch distance for zoom
 let touchHandledClick = 0; // timestamp to suppress synthetic click after touch
-let overlaySwipeY = 0; // vertical drag offset for dismissing answer overlay
+let overlaySwipeX = 0; // horizontal drag offset for dismissing answer overlay
 function resize() {
   dpr = window.devicePixelRatio || 1;
   screenW = window.innerWidth;
@@ -477,9 +477,8 @@ if (isMobile) {
         if (Math.abs(dy) > 8 || Math.abs(dx) > 8) {
           touchDrag.moved = true;
         }
-        // Track vertical swipe for dismiss, only allow downward
-        overlaySwipeY = Math.max(0, dy);
-        // Track horizontal for tab switching
+        // Track horizontal swipe for dismiss, only allow rightward
+        overlaySwipeX = Math.max(0, dx);
         touchDrag.lastX = t.clientX;
         touchDrag.lastY = t.clientY;
         e.preventDefault();
@@ -491,21 +490,15 @@ if (isMobile) {
     if (gameState === 'answering') {
       if (touchDrag && touchDrag.moved) {
         touchHandledClick = Date.now();
-        const dy = touchDrag.lastY - touchDrag.startY;
         const dx = touchDrag.lastX - touchDrag.startX;
-        // Swipe down to dismiss overlay (threshold: 80px)
-        if (dy > 80) {
-          overlaySwipeY = 0;
+        // Swipe right to dismiss overlay (threshold: 80px)
+        if (dx > 80) {
+          overlaySwipeX = 0;
           gameState = 'playing';
           touchDrag = null;
           return;
         }
-        // Horizontal swipe to switch tabs (threshold: 50px)
-        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-          if (dx < 0) answerTab = Math.min(3, answerTab + 1); // swipe left = next tab
-          else answerTab = Math.max(0, answerTab - 1); // swipe right = prev tab
-        }
-        overlaySwipeY = 0;
+        overlaySwipeX = 0;
       }
       touchDrag = null;
       return;
@@ -5631,9 +5624,12 @@ function drawAnswerOverlay() {
   const ph = Math.min(480, screenH - 30);
   const px0 = (screenW - pw) / 2;
   const slideOffset = (1 - eased) * 30;
-  const py = (screenH - ph) / 2 + slideOffset + overlaySwipeY;
+  const py = (screenH - ph) / 2 + slideOffset;
+  const swipeOffsetX = overlaySwipeX;
 
   ctx.globalAlpha = eased;
+  ctx.save();
+  if (swipeOffsetX > 0) ctx.translate(swipeOffsetX, 0);
 
   // Flat panel with bold black border
   ctx.fillStyle = '#f0eade';
@@ -5642,16 +5638,9 @@ function drawAnswerOverlay() {
   ctx.lineWidth = 3;
   ctx.strokeRect(px0, py, pw, ph);
 
-  // Mobile swipe handle
-  if (isMobile) {
-    ctx.fillStyle = '#b0a898';
-    const handleW = 40, handleH = 4;
-    ctx.fillRect(screenW/2 - handleW/2, py + 5, handleW, handleH);
-  }
-
   // Theme header
   ctx.fillStyle = ZONES[stmt.theme].col;
-  ctx.fillRect(px0, py + (isMobile ? 14 : 0), pw, 40);
+  ctx.fillRect(px0, py, pw, 40);
   ctx.textAlign = 'center';
   ctx.font = "bold 18px 'Inter', sans-serif";
   ctx.fillStyle = '#ffffff';
@@ -5906,10 +5895,11 @@ function drawAnswerOverlay() {
   ctx.font = "11px 'Inter', sans-serif";
   ctx.fillStyle = '#606070';
   if (isMobile) {
-    ctx.fillText(showEnglish ? '\u2194 swipe tabs | \u2193 swipe down to close' : '\u2194 swipe tabs | \u2193 swipe omlaag om te sluiten', screenW/2, py + ph - 5);
+    ctx.fillText(showEnglish ? '\u2192 swipe right to close' : '\u2192 swipe rechts om te sluiten', screenW/2, py + ph - 5);
   } else {
     ctx.fillText('\u2190 \u2192 wissel tab', screenW/2, py + ph - 5);
   }
+  ctx.restore();
   ctx.globalAlpha = 1;
 }
 
