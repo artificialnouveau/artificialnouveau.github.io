@@ -2439,6 +2439,172 @@ body::before, body::after { display: none; }
 .cefr-toggle { display:flex; align-items:center; gap:5px; margin-left:16px; cursor:pointer; font-family:'Space Grotesk',sans-serif; font-size:11px; color:#666; }
 .cefr-toggle input { cursor:pointer; }
 .cefr-toggle-label { user-select:none; }
+
+/* ===== NEW TAB STYLES ===== */
+
+/* Shared exercise container */
+.exercise-container { max-width:800px; margin:0 auto; padding:20px 16px; }
+.exercise-header { text-align:center; margin-bottom:24px; }
+.exercise-header h2 { font-family:'Syne',sans-serif; font-size:24px; font-weight:800; margin-bottom:6px; }
+.exercise-header p { font-family:'Space Grotesk',sans-serif; font-size:14px; color:#666; }
+.exercise-score { display:flex; align-items:center; justify-content:space-between; margin-top:16px; font-family:'Space Grotesk',sans-serif; font-size:14px; padding:10px 0; border-top:2px solid #eee; }
+
+/* Mondrian buttons */
+.mondrian-btn { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; padding:8px 20px; background:#F7D842; border:2px solid #000; cursor:pointer; transition:all 0.15s; }
+.mondrian-btn:hover { background:#e8c930; transform:translateY(-1px); }
+.mondrian-btn.red { background:#D40920; color:#fff; }
+.mondrian-btn.red:hover { background:#b8071a; }
+.mondrian-btn.blue { background:#1356A2; color:#fff; }
+.mondrian-btn.blue:hover { background:#0e4580; }
+.mondrian-btn.small { padding:5px 14px; font-size:12px; }
+
+/* Dictee card */
+.dictee-card { background:#fff; border:3px solid #000; padding:24px; position:relative; }
+.dictee-card::before { content:''; position:absolute; top:0; left:0; width:6px; height:100%; background:#D40920; }
+.dictee-sentence { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:500; line-height:1.6; min-height:60px; padding:16px 0; }
+.dictee-sentence .word-hidden { color:transparent; background:#eee; border-radius:3px; padding:2px 8px; margin:0 2px; }
+.dictee-sentence .word-visible { color:#000; padding:2px 0; margin:0 2px; }
+.dictee-controls { display:flex; gap:10px; margin:12px 0; }
+.dictee-input-area { display:flex; gap:8px; margin-top:12px; }
+.dictee-input { flex:1; font-family:'Space Grotesk',sans-serif; font-size:16px; padding:10px 14px; border:2px solid #000; background:#fff; outline:none; }
+.dictee-input:focus { border-color:#1356A2; box-shadow:0 0 0 3px rgba(19,86,162,0.1); }
+.dictee-feedback { font-family:'Space Grotesk',sans-serif; font-size:14px; margin-top:12px; padding:10px; min-height:20px; }
+.dictee-feedback.correct { background:#e8f5e9; border-left:4px solid #2d8a56; color:#2d8a56; }
+.dictee-feedback.incorrect { background:#fce4ec; border-left:4px solid #D40920; color:#D40920; }
+
+/* Uitspraak */
+.uitspraak-section { margin-bottom:28px; }
+.uitspraak-section h3 { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:12px; padding-bottom:6px; border-bottom:3px solid #F7D842; }
+.pair-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:12px; margin-bottom:16px; }
+.pair-card { background:#fff; border:2px solid #000; padding:14px; position:relative; overflow:hidden; }
+.pair-card::after { content:''; position:absolute; bottom:0; left:0; width:100%; height:4px; background:#1356A2; }
+.pair-card .pair-sounds { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; margin-bottom:6px; }
+.pair-card .pair-ipa { font-family:'Space Grotesk',sans-serif; font-size:12px; color:#666; margin-bottom:8px; }
+.pair-card .pair-examples { font-family:'Space Grotesk',sans-serif; font-size:13px; line-height:1.5; }
+.pair-card .pair-examples strong { color:#D40920; }
+.tongbreker-list { list-style:none; }
+.tongbreker-list li { font-family:'Space Grotesk',sans-serif; font-size:15px; padding:10px 14px; border-left:4px solid #D40920; margin-bottom:8px; background:#fff; border:2px solid #eee; border-left:4px solid #D40920; }
+
+/* Hardop Lezen */
+.hardop-passage { background:#fff; border:3px solid #000; padding:24px; margin-bottom:20px; position:relative; }
+.hardop-passage::before { content:''; position:absolute; top:0; left:0; width:100%; height:6px; background:#1356A2; }
+.hardop-passage .passage-level { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:#fff; background:#1356A2; padding:2px 10px; display:inline-block; margin-bottom:12px; }
+.hardop-passage .passage-text { font-family:'Space Grotesk',sans-serif; font-size:17px; line-height:1.8; }
+.hardop-passage .passage-text .tricky { color:#D40920; font-weight:700; }
+
+/* Gesprekken */
+.gesprek-card { background:#fff; border:3px solid #000; margin-bottom:20px; overflow:hidden; }
+.gesprek-header { background:#F7D842; padding:14px 18px; border-bottom:3px solid #000; display:flex; justify-content:space-between; align-items:center; }
+.gesprek-header h3 { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; }
+.gesprek-header .gesprek-level { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; background:#000; color:#F7D842; padding:2px 8px; }
+.gesprek-body { padding:18px; }
+.gesprek-line { display:flex; gap:10px; margin-bottom:10px; font-family:'Space Grotesk',sans-serif; font-size:14px; }
+.gesprek-line .speaker { font-weight:700; min-width:40px; color:#1356A2; }
+.gesprek-line .user-line { color:#999; font-style:italic; cursor:pointer; }
+.gesprek-line .user-line:hover { color:#D40920; }
+.gesprek-line .revealed { color:#000; font-style:normal; }
+.gesprek-reveal-btn { margin-top:12px; }
+
+/* Zinnen Bouwen (flashcards) */
+.flashcard-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:16px; }
+.flashcard { background:#fff; border:3px solid #000; min-height:160px; cursor:pointer; position:relative; overflow:hidden; perspective:1000px; }
+.flashcard-inner { padding:24px; display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:160px; transition:transform 0.4s; text-align:center; }
+.flashcard .fc-label { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:#666; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+.flashcard .fc-text { font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:500; line-height:1.5; }
+.flashcard .fc-grammar { font-family:'Space Grotesk',sans-serif; font-size:11px; color:#1356A2; margin-top:8px; }
+.flashcard .fc-answer { display:none; }
+.flashcard.flipped .fc-question { display:none; }
+.flashcard.flipped .fc-answer { display:block; }
+.flashcard.flipped { border-color:#1356A2; }
+.flashcard::after { content:'klik om te draaien'; position:absolute; bottom:8px; right:12px; font-family:'Space Grotesk',sans-serif; font-size:10px; color:#ccc; }
+
+/* Email prompts */
+.email-card { background:#fff; border:3px solid #000; margin-bottom:20px; overflow:hidden; }
+.email-card-header { background:#1356A2; color:#fff; padding:14px 18px; border-bottom:3px solid #000; }
+.email-card-header h3 { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; }
+.email-card-header .email-type { font-family:'Space Grotesk',sans-serif; font-size:11px; opacity:0.8; margin-top:2px; }
+.email-card-body { padding:18px; }
+.email-situation { font-family:'Space Grotesk',sans-serif; font-size:14px; line-height:1.6; margin-bottom:14px; padding:12px; background:#f8f8f8; border-left:4px solid #F7D842; }
+.email-template { font-family:'Space Grotesk',sans-serif; font-size:13px; color:#666; margin-bottom:14px; }
+.email-template code { background:#f0f0f0; padding:1px 4px; font-size:12px; }
+.email-model { display:none; background:#f0f8ff; border:2px solid #1356A2; padding:16px; margin-top:12px; font-family:'Space Grotesk',sans-serif; font-size:14px; line-height:1.7; white-space:pre-line; }
+.email-model.visible { display:block; }
+
+/* Zinnen transformatie */
+.zinnen-transform-card { background:#fff; border:3px solid #000; padding:20px; margin-bottom:16px; position:relative; }
+.zinnen-transform-card::before { content:''; position:absolute; top:0; right:0; width:40px; height:40px; background:#F7D842; }
+.zinnen-instruction { font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700; color:#1356A2; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
+.zinnen-original { font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:500; margin-bottom:12px; }
+
+/* Verhalen (stories) */
+.verhaal-card { background:#fff; border:3px solid #000; margin-bottom:20px; overflow:hidden; }
+.verhaal-header { padding:16px 20px; border-bottom:3px solid #000; background:#fff; }
+.verhaal-header h3 { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; }
+.verhaal-header .verhaal-level { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:#fff; background:#D40920; padding:2px 8px; display:inline-block; margin-top:4px; }
+.verhaal-body { padding:20px; font-family:'Space Grotesk',sans-serif; font-size:15px; line-height:1.8; }
+.verhaal-body .vocab-tooltip { border-bottom:1px dashed #1356A2; cursor:help; color:#1356A2; position:relative; }
+.verhaal-questions { padding:16px 20px; border-top:3px solid #000; background:#fafafa; }
+
+/* Cultuur cards */
+.cultuur-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:16px; }
+.cultuur-card { background:#fff; border:3px solid #000; overflow:hidden; }
+.cultuur-card-accent { height:6px; }
+.cultuur-card-accent.red { background:#D40920; }
+.cultuur-card-accent.blue { background:#1356A2; }
+.cultuur-card-accent.yellow { background:#F7D842; }
+.cultuur-card-accent.black { background:#000; }
+.cultuur-card-body { padding:18px; }
+.cultuur-card-body h3 { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; margin-bottom:8px; }
+.cultuur-card-body p { font-family:'Space Grotesk',sans-serif; font-size:13px; line-height:1.6; color:#444; margin-bottom:10px; }
+.cultuur-card-body .cultuur-example { background:#f8f8f8; padding:10px 12px; border-left:3px solid #F7D842; font-family:'Space Grotesk',sans-serif; font-size:13px; margin-top:8px; }
+.cultuur-card-body .cultuur-phrases { margin-top:10px; }
+.cultuur-card-body .cultuur-phrases li { font-family:'Space Grotesk',sans-serif; font-size:13px; padding:3px 0; list-style:none; }
+.cultuur-card-body .cultuur-phrases li::before { content:'→ '; color:#D40920; font-weight:700; }
+
+/* Uitdrukkingen (idioms) */
+.idioom-theme { margin-bottom:28px; }
+.idioom-theme h3 { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:12px; padding-bottom:6px; border-bottom:3px solid #D40920; }
+.idioom-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:12px; }
+.idioom-card { background:#fff; border:2px solid #000; padding:16px; position:relative; }
+.idioom-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:#F7D842; }
+.idioom-expression { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; margin-bottom:6px; padding-left:8px; }
+.idioom-literal { font-family:'Space Grotesk',sans-serif; font-size:12px; color:#666; font-style:italic; padding-left:8px; margin-bottom:4px; }
+.idioom-meaning { font-family:'Space Grotesk',sans-serif; font-size:13px; color:#1356A2; font-weight:500; padding-left:8px; margin-bottom:6px; }
+.idioom-backstory { font-family:'Space Grotesk',sans-serif; font-size:12px; color:#888; padding-left:8px; line-height:1.4; }
+
+/* Begrip (listening comprehension) */
+.begrip-card { background:#fff; border:3px solid #000; margin-bottom:20px; overflow:hidden; }
+.begrip-header { background:#D40920; color:#fff; padding:14px 18px; border-bottom:3px solid #000; display:flex; justify-content:space-between; align-items:center; }
+.begrip-header h3 { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; }
+.begrip-header .begrip-level { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; background:#000; color:#D40920; padding:2px 8px; }
+.begrip-dialogue { padding:18px; border-bottom:2px solid #eee; }
+.begrip-dialogue .gesprek-line { margin-bottom:8px; }
+.begrip-questions { padding:16px 18px; background:#fafafa; }
+.begrip-question { margin-bottom:14px; }
+.begrip-question p { font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; margin-bottom:6px; }
+.begrip-option { display:block; font-family:'Space Grotesk',sans-serif; font-size:13px; padding:6px 12px; margin:4px 0; border:2px solid #eee; cursor:pointer; transition:all 0.15s; background:#fff; width:100%; text-align:left; }
+.begrip-option:hover { border-color:#1356A2; background:#f0f4ff; }
+.begrip-option.correct { border-color:#2d8a56; background:#e8f5e9; }
+.begrip-option.incorrect { border-color:#D40920; background:#fce4ec; }
+
+/* Woordenschat in context */
+.ws-mc-options { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+.ws-mc-btn { font-family:'Space Grotesk',sans-serif; font-size:14px; padding:10px 14px; border:2px solid #000; background:#fff; cursor:pointer; transition:all 0.15s; text-align:left; }
+.ws-mc-btn:hover { background:#f8f8f8; border-color:#1356A2; }
+.ws-mc-btn.correct { background:#e8f5e9; border-color:#2d8a56; }
+.ws-mc-btn.incorrect { background:#fce4ec; border-color:#D40920; }
+
+/* Mobile responsive */
+@media (max-width:600px) {
+  .pair-grid { grid-template-columns:1fr; }
+  .flashcard-grid { grid-template-columns:1fr; }
+  .cultuur-grid { grid-template-columns:1fr; }
+  .idioom-grid { grid-template-columns:1fr; }
+  .ws-mc-options { grid-template-columns:1fr; }
+  .dictee-input-area { flex-direction:column; }
+  .dictee-sentence { font-size:17px; }
+  .exercise-container { padding:12px 10px; }
+}
 </style>
 </head>
 <body>
@@ -2461,10 +2627,13 @@ body::before, body::after { display: none; }
 
 <!-- Tabs -->
 <nav class="tab-bar">
-  <button class="tab-btn active" data-tab="oefeningen">Oefeningen</button>
-  <button class="tab-btn" data-tab="spel">Spel</button>
+  <button class="tab-btn active" data-tab="spel">Spel</button>
   <button class="tab-btn" data-tab="news">Leeshoek</button>
-  <button class="tab-btn" data-tab="vocab">Woordenschat</button>
+  <button class="tab-btn" data-tab="luisteren">Luisteren</button>
+  <button class="tab-btn" data-tab="spreken">Spreken</button>
+  <button class="tab-btn" data-tab="schrijven">Schrijven</button>
+  <button class="tab-btn" data-tab="lezen">Lezen</button>
+  <button class="tab-btn" data-tab="cultuur">Cultuur</button>
   <button class="tab-btn" data-tab="spiekbriefjes">Spiekbriefjes</button>
 </nav>
 
@@ -2481,8 +2650,9 @@ body::before, body::after { display: none; }
   </label>
 </div>
 
-<!-- MAIN TAB: OEFENINGEN -->
-<div class="tab-content active" id="tab-oefeningen">
+<!-- MAIN TAB: OEFENINGEN (commented out) -->
+<!--
+<div class="tab-content" id="tab-oefeningen">
   <div class="subtab-bar">
     <button class="subtab-btn active" data-subtab="arena" data-maintab="oefeningen">Werkwoorden</button>
     <button class="subtab-btn" data-subtab="adventure" data-maintab="oefeningen">De Stad</button>
@@ -2604,10 +2774,12 @@ body::before, body::after { display: none; }
     </div>
   </div>
   </div><!-- /sub-reader -->
-</div><!-- /tab-oefeningen -->
+</div>
+-->
+<!-- /tab-oefeningen (commented out) -->
 
 <!-- MAIN TAB: SPEL -->
-<div class="tab-content" id="tab-spel">
+<div class="tab-content active" id="tab-spel">
   <div class="spel-container">
     <div class="help-row" style="margin-bottom:12px;">
       <div style="flex:1"></div>
@@ -2725,7 +2897,8 @@ body::before, body::after { display: none; }
   </div>
 </div>
 
-<!-- MAIN TAB: WOORDENSCHAT -->
+<!-- MAIN TAB: WOORDENSCHAT (commented out) -->
+<!--
 <div class="tab-content" id="tab-vocab">
   <div class="vocab-container">
     <div class="help-row" style="margin-bottom:12px;">
@@ -2765,6 +2938,242 @@ body::before, body::after { display: none; }
         <div class="vocab-filter-chips" id="vocabFilterChips"></div>
       </div>
       <div class="vocab-table-wrap" id="vocabTableWrap"></div>
+    </div>
+  </div>
+</div>
+-->
+<!-- /tab-vocab (commented out) -->
+
+<!-- MAIN TAB: LUISTEREN -->
+<div class="tab-content" id="tab-luisteren">
+  <div class="subtab-bar">
+    <button class="subtab-btn active" data-subtab="dictee-l" data-maintab="luisteren">Dictee</button>
+    <button class="subtab-btn" data-subtab="begrip" data-maintab="luisteren">Begrip</button>
+  </div>
+
+  <div class="subtab-content active" id="sub-dictee-l">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Dictee</h2>
+        <p>Luister, onthoud, en schrijf de zin op.</p>
+      </div>
+      <div class="dictee-card" id="dicteeLCard">
+        <div class="dictee-sentence" id="dicteeLSentence"></div>
+        <div class="dictee-controls">
+          <button class="mondrian-btn" id="dicteeLRevealBtn" onclick="revealNextWordL()">Onthul woord</button>
+          <button class="mondrian-btn red" id="dicteeLHideBtn" onclick="hideDicteeSentenceL()" style="display:none">Verberg &amp; typ</button>
+        </div>
+        <div class="dictee-input-area" id="dicteeLInputArea" style="display:none">
+          <input type="text" class="dictee-input" id="dicteeLInput" placeholder="Typ de zin..." autocomplete="off" autocapitalize="none" />
+          <button class="mondrian-btn blue" onclick="checkDicteeL()">Check</button>
+        </div>
+        <div class="dictee-feedback" id="dicteeLFeedback"></div>
+        <div class="exercise-score">Score: <strong id="dicteeLCorrect">0</strong> / <strong id="dicteeLTotal">0</strong>
+          <button class="mondrian-btn small" onclick="nextDicteeL()">Volgende</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subtab-content" id="sub-begrip">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Luisterbegrip</h2>
+        <p>Lees het gesprek en beantwoord de vragen.</p>
+      </div>
+      <div id="begripContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN TAB: SPREKEN -->
+<div class="tab-content" id="tab-spreken">
+  <div class="subtab-bar">
+    <button class="subtab-btn active" data-subtab="uitspraak" data-maintab="spreken">Uitspraak</button>
+    <button class="subtab-btn" data-subtab="hardop" data-maintab="spreken">Hardop Lezen</button>
+    <button class="subtab-btn" data-subtab="gesprekken" data-maintab="spreken">Gesprekken</button>
+    <button class="subtab-btn" data-subtab="zinnen-s" data-maintab="spreken">Zinnen Bouwen</button>
+  </div>
+
+  <div class="subtab-content active" id="sub-uitspraak">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Uitspraak</h2>
+        <p>Minimale paren, IPA-gids en tongbrekers.</p>
+      </div>
+      <div id="uitspraakContent"></div>
+    </div>
+  </div>
+
+  <div class="subtab-content" id="sub-hardop">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Hardop Lezen</h2>
+        <p>Lees de tekst hardop voor. Moeilijke klanken zijn <span style="color:#D40920;font-weight:700">rood</span> gemarkeerd.</p>
+      </div>
+      <div id="hardopContent"></div>
+    </div>
+  </div>
+
+  <div class="subtab-content" id="sub-gesprekken">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Gesprekken</h2>
+        <p>Oefen alledaagse gesprekken. Speel je rol en onthul het modelantwoord.</p>
+      </div>
+      <div id="gesprekkenContent"></div>
+    </div>
+  </div>
+
+  <div class="subtab-content" id="sub-zinnen-s">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Zinnen Bouwen</h2>
+        <p>Vertaal de Engelse zin naar het Nederlands. Zeg het hardop en onthul het antwoord.</p>
+      </div>
+      <div id="zinnenSContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN TAB: SCHRIJVEN -->
+<div class="tab-content" id="tab-schrijven">
+  <div class="subtab-bar">
+    <button class="subtab-btn active" data-subtab="dictee-s" data-maintab="schrijven">Dictee</button>
+    <button class="subtab-btn" data-subtab="emails" data-maintab="schrijven">E-mails</button>
+    <button class="subtab-btn" data-subtab="zinnen-w" data-maintab="schrijven">Zinnen</button>
+  </div>
+
+  <div class="subtab-content active" id="sub-dictee-s">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Schrijfdictee</h2>
+        <p>De zin verschijnt kort. Onthoud en typ hem op. Let op spelling!</p>
+      </div>
+      <div class="dictee-card" id="dicteeSCard">
+        <div class="dictee-sentence" id="dicteeSSentence"></div>
+        <div class="dictee-controls">
+          <button class="mondrian-btn" id="dicteeSShowBtn" onclick="showDicteeSentenceS()">Toon zin (3s)</button>
+        </div>
+        <div class="dictee-input-area" id="dicteeSInputArea" style="display:none">
+          <input type="text" class="dictee-input" id="dicteeSInput" placeholder="Typ de zin..." autocomplete="off" autocapitalize="none" />
+          <button class="mondrian-btn blue" onclick="checkDicteeS()">Check</button>
+        </div>
+        <div class="dictee-feedback" id="dicteeSFeedback"></div>
+        <div class="exercise-score">Score: <strong id="dicteeSCorrect">0</strong> / <strong id="dicteeSTotal">0</strong>
+          <button class="mondrian-btn small" onclick="nextDicteeS()">Volgende</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subtab-content" id="sub-emails">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>E-mails Schrijven</h2>
+        <p>Schrijf een e-mail op basis van de situatie. Bekijk daarna het modelantwoord.</p>
+      </div>
+      <div id="emailsContent"></div>
+    </div>
+  </div>
+
+  <div class="subtab-content" id="sub-zinnen-w">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Zinnen Transformeren</h2>
+        <p>Herschrijf de zin volgens de instructie.</p>
+      </div>
+      <div id="zinnenWContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN TAB: LEZEN -->
+<div class="tab-content" id="tab-lezen">
+  <div class="subtab-bar">
+    <button class="subtab-btn active" data-subtab="verhalen" data-maintab="lezen">Verhalen</button>
+    <button class="subtab-btn" data-subtab="woordenschat-l" data-maintab="lezen">Woordenschat</button>
+  </div>
+
+  <div class="subtab-content active" id="sub-verhalen">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Verhalen</h2>
+        <p>Lees korte verhalen en beantwoord de vragen.</p>
+      </div>
+      <div class="news-nav" id="verhalenNav"></div>
+      <div id="verhalenContent"></div>
+    </div>
+  </div>
+
+  <div class="subtab-content" id="sub-woordenschat-l">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Woordenschat in Context</h2>
+        <p>Vul het juiste woord in of kies de betekenis.</p>
+      </div>
+      <div class="dictee-card" id="woordenschatCard">
+        <div class="vocab-exercise-type" id="woordenschatType"></div>
+        <div class="vocab-exercise-prompt" id="woordenschatPrompt">Laden...</div>
+        <div class="dictee-input-area" id="woordenschatInputArea">
+          <input type="text" class="dictee-input" id="woordenschatInput" placeholder="Typ je antwoord..." autocomplete="off" autocapitalize="none" />
+          <button class="mondrian-btn blue" onclick="checkWoordenschat()">Check</button>
+        </div>
+        <div class="dictee-feedback" id="woordenschatFeedback"></div>
+        <div class="exercise-score">Score: <strong id="woordenschatCorrect">0</strong> / <strong id="woordenschatTotal">0</strong>
+          <button class="mondrian-btn small" onclick="nextWoordenschat()">Volgende</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN TAB: CULTUUR -->
+<div class="tab-content" id="tab-cultuur">
+  <div class="subtab-bar">
+    <button class="subtab-btn active" data-subtab="etiquette" data-maintab="cultuur">Etiquette</button>
+    <button class="subtab-btn" data-subtab="communicatie" data-maintab="cultuur">Communicatie</button>
+    <button class="subtab-btn" data-subtab="praktisch" data-maintab="cultuur">Praktisch</button>
+    <button class="subtab-btn" data-subtab="uitdrukkingen-c" data-maintab="cultuur">Uitdrukkingen</button>
+  </div>
+
+  <div class="subtab-content active" id="sub-etiquette">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Nederlandse Etiquette</h2>
+        <p>Begrijp de Nederlandse omgangsvormen en sociale normen.</p>
+      </div>
+      <div class="cultuur-grid" id="etiquetteGrid"></div>
+    </div>
+  </div>
+
+  <div class="subtab-content" id="sub-communicatie">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Communicatie</h2>
+        <p>Formeel vs. informeel taalgebruik in Nederland.</p>
+      </div>
+      <div class="cultuur-grid" id="communicatieGrid"></div>
+    </div>
+  </div>
+
+  <div class="subtab-content" id="sub-praktisch">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Praktische Zaken</h2>
+        <p>Gemeente, huisarts, wonen, en meer — met handige zinnen.</p>
+      </div>
+      <div class="cultuur-grid" id="praktischGrid"></div>
+    </div>
+  </div>
+
+  <div class="subtab-content" id="sub-uitdrukkingen-c">
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h2>Nederlandse Uitdrukkingen</h2>
+        <p>Idiomen, spreekwoorden en hun culturele achtergrond.</p>
+      </div>
+      <div id="uitdrukkingenContent"></div>
     </div>
   </div>
 </div>
@@ -4412,6 +4821,342 @@ let currentArticle = 0;
 
 let filteredNewsIndices = [];
 
+// ==========================================
+// DATA: LUISTEREN
+// ==========================================
+
+const DICTEE_SENTENCES = [
+  { level:'A2', nl:'Ik ga elke dag met de fiets naar mijn werk.', focus:'fiets, elke dag' },
+  { level:'A2', nl:'Wil je een kopje koffie of thee?', focus:'kopje, of' },
+  { level:'A2', nl:'Het weer is vandaag heel mooi.', focus:'weer, vandaag' },
+  { level:'A2', nl:'Mijn zus woont in een klein dorp bij Amsterdam.', focus:'woont, dorp' },
+  { level:'B1', nl:'Ze heeft gisteren een nieuwe baan gevonden bij een groot bedrijf.', focus:'heeft gevonden, bedrijf' },
+  { level:'B1', nl:'Als het morgen regent, blijven we thuis.', focus:'als, blijven' },
+  { level:'B1', nl:'Hij heeft me verteld dat hij volgend jaar naar Duitsland verhuist.', focus:'heeft verteld, verhuist' },
+  { level:'B1', nl:'We moeten de trein van kwart over drie halen.', focus:'moeten, kwart over' },
+  { level:'B2', nl:'Hoewel het project succesvol was, werd het budget overschreden.', focus:'hoewel, werd overschreden' },
+  { level:'B2', nl:'Er wordt verwacht dat de werkloosheid de komende maanden zal dalen.', focus:'er wordt verwacht, zal dalen' },
+  { level:'B2', nl:'De gemeente heeft besloten om het parkeerbeleid aan te passen.', focus:'heeft besloten, aan te passen' },
+  { level:'C1', nl:'Naarmate de digitalisering voortschrijdt, worden traditionele beroepen steeds zeldzamer.', focus:'naarmate, voortschrijdt, zeldzamer' },
+  { level:'C1', nl:'Het valt niet te ontkennen dat de woningmarkt fundamentele hervormingen behoeft.', focus:'valt te ontkennen, behoeft' },
+  { level:'C1', nl:'De burgemeester benadrukte dat er onvoldoende draagvlak was voor het voorstel.', focus:'benadrukte, draagvlak' },
+];
+
+const LISTENING_DIALOGUES = [
+  { level:'A2', setting:'Bij de bakker', lines:[
+    {speaker:'Bakker', text:'Goedemorgen! Wat mag het zijn?'},
+    {speaker:'Klant', text:'Goedemorgen. Mag ik twee broodjes en een croissant?'},
+    {speaker:'Bakker', text:'Natuurlijk. Wilt u er nog iets bij?'},
+    {speaker:'Klant', text:'Ja, doe ook maar een appelgebak.'},
+    {speaker:'Bakker', text:'Dat wordt dan vijf euro tachtig.'},
+    {speaker:'Klant', text:'Alstublieft. Fijne dag nog!'}
+  ], questions:[
+    {q:'Hoeveel broodjes bestelt de klant?', options:['Eén','Twee','Drie','Vier'], answer:1},
+    {q:'Wat kost alles bij elkaar?', options:['€4,80','€5,80','€6,80','€5,08'], answer:1}
+  ]},
+  { level:'A2', setting:'Bij de supermarkt', lines:[
+    {speaker:'Kassier', text:'Heeft u een bonuskaart?'},
+    {speaker:'Klant', text:'Ja, hier is hij.'},
+    {speaker:'Kassier', text:'Dank u. Dat is veertien euro vijftig.'},
+    {speaker:'Klant', text:'Kan ik pinnen?'},
+    {speaker:'Kassier', text:'Ja hoor, gaat uw gang.'}
+  ], questions:[
+    {q:'Wat vraagt de kassier eerst?', options:['Of de klant wil pinnen','Of de klant een bonuskaart heeft','Hoeveel het kost','Of alles goed is'], answer:1},
+    {q:'Hoe betaalt de klant?', options:['Contant','Met de bonuskaart','Met pin','Met creditcard'], answer:2}
+  ]},
+  { level:'B1', setting:'Bij de huisarts', lines:[
+    {speaker:'Arts', text:'Goedemiddag, wat kan ik voor u doen?'},
+    {speaker:'Patiënt', text:'Ik heb al een week last van hoofdpijn en ik ben erg moe.'},
+    {speaker:'Arts', text:'Heeft u ook koorts gehad?'},
+    {speaker:'Patiënt', text:'Een beetje, maar niet heel hoog. Rond de 37,8.'},
+    {speaker:'Arts', text:'Ik wil graag uw bloeddruk meten. Heeft u veel stress op het werk?'},
+    {speaker:'Patiënt', text:'Ja, de laatste maanden is het heel druk geweest.'},
+    {speaker:'Arts', text:'Ik schrijf u paracetamol voor en raad u aan om meer rust te nemen.'}
+  ], questions:[
+    {q:'Hoe lang heeft de patiënt al klachten?', options:['Een dag','Drie dagen','Een week','Een maand'], answer:2},
+    {q:'Wat schrijft de arts voor?', options:['Antibiotica','Paracetamol','Vitaminen','Rust alleen'], answer:1}
+  ]},
+  { level:'B1', setting:'Op het gemeentehuis', lines:[
+    {speaker:'Ambtenaar', text:'Goedemorgen, heeft u een afspraak?'},
+    {speaker:'Bezoeker', text:'Ja, ik heb om tien uur een afspraak voor het afhalen van mijn paspoort.'},
+    {speaker:'Ambtenaar', text:'Mag ik uw identiteitsbewijs zien?'},
+    {speaker:'Bezoeker', text:'Hier is mijn rijbewijs.'},
+    {speaker:'Ambtenaar', text:'Dank u. Uw nieuwe paspoort is klaar. Wilt u hier even tekenen?'}
+  ], questions:[
+    {q:'Waarvoor heeft de bezoeker een afspraak?', options:['Rijbewijs aanvragen','Paspoort afhalen','Verhuizing doorgeven','Trouwen'], answer:1},
+    {q:'Welk identiteitsbewijs toont de bezoeker?', options:['Paspoort','ID-kaart','Rijbewijs','Verblijfsvergunning'], answer:2}
+  ]},
+  { level:'B2', setting:'Sollicitatiegesprek', lines:[
+    {speaker:'Interviewer', text:'Kunt u vertellen waarom u bij ons bedrijf wilt werken?'},
+    {speaker:'Sollicitant', text:'Uw organisatie staat bekend om innovatie en duurzaamheid, twee waarden die mij erg aanspreken.'},
+    {speaker:'Interviewer', text:'Wat beschouwt u als uw sterkste eigenschap?'},
+    {speaker:'Sollicitant', text:'Ik ben een teamspeler die goed onder druk kan werken. In mijn vorige functie heb ik een project geleid met strakke deadlines.'},
+    {speaker:'Interviewer', text:'En wat zou u willen verbeteren?'},
+    {speaker:'Sollicitant', text:'Ik merk dat ik soms te perfectionistisch ben, maar ik werk eraan om sneller beslissingen te nemen.'}
+  ], questions:[
+    {q:'Waarom wil de sollicitant bij dit bedrijf werken?', options:['Hoog salaris','Innovatie en duurzaamheid','Dichtbij huis','Mooie werktijden'], answer:1},
+    {q:'Wat noemt de sollicitant als verbeterpunt?', options:['Te weinig ervaring','Te perfectionistisch','Niet goed in teamwork','Slechte tijdplanning'], answer:1}
+  ]},
+  { level:'B2', setting:'Bij de makelaar', lines:[
+    {speaker:'Makelaar', text:'Welkom. Ik heb drie woningen die aan uw zoekcriteria voldoen.'},
+    {speaker:'Huurder', text:'Fijn. Ik zoek iets met minimaal twee slaapkamers en een balkon.'},
+    {speaker:'Makelaar', text:'Deze woning aan de Prinsengracht heeft twee slaapkamers, een ruime woonkamer en een Frans balkon. De huur is 1.450 euro per maand, exclusief gas, water en licht.'},
+    {speaker:'Huurder', text:'Dat valt binnen mijn budget. Is er een servicekostenregeling?'},
+    {speaker:'Makelaar', text:'Ja, de servicekosten zijn 75 euro per maand voor schoonmaak en onderhoud van de gemeenschappelijke ruimtes.'}
+  ], questions:[
+    {q:'Wat zoekt de huurder?', options:['Een koopwoning','Twee slaapkamers en balkon','Drie slaapkamers','Een tuin'], answer:1},
+    {q:'Zijn gas, water en licht inbegrepen?', options:['Ja','Nee','Alleen gas','Alleen water'], answer:1}
+  ]},
+  { level:'C1', setting:'Vergadering op kantoor', lines:[
+    {speaker:'Manager', text:'Laten we beginnen met de kwartaalcijfers. De omzet is met zeven procent gestegen ten opzichte van vorig kwartaal.'},
+    {speaker:'Analist', text:'Dat klopt, maar als we de seizoenseffecten meenemen, is de groei slechts drie procent.'},
+    {speaker:'Manager', text:'Een terecht punt. Hoe staat het met de klanttevredenheid?'},
+    {speaker:'Analist', text:'De NPS-score is gedaald van 45 naar 38. Dat baart mij zorgen.'},
+    {speaker:'Manager', text:'We moeten daar actie op ondernemen. Kun je een verbetervoorstel opstellen voor de volgende vergadering?'}
+  ], questions:[
+    {q:'Hoeveel is de omzet gestegen?', options:['3%','5%','7%','10%'], answer:2},
+    {q:'Wat is er met de NPS-score gebeurd?', options:['Gestegen naar 45','Gelijk gebleven','Gedaald van 45 naar 38','Gestegen van 38 naar 45'], answer:2}
+  ]},
+  { level:'C1', setting:'Discussie over woningmarkt', lines:[
+    {speaker:'Presentator', text:'De woningnood in Nederland is een groeiend probleem. Wat zijn volgens u de oorzaken?'},
+    {speaker:'Expert', text:'Er is jarenlang te weinig gebouwd. Daarnaast heeft de bevolkingsgroei en de toename van eenpersoonshuishoudens de druk vergroot.'},
+    {speaker:'Presentator', text:'Wat zou de overheid moeten doen?'},
+    {speaker:'Expert', text:'Meer investeren in sociale woningbouw en bouwvergunningen versnellen. Bovendien moeten we creatief kijken naar transformatie van kantoorpanden.'}
+  ], questions:[
+    {q:'Welk probleem wordt besproken?', options:['Werkloosheid','Woningnood','Klimaatverandering','Gezondheidszorg'], answer:1},
+    {q:'Welke oplossing noemt de expert NIET?', options:['Meer sociale woningbouw','Bouwvergunningen versnellen','Huren bevriezen','Kantoorpanden ombouwen'], answer:2}
+  ]}
+];
+
+// ==========================================
+// DATA: SPREKEN
+// ==========================================
+
+const PRONUNCIATION_GUIDE = {
+  minimalPairs: [
+    { sounds:'ui / ou', ipa:'/œy/ vs /ʌu/', examples:[
+      {a:'huis', b:'hous (dialect)', note:'ui = lippen rond, tong hoog'},
+      {a:'buit', b:'bout', note:'Luister naar het verschil'},
+      {a:'tuin', b:'toun (dialect)', note:'ui is typisch Nederlands'}
+    ]},
+    { sounds:'uu / oe', ipa:'/y/ vs /u/', examples:[
+      {a:'vuur', b:'voer', note:'uu = lippen rond, tong voor'},
+      {a:'duur', b:'doer', note:'oe = lippen rond, tong achter'},
+      {a:'muur', b:'moer', note:'Let op de tongpositie'}
+    ]},
+    { sounds:'ee / ie', ipa:'/eː/ vs /i/', examples:[
+      {a:'been', b:'bien', note:'ee = langer, meer open'},
+      {a:'veel', b:'viel', note:'ie = kort en hoog'},
+      {a:'teen', b:'tien', note:'Herkenbaar verschil'}
+    ]},
+    { sounds:'g / ch', ipa:'/ɣ/ vs /x/', examples:[
+      {a:'goed', b:'loch', note:'g = stemhebbend, ch = stemloos'},
+      {a:'gaan', b:'nacht', note:'Beiden in de keel'},
+      {a:'gek', b:'acht', note:'Probeer het verschil te voelen'}
+    ]},
+    { sounds:'sch / s', ipa:'/sx/ vs /s/', examples:[
+      {a:'school', b:'stoel', note:'sch = s + ch samen'},
+      {a:'schrijven', b:'slapen', note:'Typisch Nederlands cluster'},
+      {a:'schip', b:'sip', note:'Het ch-geluid na de s'}
+    ]}
+  ],
+  tongbrekers: [
+    { text:'De kat krabt de krullen van de trap.', focus:'kr-klanken' },
+    { text:'Achttien Scheveningse scholieren schaatsen achter Schiphol.', focus:'sch-klanken' },
+    { text:'De koetsier poetst de postkoets met postkoetspoets.', focus:'ts-combinaties' },
+    { text:'Leuke Kansen Leiden Tot Leuke Levens.', focus:'l-klanken' },
+    { text:'Een heel lief klein konijntje ging op reis.', focus:'ij/ei-klanken' },
+    { text:'Zeven Zaventemse zigeuners zochten zeventien zakdoeken.', focus:'z-klanken' },
+    { text:'\'s Morgens \'s middags en \'s avonds eet ik ijs.', focus:'Genitivisch-s' }
+  ]
+};
+
+const READING_PASSAGES = [
+  { level:'A2', text:'De <tricky>sch</tricky>ool begint om half ne<tricky>g</tricky>en. Ik fiets elke da<tricky>g</tricky> naar <tricky>sch</tricky>ool. Het is vi<tricky>jf</tricky>tien minuten fietsen. Soms re<tricky>g</tricky>ent het en dan word ik nat. Maar vandaa<tricky>g</tricky> <tricky>sch</tricky>ijnt de zon.' },
+  { level:'A2', text:'Mi<tricky>jn</tricky> buurman heet Kees. Hi<tricky>j</tricky> heeft een <tricky>g</tricky>rote tuin met veel bloemen. Elke o<tricky>ch</tricky>tend <tricky>g</tricky>eeft hi<tricky>j</tricky> de planten water. Hi<tricky>j</tricky> vindt het fi<tricky>jn</tricky> om buiten te zi<tricky>jn</tricky>.' },
+  { level:'B1', text:'Vori<tricky>g</tricky>e week ben ik naar <tricky>Sch</tricky>evenin<tricky>g</tricky>en <tricky>g</tricky>eweest. Het strand was pra<tricky>ch</tricky>ti<tricky>g</tricky>, ondanks het koude weer. We hebben <tricky>g</tricky>ewandeld over de pier en <tricky>g</tricky>ezellig koffie<tricky>g</tricky>edronken bi<tricky>j</tricky> een strandtent.' },
+  { level:'B1', text:'De Nederlanders staan bekend om hun dire<tricky>c</tricky>theid. Als iemand een nieuwe <tricky>j</tricky>urk draa<tricky>g</tricky>t, ze<tricky>g</tricky><tricky>g</tricky>en ze eerli<tricky>j</tricky>k wat ze ervan vinden. Dat is soms <tricky>sch</tricky>rikken voor buitenlanders.' },
+  { level:'B2', text:'De <tricky>g</tricky>emeente heeft nieuwe re<tricky>g</tricky>els in<tricky>g</tricky>evoerd voor het <tricky>g</tricky>ebruik van elek-tri<tricky>sch</tricky>e step. Vori<tricky>g</tricky> <tricky>j</tricky>aar waren er te veel on<tricky>g</tricky>evalleen in de binnenstad. Er <tricky>g</tricky>elden nu snel-heids-beperkin<tricky>g</tricky>en en er zi<tricky>jn</tricky> speciale parkeerplekken aan<tricky>g</tricky>ewezen.' },
+  { level:'C1', text:'De toenemende di<tricky>g</tricky>italiserin<tricky>g</tricky> van de <tricky>g</tricky>ezondheidszor<tricky>g</tricky> bren<tricky>g</tricky>t zowel kansen als <tricky>ui</tricky>tda<tricky>g</tricky>in<tricky>g</tricky>en met zi<tricky>ch</tricky> mee. Hoewel elektoni<tricky>sch</tricky>e patiëntendossiers de efficiëntie verho<tricky>g</tricky>en, ri<tricky>j</tricky>zen er vra<tricky>g</tricky>en over privacy en data-beveili<tricky>g</tricky>in<tricky>g</tricky>.' }
+];
+
+const CONVERSATION_SCENARIOS = [
+  { level:'A2', setting:'Bij de bakker', situation:'Je wilt brood en gebak kopen.', lines:[
+    {speaker:'Bakker', text:'Goedemorgen! Wat mag het zijn?', role:'other'},
+    {speaker:'Jij', text:'Goedemorgen. Mag ik een bruin brood en twee krentenbollen?', role:'user'},
+    {speaker:'Bakker', text:'Natuurlijk. Nog iets anders?', role:'other'},
+    {speaker:'Jij', text:'Ja, heeft u ook appeltaart?', role:'user'},
+    {speaker:'Bakker', text:'Ja, per punt of heel?', role:'other'},
+    {speaker:'Jij', text:'Eén punt alstublieft. Hoeveel is het in totaal?', role:'user'}
+  ]},
+  { level:'B1', setting:'Bij de dokter', situation:'Je hebt al een paar dagen buikpijn.', lines:[
+    {speaker:'Arts', text:'Goedemiddag, waarmee kan ik u helpen?', role:'other'},
+    {speaker:'Jij', text:'Ik heb al drie dagen buikpijn, vooral na het eten.', role:'user'},
+    {speaker:'Arts', text:'Waar precies voelt u de pijn?', role:'other'},
+    {speaker:'Jij', text:'Hier, aan de rechterkant, onder mijn ribben.', role:'user'},
+    {speaker:'Arts', text:'Heeft u ook last van misselijkheid?', role:'other'},
+    {speaker:'Jij', text:'Ja, soms wel, vooral \'s ochtends.', role:'user'}
+  ]},
+  { level:'B1', setting:'Op de gemeente', situation:'Je wilt je verhuizing doorgeven.', lines:[
+    {speaker:'Ambtenaar', text:'Goedemorgen, wat kan ik voor u doen?', role:'other'},
+    {speaker:'Jij', text:'Ik wil graag mijn verhuizing doorgeven. Ik ben vorige week verhuisd.', role:'user'},
+    {speaker:'Ambtenaar', text:'Heeft u een afspraak gemaakt?', role:'other'},
+    {speaker:'Jij', text:'Ja, ik heb een afspraak om half elf.', role:'user'},
+    {speaker:'Ambtenaar', text:'Mag ik uw identiteitsbewijs en het nieuwe adres?', role:'other'},
+    {speaker:'Jij', text:'Hier is mijn paspoort. Mijn nieuwe adres is Keizersgracht 42.', role:'user'}
+  ]},
+  { level:'B2', setting:'Sollicitatiegesprek', situation:'Je solliciteert op een marketingfunctie.', lines:[
+    {speaker:'Interviewer', text:'Kunt u uzelf even voorstellen?', role:'other'},
+    {speaker:'Jij', text:'Natuurlijk. Ik heb vijf jaar ervaring in online marketing, met name in social media en contentcreatie.', role:'user'},
+    {speaker:'Interviewer', text:'Waarom wilt u bij ons werken?', role:'other'},
+    {speaker:'Jij', text:'Uw bedrijf staat bekend om innovatieve campagnes. Ik zou graag mijn vaardigheden inzetten om daaraan bij te dragen.', role:'user'},
+    {speaker:'Interviewer', text:'Waar ziet u zichzelf over vijf jaar?', role:'other'},
+    {speaker:'Jij', text:'Ik hoop door te groeien naar een leidinggevende rol binnen het marketingteam.', role:'user'}
+  ]},
+  { level:'B2', setting:'Met de buren', situation:'Je buren maken veel lawaai \'s avonds.', lines:[
+    {speaker:'Jij', text:'Hallo, sorry dat ik stoor. Ik wilde even iets bespreken.', role:'user'},
+    {speaker:'Buurman', text:'Oh, hallo. Natuurlijk, wat is er?', role:'other'},
+    {speaker:'Jij', text:'De laatste weken is er \'s avonds laat nogal wat geluid. Ik begrijp dat het niet expres is, maar ik word er wakker van.', role:'user'},
+    {speaker:'Buurman', text:'Oh, dat spijt me! We zijn aan het verbouwen.', role:'other'},
+    {speaker:'Jij', text:'Zou het mogelijk zijn om na tien uur \'s avonds het lawaai te beperken?', role:'user'},
+    {speaker:'Buurman', text:'Natuurlijk, dat is heel redelijk. Sorry voor het ongemak.', role:'other'}
+  ]},
+  { level:'C1', setting:'Borrel op kantoor', situation:'Je praat met collega\'s over een reorganisatie.', lines:[
+    {speaker:'Collega', text:'Heb je gehoord van de reorganisatie? Blijkbaar gaan er twee afdelingen samen.', role:'other'},
+    {speaker:'Jij', text:'Ja, ik heb begrepen dat marketing en communicatie worden samengevoegd. Ik vraag me af wat dat voor onze functies betekent.', role:'user'},
+    {speaker:'Collega', text:'De directie zegt dat er geen ontslagen vallen, maar ik ben sceptisch.', role:'other'},
+    {speaker:'Jij', text:'Ik denk dat we moeten afwachten wat het reorganisatieplan precies inhoudt. Maar het is wel onzeker.', role:'user'}
+  ]}
+];
+
+const SENTENCE_PAIRS = [
+  { level:'A2', en:'I go to the supermarket every Saturday.', nl:'Ik ga elke zaterdag naar de supermarkt.', grammar:'Woordvolgorde: subject-werkwoord' },
+  { level:'A2', en:'My sister lives in Rotterdam.', nl:'Mijn zus woont in Rotterdam.', grammar:'Enkelvoud werkwoord' },
+  { level:'A2', en:'Do you want a cup of tea?', nl:'Wil je een kopje thee?', grammar:'Vraagzin: inversie' },
+  { level:'A2', en:'I have two cats and a dog.', nl:'Ik heb twee katten en een hond.', grammar:'Meervoud' },
+  { level:'B1', en:'Yesterday I went to the cinema with my friends.', nl:'Gisteren ben ik met mijn vrienden naar de bioscoop gegaan.', grammar:'Inversie na tijdsbepaling + perfectum' },
+  { level:'B1', en:'I think that she is right.', nl:'Ik denk dat ze gelijk heeft.', grammar:'Bijzin met dat: werkwoord naar achteren' },
+  { level:'B1', en:'If it rains, I will stay home.', nl:'Als het regent, blijf ik thuis.', grammar:'Bijzin + inversie in hoofdzin' },
+  { level:'B1', en:'He told me that he is moving.', nl:'Hij heeft me verteld dat hij gaat verhuizen.', grammar:'Perfectum + bijzin' },
+  { level:'B2', en:'The book that I read yesterday was very interesting.', nl:'Het boek dat ik gisteren heb gelezen, was heel interessant.', grammar:'Betrekkelijke bijzin' },
+  { level:'B2', en:'Not only is he smart, but he is also hardworking.', nl:'Niet alleen is hij slim, maar hij is ook hardwerkend.', grammar:'Niet alleen...maar ook + inversie' },
+  { level:'B2', en:'There are expected to be more tourists this year.', nl:'Er worden dit jaar meer toeristen verwacht.', grammar:'Er + passief' },
+  { level:'C1', en:'The more I study, the better I understand the grammar.', nl:'Hoe meer ik studeer, hoe beter ik de grammatica begrijp.', grammar:'Hoe...hoe constructie' },
+  { level:'C1', en:'Had I known, I would have acted differently.', nl:'Had ik het geweten, dan had ik anders gehandeld.', grammar:'Conditionalis zonder als' },
+  { level:'C1', en:'It cannot be denied that the situation is serious.', nl:'Het valt niet te ontkennen dat de situatie ernstig is.', grammar:'Vallen + te + infinitief' }
+];
+
+// ==========================================
+// DATA: SCHRIJVEN
+// ==========================================
+
+const WRITING_PROMPTS = [
+  { level:'B1', type:'informeel', situation:'Je kunt niet komen op het verjaardagsfeest van je vriend(in). Schrijf een berichtje om je af te melden.', template:'Lieve [naam],\n\n[reden afmelding]\n[alternatief voorstel]\n\nGroetjes,\n[jouw naam]', model:'Lieve Anna,\n\nHelaas kan ik zaterdag niet naar je verjaardag komen. Ik heb al een afspraak bij de tandarts die ik niet kan verzetten.\n\nZullen we volgende week een keer koffie drinken? Dan geef ik je je cadeau!\n\nGroetjes,\nSophie' },
+  { level:'B1', type:'informeel', situation:'Je wilt een afspraak maken met je buurvrouw om samen te koken. Stuur een berichtje.', template:'Hoi [naam],\n\n[voorstel + datum/tijd]\n[wat je wilt koken]\n\nTot snel!\n[jouw naam]', model:'Hoi Fatima,\n\nIk wilde vragen of je zin hebt om vrijdagavond samen te koken? Ik heb een lekker recept voor stamppot gevonden.\n\nIk kan de boodschappen doen als jij het toetje maakt!\n\nTot snel!\nMark' },
+  { level:'B2', type:'formeel', situation:'Schrijf een klachtbrief aan je energiebedrijf. Je factuur is veel hoger dan verwacht.', template:'Geachte heer/mevrouw,\n\n[beschrijving probleem]\n[wat u verwacht]\n\nMet vriendelijke groet,\n[naam]', model:'Geachte heer/mevrouw,\n\nOp 15 januari heb ik mijn maandelijkse factuur ontvangen. Het bedrag van €340 is aanzienlijk hoger dan de gebruikelijke €120 per maand.\n\nIk verzoek u vriendelijk om de factuur te controleren en mij een correcte afrekening te sturen. Indien nodig ben ik bereid de meterstanden door te geven.\n\nMet vriendelijke groet,\nJ. de Vries' },
+  { level:'B2', type:'formeel', situation:'Schrijf een sollicitatiebrief voor een functie als administratief medewerker.', template:'Geachte heer/mevrouw,\n\n[introductie + motivatie]\n[ervaring en vaardigheden]\n[afsluiting]\n\nMet vriendelijke groet,\n[naam]', model:'Geachte heer/mevrouw,\n\nMet grote interesse heb ik uw vacature voor administratief medewerker gelezen op Indeed. Graag stel ik mij kandidaat voor deze functie.\n\nIk heb drie jaar ervaring in administratieve ondersteuning en ben vaardig met Excel, Word en SAP. In mijn huidige functie ben ik verantwoordelijk voor het verwerken van facturen en het bijhouden van de agenda.\n\nGraag licht ik mijn motivatie toe in een persoonlijk gesprek.\n\nMet vriendelijke groet,\nA. Bakker' },
+  { level:'C1', type:'formeel', situation:'Schrijf een brief aan de gemeente over geluidsoverlast in uw wijk. U wilt dat er maatregelen worden genomen.', template:'Geachte heer/mevrouw,\n\n[beschrijving situatie]\n[gevolgen]\n[verzoek om actie]\n\nHoogachtend,\n[naam]', model:'Geachte heer/mevrouw,\n\nMiddels deze brief wil ik uw aandacht vragen voor de aanhoudende geluidsoverlast in de Vondelstraat. Sinds de opening van het nieuwe horecacomplex op nummer 45 ervaren bewoners structureel overlast, met name in de weekendnachten.\n\nDe geluidsniveaus overschrijden regelmatig de wettelijke normen, hetgeen een negatieve invloed heeft op de leefbaarheid van de wijk. Meerdere bewoners hebben inmiddels klachten ingediend.\n\nIk verzoek u dringend om een geluidsonderzoek in te stellen en zo nodig handhavend op te treden.\n\nHoogachtend,\nDr. M.C. van der Berg' }
+];
+
+const SENTENCE_TRANSFORMS = [
+  { level:'B1', instruction:'Maak passief', original:'De kok bereidt het eten.', answer:'Het eten wordt (door de kok) bereid.', type:'actief→passief' },
+  { level:'B1', instruction:'Zet in de verleden tijd', original:'Ik loop elke dag naar school.', answer:'Ik liep elke dag naar school.', type:'tegenwoordig→verleden' },
+  { level:'B1', instruction:'Maak een bijzin met "dat"', original:'Hij is ziek. Hij kan niet komen.', answer:'Hij kan niet komen, omdat hij ziek is. / Hij zegt dat hij ziek is.', type:'combineren' },
+  { level:'B2', instruction:'Maak passief', original:'De regering heeft nieuwe regels ingevoerd.', answer:'Nieuwe regels zijn (door de regering) ingevoerd.', type:'actief→passief' },
+  { level:'B2', instruction:'Maak indirecte rede', original:'Ze zei: "Ik ga morgen naar Parijs."', answer:'Ze zei dat ze de volgende dag naar Parijs ging.', type:'direct→indirect' },
+  { level:'B2', instruction:'Combineer met "hoewel"', original:'Het regende. We gingen toch wandelen.', answer:'Hoewel het regende, gingen we toch wandelen.', type:'combineren' },
+  { level:'C1', instruction:'Herschrijf met "er"', original:'Veel mensen wonen in Amsterdam.', answer:'Er wonen veel mensen in Amsterdam.', type:'er-constructie' },
+  { level:'C1', instruction:'Maak passief + bijzin', original:'De commissie bespreekt het voorstel morgen.', answer:'Het voorstel wordt morgen door de commissie besproken. / Het is bekend dat het voorstel morgen besproken wordt.', type:'actief→passief' }
+];
+
+// ==========================================
+// DATA: LEZEN
+// ==========================================
+
+const STORIES = [
+  { level:'A2', title:'De Fiets', text:'Jan heeft een nieuwe fiets. De fiets is rood en heel mooi. Elke dag fietst hij naar zijn werk. Het is twintig minuten fietsen. Vandaag regent het, maar Jan fietst toch. In Nederland fiets je altijd, ook als het regent. Bij het werk zet hij zijn fiets in de fietsenstalling. Er staan wel honderd fietsen! Na het werk fietst hij naar de supermarkt. Hij koopt brood, kaas en melk. Dan fietst hij naar huis.', vocab:{fietsenstalling:'bicycle parking',toch:'still/anyway',koopt:'buys'}, questions:[
+    {q:'Welke kleur heeft de fiets?', options:['Blauw','Rood','Groen','Zwart'], answer:1},
+    {q:'Wat doet Jan als het regent?', options:['Hij neemt de bus','Hij blijft thuis','Hij fietst toch','Hij neemt een taxi'], answer:2},
+    {q:'Wat koopt Jan in de supermarkt?', options:['Groente en fruit','Brood, kaas en melk','Vis en vlees','Alleen brood'], answer:1}
+  ]},
+  { level:'A2', title:'De Markt', text:'Elke zaterdag is er markt op het plein. Maria gaat graag naar de markt. Er zijn veel kraampjes met groente, fruit, kaas en bloemen. Maria koopt altijd verse tomaten en aardbeien. De kaasboer geeft haar een stukje kaas om te proeven. "Lekker!" zegt Maria. Ze koopt een stuk oude kaas. Daarna drinkt ze een kopje koffie bij het kraampje van meneer Bakker. Hij heeft de beste koffie van de hele markt.', vocab:{kraampjes:'market stalls',proeven:'to taste',verse:'fresh'}, questions:[
+    {q:'Wanneer is de markt?', options:['Elke zondag','Elke zaterdag','Elke vrijdag','Elke dag'], answer:1},
+    {q:'Wat krijgt Maria van de kaasboer?', options:['Een cadeau','Een recept','Een stukje kaas om te proeven','Een korting'], answer:2},
+    {q:'Wie heeft de beste koffie?', options:['Maria','De kaasboer','Meneer Bakker','De bloemist'], answer:2}
+  ]},
+  { level:'B1', title:'Het Sollicitatiegesprek', text:'Lisa is zenuwachtig. Vandaag heeft ze een sollicitatiegesprek bij een marketingbureau. Ze heeft zich goed voorbereid: ze heeft het bedrijf onderzocht en haar cv bijgewerkt.\n\nOm half tien komt ze aan bij het kantoor. De receptioniste brengt haar naar een vergaderzaal. Na vijf minuten komt de manager binnen. "Welkom, Lisa. Vertel eens, waarom wil je bij ons werken?"\n\nLisa vertelt over haar ervaring en waarom ze enthousiast is over het bedrijf. Het gesprek duurt een uur. Aan het eind zegt de manager: "We laten je volgende week iets weten." Lisa hoopt dat ze goed nieuws krijgt.', vocab:{zenuwachtig:'nervous',bijgewerkt:'updated',vergaderzaal:'meeting room'}, questions:[
+    {q:'Waarom is Lisa zenuwachtig?', options:['Ze heeft een examen','Ze heeft een sollicitatiegesprek','Ze gaat verhuizen','Ze moet presenteren'], answer:1},
+    {q:'Hoe lang duurt het gesprek?', options:['30 minuten','45 minuten','Een uur','Twee uur'], answer:2},
+    {q:'Wanneer hoort Lisa het resultaat?', options:['Dezelfde dag','De volgende dag','Volgende week','Volgende maand'], answer:2}
+  ]},
+  { level:'B2', title:'De Woningmarkt', text:'Nederland kampt met een ernstig woningtekort. In de grote steden zijn de huurprijzen de afgelopen jaren explosief gestegen. Een gemiddelde tweekamerwoning in Amsterdam kost inmiddels meer dan 1.500 euro per maand.\n\nVoor starters op de woningmarkt is het bijna onmogelijk om een betaalbare woning te vinden. Lange wachtlijsten voor sociale huurwoningen — soms wel tien jaar in Amsterdam — dwingen veel jonge mensen om bij hun ouders te blijven wonen of naar kleinere steden te verhuizen.\n\nDe overheid heeft plannen aangekondigd om 100.000 nieuwe woningen per jaar te bouwen, maar experts betwijfelen of dit haalbaar is vanwege tekorten aan bouwvakkers en stijgende materiaalkosten.', vocab:{kampt:'struggles',explosief:'explosively',haalbaar:'feasible',bouwvakkers:'construction workers'}, questions:[
+    {q:'Wat is het hoofdprobleem?', options:['Te veel woningen','Woningtekort','Slechte kwaliteit','Te veel bouwvakkers'], answer:1},
+    {q:'Hoe lang is de wachtlijst in Amsterdam?', options:['Een jaar','Vijf jaar','Tien jaar','Twintig jaar'], answer:2},
+    {q:'Waarom betwijfelen experts de plannen?', options:['Geen geld','Geen interesse','Tekort aan bouwvakkers en stijgende kosten','Politieke problemen'], answer:2}
+  ]},
+  { level:'C1', title:'Het Poldermodel', text:'Het poldermodel is een typisch Nederlands fenomeen dat verwijst naar de traditie van overleg en consensus in de arbeidsmarkt en politiek. De term is ontleend aan de eeuwenlange strijd tegen het water, waarbij samenwerking tussen alle partijen essentieel was voor het droogleggen van polders.\n\nIn de praktijk betekent het poldermodel dat werkgevers, vakbonden en de overheid regelmatig overleggen in de Sociaal-Economische Raad (SER). Dit driepartijenoverleg heeft geleid tot relatief stabiele arbeidsverhoudingen en een sterke verzorgingsstaat.\n\nCritici beweren echter dat het model te traag is voor de huidige geglobaliseerde economie. Besluitvorming duurt lang omdat alle partijen het eens moeten worden. Voorstanders wijzen erop dat juist deze zorgvuldige aanpak heeft bijgedragen aan de sociale stabiliteit van Nederland.', vocab:{ontleend:'derived',droogleggen:'reclamation/draining',verzorgingsstaat:'welfare state',besluitvorming:'decision-making'}, questions:[
+    {q:'Waar verwijst de term "poldermodel" naar?', options:['Een politieke partij','Traditie van overleg en consensus','Een economisch model uit Amerika','Het watermanagement'], answer:1},
+    {q:'Wat is een kritiekpunt op het poldermodel?', options:['Het is te duur','Het is te snel','Het is te traag','Het is ondemocratisch'], answer:2},
+    {q:'Wie overleggen in de SER?', options:['Alleen de overheid','Werkgevers en werknemers','Werkgevers, vakbonden en overheid','Alleen vakbonden'], answer:2}
+  ]}
+];
+
+const VOCAB_IN_CONTEXT = [
+  { level:'A2', type:'cloze', sentence:'Ik ga naar de ___ om brood te kopen.', answer:'bakker', hint:'Iemand die brood maakt en verkoopt' },
+  { level:'A2', type:'cloze', sentence:'Het ___ is vandaag erg koud.', answer:'weer', hint:'Regen, zon, wind...' },
+  { level:'A2', type:'cloze', sentence:'We eten vanavond bij mijn ___ thuis.', answer:'ouders', hint:'Je vader en moeder' },
+  { level:'B1', type:'cloze', sentence:'De ___ heeft besloten om het park te renoveren.', answer:'gemeente', hint:'De lokale overheid' },
+  { level:'B1', type:'cloze', sentence:'Na drie jaar studie heeft ze haar ___ gehaald.', answer:'diploma', hint:'Bewijs dat je je studie hebt afgerond' },
+  { level:'B1', type:'meaning', sentence:'Het bedrijf heeft veel baat bij de nieuwe regeling.', word:'baat', options:['schade','voordeel','kosten','problemen'], answer:1 },
+  { level:'B2', type:'meaning', sentence:'De wethouder heeft het voorstel van de hand gewezen.', word:'van de hand gewezen', options:['goedgekeurd','besproken','afgewezen','aangepast'], answer:2 },
+  { level:'B2', type:'cloze', sentence:'De overheid ___ strengere maatregelen aan om de uitstoot te verminderen.', answer:'kondigt', hint:'Officieel bekendmaken (aankondigingen)' },
+  { level:'C1', type:'meaning', sentence:'Het rapport legt de vinger op de zere plek.', word:'de vinger op de zere plek leggen', options:['Een oplossing bieden','Het pijnpunt benoemen','Iets verbergen','Een fout maken'], answer:1 },
+  { level:'C1', type:'cloze', sentence:'De ___ van het nieuwe beleid zijn nog niet volledig duidelijk.', answer:'implicaties', hint:'Mogelijke gevolgen of consequenties' }
+];
+
+// ==========================================
+// DATA: CULTUUR
+// ==========================================
+
+const CULTURE_SECTIONS = {
+  etiquette: [
+    { title:'Nederlandse Directheid', text:'Nederlanders staan bekend om hun directheid. Ze zeggen eerlijk wat ze denken, ook als dat oncomfortabel kan zijn. Dit wordt niet als onbeleefd beschouwd, maar als eerlijk en efficiënt.', example:'"Die jurk staat je niet zo goed" — een Nederlander meent het goed!', accent:'red' },
+    { title:'Gezelligheid', text:'Gezelligheid is een kernbegrip in de Nederlandse cultuur. Het beschrijft een gevoel van warmte, gezelschap en plezier. Een avond met vrienden, kaarslicht en borrelhapjes is de perfecte definitie.', example:'Gezellig = cozy + fun + togetherness (onvertaalbaar!)', accent:'yellow' },
+    { title:'Verjaardagen', text:'In Nederland feliciteer je niet alleen de jarige, maar ook alle aanwezigen: "Gefeliciteerd met je moeder!" Iedereen zit in een kring en je gaat rond om iedereen drie zoenen te geven.', example:'"Gefeliciteerd!" → tegen iedereen, niet alleen de jarige.', accent:'blue' },
+    { title:'Tikkie & Rekening Splitsen', text:'Nederlanders splitsen vaak de rekening in restaurants. Het is heel normaal om een Tikkie te sturen — een betaalverzoek via een app — zelfs voor kleine bedragen.', example:'Een Tikkie van €2,50 voor koffie is volkomen normaal.', accent:'red' },
+    { title:'Stiptheid', text:'Op tijd komen is heilig in Nederland. Als je zegt dat je om 15:00 komt, word je om 15:00 verwacht — niet om 15:05. Bij zakelijke afspraken is te laat komen een ernstige faux pas.', example:'5 minuten te laat = te laat. Bel altijd als je vertraagd bent.', accent:'black' }
+  ],
+  communicatie: [
+    { title:'U vs. Jij', text:'Het gebruik van "u" (formeel) versus "jij/je" (informeel) is belangrijk. Gebruik "u" bij: ouderen die je niet kent, in zakelijke e-mails, bij de overheid, en bij de dokter. "Jij" is voor vrienden, collega\'s en de meeste winkels.', phrases:['U heeft een afspraak om 10:00 (formeel)','Heb je zin om koffie te drinken? (informeel)','Zou u mij kunnen helpen? (formeel beleefd)'], accent:'blue' },
+    { title:'E-mailconventies', text:'Formele e-mails beginnen met "Geachte heer/mevrouw" en eindigen met "Met vriendelijke groet". Informele mails gebruiken "Hoi/Hallo" en "Groetjes". Het verschil is belangrijk in professionele contexten.', phrases:['Geachte heer/mevrouw → formeel','Met vriendelijke groet → zakelijke afsluiting','Groetjes / Liefs → informeel'], accent:'red' },
+    { title:'Vergadercultuur', text:'Nederlandse vergaderingen zijn democratisch: iedereen mag zijn mening geven, ongeacht hiërarchie. Besluiten worden bij consensus genomen. Vergaderingen beginnen en eindigen stipt op tijd.', phrases:['Mag ik even reageren?','Ik zie dat anders...','Zijn we het eens? Dan gaan we verder.'], accent:'yellow' },
+    { title:'Het Poldermodel', text:'Het poldermodel staat voor overleg en compromis. In politiek en werk wordt gestreefd naar consensus. Dit kan traag lijken, maar zorgt voor brede steun. Je mening geven wordt aangemoedigd.', phrases:['We moeten er samen uitkomen','Laten we een compromis zoeken','Iedereen heeft inspraak'], accent:'black' }
+  ],
+  praktisch: [
+    { title:'Gemeente & Overheid', text:'Voor officiële zaken ga je naar het gemeentehuis: paspoort, rijbewijs, verhuizing doorgeven, trouwen. Je hebt bijna altijd een afspraak nodig. Maak deze online via de website van je gemeente.', phrases:['Ik wil graag een afspraak maken','Kan ik mijn verhuizing doorgeven?','Waar kan ik mijn paspoort ophalen?','Ik heb een uittreksel nodig'], accent:'blue' },
+    { title:'Huisarts & Gezondheidszorg', text:'Iedereen in Nederland moet een zorgverzekering hebben. Je huisarts is je eerste aanspreekpunt. Voor een specialist heb je een verwijzing nodig. Bel de huisarts voor een afspraak, of bij spoed: bel 112.', phrases:['Ik wil graag een afspraak maken bij de huisarts','Ik heb een verwijzing nodig voor een specialist','Kan ik een recept ophalen?','Het is dringend / niet dringend'], accent:'red' },
+    { title:'Wonen & Huren', text:'Woningen vind je via Funda, Pararius of Kamernet. Let op: vraag altijd om een huurcontract. Borg (waarborgsom) is meestal 1-2 maanden huur. Servicekosten komen bovenop de kale huur.', phrases:['Wat zijn de servicekosten?','Is de woning gemeubileerd?','Hoe hoog is de borg?','Wanneer kan ik de woning bezichtigen?'], accent:'yellow' },
+    { title:'DigiD & Bankzaken', text:'DigiD is je digitale identiteit voor overheidsdiensten (Belastingdienst, toeslagen, gemeente). Je hebt een BSN nodig om een DigiD aan te vragen. Voor bankzaken: open een rekening bij ING, ABN AMRO of Rabobank.', phrases:['Ik wil een DigiD aanvragen','Kan ik een bankrekening openen?','Ik heb mijn BSN-nummer nodig','Hoe activeer ik internetbankieren?'], accent:'black' }
+  ]
+};
+
+const DUTCH_IDIOMS = [
+  { theme:'Weer', expression:'Het regent pijpenstelen', literal:'It rains pipe stems', meaning:'Het regent heel hard', backstory:'Verwijst naar hoe harde regen eruitziet als vallende pijpenstelen.' },
+  { theme:'Weer', expression:'Na regen komt zonneschijn', literal:'After rain comes sunshine', meaning:'Na slechte tijden komen goede tijden', backstory:'Een optimistisch gezegde over het cyclische karakter van het leven.' },
+  { theme:'Weer', expression:'Met de noorderzon vertrekken', literal:'Leave with the northern sun', meaning:'Stiekem weggaan zonder afscheid', backstory:'De noorderzon bestaat niet — dus vertrekken met de noorderzon betekent onzichtbaar verdwijnen.' },
+  { theme:'Eten', expression:'Dat is appeltje-eitje', literal:'That is little apple-little egg', meaning:'Dat is heel makkelijk', backstory:'Een appel en een ei zijn de simpelste gerechten om te maken.' },
+  { theme:'Eten', expression:'Nu komt de aap uit de mouw', literal:'Now the monkey comes out of the sleeve', meaning:'Nu wordt de waarheid duidelijk', backstory:'Verwijst naar goochelaars die dieren in hun mouwen verborgen hielden.' },
+  { theme:'Eten', expression:'Door de zure appel heen bijten', literal:'To bite through the sour apple', meaning:'Iets onaangenaams doen omdat het moet', backstory:'Je bijt door de zure smaak heen — het is even vies maar dan is het voorbij.' },
+  { theme:'Dieren', expression:'Een kat in de zak kopen', literal:'To buy a cat in a bag', meaning:'Iets kopen zonder het te controleren', backstory:'Op middeleeuwse markten werd soms een kat in een zak verkocht in plaats van een haas.' },
+  { theme:'Dieren', expression:'Als de kat van huis is, dansen de muizen', literal:'When the cat is away, the mice dance', meaning:'Als de baas er niet is, doen mensen wat ze willen', backstory:'Universeel gezegde, ook in andere talen.' },
+  { theme:'Dieren', expression:'Oude koeien uit de sloot halen', literal:'To pull old cows from the ditch', meaning:'Oude problemen weer oprakelen', backstory:'In de polder vielen koeien soms in de sloot. Als ze al dood waren, was het zinloos om ze eruit te halen.' },
+  { theme:'Lichaam', expression:'Met het verkeerde been uit bed stappen', literal:'To step out of bed with the wrong leg', meaning:'Een slechte dag hebben', backstory:'Bijgeloof dat links het verkeerde been was.' },
+  { theme:'Lichaam', expression:'De hand in eigen boezem steken', literal:'To put your hand in your own bosom', meaning:'Je eigen fouten erkennen', backstory:'Een gebaar van bescheidenheid en zelfreflectie.' },
+  { theme:'Lichaam', expression:'Iets onder de knie krijgen', literal:'To get something under the knee', meaning:'Iets leren beheersen', backstory:'Verwijst naar het beheersen van een paard — je knieën houden het dier onder controle.' },
+  { theme:'Geld', expression:'De knip op de beurs houden', literal:'To keep the clasp on the purse', meaning:'Zuinig zijn', backstory:'Een beurs (portemonnee) had vroeger een knip als sluiting.' },
+  { theme:'Geld', expression:'Geld stinkt niet', literal:'Money doesn\'t stink', meaning:'Het maakt niet uit hoe je geld verdient', backstory:'Van de Romeinse keizer Vespasianus, die belasting op urinoirs hefte.' }
+];
+
 function initNews() {
   const nav = document.getElementById('newsNav');
   nav.innerHTML = '';
@@ -5150,7 +5895,7 @@ function readerExportPDF() {
 }
 
 function initReader() { readerRenderWordList(); }
-document.getElementById('readerUrlInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') readerFetchArticle(); });
+document.getElementById('readerUrlInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') readerFetchArticle(); });
 
 // ==========================================
 // CEFR LEVEL SELECTOR
@@ -5204,14 +5949,19 @@ function refreshActiveTab() {
       else if (sub === 'reader') initReader();
     }
   } else if (tab === 'news') { initNews(); }
-  else if (tab === 'vocab') { vocabInitialized = false; initVocab(); renderVocabList(); }
+  // else if (tab === 'vocab') { vocabInitialized = false; initVocab(); renderVocabList(); }
+  else if (tab === 'luisteren') { luisterenInitialized = false; initLuisteren(); document.getElementById('begripContent').innerHTML = ''; }
+  else if (tab === 'spreken') { sprekenInitialized = false; document.getElementById('uitspraakContent').innerHTML = ''; document.getElementById('hardopContent').innerHTML = ''; document.getElementById('gesprekkenContent').innerHTML = ''; document.getElementById('zinnenSContent').innerHTML = ''; const activeSub = document.querySelector('#tab-spreken .subtab-btn.active'); if (activeSub) { const fn = SUBTAB_INIT[activeSub.dataset.subtab]; if (fn) fn(); } }
+  else if (tab === 'schrijven') { schrijvenInitialized = false; initSchrijven(); document.getElementById('emailsContent').innerHTML = ''; document.getElementById('zinnenWContent').innerHTML = ''; }
+  else if (tab === 'lezen') { lezenInitialized = false; initLezen(); }
 }
 
 function updateCEFRBarVisibility() {
   const bar = document.getElementById('cefrBar');
   if (!bar) return;
   const activeBtn = document.querySelector('.tab-btn.active');
-  bar.style.display = (activeBtn && activeBtn.dataset.tab === 'spiekbriefjes') ? 'none' : '';
+  const hideOn = ['spiekbriefjes', 'cultuur'];
+  bar.style.display = (activeBtn && hideOn.includes(activeBtn.dataset.tab)) ? 'none' : '';
 }
 
 // ==========================================
@@ -5228,6 +5978,21 @@ const SUBTAB_INIT = {
   'sheets-prep': () => initSheetsPrepGrid(),
   phrases: initPhrases,
   grammar: initGrammar,
+  'dictee-l': initLuisteren,
+  begrip: initBegrip,
+  uitspraak: () => { initSpreken(); renderUitspraak(); },
+  hardop: initHardop,
+  gesprekken: initGesprekken,
+  'zinnen-s': initZinnenS,
+  'dictee-s': initSchrijven,
+  emails: initEmails,
+  'zinnen-w': initZinnenW,
+  verhalen: initLezen,
+  'woordenschat-l': initWoordenschatL,
+  etiquette: () => { initCultuur(); renderEtiquette(); },
+  communicatie: renderCommunicatie,
+  praktisch: renderPraktisch,
+  'uitdrukkingen-c': renderUitdrukkingen,
 };
 
 // Main tab switching
@@ -5247,7 +6012,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     // Direct init for tabs without subtabs
     if (btn.dataset.tab === 'spel') initSpel();
     if (btn.dataset.tab === 'news') initNews();
-    if (btn.dataset.tab === 'vocab') initVocab();
+    // if (btn.dataset.tab === 'vocab') initVocab(); // commented out with tab
     updateCEFRBarVisibility();
   });
 });
@@ -5305,11 +6070,509 @@ function generatePrepSheet(prep) {
 }
 
 // ==========================================
+// TAB: LUISTEREN
+// ==========================================
+let luisterenInitialized = false;
+let dicteeLWords = [];
+let dicteeLRevealed = 0;
+let dicteeLCurrentIdx = 0;
+let dicteeLCorrect = 0;
+let dicteeLTotal = 0;
+
+function initLuisteren() {
+  if (luisterenInitialized) return;
+  luisterenInitialized = true;
+  nextDicteeL();
+}
+
+function getFilteredDictee() {
+  return DICTEE_SENTENCES.filter(s => isWithinCEFR(s.level));
+}
+
+function nextDicteeL() {
+  const filtered = getFilteredDictee();
+  if (filtered.length === 0) { document.getElementById('dicteeLSentence').textContent = 'Geen zinnen voor dit niveau.'; return; }
+  dicteeLCurrentIdx = Math.floor(Math.random() * filtered.length);
+  const sentence = filtered[dicteeLCurrentIdx];
+  dicteeLWords = sentence.nl.split(' ');
+  dicteeLRevealed = 0;
+  const sentEl = document.getElementById('dicteeLSentence');
+  sentEl.innerHTML = dicteeLWords.map(() => '<span class="word-hidden">&nbsp;&nbsp;&nbsp;&nbsp;</span>').join(' ');
+  document.getElementById('dicteeLRevealBtn').style.display = '';
+  document.getElementById('dicteeLHideBtn').style.display = 'none';
+  document.getElementById('dicteeLInputArea').style.display = 'none';
+  document.getElementById('dicteeLFeedback').innerHTML = '';
+  document.getElementById('dicteeLFeedback').className = 'dictee-feedback';
+  document.getElementById('dicteeLInput').value = '';
+}
+
+function revealNextWordL() {
+  if (dicteeLRevealed >= dicteeLWords.length) return;
+  const sentEl = document.getElementById('dicteeLSentence');
+  const spans = sentEl.querySelectorAll('span');
+  spans[dicteeLRevealed].className = 'word-visible';
+  spans[dicteeLRevealed].textContent = dicteeLWords[dicteeLRevealed];
+  dicteeLRevealed++;
+  if (dicteeLRevealed >= dicteeLWords.length) {
+    document.getElementById('dicteeLRevealBtn').style.display = 'none';
+    document.getElementById('dicteeLHideBtn').style.display = '';
+  }
+}
+
+function hideDicteeSentenceL() {
+  document.getElementById('dicteeLSentence').style.visibility = 'hidden';
+  document.getElementById('dicteeLHideBtn').style.display = 'none';
+  document.getElementById('dicteeLInputArea').style.display = 'flex';
+  document.getElementById('dicteeLInput').focus();
+}
+
+function checkDicteeL() {
+  const input = document.getElementById('dicteeLInput').value.trim();
+  const filtered = getFilteredDictee();
+  const correct = filtered[dicteeLCurrentIdx].nl;
+  dicteeLTotal++;
+  const fb = document.getElementById('dicteeLFeedback');
+  document.getElementById('dicteeLSentence').style.visibility = 'visible';
+  if (input.toLowerCase() === correct.toLowerCase()) {
+    dicteeLCorrect++;
+    fb.className = 'dictee-feedback correct';
+    fb.textContent = 'Goed! ✓';
+  } else {
+    fb.className = 'dictee-feedback incorrect';
+    fb.innerHTML = 'Helaas. Correct: <strong>' + correct + '</strong>';
+  }
+  document.getElementById('dicteeLCorrect').textContent = dicteeLCorrect;
+  document.getElementById('dicteeLTotal').textContent = dicteeLTotal;
+}
+
+function initBegrip() {
+  const container = document.getElementById('begripContent');
+  if (container.children.length > 0) return;
+  const filtered = LISTENING_DIALOGUES.filter(d => isWithinCEFR(d.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen gesprekken voor dit niveau.</p>'; return; }
+  let html = '';
+  filtered.forEach((d, di) => {
+    html += '<div class="begrip-card"><div class="begrip-header"><h3>' + d.setting + '</h3><span class="begrip-level">' + d.level + '</span></div>';
+    html += '<div class="begrip-dialogue">';
+    d.lines.forEach(l => { html += '<div class="gesprek-line"><span class="speaker">' + l.speaker + ':</span><span>' + l.text + '</span></div>'; });
+    html += '</div><div class="begrip-questions">';
+    d.questions.forEach((q, qi) => {
+      html += '<div class="begrip-question"><p>' + (qi+1) + '. ' + q.q + '</p>';
+      q.options.forEach((opt, oi) => {
+        html += '<button class="begrip-option" data-di="' + di + '" data-qi="' + qi + '" data-oi="' + oi + '" onclick="checkBegrip(this,' + qi + ',' + oi + ',' + q.answer + ')">' + opt + '</button>';
+      });
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function checkBegrip(btn, qi, oi, correctIdx) {
+  const card = btn.closest('.begrip-card');
+  const qDiv = btn.closest('.begrip-question');
+  qDiv.querySelectorAll('.begrip-option').forEach((b, i) => {
+    b.disabled = true;
+    if (i === correctIdx) b.classList.add('correct');
+    else if (b === btn && i !== correctIdx) b.classList.add('incorrect');
+  });
+}
+
+// ==========================================
+// TAB: SPREKEN
+// ==========================================
+let sprekenInitialized = false;
+
+function initSpreken() {
+  if (sprekenInitialized) return;
+  sprekenInitialized = true;
+  renderUitspraak();
+}
+
+function renderUitspraak() {
+  const container = document.getElementById('uitspraakContent');
+  if (container.children.length > 0) return;
+  let html = '<div class="uitspraak-section"><h3>Minimale Paren</h3><div class="pair-grid">';
+  PRONUNCIATION_GUIDE.minimalPairs.forEach(pair => {
+    html += '<div class="pair-card"><div class="pair-sounds">' + pair.sounds + '</div>';
+    html += '<div class="pair-ipa">' + pair.ipa + '</div><div class="pair-examples">';
+    pair.examples.forEach(ex => {
+      html += '<div><strong>' + ex.a + '</strong> vs <strong>' + ex.b + '</strong> — <em>' + ex.note + '</em></div>';
+    });
+    html += '</div></div>';
+  });
+  html += '</div></div>';
+  html += '<div class="uitspraak-section"><h3>Tongbrekers</h3><ul class="tongbreker-list">';
+  PRONUNCIATION_GUIDE.tongbrekers.forEach(t => {
+    html += '<li><strong>' + t.text + '</strong><br><small style="color:#666">' + t.focus + '</small></li>';
+  });
+  html += '</ul></div>';
+  container.innerHTML = html;
+}
+
+function initHardop() {
+  const container = document.getElementById('hardopContent');
+  if (container.children.length > 0) return;
+  const filtered = READING_PASSAGES.filter(p => isWithinCEFR(p.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen teksten voor dit niveau.</p>'; return; }
+  let html = '';
+  filtered.forEach(p => {
+    const text = p.text.replace(/<tricky>/g, '<span class="tricky">').replace(/<\/tricky>/g, '</span>');
+    html += '<div class="hardop-passage"><span class="passage-level">' + p.level + '</span><div class="passage-text">' + text + '</div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function initGesprekken() {
+  const container = document.getElementById('gesprekkenContent');
+  if (container.children.length > 0) return;
+  const filtered = CONVERSATION_SCENARIOS.filter(s => isWithinCEFR(s.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen gesprekken voor dit niveau.</p>'; return; }
+  let html = '';
+  filtered.forEach((s, si) => {
+    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + s.setting + '</h3><span class="gesprek-level">' + s.level + '</span></div>';
+    html += '<div class="gesprek-body"><p style="font-style:italic;margin-bottom:12px;color:#666;">' + s.situation + '</p>';
+    s.lines.forEach((l, li) => {
+      if (l.role === 'user') {
+        html += '<div class="gesprek-line"><span class="speaker">' + l.speaker + ':</span><span class="user-line" id="gesprek-' + si + '-' + li + '" onclick="this.classList.add(\'revealed\');this.textContent=\'' + l.text.replace(/'/g, "\\'") + '\'">[Klik om te onthullen]</span></div>';
+      } else {
+        html += '<div class="gesprek-line"><span class="speaker">' + l.speaker + ':</span><span>' + l.text + '</span></div>';
+      }
+    });
+    html += '</div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function initZinnenS() {
+  const container = document.getElementById('zinnenSContent');
+  if (container.children.length > 0) return;
+  const filtered = SENTENCE_PAIRS.filter(s => isWithinCEFR(s.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen zinnen voor dit niveau.</p>'; return; }
+  let html = '<div class="flashcard-grid">';
+  filtered.forEach((s, i) => {
+    html += '<div class="flashcard" onclick="this.classList.toggle(\'flipped\')">';
+    html += '<div class="flashcard-inner"><div class="fc-question">';
+    html += '<div class="fc-label">Engels → Nederlands</div>';
+    html += '<div class="fc-text">' + s.en + '</div>';
+    html += '<div class="fc-grammar">' + s.grammar + '</div>';
+    html += '</div><div class="fc-answer">';
+    html += '<div class="fc-label">Nederlands</div>';
+    html += '<div class="fc-text">' + s.nl + '</div>';
+    html += '<div class="fc-grammar">' + s.grammar + '</div>';
+    html += '</div></div></div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+// ==========================================
+// TAB: SCHRIJVEN
+// ==========================================
+let schrijvenInitialized = false;
+let dicteeSCurrentIdx = 0;
+let dicteeSCorrect = 0;
+let dicteeSTotal = 0;
+
+function initSchrijven() {
+  if (schrijvenInitialized) return;
+  schrijvenInitialized = true;
+  nextDicteeS();
+}
+
+function getFilteredWriteDictee() {
+  return DICTEE_SENTENCES.filter(s => isWithinCEFR(s.level));
+}
+
+function nextDicteeS() {
+  const filtered = getFilteredWriteDictee();
+  if (filtered.length === 0) { document.getElementById('dicteeSSentence').textContent = 'Geen zinnen voor dit niveau.'; return; }
+  dicteeSCurrentIdx = Math.floor(Math.random() * filtered.length);
+  document.getElementById('dicteeSSentence').textContent = '';
+  document.getElementById('dicteeSShowBtn').style.display = '';
+  document.getElementById('dicteeSInputArea').style.display = 'none';
+  document.getElementById('dicteeSFeedback').innerHTML = '';
+  document.getElementById('dicteeSFeedback').className = 'dictee-feedback';
+  document.getElementById('dicteeSInput').value = '';
+}
+
+function showDicteeSentenceS() {
+  const filtered = getFilteredWriteDictee();
+  const sentence = filtered[dicteeSCurrentIdx];
+  const sentEl = document.getElementById('dicteeSSentence');
+  sentEl.textContent = sentence.nl;
+  document.getElementById('dicteeSShowBtn').style.display = 'none';
+  setTimeout(() => {
+    sentEl.textContent = '';
+    document.getElementById('dicteeSInputArea').style.display = 'flex';
+    document.getElementById('dicteeSInput').focus();
+  }, 3000);
+}
+
+function checkDicteeS() {
+  const input = document.getElementById('dicteeSInput').value.trim();
+  const filtered = getFilteredWriteDictee();
+  const correct = filtered[dicteeSCurrentIdx].nl;
+  dicteeSTotal++;
+  const fb = document.getElementById('dicteeSFeedback');
+  if (input.toLowerCase() === correct.toLowerCase()) {
+    dicteeSCorrect++;
+    fb.className = 'dictee-feedback correct';
+    fb.textContent = 'Goed! ✓';
+  } else {
+    fb.className = 'dictee-feedback incorrect';
+    fb.innerHTML = 'Helaas. Correct: <strong>' + correct + '</strong>';
+  }
+  document.getElementById('dicteeSCorrect').textContent = dicteeSCorrect;
+  document.getElementById('dicteeSTotal').textContent = dicteeSTotal;
+}
+
+function initEmails() {
+  const container = document.getElementById('emailsContent');
+  if (container.children.length > 0) return;
+  const filtered = WRITING_PROMPTS.filter(p => isWithinCEFR(p.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen opdrachten voor dit niveau.</p>'; return; }
+  let html = '';
+  filtered.forEach((p, i) => {
+    html += '<div class="email-card"><div class="email-card-header"><h3>' + p.situation.substring(0, 60) + '...</h3><div class="email-type">' + p.level + ' — ' + p.type + '</div></div>';
+    html += '<div class="email-card-body">';
+    html += '<div class="email-situation">' + p.situation + '</div>';
+    html += '<div class="email-template"><strong>Structuur:</strong><br><code>' + p.template.replace(/\n/g, '<br>') + '</code></div>';
+    html += '<button class="mondrian-btn small" onclick="this.nextElementSibling.classList.toggle(\'visible\');this.textContent=this.textContent===\'Toon modelantwoord\'?\'Verberg modelantwoord\':\'Toon modelantwoord\'">Toon modelantwoord</button>';
+    html += '<div class="email-model">' + p.model + '</div>';
+    html += '</div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function initZinnenW() {
+  const container = document.getElementById('zinnenWContent');
+  if (container.children.length > 0) return;
+  const filtered = SENTENCE_TRANSFORMS.filter(s => isWithinCEFR(s.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen zinnen voor dit niveau.</p>'; return; }
+  let html = '';
+  filtered.forEach((s, i) => {
+    html += '<div class="zinnen-transform-card">';
+    html += '<div class="zinnen-instruction">' + s.instruction + ' (' + s.type + ')</div>';
+    html += '<div class="zinnen-original">' + s.original + '</div>';
+    html += '<div class="dictee-input-area"><input type="text" class="dictee-input" id="zinnenW-' + i + '" placeholder="Typ je antwoord..." autocomplete="off" />';
+    html += '<button class="mondrian-btn blue" onclick="checkZinnenW(' + i + ')">Check</button></div>';
+    html += '<div class="dictee-feedback" id="zinnenWFb-' + i + '"></div>';
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function checkZinnenW(i) {
+  const filtered = SENTENCE_TRANSFORMS.filter(s => isWithinCEFR(s.level));
+  const fb = document.getElementById('zinnenWFb-' + i);
+  fb.className = 'dictee-feedback correct';
+  fb.innerHTML = '<strong>Modelantwoord:</strong> ' + filtered[i].answer;
+}
+
+// ==========================================
+// TAB: LEZEN
+// ==========================================
+let lezenInitialized = false;
+let currentStory = 0;
+let filteredStoryIndices = [];
+let woordenschatIdx = 0;
+let woordenschatCorrect = 0;
+let woordenschatTotal = 0;
+
+function initLezen() {
+  if (lezenInitialized) return;
+  lezenInitialized = true;
+  renderVerhalen();
+}
+
+function renderVerhalen() {
+  const nav = document.getElementById('verhalenNav');
+  const content = document.getElementById('verhalenContent');
+  nav.innerHTML = '';
+  content.innerHTML = '';
+  filteredStoryIndices = [];
+  STORIES.forEach((s, i) => { if (isWithinCEFR(s.level)) filteredStoryIndices.push(i); });
+  if (filteredStoryIndices.length === 0) { content.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen verhalen voor dit niveau.</p>'; return; }
+  filteredStoryIndices.forEach((origIdx, i) => {
+    const s = STORIES[origIdx];
+    const btn = document.createElement('button');
+    btn.className = 'news-card' + (i === 0 ? ' active' : '');
+    btn.innerHTML = '<span class="news-card-level">' + s.level + '</span><span class="news-card-title">' + s.title + '</span>';
+    btn.onclick = () => { showStory(i); nav.querySelectorAll('.news-card').forEach(b => b.classList.remove('active')); btn.classList.add('active'); };
+    nav.appendChild(btn);
+  });
+  showStory(0);
+}
+
+function showStory(idx) {
+  currentStory = idx;
+  const origIdx = filteredStoryIndices[idx];
+  const s = STORIES[origIdx];
+  const content = document.getElementById('verhalenContent');
+  let vocabHtml = '';
+  if (s.vocab) {
+    Object.entries(s.vocab).forEach(([word, meaning]) => {
+      vocabHtml += '<span style="margin-right:16px;"><strong>' + word + '</strong>: ' + meaning + '</span>';
+    });
+  }
+  let html = '<div class="verhaal-card"><div class="verhaal-header"><h3>' + s.title + '</h3><span class="verhaal-level">' + s.level + '</span></div>';
+  html += '<div class="verhaal-body">' + s.text.replace(/\n/g, '<br>');
+  if (vocabHtml) html += '<div style="margin-top:16px;padding-top:12px;border-top:1px solid #eee;font-size:13px;">' + vocabHtml + '</div>';
+  html += '</div>';
+  if (s.questions) {
+    html += '<div class="verhaal-questions">';
+    s.questions.forEach((q, qi) => {
+      html += '<div class="begrip-question"><p>' + (qi+1) + '. ' + q.q + '</p>';
+      q.options.forEach((opt, oi) => {
+        html += '<button class="begrip-option" onclick="checkBegrip(this,' + qi + ',' + oi + ',' + q.answer + ')">' + opt + '</button>';
+      });
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+  html += '</div>';
+  content.innerHTML = html;
+}
+
+function initWoordenschatL() {
+  nextWoordenschat();
+}
+
+function nextWoordenschat() {
+  const filtered = VOCAB_IN_CONTEXT.filter(v => isWithinCEFR(v.level));
+  if (filtered.length === 0) { document.getElementById('woordenschatPrompt').textContent = 'Geen oefeningen voor dit niveau.'; return; }
+  woordenschatIdx = Math.floor(Math.random() * filtered.length);
+  const item = filtered[woordenschatIdx];
+  document.getElementById('woordenschatFeedback').innerHTML = '';
+  document.getElementById('woordenschatFeedback').className = 'dictee-feedback';
+  if (item.type === 'cloze') {
+    document.getElementById('woordenschatType').textContent = 'Vul in';
+    document.getElementById('woordenschatPrompt').innerHTML = item.sentence.replace('___', '<strong style="color:#D40920">___</strong>') + '<br><small style="color:#666">Hint: ' + item.hint + '</small>';
+    document.getElementById('woordenschatInputArea').style.display = 'flex';
+    document.getElementById('woordenschatInput').value = '';
+    document.getElementById('woordenschatInput').focus();
+    const mcArea = document.getElementById('woordenschatCard').querySelector('.ws-mc-options');
+    if (mcArea) mcArea.remove();
+  } else {
+    document.getElementById('woordenschatType').textContent = 'Wat betekent "' + item.word + '"?';
+    document.getElementById('woordenschatPrompt').innerHTML = '<em>"' + item.sentence + '"</em>';
+    document.getElementById('woordenschatInputArea').style.display = 'none';
+    let mcArea = document.getElementById('woordenschatCard').querySelector('.ws-mc-options');
+    if (mcArea) mcArea.remove();
+    mcArea = document.createElement('div');
+    mcArea.className = 'ws-mc-options';
+    item.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'ws-mc-btn';
+      btn.textContent = opt;
+      btn.onclick = () => {
+        mcArea.querySelectorAll('.ws-mc-btn').forEach((b, j) => {
+          b.disabled = true;
+          if (j === item.answer) b.classList.add('correct');
+          else if (b === btn) b.classList.add('incorrect');
+        });
+        woordenschatTotal++;
+        if (i === item.answer) woordenschatCorrect++;
+        document.getElementById('woordenschatCorrect').textContent = woordenschatCorrect;
+        document.getElementById('woordenschatTotal').textContent = woordenschatTotal;
+      };
+      mcArea.appendChild(btn);
+    });
+    document.getElementById('woordenschatInputArea').parentNode.insertBefore(mcArea, document.getElementById('woordenschatInputArea'));
+  }
+}
+
+function checkWoordenschat() {
+  const filtered = VOCAB_IN_CONTEXT.filter(v => isWithinCEFR(v.level));
+  const item = filtered[woordenschatIdx];
+  if (item.type !== 'cloze') return;
+  const input = document.getElementById('woordenschatInput').value.trim();
+  woordenschatTotal++;
+  const fb = document.getElementById('woordenschatFeedback');
+  if (input.toLowerCase() === item.answer.toLowerCase()) {
+    woordenschatCorrect++;
+    fb.className = 'dictee-feedback correct';
+    fb.textContent = 'Goed! ✓';
+  } else {
+    fb.className = 'dictee-feedback incorrect';
+    fb.innerHTML = 'Helaas. Correct: <strong>' + item.answer + '</strong>';
+  }
+  document.getElementById('woordenschatCorrect').textContent = woordenschatCorrect;
+  document.getElementById('woordenschatTotal').textContent = woordenschatTotal;
+}
+
+// ==========================================
+// TAB: CULTUUR
+// ==========================================
+let cultuurInitialized = false;
+
+function initCultuur() {
+  if (cultuurInitialized) return;
+  cultuurInitialized = true;
+  renderEtiquette();
+}
+
+function renderCultuurGrid(containerId, items) {
+  const container = document.getElementById(containerId);
+  if (container.children.length > 0) return;
+  const accents = ['red', 'blue', 'yellow', 'black'];
+  let html = '';
+  items.forEach((item, i) => {
+    const accent = item.accent || accents[i % 4];
+    html += '<div class="cultuur-card"><div class="cultuur-card-accent ' + accent + '"></div><div class="cultuur-card-body">';
+    html += '<h3>' + item.title + '</h3>';
+    html += '<p>' + item.text + '</p>';
+    if (item.example) html += '<div class="cultuur-example">' + item.example + '</div>';
+    if (item.phrases) {
+      html += '<ul class="cultuur-phrases">';
+      item.phrases.forEach(p => { html += '<li>' + p + '</li>'; });
+      html += '</ul>';
+    }
+    html += '</div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function renderEtiquette() { renderCultuurGrid('etiquetteGrid', CULTURE_SECTIONS.etiquette); }
+function renderCommunicatie() { renderCultuurGrid('communicatieGrid', CULTURE_SECTIONS.communicatie); }
+function renderPraktisch() { renderCultuurGrid('praktischGrid', CULTURE_SECTIONS.praktisch); }
+
+function renderUitdrukkingen() {
+  const container = document.getElementById('uitdrukkingenContent');
+  if (container.children.length > 0) return;
+  const themes = {};
+  DUTCH_IDIOMS.forEach(idiom => {
+    if (!themes[idiom.theme]) themes[idiom.theme] = [];
+    themes[idiom.theme].push(idiom);
+  });
+  let html = '';
+  Object.entries(themes).forEach(([theme, idioms]) => {
+    html += '<div class="idioom-theme"><h3>' + theme + '</h3><div class="idioom-grid">';
+    idioms.forEach(idiom => {
+      html += '<div class="idioom-card">';
+      html += '<div class="idioom-expression">' + idiom.expression + '</div>';
+      html += '<div class="idioom-literal">"' + idiom.literal + '"</div>';
+      html += '<div class="idioom-meaning">' + idiom.meaning + '</div>';
+      html += '<div class="idioom-backstory">' + idiom.backstory + '</div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  container.innerHTML = html;
+}
+
+// ==========================================
 // INIT
 // ==========================================
 loadState();
 initCEFR();
-initArena();
+initSpel();
+
+// Enter key handlers for new dictee inputs
+document.getElementById('dicteeLInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeL(); });
+document.getElementById('dicteeSInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeS(); });
+document.getElementById('woordenschatInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkWoordenschat(); });
 
 // ==========================================
 // TAB 7: WOORDENSCHAT
@@ -5479,7 +6742,7 @@ function levenshteinDistance(a, b) {
   return dp[m][n];
 }
 
-document.getElementById('vocabExInput').addEventListener('keydown', (e) => {
+document.getElementById('vocabExInput')?.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     if (document.getElementById('vocabExInput').disabled) nextVocabExercise();
     else checkVocabExercise();
