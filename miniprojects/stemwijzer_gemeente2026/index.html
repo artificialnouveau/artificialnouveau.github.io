@@ -51,6 +51,7 @@ let screenW, screenH, dpr = 1;
 let touchDrag = null; // {startX, startY, lastX, lastY} for swipe-to-scroll
 let pinchDist0 = 0; // initial pinch distance for zoom
 let touchHandledClick = 0; // timestamp to suppress synthetic click after touch
+let overlaySwipeY = 0; // vertical drag offset for dismissing answer overlay
 function resize() {
   dpr = window.devicePixelRatio || 1;
   screenW = window.innerWidth;
@@ -418,55 +419,97 @@ canvas.addEventListener('mousemove', e => {
 // --- MOBILE TOUCH: swipe-to-scroll, pinch-to-zoom, tap-to-interact ---
 if (isMobile) {
   canvas.addEventListener('touchstart', e => {
-    if (gameState !== 'playing') return;
-    if (e.touches.length === 2) {
-      // Pinch zoom start
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      pinchDist0 = Math.sqrt(dx * dx + dy * dy);
-      touchDrag = null;
-      e.preventDefault();
-      return;
-    }
-    if (e.touches.length === 1) {
-      const t = e.touches[0];
-      touchDrag = { startX: t.clientX, startY: t.clientY, lastX: t.clientX, lastY: t.clientY, moved: false };
-      e.preventDefault();
+    if (gameState === 'playing') {
+      if (e.touches.length === 2) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        pinchDist0 = Math.sqrt(dx * dx + dy * dy);
+        touchDrag = null;
+        e.preventDefault();
+        return;
+      }
+      if (e.touches.length === 1) {
+        const t = e.touches[0];
+        touchDrag = { startX: t.clientX, startY: t.clientY, lastX: t.clientX, lastY: t.clientY, moved: false };
+        e.preventDefault();
+      }
+    } else if (gameState === 'answering') {
+      if (e.touches.length === 1) {
+        const t = e.touches[0];
+        touchDrag = { startX: t.clientX, startY: t.clientY, lastX: t.clientX, lastY: t.clientY, moved: false };
+        e.preventDefault();
+      }
     }
   }, { passive: false });
 
   canvas.addEventListener('touchmove', e => {
-    if (gameState !== 'playing') return;
-    if (e.touches.length === 2 && pinchDist0 > 0) {
-      // Pinch zoom
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const scale = dist / pinchDist0;
-      zoomLevel = Math.max(0.4, Math.min(2.5, zoomLevel * scale));
-      pinchDist0 = dist;
-      e.preventDefault();
-      return;
-    }
-    if (touchDrag && e.touches.length === 1) {
-      const t = e.touches[0];
-      const ddx = t.clientX - touchDrag.lastX;
-      const ddy = t.clientY - touchDrag.lastY;
-      if (Math.abs(t.clientX - touchDrag.startX) > 8 || Math.abs(t.clientY - touchDrag.startY) > 8) {
-        touchDrag.moved = true;
+    if (gameState === 'playing') {
+      if (e.touches.length === 2 && pinchDist0 > 0) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const scale = dist / pinchDist0;
+        zoomLevel = Math.max(0.4, Math.min(2.5, zoomLevel * scale));
+        pinchDist0 = dist;
+        e.preventDefault();
+        return;
       }
-      // Convert screen drag to isometric world movement
-      const speed = 0.08 / zoomLevel;
-      player.x -= (ddx + ddy) * speed;
-      player.y -= (-ddx + ddy) * speed;
-      clickTarget = null;
-      touchDrag.lastX = t.clientX;
-      touchDrag.lastY = t.clientY;
-      e.preventDefault();
+      if (touchDrag && e.touches.length === 1) {
+        const t = e.touches[0];
+        const ddx = t.clientX - touchDrag.lastX;
+        const ddy = t.clientY - touchDrag.lastY;
+        if (Math.abs(t.clientX - touchDrag.startX) > 8 || Math.abs(t.clientY - touchDrag.startY) > 8) {
+          touchDrag.moved = true;
+        }
+        const speed = 0.08 / zoomLevel;
+        player.x -= (ddx + ddy) * speed;
+        player.y -= (-ddx + ddy) * speed;
+        clickTarget = null;
+        touchDrag.lastX = t.clientX;
+        touchDrag.lastY = t.clientY;
+        e.preventDefault();
+      }
+    } else if (gameState === 'answering') {
+      if (touchDrag && e.touches.length === 1) {
+        const t = e.touches[0];
+        const dy = t.clientY - touchDrag.startY;
+        const dx = t.clientX - touchDrag.startX;
+        if (Math.abs(dy) > 8 || Math.abs(dx) > 8) {
+          touchDrag.moved = true;
+        }
+        // Track vertical swipe for dismiss, only allow downward
+        overlaySwipeY = Math.max(0, dy);
+        // Track horizontal for tab switching
+        touchDrag.lastX = t.clientX;
+        touchDrag.lastY = t.clientY;
+        e.preventDefault();
+      }
     }
   }, { passive: false });
 
   canvas.addEventListener('touchend', e => {
+    if (gameState === 'answering') {
+      if (touchDrag && touchDrag.moved) {
+        touchHandledClick = Date.now();
+        const dy = touchDrag.lastY - touchDrag.startY;
+        const dx = touchDrag.lastX - touchDrag.startX;
+        // Swipe down to dismiss overlay (threshold: 80px)
+        if (dy > 80) {
+          overlaySwipeY = 0;
+          gameState = 'playing';
+          touchDrag = null;
+          return;
+        }
+        // Horizontal swipe to switch tabs (threshold: 50px)
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+          if (dx < 0) answerTab = Math.min(3, answerTab + 1); // swipe left = next tab
+          else answerTab = Math.max(0, answerTab - 1); // swipe right = prev tab
+        }
+        overlaySwipeY = 0;
+      }
+      touchDrag = null;
+      return;
+    }
     if (gameState !== 'playing') { touchDrag = null; pinchDist0 = 0; return; }
     if (pinchDist0 > 0) { pinchDist0 = 0; return; }
     // If it was a tap (no drag), check HUD buttons then NPC interaction
@@ -482,7 +525,6 @@ if (isMobile) {
         else if (tapY >= 56 && tapY <= 96) { zoomLevel = Math.max(0.4, zoomLevel - 0.15); }
         else if (tapY >= 102 && tapY <= 142) { gameState = 'title'; answers = []; }
       } else if (nearNPC) {
-        // NPC interaction
         const si = nearNPC.statementIdx;
         if (!answers.find(a => a.stmtIdx === si)) {
           currentStatementIdx = si;
@@ -513,7 +555,7 @@ function screenToWorld(sx, sy) {
 }
 
 const camera = { x: 0, y: 0, targetX: 0, targetY: 0 };
-let zoomLevel = 1.75;
+let zoomLevel = isMobile ? 1.5 : 1.75;
 const ZOOM_MIN = 0.5;
 const ZOOM_MAX = 4;
 const ZOOM_STEP = 0.25;
@@ -5589,7 +5631,7 @@ function drawAnswerOverlay() {
   const ph = Math.min(480, screenH - 30);
   const px0 = (screenW - pw) / 2;
   const slideOffset = (1 - eased) * 30;
-  const py = (screenH - ph) / 2 + slideOffset;
+  const py = (screenH - ph) / 2 + slideOffset + overlaySwipeY;
 
   ctx.globalAlpha = eased;
 
@@ -5600,9 +5642,16 @@ function drawAnswerOverlay() {
   ctx.lineWidth = 3;
   ctx.strokeRect(px0, py, pw, ph);
 
+  // Mobile swipe handle
+  if (isMobile) {
+    ctx.fillStyle = '#b0a898';
+    const handleW = 40, handleH = 4;
+    ctx.fillRect(screenW/2 - handleW/2, py + 5, handleW, handleH);
+  }
+
   // Theme header
   ctx.fillStyle = ZONES[stmt.theme].col;
-  ctx.fillRect(px0, py, pw, 40);
+  ctx.fillRect(px0, py + (isMobile ? 14 : 0), pw, 40);
   ctx.textAlign = 'center';
   ctx.font = "bold 18px 'Inter', sans-serif";
   ctx.fillStyle = '#ffffff';
@@ -5856,7 +5905,11 @@ function drawAnswerOverlay() {
   ctx.textAlign = 'center';
   ctx.font = "11px 'Inter', sans-serif";
   ctx.fillStyle = '#606070';
-  ctx.fillText('\u2190 \u2192 wissel tab', screenW/2, py + ph - 5);
+  if (isMobile) {
+    ctx.fillText(showEnglish ? '\u2194 swipe tabs | \u2193 swipe down to close' : '\u2194 swipe tabs | \u2193 swipe omlaag om te sluiten', screenW/2, py + ph - 5);
+  } else {
+    ctx.fillText('\u2190 \u2192 wissel tab', screenW/2, py + ph - 5);
+  }
   ctx.globalAlpha = 1;
 }
 
