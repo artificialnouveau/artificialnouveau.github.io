@@ -3383,59 +3383,111 @@ function drawTitleScreen() {
   ctx.fillRect(0, 0, screenW, screenH);
 
   // Bold flat skyline — Caulfield style: solid shapes, black outlines
-  const baseY = screenH * 0.55;
-  const bridgeX = screenW * 0.5;
+  // Mixed Rotterdam + Den Haag landmarks
+  const baseY = screenH * 0.68;
+  const midX = screenW * 0.5;
 
   // Sky block
   ctx.fillStyle = '#4888c0';
   ctx.fillRect(0, 0, screenW, baseY);
 
+  // --- Left side: Rotterdam landmarks ---
+
   // Erasmusbrug — bold flat shape with outline
+  const bridgeX = midX - screenW * 0.15;
   ctx.fillStyle = '#f0eade';
   ctx.strokeStyle = '#000';
   ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.moveTo(bridgeX - 200, baseY);
-  ctx.lineTo(bridgeX - 50, baseY - 140);
-  ctx.lineTo(bridgeX - 35, baseY);
+  ctx.moveTo(bridgeX - 140, baseY);
+  ctx.lineTo(bridgeX - 20, baseY - 110);
+  ctx.lineTo(bridgeX - 8, baseY);
   ctx.closePath();
   ctx.fill(); ctx.stroke();
   // Cable lines
   ctx.lineWidth = 1.5;
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 5; i++) {
     ctx.beginPath();
-    ctx.moveTo(bridgeX - 50, baseY - 140);
-    ctx.lineTo(bridgeX - 50 + i * 30, baseY);
+    ctx.moveTo(bridgeX - 20, baseY - 110);
+    ctx.lineTo(bridgeX - 20 + i * 25, baseY);
     ctx.stroke();
   }
 
-  // Buildings — flat solid colors with bold outlines
-  const buildings = [
-    { x: -300, w: 45, h: 90, col: '#d05830' },
-    { x: -240, w: 55, h: 160, col: '#c8b888' },
-    { x: -175, w: 38, h: 70, col: '#d89020' },
-    { x: -125, w: 50, h: 200, col: '#2858a8' },
-    { x: -65, w: 60, h: 110, col: '#606890' },
-    { x: 10, w: 35, h: 80, col: '#28983a' },
-    { x: 55, w: 65, h: 180, col: '#d84878' },
-    { x: 130, w: 45, h: 100, col: '#c8b888' },
-    { x: 185, w: 55, h: 145, col: '#9830a0' },
-    { x: 250, w: 40, h: 80, col: '#d8a010' },
+  // Rotterdam buildings
+  const rBuildings = [
+    { x: -screenW * 0.42, w: 40, h: 70, col: '#d05830' },
+    { x: -screenW * 0.37, w: 48, h: 130, col: '#c8b888' },
+    { x: -screenW * 0.31, w: 35, h: 55, col: '#d89020' },
+    { x: -screenW * 0.26, w: 44, h: 155, col: '#2858a8' },
+    { x: -screenW * 0.20, w: 50, h: 85, col: '#606890' },
   ];
   ctx.lineWidth = 2.5;
   ctx.strokeStyle = '#000';
-  for (const b of buildings) {
+  for (const b of rBuildings) {
     ctx.fillStyle = b.col;
-    ctx.fillRect(bridgeX + b.x, baseY - b.h, b.w, b.h);
-    ctx.strokeRect(bridgeX + b.x, baseY - b.h, b.w, b.h);
-    // Windows — simple yellow rectangles
+    ctx.fillRect(midX + b.x, baseY - b.h, b.w, b.h);
+    ctx.strokeRect(midX + b.x, baseY - b.h, b.w, b.h);
     ctx.fillStyle = '#e8d070';
     for (let wy = baseY - b.h + 12; wy < baseY - 12; wy += 18) {
-      for (let wx = bridgeX + b.x + 6; wx < bridgeX + b.x + b.w - 6; wx += 14) {
+      for (let wx = midX + b.x + 6; wx < midX + b.x + b.w - 6; wx += 14) {
         ctx.fillRect(wx, wy, 6, 8);
       }
     }
   }
+
+  // --- Right side: Den Haag landmarks ---
+
+  // Vredespaleis — wide building with tower
+  const vpX = midX + screenW * 0.18;
+  ctx.fillStyle = '#b83818';
+  ctx.fillRect(vpX, baseY - 80, 70, 80);
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 2.5;
+  ctx.strokeRect(vpX, baseY - 80, 70, 80);
+  // Tower
+  ctx.fillStyle = '#a03015';
+  ctx.fillRect(vpX + 25, baseY - 130, 20, 50);
+  ctx.strokeRect(vpX + 25, baseY - 130, 20, 50);
+  // Pointed roof on tower
+  ctx.fillStyle = '#704020';
+  ctx.beginPath();
+  ctx.moveTo(vpX + 22, baseY - 130);
+  ctx.lineTo(vpX + 35, baseY - 155);
+  ctx.lineTo(vpX + 48, baseY - 130);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  // Windows
+  ctx.fillStyle = '#e8d070';
+  for (let wy = baseY - 70; wy < baseY - 10; wy += 18) {
+    for (let wx = vpX + 8; wx < vpX + 62; wx += 14) {
+      ctx.fillRect(wx, wy, 6, 8);
+    }
+  }
+
+  // Den Haag buildings
+  const dhBuildings = [
+    { x: screenW * 0.08, w: 38, h: 60, col: '#28983a' },
+    { x: screenW * 0.13, w: 42, h: 100, col: '#d84878' },
+    { x: screenW * 0.30, w: 35, h: 75, col: '#9830a0' },
+    { x: screenW * 0.35, w: 45, h: 120, col: '#c8b888' },
+    { x: screenW * 0.41, w: 38, h: 55, col: '#d8a010' },
+  ];
+  for (const b of dhBuildings) {
+    ctx.fillStyle = b.col;
+    ctx.fillRect(midX + b.x, baseY - b.h, b.w, b.h);
+    ctx.strokeRect(midX + b.x, baseY - b.h, b.w, b.h);
+    ctx.fillStyle = '#e8d070';
+    for (let wy = baseY - b.h + 12; wy < baseY - 12; wy += 18) {
+      for (let wx = midX + b.x + 6; wx < midX + b.x + b.w - 6; wx += 14) {
+        ctx.fillRect(wx, wy, 6, 8);
+      }
+    }
+  }
+
+  // --- Center: dividing canal ---
+  ctx.fillStyle = '#1848a0';
+  ctx.fillRect(midX - 15, baseY - 40, 30, 40);
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+  ctx.strokeRect(midX - 15, baseY - 40, 30, 40);
 
   // Water — flat block
   ctx.fillStyle = '#1848a0';
@@ -3447,17 +3499,24 @@ function drawTitleScreen() {
   ctx.moveTo(0, baseY); ctx.lineTo(screenW, baseY);
   ctx.stroke();
 
+  // City labels on water
+  ctx.font = "bold 13px 'Inter', sans-serif";
+  ctx.fillStyle = '#a0c8f0';
+  ctx.textAlign = 'center';
+  ctx.fillText('Rotterdam', midX - screenW * 0.2, baseY + 20);
+  ctx.fillText('Den Haag', midX + screenW * 0.2, baseY + 20);
+
   // Tulips — bold flat with outlines
   ctx.lineWidth = 2;
   ctx.strokeStyle = '#000';
-  for (let i = 0; i < 15; i++) {
-    const tx = screenW * 0.15 + i * (screenW * 0.7 / 15);
-    const ty = screenH * 0.85;
+  for (let i = 0; i < 12; i++) {
+    const tx = screenW * 0.2 + i * (screenW * 0.6 / 12);
+    const ty = baseY + 50;
     const colors = [PAL.tulipR, PAL.tulipY, PAL.tulipP];
     ctx.fillStyle = PAL.stem;
-    ctx.fillRect(tx, ty - 18, 3, 22);
+    ctx.fillRect(tx, ty - 14, 3, 18);
     ctx.fillStyle = colors[i % 3];
-    ctx.beginPath(); ctx.arc(tx + 1, ty - 21, 7, 0, Math.PI * 2);
+    ctx.beginPath(); ctx.arc(tx + 1, ty - 17, 6, 0, Math.PI * 2);
     ctx.fill(); ctx.stroke();
   }
 
@@ -3485,13 +3544,11 @@ function drawTitleScreen() {
   ctx.fillStyle = '#1a1a1a';
   ctx.fillText('Gemeenteraadsverkiezingen \u2014 18 maart 2026', screenW/2, titleY + 115);
 
-  // Prompt — bold flat
-  const blink = Math.sin(Date.now() * 0.004) > 0;
-  if (blink) {
-    ctx.font = "bold 20px 'Inter', sans-serif";
-    ctx.fillStyle = '#000000';
-    ctx.fillText('Druk op een toets om te beginnen / Klik om te beginnen', screenW/2, screenH * 0.7);
-  }
+  // Prompt — static
+  ctx.font = "bold 20px 'Inter', sans-serif";
+  ctx.fillStyle = '#000000';
+  ctx.textAlign = 'center';
+  ctx.fillText('Druk op een toets om te beginnen / Klik om te beginnen', screenW/2, screenH * 0.58);
 
   // Disclaimer
   ctx.font = "11px 'Inter', sans-serif";
