@@ -5280,15 +5280,78 @@ const CEFR_VOCAB = [
   { nl:'te allen tijde', en:'at all times', level:'C1' },
 ];
 
-// Build lookup map: lowercase word -> vocab entry
+// Build lookup map with inflected forms
 const _cefrVocabMap = new Map();
 const _cefrPhrases = []; // multi-word entries
+
+// Generate Dutch inflected forms for a word
+function _generateForms(v) {
+  const w = v.nl.toLowerCase();
+  const forms = [w];
+  if (v.verb) {
+    // Dutch verb conjugation patterns from infinitive
+    let stem = w;
+    if (w.endsWith('en')) stem = w.slice(0, -2);
+    else if (w.endsWith('n')) stem = w.slice(0, -1);
+    // Double consonant / long vowel adjustments
+    let stemClean = stem;
+    // "maken" -> stem "maak" (open syllable -> double vowel in stem)
+    if (/[^aeiou][aeiou][^aeiou]$/.test(stem) && stem.length > 2) {
+      const vowel = stem[stem.length - 2];
+      stemClean = stem.slice(0, -1) + vowel + stem[stem.length - 1];
+    }
+    // "stoppen" -> stem "stop" (double consonant simplify)
+    if (stem.length > 2 && stem[stem.length - 1] === stem[stem.length - 2]) {
+      stemClean = stem.slice(0, -1);
+    }
+    // present tense: stem, stem+t
+    forms.push(stemClean, stemClean + 't');
+    // past tense: -de/-te/-den/-ten (t-kofschip rule)
+    const tkofschip = /[tkfschp]$/i.test(stemClean);
+    const pastSuf = tkofschip ? 'te' : 'de';
+    forms.push(stemClean + pastSuf, stemClean + pastSuf + 'n');
+    // past participle: ge-...-d / ge-...-t
+    if (!w.startsWith('be') && !w.startsWith('ver') && !w.startsWith('ont') && !w.startsWith('her') && !w.startsWith('er') && !w.startsWith('ge')) {
+      const ppSuf = tkofschip ? 't' : 'd';
+      forms.push('ge' + stemClean + ppSuf);
+    } else {
+      // inseparable prefix verbs: no ge- prefix
+      const ppSuf = tkofschip ? 't' : 'd';
+      forms.push(stemClean + ppSuf);
+    }
+    // Also check the existing VERBS array for known irregular forms
+    if (typeof VERBS !== 'undefined') {
+      const known = VERBS.find(vb => vb.inf === w || vb.id === w);
+      if (known) {
+        [known.imp_s, known.imp_p, known.pp].forEach(f => {
+          if (f && f !== '-') f.split('/').forEach(part => forms.push(part.trim().toLowerCase()));
+        });
+      }
+    }
+  } else {
+    // Noun/adjective: common Dutch inflections
+    if (!w.endsWith('en') && !w.endsWith('s')) forms.push(w + 'en', w + 's');
+    if (w.endsWith('heid')) forms.push(w.replace(/heid$/, 'heden'));
+    if (w.endsWith('ie')) forms.push(w + 's');
+    if (w.endsWith('ing')) forms.push(w + 'en');
+    // adjective: -e form
+    forms.push(w + 'e');
+  }
+  return [...new Set(forms)];
+}
+
 CEFR_VOCAB.forEach(v => {
   const lower = v.nl.toLowerCase();
   if (lower.includes(' ')) {
     _cefrPhrases.push(v);
   } else {
-    _cefrVocabMap.set(lower, v);
+    // Map all inflected forms to this vocab entry
+    const allForms = _generateForms(v);
+    allForms.forEach(form => {
+      if (form.length > 1 && !_cefrVocabMap.has(form)) {
+        _cefrVocabMap.set(form, v);
+      }
+    });
   }
 });
 // Sort phrases longest-first for greedy matching
@@ -5312,7 +5375,8 @@ function highlightCEFRVocab(htmlStr) {
     if (highlightCount >= maxHighlights) return match;
     highlightCount++;
     const color = CEFR_LEVEL_COLORS[v.level] || '#333';
-    return '<span class="nos-vocab" style="color:' + color + ';border-bottom-color:' + color + '" data-en="' + escapeHTML(v.en) + '" data-level="' + v.level + '">' + match + '<span class="nos-vocab-tip">' + escapeHTML(v.en) + ' <em>(' + v.level + ')</em></span></span>';
+    const baseForm = v.nl.toLowerCase() !== match.toLowerCase() ? ' [' + v.nl + ']' : '';
+    return '<span class="nos-vocab" style="color:' + color + ';border-bottom-color:' + color + '" data-en="' + escapeHTML(v.en) + '" data-level="' + v.level + '" data-base="' + escapeHTML(v.nl) + '">' + match + '<span class="nos-vocab-tip">' + escapeHTML(v.en) + baseForm + ' <em>(' + v.level + ')</em></span></span>';
   }
 
   // First pass: replace multi-word phrases (these are higher value, prioritize them)
@@ -5349,26 +5413,26 @@ function collectNOSCardVocab(cardIdx) {
   const vocab = [];
   spans.forEach(sp => {
     // Get only the direct text, excluding the tooltip child span
-    let nl = '';
+    let matchedForm = '';
     for (const node of sp.childNodes) {
-      if (node.nodeType === 3) nl += node.textContent; // text nodes only
+      if (node.nodeType === 3) matchedForm += node.textContent;
     }
-    nl = nl.trim();
-    if (!nl) return;
+    matchedForm = matchedForm.trim();
+    if (!matchedForm) return;
     const en = sp.dataset.en;
     const level = sp.dataset.level;
-    const key = nl.toLowerCase();
+    const baseForm = sp.dataset.base || matchedForm;
+    const key = baseForm.toLowerCase();
     if (seen.has(key)) return;
     seen.add(key);
-    // Look up verb info
+    // Look up verb info using base form
     const verbInfo = _cefrVocabMap.get(key) || _cefrPhrases.find(p => p.nl.toLowerCase() === key);
     const isVerb = verbInfo && verbInfo.verb;
-    // Find verb conjugation from VERBS array
     let verbData = null;
     if (isVerb && typeof VERBS !== 'undefined') {
       verbData = VERBS.find(v => v.inf === key || v.id === key);
     }
-    vocab.push({ nl, en, level, isVerb, verbData });
+    vocab.push({ nl: baseForm, matchedForm, en, level, isVerb, verbData });
   });
   return vocab;
 }
@@ -5384,9 +5448,10 @@ function exportNOSVocabPDF(cardIdx) {
   rows += '<p style="color:#666;font-size:11px;">Bron: NOS.nl</p>';
 
   // Vocab table
-  rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th><th>Niveau</th><th>Voorbeeldzin</th></tr></thead><tbody>';
+  rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th><th>Niveau</th><th>Info</th></tr></thead><tbody>';
   vocab.forEach(v => {
     const levelColor = CEFR_LEVEL_COLORS[v.level] || '#333';
+    const formNote = (v.matchedForm && v.matchedForm.toLowerCase() !== v.nl.toLowerCase()) ? ' <em style="color:#888">(in tekst: ' + escapeHTML(v.matchedForm) + ')</em>' : '';
     let example = '';
     if (v.verbData) {
       example = 'Imperfectum: <em>' + v.verbData.imp_s + '</em> / Voltooid deelwoord: <em>' + v.verbData.pp + '</em>';
@@ -5394,7 +5459,7 @@ function exportNOSVocabPDF(cardIdx) {
       // Generate a simple context phrase
       example = '<em>(Zie de context in het artikel)</em>';
     }
-    rows += '<tr><td><strong style="color:' + levelColor + '">' + escapeHTML(v.nl) + '</strong></td><td>' + escapeHTML(v.en) + '</td><td><span class="pattern-label" style="background:' + levelColor + '">' + v.level + '</span></td><td>' + example + '</td></tr>';
+    rows += '<tr><td><strong style="color:' + levelColor + '">' + escapeHTML(v.nl) + '</strong>' + formNote + '</td><td>' + escapeHTML(v.en) + '</td><td><span class="pattern-label" style="background:' + levelColor + '">' + v.level + '</span></td><td>' + example + '</td></tr>';
   });
   rows += '</tbody></table>';
 
