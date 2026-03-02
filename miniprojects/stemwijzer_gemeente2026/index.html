@@ -5528,7 +5528,7 @@ function drawAnswerOverlay() {
       ctx.textAlign = 'center';
       ctx.font = "bold 13px 'Inter', sans-serif";
       ctx.fillStyle = btn.col;
-      ctx.fillText(`[${btn.key}] ${btn.label}`, bx + btnW/2, btnY + 28);
+      ctx.fillText(btn.label, bx + btnW/2, btnY + 28);
     }
 
     // Extra belangrijk toggle
@@ -5537,10 +5537,10 @@ function drawAnswerOverlay() {
     ctx.textAlign = 'center';
     if (extraBelangrijk) {
       ctx.fillStyle = PAL.belangrijk;
-      ctx.fillText(showEnglish ? '\u2605 Extra important [T]' : '\u2605 Extra belangrijk [T]', screenW/2, tbY);
+      ctx.fillText('\u2605 Extra belangrijk', screenW/2, tbY);
     } else {
       ctx.fillStyle = '#708090';
-      ctx.fillText(showEnglish ? '\u2606 Extra important? Press T' : '\u2606 Extra belangrijk? Druk T', screenW/2, tbY);
+      ctx.fillText('\u2606 Extra belangrijk?', screenW/2, tbY);
     }
 
   } else if (answerTab === 1) {
