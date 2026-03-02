@@ -8,12 +8,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="DUTCHMAXXING — Een Literair Avontuur">
 <meta property="og:description" content="Een interactief Nederlands leeravontuur — oefen werkwoorden, lees het nieuws, en maxx je Dutch skills van A2 tot C1.">
-<meta property="og:image" content="https://artificialnouveau.github.io/dutchgame/og-image.png">
-<meta property="og:url" content="https://artificialnouveau.github.io/dutchgame/">
+<meta property="og:image" content="https://artificialnouveau.github.io/dutchmaxxing/og-image.png">
+<meta property="og:url" content="https://artificialnouveau.github.io/dutchmaxxing/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DUTCHMAXXING — Een Literair Avontuur">
 <meta name="twitter:description" content="Een interactief Nederlands leeravontuur — oefen werkwoorden, lees het nieuws, en maxx je Dutch skills van A2 tot C1.">
-<meta name="twitter:image" content="https://artificialnouveau.github.io/dutchgame/og-image.png">
+<meta name="twitter:image" content="https://artificialnouveau.github.io/dutchmaxxing/og-image.png">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -1418,11 +1418,32 @@ body::before, body::after { display: none; }
 
 /* Responsive */
 @media (max-width: 600px) {
+  .game-header { grid-template-columns: 8px 1fr 8px; grid-template-rows: 8px auto 8px; gap: 2px; }
+  .header-center { padding: 14px 12px 10px; }
+  .game-title { letter-spacing: 4px; margin-bottom: 4px; }
+  .game-subtitle { letter-spacing: 1px; }
+
+  .tab-bar { justify-content: flex-start; -webkit-overflow-scrolling: touch; }
+  .tab-btn { padding: 10px 12px; font-size: 11px; flex-shrink: 0; }
+
+  .tab-content { padding: 16px 10px; }
+
+  .cefr-bar { padding: 6px 10px; gap: 4px; }
+  .cefr-label { font-size: 10px; margin-right: 6px; }
+  .cefr-btn { padding: 4px 10px; font-size: 11px; }
+  .cefr-toggle { margin-left: 8px; }
+  .cefr-toggle-label { font-size: 10px; }
+
   .answer-grid { grid-template-columns: 1fr; }
-  .stats-bar { gap: 12px; }
-  .tab-btn { padding: 10px 12px; }
-  .adventure-card { padding: 20px; }
-  .thought-card { padding: 18px; }
+  .adventure-card { padding: 16px 12px; }
+  .thought-card { padding: 16px 12px; }
+  .card { padding: 16px 12px; }
+
+  .help-row { flex-wrap: wrap; justify-content: center; }
+  .help-btn { order: -1; }
+
+  .news-container { padding: 0; }
+  .news-card { padding: 16px 12px; }
 }
 
 @keyframes pulse {
