@@ -1398,6 +1398,17 @@ function drawPartyAvatar(x, y, partyIdx, size) {
       ctx.fillStyle = p.colors[0];
       ctx.fillRect(cx-1*s, cy+1*s, 2*s, 4*s); // door
       break;
+    default:
+      // Render emoji or text symbol
+      if (p.symbol) {
+        ctx.font = `${size * 0.65}px 'Inter', sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(p.symbol, cx, cy);
+        ctx.textBaseline = 'alphabetic';
+      }
+      break;
   }
 }
 
@@ -2092,18 +2103,19 @@ function drawZoneDecoration(sx, sy, tx, ty, zone) {
 // Draw zone label when player is nearby
 function drawZoneLabel(zone, sx, sy) {
   const z = ZONES[zone];
+  const label = t(THEME_KEYS[zone]);
   ctx.font = "bold 14px 'Inter', sans-serif";
   ctx.textAlign = 'center';
   ctx.fillStyle = 'rgba(0,0,0,0.6)';
-  const tw = ctx.measureText(z.name).width;
+  const tw = ctx.measureText(label).width;
   ctx.fillRect(sx - tw/2 - 6, sy - 50, tw + 12, 20);
   ctx.fillStyle = z.col;
-  ctx.fillText(z.name, sx, sy - 36);
+  ctx.fillText(label, sx, sy - 36);
 }
 
 function drawZoneGroundLabel(zone, sx, sy) {
   const z = ZONES[zone];
-  const name = z.name.toUpperCase();
+  const name = t(THEME_KEYS[zone]).toUpperCase();
   const done = isZoneComplete(zone);
 
   ctx.save();
@@ -2590,7 +2602,7 @@ function drawFollowerSprite(sx, sy, follower) {
 
 let partyReactions = []; // { partyIdx, text, timer, maxTimer, agree }
 
-const AGREE_REACTIONS = [
+const AGREE_REACTIONS_NL = [
   'Eindelijk iemand met hersenen!', 'Dit staat letterlijk in ons programma!',
   'Wij gaan dit op een poster zetten.', 'Onze stagiair heeft dit ook bedacht!',
   'Precies! Zie pagina 47 van ons verkiezingsprogramma.', 'U bent welkom op ons congres!',
@@ -2599,7 +2611,7 @@ const AGREE_REACTIONS = [
   'Gefeliciteerd, u denkt als een politicus!', 'Mooi! Nu nog 3 miljard vinden.',
   'Top! We hadden al een persbericht klaar.', 'U snapt het. De rest van Nederland niet.',
 ];
-const DISAGREE_REACTIONS = [
+const DISAGREE_REACTIONS_NL = [
   'Heeft u ons programma wel gelezen? Nee? Wij ook niet.', 'Jammer, maar we respecteren uw foute mening.',
   'Daar gaan we een commissie voor oprichten.', 'Onze wethouder is het hier niet mee eens, maar die is het nergens mee eens.',
   'Dit gaat ons pijn doen bij de peilingen.', 'We gaan dit intern bespreken (lees: negeren).',
@@ -2608,12 +2620,41 @@ const DISAGREE_REACTIONS = [
   'We komen hier in de volgende raadsvergadering op terug. Over 6 maanden.',
   'Dit standpunt is in strijd met onze kernwaarden (die we vorige week hebben gewijzigd).',
 ];
-const NEUTRAL_REACTIONS = [
+const NEUTRAL_REACTIONS_NL = [
   'Ah, de beroemde Nederlandse consensus.', 'Een polderstandpunt, heel verstandig.',
   'Wij noemen dit "strategische ambiguiteit".', 'Onze fractie is het hier ook niet over eens.',
   'Dit is precies waarom vergaderingen 4 uur duren.', 'Genuanceerd! Daar winnen we geen zetel mee.',
   'U zou een goede politicus zijn.', 'We gaan hier een werkgroep voor oprichten.',
 ];
+const AGREE_REACTIONS_EN = [
+  'Finally someone with a brain!', 'This is literally in our manifesto!',
+  'We\'re putting this on a poster.', 'Our intern came up with this too!',
+  'Exactly! See page 47 of our election program.', 'You\'re welcome at our congress!',
+  'We\'re tweeting this!', 'You get a free pen for that.',
+  'Wait, this is exactly what our party leader said after two glasses of wine.',
+  'Congratulations, you think like a politician!', 'Great! Now we just need to find 3 billion.',
+  'Perfect! We already had a press release ready.', 'You get it. The rest of the country doesn\'t.',
+];
+const DISAGREE_REACTIONS_EN = [
+  'Have you read our manifesto? No? Neither have we.', 'Too bad, but we respect your wrong opinion.',
+  'We\'ll set up a committee for that.', 'Our alderman disagrees, but he disagrees with everything.',
+  'This will hurt us in the polls.', 'We\'ll discuss this internally (read: ignore it).',
+  'Your opinion has been noted and will be archived.', 'Hmm, have you considered voting for a different party?',
+  'This is why we have 14 meetings a week.', 'Noted! *tears up note*',
+  'We\'ll get back to this at the next council meeting. In 6 months.',
+  'This position contradicts our core values (which we changed last week).',
+];
+const NEUTRAL_REACTIONS_EN = [
+  'Ah, the famous Dutch consensus.', 'A middle-ground position, very wise.',
+  'We call this "strategic ambiguity".', 'Our own caucus can\'t agree on this either.',
+  'This is exactly why meetings last 4 hours.', 'Nuanced! That won\'t win us any seats.',
+  'You\'d make a great politician.', 'We\'re setting up a working group for this.',
+];
+function getReactions(type) {
+  if (type === 'agree') return showEnglish ? AGREE_REACTIONS_EN : AGREE_REACTIONS_NL;
+  if (type === 'disagree') return showEnglish ? DISAGREE_REACTIONS_EN : DISAGREE_REACTIONS_NL;
+  return showEnglish ? NEUTRAL_REACTIONS_EN : NEUTRAL_REACTIONS_NL;
+}
 
 // Funny NPC greetings per zone (De Speld style)
 const NPC_GREETINGS_ROTTERDAM = [
@@ -4405,26 +4446,187 @@ const NPC_GREETINGS_NIJMEGEN = [
    'Een jongerenraad? De gemiddelde leeftijd in Nijmegen is al 23.',
    'Nijmeegse politiek: links van links, en dan nog een stukje linksaf.'],
 ];
+const NPC_GREETINGS_EN_ROTTERDAM = [
+  // 0: Housing
+  ['Welcome to the housing crisis!', 'Have you also been looking for a rental for 8 years?', 'Here we build dreams! And sometimes even houses.', 'Nice of you to drop by. Would you like a tiny house?'],
+  // 1: Climate
+  ['Welcome to the greenest patch of asphalt in Rotterdam!', 'Have you offset your CO2 yet today?', 'We even recycle our opinions here.', 'One tree ago, this was a parking lot.'],
+  // 2: Safety
+  ['You are now safe. Probably.', 'Welcome! Your bike has already been stolen, but otherwise it\'s safe.', 'There\'s a camera here. And there. And over there too.', 'We enforce strictly here (except on Tuesdays).'],
+  // 3: Mobility
+  ['Welcome! You\'re stuck in traffic.', 'The metro arrives in 3 minutes. Or 30.', 'Cycling is healthy! As long as you don\'t get run over.', 'There\'ll be a tunnel here soon. Or a bridge. We haven\'t decided yet.'],
+  // 4: Economy
+  ['Welcome to the market! Everything is getting more expensive.', 'Do you have a side hustle yet?', 'Businesses are blooming here! Small businesses... less so.', 'The economy is growing! Your salary, unfortunately, is not.'],
+  // 5: Healthcare
+  ['Welcome! The waiting list is 14 weeks.', 'Take a number. You are number 3,847.', 'We\'ll take care of you! After the budget cuts.', 'The GP can see you in March. Of next year.'],
+  // 6: Education
+  ['Welcome! There\'s a teacher shortage.', 'Here children learn the future! If there\'s a teacher available.', 'We invest in education! *checks budget* Oh.', 'The school was just renovated. In 1987.'],
+  // 7: Culture & Sport
+  ['Welcome to the cultural heart! We have a budget of 12 euros.', 'Here we celebrate diversity in art! As long as it doesn\'t cost too much.', 'Sports are important! The sports hall is just closed due to budget cuts.', 'Applying for a culture subsidy? Count on 6 months of paperwork.'],
+  // 8: Diversity
+  ['Welcome! Everyone is welcome here. It says so in the brochure.', 'We embrace diversity! It\'s in our 2019 policy plan.', 'Inclusivity is our core value! *checks spreadsheet*', 'Here we talk with each other. Sometimes even to each other.'],
+  // 9: Governance
+  ['Welcome to the center of power! Or what\'s left of it.', 'Here decisions are made! And then reversed.', 'The mayor is in a meeting. Has been since 2018.', 'Transparency is our motto! *closes door*']
+];
+
+const NPC_GREETINGS_EN_DEN_HAAG = [
+  // 0: Housing
+  ['Welcome to The Hague\'s housing crisis! The waiting list is 12 years.', 'The Binckhorst is getting trendy! Affordable? No, just trendy.', 'Looking for social housing? Get in line at the Megastores.', 'Squatter-watch in The Hague: living as a hobby, not a right.'],
+  // 1: Climate
+  ['Welcome! Scheveningen is still there. For now.', 'District heating: hot water for hot promises.', 'One tree ago this was a parking lot. Just like Rotterdam, but fancier.', 'Sea levels are rising, but so are the alderman\'s ambitions.'],
+  // 2: Safety
+  ['You are now safe. Probably. This isn\'t the Schilderswijk.', 'Welcome! There are more cameras than residents on this street.', 'Beach enforcement: checking sunscreen is also safety.', 'The coffeeshop closes, but the debate about it never does.'],
+  // 3: Mobility
+  ['Welcome! The tram arrives in 3 minutes. Or it\'ll be a bus. Or nothing.', 'HTM: The Hague\'s Tragically Hopeless Mobility.', 'Cycling in The Hague: more adventurous than mountain biking.', 'Central Station is reachable! If you transfer three times.'],
+  // 4: Economy
+  ['Welcome to the International Zone! Do you also speak five languages and earn six figures?', 'Scheveningen: where a herring costs \u20AC8 but the view is free.', 'The economy is booming! At least for the international organizations.', 'Tourist tax? The sprinkles on your sandwich are getting pricier too.'],
+  // 5: Healthcare
+  ['Welcome! The mental health waiting list is 26 weeks. Can you hold on that long?', 'Homeless shelter full? Try the Binnenhof, that\'s mostly empty too.', 'Youth care in The Hague: the waiting list is older than the clients.', 'We\'ll take care of you! After the reorganization. And the budget cuts.'],
+  // 6: Education
+  ['Welcome! There are more international schools here than Albert Heijns.', 'The Hague University: where you learn that everything at city hall moves slower.', 'Dutch language course? By the time it\'s your turn, you\'ll already be fluent.', 'Education in The Hague: internationally excellent, locally under pressure.'],
+  // 7: Culture & Sport
+  ['Welcome to the Mauritshuis! Admission is optional. Just kidding.', 'Festival in the Zuiderpark? Count on six months of permit procedures.', 'Culture in The Hague: from Vermeer to house music. Sometimes simultaneously.', 'Sports are important! The subsidy just went missing.'],
+  // 8: Diversity
+  ['Welcome! In The Hague we speak 180 languages. The municipality speaks about 1.5.', 'Inclusivity is our core value! *searches for the form in Turkish*', 'Everyone is welcome here. It says so in the policy plan. In English.', 'Integration in The Hague: every neighborhood its own little world.'],
+  // 9: Governance
+  ['Welcome to the Binnenhof! Oh wait, that\'s national government. We\'re in City Hall.', 'The mayor is in a meeting. With the International Criminal Court. Or the caterers.', 'Transparency is our motto! *moves meeting to secret location*', 'The Hague: where local politics lives in the shadow of national politics.']
+];
+
+const NPC_GREETINGS_EN_AMSTERDAM = [
+  // 0: Housing
+  ['Welcome to the Jordaan! Know anyone who can still afford rent here? Me neither.', 'My landlord wanted to raise the rent. I asked if a swimming pool was included.', 'A 12m\u00B2 studio for \u20AC1,800? That\'s Amsterdam, baby!', 'My houseboat is worth more than a villa in Drenthe.'],
+  // 1: Climate
+  ['If the water rises, our canals just get wider. Win-win!', 'Shrink Schiphol? At least then I\'d hear my own thoughts again.', 'My green roof is so overgrown, the neighbors think I have a park.', 'Amsterdam sustainable? We already cycle everywhere!'],
+  // 2: Safety
+  ['The Wallen are safer than the Kalverstraat on a Saturday.', 'Organized crime? It\'s better organized here than the municipality.', 'The metro after midnight is an adventure. But without a map.', 'Amsterdam is so safe, my bike has only been stolen three times this year.'],
+  // 3: Mobility
+  ['A city toll? I can\'t even get a car through the center as it is.', 'The Noord/Zuidlijn? I\'ve been waiting since construction started. Oh wait, it\'s done!', 'Bike parking full? Just chain it to a random bridge.', 'In Amsterdam you\'re faster walking than driving.'],
+  // 4: Economy
+  ['My neighbor rents out his closet on Airbnb. Seriously, his closet.', 'Creative spaces disappear, but more and more yoga studios pop up.', 'Coffeeshops to the outskirts? Then that area gets lively too!', 'Amsterdam: where a cheese sandwich in the center costs 12 euros.'],
+  // 5: Healthcare
+  ['Homeless shelter? We just call that a studio apartment here.', 'The mental health waiting list is so long, I\'ll be cured before it\'s my turn.', 'Finding a GP in Zuidoost is harder than finding a parking spot.', 'In Amsterdam, the best therapy is a walk along the canals.'],
+  // 6: Education
+  ['Diversity lessons? My class has 30 nationalities \u2014 that IS the lesson.', 'Free breakfast at school? My kid already eats there three times a day.', 'Learning Dutch? First try getting anyone in Amsterdam to stop speaking English.', 'The university is so international, the cafeteria serves sushi next to stamppot.'],
+  // 7: Culture & Sport
+  ['Free entry to the Rijksmuseum? Then I can finally see the Night Watch!', 'Sports facilities in Noord? You mean the ferry, right? That\'s already a workout.', 'A festival ground outside the ring road? But the Vondelpark IS our festival ground.', 'Culture in Amsterdam is a night at the pub and claiming you went to an exhibition.'],
+  // 8: Diversity
+  ['Amsterdam: where everyone is welcome, as long as you can pay the rent.', 'Diversity quota? In Amsterdam, diversity IS the norm.', 'A community center? That\'s just the Albert Heijn around the corner here.', 'Housing discrimination? You\'re already discriminated against here if you\'re not an expat.'],
+  // 9: Governance
+  ['More power to boroughs? My borough chair doesn\'t even know my name.', 'A citizens\' council on tourism? Let me guess: fewer tourists!', 'Transparency in land sales? In Amsterdam, everything is handled under the table.', 'The municipality of Amsterdam: bigger than some provinces, but with more canals.']
+];
+
+const NPC_GREETINGS_EN_UTRECHT = [
+  // 0: Housing
+  ['Welcome to Utrecht! Looking for a home? Good luck, it\'s just as bad as Amsterdam here.', 'The Merwedekanaalzone will be gorgeous! But can I actually live there? That\'s the question.', 'My student room is so small, I have to step outside to change my mind.', 'Utrecht is growing faster than the Dom Tower is tall. And that\'s already 112 meters.'],
+  // 1: Climate
+  ['The canal reopened? Now I can finally kayak from home to work!', 'Solar panels on city hall? At least the municipality shines at something then.', 'Utrecht going gas-free? My landlord already cut off the heating \u2014 saves the effort.', 'A green roof? My upstairs neighbor already has a jungle on his balcony.'],
+  // 2: Safety
+  ['Hoog Catharijne got safer! Now you only get approached by perfume salespeople.', 'Overvecht unsafe? Come visit \u2014 we have the best snack bar in Utrecht.', 'A knife ban? Back in my day, we fought with healthy sandwiches.', 'Cameras at the station? My train is already delayed \u2014 film that instead.'],
+  // 3: Mobility
+  ['Car-free center? I\'ve been stuck in traffic so long my car is a monument.', 'A light rail to the Uithof? The bus is already a rollercoaster during rush hour.', 'Free transit for seniors? My grandma still cycles faster than the bus.', 'Utrecht: where you\'re faster by bike than by any other mode of transport.'],
+  // 4: Economy
+  ['The Jaarbeurs is becoming the new center! But first another 10 years of construction.', 'Shops open at 9? The Utrecht baker has been ready for hours by then.', 'A startup in Utrecht? Your office is a coffee shop on the Oudegracht.', 'Utrecht: where the economy grows, but your wallet shrinks.'],
+  // 5: Healthcare
+  ['More youth care? My kids will be adults before they get their turn.', 'A walk-in for mental health? That\'s the Botanical Gardens here.', 'A GP in Leidsche Rijn? You\'re better off cycling to the UMC.', 'The waiting list is so long I started writing a book. About waiting lists.'],
+  // 6: Education
+  ['The university contributing to the neighborhood? They already built an entire science park!', 'A green schoolyard? My kid only knows tiles and chalk lines.', 'Technical education? My plumber earns more than my professor.', 'More people study in Utrecht than there are native Utrechters living here.'],
+  // 7: Culture & Sport
+  ['TivoliVredenburg is so beautiful, I go there even when I don\'t know the band.', 'Sports along the Kromme Rijn? I\'m already tired just cycling there.', 'A free city festival? Utrecht already has something on the Neude every week.', 'Culture in Utrecht: drinking coffee on a terrace and pretending you\'re admiring the Dom Tower.'],
+  // 8: Diversity
+  ['Utrecht: the city where everyone is welcome, unless you\'re looking for a parking spot.', 'Diversity quota? In the Kanaalstraat you\'ve already got a UN summit on every corner.', 'Integration happens naturally here. Everyone complains about the weather together.', 'Tackle discrimination? Start with the housing market, end up nowhere.'],
+  // 9: Governance
+  ['More power to neighborhood councils? My council member doesn\'t even know my street.', 'Collaborate with neighboring municipalities? Stichtse Vecht is practically Utrecht already.', 'Digital polls? Half my neighborhood can\'t even find the municipal website.', 'Utrecht politics: just as complicated as the road detours around the station.']
+];
+
+const NPC_GREETINGS_EN_EINDHOVEN = [
+  // 0: Housing
+  ['Welcome to Eindhoven! Looking for a home? Better become an ASML engineer first.', 'Strijp-S is so hip, even my rent wears non-prescription glasses.', 'An expat home? Those cost more than an ASML chip.', 'Eindhoven: where a row house costs more than a Tesla.'],
+  // 1: Climate
+  ['The smartest sustainable city? We already have smart lampposts \u2014 does that count?', 'The Dommel as a natural stream? Right now it\'s more of a ditch with ambition.', 'Energy-neutral building? My house mainly produces draft energy.', 'Eindhoven City of Light: now also light-green!'],
+  // 2: Safety
+  ['Drug labs in Brabant? In Eindhoven we only have labs for microchips. Hopefully.', 'The Stratumseind safe? After midnight it\'s more survival than nightlife.', 'A knife ban? On the Stratumseind a beer glass is already a weapon.', 'Safety in Eindhoven: the biggest threat is a toppling e-scooter.'],
+  // 3: Mobility
+  ['A light rail to the High Tech Campus? I\'ll take the Hovenring \u2014 it\'s faster.', 'Eindhoven Airport is growing? The neighbors can now hear my vacation plans too.', 'Low-car city center? There are more cars here than trees.', 'In Eindhoven people don\'t cycle to get fit \u2014 they cycle to get to ASML on time.'],
+  // 4: Economy
+  ['Brainport is the engine of the Netherlands! And I\'m the pedestrian who has to step aside.', 'Dutch Design Week? I\'ve been designing my Excel spreadsheets all week.', 'An affordable workspace? My kitchen table is my office.', 'Eindhoven: city of light, design, and overpriced coffee.'],
+  // 5: Healthcare
+  ['Mental health for tech workers? The burnout waiting list is the longest here.', 'A GP in Meerhoven? You\'ll get an ASML chip faster than an appointment.', 'Preventive elderly care? My grandma is doing a hackathon.', 'In Eindhoven, the best therapy is a walk through the Stadswandelpark.'],
+  // 6: Education
+  ['TU/e and primary schools? My 8-year-old already knows more about robots than I do.', 'Coding classes? In Eindhoven you learn Python before you can read.', 'International education? Half my class doesn\'t speak Dutch.', 'In Eindhoven, building LEGO already counts as an ASML internship.'],
+  // 7: Culture & Sport
+  ['The Van Abbemuseum? I don\'t understand the art, but the building is nice.', 'PSV in the neighborhood? My neighbor\'s kid already shoots harder than Luuk de Jong.', 'A light art museum? GLOW all year? My energy bill just went up.', 'Culture in Eindhoven is going to GLOW and then complaining it\'s too crowded.'],
+  // 8: Diversity
+  ['Integrating expats? Start by translating the Albert Heijn loyalty card.', 'Multilingual services? The municipal website already crashes in Dutch.', 'Housing discrimination? If you don\'t have a tech contract, you\'re already rejected.', 'Eindhoven: more international than the UN, but with more deep-fryers.'],
+  // 9: Governance
+  ['A Brainport governance layer? Then we\'ll have more administrators than chips soon.', 'Citizens\' panels? Half of Eindhoven is too busy innovating.', 'The city council in the neighborhoods? They\'d have to find their way there first.', 'Governing Eindhoven is like running a startup: lots of ideas, no budget.']
+];
+
+const NPC_GREETINGS_EN_GRONINGEN = [
+  // 0: Housing
+  ['Moi! Welcome to the City! Looking for a home? Everyone here is.', 'The Suikerunie site? I\'ve been waiting so long I could grow sugar beets there.', 'Earthquake-proof housing? My house shakes, but the rent rises faster.', 'In Groningen you\'ll find a spot at the pub before you find a rental.'],
+  // 1: Climate
+  ['Gas-free? We Groningers know better than anyone why that\'s needed.', 'Mandatory solar panels? With our weather? You need more than hope.', 'A climate fund for insulation? My walls are so thin I can hear my neighbor thinking.', 'The energy transition starts in Groningen. Makes sense \u2014 the gas came from here too.'],
+  // 2: Safety
+  ['The Grote Markt is safe! Only your wallet is in danger at the pub.', 'Community officers in the earthquake zone? They shake right along!', 'Fireworks ban? The earthquakes are already fireworks enough.', 'Safety in Groningen: watch out for cyclists \u2014 they stop for no one.'],
+  // 3: Mobility
+  ['Car-free center? In Groningen you don\'t need a car. Just a bike and some nerve.', 'Express tram to Zernike? The bus is already a rollercoaster when it freezes.', 'Free transit under 25? Then all of Groningen rides free \u2014 half the city is students!', 'Groningen: where your bike is your car, your gym, and your social life.'],
+  // 4: Economy
+  ['Energy startups? We\'re done with gas \u2014 now we\'re going for solar!', 'Shops closed on Sunday? The pubs are open, that\'s enough.', 'Tourist tax? Tourists come here for the nightlife, not the Martinitoren.', 'Groningen: where you study until you\'re 30 and then start working.'],
+  // 5: Healthcare
+  ['Double the mental health budget? The waiting list is longer than the Reitdiep.', 'A trauma center? After those earthquakes, Groningen deserves one.', 'More youth care? In Groningen, young people already grow up resilient.', 'The best healthcare in Groningen is a night out at De Drie Gezusters.'],
+  // 6: Education
+  ['The University of Groningen contributing? They\'re already the city\'s biggest employer!', 'Gronings dialect in schools? Moi, that we\'ll learn! Or not.', 'Retraining? Going from gas extraction to solar energy is quite a leap.', 'More people study in Groningen than were born here.'],
+  // 7: Culture & Sport
+  ['The Groninger Museum for free? Then I\'ll go every Sunday!', 'A night mayor? They\'d have to sleep during the day and rule at night.', 'Outdoor sports in the suburbs? Running for the bus counts, right?', 'Culture in Groningen: going to Noorderzon and pretending you understand it.'],
+  // 8: Diversity
+  ['Diversity quota? In the student housing you\'re already living with the whole world.', 'Integrating international students? Start with a beer at the pub.', 'Housing discrimination? As a student you get rejected anyway.', 'Groningen: where your neighbor is from Germany and your landlady is from Friesland.'],
+  // 9: Governance
+  ['Citizens\' council on earthquake funds? Just give the money to the residents!', 'Collaborate with neighboring municipalities? Drenthe starts right at the ring road.', 'Transparent city council? They\'d have to be able to read their own minutes first.', 'Groningen politics: fighting for recognition in The Hague since 1963.']
+];
+
+const NPC_GREETINGS_EN_NIJMEGEN = [
+  // 0: Housing
+  ['Welcome to the oldest city in the Netherlands! Looking for a home? The Romans had the same problem.', 'The Waalsprong is lovely, but I miss the shops. And the bus. And the neighbors.', 'My landlord charges so much rent, the Romans would call it a tax.', 'Nijmegen: where your house is older than most cities.'],
+  // 1: Climate
+  ['Green Capital? We do have a lot of green. It\'s growing out of my walls.', 'Protect the Waal? That river has flooded more than my bathtub.', 'Heat pumps? My neighbor has one \u2014 I can hear it day and night.', 'Nijmegen sustainable: we\'ve been recycling our Roman stones for 2,000 years.'],
+  // 2: Safety
+  ['Organized crime in Nijmegen? The only underground activity here is archaeology.', 'More enforcement at the Vierdaagse? They\'re already walking 40 kilometers themselves.', 'A knife ban? At the Vierdaagse, a blister is already a weapon.', 'Safety: the most dangerous thing in Nijmegen is cycling the Waalbrug with a headwind.'],
+  // 3: Mobility
+  ['Replace the Waalbrug? That bridge has been here my whole life. Just like the traffic jam.', 'A fast cycle path to Arnhem? I\'m already tired just thinking about it.', 'The bus in my neighborhood? It runs so irregularly, I just walk now.', 'Nijmegen: hilly, windy, and yet everyone cycles.'],
+  // 4: Economy
+  ['Radboud and businesses collaborating? My neighbor has a PhD and works at the Jumbo.', 'Roman tourism? I\'m already selling homemade gladiator helmets on Marktplaats.', 'Affordable workspaces? I already work at the library. Free wifi!', 'Nijmegen: city of knowledge, culture, and the most expensive cappuccino south of Amsterdam.'],
+  // 5: Healthcare
+  ['Radboudumc collaborating? They\'re already the biggest employer after the municipality.', 'Elderly care in the neighborhood? My grandma organizes the community care herself.', 'Addiction prevention? After the Vierdaagse, all of Nijmegen needs an alcohol intervention.', 'The best care in Nijmegen: a walk along the Waal beaches.'],
+  // 6: Education
+  ['Radboud contributing? They\'ve already converted half of Bottendaal into student flats.', 'Free sports education? My kid is already a pro at dodgeball.', 'Education for newcomers? In Nijmegen you learn Dutch and Latin at the same time.', 'Nijmegen has more students than Roman coins. And that\'s saying something.'],
+  // 7: Culture & Sport
+  ['More support for the Vierdaagse? It\'s already the best free festival in the Netherlands!', 'A Roman museum? We already walk over the ruins every day.', 'Sports in the Waalsprong? Running for the bus there is already elite athletics.', 'Culture in Nijmegen: having a beer at the Valkhof and gazing at the Waal.'],
+  // 8: Diversity
+  ['Diversity quota? In the student housing it\'s already a mini-UN.', 'Integrating international students? Take them to the Vierdaagse!', 'Tackle discrimination? In Nijmegen we all look the same after walking 40km.', 'Nijmegen: diverse since the Romans met the Batavians here.'],
+  // 9: Governance
+  ['More power to neighborhood councils? My neighbor IS the neighborhood council.', 'Collaborate with Arnhem? They\'ve been trying since the Battle of Arnhem.', 'A youth council? The average age in Nijmegen is already 23.', 'Nijmegen politics: left of left, and then another bit to the left.']
+];
 
 // --- Active data (swapped on city selection) ---
 let STATEMENTS = STATEMENTS_ROTTERDAM;
 let TRANSLATIONS = TRANSLATIONS_ROTTERDAM;
 let PARTIES = PARTIES_ROTTERDAM;
 let NPC_GREETINGS = NPC_GREETINGS_ROTTERDAM;
+let NPC_GREETINGS_EN = NPC_GREETINGS_EN_ROTTERDAM;
 
 function swapCityData(cityIdx) {
   const cityName = CITIES[cityIdx].name;
   const cityData = {
-    'Rotterdam': [STATEMENTS_ROTTERDAM, TRANSLATIONS_ROTTERDAM, PARTIES_ROTTERDAM, NPC_GREETINGS_ROTTERDAM],
-    'Amsterdam': [STATEMENTS_AMSTERDAM, TRANSLATIONS_AMSTERDAM, PARTIES_AMSTERDAM, NPC_GREETINGS_AMSTERDAM],
-    'Den Haag': [STATEMENTS_DEN_HAAG, TRANSLATIONS_DEN_HAAG, PARTIES_DEN_HAAG, NPC_GREETINGS_DEN_HAAG],
-    'Utrecht': [STATEMENTS_UTRECHT, TRANSLATIONS_UTRECHT, PARTIES_UTRECHT, NPC_GREETINGS_UTRECHT],
-    'Eindhoven': [STATEMENTS_EINDHOVEN, TRANSLATIONS_EINDHOVEN, PARTIES_EINDHOVEN, NPC_GREETINGS_EINDHOVEN],
-    'Groningen': [STATEMENTS_GRONINGEN, TRANSLATIONS_GRONINGEN, PARTIES_GRONINGEN, NPC_GREETINGS_GRONINGEN],
-    'Nijmegen': [STATEMENTS_NIJMEGEN, TRANSLATIONS_NIJMEGEN, PARTIES_NIJMEGEN, NPC_GREETINGS_NIJMEGEN],
+    'Rotterdam': [STATEMENTS_ROTTERDAM, TRANSLATIONS_ROTTERDAM, PARTIES_ROTTERDAM, NPC_GREETINGS_ROTTERDAM, NPC_GREETINGS_EN_ROTTERDAM],
+    'Amsterdam': [STATEMENTS_AMSTERDAM, TRANSLATIONS_AMSTERDAM, PARTIES_AMSTERDAM, NPC_GREETINGS_AMSTERDAM, NPC_GREETINGS_EN_AMSTERDAM],
+    'Den Haag': [STATEMENTS_DEN_HAAG, TRANSLATIONS_DEN_HAAG, PARTIES_DEN_HAAG, NPC_GREETINGS_DEN_HAAG, NPC_GREETINGS_EN_DEN_HAAG],
+    'Utrecht': [STATEMENTS_UTRECHT, TRANSLATIONS_UTRECHT, PARTIES_UTRECHT, NPC_GREETINGS_UTRECHT, NPC_GREETINGS_EN_UTRECHT],
+    'Eindhoven': [STATEMENTS_EINDHOVEN, TRANSLATIONS_EINDHOVEN, PARTIES_EINDHOVEN, NPC_GREETINGS_EINDHOVEN, NPC_GREETINGS_EN_EINDHOVEN],
+    'Groningen': [STATEMENTS_GRONINGEN, TRANSLATIONS_GRONINGEN, PARTIES_GRONINGEN, NPC_GREETINGS_GRONINGEN, NPC_GREETINGS_EN_GRONINGEN],
+    'Nijmegen': [STATEMENTS_NIJMEGEN, TRANSLATIONS_NIJMEGEN, PARTIES_NIJMEGEN, NPC_GREETINGS_NIJMEGEN, NPC_GREETINGS_EN_NIJMEGEN],
   };
   const d = cityData[cityName] || cityData['Rotterdam'];
-  STATEMENTS = d[0]; TRANSLATIONS = d[1]; PARTIES = d[2]; NPC_GREETINGS = d[3];
+  STATEMENTS = d[0]; TRANSLATIONS = d[1]; PARTIES = d[2]; NPC_GREETINGS = d[3]; NPC_GREETINGS_EN = d[4];
 }
 
 function triggerPartyReactions(stmtIdx, playerAnswer) {
@@ -4465,13 +4667,16 @@ function triggerPartyReactions(stmtIdx, playerAnswer) {
     const partyPos = p.pos;
     let text, agree;
     if (partyPos === playerAnswer && playerAnswer !== 0) {
-      text = AGREE_REACTIONS[Math.floor(Math.random() * AGREE_REACTIONS.length)];
+      const arr = getReactions('agree');
+      text = arr[Math.floor(Math.random() * arr.length)];
       agree = 1;
     } else if (partyPos === -playerAnswer && playerAnswer !== 0) {
-      text = DISAGREE_REACTIONS[Math.floor(Math.random() * DISAGREE_REACTIONS.length)];
+      const arr = getReactions('disagree');
+      text = arr[Math.floor(Math.random() * arr.length)];
       agree = -1;
     } else {
-      text = NEUTRAL_REACTIONS[Math.floor(Math.random() * NEUTRAL_REACTIONS.length)];
+      const arr = getReactions('neutral');
+      text = arr[Math.floor(Math.random() * arr.length)];
       agree = 0;
     }
     const maxTimer = 840; // ~14 seconds at 60fps
@@ -5129,7 +5334,7 @@ function drawHUD() {
   ctx.textAlign = 'left';
   ctx.font = "bold 14px 'Inter', sans-serif";
   ctx.fillStyle = PAL.uiText;
-  ctx.fillText(`Stellingen: ${done} / ${total}`, 20, 30);
+  ctx.fillText(`${showEnglish ? 'Statements' : 'Stellingen'}: ${done} / ${total}`, 20, 30);
 
   // Progress bar
   ctx.fillStyle = '#333';
@@ -5145,7 +5350,7 @@ function drawHUD() {
     drawGlassPanel(10, 68, 220, 25, 8, ZONES[tz].col);
     ctx.font = "12px 'Inter', sans-serif";
     ctx.fillStyle = ZONES[tz].col;
-    ctx.fillText(THEMES[tz].name + (isZoneComplete(tz) ? ' \u2713' : ''), 20, 84);
+    ctx.fillText(t(THEME_KEYS[tz]) + (isZoneComplete(tz) ? ' \u2713' : ''), 20, 84);
   }
 
   // Zoom indicator
@@ -5159,7 +5364,9 @@ function drawHUD() {
   ctx.textAlign = 'center';
   ctx.font = "12px 'Inter', sans-serif";
   ctx.fillStyle = 'rgba(200,200,200,0.5)';
-  ctx.fillText('WASD/klik = bewegen | I/klik = praten | +/- = zoom | ? = reset', screenW/2, screenH - 15);
+  ctx.fillText(showEnglish
+    ? 'WASD/click = move | I/click = talk | +/- = zoom | ? = reset'
+    : 'WASD/klik = bewegen | I/klik = praten | +/- = zoom | ? = reset', screenW/2, screenH - 15);
 }
 
 function drawNPCPrompt() {
@@ -5174,7 +5381,7 @@ function drawNPCPrompt() {
     ctx.textAlign = 'center';
     ctx.font = "bold 16px 'Inter', sans-serif";
     ctx.fillStyle = ansColor;
-    ctx.fillText('\u2713 Beantwoord', sx, sy);
+    ctx.fillText('\u2713 ' + (showEnglish ? 'Answered' : 'Beantwoord'), sx, sy);
     return;
   }
 
@@ -5182,9 +5389,10 @@ function drawNPCPrompt() {
   const sx = s.x - camera.x, sy = s.y - camera.y - 70;
 
   // Speech bubble — flat Caulfield with funny greeting
-  const greetings = NPC_GREETINGS[zi] || ['Hallo!'];
+  const greetings = showEnglish ? (NPC_GREETINGS_EN[zi] || ['Hello!']) : (NPC_GREETINGS[zi] || ['Hallo!']);
   const greetIdx = Math.floor(Date.now() / 8000) % greetings.length;
-  const text = greetings[greetIdx] + ' (I)';
+  const greetText = greetings[greetIdx];
+  const text = greetText + ' (I)';
   ctx.font = "14px 'Inter', sans-serif";
   const tw = ctx.measureText(text).width;
 
@@ -5247,13 +5455,13 @@ function drawAnswerOverlay() {
   ctx.textAlign = 'center';
   ctx.font = "bold 18px 'Inter', sans-serif";
   ctx.fillStyle = '#ffffff';
-  ctx.fillText(theme.name, screenW/2, py + 26);
+  ctx.fillText(t(THEME_KEYS[stmt.theme]), screenW/2, py + 26);
 
   // Statement number + translate toggle
   const trans = TRANSLATIONS[currentStatementIdx];
   ctx.font = "13px 'Inter', sans-serif";
   ctx.fillStyle = '#607080';
-  ctx.fillText(`Stelling ${countAnswered() + 1} van ${quizMode}`, screenW/2, py + 60);
+  ctx.fillText(`${t('answer_statement')} ${countAnswered() + 1} ${t('answer_of')} ${quizMode}`, screenW/2, py + 60);
 
   // Translate button (top-right of panel)
   const eBtnX = px0 + pw - 90;
@@ -5563,7 +5771,7 @@ function drawNavigationArrows() {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffffff';
     ctx.rotate(-screenAngle); // un-rotate for text
-    ctx.fillText(ZONES[zi].name, 0, -10);
+    ctx.fillText(t(THEME_KEYS[zi]), 0, -10);
 
     ctx.globalAlpha = 1;
     ctx.restore();
@@ -5592,87 +5800,68 @@ function drawResultScreen() {
   ctx.fillStyle = '#606060';
   ctx.fillText('StemWijzer ' + CITIES[selectedCity].name + ' 2026 \u2014 ' + t('illustrative'), screenW/2, 73);
 
-  // Verkiezingsbord — party posters sized by match %
-  const boardTop = 88;
-  const boardBottom = screenH - 65;
-  const boardH = boardBottom - boardTop;
-  const boardLeft = 20;
-  const boardRight = screenW - 20;
-  const boardW = boardRight - boardLeft;
+  // Horizontal bar chart
+  const chartTop = 88;
+  const chartBottom = screenH - 65;
+  const chartH = chartBottom - chartTop;
+  const chartLeft = 20;
+  const chartRight = screenW - 20;
+  const chartW = chartRight - chartLeft;
 
-  ctx.fillStyle = '#c8b898';
-  ctx.fillRect(boardLeft, boardTop, boardW, boardH);
-  ctx.strokeStyle = '#1a1a1a';
-  ctx.lineWidth = 4;
-  ctx.strokeRect(boardLeft, boardTop, boardW, boardH);
-
-  const maxPct = results[0] ? results[0].pct : 100;
-  const minPosterW = 55;
-  const maxPosterW = Math.min(160, boardW * 0.28);
-  const posterPad = 8;
+  const numParties = results.length;
+  const barPad = 3;
+  const barH = Math.min(36, Math.floor((chartH - barPad * (numParties + 1)) / numParties));
+  const labelW = Math.min(70, screenW * 0.15); // space for party abbreviation
+  const pctLabelW = 45; // space for percentage text
+  const maxBarW = chartW - labelW - pctLabelW - 10;
 
   resultRowRects = [];
-  let cx = boardLeft + posterPad;
-  let cy = boardTop + posterPad;
-  let rowMaxH = 0;
 
   for (let i = 0; i < results.length; i++) {
     const r = results[i];
     const p = PARTIES[r.partyIdx];
-    const scale = 0.4 + 0.6 * (r.pct / Math.max(maxPct, 1));
-    const pw = Math.max(minPosterW, maxPosterW * scale);
-    const ph = pw * 1.3;
+    const by = chartTop + barPad + i * (barH + barPad);
+    const barW = Math.max(2, (r.pct / 100) * maxBarW);
 
-    if (cx + pw + posterPad > boardRight) {
-      cx = boardLeft + posterPad;
-      cy += rowMaxH + posterPad;
-      rowMaxH = 0;
-    }
-    if (cy + ph > boardBottom - posterPad) break;
+    resultRowRects.push({ x: chartLeft, y: by, w: chartW, h: barH, partyIdx: r.partyIdx });
 
-    resultRowRects.push({ x: cx, y: cy, w: pw, h: ph, partyIdx: r.partyIdx });
-
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(cx, cy, pw, ph);
-    ctx.fillStyle = p.colors[0];
-    ctx.fillRect(cx, cy, pw, ph * 0.3);
-
-    const avatarSize = Math.max(18, pw * 0.35);
-    drawPartyAvatar(cx + pw / 2 - avatarSize / 2, cy + ph * 0.15 - avatarSize / 2, r.partyIdx, avatarSize);
-
-    ctx.textAlign = 'center';
-    const nameFontSize = Math.max(9, Math.min(14, pw * 0.12));
-    ctx.font = `bold ${nameFontSize}px 'Inter', sans-serif`;
-    ctx.fillStyle = '#1a1a1a';
-    ctx.fillText(p.abbr, cx + pw / 2, cy + ph * 0.48);
-
-    const pctFontSize = Math.max(14, Math.min(28, pw * 0.22));
-    ctx.font = `bold ${pctFontSize}px 'Inter', sans-serif`;
+    // Party abbreviation label
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+    const labelSize = Math.max(10, Math.min(14, barH * 0.55));
+    ctx.font = `bold ${labelSize}px 'Inter', sans-serif`;
     ctx.fillStyle = i < 3 ? '#d42020' : '#1a1a1a';
-    ctx.fillText(`${r.pct}%`, cx + pw / 2, cy + ph * 0.68);
+    ctx.fillText(p.abbr, chartLeft + labelW - 6, by + barH / 2);
 
-    if (i < 3) {
-      const medalSize = Math.max(10, pw * 0.14);
-      ctx.font = `${medalSize}px 'Inter', sans-serif`;
-      ctx.textAlign = 'left';
-      ctx.fillText(i === 0 ? '\ud83e\udd47' : i === 1 ? '\ud83e\udd48' : '\ud83e\udd49', cx + 3, cy + medalSize + 2);
-    }
+    // Bar background (light gray)
+    ctx.fillStyle = '#e0dcd4';
+    ctx.fillRect(chartLeft + labelW, by, maxBarW, barH);
 
-    if (p.url) {
-      const hintSize = Math.max(7, pw * 0.07);
-      ctx.font = `${hintSize}px 'Inter', sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#1858a8';
-      ctx.fillText('website \u2197', cx + pw / 2, cy + ph * 0.92);
-    }
+    // Filled bar with party color
+    ctx.fillStyle = p.colors[0];
+    ctx.fillRect(chartLeft + labelW, by, barW, barH);
 
+    // Subtle border on bar
     ctx.strokeStyle = '#1a1a1a';
-    ctx.lineWidth = i < 3 ? 3 : 1.5;
-    ctx.strokeRect(cx, cy, pw, ph);
+    ctx.lineWidth = i < 3 ? 2 : 1;
+    ctx.strokeRect(chartLeft + labelW, by, barW, barH);
 
-    cx += pw + posterPad;
-    rowMaxH = Math.max(rowMaxH, ph);
+    // Medal for top 3
+    if (i < 3) {
+      const medal = i === 0 ? '\ud83e\udd47' : i === 1 ? '\ud83e\udd48' : '\ud83e\udd49';
+      ctx.font = `${Math.max(10, barH * 0.6)}px 'Inter', sans-serif`;
+      ctx.textAlign = 'left';
+      ctx.fillText(medal, chartLeft + labelW + barW + 3, by + barH / 2 + 1);
+    }
+
+    // Percentage text
+    ctx.textAlign = 'left';
+    ctx.font = `bold ${labelSize}px 'Inter', sans-serif`;
+    ctx.fillStyle = i < 3 ? '#d42020' : '#1a1a1a';
+    const pctX = chartLeft + labelW + maxBarW + 6;
+    ctx.fillText(`${r.pct}%`, pctX, by + barH / 2);
   }
+  ctx.textBaseline = 'alphabetic';
 
   // Bottom bar
   ctx.fillStyle = '#1858a8';
