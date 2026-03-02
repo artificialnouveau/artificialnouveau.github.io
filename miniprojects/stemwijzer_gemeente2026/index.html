@@ -50,6 +50,7 @@ let screenW, screenH, dpr = 1;
 // --- MOBILE TOUCH CONTROLS ---
 let touchDrag = null; // {startX, startY, lastX, lastY} for swipe-to-scroll
 let pinchDist0 = 0; // initial pinch distance for zoom
+let touchHandledClick = 0; // timestamp to suppress synthetic click after touch
 function resize() {
   dpr = window.devicePixelRatio || 1;
   screenW = window.innerWidth;
@@ -217,6 +218,8 @@ let clickTarget = null; // {worldX, worldY} for click-to-move
 let mousePos = { x: 0, y: 0 }; // track mouse position
 
 canvas.addEventListener('click', e => {
+  // Suppress synthetic click after touch interaction
+  if (isMobile && Date.now() - touchHandledClick < 400) return;
   const rect = canvas.getBoundingClientRect();
   const mx = e.clientX - rect.left;
   const my = e.clientY - rect.top;
@@ -332,6 +335,8 @@ canvas.addEventListener('click', e => {
   }
 
   if (gameState === 'answering') {
+    // Don't accept clicks until overlay is visible
+    if (overlayTransition < 0.8) return;
     // Calculate button positions (must match drawAnswerOverlay)
     const pw = Math.min(650, screenW - 20);
     const ph = Math.min(480, screenH - 30);
@@ -473,6 +478,7 @@ if (isMobile) {
     if (pinchDist0 > 0) { pinchDist0 = 0; return; }
     // If it was a tap (no drag), check for NPC interaction
     if (touchDrag && !touchDrag.moved) {
+      touchHandledClick = Date.now();
       if (nearNPC) {
         const si = nearNPC.statementIdx;
         if (!answers.find(a => a.stmtIdx === si)) {
@@ -5146,8 +5152,9 @@ function advanceAfterAnswer() {
 
 function drawTitleScreen() {
   const midX = screenW / 2;
-  const groundY = screenH * 0.72;
+  const groundY = screenH * (isMobile ? 0.78 : 0.72);
   const LINE = 4;
+  const bldgScale = isMobile ? 0.5 : 1.0; // scale building heights on mobile
 
   // --- White/cream Mondrian background ---
   ctx.fillStyle = '#f5f0e8';
@@ -5183,7 +5190,7 @@ function drawTitleScreen() {
     const b = bldgs[i];
     const bx = b.x * screenW;
     const bw = b.w * screenW;
-    const bh = b.h * screenH;
+    const bh = b.h * screenH * bldgScale;
     const col = mondrianCols[i % mondrianCols.length];
 
     // Building fill
@@ -5216,7 +5223,7 @@ function drawTitleScreen() {
     const b = bldgs[i];
     const bx = b.x * screenW;
     const bw = b.w * screenW;
-    const bh = b.h * screenH;
+    const bh = b.h * screenH * bldgScale;
     ctx.fillStyle = '#d42020';
     ctx.beginPath();
     ctx.moveTo(bx, groundY - bh);
@@ -5243,7 +5250,7 @@ function drawTitleScreen() {
 
   // --- Title text — on white panel with bold black border ---
   ctx.textAlign = 'center';
-  const titleY = screenH * 0.22;
+  const titleY = screenH * (isMobile ? 0.18 : 0.22);
 
   const panelW = Math.min(580, screenW - 30);
   const panelH = isMobile ? 120 : 155;
@@ -5269,14 +5276,14 @@ function drawTitleScreen() {
   ctx.fillText(t('title_date'), midX, titleY + mainFs * 0.8 + subFs * 0.9);
 
   // --- Prompt on water ---
-  ctx.font = "600 17px 'Inter', sans-serif";
+  ctx.font = `600 ${isMobile ? 14 : 17}px 'Inter', sans-serif`;
   ctx.fillStyle = '#f5f0e8';
-  ctx.fillText(t('title_prompt'), midX, screenH * 0.90);
+  ctx.fillText(isMobile ? (showEnglish ? 'Tap to start' : 'Tik om te beginnen') : t('title_prompt'), midX, screenH * 0.90);
 
   // Disclaimer
-  ctx.font = "400 11px 'Inter', sans-serif";
+  ctx.font = `400 ${isMobile ? 9 : 11}px 'Inter', sans-serif`;
   ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  ctx.fillText(t('title_disclaimer'), midX, screenH * 0.97);
+  ctx.fillText(t('title_disclaimer'), midX, screenH * 0.96);
 }
 
 function drawModeSelect() {
