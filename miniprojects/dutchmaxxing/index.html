@@ -2669,7 +2669,7 @@ body::before, body::after { display: none; }
 <!-- MAIN TAB: LEESHOEK -->
 <div class="tab-content" id="tab-news">
   <div class="news-container">
-    <div class="help-row" style="justify-content:space-between;margin-bottom:12px;">
+    <div class="help-row" style="justify-content:center;margin-bottom:12px;">
       <div class="news-sub-nav">
         <button class="news-sub-btn active" onclick="switchNewsSub('practice')">Oefenartikelen</button>
         <button class="news-sub-btn" onclick="switchNewsSub('nos')">NOS Nieuws</button>
@@ -2870,8 +2870,8 @@ body::before, body::after { display: none; }
 
   <div class="subtab-content active" id="sub-sheets">
   <div class="sheets-container">
-    <div class="help-row" style="margin-bottom:12px;">
-      <div class="sheets-sub-nav" style="flex:1">
+    <div class="help-row" style="justify-content:center;margin-bottom:12px;">
+      <div class="sheets-sub-nav">
         <button class="sheets-sub-btn active" data-ssub="ready" onclick="switchSheetSub('ready')">Kant-en-klaar</button>
         <button class="sheets-sub-btn" data-ssub="custom" onclick="switchSheetSub('custom')">Eigen Selectie</button>
         <button class="sheets-sub-btn" data-ssub="download" onclick="switchSheetSub('download')">Alles Downloaden</button>
@@ -5731,7 +5731,7 @@ function initWatZegJe() {
   if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen situaties voor dit niveau.</p>'; return; }
   let html = '';
   filtered.forEach((s, si) => {
-    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + s.emoji + ' ' + s.situation + '</h3><span class="gesprek-level">' + s.level + '</span></div>';
+    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + s.situation + '</h3><span class="gesprek-level">' + s.level + '</span></div>';
     html += '<div class="gesprek-body">';
     html += '<p style="font-style:italic;margin-bottom:16px;color:#666;">' + s.context + '</p>';
     html += '<p style="font-weight:700;margin-bottom:12px;font-family:\'Syne\',sans-serif;">Wat zou je zeggen? Bedenk je antwoord en klik hieronder.</p>';
@@ -5754,7 +5754,7 @@ function initGebeurd() {
   if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen verhalen voor dit niveau.</p>'; return; }
   let html = '';
   filtered.forEach((s, si) => {
-    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + s.emoji + ' ' + s.title + '</h3><span class="gesprek-level">' + s.level + '</span></div>';
+    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + s.title + '</h3><span class="gesprek-level">' + s.level + '</span></div>';
     html += '<div class="gesprek-body">';
     html += '<p style="font-size:16px;font-weight:500;margin-bottom:14px;">' + s.present + '</p>';
     html += '<div style="margin-bottom:14px;">';
@@ -5795,7 +5795,7 @@ function initWhatsApp() {
   if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen berichten voor dit niveau.</p>'; return; }
   let html = '';
   filtered.forEach((p, i) => {
-    html += '<div class="gesprek-card"><div class="gesprek-header" style="background:#25D366;"><h3 style="color:#fff;">' + p.emoji + ' ' + p.situation + '</h3><span class="gesprek-level">' + p.level + '</span></div>';
+    html += '<div class="gesprek-card"><div class="gesprek-header" style="background:#25D366;"><h3 style="color:#fff;">' + p.situation + '</h3><span class="gesprek-level">' + p.level + '</span></div>';
     html += '<div class="gesprek-body">';
     html += '<div class="email-situation">' + p.context + '</div>';
     html += '<textarea class="dictee-input" style="width:100%;min-height:100px;resize:vertical;margin-bottom:12px;font-size:14px;" placeholder="Schrijf je bericht hier..."></textarea>';
@@ -5816,7 +5816,7 @@ function initFormulieren() {
   if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen formulieren voor dit niveau.</p>'; return; }
   let html = '';
   filtered.forEach((f, i) => {
-    html += '<div class="email-card"><div class="email-card-header"><h3>' + f.emoji + ' ' + f.title + '</h3><div class="email-type">' + f.level + ' — ' + f.type + '</div></div>';
+    html += '<div class="email-card"><div class="email-card-header"><h3>' + f.title + '</h3><div class="email-type">' + f.level + ' — ' + f.type + '</div></div>';
     html += '<div class="email-card-body">';
     html += '<div class="email-situation">' + f.situation + '</div>';
     if (f.fields) {
@@ -5850,7 +5850,7 @@ function initReviews() {
   let html = '';
   filtered.forEach((r, i) => {
     const stars = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
-    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + r.emoji + ' ' + r.place + '</h3><span class="gesprek-level">' + r.level + '</span></div>';
+    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + r.place + '</h3><span class="gesprek-level">' + r.level + '</span></div>';
     html += '<div class="gesprek-body">';
     html += '<div style="font-size:18px;margin-bottom:8px;">' + stars + '</div>';
     html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:13px;color:#666;margin-bottom:4px;">' + r.type + '</div>';
