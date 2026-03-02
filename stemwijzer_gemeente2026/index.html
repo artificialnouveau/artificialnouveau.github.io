@@ -3379,207 +3379,140 @@ function advanceAfterAnswer() {
 
 function drawTitleScreen() {
   const midX = screenW / 2;
+  const groundY = screenH * 0.72;
 
-  // --- Color block grid background (3x2) ---
-  const cols = 3, rows = 2;
-  const cellW = screenW / cols, cellH = screenH / rows;
-  const bgColors = [
-    '#e8e4e0', '#7bc5a0', '#2c4a7c',
-    '#7bc5a0', '#f0ece8', '#e8a090',
-  ];
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      ctx.fillStyle = bgColors[r * cols + c];
-      ctx.fillRect(c * cellW, r * cellH, cellW, cellH);
-    }
+  // --- Sky — soft flat gradient, no outlines anywhere ---
+  const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
+  skyGrad.addColorStop(0, '#7bc5a0');
+  skyGrad.addColorStop(0.6, '#a8dcc0');
+  skyGrad.addColorStop(1, '#d0eee0');
+  ctx.fillStyle = skyGrad;
+  ctx.fillRect(0, 0, screenW, screenH);
+
+  // --- Soft flat clouds (no outlines) ---
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  function flatCloud(cx, cy, s) {
+    ctx.beginPath();
+    ctx.arc(cx, cy, 20 * s, 0, Math.PI * 2);
+    ctx.arc(cx + 22 * s, cy - 10 * s, 26 * s, 0, Math.PI * 2);
+    ctx.arc(cx + 50 * s, cy - 2 * s, 18 * s, 0, Math.PI * 2);
+    ctx.arc(cx + 26 * s, cy + 6 * s, 16 * s, 0, Math.PI * 2);
+    ctx.fill();
   }
+  flatCloud(screenW * 0.08, screenH * 0.08, 1.2);
+  flatCloud(screenW * 0.62, screenH * 0.05, 0.9);
+  flatCloud(screenW * 0.85, screenH * 0.14, 0.7);
 
-  // --- Flat illustrated diverse people (no outlines, smooth shapes) ---
-  // Seeded pseudo-random for consistent rendering
-  function drawPerson(cx, cy, scale, opts) {
-    const s = scale;
-    ctx.save();
-    ctx.translate(cx, cy);
+  // --- Flat buildings — bold color blocks, NO outlines, smooth ---
+  // Muted bold palette matching reference style
+  const bldgs = [
+    { x: 0.02, w: 0.06, h: 0.18, col: '#e8a090' },
+    { x: 0.07, w: 0.05, h: 0.30, col: '#5088d0' },
+    { x: 0.11, w: 0.04, h: 0.14, col: '#e8c878' },
+    { x: 0.14, w: 0.06, h: 0.38, col: '#2c4a7c' },
+    { x: 0.19, w: 0.05, h: 0.22, col: '#e8a090' },
+    { x: 0.23, w: 0.04, h: 0.12, col: '#7bc5a0' },
+    { x: 0.27, w: 0.07, h: 0.28, col: '#d07888' },
+    { x: 0.33, w: 0.05, h: 0.42, col: '#4a6fa5' },
+    { x: 0.37, w: 0.04, h: 0.16, col: '#e8c060' },
+    { x: 0.41, w: 0.06, h: 0.24, col: '#e8a090' },
+    // Center gap for title readability
+    { x: 0.56, w: 0.05, h: 0.20, col: '#7bc5a0' },
+    { x: 0.60, w: 0.06, h: 0.36, col: '#d07888' },
+    { x: 0.65, w: 0.04, h: 0.14, col: '#e8c878' },
+    { x: 0.68, w: 0.07, h: 0.44, col: '#2c4a7c' },
+    { x: 0.74, w: 0.05, h: 0.26, col: '#5088d0' },
+    { x: 0.78, w: 0.04, h: 0.16, col: '#e8a090' },
+    { x: 0.82, w: 0.06, h: 0.32, col: '#4a6fa5' },
+    { x: 0.87, w: 0.04, h: 0.18, col: '#e8c060' },
+    { x: 0.90, w: 0.05, h: 0.24, col: '#d07888' },
+    { x: 0.94, w: 0.05, h: 0.12, col: '#7bc5a0' },
+  ];
 
-    // Shoulders / body visible at bottom
-    ctx.fillStyle = opts.shirt;
-    ctx.beginPath();
-    ctx.ellipse(0, s * 60, s * 55, s * 40, 0, Math.PI, 0);
-    ctx.fill();
+  for (const b of bldgs) {
+    const bx = b.x * screenW;
+    const bw = b.w * screenW;
+    const bh = b.h * screenH;
+    ctx.fillStyle = b.col;
+    ctx.fillRect(bx, groundY - bh, bw, bh);
 
-    // Collar / undershirt
-    if (opts.collar) {
-      ctx.fillStyle = opts.collar;
-      ctx.beginPath();
-      ctx.moveTo(-s * 14, s * 28);
-      ctx.lineTo(0, s * 44);
-      ctx.lineTo(s * 14, s * 28);
-      ctx.closePath();
-      ctx.fill();
-    }
-
-    // Neck
-    ctx.fillStyle = opts.skin;
-    ctx.fillRect(-s * 10, s * 10, s * 20, s * 22);
-
-    // Head
-    ctx.fillStyle = opts.skin;
-    ctx.beginPath();
-    ctx.ellipse(0, -s * 8, s * 28, s * 32, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Hair
-    ctx.fillStyle = opts.hair;
-    if (opts.hairStyle === 'bun') {
-      // Bun on top
-      ctx.beginPath();
-      ctx.ellipse(0, -s * 38, s * 18, s * 20, 0, Math.PI, 0);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(s * 2, -s * 52, s * 12, 0, Math.PI * 2);
-      ctx.fill();
-    } else if (opts.hairStyle === 'long') {
-      // Long straight hair
-      ctx.beginPath();
-      ctx.ellipse(0, -s * 30, s * 30, s * 22, 0, Math.PI, 0);
-      ctx.fill();
-      ctx.fillRect(-s * 30, -s * 30, s * 14, s * 68);
-      ctx.fillRect(s * 16, -s * 30, s * 14, s * 68);
-    } else if (opts.hairStyle === 'short') {
-      // Short side-parted
-      ctx.beginPath();
-      ctx.ellipse(0, -s * 28, s * 30, s * 20, 0, Math.PI, 0);
-      ctx.fill();
-      // Side sweep
-      ctx.beginPath();
-      ctx.ellipse(s * 12, -s * 30, s * 22, s * 16, 0.3, Math.PI, 0);
-      ctx.fill();
-    } else if (opts.hairStyle === 'afro') {
-      ctx.beginPath();
-      ctx.arc(0, -s * 22, s * 36, 0, Math.PI * 2);
-      ctx.fill();
-      // Texture dots
-      ctx.fillStyle = opts.hairHighlight || opts.hair;
-      for (let i = 0; i < 20; i++) {
-        const a = (i / 20) * Math.PI * 2;
-        const r = s * (24 + (i * 7 % 8));
-        ctx.beginPath();
-        ctx.arc(Math.cos(a) * r * 0.6, -s * 22 + Math.sin(a) * r * 0.6, s * 2, 0, Math.PI * 2);
-        ctx.fill();
+    // Flat windows — slightly lighter/darker squares, no outlines
+    const winCol = b.col === '#2c4a7c' || b.col === '#4a6fa5' ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.4)';
+    ctx.fillStyle = winCol;
+    const winS = Math.max(6, bw * 0.2);
+    const winGap = winS * 2.2;
+    for (let wy = groundY - bh + winS * 1.5; wy < groundY - winS; wy += winGap) {
+      for (let wx = bx + winS * 0.8; wx < bx + bw - winS * 0.5; wx += winGap) {
+        ctx.fillRect(wx, wy, winS * 0.7, winS * 0.9);
       }
-    } else if (opts.hairStyle === 'wavy') {
-      // Flowing wavy hair
-      ctx.beginPath();
-      ctx.ellipse(0, -s * 30, s * 30, s * 20, 0, Math.PI, 0);
-      ctx.fill();
-      ctx.fillRect(-s * 30, -s * 30, s * 14, s * 60);
-      // Wave bump
-      ctx.beginPath();
-      ctx.ellipse(-s * 32, -s * 2, s * 10, s * 20, 0.2, 0, Math.PI * 2);
-      ctx.fill();
-    } else if (opts.hairStyle === 'beard') {
-      // Short hair + beard
-      ctx.beginPath();
-      ctx.ellipse(0, -s * 30, s * 30, s * 18, 0, Math.PI, 0);
-      ctx.fill();
-      // Beard
-      ctx.beginPath();
-      ctx.ellipse(0, s * 14, s * 22, s * 16, 0, 0, Math.PI);
-      ctx.fill();
     }
 
-    // Eyes — simple closed/content crescents (like the reference)
-    ctx.fillStyle = opts.skin === '#4a6fa5' || opts.skin === '#5b80b0' ? '#c8d8e8' : '#1a1a2a';
-    if (opts.glasses) {
-      // Glasses
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(-s * 16, -s * 12, s * 12, s * 8);
-      ctx.fillRect(s * 4, -s * 12, s * 12, s * 8);
-      // Rims hint
-      ctx.fillStyle = opts.skin === '#4a6fa5' ? '#c8d8e8' : '#1a1a2a';
-      ctx.fillRect(-s * 14, -s * 10, s * 8, s * 2);
-      ctx.fillRect(s * 6, -s * 10, s * 8, s * 2);
-    } else {
-      // Closed content eyes (curved lines)
-      ctx.strokeStyle = opts.skin === '#4a6fa5' || opts.skin === '#5b80b0' ? '#c8d8e8' : '#1a1a2a';
-      ctx.lineWidth = s * 2;
-      ctx.beginPath();
-      ctx.arc(-s * 10, -s * 8, s * 5, 0.2, Math.PI - 0.2);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(s * 10, -s * 8, s * 5, 0.2, Math.PI - 0.2);
-      ctx.stroke();
+    // Some buildings get a darker accent top
+    if (b.h > 0.25) {
+      ctx.fillStyle = 'rgba(0,0,0,0.08)';
+      ctx.fillRect(bx, groundY - bh, bw, bh * 0.06);
     }
+  }
 
-    // Smile
-    ctx.strokeStyle = opts.skin === '#4a6fa5' || opts.skin === '#5b80b0' ? '#c8d8e8' : '#1a1a2a';
-    ctx.lineWidth = s * 1.5;
+  // --- Pointed roofs on some shorter buildings ---
+  const roofBldgs = [2, 5, 8, 12, 15, 17];
+  ctx.fillStyle = '#c06050';
+  for (const i of roofBldgs) {
+    if (i >= bldgs.length) continue;
+    const b = bldgs[i];
+    const bx = b.x * screenW;
+    const bw = b.w * screenW;
+    const bh = b.h * screenH;
     ctx.beginPath();
-    ctx.arc(0, s * 2, s * 8, 0.3, Math.PI - 0.3);
-    ctx.stroke();
-
-    // Earring
-    if (opts.earring) {
-      ctx.fillStyle = '#d0a030';
-      ctx.beginPath();
-      ctx.arc(s * 27, -s * 2, s * 5, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // Headset
-    if (opts.headset) {
-      ctx.strokeStyle = '#c0c0c0';
-      ctx.lineWidth = s * 2.5;
-      ctx.beginPath();
-      ctx.arc(0, -s * 16, s * 32, -0.8, -Math.PI + 0.8, true);
-      ctx.stroke();
-      ctx.fillStyle = '#c0c0c0';
-      ctx.beginPath();
-      ctx.arc(-s * 28, -s * 4, s * 6, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    ctx.restore();
+    ctx.moveTo(bx, groundY - bh);
+    ctx.lineTo(bx + bw / 2, groundY - bh - bw * 0.5);
+    ctx.lineTo(bx + bw, groundY - bh);
+    ctx.closePath();
+    ctx.fill();
   }
 
-  // 6 diverse people, one per grid cell
-  const people = [
-    // Row 1
-    { cx: cellW * 0.5, cy: cellH * 0.65, s: 1.1,
-      skin: '#4a6fa5', hair: '#1a1a2a', shirt: '#e8a090', collar: '#ffffff',
-      hairStyle: 'bun', headset: true },
-    { cx: cellW * 1.5, cy: cellH * 0.65, s: 1.1,
-      skin: '#d4a574', hair: '#1a1a2a', shirt: '#5088d0', collar: null,
-      hairStyle: 'long' },
-    { cx: cellW * 2.5, cy: cellH * 0.65, s: 1.1,
-      skin: '#f0c8a8', hair: '#1a1a2a', shirt: '#4a6fa5', collar: null,
-      hairStyle: 'short' },
-    // Row 2
-    { cx: cellW * 0.5, cy: cellH * 1.65, s: 1.1,
-      skin: '#f0dcc8', hair: '#2a3050', shirt: '#e8a090', collar: null,
-      hairStyle: 'wavy' },
-    { cx: cellW * 1.5, cy: cellH * 1.65, s: 1.1,
-      skin: '#5b80b0', hair: '#1a1a2a', shirt: '#e8a838', collar: null,
-      hairStyle: 'afro', hairHighlight: '#2a2a3a', earring: true },
-    { cx: cellW * 2.5, cy: cellH * 1.65, s: 1.1,
-      skin: '#f0c8a8', hair: '#2a2018', shirt: '#5088d0', collar: '#ffffff',
-      hairStyle: 'beard', glasses: true },
-  ];
+  // --- Ground — warm salmon block ---
+  ctx.fillStyle = '#e8a090';
+  ctx.fillRect(0, groundY, screenW, screenH * 0.08);
 
-  for (const p of people) {
-    drawPerson(p.cx, p.cy, p.s, p);
+  // --- Green park strip ---
+  ctx.fillStyle = '#5db870';
+  ctx.fillRect(0, groundY + screenH * 0.08, screenW, screenH * 0.05);
+
+  // --- Flat tulips on green strip (no outlines) ---
+  const tulipY = groundY + screenH * 0.08 + screenH * 0.025;
+  const tulipCols = ['#e85060', '#e8c040', '#d070a0', '#e88040', '#e85060', '#e8c040'];
+  for (let i = 0; i < 20; i++) {
+    const tx = screenW * 0.04 + i * (screenW * 0.92 / 20);
+    // Stem
+    ctx.fillStyle = '#3a9050';
+    ctx.fillRect(tx, tulipY - 10, 2, 14);
+    // Petal — simple rounded shape
+    ctx.fillStyle = tulipCols[i % tulipCols.length];
+    ctx.beginPath();
+    ctx.arc(tx + 1, tulipY - 13, 5, 0, Math.PI * 2);
+    ctx.fill();
   }
 
-  // --- Title text overlay — clean, modern ---
+  // --- Water at bottom ---
+  ctx.fillStyle = '#5088d0';
+  ctx.fillRect(0, groundY + screenH * 0.13, screenW, screenH * 0.20);
+  // Subtle lighter wave stripes
+  ctx.fillStyle = 'rgba(255,255,255,0.1)';
+  for (let i = 0; i < 4; i++) {
+    ctx.fillRect(0, groundY + screenH * 0.15 + i * screenH * 0.04, screenW, screenH * 0.01);
+  }
+
+  // --- Title text — clean modern on frosted panel ---
   ctx.textAlign = 'center';
-  const titleY = screenH * 0.44;
+  const titleY = screenH * 0.38;
 
-  // Semi-transparent overlay behind text
-  ctx.fillStyle = 'rgba(255,255,255,0.75)';
-  const panelW = Math.min(620, screenW * 0.8);
-  const panelH = 160;
-  const panelR = 16;
-  const px = midX - panelW / 2, py = titleY - 55;
+  // Frosted panel
+  ctx.fillStyle = 'rgba(255,255,255,0.82)';
+  const panelW = Math.min(580, screenW * 0.75);
+  const panelH = 150;
+  const panelR = 20;
+  const px = midX - panelW / 2, py = titleY - 52;
   ctx.beginPath();
   ctx.moveTo(px + panelR, py);
   ctx.lineTo(px + panelW - panelR, py);
@@ -3599,20 +3532,20 @@ function drawTitleScreen() {
 
   ctx.fillStyle = '#2c4a7c';
   ctx.font = "bold 34px 'Inter', sans-serif";
-  ctx.fillText('Gemeente 2026', midX, titleY + 44);
+  ctx.fillText('Gemeente 2026', midX, titleY + 42);
 
-  ctx.fillStyle = '#505060';
+  ctx.fillStyle = '#505860';
   ctx.font = "400 15px 'Inter', sans-serif";
-  ctx.fillText('Gemeenteraadsverkiezingen \u2014 18 maart 2026', midX, titleY + 72);
+  ctx.fillText('Gemeenteraadsverkiezingen \u2014 18 maart 2026', midX, titleY + 70);
 
-  // --- Prompt ---
+  // --- Prompt on water ---
   ctx.font = "600 17px 'Inter', sans-serif";
-  ctx.fillStyle = '#2c4a7c';
-  ctx.fillText('Druk op een toets om te beginnen / Klik om te beginnen', midX, screenH * 0.92);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText('Druk op een toets om te beginnen / Klik om te beginnen', midX, screenH * 0.90);
 
   // Disclaimer
   ctx.font = "400 11px 'Inter', sans-serif";
-  ctx.fillStyle = '#808090';
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
   ctx.fillText('Stellingen en partijposities zijn illustratief \u2014 niet officieel StemWijzer-materiaal', midX, screenH * 0.97);
 }
 
