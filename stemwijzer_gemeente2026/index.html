@@ -3379,254 +3379,240 @@ function advanceAfterAnswer() {
 
 function drawTitleScreen() {
   const midX = screenW / 2;
-  const baseY = screenH * 0.70;
 
-  // --- Bright cartoon sky ---
-  const skyGrad = ctx.createLinearGradient(0, 0, 0, baseY);
-  skyGrad.addColorStop(0, '#60b8ff');
-  skyGrad.addColorStop(1, '#b0e0ff');
-  ctx.fillStyle = skyGrad;
-  ctx.fillRect(0, 0, screenW, baseY);
+  // --- Color block grid background (3x2) ---
+  const cols = 3, rows = 2;
+  const cellW = screenW / cols, cellH = screenH / rows;
+  const bgColors = [
+    '#e8e4e0', '#7bc5a0', '#2c4a7c',
+    '#7bc5a0', '#f0ece8', '#e8a090',
+  ];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      ctx.fillStyle = bgColors[r * cols + c];
+      ctx.fillRect(c * cellW, r * cellH, cellW, cellH);
+    }
+  }
 
-  // --- Cartoon sun with face ---
-  const sunX = screenW * 0.85, sunY = screenH * 0.12, sunR = 40;
-  // Rays
-  ctx.strokeStyle = '#f0c030';
-  ctx.lineWidth = 4;
-  for (let i = 0; i < 10; i++) {
-    const a = (i / 10) * Math.PI * 2 + Date.now() * 0.0003;
+  // --- Flat illustrated diverse people (no outlines, smooth shapes) ---
+  // Seeded pseudo-random for consistent rendering
+  function drawPerson(cx, cy, scale, opts) {
+    const s = scale;
+    ctx.save();
+    ctx.translate(cx, cy);
+
+    // Shoulders / body visible at bottom
+    ctx.fillStyle = opts.shirt;
     ctx.beginPath();
-    ctx.moveTo(sunX + Math.cos(a) * (sunR + 6), sunY + Math.sin(a) * (sunR + 6));
-    ctx.lineTo(sunX + Math.cos(a) * (sunR + 20), sunY + Math.sin(a) * (sunR + 20));
+    ctx.ellipse(0, s * 60, s * 55, s * 40, 0, Math.PI, 0);
+    ctx.fill();
+
+    // Collar / undershirt
+    if (opts.collar) {
+      ctx.fillStyle = opts.collar;
+      ctx.beginPath();
+      ctx.moveTo(-s * 14, s * 28);
+      ctx.lineTo(0, s * 44);
+      ctx.lineTo(s * 14, s * 28);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Neck
+    ctx.fillStyle = opts.skin;
+    ctx.fillRect(-s * 10, s * 10, s * 20, s * 22);
+
+    // Head
+    ctx.fillStyle = opts.skin;
+    ctx.beginPath();
+    ctx.ellipse(0, -s * 8, s * 28, s * 32, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Hair
+    ctx.fillStyle = opts.hair;
+    if (opts.hairStyle === 'bun') {
+      // Bun on top
+      ctx.beginPath();
+      ctx.ellipse(0, -s * 38, s * 18, s * 20, 0, Math.PI, 0);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(s * 2, -s * 52, s * 12, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (opts.hairStyle === 'long') {
+      // Long straight hair
+      ctx.beginPath();
+      ctx.ellipse(0, -s * 30, s * 30, s * 22, 0, Math.PI, 0);
+      ctx.fill();
+      ctx.fillRect(-s * 30, -s * 30, s * 14, s * 68);
+      ctx.fillRect(s * 16, -s * 30, s * 14, s * 68);
+    } else if (opts.hairStyle === 'short') {
+      // Short side-parted
+      ctx.beginPath();
+      ctx.ellipse(0, -s * 28, s * 30, s * 20, 0, Math.PI, 0);
+      ctx.fill();
+      // Side sweep
+      ctx.beginPath();
+      ctx.ellipse(s * 12, -s * 30, s * 22, s * 16, 0.3, Math.PI, 0);
+      ctx.fill();
+    } else if (opts.hairStyle === 'afro') {
+      ctx.beginPath();
+      ctx.arc(0, -s * 22, s * 36, 0, Math.PI * 2);
+      ctx.fill();
+      // Texture dots
+      ctx.fillStyle = opts.hairHighlight || opts.hair;
+      for (let i = 0; i < 20; i++) {
+        const a = (i / 20) * Math.PI * 2;
+        const r = s * (24 + (i * 7 % 8));
+        ctx.beginPath();
+        ctx.arc(Math.cos(a) * r * 0.6, -s * 22 + Math.sin(a) * r * 0.6, s * 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (opts.hairStyle === 'wavy') {
+      // Flowing wavy hair
+      ctx.beginPath();
+      ctx.ellipse(0, -s * 30, s * 30, s * 20, 0, Math.PI, 0);
+      ctx.fill();
+      ctx.fillRect(-s * 30, -s * 30, s * 14, s * 60);
+      // Wave bump
+      ctx.beginPath();
+      ctx.ellipse(-s * 32, -s * 2, s * 10, s * 20, 0.2, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (opts.hairStyle === 'beard') {
+      // Short hair + beard
+      ctx.beginPath();
+      ctx.ellipse(0, -s * 30, s * 30, s * 18, 0, Math.PI, 0);
+      ctx.fill();
+      // Beard
+      ctx.beginPath();
+      ctx.ellipse(0, s * 14, s * 22, s * 16, 0, 0, Math.PI);
+      ctx.fill();
+    }
+
+    // Eyes — simple closed/content crescents (like the reference)
+    ctx.fillStyle = opts.skin === '#4a6fa5' || opts.skin === '#5b80b0' ? '#c8d8e8' : '#1a1a2a';
+    if (opts.glasses) {
+      // Glasses
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(-s * 16, -s * 12, s * 12, s * 8);
+      ctx.fillRect(s * 4, -s * 12, s * 12, s * 8);
+      // Rims hint
+      ctx.fillStyle = opts.skin === '#4a6fa5' ? '#c8d8e8' : '#1a1a2a';
+      ctx.fillRect(-s * 14, -s * 10, s * 8, s * 2);
+      ctx.fillRect(s * 6, -s * 10, s * 8, s * 2);
+    } else {
+      // Closed content eyes (curved lines)
+      ctx.strokeStyle = opts.skin === '#4a6fa5' || opts.skin === '#5b80b0' ? '#c8d8e8' : '#1a1a2a';
+      ctx.lineWidth = s * 2;
+      ctx.beginPath();
+      ctx.arc(-s * 10, -s * 8, s * 5, 0.2, Math.PI - 0.2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(s * 10, -s * 8, s * 5, 0.2, Math.PI - 0.2);
+      ctx.stroke();
+    }
+
+    // Smile
+    ctx.strokeStyle = opts.skin === '#4a6fa5' || opts.skin === '#5b80b0' ? '#c8d8e8' : '#1a1a2a';
+    ctx.lineWidth = s * 1.5;
+    ctx.beginPath();
+    ctx.arc(0, s * 2, s * 8, 0.3, Math.PI - 0.3);
     ctx.stroke();
+
+    // Earring
+    if (opts.earring) {
+      ctx.fillStyle = '#d0a030';
+      ctx.beginPath();
+      ctx.arc(s * 27, -s * 2, s * 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Headset
+    if (opts.headset) {
+      ctx.strokeStyle = '#c0c0c0';
+      ctx.lineWidth = s * 2.5;
+      ctx.beginPath();
+      ctx.arc(0, -s * 16, s * 32, -0.8, -Math.PI + 0.8, true);
+      ctx.stroke();
+      ctx.fillStyle = '#c0c0c0';
+      ctx.beginPath();
+      ctx.arc(-s * 28, -s * 4, s * 6, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.restore();
   }
-  // Sun body
-  ctx.fillStyle = '#ffe040';
-  ctx.strokeStyle = '#222';
-  ctx.lineWidth = 3;
-  ctx.beginPath(); ctx.arc(sunX, sunY, sunR, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-  // Sunglasses
-  ctx.fillStyle = '#222';
-  ctx.fillRect(sunX - 18, sunY - 8, 14, 10);
-  ctx.fillRect(sunX + 4, sunY - 8, 14, 10);
-  ctx.fillRect(sunX - 4, sunY - 4, 8, 3);
-  // Grin
-  ctx.strokeStyle = '#222';
-  ctx.lineWidth = 2.5;
-  ctx.beginPath(); ctx.arc(sunX, sunY + 2, 16, 0.15, Math.PI - 0.15); ctx.stroke();
 
-  // --- Puffy clouds ---
-  function drawCloud(cx, cy, s) {
-    ctx.fillStyle = '#ffffff';
-    ctx.strokeStyle = '#222';
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.arc(cx, cy, 18 * s, 0, Math.PI * 2);
-    ctx.arc(cx + 20 * s, cy - 8 * s, 22 * s, 0, Math.PI * 2);
-    ctx.arc(cx + 44 * s, cy, 16 * s, 0, Math.PI * 2);
-    ctx.arc(cx + 22 * s, cy + 6 * s, 14 * s, 0, Math.PI * 2);
-    ctx.fill(); ctx.stroke();
-  }
-  drawCloud(screenW * 0.12, screenH * 0.10, 1.0);
-  drawCloud(screenW * 0.55, screenH * 0.06, 0.8);
-  drawCloud(screenW * 0.35, screenH * 0.18, 0.6);
-
-  // --- Cartoon buildings with bold outlines and wonky shapes ---
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = '#222';
-  ctx.lineJoin = 'round';
-
-  const buildings = [
-    // Rotterdam side
-    { x: -0.42, w: 50, h: 80, col: '#e85830', roof: 'flat', win: '#ffe870' },
-    { x: -0.36, w: 55, h: 145, col: '#5088d0', roof: 'flat', win: '#ffe870' },
-    { x: -0.28, w: 42, h: 65, col: '#e8a830', roof: 'pointy', win: '#ffe870' },
-    { x: -0.22, w: 48, h: 175, col: '#d04878', roof: 'flat', win: '#ffe870' },
-    { x: -0.14, w: 55, h: 100, col: '#50a048', roof: 'flat', win: '#ffe870' },
-    // Center
-    { x: -0.04, w: 45, h: 70, col: '#a060c0', roof: 'pointy', win: '#ffe870' },
-    { x: 0.03, w: 50, h: 120, col: '#e06040', roof: 'flat', win: '#ffe870' },
-    // Den Haag side
-    { x: 0.10, w: 42, h: 85, col: '#d0a030', roof: 'pointy', win: '#ffe870' },
-    { x: 0.17, w: 55, h: 150, col: '#4878c0', roof: 'flat', win: '#ffe870' },
-    { x: 0.25, w: 48, h: 90, col: '#d05830', roof: 'pointy', win: '#ffe870' },
-    { x: 0.32, w: 52, h: 130, col: '#50a870', roof: 'flat', win: '#ffe870' },
-    { x: 0.39, w: 45, h: 70, col: '#c060a0', roof: 'pointy', win: '#ffe870' },
+  // 6 diverse people, one per grid cell
+  const people = [
+    // Row 1
+    { cx: cellW * 0.5, cy: cellH * 0.65, s: 1.1,
+      skin: '#4a6fa5', hair: '#1a1a2a', shirt: '#e8a090', collar: '#ffffff',
+      hairStyle: 'bun', headset: true },
+    { cx: cellW * 1.5, cy: cellH * 0.65, s: 1.1,
+      skin: '#d4a574', hair: '#1a1a2a', shirt: '#5088d0', collar: null,
+      hairStyle: 'long' },
+    { cx: cellW * 2.5, cy: cellH * 0.65, s: 1.1,
+      skin: '#f0c8a8', hair: '#1a1a2a', shirt: '#4a6fa5', collar: null,
+      hairStyle: 'short' },
+    // Row 2
+    { cx: cellW * 0.5, cy: cellH * 1.65, s: 1.1,
+      skin: '#f0dcc8', hair: '#2a3050', shirt: '#e8a090', collar: null,
+      hairStyle: 'wavy' },
+    { cx: cellW * 1.5, cy: cellH * 1.65, s: 1.1,
+      skin: '#5b80b0', hair: '#1a1a2a', shirt: '#e8a838', collar: null,
+      hairStyle: 'afro', hairHighlight: '#2a2a3a', earring: true },
+    { cx: cellW * 2.5, cy: cellH * 1.65, s: 1.1,
+      skin: '#f0c8a8', hair: '#2a2018', shirt: '#5088d0', collar: '#ffffff',
+      hairStyle: 'beard', glasses: true },
   ];
 
-  for (const b of buildings) {
-    const bx = midX + b.x * screenW;
-    const by = baseY;
-    // Slightly wobbly: offset top corners
-    const wobL = ((b.x * 1000) & 3) - 1;
-    const wobR = ((b.x * 7000) & 3) - 1;
-    ctx.fillStyle = b.col;
-    ctx.beginPath();
-    ctx.moveTo(bx, by);
-    ctx.lineTo(bx + wobL, by - b.h);
-    ctx.lineTo(bx + b.w + wobR, by - b.h);
-    ctx.lineTo(bx + b.w, by);
-    ctx.closePath();
-    ctx.fill(); ctx.stroke();
-
-    // Roof
-    if (b.roof === 'pointy') {
-      ctx.fillStyle = '#c03020';
-      ctx.beginPath();
-      ctx.moveTo(bx - 3 + wobL, by - b.h);
-      ctx.lineTo(bx + b.w / 2, by - b.h - 22);
-      ctx.lineTo(bx + b.w + 3 + wobR, by - b.h);
-      ctx.closePath();
-      ctx.fill(); ctx.stroke();
-    }
-
-    // Cartoon windows — rounded squares with crosses
-    ctx.fillStyle = b.win;
-    for (let wy = by - b.h + 16; wy < by - 14; wy += 22) {
-      for (let wx = bx + 8; wx < bx + b.w - 10; wx += 16) {
-        ctx.fillRect(wx, wy, 9, 11);
-        ctx.strokeRect(wx, wy, 9, 11);
-        // Window cross
-        ctx.beginPath();
-        ctx.moveTo(wx + 4.5, wy); ctx.lineTo(wx + 4.5, wy + 11);
-        ctx.moveTo(wx, wy + 5.5); ctx.lineTo(wx + 9, wy + 5.5);
-        ctx.stroke();
-      }
-    }
+  for (const p of people) {
+    drawPerson(p.cx, p.cy, p.s, p);
   }
 
-  // --- Erasmusbrug (cartoon, left side) ---
-  const pylonX = midX - screenW * 0.08;
-  ctx.fillStyle = '#e0d8c8';
-  ctx.strokeStyle = '#222';
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(pylonX - 70, baseY);
-  ctx.lineTo(pylonX, baseY - 120);
-  ctx.lineTo(pylonX + 10, baseY);
-  ctx.closePath();
-  ctx.fill(); ctx.stroke();
-  // Cables
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = '#888';
-  for (let i = 0; i < 5; i++) {
-    ctx.beginPath();
-    ctx.moveTo(pylonX, baseY - 120);
-    ctx.lineTo(pylonX + 10 + i * 20, baseY);
-    ctx.stroke();
-  }
-  // Bridge deck
-  ctx.fillStyle = '#c8c0b0';
-  ctx.strokeStyle = '#222';
-  ctx.lineWidth = 3;
-  ctx.fillRect(pylonX - 80, baseY - 6, 190, 6);
-  ctx.strokeRect(pylonX - 80, baseY - 6, 190, 6);
-
-  // --- Green ground strip ---
-  ctx.fillStyle = '#48b838';
-  ctx.strokeStyle = '#222';
-  ctx.lineWidth = 3;
-  ctx.fillRect(0, baseY, screenW, 30);
-  ctx.beginPath();
-  ctx.moveTo(0, baseY); ctx.lineTo(screenW, baseY);
-  ctx.stroke();
-
-  // --- Big cartoon tulips ---
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = '#222';
-  const tulipColors = ['#e82050', '#ff8030', '#e8b800', '#e050a0', '#e82050', '#ff8030'];
-  for (let i = 0; i < 14; i++) {
-    const tx = screenW * 0.08 + i * (screenW * 0.84 / 14) + ((i * 7) % 5) - 2;
-    const ty = baseY + 24;
-    const h = 22 + (i % 3) * 4;
-    // Stem
-    ctx.strokeStyle = '#1a7020';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(tx, ty);
-    ctx.lineTo(tx + ((i % 2) * 2 - 1) * 3, ty - h);
-    ctx.stroke();
-    // Leaf on some
-    if (i % 3 === 0) {
-      ctx.fillStyle = '#30a030';
-      ctx.strokeStyle = '#222';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.ellipse(tx + 6, ty - h * 0.4, 8, 4, 0.4, 0, Math.PI * 2);
-      ctx.fill(); ctx.stroke();
-    }
-    // Flower head — three overlapping petals
-    const fx = tx + ((i % 2) * 2 - 1) * 3;
-    const fy = ty - h;
-    ctx.fillStyle = tulipColors[i % tulipColors.length];
-    ctx.strokeStyle = '#222';
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.moveTo(fx - 7, fy + 2);
-    ctx.quadraticCurveTo(fx - 9, fy - 10, fx, fy - 14);
-    ctx.quadraticCurveTo(fx + 9, fy - 10, fx + 7, fy + 2);
-    ctx.closePath();
-    ctx.fill(); ctx.stroke();
-  }
-
-  // --- Water below the green ---
-  const waterY = baseY + 30;
-  ctx.fillStyle = '#2878d0';
-  ctx.fillRect(0, waterY, screenW, screenH - waterY);
-  // Cartoon waves
-  ctx.strokeStyle = '#60a8f0';
-  ctx.lineWidth = 2;
-  for (let w = 0; w < 3; w++) {
-    const wy = waterY + 12 + w * 16;
-    ctx.beginPath();
-    for (let wx = 0; wx < screenW; wx += 30) {
-      const phase = wx * 0.05 + w * 1.5 + Date.now() * 0.001;
-      if (wx === 0) ctx.moveTo(wx, wy + Math.sin(phase) * 3);
-      else ctx.lineTo(wx, wy + Math.sin(phase) * 3);
-    }
-    ctx.stroke();
-  }
-
-  // --- Title text — bold cartoon style with thick outline ---
+  // --- Title text overlay — clean, modern ---
   ctx.textAlign = 'center';
-  const titleY = screenH * 0.28;
+  const titleY = screenH * 0.44;
 
-  // "StemWijzer" — thick black outline then white fill
-  ctx.font = "bold 58px 'Inter', sans-serif";
-  ctx.lineWidth = 8;
-  ctx.strokeStyle = '#222';
-  ctx.strokeText('StemWijzer', midX, titleY);
-  ctx.fillStyle = '#ffffff';
+  // Semi-transparent overlay behind text
+  ctx.fillStyle = 'rgba(255,255,255,0.75)';
+  const panelW = Math.min(620, screenW * 0.8);
+  const panelH = 160;
+  const panelR = 16;
+  const px = midX - panelW / 2, py = titleY - 55;
+  ctx.beginPath();
+  ctx.moveTo(px + panelR, py);
+  ctx.lineTo(px + panelW - panelR, py);
+  ctx.quadraticCurveTo(px + panelW, py, px + panelW, py + panelR);
+  ctx.lineTo(px + panelW, py + panelH - panelR);
+  ctx.quadraticCurveTo(px + panelW, py + panelH, px + panelW - panelR, py + panelH);
+  ctx.lineTo(px + panelR, py + panelH);
+  ctx.quadraticCurveTo(px, py + panelH, px, py + panelH - panelR);
+  ctx.lineTo(px, py + panelR);
+  ctx.quadraticCurveTo(px, py, px + panelR, py);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = '#1a1a2a';
+  ctx.font = "bold 52px 'Inter', sans-serif";
   ctx.fillText('StemWijzer', midX, titleY);
 
-  // "Gemeente 2026" — outline then colored fill
-  ctx.font = "bold 38px 'Inter', sans-serif";
-  ctx.lineWidth = 6;
-  ctx.strokeStyle = '#222';
-  ctx.strokeText('Gemeente 2026', midX, titleY + 48);
-  ctx.fillStyle = '#ffe040';
-  ctx.fillText('Gemeente 2026', midX, titleY + 48);
+  ctx.fillStyle = '#2c4a7c';
+  ctx.font = "bold 34px 'Inter', sans-serif";
+  ctx.fillText('Gemeente 2026', midX, titleY + 44);
 
-  // Subtitle
-  ctx.font = "bold 15px 'Inter', sans-serif";
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = '#222';
-  ctx.strokeText('Gemeenteraadsverkiezingen \u2014 18 maart 2026', midX, titleY + 78);
-  ctx.fillStyle = '#ffffff';
-  ctx.fillText('Gemeenteraadsverkiezingen \u2014 18 maart 2026', midX, titleY + 78);
+  ctx.fillStyle = '#505060';
+  ctx.font = "400 15px 'Inter', sans-serif";
+  ctx.fillText('Gemeenteraadsverkiezingen \u2014 18 maart 2026', midX, titleY + 72);
 
-  // --- Prompt below everything ---
-  ctx.font = "bold 18px 'Inter', sans-serif";
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = '#103060';
-  ctx.strokeText('Druk op een toets om te beginnen / Klik om te beginnen', midX, screenH * 0.92);
-  ctx.fillStyle = '#ffffff';
+  // --- Prompt ---
+  ctx.font = "600 17px 'Inter', sans-serif";
+  ctx.fillStyle = '#2c4a7c';
   ctx.fillText('Druk op een toets om te beginnen / Klik om te beginnen', midX, screenH * 0.92);
 
   // Disclaimer
-  ctx.font = "11px 'Inter', sans-serif";
-  ctx.lineWidth = 0;
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.font = "400 11px 'Inter', sans-serif";
+  ctx.fillStyle = '#808090';
   ctx.fillText('Stellingen en partijposities zijn illustratief \u2014 niet officieel StemWijzer-materiaal', midX, screenH * 0.97);
 }
 
