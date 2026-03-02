@@ -4338,7 +4338,7 @@ function initAdventure() {
   ADVENTURES.forEach((adv, i) => {
     const btn = document.createElement('button');
     btn.className = 'scenario-btn' + (i === 0 ? ' active' : '');
-    btn.textContent = adv.icon + ' ' + adv.title;
+    btn.textContent = adv.title;
     btn.onclick = () => {
       document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -6395,14 +6395,14 @@ function renderCustomWordList() {
 // READY-MADE SHEET TEMPLATES
 // ==========================================
 const SHEET_TEMPLATES = [
-  { id: 'pattern', title: 'Werkwoorden per patroon', desc: 'Gegroepeerd op klinkerverandering met kleurcodering', countFn: () => VERBS.length + ' werkwoorden' },
-  { id: 'hebben_zijn', title: 'Hebben vs. Zijn', desc: 'Twee kolommen: werkwoorden met "heeft" vs "is"', countFn: () => VERBS.length + ' werkwoorden' },
-  { id: 'alpha', title: 'Onregelmatig — Alfabet', desc: 'Alle onregelmatige werkwoorden op alfabetische volgorde', countFn: () => VERBS.filter(v => v.pattern !== 'regular').length + ' werkwoorden' },
-  { id: 'prep_by_prep', title: 'Voorzetsels per voorzetsel', desc: 'Vaste voorzetsels gegroepeerd per voorzetsel', countFn: () => PREPOSITION_VERBS.length + ' uitdrukkingen' },
-  { id: 'prep_alpha', title: 'Voorzetsels — Alfabet', desc: 'Alle vaste voorzetsels op alfabetische volgorde', countFn: () => PREPOSITION_VERBS.length + ' uitdrukkingen' },
-  { id: 'flashcards', title: 'Compact Flashcard Grid', desc: 'Uitknipbare flashcards: infinitief | imperfectum | voltooid deelwoord', countFn: () => VERBS.length + ' kaarten' },
-  { id: 'wrong', title: 'Mijn Fouten', desc: 'Werkwoorden die je fout hebt beantwoord, gesorteerd op aantal fouten', countFn: () => { const n = VERBS.filter(v => { const h = state.verbHistory[v.id]; return h && h.wrong > 0; }).length; return n + ' werkwoorden'; } },
-  { id: 'separable', title: 'Scheidbare Werkwoorden', desc: 'Werkwoorden die scheidbaar zijn met gescheiden vormen', countFn: () => getSeparableVerbs().length + ' werkwoorden' },
+  { id: 'pattern', icon: '\ud83c\udfa8', title: 'Werkwoorden per patroon', desc: 'Gegroepeerd op klinkerverandering met kleurcodering', countFn: () => VERBS.length + ' werkwoorden' },
+  { id: 'hebben_zijn', icon: '\u2696\ufe0f', title: 'Hebben vs. Zijn', desc: 'Twee kolommen: werkwoorden met "heeft" vs "is"', countFn: () => VERBS.length + ' werkwoorden' },
+  { id: 'alpha', icon: '\ud83d\udd24', title: 'Onregelmatig — Alfabet', desc: 'Alle onregelmatige werkwoorden op alfabetische volgorde', countFn: () => VERBS.filter(v => v.pattern !== 'regular').length + ' werkwoorden' },
+  { id: 'prep_by_prep', icon: '\ud83d\udccc', title: 'Voorzetsels per voorzetsel', desc: 'Vaste voorzetsels gegroepeerd per voorzetsel', countFn: () => PREPOSITION_VERBS.length + ' uitdrukkingen' },
+  { id: 'prep_alpha', icon: '\ud83d\udcd6', title: 'Voorzetsels — Alfabet', desc: 'Alle vaste voorzetsels op alfabetische volgorde', countFn: () => PREPOSITION_VERBS.length + ' uitdrukkingen' },
+  { id: 'flashcards', icon: '\ud83c\udccf', title: 'Compact Flashcard Grid', desc: 'Uitknipbare flashcards: infinitief | imperfectum | voltooid deelwoord', countFn: () => VERBS.length + ' kaarten' },
+  { id: 'wrong', icon: '\u274c', title: 'Mijn Fouten', desc: 'Werkwoorden die je fout hebt beantwoord, gesorteerd op aantal fouten', countFn: () => { const n = VERBS.filter(v => { const h = state.verbHistory[v.id]; return h && h.wrong > 0; }).length; return n + ' werkwoorden'; } },
+  { id: 'separable', icon: '\u2702\ufe0f', title: 'Scheidbare Werkwoorden', desc: 'Werkwoorden die scheidbaar zijn met gescheiden vormen', countFn: () => getSeparableVerbs().length + ' werkwoorden' },
 ];
 
 function getSeparableVerbs() {
@@ -6421,7 +6421,7 @@ function getSeparableVerbs() {
 function renderSheetCards() {
   document.getElementById('sheetsGrid').innerHTML = SHEET_TEMPLATES.map(t =>
     '<div class="sheet-card" onclick="generateReadySheet(\'' + t.id + '\')">'
-    + '<div class="sheet-card-icon">' + t.icon + '</div>'
+    + '<div class="sheet-card-icon">' + (t.icon || '') + '</div>'
     + '<div class="sheet-card-title">' + t.title + '</div>'
     + '<div class="sheet-card-desc">' + t.desc + '</div>'
     + '<div class="sheet-card-count">' + t.countFn() + '</div></div>'
@@ -7431,7 +7431,6 @@ function renderGrammarCards() {
     '<div class="grammar-card">'
     + '<div class="grammar-card-accent" style="background:' + r.accent + ';"></div>'
     + '<div class="grammar-card-header">'
-    + '<div class="grammar-card-icon">' + r.icon + '</div>'
     + '<div class="grammar-card-title">' + r.title + '</div>'
     + '<div class="grammar-card-subtitle">' + r.subtitle + '</div>'
     + '</div>'
@@ -7451,7 +7450,7 @@ function exportAllGrammar() {
   let rows = '';
   GRAMMAR_RULES.forEach(r => {
     rows += '<div style="page-break-inside:avoid;margin-bottom:20px;">';
-    rows += '<h2 style="color:' + r.accent + ';">' + r.icon + ' ' + r.title + '</h2>';
+    rows += '<h2 style="color:' + r.accent + ';">' + r.title + '</h2>';
     rows += '<p style="color:#888;font-size:11px;">' + r.subtitle + '</p>';
     rows += r.body;
     rows += '</div>';

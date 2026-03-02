@@ -227,10 +227,6 @@ canvas.addEventListener('click', e => {
     const py = titleY - 52;
     const langBtnX = px + panelW - 60;
     const langBtnY = py + panelH - 30;
-    if (mx >= langBtnX && mx <= langBtnX + 55 && my >= langBtnY && my <= langBtnY + 24) {
-      toggleLanguage();
-      return;
-    }
     // Click anywhere else to start
     if (loadGame() && answers.length > 0 && answers.length < quizMode) {
       gameState = 'playing';
@@ -656,7 +652,7 @@ const TRANSLATIONS_ROTTERDAM = [
     arguments: { pro: "Brings decisions closer to residents and increases involvement.", contra: "Can lead to fragmented policy and inequality between neighborhoods." } },
 ];
 
-let showEnglish = localStorage.getItem('stemwijzer_lang') === 'en';
+let showEnglish = false;
 
 const UI_TEXT = {
   title_main: { nl: 'StemWijzer', en: 'StemWijzer' },
@@ -724,8 +720,7 @@ function t(key) {
 }
 
 function toggleLanguage() {
-  showEnglish = !showEnglish;
-  localStorage.setItem('stemwijzer_lang', showEnglish ? 'en' : 'nl');
+  // Language toggle disabled — Dutch only
 }
 
 // 21 Rotterdam parties with positions per statement (-1, 0, 1)
@@ -5034,10 +5029,6 @@ function updateAnswering() {
     }
   }
 
-  // Toggle English translation on any tab
-  if (consumeKey('KeyE')) {
-    showEnglish = !showEnglish;
-  }
 }
 
 function advanceAfterAnswer() {
@@ -5185,15 +5176,6 @@ function drawTitleScreen() {
   ctx.fillStyle = '#606060';
   ctx.font = "400 15px 'Inter', sans-serif";
   ctx.fillText(t('title_date'), midX, titleY + 70);
-
-  // --- Language toggle button ---
-  const langBtnX = px + panelW - 60;
-  const langBtnY = py + panelH - 30;
-  ctx.fillStyle = '#1a1a1a';
-  ctx.fillRect(langBtnX, langBtnY, 55, 24);
-  ctx.font = "bold 12px 'Inter', sans-serif";
-  ctx.fillStyle = '#f5f0e8';
-  ctx.fillText(showEnglish ? 'NL' : 'EN', langBtnX + 27, langBtnY + 16);
 
   // --- Prompt on water ---
   ctx.font = "600 17px 'Inter', sans-serif";
@@ -5463,21 +5445,8 @@ function drawAnswerOverlay() {
   ctx.fillStyle = '#607080';
   ctx.fillText(`${t('answer_statement')} ${countAnswered() + 1} ${t('answer_of')} ${quizMode}`, screenW/2, py + 60);
 
-  // Translate button (top-right of panel)
-  const eBtnX = px0 + pw - 90;
-  const eBtnY = py + 48;
-  ctx.fillStyle = showEnglish ? '#4888c0' : '#d8ccb8';
-  ctx.fillRect(eBtnX, eBtnY, 80, 22);
-  ctx.strokeStyle = '#000';
-  ctx.lineWidth = 1.5;
-  ctx.strokeRect(eBtnX, eBtnY, 80, 22);
-  ctx.font = "bold 11px 'Inter', sans-serif";
-  ctx.textAlign = 'center';
-  ctx.fillStyle = showEnglish ? '#fff' : '#000';
-  ctx.fillText('[E] English', eBtnX + 40, eBtnY + 15);
-
   // Statement text — word wrap
-  const stmtText = showEnglish ? trans.text : stmt.text;
+  const stmtText = stmt.text;
   ctx.font = "16px 'Inter', sans-serif";
   ctx.fillStyle = '#2a3a4a';
   const maxWidth = pw - 60;
