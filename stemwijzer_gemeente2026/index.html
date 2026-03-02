@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StemWijzer Rotterdam 2026</title>
+<title>StemWijzer Gemeente 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -222,6 +222,7 @@ canvas.addEventListener('click', e => {
       if (mx >= bx && mx <= bx + boxW && my >= y && my <= y + boxH) {
         selectedCity = i;
         if (CITIES[i].available) {
+          swapCityData(i);
           gameState = 'modeSelect';
         }
         return;
@@ -426,7 +427,7 @@ const THEMES = [
 ];
 
 // 30 statements, 3 per theme
-const STATEMENTS = [
+const STATEMENTS_ROTTERDAM = [
   // Wonen (0-2)
   { theme: 0, text: "Rotterdam moet een quotum van 40% sociale huurwoningen handhaven bij elk nieuwbouwproject.",
     explanation: "Rotterdam kampt met een groot tekort aan betaalbare woningen. Een quotum zou garanderen dat nieuwbouw ook sociale huur bevat, maar kan projecten vertragen.",
@@ -530,7 +531,7 @@ const STATEMENTS = [
 ];
 
 // English translations for statements
-const TRANSLATIONS = [
+const TRANSLATIONS_ROTTERDAM = [
   // Wonen (0-2)
   { text: "Rotterdam should maintain a quota of 40% social housing in every new construction project.",
     explanation: "Rotterdam faces a major shortage of affordable housing. A quota would guarantee social housing in new builds, but may delay or increase costs.",
@@ -637,7 +638,7 @@ let showEnglish = false; // toggle for English translation
 
 // 21 Rotterdam parties with positions per statement (-1, 0, 1)
 // Positions are illustrative — not official StemWijzer data
-const PARTIES = [
+const PARTIES_ROTTERDAM = [
   {
     name: 'Leefbaar Rotterdam', abbr: 'LR', colors: ['#1a5ba0','#e87830'],
     url: 'https://leefbaarrotterdam.nl',
@@ -2520,7 +2521,7 @@ const NEUTRAL_REACTIONS = [
 ];
 
 // Funny NPC greetings per zone (De Speld style)
-const NPC_GREETINGS = [
+const NPC_GREETINGS_ROTTERDAM = [
   // 0: Wonen
   ['Welkom in de woningcrisis!', 'Zoekt u ook al 8 jaar een huurwoning?',
    'Hier bouwen we dromen! En soms ook huizen.', 'Leuk dat u er bent. Wilt u een tiny house?'],
@@ -2558,6 +2559,382 @@ const NPC_GREETINGS = [
    'De burgemeester is in vergadering. Al sinds 2018.',
    'Transparantie is ons motto! *sluit deur*'],
 ];
+
+// ============================================================
+// DEN HAAG DATA
+// ============================================================
+
+const STATEMENTS_DEN_HAAG = [
+  // Wonen (0-2)
+  { theme: 0, text: "Den Haag moet een quotum van 40% sociale huurwoningen handhaven in Laak en Transvaal.",
+    explanation: "Laak en Transvaal kampen met een tekort aan betaalbare woningen terwijl de druk op deze wijken toeneemt.",
+    arguments: { pro: "Beschermt kwetsbare wijken tegen verdere gentrificatie.", contra: "Kan nieuwbouwprojecten vertragen en investeerders afschrikken." } },
+  { theme: 0, text: "De Binckhorst moet voorrang geven aan betaalbare woningbouw boven commerciële ontwikkeling.",
+    explanation: "De Binckhorst wordt getransformeerd van industriegebied naar woonwijk. De vraag is welk type woningen prioriteit krijgt.",
+    arguments: { pro: "Zorgt voor betaalbare woningen in een nieuw stadsdeel.", contra: "Commerciële ontwikkeling levert meer inkomsten op voor de gemeente." } },
+  { theme: 0, text: "De gemeente moet strenger optreden tegen leegstand en anti-kraakconstructies.",
+    explanation: "Veel panden staan leeg terwijl er woningnood is. Anti-kraakbewoners hebben weinig rechten.",
+    arguments: { pro: "Pakt de woningnood direct aan en beschermt bewoners.", contra: "Inbreuk op eigendomsrecht van pandeigenaren." } },
+  // Klimaat (3-5)
+  { theme: 1, text: "Den Haag moet €100 miljoen extra investeren in kustbescherming bij Scheveningen.",
+    explanation: "De zeespiegel stijgt en de kust bij Scheveningen is kwetsbaar. Extra bescherming is duur maar mogelijk noodzakelijk.",
+    arguments: { pro: "Beschermt duizenden bewoners en bedrijven tegen overstromingsgevaar.", contra: "Enorme investering die ten koste gaat van andere prioriteiten." } },
+  { theme: 1, text: "Het stadsverwarmingsnetwerk moet verplicht worden uitgebreid naar alle nieuwbouwwijken.",
+    explanation: "Stadsverwarming kan bijdragen aan de energietransitie, maar verplichte aansluiting beperkt keuzevrijheid.",
+    arguments: { pro: "Versnelt de energietransitie en vermindert gasafhankelijkheid.", contra: "Bewoners worden afhankelijk van één warmteleverancier zonder keuze." } },
+  { theme: 1, text: "Er moeten meer groene zones en stadsparken komen in het Centrum en Laak.",
+    explanation: "Dichtbebouwde wijken hebben weinig groen, wat hittestress en wateroverlast verergert.",
+    arguments: { pro: "Verbetert leefbaarheid, vangt regenwater op en verkoelt de stad.", contra: "Gaat ten koste van schaarse bouwgrond voor woningen." } },
+  // Veiligheid (6-8)
+  { theme: 2, text: "De gemeente moet extra investeren in wijkgerichte veiligheidsaanpak voor de Schilderswijk.",
+    explanation: "De Schilderswijk kampt met overlast en criminaliteit. Een gerichte aanpak kan helpen maar kost veel middelen.",
+    arguments: { pro: "Verbetert de leefbaarheid voor bewoners van een kwetsbare wijk.", contra: "Stigmatiseert de wijk en de middelen kunnen elders ook nodig zijn." } },
+  { theme: 2, text: "Den Haag moet het aantal coffeeshops in woonwijken halveren.",
+    explanation: "Coffeeshops veroorzaken volgens sommigen overlast in woonwijken, maar regulering voorkomt straathandel.",
+    arguments: { pro: "Vermindert overlast en drugstoerisme in woonwijken.", contra: "Drijft gebruikers naar illegale straathandel." } },
+  { theme: 2, text: "Er moet meer handhaving komen op het strand van Scheveningen in de zomermaanden.",
+    explanation: "In de zomer trekt Scheveningen enorme drukte aan met soms overlast, afval en onveilige situaties.",
+    arguments: { pro: "Maakt het strand veiliger en schoner voor bezoekers en bewoners.", contra: "Extra handhaving kost veel geld en kan de sfeer negatief beïnvloeden." } },
+  // Mobiliteit (9-11)
+  { theme: 3, text: "HTM moet een nieuwe tramverbinding aanleggen tussen Den Haag Centraal en de Binckhorst.",
+    explanation: "De Binckhorst groeit snel maar is slecht bereikbaar met het OV.",
+    arguments: { pro: "Verbetert bereikbaarheid van een snel groeiend stadsdeel.", contra: "Tramprojecten zijn duur en duren jaren; busverbindingen kunnen sneller." } },
+  { theme: 3, text: "Den Haag Centraal Station moet volledig autovrij worden in een straal van 500 meter.",
+    explanation: "Het gebied rond Centraal Station is druk en vervuild. Een autovrije zone verbetert de leefbaarheid.",
+    arguments: { pro: "Schonere lucht en veiliger omgeving voor voetgangers en fietsers.", contra: "Moeilijker bereikbaar voor bewoners en bedrijven in het gebied." } },
+  { theme: 3, text: "Den Haag moet jaarlijks €30 miljoen extra investeren in fietssnelwegen.",
+    explanation: "Fietssnelwegen verbinden wijken en verminderen autoverkeer, maar vergen grote investeringen.",
+    arguments: { pro: "Stimuleert fietsgebruik en vermindert files en uitstoot.", contra: "Hoge kosten die ten koste gaan van andere vervoersprojecten." } },
+  // Economie (12-14)
+  { theme: 4, text: "Den Haag moet meer investeren in het aantrekken van internationale organisaties naar de Internationale Zone.",
+    explanation: "De Internationale Zone bij het Vredespaleis huisvest veel VN-organisaties. Uitbreiding versterkt Den Haags profiel.",
+    arguments: { pro: "Brengt hoogwaardige werkgelegenheid en versterkt Den Haag als internationale stad.", contra: "Investering komt niet ten goede aan gewone Hagenaars." } },
+  { theme: 4, text: "Horecavergunningen in Scheveningen moeten versoepeld worden om meer toeristen aan te trekken.",
+    explanation: "Scheveningen wil meer toeristen maar bewoners klagen over overlast van horeca.",
+    arguments: { pro: "Stimuleert de lokale economie en werkgelegenheid.", contra: "Meer overlast voor bewoners en aantasting van het karakter van de wijk." } },
+  { theme: 4, text: "De gemeente moet een hogere toeristenbelasting invoeren voor Scheveningen.",
+    explanation: "Scheveningen trekt veel toeristen maar de kosten voor onderhoud en veiligheid zijn hoog.",
+    arguments: { pro: "Opbrengst kan worden geïnvesteerd in onderhoud en leefbaarheid.", contra: "Kan toeristen afschrikken en horecaondernemers benadelen." } },
+  // Zorg (15-17)
+  { theme: 5, text: "De gemeente moet het budget voor GGZ-zorg in Den Haag verdubbelen.",
+    explanation: "De wachtlijsten voor geestelijke gezondheidszorg in Den Haag zijn lang en problematisch.",
+    arguments: { pro: "Kortere wachtlijsten en betere hulp voor kwetsbare inwoners.", contra: "Verdubbeling is zeer kostbaar; geld moet elders worden weggehaald." } },
+  { theme: 5, text: "Er moeten meer nachtopvangplekken voor daklozen komen in het centrum van Den Haag.",
+    explanation: "Het aantal daklozen in Den Haag groeit en de huidige opvang is onvoldoende.",
+    arguments: { pro: "Biedt directe hulp aan de meest kwetsbare mensen in de stad.", contra: "Omwonenden vrezen overlast; structurele oplossingen zijn nodig." } },
+  { theme: 5, text: "Den Haag moet meer investeren in preventieve jeugdzorg in kwetsbare wijken.",
+    explanation: "Vroegtijdige hulp voorkomt grotere problemen later, maar preventie is moeilijk meetbaar.",
+    arguments: { pro: "Voorkomt zwaardere problematiek en bespaart op lange termijn.", contra: "Resultaten zijn pas na jaren zichtbaar; lastig te verantwoorden in de begroting." } },
+  // Onderwijs (18-20)
+  { theme: 6, text: "Den Haag moet meer internationale scholen faciliteren voor de groeiende expat-gemeenschap.",
+    explanation: "De internationale gemeenschap groeit door organisaties als het Internationaal Strafhof en Europol.",
+    arguments: { pro: "Maakt Den Haag aantrekkelijker voor internationaal talent.", contra: "Gaat ten koste van aandacht en middelen voor reguliere scholen." } },
+  { theme: 6, text: "De gemeente moet extra financiering bieden aan de Haagse Hogeschool en Universiteit Leiden campus Den Haag.",
+    explanation: "Hoger onderwijs versterkt de kenniseconomie maar kost de gemeente extra middelen.",
+    arguments: { pro: "Trekt talent aan en stimuleert innovatie in de stad.", contra: "Hoger onderwijs is primair een rijkstaak; gemeente moet prioriteiten stellen." } },
+  { theme: 6, text: "Alle nieuwkomers moeten gratis Nederlandse taalcursussen krijgen, betaald door de gemeente.",
+    explanation: "Taalbeheersing is essentieel voor integratie en participatie in Den Haag.",
+    arguments: { pro: "Versnelt integratie en vergroot kansen op de arbeidsmarkt.", contra: "Hoge kosten en de verantwoordelijkheid ligt deels bij nieuwkomers zelf." } },
+  // Cultuur & Sport (21-23)
+  { theme: 7, text: "Het Mauritshuis en Kunstmuseum moeten gratis toegankelijk worden voor alle Hagenaars.",
+    explanation: "Gratis toegang maakt cultuur toegankelijker maar kost de musea veel inkomsten.",
+    arguments: { pro: "Maakt topkunst bereikbaar voor iedereen, ongeacht inkomen.", contra: "Musea verliezen inkomsten die nodig zijn voor onderhoud en tentoonstellingen." } },
+  { theme: 7, text: "De vergunningprocedure voor festivals en buitenevenementen moet eenvoudiger worden.",
+    explanation: "Organisatoren klagen over ingewikkelde procedures en hoge kosten voor festivals.",
+    arguments: { pro: "Stimuleert het culturele aanbod en trekt bezoekers naar de stad.", contra: "Kan leiden tot meer geluidsoverlast als controles worden versoepeld." } },
+  { theme: 7, text: "Het Zuiderpark moet worden ontwikkeld als permanent evenemententerrein met vaste faciliteiten.",
+    explanation: "Het Zuiderpark wordt regelmatig gebruikt voor grote evenementen maar mist permanente infrastructuur.",
+    arguments: { pro: "Maakt evenementen goedkoper en efficiënter te organiseren.", contra: "Aantasting van het parkkarakter en mogelijke overlast voor omwonenden." } },
+  // Diversiteit (24-26)
+  { theme: 8, text: "Alle gemeentelijke dienstverlening moet beschikbaar zijn in minstens zes talen.",
+    explanation: "Den Haag is een zeer internationale stad met bewoners uit alle delen van de wereld.",
+    arguments: { pro: "Maakt dienstverlening toegankelijker voor de diverse bevolking.", contra: "Zeer hoge vertaalkosten en kan de prikkel verminderen om Nederlands te leren." } },
+  { theme: 8, text: "Den Haag moet een onafhankelijk antidiscriminatiebureau oprichten met handhavingsbevoegdheden.",
+    explanation: "Discriminatie op de arbeids- en woningmarkt komt voor in Den Haag.",
+    arguments: { pro: "Geeft slachtoffers een effectief middel om discriminatie aan te pakken.", contra: "Handhavingsbevoegdheden kunnen leiden tot juridische conflicten." } },
+  { theme: 8, text: "De gemeente moet meer investeren in integratieprogramma's specifiek gericht op de Haagse wijken.",
+    explanation: "Verschillende wijken hebben verschillende integratiebehoeften en -uitdagingen.",
+    arguments: { pro: "Maatwerk per wijk is effectiever dan een one-size-fits-all aanpak.", contra: "Duur en moeilijk uit te voeren; risico op stigmatisering van wijken." } },
+  // Bestuur (27-29)
+  { theme: 9, text: "Wijkbudgetten moeten worden verdubbeld zodat bewoners meer zeggenschap krijgen over hun buurt.",
+    explanation: "Wijkbudgetten geven bewoners directe invloed maar het totale bedrag is nu beperkt.",
+    arguments: { pro: "Vergroot betrokkenheid en laat bewoners meebeslissen over hun leefomgeving.", contra: "Kan leiden tot ongelijke verdeling en populistische projecten." } },
+  { theme: 9, text: "Alle vergaderingen en besluitvorming van de gemeente moeten volledig openbaar en live gestreamd worden.",
+    explanation: "Transparantie in bestuur versterkt vertrouwen maar kan leiden tot minder open discussie.",
+    arguments: { pro: "Vergroot transparantie en democratische controle door burgers.", contra: "Bestuurders spreken zich mogelijk minder vrij uit." } },
+  { theme: 9, text: "Hagenaars moeten via burgerberaden direct invloed krijgen op grote gemeentelijke investeringen.",
+    explanation: "Burgerberaden zijn een vorm van directe democratie waarbij gelote burgers meedenken over beleid.",
+    arguments: { pro: "Brengt burgers dichter bij het bestuur en vergroot draagvlak.", contra: "Tijdrovend en gelote deelnemers zijn niet altijd representatief." } },
+];
+
+const TRANSLATIONS_DEN_HAAG = [
+  // Wonen (0-2)
+  { text: "The Hague should maintain a 40% social housing quota in Laak and Transvaal.",
+    explanation: "Laak and Transvaal face a shortage of affordable housing while pressure on these neighborhoods increases.",
+    arguments: { pro: "Protects vulnerable neighborhoods against further gentrification.", contra: "May delay new construction and deter investors." } },
+  { text: "The Binckhorst should prioritize affordable housing over commercial development.",
+    explanation: "The Binckhorst is being transformed from industrial area to residential neighborhood. The question is which type of housing gets priority.",
+    arguments: { pro: "Ensures affordable homes in a new city district.", contra: "Commercial development generates more revenue for the municipality." } },
+  { text: "The municipality should crack down harder on vacancy and anti-squatter arrangements.",
+    explanation: "Many properties stand empty while there is a housing shortage. Anti-squatter tenants have few rights.",
+    arguments: { pro: "Directly addresses the housing shortage and protects residents.", contra: "Infringes on property owners' rights." } },
+  // Klimaat (3-5)
+  { text: "The Hague should invest an additional €100 million in coastal protection at Scheveningen.",
+    explanation: "Sea levels are rising and the coast at Scheveningen is vulnerable. Extra protection is expensive but potentially necessary.",
+    arguments: { pro: "Protects thousands of residents and businesses from flooding risk.", contra: "Enormous investment at the expense of other priorities." } },
+  { text: "District heating networks should be mandatory for all new construction areas.",
+    explanation: "District heating can contribute to the energy transition, but mandatory connections limit freedom of choice.",
+    arguments: { pro: "Accelerates energy transition and reduces gas dependency.", contra: "Residents become dependent on a single heat supplier without choice." } },
+  { text: "More green zones and city parks should be created in the Center and Laak.",
+    explanation: "Densely built neighborhoods have little greenery, worsening heat stress and water problems.",
+    arguments: { pro: "Improves livability, captures rainwater, and cools the city.", contra: "Comes at the expense of scarce building land for housing." } },
+  // Veiligheid (6-8)
+  { text: "The municipality should invest extra in neighborhood-focused safety measures for the Schilderswijk.",
+    explanation: "The Schilderswijk faces nuisance and crime issues. A targeted approach can help but costs significant resources.",
+    arguments: { pro: "Improves livability for residents of a vulnerable neighborhood.", contra: "Stigmatizes the neighborhood and resources may be needed elsewhere." } },
+  { text: "The Hague should halve the number of coffee shops in residential neighborhoods.",
+    explanation: "Coffee shops cause nuisance in residential areas according to some, but regulation prevents street dealing.",
+    arguments: { pro: "Reduces nuisance and drug tourism in residential neighborhoods.", contra: "Drives users toward illegal street dealing." } },
+  { text: "There should be more enforcement on Scheveningen beach during summer months.",
+    explanation: "In summer, Scheveningen attracts enormous crowds with sometimes nuisance, litter, and unsafe situations.",
+    arguments: { pro: "Makes the beach safer and cleaner for visitors and residents.", contra: "Extra enforcement costs a lot and may negatively affect the atmosphere." } },
+  // Mobiliteit (9-11)
+  { text: "HTM should build a new tram connection between The Hague Central and the Binckhorst.",
+    explanation: "The Binckhorst is growing rapidly but has poor public transport access.",
+    arguments: { pro: "Improves accessibility of a rapidly growing city district.", contra: "Tram projects are expensive and take years; bus routes can be faster." } },
+  { text: "The Hague Central Station should become fully car-free within a 500-meter radius.",
+    explanation: "The area around Central Station is busy and polluted. A car-free zone improves livability.",
+    arguments: { pro: "Cleaner air and safer environment for pedestrians and cyclists.", contra: "Harder to reach for residents and businesses in the area." } },
+  { text: "The Hague should invest an additional €30 million per year in cycling highways.",
+    explanation: "Cycling highways connect neighborhoods and reduce car traffic but require major investment.",
+    arguments: { pro: "Encourages cycling and reduces traffic congestion and emissions.", contra: "High costs at the expense of other transport projects." } },
+  // Economie (12-14)
+  { text: "The Hague should invest more in attracting international organizations to the International Zone.",
+    explanation: "The International Zone near the Peace Palace houses many UN organizations. Expansion strengthens The Hague's profile.",
+    arguments: { pro: "Brings high-quality jobs and strengthens The Hague as an international city.", contra: "Investment doesn't benefit ordinary Hague residents." } },
+  { text: "Hospitality permits in Scheveningen should be relaxed to attract more tourists.",
+    explanation: "Scheveningen wants more tourists but residents complain about hospitality-related nuisance.",
+    arguments: { pro: "Stimulates the local economy and employment.", contra: "More nuisance for residents and changes the neighborhood character." } },
+  { text: "The municipality should introduce a higher tourist tax for Scheveningen.",
+    explanation: "Scheveningen attracts many tourists but the costs of maintenance and safety are high.",
+    arguments: { pro: "Revenue can be invested in maintenance and livability.", contra: "May deter tourists and disadvantage hospitality businesses." } },
+  // Zorg (15-17)
+  { text: "The municipality should double the budget for mental health care in The Hague.",
+    explanation: "Waiting lists for mental health care in The Hague are long and problematic.",
+    arguments: { pro: "Shorter waiting lists and better help for vulnerable residents.", contra: "Doubling is very costly; money must come from elsewhere." } },
+  { text: "There should be more overnight shelter places for homeless people in The Hague's center.",
+    explanation: "The number of homeless people in The Hague is growing and current shelter is insufficient.",
+    arguments: { pro: "Provides direct help to the most vulnerable people in the city.", contra: "Nearby residents fear nuisance; structural solutions are needed." } },
+  { text: "The Hague should invest more in preventive youth care in vulnerable neighborhoods.",
+    explanation: "Early help prevents bigger problems later, but prevention is hard to measure.",
+    arguments: { pro: "Prevents more serious issues and saves money long-term.", contra: "Results only become visible after years; hard to justify in the budget." } },
+  // Onderwijs (18-20)
+  { text: "The Hague should facilitate more international schools for the growing expat community.",
+    explanation: "The international community is growing due to organizations like the ICC and Europol.",
+    arguments: { pro: "Makes The Hague more attractive for international talent.", contra: "Comes at the expense of attention and resources for regular schools." } },
+  { text: "The municipality should provide extra funding to The Hague University and Leiden University campus.",
+    explanation: "Higher education strengthens the knowledge economy but costs the municipality extra resources.",
+    arguments: { pro: "Attracts talent and stimulates innovation in the city.", contra: "Higher education is primarily a national responsibility; the municipality should set priorities." } },
+  { text: "All newcomers should receive free Dutch language courses, paid for by the municipality.",
+    explanation: "Language proficiency is essential for integration and participation in The Hague.",
+    arguments: { pro: "Accelerates integration and increases job market opportunities.", contra: "High costs and responsibility partly lies with newcomers themselves." } },
+  // Cultuur & Sport (21-23)
+  { text: "The Mauritshuis and Kunstmuseum should offer free admission for all Hague residents.",
+    explanation: "Free admission makes culture more accessible but costs museums significant revenue.",
+    arguments: { pro: "Makes top art accessible to everyone, regardless of income.", contra: "Museums lose revenue needed for maintenance and exhibitions." } },
+  { text: "The permit process for festivals and outdoor events should be simplified.",
+    explanation: "Organizers complain about complicated procedures and high costs for festivals.",
+    arguments: { pro: "Stimulates cultural offerings and attracts visitors to the city.", contra: "May lead to more noise nuisance if controls are relaxed." } },
+  { text: "Zuiderpark should be developed as a permanent event venue with fixed facilities.",
+    explanation: "Zuiderpark is regularly used for large events but lacks permanent infrastructure.",
+    arguments: { pro: "Makes events cheaper and more efficient to organize.", contra: "Damages the park character and may cause nuisance for local residents." } },
+  // Diversiteit (24-26)
+  { text: "All municipal services should be available in at least six languages.",
+    explanation: "The Hague is a very international city with residents from all parts of the world.",
+    arguments: { pro: "Makes services more accessible for the diverse population.", contra: "Very high translation costs and may reduce incentive to learn Dutch." } },
+  { text: "The Hague should establish an independent anti-discrimination bureau with enforcement powers.",
+    explanation: "Discrimination in the labor and housing markets occurs in The Hague.",
+    arguments: { pro: "Gives victims an effective means to address discrimination.", contra: "Enforcement powers can lead to legal conflicts." } },
+  { text: "The municipality should invest more in integration programs specifically targeting Hague neighborhoods.",
+    explanation: "Different neighborhoods have different integration needs and challenges.",
+    arguments: { pro: "Tailored approach per neighborhood is more effective than one-size-fits-all.", contra: "Expensive and hard to implement; risk of stigmatizing neighborhoods." } },
+  // Bestuur (27-29)
+  { text: "Neighborhood budgets should be doubled so residents get more say over their area.",
+    explanation: "Neighborhood budgets give residents direct influence but the total amount is currently limited.",
+    arguments: { pro: "Increases involvement and lets residents co-decide on their living environment.", contra: "Can lead to unequal distribution and populist projects." } },
+  { text: "All meetings and decision-making by the municipality should be fully public and livestreamed.",
+    explanation: "Transparency in governance strengthens trust but can lead to less open discussion.",
+    arguments: { pro: "Increases transparency and democratic oversight by citizens.", contra: "Officials may speak less freely." } },
+  { text: "Hague residents should have direct influence on major municipal investments through citizens' assemblies.",
+    explanation: "Citizens' assemblies are a form of direct democracy where randomly selected citizens help shape policy.",
+    arguments: { pro: "Brings citizens closer to governance and increases public support.", contra: "Time-consuming and randomly selected participants may not be representative." } },
+];
+
+const PARTIES_DEN_HAAG = [
+  {
+    name: 'Hart voor Den Haag', abbr: 'HvDH', colors: ['#e83030','#f0a020'],
+    url: 'https://hartvoordenhaag.nl',
+    symbol: 'heart',
+    pos: [0,1,-1, -1,-1,-1, 1,1,1, -1,0,-1, -1,1,-1, 0,0,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1, 1,0,1]
+  },
+  {
+    name: 'GroenLinks-PvdA', abbr: 'GL-PvdA', colors: ['#40a030','#d03030'],
+    url: 'https://denhaag.groenlinks.nl',
+    symbol: 'sunleaf',
+    pos: [1,1,1, 1,1,1, -1,-1,-1, 1,1,1, 0,-1,0, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1]
+  },
+  {
+    name: 'VVD', abbr: 'VVD', colors: ['#1a40a0','#e87830'],
+    url: 'https://www.vvd.nl/denhaag',
+    symbol: 'eagle',
+    pos: [-1,0,-1, -1,0,-1, 1,1,1, -1,1,-1, 1,1,-1, 0,-1,-1, 1,0,-1, 1,0,0, -1,-1,-1, -1,0,-1]
+  },
+  {
+    name: 'D66', abbr: 'D66', colors: ['#00a86b','#00a0a0'],
+    url: 'https://d66.nl/denhaag',
+    symbol: 'diamond',
+    pos: [0,1,1, 0,1,0, 0,-1,0, 1,1,1, 1,1,1, 1,0,0, 1,1,1, 1,1,1, 1,1,0, 1,1,1]
+  },
+  {
+    name: 'PVV', abbr: 'PVV', colors: ['#1a2a6a','#cc0000'],
+    url: 'https://www.pvv.nl',
+    symbol: 'arrow',
+    pos: [-1,1,-1, -1,-1,-1, 1,1,1, -1,-1,-1, -1,0,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1]
+  },
+  {
+    name: 'CDA', abbr: 'CDA', colors: ['#007b2e','#007b2e'],
+    url: 'https://www.cda.nl/denhaag',
+    symbol: 'shield',
+    pos: [0,0,0, -1,0,-1, 1,0,1, 0,0,0, 0,0,0, 0,1,1, 1,0,0, 0,0,0, 0,1,0, 0,0,0]
+  },
+  {
+    name: 'SP', abbr: 'SP', colors: ['#dd0000','#ffffff'],
+    url: 'https://denhaag.sp.nl',
+    symbol: 'tomato',
+    pos: [1,1,1, 0,1,1, 1,-1,0, 1,1,1, -1,0,1, 1,1,1, 0,1,1, 1,1,0, 1,1,1, 1,1,1]
+  },
+  {
+    name: 'Partij voor de Dieren', abbr: 'PvdD', colors: ['#00802b','#00802b'],
+    url: 'https://denhaag.partijvoordedieren.nl',
+    symbol: 'paw',
+    pos: [1,-1,1, 1,1,1, -1,-1,-1, 1,1,1, -1,-1,1, 1,1,1, 0,1,0, 1,1,1, 1,1,1, 1,1,1]
+  },
+  {
+    name: 'DENK', abbr: 'DENK', colors: ['#00a0a0','#00a0a0'],
+    url: 'https://www.bewegingdenk.nl',
+    symbol: 'speech',
+    pos: [1,1,1, 0,0,0, 1,0,0, 0,0,0, 0,-1,0, 1,1,1, 0,1,1, 0,1,0, 1,1,1, 1,0,1]
+  },
+  {
+    name: 'ChristenUnie', abbr: 'CU', colors: ['#00529e','#00529e'],
+    url: 'https://www.christenunie.nl/denhaag',
+    symbol: 'cross',
+    pos: [1,0,0, 0,0,-1, 0,0,1, 0,0,0, 0,0,0, 1,1,1, 1,1,0, 0,0,0, 0,0,0, 0,0,1]
+  },
+  {
+    name: 'Haagse Stadspartij', abbr: 'HSP', colors: ['#e87830','#d06020'],
+    url: 'https://www.haagsestadspartij.nl',
+    symbol: 'star',
+    pos: [1,1,1, 1,1,1, -1,-1,0, 1,1,1, 0,-1,0, 1,1,1, 0,1,0, 1,1,1, 1,1,1, 1,1,1]
+  },
+  {
+    name: 'Islam Democraten', abbr: 'ID', colors: ['#109040','#109040'],
+    url: 'https://www.islamdemocraten.nl',
+    symbol: 'crescent',
+    pos: [1,1,1, 0,0,0, 0,0,0, 0,0,0, 0,-1,0, 1,1,1, 0,1,1, 0,1,0, 1,1,1, 1,0,1]
+  },
+  {
+    name: '50PLUS', abbr: '50+', colors: ['#7b4faa','#888888'],
+    url: 'https://50pluspartij.nl',
+    symbol: 'fifty',
+    pos: [1,0,0, -1,0,-1, 1,0,1, 0,0,0, 0,0,0, 1,1,0, 1,0,0, 0,0,0, 0,1,0, 1,0,1]
+  },
+  {
+    name: 'Volt', abbr: 'Volt', colors: ['#5b2d8e','#5b2d8e'],
+    url: 'https://www.voltnederland.org/denhaag',
+    symbol: 'bolt',
+    pos: [0,1,1, 1,1,1, 0,-1,0, 1,1,1, 1,1,1, 1,0,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1]
+  },
+  {
+    name: 'SGP', abbr: 'SGP', colors: ['#102060','#e87830'],
+    url: 'https://denhaag.sgp.nl',
+    symbol: 'bible',
+    pos: [0,0,-1, -1,-1,-1, 1,1,1, -1,0,0, -1,0,-1, 0,1,0, 0,0,0, -1,-1,0, -1,0,-1, 0,0,0]
+  },
+];
+
+const NPC_GREETINGS_DEN_HAAG = [
+  // 0: Wonen
+  ['Welkom in de Haagse woningcrisis! De wachtlijst is 12 jaar.',
+   'De Binckhorst wordt hip! Betaalbaar? Nee, gewoon hip.',
+   'Zoekt u een sociale huurwoning? Achteraan aansluiten bij de Megastores.',
+   'Anti-kraak in Den Haag: wonen als hobby, niet als recht.'],
+  // 1: Klimaat
+  ['Welkom! Scheveningen ligt er nog. Voorlopig.',
+   'Stadsverwarming: warm water voor warme beloften.',
+   'Eén boom geleden was dit een parkeerplaats. Net als in Rotterdam, maar dan chiquer.',
+   'De zeespiegel stijgt, maar de ambities van de wethouder ook.'],
+  // 2: Veiligheid
+  ['U bent nu veilig. Waarschijnlijk. Dit is niet de Schilderswijk.',
+   'Welkom! Er staan meer camera\'s dan inwoners in deze straat.',
+   'Handhaving op het strand: zonnebrand controleren is ook veiligheid.',
+   'De coffeeshop sluit, maar de discussie erover nooit.'],
+  // 3: Mobiliteit
+  ['Welkom! De tram komt over 3 minuten. Of het wordt een bus. Of niets.',
+   'HTM: Haags Tragisch Mobiliteitsplan.',
+   'Fietsen in Den Haag: avontuurlijker dan mountain­biken.',
+   'Centraal Station is bereikbaar! Als u drie keer overstapt.'],
+  // 4: Economie
+  ['Welkom in de Internationale Zone! Spreekt u ook vijf talen en verdient u zes cijfers?',
+   'Scheveningen: waar een haring €8 kost maar het uitzicht gratis is.',
+   'De economie bloeit! Tenminste, voor de internationale organisaties.',
+   'Toeristenbelasting? De hagelslag op uw broodje wordt ook duurder.'],
+  // 5: Zorg
+  ['Welkom! De GGZ-wachtlijst is 26 weken. Houdt u zolang vol?',
+   'Daklozenopvang vol? Probeer het Binnenhof, daar staat ook alles leeg.',
+   'Jeugdzorg in Den Haag: de wachtlijst is ouder dan de cliënten.',
+   'Wij zorgen voor u! Na de reorganisatie. En de bezuiniging.'],
+  // 6: Onderwijs
+  ['Welkom! Hier zijn meer internationale scholen dan Albert Heijns.',
+   'De Haagse Hogeschool: waar je leert dat alles bij de gemeente trager gaat.',
+   'Taalcursus Nederlands? Tegen de tijd dat u aan de beurt bent, spreekt u al vloeiend.',
+   'Onderwijs in Den Haag: internationaal excellent, lokaal onder druk.'],
+  // 7: Cultuur & Sport
+  ['Welkom bij het Mauritshuis! Entreegeld is optioneel. Grapje.',
+   'Festival in het Zuiderpark? Reken op zes maanden vergunningsprocedure.',
+   'Cultuur in Den Haag: van Vermeer tot house­muziek. Soms tegelijk.',
+   'Sport is belangrijk! De subsidie is alleen even zoek.'],
+  // 8: Diversiteit
+  ['Welkom! In Den Haag spreken we 180 talen. De gemeente ongeveer 1,5.',
+   'Inclusiviteit is ons kernwaarde! *zoekt het formulier in het Turks*',
+   'Hier is iedereen welkom. Staat ook in het beleidsplan. In het Engels.',
+   'Integratie in Den Haag: van elke wijk een eigen wereld.'],
+  // 9: Bestuur
+  ['Welkom bij het Binnenhof! Oh wacht, dat is van het Rijk. Wij zitten in het Stadhuis.',
+   'De burgemeester is in vergadering. Met het Internationaal Strafhof. Of de catering.',
+   'Transparantie is ons motto! *verhuist vergadering naar geheime locatie*',
+   'Den Haag: waar de gemeentepolitiek in de schaduw van de landelijke politiek staat.'],
+];
+
+// --- Active data (swapped on city selection) ---
+let STATEMENTS = STATEMENTS_ROTTERDAM;
+let TRANSLATIONS = TRANSLATIONS_ROTTERDAM;
+let PARTIES = PARTIES_ROTTERDAM;
+let NPC_GREETINGS = NPC_GREETINGS_ROTTERDAM;
+
+function swapCityData(cityIdx) {
+  if (CITIES[cityIdx].name === 'Den Haag') {
+    STATEMENTS = STATEMENTS_DEN_HAAG;
+    TRANSLATIONS = TRANSLATIONS_DEN_HAAG;
+    PARTIES = PARTIES_DEN_HAAG;
+    NPC_GREETINGS = NPC_GREETINGS_DEN_HAAG;
+  } else {
+    STATEMENTS = STATEMENTS_ROTTERDAM;
+    TRANSLATIONS = TRANSLATIONS_ROTTERDAM;
+    PARTIES = PARTIES_ROTTERDAM;
+    NPC_GREETINGS = NPC_GREETINGS_ROTTERDAM;
+  }
+}
 
 function triggerPartyReactions(stmtIdx, playerAnswer) {
   // Pick 2-3 random parties to react
@@ -3101,7 +3478,7 @@ function drawTitleScreen() {
   ctx.fillText('StemWijzer', screenW/2, titleY + 45);
   ctx.font = "bold 38px 'Inter', sans-serif";
   ctx.fillStyle = '#cc0000';
-  ctx.fillText('Rotterdam 2026', screenW/2, titleY + 90);
+  ctx.fillText(CITIES[selectedCity].name + ' 2026', screenW/2, titleY + 90);
 
   // Subtitle
   ctx.font = "16px 'Inter', sans-serif";
@@ -3684,7 +4061,7 @@ function drawResultScreen() {
   ctx.fillText('Jouw Uitslag', screenW/2, 45);
   ctx.font = "14px 'Inter', sans-serif";
   ctx.fillStyle = '#404040';
-  ctx.fillText('StemWijzer Rotterdam 2026 \u2014 Illustratief', screenW/2, 70);
+  ctx.fillText('StemWijzer ' + CITIES[selectedCity].name + ' 2026 \u2014 Illustratief', screenW/2, 70);
 
   // Bar chart
   const chartX = 60;
@@ -3981,6 +4358,7 @@ function gameLoop(timestamp) {
         }
         if (consumeKey('Enter') || consumeKey('Space')) {
           if (CITIES[selectedCity].available) {
+            swapCityData(selectedCity);
             gameState = 'modeSelect';
           }
         }
