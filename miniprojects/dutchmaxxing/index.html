@@ -4847,60 +4847,43 @@ function escapeHTML(str) {
 // CEFR VOCAB DICTIONARY & AUTO-HIGHLIGHTING
 // ==========================================
 const CEFR_VOCAB = [
-  // A2 — basic everyday words
-  { nl:'hebben', en:'to have', level:'A2', verb:true },
-  { nl:'zijn', en:'to be', level:'A2', verb:true },
-  { nl:'worden', en:'to become', level:'A2', verb:true },
-  { nl:'kunnen', en:'can / to be able to', level:'A2', verb:true },
-  { nl:'moeten', en:'must / to have to', level:'A2', verb:true },
-  { nl:'willen', en:'to want', level:'A2', verb:true },
-  { nl:'zullen', en:'shall / will', level:'A2', verb:true },
-  { nl:'mogen', en:'may / to be allowed', level:'A2', verb:true },
-  { nl:'gaan', en:'to go', level:'A2', verb:true },
-  { nl:'komen', en:'to come', level:'A2', verb:true },
-  { nl:'maken', en:'to make', level:'A2', verb:true },
-  { nl:'zeggen', en:'to say', level:'A2', verb:true },
-  { nl:'doen', en:'to do', level:'A2', verb:true },
-  { nl:'geven', en:'to give', level:'A2', verb:true },
-  { nl:'nemen', en:'to take', level:'A2', verb:true },
-  { nl:'zien', en:'to see', level:'A2', verb:true },
-  { nl:'vinden', en:'to find / to think', level:'A2', verb:true },
-  { nl:'weten', en:'to know (fact)', level:'A2', verb:true },
-  { nl:'denken', en:'to think', level:'A2', verb:true },
-  { nl:'staan', en:'to stand', level:'A2', verb:true },
-  { nl:'vandaag', en:'today', level:'A2' },
-  { nl:'morgen', en:'tomorrow', level:'A2' },
-  { nl:'gisteren', en:'yesterday', level:'A2' },
-  { nl:'altijd', en:'always', level:'A2' },
-  { nl:'nooit', en:'never', level:'A2' },
-  { nl:'vaak', en:'often', level:'A2' },
-  { nl:'soms', en:'sometimes', level:'A2' },
-  { nl:'misschien', en:'maybe', level:'A2' },
-  { nl:'natuurlijk', en:'of course', level:'A2' },
-  { nl:'eigenlijk', en:'actually', level:'A2' },
+  // ── A2: news-relevant basics a learner might not yet know ──
+  { nl:'gebeuren', en:'to happen', level:'A2', verb:true },
+  { nl:'vertellen', en:'to tell', level:'A2', verb:true },
+  { nl:'betalen', en:'to pay', level:'A2', verb:true },
+  { nl:'beginnen', en:'to begin', level:'A2', verb:true },
+  { nl:'stoppen', en:'to stop', level:'A2', verb:true },
+  { nl:'helpen', en:'to help', level:'A2', verb:true },
+  { nl:'veranderen', en:'to change', level:'A2', verb:true },
+  { nl:'proberen', en:'to try', level:'A2', verb:true },
+  { nl:'wachten', en:'to wait', level:'A2', verb:true },
+  { nl:'kiezen', en:'to choose', level:'A2', verb:true },
+  { nl:'brand', en:'fire', level:'A2' },
+  { nl:'politie', en:'police', level:'A2' },
+  { nl:'gevaar', en:'danger', level:'A2' },
+  { nl:'ongeluk', en:'accident', level:'A2' },
+  { nl:'slachtoffer', en:'victim', level:'A2' },
+  { nl:'gewond', en:'injured', level:'A2' },
+  { nl:'ziekenhuis', en:'hospital', level:'A2' },
+  { nl:'bericht', en:'report / message', level:'A2' },
   { nl:'ongeveer', en:'approximately', level:'A2' },
-  { nl:'belangrijk', en:'important', level:'A2' },
-  { nl:'mogelijk', en:'possible', level:'A2' },
-  { nl:'nodig', en:'necessary / needed', level:'A2' },
-  { nl:'nieuw', en:'new', level:'A2' },
-  { nl:'groot', en:'big / large', level:'A2' },
-  { nl:'klein', en:'small', level:'A2' },
-  { nl:'goed', en:'good', level:'A2' },
-  { nl:'mensen', en:'people', level:'A2' },
-  { nl:'probleem', en:'problem', level:'A2' },
-  { nl:'vraag', en:'question', level:'A2' },
-  { nl:'antwoord', en:'answer', level:'A2' },
-  { nl:'voorbeeld', en:'example', level:'A2' },
-  { nl:'geld', en:'money', level:'A2' },
-  { nl:'werk', en:'work', level:'A2' },
-  { nl:'school', en:'school', level:'A2' },
-  // B1 — intermediate
+  { nl:'inmiddels', en:'by now / meanwhile', level:'A2' },
+  { nl:'eigenlijk', en:'actually', level:'A2' },
+  { nl:'volgens', en:'according to', level:'A2' },
+  { nl:'waarschijnlijk', en:'probably', level:'A2' },
+  { nl:'misschien', en:'maybe / perhaps', level:'A2' },
+  { nl:'vooral', en:'especially / mainly', level:'A2' },
+  { nl:'steeds meer', en:'more and more', level:'A2' },
+  { nl:'op dit moment', en:'at this moment', level:'A2' },
+  { nl:'in de buurt', en:'in the area / nearby', level:'A2' },
+  { nl:'te maken hebben met', en:'to be related to / to deal with', level:'A2' },
+  { nl:'aan de slag', en:'to get to work', level:'A2' },
+
+  // ── B1: intermediate news vocabulary ──
   { nl:'beslissen', en:'to decide', level:'B1', verb:true },
   { nl:'bespreken', en:'to discuss', level:'B1', verb:true },
-  { nl:'beschrijven', en:'to describe', level:'B1', verb:true },
   { nl:'ontwikkelen', en:'to develop', level:'B1', verb:true },
   { nl:'verbeteren', en:'to improve', level:'B1', verb:true },
-  { nl:'vergelijken', en:'to compare', level:'B1', verb:true },
   { nl:'voorkomen', en:'to prevent / to occur', level:'B1', verb:true },
   { nl:'verwachten', en:'to expect', level:'B1', verb:true },
   { nl:'ondersteunen', en:'to support', level:'B1', verb:true },
@@ -4908,13 +4891,15 @@ const CEFR_VOCAB = [
   { nl:'verdienen', en:'to earn / to deserve', level:'B1', verb:true },
   { nl:'beïnvloeden', en:'to influence', level:'B1', verb:true },
   { nl:'waarschuwen', en:'to warn', level:'B1', verb:true },
-  { nl:'overleggen', en:'to consult', level:'B1', verb:true },
-  { nl:'ervaren', en:'to experience', level:'B1', verb:true },
+  { nl:'beschermen', en:'to protect', level:'B1', verb:true },
+  { nl:'aankondigen', en:'to announce', level:'B1', verb:true },
+  { nl:'protesteren', en:'to protest', level:'B1', verb:true },
+  { nl:'eisen', en:'to demand', level:'B1', verb:true },
+  { nl:'leiden', en:'to lead', level:'B1', verb:true },
   { nl:'samenleving', en:'society', level:'B1' },
   { nl:'regering', en:'government', level:'B1' },
   { nl:'overheid', en:'government / authorities', level:'B1' },
   { nl:'gemeente', en:'municipality', level:'B1' },
-  { nl:'politie', en:'police', level:'B1' },
   { nl:'onderzoek', en:'research / investigation', level:'B1' },
   { nl:'gevolg', en:'consequence', level:'B1' },
   { nl:'oorzaak', en:'cause', level:'B1' },
@@ -4922,27 +4907,43 @@ const CEFR_VOCAB = [
   { nl:'veiligheid', en:'safety / security', level:'B1' },
   { nl:'gezondheid', en:'health', level:'B1' },
   { nl:'omgeving', en:'environment / surroundings', level:'B1' },
-  { nl:'ervaring', en:'experience', level:'B1' },
   { nl:'ontwikkeling', en:'development', level:'B1' },
   { nl:'verandering', en:'change', level:'B1' },
-  { nl:'gedrag', en:'behavior', level:'B1' },
   { nl:'vervoer', en:'transport', level:'B1' },
   { nl:'onderwijs', en:'education', level:'B1' },
-  { nl:'inwoner', en:'resident / inhabitant', level:'B1' },
   { nl:'inwoners', en:'residents / inhabitants', level:'B1' },
-  { nl:'waarschijnlijk', en:'probably', level:'B1' },
+  { nl:'verkiezingen', en:'elections', level:'B1' },
+  { nl:'rechtbank', en:'court', level:'B1' },
+  { nl:'verdachte', en:'suspect', level:'B1' },
+  { nl:'straf', en:'punishment / sentence', level:'B1' },
+  { nl:'demonstratie', en:'demonstration / protest', level:'B1' },
+  { nl:'woningnood', en:'housing shortage', level:'B1' },
+  { nl:'werkgelegenheid', en:'employment', level:'B1' },
   { nl:'bovendien', en:'moreover', level:'B1' },
   { nl:'hoewel', en:'although', level:'B1' },
-  { nl:'inmiddels', en:'meanwhile / by now', level:'B1' },
   { nl:'daardoor', en:'because of that', level:'B1' },
   { nl:'daarnaast', en:'in addition', level:'B1' },
-  { nl:'volgens', en:'according to', level:'B1' },
   { nl:'namelijk', en:'namely / that is', level:'B1' },
-  { nl:'hierdoor', en:'because of this', level:'B1' },
   { nl:'toch', en:'yet / still / anyway', level:'B1' },
-  { nl:'tenminste', en:'at least', level:'B1' },
   { nl:'uiteindelijk', en:'eventually / ultimately', level:'B1' },
-  // B2 — upper-intermediate
+  // B1 phrases
+  { nl:'het gaat om', en:'it concerns / it is about', level:'B1' },
+  { nl:'in vergelijking met', en:'compared to', level:'B1' },
+  { nl:'een rol spelen', en:'to play a role', level:'B1' },
+  { nl:'van plan zijn', en:'to plan / to intend', level:'B1' },
+  { nl:'het eens zijn', en:'to agree', level:'B1' },
+  { nl:'aan de andere kant', en:'on the other hand', level:'B1' },
+  { nl:'er is sprake van', en:'there is a matter of / there is', level:'B1' },
+  { nl:'aan het licht komen', en:'to come to light', level:'B1' },
+  { nl:'op de hoogte', en:'informed / up to date', level:'B1' },
+  { nl:'in ieder geval', en:'in any case', level:'B1' },
+  { nl:'rekening houden met', en:'to take into account', level:'B1' },
+  { nl:'zorgen maken over', en:'to worry about', level:'B1' },
+  { nl:'te maken hebben met', en:'to have to do with', level:'B1' },
+  { nl:'in de toekomst', en:'in the future', level:'B1' },
+  { nl:'naar verwachting', en:'it is expected that', level:'B1' },
+
+  // ── B2: upper-intermediate ──
   { nl:'aanpakken', en:'to tackle / to address', level:'B2', verb:true },
   { nl:'vaststellen', en:'to determine / to establish', level:'B2', verb:true },
   { nl:'uitvoeren', en:'to carry out / to execute', level:'B2', verb:true },
@@ -4958,6 +4959,11 @@ const CEFR_VOCAB = [
   { nl:'toenemen', en:'to increase', level:'B2', verb:true },
   { nl:'bijdragen', en:'to contribute', level:'B2', verb:true },
   { nl:'streven', en:'to strive', level:'B2', verb:true },
+  { nl:'verplichten', en:'to oblige', level:'B2', verb:true },
+  { nl:'onthullen', en:'to reveal / to disclose', level:'B2', verb:true },
+  { nl:'terechtkomen', en:'to end up', level:'B2', verb:true },
+  { nl:'afwijzen', en:'to reject', level:'B2', verb:true },
+  { nl:'instellen', en:'to establish / to set up', level:'B2', verb:true },
   { nl:'draagvlak', en:'public support / backing', level:'B2' },
   { nl:'beleid', en:'policy', level:'B2' },
   { nl:'wetgeving', en:'legislation', level:'B2' },
@@ -4967,33 +4973,58 @@ const CEFR_VOCAB = [
   { nl:'arbeidsmarkt', en:'labor market', level:'B2' },
   { nl:'woningmarkt', en:'housing market', level:'B2' },
   { nl:'uitstoot', en:'emissions', level:'B2' },
-  { nl:'verduurzaming', en:'making sustainable', level:'B2' },
   { nl:'stikstof', en:'nitrogen', level:'B2' },
   { nl:'klimaatverandering', en:'climate change', level:'B2' },
   { nl:'energietransitie', en:'energy transition', level:'B2' },
-  { nl:'zorgverlener', en:'healthcare provider', level:'B2' },
   { nl:'huisvesting', en:'housing', level:'B2' },
+  { nl:'bezuiniging', en:'budget cut / austerity', level:'B2' },
+  { nl:'subsidie', en:'subsidy / grant', level:'B2' },
+  { nl:'fractievoorzitter', en:'parliamentary party leader', level:'B2' },
+  { nl:'aangifte', en:'police report / tax return', level:'B2' },
+  { nl:'handelsoorlog', en:'trade war', level:'B2' },
+  { nl:'vluchtelingen', en:'refugees', level:'B2' },
+  { nl:'asielzoekers', en:'asylum seekers', level:'B2' },
   { nl:'desalniettemin', en:'nevertheless', level:'B2' },
-  { nl:'voorts', en:'furthermore', level:'B2' },
-  { nl:'derhalve', en:'therefore (formal)', level:'B2' },
   { nl:'weliswaar', en:'admittedly', level:'B2' },
   { nl:'daarentegen', en:'on the other hand', level:'B2' },
   { nl:'vooralsnog', en:'for the time being', level:'B2' },
+  // B2 phrases
   { nl:'met name', en:'in particular / especially', level:'B2' },
   { nl:'ten opzichte van', en:'in relation to / compared to', level:'B2' },
   { nl:'in het kader van', en:'in the context of', level:'B2' },
   { nl:'met betrekking tot', en:'with regard to', level:'B2' },
-  // C1 — advanced
+  { nl:'in strijd met', en:'in conflict with / contrary to', level:'B2' },
+  { nl:'onder druk staan', en:'to be under pressure', level:'B2' },
+  { nl:'aan de orde', en:'on the agenda / at issue', level:'B2' },
+  { nl:'in de praktijk', en:'in practice', level:'B2' },
+  { nl:'een beroep doen op', en:'to appeal to / to call upon', level:'B2' },
+  { nl:'ter sprake komen', en:'to be brought up / to be discussed', level:'B2' },
+  { nl:'van kracht worden', en:'to come into effect', level:'B2' },
+  { nl:'op de lange termijn', en:'in the long term', level:'B2' },
+  { nl:'in overleg met', en:'in consultation with', level:'B2' },
+  { nl:'ten koste van', en:'at the expense of', level:'B2' },
+  { nl:'het is de bedoeling dat', en:'the intention is that', level:'B2' },
+  { nl:'naar aanleiding van', en:'following / in response to', level:'B2' },
+  { nl:'voor zover bekend', en:'as far as is known', level:'B2' },
+  { nl:'zich afvragen', en:'to wonder / to question', level:'B2' },
+  { nl:'in eerste instantie', en:'initially / in the first instance', level:'B2' },
+  { nl:'in het geding', en:'at stake', level:'B2' },
+
+  // ── C1: advanced / formal ──
   { nl:'bewerkstelligen', en:'to bring about / to accomplish', level:'C1', verb:true },
   { nl:'teweegbrengen', en:'to cause / to bring about', level:'C1', verb:true },
   { nl:'ontkrachten', en:'to refute / to disprove', level:'C1', verb:true },
   { nl:'verwezenlijken', en:'to realize / to accomplish', level:'C1', verb:true },
   { nl:'inperken', en:'to curtail / to restrict', level:'C1', verb:true },
-  { nl:'bewogen', en:'to move (emotionally)', level:'C1', verb:true },
   { nl:'ondermijnen', en:'to undermine', level:'C1', verb:true },
   { nl:'nuanceren', en:'to nuance / to qualify', level:'C1', verb:true },
   { nl:'afdwingen', en:'to enforce / to compel', level:'C1', verb:true },
   { nl:'verankeren', en:'to anchor / to enshrine', level:'C1', verb:true },
+  { nl:'ontmantelen', en:'to dismantle', level:'C1', verb:true },
+  { nl:'uitvloeien', en:'to result from / to flow from', level:'C1', verb:true },
+  { nl:'behelzen', en:'to entail / to comprise', level:'C1', verb:true },
+  { nl:'schipperen', en:'to compromise / to maneuver', level:'C1', verb:true },
+  { nl:'tornen', en:'to tamper with / to undermine', level:'C1', verb:true },
   { nl:'ongelijkheid', en:'inequality', level:'C1' },
   { nl:'rechtvaardigheid', en:'justice / fairness', level:'C1' },
   { nl:'democratisering', en:'democratization', level:'C1' },
@@ -5003,12 +5034,36 @@ const CEFR_VOCAB = [
   { nl:'maatschappelijk', en:'societal', level:'C1' },
   { nl:'grondwettelijk', en:'constitutional', level:'C1' },
   { nl:'disproportioneel', en:'disproportionate', level:'C1' },
-  { nl:'nichtszeggenheid', en:'meaninglessness / vacuity', level:'C1' },
+  { nl:'precedentwerking', en:'precedent effect', level:'C1' },
+  { nl:'begrotingstekort', en:'budget deficit', level:'C1' },
+  { nl:'koopkracht', en:'purchasing power', level:'C1' },
+  { nl:'nivellering', en:'leveling / equalization', level:'C1' },
+  { nl:'tweedeling', en:'divide / polarization', level:'C1' },
+  { nl:'grondrecht', en:'fundamental right', level:'C1' },
+  { nl:'rechtsstaat', en:'constitutional state / rule of law', level:'C1' },
+  { nl:'stelselwijziging', en:'system reform', level:'C1' },
   { nl:'niettemin', en:'nonetheless', level:'C1' },
   { nl:'dienovereenkomstig', en:'accordingly', level:'C1' },
   { nl:'naargelang', en:'depending on', level:'C1' },
+  // C1 phrases
   { nl:'te dien einde', en:'to that end', level:'C1' },
   { nl:'al dan niet', en:'whether or not', level:'C1' },
+  { nl:'in het verlengde van', en:'as an extension of', level:'C1' },
+  { nl:'met het oog op', en:'with a view to', level:'C1' },
+  { nl:'in weerwil van', en:'in spite of / despite', level:'C1' },
+  { nl:'uit den boze', en:'absolutely unacceptable', level:'C1' },
+  { nl:'aan de kaak stellen', en:'to denounce / to expose', level:'C1' },
+  { nl:'de hand boven het hoofd houden', en:'to shield / to protect', level:'C1' },
+  { nl:'zich onttrekken aan', en:'to evade / to withdraw from', level:'C1' },
+  { nl:'te berde brengen', en:'to bring up / to raise (a topic)', level:'C1' },
+  { nl:'in het nauw drijven', en:'to corner / to put under pressure', level:'C1' },
+  { nl:'op de schop nemen', en:'to overhaul / to radically change', level:'C1' },
+  { nl:'met terugwerkende kracht', en:'retroactively', level:'C1' },
+  { nl:'op gespannen voet staan met', en:'to be at odds with', level:'C1' },
+  { nl:'in de kinderschoenen staan', en:'to be in its infancy', level:'C1' },
+  { nl:'de wacht aanzeggen', en:'to dismiss / to give notice', level:'C1' },
+  { nl:'aan banden leggen', en:'to curb / to impose restrictions', level:'C1' },
+  { nl:'onder de loep nemen', en:'to scrutinize / to examine closely', level:'C1' },
 ];
 
 // Build lookup map: lowercase word -> vocab entry
@@ -5032,30 +5087,40 @@ const CEFR_LEVEL_COLORS = {
   'C1': '#8B4513'
 };
 
+// Max highlights per card scales with level: lower levels = fewer, higher = more
+const CEFR_HIGHLIGHT_LIMITS = { 'A2': 6, 'B1': 12, 'B2': 20, 'C1': 30 };
+
 function highlightCEFRVocab(htmlStr) {
-  // First pass: replace multi-word phrases
+  const maxHighlights = CEFR_HIGHLIGHT_LIMITS[selectedCEFR] || 15;
+  let highlightCount = 0;
+
+  function makeSpan(match, v) {
+    if (highlightCount >= maxHighlights) return match;
+    highlightCount++;
+    const color = CEFR_LEVEL_COLORS[v.level] || '#333';
+    return '<span class="nos-vocab" style="color:' + color + ';border-bottom-color:' + color + '" data-en="' + escapeHTML(v.en) + '" data-level="' + v.level + '">' + match + '<span class="nos-vocab-tip">' + escapeHTML(v.en) + ' <em>(' + v.level + ')</em></span></span>';
+  }
+
+  // First pass: replace multi-word phrases (these are higher value, prioritize them)
   let result = htmlStr;
   _cefrPhrases.forEach(v => {
+    if (highlightCount >= maxHighlights) return;
     if (!isWithinCEFR(v.level)) return;
     const escaped = v.nl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const re = new RegExp('(?<![\\w<])(' + escaped + ')(?![\\w>])', 'gi');
-    result = result.replace(re, (match) => {
-      const color = CEFR_LEVEL_COLORS[v.level] || '#333';
-      return '<span class="nos-vocab" style="color:' + color + ';border-bottom-color:' + color + '" data-en="' + escapeHTML(v.en) + '" data-level="' + v.level + '">' + match + '<span class="nos-vocab-tip">' + escapeHTML(v.en) + ' <em>(' + v.level + ')</em></span></span>';
-    });
+    result = result.replace(re, (match) => makeSpan(match, v));
   });
 
   // Second pass: single words (skip anything already inside a tag)
-  // Split on HTML tags to avoid matching inside tags
   const parts = result.split(/(<[^>]*>)/);
   for (let i = 0; i < parts.length; i++) {
+    if (highlightCount >= maxHighlights) break;
     if (parts[i].startsWith('<')) continue; // skip tags
     parts[i] = parts[i].replace(/\b([a-zA-ZàáâãäåèéêëìíîïòóôõöùúûüýÿñçÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝŸÑÇ]+)\b/g, (match) => {
       const lower = match.toLowerCase();
       const v = _cefrVocabMap.get(lower);
       if (!v || !isWithinCEFR(v.level)) return match;
-      const color = CEFR_LEVEL_COLORS[v.level] || '#333';
-      return '<span class="nos-vocab" style="color:' + color + ';border-bottom-color:' + color + '" data-en="' + escapeHTML(v.en) + '" data-level="' + v.level + '">' + match + '<span class="nos-vocab-tip">' + escapeHTML(v.en) + ' <em>(' + v.level + ')</em></span></span>';
+      return makeSpan(match, v);
     });
   }
   return parts.join('');
