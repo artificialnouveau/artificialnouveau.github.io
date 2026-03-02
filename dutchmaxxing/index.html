@@ -2824,8 +2824,8 @@ body::before, body::after { display: none; }
   <div class="subtab-bar">
     <button class="subtab-btn active" data-subtab="uitspraak" data-maintab="spreken">Uitspraak</button>
     <button class="subtab-btn" data-subtab="hardop" data-maintab="spreken">Hardop Lezen</button>
-    <button class="subtab-btn" data-subtab="gesprekken" data-maintab="spreken">Gesprekken</button>
-    <button class="subtab-btn" data-subtab="zinnen-s" data-maintab="spreken">Zinnen Bouwen</button>
+    <button class="subtab-btn" data-subtab="watzegje" data-maintab="spreken">Wat zou je zeggen?</button>
+    <button class="subtab-btn" data-subtab="gebeurd" data-maintab="spreken">Wat is er gebeurd?</button>
   </div>
 
   <div class="subtab-content active" id="sub-uitspraak">
@@ -2848,23 +2848,23 @@ body::before, body::after { display: none; }
     </div>
   </div>
 
-  <div class="subtab-content" id="sub-gesprekken">
+  <div class="subtab-content" id="sub-watzegje">
     <div class="exercise-container">
       <div class="exercise-header">
-        <h2>Gesprekken</h2>
-        <p>Oefen alledaagse gesprekken. Speel je rol en onthul het modelantwoord.</p>
+        <h2>Wat zou je zeggen?</h2>
+        <p>Bedenk wat je zou zeggen in deze situatie. Klik om het modelantwoord te zien.</p>
       </div>
-      <div id="gesprekkenContent"></div>
+      <div id="watzegjeContent"></div>
     </div>
   </div>
 
-  <div class="subtab-content" id="sub-zinnen-s">
+  <div class="subtab-content" id="sub-gebeurd">
     <div class="exercise-container">
       <div class="exercise-header">
-        <h2>Zinnen Bouwen</h2>
-        <p>Vertaal de Engelse zin naar het Nederlands. Zeg het hardop en onthul het antwoord.</p>
+        <h2>Wat is er gebeurd?</h2>
+        <p>Oefen het vertellen over het verleden. Zeg hardop wat er is gebeurd en onthul het modelantwoord.</p>
       </div>
-      <div id="zinnenSContent"></div>
+      <div id="gebeurdContent"></div>
     </div>
   </div>
 </div>
@@ -2872,51 +2872,38 @@ body::before, body::after { display: none; }
 <!-- MAIN TAB: SCHRIJVEN -->
 <div class="tab-content" id="tab-schrijven">
   <div class="subtab-bar">
-    <button class="subtab-btn active" data-subtab="dictee-s" data-maintab="schrijven">Dictee</button>
-    <button class="subtab-btn" data-subtab="emails" data-maintab="schrijven">E-mails</button>
-    <button class="subtab-btn" data-subtab="zinnen-w" data-maintab="schrijven">Zinnen</button>
+    <button class="subtab-btn active" data-subtab="whatsapp" data-maintab="schrijven">WhatsApp</button>
+    <button class="subtab-btn" data-subtab="formulieren" data-maintab="schrijven">Formulieren &amp; Brieven</button>
+    <button class="subtab-btn" data-subtab="reviews" data-maintab="schrijven">Reviews</button>
   </div>
 
-  <div class="subtab-content active" id="sub-dictee-s">
+  <div class="subtab-content active" id="sub-whatsapp">
     <div class="exercise-container">
       <div class="exercise-header">
-        <h2>Schrijfdictee</h2>
-        <p>De zin verschijnt kort. Onthoud en typ hem op. Let op spelling!</p>
+        <h2>WhatsApp Berichten</h2>
+        <p>Schrijf een realistisch berichtje. Bekijk daarna het modelantwoord.</p>
       </div>
-      <div class="dictee-card" id="dicteeSCard">
-        <div class="dictee-sentence" id="dicteeSSentence"></div>
-        <div class="dictee-controls">
-          <button class="mondrian-btn" id="dicteeSShowBtn" onclick="showDicteeSentenceS()">Toon zin (3s)</button>
-        </div>
-        <div class="dictee-input-area" id="dicteeSInputArea" style="display:none">
-          <input type="text" class="dictee-input" id="dicteeSInput" placeholder="Typ de zin..." autocomplete="off" autocapitalize="none" />
-          <button class="mondrian-btn blue" onclick="checkDicteeS()">Check</button>
-        </div>
-        <div class="dictee-feedback" id="dicteeSFeedback"></div>
-        <div class="exercise-score">Score: <strong id="dicteeSCorrect">0</strong> / <strong id="dicteeSTotal">0</strong>
-          <button class="mondrian-btn small" onclick="nextDicteeS()">Volgende</button>
-        </div>
-      </div>
+      <div id="whatsappContent"></div>
     </div>
   </div>
 
-  <div class="subtab-content" id="sub-emails">
+  <div class="subtab-content" id="sub-formulieren">
     <div class="exercise-container">
       <div class="exercise-header">
-        <h2>E-mails Schrijven</h2>
-        <p>Schrijf een e-mail op basis van de situatie. Bekijk daarna het modelantwoord.</p>
+        <h2>Formulieren &amp; Brieven</h2>
+        <p>Vul het formulier in of schrijf een formele brief. Leer bureaucratisch Nederlands.</p>
       </div>
-      <div id="emailsContent"></div>
+      <div id="formulierenContent"></div>
     </div>
   </div>
 
-  <div class="subtab-content" id="sub-zinnen-w">
+  <div class="subtab-content" id="sub-reviews">
     <div class="exercise-container">
       <div class="exercise-header">
-        <h2>Zinnen Transformeren</h2>
-        <p>Herschrijf de zin volgens de instructie.</p>
+        <h2>Reviews Schrijven</h2>
+        <p>Schrijf een review over een restaurant, product of ervaring.</p>
       </div>
-      <div id="zinnenWContent"></div>
+      <div id="reviewsContent"></div>
     </div>
   </div>
 </div>
@@ -4773,93 +4760,126 @@ const READING_PASSAGES = [
   { level:'C1', text:'De toenemende di<tricky>g</tricky>italiserin<tricky>g</tricky> van de <tricky>g</tricky>ezondheidszor<tricky>g</tricky> bren<tricky>g</tricky>t zowel kansen als <tricky>ui</tricky>tda<tricky>g</tricky>in<tricky>g</tricky>en met zi<tricky>ch</tricky> mee. Hoewel elektoni<tricky>sch</tricky>e patiëntendossiers de efficiëntie verho<tricky>g</tricky>en, ri<tricky>j</tricky>zen er vra<tricky>g</tricky>en over privacy en data-beveili<tricky>g</tricky>in<tricky>g</tricky>.' }
 ];
 
-const CONVERSATION_SCENARIOS = [
-  { level:'A2', setting:'Bij de bakker', situation:'Je wilt brood en gebak kopen.', lines:[
-    {speaker:'Bakker', text:'Goedemorgen! Wat mag het zijn?', role:'other'},
-    {speaker:'Jij', text:'Goedemorgen. Mag ik een bruin brood en twee krentenbollen?', role:'user'},
-    {speaker:'Bakker', text:'Natuurlijk. Nog iets anders?', role:'other'},
-    {speaker:'Jij', text:'Ja, heeft u ook appeltaart?', role:'user'},
-    {speaker:'Bakker', text:'Ja, per punt of heel?', role:'other'},
-    {speaker:'Jij', text:'Eén punt alstublieft. Hoeveel is het in totaal?', role:'user'}
+// ==========================================
+// DATA: SPREKEN — Wat zou je zeggen?
+// ==========================================
+
+const WAT_ZEG_JE_SITUATIONS = [
+  { level:'A2', emoji:'🧀', situation:'Bij de kaasboer springt iemand de rij voor.', context:'Je staat al 10 minuten te wachten. Een man loopt gewoon naar voren.', responses:[
+    {text:'Sorry, maar ik stond hier eerst.', register:'neutraal', note:'Directe maar beleefde reactie'},
+    {text:'Pardon, de rij begint daar achterin.', register:'beleefd', note:'Wijst de persoon op de rij'},
+    {text:'Hé, achter aansluiten!', register:'direct', note:'Typisch Nederlandse directheid'}
   ]},
-  { level:'B1', setting:'Bij de dokter', situation:'Je hebt al een paar dagen buikpijn.', lines:[
-    {speaker:'Arts', text:'Goedemiddag, waarmee kan ik u helpen?', role:'other'},
-    {speaker:'Jij', text:'Ik heb al drie dagen buikpijn, vooral na het eten.', role:'user'},
-    {speaker:'Arts', text:'Waar precies voelt u de pijn?', role:'other'},
-    {speaker:'Jij', text:'Hier, aan de rechterkant, onder mijn ribben.', role:'user'},
-    {speaker:'Arts', text:'Heeft u ook last van misselijkheid?', role:'other'},
-    {speaker:'Jij', text:'Ja, soms wel, vooral \'s ochtends.', role:'user'}
+  { level:'A2', emoji:'🚲', situation:'Je fiets heeft een lekke band en je staat bij de fietsenmaker.', context:'Je hebt je fiets nodig voor morgen.', responses:[
+    {text:'Kunt u mijn band vandaag nog repareren? Ik heb hem morgen nodig.', register:'beleefd', note:'Duidelijk verzoek met urgentie'},
+    {text:'Hoeveel kost het om een band te plakken?', register:'neutraal', note:'Eerst naar de prijs vragen'},
+    {text:'Heeft u ook tweedehands banden? Dat is goedkoper.', register:'praktisch', note:'Nederlanders zijn zuinig!'}
   ]},
-  { level:'B1', setting:'Op de gemeente', situation:'Je wilt je verhuizing doorgeven.', lines:[
-    {speaker:'Ambtenaar', text:'Goedemorgen, wat kan ik voor u doen?', role:'other'},
-    {speaker:'Jij', text:'Ik wil graag mijn verhuizing doorgeven. Ik ben vorige week verhuisd.', role:'user'},
-    {speaker:'Ambtenaar', text:'Heeft u een afspraak gemaakt?', role:'other'},
-    {speaker:'Jij', text:'Ja, ik heb een afspraak om half elf.', role:'user'},
-    {speaker:'Ambtenaar', text:'Mag ik uw identiteitsbewijs en het nieuwe adres?', role:'other'},
-    {speaker:'Jij', text:'Hier is mijn paspoort. Mijn nieuwe adres is Keizersgracht 42.', role:'user'}
+  { level:'B1', emoji:'📱', situation:'Je vriend heeft je Tikkie van €23,50 al twee weken niet betaald.', context:'Het was voor een gezamenlijk etentje. Je wilt het niet ongemakkelijk maken.', responses:[
+    {text:'Hé, ik stuurde een paar weken geleden een Tikkie. Heb je die gezien?', register:'casual', note:'Doet alsof het misschien gemist is'},
+    {text:'Hoi! Kleine herinnering aan de Tikkie van het etentje. Geen haast hoor!', register:'vriendelijk', note:'Luchtig maar duidelijk'},
+    {text:'Ik zag dat de Tikkie nog openstaat. Kun je die even betalen?', register:'direct', note:'Recht op het doel af'}
   ]},
-  { level:'B2', setting:'Sollicitatiegesprek', situation:'Je solliciteert op een marketingfunctie.', lines:[
-    {speaker:'Interviewer', text:'Kunt u uzelf even voorstellen?', role:'other'},
-    {speaker:'Jij', text:'Natuurlijk. Ik heb vijf jaar ervaring in online marketing, met name in social media en contentcreatie.', role:'user'},
-    {speaker:'Interviewer', text:'Waarom wilt u bij ons werken?', role:'other'},
-    {speaker:'Jij', text:'Uw bedrijf staat bekend om innovatieve campagnes. Ik zou graag mijn vaardigheden inzetten om daaraan bij te dragen.', role:'user'},
-    {speaker:'Interviewer', text:'Waar ziet u zichzelf over vijf jaar?', role:'other'},
-    {speaker:'Jij', text:'Ik hoop door te groeien naar een leidinggevende rol binnen het marketingteam.', role:'user'}
+  { level:'B1', emoji:'📦', situation:'De bezorger heeft je pakket bij de buren afgeleverd, maar je buren zijn op vakantie.', context:'Je hebt het pakket dringend nodig. Je belt de klantenservice.', responses:[
+    {text:'Mijn pakket is bij de buren afgeleverd, maar zij zijn er niet. Kunt u het opnieuw laten bezorgen?', register:'beleefd', note:'Probleem + oplossing vragen'},
+    {text:'Ik heb een klacht. Het pakket is op het verkeerde adres bezorgd.', register:'formeel', note:'Officiële klachtentaal'},
+    {text:'Het pakket ligt bij nummer 42, maar daar is niemand. Wat nu?', register:'direct', note:'Kort en krachtig'}
   ]},
-  { level:'B2', setting:'Met de buren', situation:'Je buren maken veel lawaai \'s avonds.', lines:[
-    {speaker:'Jij', text:'Hallo, sorry dat ik stoor. Ik wilde even iets bespreken.', role:'user'},
-    {speaker:'Buurman', text:'Oh, hallo. Natuurlijk, wat is er?', role:'other'},
-    {speaker:'Jij', text:'De laatste weken is er \'s avonds laat nogal wat geluid. Ik begrijp dat het niet expres is, maar ik word er wakker van.', role:'user'},
-    {speaker:'Buurman', text:'Oh, dat spijt me! We zijn aan het verbouwen.', role:'other'},
-    {speaker:'Jij', text:'Zou het mogelijk zijn om na tien uur \'s avonds het lawaai te beperken?', role:'user'},
-    {speaker:'Buurman', text:'Natuurlijk, dat is heel redelijk. Sorry voor het ongemak.', role:'other'}
+  { level:'B1', emoji:'🏠', situation:'Je verhuurder wil de huur met €150 per maand verhogen.', context:'Je woont er twee jaar. De verhoging lijkt je te hoog.', responses:[
+    {text:'Ik heb uw brief ontvangen over de huurverhoging. Kunt u uitleggen waarom het zo veel is?', register:'formeel', note:'Vraagt om uitleg'},
+    {text:'Een verhoging van €150 is boven het wettelijk maximum. Ik ga bezwaar maken bij de Huurcommissie.', register:'assertief', note:'Kent zijn rechten'},
+    {text:'Kunnen we erover praten? Misschien is een lagere verhoging mogelijk?', register:'onderhandelend', note:'Poldermodel-aanpak'}
   ]},
-  { level:'C1', setting:'Borrel op kantoor', situation:'Je praat met collega\'s over een reorganisatie.', lines:[
-    {speaker:'Collega', text:'Heb je gehoord van de reorganisatie? Blijkbaar gaan er twee afdelingen samen.', role:'other'},
-    {speaker:'Jij', text:'Ja, ik heb begrepen dat marketing en communicatie worden samengevoegd. Ik vraag me af wat dat voor onze functies betekent.', role:'user'},
-    {speaker:'Collega', text:'De directie zegt dat er geen ontslagen vallen, maar ik ben sceptisch.', role:'other'},
-    {speaker:'Jij', text:'Ik denk dat we moeten afwachten wat het reorganisatieplan precies inhoudt. Maar het is wel onzeker.', role:'user'}
+  { level:'B2', emoji:'🍽️', situation:'In een restaurant krijg je het verkeerde gerecht. Je hebt een allergie.', context:'Je bent allergisch voor noten en het gerecht bevat pinda\'s.', responses:[
+    {text:'Excuseer, dit is niet wat ik heb besteld. Ik heb een notenallergie en dit bevat pinda\'s.', register:'dringend', note:'Veiligheid gaat voor beleefdheid'},
+    {text:'Sorry, ik had de pasta zonder noten besteld. Kunt u dit omruilen?', register:'beleefd', note:'Duidelijk maar niet beschuldigend'},
+    {text:'Dit klopt niet. Ik heb duidelijk gezegd dat ik allergisch ben voor noten. Dit is gevaarlijk.', register:'streng', note:'Benadrukt de ernst'}
+  ]},
+  { level:'B2', emoji:'🏥', situation:'De huisarts wil je niet doorverwijzen naar een specialist, maar je denkt dat het nodig is.', context:'Je hebt al maanden last van je knie. Paracetamol helpt niet meer.', responses:[
+    {text:'Ik begrijp uw advies, maar de klachten zijn al drie maanden bezig. Ik wil graag een verwijzing naar een orthopeed.', register:'beleefd maar stevig', note:'Erkent de arts maar houdt vol'},
+    {text:'Kunt u in mijn dossier noteren dat ik om een verwijzing heb gevraagd en dat u die heeft geweigerd?', register:'strategisch', note:'Artsen noteren dit liever niet — werkt vaak'},
+    {text:'Ik wil graag een second opinion. Kunt u mij doorverwijzen?', register:'formeel', note:'Je hebt recht op een second opinion'}
+  ]},
+  { level:'C1', emoji:'💼', situation:'Je collega presenteert jouw idee als het zijne in een vergadering.', context:'Je had het idee vorige week met hem gedeeld bij de koffieautomaat.', responses:[
+    {text:'Leuk dat je dit idee uitwerkt! Ik had het vorige week al voorgesteld — zullen we het samen presenteren?', register:'diplomatiek', note:'Claimen zonder confrontatie'},
+    {text:'Dat herken ik! Ik had dit vorige week ook al bedacht. Goed dat je het oppikt.', register:'subtiel', note:'Maakt duidelijk dat het jouw idee was'},
+    {text:'Even voor de context: dit voorstel heb ik vorige week al met [naam] besproken. Maar fijn dat het nu op tafel ligt.', register:'zakelijk', note:'Feitelijk, niet emotioneel'}
+  ]},
+  { level:'C1', emoji:'🏘️', situation:'Je VvE vergadering: de buren willen het trappenhuis laten schilderen voor €8.000 maar jij vindt het onnodig.', context:'Het trappenhuis is pas 3 jaar geleden geschilderd.', responses:[
+    {text:'Ik begrijp de wens, maar het trappenhuis is drie jaar geleden pas geschilderd. Kunnen we de investering uitstellen tot het echt nodig is?', register:'zakelijk', note:'Onderbouwd bezwaar'},
+    {text:'Acht duizend euro is een flink bedrag. Zijn er offertes van meerdere schilders opgevraagd?', register:'kritisch', note:'Vraagt om onderbouwing'},
+    {text:'Ik stem tegen. Het is niet nodig en het geld kan beter naar het onderhoudsfonds gaan.', register:'direct', note:'Duidelijke positie'}
   ]}
 ];
 
-const SENTENCE_PAIRS = [
-  { level:'A2', en:'I go to the supermarket every Saturday.', nl:'Ik ga elke zaterdag naar de supermarkt.', grammar:'Woordvolgorde: subject-werkwoord' },
-  { level:'A2', en:'My sister lives in Rotterdam.', nl:'Mijn zus woont in Rotterdam.', grammar:'Enkelvoud werkwoord' },
-  { level:'A2', en:'Do you want a cup of tea?', nl:'Wil je een kopje thee?', grammar:'Vraagzin: inversie' },
-  { level:'A2', en:'I have two cats and a dog.', nl:'Ik heb twee katten en een hond.', grammar:'Meervoud' },
-  { level:'B1', en:'Yesterday I went to the cinema with my friends.', nl:'Gisteren ben ik met mijn vrienden naar de bioscoop gegaan.', grammar:'Inversie na tijdsbepaling + perfectum' },
-  { level:'B1', en:'I think that she is right.', nl:'Ik denk dat ze gelijk heeft.', grammar:'Bijzin met dat: werkwoord naar achteren' },
-  { level:'B1', en:'If it rains, I will stay home.', nl:'Als het regent, blijf ik thuis.', grammar:'Bijzin + inversie in hoofdzin' },
-  { level:'B1', en:'He told me that he is moving.', nl:'Hij heeft me verteld dat hij gaat verhuizen.', grammar:'Perfectum + bijzin' },
-  { level:'B2', en:'The book that I read yesterday was very interesting.', nl:'Het boek dat ik gisteren heb gelezen, was heel interessant.', grammar:'Betrekkelijke bijzin' },
-  { level:'B2', en:'Not only is he smart, but he is also hardworking.', nl:'Niet alleen is hij slim, maar hij is ook hardwerkend.', grammar:'Niet alleen...maar ook + inversie' },
-  { level:'B2', en:'There are expected to be more tourists this year.', nl:'Er worden dit jaar meer toeristen verwacht.', grammar:'Er + passief' },
-  { level:'C1', en:'The more I study, the better I understand the grammar.', nl:'Hoe meer ik studeer, hoe beter ik de grammatica begrijp.', grammar:'Hoe...hoe constructie' },
-  { level:'C1', en:'Had I known, I would have acted differently.', nl:'Had ik het geweten, dan had ik anders gehandeld.', grammar:'Conditionalis zonder als' },
-  { level:'C1', en:'It cannot be denied that the situation is serious.', nl:'Het valt niet te ontkennen dat de situatie ernstig is.', grammar:'Vallen + te + infinitief' }
+// ==========================================
+// DATA: SPREKEN — Wat is er gebeurd?
+// ==========================================
+
+const WAT_IS_ER_GEBEURD = [
+  { level:'A2', emoji:'🚲', title:'De gestolen fiets', present:'Je fiets staat niet meer waar je hem neerzette.', prompts:['Waar was je fiets?','Wat is er gebeurd?','Wat heb je daarna gedaan?'], model:'Ik had mijn fiets voor de supermarkt neergezet. Toen ik terugkwam, was hij weg! Ik heb overal gezocht, maar ik kon hem niet vinden. Ik heb aangifte gedaan bij de politie.', grammar:{tense:'Perfectum + imperfectum',keywords:['had neergezet (plusquamperfectum)','was weg (imperfectum)','heb gezocht (perfectum)','kon vinden (imperfectum)','heb gedaan (perfectum)'],tip:'Gebruik het perfectum voor acties (ik heb gezocht) en het imperfectum voor situaties (hij was weg).'} },
+  { level:'A2', emoji:'🎂', title:'Het verjaardagsfeest', present:'Je was gisteren op een verjaardag.', prompts:['Waar was het feest?','Wie waren er?','Wat hebben jullie gedaan?'], model:'Gisteren was ik op de verjaardag van mijn collega. Het feest was bij haar thuis. Er waren ongeveer twintig mensen. We hebben taart gegeten en koffie gedronken. Ik heb een boek cadeau gegeven. Het was heel gezellig!', grammar:{tense:'Perfectum + imperfectum',keywords:['was (imperfectum — situatie)','waren (imperfectum — situatie)','hebben gegeten (perfectum — actie)','heb gegeven (perfectum — actie)'],tip:'Was/waren voor beschrijvingen, hebben + voltooid deelwoord voor acties.'} },
+  { level:'B1', emoji:'🏥', title:'Het ongeluk', present:'Je vriend is van de trap gevallen.', prompts:['Wat is er precies gebeurd?','Hoe reageerde je?','Hoe gaat het nu met hem?'], model:'Vorige week is mijn vriend van de trap gevallen. Hij gleed uit op de bovenste trede en viel naar beneden. Ik was thuis en hoorde een harde klap. Ik ben meteen naar hem toe gerend. Hij had veel pijn aan zijn enkel. We zijn naar de spoedeisende hulp gegaan. De dokter zei dat het een verstuiking was. Nu loopt hij met krukken.', grammar:{tense:'Mix van perfectum, imperfectum en plusquamperfectum',keywords:['is gevallen (perfectum — hoofdgebeurtenis)','gleed uit, viel (imperfectum — opeenvolging)','hoorde (imperfectum — achtergrond)','ben gerend (perfectum — reactie)','had (imperfectum — beschrijving)','zei dat het was (imperfectum in bijzin)'],tip:'Imperfectum voor de "film" (achtergrond), perfectum voor de "foto" (belangrijke momenten).'} },
+  { level:'B1', emoji:'✈️', title:'De gemiste vlucht', present:'Je hebt je vlucht gemist op Schiphol.', prompts:['Waarom was je te laat?','Wat heb je gedaan op het vliegveld?','Hoe is het afgelopen?'], model:'Ik had een vlucht naar Barcelona om 7 uur \'s ochtends. Mijn wekker was niet afgegaan! Ik werd om 6 uur wakker en ben in paniek naar Schiphol gereden. Maar het was te laat — de gate was al dicht. Ik moest een nieuwe vlucht boeken. Dat kostte €280 extra. Ik was echt boos op mezelf.', grammar:{tense:'Perfectum, imperfectum en plusquamperfectum',keywords:['had (imperfectum — achtergrond)','was niet afgegaan (plusquamperfectum — eerder)','werd wakker, ben gereden (perfectum — acties)','was dicht (imperfectum — situatie)','moest boeken (imperfectum — noodzaak)','kostte (imperfectum — feit)'],tip:'Plusquamperfectum (was + voltooid deelwoord) voor iets dat vóór het verhaal gebeurde.'} },
+  { level:'B2', emoji:'💼', title:'Het sollicitatiegesprek', present:'Je had vorige week een belangrijk sollicitatiegesprek.', prompts:['Hoe heb je je voorbereid?','Hoe ging het gesprek?','Wat was het resultaat?'], model:'Ik had me grondig voorbereid. Ik had het bedrijf onderzocht en mogelijke vragen geoefend. Het gesprek begon goed — ik kon mijn ervaring helder uitleggen. Maar toen stelden ze een vraag over salarisonderhandeling waar ik niet op had gerekend. Ik denk dat ik te laag heb ingezet. Gisteren belden ze: ik ben aangenomen! Achteraf viel het dus mee.', grammar:{tense:'Plusquamperfectum, imperfectum, perfectum',keywords:['had me voorbereid, had onderzocht (plusquamperfectum — voorbereiding)','begon, kon uitleggen (imperfectum — verloop)','stelden, had gerekend (imperfectum + plusquamperfectum)','heb ingezet (perfectum — reflectie)','belden, ben aangenomen (imperfectum + perfectum — resultaat)'],tip:'Plusquamperfectum voor "voorbereiding vóór het verhaal". Imperfectum voor het verloop. Perfectum voor het resultaat nu.'} },
+  { level:'B2', emoji:'🏠', title:'De waterleiding gesprongen', present:'Er was een waterlek in je appartement.', prompts:['Hoe ontdekte je het?','Wat heb je gedaan?','Hoe is het opgelost?'], model:'Ik kwam thuis na het werk en de hele vloer stond onder water. Er was een leiding gesprongen in de badkamer. Ik heb meteen de hoofdkraan dichtgedraaid en de woningcorporatie gebeld. Ze konden pas de volgende ochtend iemand sturen. Ik heb de hele avond water opgedweild. De loodgieter heeft de leiding gerepareerd, maar de vloer moet nog vervangen worden. De verzekering dekt gelukkig de schade.', grammar:{tense:'Imperfectum, perfectum, plusquamperfectum',keywords:['kwam thuis, stond (imperfectum — ontdekking)','was gesprongen (plusquamperfectum — oorzaak)','heb dichtgedraaid, gebeld (perfectum — acties)','konden sturen (imperfectum — situatie)','heb opgedweild (perfectum — actie)','heeft gerepareerd (perfectum — resultaat)','moet vervangen worden (passief — huidig)'],tip:'Was gesprongen = het was al eerder gebeurd. Perfectum voor jouw acties. Imperfectum voor de situatie.'} },
+  { level:'C1', emoji:'⚖️', title:'De rechtszaak', present:'Je was getuige bij een aanrijding.', prompts:['Wat heb je gezien?','Wat deed de politie?','Hoe verliep de rechtszaak?'], model:'Ik stond te wachten bij het stoplicht toen ik zag dat een auto door rood reed en een fietser raakte. Ik ben meteen naar het slachtoffer gerend en heb 112 gebeld. De politie nam mijn verklaring op en vroeg of ik bereid was om te getuigen. Drie maanden later werd ik opgeroepen voor de rechtbank. De bestuurder beweerde dat het licht oranje was geweest, maar ik had duidelijk gezien dat het rood was. Uiteindelijk is hij veroordeeld tot een taakstraf en een rijontzegging van zes maanden.', grammar:{tense:'Alle verleden tijden',keywords:['stond te wachten (imperfectum — achtergrond)','zag dat...reed en raakte (imperfectum — waarneming)','ben gerend, heb gebeld (perfectum — acute acties)','nam op, vroeg (imperfectum — procedures)','werd opgeroepen (passief imperfectum)','beweerde, was geweest (imperfectum + plusquamperfectum)','had gezien (plusquamperfectum — eerder feit)','is veroordeeld (perfectum — eindresultaat)'],tip:'Let op: beweerde dat het oranje was geweest (plusquamperfectum in indirecte rede voor iets vóór het beweren).'} }
 ];
 
 // ==========================================
-// DATA: SCHRIJVEN
+// DATA: SCHRIJVEN — WhatsApp berichten
 // ==========================================
 
-const WRITING_PROMPTS = [
-  { level:'B1', type:'informeel', situation:'Je kunt niet komen op het verjaardagsfeest van je vriend(in). Schrijf een berichtje om je af te melden.', template:'Lieve [naam],\n\n[reden afmelding]\n[alternatief voorstel]\n\nGroetjes,\n[jouw naam]', model:'Lieve Anna,\n\nHelaas kan ik zaterdag niet naar je verjaardag komen. Ik heb al een afspraak bij de tandarts die ik niet kan verzetten.\n\nZullen we volgende week een keer koffie drinken? Dan geef ik je je cadeau!\n\nGroetjes,\nSophie' },
-  { level:'B1', type:'informeel', situation:'Je wilt een afspraak maken met je buurvrouw om samen te koken. Stuur een berichtje.', template:'Hoi [naam],\n\n[voorstel + datum/tijd]\n[wat je wilt koken]\n\nTot snel!\n[jouw naam]', model:'Hoi Fatima,\n\nIk wilde vragen of je zin hebt om vrijdagavond samen te koken? Ik heb een lekker recept voor stamppot gevonden.\n\nIk kan de boodschappen doen als jij het toetje maakt!\n\nTot snel!\nMark' },
-  { level:'B2', type:'formeel', situation:'Schrijf een klachtbrief aan je energiebedrijf. Je factuur is veel hoger dan verwacht.', template:'Geachte heer/mevrouw,\n\n[beschrijving probleem]\n[wat u verwacht]\n\nMet vriendelijke groet,\n[naam]', model:'Geachte heer/mevrouw,\n\nOp 15 januari heb ik mijn maandelijkse factuur ontvangen. Het bedrag van €340 is aanzienlijk hoger dan de gebruikelijke €120 per maand.\n\nIk verzoek u vriendelijk om de factuur te controleren en mij een correcte afrekening te sturen. Indien nodig ben ik bereid de meterstanden door te geven.\n\nMet vriendelijke groet,\nJ. de Vries' },
-  { level:'B2', type:'formeel', situation:'Schrijf een sollicitatiebrief voor een functie als administratief medewerker.', template:'Geachte heer/mevrouw,\n\n[introductie + motivatie]\n[ervaring en vaardigheden]\n[afsluiting]\n\nMet vriendelijke groet,\n[naam]', model:'Geachte heer/mevrouw,\n\nMet grote interesse heb ik uw vacature voor administratief medewerker gelezen op Indeed. Graag stel ik mij kandidaat voor deze functie.\n\nIk heb drie jaar ervaring in administratieve ondersteuning en ben vaardig met Excel, Word en SAP. In mijn huidige functie ben ik verantwoordelijk voor het verwerken van facturen en het bijhouden van de agenda.\n\nGraag licht ik mijn motivatie toe in een persoonlijk gesprek.\n\nMet vriendelijke groet,\nA. Bakker' },
-  { level:'C1', type:'formeel', situation:'Schrijf een brief aan de gemeente over geluidsoverlast in uw wijk. U wilt dat er maatregelen worden genomen.', template:'Geachte heer/mevrouw,\n\n[beschrijving situatie]\n[gevolgen]\n[verzoek om actie]\n\nHoogachtend,\n[naam]', model:'Geachte heer/mevrouw,\n\nMiddels deze brief wil ik uw aandacht vragen voor de aanhoudende geluidsoverlast in de Vondelstraat. Sinds de opening van het nieuwe horecacomplex op nummer 45 ervaren bewoners structureel overlast, met name in de weekendnachten.\n\nDe geluidsniveaus overschrijden regelmatig de wettelijke normen, hetgeen een negatieve invloed heeft op de leefbaarheid van de wijk. Meerdere bewoners hebben inmiddels klachten ingediend.\n\nIk verzoek u dringend om een geluidsonderzoek in te stellen en zo nodig handhavend op te treden.\n\nHoogachtend,\nDr. M.C. van der Berg' }
+const WHATSAPP_PROMPTS = [
+  { level:'A2', emoji:'🎉', situation:'Afzeggen voor een feestje', context:'Je vriendin Lotte heeft je uitgenodigd voor haar verjaardag zaterdag, maar je bent ziek.', model:'Hoi Lotte! Gefeliciteerd alvast! 🎂 Helaas ben ik ziek, ik lig met griep op de bank 🤒 Ik kan zaterdag niet komen. Balen! Zullen we volgende week iets leuks doen? Xxx', tips:['Feliciteer altijd eerst!','Geef een reden','Stel een alternatief voor','Emoji\'s zijn normaal in WhatsApp'] },
+  { level:'A2', emoji:'🍕', situation:'Eten bestellen via de groepsapp', context:'Je organiseert een filmavond en wilt bestellen bij de pizzeria.', model:'Hey allemaal! 🍕 Ik bestel zo pizza bij Luigi\'s. Wie wil er meedoen? Stuur even wat je wilt! Ik bestel om 19:00. Kosten delen we via Tikkie 😄', tips:['Houd het kort en duidelijk','Geef een tijdstip','Noem de betaalmethode'] },
+  { level:'B1', emoji:'🏠', situation:'Marktplaats-advertentie beantwoorden', context:'Je zag een tweedehands bank voor €200 op Marktplaats.', model:'Hoi! Ik zag uw advertentie voor de bank. Is die nog beschikbaar? Ik heb een paar vragen: zijn er vlekken of beschadigingen? En zou ik hem dit weekend kunnen ophalen? Ik woon in Amsterdam-Zuid. Alvast bedankt!', tips:['Vraag of het nog beschikbaar is','Stel specifieke vragen','Noem je locatie (voor ophalen)','Blijf beleefd maar niet te formeel'] },
+  { level:'B1', emoji:'🔊', situation:'Tikkie-herinnering sturen', context:'Je vriend Bas heeft de Tikkie van €34 voor het concert al drie weken niet betaald.', model:'Hé Bas! Alles goed? Ik zag dat de Tikkie van het concert nog openstaat (€34). Zou je die even kunnen betalen als je eraan denkt? Thanks! 🙏', tips:['Begin met iets vriendelijks','Herinner nonchalant','Noem het bedrag','Niet te passief-agressief'] },
+  { level:'B1', emoji:'🏡', situation:'Je buurman vraag om stilte', context:'Je buren hebben elke vrijdagavond een feestje tot 2 uur \'s nachts.', model:'Hoi buurman, ik wilde even iets bespreken. De laatste vrijdagen was er tot laat in de nacht veel geluid te horen. Ik begrijp dat het weekend is, maar ik word er wakker van. Zou het na 23:00 wat stiller kunnen? Dankjewel! Groetjes, [naam]', tips:['Wees vriendelijk maar duidelijk','Erken hun kant','Stel een concreet verzoek','23:00 is de gangbare grens in NL'] },
+  { level:'B2', emoji:'💼', situation:'Ziek melden bij je baas', context:'Je wordt wakker met koorts en keelpijn. Je moet je ziek melden.', model:'Goedemorgen [naam], helaas moet ik me vandaag ziek melden. Ik heb koorts en keelpijn. Ik hoop dat het snel overgaat. Mijn afspraak van 14:00 met de klant zou [collega] eventueel kunnen overnemen. Ik houd je op de hoogte. Groet, [naam]', tips:['Meld je vroeg in de ochtend','Geef kort je klachten','Draag lopende zaken over','Niet te veel details over je ziekte'] },
+  { level:'B2', emoji:'📦', situation:'Klacht over een pakketbezorging', context:'Je pakket is "bezorgd" volgens de track & trace, maar je hebt niets ontvangen. Geen briefje van de buren.', model:'Beste klantenservice, volgens de track & trace is mijn bestelling (ordernr. 847293) vandaag bezorgd, maar ik heb niets ontvangen. Er is ook geen afhaalbewijs achtergelaten. Kunt u nagaan waar het pakket is afgeleverd? Ik ben de hele dag thuis geweest. Graag hoor ik van u. Met vriendelijke groet, [naam]', tips:['Geef je ordernummer','Beschrijf het probleem feitelijk','Vraag om actie','Formeler dan een app-bericht aan een vriend'] },
+  { level:'C1', emoji:'🏘️', situation:'Bericht aan de VvE-groepsapp', context:'Iemand zet steeds de vuilnisbakken op de verkeerde plek. Je wilt het aankaarten zonder ruzie.', model:'Beste buren, even een vriendelijke herinnering: de containers horen na lediging terug op de plek achter het hek (zie huishoudelijk reglement §4.2). De laatste weken staan ze regelmatig op de stoep, wat klachten van de gemeente kan opleveren. Kunnen we hier samen op letten? Alvast bedankt! Groeten, [naam]', tips:['Verwijs naar de regels (niet persoonlijk)','Leg de consequentie uit','Maak het een gezamenlijk verzoek','Blijf neutraal van toon'] }
 ];
 
-const SENTENCE_TRANSFORMS = [
-  { level:'B1', instruction:'Maak passief', original:'De kok bereidt het eten.', answer:'Het eten wordt (door de kok) bereid.', type:'actief→passief' },
-  { level:'B1', instruction:'Zet in de verleden tijd', original:'Ik loop elke dag naar school.', answer:'Ik liep elke dag naar school.', type:'tegenwoordig→verleden' },
-  { level:'B1', instruction:'Maak een bijzin met "dat"', original:'Hij is ziek. Hij kan niet komen.', answer:'Hij kan niet komen, omdat hij ziek is. / Hij zegt dat hij ziek is.', type:'combineren' },
-  { level:'B2', instruction:'Maak passief', original:'De regering heeft nieuwe regels ingevoerd.', answer:'Nieuwe regels zijn (door de regering) ingevoerd.', type:'actief→passief' },
-  { level:'B2', instruction:'Maak indirecte rede', original:'Ze zei: "Ik ga morgen naar Parijs."', answer:'Ze zei dat ze de volgende dag naar Parijs ging.', type:'direct→indirect' },
-  { level:'B2', instruction:'Combineer met "hoewel"', original:'Het regende. We gingen toch wandelen.', answer:'Hoewel het regende, gingen we toch wandelen.', type:'combineren' },
-  { level:'C1', instruction:'Herschrijf met "er"', original:'Veel mensen wonen in Amsterdam.', answer:'Er wonen veel mensen in Amsterdam.', type:'er-constructie' },
-  { level:'C1', instruction:'Maak passief + bijzin', original:'De commissie bespreekt het voorstel morgen.', answer:'Het voorstel wordt morgen door de commissie besproken. / Het is bekend dat het voorstel morgen besproken wordt.', type:'actief→passief' }
+// ==========================================
+// DATA: SCHRIJVEN — Formulieren & Brieven
+// ==========================================
+
+const FORMULIEREN_BRIEVEN = [
+  { level:'B1', type:'brief', emoji:'📧', title:'Opzegging sportschool', situation:'Je wilt je abonnement bij de sportschool opzeggen per 1 april.', fields:null, model:'Geachte heer/mevrouw,\n\nHierbij zeg ik mijn abonnement op per 1 april 2026.\n\nMijn gegevens:\nNaam: [naam]\nLidnummer: [nummer]\nStartdatum: [datum]\n\nGraag ontvang ik een schriftelijke bevestiging van de opzegging.\n\nMet vriendelijke groet,\n[naam]', tips:['Altijd schriftelijk opzeggen','Noem de gewenste einddatum','Vermeld je lidnummer','Vraag om bevestiging','Let op de opzegtermijn (meestal 1 maand)'] },
+  { level:'B1', type:'formulier', emoji:'🏠', title:'Verhuizing doorgeven', situation:'Je bent verhuisd van Leiden naar Amsterdam. Vul het formulier in.', fields:[
+    {label:'Achternaam', placeholder:'bijv. De Vries', example:'De Vries'},
+    {label:'Voorletters', placeholder:'bijv. J.A.', example:'J.A.'},
+    {label:'BSN-nummer', placeholder:'bijv. 123456789', example:'123456789'},
+    {label:'Oud adres', placeholder:'bijv. Rapenburg 12, 2311 EW Leiden', example:'Rapenburg 12, 2311 EW Leiden'},
+    {label:'Nieuw adres', placeholder:'bijv. Keizersgracht 100, 1015 AA Amsterdam', example:'Keizersgracht 100, 1015 AA Amsterdam'},
+    {label:'Datum verhuizing', placeholder:'bijv. 15-02-2026', example:'15-02-2026'},
+    {label:'Aantal verhuizende personen', placeholder:'bijv. 2', example:'2'}
+  ], model:null, tips:['Je moet je binnen 5 dagen na verhuizing inschrijven','Je hebt een identiteitsbewijs nodig','Dit kan ook online via MijnOverheid met DigiD','BSN = Burgerservicenummer (9 cijfers)'] },
+  { level:'B2', type:'brief', emoji:'✉️', title:'Klachtenbrief aan energiebedrijf', situation:'Je jaarnota is €400 hoger dan vorig jaar, maar je verbruik is hetzelfde. Schrijf een klacht.', fields:null, model:'Geachte heer/mevrouw,\n\nOp [datum] ontving ik mijn jaarafrekening over 2025 (klantnummer: [nummer]). Tot mijn verbazing is het eindbedrag €1.640, terwijl mijn verbruik nagenoeg gelijk is gebleven ten opzichte van vorig jaar (€1.240).\n\nIk verzoek u vriendelijk om:\n1. Een specificatie van de tariefwijzigingen\n2. Een herberekening van mijn voorschot\n3. Een schriftelijke toelichting op het verschil\n\nIndien ik binnen twee weken geen reactie ontvang, zal ik een klacht indienen bij de Geschillencommissie Energie.\n\nMet vriendelijke groet,\n[naam]\n[adres]\n[klantnummer]', tips:['Noem altijd je klantnummer','Wees specifiek over het probleem','Noem een deadline','Verwijs naar de geschillencommissie als drukmiddel','Houd het zakelijk, niet emotioneel'] },
+  { level:'B2', type:'formulier', emoji:'🏥', title:'Zorgverzekering aanvragen', situation:'Je bent net in Nederland en moet een basisverzekering kiezen. Vul het aanvraagformulier in.', fields:[
+    {label:'Achternaam', placeholder:'', example:'Bakker'},
+    {label:'Geboortedatum', placeholder:'DD-MM-JJJJ', example:'15-03-1990'},
+    {label:'BSN-nummer', placeholder:'9 cijfers', example:'987654321'},
+    {label:'IBAN-nummer', placeholder:'NL + 2 cijfers + 4 letters + 10 cijfers', example:'NL91 ABNA 0417 1643 00'},
+    {label:'Type verzekering', placeholder:'Basis / Aanvullend', example:'Basisverzekering + Aanvullend Tand'},
+    {label:'Ingangsdatum', placeholder:'DD-MM-JJJJ', example:'01-03-2026'},
+    {label:'Eigen risico', placeholder:'€385 (wettelijk minimum) / hoger', example:'€385 (wettelijk minimum)'}
+  ], model:null, tips:['Iedereen in NL MOET een basisverzekering hebben','Eigen risico = eigen bijdrage per jaar (min. €385)','Je hebt 4 maanden na inschrijving in NL om je te verzekeren','IBAN = je Nederlandse bankrekeningnummer','Tandartskosten zijn NIET in de basisverzekering'] },
+  { level:'C1', type:'brief', emoji:'⚖️', title:'Bezwaarschrift parkeerboete', situation:'Je kreeg een parkeerboete van €100, maar je had een geldig parkeerticket. Schrijf een bezwaarschrift.', fields:null, model:'Geachte heer/mevrouw,\n\nHierbij maak ik bezwaar tegen de aan mij opgelegde naheffingsaanslag parkeerbelasting d.d. [datum], kenmerk [nummer].\n\nOp [datum] was mijn voertuig (kenteken: [kenteken]) geparkeerd aan de [straat]. Ik beschikte over een geldig parkeerticket, dat ik via de ParkeerApp had betaald om [tijd] (betalingsbewijs bijgevoegd als bijlage 1).\n\nVermoedelijk heeft de controleur het ticket niet correct kunnen verifiëren vanwege een technische storing in het systeem, aangezien de betaling aantoonbaar is verricht.\n\nIk verzoek u de naheffingsaanslag te vernietigen en het bedrag van €100,00 te restitueren.\n\nBijlagen:\n1. Screenshot betaling ParkeerApp\n2. Bankafschrift\n\nHoogachtend,\n[naam]\n[adres]', tips:['Binnen 6 weken bezwaar maken','Altijd het kenmerknummer noemen','Voeg bewijsstukken toe als bijlage','Gebruik juridische termen: naheffingsaanslag, vernietigen, restitueren','De gemeente MOET binnen 12 weken reageren'] }
+];
+
+// ==========================================
+// DATA: SCHRIJVEN — Reviews
+// ==========================================
+
+const REVIEW_PROMPTS = [
+  { level:'A2', emoji:'🍕', type:'Restaurant', place:'Pizzeria Napoli — Amsterdam', stars:4, context:'Goede pizza, gezellige sfeer, maar de service was langzaam.', model:'Lekkere pizza\'s en gezellige sfeer! We moesten wel lang wachten op onze bestelling (45 minuten). Maar de pizza margherita was het wachten waard. Aanrader als je geen haast hebt! ⭐⭐⭐⭐', tips:['Begin positief','Noem iets specifieks (welk gerecht)','Wees eerlijk over minpunten','Eindig met een aanbeveling'] },
+  { level:'A2', emoji:'📱', type:'Bol.com product', place:'Draadloze koptelefoon — Bol.com', stars:3, context:'Goed geluid, maar niet comfortabel bij lang dragen.', model:'Het geluid is prima voor deze prijs. Bas is goed en muziek klinkt helder. Maar na een uur doen mijn oren pijn — de oorkussens zijn te hard. Zou ze aanraden voor kort gebruik, niet voor een hele werkdag. ⭐⭐⭐', tips:['Noem de prijs-kwaliteitverhouding','Wees specifiek (bas, comfort)','Geef aan voor wie het geschikt is'] },
+  { level:'B1', emoji:'🏨', type:'Hotel', place:'Hotel De Gouden Leeuw — Leiden', stars:2, context:'Teleurstellend: kamer was vies, ontbijt was mager, maar de locatie was goed.', model:'Helaas viel dit hotel tegen. De kamer was niet schoon bij aankomst — er zaten haren in de douche en het beddengoed rook muf. Het ontbijt was karig: alleen witbrood en jam. Wel een prima locatie, vlak bij het station.\n\nIk heb de receptie aangesproken over de schoonmaak, maar ze reageerden onverschillig. Voor €120 per nacht verwacht je meer. Niet aanbevolen. ⭐⭐', tips:['Wees specifiek over klachten','Noem wat je hebt ondernomen','Vermeld de prijs voor context','Noem ook positieve punten (locatie)'] },
+  { level:'B1', emoji:'🔧', type:'Dienstverlening', place:'Loodgieter Van Dam — Utrecht', stars:5, context:'Snel, vriendelijk en eerlijke prijs voor het repareren van een lekkende kraan.', model:'Top service! Gebeld op maandagochtend, dinsdag al iemand aan de deur. De monteur was vriendelijk, legde uit wat het probleem was en had het binnen een uur opgelost. De factuur was €85 inclusief materiaal — heel redelijk.\n\nEindelijk een loodgieter die op tijd komt en geen onzin verkoopt. Zeker een aanrader! ⭐⭐⭐⭐⭐', tips:['Noem de reactietijd','Beschrijf de ervaring','Vermeld de kosten','Vergelijk met verwachtingen'] },
+  { level:'B2', emoji:'🏋️', type:'Sportschool', place:'FitForAll — Rotterdam', stars:2, context:'Goedkoop abonnement, maar altijd druk, apparaten kapot, en opzeggen is een nachtmerrie.', model:'De prijs is aantrekkelijk (€19,99/maand), maar daar houdt het positieve op. In de spits (17:00-20:00) moet je soms 15 minuten wachten op een apparaat. Twee loopbanden zijn al weken kapot zonder dat er iets aan gedaan wordt.\n\nHet ergste: opzeggen. Ik heb drie keer gebeld, twee e-mails gestuurd en uiteindelijk een aangetekende brief moeten sturen voordat mijn opzegging werd bevestigd. Dit voelt als een bewuste drempel.\n\nAdvies: lees de kleine lettertjes van het contract goed door voordat je lid wordt. ⭐⭐', tips:['Onderbouw je klachten met voorbeelden','Noem specifieke bedragen/tijden','Geef advies aan toekomstige klanten','Gebruik zakelijke taal, niet emotioneel'] },
+  { level:'C1', emoji:'🏥', type:'Zorginstelling', place:'Huisartsenpraktijk Centrum — Den Haag', stars:3, context:'Goede artsen maar bureaucratisch en moeilijk bereikbaar.', model:'Medisch inhoudelijk is deze praktijk uitstekend. De huisartsen zijn kundig, nemen de tijd en verwijzen door wanneer nodig.\n\nDe bereikbaarheid laat echter te wensen over. Telefonisch is de praktijk slechts bereikbaar tussen 8:00 en 10:00 — en dan sta je gemiddeld 20 minuten in de wacht. Online afspraken maken is alleen mogelijk voor "niet-urgente klachten", maar wie bepaalt wat urgent is?\n\nDaarnaast is het herhalingsreceptensysteem onnodig omslachtig: je moet drie werkdagen van tevoren bellen, terwijl andere praktijken dit via een app regelen.\n\nGoede zorg, frustrerende organisatie. ⭐⭐⭐', tips:['Scheid kwaliteit van service','Gebruik professioneel taalgebruik','Noem concrete verbeterpunten','Retorische vragen werken goed in reviews'] }
 ];
 
 // ==========================================
@@ -5744,8 +5764,8 @@ function refreshActiveTab() {
   } else if (tab === 'news') { initNews(); }
   // else if (tab === 'vocab') { vocabInitialized = false; initVocab(); renderVocabList(); }
   else if (tab === 'luisteren') { luisterenInitialized = false; initLuisteren(); document.getElementById('begripContent').innerHTML = ''; }
-  else if (tab === 'spreken') { sprekenInitialized = false; document.getElementById('uitspraakContent').innerHTML = ''; document.getElementById('hardopContent').innerHTML = ''; document.getElementById('gesprekkenContent').innerHTML = ''; document.getElementById('zinnenSContent').innerHTML = ''; const activeSub = document.querySelector('#tab-spreken .subtab-btn.active'); if (activeSub) { const fn = SUBTAB_INIT[activeSub.dataset.subtab]; if (fn) fn(); } }
-  else if (tab === 'schrijven') { schrijvenInitialized = false; initSchrijven(); document.getElementById('emailsContent').innerHTML = ''; document.getElementById('zinnenWContent').innerHTML = ''; }
+  else if (tab === 'spreken') { sprekenInitialized = false; document.getElementById('uitspraakContent').innerHTML = ''; document.getElementById('hardopContent').innerHTML = ''; document.getElementById('watzegjeContent').innerHTML = ''; document.getElementById('gebeurdContent').innerHTML = ''; const activeSub = document.querySelector('#tab-spreken .subtab-btn.active'); if (activeSub) { const fn = SUBTAB_INIT[activeSub.dataset.subtab]; if (fn) fn(); } }
+  else if (tab === 'schrijven') { schrijvenInitialized = false; document.getElementById('whatsappContent').innerHTML = ''; document.getElementById('formulierenContent').innerHTML = ''; document.getElementById('reviewsContent').innerHTML = ''; const activeSub = document.querySelector('#tab-schrijven .subtab-btn.active'); if (activeSub) { const fn = SUBTAB_INIT[activeSub.dataset.subtab]; if (fn) fn(); } }
 }
 
 function updateCEFRBarVisibility() {
@@ -5774,11 +5794,11 @@ const SUBTAB_INIT = {
   begrip: initBegrip,
   uitspraak: () => { initSpreken(); renderUitspraak(); },
   hardop: initHardop,
-  gesprekken: initGesprekken,
-  'zinnen-s': initZinnenS,
-  'dictee-s': initSchrijven,
-  emails: initEmails,
-  'zinnen-w': initZinnenW,
+  watzegje: initWatZegJe,
+  gebeurd: initGebeurd,
+  whatsapp: initWhatsApp,
+  formulieren: initFormulieren,
+  reviews: initReviews,
   etiquette: () => { initCultuur(); renderEtiquette(); },
   communicatie: renderCommunicatie,
   praktisch: renderPraktisch,
@@ -6015,46 +6035,57 @@ function initHardop() {
   container.innerHTML = html;
 }
 
-function initGesprekken() {
-  const container = document.getElementById('gesprekkenContent');
+function initWatZegJe() {
+  const container = document.getElementById('watzegjeContent');
   if (container.children.length > 0) return;
-  const filtered = CONVERSATION_SCENARIOS.filter(s => isWithinCEFR(s.level));
-  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen gesprekken voor dit niveau.</p>'; return; }
+  const filtered = WAT_ZEG_JE_SITUATIONS.filter(s => isWithinCEFR(s.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen situaties voor dit niveau.</p>'; return; }
   let html = '';
   filtered.forEach((s, si) => {
-    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + s.setting + '</h3><span class="gesprek-level">' + s.level + '</span></div>';
-    html += '<div class="gesprek-body"><p style="font-style:italic;margin-bottom:12px;color:#666;">' + s.situation + '</p>';
-    s.lines.forEach((l, li) => {
-      if (l.role === 'user') {
-        html += '<div class="gesprek-line"><span class="speaker">' + l.speaker + ':</span><span class="user-line" id="gesprek-' + si + '-' + li + '" onclick="this.classList.add(\'revealed\');this.textContent=\'' + l.text.replace(/'/g, "\\'") + '\'">[Klik om te onthullen]</span></div>';
-      } else {
-        html += '<div class="gesprek-line"><span class="speaker">' + l.speaker + ':</span><span>' + l.text + '</span></div>';
-      }
+    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + s.emoji + ' ' + s.situation + '</h3><span class="gesprek-level">' + s.level + '</span></div>';
+    html += '<div class="gesprek-body">';
+    html += '<p style="font-style:italic;margin-bottom:16px;color:#666;">' + s.context + '</p>';
+    html += '<p style="font-weight:700;margin-bottom:12px;font-family:\'Syne\',sans-serif;">Wat zou je zeggen? Bedenk je antwoord en klik hieronder.</p>';
+    s.responses.forEach((r, ri) => {
+      html += '<div class="watzeg-response" style="display:none;margin-bottom:10px;padding:12px;border-left:4px solid ' + (ri===0?'#D40920':ri===1?'#1356A2':'#F7D842') + ';background:#fafafa;" id="watzeg-' + si + '-' + ri + '">';
+      html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px;">"' + r.text + '"</div>';
+      html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#666;"><span style="background:#eee;padding:1px 6px;border-radius:2px;margin-right:6px;">' + r.register + '</span>' + r.note + '</div>';
+      html += '</div>';
     });
+    html += '<button class="mondrian-btn small" onclick="document.querySelectorAll(\'[id^=watzeg-' + si + '-]\').forEach(el=>el.style.display=\'block\');this.style.display=\'none\'">Toon mogelijke reacties</button>';
     html += '</div></div>';
   });
   container.innerHTML = html;
 }
 
-function initZinnenS() {
-  const container = document.getElementById('zinnenSContent');
+function initGebeurd() {
+  const container = document.getElementById('gebeurdContent');
   if (container.children.length > 0) return;
-  const filtered = SENTENCE_PAIRS.filter(s => isWithinCEFR(s.level));
-  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen zinnen voor dit niveau.</p>'; return; }
-  let html = '<div class="flashcard-grid">';
-  filtered.forEach((s, i) => {
-    html += '<div class="flashcard" onclick="this.classList.toggle(\'flipped\')">';
-    html += '<div class="flashcard-inner"><div class="fc-question">';
-    html += '<div class="fc-label">Engels → Nederlands</div>';
-    html += '<div class="fc-text">' + s.en + '</div>';
-    html += '<div class="fc-grammar">' + s.grammar + '</div>';
-    html += '</div><div class="fc-answer">';
-    html += '<div class="fc-label">Nederlands</div>';
-    html += '<div class="fc-text">' + s.nl + '</div>';
-    html += '<div class="fc-grammar">' + s.grammar + '</div>';
-    html += '</div></div></div>';
+  const filtered = WAT_IS_ER_GEBEURD.filter(s => isWithinCEFR(s.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen verhalen voor dit niveau.</p>'; return; }
+  let html = '';
+  filtered.forEach((s, si) => {
+    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + s.emoji + ' ' + s.title + '</h3><span class="gesprek-level">' + s.level + '</span></div>';
+    html += '<div class="gesprek-body">';
+    html += '<p style="font-size:16px;font-weight:500;margin-bottom:14px;">' + s.present + '</p>';
+    html += '<div style="margin-bottom:14px;">';
+    s.prompts.forEach(p => { html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:13px;color:#1356A2;padding:3px 0;">→ ' + p + '</div>'; });
+    html += '</div>';
+    html += '<p style="font-weight:700;margin-bottom:10px;font-family:\'Syne\',sans-serif;font-size:14px;">Vertel hardop wat er is gebeurd. Klik daarna om het modelantwoord te zien.</p>';
+    // Model answer (hidden)
+    html += '<div id="gebeurd-model-' + si + '" style="display:none;">';
+    html += '<div style="background:#f0f8ff;border:2px solid #1356A2;padding:16px;margin-bottom:12px;font-family:\'Space Grotesk\',sans-serif;font-size:14px;line-height:1.7;">' + s.model + '</div>';
+    // Grammar breakdown
+    html += '<div style="background:#fff8e1;border:2px solid #F7D842;padding:14px;">';
+    html += '<div style="font-family:\'Syne\',sans-serif;font-size:14px;font-weight:700;margin-bottom:8px;">Grammatica: ' + s.grammar.tense + '</div>';
+    html += '<ul style="list-style:none;padding:0;">';
+    s.grammar.keywords.forEach(kw => { html += '<li style="font-family:\'Space Grotesk\',sans-serif;font-size:13px;padding:2px 0;color:#333;">• <strong>' + kw.split('(')[0].trim() + '</strong>' + (kw.includes('(') ? ' <span style="color:#666;">(' + kw.split('(')[1] : '') + '</li>'; });
+    html += '</ul>';
+    html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#1356A2;margin-top:8px;font-style:italic;">' + s.grammar.tip + '</div>';
+    html += '</div></div>';
+    html += '<button class="mondrian-btn" onclick="document.getElementById(\'gebeurd-model-' + si + '\').style.display=\'block\';this.style.display=\'none\'">Toon modelantwoord &amp; grammatica</button>';
+    html += '</div></div>';
   });
-  html += '</div>';
   container.innerHTML = html;
 }
 
@@ -6062,104 +6093,88 @@ function initZinnenS() {
 // TAB: SCHRIJVEN
 // ==========================================
 let schrijvenInitialized = false;
-let dicteeSCurrentIdx = 0;
-let dicteeSCorrect = 0;
-let dicteeSTotal = 0;
 
 function initSchrijven() {
   if (schrijvenInitialized) return;
   schrijvenInitialized = true;
-  nextDicteeS();
 }
 
-function getFilteredWriteDictee() {
-  return DICTEE_SENTENCES.filter(s => isWithinCEFR(s.level));
-}
-
-function nextDicteeS() {
-  const filtered = getFilteredWriteDictee();
-  if (filtered.length === 0) { document.getElementById('dicteeSSentence').textContent = 'Geen zinnen voor dit niveau.'; return; }
-  dicteeSCurrentIdx = Math.floor(Math.random() * filtered.length);
-  document.getElementById('dicteeSSentence').textContent = '';
-  document.getElementById('dicteeSShowBtn').style.display = '';
-  document.getElementById('dicteeSInputArea').style.display = 'none';
-  document.getElementById('dicteeSFeedback').innerHTML = '';
-  document.getElementById('dicteeSFeedback').className = 'dictee-feedback';
-  document.getElementById('dicteeSInput').value = '';
-}
-
-function showDicteeSentenceS() {
-  const filtered = getFilteredWriteDictee();
-  const sentence = filtered[dicteeSCurrentIdx];
-  const sentEl = document.getElementById('dicteeSSentence');
-  sentEl.textContent = sentence.nl;
-  document.getElementById('dicteeSShowBtn').style.display = 'none';
-  setTimeout(() => {
-    sentEl.textContent = '';
-    document.getElementById('dicteeSInputArea').style.display = 'flex';
-    document.getElementById('dicteeSInput').focus();
-  }, 3000);
-}
-
-function checkDicteeS() {
-  const input = document.getElementById('dicteeSInput').value.trim();
-  const filtered = getFilteredWriteDictee();
-  const correct = filtered[dicteeSCurrentIdx].nl;
-  dicteeSTotal++;
-  const fb = document.getElementById('dicteeSFeedback');
-  if (input.toLowerCase() === correct.toLowerCase()) {
-    dicteeSCorrect++;
-    fb.className = 'dictee-feedback correct';
-    fb.textContent = 'Goed! ✓';
-  } else {
-    fb.className = 'dictee-feedback incorrect';
-    fb.innerHTML = 'Helaas. Correct: <strong>' + correct + '</strong>';
-  }
-  document.getElementById('dicteeSCorrect').textContent = dicteeSCorrect;
-  document.getElementById('dicteeSTotal').textContent = dicteeSTotal;
-}
-
-function initEmails() {
-  const container = document.getElementById('emailsContent');
+function initWhatsApp() {
+  const container = document.getElementById('whatsappContent');
   if (container.children.length > 0) return;
-  const filtered = WRITING_PROMPTS.filter(p => isWithinCEFR(p.level));
-  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen opdrachten voor dit niveau.</p>'; return; }
+  const filtered = WHATSAPP_PROMPTS.filter(p => isWithinCEFR(p.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen berichten voor dit niveau.</p>'; return; }
   let html = '';
   filtered.forEach((p, i) => {
-    html += '<div class="email-card"><div class="email-card-header"><h3>' + p.situation.substring(0, 60) + '...</h3><div class="email-type">' + p.level + ' — ' + p.type + '</div></div>';
-    html += '<div class="email-card-body">';
-    html += '<div class="email-situation">' + p.situation + '</div>';
-    html += '<div class="email-template"><strong>Structuur:</strong><br><code>' + p.template.replace(/\n/g, '<br>') + '</code></div>';
-    html += '<button class="mondrian-btn small" onclick="this.nextElementSibling.classList.toggle(\'visible\');this.textContent=this.textContent===\'Toon modelantwoord\'?\'Verberg modelantwoord\':\'Toon modelantwoord\'">Toon modelantwoord</button>';
-    html += '<div class="email-model">' + p.model + '</div>';
+    html += '<div class="gesprek-card"><div class="gesprek-header" style="background:#25D366;"><h3 style="color:#fff;">' + p.emoji + ' ' + p.situation + '</h3><span class="gesprek-level">' + p.level + '</span></div>';
+    html += '<div class="gesprek-body">';
+    html += '<div class="email-situation">' + p.context + '</div>';
+    html += '<textarea class="dictee-input" style="width:100%;min-height:100px;resize:vertical;margin-bottom:12px;font-size:14px;" placeholder="Schrijf je bericht hier..."></textarea>';
+    html += '<div style="margin-bottom:12px;">';
+    p.tips.forEach(t => { html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#666;padding:2px 0;">💡 ' + t + '</div>'; });
+    html += '</div>';
+    html += '<button class="mondrian-btn small" onclick="this.nextElementSibling.classList.toggle(\'visible\');this.textContent=this.textContent===\'Toon modelantwoord\'?\'Verberg\':\' Toon modelantwoord\'">Toon modelantwoord</button>';
+    html += '<div class="email-model" style="background:#dcf8c6;border-color:#25D366;">' + p.model + '</div>';
     html += '</div></div>';
   });
   container.innerHTML = html;
 }
 
-function initZinnenW() {
-  const container = document.getElementById('zinnenWContent');
+function initFormulieren() {
+  const container = document.getElementById('formulierenContent');
   if (container.children.length > 0) return;
-  const filtered = SENTENCE_TRANSFORMS.filter(s => isWithinCEFR(s.level));
-  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen zinnen voor dit niveau.</p>'; return; }
+  const filtered = FORMULIEREN_BRIEVEN.filter(f => isWithinCEFR(f.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen formulieren voor dit niveau.</p>'; return; }
   let html = '';
-  filtered.forEach((s, i) => {
-    html += '<div class="zinnen-transform-card">';
-    html += '<div class="zinnen-instruction">' + s.instruction + ' (' + s.type + ')</div>';
-    html += '<div class="zinnen-original">' + s.original + '</div>';
-    html += '<div class="dictee-input-area"><input type="text" class="dictee-input" id="zinnenW-' + i + '" placeholder="Typ je antwoord..." autocomplete="off" />';
-    html += '<button class="mondrian-btn blue" onclick="checkZinnenW(' + i + ')">Check</button></div>';
-    html += '<div class="dictee-feedback" id="zinnenWFb-' + i + '"></div>';
+  filtered.forEach((f, i) => {
+    html += '<div class="email-card"><div class="email-card-header"><h3>' + f.emoji + ' ' + f.title + '</h3><div class="email-type">' + f.level + ' — ' + f.type + '</div></div>';
+    html += '<div class="email-card-body">';
+    html += '<div class="email-situation">' + f.situation + '</div>';
+    if (f.fields) {
+      html += '<div style="margin-bottom:16px;">';
+      f.fields.forEach((field, fi) => {
+        html += '<div style="margin-bottom:8px;"><label style="font-family:\'Space Grotesk\',sans-serif;font-size:13px;font-weight:600;display:block;margin-bottom:3px;">' + field.label + '</label>';
+        html += '<input type="text" class="dictee-input" style="width:100%;" placeholder="' + field.placeholder + '" />';
+        html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:11px;color:#999;margin-top:2px;">Voorbeeld: ' + field.example + '</div></div>';
+      });
+      html += '</div>';
+    } else {
+      html += '<textarea class="dictee-input" style="width:100%;min-height:200px;resize:vertical;margin-bottom:12px;font-size:14px;" placeholder="Schrijf je brief hier..."></textarea>';
+    }
+    html += '<div style="margin-bottom:12px;">';
+    f.tips.forEach(t => { html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#666;padding:2px 0;">📋 ' + t + '</div>'; });
     html += '</div>';
+    if (f.model) {
+      html += '<button class="mondrian-btn small" onclick="this.nextElementSibling.classList.toggle(\'visible\');this.textContent=this.textContent===\'Toon modelantwoord\'?\'Verberg\':\' Toon modelantwoord\'">Toon modelantwoord</button>';
+      html += '<div class="email-model">' + f.model + '</div>';
+    }
+    html += '</div></div>';
   });
   container.innerHTML = html;
 }
 
-function checkZinnenW(i) {
-  const filtered = SENTENCE_TRANSFORMS.filter(s => isWithinCEFR(s.level));
-  const fb = document.getElementById('zinnenWFb-' + i);
-  fb.className = 'dictee-feedback correct';
-  fb.innerHTML = '<strong>Modelantwoord:</strong> ' + filtered[i].answer;
+function initReviews() {
+  const container = document.getElementById('reviewsContent');
+  if (container.children.length > 0) return;
+  const filtered = REVIEW_PROMPTS.filter(r => isWithinCEFR(r.level));
+  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen reviews voor dit niveau.</p>'; return; }
+  let html = '';
+  filtered.forEach((r, i) => {
+    const stars = '⭐'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
+    html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + r.emoji + ' ' + r.place + '</h3><span class="gesprek-level">' + r.level + '</span></div>';
+    html += '<div class="gesprek-body">';
+    html += '<div style="font-size:18px;margin-bottom:8px;">' + stars + '</div>';
+    html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:13px;color:#666;margin-bottom:4px;">' + r.type + '</div>';
+    html += '<div class="email-situation">' + r.context + '</div>';
+    html += '<textarea class="dictee-input" style="width:100%;min-height:100px;resize:vertical;margin-bottom:12px;font-size:14px;" placeholder="Schrijf je review hier..."></textarea>';
+    html += '<div style="margin-bottom:12px;">';
+    r.tips.forEach(t => { html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#666;padding:2px 0;">✍️ ' + t + '</div>'; });
+    html += '</div>';
+    html += '<button class="mondrian-btn small" onclick="this.nextElementSibling.classList.toggle(\'visible\');this.textContent=this.textContent===\'Toon modelreview\'?\'Verberg\':\' Toon modelreview\'">Toon modelreview</button>';
+    html += '<div class="email-model">' + r.model + '</div>';
+    html += '</div></div>';
+  });
+  container.innerHTML = html;
 }
 
 // ==========================================
@@ -8813,7 +8828,6 @@ initSpel();
 
 // Enter key handlers for new dictee inputs
 document.getElementById('dicteeLInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeL(); });
-document.getElementById('dicteeSInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeS(); });
 
 </script>
 </body>
