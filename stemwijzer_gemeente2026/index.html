@@ -5811,7 +5811,8 @@ function drawResultScreen() {
   const numParties = results.length;
   const barPad = 3;
   const barH = Math.min(36, Math.floor((chartH - barPad * (numParties + 1)) / numParties));
-  const labelW = Math.min(70, screenW * 0.15); // space for party abbreviation
+  const avatarS = Math.max(14, Math.min(24, barH - 4)); // party logo size
+  const labelW = avatarS + Math.min(70, screenW * 0.15) + 8; // logo + abbreviation + gap
   const pctLabelW = 45; // space for percentage text
   const maxBarW = chartW - labelW - pctLabelW - 10;
 
@@ -5825,13 +5826,28 @@ function drawResultScreen() {
 
     resultRowRects.push({ x: chartLeft, y: by, w: chartW, h: barH, partyIdx: r.partyIdx });
 
-    // Party abbreviation label
+    // Party logo/avatar
+    drawPartyAvatar(chartLeft, by + (barH - avatarS) / 2, r.partyIdx, avatarS);
+
+    // Party abbreviation label — styled as hyperlink (blue + underline)
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
     const labelSize = Math.max(10, Math.min(14, barH * 0.55));
     ctx.font = `bold ${labelSize}px 'Inter', sans-serif`;
-    ctx.fillStyle = i < 3 ? '#d42020' : '#1a1a1a';
-    ctx.fillText(p.abbr, chartLeft + labelW - 6, by + barH / 2);
+    ctx.fillStyle = p.url ? '#1858a8' : (i < 3 ? '#d42020' : '#1a1a1a');
+    const abbrX = chartLeft + labelW - 6;
+    const abbrY = by + barH / 2;
+    ctx.fillText(p.abbr, abbrX, abbrY);
+    // Underline to show it's a link
+    if (p.url) {
+      const tw = ctx.measureText(p.abbr).width;
+      ctx.strokeStyle = '#1858a8';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(abbrX - tw, abbrY + labelSize * 0.45);
+      ctx.lineTo(abbrX, abbrY + labelSize * 0.45);
+      ctx.stroke();
+    }
 
     // Bar background (light gray)
     ctx.fillStyle = '#e0dcd4';
