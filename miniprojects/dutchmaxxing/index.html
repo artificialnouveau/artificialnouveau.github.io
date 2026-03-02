@@ -6868,8 +6868,8 @@ function renderPhrases() {
     + '<span class="phrase-cat-label">' + (PHRASE_CAT_LABELS[p.cat] || p.cat) + '</span>'
     + '<div class="phrase-nl">' + p.nl + '</div>'
     + '<div class="phrase-en">' + p.en + '</div>'
-    + '<div class="phrase-example">' + p.example + '</div>'
-    + '<div class="phrase-example-en">' + p.example_en + '</div>'
+    + '<div class="phrase-example">' + (p.example || '') + '</div>'
+    + '<div class="phrase-example-en">' + (p.example_en || '') + '</div>'
     + '</div>'
   ).join('') || '<div style="padding:20px;text-align:center;color:#999;">Geen uitdrukkingen gevonden</div>';
 }
@@ -8005,7 +8005,7 @@ function appendDialogue(type, content, skillKey) {
     const skill = DE_SKILLS[skillKey];
     entry.style.borderLeftColor = skill.color;
     entry.style.background = skill.color + '08';
-    entry.innerHTML = '<span style="color:' + skill.color + ';font-weight:700;">' + skill.icon + ' ' + skill.name.toUpperCase() + '</span> — ' + content;
+    entry.innerHTML = '<span style="color:' + skill.color + ';font-weight:700;">' + (skill.icon || '') + ' ' + skill.name.toUpperCase() + '</span> — ' + content;
   } else if (type === 'npc') {
     const parts = content.split(' — ');
     if (parts.length >= 2) {
@@ -8101,7 +8101,7 @@ function renderSkillOverview() {
     const level = spelState.skillLevels[key] || 0;
     const pct = Math.min((level / 5) * 100, 100);
     html += '<div class="de-skill-row">';
-    html += '<span class="skill-icon">' + skill.icon + '</span>';
+    html += '<span class="skill-icon">' + (skill.icon || '') + '</span>';
     html += '<span class="skill-name">' + skill.name + '</span>';
     html += '<div class="de-skill-bar"><div class="de-skill-bar-fill" style="width:' + pct + '%;background:' + skill.color + ';"></div></div>';
     html += '<span class="skill-level">' + level.toFixed(1) + '</span>';
@@ -8142,7 +8142,7 @@ function equipThought(id) {
 function updateHud() {
   const scenario = spelState.currentScenario;
   if (!scenario) return;
-  document.getElementById('deHudLocation').innerHTML = '<span class="loc-icon">' + scenario.icon + '</span>' + scenario.location + ' — Ronde ' + spelState.round;
+  document.getElementById('deHudLocation').innerHTML = '<span class="loc-icon">' + (scenario.icon || '') + '</span>' + scenario.location + ' — Ronde ' + spelState.round;
   document.getElementById('deHudXp').textContent = '\u2b50 ' + spelState.score + ' XP';
   updateHudSkills();
 }
@@ -8154,7 +8154,7 @@ function updateHudSkills() {
   Object.keys(DE_SKILLS).forEach(key => {
     const s = DE_SKILLS[key];
     const lvl = (spelState.skillLevels[key] || 0).toFixed(1);
-    html += '<span class="de-hud-pip" title="' + s.name + ': ' + lvl + '" style="border-color:' + s.color + ';">' + s.icon + '</span>';
+    html += '<span class="de-hud-pip" title="' + s.name + ': ' + lvl + '" style="border-color:' + s.color + ';">' + (s.icon || '') + '</span>';
   });
   container.innerHTML = html;
 }
