@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StemWijzer Gemeente 2026</title>
+<meta name="description" content="Ontdek welke partij bij jou past met deze interactieve isometrische StemWijzer voor de Gemeenteraadsverkiezingen 2026.">
+<meta property="og:title" content="StemWijzer Gemeente 2026">
+<meta property="og:description" content="Ontdek welke partij bij jou past met deze interactieve isometrische StemWijzer voor de Gemeenteraadsverkiezingen 2026.">
+<meta property="og:image" content="https://artificialnouveau.github.io/assets/portfolio/stemwijzer_gemeente2026.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://artificialnouveau.github.io/stemwijzer_gemeente2026/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="StemWijzer Gemeente 2026">
+<meta name="twitter:description" content="Interactieve isometrische StemWijzer voor de Gemeenteraadsverkiezingen 2026.">
+<meta name="twitter:image" content="https://artificialnouveau.github.io/assets/portfolio/stemwijzer_gemeente2026.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -34,12 +44,17 @@ const FPS = 60;
 const FRAME_TIME = 1000 / FPS;
 const NPC_INTERACT_RANGE = 2.5;
 
-let screenW, screenH;
+const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) || ('ontouchstart' in window);
+let screenW, screenH, dpr = 1;
 function resize() {
+  dpr = window.devicePixelRatio || 1;
   screenW = window.innerWidth;
   screenH = window.innerHeight;
-  canvas.width = screenW;
-  canvas.height = screenH;
+  canvas.width = screenW * dpr;
+  canvas.height = screenH * dpr;
+  canvas.style.width = screenW + 'px';
+  canvas.style.height = screenH + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 resize();
 window.addEventListener('resize', resize);
@@ -203,7 +218,20 @@ canvas.addEventListener('click', e => {
   const my = e.clientY - rect.top;
 
   if (gameState === 'title') {
-    // Click anywhere to start
+    // Language toggle button detection
+    const midX = screenW / 2;
+    const titleY = screenH * 0.22;
+    const panelW = Math.min(580, screenW * 0.75);
+    const panelH = 155;
+    const px = midX - panelW / 2;
+    const py = titleY - 52;
+    const langBtnX = px + panelW - 60;
+    const langBtnY = py + panelH - 30;
+    if (mx >= langBtnX && mx <= langBtnX + 55 && my >= langBtnY && my <= langBtnY + 24) {
+      toggleLanguage();
+      return;
+    }
+    // Click anywhere else to start
     if (loadGame() && answers.length > 0 && answers.length < quizMode) {
       gameState = 'playing';
     } else {
@@ -214,10 +242,10 @@ canvas.addEventListener('click', e => {
   }
 
   if (gameState === 'citySelect') {
-    // Click on city boxes
-    const boxW = 400, boxH = 60;
+    // Click on city boxes — must match drawCitySelect positions
+    const boxW = 400, boxH = 52;
     for (let i = 0; i < CITIES.length; i++) {
-      const y = screenH * 0.28 + i * 75;
+      const y = screenH * 0.22 + i * 62;
       const bx = screenW/2 - boxW/2;
       if (mx >= bx && mx <= bx + boxW && my >= y && my <= y + boxH) {
         selectedCity = i;
@@ -232,7 +260,7 @@ canvas.addEventListener('click', e => {
   }
 
   if (gameState === 'modeSelect') {
-    // Click on mode boxes
+    // Click on mode boxes — must match drawModeSelect positions
     const modes = [
       { count: 10, perZone: 1 },
       { count: 20, perZone: 2 },
@@ -240,7 +268,7 @@ canvas.addEventListener('click', e => {
     ];
     const boxW = 400, boxH = 70;
     for (let i = 0; i < modes.length; i++) {
-      const y = screenH * 0.35 + i * 100;
+      const y = screenH * 0.30 + i * 100;
       const bx = screenW/2 - boxW/2;
       if (mx >= bx && mx <= bx + boxW && my >= y && my <= y + boxH) {
         quizMode = modes[i].count;
@@ -266,22 +294,16 @@ canvas.addEventListener('click', e => {
       if (Math.abs(clickX - nsx) < 20 && Math.abs(clickY - nsy) < 30) {
         const d = distSq(player.x, player.y, npc.x, npc.y);
         if (d < NPC_INTERACT_RANGE * NPC_INTERACT_RANGE) {
-          // Close enough — interact
-          const zi = npc.zoneIdx;
-          if (!isZoneComplete(zi)) {
-            const stmts = getZoneStatements(zi);
-            for (const st of stmts) {
-              const si = STATEMENTS.indexOf(st);
-              if (!answers.find(a => a.stmtIdx === si)) {
-                currentStatementIdx = si;
-                activeNPC = npc;
-                extraBelangrijk = false;
-                answerTab = 0;
-                overlayTransition = 0;
-                gameState = 'answering';
-                return;
-              }
-            }
+          // Close enough — interact with this NPC's specific statement
+          const si = npc.statementIdx;
+          if (!answers.find(a => a.stmtIdx === si)) {
+            currentStatementIdx = si;
+            activeNPC = npc;
+            extraBelangrijk = false;
+            answerTab = 0;
+            overlayTransition = 0;
+            gameState = 'answering';
+            return;
           }
         } else {
           // Too far — walk toward the NPC
@@ -634,7 +656,77 @@ const TRANSLATIONS_ROTTERDAM = [
     arguments: { pro: "Brings decisions closer to residents and increases involvement.", contra: "Can lead to fragmented policy and inequality between neighborhoods." } },
 ];
 
-let showEnglish = false; // toggle for English translation
+let showEnglish = localStorage.getItem('stemwijzer_lang') === 'en';
+
+const UI_TEXT = {
+  title_main: { nl: 'StemWijzer', en: 'StemWijzer' },
+  title_sub: { nl: 'Gemeente 2026', en: 'Municipality 2026' },
+  title_date: { nl: 'Gemeenteraadsverkiezingen \u2014 18 maart 2026', en: 'Municipal Elections \u2014 March 18, 2026' },
+  title_prompt: { nl: 'Druk op een toets of klik om te beginnen', en: 'Press any key or click to start' },
+  title_disclaimer: { nl: 'Stellingen en partijposities zijn illustratief \u2014 niet officieel StemWijzer-materiaal', en: 'Statements and party positions are illustrative \u2014 not official StemWijzer material' },
+  city_title: { nl: 'Kies je gemeente', en: 'Choose your municipality' },
+  city_subtitle: { nl: 'Selecteer een beschikbare gemeente', en: 'Select an available municipality' },
+  city_available: { nl: 'Beschikbaar', en: 'Available' },
+  city_soon: { nl: 'Binnenkort beschikbaar', en: 'Coming soon' },
+  city_hint: { nl: 'Gebruik pijltjestoetsen en Enter / Klik om te kiezen', en: 'Use arrow keys and Enter / Click to choose' },
+  mode_title: { nl: 'Kies je quizmodus', en: 'Choose your quiz mode' },
+  mode_quick: { nl: 'Snel', en: 'Quick' },
+  mode_normal: { nl: 'Normaal', en: 'Standard' },
+  mode_full: { nl: 'Volledig', en: 'Complete' },
+  mode_quick_desc: { nl: '10 stellingen \u2014 1 per thema', en: '10 statements \u2014 1 per theme' },
+  mode_normal_desc: { nl: '20 stellingen \u2014 2 per thema', en: '20 statements \u2014 2 per theme' },
+  mode_full_desc: { nl: '30 stellingen \u2014 3 per thema', en: '30 statements \u2014 3 per theme' },
+  mode_hint_desktop: { nl: 'Druk 1, 2 of 3 om te kiezen', en: 'Press 1, 2, or 3 to choose' },
+  mode_hint_mobile: { nl: 'Tik op een modus om te kiezen', en: 'Tap a mode to choose' },
+  hud_statements: { nl: 'Stellingen', en: 'Statements' },
+  hud_talk: { nl: 'Praat', en: 'Talk' },
+  hud_zoom: { nl: 'Zoom', en: 'Zoom' },
+  hud_controls: { nl: 'WASD/pijltjes: lopen \u2022 Spatie: praten', en: 'WASD/arrows: walk \u2022 Space: talk' },
+  theme_wonen: { nl: 'Wonen', en: 'Housing' },
+  theme_klimaat: { nl: 'Klimaat', en: 'Climate' },
+  theme_veiligheid: { nl: 'Veiligheid', en: 'Safety' },
+  theme_mobiliteit: { nl: 'Mobiliteit', en: 'Mobility' },
+  theme_economie: { nl: 'Economie', en: 'Economy' },
+  theme_zorg: { nl: 'Zorg', en: 'Healthcare' },
+  theme_onderwijs: { nl: 'Onderwijs', en: 'Education' },
+  theme_cultuur: { nl: 'Cultuur & Sport', en: 'Culture & Sport' },
+  theme_diversiteit: { nl: 'Diversiteit', en: 'Diversity' },
+  theme_bestuur: { nl: 'Bestuur', en: 'Governance' },
+  answer_statement: { nl: 'Stelling', en: 'Statement' },
+  answer_of: { nl: 'van', en: 'of' },
+  answer_eens: { nl: 'Eens', en: 'Agree' },
+  answer_neutraal: { nl: 'Neutraal', en: 'Neutral' },
+  answer_oneens: { nl: 'Oneens', en: 'Disagree' },
+  answer_skip: { nl: 'Overslaan', en: 'Skip' },
+  answer_belangrijk: { nl: 'Extra belangrijk', en: 'Extra important' },
+  answer_tab_stem: { nl: 'Stem', en: 'Vote' },
+  answer_tab_partijen: { nl: 'Partijen', en: 'Parties' },
+  answer_tab_meer: { nl: 'Meer weten', en: 'Learn more' },
+  answer_tab_args: { nl: 'Argumenten', en: 'Arguments' },
+  answer_voor: { nl: 'Voor', en: 'For' },
+  answer_tegen: { nl: 'Tegen', en: 'Against' },
+  answer_party_eens: { nl: 'Eens', en: 'Agree' },
+  answer_party_oneens: { nl: 'Oneens', en: 'Disagree' },
+  answer_party_neutraal: { nl: 'Neutraal', en: 'Neutral' },
+  result_title: { nl: 'Jouw Uitslag', en: 'Your Results' },
+  result_restart: { nl: 'Druk R om opnieuw te beginnen', en: 'Press R to restart' },
+  result_click_hint: { nl: 'Klik op een partij voor meer informatie', en: 'Click a party for more info' },
+  result_disclaimer: { nl: 'Deze uitslag is illustratief en niet gebaseerd op officiele StemWijzer-data.', en: 'These results are illustrative and not based on official StemWijzer data.' },
+  illustrative: { nl: 'illustratief', en: 'illustrative' },
+};
+
+const THEME_KEYS = ['theme_wonen','theme_klimaat','theme_veiligheid','theme_mobiliteit','theme_economie','theme_zorg','theme_onderwijs','theme_cultuur','theme_diversiteit','theme_bestuur'];
+
+function t(key) {
+  const entry = UI_TEXT[key];
+  if (!entry) return key;
+  return showEnglish ? entry.en : entry.nl;
+}
+
+function toggleLanguage() {
+  showEnglish = !showEnglish;
+  localStorage.setItem('stemwijzer_lang', showEnglish ? 'en' : 'nl');
+}
 
 // 21 Rotterdam parties with positions per statement (-1, 0, 1)
 // Positions are illustrative — not official StemWijzer data
@@ -770,10 +862,12 @@ const PARTIES_ROTTERDAM = [
 // City selection data
 const CITIES = [
   { name: 'Rotterdam', available: true },
-  { name: 'Amsterdam', available: false },
+  { name: 'Amsterdam', available: true },
   { name: 'Den Haag', available: true },
-  { name: 'Utrecht', available: false },
-  { name: 'Eindhoven', available: false },
+  { name: 'Utrecht', available: true },
+  { name: 'Eindhoven', available: true },
+  { name: 'Groningen', available: true },
+  { name: 'Nijmegen', available: true },
 ];
 let selectedCity = 0;
 
@@ -2125,14 +2219,15 @@ class Player extends Entity {
 }
 
 class NPC extends Entity {
-  constructor(x, y, zoneIdx) {
+  constructor(x, y, zoneIdx, statementIdx) {
     super(x, y);
     this.zoneIdx = zoneIdx;
+    this.statementIdx = statementIdx; // global index into STATEMENTS array
     this.homeX = x; this.homeY = y;
     this.patrolTimer = Math.random() * 200;
     this.patrolDir = 0;
     this.statementsAsked = 0;
-    this.skinTone = SKIN_TONES[zoneIdx % SKIN_TONES.length];
+    this.skinTone = SKIN_TONES[(zoneIdx * 3 + (statementIdx || 0)) % SKIN_TONES.length];
   }
   update() {
     // Simple patrol around home position
@@ -2916,6 +3011,1401 @@ const NPC_GREETINGS_DEN_HAAG = [
    'Den Haag: waar de gemeentepolitiek in de schaduw van de landelijke politiek staat.'],
 ];
 
+// ============================================================
+// AMSTERDAM DATA
+// ============================================================
+const STATEMENTS_AMSTERDAM = [
+  // Wonen (0-2)
+  { theme: 0, text: "Amsterdam moet een quotum van 40% sociale huurwoningen handhaven bij elk nieuwbouwproject.",
+    explanation: "De Amsterdamse woningmarkt is een van de duurste van Nederland.",
+    arguments: { pro: "Voorkomt dat betaalbare woningen verdwijnen in een steeds duurdere stad.", contra: "Maakt nieuwbouw duurder en kan investeerders afschrikken." } },
+  { theme: 0, text: "De gemeente moet panden van huisjesmelkers kunnen onteigenen.",
+    explanation: "Huisjesmelkers verhuren woningen tegen woekerprijzen en onderhouden ze slecht.",
+    arguments: { pro: "Beschermt huurders en pakt misstanden direct aan.", contra: "Onteigening is een ingrijpend middel dat eigendomsrecht aantast." } },
+  { theme: 0, text: "Woonboten moeten dezelfde rechten en plichten krijgen als reguliere woningen.",
+    explanation: "Amsterdam heeft duizenden woonboten die een uniek deel van de stad vormen.",
+    arguments: { pro: "Gelijke behandeling en betere rechtsbescherming voor woonbootbewoners.", contra: "Woonboten zijn anders dan woningen; maatwerk is nodig." } },
+  // Klimaat (3-5)
+  { theme: 1, text: "Amsterdam moet in 2030 alle grachten elektrisch bevaarbaar maken en dieselboten verbieden.",
+    explanation: "De grachten zijn het visitekaartje van Amsterdam maar worden vervuild door dieselmotoren.",
+    arguments: { pro: "Schonere grachten en betere luchtkwaliteit in het centrum.", contra: "Hoge kosten voor bootbezitters; niet alle boten zijn geschikt voor ombouw." } },
+  { theme: 1, text: "Schiphol moet krimpen om de geluidsoverlast en uitstoot in de regio te verminderen.",
+    explanation: "Schiphol is een economische motor maar veroorzaakt veel overlast voor omwonenden.",
+    arguments: { pro: "Minder geluidsoverlast en betere luchtkwaliteit voor honderdduizenden bewoners.", contra: "Schiphol is cruciaal voor de economie; krimp kost banen." } },
+  { theme: 1, text: "De gemeente moet meer groene daken en gevels verplichten in nieuwe gebouwen.",
+    explanation: "Amsterdam heeft last van hittestress en wateroverlast. Groene daken helpen beide problemen.",
+    arguments: { pro: "Verkoelt de stad en vangt regenwater op; goed voor biodiversiteit.", contra: "Extra kosten voor ontwikkelaars; niet alle daken zijn geschikt." } },
+  // Veiligheid (6-8)
+  { theme: 2, text: "De gemeente moet harder optreden tegen straatintimidatie op de Wallen.",
+    explanation: "De Wallen trekken veel toeristen maar kennen ook problemen met straatintimidatie.",
+    arguments: { pro: "Vergroot de veiligheid voor bewoners en sekswerkers.", contra: "Extra handhaving is duur en lost onderliggende problemen niet op." } },
+  { theme: 2, text: "Amsterdam moet meer investeren in de aanpak van ondermijnende criminaliteit.",
+    explanation: "Amsterdam is een knooppunt voor internationale drugshandel en witwassen.",
+    arguments: { pro: "Beschermt de stad tegen de invloed van crimineel geld.", contra: "Zeer kostbaar; de aanpak vereist vooral landelijke inzet." } },
+  { theme: 2, text: "Er moeten meer handhavers komen in het openbaar vervoer tegen agressie.",
+    explanation: "OV-personeel en reizigers worden regelmatig geconfronteerd met agressie.",
+    arguments: { pro: "Vergroot de veiligheid en het gevoel van veiligheid in tram en metro.", contra: "Meer handhavers is duur; preventie en cameratoezicht zijn effectiever." } },
+  // Mobiliteit (9-11)
+  { theme: 3, text: "Amsterdam moet een stadstol invoeren voor auto's die het centrum inrijden.",
+    explanation: "Het centrum is druk en vervuild. Een stadstol kan autoverkeer verminderen.",
+    arguments: { pro: "Minder verkeer, schonere lucht, meer ruimte voor fietsers en voetgangers.", contra: "Treft bewoners en ondernemers; sociaal oneerlijk voor mensen zonder alternatief." } },
+  { theme: 3, text: "De Noord/Zuidlijn moet worden doorgetrokken naar Schiphol.",
+    explanation: "De Noord/Zuidlijn stopt nu bij station Zuid. Doortrekking naar Schiphol zou de bereikbaarheid verbeteren.",
+    arguments: { pro: "Betere OV-verbinding met Schiphol en ontlasting van de trein.", contra: "Enorme investering; de treinverbinding werkt al goed." } },
+  { theme: 3, text: "De gemeente moet meer fietsparkeerplekken creeren bij stations en in het centrum.",
+    explanation: "Amsterdam barst uit zijn voegen qua geparkeerde fietsen.",
+    arguments: { pro: "Minder chaos op straat en minder gestolen fietsen.", contra: "Ondergrondse fietsenstallingen zijn zeer duur om te bouwen." } },
+  // Economie (12-14)
+  { theme: 4, text: "Het aantal vakantieverhuurvergunningen (Airbnb) moet verder worden beperkt.",
+    explanation: "Vakantieverhuur drijft huurprijzen op en veroorzaakt overlast in woonwijken.",
+    arguments: { pro: "Houdt woningen beschikbaar voor Amsterdammers en vermindert overlast.", contra: "Beperkt de vrijheid van woningeigenaren en toeristische inkomsten." } },
+  { theme: 4, text: "De gemeente moet meer investeren in de creatieve sector en broedplaatsen.",
+    explanation: "Amsterdam staat bekend om zijn creatieve sector, maar betaalbare werkruimtes verdwijnen.",
+    arguments: { pro: "Behoudt het creatieve karakter van de stad en biedt kunstenaars perspectief.", contra: "De markt moet dit regelen; gemeentegeld kan beter naar woningen." } },
+  { theme: 4, text: "Coffeeshops moeten worden verplaatst naar de randen van de stad.",
+    explanation: "Coffeeshops trekken drugstoerisme aan en veroorzaken overlast in het centrum.",
+    arguments: { pro: "Minder overlast in woonwijken en minder drugstoerisme.", contra: "Verplaatsing lost het probleem niet op en schaadt legale ondernemers." } },
+  // Zorg (15-17)
+  { theme: 5, text: "Amsterdam moet meer opvangplekken creeren voor daklozen in de wintermaanden.",
+    explanation: "Elk jaar overlijden daklozen door de kou. De huidige opvang is onvoldoende.",
+    arguments: { pro: "Basisrecht op bescherming tegen de kou; redt levens.", contra: "Opvang alleen is symptoombestrijding; structurele aanpak is nodig." } },
+  { theme: 5, text: "De gemeente moet meer investeren in verslavingszorg en drugspreventie.",
+    explanation: "Amsterdam kampt met verslavingsproblematiek, mede door de beschikbaarheid van drugs.",
+    arguments: { pro: "Helpt verslaafden en vermindert overlast in de stad.", contra: "Verslavingszorg is primair een landelijke verantwoordelijkheid." } },
+  { theme: 5, text: "Er moeten meer huisartsen komen in Amsterdam-Zuidoost en Nieuw-West.",
+    explanation: "Sommige stadsdelen hebben een tekort aan huisartsen.",
+    arguments: { pro: "Iedereen verdient goede basiszorg dicht bij huis.", contra: "De gemeente kan artsen niet dwingen zich ergens te vestigen." } },
+  // Onderwijs (18-20)
+  { theme: 6, text: "Amsterdamse scholen moeten verplicht lessen over diversiteit en inclusie aanbieden.",
+    explanation: "Amsterdam is een diverse stad, maar niet alle scholen besteden hier aandacht aan.",
+    arguments: { pro: "Bereidt kinderen voor op samenleven in een diverse stad.", contra: "Scholen moeten zelf hun curriculum bepalen; ouders beslissen mee." } },
+  { theme: 6, text: "De gemeente moet meer investeren in taalonderwijs voor nieuwkomers.",
+    explanation: "Veel nieuwkomers in Amsterdam spreken onvoldoende Nederlands om mee te doen.",
+    arguments: { pro: "Taal is de sleutel tot integratie en zelfredzaamheid.", contra: "Nieuwkomers moeten zelf verantwoordelijkheid nemen voor taalverwerving." } },
+  { theme: 6, text: "Alle basisscholen in Amsterdam moeten gratis ontbijt aanbieden.",
+    explanation: "Sommige kinderen komen zonder ontbijt op school, wat hun prestaties beinvloedt.",
+    arguments: { pro: "Geeft elk kind een gelijke start en verbetert leerprestaties.", contra: "Kostbaar; ouders zijn verantwoordelijk voor de voeding van hun kinderen." } },
+  // Cultuur & Sport (21-23)
+  { theme: 7, text: "Het Rijksmuseum en Stedelijk Museum moeten een dag per week gratis toegankelijk zijn.",
+    explanation: "Cultuur moet voor iedereen toegankelijk zijn, maar gratis toegang kost omzet.",
+    arguments: { pro: "Verlaagt de drempel voor Amsterdammers met een laag inkomen.", contra: "Musea hebben de inkomsten nodig; er zijn al kortingsregelingen." } },
+  { theme: 7, text: "De gemeente moet meer investeren in sportfaciliteiten in Amsterdam-Noord.",
+    explanation: "Amsterdam-Noord groeit snel maar sportvoorzieningen blijven achter.",
+    arguments: { pro: "Sport moet voor alle Amsterdammers bereikbaar zijn.", contra: "Noord heeft al veel nieuwe voorzieningen gekregen; andere wijken wachten ook." } },
+  { theme: 7, text: "Amsterdam moet een nieuw groot muziekfestivalterrein aanleggen buiten de ring.",
+    explanation: "Festivals in parken veroorzaken overlast en schade aan het groen.",
+    arguments: { pro: "Vast terrein voorkomt overlast en geeft festivals een goede basis.", contra: "Zeer dure investering; festivals horen bij het stadsleven." } },
+  // Diversiteit (24-26)
+  { theme: 8, text: "De gemeente moet een diversiteitsquotum instellen voor het eigen personeelsbestand.",
+    explanation: "Het gemeentelijk apparaat weerspiegelt niet altijd de diverse bevolking van Amsterdam.",
+    arguments: { pro: "Zorgt voor een inclusievere organisatie die de stad beter vertegenwoordigt.", contra: "Kwaliteit moet boven achtergrond gaan; positieve discriminatie is omstreden." } },
+  { theme: 8, text: "Amsterdam moet meer doen om discriminatie op de woningmarkt aan te pakken.",
+    explanation: "Mensen met een niet-westerse achternaam worden vaker afgewezen als huurder.",
+    arguments: { pro: "Iedereen verdient gelijke kansen; discriminatie is onacceptabel.", contra: "Lastig te handhaven; verhuurders maken eigen afwegingen." } },
+  { theme: 8, text: "De gemeente moet meer buurthuizen openen als ontmoetingsplekken voor verschillende gemeenschappen.",
+    explanation: "In een diverse stad is ontmoeting belangrijk om segregatie tegen te gaan.",
+    arguments: { pro: "Bevordert onderling begrip en versterkt de sociale cohesie.", contra: "Buurthuizen zijn duur; mensen zoeken zelf hun contacten." } },
+  // Bestuur (27-29)
+  { theme: 9, text: "De stadsdelen moeten meer eigen bevoegdheden en budget terugkrijgen.",
+    explanation: "Amsterdam centraliseerde veel macht. Stadsdelen voelen zich buitenspel gezet.",
+    arguments: { pro: "Beslissingen dichter bij de burger; beter maatwerk per stadsdeel.", contra: "Versnippering leidt tot ondoorzichtigheid en inefficientie." } },
+  { theme: 9, text: "Amsterdam moet een burgerberaad oprichten over de toekomst van het toerisme.",
+    explanation: "Toerisme is een groot thema dat alle Amsterdammers raakt.",
+    arguments: { pro: "Geeft bewoners directe invloed op een onderwerp dat hun dagelijks leven raakt.", contra: "Burgerberaad is traag; de politiek moet knopen doorhakken." } },
+  { theme: 9, text: "De gemeente moet transparanter worden over vastgoedtransacties en grondverkoop.",
+    explanation: "Er zijn zorgen over de transparantie van vastgoeddeals waarbij de gemeente betrokken is.",
+    arguments: { pro: "Voorkomt vriendjespolitiek en vergroot het vertrouwen.", contra: "Volledige transparantie kan onderhandelingsposities verzwakken." } },
+];
+
+const TRANSLATIONS_AMSTERDAM = [
+  { theme: 0, text: "Amsterdam should maintain a 40% social housing quota in every new construction project.",
+    explanation: "The Amsterdam housing market is one of the most expensive in the Netherlands.",
+    arguments: { pro: "Prevents affordable housing from disappearing in an increasingly expensive city.", contra: "Makes construction more expensive and may deter investors." } },
+  { theme: 0, text: "The municipality should be able to expropriate properties from exploitative landlords.",
+    explanation: "Slumlords rent out properties at extortionate prices and maintain them poorly.",
+    arguments: { pro: "Protects tenants and directly addresses abuses.", contra: "Expropriation is a drastic measure that affects property rights." } },
+  { theme: 0, text: "Houseboats should receive the same rights and obligations as regular housing.",
+    explanation: "Amsterdam has thousands of houseboats that form a unique part of the city.",
+    arguments: { pro: "Equal treatment and better legal protection for houseboat residents.", contra: "Houseboats differ from houses; tailored policy is needed." } },
+  { theme: 1, text: "Amsterdam should make all canals electric-only and ban diesel boats by 2030.",
+    explanation: "The canals are Amsterdam's calling card but are polluted by diesel engines.",
+    arguments: { pro: "Cleaner canals and better air quality in the city center.", contra: "High costs for boat owners; not all boats can be converted." } },
+  { theme: 1, text: "Schiphol Airport should shrink to reduce noise and emissions in the region.",
+    explanation: "Schiphol is an economic engine but causes significant nuisance for residents.",
+    arguments: { pro: "Less noise pollution and better air quality for hundreds of thousands.", contra: "Schiphol is crucial for the economy; shrinking costs jobs." } },
+  { theme: 1, text: "The municipality should mandate green roofs and facades on new buildings.",
+    explanation: "Amsterdam suffers from heat stress and flooding. Green roofs help with both.",
+    arguments: { pro: "Cools the city and captures rainwater; good for biodiversity.", contra: "Extra costs for developers; not all roofs are suitable." } },
+  { theme: 2, text: "The municipality should crack down harder on street intimidation in the Red Light District.",
+    explanation: "The Red Light District attracts many tourists but also has problems with harassment.",
+    arguments: { pro: "Increases safety for residents and sex workers.", contra: "Extra enforcement is expensive and doesn't solve underlying problems." } },
+  { theme: 2, text: "Amsterdam should invest more in tackling organized crime.",
+    explanation: "Amsterdam is a hub for international drug trafficking and money laundering.",
+    arguments: { pro: "Protects the city from the influence of criminal money.", contra: "Very expensive; the approach requires mainly national effort." } },
+  { theme: 2, text: "More enforcement officers should be deployed in public transport against aggression.",
+    explanation: "Public transport staff and passengers regularly face aggression.",
+    arguments: { pro: "Increases safety and the feeling of safety in trams and metro.", contra: "More officers are expensive; prevention and cameras are more effective." } },
+  { theme: 3, text: "Amsterdam should introduce a congestion charge for cars entering the city center.",
+    explanation: "The center is busy and polluted. A congestion charge can reduce car traffic.",
+    arguments: { pro: "Less traffic, cleaner air, more space for cyclists and pedestrians.", contra: "Affects residents and businesses; socially unfair for those without alternatives." } },
+  { theme: 3, text: "The North/South metro line should be extended to Schiphol Airport.",
+    explanation: "The North/South line currently ends at Zuid station. Extension would improve connectivity.",
+    arguments: { pro: "Better public transport connection to Schiphol and relief for trains.", contra: "Enormous investment; the train connection already works well." } },
+  { theme: 3, text: "The municipality should create more bicycle parking spaces at stations and in the center.",
+    explanation: "Amsterdam is bursting at the seams with parked bicycles.",
+    arguments: { pro: "Less chaos on streets and fewer stolen bicycles.", contra: "Underground bicycle garages are very expensive to build." } },
+  { theme: 4, text: "The number of vacation rental permits (Airbnb) should be further restricted.",
+    explanation: "Vacation rentals drive up housing prices and cause nuisance in residential areas.",
+    arguments: { pro: "Keeps housing available for Amsterdam residents and reduces nuisance.", contra: "Restricts homeowners' freedom and tourist revenue." } },
+  { theme: 4, text: "The municipality should invest more in the creative sector and incubator spaces.",
+    explanation: "Amsterdam is known for its creative sector, but affordable workspaces are disappearing.",
+    arguments: { pro: "Preserves the city's creative character and gives artists perspective.", contra: "The market should handle this; public funds are better spent on housing." } },
+  { theme: 4, text: "Coffeeshops should be relocated to the outskirts of the city.",
+    explanation: "Coffeeshops attract drug tourism and cause nuisance in the center.",
+    arguments: { pro: "Less nuisance in residential areas and less drug tourism.", contra: "Relocation doesn't solve the problem and harms legal businesses." } },
+  { theme: 5, text: "Amsterdam should create more shelter spaces for homeless people during winter.",
+    explanation: "Every year homeless people die from the cold. Current shelter capacity is insufficient.",
+    arguments: { pro: "Basic right to protection from cold; saves lives.", contra: "Shelter alone treats symptoms; structural solutions are needed." } },
+  { theme: 5, text: "The municipality should invest more in addiction care and drug prevention.",
+    explanation: "Amsterdam struggles with addiction issues, partly due to drug availability.",
+    arguments: { pro: "Helps addicts and reduces nuisance in the city.", contra: "Addiction care is primarily a national responsibility." } },
+  { theme: 5, text: "More family doctors should be established in Amsterdam-Zuidoost and Nieuw-West.",
+    explanation: "Some city districts have a shortage of family doctors.",
+    arguments: { pro: "Everyone deserves good basic healthcare close to home.", contra: "The municipality cannot force doctors to set up practice somewhere." } },
+  { theme: 6, text: "Amsterdam schools should be required to offer lessons on diversity and inclusion.",
+    explanation: "Amsterdam is a diverse city, but not all schools address this topic.",
+    arguments: { pro: "Prepares children for living together in a diverse city.", contra: "Schools should determine their own curriculum; parents should have input." } },
+  { theme: 6, text: "The municipality should invest more in language education for newcomers.",
+    explanation: "Many newcomers in Amsterdam don't speak enough Dutch to participate.",
+    arguments: { pro: "Language is the key to integration and self-sufficiency.", contra: "Newcomers should take responsibility for their own language acquisition." } },
+  { theme: 6, text: "All primary schools in Amsterdam should offer free breakfast.",
+    explanation: "Some children come to school without breakfast, affecting their performance.",
+    arguments: { pro: "Gives every child an equal start and improves learning outcomes.", contra: "Expensive; parents are responsible for feeding their children." } },
+  { theme: 7, text: "The Rijksmuseum and Stedelijk Museum should be free one day per week.",
+    explanation: "Culture should be accessible to everyone, but free access costs revenue.",
+    arguments: { pro: "Lowers the barrier for low-income Amsterdam residents.", contra: "Museums need the revenue; discount schemes already exist." } },
+  { theme: 7, text: "The municipality should invest more in sports facilities in Amsterdam-Noord.",
+    explanation: "Amsterdam-Noord is growing rapidly but sports facilities lag behind.",
+    arguments: { pro: "Sports should be accessible to all Amsterdam residents.", contra: "Noord has already received many new facilities; other districts are waiting too." } },
+  { theme: 7, text: "Amsterdam should build a new large music festival venue outside the ring road.",
+    explanation: "Festivals in parks cause nuisance and damage to green spaces.",
+    arguments: { pro: "A fixed venue prevents nuisance and gives festivals a proper base.", contra: "Very expensive investment; festivals are part of city life." } },
+  { theme: 8, text: "The municipality should set a diversity quota for its own workforce.",
+    explanation: "The municipal apparatus doesn't always reflect Amsterdam's diverse population.",
+    arguments: { pro: "Creates a more inclusive organization that better represents the city.", contra: "Quality should come before background; affirmative action is controversial." } },
+  { theme: 8, text: "Amsterdam should do more to combat discrimination in the housing market.",
+    explanation: "People with non-western surnames are more often rejected as tenants.",
+    arguments: { pro: "Everyone deserves equal opportunities; discrimination is unacceptable.", contra: "Hard to enforce; landlords make their own assessments." } },
+  { theme: 8, text: "The municipality should open more community centers as meeting places for different communities.",
+    explanation: "In a diverse city, meeting spaces are important to counter segregation.",
+    arguments: { pro: "Promotes mutual understanding and strengthens social cohesion.", contra: "Community centers are expensive; people find their own social contacts." } },
+  { theme: 9, text: "City districts should regain more autonomous powers and budgets.",
+    explanation: "Amsterdam centralized much power. Districts feel sidelined.",
+    arguments: { pro: "Decisions closer to residents; better tailored policy per district.", contra: "Fragmentation leads to opacity and inefficiency." } },
+  { theme: 9, text: "Amsterdam should establish a citizens' assembly on the future of tourism.",
+    explanation: "Tourism is a major topic that affects all Amsterdam residents.",
+    arguments: { pro: "Gives residents direct influence on a topic that affects their daily lives.", contra: "Citizens' assemblies are slow; politicians must make decisions." } },
+  { theme: 9, text: "The municipality should be more transparent about real estate transactions and land sales.",
+    explanation: "There are concerns about the transparency of real estate deals involving the municipality.",
+    arguments: { pro: "Prevents cronyism and increases trust.", contra: "Full transparency can weaken negotiating positions." } },
+];
+
+const PARTIES_AMSTERDAM = [
+  { name: 'GroenLinks', abbr: 'GL', colors: ['#39a935','#2d8a2b'], url: 'https://amsterdam.groenlinks.nl', symbol: '🌿',
+    pos: [1,1,1, 1,1,1, 0,1,0, 1,0,1, -1,1,-1, 1,1,1, 1,1,1, 1,1,0, 1,1,1, 1,1,1] },
+  { name: 'Partij van de Arbeid', abbr: 'PvdA', colors: ['#e12b1a','#c0241a'], url: 'https://amsterdam.pvda.nl', symbol: '🌹',
+    pos: [1,1,0, 0,0,1, 0,1,1, 0,0,1, -1,1,0, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,0,1] },
+  { name: 'D66', abbr: 'D66', colors: ['#01af36','#008c2e'], url: 'https://d66.nl/amsterdam', symbol: '💎',
+    pos: [0,0,0, 1,0,1, 0,1,0, 1,1,1, -1,1,-1, 0,0,0, 1,1,0, 1,1,0, 0,1,0, 1,1,1] },
+  { name: 'VVD', abbr: 'VVD', colors: ['#ff7f00','#e06d00'], url: 'https://www.vvd.nl/amsterdam', symbol: '🏛️',
+    pos: [-1,-1,0, 0,-1,0, 1,1,1, -1,1,1, 1,-1,1, -1,-1,-1, 0,0,-1, 0,0,1, -1,0,-1, -1,0,1] },
+  { name: 'SP', abbr: 'SP', colors: ['#ee1d23','#cc191f'], url: 'https://amsterdam.sp.nl', symbol: '✊',
+    pos: [1,1,1, 1,1,1, 1,1,0, 1,-1,1, -1,1,-1, 1,1,1, 1,1,1, 1,1,0, 1,1,1, 1,0,0] },
+  { name: 'Partij voor de Dieren', abbr: 'PvdD', colors: ['#006c2e','#005a26'], url: 'https://amsterdam.partijvoordedieren.nl', symbol: '🐾',
+    pos: [0,0,1, 1,1,1, 0,0,1, 1,0,1, -1,1,-1, 1,1,0, 1,0,1, 1,1,0, 0,1,1, 1,1,1] },
+  { name: 'CDA', abbr: 'CDA', colors: ['#007b5f','#006350'], url: 'https://www.cda.nl/amsterdam', symbol: '⚖️',
+    pos: [0,0,0, 0,-1,0, 1,1,1, -1,0,0, 0,-1,1, 0,0,0, 0,0,0, 0,0,1, 0,0,0, 0,-1,0] },
+  { name: 'BIJ1', abbr: 'BIJ1', colors: ['#f2e600','#d4ca00'], url: 'https://bij1.org', symbol: '✨',
+    pos: [1,1,1, 1,1,1, 1,0,-1, 1,-1,0, -1,1,-1, 1,1,1, 1,1,1, 1,1,0, 1,1,1, 1,1,0] },
+  { name: 'DENK', abbr: 'DENK', colors: ['#35a5e2','#2d8ec4'], url: 'https://www.bewegingdenk.nl', symbol: '🤝',
+    pos: [1,1,0, 0,0,1, 1,1,0, 0,0,1, -1,0,0, 1,1,1, 1,1,1, 0,0,0, 1,1,1, 1,0,0] },
+  { name: 'ChristenUnie', abbr: 'CU', colors: ['#00a7eb','#008dc8'], url: 'https://www.christenunie.nl/amsterdam', symbol: '✝️',
+    pos: [1,0,0, 0,-1,1, 0,1,1, -1,0,0, 0,1,1, 1,1,1, 0,0,0, 0,1,1, 0,0,0, 0,0,0] },
+  { name: 'Forum voor Democratie', abbr: 'FvD', colors: ['#6e1416','#5a1012'], url: 'https://fvd.nl', symbol: '🏛️',
+    pos: [-1,-1,-1, -1,-1,-1, 1,0,-1, -1,1,-1, 1,-1,1, -1,-1,-1, -1,-1,-1, 0,-1,1, -1,-1,-1, -1,-1,1] },
+  { name: 'Volt', abbr: 'Volt', colors: ['#502379','#3d1b5e'], url: 'https://www.voltnederland.org', symbol: '⚡',
+    pos: [0,0,0, 1,0,1, 0,1,0, 1,1,1, 0,1,0, 0,0,0, 1,1,0, 1,1,0, 1,1,1, 1,1,1] },
+  { name: 'JA21', abbr: 'JA21', colors: ['#062e58','#041f3d'], url: 'https://ja21.nl', symbol: '🇳🇱',
+    pos: [-1,-1,0, -1,-1,0, 1,1,-1, -1,1,0, 1,-1,1, -1,-1,-1, -1,0,-1, 0,-1,1, -1,-1,-1, -1,0,0] },
+];
+
+const NPC_GREETINGS_AMSTERDAM = [
+  // 0: Wonen
+  ['Welkom in de Jordaan! Ken je iemand die hier nog kan huren? Ik ook niet.',
+   'Mijn huurbaas wilde de huur verhogen. Ik vroeg of er een zwembad bij zat.',
+   'Een studio van 12m2 voor 1800 euro? Dat is Amsterdam, baby!',
+   'Mijn woonboot is meer waard dan een villa in Drenthe.'],
+  // 1: Klimaat
+  ['Als het water stijgt, worden onze grachten gewoon breder. Win-win!',
+   'Schiphol krimpen? Dan hoor ik tenminste mijn eigen gedachten weer.',
+   'Mijn groene dak is zo begroeid, de buren denken dat ik een park heb.',
+   'Amsterdam duurzaam? We fietsen toch al overal naartoe!'],
+  // 2: Veiligheid
+  ['Op de Wallen is het veiliger dan in de Kalverstraat op een zaterdag.',
+   'De georganiseerde misdaad? Die is hier beter georganiseerd dan de gemeente.',
+   'In de metro na middernacht is het een avontuur. Maar dan zonder kaart.',
+   'Amsterdam is zo veilig, mijn fiets is maar drie keer gestolen dit jaar.'],
+  // 3: Mobiliteit
+  ['Een stadstol? Ik kom al niet eens met de auto door het centrum.',
+   'De Noord/Zuidlijn? Ik wacht al sinds de bouw begon. Oh wacht, die is af!',
+   'Fietsenstalling vol? Gewoon aan een willekeurige brug vastmaken.',
+   'In Amsterdam ben je sneller lopend dan met de auto.'],
+  // 4: Economie
+  ['Mijn buurman verhuurt zijn kast op Airbnb. Serieus, zijn kast.',
+   'Broedplaatsen verdwijnen, maar er komen steeds meer yogastudios.',
+   'Coffeeshops naar de rand? Dan wordt het daar ook gezellig!',
+   'Amsterdam: waar een broodje kaas in het centrum 12 euro kost.'],
+  // 5: Zorg
+  ['Daklozenopvang? Wij noemen dat hier gewoon een studio-appartement.',
+   'De wachtlijst voor de GGZ is zo lang, ik ben genezen voor ik aan de beurt ben.',
+   'Een huisarts vinden in Zuidoost is moeilijker dan een parkeerplaats.',
+   'In Amsterdam is de beste therapie een wandeling langs de grachten.'],
+  // 6: Onderwijs
+  ['Diversiteitslessen? In mijn klas zitten 30 nationaliteiten, dat IS de les.',
+   'Gratis ontbijt op school? Mijn kind eet al drie keer daar.',
+   'Nederlands leren? Eerst maar eens proberen in Amsterdam Engels te spreken.',
+   'De universiteit is zo internationaal, de kantine serveert sushi naast stamppot.'],
+  // 7: Cultuur & Sport
+  ['Gratis naar het Rijksmuseum? Dan kan ik eindelijk de Nachtwacht zien!',
+   'Sportfaciliteiten in Noord? Je bedoelt de pont, toch? Dat is al een workout.',
+   'Een festivalterrein buiten de ring? Maar het Vondelpark IS ons festivalterrein.',
+   'Cultuur in Amsterdam is een avond kroeg en zeggen dat je naar een expositie bent geweest.'],
+  // 8: Diversiteit
+  ['Amsterdam: waar iedereen welkom is, zolang je de huur kunt betalen.',
+   'Diversiteitsquotum? In Amsterdam IS diversiteit de norm.',
+   'Een buurthuis? Dat is hier de Albert Heijn om de hoek.',
+   'Discriminatie op de woningmarkt? Je wordt hier al gediscrimineerd als je geen expat bent.'],
+  // 9: Bestuur
+  ['Stadsdelen meer macht? Mijn stadsdeelbestuurder kent mijn naam niet eens.',
+   'Een burgerberaad over toerisme? Laat me raden: minder toeristen!',
+   'Transparantie bij grondverkoop? In Amsterdam wordt alles onder de tafel geregeld.',
+   'De gemeente Amsterdam: groter dan sommige provincies, maar dan met meer grachten.'],
+];
+
+// ============================================================
+// UTRECHT DATA
+// ============================================================
+const STATEMENTS_UTRECHT = [
+  // Wonen (0-2)
+  { theme: 0, text: "Utrecht moet een quotum van 40% sociale huurwoningen handhaven bij elk nieuwbouwproject.",
+    explanation: "Utrecht groeit snel en de woningnood is groot, vooral voor starters en lage inkomens.",
+    arguments: { pro: "Houdt de stad betaalbaar en voorkomt segregatie.", contra: "Maakt nieuwbouw duurder en kan ontwikkelaars afschrikken." } },
+  { theme: 0, text: "De Merwedekanaalzone moet een autoluwe modelwijk worden met minimaal 50% betaalbare woningen.",
+    explanation: "De Merwedekanaalzone is de grootste gebiedsontwikkeling van Utrecht met ruimte voor duizenden woningen.",
+    arguments: { pro: "Kans om een voorbeeldwijk te bouwen die betaalbaar en duurzaam is.", contra: "Te ambitieuze eisen kunnen het project vertragen en duurder maken." } },
+  { theme: 0, text: "De gemeente moet strenger optreden tegen kamerverhuur en splitsing in studentenwijken.",
+    explanation: "Veel woningen in wijken als Lombok en Wittevrouwen zijn opgesplitst in studentenkamers.",
+    arguments: { pro: "Houdt wijken leefbaar voor gezinnen en voorkomt overlast.", contra: "Beperkt het woningaanbod voor studenten die al moeilijk een kamer vinden." } },
+  // Klimaat (3-5)
+  { theme: 1, text: "Utrecht moet in 2030 volledig aardgasvrij zijn in de binnenstad.",
+    explanation: "De binnenstad van Utrecht heeft veel oude panden die moeilijk te isoleren zijn.",
+    arguments: { pro: "Utrecht kan vooroplopen in de energietransitie.", contra: "Te ambitieus; oude panden zijn lastig en duur om aan te passen." } },
+  { theme: 1, text: "De singel moet verder worden heropend om de stad klimaatbestendiger te maken.",
+    explanation: "Delen van de Utrechtse singel zijn ooit gedempt voor autowegen. Heropening kan water bergen en verkoelen.",
+    arguments: { pro: "Meer waterberging, koeling en een mooiere stad.", contra: "Zeer kostbaar en disruptief voor het verkeer." } },
+  { theme: 1, text: "Alle daken van gemeentelijke gebouwen moeten zonnepanelen krijgen.",
+    explanation: "De gemeente heeft veel vastgoed dat kan bijdragen aan de energietransitie.",
+    arguments: { pro: "Gemeente geeft het goede voorbeeld en bespaart op energiekosten.", contra: "Niet alle daken zijn geschikt; de investering is fors." } },
+  // Veiligheid (6-8)
+  { theme: 2, text: "Utrecht moet meer investeren in cameratoezicht rondom Utrecht Centraal en Hoog Catharijne.",
+    explanation: "Het stationsgebied is druk en kent relatief veel incidenten.",
+    arguments: { pro: "Helpt bij opsporing en kan afschrikkend werken.", contra: "Tast privacy aan; effect op preventie is beperkt." } },
+  { theme: 2, text: "Er moeten meer wijkagenten komen in Overvecht en Kanaleneiland.",
+    explanation: "Deze wijken scoren lager op veiligheid en leefbaarheid.",
+    arguments: { pro: "Vergroot vertrouwen en signaleert problemen vroegtijdig.", contra: "Politiecapaciteit is schaars; structurele problemen vragen andere aanpak." } },
+  { theme: 2, text: "De gemeente moet een messenverbod invoeren voor jongeren in uitgaansgebieden.",
+    explanation: "Steekincidenten onder jongeren zijn een groeiend probleem.",
+    arguments: { pro: "Kan letsel voorkomen en geeft handhavers meer middelen.", contra: "Moeilijk te handhaven; pakt de oorzaken niet aan." } },
+  // Mobiliteit (9-11)
+  { theme: 3, text: "De binnenstad van Utrecht moet volledig autovrij worden.",
+    explanation: "Utrecht heeft al veel autoluwe straten, maar auto's zijn nog niet volledig geweerd.",
+    arguments: { pro: "Meer ruimte voor fietsers en voetgangers; schonere lucht.", contra: "Moeilijker bereikbaar voor bewoners en mensen met een beperking." } },
+  { theme: 3, text: "Er moet een lightrail komen tussen Utrecht Centraal en de Uithof/Utrecht Science Park.",
+    explanation: "De buslijn naar de Uithof is een van de drukste van Nederland.",
+    arguments: { pro: "Hogere capaciteit en betrouwbaardere verbinding.", contra: "Enorme investering terwijl de snelle bus al goed werkt." } },
+  { theme: 3, text: "De gemeente moet gratis OV aanbieden voor alle 65-plussers.",
+    explanation: "Ouderen zijn afhankelijker van openbaar vervoer maar vinden het vaak te duur.",
+    arguments: { pro: "Houdt ouderen mobiel en sociaal betrokken.", contra: "Kostbaar; niet alle ouderen hebben financiele ondersteuning nodig." } },
+  // Economie (12-14)
+  { theme: 4, text: "Utrecht moet meer investeren in de Jaarbeurs als evenementenlocatie van nationaal belang.",
+    explanation: "De Jaarbeurs is een belangrijke economische motor voor Utrecht.",
+    arguments: { pro: "Trekt bezoekers en werkgelegenheid naar de stad.", contra: "Jaarbeurs is een privaat bedrijf; de markt moet dit regelen." } },
+  { theme: 4, text: "De winkels in de binnenstad moeten elke dag om 09:00 open mogen.",
+    explanation: "Sommigen willen ruimere openingstijden, anderen beschermen de rust.",
+    arguments: { pro: "Meer flexibiliteit voor ondernemers en consumenten.", contra: "Kleine ondernemers kunnen de concurrentie niet aan." } },
+  { theme: 4, text: "De gemeente moet startups en scale-ups meer ondersteunen met goedkope kantoorruimte.",
+    explanation: "Utrecht is een aantrekkelijke stad voor jonge bedrijven, maar kantoorruimte is duur.",
+    arguments: { pro: "Stimuleert innovatie en werkgelegenheid.", contra: "De markt moet dit regelen; gemeentegeld kan beter naar basisvoorzieningen." } },
+  // Zorg (15-17)
+  { theme: 5, text: "De gemeente moet het budget voor jeugdzorg fors verhogen.",
+    explanation: "De wachtlijsten in de jeugdzorg zijn lang en de problematiek wordt zwaarder.",
+    arguments: { pro: "Kinderen verdienen tijdige hulp; voorkomen is beter dan genezen.", contra: "Jeugdzorg is al een grote post; meer geld alleen lost het niet op." } },
+  { theme: 5, text: "Utrecht moet meer inloopplekken openen voor mensen met psychische problemen.",
+    explanation: "Laagdrempelige hulp kan escalatie voorkomen en de GGZ ontlasten.",
+    arguments: { pro: "Voorkomt zwaardere zorg en biedt een vangnet.", contra: "Kost geld en personeel dat al schaars is." } },
+  { theme: 5, text: "Er moeten meer huisartsen komen in de nieuwbouwwijken Leidsche Rijn en Vleuten.",
+    explanation: "Deze snel groeiende wijken hebben een tekort aan huisartsen.",
+    arguments: { pro: "Goede basiszorg is een recht, ook in nieuwe wijken.", contra: "De gemeente kan artsen niet dwingen zich ergens te vestigen." } },
+  // Onderwijs (18-20)
+  { theme: 6, text: "De Universiteit Utrecht moet meer bijdragen aan de leefbaarheid van studentenwijken.",
+    explanation: "De universiteit profiteert van de stad maar de druk op wijken is groot.",
+    arguments: { pro: "Eerlijke bijdrage aan de stad die studenten huisvest.", contra: "Leefbaarheid is een gemeentelijke taak." } },
+  { theme: 6, text: "Alle basisscholen moeten een groen schoolplein krijgen.",
+    explanation: "Veel schoolpleinen zijn versteend, wat bijdraagt aan hittestress.",
+    arguments: { pro: "Beter voor kinderen en het klimaat; stimuleert buitenspelen.", contra: "Kostbaar; onderhoud van groen is duurder dan tegels." } },
+  { theme: 6, text: "De gemeente moet meer investeren in technisch onderwijs en vakscholen.",
+    explanation: "Er is een groot tekort aan vakmensen in de bouw en techniek.",
+    arguments: { pro: "Sluit aan bij de arbeidsmarktvraag en biedt jongeren perspectief.", contra: "Onderwijs is een rijkstaak; de gemeente heeft beperkte invloed." } },
+  // Cultuur & Sport (21-23)
+  { theme: 7, text: "TivoliVredenburg moet meer gemeentelijke subsidie krijgen om prijzen laag te houden.",
+    explanation: "TivoliVredenburg is het culturele hart van Utrecht maar kaartjes worden duurder.",
+    arguments: { pro: "Houdt cultuur toegankelijk voor alle Utrechters.", contra: "Het poppodium moet zelf kostendekkend werken." } },
+  { theme: 7, text: "De gemeente moet meer investeren in buitensportfaciliteiten langs de Kromme Rijn.",
+    explanation: "Het gebied langs de Kromme Rijn biedt kansen voor recreatie en sport.",
+    arguments: { pro: "Meer sportmogelijkheden in de natuur voor alle inwoners.", contra: "Natuur moet natuur blijven; niet alles hoeft een functie te hebben." } },
+  { theme: 7, text: "Utrecht moet een jaarlijks gratis stadsfestival organiseren.",
+    explanation: "Een gratis festival kan de gemeenschap versterken en cultuur toegankelijk maken.",
+    arguments: { pro: "Verbindt Utrechters en trekt bezoekers aan.", contra: "Grote kosten voor de gemeente; er zijn al genoeg festivals." } },
+  // Diversiteit (24-26)
+  { theme: 8, text: "De gemeente moet een diversiteitsquotum instellen voor het eigen personeelsbestand.",
+    explanation: "Het gemeentelijk apparaat is niet altijd een afspiegeling van de diverse bevolking.",
+    arguments: { pro: "Zorgt voor betere vertegenwoordiging van alle Utrechters.", contra: "Kwaliteit moet leidend zijn, niet achtergrond." } },
+  { theme: 8, text: "Utrecht moet meer doen om statushouders sneller te laten integreren.",
+    explanation: "Statushouders wachten vaak lang op woonruimte en taalonderwijs.",
+    arguments: { pro: "Snellere integratie is beter voor iedereen.", contra: "Statushouders krijgen al voorrang; dat is niet eerlijk naar andere woningzoekenden." } },
+  { theme: 8, text: "De gemeente moet actief beleid voeren tegen discriminatie bij sollicitaties.",
+    explanation: "Onderzoek toont dat mensen met een migratieachtergrond minder vaak worden uitgenodigd.",
+    arguments: { pro: "Gelijke kansen zijn een grondrecht.", contra: "Werkgevers moeten vrij zijn in hun selectie; handhaving is lastig." } },
+  // Bestuur (27-29)
+  { theme: 9, text: "De wijkraden moeten meer eigen budget en beslissingsbevoegdheid krijgen.",
+    explanation: "Wijkraden adviseren de gemeente maar hebben weinig echte macht.",
+    arguments: { pro: "Meer zeggenschap voor bewoners over hun eigen wijk.", contra: "Kan leiden tot ongelijkheid tussen wijken en vertraging." } },
+  { theme: 9, text: "Utrecht moet meer samenwerken met omliggende gemeenten in een stadsregio.",
+    explanation: "Vraagstukken als woningbouw en verkeer stoppen niet bij de gemeentegrens.",
+    arguments: { pro: "Betere afstemming en efficienter gebruik van middelen.", contra: "Grotere afstand tot de burger; risico op bureaucratie." } },
+  { theme: 9, text: "De gemeente moet inwoners via digitale peilingen vaker raadplegen bij grote besluiten.",
+    explanation: "Digitale participatie kan meer mensen betrekken bij de lokale democratie.",
+    arguments: { pro: "Meer betrokkenheid en draagvlak voor besluiten.", contra: "Digitale peilingen zijn niet representatief; risico op manipulatie." } },
+];
+
+const TRANSLATIONS_UTRECHT = [
+  { theme: 0, text: "Utrecht should maintain a 40% social housing quota in every new construction project.",
+    explanation: "Utrecht is growing fast and housing shortage is severe, especially for starters and low incomes.",
+    arguments: { pro: "Keeps the city affordable and prevents segregation.", contra: "Makes construction more expensive and may deter developers." } },
+  { theme: 0, text: "The Merwede Canal Zone should become a car-light model neighborhood with at least 50% affordable housing.",
+    explanation: "The Merwede Canal Zone is Utrecht's largest area development with room for thousands of homes.",
+    arguments: { pro: "Opportunity to build an exemplary neighborhood that is affordable and sustainable.", contra: "Too ambitious requirements may delay and increase costs." } },
+  { theme: 0, text: "The municipality should crack down on room rentals and property splitting in student neighborhoods.",
+    explanation: "Many homes in neighborhoods like Lombok and Wittevrouwen have been split into student rooms.",
+    arguments: { pro: "Keeps neighborhoods livable for families and prevents nuisance.", contra: "Limits housing supply for students who already struggle to find rooms." } },
+  { theme: 1, text: "Utrecht's city center should be fully gas-free by 2030.",
+    explanation: "Utrecht's city center has many old buildings that are difficult to insulate.",
+    arguments: { pro: "Utrecht can lead the way in energy transition.", contra: "Too ambitious; old buildings are difficult and expensive to adapt." } },
+  { theme: 1, text: "The canal should be further reopened to make the city more climate-resilient.",
+    explanation: "Parts of Utrecht's canal were once filled in for roads. Reopening can store water and cool the city.",
+    arguments: { pro: "More water storage, cooling, and a more beautiful city.", contra: "Very expensive and disruptive to traffic." } },
+  { theme: 1, text: "All roofs of municipal buildings should get solar panels.",
+    explanation: "The municipality owns many buildings that can contribute to energy transition.",
+    arguments: { pro: "Municipality leads by example and saves on energy costs.", contra: "Not all roofs are suitable; the investment is significant." } },
+  { theme: 2, text: "Utrecht should invest more in camera surveillance around Utrecht Central and Hoog Catharijne.",
+    explanation: "The station area is busy and has relatively many incidents.",
+    arguments: { pro: "Helps with detection and can have a deterrent effect.", contra: "Affects privacy; effect on prevention is limited." } },
+  { theme: 2, text: "More community police officers should be deployed in Overvecht and Kanaleneiland.",
+    explanation: "These neighborhoods score lower on safety and livability.",
+    arguments: { pro: "Increases trust and identifies problems early.", contra: "Police capacity is scarce; structural problems need different approaches." } },
+  { theme: 2, text: "The municipality should introduce a knife ban for young people in nightlife areas.",
+    explanation: "Stabbing incidents among young people are a growing problem.",
+    arguments: { pro: "Can prevent injuries and gives enforcement more tools.", contra: "Difficult to enforce; doesn't address root causes." } },
+  { theme: 3, text: "Utrecht's city center should become completely car-free.",
+    explanation: "Utrecht already has many car-light streets, but cars are not fully banned.",
+    arguments: { pro: "More space for cyclists and pedestrians; cleaner air.", contra: "Less accessible for residents and people with disabilities." } },
+  { theme: 3, text: "A light rail should be built between Utrecht Central and the Uithof/Science Park.",
+    explanation: "The bus line to the Uithof is one of the busiest in the Netherlands.",
+    arguments: { pro: "Higher capacity and more reliable connection.", contra: "Enormous investment while the express bus already works well." } },
+  { theme: 3, text: "The municipality should offer free public transport for all people over 65.",
+    explanation: "Elderly people depend more on public transport but often find it too expensive.",
+    arguments: { pro: "Keeps elderly mobile and socially engaged.", contra: "Expensive; not all elderly need financial support." } },
+  { theme: 4, text: "Utrecht should invest more in the Jaarbeurs as a nationally important event venue.",
+    explanation: "The Jaarbeurs is an important economic engine for Utrecht.",
+    arguments: { pro: "Attracts visitors and employment to the city.", contra: "The Jaarbeurs is a private company; the market should handle this." } },
+  { theme: 4, text: "City center shops should be allowed to open at 09:00 every day.",
+    explanation: "Some want more flexible opening hours, others want to protect quiet time.",
+    arguments: { pro: "More flexibility for entrepreneurs and consumers.", contra: "Small businesses can't handle the competition." } },
+  { theme: 4, text: "The municipality should support startups and scale-ups with affordable office space.",
+    explanation: "Utrecht is attractive for young companies, but office space is expensive.",
+    arguments: { pro: "Stimulates innovation and employment.", contra: "The market should handle this; public funds are better spent on basic services." } },
+  { theme: 5, text: "The municipality should significantly increase the youth care budget.",
+    explanation: "Waiting lists in youth care are long and problems are becoming more severe.",
+    arguments: { pro: "Children deserve timely help; prevention is better than cure.", contra: "Youth care is already a large budget item; more money alone won't fix it." } },
+  { theme: 5, text: "Utrecht should open more drop-in centers for people with mental health issues.",
+    explanation: "Low-threshold help can prevent escalation and relieve mental health services.",
+    arguments: { pro: "Prevents heavier care and provides a safety net.", contra: "Costs money and staff that are already scarce." } },
+  { theme: 5, text: "More family doctors should be established in Leidsche Rijn and Vleuten.",
+    explanation: "These rapidly growing neighborhoods have a shortage of family doctors.",
+    arguments: { pro: "Good basic healthcare is a right, even in new neighborhoods.", contra: "The municipality cannot force doctors to set up practice somewhere." } },
+  { theme: 6, text: "Utrecht University should contribute more to the livability of student neighborhoods.",
+    explanation: "The university benefits from the city but neighborhoods are under pressure.",
+    arguments: { pro: "Fair contribution to the city that houses students.", contra: "Livability is a municipal responsibility." } },
+  { theme: 6, text: "All primary schools should get a green schoolyard.",
+    explanation: "Many schoolyards are paved, contributing to heat stress.",
+    arguments: { pro: "Better for children and the climate; encourages outdoor play.", contra: "Expensive; maintaining greenery costs more than pavement." } },
+  { theme: 6, text: "The municipality should invest more in technical education and vocational schools.",
+    explanation: "There is a major shortage of skilled workers in construction and technology.",
+    arguments: { pro: "Matches labor market demand and offers young people perspective.", contra: "Education is a national responsibility; the municipality has limited influence." } },
+  { theme: 7, text: "TivoliVredenburg should receive more municipal subsidy to keep ticket prices low.",
+    explanation: "TivoliVredenburg is Utrecht's cultural heart but tickets are getting more expensive.",
+    arguments: { pro: "Keeps culture accessible for all Utrecht residents.", contra: "The venue should be self-sustaining." } },
+  { theme: 7, text: "The municipality should invest more in outdoor sports facilities along the Kromme Rijn.",
+    explanation: "The area along the Kromme Rijn offers opportunities for recreation and sports.",
+    arguments: { pro: "More sports opportunities in nature for all residents.", contra: "Nature should remain nature; not everything needs a function." } },
+  { theme: 7, text: "Utrecht should organize an annual free city festival.",
+    explanation: "A free festival can strengthen community bonds and make culture accessible.",
+    arguments: { pro: "Connects Utrecht residents and attracts visitors.", contra: "High costs for the municipality; there are already enough festivals." } },
+  { theme: 8, text: "The municipality should set a diversity quota for its own workforce.",
+    explanation: "The municipal apparatus doesn't always reflect the diverse population.",
+    arguments: { pro: "Ensures better representation of all Utrecht residents.", contra: "Quality should lead, not background." } },
+  { theme: 8, text: "Utrecht should do more to help refugees integrate faster.",
+    explanation: "Refugees often wait a long time for housing and language education.",
+    arguments: { pro: "Faster integration is better for everyone.", contra: "Refugees already get priority; that's unfair to other housing seekers." } },
+  { theme: 8, text: "The municipality should actively combat discrimination in job applications.",
+    explanation: "Research shows people with migration backgrounds are invited less often.",
+    arguments: { pro: "Equal opportunities are a fundamental right.", contra: "Employers should be free in their selection; enforcement is difficult." } },
+  { theme: 9, text: "Neighborhood councils should get more of their own budget and decision-making power.",
+    explanation: "Neighborhood councils advise the municipality but have little real power.",
+    arguments: { pro: "More say for residents about their own neighborhood.", contra: "Can lead to inequality between neighborhoods and delays." } },
+  { theme: 9, text: "Utrecht should cooperate more with surrounding municipalities in a city region.",
+    explanation: "Issues like housing and traffic don't stop at municipal borders.",
+    arguments: { pro: "Better coordination and more efficient use of resources.", contra: "Greater distance from citizens; risk of bureaucracy." } },
+  { theme: 9, text: "The municipality should consult residents more often via digital polls on major decisions.",
+    explanation: "Digital participation can involve more people in local democracy.",
+    arguments: { pro: "More involvement and support for decisions.", contra: "Digital polls are not representative; risk of manipulation." } },
+];
+
+const PARTIES_UTRECHT = [
+  { name: 'GroenLinks', abbr: 'GL', colors: ['#39a935','#2d8a2b'], url: 'https://utrecht.groenlinks.nl', symbol: '🌿',
+    pos: [1,1,1, 1,1,1, 0,1,0, 1,0,1, -1,0,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1] },
+  { name: 'D66', abbr: 'D66', colors: ['#01af36','#008c2e'], url: 'https://d66.nl/utrecht', symbol: '💎',
+    pos: [0,1,0, 1,1,1, 0,0,0, 1,1,1, 1,1,1, 0,0,0, 0,1,0, 1,1,1, 0,1,0, 1,1,1] },
+  { name: 'PvdA', abbr: 'PvdA', colors: ['#e12b1a','#c0241a'], url: 'https://utrecht.pvda.nl', symbol: '🌹',
+    pos: [1,1,1, 0,0,1, 0,1,1, 0,0,1, -1,1,0, 1,1,1, 1,0,1, 1,1,0, 1,1,1, 1,0,1] },
+  { name: 'VVD', abbr: 'VVD', colors: ['#ff7f00','#e06d00'], url: 'https://www.vvd.nl/utrecht', symbol: '🏛️',
+    pos: [-1,-1,0, 0,-1,0, 1,1,1, -1,1,0, 1,1,1, -1,0,-1, 0,-1,-1, 0,0,0, -1,0,-1, -1,0,1] },
+  { name: 'CDA', abbr: 'CDA', colors: ['#007b5f','#006350'], url: 'https://www.cda.nl/utrecht', symbol: '⚖️',
+    pos: [0,0,1, 0,-1,0, 1,1,1, -1,0,1, 0,1,1, 0,0,0, 0,0,1, 0,1,0, 0,0,0, 0,0,0] },
+  { name: 'SP', abbr: 'SP', colors: ['#ee1d23','#cc191f'], url: 'https://utrecht.sp.nl', symbol: '✊',
+    pos: [1,1,1, 1,0,1, 1,1,0, 1,-1,1, -1,0,-1, 1,1,1, 1,1,1, 1,0,0, 1,1,1, 1,0,0] },
+  { name: 'ChristenUnie', abbr: 'CU', colors: ['#00a7eb','#008dc8'], url: 'https://www.christenunie.nl/utrecht', symbol: '✝️',
+    pos: [1,0,0, 0,-1,1, 0,1,1, -1,0,1, 0,1,1, 1,1,1, 0,1,0, 0,1,0, 0,1,0, 1,0,0] },
+  { name: 'Partij voor de Dieren', abbr: 'PvdD', colors: ['#006c2e','#005a26'], url: 'https://utrecht.partijvoordedieren.nl', symbol: '🐾',
+    pos: [0,1,1, 1,1,1, 0,0,1, 1,0,1, -1,1,-1, 1,1,0, 0,1,1, 1,1,1, 0,1,1, 1,1,1] },
+  { name: 'DENK', abbr: 'DENK', colors: ['#35a5e2','#2d8ec4'], url: 'https://www.bewegingdenk.nl', symbol: '🤝',
+    pos: [1,1,0, 0,0,1, 1,1,0, 0,0,1, -1,0,0, 1,1,1, 1,1,1, 0,0,0, 1,1,1, 1,0,0] },
+  { name: 'Student & Starter', abbr: 'S&S', colors: ['#f5a623','#d4900e'], url: 'https://studentenstarter.nl', symbol: '🎓',
+    pos: [1,1,-1, 1,1,0, 0,0,0, 1,1,1, 0,1,1, 0,0,0, 1,1,1, 1,1,1, 1,1,0, 1,1,1] },
+  { name: 'Volt', abbr: 'Volt', colors: ['#502379','#3d1b5e'], url: 'https://www.voltnederland.org', symbol: '⚡',
+    pos: [0,1,0, 1,1,1, 0,1,0, 1,1,1, 0,1,1, 0,0,0, 1,1,1, 1,1,1, 1,1,1, 1,1,1] },
+  { name: 'PVV', abbr: 'PVV', colors: ['#21305a','#182440'], url: 'https://pvv.nl', symbol: '🇳🇱',
+    pos: [-1,-1,-1, -1,-1,-1, 1,1,-1, -1,1,-1, 1,-1,1, -1,-1,-1, -1,-1,-1, 0,-1,0, -1,-1,-1, -1,-1,0] },
+];
+
+const NPC_GREETINGS_UTRECHT = [
+  // 0: Wonen
+  ['Welkom in Utrecht! Een woning zoeken? Succes, het is hier net zo erg als Amsterdam.',
+   'De Merwedekanaalzone wordt prachtig! Maar kan ik er ook wonen? Dat is de vraag.',
+   'Mijn studentenkamer is zo klein, ik moet buiten staan om van gedachten te veranderen.',
+   'Utrecht groeit sneller dan de Domtoren hoog is. En die is al 112 meter.'],
+  // 1: Klimaat
+  ['De singel weer open? Dan kan ik eindelijk vanaf mijn huis naar werk kanoeen!',
+   'Zonnepanelen op het stadhuis? Dan straalt de gemeente tenminste ergens in uit.',
+   'Utrecht aardgasvrij? Mijn verhuurder heeft de verwarming al afgesloten, scheelt weer.',
+   'Een groen dak? Mijn bovenbuurman heeft al een jungle op zijn balkon.'],
+  // 2: Veiligheid
+  ['Hoog Catharijne is veiliger geworden! Je wordt nu alleen nog maar aangesproken door parfumverkopers.',
+   'Overvecht onveilig? Kom er eens langs, we hebben de beste snackbar van Utrecht.',
+   'Een messenverbod? In mijn tijd vochten we gewoon met broodjes gezond.',
+   'Camera\'s bij het station? Mijn trein heeft al vertraging, film dat maar.'],
+  // 3: Mobiliteit
+  ['Autovrij centrum? Ik sta al zo lang in de file dat mijn auto een monument is.',
+   'Een lightrail naar de Uithof? De bus is al een achtbaan in de spits.',
+   'Gratis OV voor 65-plussers? Mijn oma fietst nog harder dan de bus rijdt.',
+   'Utrecht: waar je met de fiets overal sneller bent dan met welk vervoermiddel ook.'],
+  // 4: Economie
+  ['De Jaarbeurs wordt het nieuwe centrum! Maar eerst nog even 10 jaar bouwen.',
+   'Winkels om 9 uur open? De Utrechtse bakker staat dan al uren klaar.',
+   'Een startup in Utrecht? Je kantoor is een koffietentje aan de Oudegracht.',
+   'Utrecht: waar de economie groeit, maar je portemonnee krimpt.'],
+  // 5: Zorg
+  ['Meer jeugdzorg? Mijn kinderen zijn al volwassen voor ze aan de beurt zijn.',
+   'Een inloopplek voor mentale gezondheid? Dat is hier de Botanical Gardens.',
+   'Huisarts in Leidsche Rijn? Je kunt beter naar het UMC fietsen.',
+   'De wachtlijst is zo lang dat ik een boek ben gaan schrijven. Over wachtlijsten.'],
+  // 6: Onderwijs
+  ['De universiteit bijdragen aan de wijk? Ze hebben al een heel science park gebouwd!',
+   'Een groen schoolplein? Mijn kind kent alleen maar tegels en krijtstrepen.',
+   'Technisch onderwijs? Mijn loodgieter verdient meer dan mijn professor.',
+   'In Utrecht studeren meer mensen dan er originele Utrechters wonen.'],
+  // 7: Cultuur & Sport
+  ['TivoliVredenburg is zo mooi, ik ga er naartoe zelfs als ik de band niet ken.',
+   'Sporten langs de Kromme Rijn? Ik word al moe van het ernaartoe fietsen.',
+   'Een gratis stadsfestival? Utrecht heeft al elke week iets op de Neude.',
+   'Cultuur in Utrecht: koffie drinken op een terras en doen alsof je de Domtoren bewondert.'],
+  // 8: Diversiteit
+  ['Utrecht: de stad waar iedereen welkom is, behalve als je een parkeerplaats zoekt.',
+   'Diversiteitsquotum? In de Kanaalstraat heb je al een VN-top op elke hoek.',
+   'Integratie gaat hier vanzelf. Iedereen klaagt samen over het weer.',
+   'Discriminatie aanpakken? Begin bij de woningmarkt, eindig nergens.'],
+  // 9: Bestuur
+  ['Wijkraden meer macht? Mijn wijkraadslid kent niet eens mijn straat.',
+   'Samenwerken met buurgemeenten? Stichtse Vecht is al bijna Utrecht.',
+   'Digitale peilingen? De helft van mijn wijk kan de gemeentesite niet vinden.',
+   'De Utrechtse politiek: net zo ingewikkeld als de wegomleggingen rond het station.'],
+];
+
+// ============================================================
+// EINDHOVEN DATA
+// ============================================================
+const STATEMENTS_EINDHOVEN = [
+  // Wonen (0-2)
+  { theme: 0, text: "Eindhoven moet een quotum van 40% sociale huurwoningen handhaven bij elk nieuwbouwproject.",
+    explanation: "De woningnood in Eindhoven is groot, mede door de groei van de techsector en het aantal expats.",
+    arguments: { pro: "Houdt de stad betaalbaar voor alle inwoners, niet alleen techwerkers.", contra: "Maakt nieuwbouw duurder en kan de groei van de techsector remmen." } },
+  { theme: 0, text: "Het Strijp-S terrein moet meer betaalbare woningen krijgen in plaats van dure lofts.",
+    explanation: "Strijp-S is getransformeerd van Philips-fabrieksterrein tot trendy woonwijk, maar is duur.",
+    arguments: { pro: "Voorkomt dat Strijp-S een enclave wordt voor alleen hoge inkomens.", contra: "De huidige ontwikkeling trekt juist creatief talent en bedrijvigheid aan." } },
+  { theme: 0, text: "De gemeente moet meer tijdelijke woningen bouwen voor expats en internationale werknemers.",
+    explanation: "ASML en andere techbedrijven trekken duizenden internationale werknemers aan die woonruimte nodig hebben.",
+    arguments: { pro: "Ontlast de reguliere woningmarkt en verwelkomt internationaal talent.", contra: "Expats krijgen voorrang terwijl Eindhovenaren zelf ook moeilijk een woning vinden." } },
+  // Klimaat (3-5)
+  { theme: 1, text: "Eindhoven moet zijn technische expertise inzetten om de slimste duurzame stad van Nederland te worden.",
+    explanation: "Met Brainport en de TU/e heeft Eindhoven unieke kennis op het gebied van technologie en innovatie.",
+    arguments: { pro: "Past bij het DNA van de stad en kan een voorbeeld zijn voor andere steden.", contra: "Duurzaamheid moet niet alleen tech-gedreven zijn; sociale aspecten tellen ook." } },
+  { theme: 1, text: "De Dommel moet worden hersteld als natuurlijke beek door het centrum.",
+    explanation: "De Dommel stroomt door Eindhoven maar is op veel plekken versteend en vervuild.",
+    arguments: { pro: "Meer biodiversiteit, waterberging en een aantrekkelijker centrum.", contra: "Kostbaar en complex; raakt aan veel andere gemeentelijke plannen." } },
+  { theme: 1, text: "Alle nieuwbouw in Eindhoven moet energieneutraal zijn.",
+    explanation: "Energieneutrale woningen produceren evenveel energie als ze verbruiken.",
+    arguments: { pro: "Toekomstbestendig bouwen dat de energierekening verlaagt.", contra: "Verhoogt de bouwkosten aanzienlijk; technologie is nog niet altijd betrouwbaar." } },
+  // Veiligheid (6-8)
+  { theme: 2, text: "Eindhoven moet meer investeren in de aanpak van drugscriminaliteit in de regio.",
+    explanation: "Brabant staat bekend om drugslabs en hennepkwekerijen. Eindhoven is niet immuun.",
+    arguments: { pro: "Beschermt de stad en voorkomt ondermijning van de legale economie.", contra: "Drugscriminaliteit is een landelijk probleem; de gemeente kan weinig alleen." } },
+  { theme: 2, text: "Er moet meer cameratoezicht komen rondom het Stratumseind.",
+    explanation: "Het Stratumseind is de langste kroegstraat van Nederland en kent regelmatig incidenten.",
+    arguments: { pro: "Helpt bij opsporing en kan geweld voorkomen.", contra: "Tast de privacy aan; het is al een van de meest bewaakte straten." } },
+  { theme: 2, text: "De gemeente moet een preventief messenverbod invoeren voor het uitgaansgebied.",
+    explanation: "Steekincidenten in uitgaansgebieden zijn een groeiend probleem.",
+    arguments: { pro: "Kan ernstig letsel voorkomen; geeft politie meer handvaten.", contra: "Moeilijk te handhaven; criminaliseert onschuldige mensen." } },
+  // Mobiliteit (9-11)
+  { theme: 3, text: "Eindhoven moet een lightrail aanleggen tussen het station en de High Tech Campus.",
+    explanation: "Dagelijks reizen duizenden werknemers naar de High Tech Campus, wat voor files zorgt.",
+    arguments: { pro: "Snellere, duurzame verbinding en minder autoverkeer.", contra: "Enorme investering; de Hovenring en snelbussen werken al goed." } },
+  { theme: 3, text: "Eindhoven Airport moet meer vluchten mogen aanbieden.",
+    explanation: "Het vliegveld groeit maar omwonenden klagen over geluidsoverlast.",
+    arguments: { pro: "Beter voor de Brainport-economie en bereikbaarheid van de regio.", contra: "Meer overlast voor omwonenden en hogere uitstoot." } },
+  { theme: 3, text: "Het centrum van Eindhoven moet autoluw worden met meer ruimte voor fietsers.",
+    explanation: "Het centrum is nog relatief autovriendelijk vergeleken met andere steden.",
+    arguments: { pro: "Aantrekkelijker centrum met minder luchtvervuiling.", contra: "Minder bereikbaar voor mensen van buiten de stad en ondernemers." } },
+  // Economie (12-14)
+  { theme: 4, text: "De gemeente moet meer investeren in Brainport om internationaal concurrerend te blijven.",
+    explanation: "Brainport Eindhoven is de technologische motor van Nederland met ASML, Philips en NXP.",
+    arguments: { pro: "Investering in Brainport is investering in de toekomst van de hele regio.", contra: "Te veel focus op tech; andere sectoren en inwoners worden vergeten." } },
+  { theme: 4, text: "De Dutch Design Week moet meer gemeentelijke ondersteuning krijgen.",
+    explanation: "DDW trekt jaarlijks honderdduizenden bezoekers en zet Eindhoven internationaal op de kaart.",
+    arguments: { pro: "Versterkt het internationale profiel en de creatieve economie.", contra: "Een evenement zou zichzelf moeten bedruipen; gemeentegeld kan beter besteed." } },
+  { theme: 4, text: "Er moeten meer betaalbare werkplekken komen voor zzp'ers en kleine ondernemers.",
+    explanation: "Niet iedereen werkt bij een groot techbedrijf; zzp'ers hebben ook betaalbare ruimtes nodig.",
+    arguments: { pro: "Stimuleert ondernemerschap en diversifieert de economie.", contra: "De markt moet dit regelen; de gemeente hoeft geen vastgoed te exploiteren." } },
+  // Zorg (15-17)
+  { theme: 5, text: "Eindhoven moet meer investeren in mentale gezondheidszorg voor techwerkers en expats.",
+    explanation: "De hoge werkdruk in de techsector en de eenzaamheid van expats leiden tot psychische klachten.",
+    arguments: { pro: "Gezonde werknemers zijn productiever; voorkomt uitval.", contra: "Werkgevers zijn verantwoordelijk voor hun personeel; niet de gemeente." } },
+  { theme: 5, text: "Er moeten meer huisartsen komen in de snelgroeiende wijken Meerhoven en Blixembosch.",
+    explanation: "Deze nieuwbouwwijken groeien snel maar zorgvoorzieningen blijven achter.",
+    arguments: { pro: "Goede basiszorg is essentieel in groeiende wijken.", contra: "De gemeente kan artsen niet dwingen zich ergens te vestigen." } },
+  { theme: 5, text: "De gemeente moet meer investeren in preventieve ouderenzorg.",
+    explanation: "De vergrijzing neemt toe en thuiswonende ouderen hebben steeds meer ondersteuning nodig.",
+    arguments: { pro: "Voorkomt zwaardere zorg en houdt ouderen langer zelfstandig.", contra: "Kost extra geld terwijl de begroting al onder druk staat." } },
+  // Onderwijs (18-20)
+  { theme: 6, text: "De TU Eindhoven moet meer samenwerken met het basisonderwijs om kinderen voor techniek te enthousiasmeren.",
+    explanation: "De technische sector heeft veel personeel nodig. Vroeg enthousiasmeren kan helpen.",
+    arguments: { pro: "Investeert in de toekomstige beroepsbevolking van de regio.", contra: "De TU is er voor hoger onderwijs; basisscholen bepalen zelf hun programma." } },
+  { theme: 6, text: "Alle basisscholen moeten programmeeronderwijs aanbieden.",
+    explanation: "In een techstad als Eindhoven is digitale geletterdheid extra belangrijk.",
+    arguments: { pro: "Bereidt kinderen voor op de toekomst in een technologische regio.", contra: "Scholen hebben al een vol curriculum; niet elk kind hoeft te programmeren." } },
+  { theme: 6, text: "De gemeente moet meer investeren in internationaal onderwijs.",
+    explanation: "Duizenden expat-kinderen hebben behoefte aan onderwijs in het Engels.",
+    arguments: { pro: "Maakt Eindhoven aantrekkelijker voor internationaal talent.", contra: "Gaat ten koste van regulier onderwijs; integratie wordt bemoeilijkt." } },
+  // Cultuur & Sport (21-23)
+  { theme: 7, text: "Het Van Abbemuseum moet meer gemeentelijke subsidie krijgen.",
+    explanation: "Het Van Abbemuseum is internationaal vermaard maar kampt met financiele druk.",
+    arguments: { pro: "Behoudt een cultureel icoon en trekt bezoekers.", contra: "Het museum moet efficienter werken in plaats van meer subsidie vragen." } },
+  { theme: 7, text: "PSV moet meer bijdragen aan sportstimulering in achterstandswijken.",
+    explanation: "PSV is de grootste sportclub van de stad en kan een rol spelen in de wijk.",
+    arguments: { pro: "Sport verbindt en kan jongeren perspectief bieden.", contra: "PSV is een commercieel bedrijf; wijksport is een gemeentelijke taak." } },
+  { theme: 7, text: "Eindhoven moet een permanent lichtkunstmuseum oprichten.",
+    explanation: "Eindhoven staat bekend als Lichtstad. GLOW trekt jaarlijks honderdduizenden bezoekers.",
+    arguments: { pro: "Past bij de identiteit van de stad en trekt het hele jaar toeristen.", contra: "Grote investering; GLOW als jaarlijks evenement werkt al goed." } },
+  // Diversiteit (24-26)
+  { theme: 8, text: "De gemeente moet meer doen om expats te integreren in de Eindhovense samenleving.",
+    explanation: "Duizenden internationale werknemers wonen in Eindhoven maar leven vaak in een bubbel.",
+    arguments: { pro: "Verrijkt de stad en voorkomt een tweedeling tussen locals en expats.", contra: "Expats zijn tijdelijk; integratie is hun eigen verantwoordelijkheid." } },
+  { theme: 8, text: "Eindhoven moet meertalige gemeentelijke dienstverlening aanbieden.",
+    explanation: "Veel expats spreken geen Nederlands en hebben moeite met gemeentelijke zaken.",
+    arguments: { pro: "Maakt de stad toegankelijker en verwelkomender voor internationaal talent.", contra: "Nederlands is de voertaal; meertaligheid is duur en ondermijnt integratie." } },
+  { theme: 8, text: "De gemeente moet actief discriminatie op de woningmarkt bestrijden.",
+    explanation: "Mensen met een migratieachtergrond worden vaker afgewezen als huurder.",
+    arguments: { pro: "Gelijke kansen zijn een grondrecht; handhaving is noodzakelijk.", contra: "Verhuurders moeten vrij zijn in hun keuze; handhaving is complex." } },
+  // Bestuur (27-29)
+  { theme: 9, text: "De Brainport-regio moet een eigen bestuurslaag krijgen met meer bevoegdheden.",
+    explanation: "De Brainport-samenwerking is informeel; een formele bestuurslaag kan slagvaardiger zijn.",
+    arguments: { pro: "Snellere besluitvorming en betere afstemming in de regio.", contra: "Extra bureaucratie en minder zeggenschap voor individuele gemeenten." } },
+  { theme: 9, text: "De gemeente moet inwoners via burgerpanels betrekken bij grote investeringsbeslissingen.",
+    explanation: "Grote projecten raken alle inwoners maar worden door een kleine groep besloten.",
+    arguments: { pro: "Meer draagvlak en betere besluiten door diverse perspectieven.", contra: "Vertraagt het proces; niet alle burgers hebben de expertise." } },
+  { theme: 9, text: "De gemeenteraad moet vaker in de wijken vergaderen in plaats van alleen in het stadhuis.",
+    explanation: "De afstand tussen politiek en burger is groot, vooral in de buitenwijken.",
+    arguments: { pro: "Brengt politiek dichter bij de mensen en toont betrokkenheid.", contra: "Logistiek lastig en duur; de meeste bewoners komen toch niet." } },
+];
+
+const TRANSLATIONS_EINDHOVEN = [
+  { theme: 0, text: "Eindhoven should maintain a 40% social housing quota in every new construction project.",
+    explanation: "Housing shortage in Eindhoven is severe, partly due to tech sector growth and expat numbers.",
+    arguments: { pro: "Keeps the city affordable for all residents, not just tech workers.", contra: "Makes construction more expensive and may slow tech sector growth." } },
+  { theme: 0, text: "The Strijp-S area should include more affordable housing instead of expensive lofts.",
+    explanation: "Strijp-S transformed from a Philips factory site to a trendy neighborhood, but is expensive.",
+    arguments: { pro: "Prevents Strijp-S from becoming an enclave for high incomes only.", contra: "Current development attracts creative talent and businesses." } },
+  { theme: 0, text: "The municipality should build more temporary housing for expats and international workers.",
+    explanation: "ASML and other tech companies attract thousands of international workers who need housing.",
+    arguments: { pro: "Relieves the regular housing market and welcomes international talent.", contra: "Expats get priority while local residents also struggle to find housing." } },
+  { theme: 1, text: "Eindhoven should use its technical expertise to become the smartest sustainable city.",
+    explanation: "With Brainport and TU/e, Eindhoven has unique technology and innovation knowledge.",
+    arguments: { pro: "Fits the city's DNA and can be an example for other cities.", contra: "Sustainability shouldn't be only tech-driven; social aspects matter too." } },
+  { theme: 1, text: "The Dommel river should be restored as a natural stream through the center.",
+    explanation: "The Dommel flows through Eindhoven but is largely paved over and polluted.",
+    arguments: { pro: "More biodiversity, water storage, and an attractive center.", contra: "Expensive and complex; affects many other municipal plans." } },
+  { theme: 1, text: "All new construction in Eindhoven should be energy-neutral.",
+    explanation: "Energy-neutral homes produce as much energy as they consume.",
+    arguments: { pro: "Future-proof building that lowers energy bills.", contra: "Significantly increases construction costs; technology is not always reliable." } },
+  { theme: 2, text: "Eindhoven should invest more in tackling drug crime in the region.",
+    explanation: "Brabant is known for drug labs and cannabis farms. Eindhoven is not immune.",
+    arguments: { pro: "Protects the city and prevents undermining of the legal economy.", contra: "Drug crime is a national problem; the municipality can do little alone." } },
+  { theme: 2, text: "More camera surveillance should be installed around the Stratumseind.",
+    explanation: "The Stratumseind is the longest pub street in the Netherlands with regular incidents.",
+    arguments: { pro: "Helps with detection and can prevent violence.", contra: "Affects privacy; it's already one of the most surveilled streets." } },
+  { theme: 2, text: "The municipality should introduce a preventive knife ban for the nightlife district.",
+    explanation: "Stabbing incidents in nightlife areas are a growing problem.",
+    arguments: { pro: "Can prevent serious injury; gives police more tools.", contra: "Difficult to enforce; criminalizes innocent people." } },
+  { theme: 3, text: "Eindhoven should build a light rail between the station and the High Tech Campus.",
+    explanation: "Thousands of workers commute to the High Tech Campus daily, causing traffic jams.",
+    arguments: { pro: "Faster, sustainable connection and less car traffic.", contra: "Enormous investment; the Hovenring and express buses already work well." } },
+  { theme: 3, text: "Eindhoven Airport should be allowed to offer more flights.",
+    explanation: "The airport is growing but residents complain about noise pollution.",
+    arguments: { pro: "Better for the Brainport economy and regional accessibility.", contra: "More nuisance for residents and higher emissions." } },
+  { theme: 3, text: "Eindhoven's center should become car-light with more space for cyclists.",
+    explanation: "The center is still relatively car-friendly compared to other cities.",
+    arguments: { pro: "More attractive center with less air pollution.", contra: "Less accessible for people from outside the city and businesses." } },
+  { theme: 4, text: "The municipality should invest more in Brainport to remain internationally competitive.",
+    explanation: "Brainport Eindhoven is the Netherlands' technological engine with ASML, Philips, and NXP.",
+    arguments: { pro: "Investing in Brainport means investing in the future of the entire region.", contra: "Too much focus on tech; other sectors and residents are forgotten." } },
+  { theme: 4, text: "Dutch Design Week should receive more municipal support.",
+    explanation: "DDW attracts hundreds of thousands of visitors annually and puts Eindhoven on the map.",
+    arguments: { pro: "Strengthens the international profile and creative economy.", contra: "An event should be self-sustaining; public funds could be better spent." } },
+  { theme: 4, text: "More affordable workspaces should be created for freelancers and small businesses.",
+    explanation: "Not everyone works at a big tech company; freelancers also need affordable spaces.",
+    arguments: { pro: "Stimulates entrepreneurship and diversifies the economy.", contra: "The market should handle this; the municipality shouldn't operate real estate." } },
+  { theme: 5, text: "Eindhoven should invest more in mental healthcare for tech workers and expats.",
+    explanation: "High work pressure in tech and expat loneliness lead to mental health issues.",
+    arguments: { pro: "Healthy employees are more productive; prevents burnout.", contra: "Employers are responsible for their staff; not the municipality." } },
+  { theme: 5, text: "More family doctors should be established in fast-growing Meerhoven and Blixembosch.",
+    explanation: "These new neighborhoods are growing fast but healthcare facilities lag behind.",
+    arguments: { pro: "Good basic healthcare is essential in growing neighborhoods.", contra: "The municipality cannot force doctors to set up practice somewhere." } },
+  { theme: 5, text: "The municipality should invest more in preventive elderly care.",
+    explanation: "The aging population is growing and home-dwelling elderly need more support.",
+    arguments: { pro: "Prevents heavier care and keeps elderly independent longer.", contra: "Costs extra money while the budget is already under pressure." } },
+  { theme: 6, text: "TU Eindhoven should collaborate more with primary schools to inspire children about technology.",
+    explanation: "The tech sector needs many workers. Early inspiration can help.",
+    arguments: { pro: "Invests in the future workforce of the region.", contra: "TU is for higher education; primary schools determine their own programs." } },
+  { theme: 6, text: "All primary schools should offer programming education.",
+    explanation: "In a tech city like Eindhoven, digital literacy is especially important.",
+    arguments: { pro: "Prepares children for the future in a technological region.", contra: "Schools already have a full curriculum; not every child needs to code." } },
+  { theme: 6, text: "The municipality should invest more in international education.",
+    explanation: "Thousands of expat children need education in English.",
+    arguments: { pro: "Makes Eindhoven more attractive for international talent.", contra: "Goes at the expense of regular education; hinders integration." } },
+  { theme: 7, text: "The Van Abbemuseum should receive more municipal subsidy.",
+    explanation: "The Van Abbemuseum is internationally renowned but faces financial pressure.",
+    arguments: { pro: "Preserves a cultural icon and attracts visitors.", contra: "The museum should work more efficiently instead of asking for more subsidy." } },
+  { theme: 7, text: "PSV should contribute more to sports promotion in disadvantaged neighborhoods.",
+    explanation: "PSV is the city's biggest sports club and can play a role in neighborhoods.",
+    arguments: { pro: "Sports connects people and can offer young people perspective.", contra: "PSV is a commercial business; neighborhood sports is a municipal task." } },
+  { theme: 7, text: "Eindhoven should establish a permanent light art museum.",
+    explanation: "Eindhoven is known as the City of Light. GLOW attracts hundreds of thousands annually.",
+    arguments: { pro: "Fits the city's identity and attracts tourists year-round.", contra: "Large investment; GLOW as an annual event already works well." } },
+  { theme: 8, text: "The municipality should do more to integrate expats into Eindhoven society.",
+    explanation: "Thousands of international workers live in Eindhoven but often in a bubble.",
+    arguments: { pro: "Enriches the city and prevents a divide between locals and expats.", contra: "Expats are temporary; integration is their own responsibility." } },
+  { theme: 8, text: "Eindhoven should offer multilingual municipal services.",
+    explanation: "Many expats don't speak Dutch and struggle with municipal affairs.",
+    arguments: { pro: "Makes the city more accessible and welcoming for international talent.", contra: "Dutch is the official language; multilingualism is expensive and hinders integration." } },
+  { theme: 8, text: "The municipality should actively combat discrimination in the housing market.",
+    explanation: "People with migration backgrounds are more often rejected as tenants.",
+    arguments: { pro: "Equal opportunities are a fundamental right; enforcement is necessary.", contra: "Landlords should be free in their choice; enforcement is complex." } },
+  { theme: 9, text: "The Brainport region should get its own governance layer with more authority.",
+    explanation: "The Brainport cooperation is informal; a formal governance layer could be more effective.",
+    arguments: { pro: "Faster decision-making and better coordination in the region.", contra: "Extra bureaucracy and less say for individual municipalities." } },
+  { theme: 9, text: "The municipality should involve residents via citizen panels in major investment decisions.",
+    explanation: "Major projects affect all residents but are decided by a small group.",
+    arguments: { pro: "More support and better decisions through diverse perspectives.", contra: "Slows the process; not all citizens have the expertise." } },
+  { theme: 9, text: "The city council should meet more often in neighborhoods instead of only at city hall.",
+    explanation: "The distance between politics and citizens is large, especially in outer neighborhoods.",
+    arguments: { pro: "Brings politics closer to people and shows engagement.", contra: "Logistically difficult and expensive; most residents won't come anyway." } },
+];
+
+const PARTIES_EINDHOVEN = [
+  { name: 'GroenLinks-PvdA', abbr: 'GL-PvdA', colors: ['#39a935','#e12b1a'], url: 'https://eindhoven.groenlinks.nl', symbol: '🌿',
+    pos: [1,1,0, 1,1,1, 0,1,0, 0,0,1, 0,1,1, 1,1,1, 1,1,1, 1,1,1, 1,0,1, 0,1,1] },
+  { name: 'VVD', abbr: 'VVD', colors: ['#ff7f00','#e06d00'], url: 'https://www.vvd.nl/eindhoven', symbol: '🏛️',
+    pos: [-1,-1,1, 0,-1,1, 1,1,1, 1,1,-1, 1,0,1, -1,-1,-1, 0,-1,1, 0,-1,0, -1,1,-1, 1,0,-1] },
+  { name: 'D66', abbr: 'D66', colors: ['#01af36','#008c2e'], url: 'https://d66.nl/eindhoven', symbol: '💎',
+    pos: [0,0,1, 1,1,1, 0,0,0, 1,1,1, 1,1,1, 0,0,0, 1,1,1, 1,1,1, 1,1,0, 1,1,1] },
+  { name: 'CDA', abbr: 'CDA', colors: ['#007b5f','#006350'], url: 'https://www.cda.nl/eindhoven', symbol: '⚖️',
+    pos: [0,0,0, 0,0,0, 1,1,1, 0,0,0, 0,1,1, 0,1,1, 0,0,0, 0,1,0, 0,0,0, 0,1,0] },
+  { name: 'SP', abbr: 'SP', colors: ['#ee1d23','#cc191f'], url: 'https://eindhoven.sp.nl', symbol: '✊',
+    pos: [1,1,-1, 1,0,1, 1,1,1, 0,-1,1, -1,0,-1, 1,1,1, 1,1,0, 1,1,0, 1,-1,1, -1,1,1] },
+  { name: 'Partij voor de Dieren', abbr: 'PvdD', colors: ['#006c2e','#005a26'], url: 'https://eindhoven.partijvoordedieren.nl', symbol: '🐾',
+    pos: [0,1,0, 1,1,1, 0,0,1, 0,-1,1, -1,1,-1, 1,0,1, 0,0,0, 1,1,1, 0,0,1, 0,1,1] },
+  { name: 'Volt', abbr: 'Volt', colors: ['#502379','#3d1b5e'], url: 'https://www.voltnederland.org', symbol: '⚡',
+    pos: [0,0,1, 1,1,1, 0,0,0, 1,1,1, 1,1,1, 0,0,0, 1,1,1, 1,1,1, 1,1,0, 1,1,1] },
+  { name: 'Eindhovens Sociaal', abbr: 'ES', colors: ['#e67300','#cc6600'], url: 'https://eindhovenssociaal.nl', symbol: '🏘️',
+    pos: [1,1,-1, 0,0,1, 1,1,0, 0,0,1, -1,0,0, 1,1,1, 1,0,0, 1,1,0, 1,-1,1, 0,1,0] },
+  { name: 'PVV', abbr: 'PVV', colors: ['#21305a','#182440'], url: 'https://pvv.nl', symbol: '🇳🇱',
+    pos: [-1,-1,-1, -1,-1,-1, 1,1,-1, -1,1,-1, 1,-1,1, -1,-1,-1, -1,-1,-1, 0,-1,0, -1,-1,-1, -1,-1,0] },
+  { name: 'ChristenUnie', abbr: 'CU', colors: ['#00a7eb','#008dc8'], url: 'https://www.christenunie.nl/eindhoven', symbol: '✝️',
+    pos: [1,0,0, 0,0,1, 0,1,1, -1,-1,0, 0,1,1, 1,1,1, 0,0,0, 0,1,0, 0,0,0, 0,1,0] },
+  { name: 'Forum voor Democratie', abbr: 'FvD', colors: ['#6e1416','#5a1012'], url: 'https://fvd.nl', symbol: '🏛️',
+    pos: [-1,-1,-1, -1,-1,-1, 1,1,-1, -1,1,-1, 1,-1,1, -1,-1,-1, -1,-1,-1, -1,-1,1, -1,-1,-1, -1,-1,1] },
+  { name: 'Ouderen Appel', abbr: 'OA', colors: ['#8B4513','#6B3410'], url: 'https://ouderenappel.nl', symbol: '🧓',
+    pos: [1,0,0, 0,0,0, 1,1,1, 0,0,0, 0,0,0, 0,0,1, 0,0,0, 0,0,0, 0,0,0, 0,1,1] },
+];
+
+const NPC_GREETINGS_EINDHOVEN = [
+  // 0: Wonen
+  ['Welkom in Eindhoven! Woning zoeken? Word eerst maar ASML-engineer.',
+   'Strijp-S is zo hip, zelfs mijn huur draagt een bril zonder sterkte.',
+   'Een expatwoning? Die kosten meer dan een chip van ASML.',
+   'Eindhoven: waar een rijtjeshuis duurder is dan een Tesla.'],
+  // 1: Klimaat
+  ['De slimste duurzame stad? We hebben al slimme lantaarnpalen, telt dat?',
+   'De Dommel als natuurlijke beek? Nu is het meer een sloot met ambitie.',
+   'Energieneutraal bouwen? Mijn huis produceert vooral tochtenergie.',
+   'Eindhoven Lichtstad: nu ook lichtgroen!'],
+  // 2: Veiligheid
+  ['Drugslabs in Brabant? In Eindhoven hebben we alleen labs voor microchips. Hopelijk.',
+   'Het Stratumseind veilig? Na middernacht is het meer survival dan uitgaan.',
+   'Een messenverbod? Op het Stratumseind is een bierglas al een wapen.',
+   'Veiligheid in Eindhoven: de grootste dreiging is een omvallende e-scooter.'],
+  // 3: Mobiliteit
+  ['Een lightrail naar de High Tech Campus? Ik neem de Hovenring, die is sneller.',
+   'Eindhoven Airport groeit? De buren horen nu ook mijn vakantieplannen.',
+   'Autoluw centrum? Er zijn hier meer auto\'s dan bomen.',
+   'In Eindhoven fietsen ze niet om fit te worden, maar om op tijd te komen bij ASML.'],
+  // 4: Economie
+  ['Brainport is de motor van Nederland! En ik ben de voetganger die opzij moet.',
+   'Dutch Design Week? Ik design al de hele week mijn Excel-spreadsheets.',
+   'Een betaalbare werkplek? Mijn keukentafel is mijn kantoor.',
+   'Eindhoven: stad van licht, design, en dure koffie.'],
+  // 5: Zorg
+  ['Mentale gezondheid voor techwerkers? De burnout-wachtlijst is hier de langste.',
+   'Een huisarts in Meerhoven? Sneller een chip van ASML dan een afspraak.',
+   'Preventieve ouderenzorg? Mijn oma doet mee aan een hackathon.',
+   'In Eindhoven is de beste therapie een wandeling door het Stadswandelpark.'],
+  // 6: Onderwijs
+  ['De TU/e en basisscholen? Mijn zoon van 8 weet al meer van robots dan ik.',
+   'Programmeeronderwijs? In Eindhoven leer je Python voor je kunt lezen.',
+   'Internationaal onderwijs? De helft van mijn klas spreekt geen Nederlands.',
+   'In Eindhoven is LEGO bouwen al een stage bij ASML.'],
+  // 7: Cultuur & Sport
+  ['Het Van Abbemuseum? Ik begrijp de kunst niet, maar het gebouw is mooi.',
+   'PSV in de wijk? Mijn buurjongen schiet al harder dan Luuk de Jong.',
+   'Een lichtkunstmuseum? GLOW het hele jaar? Mijn energierekening wordt hoger.',
+   'Cultuur in Eindhoven is naar GLOW gaan en dan klagen dat het te druk is.'],
+  // 8: Diversiteit
+  ['Expats integreren? Begin met het vertalen van de AH-bonuskaart.',
+   'Meertalige dienstverlening? De gemeente-website crasht al in het Nederlands.',
+   'Discriminatie op de woningmarkt? Als je geen techcontract hebt, ben je al afgewezen.',
+   'Eindhoven: internationaler dan de VN, maar dan met meer frituur.'],
+  // 9: Bestuur
+  ['Een Brainport-bestuurslaag? Dan hebben we straks meer bestuurders dan chips.',
+   'Burgerpanels? De helft van Eindhoven is te druk met innoveren.',
+   'De gemeenteraad in de wijk? Dan moeten ze wel eerst de weg weten.',
+   'Eindhoven besturen is als een startup runnen: veel ideeeen, weinig budget.'],
+];
+
+// ============================================================
+// GRONINGEN DATA
+// ============================================================
+const STATEMENTS_GRONINGEN = [
+  // Wonen (0-2)
+  { theme: 0, text: "Groningen moet een quotum van 40% sociale huurwoningen handhaven bij elk nieuwbouwproject.",
+    explanation: "De druk op de Groningse woningmarkt is enorm, mede door de grote studentenpopulatie.",
+    arguments: { pro: "Voorkomt dat betaalbare woningen verdwijnen in een stad met veel jonge huurders.", contra: "Maakt nieuwbouw duurder en kan investeerders afschrikken." } },
+  { theme: 0, text: "Het Suikerunie-terrein moet primair worden ontwikkeld voor betaalbare woningbouw in plaats van commerciele functies.",
+    explanation: "Het voormalige Suikerunie-terrein is een van de grootste ontwikkellocaties van Groningen.",
+    arguments: { pro: "Unieke kans om een betaalbare, gemengde wijk te creeren dicht bij het centrum.", contra: "Commerciele functies zijn nodig om de ontwikkeling financieel haalbaar te maken." } },
+  { theme: 0, text: "De gemeente moet woningen in aardbevingsgebieden versneld versterken, ook zonder toestemming van het Rijk.",
+    explanation: "Duizenden woningen in Groningen zijn nog niet versterkt tegen aardbevingsschade door gaswinning.",
+    arguments: { pro: "Bewoners wachten al jaren; de veiligheid mag niet afhangen van Haagse bureaucratie.", contra: "Gemeente kan de kosten niet alleen dragen; juridisch complex zonder rijksmedewerking." } },
+  // Klimaat (3-5)
+  { theme: 1, text: "Groningen moet in 2030 volledig aardgasvrij zijn, vijf jaar eerder dan de landelijke doelstelling.",
+    explanation: "Groningen heeft als geen andere stad reden om van het gas af te gaan vanwege de aardbevingsproblematiek.",
+    arguments: { pro: "Groningen heeft een morele plicht om voorloper te zijn na decennia van gaswinning.", contra: "Te ambitieus; veel woningen zijn nog niet geschikt en de kosten zijn enorm." } },
+  { theme: 1, text: "Zonnepanelen moeten verplicht worden op alle nieuwe en bestaande bedrijfspanden.",
+    explanation: "Bedrijfsdaken bieden enorm potentieel voor zonne-energie maar de verplichting voor bestaande panden is ingrijpend.",
+    arguments: { pro: "Benut ongebruikt dakoppervlak en versnelt de energietransitie.", contra: "Hoge kosten voor ondernemers; niet alle daken zijn geschikt." } },
+  { theme: 1, text: "De gemeente moet een klimaatfonds oprichten dat bewoners subsidieert voor woningisolatie.",
+    explanation: "Veel Groningse woningen, vooral in oudere wijken, zijn slecht geisoleerd.",
+    arguments: { pro: "Helpt bewoners met lage inkomens en vermindert energiearmoede.", contra: "Grote financiele last voor de gemeente; landelijke subsidies bestaan al." } },
+  // Veiligheid (6-8)
+  { theme: 2, text: "De gemeente moet meer investeren in cameratoezicht rondom het uitgaansgebied en de Grote Markt.",
+    explanation: "Het Groningse uitgaansleven trekt veel bezoekers, maar leidt ook tot incidenten.",
+    arguments: { pro: "Helpt bij opsporing en kan afschrikkend werken in drukke nachten.", contra: "Tast de privacy aan; onderzoek toont beperkte preventieve werking." } },
+  { theme: 2, text: "Er moeten meer wijkagenten komen in de aardbevingsgebieden om sociale onrust te voorkomen.",
+    explanation: "De aardbevingsproblematiek veroorzaakt stress en spanningen in getroffen wijken.",
+    arguments: { pro: "Vergroot vertrouwen in de overheid en signaleert problemen vroegtijdig.", contra: "Politiecapaciteit is schaars; structurele problemen los je niet op met meer blauw." } },
+  { theme: 2, text: "Groningen moet een eigen vuurwerkverbod invoeren tijdens Oud en Nieuw, ongeacht landelijk beleid.",
+    explanation: "Vuurwerk veroorzaakt jaarlijks schade, overlast en letsel.",
+    arguments: { pro: "Minder letsel, minder schade aan toch al kwetsbare woningen, beter voor dieren.", contra: "Moeilijk te handhaven; inbreuk op traditie; illegaal vuurwerk neemt toe." } },
+  // Mobiliteit (9-11)
+  { theme: 3, text: "Het hele centrum van Groningen moet volledig autovrij worden, inclusief de binnenring.",
+    explanation: "Groningen is al een fietsstad, maar autos zijn nog toegestaan op delen van de binnenring.",
+    arguments: { pro: "Meer ruimte voor fietsers en voetgangers; schonere lucht; veiliger.", contra: "Moeilijker bereikbaar voor bewoners, ondernemers en mensen met een beperking." } },
+  { theme: 3, text: "Er moet een sneltram komen tussen Groningen Hoofdstation en Zernike Campus.",
+    explanation: "Dagelijks reizen duizenden studenten en medewerkers naar de Zernike Campus.",
+    arguments: { pro: "Snellere verbinding, minder bussen, hogere capaciteit voor de drukste route.", contra: "Enorme investering; de huidige busverbinding werkt redelijk goed." } },
+  { theme: 3, text: "De gemeente moet gratis OV aanbieden voor alle inwoners onder de 25.",
+    explanation: "Groningen is een jonge stad met veel studenten. Gratis OV kan autogebruik verminderen.",
+    arguments: { pro: "Stimuleert duurzaam vervoer en ontlast studenten financieel.", contra: "Zeer kostbaar; kan leiden tot overvolle bussen zonder extra investering." } },
+  // Economie (12-14)
+  { theme: 4, text: "De gemeente moet een fonds oprichten om startups in de energietransitie te ondersteunen.",
+    explanation: "Groningen wil een kenniscentrum worden voor duurzame energie.",
+    arguments: { pro: "Trekt talent aan, creeert werkgelegenheid en past bij de regionale kracht.", contra: "Overheid moet niet ondernemen; risico op mislukte investeringen." } },
+  { theme: 4, text: "De winkels in de binnenstad moeten op zondag pas om 12:00 open mogen.",
+    explanation: "Sommigen vinden dat de zondagsrust beschermd moet worden, anderen pleiten voor ruimere openingstijden.",
+    arguments: { pro: "Beschermt rustdag en voorkomt dat kleine ondernemers moeten concurreren op zondag.", contra: "Beperkt ondernemersvrijheid en kan klanten naar online winkels drijven." } },
+  { theme: 4, text: "Groningen moet meer toeristenbelasting heffen om de binnenstad leefbaar te houden.",
+    explanation: "Het toerisme naar Groningen groeit. Extra belasting kan worden geinvesteerd in leefbaarheid.",
+    arguments: { pro: "Opbrengst kan overlast compenseren en de stad aantrekkelijk houden.", contra: "Kan toeristen afschrikken en de groeiende toerismesector remmen." } },
+  // Zorg (15-17)
+  { theme: 5, text: "De gemeente moet het budget voor geestelijke gezondheidszorg verdubbelen.",
+    explanation: "Veel Groningers, waaronder studenten en aardbevingsgedupeerden, kampen met psychische klachten.",
+    arguments: { pro: "Kortere wachtlijsten en betere hulp voor een stad met specifieke stressoren.", contra: "Verdubbeling is zeer kostbaar; GGZ is deels een rijkstaak." } },
+  { theme: 5, text: "Er moet een speciaal aardbevings-traumacentrum komen in de stad Groningen.",
+    explanation: "De psychische gevolgen van jarenlange aardbevingen en onzekerheid zijn groot.",
+    arguments: { pro: "Erkent het unieke leed en biedt specialistische hulp dicht bij de gedupeerden.", contra: "Bestaande GGZ-instellingen kunnen dit oppakken; risico op stigmatisering." } },
+  { theme: 5, text: "Groningen moet meer wijkteams inzetten voor preventieve jeugdzorg.",
+    explanation: "Vroeg ingrijpen bij jongeren met problemen kan zwaardere zorg voorkomen.",
+    arguments: { pro: "Voorkomt escalatie en is op termijn goedkoper dan curatieve zorg.", contra: "Kost extra personeel dat moeilijk te vinden is in de krappe arbeidsmarkt." } },
+  // Onderwijs (18-20)
+  { theme: 6, text: "De RUG en Hanzehogeschool moeten meer bijdragen aan de leefbaarheid van studentenwijken.",
+    explanation: "De grote studentenpopulatie legt druk op wijken als de Korrewegwijk en Paddepoel.",
+    arguments: { pro: "Onderwijsinstellingen profiteren van de stad en moeten ook bijdragen.", contra: "Leefbaarheid is een gemeentelijke taak; universiteiten zijn er voor onderwijs." } },
+  { theme: 6, text: "Basisscholen in Groningen moeten verplicht Gronings dialect aanbieden als keuzevak.",
+    explanation: "Het Gronings dialect verdwijnt geleidelijk. Onderwijs kan bijdragen aan het behoud van deze culturele traditie.",
+    arguments: { pro: "Behoudt cultureel erfgoed en versterkt de regionale identiteit.", contra: "Scholen hebben al een vol programma; niet alle ouders zien het nut." } },
+  { theme: 6, text: "De gemeente moet meer investeren in volwasseneneducatie en omscholingsprogrammas.",
+    explanation: "De energietransitie en digitalisering vragen om nieuwe vaardigheden.",
+    arguments: { pro: "Helpt mensen mee te komen in een veranderende arbeidsmarkt.", contra: "Kostbaar; omscholing is primair een verantwoordelijkheid van werkgevers." } },
+  // Cultuur & Sport (21-23)
+  { theme: 7, text: "Het Groninger Museum moet meer gemeentelijke subsidie krijgen om gratis toegankelijk te worden.",
+    explanation: "Het Groninger Museum is een icoon van de stad. Gratis toegang kan drempels verlagen maar kost veel geld.",
+    arguments: { pro: "Maakt cultuur toegankelijk voor iedereen, ongeacht inkomen.", contra: "Grote structurele kosten; het museum heeft al subsidie." } },
+  { theme: 7, text: "De gemeente moet meer investeren in de nachtcultuur en een nachtburgemeester aanstellen.",
+    explanation: "Groningen heeft een bruisend nachtleven dat belangrijk is voor de economie en het culturele klimaat.",
+    arguments: { pro: "Erkent het belang van nachtcultuur en geeft het een stem in het beleid.", contra: "Nachtleven regelt zichzelf; extra bureaucratie is niet nodig." } },
+  { theme: 7, text: "Er moeten meer buitensportfaciliteiten komen in de buitenwijken van Groningen.",
+    explanation: "Veel sportfaciliteiten zijn geconcentreerd in het centrum. Buitenwijken hebben minder aanbod.",
+    arguments: { pro: "Sport moet voor alle inwoners bereikbaar zijn, ook in buitenwijken.", contra: "Centraal gelegen faciliteiten zijn efficienter en trekken meer gebruikers." } },
+  // Diversiteit (24-26)
+  { theme: 8, text: "De gemeente moet een diversiteitsquotum instellen voor het eigen personeelsbestand.",
+    explanation: "Het gemeentelijk apparaat is niet altijd een afspiegeling van de diverse bevolking.",
+    arguments: { pro: "Zorgt voor een inclusievere organisatie die de stad beter vertegenwoordigt.", contra: "Kwaliteit moet boven achtergrond gaan; positieve discriminatie is omstreden." } },
+  { theme: 8, text: "Groningen moet meer doen om internationale studenten te integreren in de lokale gemeenschap.",
+    explanation: "Duizenden internationale studenten wonen in Groningen maar leven vaak in een bubbel.",
+    arguments: { pro: "Verrijkt de stad cultureel en voorkomt parallelle samenlevingen.", contra: "Integratie is een eigen verantwoordelijkheid; de meeste studenten vertrekken weer." } },
+  { theme: 8, text: "De gemeente moet actief beleid voeren tegen discriminatie op de Groningse woningmarkt.",
+    explanation: "Onderzoek toont dat mensen met een migratieachtergrond en studenten vaker worden afgewezen als huurder.",
+    arguments: { pro: "Iedereen verdient gelijke kansen op een woning; handhaving is noodzakelijk.", contra: "Verhuurders moeten vrij zijn in hun keuze; handhaving is lastig." } },
+  // Bestuur (27-29)
+  { theme: 9, text: "De gemeente moet een burgerberaad oprichten over de besteding van aardbevingsgelden.",
+    explanation: "Er gaan miljarden om in de aardbevingsafhandeling. Burgerparticipatie kan het vertrouwen vergroten.",
+    arguments: { pro: "Geeft gedupeerden directe zeggenschap over geld dat voor hen bedoeld is.", contra: "Vertraagt besluitvorming; niet alle burgers hebben de expertise voor complexe besluiten." } },
+  { theme: 9, text: "Groningen moet meer samenwerken met de omliggende gemeenten in een regiobestuur.",
+    explanation: "Veel vraagstukken zoals woningbouw en mobiliteit overstijgen gemeentegrenzen.",
+    arguments: { pro: "Betere afstemming op regionale uitdagingen en efficienter gebruik van middelen.", contra: "Afstand tot de burger wordt groter; risico op logge bureaucratie." } },
+  { theme: 9, text: "De gemeenteraad moet transparanter worden door alle vergaderingen live te streamen en notulen dezelfde dag te publiceren.",
+    explanation: "Transparantie is belangrijk voor het vertrouwen in de lokale democratie.",
+    arguments: { pro: "Vergroot betrokkenheid en vertrouwen van inwoners in de lokale politiek.", contra: "Kost extra middelen en personeel; kan raadsleden belemmeren in vrij spreken." } },
+];
+
+const TRANSLATIONS_GRONINGEN = [
+  { theme: 0, text: "Groningen should maintain a 40% social housing quota in every new construction project.",
+    explanation: "Pressure on the Groningen housing market is enormous, partly due to the large student population.",
+    arguments: { pro: "Prevents affordable housing from disappearing in a city with many young renters.", contra: "Makes construction more expensive and may deter investors." } },
+  { theme: 0, text: "The Suikerunie site should primarily be developed for affordable housing instead of commercial functions.",
+    explanation: "The former Suikerunie site is one of Groningen's largest development locations.",
+    arguments: { pro: "Unique opportunity to create an affordable, mixed neighborhood near the center.", contra: "Commercial functions are needed to make the development financially viable." } },
+  { theme: 0, text: "The municipality should accelerate earthquake-proofing of homes, even without national government approval.",
+    explanation: "Thousands of homes in Groningen have not yet been reinforced against earthquake damage from gas extraction.",
+    arguments: { pro: "Residents have waited for years; safety shouldn't depend on Hague bureaucracy.", contra: "The municipality can't bear costs alone; legally complex without national cooperation." } },
+  { theme: 1, text: "Groningen should be completely gas-free by 2030, five years ahead of the national target.",
+    explanation: "Groningen has more reason than any other city to quit gas due to earthquake problems.",
+    arguments: { pro: "Groningen has a moral duty to lead after decades of gas extraction.", contra: "Too ambitious; many homes aren't suitable yet and costs are enormous." } },
+  { theme: 1, text: "Solar panels should be mandatory on all new and existing commercial buildings.",
+    explanation: "Commercial roofs offer enormous potential for solar energy but mandating existing buildings is drastic.",
+    arguments: { pro: "Utilizes unused roof space and accelerates the energy transition.", contra: "High costs for businesses; not all roofs are suitable." } },
+  { theme: 1, text: "The municipality should establish a climate fund to subsidize home insulation for residents.",
+    explanation: "Many Groningen homes, especially in older neighborhoods, are poorly insulated.",
+    arguments: { pro: "Helps low-income residents and reduces energy poverty.", contra: "Large financial burden for the municipality; national subsidies already exist." } },
+  { theme: 2, text: "The municipality should invest more in camera surveillance around the nightlife area and Grote Markt.",
+    explanation: "Groningen's nightlife attracts many visitors but also leads to incidents.",
+    arguments: { pro: "Helps with detection and can have a deterrent effect during busy nights.", contra: "Affects privacy; research shows limited preventive effect." } },
+  { theme: 2, text: "More community police officers should be deployed in earthquake areas to prevent social unrest.",
+    explanation: "Earthquake problems cause stress and tensions in affected neighborhoods.",
+    arguments: { pro: "Increases trust in government and identifies problems early.", contra: "Police capacity is scarce; structural problems can't be solved with more officers." } },
+  { theme: 2, text: "Groningen should impose its own fireworks ban during New Year's Eve, regardless of national policy.",
+    explanation: "Fireworks cause annual damage, nuisance, and injuries.",
+    arguments: { pro: "Less injury, less damage to already vulnerable homes, better for animals.", contra: "Hard to enforce; infringes on tradition; illegal fireworks increase." } },
+  { theme: 3, text: "All of Groningen's center should become completely car-free, including the inner ring.",
+    explanation: "Groningen is already a cycling city, but cars are still allowed on parts of the inner ring.",
+    arguments: { pro: "More space for cyclists and pedestrians; cleaner air; safer.", contra: "Less accessible for residents, businesses, and people with disabilities." } },
+  { theme: 3, text: "An express tram should be built between Groningen Central Station and Zernike Campus.",
+    explanation: "Thousands of students and staff travel to Zernike Campus daily.",
+    arguments: { pro: "Faster connection, fewer buses, higher capacity for the busiest route.", contra: "Enormous investment; the current bus connection works reasonably well." } },
+  { theme: 3, text: "The municipality should offer free public transport for all residents under 25.",
+    explanation: "Groningen is a young city with many students. Free transport can reduce car use.",
+    arguments: { pro: "Encourages sustainable transport and relieves students financially.", contra: "Very expensive; can lead to overcrowded buses without extra investment." } },
+  { theme: 4, text: "The municipality should establish a fund to support energy transition startups.",
+    explanation: "Groningen wants to become a knowledge center for sustainable energy.",
+    arguments: { pro: "Attracts talent, creates employment, and fits the regional strength.", contra: "Government shouldn't play entrepreneur; risk of failed investments." } },
+  { theme: 4, text: "City center shops should only be allowed to open at 12:00 on Sundays.",
+    explanation: "Some feel Sunday rest should be protected, others advocate for wider opening hours.",
+    arguments: { pro: "Protects rest day and prevents small businesses from competing on Sundays.", contra: "Restricts business freedom and may drive customers to online shops." } },
+  { theme: 4, text: "Groningen should levy more tourist tax to keep the city center livable.",
+    explanation: "Tourism to Groningen is growing. Extra tax can be invested in livability.",
+    arguments: { pro: "Revenue can compensate for nuisance and keep the city attractive.", contra: "May deter tourists and slow the growing tourism sector." } },
+  { theme: 5, text: "The municipality should double the mental healthcare budget.",
+    explanation: "Many Groningen residents, including students and earthquake victims, suffer from mental health issues.",
+    arguments: { pro: "Shorter waiting lists and better help for a city with specific stressors.", contra: "Doubling is very expensive; mental healthcare is partly a national task." } },
+  { theme: 5, text: "A special earthquake trauma center should be established in the city of Groningen.",
+    explanation: "The psychological consequences of years of earthquakes and uncertainty are severe.",
+    arguments: { pro: "Acknowledges unique suffering and offers specialized help near the victims.", contra: "Existing mental health institutions can handle this; risk of stigmatization." } },
+  { theme: 5, text: "Groningen should deploy more neighborhood teams for preventive youth care.",
+    explanation: "Early intervention for young people with problems can prevent heavier care.",
+    arguments: { pro: "Prevents escalation and is cheaper long-term than curative care.", contra: "Requires extra staff that is hard to find in the tight labor market." } },
+  { theme: 6, text: "The University of Groningen and Hanze should contribute more to student neighborhood livability.",
+    explanation: "The large student population puts pressure on neighborhoods like Korrewegwijk and Paddepoel.",
+    arguments: { pro: "Educational institutions benefit from the city and should contribute.", contra: "Livability is a municipal task; universities are for education." } },
+  { theme: 6, text: "Primary schools in Groningen should be required to offer Groningen dialect as an elective.",
+    explanation: "The Groningen dialect is gradually disappearing. Education can help preserve this cultural tradition.",
+    arguments: { pro: "Preserves cultural heritage and strengthens regional identity.", contra: "Schools already have a full schedule; not all parents see the value." } },
+  { theme: 6, text: "The municipality should invest more in adult education and retraining programs.",
+    explanation: "The energy transition and digitalization require new skills.",
+    arguments: { pro: "Helps people keep up in a changing labor market.", contra: "Expensive; retraining is primarily an employer's responsibility." } },
+  { theme: 7, text: "The Groninger Museum should receive more municipal subsidy to become free.",
+    explanation: "The Groninger Museum is a city icon. Free access can lower barriers but costs a lot.",
+    arguments: { pro: "Makes culture accessible to everyone, regardless of income.", contra: "Large structural costs; the museum already receives subsidy." } },
+  { theme: 7, text: "The municipality should invest more in nightlife culture and appoint a night mayor.",
+    explanation: "Groningen has a vibrant nightlife important for the economy and cultural climate.",
+    arguments: { pro: "Recognizes the importance of nightlife and gives it a voice in policy.", contra: "Nightlife manages itself; extra bureaucracy isn't needed." } },
+  { theme: 7, text: "More outdoor sports facilities should be built in Groningen's outer neighborhoods.",
+    explanation: "Many sports facilities are concentrated in the center. Outer neighborhoods have less to offer.",
+    arguments: { pro: "Sports should be accessible to all residents, including outer neighborhoods.", contra: "Centrally located facilities are more efficient and attract more users." } },
+  { theme: 8, text: "The municipality should set a diversity quota for its own workforce.",
+    explanation: "The municipal apparatus doesn't always reflect the diverse population.",
+    arguments: { pro: "Creates a more inclusive organization that better represents the city.", contra: "Quality should come before background; affirmative action is controversial." } },
+  { theme: 8, text: "Groningen should do more to integrate international students into the local community.",
+    explanation: "Thousands of international students live in Groningen but often in a bubble.",
+    arguments: { pro: "Enriches the city culturally and prevents parallel societies.", contra: "Integration is a personal responsibility; most students leave again." } },
+  { theme: 8, text: "The municipality should actively combat discrimination in the Groningen housing market.",
+    explanation: "Research shows people with migration backgrounds and students are more often rejected as tenants.",
+    arguments: { pro: "Everyone deserves equal chances for housing; enforcement is necessary.", contra: "Landlords should be free in their choice; enforcement is difficult." } },
+  { theme: 9, text: "The municipality should establish a citizens' assembly on earthquake fund spending.",
+    explanation: "Billions are involved in earthquake settlement. Citizen participation can increase trust.",
+    arguments: { pro: "Gives victims direct say over money meant for them.", contra: "Slows decision-making; not all citizens have expertise for complex decisions." } },
+  { theme: 9, text: "Groningen should cooperate more with surrounding municipalities in regional governance.",
+    explanation: "Many issues like housing and mobility transcend municipal borders.",
+    arguments: { pro: "Better coordination on regional challenges and more efficient resource use.", contra: "Greater distance from citizens; risk of cumbersome bureaucracy." } },
+  { theme: 9, text: "The city council should become more transparent by live-streaming all meetings and publishing minutes the same day.",
+    explanation: "Transparency is important for trust in local democracy.",
+    arguments: { pro: "Increases involvement and trust of residents in local politics.", contra: "Costs extra resources and staff; may inhibit council members from speaking freely." } },
+];
+
+const PARTIES_GRONINGEN = [
+  { name: 'GroenLinks', abbr: 'GL', colors: ['#39a935','#2d8a2b'], url: 'https://groningen.groenlinks.nl', symbol: '🌿',
+    pos: [1,1,1, 1,1,1, 0,1,1, 1,1,1, 0,1,0, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1] },
+  { name: 'PvdA', abbr: 'PvdA', colors: ['#e12b1a','#c0241a'], url: 'https://groningen.pvda.nl', symbol: '🌹',
+    pos: [1,1,1, 1,0,1, 0,1,0, 0,0,1, -1,0,0, 1,1,1, 1,0,1, 1,1,0, 1,1,1, 1,1,1] },
+  { name: 'D66', abbr: 'D66', colors: ['#01af36','#008c2e'], url: 'https://d66.nl/groningen', symbol: '💎',
+    pos: [0,0,0, 1,1,1, 0,0,0, 1,1,1, 1,1,0, 0,0,0, 0,0,1, 1,1,1, 0,1,0, 0,1,1] },
+  { name: 'SP', abbr: 'SP', colors: ['#ee1d23','#cc191f'], url: 'https://groningen.sp.nl', symbol: '✊',
+    pos: [1,1,1, 1,1,1, 1,1,1, 1,-1,1, -1,1,-1, 1,1,1, 1,1,1, 1,0,0, 1,1,1, 1,0,0] },
+  { name: 'ChristenUnie', abbr: 'CU', colors: ['#00a7eb','#008dc8'], url: 'https://www.christenunie.nl/groningen', symbol: '✝️',
+    pos: [1,1,1, 0,-1,1, 0,1,1, -1,0,0, 0,1,1, 1,1,1, 0,1,0, 0,1,0, 0,0,0, 1,1,0] },
+  { name: 'Partij voor de Dieren', abbr: 'PvdD', colors: ['#006c2e','#005a26'], url: 'https://groningen.partijvoordedieren.nl', symbol: '🐾',
+    pos: [0,1,0, 1,1,1, 0,0,1, 1,0,1, -1,1,-1, 1,0,1, 1,1,0, 1,1,1, 0,1,1, 1,1,1] },
+  { name: 'VVD', abbr: 'VVD', colors: ['#ff7f00','#e06d00'], url: 'https://www.vvd.nl/groningen', symbol: '🏛️',
+    pos: [-1,-1,0, 0,-1,0, 1,0,-1, -1,1,-1, 1,-1,1, -1,-1,-1, 0,0,-1, 0,0,1, -1,0,-1, -1,0,1] },
+  { name: 'CDA', abbr: 'CDA', colors: ['#007b5f','#006350'], url: 'https://www.cda.nl/groningen', symbol: '⚖️',
+    pos: [0,0,1, 0,-1,0, 1,1,0, -1,0,0, 0,1,1, 0,0,1, 0,1,1, 0,1,0, 0,0,0, 0,1,0] },
+  { name: 'Stadspartij', abbr: 'Stad', colors: ['#f5a623','#d4900e'], url: 'https://stadspartij.nl', symbol: '🏙️',
+    pos: [1,1,0, 0,0,0, 1,1,0, 0,0,0, 0,0,1, 0,0,0, 0,0,0, 0,1,1, 0,0,0, 0,0,1] },
+  { name: 'PVV', abbr: 'PVV', colors: ['#21305a','#182440'], url: 'https://pvv.nl', symbol: '🇳🇱',
+    pos: [-1,-1,-1, -1,-1,-1, 1,1,-1, -1,1,-1, 1,-1,1, -1,-1,-1, -1,-1,-1, -1,-1,0, -1,-1,-1, -1,-1,0] },
+  { name: 'Partij voor het Noorden', abbr: 'PvhN', colors: ['#1a6b8a','#135570'], url: 'https://partijvoorhetnoorden.nl', symbol: '🧭',
+    pos: [1,1,1, 1,0,0, 0,1,0, 0,1,0, 0,0,1, 0,0,0, 0,1,1, 0,1,1, 0,0,0, 1,1,1] },
+];
+
+const NPC_GREETINGS_GRONINGEN = [
+  // 0: Wonen
+  ['Moi! Welkom in Stad! Woning zoeken? Dat doet iedereen hier.',
+   'Het Suikerunie-terrein? Ik wacht al zo lang, ik kan er suikerbieten verbouwen.',
+   'Aardbevingsbestendig wonen? Mijn huis schudt, maar de huur stijgt harder.',
+   'In Groningen vind je eerder een plek in de kroeg dan een huurwoning.'],
+  // 1: Klimaat
+  ['Aardgasvrij? Wij Groningers weten beter dan wie ook waarom dat moet.',
+   'Zonnepanelen verplicht? Met ons weer? Je hebt meer nodig dan hoop.',
+   'Een klimaatfonds voor isolatie? Mijn muren zijn zo dun, ik hoor m\'n buurman denken.',
+   'De energietransitie begint in Groningen. Logisch, het gas kwam hier ook vandaan.'],
+  // 2: Veiligheid
+  ['De Grote Markt is veilig! Alleen je portemonnee is in gevaar in de kroeg.',
+   'Wijkagenten in het aardbevingsgebied? Die trillen mee!',
+   'Vuurwerkverbod? De aardbevingen zijn al vuurwerk genoeg.',
+   'Veiligheid in Groningen: pas op voor fietsers, die stoppen voor niemand.'],
+  // 3: Mobiliteit
+  ['Autovrij centrum? In Groningen heb je geen auto nodig. Een fiets en lef.',
+   'Sneltram naar Zernike? De bus is al een achtbaan als het vriest.',
+   'Gratis OV onder 25? Dan is heel Groningen gratis, de helft is student!',
+   'Groningen: de stad waar je fiets je auto, je gym en je sociale leven is.'],
+  // 4: Economie
+  ['Startups in energie? Wij zijn van het gas, nu gaan we voor de zon!',
+   'Winkels dicht op zondag? De kroegen zijn open, dat is genoeg.',
+   'Toeristenbelasting? Toeristen komen hier voor het nachtleven, niet de Martinitoren.',
+   'Groningen: waar je studeert tot je 30ste en dan begint met werken.'],
+  // 5: Zorg
+  ['GGZ-budget verdubbelen? De wachtlijst is langer dan het Reitdiep.',
+   'Een traumacentrum? Na die aardbevingen verdient Groningen dat.',
+   'Meer jeugdzorg? In Groningen worden jongeren al groot met veerkracht.',
+   'De beste zorg in Groningen is een avond in de Drie Gezusters.'],
+  // 6: Onderwijs
+  ['De RUG bijdragen? Ze zijn de grootste werkgever van de stad!',
+   'Gronings op school? Moi, dat zulle we leren! Of niet.',
+   'Omscholing? Van gaswinning naar zonne-energie is nogal een stap.',
+   'In Groningen studeren meer mensen dan er geboren zijn.'],
+  // 7: Cultuur & Sport
+  ['Het Groninger Museum gratis? Dan ga ik elke zondag!',
+   'Een nachtburgemeester? Die moet hier overdag slapen en \'s nachts regeren.',
+   'Buitensport in de buitenwijken? Hardlopen voor de bus telt toch ook?',
+   'Cultuur in Groningen: naar Noorderzon en doen alsof je het begrijpt.'],
+  // 8: Diversiteit
+  ['Diversiteitsquotum? In de studentenflat woon je al met de hele wereld.',
+   'Internationale studenten integreren? Begin met een biertje in de kroeg.',
+   'Discriminatie op de woningmarkt? Als student word je sowieso al afgewezen.',
+   'Groningen: waar je buurman uit Duitsland komt en je hospita uit Friesland.'],
+  // 9: Bestuur
+  ['Burgerberaad over aardbevingsgelden? Geef het gewoon aan de bewoners!',
+   'Samenwerken met buurgemeenten? Drenthe begint al bij de ring.',
+   'Transparante gemeenteraad? Dan moeten ze ook hun eigen notulen kunnen lezen.',
+   'Groningse politiek: vechten voor erkenning in Den Haag sinds 1963.'],
+];
+
+// ============================================================
+// NIJMEGEN DATA
+// ============================================================
+const STATEMENTS_NIJMEGEN = [
+  // Wonen (0-2)
+  { theme: 0, text: "Nijmegen moet een quotum van 40% sociale huurwoningen handhaven bij elk nieuwbouwproject.",
+    explanation: "Nijmegen groeit en de woningnood treft vooral starters en mensen met een laag inkomen.",
+    arguments: { pro: "Houdt de oudste stad van Nederland betaalbaar voor iedereen.", contra: "Maakt nieuwbouw duurder en kan ontwikkelaars afschrikken." } },
+  { theme: 0, text: "De Waalsprong moet meer voorzieningen krijgen om een volwaardige wijk te worden.",
+    explanation: "De Waalsprong is een grote nieuwbouwwijk ten noorden van de Waal, maar mist nog voorzieningen.",
+    arguments: { pro: "Bewoners verdienen winkels, scholen en cultuur dicht bij huis.", contra: "Voorzieningen komen vanzelf als de wijk verder groeit." } },
+  { theme: 0, text: "De gemeente moet strenger optreden tegen huisjesmelkers en te hoge huurprijzen.",
+    explanation: "Studentenkamers en huurwoningen zijn vaak te duur voor wat ze bieden.",
+    arguments: { pro: "Beschermt huurders tegen uitbuiting en houdt wonen betaalbaar.", contra: "Te veel regulering schrikt verhuurders af en vermindert het aanbod." } },
+  // Klimaat (3-5)
+  { theme: 1, text: "Nijmegen moet zijn titel als Europese Groene Hoofdstad waarmaken met ambitieuzere klimaatdoelen.",
+    explanation: "Nijmegen was in 2018 European Green Capital. De vraag is of de stad die ambitie waarmaakt.",
+    arguments: { pro: "De titel verplicht; Nijmegen moet het goede voorbeeld blijven geven.", contra: "De titel was een momentopname; realistische doelen zijn beter dan symboolpolitiek." } },
+  { theme: 1, text: "De Waal moet beter beschermd worden tegen overstromingen met natuurlijke waterberging.",
+    explanation: "De Waal is de drukst bevaren rivier van Europa en het overstromingsrisico neemt toe.",
+    arguments: { pro: "Natuurlijke waterberging is duurzamer en goedkoper dan dijkverhogingen.", contra: "Kost veel ruimte en land dat anders benut kan worden." } },
+  { theme: 1, text: "Alle nieuwe woningen in Nijmegen moeten een warmtepomp krijgen in plaats van gasaansluiting.",
+    explanation: "Warmtepompen zijn duurzamer maar ook duurder dan gasketels.",
+    arguments: { pro: "Toekomstbestendig en goed voor het klimaat.", contra: "Duurder in aanschaf; niet altijd efficient in oudere woningen." } },
+  // Veiligheid (6-8)
+  { theme: 2, text: "Nijmegen moet meer investeren in de aanpak van ondermijnende criminaliteit.",
+    explanation: "Ook in Nijmegen is er sprake van drugscriminaliteit en witwassen.",
+    arguments: { pro: "Beschermt de stad tegen de invloed van crimineel geld.", contra: "Ondermijning is een landelijk probleem; de gemeente kan weinig alleen." } },
+  { theme: 2, text: "Er moeten meer handhavers komen in het centrum tijdens de Vierdaagsefeesten.",
+    explanation: "De Vierdaagsefeesten trekken meer dan een miljoen bezoekers en veroorzaken drukte en overlast.",
+    arguments: { pro: "Meer veiligheid tijdens het grootste evenement van de stad.", contra: "De feesten duren maar een week; structureel meer handhavers is duur." } },
+  { theme: 2, text: "De gemeente moet een preventief messenverbod invoeren in het uitgaansgebied.",
+    explanation: "Steekincidenten zijn een groeiend probleem in uitgaansgebieden.",
+    arguments: { pro: "Kan ernstig letsel voorkomen en geeft politie meer middelen.", contra: "Moeilijk te handhaven; pakt de oorzaken niet aan." } },
+  // Mobiliteit (9-11)
+  { theme: 3, text: "De Waalbrug moet worden vervangen door een moderne brug met fiets- en OV-stroken.",
+    explanation: "De Waalbrug is oud en druk. Vervanging biedt kansen voor betere doorstroming.",
+    arguments: { pro: "Modernere brug met betere verdeling van verkeer.", contra: "Enorme investering en jarenlange overlast tijdens de bouw." } },
+  { theme: 3, text: "Nijmegen moet een snelle fietsverbinding aanleggen naar Arnhem.",
+    explanation: "Veel forensen fietsen of willen fietsen tussen Nijmegen en Arnhem.",
+    arguments: { pro: "Stimuleert fietsgebruik en vermindert autoverkeer op de A325.", contra: "Kostbaar; de afstand is voor veel mensen te ver om te fietsen." } },
+  { theme: 3, text: "Het busvervoer in de buitenwijken moet frequenter en later doorrijden.",
+    explanation: "Buitenwijken hebben minder frequent busvervoer, vooral in de avond.",
+    arguments: { pro: "Beter OV voor iedereen, ook in de buitenwijken.", contra: "Lege bussen laten rijden is duur en inefficient." } },
+  // Economie (12-14)
+  { theme: 4, text: "De Radboud Universiteit moet meer samenwerken met lokale bedrijven voor werkgelegenheid.",
+    explanation: "De universiteit is een kennismotor, maar de link met de lokale economie kan sterker.",
+    arguments: { pro: "Houdt afgestudeerden in de regio en stimuleert innovatie.", contra: "De universiteit is er voor onderwijs en onderzoek, niet voor de lokale economie." } },
+  { theme: 4, text: "De gemeente moet meer investeren in toerisme rondom de Romeinse geschiedenis.",
+    explanation: "Nijmegen is de oudste stad van Nederland met een rijke Romeinse historie.",
+    arguments: { pro: "Uniek verkooppunt dat meer bezoekers en inkomsten kan opleveren.", contra: "Toerisme kan overlast veroorzaken; de stad is meer dan alleen Romeins." } },
+  { theme: 4, text: "Er moeten meer betaalbare werkplekken komen voor creatieve ondernemers.",
+    explanation: "De creatieve sector groeit maar betaalbare werkruimtes zijn schaars.",
+    arguments: { pro: "Stimuleert de creatieve economie en diversifieert de werkgelegenheid.", contra: "De markt moet dit regelen; gemeentegeld kan beter besteed." } },
+  // Zorg (15-17)
+  { theme: 5, text: "Het Radboudumc moet meer samenwerken met de gemeente op het gebied van preventieve zorg.",
+    explanation: "Het academisch ziekenhuis heeft veel expertise die de wijkzorg kan versterken.",
+    arguments: { pro: "Betere preventie door samenwerking tussen expertise en wijkkennis.", contra: "Het ziekenhuis heeft een andere taak dan wijkzorg." } },
+  { theme: 5, text: "Nijmegen moet meer investeren in ouderenzorg in de eigen wijk.",
+    explanation: "Ouderen willen zo lang mogelijk thuis wonen maar hebben daarbij ondersteuning nodig.",
+    arguments: { pro: "Laat ouderen in hun vertrouwde omgeving en voorkomt eenzaamheid.", contra: "Kost extra geld en personeel dat moeilijk te vinden is." } },
+  { theme: 5, text: "De gemeente moet meer doen aan verslavingspreventie onder jongeren.",
+    explanation: "Alcohol- en drugsgebruik onder jongeren is een zorg in Nijmegen.",
+    arguments: { pro: "Vroeg ingrijpen voorkomt zwaardere problematiek later.", contra: "Jongeren experimenteren altijd; preventie heeft beperkt effect." } },
+  // Onderwijs (18-20)
+  { theme: 6, text: "De Radboud Universiteit moet meer bijdragen aan de leefbaarheid van studentenwijken.",
+    explanation: "De grote studentenpopulatie legt druk op wijken als het Bottendaal.",
+    arguments: { pro: "De universiteit profiteert van de stad en moet ook bijdragen.", contra: "Leefbaarheid is een gemeentelijke taak." } },
+  { theme: 6, text: "Alle basisscholen moeten gratis sportonderwijs aanbieden na schooltijd.",
+    explanation: "Niet alle kinderen hebben toegang tot sportverenigingen.",
+    arguments: { pro: "Sport is goed voor de gezondheid en kansengelijkheid.", contra: "Kostbaar; sportverenigingen voorzien hier al in." } },
+  { theme: 6, text: "De gemeente moet meer investeren in onderwijs voor nieuwkomers en statushouders.",
+    explanation: "Integratie begint met taal en onderwijs. Nijmegen vangt relatief veel statushouders op.",
+    arguments: { pro: "Investering in integratie betaalt zich op termijn terug.", contra: "Nieuwkomers moeten zelf ook verantwoordelijkheid nemen." } },
+  // Cultuur & Sport (21-23)
+  { theme: 7, text: "De Vierdaagsefeesten moeten meer gemeentelijke ondersteuning krijgen.",
+    explanation: "De Vierdaagsefeesten zijn het grootste evenement van Nederland en een icoon van Nijmegen.",
+    arguments: { pro: "Het evenement is onbetaalbaar voor de stad en verdient steun.", contra: "De feesten draaien al jaren goed; meer subsidie is niet nodig." } },
+  { theme: 7, text: "Nijmegen moet een permanent Romeins museum oprichten.",
+    explanation: "Er zijn veel Romeinse vondsten maar geen centraal museum dat ze tentoonstelt.",
+    arguments: { pro: "Past bij de identiteit van de oudste stad en trekt toeristen.", contra: "Grote investering; Museum Het Valkhof besteedt hier al aandacht aan." } },
+  { theme: 7, text: "Er moeten meer sportfaciliteiten komen in de Waalsprong.",
+    explanation: "De Waalsprong groeit snel maar sportvoorzieningen blijven achter.",
+    arguments: { pro: "Sport moet bereikbaar zijn voor alle inwoners.", contra: "Faciliteiten in het centrum zijn goed bereikbaar." } },
+  // Diversiteit (24-26)
+  { theme: 8, text: "De gemeente moet een diversiteitsquotum instellen voor het eigen personeelsbestand.",
+    explanation: "Het gemeentelijk apparaat is niet altijd een afspiegeling van de diverse bevolking.",
+    arguments: { pro: "Zorgt voor betere vertegenwoordiging van alle Nijmegenaren.", contra: "Kwaliteit moet leidend zijn, niet achtergrond." } },
+  { theme: 8, text: "Nijmegen moet meer doen om internationale studenten en onderzoekers te integreren.",
+    explanation: "De Radboud Universiteit trekt veel internationale studenten en onderzoekers aan.",
+    arguments: { pro: "Verrijkt de stad en voorkomt parallelle gemeenschappen.", contra: "De meesten vertrekken weer; integratie is hun eigen keuze." } },
+  { theme: 8, text: "De gemeente moet actief beleid voeren tegen discriminatie op de arbeidsmarkt.",
+    explanation: "Onderzoek toont dat mensen met een migratieachtergrond vaker worden afgewezen.",
+    arguments: { pro: "Gelijke kansen zijn een grondrecht; handhaving is noodzakelijk.", contra: "Werkgevers moeten vrij zijn in hun selectie; handhaving is moeilijk." } },
+  // Bestuur (27-29)
+  { theme: 9, text: "De wijkraden moeten meer budget en beslissingsbevoegdheid krijgen.",
+    explanation: "Wijkraden adviseren maar hebben weinig echte macht over hun eigen wijk.",
+    arguments: { pro: "Meer zeggenschap voor bewoners; maatwerk per wijk.", contra: "Kan leiden tot ongelijkheid en vertraging van besluitvorming." } },
+  { theme: 9, text: "Nijmegen moet meer samenwerken met Arnhem in een stedenregio.",
+    explanation: "Nijmegen en Arnhem liggen dicht bij elkaar en delen veel uitdagingen.",
+    arguments: { pro: "Samen sterker: betere afstemming op wonen, werken en verkeer.", contra: "Twee steden met eigen identiteit; samenwerking kan ten koste gaan van eigenheid." } },
+  { theme: 9, text: "De gemeente moet een jongerenraad oprichten met echt adviesrecht.",
+    explanation: "Jongeren voelen zich vaak niet gehoord in de lokale politiek.",
+    arguments: { pro: "Betrekt jongeren bij de democratie en brengt frisse ideeen.", contra: "Er zijn al genoeg adviesorganen; risico op symboolpolitiek." } },
+];
+
+const TRANSLATIONS_NIJMEGEN = [
+  { theme: 0, text: "Nijmegen should maintain a 40% social housing quota in every new construction project.",
+    explanation: "Nijmegen is growing and housing shortage affects mainly starters and low-income residents.",
+    arguments: { pro: "Keeps the oldest city in the Netherlands affordable for everyone.", contra: "Makes construction more expensive and may deter developers." } },
+  { theme: 0, text: "The Waalsprong should get more amenities to become a full-fledged neighborhood.",
+    explanation: "The Waalsprong is a large new neighborhood north of the Waal river, but still lacks amenities.",
+    arguments: { pro: "Residents deserve shops, schools, and culture close to home.", contra: "Amenities will come naturally as the neighborhood grows." } },
+  { theme: 0, text: "The municipality should crack down harder on exploitative landlords and excessive rents.",
+    explanation: "Student rooms and rental properties are often too expensive for what they offer.",
+    arguments: { pro: "Protects tenants from exploitation and keeps housing affordable.", contra: "Too much regulation deters landlords and reduces supply." } },
+  { theme: 1, text: "Nijmegen should live up to its European Green Capital title with more ambitious climate goals.",
+    explanation: "Nijmegen was European Green Capital in 2018. The question is whether the city maintains that ambition.",
+    arguments: { pro: "The title obliges; Nijmegen should keep leading by example.", contra: "The title was a snapshot; realistic goals are better than symbolic politics." } },
+  { theme: 1, text: "The Waal should be better protected against flooding with natural water storage.",
+    explanation: "The Waal is Europe's busiest navigated river and flooding risk is increasing.",
+    arguments: { pro: "Natural water storage is more sustainable and cheaper than raising dikes.", contra: "Requires a lot of space and land that could be used otherwise." } },
+  { theme: 1, text: "All new homes in Nijmegen should get a heat pump instead of a gas connection.",
+    explanation: "Heat pumps are more sustainable but also more expensive than gas boilers.",
+    arguments: { pro: "Future-proof and good for the climate.", contra: "More expensive to purchase; not always efficient in older homes." } },
+  { theme: 2, text: "Nijmegen should invest more in tackling organized crime.",
+    explanation: "Nijmegen also faces drug crime and money laundering.",
+    arguments: { pro: "Protects the city from the influence of criminal money.", contra: "Organized crime is a national problem; the municipality can do little alone." } },
+  { theme: 2, text: "More enforcement officers should be deployed in the center during the Four Day Marches festivals.",
+    explanation: "The Four Day Marches festivals attract over a million visitors, causing crowds and nuisance.",
+    arguments: { pro: "More safety during the city's biggest event.", contra: "The festival lasts only a week; structurally more officers is expensive." } },
+  { theme: 2, text: "The municipality should introduce a preventive knife ban in the nightlife district.",
+    explanation: "Stabbing incidents are a growing problem in nightlife areas.",
+    arguments: { pro: "Can prevent serious injury and gives police more tools.", contra: "Difficult to enforce; doesn't address root causes." } },
+  { theme: 3, text: "The Waal Bridge should be replaced with a modern bridge with cycling and transit lanes.",
+    explanation: "The Waal Bridge is old and busy. Replacement offers opportunities for better traffic flow.",
+    arguments: { pro: "A modern bridge with better traffic distribution.", contra: "Enormous investment and years of disruption during construction." } },
+  { theme: 3, text: "Nijmegen should build a fast cycling connection to Arnhem.",
+    explanation: "Many commuters cycle or want to cycle between Nijmegen and Arnhem.",
+    arguments: { pro: "Encourages cycling and reduces car traffic on the A325.", contra: "Expensive; the distance is too far for many people to cycle." } },
+  { theme: 3, text: "Bus service in outer neighborhoods should be more frequent and run later.",
+    explanation: "Outer neighborhoods have less frequent bus service, especially in the evening.",
+    arguments: { pro: "Better public transport for everyone, including outer neighborhoods.", contra: "Running empty buses is expensive and inefficient." } },
+  { theme: 4, text: "Radboud University should cooperate more with local businesses for employment.",
+    explanation: "The university is a knowledge engine, but the link with the local economy could be stronger.",
+    arguments: { pro: "Keeps graduates in the region and stimulates innovation.", contra: "The university exists for education and research, not the local economy." } },
+  { theme: 4, text: "The municipality should invest more in tourism around Roman history.",
+    explanation: "Nijmegen is the oldest city in the Netherlands with a rich Roman heritage.",
+    arguments: { pro: "Unique selling point that can bring more visitors and revenue.", contra: "Tourism can cause nuisance; the city is more than just Roman." } },
+  { theme: 4, text: "More affordable workspaces should be created for creative entrepreneurs.",
+    explanation: "The creative sector is growing but affordable workspaces are scarce.",
+    arguments: { pro: "Stimulates the creative economy and diversifies employment.", contra: "The market should handle this; public funds could be better spent." } },
+  { theme: 5, text: "Radboudumc should cooperate more with the municipality on preventive care.",
+    explanation: "The academic hospital has expertise that can strengthen neighborhood care.",
+    arguments: { pro: "Better prevention through collaboration between expertise and local knowledge.", contra: "The hospital has a different task than neighborhood care." } },
+  { theme: 5, text: "Nijmegen should invest more in elderly care within neighborhoods.",
+    explanation: "Elderly people want to live at home as long as possible but need support.",
+    arguments: { pro: "Lets elderly stay in their familiar environment and prevents loneliness.", contra: "Costs extra money and staff that are hard to find." } },
+  { theme: 5, text: "The municipality should do more about addiction prevention among young people.",
+    explanation: "Alcohol and drug use among young people is a concern in Nijmegen.",
+    arguments: { pro: "Early intervention prevents more serious problems later.", contra: "Young people always experiment; prevention has limited effect." } },
+  { theme: 6, text: "Radboud University should contribute more to the livability of student neighborhoods.",
+    explanation: "The large student population puts pressure on neighborhoods like Bottendaal.",
+    arguments: { pro: "The university benefits from the city and should also contribute.", contra: "Livability is a municipal responsibility." } },
+  { theme: 6, text: "All primary schools should offer free after-school sports education.",
+    explanation: "Not all children have access to sports associations.",
+    arguments: { pro: "Sports are good for health and equal opportunities.", contra: "Expensive; sports associations already provide this." } },
+  { theme: 6, text: "The municipality should invest more in education for newcomers and refugees.",
+    explanation: "Integration starts with language and education. Nijmegen hosts relatively many refugees.",
+    arguments: { pro: "Investment in integration pays off in the long run.", contra: "Newcomers must also take responsibility themselves." } },
+  { theme: 7, text: "The Four Day Marches festivals should receive more municipal support.",
+    explanation: "The Four Day Marches festivals are the Netherlands' biggest event and a Nijmegen icon.",
+    arguments: { pro: "The event is priceless for the city and deserves support.", contra: "The festival has been running well for years; more subsidy isn't needed." } },
+  { theme: 7, text: "Nijmegen should establish a permanent Roman museum.",
+    explanation: "There are many Roman finds but no central museum to display them.",
+    arguments: { pro: "Fits the identity of the oldest city and attracts tourists.", contra: "Large investment; Museum Het Valkhof already covers this." } },
+  { theme: 7, text: "More sports facilities should be built in the Waalsprong.",
+    explanation: "The Waalsprong is growing fast but sports facilities lag behind.",
+    arguments: { pro: "Sports should be accessible to all residents.", contra: "Facilities in the center are easily accessible." } },
+  { theme: 8, text: "The municipality should set a diversity quota for its own workforce.",
+    explanation: "The municipal apparatus doesn't always reflect the diverse population.",
+    arguments: { pro: "Ensures better representation of all Nijmegen residents.", contra: "Quality should lead, not background." } },
+  { theme: 8, text: "Nijmegen should do more to integrate international students and researchers.",
+    explanation: "Radboud University attracts many international students and researchers.",
+    arguments: { pro: "Enriches the city and prevents parallel communities.", contra: "Most leave again; integration is their own choice." } },
+  { theme: 8, text: "The municipality should actively combat discrimination in the labor market.",
+    explanation: "Research shows people with migration backgrounds are more often rejected.",
+    arguments: { pro: "Equal opportunities are a fundamental right; enforcement is necessary.", contra: "Employers should be free in their selection; enforcement is difficult." } },
+  { theme: 9, text: "Neighborhood councils should get more budget and decision-making power.",
+    explanation: "Neighborhood councils advise but have little real power over their own area.",
+    arguments: { pro: "More say for residents; tailored solutions per neighborhood.", contra: "Can lead to inequality and slower decision-making." } },
+  { theme: 9, text: "Nijmegen should cooperate more with Arnhem in a city region.",
+    explanation: "Nijmegen and Arnhem are close together and share many challenges.",
+    arguments: { pro: "Stronger together: better coordination on housing, work, and traffic.", contra: "Two cities with their own identity; cooperation may come at the cost of uniqueness." } },
+  { theme: 9, text: "The municipality should establish a youth council with real advisory power.",
+    explanation: "Young people often feel unheard in local politics.",
+    arguments: { pro: "Engages young people in democracy and brings fresh ideas.", contra: "There are already enough advisory bodies; risk of symbolic politics." } },
+];
+
+const PARTIES_NIJMEGEN = [
+  { name: 'GroenLinks', abbr: 'GL', colors: ['#39a935','#2d8a2b'], url: 'https://nijmegen.groenlinks.nl', symbol: '🌿',
+    pos: [1,1,1, 1,1,1, 0,1,0, 0,1,1, 0,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1] },
+  { name: 'PvdA', abbr: 'PvdA', colors: ['#e12b1a','#c0241a'], url: 'https://nijmegen.pvda.nl', symbol: '🌹',
+    pos: [1,1,1, 0,1,1, 1,1,0, 0,1,1, 0,0,0, 1,1,1, 1,1,1, 1,0,1, 1,1,1, 1,1,1] },
+  { name: 'D66', abbr: 'D66', colors: ['#01af36','#008c2e'], url: 'https://d66.nl/nijmegen', symbol: '💎',
+    pos: [0,0,0, 1,1,1, 0,0,0, 1,1,1, 1,1,1, 0,0,0, 0,0,1, 1,1,1, 0,1,0, 1,1,1] },
+  { name: 'SP', abbr: 'SP', colors: ['#ee1d23','#cc191f'], url: 'https://nijmegen.sp.nl', symbol: '✊',
+    pos: [1,1,1, 1,1,1, 1,1,1, 0,-1,1, -1,0,-1, 1,1,1, 1,1,1, 1,0,1, 1,1,1, 1,0,0] },
+  { name: 'VVD', abbr: 'VVD', colors: ['#ff7f00','#e06d00'], url: 'https://www.vvd.nl/nijmegen', symbol: '🏛️',
+    pos: [-1,-1,0, 0,-1,0, 1,0,1, 1,1,-1, 1,1,1, -1,-1,-1, 0,-1,-1, 0,0,0, -1,0,-1, -1,0,0] },
+  { name: 'CDA', abbr: 'CDA', colors: ['#007b5f','#006350'], url: 'https://www.cda.nl/nijmegen', symbol: '⚖️',
+    pos: [0,0,1, 0,1,0, 1,1,1, 0,0,1, 0,1,0, 0,1,0, 0,0,1, 0,1,1, 0,0,0, 1,1,1] },
+  { name: 'Partij voor de Dieren', abbr: 'PvdD', colors: ['#006c2e','#005a26'], url: 'https://nijmegen.partijvoordedieren.nl', symbol: '🐾',
+    pos: [0,1,0, 1,1,1, 0,0,1, 0,1,1, -1,0,-1, 1,0,1, 0,1,0, 1,1,1, 0,1,1, 1,1,1] },
+  { name: 'Stadspartij Nijmegen', abbr: 'SPN', colors: ['#e67300','#cc6600'], url: 'https://stadspartijnijmegen.nl', symbol: '🏙️',
+    pos: [1,1,0, 0,0,0, 1,1,0, 0,0,1, 0,0,1, 0,1,0, 0,0,0, 1,1,1, 0,0,0, 1,0,0] },
+  { name: 'Gewoon Nijmegen', abbr: 'GN', colors: ['#f5a623','#d4900e'], url: 'https://gewoonnijmegen.nl', symbol: '🏠',
+    pos: [1,1,1, 0,0,0, 1,1,1, 0,0,1, -1,0,0, 1,1,0, 1,0,0, 0,0,1, 0,0,1, 1,0,0] },
+  { name: 'PVV', abbr: 'PVV', colors: ['#21305a','#182440'], url: 'https://pvv.nl', symbol: '🇳🇱',
+    pos: [-1,-1,-1, -1,-1,-1, 1,1,-1, -1,1,-1, 1,-1,1, -1,-1,-1, -1,-1,-1, 0,-1,0, -1,-1,-1, -1,-1,0] },
+  { name: 'ChristenUnie', abbr: 'CU', colors: ['#00a7eb','#008dc8'], url: 'https://www.christenunie.nl/nijmegen', symbol: '✝️',
+    pos: [1,0,0, 0,1,1, 0,1,1, -1,0,1, 0,1,0, 1,1,1, 0,0,1, 0,1,1, 0,0,0, 1,1,1] },
+  { name: 'Volt', abbr: 'Volt', colors: ['#502379','#3d1b5e'], url: 'https://www.voltnederland.org', symbol: '⚡',
+    pos: [0,0,0, 1,1,1, 0,0,0, 1,1,1, 1,1,1, 0,0,0, 0,1,1, 1,1,1, 1,1,1, 1,1,1] },
+];
+
+const NPC_GREETINGS_NIJMEGEN = [
+  // 0: Wonen
+  ['Welkom in de oudste stad van Nederland! Woning zoeken? De Romeinen hadden hetzelfde probleem.',
+   'De Waalsprong is mooi, maar ik mis de winkels. En de bus. En de buren.',
+   'Mijn huisbaas vraagt zoveel huur, de Romeinen zouden het belasting noemen.',
+   'Nijmegen: waar je huis ouder is dan de meeste steden.'],
+  // 1: Klimaat
+  ['Groene Hoofdstad? We hebben inderdaad veel groen. Het groeit uit mijn voegen.',
+   'De Waal beschermen? Die rivier heeft al meer overstroomd dan mijn badkuip.',
+   'Warmtepompen? Mijn buurman heeft er een, ik hoor hem dag en nacht.',
+   'Nijmegen duurzaam: we recyclen onze Romeinse stenen al 2000 jaar.'],
+  // 2: Veiligheid
+  ['Ondermijning in Nijmegen? De enige ondergrondse activiteit hier is archeologie.',
+   'Meer handhavers bij de Vierdaagse? Die lopen zelf al 40 kilometer.',
+   'Een messenverbod? Op de Vierdaagse is een blaar al een wapen.',
+   'Veiligheid: in Nijmegen is het gevaarlijkst om op de Waalbrug te fietsen met tegenwind.'],
+  // 3: Mobiliteit
+  ['De Waalbrug vervangen? Die brug is er al zo lang als ik leef. Net als de file.',
+   'Snelfietspad naar Arnhem? Ik ben al moe als ik eraan denk.',
+   'De bus in mijn wijk? Die rijdt zo onregelmatig, ik ga nu te voet.',
+   'Nijmegen: heuvelachtig, met wind tegen, en toch fietst iedereen.'],
+  // 4: Economie
+  ['De Radboud en bedrijven samenwerken? Mijn buurman is gepromoveerd en werkt bij de Jumbo.',
+   'Romeins toerisme? Ik verkoop al zelfgemaakte gladiatorenhelmen op Marktplaats.',
+   'Betaalbare werkplekken? Ik werk al in de bieb. Gratis wifi!',
+   'Nijmegen: stad van kennis, cultuur, en de duurste cappuccino ten zuiden van Amsterdam.'],
+  // 5: Zorg
+  ['Het Radboudumc samenwerken? Ze zijn al de grootste werkgever na de gemeente.',
+   'Ouderenzorg in de wijk? Mijn oma organiseert zelf de buurtzorg.',
+   'Verslavingspreventie? Na de Vierdaagse heeft heel Nijmegen een alcohol-interventie nodig.',
+   'De beste zorg in Nijmegen: een wandeling over de Waalstrandjes.'],
+  // 6: Onderwijs
+  ['De Radboud bijdragen? Ze hebben al half Bottendaal opgevouwen in studentenflats.',
+   'Gratis sportonderwijs? Mijn kind is al prof in trefbal.',
+   'Onderwijs voor nieuwkomers? In Nijmegen leer je Nederlands en Latijn tegelijk.',
+   'In Nijmegen zijn meer studenten dan Romeinse munten. En dat zegt wat.'],
+  // 7: Cultuur & Sport
+  ['De Vierdaagse meer steun? Het is al het mooiste gratis festival van Nederland!',
+   'Een Romeins museum? We lopen al dagelijks over de ruines.',
+   'Sport in de Waalsprong? Hardlopen voor de bus is daar al topsport.',
+   'Cultuur in Nijmegen: een biertje drinken op het Valkhof en naar de Waal kijken.'],
+  // 8: Diversiteit
+  ['Diversiteitsquotum? In de studentenflat is het al een mini-VN.',
+   'Internationale studenten integreren? Neem ze mee naar de Vierdaagse!',
+   'Discriminatie aanpakken? In Nijmegen zien we allemaal er hetzelfde uit na 40km wandelen.',
+   'Nijmegen: al divers sinds de Romeinen hier Batavieren ontmoetten.'],
+  // 9: Bestuur
+  ['Wijkraden meer macht? Mijn buurvrouw IS de wijkraad.',
+   'Samenwerken met Arnhem? Dat proberen ze al sinds de Slag om Arnhem.',
+   'Een jongerenraad? De gemiddelde leeftijd in Nijmegen is al 23.',
+   'Nijmeegse politiek: links van links, en dan nog een stukje linksaf.'],
+];
+
 // --- Active data (swapped on city selection) ---
 let STATEMENTS = STATEMENTS_ROTTERDAM;
 let TRANSLATIONS = TRANSLATIONS_ROTTERDAM;
@@ -2923,17 +4413,18 @@ let PARTIES = PARTIES_ROTTERDAM;
 let NPC_GREETINGS = NPC_GREETINGS_ROTTERDAM;
 
 function swapCityData(cityIdx) {
-  if (CITIES[cityIdx].name === 'Den Haag') {
-    STATEMENTS = STATEMENTS_DEN_HAAG;
-    TRANSLATIONS = TRANSLATIONS_DEN_HAAG;
-    PARTIES = PARTIES_DEN_HAAG;
-    NPC_GREETINGS = NPC_GREETINGS_DEN_HAAG;
-  } else {
-    STATEMENTS = STATEMENTS_ROTTERDAM;
-    TRANSLATIONS = TRANSLATIONS_ROTTERDAM;
-    PARTIES = PARTIES_ROTTERDAM;
-    NPC_GREETINGS = NPC_GREETINGS_ROTTERDAM;
-  }
+  const cityName = CITIES[cityIdx].name;
+  const cityData = {
+    'Rotterdam': [STATEMENTS_ROTTERDAM, TRANSLATIONS_ROTTERDAM, PARTIES_ROTTERDAM, NPC_GREETINGS_ROTTERDAM],
+    'Amsterdam': [STATEMENTS_AMSTERDAM, TRANSLATIONS_AMSTERDAM, PARTIES_AMSTERDAM, NPC_GREETINGS_AMSTERDAM],
+    'Den Haag': [STATEMENTS_DEN_HAAG, TRANSLATIONS_DEN_HAAG, PARTIES_DEN_HAAG, NPC_GREETINGS_DEN_HAAG],
+    'Utrecht': [STATEMENTS_UTRECHT, TRANSLATIONS_UTRECHT, PARTIES_UTRECHT, NPC_GREETINGS_UTRECHT],
+    'Eindhoven': [STATEMENTS_EINDHOVEN, TRANSLATIONS_EINDHOVEN, PARTIES_EINDHOVEN, NPC_GREETINGS_EINDHOVEN],
+    'Groningen': [STATEMENTS_GRONINGEN, TRANSLATIONS_GRONINGEN, PARTIES_GRONINGEN, NPC_GREETINGS_GRONINGEN],
+    'Nijmegen': [STATEMENTS_NIJMEGEN, TRANSLATIONS_NIJMEGEN, PARTIES_NIJMEGEN, NPC_GREETINGS_NIJMEGEN],
+  };
+  const d = cityData[cityName] || cityData['Rotterdam'];
+  STATEMENTS = d[0]; TRANSLATIONS = d[1]; PARTIES = d[2]; NPC_GREETINGS = d[3];
 }
 
 function triggerPartyReactions(stmtIdx, playerAnswer) {
@@ -3173,8 +4664,20 @@ function initGame() {
   // Player starts at hub (Bestuur)
   player = new Player(hub.cx, hub.cy + 3);
   npcs = [];
-  for (let i = 0; i < 10; i++) {
-    npcs.push(new NPC(ZONES[i].npcX, ZONES[i].npcY, i));
+  // Spawn one NPC per statement per zone
+  const offsets = [
+    { dx: 0, dy: 0 },
+    { dx: 1.5, dy: -1.5 },
+    { dx: -1.5, dy: 1.5 },
+  ];
+  for (let z = 0; z < 10; z++) {
+    const stmts = STATEMENTS.filter((s, i) => s.theme === z);
+    const count = Math.min(statementsPerZone, stmts.length);
+    for (let q = 0; q < count; q++) {
+      const si = STATEMENTS.indexOf(stmts[q]);
+      const off = offsets[q] || offsets[0];
+      npcs.push(new NPC(ZONES[z].npcX + off.dx, ZONES[z].npcY + off.dy, z, si));
+    }
   }
   answers = [];
   answeredZones = new Set();
@@ -3275,22 +4778,15 @@ function updatePlaying() {
 
   // Interact with NPC
   if (nearNPC && consumeKey('KeyI')) {
-    const zi = nearNPC.zoneIdx;
-    if (!isZoneComplete(zi)) {
-      // Find next unanswered statement for this zone
-      const stmts = getZoneStatements(zi);
-      for (const s of stmts) {
-        const si = STATEMENTS.indexOf(s);
-        if (!answers.find(a => a.stmtIdx === si)) {
-          currentStatementIdx = si;
-          activeNPC = nearNPC;
-          extraBelangrijk = false;
-          answerTab = 0;
-          overlayTransition = 0;
-          gameState = 'answering';
-          break;
-        }
-      }
+    const si = nearNPC.statementIdx;
+    // Only interact if this NPC's statement hasn't been answered yet
+    if (!answers.find(a => a.stmtIdx === si)) {
+      currentStatementIdx = si;
+      activeNPC = nearNPC;
+      extraBelangrijk = false;
+      answerTab = 0;
+      overlayTransition = 0;
+      gameState = 'answering';
     }
   }
 
@@ -3341,30 +4837,16 @@ function updateAnswering() {
 
 function advanceAfterAnswer() {
   const zi = activeNPC.zoneIdx;
-  // Check if zone has more unanswered statements
-  const stmts = getZoneStatements(zi);
-  let nextStmt = null;
-  for (const s of stmts) {
-    const si = STATEMENTS.indexOf(s);
-    if (!answers.find(a => a.stmtIdx === si)) {
-      nextStmt = si;
-      break;
-    }
-  }
   // Recalculate running scores — may trigger followers to leave
   recalcRunningScores();
 
-  if (nextStmt !== null) {
-    currentStatementIdx = nextStmt;
-    extraBelangrijk = false;
-    answerTab = 0;
-  } else {
-    // Zone complete
+  // Each NPC has one question — return to playing after answering
+  if (isZoneComplete(zi)) {
     answeredZones.add(zi);
-    gameState = 'playing';
-    activeNPC = null;
-    saveGame();
   }
+  gameState = 'playing';
+  activeNPC = null;
+  saveGame();
 
   // Check if all done
   if (countAnswered() >= quizMode) {
@@ -3380,272 +4862,261 @@ function advanceAfterAnswer() {
 function drawTitleScreen() {
   const midX = screenW / 2;
   const groundY = screenH * 0.72;
+  const LINE = 4;
 
-  // --- Sky — soft flat gradient, no outlines anywhere ---
-  const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
-  skyGrad.addColorStop(0, '#7bc5a0');
-  skyGrad.addColorStop(0.6, '#a8dcc0');
-  skyGrad.addColorStop(1, '#d0eee0');
-  ctx.fillStyle = skyGrad;
+  // --- White/cream Mondrian background ---
+  ctx.fillStyle = '#f5f0e8';
   ctx.fillRect(0, 0, screenW, screenH);
 
-  // --- Soft flat clouds (no outlines) ---
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  function flatCloud(cx, cy, s) {
-    ctx.beginPath();
-    ctx.arc(cx, cy, 20 * s, 0, Math.PI * 2);
-    ctx.arc(cx + 22 * s, cy - 10 * s, 26 * s, 0, Math.PI * 2);
-    ctx.arc(cx + 50 * s, cy - 2 * s, 18 * s, 0, Math.PI * 2);
-    ctx.arc(cx + 26 * s, cy + 6 * s, 16 * s, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  flatCloud(screenW * 0.08, screenH * 0.08, 1.2);
-  flatCloud(screenW * 0.62, screenH * 0.05, 0.9);
-  flatCloud(screenW * 0.85, screenH * 0.14, 0.7);
-
-  // --- Flat buildings — bold color blocks, NO outlines, smooth ---
-  // Muted bold palette matching reference style
+  // --- Buildings skyline with Mondrian primary colors + bold black outlines ---
+  const mondrianCols = ['#d42020','#1858a8','#f0c820','#f5f0e8','#d42020','#1858a8','#f0c820','#f5f0e8'];
   const bldgs = [
-    { x: 0.02, w: 0.06, h: 0.18, col: '#e8a090' },
-    { x: 0.07, w: 0.05, h: 0.30, col: '#5088d0' },
-    { x: 0.11, w: 0.04, h: 0.14, col: '#e8c878' },
-    { x: 0.14, w: 0.06, h: 0.38, col: '#2c4a7c' },
-    { x: 0.19, w: 0.05, h: 0.22, col: '#e8a090' },
-    { x: 0.23, w: 0.04, h: 0.12, col: '#7bc5a0' },
-    { x: 0.27, w: 0.07, h: 0.28, col: '#d07888' },
-    { x: 0.33, w: 0.05, h: 0.42, col: '#4a6fa5' },
-    { x: 0.37, w: 0.04, h: 0.16, col: '#e8c060' },
-    { x: 0.41, w: 0.06, h: 0.24, col: '#e8a090' },
+    { x: 0.02, w: 0.06, h: 0.18 },
+    { x: 0.07, w: 0.05, h: 0.30 },
+    { x: 0.11, w: 0.04, h: 0.14 },
+    { x: 0.14, w: 0.06, h: 0.38 },
+    { x: 0.19, w: 0.05, h: 0.22 },
+    { x: 0.23, w: 0.04, h: 0.12 },
+    { x: 0.27, w: 0.07, h: 0.28 },
+    { x: 0.33, w: 0.05, h: 0.42 },
+    { x: 0.37, w: 0.04, h: 0.16 },
+    { x: 0.41, w: 0.06, h: 0.24 },
     // Center gap for title readability
-    { x: 0.56, w: 0.05, h: 0.20, col: '#7bc5a0' },
-    { x: 0.60, w: 0.06, h: 0.36, col: '#d07888' },
-    { x: 0.65, w: 0.04, h: 0.14, col: '#e8c878' },
-    { x: 0.68, w: 0.07, h: 0.44, col: '#2c4a7c' },
-    { x: 0.74, w: 0.05, h: 0.26, col: '#5088d0' },
-    { x: 0.78, w: 0.04, h: 0.16, col: '#e8a090' },
-    { x: 0.82, w: 0.06, h: 0.32, col: '#4a6fa5' },
-    { x: 0.87, w: 0.04, h: 0.18, col: '#e8c060' },
-    { x: 0.90, w: 0.05, h: 0.24, col: '#d07888' },
-    { x: 0.94, w: 0.05, h: 0.12, col: '#7bc5a0' },
+    { x: 0.56, w: 0.05, h: 0.20 },
+    { x: 0.60, w: 0.06, h: 0.36 },
+    { x: 0.65, w: 0.04, h: 0.14 },
+    { x: 0.68, w: 0.07, h: 0.44 },
+    { x: 0.74, w: 0.05, h: 0.26 },
+    { x: 0.78, w: 0.04, h: 0.16 },
+    { x: 0.82, w: 0.06, h: 0.32 },
+    { x: 0.87, w: 0.04, h: 0.18 },
+    { x: 0.90, w: 0.05, h: 0.24 },
+    { x: 0.94, w: 0.05, h: 0.12 },
   ];
 
-  for (const b of bldgs) {
+  for (let i = 0; i < bldgs.length; i++) {
+    const b = bldgs[i];
     const bx = b.x * screenW;
     const bw = b.w * screenW;
     const bh = b.h * screenH;
-    ctx.fillStyle = b.col;
+    const col = mondrianCols[i % mondrianCols.length];
+
+    // Building fill
+    ctx.fillStyle = col;
     ctx.fillRect(bx, groundY - bh, bw, bh);
 
-    // Flat windows — slightly lighter/darker squares, no outlines
-    const winCol = b.col === '#2c4a7c' || b.col === '#4a6fa5' ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.4)';
-    ctx.fillStyle = winCol;
-    const winS = Math.max(6, bw * 0.2);
-    const winGap = winS * 2.2;
+    // Bold black outline
+    ctx.strokeStyle = '#1a1a1a';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(bx, groundY - bh, bw, bh);
+
+    // Windows — white squares with black outlines (Mondrian grid feel)
+    const winS = Math.max(6, bw * 0.22);
+    const winGap = winS * 2.4;
     for (let wy = groundY - bh + winS * 1.5; wy < groundY - winS; wy += winGap) {
       for (let wx = bx + winS * 0.8; wx < bx + bw - winS * 0.5; wx += winGap) {
+        ctx.fillStyle = col === '#f5f0e8' ? '#1858a8' : '#f5f0e8';
         ctx.fillRect(wx, wy, winS * 0.7, winS * 0.9);
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(wx, wy, winS * 0.7, winS * 0.9);
       }
-    }
-
-    // Some buildings get a darker accent top
-    if (b.h > 0.25) {
-      ctx.fillStyle = 'rgba(0,0,0,0.08)';
-      ctx.fillRect(bx, groundY - bh, bw, bh * 0.06);
     }
   }
 
   // --- Pointed roofs on some shorter buildings ---
   const roofBldgs = [2, 5, 8, 12, 15, 17];
-  ctx.fillStyle = '#c06050';
   for (const i of roofBldgs) {
     if (i >= bldgs.length) continue;
     const b = bldgs[i];
     const bx = b.x * screenW;
     const bw = b.w * screenW;
     const bh = b.h * screenH;
+    ctx.fillStyle = '#d42020';
     ctx.beginPath();
     ctx.moveTo(bx, groundY - bh);
     ctx.lineTo(bx + bw / 2, groundY - bh - bw * 0.5);
     ctx.lineTo(bx + bw, groundY - bh);
     ctx.closePath();
     ctx.fill();
+    ctx.strokeStyle = '#1a1a1a';
+    ctx.lineWidth = 2;
+    ctx.stroke();
   }
 
-  // --- Ground — warm salmon block ---
-  ctx.fillStyle = '#e8a090';
+  // --- Ground — Mondrian yellow block with black border ---
+  ctx.fillStyle = '#f0c820';
   ctx.fillRect(0, groundY, screenW, screenH * 0.08);
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillRect(0, groundY - LINE / 2, screenW, LINE);
 
-  // --- Green park strip ---
-  ctx.fillStyle = '#5db870';
-  ctx.fillRect(0, groundY + screenH * 0.08, screenW, screenH * 0.05);
+  // --- Water at bottom — Mondrian blue ---
+  ctx.fillStyle = '#1858a8';
+  ctx.fillRect(0, groundY + screenH * 0.08, screenW, screenH * 0.25);
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillRect(0, groundY + screenH * 0.13 - LINE / 2, screenW, LINE);
 
-  // --- Flat tulips on green strip (no outlines) ---
-  const tulipY = groundY + screenH * 0.08 + screenH * 0.025;
-  const tulipCols = ['#e85060', '#e8c040', '#d070a0', '#e88040', '#e85060', '#e8c040'];
-  for (let i = 0; i < 20; i++) {
-    const tx = screenW * 0.04 + i * (screenW * 0.92 / 20);
-    // Stem
-    ctx.fillStyle = '#3a9050';
-    ctx.fillRect(tx, tulipY - 10, 2, 14);
-    // Petal — simple rounded shape
-    ctx.fillStyle = tulipCols[i % tulipCols.length];
-    ctx.beginPath();
-    ctx.arc(tx + 1, tulipY - 13, 5, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  // --- Water at bottom ---
-  ctx.fillStyle = '#5088d0';
-  ctx.fillRect(0, groundY + screenH * 0.13, screenW, screenH * 0.20);
-  // Subtle lighter wave stripes
-  ctx.fillStyle = 'rgba(255,255,255,0.1)';
-  for (let i = 0; i < 4; i++) {
-    ctx.fillRect(0, groundY + screenH * 0.15 + i * screenH * 0.04, screenW, screenH * 0.01);
-  }
-
-  // --- Title text — clean modern on frosted panel ---
+  // --- Title text — on white panel with bold black border ---
   ctx.textAlign = 'center';
   const titleY = screenH * 0.22;
 
-  // Frosted panel
-  ctx.fillStyle = 'rgba(255,255,255,0.82)';
   const panelW = Math.min(580, screenW * 0.75);
-  const panelH = 150;
-  const panelR = 20;
+  const panelH = 155;
   const px = midX - panelW / 2, py = titleY - 52;
-  ctx.beginPath();
-  ctx.moveTo(px + panelR, py);
-  ctx.lineTo(px + panelW - panelR, py);
-  ctx.quadraticCurveTo(px + panelW, py, px + panelW, py + panelR);
-  ctx.lineTo(px + panelW, py + panelH - panelR);
-  ctx.quadraticCurveTo(px + panelW, py + panelH, px + panelW - panelR, py + panelH);
-  ctx.lineTo(px + panelR, py + panelH);
-  ctx.quadraticCurveTo(px, py + panelH, px, py + panelH - panelR);
-  ctx.lineTo(px, py + panelR);
-  ctx.quadraticCurveTo(px, py, px + panelR, py);
-  ctx.closePath();
-  ctx.fill();
+  ctx.fillStyle = '#f5f0e8';
+  ctx.fillRect(px, py, panelW, panelH);
+  ctx.strokeStyle = '#1a1a1a';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(px, py, panelW, panelH);
 
-  ctx.fillStyle = '#1a1a2a';
+  ctx.fillStyle = '#1a1a1a';
   ctx.font = "bold 52px 'Inter', sans-serif";
-  ctx.fillText('StemWijzer', midX, titleY);
+  ctx.fillText(t('title_main'), midX, titleY);
 
-  ctx.fillStyle = '#2c4a7c';
+  ctx.fillStyle = '#d42020';
   ctx.font = "bold 34px 'Inter', sans-serif";
-  ctx.fillText('Gemeente 2026', midX, titleY + 42);
+  ctx.fillText(t('title_sub'), midX, titleY + 42);
 
-  ctx.fillStyle = '#505860';
+  ctx.fillStyle = '#606060';
   ctx.font = "400 15px 'Inter', sans-serif";
-  ctx.fillText('Gemeenteraadsverkiezingen \u2014 18 maart 2026', midX, titleY + 70);
+  ctx.fillText(t('title_date'), midX, titleY + 70);
+
+  // --- Language toggle button ---
+  const langBtnX = px + panelW - 60;
+  const langBtnY = py + panelH - 30;
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillRect(langBtnX, langBtnY, 55, 24);
+  ctx.font = "bold 12px 'Inter', sans-serif";
+  ctx.fillStyle = '#f5f0e8';
+  ctx.fillText(showEnglish ? 'NL' : 'EN', langBtnX + 27, langBtnY + 16);
 
   // --- Prompt on water ---
   ctx.font = "600 17px 'Inter', sans-serif";
-  ctx.fillStyle = '#ffffff';
-  ctx.fillText('Druk op een toets om te beginnen / Klik om te beginnen', midX, screenH * 0.90);
+  ctx.fillStyle = '#f5f0e8';
+  ctx.fillText(t('title_prompt'), midX, screenH * 0.90);
 
   // Disclaimer
   ctx.font = "400 11px 'Inter', sans-serif";
   ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  ctx.fillText('Stellingen en partijposities zijn illustratief \u2014 niet officieel StemWijzer-materiaal', midX, screenH * 0.97);
+  ctx.fillText(t('title_disclaimer'), midX, screenH * 0.97);
 }
 
 function drawModeSelect() {
-  ctx.fillStyle = '#e8dcc8';
+  const LINE = 6;
+  ctx.fillStyle = '#f5f0e8';
   ctx.fillRect(0, 0, screenW, screenH);
+
+  ctx.fillStyle = '#f0c820'; ctx.fillRect(0, 0, screenW * 0.12, screenH * 0.20);
+  ctx.fillStyle = '#1858a8'; ctx.fillRect(screenW * 0.88, screenH * 0.75, screenW * 0.12, screenH * 0.25);
+  ctx.fillStyle = '#d42020'; ctx.fillRect(0, screenH * 0.88, screenW * 0.10, screenH * 0.12);
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillRect(screenW * 0.12 - LINE / 2, 0, LINE, screenH * 0.20);
+  ctx.fillRect(0, screenH * 0.20 - LINE / 2, screenW * 0.12, LINE);
 
   ctx.textAlign = 'center';
   ctx.font = "bold 36px 'Inter', sans-serif";
-  ctx.fillStyle = '#000000';
-  ctx.fillText('Kies je quizmodus', screenW/2, screenH * 0.2);
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillText(t('mode_title'), screenW/2, screenH * 0.18);
 
+  const modeCols = ['#f0c820', '#1858a8', '#d42020'];
   const modes = [
-    { key: '1', label: 'Snel', count: 10, desc: '10 stellingen \u2014 1 per thema' },
-    { key: '2', label: 'Normaal', count: 20, desc: '20 stellingen \u2014 2 per thema' },
-    { key: '3', label: 'Volledig', count: 30, desc: '30 stellingen \u2014 3 per thema' },
+    { key: '1', label: t('mode_quick'), count: 10, desc: t('mode_quick_desc') },
+    { key: '2', label: t('mode_normal'), count: 20, desc: t('mode_normal_desc') },
+    { key: '3', label: t('mode_full'), count: 30, desc: t('mode_full_desc') },
   ];
 
   for (let i = 0; i < modes.length; i++) {
     const m = modes[i];
-    const y = screenH * 0.35 + i * 100;
+    const y = screenH * 0.30 + i * 100;
     const boxW = 400, boxH = 70;
     const bx = screenW/2 - boxW/2;
 
-    drawGlassPanel(bx, y, boxW, boxH, 0, '#000');
+    ctx.fillStyle = '#f5f0e8';
+    ctx.fillRect(bx, y, boxW, boxH);
+    ctx.fillStyle = modeCols[i];
+    ctx.fillRect(bx, y, 12, boxH);
+    ctx.strokeStyle = '#1a1a1a';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(bx, y, boxW, boxH);
 
-    ctx.fillStyle = '#cc0000';
+    ctx.fillStyle = modeCols[i];
     ctx.font = "bold 24px 'Inter', sans-serif";
     ctx.textAlign = 'left';
-    ctx.fillText(`[${m.key}]`, bx + 15, y + 30);
+    ctx.fillText(`[${m.key}]`, bx + 22, y + 30);
 
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = '#1a1a1a';
     ctx.font = "bold 22px 'Inter', sans-serif";
-    ctx.fillText(m.label, bx + 70, y + 30);
+    ctx.fillText(m.label, bx + 75, y + 30);
 
-    ctx.fillStyle = '#404040';
+    ctx.fillStyle = '#606060';
     ctx.font = "14px 'Inter', sans-serif";
-    ctx.fillText(m.desc, bx + 70, y + 52);
+    ctx.fillText(m.desc, bx + 75, y + 52);
   }
 
   ctx.textAlign = 'center';
   ctx.font = "14px 'Inter', sans-serif";
-  ctx.fillStyle = '#606060';
-  ctx.fillText('WASD of klik om te lopen \u2014 I of klik op NPC om te praten', screenW/2, screenH * 0.85);
+  ctx.fillStyle = '#808080';
+  ctx.fillText(isMobile ? t('mode_hint_mobile') : t('mode_hint_desktop'), screenW/2, screenH * 0.85);
 }
 
 function drawCitySelect() {
-  ctx.fillStyle = '#e8dcc8';
+  const LINE = 6;
+  ctx.fillStyle = '#f5f0e8';
   ctx.fillRect(0, 0, screenW, screenH);
+
+  ctx.fillStyle = '#d42020'; ctx.fillRect(0, 0, screenW * 0.08, screenH * 0.4);
+  ctx.fillStyle = '#1858a8'; ctx.fillRect(screenW * 0.92, 0, screenW * 0.08, screenH * 0.25);
+  ctx.fillStyle = '#f0c820'; ctx.fillRect(0, screenH * 0.85, screenW * 0.15, screenH * 0.15);
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillRect(screenW * 0.08 - LINE / 2, 0, LINE, screenH);
+  ctx.fillRect(screenW * 0.92 - LINE / 2, 0, LINE, screenH);
+  ctx.fillRect(0, screenH * 0.85 - LINE / 2, screenW, LINE);
 
   ctx.textAlign = 'center';
   ctx.font = "bold 36px 'Inter', sans-serif";
-  ctx.fillStyle = '#000000';
-  ctx.fillText('Kies je gemeente', screenW/2, screenH * 0.15);
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillText(t('city_title'), screenW/2, screenH * 0.12);
 
   ctx.font = "14px 'Inter', sans-serif";
-  ctx.fillStyle = '#404040';
-  ctx.fillText('Gemeenteraadsverkiezingen 2026', screenW/2, screenH * 0.15 + 35);
+  ctx.fillStyle = '#606060';
+  ctx.fillText(t('city_subtitle'), screenW/2, screenH * 0.12 + 32);
 
-  const boxW = 400, boxH = 60;
+  const boxW = 400, boxH = 52;
   for (let i = 0; i < CITIES.length; i++) {
     const c = CITIES[i];
-    const y = screenH * 0.28 + i * 75;
+    const y = screenH * 0.22 + i * 62;
     const bx = screenW/2 - boxW/2;
     const isSelected = i === selectedCity;
     const isAvailable = c.available;
 
-    // Box background — flat Caulfield panel
-    drawGlassPanel(bx, y, boxW, boxH, 0, isSelected ? '#cc0000' : (isAvailable ? '#000' : '#999'));
+    ctx.fillStyle = isSelected ? '#d42020' : '#f5f0e8';
+    ctx.fillRect(bx, y, boxW, boxH);
+    ctx.strokeStyle = '#1a1a1a';
+    ctx.lineWidth = isSelected ? 4 : 2;
+    ctx.strokeRect(bx, y, boxW, boxH);
 
-    // Selection arrow
     if (isSelected) {
-      ctx.fillStyle = PAL.gold;
+      ctx.fillStyle = '#f5f0e8';
       ctx.font = "bold 20px 'Inter', sans-serif";
       ctx.textAlign = 'left';
-      ctx.fillText('\u25b6', bx + 12, y + 35);
+      ctx.fillText('\u25b6', bx + 12, y + 32);
     }
 
-    // City name
     ctx.textAlign = 'left';
     ctx.font = isSelected ? "bold 22px 'Inter', sans-serif" : "20px 'Inter', sans-serif";
-    ctx.fillStyle = isAvailable ? (isSelected ? PAL.gold : PAL.uiText) : '#555560';
-    ctx.fillText(c.name, bx + 40, y + 28);
+    ctx.fillStyle = isSelected ? '#f5f0e8' : (isAvailable ? '#1a1a1a' : '#999');
+    ctx.fillText(c.name, bx + 40, y + 25);
 
-    // Status
-    if (!isAvailable) {
-      ctx.font = "13px 'Inter', sans-serif";
-      ctx.fillStyle = '#555560';
-      ctx.fillText('Binnenkort beschikbaar', bx + 40, y + 48);
-    } else {
-      ctx.font = "13px 'Inter', sans-serif";
-      ctx.fillStyle = '#80a080';
-      ctx.fillText('Beschikbaar', bx + 40, y + 48);
-    }
+    ctx.font = "13px 'Inter', sans-serif";
+    ctx.fillStyle = isSelected ? 'rgba(255,255,255,0.8)' : (isAvailable ? '#1858a8' : '#999');
+    ctx.fillText(isAvailable ? t('city_available') : t('city_soon'), bx + 40, y + 43);
   }
 
+  const lastBoxY = screenH * 0.22 + (CITIES.length - 1) * 62 + boxH;
   ctx.textAlign = 'center';
   ctx.font = "14px 'Inter', sans-serif";
-  ctx.fillStyle = '#808090';
-  ctx.fillText('Klik om te kiezen of gebruik pijltjestoetsen + Enter', screenW/2, screenH * 0.9);
+  ctx.fillStyle = '#808080';
+  ctx.fillText(t('city_hint'), screenW/2, lastBoxY + 30);
 }
 
 function drawHUD() {
@@ -3694,14 +5165,15 @@ function drawHUD() {
 function drawNPCPrompt() {
   if (!nearNPC) return;
   const zi = nearNPC.zoneIdx;
-  if (isZoneComplete(zi)) {
-    // Zone done — show checkmark colored by answer
+  const npcAnswered = answers.find(a => a.stmtIdx === nearNPC.statementIdx);
+  if (npcAnswered) {
+    // This NPC's question already answered — show checkmark
     const s = worldToScreen(nearNPC.x, nearNPC.y);
     const sx = s.x - camera.x, sy = s.y - camera.y - 50;
-    const zoneColor = getZoneAnswerColor(zi);
+    const ansColor = npcAnswered.answer > 0 ? PAL.eens : (npcAnswered.answer < 0 ? PAL.oneens : PAL.neutraal);
     ctx.textAlign = 'center';
     ctx.font = "bold 16px 'Inter', sans-serif";
-    ctx.fillStyle = zoneColor;
+    ctx.fillStyle = ansColor;
     ctx.fillText('\u2713 Beantwoord', sx, sy);
     return;
   }
@@ -4099,110 +5571,129 @@ function drawNavigationArrows() {
 }
 
 function drawResultScreen() {
-  ctx.fillStyle = '#e8dcc8';
+  const LINE = 5;
+  ctx.fillStyle = '#f5f0e8';
   ctx.fillRect(0, 0, screenW, screenH);
 
   const results = calculateResults();
 
-  // Title
-  ctx.textAlign = 'center';
-  ctx.font = "bold 30px 'Inter', sans-serif";
-  ctx.fillStyle = '#000000';
-  ctx.fillText('Jouw Uitslag', screenW/2, 45);
-  ctx.font = "14px 'Inter', sans-serif";
-  ctx.fillStyle = '#404040';
-  ctx.fillText('StemWijzer ' + CITIES[selectedCity].name + ' 2026 \u2014 Illustratief', screenW/2, 70);
+  // Red header bar
+  ctx.fillStyle = '#d42020';
+  ctx.fillRect(0, 0, screenW, 55);
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillRect(0, 55 - LINE / 2, screenW, LINE);
 
-  // Bar chart
-  const chartX = 60;
-  const chartW = screenW - 120;
-  const barH = 22;
-  const gap = 4;
-  const startY = 95;
-  const avatarSize = 20;
+  ctx.textAlign = 'center';
+  ctx.font = "bold 26px 'Inter', sans-serif";
+  ctx.fillStyle = '#f5f0e8';
+  ctx.fillText(t('result_title'), screenW/2, 35);
+
+  ctx.font = "13px 'Inter', sans-serif";
+  ctx.fillStyle = '#606060';
+  ctx.fillText('StemWijzer ' + CITIES[selectedCity].name + ' 2026 \u2014 ' + t('illustrative'), screenW/2, 73);
+
+  // Verkiezingsbord — party posters sized by match %
+  const boardTop = 88;
+  const boardBottom = screenH - 65;
+  const boardH = boardBottom - boardTop;
+  const boardLeft = 20;
+  const boardRight = screenW - 20;
+  const boardW = boardRight - boardLeft;
+
+  ctx.fillStyle = '#c8b898';
+  ctx.fillRect(boardLeft, boardTop, boardW, boardH);
+  ctx.strokeStyle = '#1a1a1a';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(boardLeft, boardTop, boardW, boardH);
+
+  const maxPct = results[0] ? results[0].pct : 100;
+  const minPosterW = 55;
+  const maxPosterW = Math.min(160, boardW * 0.28);
+  const posterPad = 8;
 
   resultRowRects = [];
+  let cx = boardLeft + posterPad;
+  let cy = boardTop + posterPad;
+  let rowMaxH = 0;
+
   for (let i = 0; i < results.length; i++) {
     const r = results[i];
     const p = PARTIES[r.partyIdx];
-    const y = startY + i * (barH + gap);
+    const scale = 0.4 + 0.6 * (r.pct / Math.max(maxPct, 1));
+    const pw = Math.max(minPosterW, maxPosterW * scale);
+    const ph = pw * 1.3;
 
-    if (y + barH > screenH - 50) break; // Don't overflow
-
-    // Store clickable row rect
-    resultRowRects.push({ x: chartX - 30, y: y - 2, w: chartW + 40, h: barH + 4, partyIdx: r.partyIdx });
-
-    // Highlight top 3
-    const isTop3 = i < 3;
-    if (isTop3) {
-      ctx.fillStyle = '#d8ccb8';
-      ctx.fillRect(chartX - 5, y - 2, chartW + 10, barH + 4);
-      ctx.strokeStyle = '#000';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(chartX - 5, y - 2, chartW + 10, barH + 4);
+    if (cx + pw + posterPad > boardRight) {
+      cx = boardLeft + posterPad;
+      cy += rowMaxH + posterPad;
+      rowMaxH = 0;
     }
+    if (cy + ph > boardBottom - posterPad) break;
 
-    // Avatar
-    drawPartyAvatar(chartX, y, r.partyIdx, avatarSize);
+    resultRowRects.push({ x: cx, y: cy, w: pw, h: ph, partyIdx: r.partyIdx });
 
-    // Party name (underlined to show clickable)
-    ctx.textAlign = 'left';
-    ctx.font = isTop3 ? "bold 12px 'Inter', sans-serif" : "11px 'Inter', sans-serif";
-    ctx.fillStyle = isTop3 ? '#cc0000' : '#000000';
-    ctx.fillText(p.abbr, chartX + avatarSize + 8, y + 14);
-    // Underline
-    const abbrW = ctx.measureText(p.abbr).width;
-    ctx.fillRect(chartX + avatarSize + 8, y + 16, abbrW, 1);
-
-    // Bar — flat with bold outline
-    const barX = chartX + 110;
-    const barMaxW = chartW - 170;
-    ctx.fillStyle = '#d8ccb8';
-    ctx.fillRect(barX, y + 2, barMaxW, barH - 4);
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(barX, y + 2, barMaxW, barH - 4);
-
-    const fillW = (r.pct / 100) * barMaxW;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(cx, cy, pw, ph);
     ctx.fillStyle = p.colors[0];
-    ctx.globalAlpha = isTop3 ? 1 : 0.7;
-    ctx.fillRect(barX, y + 2, fillW, barH - 4);
-    ctx.globalAlpha = 1;
+    ctx.fillRect(cx, cy, pw, ph * 0.3);
 
-    // Percentage
-    ctx.textAlign = 'right';
-    ctx.font = isTop3 ? "bold 13px 'Inter', sans-serif" : "11px 'Inter', sans-serif";
-    ctx.fillStyle = isTop3 ? '#000000' : '#404040';
-    ctx.fillText(`${r.pct}%`, chartX + chartW, y + 15);
+    const avatarSize = Math.max(18, pw * 0.35);
+    drawPartyAvatar(cx + pw / 2 - avatarSize / 2, cy + ph * 0.15 - avatarSize / 2, r.partyIdx, avatarSize);
 
-    // Medal for top 3
-    if (i === 0) {
-      ctx.fillStyle = '#ffd700'; ctx.font = "14px 'Inter', sans-serif"; ctx.textAlign = 'left';
-      ctx.fillText('\ud83e\udd47', chartX - 25, y + 16);
-    } else if (i === 1) {
-      ctx.fillStyle = '#c0c0c0'; ctx.font = "14px 'Inter', sans-serif"; ctx.textAlign = 'left';
-      ctx.fillText('\ud83e\udd48', chartX - 25, y + 16);
-    } else if (i === 2) {
-      ctx.fillStyle = '#cd7f32'; ctx.font = "14px 'Inter', sans-serif"; ctx.textAlign = 'left';
-      ctx.fillText('\ud83e\udd49', chartX - 25, y + 16);
+    ctx.textAlign = 'center';
+    const nameFontSize = Math.max(9, Math.min(14, pw * 0.12));
+    ctx.font = `bold ${nameFontSize}px 'Inter', sans-serif`;
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fillText(p.abbr, cx + pw / 2, cy + ph * 0.48);
+
+    const pctFontSize = Math.max(14, Math.min(28, pw * 0.22));
+    ctx.font = `bold ${pctFontSize}px 'Inter', sans-serif`;
+    ctx.fillStyle = i < 3 ? '#d42020' : '#1a1a1a';
+    ctx.fillText(`${r.pct}%`, cx + pw / 2, cy + ph * 0.68);
+
+    if (i < 3) {
+      const medalSize = Math.max(10, pw * 0.14);
+      ctx.font = `${medalSize}px 'Inter', sans-serif`;
+      ctx.textAlign = 'left';
+      ctx.fillText(i === 0 ? '\ud83e\udd47' : i === 1 ? '\ud83e\udd48' : '\ud83e\udd49', cx + 3, cy + medalSize + 2);
     }
+
+    if (p.url) {
+      const hintSize = Math.max(7, pw * 0.07);
+      ctx.font = `${hintSize}px 'Inter', sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#1858a8';
+      ctx.fillText('website \u2197', cx + pw / 2, cy + ph * 0.92);
+    }
+
+    ctx.strokeStyle = '#1a1a1a';
+    ctx.lineWidth = i < 3 ? 3 : 1.5;
+    ctx.strokeRect(cx, cy, pw, ph);
+
+    cx += pw + posterPad;
+    rowMaxH = Math.max(rowMaxH, ph);
   }
 
-  // Restart prompt
-  ctx.textAlign = 'center';
-  ctx.font = "16px 'Inter', sans-serif";
-  ctx.fillStyle = '#cc0000';
-  ctx.fillText('Druk R om opnieuw te beginnen', screenW/2, screenH - 40);
+  // Bottom bar
+  ctx.fillStyle = '#1858a8';
+  ctx.fillRect(0, screenH - 55, screenW * 0.25, 55);
+  ctx.fillStyle = '#f0c820';
+  ctx.fillRect(screenW * 0.75, screenH - 55, screenW * 0.25, 55);
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillRect(0, screenH - 55 - LINE / 2, screenW, LINE);
 
-  // Click hint
+  ctx.textAlign = 'center';
+  ctx.font = "bold 14px 'Inter', sans-serif";
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillText(t('result_restart'), screenW/2, screenH - 32);
+
   ctx.font = "11px 'Inter', sans-serif";
   ctx.fillStyle = '#606060';
-  ctx.fillText('Klik op een partij om naar hun website te gaan', screenW/2, screenH - 22);
+  ctx.fillText(t('result_click_hint'), screenW/2, screenH - 16);
 
-  // Disclaimer
-  ctx.font = "10px 'Inter', sans-serif";
+  ctx.font = "9px 'Inter', sans-serif";
   ctx.fillStyle = '#808080';
-  ctx.fillText('Dit is geen offici\u00eble StemWijzer \u2014 stellingen en posities zijn illustratief', screenW/2, screenH - 8);
+  ctx.fillText(t('result_disclaimer'), screenW/2, screenH - 4);
 }
 
 // ============================================================
@@ -4307,7 +5798,7 @@ function renderPlaying() {
       }
     } else if (item.type === 'npc') {
       const npc = item.entity;
-      const highlight = nearNPC === npc && !isZoneComplete(npc.zoneIdx);
+      const highlight = nearNPC === npc && !answers.find(a => a.stmtIdx === npc.statementIdx);
       drawCharacterShadow(item.sx, item.sy, 20, 14);
       drawNPCSprite(item.sx, item.sy, npc.zoneIdx, npc.frame, highlight, npc.skinTone);
     } else if (item.type === 'wanderer') {
@@ -4336,6 +5827,20 @@ function renderPlaying() {
 
   // Navigation arrows (overlay, in zoomed space)
   drawNavigationArrows();
+
+  // Show "Beantwoord" above all answered NPCs
+  for (const npc of npcs) {
+    const a = answers.find(a => a.stmtIdx === npc.statementIdx);
+    if (a) {
+      const s = worldToScreen(npc.x, npc.y);
+      const sx = s.x - camera.x, sy = s.y - camera.y - 50;
+      const col = a.answer > 0 ? PAL.eens : (a.answer < 0 ? PAL.oneens : PAL.neutraal);
+      ctx.textAlign = 'center';
+      ctx.font = "bold 14px 'Inter', sans-serif";
+      ctx.fillStyle = col;
+      ctx.fillText('\u2713', sx, sy);
+    }
+  }
 
   // NPC interaction prompt (in zoomed space)
   drawNPCPrompt();
