@@ -3379,176 +3379,255 @@ function advanceAfterAnswer() {
 
 function drawTitleScreen() {
   const midX = screenW / 2;
-  const baseY = screenH * 0.72;
+  const baseY = screenH * 0.70;
 
-  // --- Gradient sunset sky ---
+  // --- Bright cartoon sky ---
   const skyGrad = ctx.createLinearGradient(0, 0, 0, baseY);
-  skyGrad.addColorStop(0, '#1a2a50');
-  skyGrad.addColorStop(0.4, '#2e4a7a');
-  skyGrad.addColorStop(0.7, '#d08050');
-  skyGrad.addColorStop(0.9, '#e8a060');
-  skyGrad.addColorStop(1, '#f0c888');
+  skyGrad.addColorStop(0, '#60b8ff');
+  skyGrad.addColorStop(1, '#b0e0ff');
   ctx.fillStyle = skyGrad;
   ctx.fillRect(0, 0, screenW, baseY);
 
-  // --- Silhouette skyline (dark shapes against sunset) ---
-  const sil = '#1a1a2a'; // dark silhouette color
-  const silL = '#252538'; // slightly lighter for depth
-
-  // Back layer — distant buildings (lighter silhouette)
-  ctx.fillStyle = silL;
-  const backBuildings = [
-    { x: -0.46, w: 0.04, h: 50 }, { x: -0.41, w: 0.05, h: 80 },
-    { x: -0.34, w: 0.03, h: 40 }, { x: -0.08, w: 0.04, h: 60 },
-    { x: 0.02, w: 0.05, h: 45 }, { x: 0.15, w: 0.04, h: 70 },
-    { x: 0.28, w: 0.03, h: 50 }, { x: 0.36, w: 0.05, h: 65 },
-    { x: 0.43, w: 0.04, h: 40 },
-  ];
-  for (const b of backBuildings) {
-    ctx.fillRect(midX + b.x * screenW, baseY - b.h, b.w * screenW, b.h);
-  }
-
-  // Front layer — main landmark buildings (dark silhouette)
-  ctx.fillStyle = sil;
-
-  // Rotterdam side: Erasmusbrug pylon
-  const pylonX = midX - screenW * 0.22;
-  ctx.beginPath();
-  ctx.moveTo(pylonX - 100, baseY);
-  ctx.lineTo(pylonX + 5, baseY - 140);
-  ctx.lineTo(pylonX + 15, baseY);
-  ctx.closePath();
-  ctx.fill();
-  // Bridge deck
-  ctx.fillRect(pylonX - 120, baseY - 8, 180, 8);
-  // Cables
-  ctx.strokeStyle = '#2a2a3a';
-  ctx.lineWidth = 1;
-  for (let i = 0; i < 6; i++) {
+  // --- Cartoon sun with face ---
+  const sunX = screenW * 0.85, sunY = screenH * 0.12, sunR = 40;
+  // Rays
+  ctx.strokeStyle = '#f0c030';
+  ctx.lineWidth = 4;
+  for (let i = 0; i < 10; i++) {
+    const a = (i / 10) * Math.PI * 2 + Date.now() * 0.0003;
     ctx.beginPath();
-    ctx.moveTo(pylonX + 5, baseY - 140);
-    ctx.lineTo(pylonX + 15 + i * 18, baseY - 8);
+    ctx.moveTo(sunX + Math.cos(a) * (sunR + 6), sunY + Math.sin(a) * (sunR + 6));
+    ctx.lineTo(sunX + Math.cos(a) * (sunR + 20), sunY + Math.sin(a) * (sunR + 20));
     ctx.stroke();
   }
+  // Sun body
+  ctx.fillStyle = '#ffe040';
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.arc(sunX, sunY, sunR, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  // Sunglasses
+  ctx.fillStyle = '#222';
+  ctx.fillRect(sunX - 18, sunY - 8, 14, 10);
+  ctx.fillRect(sunX + 4, sunY - 8, 14, 10);
+  ctx.fillRect(sunX - 4, sunY - 4, 8, 3);
+  // Grin
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath(); ctx.arc(sunX, sunY + 2, 16, 0.15, Math.PI - 0.15); ctx.stroke();
 
-  // Rotterdam tall buildings
-  ctx.fillStyle = sil;
-  const rTowers = [
-    { x: -0.38, w: 0.035, h: 110 }, { x: -0.34, w: 0.04, h: 160 },
-    { x: -0.29, w: 0.03, h: 90 }, { x: -0.25, w: 0.045, h: 180 },
-    { x: -0.15, w: 0.035, h: 100 }, { x: -0.11, w: 0.04, h: 70 },
-  ];
-  for (const b of rTowers) {
-    ctx.fillRect(midX + b.x * screenW, baseY - b.h, b.w * screenW, b.h);
+  // --- Puffy clouds ---
+  function drawCloud(cx, cy, s) {
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#222';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 18 * s, 0, Math.PI * 2);
+    ctx.arc(cx + 20 * s, cy - 8 * s, 22 * s, 0, Math.PI * 2);
+    ctx.arc(cx + 44 * s, cy, 16 * s, 0, Math.PI * 2);
+    ctx.arc(cx + 22 * s, cy + 6 * s, 14 * s, 0, Math.PI * 2);
+    ctx.fill(); ctx.stroke();
   }
+  drawCloud(screenW * 0.12, screenH * 0.10, 1.0);
+  drawCloud(screenW * 0.55, screenH * 0.06, 0.8);
+  drawCloud(screenW * 0.35, screenH * 0.18, 0.6);
 
-  // Den Haag side: Vredespaleis silhouette with pointed tower
-  const vpX = midX + screenW * 0.20;
-  ctx.fillStyle = sil;
-  ctx.fillRect(vpX - 30, baseY - 70, 60, 70);
-  ctx.fillRect(vpX - 8, baseY - 120, 16, 50);
-  // Pointed roof
-  ctx.beginPath();
-  ctx.moveTo(vpX - 12, baseY - 120);
-  ctx.lineTo(vpX, baseY - 150);
-  ctx.lineTo(vpX + 12, baseY - 120);
-  ctx.closePath();
-  ctx.fill();
+  // --- Cartoon buildings with bold outlines and wonky shapes ---
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = '#222';
+  ctx.lineJoin = 'round';
 
-  // Den Haag buildings
-  const dhTowers = [
-    { x: 0.10, w: 0.035, h: 80 }, { x: 0.14, w: 0.04, h: 120 },
-    { x: 0.28, w: 0.03, h: 60 }, { x: 0.32, w: 0.045, h: 130 },
-    { x: 0.38, w: 0.035, h: 75 }, { x: 0.42, w: 0.03, h: 50 },
+  const buildings = [
+    // Rotterdam side
+    { x: -0.42, w: 50, h: 80, col: '#e85830', roof: 'flat', win: '#ffe870' },
+    { x: -0.36, w: 55, h: 145, col: '#5088d0', roof: 'flat', win: '#ffe870' },
+    { x: -0.28, w: 42, h: 65, col: '#e8a830', roof: 'pointy', win: '#ffe870' },
+    { x: -0.22, w: 48, h: 175, col: '#d04878', roof: 'flat', win: '#ffe870' },
+    { x: -0.14, w: 55, h: 100, col: '#50a048', roof: 'flat', win: '#ffe870' },
+    // Center
+    { x: -0.04, w: 45, h: 70, col: '#a060c0', roof: 'pointy', win: '#ffe870' },
+    { x: 0.03, w: 50, h: 120, col: '#e06040', roof: 'flat', win: '#ffe870' },
+    // Den Haag side
+    { x: 0.10, w: 42, h: 85, col: '#d0a030', roof: 'pointy', win: '#ffe870' },
+    { x: 0.17, w: 55, h: 150, col: '#4878c0', roof: 'flat', win: '#ffe870' },
+    { x: 0.25, w: 48, h: 90, col: '#d05830', roof: 'pointy', win: '#ffe870' },
+    { x: 0.32, w: 52, h: 130, col: '#50a870', roof: 'flat', win: '#ffe870' },
+    { x: 0.39, w: 45, h: 70, col: '#c060a0', roof: 'pointy', win: '#ffe870' },
   ];
-  for (const b of dhTowers) {
-    ctx.fillRect(midX + b.x * screenW, baseY - b.h, b.w * screenW, b.h);
-  }
 
-  // Window lights — tiny warm dots scattered on buildings
-  ctx.fillStyle = '#f0c868';
-  const allTowers = [...rTowers, ...dhTowers];
-  for (const b of allTowers) {
+  for (const b of buildings) {
     const bx = midX + b.x * screenW;
-    const bw = b.w * screenW;
-    for (let wy = baseY - b.h + 10; wy < baseY - 8; wy += 14) {
-      for (let wx = bx + 4; wx < bx + bw - 4; wx += 9) {
-        if (Math.random() > 0.35) {
-          ctx.fillRect(wx, wy, 3, 4);
-        }
+    const by = baseY;
+    // Slightly wobbly: offset top corners
+    const wobL = ((b.x * 1000) & 3) - 1;
+    const wobR = ((b.x * 7000) & 3) - 1;
+    ctx.fillStyle = b.col;
+    ctx.beginPath();
+    ctx.moveTo(bx, by);
+    ctx.lineTo(bx + wobL, by - b.h);
+    ctx.lineTo(bx + b.w + wobR, by - b.h);
+    ctx.lineTo(bx + b.w, by);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+
+    // Roof
+    if (b.roof === 'pointy') {
+      ctx.fillStyle = '#c03020';
+      ctx.beginPath();
+      ctx.moveTo(bx - 3 + wobL, by - b.h);
+      ctx.lineTo(bx + b.w / 2, by - b.h - 22);
+      ctx.lineTo(bx + b.w + 3 + wobR, by - b.h);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+    }
+
+    // Cartoon windows — rounded squares with crosses
+    ctx.fillStyle = b.win;
+    for (let wy = by - b.h + 16; wy < by - 14; wy += 22) {
+      for (let wx = bx + 8; wx < bx + b.w - 10; wx += 16) {
+        ctx.fillRect(wx, wy, 9, 11);
+        ctx.strokeRect(wx, wy, 9, 11);
+        // Window cross
+        ctx.beginPath();
+        ctx.moveTo(wx + 4.5, wy); ctx.lineTo(wx + 4.5, wy + 11);
+        ctx.moveTo(wx, wy + 5.5); ctx.lineTo(wx + 9, wy + 5.5);
+        ctx.stroke();
       }
     }
   }
 
-  // --- Water with reflection ---
-  const waterGrad = ctx.createLinearGradient(0, baseY, 0, screenH);
-  waterGrad.addColorStop(0, '#1a3050');
-  waterGrad.addColorStop(0.3, '#152840');
-  waterGrad.addColorStop(1, '#0a1828');
-  ctx.fillStyle = waterGrad;
-  ctx.fillRect(0, baseY, screenW, screenH - baseY);
+  // --- Erasmusbrug (cartoon, left side) ---
+  const pylonX = midX - screenW * 0.08;
+  ctx.fillStyle = '#e0d8c8';
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(pylonX - 70, baseY);
+  ctx.lineTo(pylonX, baseY - 120);
+  ctx.lineTo(pylonX + 10, baseY);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  // Cables
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#888';
+  for (let i = 0; i < 5; i++) {
+    ctx.beginPath();
+    ctx.moveTo(pylonX, baseY - 120);
+    ctx.lineTo(pylonX + 10 + i * 20, baseY);
+    ctx.stroke();
+  }
+  // Bridge deck
+  ctx.fillStyle = '#c8c0b0';
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 3;
+  ctx.fillRect(pylonX - 80, baseY - 6, 190, 6);
+  ctx.strokeRect(pylonX - 80, baseY - 6, 190, 6);
 
-  // Sunset reflection on water
-  ctx.fillStyle = 'rgba(220, 140, 60, 0.12)';
-  ctx.fillRect(midX - 60, baseY, 120, screenH - baseY);
-  ctx.fillStyle = 'rgba(220, 140, 60, 0.06)';
-  ctx.fillRect(midX - 140, baseY, 280, screenH - baseY);
-
-  // Horizon line
-  ctx.strokeStyle = '#d0a060';
-  ctx.lineWidth = 1;
+  // --- Green ground strip ---
+  ctx.fillStyle = '#48b838';
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 3;
+  ctx.fillRect(0, baseY, screenW, 30);
   ctx.beginPath();
   ctx.moveTo(0, baseY); ctx.lineTo(screenW, baseY);
   ctx.stroke();
 
-  // --- Tulips on green strip ---
-  const greenY = baseY + 18;
-  ctx.fillStyle = '#1a4020';
-  ctx.fillRect(0, baseY, screenW, 22);
-  ctx.lineWidth = 1.5;
-  ctx.strokeStyle = '#0a2810';
-  for (let i = 0; i < 16; i++) {
-    const tx = screenW * 0.1 + i * (screenW * 0.8 / 16);
-    const ty = greenY;
-    const colors = ['#d82040', '#e8b800', '#e05090', '#ff6040'];
-    ctx.fillStyle = '#2a6830';
-    ctx.fillRect(tx, ty - 12, 2, 14);
-    ctx.fillStyle = colors[i % 4];
-    ctx.beginPath(); ctx.arc(tx + 1, ty - 14, 5, 0, Math.PI * 2);
-    ctx.fill();
+  // --- Big cartoon tulips ---
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = '#222';
+  const tulipColors = ['#e82050', '#ff8030', '#e8b800', '#e050a0', '#e82050', '#ff8030'];
+  for (let i = 0; i < 14; i++) {
+    const tx = screenW * 0.08 + i * (screenW * 0.84 / 14) + ((i * 7) % 5) - 2;
+    const ty = baseY + 24;
+    const h = 22 + (i % 3) * 4;
+    // Stem
+    ctx.strokeStyle = '#1a7020';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(tx, ty);
+    ctx.lineTo(tx + ((i % 2) * 2 - 1) * 3, ty - h);
+    ctx.stroke();
+    // Leaf on some
+    if (i % 3 === 0) {
+      ctx.fillStyle = '#30a030';
+      ctx.strokeStyle = '#222';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(tx + 6, ty - h * 0.4, 8, 4, 0.4, 0, Math.PI * 2);
+      ctx.fill(); ctx.stroke();
+    }
+    // Flower head — three overlapping petals
+    const fx = tx + ((i % 2) * 2 - 1) * 3;
+    const fy = ty - h;
+    ctx.fillStyle = tulipColors[i % tulipColors.length];
+    ctx.strokeStyle = '#222';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(fx - 7, fy + 2);
+    ctx.quadraticCurveTo(fx - 9, fy - 10, fx, fy - 14);
+    ctx.quadraticCurveTo(fx + 9, fy - 10, fx + 7, fy + 2);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
   }
 
-  // --- Title text (no panel, clean white on sky) ---
-  ctx.textAlign = 'center';
-  const titleY = screenH * 0.15;
+  // --- Water below the green ---
+  const waterY = baseY + 30;
+  ctx.fillStyle = '#2878d0';
+  ctx.fillRect(0, waterY, screenW, screenH - waterY);
+  // Cartoon waves
+  ctx.strokeStyle = '#60a8f0';
+  ctx.lineWidth = 2;
+  for (let w = 0; w < 3; w++) {
+    const wy = waterY + 12 + w * 16;
+    ctx.beginPath();
+    for (let wx = 0; wx < screenW; wx += 30) {
+      const phase = wx * 0.05 + w * 1.5 + Date.now() * 0.001;
+      if (wx === 0) ctx.moveTo(wx, wy + Math.sin(phase) * 3);
+      else ctx.lineTo(wx, wy + Math.sin(phase) * 3);
+    }
+    ctx.stroke();
+  }
 
-  // Text shadow for readability
-  ctx.fillStyle = 'rgba(0,0,0,0.4)';
-  ctx.font = "bold 56px 'Inter', sans-serif";
-  ctx.fillText('StemWijzer', midX + 2, titleY + 2);
+  // --- Title text — bold cartoon style with thick outline ---
+  ctx.textAlign = 'center';
+  const titleY = screenH * 0.28;
+
+  // "StemWijzer" — thick black outline then white fill
+  ctx.font = "bold 58px 'Inter', sans-serif";
+  ctx.lineWidth = 8;
+  ctx.strokeStyle = '#222';
+  ctx.strokeText('StemWijzer', midX, titleY);
   ctx.fillStyle = '#ffffff';
   ctx.fillText('StemWijzer', midX, titleY);
 
-  ctx.fillStyle = 'rgba(0,0,0,0.3)';
-  ctx.font = "bold 36px 'Inter', sans-serif";
-  ctx.fillText('Gemeente 2026', midX + 2, titleY + 48);
-  ctx.fillStyle = '#f0c868';
-  ctx.fillText('Gemeente 2026', midX, titleY + 46);
+  // "Gemeente 2026" — outline then colored fill
+  ctx.font = "bold 38px 'Inter', sans-serif";
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = '#222';
+  ctx.strokeText('Gemeente 2026', midX, titleY + 48);
+  ctx.fillStyle = '#ffe040';
+  ctx.fillText('Gemeente 2026', midX, titleY + 48);
 
   // Subtitle
-  ctx.font = "15px 'Inter', sans-serif";
-  ctx.fillStyle = 'rgba(255,255,255,0.7)';
-  ctx.fillText('Gemeenteraadsverkiezingen \u2014 18 maart 2026', midX, titleY + 76);
+  ctx.font = "bold 15px 'Inter', sans-serif";
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = '#222';
+  ctx.strokeText('Gemeenteraadsverkiezingen \u2014 18 maart 2026', midX, titleY + 78);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText('Gemeenteraadsverkiezingen \u2014 18 maart 2026', midX, titleY + 78);
 
-  // --- Prompt below tulips ---
+  // --- Prompt below everything ---
   ctx.font = "bold 18px 'Inter', sans-serif";
-  ctx.fillStyle = '#c0a060';
-  ctx.fillText('Druk op een toets om te beginnen / Klik om te beginnen', midX, baseY + 55);
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = '#103060';
+  ctx.strokeText('Druk op een toets om te beginnen / Klik om te beginnen', midX, screenH * 0.92);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText('Druk op een toets om te beginnen / Klik om te beginnen', midX, screenH * 0.92);
 
   // Disclaimer
   ctx.font = "11px 'Inter', sans-serif";
-  ctx.fillStyle = 'rgba(160,180,200,0.6)';
-  ctx.fillText('Stellingen en partijposities zijn illustratief \u2014 niet officieel StemWijzer-materiaal', midX, screenH * 0.96);
+  ctx.lineWidth = 0;
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.fillText('Stellingen en partijposities zijn illustratief \u2014 niet officieel StemWijzer-materiaal', midX, screenH * 0.97);
 }
 
 function drawModeSelect() {
