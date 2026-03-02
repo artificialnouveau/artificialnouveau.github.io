@@ -2784,16 +2784,21 @@ body::before, body::after { display: none; }
     <div class="exercise-container">
       <div class="exercise-header">
         <h2>Dictee</h2>
-        <p>Luister, onthoud, en schrijf de zin op.</p>
+        <p>Onthul de woorden een voor een, onthoud de zin, en typ hem uit je geheugen.</p>
       </div>
       <div class="dictee-card" id="dicteeLCard">
+        <div class="dictee-steps" id="dicteeLSteps" style="font-family:'Space Grotesk',sans-serif;font-size:13px;color:#666;margin-bottom:12px;">
+          <strong>Stap 1:</strong> Klik "Onthul woord" om elk woord te zien &rarr;
+          <strong>Stap 2:</strong> Klik "Verberg &amp; typ" &rarr;
+          <strong>Stap 3:</strong> Typ de hele zin uit je geheugen
+        </div>
         <div class="dictee-sentence" id="dicteeLSentence"></div>
         <div class="dictee-controls">
           <button class="mondrian-btn" id="dicteeLRevealBtn" onclick="revealNextWordL()">Onthul woord</button>
           <button class="mondrian-btn red" id="dicteeLHideBtn" onclick="hideDicteeSentenceL()" style="display:none">Verberg &amp; typ</button>
         </div>
         <div class="dictee-input-area" id="dicteeLInputArea" style="display:none">
-          <input type="text" class="dictee-input" id="dicteeLInput" placeholder="Typ de zin..." autocomplete="off" autocapitalize="none" />
+          <input type="text" class="dictee-input" id="dicteeLInput" placeholder="Typ de hele zin uit je geheugen..." autocomplete="off" autocapitalize="none" />
           <button class="mondrian-btn blue" onclick="checkDicteeL()">Check</button>
         </div>
         <div class="dictee-feedback" id="dicteeLFeedback"></div>
@@ -4763,30 +4768,30 @@ const LISTENING_DIALOGUES = [
 
 const PRONUNCIATION_GUIDE = {
   minimalPairs: [
-    { sounds:'ui / ou', ipa:'/œy/ vs /ʌu/', examples:[
-      {a:'huis', b:'hous (dialect)', note:'ui = lippen rond, tong hoog'},
-      {a:'buit', b:'bout', note:'Luister naar het verschil'},
-      {a:'tuin', b:'toun (dialect)', note:'ui is typisch Nederlands'}
+    { sounds:'ui / ou', ipa:'/œy/ vs /ʌu/', english:'No English equivalent! ui starts like "uh" and rounds to "ee". ou is like "ow" in "out".', examples:[
+      {a:'huis (house)', b:'hout (wood)', note:'ui = lippen rond, tong hoog'},
+      {a:'buit (loot)', b:'bout (bolt)', note:'ui glides up, ou glides back'},
+      {a:'tuin (garden)', b:'touw (rope)', note:'ui is uniquely Dutch'}
     ]},
-    { sounds:'uu / oe', ipa:'/y/ vs /u/', examples:[
-      {a:'vuur', b:'voer', note:'uu = lippen rond, tong voor'},
-      {a:'duur', b:'doer', note:'oe = lippen rond, tong achter'},
-      {a:'muur', b:'moer', note:'Let op de tongpositie'}
+    { sounds:'uu / oe', ipa:'/y/ vs /u/', english:'uu = say "ee" with rounded lips (like French "u"). oe = "oo" in "boot".', examples:[
+      {a:'vuur (fire)', b:'voer (feed)', note:'uu = "ee" + rounded lips'},
+      {a:'duur (expensive)', b:'doen (to do)', note:'oe = like English "oo"'},
+      {a:'muur (wall)', b:'moer (nut/bolt)', note:'uu is the tricky one!'}
     ]},
-    { sounds:'ee / ie', ipa:'/eː/ vs /i/', examples:[
-      {a:'been', b:'bien', note:'ee = langer, meer open'},
-      {a:'veel', b:'viel', note:'ie = kort en hoog'},
-      {a:'teen', b:'tien', note:'Herkenbaar verschil'}
+    { sounds:'ee / ie', ipa:'/eː/ vs /i/', english:'ee = "ay" in "say" (but pure, no glide). ie = "ee" in "see".', examples:[
+      {a:'been (leg)', b:'bien (bee)', note:'ee is longer, like "ay"'},
+      {a:'veel (much)', b:'viel (fell)', note:'ie is short like "ee"'},
+      {a:'teen (toe)', b:'tien (ten)', note:'Very different meanings!'}
     ]},
-    { sounds:'g / ch', ipa:'/ɣ/ vs /x/', examples:[
-      {a:'goed', b:'loch', note:'g = stemhebbend, ch = stemloos'},
-      {a:'gaan', b:'nacht', note:'Beiden in de keel'},
-      {a:'gek', b:'acht', note:'Probeer het verschil te voelen'}
+    { sounds:'g / ch', ipa:'/ɣ/ vs /x/', english:'Both like Scottish "loch". g is voiced (vibrating), ch is voiceless (whisper).', examples:[
+      {a:'goed (good)', b:'loch (Scottish lake)', note:'g = voiced, ch = voiceless'},
+      {a:'gaan (to go)', b:'nacht (night)', note:'Both made in the throat'},
+      {a:'gek (crazy)', b:'acht (eight)', note:'Feel the vibration difference'}
     ]},
-    { sounds:'sch / s', ipa:'/sx/ vs /s/', examples:[
-      {a:'school', b:'stoel', note:'sch = s + ch samen'},
-      {a:'schrijven', b:'slapen', note:'Typisch Nederlands cluster'},
-      {a:'schip', b:'sip', note:'Het ch-geluid na de s'}
+    { sounds:'sch / s', ipa:'/sx/ vs /s/', english:'sch = "s" + throat "ch" combined. No English equivalent — like "s" + Scottish "loch".', examples:[
+      {a:'school (school)', b:'stoel (chair)', note:'sch = s + ch together'},
+      {a:'schrijven (to write)', b:'slapen (to sleep)', note:'Typical Dutch cluster'},
+      {a:'schip (ship)', b:'sip (glum)', note:'The ch sound after the s'}
     ]}
   ],
   tongbrekers: [
@@ -6024,9 +6029,11 @@ function renderUitspraak() {
   let html = '<div class="uitspraak-section"><h3>Minimale Paren</h3><div class="pair-grid">';
   PRONUNCIATION_GUIDE.minimalPairs.forEach(pair => {
     html += '<div class="pair-card"><div class="pair-sounds">' + pair.sounds + '</div>';
-    html += '<div class="pair-ipa">' + pair.ipa + '</div><div class="pair-examples">';
+    html += '<div class="pair-ipa">' + pair.ipa + '</div>';
+    if (pair.english) html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#1356A2;margin-bottom:8px;line-height:1.4;"><strong>English:</strong> ' + pair.english + '</div>';
+    html += '<div class="pair-examples">';
     pair.examples.forEach(ex => {
-      html += '<div><strong>' + ex.a + '</strong> vs <strong>' + ex.b + '</strong> — <em>' + ex.note + '</em></div>';
+      html += '<div><strong>' + ex.a + '</strong> vs <strong>' + ex.b + '</strong></div>';
     });
     html += '</div></div>';
   });
