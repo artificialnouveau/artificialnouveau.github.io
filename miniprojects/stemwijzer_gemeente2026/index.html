@@ -288,15 +288,8 @@ canvas.addEventListener('click', e => {
   }
 
   if (gameState === 'playing') {
-    // Mobile HUD buttons (zoom+, zoom-, reset)
-    if (isMobile) {
-      const btnS = 40, btnX = screenW - btnS - 10;
-      if (mx >= btnX && mx <= btnX + btnS) {
-        if (my >= 10 && my <= 50) { zoomLevel = Math.min(2.5, zoomLevel + 0.15); return; }
-        if (my >= 56 && my <= 96) { zoomLevel = Math.max(0.4, zoomLevel - 0.15); return; }
-        if (my >= 102 && my <= 142) { gameState = 'title'; answers = []; return; }
-      }
-    }
+    // On mobile, playing state is handled entirely by touch events — skip click handler
+    if (isMobile) return;
     // Check if clicking on an NPC to interact
     for (const npc of npcs) {
       const ns = worldToScreen(npc.x, npc.y);
@@ -476,10 +469,20 @@ if (isMobile) {
   canvas.addEventListener('touchend', e => {
     if (gameState !== 'playing') { touchDrag = null; pinchDist0 = 0; return; }
     if (pinchDist0 > 0) { pinchDist0 = 0; return; }
-    // If it was a tap (no drag), check for NPC interaction
+    // If it was a tap (no drag), check HUD buttons then NPC interaction
     if (touchDrag && !touchDrag.moved) {
       touchHandledClick = Date.now();
-      if (nearNPC) {
+      const tapX = touchDrag.startX;
+      const tapY = touchDrag.startY;
+
+      // HUD buttons (zoom+, zoom-, reset) — top right
+      const btnS = 40, btnX = screenW - btnS - 10;
+      if (tapX >= btnX && tapX <= btnX + btnS) {
+        if (tapY >= 10 && tapY <= 50) { zoomLevel = Math.min(2.5, zoomLevel + 0.15); }
+        else if (tapY >= 56 && tapY <= 96) { zoomLevel = Math.max(0.4, zoomLevel - 0.15); }
+        else if (tapY >= 102 && tapY <= 142) { gameState = 'title'; answers = []; }
+      } else if (nearNPC) {
+        // NPC interaction
         const si = nearNPC.statementIdx;
         if (!answers.find(a => a.stmtIdx === si)) {
           currentStatementIdx = si;
