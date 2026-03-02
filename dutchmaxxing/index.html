@@ -2632,7 +2632,6 @@ body::before, body::after { display: none; }
   <button class="tab-btn" data-tab="luisteren">Luisteren</button>
   <button class="tab-btn" data-tab="spreken">Spreken</button>
   <button class="tab-btn" data-tab="schrijven">Schrijven</button>
-  <button class="tab-btn" data-tab="lezen">Lezen</button>
   <button class="tab-btn" data-tab="cultuur">Cultuur</button>
   <button class="tab-btn" data-tab="spiekbriefjes">Spiekbriefjes</button>
 </nav>
@@ -2918,46 +2917,6 @@ body::before, body::after { display: none; }
         <p>Herschrijf de zin volgens de instructie.</p>
       </div>
       <div id="zinnenWContent"></div>
-    </div>
-  </div>
-</div>
-
-<!-- MAIN TAB: LEZEN -->
-<div class="tab-content" id="tab-lezen">
-  <div class="subtab-bar">
-    <button class="subtab-btn active" data-subtab="verhalen" data-maintab="lezen">Verhalen</button>
-    <button class="subtab-btn" data-subtab="woordenschat-l" data-maintab="lezen">Woordenschat</button>
-  </div>
-
-  <div class="subtab-content active" id="sub-verhalen">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Verhalen</h2>
-        <p>Lees korte verhalen en beantwoord de vragen.</p>
-      </div>
-      <div class="news-nav" id="verhalenNav"></div>
-      <div id="verhalenContent"></div>
-    </div>
-  </div>
-
-  <div class="subtab-content" id="sub-woordenschat-l">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Woordenschat in Context</h2>
-        <p>Vul het juiste woord in of kies de betekenis.</p>
-      </div>
-      <div class="dictee-card" id="woordenschatCard">
-        <div class="vocab-exercise-type" id="woordenschatType"></div>
-        <div class="vocab-exercise-prompt" id="woordenschatPrompt">Laden...</div>
-        <div class="dictee-input-area" id="woordenschatInputArea">
-          <input type="text" class="dictee-input" id="woordenschatInput" placeholder="Typ je antwoord..." autocomplete="off" autocapitalize="none" />
-          <button class="mondrian-btn blue" onclick="checkWoordenschat()">Check</button>
-        </div>
-        <div class="dictee-feedback" id="woordenschatFeedback"></div>
-        <div class="exercise-score">Score: <strong id="woordenschatCorrect">0</strong> / <strong id="woordenschatTotal">0</strong>
-          <button class="mondrian-btn small" onclick="nextWoordenschat()">Volgende</button>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -5787,7 +5746,6 @@ function refreshActiveTab() {
   else if (tab === 'luisteren') { luisterenInitialized = false; initLuisteren(); document.getElementById('begripContent').innerHTML = ''; }
   else if (tab === 'spreken') { sprekenInitialized = false; document.getElementById('uitspraakContent').innerHTML = ''; document.getElementById('hardopContent').innerHTML = ''; document.getElementById('gesprekkenContent').innerHTML = ''; document.getElementById('zinnenSContent').innerHTML = ''; const activeSub = document.querySelector('#tab-spreken .subtab-btn.active'); if (activeSub) { const fn = SUBTAB_INIT[activeSub.dataset.subtab]; if (fn) fn(); } }
   else if (tab === 'schrijven') { schrijvenInitialized = false; initSchrijven(); document.getElementById('emailsContent').innerHTML = ''; document.getElementById('zinnenWContent').innerHTML = ''; }
-  else if (tab === 'lezen') { lezenInitialized = false; initLezen(); }
 }
 
 function updateCEFRBarVisibility() {
@@ -5821,8 +5779,6 @@ const SUBTAB_INIT = {
   'dictee-s': initSchrijven,
   emails: initEmails,
   'zinnen-w': initZinnenW,
-  verhalen: initLezen,
-  'woordenschat-l': initWoordenschatL,
   etiquette: () => { initCultuur(); renderEtiquette(); },
   communicatie: renderCommunicatie,
   praktisch: renderPraktisch,
@@ -8858,7 +8814,6 @@ initSpel();
 // Enter key handlers for new dictee inputs
 document.getElementById('dicteeLInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeL(); });
 document.getElementById('dicteeSInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeS(); });
-document.getElementById('woordenschatInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkWoordenschat(); });
 
 </script>
 </body>
