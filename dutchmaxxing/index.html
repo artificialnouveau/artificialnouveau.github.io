@@ -2458,19 +2458,6 @@ body::before, body::after { display: none; }
 .mondrian-btn.blue:hover { background:#0e4580; }
 .mondrian-btn.small { padding:5px 14px; font-size:12px; }
 
-/* Dictee card */
-.dictee-card { background:#fff; border:3px solid #000; padding:24px; position:relative; }
-.dictee-card::before { content:''; position:absolute; top:0; left:0; width:6px; height:100%; background:#D40920; }
-.dictee-sentence { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:500; line-height:1.6; min-height:60px; padding:16px 0; }
-.dictee-sentence .word-hidden { color:transparent; background:#eee; border-radius:3px; padding:2px 8px; margin:0 2px; }
-.dictee-sentence .word-visible { color:#000; padding:2px 0; margin:0 2px; }
-.dictee-controls { display:flex; gap:10px; margin:12px 0; }
-.dictee-input-area { display:flex; gap:8px; margin-top:12px; }
-.dictee-input { flex:1; font-family:'Space Grotesk',sans-serif; font-size:16px; padding:10px 14px; border:2px solid #000; background:#fff; outline:none; }
-.dictee-input:focus { border-color:#1356A2; box-shadow:0 0 0 3px rgba(19,86,162,0.1); }
-.dictee-feedback { font-family:'Space Grotesk',sans-serif; font-size:14px; margin-top:12px; padding:10px; min-height:20px; }
-.dictee-feedback.correct { background:#e8f5e9; border-left:4px solid #2d8a56; color:#2d8a56; }
-.dictee-feedback.incorrect { background:#fce4ec; border-left:4px solid #D40920; color:#D40920; }
 
 /* Uitspraak */
 .uitspraak-section { margin-bottom:28px; }
@@ -2485,12 +2472,6 @@ body::before, body::after { display: none; }
 .tongbreker-list { list-style:none; }
 .tongbreker-list li { font-family:'Space Grotesk',sans-serif; font-size:15px; padding:10px 14px; border-left:4px solid #D40920; margin-bottom:8px; background:#fff; border:2px solid #eee; border-left:4px solid #D40920; }
 
-/* Hardop Lezen */
-.hardop-passage { background:#fff; border:3px solid #000; padding:24px; margin-bottom:20px; position:relative; }
-.hardop-passage::before { content:''; position:absolute; top:0; left:0; width:100%; height:6px; background:#1356A2; }
-.hardop-passage .passage-level { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:#fff; background:#1356A2; padding:2px 10px; display:inline-block; margin-bottom:12px; }
-.hardop-passage .passage-text { font-family:'Space Grotesk',sans-serif; font-size:17px; line-height:1.8; }
-.hardop-passage .passage-text .tricky { color:#D40920; font-weight:700; }
 
 /* Gesprekken */
 .gesprek-card { background:#fff; border:3px solid #000; margin-bottom:20px; overflow:hidden; }
@@ -2573,19 +2554,6 @@ body::before, body::after { display: none; }
 .idioom-backstory { font-family:'Space Grotesk',sans-serif; font-size:12px; color:#888; padding-left:8px; line-height:1.4; }
 
 /* Begrip (listening comprehension) */
-.begrip-card { background:#fff; border:3px solid #000; margin-bottom:20px; overflow:hidden; }
-.begrip-header { background:#D40920; color:#fff; padding:14px 18px; border-bottom:3px solid #000; display:flex; justify-content:space-between; align-items:center; }
-.begrip-header h3 { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; }
-.begrip-header .begrip-level { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; background:#000; color:#D40920; padding:2px 8px; }
-.begrip-dialogue { padding:18px; border-bottom:2px solid #eee; }
-.begrip-dialogue .gesprek-line { margin-bottom:8px; }
-.begrip-questions { padding:16px 18px; background:#fafafa; }
-.begrip-question { margin-bottom:14px; }
-.begrip-question p { font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; margin-bottom:6px; }
-.begrip-option { display:block; font-family:'Space Grotesk',sans-serif; font-size:13px; padding:6px 12px; margin:4px 0; border:2px solid #eee; cursor:pointer; transition:all 0.15s; background:#fff; width:100%; text-align:left; }
-.begrip-option:hover { border-color:#1356A2; background:#f0f4ff; }
-.begrip-option.correct { border-color:#2d8a56; background:#e8f5e9; }
-.begrip-option.incorrect { border-color:#D40920; background:#fce4ec; }
 
 /* Woordenschat in context */
 .ws-mc-options { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
@@ -2629,7 +2597,6 @@ body::before, body::after { display: none; }
 <nav class="tab-bar">
   <button class="tab-btn active" data-tab="spel">Spel</button>
   <button class="tab-btn" data-tab="news">Leeshoek</button>
-  <button class="tab-btn" data-tab="luisteren">Luisteren</button>
   <button class="tab-btn" data-tab="spreken">Spreken</button>
   <button class="tab-btn" data-tab="schrijven">Schrijven</button>
   <button class="tab-btn" data-tab="cultuur">Cultuur</button>
@@ -2660,42 +2627,34 @@ body::before, body::after { display: none; }
     </div>
     <div class="spel-difficulty-bar" id="spelDifficultyBar">
       <div class="spel-welcome">
-        <div class="spel-welcome-icon">&#127475;&#127473;</div>
+        
         <h2 class="spel-welcome-title">Het Nederlandse Avontuur</h2>
-        <p class="spel-welcome-desc">Overleef het dagelijks leven in Nederland. Echte NOS-koppen worden verweven in absurde scenario's met taaloefeningen.</p>
+        <p class="spel-welcome-desc">Overleef het dagelijks leven in Nederland. Absurde scenario's met taaloefeningen.</p>
       </div>
       <div class="spel-diff-buttons">
         <button class="spel-diff-btn" data-diff="easy" onclick="setSpelDifficulty('easy')">
-          <span class="spel-diff-icon">&#127807;</span>
+          
           <span class="spel-diff-label">Makkelijk</span>
           <span class="spel-diff-desc">Meerkeuze, hints, geen timer</span>
         </button>
         <button class="spel-diff-btn" data-diff="medium" onclick="setSpelDifficulty('medium')">
-          <span class="spel-diff-icon">&#9889;</span>
+          
           <span class="spel-diff-label">Gemiddeld</span>
           <span class="spel-diff-desc">Meer gaten, 30s timer</span>
         </button>
         <button class="spel-diff-btn" data-diff="hard" onclick="setSpelDifficulty('hard')">
-          <span class="spel-diff-icon">&#128293;</span>
+          
           <span class="spel-diff-label">Moeilijk</span>
           <span class="spel-diff-desc">Typ antwoord, 15s timer</span>
         </button>
       </div>
       <button class="spel-start-btn" id="spelStartBtn" onclick="startSpelRound()" disabled>Start Avontuur</button>
-      <div class="de-skill-overview" id="deSkillOverview">
-        <h3>Vaardigheden</h3>
-        <div id="deSkillRows"></div>
-      </div>
-      <div class="de-thought-cabinet" id="deThoughtCabinet">
-        <h3>Gedachtenkabinet</h3>
-        <div class="de-thought-grid" id="deThoughtGrid"></div>
-      </div>
     </div>
     <div class="spel-game-area" id="spelGameArea" style="display:none;">
       <div class="de-hud" id="deHud">
         <div class="de-hud-location" id="deHudLocation"></div>
         <div class="de-hud-skills" id="deHudSkills"></div>
-        <div class="de-hud-xp" id="deHudXp">&#11088; 0 XP</div>
+        <div class="de-hud-xp" id="deHudXp">0 XP</div>
         <div class="de-timer-bar" id="deTimerBar" style="display:none;width:100%;">
           <div class="de-timer-fill" id="deTimerFill"></div>
         </div>
@@ -2739,14 +2698,14 @@ body::before, body::after { display: none; }
     <!-- Saved Translations Panel -->
     <div class="saved-translations-panel" id="savedTranslationsPanel">
       <div class="saved-translations-header">
-        <span>&#128221; Mijn Vertalingen</span>
+        <span>Mijn Vertalingen</span>
         <span class="saved-translations-count" id="savedTranslationsCount">0</span>
       </div>
       <div class="saved-translations-list" id="savedTranslationsList">
         <div class="saved-translations-empty">Selecteer tekst in een artikel en klik "Vertalen" om vertalingen op te slaan.</div>
       </div>
       <div class="saved-translations-footer">
-        <button class="saved-translations-export" id="savedTranslationsExport" onclick="exportSavedTranslations()" disabled>&#128196; Download PDF</button>
+        <button class="saved-translations-export" id="savedTranslationsExport" onclick="exportSavedTranslations()" disabled>Download PDF</button>
       </div>
     </div>
   </div>
@@ -2754,7 +2713,7 @@ body::before, body::after { display: none; }
 
 <!-- Translate Toolbar (floating, used for Leeshoek) -->
 <div class="translate-toolbar" id="translateToolbar">
-  <button class="translate-toolbar-btn" onclick="translateSelectedText()">&#127760; Vertalen</button>
+  <button class="translate-toolbar-btn" onclick="translateSelectedText()">Vertalen</button>
 </div>
 
 <!-- Translate Popup -->
@@ -2765,65 +2724,17 @@ body::before, body::after { display: none; }
     <div class="translate-popup-nl" id="translatePopupNL"></div>
     <div class="translate-popup-en" id="translatePopupEN"></div>
     <div class="translate-popup-actions">
-      <button class="translate-popup-save" onclick="saveCurrentTranslation()">&#128190; Opslaan</button>
+      <button class="translate-popup-save" onclick="saveCurrentTranslation()">Opslaan</button>
     </div>
   </div>
 </div>
 
 <!-- MAIN TAB: WOORDENSCHAT (removed) -->
 
-<!-- MAIN TAB: LUISTEREN -->
-<div class="tab-content" id="tab-luisteren">
-  <div class="subtab-bar">
-    <button class="subtab-btn active" data-subtab="dictee-l" data-maintab="luisteren">Dictee</button>
-    <button class="subtab-btn" data-subtab="begrip" data-maintab="luisteren">Begrip</button>
-  </div>
-
-  <div class="subtab-content active" id="sub-dictee-l">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Dictee</h2>
-        <p>Onthul de woorden een voor een, onthoud de zin, en typ hem uit je geheugen.</p>
-      </div>
-      <div class="dictee-card" id="dicteeLCard">
-        <div class="dictee-steps" id="dicteeLSteps" style="font-family:'Space Grotesk',sans-serif;font-size:13px;color:#666;margin-bottom:12px;">
-          <strong>Stap 1:</strong> Klik "Onthul woord" om elk woord te zien &rarr;
-          <strong>Stap 2:</strong> Klik "Verberg &amp; typ" &rarr;
-          <strong>Stap 3:</strong> Typ de hele zin uit je geheugen
-        </div>
-        <div class="dictee-sentence" id="dicteeLSentence"></div>
-        <div class="dictee-controls">
-          <button class="mondrian-btn" id="dicteeLRevealBtn" onclick="revealNextWordL()">Onthul woord</button>
-          <button class="mondrian-btn red" id="dicteeLHideBtn" onclick="hideDicteeSentenceL()" style="display:none">Verberg &amp; typ</button>
-        </div>
-        <div class="dictee-input-area" id="dicteeLInputArea" style="display:none">
-          <input type="text" class="dictee-input" id="dicteeLInput" placeholder="Typ de hele zin uit je geheugen..." autocomplete="off" autocapitalize="none" />
-          <button class="mondrian-btn blue" onclick="checkDicteeL()">Check</button>
-        </div>
-        <div class="dictee-feedback" id="dicteeLFeedback"></div>
-        <div class="exercise-score">Score: <strong id="dicteeLCorrect">0</strong> / <strong id="dicteeLTotal">0</strong>
-          <button class="mondrian-btn small" onclick="nextDicteeL()">Volgende</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="subtab-content" id="sub-begrip">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Luisterbegrip</h2>
-        <p>Lees het gesprek en beantwoord de vragen.</p>
-      </div>
-      <div id="begripContent"></div>
-    </div>
-  </div>
-</div>
-
 <!-- MAIN TAB: SPREKEN -->
 <div class="tab-content" id="tab-spreken">
   <div class="subtab-bar">
     <button class="subtab-btn active" data-subtab="uitspraak" data-maintab="spreken">Uitspraak</button>
-    <button class="subtab-btn" data-subtab="hardop" data-maintab="spreken">Hardop Lezen</button>
     <button class="subtab-btn" data-subtab="watzegje" data-maintab="spreken">Wat zou je zeggen?</button>
     <button class="subtab-btn" data-subtab="gebeurd" data-maintab="spreken">Wat is er gebeurd?</button>
   </div>
@@ -2835,16 +2746,6 @@ body::before, body::after { display: none; }
         <p>Minimale paren, IPA-gids en tongbrekers.</p>
       </div>
       <div id="uitspraakContent"></div>
-    </div>
-  </div>
-
-  <div class="subtab-content" id="sub-hardop">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Hardop Lezen</h2>
-        <p>Lees de tekst hardop voor. Moeilijke klanken zijn <span style="color:#D40920;font-weight:700">rood</span> gemarkeerd.</p>
-      </div>
-      <div id="hardopContent"></div>
     </div>
   </div>
 
@@ -3018,27 +2919,27 @@ body::before, body::after { display: none; }
           <div class="sheets-layout-options" id="sheetsLayoutOptions">
             <label class="sheets-layout-card active" data-layout="table">
               <input type="radio" name="sheetLayout" value="table" checked hidden />
-              <span class="sheets-layout-icon">&#9638;</span>
+              <span class="sheets-layout-icon">T</span>
               <span class="sheets-layout-name">Tabel</span>
             </label>
             <label class="sheets-layout-card" data-layout="flashcards">
               <input type="radio" name="sheetLayout" value="flashcards" hidden />
-              <span class="sheets-layout-icon">&#9641;</span>
+              <span class="sheets-layout-icon">C</span>
               <span class="sheets-layout-name">Flashcards</span>
             </label>
             <label class="sheets-layout-card" data-layout="mindmap">
               <input type="radio" name="sheetLayout" value="mindmap" hidden />
-              <span class="sheets-layout-icon">&#10040;</span>
+              <span class="sheets-layout-icon">*</span>
               <span class="sheets-layout-name">Mindmap</span>
             </label>
             <label class="sheets-layout-card" data-layout="twocol">
               <input type="radio" name="sheetLayout" value="twocol" hidden />
-              <span class="sheets-layout-icon">&#9646;&#9646;</span>
+              <span class="sheets-layout-icon">||</span>
               <span class="sheets-layout-name">Twee kolommen</span>
             </label>
             <label class="sheets-layout-card" data-layout="sentences">
               <input type="radio" name="sheetLayout" value="sentences" hidden />
-              <span class="sheets-layout-icon">&#9776;</span>
+              <span class="sheets-layout-icon">=</span>
               <span class="sheets-layout-name">Zinnen</span>
             </label>
           </div>
@@ -3114,7 +3015,7 @@ body::before, body::after { display: none; }
 <div class="reader-tooltip" id="readerTooltip"></div>
 
 <!-- Reader Sentence Translate Button -->
-<button class="reader-sentence-btn" id="readerSentenceBtn" onclick="readerTranslateSelection()">&#127760; Vertaal selectie</button>
+<button class="reader-sentence-btn" id="readerSentenceBtn" onclick="readerTranslateSelection()">Vertaal selectie</button>
 
 <!-- Reader Sentence Popup -->
 <div class="reader-sentence-popup" id="readerSentencePopup">
@@ -3947,16 +3848,10 @@ function getVerbFlavor(v) {
 }
 
 const VERB_EMOJIS = {
-  'eten':'&#127869;', 'lezen':'&#128214;', 'schrijven':'&#9997;', 'spreken':'&#128172;', 'drinken':'&#9749;',
-  'komen':'&#128694;', 'gaan':'&#128694;', 'zijn':'&#9734;', 'hebben':'&#128142;', 'doen':'&#9889;',
-  'zien':'&#128065;', 'denken':'&#129504;', 'slapen':'&#128164;', 'blijven':'&#127969;', 'vinden':'&#128269;',
-  'worden':'&#10024;', 'lopen':'&#128694;', 'rijden':'&#128690;', 'beginnen':'&#127793;', 'winnen':'&#127942;',
-  'zwemmen':'&#127946;', 'vliegen':'&#9992;', 'kopen':'&#128176;', 'werken':'&#128188;', 'wonen':'&#127968;',
-  'leren':'&#127891;', 'reizen':'&#127758;', 'spelen':'&#127918;', 'luisteren':'&#127911;', 'helpen':'&#129309;',
 };
 
 function getVerbEmoji(v) {
-  return VERB_EMOJIS[v.id] || '&#128220;';
+  return VERB_EMOJIS[v.id] || '';
 }
 
 
@@ -4182,10 +4077,10 @@ function spawnParticles(el, emojis) {
 const ADVENTURES = [
   {
     title: 'Op de Markt',
-    icon: '\uD83C\uDFEA',
+    icon: '',
     scenes: [
       {
-        icon: '\uD83E\uDD55', location: 'Albert Cuyp Markt', sub: 'Zaterdagochtend, 10:00',
+        icon: '', location: 'Albert Cuyp Markt', sub: 'Zaterdagochtend, 10:00',
         narrative: 'De Albert Cuyp bruist van leven. Kramen met verse groenten, Surinaamse broodjes en tweedehands kleding strekken zich uit over honderden meters. Je hebt een lijstje: tomaten, kaas en brood. Bij de eerste kraam staat een vriendelijke verkoper.',
         dialogue: { speaker: 'Verkoper', text: 'Goedemorgen! Kan ik u helpen?' },
         choices: [
@@ -4195,7 +4090,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83E\uDDC0', location: 'Kaaskraam', sub: 'Even later',
+        icon: '', location: 'Kaaskraam', sub: 'Even later',
         narrative: 'Met een zak tomaten loop je door naar de kaaskraam. De geur van belegen kaas hangt in de lucht. Er staan kleine blokjes om te proeven.',
         dialogue: { speaker: 'Kaasboer', text: 'Proef gerust! Welke kaas zoekt u?' },
         choices: [
@@ -4205,7 +4100,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83C\uDF5E', location: 'Broodkraam', sub: 'De laatste stop',
+        icon: '', location: 'Broodkraam', sub: 'De laatste stop',
         narrative: 'Je hebt tomaten en kaas. Nu nog brood. Bij de bakker ruikt het heerlijk naar versgebakken brood. Er is een rij, maar het gaat snel.',
         dialogue: { speaker: 'Bakker', text: 'Zeg het maar!' },
         choices: [
@@ -4214,7 +4109,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\u2615', location: 'Terras om de hoek', sub: 'Na het boodschappen doen',
+        icon: '', location: 'Terras om de hoek', sub: 'Na het boodschappen doen',
         narrative: 'Met je volle tas ga je op een terras zitten. De zon schijnt. Je hebt boodschappen gedaan, Nederlands gesproken, en niemand is overgeschakeld naar Engels. Een kleine overwinning.',
         dialogue: null,
         choices: [
@@ -4225,10 +4120,10 @@ const ADVENTURES = [
   },
   {
     title: 'Het Sollicitatiegesprek',
-    icon: '\uD83D\uDCBC',
+    icon: '',
     scenes: [
       {
-        icon: '\uD83C\uDFE2', location: 'Kantoor aan de Herengracht', sub: 'Maandagochtend, 09:00',
+        icon: '', location: 'Kantoor aan de Herengracht', sub: 'Maandagochtend, 09:00',
         narrative: 'Je staat voor een grachtenpand met een glanzende deur. Vandaag is je sollicitatiegesprek bij een Nederlands bedrijf. Je hebt je goed voorbereid. Een receptionist begroet je in de hal.',
         dialogue: { speaker: 'Receptionist', text: 'Goedemorgen, u heeft een afspraak?' },
         choices: [
@@ -4237,7 +4132,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83D\uDC69\u200D\uD83D\uDCBC', location: 'Vergaderruimte', sub: 'Het gesprek begint',
+        icon: '', location: 'Vergaderruimte', sub: 'Het gesprek begint',
         narrative: 'Mevrouw De Vries komt binnen. Ze geeft je een stevige handdruk en gaat zitten. "Vertel eens, waarom wilt u bij ons werken?"',
         dialogue: null,
         choices: [
@@ -4247,7 +4142,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83E\uDD1D', location: 'Vergaderruimte', sub: 'De afsluiting',
+        icon: '', location: 'Vergaderruimte', sub: 'De afsluiting',
         narrative: 'Het gesprek is bijna afgelopen. Mevrouw De Vries vraagt of je nog vragen hebt.',
         dialogue: null,
         choices: [
@@ -4256,7 +4151,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83C\uDF89', location: 'Buiten op de gracht', sub: 'Na het gesprek',
+        icon: '', location: 'Buiten op de gracht', sub: 'Na het gesprek',
         narrative: 'Je loopt langs de gracht. De bomen spiegelen in het water. Het gesprek ging goed. Je hebt jezelf in het Nederlands voorgesteld, vragen beantwoord, en zelfs een grap gemaakt. Wat er ook gebeurt, je hebt vandaag iets bereikt.',
         dialogue: null,
         choices: [
@@ -4267,10 +4162,10 @@ const ADVENTURES = [
   },
   {
     title: 'Bij de Huisarts',
-    icon: '\uD83C\uDFE5',
+    icon: '',
     scenes: [
       {
-        icon: '\uD83E\uDE7A', location: 'Wachtkamer', sub: 'Dinsdagmiddag, 14:00',
+        icon: '', location: 'Wachtkamer', sub: 'Dinsdagmiddag, 14:00',
         narrative: 'Je voelt je al een paar dagen niet lekker. Hoofdpijn, vermoeidheid, en een beetje keelpijn. Je zit in de wachtkamer van de huisarts. Er hangt een poster over de griepprik aan de muur.',
         dialogue: { speaker: 'Assistente', text: 'De dokter kan u nu ontvangen. Komt u maar mee.' },
         choices: [
@@ -4279,7 +4174,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83D\uDC68\u200D\u2695\uFE0F', location: 'Spreekkamer', sub: 'Het consult',
+        icon: '', location: 'Spreekkamer', sub: 'Het consult',
         narrative: 'De huisarts heet je welkom. "Vertel eens, waar heeft u last van?"',
         dialogue: null,
         choices: [
@@ -4289,7 +4184,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83D\uDC8A', location: 'Spreekkamer', sub: 'Het advies',
+        icon: '', location: 'Spreekkamer', sub: 'Het advies',
         narrative: 'Na het onderzoek leunt de huisarts achterover. "Het lijkt op een gewone verkoudheid. Ik schrijf geen antibiotica voor, want dat helpt niet bij een virus."',
         dialogue: { speaker: 'Huisarts', text: 'Heeft u nog vragen over het advies?' },
         choices: [
@@ -4298,7 +4193,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83C\uDF3F', location: 'Apotheek', sub: 'Even later',
+        icon: '', location: 'Apotheek', sub: 'Even later',
         narrative: 'Je loopt naar de apotheek om paracetamol te halen. De apotheker geeft je het doosje en zegt: "Beterschap!" Je knikt dankbaar. Het was je eerste bezoek aan een Nederlandse huisarts, en het ging prima.',
         dialogue: null,
         choices: [
@@ -4309,10 +4204,10 @@ const ADVENTURES = [
   },
   {
     title: 'Op het Station',
-    icon: '\uD83D\uDE82',
+    icon: '',
     scenes: [
       {
-        icon: '\uD83D\uDEE4\uFE0F', location: 'Amsterdam Centraal', sub: 'Vrijdagmiddag, 16:30',
+        icon: '', location: 'Amsterdam Centraal', sub: 'Vrijdagmiddag, 16:30',
         narrative: 'Het is druk op Amsterdam Centraal. Je moet naar Utrecht voor een verjaardag, maar het bord toont vertragingen. Oranje waarschuwingen flikkeren naast je treinnummer.',
         dialogue: { speaker: 'Omroep', text: 'Let op: de intercity naar Utrecht vertrekt vandaag van spoor 11b in plaats van spoor 8.' },
         choices: [
@@ -4321,7 +4216,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83D\uDE86', location: 'In de trein', sub: 'Op weg naar Utrecht',
+        icon: '', location: 'In de trein', sub: 'Op weg naar Utrecht',
         narrative: 'Je vindt een plekje bij het raam. Naast je zit een oudere vrouw die een boek leest. De trein begint te rijden.',
         dialogue: { speaker: 'Conducteur', text: 'Mag ik uw vervoerbewijs zien?' },
         choices: [
@@ -4330,7 +4225,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83C\uDF06', location: 'Utrecht Centraal', sub: 'Aankomst',
+        icon: '', location: 'Utrecht Centraal', sub: 'Aankomst',
         narrative: 'De trein stopt in Utrecht. Je stapt uit en kijkt om je heen. De Domtoren is zichtbaar boven de daken. Je vriendin zou je ophalen, maar je ziet haar niet.',
         dialogue: null,
         choices: [
@@ -4339,7 +4234,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83C\uDF82', location: 'Huis van je vriendin', sub: 'De verjaardag',
+        icon: '', location: 'Huis van je vriendin', sub: 'De verjaardag',
         narrative: 'Je vriendin omhelst je bij de deur. Binnen zitten tien mensen in een kring. Iedereen feliciteert iedereen. Je krijgt een stuk appeltaart en koffie. Dit is de echte Nederlandse verjaardagservaring.',
         dialogue: null,
         choices: [
@@ -4350,10 +4245,10 @@ const ADVENTURES = [
   },
   {
     title: 'Het Caf\u00e9 Date',
-    icon: '\u2615',
+    icon: '',
     scenes: [
       {
-        icon: '\u2615', location: 'Caf\u00e9 De Tuin, De Pijp', sub: 'Zaterdagmiddag, 15:00',
+        icon: '', location: 'Caf\u00e9 De Tuin, De Pijp', sub: 'Zaterdagmiddag, 15:00',
         narrative: 'Je hebt via een app een date. Jullie hebben afgesproken in een gezellig caf\u00e9 in De Pijp. Je bent er als eerste en bestelt een koffie. Na vijf minuten komt je date binnen.',
         dialogue: { speaker: 'Je date', text: 'Hoi! Sorry dat ik een beetje laat ben. De tram had vertraging.' },
         choices: [
@@ -4362,7 +4257,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83D\uDCAC', location: 'Aan het tafeltje', sub: 'Het gesprek',
+        icon: '', location: 'Aan het tafeltje', sub: 'Het gesprek',
         narrative: 'De koffie is heerlijk. Je date vraagt waar je vandaan komt en wat je in Nederland doet.',
         dialogue: { speaker: 'Je date', text: 'Hoe lang woon je al in Nederland? Je Nederlands is echt goed!' },
         choices: [
@@ -4371,7 +4266,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83C\uDF1F', location: 'Caf\u00e9 De Tuin', sub: 'Later die middag',
+        icon: '', location: 'Caf\u00e9 De Tuin', sub: 'Later die middag',
         narrative: 'Het gesprek vloeit makkelijk. Jullie praten over reizen, eten, en Nederlandse gewoontes. Je date lacht om je verhalen over de Albert Heijn en de hagelslag.',
         dialogue: { speaker: 'Je date', text: 'Zullen we een keer samen ergens gaan eten?' },
         choices: [
@@ -4380,7 +4275,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83C\uDF06', location: 'Buiten het caf\u00e9', sub: 'Afscheid',
+        icon: '', location: 'Buiten het caf\u00e9', sub: 'Afscheid',
         narrative: 'Jullie staan buiten. De zon gaat onder achter de gevels. Het was een fijne middag.',
         dialogue: null,
         choices: [
@@ -4391,10 +4286,10 @@ const ADVENTURES = [
   },
   {
     title: 'De Burenruzie',
-    icon: '\uD83C\uDFE0',
+    icon: '',
     scenes: [
       {
-        icon: '\uD83D\uDD0A', location: 'Je appartement', sub: 'Woensdagavond, 22:30',
+        icon: '', location: 'Je appartement', sub: 'Woensdagavond, 22:30',
         narrative: 'Het is halfelf \u2019s avonds en je buurman speelt weer keiharde muziek. Dit is de derde keer deze week. Je muren trillen van de bas. Je moet morgen vroeg op voor je werk.',
         dialogue: null,
         choices: [
@@ -4403,7 +4298,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83D\uDEAA', location: 'Bij de deur van je buurman', sub: 'Het gesprek',
+        icon: '', location: 'Bij de deur van je buurman', sub: 'Het gesprek',
         narrative: 'Je buurman doet open. Hij draagt een koptelefoon om zijn nek en kijkt verrast.',
         dialogue: { speaker: 'Buurman', text: 'Oh hoi! Is er iets?' },
         choices: [
@@ -4413,7 +4308,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83E\uDD1D', location: 'Op de gang', sub: 'De oplossing',
+        icon: '', location: 'Op de gang', sub: 'De oplossing',
         narrative: 'Je buurman stelt voor om in de toekomst een afspraak te maken over wanneer hij kan oefenen. Dat klinkt redelijk.',
         dialogue: { speaker: 'Buurman', text: 'Misschien kunnen we afspreken dat ik voor negen uur stop op doordeweekse dagen?' },
         choices: [
@@ -4422,7 +4317,7 @@ const ADVENTURES = [
         ]
       },
       {
-        icon: '\uD83C\uDF19', location: 'Je appartement', sub: 'Stilte',
+        icon: '', location: 'Je appartement', sub: 'Stilte',
         narrative: 'Het is stil. Heerlijk stil. Je kruipt in bed en denkt na over het gesprek. Je hebt een conflict opgelost in het Nederlands. Geen schreeuwen, geen politie, gewoon een goed gesprek tussen buren.',
         dialogue: null,
         choices: [
@@ -4602,142 +4497,35 @@ let currentArticle = 0;
 let filteredNewsIndices = [];
 
 // ==========================================
-// DATA: LUISTEREN
-// ==========================================
-
-const DICTEE_SENTENCES = [
-  { level:'A2', nl:'Ik ga elke dag met de fiets naar mijn werk.', focus:'fiets, elke dag' },
-  { level:'A2', nl:'Wil je een kopje koffie of thee?', focus:'kopje, of' },
-  { level:'A2', nl:'Het weer is vandaag heel mooi.', focus:'weer, vandaag' },
-  { level:'A2', nl:'Mijn zus woont in een klein dorp bij Amsterdam.', focus:'woont, dorp' },
-  { level:'B1', nl:'Ze heeft gisteren een nieuwe baan gevonden bij een groot bedrijf.', focus:'heeft gevonden, bedrijf' },
-  { level:'B1', nl:'Als het morgen regent, blijven we thuis.', focus:'als, blijven' },
-  { level:'B1', nl:'Hij heeft me verteld dat hij volgend jaar naar Duitsland verhuist.', focus:'heeft verteld, verhuist' },
-  { level:'B1', nl:'We moeten de trein van kwart over drie halen.', focus:'moeten, kwart over' },
-  { level:'B2', nl:'Hoewel het project succesvol was, werd het budget overschreden.', focus:'hoewel, werd overschreden' },
-  { level:'B2', nl:'Er wordt verwacht dat de werkloosheid de komende maanden zal dalen.', focus:'er wordt verwacht, zal dalen' },
-  { level:'B2', nl:'De gemeente heeft besloten om het parkeerbeleid aan te passen.', focus:'heeft besloten, aan te passen' },
-  { level:'C1', nl:'Naarmate de digitalisering voortschrijdt, worden traditionele beroepen steeds zeldzamer.', focus:'naarmate, voortschrijdt, zeldzamer' },
-  { level:'C1', nl:'Het valt niet te ontkennen dat de woningmarkt fundamentele hervormingen behoeft.', focus:'valt te ontkennen, behoeft' },
-  { level:'C1', nl:'De burgemeester benadrukte dat er onvoldoende draagvlak was voor het voorstel.', focus:'benadrukte, draagvlak' },
-];
-
-const LISTENING_DIALOGUES = [
-  { level:'A2', setting:'Bij de bakker', lines:[
-    {speaker:'Bakker', text:'Goedemorgen! Wat mag het zijn?'},
-    {speaker:'Klant', text:'Goedemorgen. Mag ik twee broodjes en een croissant?'},
-    {speaker:'Bakker', text:'Natuurlijk. Wilt u er nog iets bij?'},
-    {speaker:'Klant', text:'Ja, doe ook maar een appelgebak.'},
-    {speaker:'Bakker', text:'Dat wordt dan vijf euro tachtig.'},
-    {speaker:'Klant', text:'Alstublieft. Fijne dag nog!'}
-  ], questions:[
-    {q:'Hoeveel broodjes bestelt de klant?', options:['Eén','Twee','Drie','Vier'], answer:1},
-    {q:'Wat kost alles bij elkaar?', options:['€4,80','€5,80','€6,80','€5,08'], answer:1}
-  ]},
-  { level:'A2', setting:'Bij de supermarkt', lines:[
-    {speaker:'Kassier', text:'Heeft u een bonuskaart?'},
-    {speaker:'Klant', text:'Ja, hier is hij.'},
-    {speaker:'Kassier', text:'Dank u. Dat is veertien euro vijftig.'},
-    {speaker:'Klant', text:'Kan ik pinnen?'},
-    {speaker:'Kassier', text:'Ja hoor, gaat uw gang.'}
-  ], questions:[
-    {q:'Wat vraagt de kassier eerst?', options:['Of de klant wil pinnen','Of de klant een bonuskaart heeft','Hoeveel het kost','Of alles goed is'], answer:1},
-    {q:'Hoe betaalt de klant?', options:['Contant','Met de bonuskaart','Met pin','Met creditcard'], answer:2}
-  ]},
-  { level:'B1', setting:'Bij de huisarts', lines:[
-    {speaker:'Arts', text:'Goedemiddag, wat kan ik voor u doen?'},
-    {speaker:'Patiënt', text:'Ik heb al een week last van hoofdpijn en ik ben erg moe.'},
-    {speaker:'Arts', text:'Heeft u ook koorts gehad?'},
-    {speaker:'Patiënt', text:'Een beetje, maar niet heel hoog. Rond de 37,8.'},
-    {speaker:'Arts', text:'Ik wil graag uw bloeddruk meten. Heeft u veel stress op het werk?'},
-    {speaker:'Patiënt', text:'Ja, de laatste maanden is het heel druk geweest.'},
-    {speaker:'Arts', text:'Ik schrijf u paracetamol voor en raad u aan om meer rust te nemen.'}
-  ], questions:[
-    {q:'Hoe lang heeft de patiënt al klachten?', options:['Een dag','Drie dagen','Een week','Een maand'], answer:2},
-    {q:'Wat schrijft de arts voor?', options:['Antibiotica','Paracetamol','Vitaminen','Rust alleen'], answer:1}
-  ]},
-  { level:'B1', setting:'Op het gemeentehuis', lines:[
-    {speaker:'Ambtenaar', text:'Goedemorgen, heeft u een afspraak?'},
-    {speaker:'Bezoeker', text:'Ja, ik heb om tien uur een afspraak voor het afhalen van mijn paspoort.'},
-    {speaker:'Ambtenaar', text:'Mag ik uw identiteitsbewijs zien?'},
-    {speaker:'Bezoeker', text:'Hier is mijn rijbewijs.'},
-    {speaker:'Ambtenaar', text:'Dank u. Uw nieuwe paspoort is klaar. Wilt u hier even tekenen?'}
-  ], questions:[
-    {q:'Waarvoor heeft de bezoeker een afspraak?', options:['Rijbewijs aanvragen','Paspoort afhalen','Verhuizing doorgeven','Trouwen'], answer:1},
-    {q:'Welk identiteitsbewijs toont de bezoeker?', options:['Paspoort','ID-kaart','Rijbewijs','Verblijfsvergunning'], answer:2}
-  ]},
-  { level:'B2', setting:'Sollicitatiegesprek', lines:[
-    {speaker:'Interviewer', text:'Kunt u vertellen waarom u bij ons bedrijf wilt werken?'},
-    {speaker:'Sollicitant', text:'Uw organisatie staat bekend om innovatie en duurzaamheid, twee waarden die mij erg aanspreken.'},
-    {speaker:'Interviewer', text:'Wat beschouwt u als uw sterkste eigenschap?'},
-    {speaker:'Sollicitant', text:'Ik ben een teamspeler die goed onder druk kan werken. In mijn vorige functie heb ik een project geleid met strakke deadlines.'},
-    {speaker:'Interviewer', text:'En wat zou u willen verbeteren?'},
-    {speaker:'Sollicitant', text:'Ik merk dat ik soms te perfectionistisch ben, maar ik werk eraan om sneller beslissingen te nemen.'}
-  ], questions:[
-    {q:'Waarom wil de sollicitant bij dit bedrijf werken?', options:['Hoog salaris','Innovatie en duurzaamheid','Dichtbij huis','Mooie werktijden'], answer:1},
-    {q:'Wat noemt de sollicitant als verbeterpunt?', options:['Te weinig ervaring','Te perfectionistisch','Niet goed in teamwork','Slechte tijdplanning'], answer:1}
-  ]},
-  { level:'B2', setting:'Bij de makelaar', lines:[
-    {speaker:'Makelaar', text:'Welkom. Ik heb drie woningen die aan uw zoekcriteria voldoen.'},
-    {speaker:'Huurder', text:'Fijn. Ik zoek iets met minimaal twee slaapkamers en een balkon.'},
-    {speaker:'Makelaar', text:'Deze woning aan de Prinsengracht heeft twee slaapkamers, een ruime woonkamer en een Frans balkon. De huur is 1.450 euro per maand, exclusief gas, water en licht.'},
-    {speaker:'Huurder', text:'Dat valt binnen mijn budget. Is er een servicekostenregeling?'},
-    {speaker:'Makelaar', text:'Ja, de servicekosten zijn 75 euro per maand voor schoonmaak en onderhoud van de gemeenschappelijke ruimtes.'}
-  ], questions:[
-    {q:'Wat zoekt de huurder?', options:['Een koopwoning','Twee slaapkamers en balkon','Drie slaapkamers','Een tuin'], answer:1},
-    {q:'Zijn gas, water en licht inbegrepen?', options:['Ja','Nee','Alleen gas','Alleen water'], answer:1}
-  ]},
-  { level:'C1', setting:'Vergadering op kantoor', lines:[
-    {speaker:'Manager', text:'Laten we beginnen met de kwartaalcijfers. De omzet is met zeven procent gestegen ten opzichte van vorig kwartaal.'},
-    {speaker:'Analist', text:'Dat klopt, maar als we de seizoenseffecten meenemen, is de groei slechts drie procent.'},
-    {speaker:'Manager', text:'Een terecht punt. Hoe staat het met de klanttevredenheid?'},
-    {speaker:'Analist', text:'De NPS-score is gedaald van 45 naar 38. Dat baart mij zorgen.'},
-    {speaker:'Manager', text:'We moeten daar actie op ondernemen. Kun je een verbetervoorstel opstellen voor de volgende vergadering?'}
-  ], questions:[
-    {q:'Hoeveel is de omzet gestegen?', options:['3%','5%','7%','10%'], answer:2},
-    {q:'Wat is er met de NPS-score gebeurd?', options:['Gestegen naar 45','Gelijk gebleven','Gedaald van 45 naar 38','Gestegen van 38 naar 45'], answer:2}
-  ]},
-  { level:'C1', setting:'Discussie over woningmarkt', lines:[
-    {speaker:'Presentator', text:'De woningnood in Nederland is een groeiend probleem. Wat zijn volgens u de oorzaken?'},
-    {speaker:'Expert', text:'Er is jarenlang te weinig gebouwd. Daarnaast heeft de bevolkingsgroei en de toename van eenpersoonshuishoudens de druk vergroot.'},
-    {speaker:'Presentator', text:'Wat zou de overheid moeten doen?'},
-    {speaker:'Expert', text:'Meer investeren in sociale woningbouw en bouwvergunningen versnellen. Bovendien moeten we creatief kijken naar transformatie van kantoorpanden.'}
-  ], questions:[
-    {q:'Welk probleem wordt besproken?', options:['Werkloosheid','Woningnood','Klimaatverandering','Gezondheidszorg'], answer:1},
-    {q:'Welke oplossing noemt de expert NIET?', options:['Meer sociale woningbouw','Bouwvergunningen versnellen','Huren bevriezen','Kantoorpanden ombouwen'], answer:2}
-  ]}
-];
-
-// ==========================================
 // DATA: SPREKEN
 // ==========================================
 
 const PRONUNCIATION_GUIDE = {
   minimalPairs: [
-    { sounds:'ui / ou', ipa:'/œy/ vs /ʌu/', english:'No English equivalent! ui starts like "uh" and rounds to "ee". ou is like "ow" in "out".', examples:[
-      {a:'huis (house)', b:'hout (wood)', note:'ui = lippen rond, tong hoog'},
-      {a:'buit (loot)', b:'bout (bolt)', note:'ui glides up, ou glides back'},
-      {a:'tuin (garden)', b:'touw (rope)', note:'ui is uniquely Dutch'}
+    { sounds:'ui / ou', ipa:'/œy/ vs /ʌu/', english:'ui: Start with lips rounded like "uh", then glide tongue up toward "ee" while keeping lips round. Unique to Dutch! ou: Like "ow" in English "now" or "how".', examples:[
+      {a:'huis (house)', b:'hout (wood)', note:'Mond: ui = rond + omhoog, ou = open + terug'},
+      {a:'buit (loot)', b:'bout (bolt)', note:'ui glijdt omhoog, ou glijdt terug'},
+      {a:'tuin (garden)', b:'touw (rope)', note:'Tip: ui klinkt als Frans "euil" in fauteuil'}
     ]},
-    { sounds:'uu / oe', ipa:'/y/ vs /u/', english:'uu = say "ee" with rounded lips (like French "u"). oe = "oo" in "boot".', examples:[
-      {a:'vuur (fire)', b:'voer (feed)', note:'uu = "ee" + rounded lips'},
-      {a:'duur (expensive)', b:'doen (to do)', note:'oe = like English "oo"'},
-      {a:'muur (wall)', b:'moer (nut/bolt)', note:'uu is the tricky one!'}
+    { sounds:'uu / oe', ipa:'/y/ vs /u/', english:'uu: Say "ee" as in "see" but push your lips forward into a tight round shape. Like French "u" in "tu". oe: Like "oo" in English "food" or "moon".', examples:[
+      {a:'vuur (fire)', b:'voer (feed)', note:'Mond: uu = lippen rond + tong voor, oe = lippen rond + tong achter'},
+      {a:'duur (expensive)', b:'doen (to do)', note:'oe = gewoon Engels "oo", uu = dat + tong naar voren'},
+      {a:'muur (wall)', b:'moer (nut/bolt)', note:'Tip: uu = zeg "ee", tuit dan je lippen'}
     ]},
-    { sounds:'ee / ie', ipa:'/eː/ vs /i/', english:'ee = "ay" in "say" (but pure, no glide). ie = "ee" in "see".', examples:[
-      {a:'been (leg)', b:'bien (bee)', note:'ee is longer, like "ay"'},
-      {a:'veel (much)', b:'viel (fell)', note:'ie is short like "ee"'},
-      {a:'teen (toe)', b:'tien (ten)', note:'Very different meanings!'}
+    { sounds:'ee / ie', ipa:'/eː/ vs /i/', english:'ee: Like "ay" in "say" but hold it pure without the glide — keep your mouth still. Like Spanish "e". ie: Like "ee" in English "see" or "free".', examples:[
+      {a:'been (leg)', b:'bien (bee)', note:'ee = mond halverwege open, ie = mond bijna dicht'},
+      {a:'veel (much)', b:'viel (fell)', note:'ee is langer en lager dan ie'},
+      {a:'teen (toe)', b:'tien (ten)', note:'Let op: heel ander betekenis!'}
     ]},
-    { sounds:'g / ch', ipa:'/ɣ/ vs /x/', english:'Both like Scottish "loch". g is voiced (vibrating), ch is voiceless (whisper).', examples:[
-      {a:'goed (good)', b:'loch (Scottish lake)', note:'g = voiced, ch = voiceless'},
-      {a:'gaan (to go)', b:'nacht (night)', note:'Both made in the throat'},
-      {a:'gek (crazy)', b:'acht (eight)', note:'Feel the vibration difference'}
+    { sounds:'g / ch', ipa:'/ɣ/ vs /x/', english:'Both are throat sounds like Scottish "loch" or German "Bach". Place your tongue at the back of your mouth and push air through. g: vocal cords vibrate (voiced). ch: vocal cords still (whisper).', examples:[
+      {a:'goed (good)', b:'loch (Scottish lake)', note:'g = stem erbij, ch = alleen lucht'},
+      {a:'gaan (to go)', b:'nacht (night)', note:'Tip: leg hand op keel, voel het trillen bij g'},
+      {a:'gek (crazy)', b:'acht (eight)', note:'Hetzelfde punt in de keel, verschil = stemhebbend/stemloos'}
     ]},
-    { sounds:'sch / s', ipa:'/sx/ vs /s/', english:'sch = "s" + throat "ch" combined. No English equivalent — like "s" + Scottish "loch".', examples:[
-      {a:'school (school)', b:'stoel (chair)', note:'sch = s + ch together'},
-      {a:'schrijven (to write)', b:'slapen (to sleep)', note:'Typical Dutch cluster'},
-      {a:'schip (ship)', b:'sip (glum)', note:'The ch sound after the s'}
+    { sounds:'sch / s', ipa:'/sx/ vs /s/', english:'s: Normal "s" as in English. sch: Say "s" then immediately the throat "ch" from above — they blend into one cluster. Like saying "s" + Scottish "loch" very quickly.', examples:[
+      {a:'school (school)', b:'stoel (chair)', note:'sch = s + keelklank achter elkaar'},
+      {a:'schrijven (to write)', b:'slapen (to sleep)', note:'Tip: zeg eerst "s...ch" langzaam, dan sneller'},
+      {a:'schip (ship)', b:'sip (glum)', note:'In het zuiden klinkt sch meer als "sj"'}
     ]}
   ],
   tongbrekers: [
@@ -4751,64 +4539,91 @@ const PRONUNCIATION_GUIDE = {
   ]
 };
 
-const READING_PASSAGES = [
-  { level:'A2', text:'De <tricky>sch</tricky>ool begint om half ne<tricky>g</tricky>en. Ik fiets elke da<tricky>g</tricky> naar <tricky>sch</tricky>ool. Het is vi<tricky>jf</tricky>tien minuten fietsen. Soms re<tricky>g</tricky>ent het en dan word ik nat. Maar vandaa<tricky>g</tricky> <tricky>sch</tricky>ijnt de zon.' },
-  { level:'A2', text:'Mi<tricky>jn</tricky> buurman heet Kees. Hi<tricky>j</tricky> heeft een <tricky>g</tricky>rote tuin met veel bloemen. Elke o<tricky>ch</tricky>tend <tricky>g</tricky>eeft hi<tricky>j</tricky> de planten water. Hi<tricky>j</tricky> vindt het fi<tricky>jn</tricky> om buiten te zi<tricky>jn</tricky>.' },
-  { level:'B1', text:'Vori<tricky>g</tricky>e week ben ik naar <tricky>Sch</tricky>evenin<tricky>g</tricky>en <tricky>g</tricky>eweest. Het strand was pra<tricky>ch</tricky>ti<tricky>g</tricky>, ondanks het koude weer. We hebben <tricky>g</tricky>ewandeld over de pier en <tricky>g</tricky>ezellig koffie<tricky>g</tricky>edronken bi<tricky>j</tricky> een strandtent.' },
-  { level:'B1', text:'De Nederlanders staan bekend om hun dire<tricky>c</tricky>theid. Als iemand een nieuwe <tricky>j</tricky>urk draa<tricky>g</tricky>t, ze<tricky>g</tricky><tricky>g</tricky>en ze eerli<tricky>j</tricky>k wat ze ervan vinden. Dat is soms <tricky>sch</tricky>rikken voor buitenlanders.' },
-  { level:'B2', text:'De <tricky>g</tricky>emeente heeft nieuwe re<tricky>g</tricky>els in<tricky>g</tricky>evoerd voor het <tricky>g</tricky>ebruik van elek-tri<tricky>sch</tricky>e step. Vori<tricky>g</tricky> <tricky>j</tricky>aar waren er te veel on<tricky>g</tricky>evalleen in de binnenstad. Er <tricky>g</tricky>elden nu snel-heids-beperkin<tricky>g</tricky>en en er zi<tricky>jn</tricky> speciale parkeerplekken aan<tricky>g</tricky>ewezen.' },
-  { level:'C1', text:'De toenemende di<tricky>g</tricky>italiserin<tricky>g</tricky> van de <tricky>g</tricky>ezondheidszor<tricky>g</tricky> bren<tricky>g</tricky>t zowel kansen als <tricky>ui</tricky>tda<tricky>g</tricky>in<tricky>g</tricky>en met zi<tricky>ch</tricky> mee. Hoewel elektoni<tricky>sch</tricky>e patiëntendossiers de efficiëntie verho<tricky>g</tricky>en, ri<tricky>j</tricky>zen er vra<tricky>g</tricky>en over privacy en data-beveili<tricky>g</tricky>in<tricky>g</tricky>.' }
-];
 
 // ==========================================
 // DATA: SPREKEN — Wat zou je zeggen?
 // ==========================================
 
 const WAT_ZEG_JE_SITUATIONS = [
-  { level:'A2', emoji:'🧀', situation:'Bij de kaasboer springt iemand de rij voor.', context:'Je staat al 10 minuten te wachten. Een man loopt gewoon naar voren.', responses:[
+  { level:'A2', situation:'Bij de kaasboer springt iemand de rij voor.', context:'Je staat al 10 minuten te wachten. Een man loopt gewoon naar voren.', responses:[
     {text:'Sorry, maar ik stond hier eerst.', register:'neutraal', note:'Directe maar beleefde reactie'},
     {text:'Pardon, de rij begint daar achterin.', register:'beleefd', note:'Wijst de persoon op de rij'},
     {text:'Hé, achter aansluiten!', register:'direct', note:'Typisch Nederlandse directheid'}
   ]},
-  { level:'A2', emoji:'🚲', situation:'Je fiets heeft een lekke band en je staat bij de fietsenmaker.', context:'Je hebt je fiets nodig voor morgen.', responses:[
+  { level:'A2', situation:'Je fiets heeft een lekke band en je staat bij de fietsenmaker.', context:'Je hebt je fiets nodig voor morgen.', responses:[
     {text:'Kunt u mijn band vandaag nog repareren? Ik heb hem morgen nodig.', register:'beleefd', note:'Duidelijk verzoek met urgentie'},
     {text:'Hoeveel kost het om een band te plakken?', register:'neutraal', note:'Eerst naar de prijs vragen'},
     {text:'Heeft u ook tweedehands banden? Dat is goedkoper.', register:'praktisch', note:'Nederlanders zijn zuinig!'}
   ]},
-  { level:'B1', emoji:'📱', situation:'Je vriend heeft je Tikkie van €23,50 al twee weken niet betaald.', context:'Het was voor een gezamenlijk etentje. Je wilt het niet ongemakkelijk maken.', responses:[
+  { level:'B1', situation:'Je vriend heeft je Tikkie van €23,50 al twee weken niet betaald.', context:'Het was voor een gezamenlijk etentje. Je wilt het niet ongemakkelijk maken.', responses:[
     {text:'Hé, ik stuurde een paar weken geleden een Tikkie. Heb je die gezien?', register:'casual', note:'Doet alsof het misschien gemist is'},
     {text:'Hoi! Kleine herinnering aan de Tikkie van het etentje. Geen haast hoor!', register:'vriendelijk', note:'Luchtig maar duidelijk'},
     {text:'Ik zag dat de Tikkie nog openstaat. Kun je die even betalen?', register:'direct', note:'Recht op het doel af'}
   ]},
-  { level:'B1', emoji:'📦', situation:'De bezorger heeft je pakket bij de buren afgeleverd, maar je buren zijn op vakantie.', context:'Je hebt het pakket dringend nodig. Je belt de klantenservice.', responses:[
+  { level:'B1', situation:'De bezorger heeft je pakket bij de buren afgeleverd, maar je buren zijn op vakantie.', context:'Je hebt het pakket dringend nodig. Je belt de klantenservice.', responses:[
     {text:'Mijn pakket is bij de buren afgeleverd, maar zij zijn er niet. Kunt u het opnieuw laten bezorgen?', register:'beleefd', note:'Probleem + oplossing vragen'},
     {text:'Ik heb een klacht. Het pakket is op het verkeerde adres bezorgd.', register:'formeel', note:'Officiële klachtentaal'},
     {text:'Het pakket ligt bij nummer 42, maar daar is niemand. Wat nu?', register:'direct', note:'Kort en krachtig'}
   ]},
-  { level:'B1', emoji:'🏠', situation:'Je verhuurder wil de huur met €150 per maand verhogen.', context:'Je woont er twee jaar. De verhoging lijkt je te hoog.', responses:[
+  { level:'B1', situation:'Je verhuurder wil de huur met €150 per maand verhogen.', context:'Je woont er twee jaar. De verhoging lijkt je te hoog.', responses:[
     {text:'Ik heb uw brief ontvangen over de huurverhoging. Kunt u uitleggen waarom het zo veel is?', register:'formeel', note:'Vraagt om uitleg'},
     {text:'Een verhoging van €150 is boven het wettelijk maximum. Ik ga bezwaar maken bij de Huurcommissie.', register:'assertief', note:'Kent zijn rechten'},
     {text:'Kunnen we erover praten? Misschien is een lagere verhoging mogelijk?', register:'onderhandelend', note:'Poldermodel-aanpak'}
   ]},
-  { level:'B2', emoji:'🍽️', situation:'In een restaurant krijg je het verkeerde gerecht. Je hebt een allergie.', context:'Je bent allergisch voor noten en het gerecht bevat pinda\'s.', responses:[
+  { level:'B2', situation:'In een restaurant krijg je het verkeerde gerecht. Je hebt een allergie.', context:'Je bent allergisch voor noten en het gerecht bevat pinda\'s.', responses:[
     {text:'Excuseer, dit is niet wat ik heb besteld. Ik heb een notenallergie en dit bevat pinda\'s.', register:'dringend', note:'Veiligheid gaat voor beleefdheid'},
     {text:'Sorry, ik had de pasta zonder noten besteld. Kunt u dit omruilen?', register:'beleefd', note:'Duidelijk maar niet beschuldigend'},
     {text:'Dit klopt niet. Ik heb duidelijk gezegd dat ik allergisch ben voor noten. Dit is gevaarlijk.', register:'streng', note:'Benadrukt de ernst'}
   ]},
-  { level:'B2', emoji:'🏥', situation:'De huisarts wil je niet doorverwijzen naar een specialist, maar je denkt dat het nodig is.', context:'Je hebt al maanden last van je knie. Paracetamol helpt niet meer.', responses:[
+  { level:'B2', situation:'De huisarts wil je niet doorverwijzen naar een specialist, maar je denkt dat het nodig is.', context:'Je hebt al maanden last van je knie. Paracetamol helpt niet meer.', responses:[
     {text:'Ik begrijp uw advies, maar de klachten zijn al drie maanden bezig. Ik wil graag een verwijzing naar een orthopeed.', register:'beleefd maar stevig', note:'Erkent de arts maar houdt vol'},
     {text:'Kunt u in mijn dossier noteren dat ik om een verwijzing heb gevraagd en dat u die heeft geweigerd?', register:'strategisch', note:'Artsen noteren dit liever niet — werkt vaak'},
     {text:'Ik wil graag een second opinion. Kunt u mij doorverwijzen?', register:'formeel', note:'Je hebt recht op een second opinion'}
   ]},
-  { level:'C1', emoji:'💼', situation:'Je collega presenteert jouw idee als het zijne in een vergadering.', context:'Je had het idee vorige week met hem gedeeld bij de koffieautomaat.', responses:[
+  { level:'C1', situation:'Je collega presenteert jouw idee als het zijne in een vergadering.', context:'Je had het idee vorige week met hem gedeeld bij de koffieautomaat.', responses:[
     {text:'Leuk dat je dit idee uitwerkt! Ik had het vorige week al voorgesteld — zullen we het samen presenteren?', register:'diplomatiek', note:'Claimen zonder confrontatie'},
     {text:'Dat herken ik! Ik had dit vorige week ook al bedacht. Goed dat je het oppikt.', register:'subtiel', note:'Maakt duidelijk dat het jouw idee was'},
     {text:'Even voor de context: dit voorstel heb ik vorige week al met [naam] besproken. Maar fijn dat het nu op tafel ligt.', register:'zakelijk', note:'Feitelijk, niet emotioneel'}
   ]},
-  { level:'C1', emoji:'🏘️', situation:'Je VvE vergadering: de buren willen het trappenhuis laten schilderen voor €8.000 maar jij vindt het onnodig.', context:'Het trappenhuis is pas 3 jaar geleden geschilderd.', responses:[
+  { level:'C1', situation:'Je VvE vergadering: de buren willen het trappenhuis laten schilderen voor €8.000 maar jij vindt het onnodig.', context:'Het trappenhuis is pas 3 jaar geleden geschilderd.', responses:[
     {text:'Ik begrijp de wens, maar het trappenhuis is drie jaar geleden pas geschilderd. Kunnen we de investering uitstellen tot het echt nodig is?', register:'zakelijk', note:'Onderbouwd bezwaar'},
     {text:'Acht duizend euro is een flink bedrag. Zijn er offertes van meerdere schilders opgevraagd?', register:'kritisch', note:'Vraagt om onderbouwing'},
     {text:'Ik stem tegen. Het is niet nodig en het geld kan beter naar het onderhoudsfonds gaan.', register:'direct', note:'Duidelijke positie'}
+  ]},
+  { level:'A2', situation:'Je bent bij de kapper en het resultaat bevalt je niet.', context:'Het is te kort geknipt, maar de kapper vraagt blij: "Mooi, toch?"', responses:[
+    {text:'Het is iets korter dan ik had gevraagd... Kunt u het aan de zijkanten nog iets bijwerken?', register:'beleefd', note:'Indirect aangeven wat je wilt'},
+    {text:'Hmm, het is niet helemaal wat ik bedoelde. Ik wilde het langer aan de bovenkant.', register:'eerlijk', note:'Duidelijk maar niet onaardig'},
+    {text:'Ja, prima hoor. Bedankt!', register:'typisch Nederlands', note:'Veel Nederlanders zeggen dit en klagen thuis'}
+  ]},
+  { level:'A2', situation:'Een toerist vraagt je de weg naar het Rijksmuseum, maar je weet het ook niet.', context:'Je bent zelf nieuw in Amsterdam.', responses:[
+    {text:'Sorry, ik weet het niet precies. Maar u kunt het opzoeken op Google Maps.', register:'behulpzaam', note:'Eerlijk + alternatief bieden'},
+    {text:'Ik denk die kant op? Maar ik weet het niet zeker.', register:'onzeker', note:'Veel Nederlanders geven toch een richting aan'},
+    {text:'Geen idee, sorry! Vraag het even aan iemand anders.', register:'direct', note:'Kort en eerlijk'}
+  ]},
+  { level:'B1', situation:'Je collega warmt elke dag vis op in de kantoor-magnetron.', context:'Het hele kantoor ruikt ernaar. Niemand durft er iets van te zeggen.', responses:[
+    {text:'Hé, zou je je vis misschien in de kantine kunnen opwarmen? De geur blijft best lang hangen hier.', register:'vriendelijk', note:'Persoonlijk aanspreken, niet beschuldigend'},
+    {text:'Misschien kunnen we als team afspraken maken over sterke geuren in de keuken?', register:'diplomatiek', note:'Maakt het onpersoonlijk'},
+    {text:'Gast, die vis stinkt echt de hele verdieping op.', register:'recht voor zijn raap', note:'Nederlandse directheid ten top'}
+  ]},
+  { level:'B1', situation:'Je date komt 25 minuten te laat zonder bericht.', context:'Je zit al een tijdje alleen in het cafe. Eindelijk komt hij/zij binnen.', responses:[
+    {text:'Hoi! Ik maakte me al een beetje zorgen. Alles goed?', register:'aardig', note:'Geeft ruimte om uit te leggen'},
+    {text:'Je bent best laat. Ik had bijna mijn jas gepakt.', register:'eerlijk', note:'Maakt duidelijk dat het niet oké is'},
+    {text:'Oh, ik dacht dat je om half had gezegd? Maar goed, je bent er nu!', register:'passief-agressief', note:'Typisch Nederlands: indirect maar de boodschap is duidelijk'}
+  ]},
+  { level:'B2', situation:'Je zit in de trein en iemand belt luidruchtig in de stiltecoupe.', context:'Er hangt een groot bord "Stilte" maar de persoon negeert het.', responses:[
+    {text:'Pardon, dit is de stiltecoupe. Zou u buiten kunnen bellen?', register:'beleefd', note:'Wijst op de regels'},
+    {text:'Sorry hoor, maar kunt u even stiller praten? Dit is de stiltecoupe.', register:'direct', note:'Nederlanders corrigeren graag in de trein'},
+    {text:'Je kijkt de conducteur aan en wijst naar de beller.', register:'passief', note:'Laat de autoriteit het oplossen'}
+  ]},
+  { level:'B2', situation:'Je bent op een verjaardag en tante Bep vraagt wanneer je kinderen krijgt.', context:'Je hebt net een relatie en kent deze familieleden nauwelijks.', responses:[
+    {text:'Ha, wie weet! Eerst maar eens van het leven genieten.', register:'luchtig', note:'Ontwijkt de vraag zonder onbeleefd te zijn'},
+    {text:'Dat is nog niet aan de orde, maar bedankt voor de interesse!', register:'beleefd maar duidelijk', note:'Geeft een grens aan'},
+    {text:'Waarom vraagt iedereen dat toch altijd? Ik heb net een hypotheek, dat is kind genoeg.', register:'humor', note:'Nederlandse humor als verdediging'}
+  ]},
+  { level:'C1', situation:'Je manager vraagt je om structureel over te werken zonder extra betaling.', context:'Het team is onderbezet. Je maakt al regelmatig 50-urige werkweken.', responses:[
+    {text:'Ik wil graag helpen, maar structureel overwerken zonder compensatie gaat ten koste van mijn gezondheid. Kunnen we bespreken hoe we de werkdruk beter verdelen?', register:'assertief', note:'Erkent het probleem maar stelt grenzen'},
+    {text:'Ik begrijp de druk, maar mijn contract is 40 uur. Als er structureel meer nodig is, moeten we het over uitbreiding van het team hebben.', register:'zakelijk', note:'Verwijst naar contractuele afspraken'},
+    {text:'Volgens de cao heb ik recht op overwerkcompensatie. Zullen we dat even regelen?', register:'formeel', note:'Kent de regels en noemt ze'}
   ]}
 ];
 
@@ -4817,13 +4632,13 @@ const WAT_ZEG_JE_SITUATIONS = [
 // ==========================================
 
 const WAT_IS_ER_GEBEURD = [
-  { level:'A2', emoji:'🚲', title:'De gestolen fiets', present:'Je fiets staat niet meer waar je hem neerzette.', prompts:['Waar was je fiets?','Wat is er gebeurd?','Wat heb je daarna gedaan?'], model:'Ik had mijn fiets voor de supermarkt neergezet. Toen ik terugkwam, was hij weg! Ik heb overal gezocht, maar ik kon hem niet vinden. Ik heb aangifte gedaan bij de politie.', grammar:{tense:'Perfectum + imperfectum',keywords:['had neergezet (plusquamperfectum)','was weg (imperfectum)','heb gezocht (perfectum)','kon vinden (imperfectum)','heb gedaan (perfectum)'],tip:'Gebruik het perfectum voor acties (ik heb gezocht) en het imperfectum voor situaties (hij was weg).'} },
-  { level:'A2', emoji:'🎂', title:'Het verjaardagsfeest', present:'Je was gisteren op een verjaardag.', prompts:['Waar was het feest?','Wie waren er?','Wat hebben jullie gedaan?'], model:'Gisteren was ik op de verjaardag van mijn collega. Het feest was bij haar thuis. Er waren ongeveer twintig mensen. We hebben taart gegeten en koffie gedronken. Ik heb een boek cadeau gegeven. Het was heel gezellig!', grammar:{tense:'Perfectum + imperfectum',keywords:['was (imperfectum — situatie)','waren (imperfectum — situatie)','hebben gegeten (perfectum — actie)','heb gegeven (perfectum — actie)'],tip:'Was/waren voor beschrijvingen, hebben + voltooid deelwoord voor acties.'} },
-  { level:'B1', emoji:'🏥', title:'Het ongeluk', present:'Je vriend is van de trap gevallen.', prompts:['Wat is er precies gebeurd?','Hoe reageerde je?','Hoe gaat het nu met hem?'], model:'Vorige week is mijn vriend van de trap gevallen. Hij gleed uit op de bovenste trede en viel naar beneden. Ik was thuis en hoorde een harde klap. Ik ben meteen naar hem toe gerend. Hij had veel pijn aan zijn enkel. We zijn naar de spoedeisende hulp gegaan. De dokter zei dat het een verstuiking was. Nu loopt hij met krukken.', grammar:{tense:'Mix van perfectum, imperfectum en plusquamperfectum',keywords:['is gevallen (perfectum — hoofdgebeurtenis)','gleed uit, viel (imperfectum — opeenvolging)','hoorde (imperfectum — achtergrond)','ben gerend (perfectum — reactie)','had (imperfectum — beschrijving)','zei dat het was (imperfectum in bijzin)'],tip:'Imperfectum voor de "film" (achtergrond), perfectum voor de "foto" (belangrijke momenten).'} },
-  { level:'B1', emoji:'✈️', title:'De gemiste vlucht', present:'Je hebt je vlucht gemist op Schiphol.', prompts:['Waarom was je te laat?','Wat heb je gedaan op het vliegveld?','Hoe is het afgelopen?'], model:'Ik had een vlucht naar Barcelona om 7 uur \'s ochtends. Mijn wekker was niet afgegaan! Ik werd om 6 uur wakker en ben in paniek naar Schiphol gereden. Maar het was te laat — de gate was al dicht. Ik moest een nieuwe vlucht boeken. Dat kostte €280 extra. Ik was echt boos op mezelf.', grammar:{tense:'Perfectum, imperfectum en plusquamperfectum',keywords:['had (imperfectum — achtergrond)','was niet afgegaan (plusquamperfectum — eerder)','werd wakker, ben gereden (perfectum — acties)','was dicht (imperfectum — situatie)','moest boeken (imperfectum — noodzaak)','kostte (imperfectum — feit)'],tip:'Plusquamperfectum (was + voltooid deelwoord) voor iets dat vóór het verhaal gebeurde.'} },
-  { level:'B2', emoji:'💼', title:'Het sollicitatiegesprek', present:'Je had vorige week een belangrijk sollicitatiegesprek.', prompts:['Hoe heb je je voorbereid?','Hoe ging het gesprek?','Wat was het resultaat?'], model:'Ik had me grondig voorbereid. Ik had het bedrijf onderzocht en mogelijke vragen geoefend. Het gesprek begon goed — ik kon mijn ervaring helder uitleggen. Maar toen stelden ze een vraag over salarisonderhandeling waar ik niet op had gerekend. Ik denk dat ik te laag heb ingezet. Gisteren belden ze: ik ben aangenomen! Achteraf viel het dus mee.', grammar:{tense:'Plusquamperfectum, imperfectum, perfectum',keywords:['had me voorbereid, had onderzocht (plusquamperfectum — voorbereiding)','begon, kon uitleggen (imperfectum — verloop)','stelden, had gerekend (imperfectum + plusquamperfectum)','heb ingezet (perfectum — reflectie)','belden, ben aangenomen (imperfectum + perfectum — resultaat)'],tip:'Plusquamperfectum voor "voorbereiding vóór het verhaal". Imperfectum voor het verloop. Perfectum voor het resultaat nu.'} },
-  { level:'B2', emoji:'🏠', title:'De waterleiding gesprongen', present:'Er was een waterlek in je appartement.', prompts:['Hoe ontdekte je het?','Wat heb je gedaan?','Hoe is het opgelost?'], model:'Ik kwam thuis na het werk en de hele vloer stond onder water. Er was een leiding gesprongen in de badkamer. Ik heb meteen de hoofdkraan dichtgedraaid en de woningcorporatie gebeld. Ze konden pas de volgende ochtend iemand sturen. Ik heb de hele avond water opgedweild. De loodgieter heeft de leiding gerepareerd, maar de vloer moet nog vervangen worden. De verzekering dekt gelukkig de schade.', grammar:{tense:'Imperfectum, perfectum, plusquamperfectum',keywords:['kwam thuis, stond (imperfectum — ontdekking)','was gesprongen (plusquamperfectum — oorzaak)','heb dichtgedraaid, gebeld (perfectum — acties)','konden sturen (imperfectum — situatie)','heb opgedweild (perfectum — actie)','heeft gerepareerd (perfectum — resultaat)','moet vervangen worden (passief — huidig)'],tip:'Was gesprongen = het was al eerder gebeurd. Perfectum voor jouw acties. Imperfectum voor de situatie.'} },
-  { level:'C1', emoji:'⚖️', title:'De rechtszaak', present:'Je was getuige bij een aanrijding.', prompts:['Wat heb je gezien?','Wat deed de politie?','Hoe verliep de rechtszaak?'], model:'Ik stond te wachten bij het stoplicht toen ik zag dat een auto door rood reed en een fietser raakte. Ik ben meteen naar het slachtoffer gerend en heb 112 gebeld. De politie nam mijn verklaring op en vroeg of ik bereid was om te getuigen. Drie maanden later werd ik opgeroepen voor de rechtbank. De bestuurder beweerde dat het licht oranje was geweest, maar ik had duidelijk gezien dat het rood was. Uiteindelijk is hij veroordeeld tot een taakstraf en een rijontzegging van zes maanden.', grammar:{tense:'Alle verleden tijden',keywords:['stond te wachten (imperfectum — achtergrond)','zag dat...reed en raakte (imperfectum — waarneming)','ben gerend, heb gebeld (perfectum — acute acties)','nam op, vroeg (imperfectum — procedures)','werd opgeroepen (passief imperfectum)','beweerde, was geweest (imperfectum + plusquamperfectum)','had gezien (plusquamperfectum — eerder feit)','is veroordeeld (perfectum — eindresultaat)'],tip:'Let op: beweerde dat het oranje was geweest (plusquamperfectum in indirecte rede voor iets vóór het beweren).'} }
+  { level:'A2', title:'De gestolen fiets', present:'Je fiets staat niet meer waar je hem neerzette.', prompts:['Waar was je fiets?','Wat is er gebeurd?','Wat heb je daarna gedaan?'], model:'Ik had mijn fiets voor de supermarkt neergezet. Toen ik terugkwam, was hij weg! Ik heb overal gezocht, maar ik kon hem niet vinden. Ik heb aangifte gedaan bij de politie.', grammar:{tense:'Perfectum + imperfectum',keywords:['had neergezet (plusquamperfectum)','was weg (imperfectum)','heb gezocht (perfectum)','kon vinden (imperfectum)','heb gedaan (perfectum)'],tip:'Gebruik het perfectum voor acties (ik heb gezocht) en het imperfectum voor situaties (hij was weg).'} },
+  { level:'A2', title:'Het verjaardagsfeest', present:'Je was gisteren op een verjaardag.', prompts:['Waar was het feest?','Wie waren er?','Wat hebben jullie gedaan?'], model:'Gisteren was ik op de verjaardag van mijn collega. Het feest was bij haar thuis. Er waren ongeveer twintig mensen. We hebben taart gegeten en koffie gedronken. Ik heb een boek cadeau gegeven. Het was heel gezellig!', grammar:{tense:'Perfectum + imperfectum',keywords:['was (imperfectum — situatie)','waren (imperfectum — situatie)','hebben gegeten (perfectum — actie)','heb gegeven (perfectum — actie)'],tip:'Was/waren voor beschrijvingen, hebben + voltooid deelwoord voor acties.'} },
+  { level:'B1', title:'Het ongeluk', present:'Je vriend is van de trap gevallen.', prompts:['Wat is er precies gebeurd?','Hoe reageerde je?','Hoe gaat het nu met hem?'], model:'Vorige week is mijn vriend van de trap gevallen. Hij gleed uit op de bovenste trede en viel naar beneden. Ik was thuis en hoorde een harde klap. Ik ben meteen naar hem toe gerend. Hij had veel pijn aan zijn enkel. We zijn naar de spoedeisende hulp gegaan. De dokter zei dat het een verstuiking was. Nu loopt hij met krukken.', grammar:{tense:'Mix van perfectum, imperfectum en plusquamperfectum',keywords:['is gevallen (perfectum — hoofdgebeurtenis)','gleed uit, viel (imperfectum — opeenvolging)','hoorde (imperfectum — achtergrond)','ben gerend (perfectum — reactie)','had (imperfectum — beschrijving)','zei dat het was (imperfectum in bijzin)'],tip:'Imperfectum voor de "film" (achtergrond), perfectum voor de "foto" (belangrijke momenten).'} },
+  { level:'B1', title:'De gemiste vlucht', present:'Je hebt je vlucht gemist op Schiphol.', prompts:['Waarom was je te laat?','Wat heb je gedaan op het vliegveld?','Hoe is het afgelopen?'], model:'Ik had een vlucht naar Barcelona om 7 uur \'s ochtends. Mijn wekker was niet afgegaan! Ik werd om 6 uur wakker en ben in paniek naar Schiphol gereden. Maar het was te laat — de gate was al dicht. Ik moest een nieuwe vlucht boeken. Dat kostte €280 extra. Ik was echt boos op mezelf.', grammar:{tense:'Perfectum, imperfectum en plusquamperfectum',keywords:['had (imperfectum — achtergrond)','was niet afgegaan (plusquamperfectum — eerder)','werd wakker, ben gereden (perfectum — acties)','was dicht (imperfectum — situatie)','moest boeken (imperfectum — noodzaak)','kostte (imperfectum — feit)'],tip:'Plusquamperfectum (was + voltooid deelwoord) voor iets dat vóór het verhaal gebeurde.'} },
+  { level:'B2', title:'Het sollicitatiegesprek', present:'Je had vorige week een belangrijk sollicitatiegesprek.', prompts:['Hoe heb je je voorbereid?','Hoe ging het gesprek?','Wat was het resultaat?'], model:'Ik had me grondig voorbereid. Ik had het bedrijf onderzocht en mogelijke vragen geoefend. Het gesprek begon goed — ik kon mijn ervaring helder uitleggen. Maar toen stelden ze een vraag over salarisonderhandeling waar ik niet op had gerekend. Ik denk dat ik te laag heb ingezet. Gisteren belden ze: ik ben aangenomen! Achteraf viel het dus mee.', grammar:{tense:'Plusquamperfectum, imperfectum, perfectum',keywords:['had me voorbereid, had onderzocht (plusquamperfectum — voorbereiding)','begon, kon uitleggen (imperfectum — verloop)','stelden, had gerekend (imperfectum + plusquamperfectum)','heb ingezet (perfectum — reflectie)','belden, ben aangenomen (imperfectum + perfectum — resultaat)'],tip:'Plusquamperfectum voor "voorbereiding vóór het verhaal". Imperfectum voor het verloop. Perfectum voor het resultaat nu.'} },
+  { level:'B2', title:'De waterleiding gesprongen', present:'Er was een waterlek in je appartement.', prompts:['Hoe ontdekte je het?','Wat heb je gedaan?','Hoe is het opgelost?'], model:'Ik kwam thuis na het werk en de hele vloer stond onder water. Er was een leiding gesprongen in de badkamer. Ik heb meteen de hoofdkraan dichtgedraaid en de woningcorporatie gebeld. Ze konden pas de volgende ochtend iemand sturen. Ik heb de hele avond water opgedweild. De loodgieter heeft de leiding gerepareerd, maar de vloer moet nog vervangen worden. De verzekering dekt gelukkig de schade.', grammar:{tense:'Imperfectum, perfectum, plusquamperfectum',keywords:['kwam thuis, stond (imperfectum — ontdekking)','was gesprongen (plusquamperfectum — oorzaak)','heb dichtgedraaid, gebeld (perfectum — acties)','konden sturen (imperfectum — situatie)','heb opgedweild (perfectum — actie)','heeft gerepareerd (perfectum — resultaat)','moet vervangen worden (passief — huidig)'],tip:'Was gesprongen = het was al eerder gebeurd. Perfectum voor jouw acties. Imperfectum voor de situatie.'} },
+  { level:'C1', title:'De rechtszaak', present:'Je was getuige bij een aanrijding.', prompts:['Wat heb je gezien?','Wat deed de politie?','Hoe verliep de rechtszaak?'], model:'Ik stond te wachten bij het stoplicht toen ik zag dat een auto door rood reed en een fietser raakte. Ik ben meteen naar het slachtoffer gerend en heb 112 gebeld. De politie nam mijn verklaring op en vroeg of ik bereid was om te getuigen. Drie maanden later werd ik opgeroepen voor de rechtbank. De bestuurder beweerde dat het licht oranje was geweest, maar ik had duidelijk gezien dat het rood was. Uiteindelijk is hij veroordeeld tot een taakstraf en een rijontzegging van zes maanden.', grammar:{tense:'Alle verleden tijden',keywords:['stond te wachten (imperfectum — achtergrond)','zag dat...reed en raakte (imperfectum — waarneming)','ben gerend, heb gebeld (perfectum — acute acties)','nam op, vroeg (imperfectum — procedures)','werd opgeroepen (passief imperfectum)','beweerde, was geweest (imperfectum + plusquamperfectum)','had gezien (plusquamperfectum — eerder feit)','is veroordeeld (perfectum — eindresultaat)'],tip:'Let op: beweerde dat het oranje was geweest (plusquamperfectum in indirecte rede voor iets vóór het beweren).'} }
 ];
 
 // ==========================================
@@ -4831,14 +4646,14 @@ const WAT_IS_ER_GEBEURD = [
 // ==========================================
 
 const WHATSAPP_PROMPTS = [
-  { level:'A2', emoji:'🎉', situation:'Afzeggen voor een feestje', context:'Je vriendin Lotte heeft je uitgenodigd voor haar verjaardag zaterdag, maar je bent ziek.', model:'Hoi Lotte! Gefeliciteerd alvast! 🎂 Helaas ben ik ziek, ik lig met griep op de bank 🤒 Ik kan zaterdag niet komen. Balen! Zullen we volgende week iets leuks doen? Xxx', tips:['Feliciteer altijd eerst!','Geef een reden','Stel een alternatief voor','Emoji\'s zijn normaal in WhatsApp'] },
-  { level:'A2', emoji:'🍕', situation:'Eten bestellen via de groepsapp', context:'Je organiseert een filmavond en wilt bestellen bij de pizzeria.', model:'Hey allemaal! 🍕 Ik bestel zo pizza bij Luigi\'s. Wie wil er meedoen? Stuur even wat je wilt! Ik bestel om 19:00. Kosten delen we via Tikkie 😄', tips:['Houd het kort en duidelijk','Geef een tijdstip','Noem de betaalmethode'] },
-  { level:'B1', emoji:'🏠', situation:'Marktplaats-advertentie beantwoorden', context:'Je zag een tweedehands bank voor €200 op Marktplaats.', model:'Hoi! Ik zag uw advertentie voor de bank. Is die nog beschikbaar? Ik heb een paar vragen: zijn er vlekken of beschadigingen? En zou ik hem dit weekend kunnen ophalen? Ik woon in Amsterdam-Zuid. Alvast bedankt!', tips:['Vraag of het nog beschikbaar is','Stel specifieke vragen','Noem je locatie (voor ophalen)','Blijf beleefd maar niet te formeel'] },
-  { level:'B1', emoji:'🔊', situation:'Tikkie-herinnering sturen', context:'Je vriend Bas heeft de Tikkie van €34 voor het concert al drie weken niet betaald.', model:'Hé Bas! Alles goed? Ik zag dat de Tikkie van het concert nog openstaat (€34). Zou je die even kunnen betalen als je eraan denkt? Thanks! 🙏', tips:['Begin met iets vriendelijks','Herinner nonchalant','Noem het bedrag','Niet te passief-agressief'] },
-  { level:'B1', emoji:'🏡', situation:'Je buurman vraag om stilte', context:'Je buren hebben elke vrijdagavond een feestje tot 2 uur \'s nachts.', model:'Hoi buurman, ik wilde even iets bespreken. De laatste vrijdagen was er tot laat in de nacht veel geluid te horen. Ik begrijp dat het weekend is, maar ik word er wakker van. Zou het na 23:00 wat stiller kunnen? Dankjewel! Groetjes, [naam]', tips:['Wees vriendelijk maar duidelijk','Erken hun kant','Stel een concreet verzoek','23:00 is de gangbare grens in NL'] },
-  { level:'B2', emoji:'💼', situation:'Ziek melden bij je baas', context:'Je wordt wakker met koorts en keelpijn. Je moet je ziek melden.', model:'Goedemorgen [naam], helaas moet ik me vandaag ziek melden. Ik heb koorts en keelpijn. Ik hoop dat het snel overgaat. Mijn afspraak van 14:00 met de klant zou [collega] eventueel kunnen overnemen. Ik houd je op de hoogte. Groet, [naam]', tips:['Meld je vroeg in de ochtend','Geef kort je klachten','Draag lopende zaken over','Niet te veel details over je ziekte'] },
-  { level:'B2', emoji:'📦', situation:'Klacht over een pakketbezorging', context:'Je pakket is "bezorgd" volgens de track & trace, maar je hebt niets ontvangen. Geen briefje van de buren.', model:'Beste klantenservice, volgens de track & trace is mijn bestelling (ordernr. 847293) vandaag bezorgd, maar ik heb niets ontvangen. Er is ook geen afhaalbewijs achtergelaten. Kunt u nagaan waar het pakket is afgeleverd? Ik ben de hele dag thuis geweest. Graag hoor ik van u. Met vriendelijke groet, [naam]', tips:['Geef je ordernummer','Beschrijf het probleem feitelijk','Vraag om actie','Formeler dan een app-bericht aan een vriend'] },
-  { level:'C1', emoji:'🏘️', situation:'Bericht aan de VvE-groepsapp', context:'Iemand zet steeds de vuilnisbakken op de verkeerde plek. Je wilt het aankaarten zonder ruzie.', model:'Beste buren, even een vriendelijke herinnering: de containers horen na lediging terug op de plek achter het hek (zie huishoudelijk reglement §4.2). De laatste weken staan ze regelmatig op de stoep, wat klachten van de gemeente kan opleveren. Kunnen we hier samen op letten? Alvast bedankt! Groeten, [naam]', tips:['Verwijs naar de regels (niet persoonlijk)','Leg de consequentie uit','Maak het een gezamenlijk verzoek','Blijf neutraal van toon'] }
+  { level:'A2', situation:'Afzeggen voor een feestje', context:'Je vriendin Lotte heeft je uitgenodigd voor haar verjaardag zaterdag, maar je bent ziek.', model:'Hoi Lotte! Gefeliciteerd alvast!  Helaas ben ik ziek, ik lig met griep op de bank  Ik kan zaterdag niet komen. Balen! Zullen we volgende week iets leuks doen? Xxx', tips:['Feliciteer altijd eerst!','Geef een reden','Stel een alternatief voor','Emoji\'s zijn normaal in WhatsApp'] },
+  { level:'A2', situation:'Eten bestellen via de groepsapp', context:'Je organiseert een filmavond en wilt bestellen bij de pizzeria.', model:'Hey allemaal!  Ik bestel zo pizza bij Luigi\'s. Wie wil er meedoen? Stuur even wat je wilt! Ik bestel om 19:00. Kosten delen we via Tikkie ', tips:['Houd het kort en duidelijk','Geef een tijdstip','Noem de betaalmethode'] },
+  { level:'B1', situation:'Marktplaats-advertentie beantwoorden', context:'Je zag een tweedehands bank voor €200 op Marktplaats.', model:'Hoi! Ik zag uw advertentie voor de bank. Is die nog beschikbaar? Ik heb een paar vragen: zijn er vlekken of beschadigingen? En zou ik hem dit weekend kunnen ophalen? Ik woon in Amsterdam-Zuid. Alvast bedankt!', tips:['Vraag of het nog beschikbaar is','Stel specifieke vragen','Noem je locatie (voor ophalen)','Blijf beleefd maar niet te formeel'] },
+  { level:'B1', situation:'Tikkie-herinnering sturen', context:'Je vriend Bas heeft de Tikkie van €34 voor het concert al drie weken niet betaald.', model:'Hé Bas! Alles goed? Ik zag dat de Tikkie van het concert nog openstaat (€34). Zou je die even kunnen betalen als je eraan denkt? Thanks! ', tips:['Begin met iets vriendelijks','Herinner nonchalant','Noem het bedrag','Niet te passief-agressief'] },
+  { level:'B1', situation:'Je buurman vraag om stilte', context:'Je buren hebben elke vrijdagavond een feestje tot 2 uur \'s nachts.', model:'Hoi buurman, ik wilde even iets bespreken. De laatste vrijdagen was er tot laat in de nacht veel geluid te horen. Ik begrijp dat het weekend is, maar ik word er wakker van. Zou het na 23:00 wat stiller kunnen? Dankjewel! Groetjes, [naam]', tips:['Wees vriendelijk maar duidelijk','Erken hun kant','Stel een concreet verzoek','23:00 is de gangbare grens in NL'] },
+  { level:'B2', situation:'Ziek melden bij je baas', context:'Je wordt wakker met koorts en keelpijn. Je moet je ziek melden.', model:'Goedemorgen [naam], helaas moet ik me vandaag ziek melden. Ik heb koorts en keelpijn. Ik hoop dat het snel overgaat. Mijn afspraak van 14:00 met de klant zou [collega] eventueel kunnen overnemen. Ik houd je op de hoogte. Groet, [naam]', tips:['Meld je vroeg in de ochtend','Geef kort je klachten','Draag lopende zaken over','Niet te veel details over je ziekte'] },
+  { level:'B2', situation:'Klacht over een pakketbezorging', context:'Je pakket is "bezorgd" volgens de track & trace, maar je hebt niets ontvangen. Geen briefje van de buren.', model:'Beste klantenservice, volgens de track & trace is mijn bestelling (ordernr. 847293) vandaag bezorgd, maar ik heb niets ontvangen. Er is ook geen afhaalbewijs achtergelaten. Kunt u nagaan waar het pakket is afgeleverd? Ik ben de hele dag thuis geweest. Graag hoor ik van u. Met vriendelijke groet, [naam]', tips:['Geef je ordernummer','Beschrijf het probleem feitelijk','Vraag om actie','Formeler dan een app-bericht aan een vriend'] },
+  { level:'C1', situation:'Bericht aan de VvE-groepsapp', context:'Iemand zet steeds de vuilnisbakken op de verkeerde plek. Je wilt het aankaarten zonder ruzie.', model:'Beste buren, even een vriendelijke herinnering: de containers horen na lediging terug op de plek achter het hek (zie huishoudelijk reglement §4.2). De laatste weken staan ze regelmatig op de stoep, wat klachten van de gemeente kan opleveren. Kunnen we hier samen op letten? Alvast bedankt! Groeten, [naam]', tips:['Verwijs naar de regels (niet persoonlijk)','Leg de consequentie uit','Maak het een gezamenlijk verzoek','Blijf neutraal van toon'] }
 ];
 
 // ==========================================
@@ -4846,8 +4661,8 @@ const WHATSAPP_PROMPTS = [
 // ==========================================
 
 const FORMULIEREN_BRIEVEN = [
-  { level:'B1', type:'brief', emoji:'📧', title:'Opzegging sportschool', situation:'Je wilt je abonnement bij de sportschool opzeggen per 1 april.', fields:null, model:'Geachte heer/mevrouw,\n\nHierbij zeg ik mijn abonnement op per 1 april 2026.\n\nMijn gegevens:\nNaam: [naam]\nLidnummer: [nummer]\nStartdatum: [datum]\n\nGraag ontvang ik een schriftelijke bevestiging van de opzegging.\n\nMet vriendelijke groet,\n[naam]', tips:['Altijd schriftelijk opzeggen','Noem de gewenste einddatum','Vermeld je lidnummer','Vraag om bevestiging','Let op de opzegtermijn (meestal 1 maand)'] },
-  { level:'B1', type:'formulier', emoji:'🏠', title:'Verhuizing doorgeven', situation:'Je bent verhuisd van Leiden naar Amsterdam. Vul het formulier in.', fields:[
+  { level:'B1', type:'brief', title:'Opzegging sportschool', situation:'Je wilt je abonnement bij de sportschool opzeggen per 1 april.', fields:null, model:'Geachte heer/mevrouw,\n\nHierbij zeg ik mijn abonnement op per 1 april 2026.\n\nMijn gegevens:\nNaam: [naam]\nLidnummer: [nummer]\nStartdatum: [datum]\n\nGraag ontvang ik een schriftelijke bevestiging van de opzegging.\n\nMet vriendelijke groet,\n[naam]', tips:['Altijd schriftelijk opzeggen','Noem de gewenste einddatum','Vermeld je lidnummer','Vraag om bevestiging','Let op de opzegtermijn (meestal 1 maand)'] },
+  { level:'B1', type:'formulier', title:'Verhuizing doorgeven', situation:'Je bent verhuisd van Leiden naar Amsterdam. Vul het formulier in.', fields:[
     {label:'Achternaam', placeholder:'bijv. De Vries', example:'De Vries'},
     {label:'Voorletters', placeholder:'bijv. J.A.', example:'J.A.'},
     {label:'BSN-nummer', placeholder:'bijv. 123456789', example:'123456789'},
@@ -4856,8 +4671,8 @@ const FORMULIEREN_BRIEVEN = [
     {label:'Datum verhuizing', placeholder:'bijv. 15-02-2026', example:'15-02-2026'},
     {label:'Aantal verhuizende personen', placeholder:'bijv. 2', example:'2'}
   ], model:null, tips:['Je moet je binnen 5 dagen na verhuizing inschrijven','Je hebt een identiteitsbewijs nodig','Dit kan ook online via MijnOverheid met DigiD','BSN = Burgerservicenummer (9 cijfers)'] },
-  { level:'B2', type:'brief', emoji:'✉️', title:'Klachtenbrief aan energiebedrijf', situation:'Je jaarnota is €400 hoger dan vorig jaar, maar je verbruik is hetzelfde. Schrijf een klacht.', fields:null, model:'Geachte heer/mevrouw,\n\nOp [datum] ontving ik mijn jaarafrekening over 2025 (klantnummer: [nummer]). Tot mijn verbazing is het eindbedrag €1.640, terwijl mijn verbruik nagenoeg gelijk is gebleven ten opzichte van vorig jaar (€1.240).\n\nIk verzoek u vriendelijk om:\n1. Een specificatie van de tariefwijzigingen\n2. Een herberekening van mijn voorschot\n3. Een schriftelijke toelichting op het verschil\n\nIndien ik binnen twee weken geen reactie ontvang, zal ik een klacht indienen bij de Geschillencommissie Energie.\n\nMet vriendelijke groet,\n[naam]\n[adres]\n[klantnummer]', tips:['Noem altijd je klantnummer','Wees specifiek over het probleem','Noem een deadline','Verwijs naar de geschillencommissie als drukmiddel','Houd het zakelijk, niet emotioneel'] },
-  { level:'B2', type:'formulier', emoji:'🏥', title:'Zorgverzekering aanvragen', situation:'Je bent net in Nederland en moet een basisverzekering kiezen. Vul het aanvraagformulier in.', fields:[
+  { level:'B2', type:'brief', title:'Klachtenbrief aan energiebedrijf', situation:'Je jaarnota is €400 hoger dan vorig jaar, maar je verbruik is hetzelfde. Schrijf een klacht.', fields:null, model:'Geachte heer/mevrouw,\n\nOp [datum] ontving ik mijn jaarafrekening over 2025 (klantnummer: [nummer]). Tot mijn verbazing is het eindbedrag €1.640, terwijl mijn verbruik nagenoeg gelijk is gebleven ten opzichte van vorig jaar (€1.240).\n\nIk verzoek u vriendelijk om:\n1. Een specificatie van de tariefwijzigingen\n2. Een herberekening van mijn voorschot\n3. Een schriftelijke toelichting op het verschil\n\nIndien ik binnen twee weken geen reactie ontvang, zal ik een klacht indienen bij de Geschillencommissie Energie.\n\nMet vriendelijke groet,\n[naam]\n[adres]\n[klantnummer]', tips:['Noem altijd je klantnummer','Wees specifiek over het probleem','Noem een deadline','Verwijs naar de geschillencommissie als drukmiddel','Houd het zakelijk, niet emotioneel'] },
+  { level:'B2', type:'formulier', title:'Zorgverzekering aanvragen', situation:'Je bent net in Nederland en moet een basisverzekering kiezen. Vul het aanvraagformulier in.', fields:[
     {label:'Achternaam', placeholder:'', example:'Bakker'},
     {label:'Geboortedatum', placeholder:'DD-MM-JJJJ', example:'15-03-1990'},
     {label:'BSN-nummer', placeholder:'9 cijfers', example:'987654321'},
@@ -4866,7 +4681,7 @@ const FORMULIEREN_BRIEVEN = [
     {label:'Ingangsdatum', placeholder:'DD-MM-JJJJ', example:'01-03-2026'},
     {label:'Eigen risico', placeholder:'€385 (wettelijk minimum) / hoger', example:'€385 (wettelijk minimum)'}
   ], model:null, tips:['Iedereen in NL MOET een basisverzekering hebben','Eigen risico = eigen bijdrage per jaar (min. €385)','Je hebt 4 maanden na inschrijving in NL om je te verzekeren','IBAN = je Nederlandse bankrekeningnummer','Tandartskosten zijn NIET in de basisverzekering'] },
-  { level:'C1', type:'brief', emoji:'⚖️', title:'Bezwaarschrift parkeerboete', situation:'Je kreeg een parkeerboete van €100, maar je had een geldig parkeerticket. Schrijf een bezwaarschrift.', fields:null, model:'Geachte heer/mevrouw,\n\nHierbij maak ik bezwaar tegen de aan mij opgelegde naheffingsaanslag parkeerbelasting d.d. [datum], kenmerk [nummer].\n\nOp [datum] was mijn voertuig (kenteken: [kenteken]) geparkeerd aan de [straat]. Ik beschikte over een geldig parkeerticket, dat ik via de ParkeerApp had betaald om [tijd] (betalingsbewijs bijgevoegd als bijlage 1).\n\nVermoedelijk heeft de controleur het ticket niet correct kunnen verifiëren vanwege een technische storing in het systeem, aangezien de betaling aantoonbaar is verricht.\n\nIk verzoek u de naheffingsaanslag te vernietigen en het bedrag van €100,00 te restitueren.\n\nBijlagen:\n1. Screenshot betaling ParkeerApp\n2. Bankafschrift\n\nHoogachtend,\n[naam]\n[adres]', tips:['Binnen 6 weken bezwaar maken','Altijd het kenmerknummer noemen','Voeg bewijsstukken toe als bijlage','Gebruik juridische termen: naheffingsaanslag, vernietigen, restitueren','De gemeente MOET binnen 12 weken reageren'] }
+  { level:'C1', type:'brief', title:'Bezwaarschrift parkeerboete', situation:'Je kreeg een parkeerboete van €100, maar je had een geldig parkeerticket. Schrijf een bezwaarschrift.', fields:null, model:'Geachte heer/mevrouw,\n\nHierbij maak ik bezwaar tegen de aan mij opgelegde naheffingsaanslag parkeerbelasting d.d. [datum], kenmerk [nummer].\n\nOp [datum] was mijn voertuig (kenteken: [kenteken]) geparkeerd aan de [straat]. Ik beschikte over een geldig parkeerticket, dat ik via de ParkeerApp had betaald om [tijd] (betalingsbewijs bijgevoegd als bijlage 1).\n\nVermoedelijk heeft de controleur het ticket niet correct kunnen verifiëren vanwege een technische storing in het systeem, aangezien de betaling aantoonbaar is verricht.\n\nIk verzoek u de naheffingsaanslag te vernietigen en het bedrag van €100,00 te restitueren.\n\nBijlagen:\n1. Screenshot betaling ParkeerApp\n2. Bankafschrift\n\nHoogachtend,\n[naam]\n[adres]', tips:['Binnen 6 weken bezwaar maken','Altijd het kenmerknummer noemen','Voeg bewijsstukken toe als bijlage','Gebruik juridische termen: naheffingsaanslag, vernietigen, restitueren','De gemeente MOET binnen 12 weken reageren'] }
 ];
 
 // ==========================================
@@ -4874,12 +4689,12 @@ const FORMULIEREN_BRIEVEN = [
 // ==========================================
 
 const REVIEW_PROMPTS = [
-  { level:'A2', emoji:'🍕', type:'Restaurant', place:'Pizzeria Napoli — Amsterdam', stars:4, context:'Goede pizza, gezellige sfeer, maar de service was langzaam.', model:'Lekkere pizza\'s en gezellige sfeer! We moesten wel lang wachten op onze bestelling (45 minuten). Maar de pizza margherita was het wachten waard. Aanrader als je geen haast hebt! ⭐⭐⭐⭐', tips:['Begin positief','Noem iets specifieks (welk gerecht)','Wees eerlijk over minpunten','Eindig met een aanbeveling'] },
-  { level:'A2', emoji:'📱', type:'Bol.com product', place:'Draadloze koptelefoon — Bol.com', stars:3, context:'Goed geluid, maar niet comfortabel bij lang dragen.', model:'Het geluid is prima voor deze prijs. Bas is goed en muziek klinkt helder. Maar na een uur doen mijn oren pijn — de oorkussens zijn te hard. Zou ze aanraden voor kort gebruik, niet voor een hele werkdag. ⭐⭐⭐', tips:['Noem de prijs-kwaliteitverhouding','Wees specifiek (bas, comfort)','Geef aan voor wie het geschikt is'] },
-  { level:'B1', emoji:'🏨', type:'Hotel', place:'Hotel De Gouden Leeuw — Leiden', stars:2, context:'Teleurstellend: kamer was vies, ontbijt was mager, maar de locatie was goed.', model:'Helaas viel dit hotel tegen. De kamer was niet schoon bij aankomst — er zaten haren in de douche en het beddengoed rook muf. Het ontbijt was karig: alleen witbrood en jam. Wel een prima locatie, vlak bij het station.\n\nIk heb de receptie aangesproken over de schoonmaak, maar ze reageerden onverschillig. Voor €120 per nacht verwacht je meer. Niet aanbevolen. ⭐⭐', tips:['Wees specifiek over klachten','Noem wat je hebt ondernomen','Vermeld de prijs voor context','Noem ook positieve punten (locatie)'] },
-  { level:'B1', emoji:'🔧', type:'Dienstverlening', place:'Loodgieter Van Dam — Utrecht', stars:5, context:'Snel, vriendelijk en eerlijke prijs voor het repareren van een lekkende kraan.', model:'Top service! Gebeld op maandagochtend, dinsdag al iemand aan de deur. De monteur was vriendelijk, legde uit wat het probleem was en had het binnen een uur opgelost. De factuur was €85 inclusief materiaal — heel redelijk.\n\nEindelijk een loodgieter die op tijd komt en geen onzin verkoopt. Zeker een aanrader! ⭐⭐⭐⭐⭐', tips:['Noem de reactietijd','Beschrijf de ervaring','Vermeld de kosten','Vergelijk met verwachtingen'] },
-  { level:'B2', emoji:'🏋️', type:'Sportschool', place:'FitForAll — Rotterdam', stars:2, context:'Goedkoop abonnement, maar altijd druk, apparaten kapot, en opzeggen is een nachtmerrie.', model:'De prijs is aantrekkelijk (€19,99/maand), maar daar houdt het positieve op. In de spits (17:00-20:00) moet je soms 15 minuten wachten op een apparaat. Twee loopbanden zijn al weken kapot zonder dat er iets aan gedaan wordt.\n\nHet ergste: opzeggen. Ik heb drie keer gebeld, twee e-mails gestuurd en uiteindelijk een aangetekende brief moeten sturen voordat mijn opzegging werd bevestigd. Dit voelt als een bewuste drempel.\n\nAdvies: lees de kleine lettertjes van het contract goed door voordat je lid wordt. ⭐⭐', tips:['Onderbouw je klachten met voorbeelden','Noem specifieke bedragen/tijden','Geef advies aan toekomstige klanten','Gebruik zakelijke taal, niet emotioneel'] },
-  { level:'C1', emoji:'🏥', type:'Zorginstelling', place:'Huisartsenpraktijk Centrum — Den Haag', stars:3, context:'Goede artsen maar bureaucratisch en moeilijk bereikbaar.', model:'Medisch inhoudelijk is deze praktijk uitstekend. De huisartsen zijn kundig, nemen de tijd en verwijzen door wanneer nodig.\n\nDe bereikbaarheid laat echter te wensen over. Telefonisch is de praktijk slechts bereikbaar tussen 8:00 en 10:00 — en dan sta je gemiddeld 20 minuten in de wacht. Online afspraken maken is alleen mogelijk voor "niet-urgente klachten", maar wie bepaalt wat urgent is?\n\nDaarnaast is het herhalingsreceptensysteem onnodig omslachtig: je moet drie werkdagen van tevoren bellen, terwijl andere praktijken dit via een app regelen.\n\nGoede zorg, frustrerende organisatie. ⭐⭐⭐', tips:['Scheid kwaliteit van service','Gebruik professioneel taalgebruik','Noem concrete verbeterpunten','Retorische vragen werken goed in reviews'] }
+  { level:'A2', type:'Restaurant', place:'Pizzeria Napoli — Amsterdam', stars:4, context:'Goede pizza, gezellige sfeer, maar de service was langzaam.', model:'Lekkere pizza\'s en gezellige sfeer! We moesten wel lang wachten op onze bestelling (45 minuten). Maar de pizza margherita was het wachten waard. Aanrader als je geen haast hebt!', tips:['Begin positief','Noem iets specifieks (welk gerecht)','Wees eerlijk over minpunten','Eindig met een aanbeveling'] },
+  { level:'A2', type:'Bol.com product', place:'Draadloze koptelefoon — Bol.com', stars:3, context:'Goed geluid, maar niet comfortabel bij lang dragen.', model:'Het geluid is prima voor deze prijs. Bas is goed en muziek klinkt helder. Maar na een uur doen mijn oren pijn — de oorkussens zijn te hard. Zou ze aanraden voor kort gebruik, niet voor een hele werkdag.', tips:['Noem de prijs-kwaliteitverhouding','Wees specifiek (bas, comfort)','Geef aan voor wie het geschikt is'] },
+  { level:'B1', type:'Hotel', place:'Hotel De Gouden Leeuw — Leiden', stars:2, context:'Teleurstellend: kamer was vies, ontbijt was mager, maar de locatie was goed.', model:'Helaas viel dit hotel tegen. De kamer was niet schoon bij aankomst — er zaten haren in de douche en het beddengoed rook muf. Het ontbijt was karig: alleen witbrood en jam. Wel een prima locatie, vlak bij het station.\n\nIk heb de receptie aangesproken over de schoonmaak, maar ze reageerden onverschillig. Voor €120 per nacht verwacht je meer. Niet aanbevolen.', tips:['Wees specifiek over klachten','Noem wat je hebt ondernomen','Vermeld de prijs voor context','Noem ook positieve punten (locatie)'] },
+  { level:'B1', type:'Dienstverlening', place:'Loodgieter Van Dam — Utrecht', stars:5, context:'Snel, vriendelijk en eerlijke prijs voor het repareren van een lekkende kraan.', model:'Top service! Gebeld op maandagochtend, dinsdag al iemand aan de deur. De monteur was vriendelijk, legde uit wat het probleem was en had het binnen een uur opgelost. De factuur was €85 inclusief materiaal — heel redelijk.\n\nEindelijk een loodgieter die op tijd komt en geen onzin verkoopt. Zeker een aanrader!', tips:['Noem de reactietijd','Beschrijf de ervaring','Vermeld de kosten','Vergelijk met verwachtingen'] },
+  { level:'B2', type:'Sportschool', place:'FitForAll — Rotterdam', stars:2, context:'Goedkoop abonnement, maar altijd druk, apparaten kapot, en opzeggen is een nachtmerrie.', model:'De prijs is aantrekkelijk (€19,99/maand), maar daar houdt het positieve op. In de spits (17:00-20:00) moet je soms 15 minuten wachten op een apparaat. Twee loopbanden zijn al weken kapot zonder dat er iets aan gedaan wordt.\n\nHet ergste: opzeggen. Ik heb drie keer gebeld, twee e-mails gestuurd en uiteindelijk een aangetekende brief moeten sturen voordat mijn opzegging werd bevestigd. Dit voelt als een bewuste drempel.\n\nAdvies: lees de kleine lettertjes van het contract goed door voordat je lid wordt.', tips:['Onderbouw je klachten met voorbeelden','Noem specifieke bedragen/tijden','Geef advies aan toekomstige klanten','Gebruik zakelijke taal, niet emotioneel'] },
+  { level:'C1', type:'Zorginstelling', place:'Huisartsenpraktijk Centrum — Den Haag', stars:3, context:'Goede artsen maar bureaucratisch en moeilijk bereikbaar.', model:'Medisch inhoudelijk is deze praktijk uitstekend. De huisartsen zijn kundig, nemen de tijd en verwijzen door wanneer nodig.\n\nDe bereikbaarheid laat echter te wensen over. Telefonisch is de praktijk slechts bereikbaar tussen 8:00 en 10:00 — en dan sta je gemiddeld 20 minuten in de wacht. Online afspraken maken is alleen mogelijk voor "niet-urgente klachten", maar wie bepaalt wat urgent is?\n\nDaarnaast is het herhalingsreceptensysteem onnodig omslachtig: je moet drie werkdagen van tevoren bellen, terwijl andere praktijken dit via een app regelen.\n\nGoede zorg, frustrerende organisatie.', tips:['Scheid kwaliteit van service','Gebruik professioneel taalgebruik','Noem concrete verbeterpunten','Retorische vragen werken goed in reviews'] }
 ];
 
 // ==========================================
@@ -5616,7 +5431,7 @@ function readerRenderWordList() {
   count.textContent = readerSavedWords.length + ' woord' + (readerSavedWords.length !== 1 ? 'en' : '');
   exportBtn.disabled = readerSavedWords.length === 0;
   if (readerSavedWords.length === 0) {
-    list.innerHTML = '<div class="reader-sidebar-empty">&#9997; Klik op woorden in de tekst om ze op te slaan.</div>';
+    list.innerHTML = '<div class="reader-sidebar-empty">Klik op woorden in de tekst om ze op te slaan.</div>';
     return;
   }
   list.innerHTML = '';
@@ -5763,8 +5578,7 @@ function refreshActiveTab() {
     }
   } else if (tab === 'news') { initNews(); }
   // else if (tab === 'vocab') { vocabInitialized = false; initVocab(); renderVocabList(); }
-  else if (tab === 'luisteren') { luisterenInitialized = false; initLuisteren(); document.getElementById('begripContent').innerHTML = ''; }
-  else if (tab === 'spreken') { sprekenInitialized = false; document.getElementById('uitspraakContent').innerHTML = ''; document.getElementById('hardopContent').innerHTML = ''; document.getElementById('watzegjeContent').innerHTML = ''; document.getElementById('gebeurdContent').innerHTML = ''; const activeSub = document.querySelector('#tab-spreken .subtab-btn.active'); if (activeSub) { const fn = SUBTAB_INIT[activeSub.dataset.subtab]; if (fn) fn(); } }
+  else if (tab === 'spreken') { sprekenInitialized = false; document.getElementById('uitspraakContent').innerHTML = ''; document.getElementById('watzegjeContent').innerHTML = ''; document.getElementById('gebeurdContent').innerHTML = ''; const activeSub = document.querySelector('#tab-spreken .subtab-btn.active'); if (activeSub) { const fn = SUBTAB_INIT[activeSub.dataset.subtab]; if (fn) fn(); } }
   else if (tab === 'schrijven') { schrijvenInitialized = false; document.getElementById('whatsappContent').innerHTML = ''; document.getElementById('formulierenContent').innerHTML = ''; document.getElementById('reviewsContent').innerHTML = ''; const activeSub = document.querySelector('#tab-schrijven .subtab-btn.active'); if (activeSub) { const fn = SUBTAB_INIT[activeSub.dataset.subtab]; if (fn) fn(); } }
 }
 
@@ -5790,10 +5604,7 @@ const SUBTAB_INIT = {
   'sheets-prep': () => initSheetsPrepGrid(),
   phrases: initPhrases,
   grammar: initGrammar,
-  'dictee-l': initLuisteren,
-  begrip: initBegrip,
   uitspraak: () => { initSpreken(); renderUitspraak(); },
-  hardop: initHardop,
   watzegje: initWatZegJe,
   gebeurd: initGebeurd,
   whatsapp: initWhatsApp,
@@ -5859,7 +5670,7 @@ function initSheetsPrepGrid() {
   let html = '';
   for (const [prep, verbs] of Object.entries(preps).sort((a, b) => b[1].length - a[1].length)) {
     html += '<div class="sheet-card" onclick="generatePrepSheet(\'' + prep + '\')">';
-    html += '<div class="sheet-card-icon">&#128221;</div>';
+    html += '';
     html += '<div class="sheet-card-title">Voorzetsels: ' + prep + '</div>';
     html += '<div class="sheet-card-desc">Werkwoorden met vast voorzetsel "' + prep + '"</div>';
     html += '<div class="sheet-card-count">' + verbs.length + ' werkwoorden</div>';
@@ -5877,115 +5688,6 @@ function generatePrepSheet(prep) {
   rows += '</table>';
   rows += '<div class="tip">Totaal: ' + verbs.length + ' werkwoorden met "' + prep + '"</div>';
   generatePDFContent('Vaste Voorzetsels — ' + prep, rows);
-}
-
-// ==========================================
-// TAB: LUISTEREN
-// ==========================================
-let luisterenInitialized = false;
-let dicteeLWords = [];
-let dicteeLRevealed = 0;
-let dicteeLCurrentIdx = 0;
-let dicteeLCorrect = 0;
-let dicteeLTotal = 0;
-
-function initLuisteren() {
-  if (luisterenInitialized) return;
-  luisterenInitialized = true;
-  nextDicteeL();
-}
-
-function getFilteredDictee() {
-  return DICTEE_SENTENCES.filter(s => isWithinCEFR(s.level));
-}
-
-function nextDicteeL() {
-  const filtered = getFilteredDictee();
-  if (filtered.length === 0) { document.getElementById('dicteeLSentence').textContent = 'Geen zinnen voor dit niveau.'; return; }
-  dicteeLCurrentIdx = Math.floor(Math.random() * filtered.length);
-  const sentence = filtered[dicteeLCurrentIdx];
-  dicteeLWords = sentence.nl.split(' ');
-  dicteeLRevealed = 0;
-  const sentEl = document.getElementById('dicteeLSentence');
-  sentEl.innerHTML = dicteeLWords.map(() => '<span class="word-hidden">&nbsp;&nbsp;&nbsp;&nbsp;</span>').join(' ');
-  document.getElementById('dicteeLRevealBtn').style.display = '';
-  document.getElementById('dicteeLHideBtn').style.display = 'none';
-  document.getElementById('dicteeLInputArea').style.display = 'none';
-  document.getElementById('dicteeLFeedback').innerHTML = '';
-  document.getElementById('dicteeLFeedback').className = 'dictee-feedback';
-  document.getElementById('dicteeLInput').value = '';
-}
-
-function revealNextWordL() {
-  if (dicteeLRevealed >= dicteeLWords.length) return;
-  const sentEl = document.getElementById('dicteeLSentence');
-  const spans = sentEl.querySelectorAll('span');
-  spans[dicteeLRevealed].className = 'word-visible';
-  spans[dicteeLRevealed].textContent = dicteeLWords[dicteeLRevealed];
-  dicteeLRevealed++;
-  if (dicteeLRevealed >= dicteeLWords.length) {
-    document.getElementById('dicteeLRevealBtn').style.display = 'none';
-    document.getElementById('dicteeLHideBtn').style.display = '';
-  }
-}
-
-function hideDicteeSentenceL() {
-  document.getElementById('dicteeLSentence').style.visibility = 'hidden';
-  document.getElementById('dicteeLHideBtn').style.display = 'none';
-  document.getElementById('dicteeLInputArea').style.display = 'flex';
-  document.getElementById('dicteeLInput').focus();
-}
-
-function checkDicteeL() {
-  const input = document.getElementById('dicteeLInput').value.trim();
-  const filtered = getFilteredDictee();
-  const correct = filtered[dicteeLCurrentIdx].nl;
-  dicteeLTotal++;
-  const fb = document.getElementById('dicteeLFeedback');
-  document.getElementById('dicteeLSentence').style.visibility = 'visible';
-  if (input.toLowerCase() === correct.toLowerCase()) {
-    dicteeLCorrect++;
-    fb.className = 'dictee-feedback correct';
-    fb.textContent = 'Goed! ✓';
-  } else {
-    fb.className = 'dictee-feedback incorrect';
-    fb.innerHTML = 'Helaas. Correct: <strong>' + correct + '</strong>';
-  }
-  document.getElementById('dicteeLCorrect').textContent = dicteeLCorrect;
-  document.getElementById('dicteeLTotal').textContent = dicteeLTotal;
-}
-
-function initBegrip() {
-  const container = document.getElementById('begripContent');
-  if (container.children.length > 0) return;
-  const filtered = LISTENING_DIALOGUES.filter(d => isWithinCEFR(d.level));
-  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen gesprekken voor dit niveau.</p>'; return; }
-  let html = '';
-  filtered.forEach((d, di) => {
-    html += '<div class="begrip-card"><div class="begrip-header"><h3>' + d.setting + '</h3><span class="begrip-level">' + d.level + '</span></div>';
-    html += '<div class="begrip-dialogue">';
-    d.lines.forEach(l => { html += '<div class="gesprek-line"><span class="speaker">' + l.speaker + ':</span><span>' + l.text + '</span></div>'; });
-    html += '</div><div class="begrip-questions">';
-    d.questions.forEach((q, qi) => {
-      html += '<div class="begrip-question"><p>' + (qi+1) + '. ' + q.q + '</p>';
-      q.options.forEach((opt, oi) => {
-        html += '<button class="begrip-option" data-di="' + di + '" data-qi="' + qi + '" data-oi="' + oi + '" onclick="checkBegrip(this,' + qi + ',' + oi + ',' + q.answer + ')">' + opt + '</button>';
-      });
-      html += '</div>';
-    });
-    html += '</div></div>';
-  });
-  container.innerHTML = html;
-}
-
-function checkBegrip(btn, qi, oi, correctIdx) {
-  const card = btn.closest('.begrip-card');
-  const qDiv = btn.closest('.begrip-question');
-  qDiv.querySelectorAll('.begrip-option').forEach((b, i) => {
-    b.disabled = true;
-    if (i === correctIdx) b.classList.add('correct');
-    else if (b === btn && i !== correctIdx) b.classList.add('incorrect');
-  });
 }
 
 // ==========================================
@@ -6019,19 +5721,6 @@ function renderUitspraak() {
     html += '<li><strong>' + t.text + '</strong><br><small style="color:#666">' + t.focus + '</small></li>';
   });
   html += '</ul></div>';
-  container.innerHTML = html;
-}
-
-function initHardop() {
-  const container = document.getElementById('hardopContent');
-  if (container.children.length > 0) return;
-  const filtered = READING_PASSAGES.filter(p => isWithinCEFR(p.level));
-  if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen teksten voor dit niveau.</p>'; return; }
-  let html = '';
-  filtered.forEach(p => {
-    const text = p.text.replace(/<tricky>/g, '<span class="tricky">').replace(/<\/tricky>/g, '</span>');
-    html += '<div class="hardop-passage"><span class="passage-level">' + p.level + '</span><div class="passage-text">' + text + '</div></div>';
-  });
   container.innerHTML = html;
 }
 
@@ -6111,7 +5800,7 @@ function initWhatsApp() {
     html += '<div class="email-situation">' + p.context + '</div>';
     html += '<textarea class="dictee-input" style="width:100%;min-height:100px;resize:vertical;margin-bottom:12px;font-size:14px;" placeholder="Schrijf je bericht hier..."></textarea>';
     html += '<div style="margin-bottom:12px;">';
-    p.tips.forEach(t => { html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#666;padding:2px 0;">💡 ' + t + '</div>'; });
+    p.tips.forEach(t => { html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#666;padding:2px 0;"> ' + t + '</div>'; });
     html += '</div>';
     html += '<button class="mondrian-btn small" onclick="this.nextElementSibling.classList.toggle(\'visible\');this.textContent=this.textContent===\'Toon modelantwoord\'?\'Verberg\':\' Toon modelantwoord\'">Toon modelantwoord</button>';
     html += '<div class="email-model" style="background:#dcf8c6;border-color:#25D366;">' + p.model + '</div>';
@@ -6142,7 +5831,7 @@ function initFormulieren() {
       html += '<textarea class="dictee-input" style="width:100%;min-height:200px;resize:vertical;margin-bottom:12px;font-size:14px;" placeholder="Schrijf je brief hier..."></textarea>';
     }
     html += '<div style="margin-bottom:12px;">';
-    f.tips.forEach(t => { html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#666;padding:2px 0;">📋 ' + t + '</div>'; });
+    f.tips.forEach(t => { html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#666;padding:2px 0;"> ' + t + '</div>'; });
     html += '</div>';
     if (f.model) {
       html += '<button class="mondrian-btn small" onclick="this.nextElementSibling.classList.toggle(\'visible\');this.textContent=this.textContent===\'Toon modelantwoord\'?\'Verberg\':\' Toon modelantwoord\'">Toon modelantwoord</button>';
@@ -6160,7 +5849,7 @@ function initReviews() {
   if (filtered.length === 0) { container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Geen reviews voor dit niveau.</p>'; return; }
   let html = '';
   filtered.forEach((r, i) => {
-    const stars = '⭐'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
+    const stars = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
     html += '<div class="gesprek-card"><div class="gesprek-header"><h3>' + r.emoji + ' ' + r.place + '</h3><span class="gesprek-level">' + r.level + '</span></div>';
     html += '<div class="gesprek-body">';
     html += '<div style="font-size:18px;margin-bottom:8px;">' + stars + '</div>';
@@ -6168,7 +5857,7 @@ function initReviews() {
     html += '<div class="email-situation">' + r.context + '</div>';
     html += '<textarea class="dictee-input" style="width:100%;min-height:100px;resize:vertical;margin-bottom:12px;font-size:14px;" placeholder="Schrijf je review hier..."></textarea>';
     html += '<div style="margin-bottom:12px;">';
-    r.tips.forEach(t => { html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#666;padding:2px 0;">✍️ ' + t + '</div>'; });
+    r.tips.forEach(t => { html += '<div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;color:#666;padding:2px 0;"> ' + t + '</div>'; });
     html += '</div>';
     html += '<button class="mondrian-btn small" onclick="this.nextElementSibling.classList.toggle(\'visible\');this.textContent=this.textContent===\'Toon modelreview\'?\'Verberg\':\' Toon modelreview\'">Toon modelreview</button>';
     html += '<div class="email-model">' + r.model + '</div>';
@@ -6300,7 +5989,7 @@ function checkWoordenschat() {
   if (input.toLowerCase() === item.answer.toLowerCase()) {
     woordenschatCorrect++;
     fb.className = 'dictee-feedback correct';
-    fb.textContent = 'Goed! ✓';
+    fb.textContent = 'Goed! ';
   } else {
     fb.className = 'dictee-feedback incorrect';
     fb.innerHTML = 'Helaas. Correct: <strong>' + item.answer + '</strong>';
@@ -6706,14 +6395,14 @@ function renderCustomWordList() {
 // READY-MADE SHEET TEMPLATES
 // ==========================================
 const SHEET_TEMPLATES = [
-  { id: 'pattern', icon: '&#127912;', title: 'Werkwoorden per patroon', desc: 'Gegroepeerd op klinkerverandering met kleurcodering', countFn: () => VERBS.length + ' werkwoorden' },
-  { id: 'hebben_zijn', icon: '&#9878;', title: 'Hebben vs. Zijn', desc: 'Twee kolommen: werkwoorden met "heeft" vs "is"', countFn: () => VERBS.length + ' werkwoorden' },
-  { id: 'alpha', icon: '&#128218;', title: 'Onregelmatig — Alfabet', desc: 'Alle onregelmatige werkwoorden op alfabetische volgorde', countFn: () => VERBS.filter(v => v.pattern !== 'regular').length + ' werkwoorden' },
-  { id: 'prep_by_prep', icon: '&#128279;', title: 'Voorzetsels per voorzetsel', desc: 'Vaste voorzetsels gegroepeerd per voorzetsel', countFn: () => PREPOSITION_VERBS.length + ' uitdrukkingen' },
-  { id: 'prep_alpha', icon: '&#128214;', title: 'Voorzetsels — Alfabet', desc: 'Alle vaste voorzetsels op alfabetische volgorde', countFn: () => PREPOSITION_VERBS.length + ' uitdrukkingen' },
-  { id: 'flashcards', icon: '&#127183;', title: 'Compact Flashcard Grid', desc: 'Uitknipbare flashcards: infinitief | imperfectum | voltooid deelwoord', countFn: () => VERBS.length + ' kaarten' },
-  { id: 'wrong', icon: '&#10060;', title: 'Mijn Fouten', desc: 'Werkwoorden die je fout hebt beantwoord, gesorteerd op aantal fouten', countFn: () => { const n = VERBS.filter(v => { const h = state.verbHistory[v.id]; return h && h.wrong > 0; }).length; return n + ' werkwoorden'; } },
-  { id: 'separable', icon: '&#9986;', title: 'Scheidbare Werkwoorden', desc: 'Werkwoorden die scheidbaar zijn met gescheiden vormen', countFn: () => getSeparableVerbs().length + ' werkwoorden' },
+  { id: 'pattern', title: 'Werkwoorden per patroon', desc: 'Gegroepeerd op klinkerverandering met kleurcodering', countFn: () => VERBS.length + ' werkwoorden' },
+  { id: 'hebben_zijn', title: 'Hebben vs. Zijn', desc: 'Twee kolommen: werkwoorden met "heeft" vs "is"', countFn: () => VERBS.length + ' werkwoorden' },
+  { id: 'alpha', title: 'Onregelmatig — Alfabet', desc: 'Alle onregelmatige werkwoorden op alfabetische volgorde', countFn: () => VERBS.filter(v => v.pattern !== 'regular').length + ' werkwoorden' },
+  { id: 'prep_by_prep', title: 'Voorzetsels per voorzetsel', desc: 'Vaste voorzetsels gegroepeerd per voorzetsel', countFn: () => PREPOSITION_VERBS.length + ' uitdrukkingen' },
+  { id: 'prep_alpha', title: 'Voorzetsels — Alfabet', desc: 'Alle vaste voorzetsels op alfabetische volgorde', countFn: () => PREPOSITION_VERBS.length + ' uitdrukkingen' },
+  { id: 'flashcards', title: 'Compact Flashcard Grid', desc: 'Uitknipbare flashcards: infinitief | imperfectum | voltooid deelwoord', countFn: () => VERBS.length + ' kaarten' },
+  { id: 'wrong', title: 'Mijn Fouten', desc: 'Werkwoorden die je fout hebt beantwoord, gesorteerd op aantal fouten', countFn: () => { const n = VERBS.filter(v => { const h = state.verbHistory[v.id]; return h && h.wrong > 0; }).length; return n + ' werkwoorden'; } },
+  { id: 'separable', title: 'Scheidbare Werkwoorden', desc: 'Werkwoorden die scheidbaar zijn met gescheiden vormen', countFn: () => getSeparableVerbs().length + ' werkwoorden' },
 ];
 
 function getSeparableVerbs() {
@@ -7207,23 +6896,23 @@ function exportPhrases() {
 const GRAMMAR_RULES = [
   // === WERKWOORDEN (Verbs) ===
   {
-    id: 'soft_ketchup', cat: 'spelling', icon: '&#127798;',
+    id: 'soft_ketchup', cat: 'spelling',
     title: "'t Kofschip / Soft Ketchup",
     subtitle: 'Wanneer -t of -d in de verleden tijd?',
     accent: '#D40920',
     body: '<div class="gr-mnemonic">\'t&nbsp; K&nbsp; O&nbsp; F&nbsp; S&nbsp; C&nbsp; H&nbsp; I&nbsp; P</div>'
       + '<div class="gr-rule">Als de stam eindigt op een letter uit <strong>\'t kofschip</strong> (t, k, f, s, ch, p) → verleden tijd met <strong>-te / -ten</strong></div>'
       + '<div class="gr-rule">Anders → verleden tijd met <strong>-de / -den</strong></div>'
-      + '<div class="gr-example">werk<strong>t</strong>e (stam: werk → k in kofschip ✓)</div>'
-      + '<div class="gr-example">leef<strong>d</strong>e (stam: leef... wacht, f zit in kofschip!) → leef<strong>t</strong>e ✓</div>'
-      + '<div class="gr-example">woon<strong>d</strong>e (stam: woon → n niet in kofschip → -de ✓)</div>'
+      + '<div class="gr-example">werk<strong>t</strong>e (stam: werk → k in kofschip )</div>'
+      + '<div class="gr-example">leef<strong>d</strong>e (stam: leef... wacht, f zit in kofschip!) → leef<strong>t</strong>e </div>'
+      + '<div class="gr-example">woon<strong>d</strong>e (stam: woon → n niet in kofschip → -de )</div>'
       + '<table><tr><th>Stam eindigt op</th><th>Verleden tijd</th><th>Voorbeeld</th></tr>'
       + '<tr><td>t, k, f, s, ch, p</td><td>-<strong>te</strong> / -<strong>ten</strong></td><td>werkte, fietsten</td></tr>'
       + '<tr><td>andere letters</td><td>-<strong>de</strong> / -<strong>den</strong></td><td>woonde, leefden</td></tr></table>'
       + '<div class="gr-rule">Voltooid deelwoord: ge- + stam + <strong>-t</strong> (kofschip) of <strong>-d</strong> (anders)<br>gewerkt, gefietst, gewoond, geleefd</div>'
   },
   {
-    id: 'perfectum', cat: 'verbs', icon: '&#9203;',
+    id: 'perfectum', cat: 'verbs',
     title: 'Perfectum (Voltooid Tegenwoordige Tijd)',
     subtitle: 'hebben/zijn + voltooid deelwoord',
     accent: '#1356A2',
@@ -7243,7 +6932,7 @@ const GRAMMAR_RULES = [
       + '<tr><td>Scheidbaar</td><td>prefix + ge- + stam</td><td>opgebeld, meegenomen</td></tr></table>'
   },
   {
-    id: 'imperfectum', cat: 'verbs', icon: '&#128337;',
+    id: 'imperfectum', cat: 'verbs',
     title: 'Imperfectum (Onvoltooid Verleden Tijd)',
     subtitle: 'Verleden tijd - regelmatig & onregelmatig',
     accent: '#F7D842',
@@ -7265,7 +6954,7 @@ const GRAMMAR_RULES = [
       + '<strong>Imperfectum:</strong> verhalen, achtergrond, gewoontes (ik at elke dag een appel)</div>'
   },
   {
-    id: 'perf_vs_imp', cat: 'verbs', icon: '&#9201;',
+    id: 'perf_vs_imp', cat: 'verbs',
     title: 'Perfectum of Imperfectum?',
     subtitle: 'Wanneer gebruik je welke verleden tijd?',
     accent: '#2d8a56',
@@ -7293,7 +6982,7 @@ const GRAMMAR_RULES = [
       + 'Opeens <strong>heb</strong> ik een oude vriend <strong>gezien</strong>! (plotseling — perfectum)</div>'
   },
   {
-    id: 'hebben_zijn', cat: 'verbs', icon: '&#9878;',
+    id: 'hebben_zijn', cat: 'verbs',
     title: 'Hebben of Zijn?',
     subtitle: 'Welk hulpwerkwoord in de voltooide tijd?',
     accent: '#D40920',
@@ -7310,7 +6999,7 @@ const GRAMMAR_RULES = [
       + 'Ik <strong>ben</strong> naar huis gereden. (focus op richting)</div>'
   },
   {
-    id: 'separable', cat: 'verbs', icon: '&#9986;',
+    id: 'separable', cat: 'verbs',
     title: 'Scheidbare Werkwoorden',
     subtitle: 'Wanneer gaat het voorvoegsel los?',
     accent: '#1356A2',
@@ -7327,7 +7016,7 @@ const GRAMMAR_RULES = [
       + '<div class="gr-rule"><strong>Niet-scheidbaar</strong> (geen klemtoon op prefix): be-, ver-, ont-, ge-, her-, er-</div>'
   },
   {
-    id: 'modal', cat: 'verbs', icon: '&#128172;',
+    id: 'modal', cat: 'verbs',
     title: 'Modale Werkwoorden',
     subtitle: 'kunnen, moeten, mogen, willen, zullen',
     accent: '#F7D842',
@@ -7345,7 +7034,7 @@ const GRAMMAR_RULES = [
 
   // === SPELLING ===
   {
-    id: 'open_closed', cat: 'spelling', icon: '&#128290;',
+    id: 'open_closed', cat: 'spelling',
     title: 'Open & Gesloten Lettergrepen',
     subtitle: 'Wanneer verdubbel je de medeklinker?',
     accent: '#2d8a56',
@@ -7361,7 +7050,7 @@ const GRAMMAR_RULES = [
       + '• Lange klank in gesloten lettergreep: 2 klinkers (maakt, leest)</div>'
   },
   {
-    id: 'dt_rules', cat: 'spelling', icon: '&#9888;',
+    id: 'dt_rules', cat: 'spelling',
     title: 'D, T of DT?',
     subtitle: 'De beruchte dt-fout',
     accent: '#D40920',
@@ -7375,11 +7064,11 @@ const GRAMMAR_RULES = [
       + '<tr><td>wij/zij</td><td>worden</td><td>vinden</td></tr></table>'
       + '<div class="gr-rule"><strong>Let op inversie:</strong> bij jij achter het werkwoord → GEEN -t!<br>'
       + 'Jij vind<strong>t</strong>... MAAR: vind jij...? (geen t!)</div>'
-      + '<div class="gr-example">Hij <strong>wordt</strong> ziek. ✓</div>'
-      + '<div class="gr-example"><strong>Word</strong> jij ook ziek? ✓ (inversie!)</div>'
+      + '<div class="gr-example">Hij <strong>wordt</strong> ziek. </div>'
+      + '<div class="gr-example"><strong>Word</strong> jij ook ziek?  (inversie!)</div>'
   },
   {
-    id: 'f_v_s_z', cat: 'spelling', icon: '&#128260;',
+    id: 'f_v_s_z', cat: 'spelling',
     title: 'F↔V en S↔Z',
     subtitle: 'Wanneer verandert de klank?',
     accent: '#8B4513',
@@ -7396,7 +7085,7 @@ const GRAMMAR_RULES = [
 
   // === DE / HET ===
   {
-    id: 'de_het', cat: 'articles', icon: '&#128214;',
+    id: 'de_het', cat: 'articles',
     title: 'De of Het?',
     subtitle: 'Regels en ezelsbruggetjes',
     accent: '#1356A2',
@@ -7420,7 +7109,7 @@ const GRAMMAR_RULES = [
       + '<div class="gr-mnemonic">Twijfel? → 2/3 van alle woorden is DE</div>'
   },
   {
-    id: 'de_het_adj', cat: 'articles', icon: '&#128396;',
+    id: 'de_het_adj', cat: 'articles',
     title: 'Bijvoeglijk Naamwoord + De/Het',
     subtitle: 'Wanneer -e achter het bijvoeglijk naamwoord?',
     accent: '#F7D842',
@@ -7438,7 +7127,7 @@ const GRAMMAR_RULES = [
 
   // === WOORDVOLGORDE (Word Order) ===
   {
-    id: 'word_order_main', cat: 'wordorder', icon: '&#128295;',
+    id: 'word_order_main', cat: 'wordorder',
     title: 'Woordvolgorde — Hoofdzin',
     subtitle: 'Het werkwoord staat op positie 2',
     accent: '#D40920',
@@ -7454,7 +7143,7 @@ const GRAMMAR_RULES = [
       + '<code>S</code>ubject - <code>T</code>ijd - <code>O</code>orzaak - <code>M</code>anier - <code>P</code>laats - <code>I</code>nfinitief</div>'
   },
   {
-    id: 'word_order_sub', cat: 'wordorder', icon: '&#128279;',
+    id: 'word_order_sub', cat: 'wordorder',
     title: 'Woordvolgorde — Bijzin',
     subtitle: 'Werkwoord naar het einde',
     accent: '#1356A2',
@@ -7470,7 +7159,7 @@ const GRAMMAR_RULES = [
       + '<div class="gr-example">Ik ga niet, <strong>want</strong> ik <strong>ben</strong> ziek. (normaal)</div>'
   },
   {
-    id: 'er', cat: 'wordorder', icon: '&#128161;',
+    id: 'er', cat: 'wordorder',
     title: 'Het Woordje "Er"',
     subtitle: '5 functies van er',
     accent: '#F7D842',
@@ -7486,7 +7175,7 @@ const GRAMMAR_RULES = [
 
   // === VOORNAAMWOORDEN (Pronouns) ===
   {
-    id: 'pronouns_personal', cat: 'pronouns', icon: '&#128100;',
+    id: 'pronouns_personal', cat: 'pronouns',
     title: 'Persoonlijke Voornaamwoorden',
     subtitle: 'Subject, object en bezittelijk',
     accent: '#D40920',
@@ -7504,7 +7193,7 @@ const GRAMMAR_RULES = [
       + 'Ik was <strong>me</strong>. Hij scheert <strong>zich</strong>. Wij vermaken <strong>ons</strong>.</div>'
   },
   {
-    id: 'pronouns_relative', cat: 'pronouns', icon: '&#128257;',
+    id: 'pronouns_relative', cat: 'pronouns',
     title: 'Betrekkelijke Voornaamwoorden',
     subtitle: 'die, dat, wie, wat, waar',
     accent: '#1356A2',
@@ -7522,7 +7211,7 @@ const GRAMMAR_RULES = [
 
   // === OVERIG (Other) ===
   {
-    id: 'comparatives', cat: 'other', icon: '&#128200;',
+    id: 'comparatives', cat: 'other',
     title: 'Vergelijkingen',
     subtitle: 'Vergrotende en overtreffende trap',
     accent: '#2d8a56',
@@ -7539,7 +7228,7 @@ const GRAMMAR_RULES = [
       + 'Zij is net zo groot <strong>als</strong> ik. Zij is grot<strong>er</strong> <strong>dan</strong> ik.</div>'
   },
   {
-    id: 'negation', cat: 'other', icon: '&#9940;',
+    id: 'negation', cat: 'other',
     title: 'Ontkenning',
     subtitle: 'niet, geen, nooit, nergens',
     accent: '#D40920',
@@ -7561,7 +7250,7 @@ const GRAMMAR_RULES = [
       + '<tr><td>iets</td><td>niets / niks</td></tr></table>'
   },
   {
-    id: 'passive', cat: 'verbs', icon: '&#128260;',
+    id: 'passive', cat: 'verbs',
     title: 'Passieve Zinnen',
     subtitle: 'worden + voltooid deelwoord',
     accent: '#8B4513',
@@ -7576,7 +7265,7 @@ const GRAMMAR_RULES = [
       + 'Het boek <strong>is</strong> geschreven. (niet: is geworden geschreven)</div>'
   },
   {
-    id: 'conditional', cat: 'verbs', icon: '&#128300;',
+    id: 'conditional', cat: 'verbs',
     title: 'Zou + Infinitief (Conditionalis)',
     subtitle: 'Beleefdheid, wensen, hypothetisch',
     accent: '#F7D842',
@@ -7590,7 +7279,7 @@ const GRAMMAR_RULES = [
       + '<div class="gr-example"><strong>Zou</strong> je het raam open willen doen?</div>'
   },
   {
-    id: 'prepositions_overview', cat: 'other', icon: '&#128205;',
+    id: 'prepositions_overview', cat: 'other',
     title: 'Voorzetsels Overzicht',
     subtitle: 'De belangrijkste voorzetsels',
     accent: '#1356A2',
@@ -7616,7 +7305,7 @@ const GRAMMAR_RULES = [
       + '<tr><td>zonder</td><td>without</td><td>zonder suiker</td></tr></table>'
   },
   {
-    id: 'om_te', cat: 'other', icon: '&#127919;',
+    id: 'om_te', cat: 'other',
     title: 'Om... te + Infinitief',
     subtitle: 'Doelzinnen en te-constructies',
     accent: '#2d8a56',
@@ -7632,7 +7321,7 @@ const GRAMMAR_RULES = [
       + 'Ik probeer op <strong>te</strong> bellen. (niet: te opbellen)</div>'
   },
   {
-    id: 'diminutives', cat: 'other', icon: '&#128044;',
+    id: 'diminutives', cat: 'other',
     title: 'Verkleinwoorden',
     subtitle: '-je, -tje, -pje, -etje, -kje',
     accent: '#F7D842',
@@ -7649,14 +7338,14 @@ const GRAMMAR_RULES = [
       + '<div class="gr-rule">Verkleinwoorden zijn niet alleen "klein" — ook voor genegenheid, vernedering, of gewoon dagelijks taalgebruik (biertje, broodje, kopje)</div>'
   },
   {
-    id: 'pronominal_adverbs', cat: 'other', icon: '&#128260;',
+    id: 'pronominal_adverbs', cat: 'other',
     title: 'Voornaamwoordelijke Bijwoorden',
     subtitle: 'daar+voor, hier+mee, waar+over, er+aan \u2014 de "er/daar/hier/waar + voorzetsel" woorden',
     accent: '#1356A2',
     body: '<div class="gr-mnemonic">er / daar / hier / waar + voorzetsel = voornaamwoordelijk bijwoord</div>'
       + '<div class="gr-rule">In het Nederlands zeg je <strong>niet</strong> "met dat" of "voor het" als je naar een <em>ding</em> verwijst. Gebruik in plaats daarvan een voornaamwoordelijk bijwoord.</div>'
-      + '<div class="gr-example"><span style="color:var(--mondrian-red)">&#10008;</span> Ik denk <s>over het</s>. &rarr; <span style="color:#2d8a56">&#10004;</span> Ik denk <strong>erover</strong>.</div>'
-      + '<div class="gr-example"><span style="color:var(--mondrian-red)">&#10008;</span> Ik wacht <s>op dat</s>. &rarr; <span style="color:#2d8a56">&#10004;</span> Ik wacht <strong>daarop</strong>.</div>'
+      + '<div class="gr-example"><span style="color:var(--mondrian-red)">X</span> Ik denk <s>over het</s>. &rarr; <span style="color:#2d8a56">V</span> Ik denk <strong>erover</strong>.</div>'
+      + '<div class="gr-example"><span style="color:var(--mondrian-red)">X</span> Ik wacht <s>op dat</s>. &rarr; <span style="color:#2d8a56">V</span> Ik wacht <strong>daarop</strong>.</div>'
       + '<h4 style="margin:12px 0 6px;">De vier vormen</h4>'
       + '<table><tr><th>Prefix</th><th>Gebruik</th><th>Voorbeeld</th></tr>'
       + '<tr><td><strong>er-</strong></td><td>Onbeklemtoond / algemeen (het, dit, dat)</td><td>Ik denk <strong>erover</strong> na.</td></tr>'
@@ -7688,9 +7377,9 @@ const GRAMMAR_RULES = [
       + '<div class="gr-example"><strong>Bijzin (samen):</strong> \u2026 omdat ik <strong>erover</strong> nadenk.</div>'
       + '<h4 style="margin:12px 0 6px;">Alleen voor dingen, niet voor personen!</h4>'
       + '<div class="gr-rule">Voor <strong>personen</strong> gebruik je gewoon het voorzetsel + pronomen:</div>'
-      + '<div class="gr-example"><span style="color:#2d8a56">&#10004;</span> Ik denk aan <strong>haar</strong>. (persoon)</div>'
-      + '<div class="gr-example"><span style="color:#2d8a56">&#10004;</span> Ik denk <strong>eraan</strong>. (ding/situatie)</div>'
-      + '<div class="gr-example"><span style="color:var(--mondrian-red)">&#10008;</span> <s>Ik denk eraan haar.</s></div>'
+      + '<div class="gr-example"><span style="color:#2d8a56">V</span> Ik denk aan <strong>haar</strong>. (persoon)</div>'
+      + '<div class="gr-example"><span style="color:#2d8a56">V</span> Ik denk <strong>eraan</strong>. (ding/situatie)</div>'
+      + '<div class="gr-example"><span style="color:var(--mondrian-red)">X</span> <s>Ik denk eraan haar.</s></div>'
       + '<h4 style="margin:12px 0 6px;">Veelgebruikte combinaties</h4>'
       + '<table><tr><th>Nederlands</th><th>Engels</th><th>Voorbeeld</th></tr>'
       + '<tr><td><strong>daarvoor</strong></td><td>for that / before that</td><td>Ik heb <strong>daarvoor</strong> betaald.</td></tr>'
@@ -7747,7 +7436,7 @@ function renderGrammarCards() {
     + '<div class="grammar-card-subtitle">' + r.subtitle + '</div>'
     + '</div>'
     + '<div class="grammar-card-body">' + r.body + '</div>'
-    + '<button class="grammar-card-print" onclick="printGrammarCard(\'' + r.id + '\')">&#128424; Print dit spiekbriefje</button>'
+    + '<button class="grammar-card-print" onclick="printGrammarCard(\'' + r.id + '\')">Print dit spiekbriefje</button>'
     + '</div>'
   ).join('');
 }
@@ -7934,7 +7623,7 @@ function exportSavedTranslations() {
 
 const DE_SKILLS = {
   grammatica: {
-    name: 'Grammatica', color: '#1356A2', icon: '\ud83d\udcd0', vibe: 'Pedantic, corrective',
+    name: 'Grammatica', color: '#1356A2', icon: '', vibe: 'Pedantic, corrective',
     passiveComments: {
       cloze: ['GRAMMATICA — Let op de naamval hier. Het zelfstandig naamwoord vereist een specifieke vorm.', 'GRAMMATICA — De zinsstructuur wijst op een bepaald woordtype. Analyseer de bijzin.', 'GRAMMATICA — Kijk naar het lidwoord. Dat vertelt je alles over het geslacht van het woord.'],
       wordorder: ['GRAMMATICA — Vergeet de inversie niet. Bij een bijwoord aan het begin draait het onderwerp.', 'GRAMMATICA — Het werkwoord hoort op de tweede positie. Altijd. Dit is niet optioneel.', 'GRAMMATICA — In een bijzin gaat het werkwoord naar het einde. Dat is de wet.'],
@@ -7944,7 +7633,7 @@ const DE_SKILLS = {
     successComments: ['GRAMMATICA — Correct. De zinsontleding klopt. Ik ben... bijna trots.', 'GRAMMATICA — Adequaat. De grammatica is in orde. Ga zo door.', 'GRAMMATICA — Hmm. Goed. Misschien is er toch hoop voor je taalgevoel.']
   },
   woordenschat: {
-    name: 'Woordenschat', color: '#D40920', icon: '\ud83d\udcda', vibe: 'Enthusiastic word collector',
+    name: 'Woordenschat', color: '#D40920', icon: '', vibe: 'Enthusiastic word collector',
     passiveComments: {
       cloze: ['WOORDENSCHAT — Oh! Dit woord! Weet je dat het oorspronkelijk uit het Frans komt? Prachtig!', 'WOORDENSCHAT — De context! De context! Het nieuwsartikel geeft je de sleutel. Lees het beter!', 'WOORDENSCHAT — Er zit een samengesteld woord verstopt. Nederlanders zijn dol op die dingen.'],
       wordorder: ['WOORDENSCHAT — Elk woord vertelt een verhaal. Luister naar de melodie van de zin!', 'WOORDENSCHAT — Oh, deze woorden samen! Dat is bijna poëzie. Rangschik ze met gevoel!'],
@@ -7954,7 +7643,7 @@ const DE_SKILLS = {
     successComments: ['WOORDENSCHAT — JA! Dat woord! Je kent het! Voeg het toe aan je collectie!', 'WOORDENSCHAT — Briljant! Je woordenschat groeit als een polder na drooglegging!', 'WOORDENSCHAT — *opgewonden* Ken je ook de synoniemen? Er zijn er minstens vier!']
   },
   cultureel: {
-    name: 'Cultureel Bewustzijn', color: '#F7D842', icon: '\ud83c\udfe0', vibe: 'Wry Dutch culture observer',
+    name: 'Cultureel Bewustzijn', color: '#F7D842', icon: '', vibe: 'Wry Dutch culture observer',
     passiveComments: {
       cloze: ['CULTUREEL BEWUSTZIJN — Ah, dit gaat over iets typisch Nederlands. Denk aan hoe Nederlanders dit zouden zeggen.', 'CULTUREEL BEWUSTZIJN — In Nederland zeg je dit anders dan je denkt. Directheid is een deugd hier.', 'CULTUREEL BEWUSTZIJN — Dit woord heeft een culturele lading. Nederlanders gebruiken het ironisch.'],
       wordorder: ['CULTUREEL BEWUSTZIJN — Een Nederlander zou deze zin met een zucht uitspreken. Dat helpt bij de volgorde.', 'CULTUREEL BEWUSTZIJN — Denk als een Nederlander: nuchter, direct, en altijd het werkwoord op de juiste plek.'],
@@ -7964,7 +7653,7 @@ const DE_SKILLS = {
     successComments: ['CULTUREEL BEWUSTZIJN — Je begint Nederland te snappen. Dat is tegelijk een zegen en een vloek.', 'CULTUREEL BEWUSTZIJN — Goed! Je integreert. Binnenkort klaag je ook over het weer.', 'CULTUREEL BEWUSTZIJN — Precies. Zo denkt een Nederlander. Gefeliciteerd, en gecondoleerd.']
   },
   straattaal: {
-    name: 'Straattaal', color: '#E87500', icon: '\ud83c\udfa4', vibe: 'Casual, street-smart',
+    name: 'Straattaal', color: '#E87500', icon: '', vibe: 'Casual, street-smart',
     passiveComments: {
       cloze: ['STRAATTAAL — Yo, dit is gewoon basic Nederlands man. Je kent dit toch?', 'STRAATTAAL — Check, dit woord hoor je op straat. Niet alleen in boeken.', 'STRAATTAAL — Easy. Gewoon logisch nadenken, niet te moeilijk doen.'],
       wordorder: ['STRAATTAAL — Bro, gewoon zeggen hoe je het hoort. Nederlands is niet zo strict als ze zeggen.', 'STRAATTAAL — Chill. Zet de woorden neer zoals het voelt. Gevoel is key.'],
@@ -7974,7 +7663,7 @@ const DE_SKILLS = {
     successComments: ['STRAATTAAL — Yesss, maat! Dat was clean. Respect.', 'STRAATTAAL — Easy money! Je hebt het gewoon door, man.', 'STRAATTAAL — Lekker bezig! Je klinkt al als een local.']
   },
   bureaucratisch: {
-    name: 'Bureaucratisch Geduld', color: '#666', icon: '\ud83d\udccb', vibe: 'Patient, formal',
+    name: 'Bureaucratisch Geduld', color: '#666', icon: '', vibe: 'Patient, formal',
     passiveComments: {
       cloze: ['BUREAUCRATISCH GEDULD — Neem de tijd. Lees de zin opnieuw. Er is geen haast bij nauwkeurigheid.', 'BUREAUCRATISCH GEDULD — Overweeg alle opties zorgvuldig voordat u een keuze maakt.', 'BUREAUCRATISCH GEDULD — Dit type formulering komt voor op officiële documenten. Herken het patroon.'],
       wordorder: ['BUREAUCRATISCH GEDULD — De juiste volgorde is als een goed ingevuld formulier: alles op de juiste plek.', 'BUREAUCRATISCH GEDULD — Systematisch aanpakken. Eerst het onderwerp, dan het werkwoord, dan de rest.'],
@@ -7996,7 +7685,7 @@ const DE_THOUGHTS = [
 const SPEL_SCENARIOS = [
   {
     location: 'Gemeente Loket 7B',
-    icon: '&#127963;',
+    icon: '',
     npc: 'Ambtenaar Jansen',
     primarySkill: 'bureaucratisch',
     secondarySkill: 'grammatica',
@@ -8011,7 +7700,7 @@ const SPEL_SCENARIOS = [
   },
   {
     location: 'Albert Heijn Zelfscankassa',
-    icon: '&#128722;',
+    icon: '',
     npc: 'De Zelfscankassa',
     primarySkill: 'woordenschat',
     secondarySkill: 'straattaal',
@@ -8026,7 +7715,7 @@ const SPEL_SCENARIOS = [
   },
   {
     location: 'Huisarts Wachtkamer',
-    icon: '&#127973;',
+    icon: '',
     npc: 'Dokter Van der Berg',
     primarySkill: 'grammatica',
     secondarySkill: 'bureaucratisch',
@@ -8041,7 +7730,7 @@ const SPEL_SCENARIOS = [
   },
   {
     location: 'NS Intercity naar Den Haag',
-    icon: '&#128646;',
+    icon: '',
     npc: 'Conducteur Pietersen',
     primarySkill: 'cultureel',
     secondarySkill: 'woordenschat',
@@ -8056,7 +7745,7 @@ const SPEL_SCENARIOS = [
   },
   {
     location: 'Fietsenkelder Centraal Station',
-    icon: '&#128690;',
+    icon: '',
     npc: 'Beheerder Kees',
     primarySkill: 'straattaal',
     secondarySkill: 'cultureel',
@@ -8071,7 +7760,7 @@ const SPEL_SCENARIOS = [
   },
   {
     location: 'Bij Buurman Henk',
-    icon: '&#127968;',
+    icon: '',
     npc: 'Buurman Henk',
     primarySkill: 'cultureel',
     secondarySkill: 'grammatica',
@@ -8086,7 +7775,7 @@ const SPEL_SCENARIOS = [
   },
   {
     location: 'Vrijdagmiddagborrel',
-    icon: '&#127866;',
+    icon: '',
     npc: 'Collega Sophie',
     primarySkill: 'straattaal',
     secondarySkill: 'woordenschat',
@@ -8101,7 +7790,7 @@ const SPEL_SCENARIOS = [
   },
   {
     location: 'Albert Cuyp Markt',
-    icon: '&#127859;',
+    icon: '',
     npc: 'Marktkoopman Dirk',
     primarySkill: 'woordenschat',
     secondarySkill: 'cultureel',
@@ -8175,8 +7864,6 @@ function saveSpelState() {
 
 function initSpel() {
   loadSpelState();
-  renderSkillOverview();
-  renderThoughtCabinet();
 }
 
 function setSpelDifficulty(diff) {
@@ -8827,7 +8514,6 @@ initCEFR();
 initSpel();
 
 // Enter key handlers for new dictee inputs
-document.getElementById('dicteeLInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeL(); });
 
 </script>
 </body>
