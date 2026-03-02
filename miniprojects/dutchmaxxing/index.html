@@ -4372,7 +4372,7 @@ function loadAdvScene(idx) {
   // Build scene card
   const container = document.getElementById('adventureScene');
   let html = '<div class="adventure-card">';
-  html += '<div class="scene-icon">' + scene.icon + '</div>';
+  html += '<div class="scene-icon">' + (scene.icon || '') + '</div>';
   html += '<div class="scene-location">' + scene.location + '</div>';
   html += '<div class="scene-sublocation">' + scene.sub + '</div>';
   html += '<div class="narrative">' + scene.narrative + '</div>';
@@ -4838,9 +4838,9 @@ function checkNewsQ(btn, qIdx, optIdx) {
 function exportArticleVocab(idx) {
   const art = NEWS_ARTICLES[idx];
   let rows = '<h2>' + art.title + ' (' + art.level + ')</h2>';
-  rows += '<table><tr><th>Nederlands</th><th>Engels</th></tr>';
+  rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th></tr></thead><tbody>';
   art.vocab.forEach(([nl, en]) => { rows += '<tr><td><strong>' + nl + '</strong></td><td>' + en + '</td></tr>'; });
-  rows += '</table>';
+  rows += '</tbody></table>';
   generatePDFContent('Leeshoek \u2014 ' + art.title, rows);
 }
 
@@ -5108,9 +5108,9 @@ function exportWrongVerbs() {
   const wrongVerbs = VERBS.filter(v => { const h = state.verbHistory[v.id]; return h && h.wrong > 0; }).sort((a, b) => (state.verbHistory[b.id]?.wrong || 0) - (state.verbHistory[a.id]?.wrong || 0));
   if (wrongVerbs.length === 0) { alert('Nog geen fouten! Speel eerst een paar rondes.'); return; }
   let rows = '<div class="tip">Deze werkwoorden heb je fout beantwoord. Bestudeer de patronen!</div>';
-  rows += '<table><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th><th>Patroon</th><th>Fouten</th></tr>';
+  rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th><th>Patroon</th><th>Fouten</th></tr></thead><tbody>';
   wrongVerbs.forEach(v => { const h = state.verbHistory[v.id]; const p = VERB_PATTERNS[v.pattern]; rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.imp_s + '</td><td>' + v.imp_p + '</td><td>' + v.pp + '</td><td>' + v.aux + '</td><td><span class="pattern-label" style="background:' + p.color + '">' + p.label + '</span></td><td>' + h.wrong + 'x</td></tr>'; });
-  rows += '</table>';
+  rows += '</tbody></table>';
   generatePDFContent('Mijn Fouten \u2014 Werkwoorden om te oefenen', rows);
 }
 
@@ -5121,9 +5121,9 @@ function exportAllVerbs() {
   for (const [patKey, verbs] of Object.entries(grouped)) {
     const p = VERB_PATTERNS[patKey];
     rows += '<h2><span class="pattern-label" style="background:' + p.color + '">' + p.label + '</span> ' + p.example + '</h2>';
-    rows += '<table><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th></tr>';
+    rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th></tr></thead><tbody>';
     verbs.forEach(v => { rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.imp_s + '</td><td>' + v.imp_p + '</td><td>' + v.pp + '</td><td>' + v.aux + '</td></tr>'; });
-    rows += '</table>';
+    rows += '</tbody></table>';
   }
   rows += '<div class="tip">Totaal: ' + VERBS.length + ' werkwoorden</div>';
   generatePDFContent('Alle Werkwoorden \u2014 A2 / B1 / B2', rows);
@@ -5681,11 +5681,11 @@ function initSheetsPrepGrid() {
 
 function generatePrepSheet(prep) {
   const verbs = PREPOSITION_VERBS.filter(pv => pv.prep === prep);
-  let rows = '<table><tr><th>Werkwoord + Voorzetsel</th><th>Engels</th><th>Voorbeeld</th></tr>';
+  let rows = '<table><thead><tr><th>Werkwoord + Voorzetsel</th><th>Engels</th><th>Voorbeeld</th></tr></thead><tbody>';
   verbs.forEach(v => {
     rows += '<tr><td><strong>' + v.phrase + '</strong></td><td>' + v.en + '</td><td>' + (v.example || '') + '</td></tr>';
   });
-  rows += '</table>';
+  rows += '</tbody></table>';
   rows += '<div class="tip">Totaal: ' + verbs.length + ' werkwoorden met "' + prep + '"</div>';
   generatePDFContent('Vaste Voorzetsels — ' + prep, rows);
 }
@@ -6451,20 +6451,20 @@ function generateSheetHebbenZijn() {
 
   let rows = '<div style="display:flex;gap:20px;flex-wrap:wrap;">';
   rows += '<div style="flex:1;min-width:280px;"><h2 style="color:#1356A2;">HEEFT (' + heeft.length + ')</h2>';
-  rows += '<table><tr><th>Infinitief</th><th>Engels</th><th>V.D.</th></tr>';
+  rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>V.D.</th></tr></thead><tbody>';
   heeft.forEach(v => { rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.pp + '</td></tr>'; });
-  rows += '</table></div>';
+  rows += '</tbody></table></div>';
 
   rows += '<div style="flex:1;min-width:280px;"><h2 style="color:#D40920;">IS (' + is.length + ')</h2>';
-  rows += '<table><tr><th>Infinitief</th><th>Engels</th><th>V.D.</th></tr>';
+  rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>V.D.</th></tr></thead><tbody>';
   is.forEach(v => { rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.pp + '</td></tr>'; });
-  rows += '</table></div></div>';
+  rows += '</tbody></table></div></div>';
 
   if (both.length > 0) {
     rows += '<h2 style="color:#b08600;">HEEFT / IS (' + both.length + ')</h2>';
-    rows += '<table><tr><th>Infinitief</th><th>Engels</th><th>V.D.</th><th>Hulpww.</th></tr>';
+    rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>V.D.</th><th>Hulpww.</th></tr></thead><tbody>';
     both.forEach(v => { rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.pp + '</td><td>' + v.aux + '</td></tr>'; });
-    rows += '</table>';
+    rows += '</tbody></table>';
   }
   rows += '<div class="tip">Tip: Werkwoorden van beweging/verandering gebruiken vaak "zijn".</div>';
   generatePDFContent('Hebben vs. Zijn', rows);
@@ -6473,12 +6473,12 @@ function generateSheetHebbenZijn() {
 function generateSheetAlphabetical() {
   const irregular = VERBS.filter(v => v.pattern !== 'regular').sort((a,b) => a.inf.localeCompare(b.inf));
   let rows = '<div class="tip">' + irregular.length + ' onregelmatige werkwoorden op alfabetische volgorde</div>';
-  rows += '<table><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th><th>Patroon</th></tr>';
+  rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th><th>Patroon</th></tr></thead><tbody>';
   irregular.forEach(v => {
     const p = VERB_PATTERNS[v.pattern];
     rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.imp_s + '</td><td>' + v.imp_p + '</td><td>' + v.pp + '</td><td>' + v.aux + '</td><td><span class="pattern-label" style="background:' + p.color + '">' + p.label + '</span></td></tr>';
   });
-  rows += '</table>';
+  rows += '</tbody></table>';
   generatePDFContent('Onregelmatige Werkwoorden — Alfabetisch', rows);
 }
 
@@ -6490,9 +6490,9 @@ function generateSheetPrepByPrep() {
   preps.forEach(prep => {
     const items = grouped[prep].sort((a,b) => a.phrase.localeCompare(b.phrase));
     rows += '<h2 style="color:#1356A2;text-transform:uppercase;">' + prep + ' (' + items.length + ')</h2>';
-    rows += '<table><tr><th>Uitdrukking</th><th>Engels</th><th>Voorbeeld</th></tr>';
+    rows += '<table><thead><tr><th>Uitdrukking</th><th>Engels</th><th>Voorbeeld</th></tr></thead><tbody>';
     items.forEach(v => { rows += '<tr><td><strong>' + v.phrase + '</strong></td><td>' + v.en + '</td><td style="font-style:italic;color:#666;">' + v.example + '</td></tr>'; });
-    rows += '</table>';
+    rows += '</tbody></table>';
   });
   rows += '<div class="tip">Totaal: ' + PREPOSITION_VERBS.length + ' vaste voorzetsels</div>';
   generatePDFContent('Vaste Voorzetsels — Per Voorzetsel', rows);
@@ -6500,11 +6500,11 @@ function generateSheetPrepByPrep() {
 
 function generateSheetPrepAlpha() {
   const sorted = [...PREPOSITION_VERBS].sort((a,b) => a.phrase.localeCompare(b.phrase));
-  let rows = '<table><tr><th>Uitdrukking</th><th>Engels</th><th>Voorzetsel</th><th>Voorbeeld</th></tr>';
+  let rows = '<table><thead><tr><th>Uitdrukking</th><th>Engels</th><th>Voorzetsel</th><th>Voorbeeld</th></tr></thead><tbody>';
   sorted.forEach(v => {
     rows += '<tr><td><strong>' + v.phrase + '</strong></td><td>' + v.en + '</td><td style="color:#D40920;font-weight:700;">' + v.prep + '</td><td style="font-style:italic;color:#666;">' + v.example + '</td></tr>';
   });
-  rows += '</table>';
+  rows += '</tbody></table>';
   rows += '<div class="tip">Totaal: ' + sorted.length + ' vaste voorzetsels</div>';
   generatePDFContent('Vaste Voorzetsels — Alfabetisch', rows);
 }
@@ -6524,11 +6524,11 @@ function generateSheetSeparable() {
   const sep = getSeparableVerbs().sort((a,b) => a.inf.localeCompare(b.inf));
   if (sep.length === 0) { alert('Geen scheidbare werkwoorden gevonden.'); return; }
   let rows = '<div class="tip">' + sep.length + ' scheidbare werkwoorden — let op de woordvolgorde!</div>';
-  rows += '<table><tr><th>Infinitief</th><th>Engels</th><th>Gescheiden (imp.)</th><th>Volt. deelw.</th></tr>';
+  rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>Gescheiden (imp.)</th><th>Volt. deelw.</th></tr></thead><tbody>';
   sep.forEach(v => {
     rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.imp_s + '</td><td>' + v.pp + '</td></tr>';
   });
-  rows += '</table>';
+  rows += '</tbody></table>';
   generatePDFContent('Scheidbare Werkwoorden', rows);
 }
 
@@ -6539,18 +6539,18 @@ function generateSheetCombined() {
   for (const [patKey, verbs] of Object.entries(grouped)) {
     const p = VERB_PATTERNS[patKey];
     rows += '<h3><span class="pattern-label" style="background:' + p.color + '">' + p.label + '</span> ' + p.example + '</h3>';
-    rows += '<table><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>V.D.</th><th>Hulpww.</th></tr>';
+    rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>V.D.</th><th>Hulpww.</th></tr></thead><tbody>';
     verbs.forEach(v => { rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.imp_s + '</td><td>' + v.pp + '</td><td>' + v.aux + '</td></tr>'; });
-    rows += '</table>';
+    rows += '</tbody></table>';
   }
   rows += '<h2 style="color:#1356A2;margin-top:30px;">VASTE VOORZETSELS (' + PREPOSITION_VERBS.length + ')</h2>';
   const prepGrouped = {};
   PREPOSITION_VERBS.forEach(v => { if (!prepGrouped[v.prep]) prepGrouped[v.prep] = []; prepGrouped[v.prep].push(v); });
   for (const [prep, items] of Object.entries(prepGrouped)) {
     rows += '<h3 style="text-transform:uppercase;">' + prep + '</h3>';
-    rows += '<table><tr><th>Uitdrukking</th><th>Engels</th><th>Voorbeeld</th></tr>';
+    rows += '<table><thead><tr><th>Uitdrukking</th><th>Engels</th><th>Voorbeeld</th></tr></thead><tbody>';
     items.forEach(v => { rows += '<tr><td><strong>' + v.phrase + '</strong></td><td>' + v.en + '</td><td style="font-style:italic;">' + v.example + '</td></tr>'; });
-    rows += '</table>';
+    rows += '</tbody></table>';
   }
   rows += '<div class="tip">Totaal: ' + VERBS.length + ' werkwoorden + ' + PREPOSITION_VERBS.length + ' vaste voorzetsels</div>';
   generatePDFContent('Alles Samen — Compleet Overzicht', rows);
@@ -6571,21 +6571,21 @@ function generateCustomSheet() {
   if (layout === 'table') {
     if (selVerbs.length > 0) {
       rows += '<h2>Werkwoorden (' + selVerbs.length + ')</h2>';
-      rows += '<table><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th></tr>';
+      rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th></tr></thead><tbody>';
       selVerbs.forEach(v => { rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.imp_s + '</td><td>' + v.imp_p + '</td><td>' + v.pp + '</td><td>' + v.aux + '</td></tr>'; });
-      rows += '</table>';
+      rows += '</tbody></table>';
     }
     if (selPreps.length > 0) {
       rows += '<h2>Vaste Voorzetsels (' + selPreps.length + ')</h2>';
-      rows += '<table><tr><th>Uitdrukking</th><th>Engels</th><th>Voorzetsel</th><th>Voorbeeld</th></tr>';
+      rows += '<table><thead><tr><th>Uitdrukking</th><th>Engels</th><th>Voorzetsel</th><th>Voorbeeld</th></tr></thead><tbody>';
       selPreps.forEach(v => { rows += '<tr><td><strong>' + v.phrase + '</strong></td><td>' + v.en + '</td><td style="color:#D40920;font-weight:700;">' + v.prep + '</td><td style="font-style:italic;">' + v.example + '</td></tr>'; });
-      rows += '</table>';
+      rows += '</tbody></table>';
     }
     if (sheetCustomWords.length > 0) {
       rows += '<h2>Eigen Woorden (' + sheetCustomWords.length + ')</h2>';
-      rows += '<table><tr><th>Nederlands</th><th>Engels</th></tr>';
+      rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th></tr></thead><tbody>';
       sheetCustomWords.forEach(w => { rows += '<tr><td><strong>' + w.nl + '</strong></td><td>' + w.en + '</td></tr>'; });
-      rows += '</table>';
+      rows += '</tbody></table>';
     }
   } else if (layout === 'flashcards') {
     rows += '<style>.fc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}.fc-card{border:2px dashed #999;padding:12px 10px;text-align:center;page-break-inside:avoid;}.fc-inf{font-weight:700;font-size:14px;}.fc-en{font-size:10px;color:#666;margin:4px 0;}.fc-forms{font-size:11px;color:#1356A2;}.fc-aux{font-size:9px;color:#D40920;margin-top:2px;}</style>';
@@ -6673,7 +6673,7 @@ function generateCustomSheet() {
 // DOWNLOAD ALL GRID
 // ==========================================
 const DOWNLOAD_ALL_ITEMS = [
-  { title: 'Alle werkwoorden (tabel)', desc: 'Volledige werkwoordentabel met alle vormen', countFn: () => VERBS.length, fn: () => { let rows = '<table><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th><th>Patroon</th></tr>'; VERBS.sort((a,b)=>a.inf.localeCompare(b.inf)).forEach(v => { const p = VERB_PATTERNS[v.pattern]; rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.imp_s + '</td><td>' + v.imp_p + '</td><td>' + v.pp + '</td><td>' + v.aux + '</td><td><span class="pattern-label" style="background:'+p.color+'">'+p.label+'</span></td></tr>'; }); rows += '</table><div class="tip">Totaal: '+VERBS.length+' werkwoorden</div>'; generatePDFContent('Alle Werkwoorden — Tabel', rows); } },
+  { title: 'Alle werkwoorden (tabel)', desc: 'Volledige werkwoordentabel met alle vormen', countFn: () => VERBS.length, fn: () => { let rows = '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th><th>Patroon</th></tr></thead><tbody>'; VERBS.sort((a,b)=>a.inf.localeCompare(b.inf)).forEach(v => { const p = VERB_PATTERNS[v.pattern]; rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.imp_s + '</td><td>' + v.imp_p + '</td><td>' + v.pp + '</td><td>' + v.aux + '</td><td><span class="pattern-label" style="background:'+p.color+'">'+p.label+'</span></td></tr>'; }); rows += '</tbody></table><div class="tip">Totaal: '+VERBS.length+' werkwoorden</div>'; generatePDFContent('Alle Werkwoorden — Tabel', rows); } },
   { title: 'Alle werkwoorden (flashcards)', desc: 'Uitknipbare flashcards voor alle werkwoorden', countFn: () => VERBS.length, fn: () => generateSheetFlashcards(VERBS) },
   { title: 'Alle werkwoorden (per patroon)', desc: 'Gegroepeerd op klinkerverandering', countFn: () => VERBS.length, fn: () => exportAllVerbs() },
   { title: 'Alle vaste voorzetsels (tabel)', desc: 'Alfabetische lijst van alle vaste voorzetsels', countFn: () => PREPOSITION_VERBS.length, fn: () => generateSheetPrepAlpha() },
@@ -6880,11 +6880,11 @@ function exportPhrases() {
   cats.forEach(cat => {
     const items = PHRASES.filter(p => p.cat === cat);
     rows += '<h2 style="color:#1356A2;text-transform:uppercase;">' + (PHRASE_CAT_LABELS[cat] || cat) + ' (' + items.length + ')</h2>';
-    rows += '<table><tr><th>Nederlands</th><th>Engels</th><th>Voorbeeld</th></tr>';
+    rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th><th>Voorbeeld</th></tr></thead><tbody>';
     items.forEach(p => {
       rows += '<tr><td><strong>' + p.nl + '</strong></td><td>' + p.en + '</td><td style="font-style:italic;color:#666;font-size:11px;">' + p.example + '</td></tr>';
     });
-    rows += '</table>';
+    rows += '</tbody></table>';
   });
   rows += '<div class="tip">Totaal: ' + PHRASES.length + ' uitdrukkingen</div>';
   generatePDFContent('Uitdrukkingen & Voegwoorden', rows);
@@ -6906,9 +6906,9 @@ const GRAMMAR_RULES = [
       + '<div class="gr-example">werk<strong>t</strong>e (stam: werk → k in kofschip )</div>'
       + '<div class="gr-example">leef<strong>d</strong>e (stam: leef... wacht, f zit in kofschip!) → leef<strong>t</strong>e </div>'
       + '<div class="gr-example">woon<strong>d</strong>e (stam: woon → n niet in kofschip → -de )</div>'
-      + '<table><tr><th>Stam eindigt op</th><th>Verleden tijd</th><th>Voorbeeld</th></tr>'
+      + '<table><thead><tr><th>Stam eindigt op</th><th>Verleden tijd</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td>t, k, f, s, ch, p</td><td>-<strong>te</strong> / -<strong>ten</strong></td><td>werkte, fietsten</td></tr>'
-      + '<tr><td>andere letters</td><td>-<strong>de</strong> / -<strong>den</strong></td><td>woonde, leefden</td></tr></table>'
+      + '<tr><td>andere letters</td><td>-<strong>de</strong> / -<strong>den</strong></td><td>woonde, leefden</td></tr></tbody></table>'
       + '<div class="gr-rule">Voltooid deelwoord: ge- + stam + <strong>-t</strong> (kofschip) of <strong>-d</strong> (anders)<br>gewerkt, gefietst, gewoond, geleefd</div>'
   },
   {
@@ -6925,11 +6925,11 @@ const GRAMMAR_RULES = [
       + '3. <strong>zijn, blijven, gebeuren</strong></div>'
       + '<div class="gr-rule">Al het andere → <strong>hebben</strong></div>'
       + '<h4 style="margin:8px 0 4px;">Voltooid deelwoord vormen</h4>'
-      + '<table><tr><th>Type</th><th>Formule</th><th>Voorbeeld</th></tr>'
+      + '<table><thead><tr><th>Type</th><th>Formule</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td>Regelmatig</td><td>ge- + stam + -t/-d</td><td>gewerkt, gewoond</td></tr>'
       + '<tr><td>Onregelmatig</td><td>ge- + stam + -en</td><td>geschreven, gelezen</td></tr>'
       + '<tr><td>be-, ver-, ont-, ge-, her-</td><td>GEEN ge-!</td><td>verteld, besloten</td></tr>'
-      + '<tr><td>Scheidbaar</td><td>prefix + ge- + stam</td><td>opgebeld, meegenomen</td></tr></table>'
+      + '<tr><td>Scheidbaar</td><td>prefix + ge- + stam</td><td>opgebeld, meegenomen</td></tr></tbody></table>'
   },
   {
     id: 'imperfectum', cat: 'verbs',
@@ -6942,13 +6942,13 @@ const GRAMMAR_RULES = [
       + '<div class="gr-example">ik woon<strong>de</strong>, wij woon<strong>den</strong></div>'
       + '<h4 style="margin:8px 0 6px;">Onregelmatig</h4>'
       + '<div class="gr-rule">Klinkerverandering — uit het hoofd leren!</div>'
-      + '<table><tr><th>Patroon</th><th>Inf → Imp → V.D.</th><th>Voorbeeld</th></tr>'
+      + '<table><thead><tr><th>Patroon</th><th>Inf → Imp → V.D.</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td style="color:#2d8a56;">e→a→e</td><td>eten → at → gegeten</td><td>lezen, geven</td></tr>'
       + '<tr><td style="color:#8B4513;">e→a→o</td><td>spreken → sprak → gesproken</td><td>nemen, breken</td></tr>'
       + '<tr><td style="color:#D40920;">ij→ee→e</td><td>schrijven → schreef → geschreven</td><td>rijden, blijven</td></tr>'
       + '<tr><td style="color:#1356A2;">ie→oo→o</td><td>vliegen → vloog → gevlogen</td><td>bieden, kiezen</td></tr>'
       + '<tr><td style="color:#b08600;">i→o→o</td><td>drinken → dronk → gedronken</td><td>vinden, zingen</td></tr>'
-      + '<tr><td style="color:#555;">a→oe→a</td><td>dragen → droeg → gedragen</td><td>slaan, graven</td></tr></table>'
+      + '<tr><td style="color:#555;">a→oe→a</td><td>dragen → droeg → gedragen</td><td>slaan, graven</td></tr></tbody></table>'
       + '<h4 style="margin:8px 0 6px;">Perfectum vs. Imperfectum</h4>'
       + '<div class="gr-rule"><strong>Perfectum:</strong> afgeronde acties, resultaten (ik heb gegeten)<br>'
       + '<strong>Imperfectum:</strong> verhalen, achtergrond, gewoontes (ik at elke dag een appel)</div>'
@@ -6959,18 +6959,18 @@ const GRAMMAR_RULES = [
     subtitle: 'Wanneer gebruik je welke verleden tijd?',
     accent: '#2d8a56',
     body: '<div class="gr-rule"><strong>Perfectum</strong> (hebben/zijn + voltooid deelwoord) gebruik je bij:</div>'
-      + '<table><tr><th>Situatie</th><th>Voorbeeld</th></tr>'
+      + '<table><thead><tr><th>Situatie</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td>Afgeronde acties met resultaat nu</td><td>Ik <strong>heb</strong> mijn huiswerk <strong>gemaakt</strong>. (het is klaar)</td></tr>'
       + '<tr><td>Gesprekken & alledaagse taal</td><td>Heb je al <strong>gegeten</strong>?</td></tr>'
       + '<tr><td>Recente gebeurtenissen</td><td>De trein <strong>is</strong> net <strong>vertrokken</strong>.</td></tr>'
-      + '<tr><td>Ervaring (ooit/nooit)</td><td>Ik <strong>heb</strong> nooit sushi <strong>gegeten</strong>.</td></tr></table>'
+      + '<tr><td>Ervaring (ooit/nooit)</td><td>Ik <strong>heb</strong> nooit sushi <strong>gegeten</strong>.</td></tr></tbody></table>'
       + '<div class="gr-rule" style="margin-top:10px;"><strong>Imperfectum</strong> (verleden tijd) gebruik je bij:</div>'
-      + '<table><tr><th>Situatie</th><th>Voorbeeld</th></tr>'
+      + '<table><thead><tr><th>Situatie</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td>Verhalen & beschrijvingen</td><td>Het <strong>was</strong> een koude dag. De zon <strong>scheen</strong> niet.</td></tr>'
       + '<tr><td>Gewoontes in het verleden</td><td>Vroeger <strong>fietste</strong> ik elke dag naar school.</td></tr>'
       + '<tr><td>Achtergrondinformatie</td><td>Terwijl ik <strong>sliep</strong>, belde hij aan.</td></tr>'
       + '<tr><td>Formeel / geschreven taal</td><td>De minister <strong>verklaarde</strong> dat...</td></tr>'
-      + '<tr><td>Met tijdsaanduidingen (toen, vroeger)</td><td><strong>Toen</strong> ik klein <strong>was</strong>, woonden we in Utrecht.</td></tr></table>'
+      + '<tr><td>Met tijdsaanduidingen (toen, vroeger)</td><td><strong>Toen</strong> ik klein <strong>was</strong>, woonden we in Utrecht.</td></tr></tbody></table>'
       + '<h4 style="margin:10px 0 6px;">Vuistregels</h4>'
       + '<div class="gr-rule">1. <strong>Spreektaal:</strong> Nederlanders gebruiken bijna altijd het <strong>perfectum</strong> in gesprekken.<br>'
       + '2. <strong>Geschreven taal / verhalen:</strong> Het <strong>imperfectum</strong> is standaard in boeken, artikelen en formele teksten.<br>'
@@ -6987,10 +6987,10 @@ const GRAMMAR_RULES = [
     subtitle: 'Welk hulpwerkwoord in de voltooide tijd?',
     accent: '#D40920',
     body: '<div class="gr-rule"><strong>ZIJN</strong> gebruiken bij:</div>'
-      + '<table><tr><th>Categorie</th><th>Voorbeelden</th></tr>'
+      + '<table><thead><tr><th>Categorie</th><th>Voorbeelden</th></tr></thead><tbody>'
       + '<tr><td>Beweging (met richting)</td><td>gaan, komen, rijden, vliegen, vertrekken, vallen, lopen</td></tr>'
       + '<tr><td>Verandering van toestand</td><td>worden, groeien, sterven, veranderen, stoppen</td></tr>'
-      + '<tr><td>zijn, blijven, gebeuren</td><td>Ik ben geweest, zij is gebleven</td></tr></table>'
+      + '<tr><td>zijn, blijven, gebeuren</td><td>Ik ben geweest, zij is gebleven</td></tr></tbody></table>'
       + '<div class="gr-rule"><strong>HEBBEN</strong> gebruiken bij: al het andere!</div>'
       + '<div class="gr-example">Ik <strong>heb</strong> gelezen. (geen beweging/verandering)</div>'
       + '<div class="gr-example">Zij <strong>is</strong> vertrokken. (beweging met richting)</div>'
@@ -7020,12 +7020,12 @@ const GRAMMAR_RULES = [
     title: 'Modale Werkwoorden',
     subtitle: 'kunnen, moeten, mogen, willen, zullen',
     accent: '#F7D842',
-    body: '<table><tr><th>Werkwoord</th><th>Betekenis</th><th>Ik</th><th>Jij</th><th>Hij/zij</th><th>Wij/zij</th></tr>'
+    body: '<table><thead><tr><th>Werkwoord</th><th>Betekenis</th><th>Ik</th><th>Jij</th><th>Hij/zij</th><th>Wij/zij</th></tr></thead><tbody>'
       + '<tr><td>kunnen</td><td>can</td><td>kan</td><td>kan/kunt</td><td>kan</td><td>kunnen</td></tr>'
       + '<tr><td>moeten</td><td>must</td><td>moet</td><td>moet</td><td>moet</td><td>moeten</td></tr>'
       + '<tr><td>mogen</td><td>may</td><td>mag</td><td>mag</td><td>mag</td><td>mogen</td></tr>'
       + '<tr><td>willen</td><td>want</td><td>wil</td><td>wil/wilt</td><td>wil</td><td>willen</td></tr>'
-      + '<tr><td>zullen</td><td>shall</td><td>zal</td><td>zal/zult</td><td>zal</td><td>zullen</td></tr></table>'
+      + '<tr><td>zullen</td><td>shall</td><td>zal</td><td>zal/zult</td><td>zal</td><td>zullen</td></tr></tbody></table>'
       + '<div class="gr-rule">Modaal werkwoord = <strong>V2</strong>, infinitief → <strong>einde</strong></div>'
       + '<div class="gr-example">Ik <strong>kan</strong> goed Nederlands <strong>spreken</strong>.</div>'
       + '<div class="gr-example">Je <strong>moet</strong> harder <strong>werken</strong>.</div>'
@@ -7040,10 +7040,10 @@ const GRAMMAR_RULES = [
     accent: '#2d8a56',
     body: '<div class="gr-rule"><strong>Open lettergreep:</strong> eindigt op klinker → lange klank<br>'
       + '<strong>Gesloten lettergreep:</strong> eindigt op medeklinker → korte klank</div>'
-      + '<table><tr><th>Woord</th><th>Stam</th><th>Waarom?</th></tr>'
+      + '<table><thead><tr><th>Woord</th><th>Stam</th><th>Waarom?</th></tr></thead><tbody>'
       + '<tr><td>ma<strong>k</strong>en → ik maa<strong>k</strong></td><td>maak</td><td>Eén a in open lettergreep = lange klank → twee a\'s in stam</td></tr>'
       + '<tr><td>pa<strong>kk</strong>en → ik pa<strong>k</strong></td><td>pak</td><td>Dubbele k = korte klank → één k in stam</td></tr>'
-      + '<tr><td>le<strong>z</strong>en → ik lee<strong>s</strong></td><td>lees</td><td>Eén e open = lang → twee e\'s + z→s</td></tr></table>'
+      + '<tr><td>le<strong>z</strong>en → ik lee<strong>s</strong></td><td>lees</td><td>Eén e open = lang → twee e\'s + z→s</td></tr></tbody></table>'
       + '<div class="gr-rule"><strong>Spellingregel:</strong><br>'
       + '• Korte klank in gesloten lettergreep: 1 klinker + dubbele medeklinker (pakken, zitten)<br>'
       + '• Lange klank in open lettergreep: 1 klinker (maken, lezen)<br>'
@@ -7057,11 +7057,11 @@ const GRAMMAR_RULES = [
     body: '<div class="gr-mnemonic">Stam + t = jij, hij/zij/het, u</div>'
       + '<div class="gr-rule"><strong>Stap 1:</strong> Bepaal de stam (infinitief zonder -en)<br>'
       + '<strong>Stap 2:</strong> Voeg -t toe voor jij/hij/u in de tegenwoordige tijd</div>'
-      + '<table><tr><th>Persoon</th><th>worden</th><th>vinden</th></tr>'
+      + '<table><thead><tr><th>Persoon</th><th>worden</th><th>vinden</th></tr></thead><tbody>'
       + '<tr><td>ik</td><td>word</td><td>vind</td></tr>'
       + '<tr><td>jij</td><td>word<strong>t</strong></td><td>vind<strong>t</strong></td></tr>'
       + '<tr><td>hij/zij</td><td>word<strong>t</strong></td><td>vind<strong>t</strong></td></tr>'
-      + '<tr><td>wij/zij</td><td>worden</td><td>vinden</td></tr></table>'
+      + '<tr><td>wij/zij</td><td>worden</td><td>vinden</td></tr></tbody></table>'
       + '<div class="gr-rule"><strong>Let op inversie:</strong> bij jij achter het werkwoord → GEEN -t!<br>'
       + 'Jij vind<strong>t</strong>... MAAR: vind jij...? (geen t!)</div>'
       + '<div class="gr-example">Hij <strong>wordt</strong> ziek. </div>'
@@ -7074,11 +7074,11 @@ const GRAMMAR_RULES = [
     accent: '#8B4513',
     body: '<div class="gr-rule">Aan het <strong>einde</strong> van een woord/lettergreep: altijd <strong>f</strong> en <strong>s</strong><br>'
       + 'Aan het <strong>begin</strong> of <strong>midden</strong>: kan <strong>v</strong> of <strong>z</strong> zijn</div>'
-      + '<table><tr><th>Infinitief</th><th>Stam</th><th>Regel</th></tr>'
+      + '<table><thead><tr><th>Infinitief</th><th>Stam</th><th>Regel</th></tr></thead><tbody>'
       + '<tr><td>le<strong>v</strong>en</td><td>lee<strong>f</strong></td><td>v → f aan het eind</td></tr>'
       + '<tr><td>schrij<strong>v</strong>en</td><td>schrij<strong>f</strong></td><td>v → f aan het eind</td></tr>'
       + '<tr><td>rei<strong>z</strong>en</td><td>rei<strong>s</strong></td><td>z → s aan het eind</td></tr>'
-      + '<tr><td>le<strong>z</strong>en</td><td>lee<strong>s</strong></td><td>z → s aan het eind</td></tr></table>'
+      + '<tr><td>le<strong>z</strong>en</td><td>lee<strong>s</strong></td><td>z → s aan het eind</td></tr></tbody></table>'
       + '<div class="gr-example">Ik <strong>leef</strong> in Amsterdam. (stam van leven)</div>'
       + '<div class="gr-example">Wij <strong>lev</strong>en in Amsterdam. (v terug in meervoud)</div>'
   },
@@ -7090,22 +7090,22 @@ const GRAMMAR_RULES = [
     subtitle: 'Regels en ezelsbruggetjes',
     accent: '#1356A2',
     body: '<div class="gr-rule"><strong>HET</strong> (onzijdig):</div>'
-      + '<table><tr><th>Categorie</th><th>Voorbeelden</th></tr>'
+      + '<table><thead><tr><th>Categorie</th><th>Voorbeelden</th></tr></thead><tbody>'
       + '<tr><td>Verkleinwoorden (-je, -tje, -pje)</td><td>het huisje, het kopje</td></tr>'
       + '<tr><td>Ge- woorden (geen personen)</td><td>het gebouw, het gevoel, het geluid</td></tr>'
       + '<tr><td>Talen</td><td>het Nederlands, het Frans</td></tr>'
       + '<tr><td>Windrichtingen</td><td>het noorden, het zuiden</td></tr>'
       + '<tr><td>Sporten & spellen</td><td>het voetbal, het schaken</td></tr>'
       + '<tr><td>Metalen</td><td>het goud, het zilver</td></tr>'
-      + '<tr><td>Infinitief als zelfst. nw.</td><td>het eten, het lezen</td></tr></table>'
+      + '<tr><td>Infinitief als zelfst. nw.</td><td>het eten, het lezen</td></tr></tbody></table>'
       + '<div class="gr-rule" style="margin-top:10px;"><strong>DE</strong> (mannelijk/vrouwelijk):</div>'
-      + '<table><tr><th>Categorie</th><th>Voorbeelden</th></tr>'
+      + '<table><thead><tr><th>Categorie</th><th>Voorbeelden</th></tr></thead><tbody>'
       + '<tr><td>Personen</td><td>de man, de vrouw, de leraar</td></tr>'
       + '<tr><td>Beroepen</td><td>de dokter, de bakker</td></tr>'
       + '<tr><td>Bomen, planten, bloemen</td><td>de boom, de roos, de tulp</td></tr>'
       + '<tr><td>Bergen, rivieren</td><td>de Rijn, de Alpen</td></tr>'
       + '<tr><td>-heid, -nis, -schap, -teit, -tie, -ing</td><td>de vrijheid, de kennis, de vriendschap</td></tr>'
-      + '<tr><td>Meervoud is altijd DE</td><td>de huizen, de boeken</td></tr></table>'
+      + '<tr><td>Meervoud is altijd DE</td><td>de huizen, de boeken</td></tr></tbody></table>'
       + '<div class="gr-mnemonic">Twijfel? → 2/3 van alle woorden is DE</div>'
   },
   {
@@ -7116,10 +7116,10 @@ const GRAMMAR_RULES = [
     body: '<div class="gr-rule"><strong>De-woord:</strong> altijd -e<br>'
       + '<strong>Het-woord + bepaald (het/dit/dat):</strong> -e<br>'
       + '<strong>Het-woord + onbepaald (een) enkelvoud:</strong> GEEN -e</div>'
-      + '<table><tr><th></th><th>De-woord</th><th>Het-woord</th></tr>'
+      + '<table><thead><tr><th></th><th>De-woord</th><th>Het-woord</th></tr></thead><tbody>'
       + '<tr><td>Bepaald</td><td>de groot<strong>e</strong> stad</td><td>het groot<strong>e</strong> huis</td></tr>'
       + '<tr><td>Onbepaald</td><td>een groot<strong>e</strong> stad</td><td>een groot huis (GEEN -e!)</td></tr>'
-      + '<tr><td>Geen lidwoord</td><td>groot<strong>e</strong> steden</td><td>groot bier (GEEN -e!)</td></tr></table>'
+      + '<tr><td>Geen lidwoord</td><td>groot<strong>e</strong> steden</td><td>groot bier (GEEN -e!)</td></tr></tbody></table>'
       + '<div class="gr-example">De <strong>kleine</strong> kat. (de-woord → altijd -e)</div>'
       + '<div class="gr-example">Het <strong>kleine</strong> kind. (het + bepaald → -e)</div>'
       + '<div class="gr-example">Een <strong>klein</strong> kind. (het + onbepaald → geen -e!)</div>'
@@ -7132,10 +7132,10 @@ const GRAMMAR_RULES = [
     subtitle: 'Het werkwoord staat op positie 2',
     accent: '#D40920',
     body: '<div class="gr-mnemonic">Werkwoord = altijd positie 2 in de hoofdzin</div>'
-      + '<table><tr><th>Pos. 1</th><th>Pos. 2 (V)</th><th>Midden</th><th>Einde</th></tr>'
+      + '<table><thead><tr><th>Pos. 1</th><th>Pos. 2 (V)</th><th>Midden</th><th>Einde</th></tr></thead><tbody>'
       + '<tr><td>Ik</td><td><strong>heb</strong></td><td>gisteren een boek</td><td><strong>gelezen</strong></td></tr>'
       + '<tr><td>Gisteren</td><td><strong>heb</strong></td><td>ik een boek</td><td><strong>gelezen</strong></td></tr>'
-      + '<tr><td>Een boek</td><td><strong>heb</strong></td><td>ik gisteren</td><td><strong>gelezen</strong></td></tr></table>'
+      + '<tr><td>Een boek</td><td><strong>heb</strong></td><td>ik gisteren</td><td><strong>gelezen</strong></td></tr></tbody></table>'
       + '<div class="gr-rule"><strong>Inversie:</strong> als iets anders dan het subject op positie 1 staat, dan wisselen subject en werkwoord om</div>'
       + '<div class="gr-example"><strong>Morgen</strong> ga <strong>ik</strong> naar de markt.</div>'
       + '<div class="gr-example"><strong>In Amsterdam</strong> wonen <strong>veel mensen</strong>.</div>'
@@ -7163,12 +7163,12 @@ const GRAMMAR_RULES = [
     title: 'Het Woordje "Er"',
     subtitle: '5 functies van er',
     accent: '#F7D842',
-    body: '<table><tr><th>Functie</th><th>Voorbeeld</th><th>Uitleg</th></tr>'
+    body: '<table><thead><tr><th>Functie</th><th>Voorbeeld</th><th>Uitleg</th></tr></thead><tbody>'
       + '<tr><td>Plaats (= daar)</td><td>Ik ben <strong>er</strong> geweest.</td><td>= ik ben daar geweest</td></tr>'
       + '<tr><td>Onbepaald subject</td><td><strong>Er</strong> staat een man voor de deur.</td><td>Introductie onbekend subject</td></tr>'
       + '<tr><td>Hoeveelheid</td><td>Ik heb <strong>er</strong> drie.</td><td>= ik heb er drie (van die dingen)</td></tr>'
       + '<tr><td>Voorzetsel-verwijzing</td><td>Ik denk <strong>eraan</strong>.</td><td>= ik denk aan dat/het</td></tr>'
-      + '<tr><td>Passief</td><td><strong>Er</strong> wordt veel gedanst.</td><td>Onpersoonlijk passief</td></tr></table>'
+      + '<tr><td>Passief</td><td><strong>Er</strong> wordt veel gedanst.</td><td>Onpersoonlijk passief</td></tr></tbody></table>'
       + '<div class="gr-rule"><strong>Er + voorzetsel</strong> combineert tot één woord:<br>'
       + 'er + op = <strong>erop</strong>, er + aan = <strong>eraan</strong>, er + over = <strong>erover</strong>, er + mee = <strong>ermee</strong></div>'
   },
@@ -7179,7 +7179,7 @@ const GRAMMAR_RULES = [
     title: 'Persoonlijke Voornaamwoorden',
     subtitle: 'Subject, object en bezittelijk',
     accent: '#D40920',
-    body: '<table><tr><th>Subject</th><th>Object</th><th>Bezittelijk</th><th>Engels</th></tr>'
+    body: '<table><thead><tr><th>Subject</th><th>Object</th><th>Bezittelijk</th><th>Engels</th></tr></thead><tbody>'
       + '<tr><td>ik</td><td>mij / me</td><td>mijn</td><td>I / me / my</td></tr>'
       + '<tr><td>jij / je</td><td>jou / je</td><td>jouw / je</td><td>you / your</td></tr>'
       + '<tr><td>hij</td><td>hem</td><td>zijn</td><td>he / him / his</td></tr>'
@@ -7188,7 +7188,7 @@ const GRAMMAR_RULES = [
       + '<tr><td>u</td><td>u</td><td>uw</td><td>you (formal)</td></tr>'
       + '<tr><td>wij / we</td><td>ons</td><td>ons / onze</td><td>we / us / our</td></tr>'
       + '<tr><td>jullie</td><td>jullie</td><td>jullie / je</td><td>you (pl.) / your</td></tr>'
-      + '<tr><td>zij / ze</td><td>hen / hun / ze</td><td>hun</td><td>they / them / their</td></tr></table>'
+      + '<tr><td>zij / ze</td><td>hen / hun / ze</td><td>hun</td><td>they / them / their</td></tr></tbody></table>'
       + '<div class="gr-rule"><strong>Wederkerend:</strong> me, je, zich, ons, je, zich<br>'
       + 'Ik was <strong>me</strong>. Hij scheert <strong>zich</strong>. Wij vermaken <strong>ons</strong>.</div>'
   },
@@ -7215,7 +7215,7 @@ const GRAMMAR_RULES = [
     title: 'Vergelijkingen',
     subtitle: 'Vergrotende en overtreffende trap',
     accent: '#2d8a56',
-    body: '<table><tr><th>Stellend</th><th>Vergrotend (-er)</th><th>Overtreffend (-st)</th></tr>'
+    body: '<table><thead><tr><th>Stellend</th><th>Vergrotend (-er)</th><th>Overtreffend (-st)</th></tr></thead><tbody>'
       + '<tr><td>groot</td><td>grot<strong>er</strong></td><td>groot<strong>st</strong></td></tr>'
       + '<tr><td>klein</td><td>klein<strong>er</strong></td><td>klein<strong>st</strong></td></tr>'
       + '<tr><td>mooi</td><td>mooi<strong>er</strong></td><td>mooi<strong>st</strong></td></tr>'
@@ -7223,7 +7223,7 @@ const GRAMMAR_RULES = [
       + '<tr><td>goed</td><td><strong>beter</strong></td><td><strong>best</strong></td></tr>'
       + '<tr><td>veel</td><td><strong>meer</strong></td><td><strong>meest</strong></td></tr>'
       + '<tr><td>weinig</td><td><strong>minder</strong></td><td><strong>minst</strong></td></tr>'
-      + '<tr><td>graag</td><td><strong>liever</strong></td><td><strong>liefst</strong></td></tr></table>'
+      + '<tr><td>graag</td><td><strong>liever</strong></td><td><strong>liefst</strong></td></tr></tbody></table>'
       + '<div class="gr-rule"><strong>Vergelijking:</strong> net zo... als / ...er dan / het ...st<br>'
       + 'Zij is net zo groot <strong>als</strong> ik. Zij is grot<strong>er</strong> <strong>dan</strong> ik.</div>'
   },
@@ -7243,11 +7243,11 @@ const GRAMMAR_RULES = [
       + '3. Vóór infinitief/V.D.: Ik kan <strong>niet</strong> komen. Ik heb <strong>niet</strong> gegeten.<br>'
       + '4. Aan het einde (anders): Ik weet het <strong>niet</strong>.</div>'
       + '<h4 style="margin:8px 0 4px;">Ontkennende woorden</h4>'
-      + '<table><tr><th>Positief</th><th>Negatief</th></tr>'
+      + '<table><thead><tr><th>Positief</th><th>Negatief</th></tr></thead><tbody>'
       + '<tr><td>altijd</td><td>nooit</td></tr>'
       + '<tr><td>overal</td><td>nergens</td></tr>'
       + '<tr><td>iemand</td><td>niemand</td></tr>'
-      + '<tr><td>iets</td><td>niets / niks</td></tr></table>'
+      + '<tr><td>iets</td><td>niets / niks</td></tr></tbody></table>'
   },
   {
     id: 'passive', cat: 'verbs',
@@ -7257,10 +7257,10 @@ const GRAMMAR_RULES = [
     body: '<div class="gr-rule"><strong>Actief:</strong> De kok maakt het eten.<br>'
       + '<strong>Passief:</strong> Het eten <strong>wordt</strong> (door de kok) gemaakt.</div>'
       + '<h4 style="margin:8px 0 4px;">Tijden</h4>'
-      + '<table><tr><th>Tijd</th><th>Vorm</th><th>Voorbeeld</th></tr>'
+      + '<table><thead><tr><th>Tijd</th><th>Vorm</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td>Tegenwoordig</td><td>worden + V.D.</td><td>Het huis <strong>wordt gebouwd</strong>.</td></tr>'
       + '<tr><td>Verleden</td><td>werden + V.D.</td><td>Het huis <strong>werd gebouwd</strong>.</td></tr>'
-      + '<tr><td>Perfectum</td><td>zijn + V.D.</td><td>Het huis <strong>is gebouwd</strong>.</td></tr></table>'
+      + '<tr><td>Perfectum</td><td>zijn + V.D.</td><td>Het huis <strong>is gebouwd</strong>.</td></tr></tbody></table>'
       + '<div class="gr-rule"><strong>Let op:</strong> perfectum passief gebruikt <strong>zijn</strong> (niet worden!)<br>'
       + 'Het boek <strong>is</strong> geschreven. (niet: is geworden geschreven)</div>'
   },
@@ -7270,11 +7270,11 @@ const GRAMMAR_RULES = [
     subtitle: 'Beleefdheid, wensen, hypothetisch',
     accent: '#F7D842',
     body: '<div class="gr-rule"><strong>zou/zouden + infinitief</strong></div>'
-      + '<table><tr><th>Functie</th><th>Voorbeeld</th></tr>'
+      + '<table><thead><tr><th>Functie</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td>Beleefd verzoek</td><td><strong>Zou</strong> u mij kunnen helpen?</td></tr>'
       + '<tr><td>Wens</td><td>Ik <strong>zou</strong> graag een koffie willen.</td></tr>'
       + '<tr><td>Hypothetisch</td><td>Als ik rijk was, <strong>zou</strong> ik een boot kopen.</td></tr>'
-      + '<tr><td>Advies</td><td>Je <strong>zou</strong> meer moeten slapen.</td></tr></table>'
+      + '<tr><td>Advies</td><td>Je <strong>zou</strong> meer moeten slapen.</td></tr></tbody></table>'
       + '<div class="gr-example">Ik <strong>zou</strong> het fijn vinden als je kwam.</div>'
       + '<div class="gr-example"><strong>Zou</strong> je het raam open willen doen?</div>'
   },
@@ -7283,7 +7283,7 @@ const GRAMMAR_RULES = [
     title: 'Voorzetsels Overzicht',
     subtitle: 'De belangrijkste voorzetsels',
     accent: '#1356A2',
-    body: '<table><tr><th>Voorzetsel</th><th>Betekenis</th><th>Voorbeeld</th></tr>'
+    body: '<table><thead><tr><th>Voorzetsel</th><th>Betekenis</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td>aan</td><td>at, on, to</td><td>aan tafel, aan de muur</td></tr>'
       + '<tr><td>achter</td><td>behind</td><td>achter het huis</td></tr>'
       + '<tr><td>bij</td><td>at, near, with</td><td>bij de dokter</td></tr>'
@@ -7302,7 +7302,7 @@ const GRAMMAR_RULES = [
       + '<tr><td>uit</td><td>from, out of</td><td>uit Amsterdam</td></tr>'
       + '<tr><td>van</td><td>of, from</td><td>van mijn vader</td></tr>'
       + '<tr><td>voor</td><td>for, before</td><td>voor jou</td></tr>'
-      + '<tr><td>zonder</td><td>without</td><td>zonder suiker</td></tr></table>'
+      + '<tr><td>zonder</td><td>without</td><td>zonder suiker</td></tr></tbody></table>'
   },
   {
     id: 'om_te', cat: 'other',
@@ -7326,13 +7326,13 @@ const GRAMMAR_RULES = [
     subtitle: '-je, -tje, -pje, -etje, -kje',
     accent: '#F7D842',
     body: '<div class="gr-rule">Alle verkleinwoorden zijn <strong>het</strong>-woorden!</div>'
-      + '<table><tr><th>Eindigt op</th><th>Suffix</th><th>Voorbeeld</th></tr>'
+      + '<table><thead><tr><th>Eindigt op</th><th>Suffix</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td>Meeste woorden</td><td>-je</td><td>huis → huisje</td></tr>'
       + '<tr><td>-m</td><td>-pje</td><td>boom → boompje</td></tr>'
       + '<tr><td>-n, -l, -r + lange klinker</td><td>-tje</td><td>stoel → stoeltje</td></tr>'
       + '<tr><td>-ng</td><td>-etje</td><td>ring → ringetje</td></tr>'
       + '<tr><td>-nk</td><td>-je</td><td>bank → bankje</td></tr>'
-      + '<tr><td>-lf</td><td>-je</td><td>elf → elfje</td></tr></table>'
+      + '<tr><td>-lf</td><td>-je</td><td>elf → elfje</td></tr></tbody></table>'
       + '<div class="gr-example">de tafel → <strong>het</strong> tafeltje</div>'
       + '<div class="gr-example">de woning → <strong>het</strong> woninkje</div>'
       + '<div class="gr-rule">Verkleinwoorden zijn niet alleen "klein" — ook voor genegenheid, vernedering, of gewoon dagelijks taalgebruik (biertje, broodje, kopje)</div>'
@@ -7347,13 +7347,13 @@ const GRAMMAR_RULES = [
       + '<div class="gr-example"><span style="color:var(--mondrian-red)">X</span> Ik denk <s>over het</s>. &rarr; <span style="color:#2d8a56">V</span> Ik denk <strong>erover</strong>.</div>'
       + '<div class="gr-example"><span style="color:var(--mondrian-red)">X</span> Ik wacht <s>op dat</s>. &rarr; <span style="color:#2d8a56">V</span> Ik wacht <strong>daarop</strong>.</div>'
       + '<h4 style="margin:12px 0 6px;">De vier vormen</h4>'
-      + '<table><tr><th>Prefix</th><th>Gebruik</th><th>Voorbeeld</th></tr>'
+      + '<table><thead><tr><th>Prefix</th><th>Gebruik</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td><strong>er-</strong></td><td>Onbeklemtoond / algemeen (het, dit, dat)</td><td>Ik denk <strong>erover</strong> na.</td></tr>'
       + '<tr><td><strong>daar-</strong></td><td>Beklemtoond / specifiek (dat ding daar)</td><td><strong>Daarvoor</strong> heb ik betaald.</td></tr>'
       + '<tr><td><strong>hier-</strong></td><td>Dichtbij / dit hier</td><td><strong>Hiermee</strong> ben ik het eens.</td></tr>'
-      + '<tr><td><strong>waar-</strong></td><td>Vraag of betrekkelijke bijzin</td><td><strong>Waarover</strong> praat je?</td></tr></table>'
+      + '<tr><td><strong>waar-</strong></td><td>Vraag of betrekkelijke bijzin</td><td><strong>Waarover</strong> praat je?</td></tr></tbody></table>'
       + '<h4 style="margin:12px 0 6px;">Overzicht per voorzetsel</h4>'
-      + '<table><tr><th>Voorzetsel</th><th>er-</th><th>daar-</th><th>hier-</th><th>waar-</th></tr>'
+      + '<table><thead><tr><th>Voorzetsel</th><th>er-</th><th>daar-</th><th>hier-</th><th>waar-</th></tr></thead><tbody>'
       + '<tr><td>aan</td><td>eraan</td><td>daaraan</td><td>hieraan</td><td>waaraan</td></tr>'
       + '<tr><td>achter</td><td>erachter</td><td>daarachter</td><td>hierachter</td><td>waarachter</td></tr>'
       + '<tr><td>bij</td><td>erbij</td><td>daarbij</td><td>hierbij</td><td>waarbij</td></tr>'
@@ -7370,7 +7370,7 @@ const GRAMMAR_RULES = [
       + '<tr><td>tussen</td><td>ertussen</td><td>daartussen</td><td>hiertussen</td><td>waartussen</td></tr>'
       + '<tr><td>uit</td><td>eruit</td><td>daaruit</td><td>hieruit</td><td>waaruit</td></tr>'
       + '<tr><td>van</td><td>ervan</td><td>daarvan</td><td>hiervan</td><td>waarvan</td></tr>'
-      + '<tr><td>voor</td><td>ervoor</td><td>daarvoor</td><td>hiervoor</td><td>waarvoor</td></tr></table>'
+      + '<tr><td>voor</td><td>ervoor</td><td>daarvoor</td><td>hiervoor</td><td>waarvoor</td></tr></tbody></table>'
       + '<h4 style="margin:12px 0 6px;">Splitsen in de bijzin</h4>'
       + '<div class="gr-rule">In de hoofdzin mag het bijwoord gesplitst worden; in de bijzin staat het meestal <strong>aan elkaar</strong>.</div>'
       + '<div class="gr-example"><strong>Hoofdzin (gesplitst):</strong> Ik denk <strong>er</strong> niet <strong>over</strong> na.</div>'
@@ -7381,7 +7381,7 @@ const GRAMMAR_RULES = [
       + '<div class="gr-example"><span style="color:#2d8a56">V</span> Ik denk <strong>eraan</strong>. (ding/situatie)</div>'
       + '<div class="gr-example"><span style="color:var(--mondrian-red)">X</span> <s>Ik denk eraan haar.</s></div>'
       + '<h4 style="margin:12px 0 6px;">Veelgebruikte combinaties</h4>'
-      + '<table><tr><th>Nederlands</th><th>Engels</th><th>Voorbeeld</th></tr>'
+      + '<table><thead><tr><th>Nederlands</th><th>Engels</th><th>Voorbeeld</th></tr></thead><tbody>'
       + '<tr><td><strong>daarvoor</strong></td><td>for that / before that</td><td>Ik heb <strong>daarvoor</strong> betaald.</td></tr>'
       + '<tr><td><strong>daarmee</strong></td><td>with that</td><td>Wat bedoel je <strong>daarmee</strong>?</td></tr>'
       + '<tr><td><strong>daarom</strong></td><td>that\'s why / therefore</td><td><strong>Daarom</strong> ben ik hier.</td></tr>'
@@ -7397,7 +7397,7 @@ const GRAMMAR_RULES = [
       + '<tr><td><strong>hieronder</strong></td><td>below this</td><td>Zie <strong>hieronder</strong> voor meer info.</td></tr>'
       + '<tr><td><strong>hierbij</strong></td><td>hereby / enclosed</td><td><strong>Hierbij</strong> stuur ik mijn cv.</td></tr>'
       + '<tr><td><strong>waardoor</strong></td><td>because of which</td><td>De file <strong>waardoor</strong> ik te laat was.</td></tr>'
-      + '<tr><td><strong>waarover</strong></td><td>about which</td><td>Het boek <strong>waarover</strong> ik vertelde.</td></tr></table>'
+      + '<tr><td><strong>waarover</strong></td><td>about which</td><td>Het boek <strong>waarover</strong> ik vertelde.</td></tr></tbody></table>'
       + '<div class="tip"><strong>Tip:</strong> Let op dubbelzinnigheid! "Daarvoor" kan betekenen "for that" \u00e9n "before that" \u2014 context bepaalt de betekenis. Hetzelfde geldt voor "daarom" (therefore / around that) en "daarin" (in that / therein).</div>'
   },
 ];
@@ -7607,11 +7607,11 @@ function renderSavedTranslations() {
 
 function exportSavedTranslations() {
   if (savedTranslations.length === 0) return;
-  let rows = '<table><tr><th>Nederlands</th><th>Engels</th></tr>';
+  let rows = '<table><thead><tr><th>Nederlands</th><th>Engels</th></tr></thead><tbody>';
   savedTranslations.forEach(t => {
     rows += '<tr><td style="font-weight:700;color:#D40920">' + t.nl + '</td><td>' + t.en + '</td></tr>';
   });
-  rows += '</table>';
+  rows += '</tbody></table>';
   rows += '<div class="tip">Totaal: ' + savedTranslations.length + ' vertalingen</div>';
   generatePDFContent('Mijn Vertalingen — Leeshoek', rows);
 }

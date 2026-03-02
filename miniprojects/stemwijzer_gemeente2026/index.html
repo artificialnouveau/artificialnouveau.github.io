@@ -46,6 +46,10 @@ const NPC_INTERACT_RANGE = 2.5;
 
 const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) || ('ontouchstart' in window);
 let screenW, screenH, dpr = 1;
+
+// --- MOBILE TOUCH CONTROLS ---
+let touchDrag = null; // {startX, startY, lastX, lastY} for swipe-to-scroll
+let pinchDist0 = 0; // initial pinch distance for zoom
 function resize() {
   dpr = window.devicePixelRatio || 1;
   screenW = window.innerWidth;
@@ -239,9 +243,11 @@ canvas.addEventListener('click', e => {
 
   if (gameState === 'citySelect') {
     // Click on city boxes — must match drawCitySelect positions
-    const boxW = 400, boxH = 52;
+    const boxW = Math.min(400, screenW - 40), boxH = isMobile ? 44 : 52;
+    const boxGap = isMobile ? 50 : 62;
+    const startY = screenH * (isMobile ? 0.18 : 0.22);
     for (let i = 0; i < CITIES.length; i++) {
-      const y = screenH * 0.22 + i * 62;
+      const y = startY + i * boxGap;
       const bx = screenW/2 - boxW/2;
       if (mx >= bx && mx <= bx + boxW && my >= y && my <= y + boxH) {
         selectedCity = i;
@@ -262,9 +268,10 @@ canvas.addEventListener('click', e => {
       { count: 20, perZone: 2 },
       { count: 30, perZone: 3 },
     ];
-    const boxW = 400, boxH = 70;
+    const boxW = Math.min(400, screenW - 40), boxH = isMobile ? 60 : 70;
+    const modeGap = isMobile ? 80 : 100;
     for (let i = 0; i < modes.length; i++) {
-      const y = screenH * 0.30 + i * 100;
+      const y = screenH * 0.30 + i * modeGap;
       const bx = screenW/2 - boxW/2;
       if (mx >= bx && mx <= bx + boxW && my >= y && my <= y + boxH) {
         quizMode = modes[i].count;
@@ -278,6 +285,15 @@ canvas.addEventListener('click', e => {
   }
 
   if (gameState === 'playing') {
+    // Mobile HUD buttons (zoom+, zoom-, reset)
+    if (isMobile) {
+      const btnS = 40, btnX = screenW - btnS - 10;
+      if (mx >= btnX && mx <= btnX + btnS) {
+        if (my >= 10 && my <= 50) { zoomLevel = Math.min(2.5, zoomLevel + 0.15); return; }
+        if (my >= 56 && my <= 96) { zoomLevel = Math.max(0.4, zoomLevel - 0.15); return; }
+        if (my >= 102 && my <= 142) { gameState = 'title'; answers = []; return; }
+      }
+    }
     // Check if clicking on an NPC to interact
     for (const npc of npcs) {
       const ns = worldToScreen(npc.x, npc.y);
@@ -317,8 +333,8 @@ canvas.addEventListener('click', e => {
 
   if (gameState === 'answering') {
     // Calculate button positions (must match drawAnswerOverlay)
-    const pw = Math.min(700, screenW * 0.85);
-    const ph = Math.min(500, screenH * 0.75);
+    const pw = Math.min(650, screenW - 20);
+    const ph = Math.min(480, screenH - 30);
     const px0 = (screenW - pw) / 2;
     const py0 = (screenH - ph) / 2;
     const tabH = 32;
@@ -340,13 +356,14 @@ canvas.addEventListener('click', e => {
     if (answerTab === 0) {
       // Answer button clicks
       const btnY = contentY + 20;
-      const btnW = 150, btnH = 45, gap = 20;
-      const totalBtnW = btnW * 3 + gap * 2;
+      const btnGap = isMobile ? 8 : 20;
+      const btnW = Math.min(150, (pw - 40 - btnGap * 2) / 3), btnH = 45;
+      const totalBtnW = btnW * 3 + btnGap * 2;
       const startX = (screenW - totalBtnW) / 2;
       const answerValues = [1, 0, -1];
 
       for (let i = 0; i < 3; i++) {
-        const bx = startX + i * (btnW + gap);
+        const bx = startX + i * (btnW + btnGap);
         if (mx >= bx && mx <= bx + btnW && my >= btnY && my <= btnY + btnH) {
           answers.push({ stmtIdx: currentStatementIdx, answer: answerValues[i], belangrijk: extraBelangrijk });
           triggerPartyReactions(currentStatementIdx, answerValues[i]);
@@ -399,6 +416,78 @@ canvas.addEventListener('mousemove', e => {
     canvas.style.cursor = 'default';
   }
 });
+
+// --- MOBILE TOUCH: swipe-to-scroll, pinch-to-zoom, tap-to-interact ---
+if (isMobile) {
+  canvas.addEventListener('touchstart', e => {
+    if (gameState !== 'playing') return;
+    if (e.touches.length === 2) {
+      // Pinch zoom start
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      pinchDist0 = Math.sqrt(dx * dx + dy * dy);
+      touchDrag = null;
+      e.preventDefault();
+      return;
+    }
+    if (e.touches.length === 1) {
+      const t = e.touches[0];
+      touchDrag = { startX: t.clientX, startY: t.clientY, lastX: t.clientX, lastY: t.clientY, moved: false };
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  canvas.addEventListener('touchmove', e => {
+    if (gameState !== 'playing') return;
+    if (e.touches.length === 2 && pinchDist0 > 0) {
+      // Pinch zoom
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const scale = dist / pinchDist0;
+      zoomLevel = Math.max(0.4, Math.min(2.5, zoomLevel * scale));
+      pinchDist0 = dist;
+      e.preventDefault();
+      return;
+    }
+    if (touchDrag && e.touches.length === 1) {
+      const t = e.touches[0];
+      const ddx = t.clientX - touchDrag.lastX;
+      const ddy = t.clientY - touchDrag.lastY;
+      if (Math.abs(t.clientX - touchDrag.startX) > 8 || Math.abs(t.clientY - touchDrag.startY) > 8) {
+        touchDrag.moved = true;
+      }
+      // Convert screen drag to isometric world movement
+      const speed = 0.08 / zoomLevel;
+      player.x -= (ddx + ddy) * speed;
+      player.y -= (-ddx + ddy) * speed;
+      clickTarget = null;
+      touchDrag.lastX = t.clientX;
+      touchDrag.lastY = t.clientY;
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  canvas.addEventListener('touchend', e => {
+    if (gameState !== 'playing') { touchDrag = null; pinchDist0 = 0; return; }
+    if (pinchDist0 > 0) { pinchDist0 = 0; return; }
+    // If it was a tap (no drag), check for NPC interaction
+    if (touchDrag && !touchDrag.moved) {
+      if (nearNPC) {
+        const si = nearNPC.statementIdx;
+        if (!answers.find(a => a.stmtIdx === si)) {
+          currentStatementIdx = si;
+          activeNPC = nearNPC;
+          extraBelangrijk = false;
+          answerTab = 0;
+          overlayTransition = 0;
+          gameState = 'answering';
+        }
+      }
+    }
+    touchDrag = null;
+  });
+}
 
 // --- ISOMETRIC ENGINE ---
 function worldToScreen(wx, wy) {
@@ -5156,26 +5245,28 @@ function drawTitleScreen() {
   ctx.textAlign = 'center';
   const titleY = screenH * 0.22;
 
-  const panelW = Math.min(580, screenW * 0.75);
-  const panelH = 155;
-  const px = midX - panelW / 2, py = titleY - 52;
+  const panelW = Math.min(580, screenW - 30);
+  const panelH = isMobile ? 120 : 155;
+  const px = midX - panelW / 2, py = titleY - (isMobile ? 40 : 52);
   ctx.fillStyle = '#f5f0e8';
   ctx.fillRect(px, py, panelW, panelH);
   ctx.strokeStyle = '#1a1a1a';
   ctx.lineWidth = 4;
   ctx.strokeRect(px, py, panelW, panelH);
 
+  const mainFs = isMobile ? Math.min(36, screenW * 0.09) : 52;
+  const subFs = isMobile ? Math.min(24, screenW * 0.06) : 34;
   ctx.fillStyle = '#1a1a1a';
-  ctx.font = "bold 52px 'Inter', sans-serif";
+  ctx.font = `bold ${mainFs}px 'Inter', sans-serif`;
   ctx.fillText(t('title_main'), midX, titleY);
 
   ctx.fillStyle = '#d42020';
-  ctx.font = "bold 34px 'Inter', sans-serif";
-  ctx.fillText(t('title_sub'), midX, titleY + 42);
+  ctx.font = `bold ${subFs}px 'Inter', sans-serif`;
+  ctx.fillText(t('title_sub'), midX, titleY + mainFs * 0.8);
 
   ctx.fillStyle = '#606060';
-  ctx.font = "400 15px 'Inter', sans-serif";
-  ctx.fillText(t('title_date'), midX, titleY + 70);
+  ctx.font = `400 ${isMobile ? 12 : 15}px 'Inter', sans-serif`;
+  ctx.fillText(t('title_date'), midX, titleY + mainFs * 0.8 + subFs * 0.9);
 
   // --- Prompt on water ---
   ctx.font = "600 17px 'Inter', sans-serif";
@@ -5214,8 +5305,9 @@ function drawModeSelect() {
 
   for (let i = 0; i < modes.length; i++) {
     const m = modes[i];
-    const y = screenH * 0.30 + i * 100;
-    const boxW = 400, boxH = 70;
+    const modeGap = isMobile ? 80 : 100;
+    const y = screenH * 0.30 + i * modeGap;
+    const boxW = Math.min(400, screenW - 40), boxH = isMobile ? 60 : 70;
     const bx = screenW/2 - boxW/2;
 
     ctx.fillStyle = '#f5f0e8';
@@ -5259,19 +5351,22 @@ function drawCitySelect() {
   ctx.fillRect(screenW * 0.92 - LINE / 2, 0, LINE, screenH);
   ctx.fillRect(0, screenH * 0.85 - LINE / 2, screenW, LINE);
 
+  const titleFs = isMobile ? Math.min(28, screenW * 0.07) : 36;
   ctx.textAlign = 'center';
-  ctx.font = "bold 36px 'Inter', sans-serif";
+  ctx.font = `bold ${titleFs}px 'Inter', sans-serif`;
   ctx.fillStyle = '#1a1a1a';
-  ctx.fillText(t('city_title'), screenW/2, screenH * 0.12);
+  ctx.fillText(t('city_title'), screenW/2, screenH * 0.10);
 
-  ctx.font = "14px 'Inter', sans-serif";
+  ctx.font = `${isMobile ? 12 : 14}px 'Inter', sans-serif`;
   ctx.fillStyle = '#606060';
-  ctx.fillText(t('city_subtitle'), screenW/2, screenH * 0.12 + 32);
+  ctx.fillText(t('city_subtitle'), screenW/2, screenH * 0.10 + 28);
 
-  const boxW = 400, boxH = 52;
+  const boxW = Math.min(400, screenW - 40), boxH = isMobile ? 44 : 52;
+  const boxGap = isMobile ? 50 : 62;
+  const startY = screenH * (isMobile ? 0.18 : 0.22);
   for (let i = 0; i < CITIES.length; i++) {
     const c = CITIES[i];
-    const y = screenH * 0.22 + i * 62;
+    const y = startY + i * boxGap;
     const bx = screenW/2 - boxW/2;
     const isSelected = i === selectedCity;
     const isAvailable = c.available;
@@ -5284,26 +5379,29 @@ function drawCitySelect() {
 
     if (isSelected) {
       ctx.fillStyle = '#f5f0e8';
-      ctx.font = "bold 20px 'Inter', sans-serif";
+      ctx.font = `bold ${isMobile ? 16 : 20}px 'Inter', sans-serif`;
       ctx.textAlign = 'left';
-      ctx.fillText('\u25b6', bx + 12, y + 32);
+      ctx.fillText('\u25b6', bx + 10, y + boxH * 0.58);
     }
 
     ctx.textAlign = 'left';
-    ctx.font = isSelected ? "bold 22px 'Inter', sans-serif" : "20px 'Inter', sans-serif";
+    const nameFs = isMobile ? 16 : (isSelected ? 22 : 20);
+    ctx.font = isSelected ? `bold ${nameFs}px 'Inter', sans-serif` : `${nameFs}px 'Inter', sans-serif`;
     ctx.fillStyle = isSelected ? '#f5f0e8' : (isAvailable ? '#1a1a1a' : '#999');
-    ctx.fillText(c.name, bx + 40, y + 25);
+    ctx.fillText(c.name, bx + 34, y + (isMobile ? boxH * 0.42 : 25));
 
-    ctx.font = "13px 'Inter', sans-serif";
-    ctx.fillStyle = isSelected ? 'rgba(255,255,255,0.8)' : (isAvailable ? '#1858a8' : '#999');
-    ctx.fillText(isAvailable ? t('city_available') : t('city_soon'), bx + 40, y + 43);
+    if (!isMobile || boxH >= 44) {
+      ctx.font = `${isMobile ? 11 : 13}px 'Inter', sans-serif`;
+      ctx.fillStyle = isSelected ? 'rgba(255,255,255,0.8)' : (isAvailable ? '#1858a8' : '#999');
+      ctx.fillText(isAvailable ? t('city_available') : t('city_soon'), bx + 34, y + (isMobile ? boxH * 0.82 : 43));
+    }
   }
 
-  const lastBoxY = screenH * 0.22 + (CITIES.length - 1) * 62 + boxH;
+  const lastBoxY = startY + (CITIES.length - 1) * boxGap + boxH;
   ctx.textAlign = 'center';
-  ctx.font = "14px 'Inter', sans-serif";
+  ctx.font = `${isMobile ? 11 : 14}px 'Inter', sans-serif`;
   ctx.fillStyle = '#808080';
-  ctx.fillText(t('city_hint'), screenW/2, lastBoxY + 30);
+  ctx.fillText(t('city_hint'), screenW/2, lastBoxY + 20);
 }
 
 function drawHUD() {
@@ -5335,20 +5433,50 @@ function drawHUD() {
     ctx.fillText(t(THEME_KEYS[tz]) + (isZoneComplete(tz) ? ' \u2713' : ''), 20, 84);
   }
 
-  // Zoom indicator
-  ctx.textAlign = 'right';
-  ctx.font = "12px 'Inter', sans-serif";
-  ctx.fillStyle = PAL.uiText;
-  const zoomPct = Math.round(zoomLevel * 100);
-  ctx.fillText(`Zoom: ${zoomPct}%  [+/-]`, screenW - 15, 25);
+  if (isMobile) {
+    // Mobile: zoom + / - buttons and reset button
+    const btnS = 40;
+    const btnX = screenW - btnS - 10;
+    // Zoom +
+    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    ctx.fillRect(btnX, 10, btnS, btnS);
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 1; ctx.strokeRect(btnX, 10, btnS, btnS);
+    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.font = "bold 22px 'Inter', sans-serif";
+    ctx.fillText('+', btnX + btnS/2, 37);
+    // Zoom -
+    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    ctx.fillRect(btnX, 56, btnS, btnS);
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 1; ctx.strokeRect(btnX, 56, btnS, btnS);
+    ctx.fillStyle = '#fff';
+    ctx.fillText('\u2013', btnX + btnS/2, 83);
+    // Reset button
+    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    ctx.fillRect(btnX, 102, btnS, btnS);
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 1; ctx.strokeRect(btnX, 102, btnS, btnS);
+    ctx.fillStyle = '#fff'; ctx.font = "16px 'Inter', sans-serif";
+    ctx.fillText('\u21bb', btnX + btnS/2, 129);
+  } else {
+    // Zoom indicator
+    ctx.textAlign = 'right';
+    ctx.font = "12px 'Inter', sans-serif";
+    ctx.fillStyle = PAL.uiText;
+    const zoomPct = Math.round(zoomLevel * 100);
+    ctx.fillText(`Zoom: ${zoomPct}%  [+/-]`, screenW - 15, 25);
+  }
 
   // Controls hint (bottom)
   ctx.textAlign = 'center';
   ctx.font = "12px 'Inter', sans-serif";
   ctx.fillStyle = 'rgba(200,200,200,0.5)';
-  ctx.fillText(showEnglish
-    ? 'WASD/click = move | I/click = talk | +/- = zoom | ? = reset'
-    : 'WASD/klik = bewegen | I/klik = praten | +/- = zoom | ? = reset', screenW/2, screenH - 15);
+  if (isMobile) {
+    ctx.fillText(showEnglish
+      ? 'Swipe = move | Tap NPC = talk | Pinch = zoom'
+      : 'Swipe = bewegen | Tik NPC = praten | Knijp = zoom', screenW/2, screenH - 10);
+  } else {
+    ctx.fillText(showEnglish
+      ? 'WASD/click = move | I/click = talk | +/- = zoom | ? = reset'
+      : 'WASD/klik = bewegen | I/klik = praten | +/- = zoom | ? = reset', screenW/2, screenH - 15);
+  }
 }
 
 function drawNPCPrompt() {
@@ -5370,36 +5498,67 @@ function drawNPCPrompt() {
   const s = worldToScreen(nearNPC.x, nearNPC.y);
   const sx = s.x - camera.x, sy = s.y - camera.y - 70;
 
-  // Speech bubble — flat Caulfield with funny greeting
+  // Speech bubble — flat Caulfield with funny greeting + word wrap
   const greetings = showEnglish ? (NPC_GREETINGS_EN[zi] || ['Hello!']) : (NPC_GREETINGS[zi] || ['Hallo!']);
   const greetIdx = Math.floor(Date.now() / 8000) % greetings.length;
   const greetText = greetings[greetIdx];
-  const text = greetText + ' (I)';
+  const hint = isMobile ? (showEnglish ? '[Tap]' : '[Tik]') : '(I)';
+
   ctx.font = "14px 'Inter', sans-serif";
-  const tw = ctx.measureText(text).width;
+  const maxBubbleW = Math.min(280, screenW / zoomLevel - 40);
+  const words = greetText.split(' ');
+  const lines = [];
+  let curLine = '';
+  for (const w of words) {
+    const test = curLine ? curLine + ' ' + w : w;
+    if (ctx.measureText(test).width > maxBubbleW && curLine) {
+      lines.push(curLine);
+      curLine = w;
+    } else {
+      curLine = test;
+    }
+  }
+  if (curLine) lines.push(curLine);
+  lines.push(hint);
+
+  const lineH = 18;
+  const bubbleH = lines.length * lineH + 10;
+  let bubbleW = 0;
+  ctx.font = "bold 14px 'Inter', sans-serif";
+  for (const l of lines) bubbleW = Math.max(bubbleW, ctx.measureText(l).width);
+  bubbleW += 20;
+
+  const bx = sx - bubbleW / 2;
+  const byTop = sy - bubbleH + 6;
 
   // Flat panel
   ctx.fillStyle = PAL.uiBg;
-  ctx.fillRect(sx - tw/2 - 8, sy - 14, tw + 16, 24);
+  ctx.fillRect(bx, byTop, bubbleW, bubbleH);
   ctx.strokeStyle = '#000';
   ctx.lineWidth = 2;
-  ctx.strokeRect(sx - tw/2 - 8, sy - 14, tw + 16, 24);
+  ctx.strokeRect(bx, byTop, bubbleW, bubbleH);
   // Color accent
   ctx.fillStyle = ZONES[zi].col;
-  ctx.fillRect(sx - tw/2 - 8, sy - 14, 4, 24);
+  ctx.fillRect(bx, byTop, 4, bubbleH);
 
   // Arrow
   ctx.fillStyle = PAL.uiBg;
   ctx.strokeStyle = '#000';
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.moveTo(sx - 5, sy + 10); ctx.lineTo(sx + 5, sy + 10); ctx.lineTo(sx, sy + 18);
+  ctx.moveTo(sx - 5, byTop + bubbleH); ctx.lineTo(sx + 5, byTop + bubbleH); ctx.lineTo(sx, byTop + bubbleH + 8);
   ctx.closePath(); ctx.fill(); ctx.stroke();
 
+  // Text lines
   ctx.textAlign = 'center';
   ctx.fillStyle = PAL.uiText;
   ctx.font = "bold 14px 'Inter', sans-serif";
-  ctx.fillText(text, sx, sy + 4);
+  for (let li = 0; li < lines.length; li++) {
+    const isHint = li === lines.length - 1;
+    ctx.font = isHint ? "12px 'Inter', sans-serif" : "bold 14px 'Inter', sans-serif";
+    ctx.fillStyle = isHint ? ZONES[zi].col : PAL.uiText;
+    ctx.fillText(lines[li], sx, byTop + 16 + li * lineH);
+  }
 }
 
 function drawAnswerOverlay() {
@@ -5415,9 +5574,9 @@ function drawAnswerOverlay() {
   ctx.fillStyle = `rgba(0,0,0,${0.3 * eased})`;
   ctx.fillRect(0, 0, screenW, screenH);
 
-  // Panel — flat Caulfield style
-  const pw = Math.min(650, screenW - 40);
-  const ph = 480;
+  // Panel — flat Caulfield style, responsive
+  const pw = Math.min(650, screenW - 20);
+  const ph = Math.min(480, screenH - 30);
   const px0 = (screenW - pw) / 2;
   const slideOffset = (1 - eased) * 30;
   const py = (screenH - ph) / 2 + slideOffset;
@@ -5499,8 +5658,9 @@ function drawAnswerOverlay() {
   if (answerTab === 0) {
     // Stem tab — answer buttons
     const btnY = contentY + 20;
-    const btnW = 150, btnH = 45, gap = 20;
-    const totalBtnW = btnW * 3 + gap * 2;
+    const btnGap = isMobile ? 8 : 20;
+    const btnW = Math.min(150, (pw - 40 - btnGap * 2) / 3), btnH = 45;
+    const totalBtnW = btnW * 3 + btnGap * 2;
     const startX = (screenW - totalBtnW) / 2;
 
     const buttons = showEnglish ? [
