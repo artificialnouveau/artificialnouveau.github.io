@@ -796,7 +796,7 @@ body::before, body::after { display: none; }
   padding: 18px;
   margin-bottom: 12px;
   transition: box-shadow 0.2s;
-  cursor: pointer;
+  user-select: text;
 }
 .nos-card:hover { box-shadow: 4px 4px 0 var(--mondrian-black); }
 .nos-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
@@ -814,6 +814,12 @@ body::before, body::after { display: none; }
 }
 .nos-card-link:hover { color: var(--mondrian-red); border-color: var(--mondrian-red); }
 .nos-card-accent { width: 100%; height: 4px; margin-bottom: 12px; }
+.nos-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; gap: 10px; flex-wrap: wrap; }
+.nos-vocab-pdf-btn { font-size: 11px; padding: 4px 10px; }
+.nos-vocab { position: relative; font-weight: 600; border-bottom: 2px solid; cursor: help; }
+.nos-vocab-tip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--mondrian-black); color: #fff; padding: 6px 10px; border-radius: 4px; font-size: 12px; white-space: nowrap; z-index: 100; font-weight: 400; pointer-events: none; }
+.nos-vocab-tip em { color: #ccc; }
+.nos-vocab:hover .nos-vocab-tip { display: block; }
 
 .nos-error-box {
   background: rgba(212,9,32,0.08);
@@ -2622,19 +2628,11 @@ body::before, body::after { display: none; }
 <div class="tab-content" id="tab-news">
   <div class="news-container">
     <div class="help-row" style="justify-content:center;margin-bottom:12px;">
-      <div class="news-sub-nav">
-        <button class="news-sub-btn active" onclick="switchNewsSub('practice')">Oefenartikelen</button>
-        <button class="news-sub-btn" onclick="switchNewsSub('nos')">NOS Nieuws</button>
-      </div>
       <button class="help-btn" onclick="showHelp('news')" title="Hulp">?</button>
     </div>
-    <div id="newsPractice">
-      <div class="news-nav" id="newsNav"></div>
-      <div id="newsContent"></div>
-    </div>
-    <div id="newsNOS" style="display:none;">
+    <div id="newsNOS">
       <div class="nos-header">
-        <p class="nos-desc">Lees elke dag het laatste Nederlandse nieuws van NOS.nl. Goed voor je leesvaardigheid!</p>
+        <p class="nos-desc">Lees elke dag het laatste Nederlandse nieuws van NOS.nl. Woorden worden automatisch gemarkeerd op basis van je CEFR-niveau.</p>
         <button class="export-btn" onclick="fetchNOSFeed()" id="nosRefreshBtn">Vernieuwen</button>
       </div>
       <div id="nosLoading" style="display:none;text-align:center;padding:40px;">
@@ -4653,27 +4651,7 @@ const DUTCH_IDIOMS = [
 ];
 
 function initNews() {
-  const nav = document.getElementById('newsNav');
-  nav.innerHTML = '';
-  filteredNewsIndices = [];
-  NEWS_ARTICLES.forEach((art, i) => { if (isWithinCEFR(art.level)) filteredNewsIndices.push(i); });
-  filteredNewsIndices.forEach((origIdx, i) => {
-    const art = NEWS_ARTICLES[origIdx];
-    const btn = document.createElement('button');
-    btn.className = 'news-nav-btn' + (i === 0 ? ' active' : '');
-    btn.textContent = art.level + ': ' + art.title.substring(0, 20) + '...';
-    btn.onclick = () => {
-      document.querySelectorAll('.news-nav-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentArticle = origIdx;
-      renderArticle(origIdx);
-    };
-    nav.appendChild(btn);
-  });
-  if (filteredNewsIndices.length > 0) {
-    currentArticle = filteredNewsIndices[0];
-    renderArticle(filteredNewsIndices[0]);
-  }
+  fetchNOSFeed();
 }
 
 function renderArticle(idx) {
@@ -4724,13 +4702,7 @@ try {
   }
 } catch(e) {}
 
-function switchNewsSub(sub) {
-  document.querySelectorAll('.news-sub-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('.news-sub-btn[onclick*="' + sub + '"]').classList.add('active');
-  document.getElementById('newsPractice').style.display = sub === 'practice' ? '' : 'none';
-  document.getElementById('newsNOS').style.display = sub === 'nos' ? '' : 'none';
-  if (sub === 'nos' && !nosFeedCache) fetchNOSFeed();
-}
+// switchNewsSub removed — NOS is now the only Leeshoek content
 
 function parseNOSFeed(xmlStr) {
   const parser = new DOMParser();
@@ -4822,6 +4794,9 @@ function renderNOSFeed(articles, isStale) {
 
   const accents = ['var(--mondrian-red)', 'var(--mondrian-blue)', 'var(--mondrian-yellow)'];
 
+  // Store articles globally for PDF export
+  window._nosArticles = articles;
+
   let html = '';
   if (isStale) {
     html += '<div class="nos-stale-banner">Kon geen nieuw nieuws laden. Je ziet het laatst opgeslagen nieuws. <button class="nos-stale-retry" onclick="nosFeedCacheTime=0;fetchNOSFeed()">Opnieuw proberen</button></div>';
@@ -4829,14 +4804,17 @@ function renderNOSFeed(articles, isStale) {
   articles.forEach((art, i) => {
     const timeStr = art.pubDate ? formatNOSDate(art.pubDate) : '';
     const cleanDesc = art.desc.replace(/<[^>]*>/g, '');
-    html += '<div class="nos-card" onclick="window.open(\'' + art.link.replace(/'/g, "\\'") + '\', \'_blank\')">';
+    const highlightedTitle = highlightCEFRVocab(escapeHTML(art.title));
+    const highlightedDesc = cleanDesc ? highlightCEFRVocab(escapeHTML(cleanDesc)) : '';
+    html += '<div class="nos-card" data-nos-idx="' + i + '">';
     html += '<div class="nos-card-accent" style="background:' + accents[i % 3] + ';"></div>';
-    html += '<div class="nos-card-header"><h4>' + escapeHTML(art.title) + '</h4>';
+    html += '<div class="nos-card-header"><h4>' + highlightedTitle + '</h4>';
     if (timeStr) html += '<span class="nos-card-time">' + timeStr + '</span>';
     html += '</div>';
-    if (cleanDesc) html += '<p>' + escapeHTML(cleanDesc) + '</p>';
-    html += '<a class="nos-card-link" href="' + escapeHTML(art.link) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">Lees meer op NOS.nl &rarr;</a>';
-    html += '</div>';
+    if (highlightedDesc) html += '<p>' + highlightedDesc + '</p>';
+    html += '<div class="nos-card-footer"><a class="nos-card-link" href="' + escapeHTML(art.link) + '" target="_blank" rel="noopener">Lees meer op NOS.nl &rarr;</a>';
+    html += '<button class="export-btn nos-vocab-pdf-btn" onclick="exportNOSVocabPDF(' + i + ')">Download Vocab PDF</button>';
+    html += '</div></div>';
   });
 
   if (articles.length === 0) {
@@ -4865,6 +4843,292 @@ function escapeHTML(str) {
   return div.innerHTML;
 }
 
+// ==========================================
+// CEFR VOCAB DICTIONARY & AUTO-HIGHLIGHTING
+// ==========================================
+const CEFR_VOCAB = [
+  // A2 — basic everyday words
+  { nl:'hebben', en:'to have', level:'A2', verb:true },
+  { nl:'zijn', en:'to be', level:'A2', verb:true },
+  { nl:'worden', en:'to become', level:'A2', verb:true },
+  { nl:'kunnen', en:'can / to be able to', level:'A2', verb:true },
+  { nl:'moeten', en:'must / to have to', level:'A2', verb:true },
+  { nl:'willen', en:'to want', level:'A2', verb:true },
+  { nl:'zullen', en:'shall / will', level:'A2', verb:true },
+  { nl:'mogen', en:'may / to be allowed', level:'A2', verb:true },
+  { nl:'gaan', en:'to go', level:'A2', verb:true },
+  { nl:'komen', en:'to come', level:'A2', verb:true },
+  { nl:'maken', en:'to make', level:'A2', verb:true },
+  { nl:'zeggen', en:'to say', level:'A2', verb:true },
+  { nl:'doen', en:'to do', level:'A2', verb:true },
+  { nl:'geven', en:'to give', level:'A2', verb:true },
+  { nl:'nemen', en:'to take', level:'A2', verb:true },
+  { nl:'zien', en:'to see', level:'A2', verb:true },
+  { nl:'vinden', en:'to find / to think', level:'A2', verb:true },
+  { nl:'weten', en:'to know (fact)', level:'A2', verb:true },
+  { nl:'denken', en:'to think', level:'A2', verb:true },
+  { nl:'staan', en:'to stand', level:'A2', verb:true },
+  { nl:'vandaag', en:'today', level:'A2' },
+  { nl:'morgen', en:'tomorrow', level:'A2' },
+  { nl:'gisteren', en:'yesterday', level:'A2' },
+  { nl:'altijd', en:'always', level:'A2' },
+  { nl:'nooit', en:'never', level:'A2' },
+  { nl:'vaak', en:'often', level:'A2' },
+  { nl:'soms', en:'sometimes', level:'A2' },
+  { nl:'misschien', en:'maybe', level:'A2' },
+  { nl:'natuurlijk', en:'of course', level:'A2' },
+  { nl:'eigenlijk', en:'actually', level:'A2' },
+  { nl:'ongeveer', en:'approximately', level:'A2' },
+  { nl:'belangrijk', en:'important', level:'A2' },
+  { nl:'mogelijk', en:'possible', level:'A2' },
+  { nl:'nodig', en:'necessary / needed', level:'A2' },
+  { nl:'nieuw', en:'new', level:'A2' },
+  { nl:'groot', en:'big / large', level:'A2' },
+  { nl:'klein', en:'small', level:'A2' },
+  { nl:'goed', en:'good', level:'A2' },
+  { nl:'mensen', en:'people', level:'A2' },
+  { nl:'probleem', en:'problem', level:'A2' },
+  { nl:'vraag', en:'question', level:'A2' },
+  { nl:'antwoord', en:'answer', level:'A2' },
+  { nl:'voorbeeld', en:'example', level:'A2' },
+  { nl:'geld', en:'money', level:'A2' },
+  { nl:'werk', en:'work', level:'A2' },
+  { nl:'school', en:'school', level:'A2' },
+  // B1 — intermediate
+  { nl:'beslissen', en:'to decide', level:'B1', verb:true },
+  { nl:'bespreken', en:'to discuss', level:'B1', verb:true },
+  { nl:'beschrijven', en:'to describe', level:'B1', verb:true },
+  { nl:'ontwikkelen', en:'to develop', level:'B1', verb:true },
+  { nl:'verbeteren', en:'to improve', level:'B1', verb:true },
+  { nl:'vergelijken', en:'to compare', level:'B1', verb:true },
+  { nl:'voorkomen', en:'to prevent / to occur', level:'B1', verb:true },
+  { nl:'verwachten', en:'to expect', level:'B1', verb:true },
+  { nl:'ondersteunen', en:'to support', level:'B1', verb:true },
+  { nl:'onderzoeken', en:'to investigate', level:'B1', verb:true },
+  { nl:'verdienen', en:'to earn / to deserve', level:'B1', verb:true },
+  { nl:'beïnvloeden', en:'to influence', level:'B1', verb:true },
+  { nl:'waarschuwen', en:'to warn', level:'B1', verb:true },
+  { nl:'overleggen', en:'to consult', level:'B1', verb:true },
+  { nl:'ervaren', en:'to experience', level:'B1', verb:true },
+  { nl:'samenleving', en:'society', level:'B1' },
+  { nl:'regering', en:'government', level:'B1' },
+  { nl:'overheid', en:'government / authorities', level:'B1' },
+  { nl:'gemeente', en:'municipality', level:'B1' },
+  { nl:'politie', en:'police', level:'B1' },
+  { nl:'onderzoek', en:'research / investigation', level:'B1' },
+  { nl:'gevolg', en:'consequence', level:'B1' },
+  { nl:'oorzaak', en:'cause', level:'B1' },
+  { nl:'maatregel', en:'measure (policy)', level:'B1' },
+  { nl:'veiligheid', en:'safety / security', level:'B1' },
+  { nl:'gezondheid', en:'health', level:'B1' },
+  { nl:'omgeving', en:'environment / surroundings', level:'B1' },
+  { nl:'ervaring', en:'experience', level:'B1' },
+  { nl:'ontwikkeling', en:'development', level:'B1' },
+  { nl:'verandering', en:'change', level:'B1' },
+  { nl:'gedrag', en:'behavior', level:'B1' },
+  { nl:'vervoer', en:'transport', level:'B1' },
+  { nl:'onderwijs', en:'education', level:'B1' },
+  { nl:'inwoner', en:'resident / inhabitant', level:'B1' },
+  { nl:'inwoners', en:'residents / inhabitants', level:'B1' },
+  { nl:'waarschijnlijk', en:'probably', level:'B1' },
+  { nl:'bovendien', en:'moreover', level:'B1' },
+  { nl:'hoewel', en:'although', level:'B1' },
+  { nl:'inmiddels', en:'meanwhile / by now', level:'B1' },
+  { nl:'daardoor', en:'because of that', level:'B1' },
+  { nl:'daarnaast', en:'in addition', level:'B1' },
+  { nl:'volgens', en:'according to', level:'B1' },
+  { nl:'namelijk', en:'namely / that is', level:'B1' },
+  { nl:'hierdoor', en:'because of this', level:'B1' },
+  { nl:'toch', en:'yet / still / anyway', level:'B1' },
+  { nl:'tenminste', en:'at least', level:'B1' },
+  { nl:'uiteindelijk', en:'eventually / ultimately', level:'B1' },
+  // B2 — upper-intermediate
+  { nl:'aanpakken', en:'to tackle / to address', level:'B2', verb:true },
+  { nl:'vaststellen', en:'to determine / to establish', level:'B2', verb:true },
+  { nl:'uitvoeren', en:'to carry out / to execute', level:'B2', verb:true },
+  { nl:'handhaven', en:'to enforce / to maintain', level:'B2', verb:true },
+  { nl:'invoeren', en:'to introduce / to implement', level:'B2', verb:true },
+  { nl:'afschaffen', en:'to abolish', level:'B2', verb:true },
+  { nl:'aanpassen', en:'to adapt / to adjust', level:'B2', verb:true },
+  { nl:'toepassen', en:'to apply', level:'B2', verb:true },
+  { nl:'bevorderen', en:'to promote / to foster', level:'B2', verb:true },
+  { nl:'benadrukken', en:'to emphasize', level:'B2', verb:true },
+  { nl:'beoordelen', en:'to assess / to judge', level:'B2', verb:true },
+  { nl:'verminderen', en:'to reduce', level:'B2', verb:true },
+  { nl:'toenemen', en:'to increase', level:'B2', verb:true },
+  { nl:'bijdragen', en:'to contribute', level:'B2', verb:true },
+  { nl:'streven', en:'to strive', level:'B2', verb:true },
+  { nl:'draagvlak', en:'public support / backing', level:'B2' },
+  { nl:'beleid', en:'policy', level:'B2' },
+  { nl:'wetgeving', en:'legislation', level:'B2' },
+  { nl:'infrastructuur', en:'infrastructure', level:'B2' },
+  { nl:'duurzaamheid', en:'sustainability', level:'B2' },
+  { nl:'rechtspraak', en:'jurisdiction / judiciary', level:'B2' },
+  { nl:'arbeidsmarkt', en:'labor market', level:'B2' },
+  { nl:'woningmarkt', en:'housing market', level:'B2' },
+  { nl:'uitstoot', en:'emissions', level:'B2' },
+  { nl:'verduurzaming', en:'making sustainable', level:'B2' },
+  { nl:'stikstof', en:'nitrogen', level:'B2' },
+  { nl:'klimaatverandering', en:'climate change', level:'B2' },
+  { nl:'energietransitie', en:'energy transition', level:'B2' },
+  { nl:'zorgverlener', en:'healthcare provider', level:'B2' },
+  { nl:'huisvesting', en:'housing', level:'B2' },
+  { nl:'desalniettemin', en:'nevertheless', level:'B2' },
+  { nl:'voorts', en:'furthermore', level:'B2' },
+  { nl:'derhalve', en:'therefore (formal)', level:'B2' },
+  { nl:'weliswaar', en:'admittedly', level:'B2' },
+  { nl:'daarentegen', en:'on the other hand', level:'B2' },
+  { nl:'vooralsnog', en:'for the time being', level:'B2' },
+  { nl:'met name', en:'in particular / especially', level:'B2' },
+  { nl:'ten opzichte van', en:'in relation to / compared to', level:'B2' },
+  { nl:'in het kader van', en:'in the context of', level:'B2' },
+  { nl:'met betrekking tot', en:'with regard to', level:'B2' },
+  // C1 — advanced
+  { nl:'bewerkstelligen', en:'to bring about / to accomplish', level:'C1', verb:true },
+  { nl:'teweegbrengen', en:'to cause / to bring about', level:'C1', verb:true },
+  { nl:'ontkrachten', en:'to refute / to disprove', level:'C1', verb:true },
+  { nl:'verwezenlijken', en:'to realize / to accomplish', level:'C1', verb:true },
+  { nl:'inperken', en:'to curtail / to restrict', level:'C1', verb:true },
+  { nl:'bewogen', en:'to move (emotionally)', level:'C1', verb:true },
+  { nl:'ondermijnen', en:'to undermine', level:'C1', verb:true },
+  { nl:'nuanceren', en:'to nuance / to qualify', level:'C1', verb:true },
+  { nl:'afdwingen', en:'to enforce / to compel', level:'C1', verb:true },
+  { nl:'verankeren', en:'to anchor / to enshrine', level:'C1', verb:true },
+  { nl:'ongelijkheid', en:'inequality', level:'C1' },
+  { nl:'rechtvaardigheid', en:'justice / fairness', level:'C1' },
+  { nl:'democratisering', en:'democratization', level:'C1' },
+  { nl:'zelfbeschikking', en:'self-determination', level:'C1' },
+  { nl:'machtsverhoudingen', en:'power relations', level:'C1' },
+  { nl:'overheidsbeleid', en:'government policy', level:'C1' },
+  { nl:'maatschappelijk', en:'societal', level:'C1' },
+  { nl:'grondwettelijk', en:'constitutional', level:'C1' },
+  { nl:'disproportioneel', en:'disproportionate', level:'C1' },
+  { nl:'nichtszeggenheid', en:'meaninglessness / vacuity', level:'C1' },
+  { nl:'niettemin', en:'nonetheless', level:'C1' },
+  { nl:'dienovereenkomstig', en:'accordingly', level:'C1' },
+  { nl:'naargelang', en:'depending on', level:'C1' },
+  { nl:'te dien einde', en:'to that end', level:'C1' },
+  { nl:'al dan niet', en:'whether or not', level:'C1' },
+];
+
+// Build lookup map: lowercase word -> vocab entry
+const _cefrVocabMap = new Map();
+const _cefrPhrases = []; // multi-word entries
+CEFR_VOCAB.forEach(v => {
+  const lower = v.nl.toLowerCase();
+  if (lower.includes(' ')) {
+    _cefrPhrases.push(v);
+  } else {
+    _cefrVocabMap.set(lower, v);
+  }
+});
+// Sort phrases longest-first for greedy matching
+_cefrPhrases.sort((a, b) => b.nl.length - a.nl.length);
+
+const CEFR_LEVEL_COLORS = {
+  'A2': '#2d8a56',
+  'B1': '#1356A2',
+  'B2': '#D40920',
+  'C1': '#8B4513'
+};
+
+function highlightCEFRVocab(htmlStr) {
+  // First pass: replace multi-word phrases
+  let result = htmlStr;
+  _cefrPhrases.forEach(v => {
+    if (!isWithinCEFR(v.level)) return;
+    const escaped = v.nl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp('(?<![\\w<])(' + escaped + ')(?![\\w>])', 'gi');
+    result = result.replace(re, (match) => {
+      const color = CEFR_LEVEL_COLORS[v.level] || '#333';
+      return '<span class="nos-vocab" style="color:' + color + ';border-bottom-color:' + color + '" data-en="' + escapeHTML(v.en) + '" data-level="' + v.level + '">' + match + '<span class="nos-vocab-tip">' + escapeHTML(v.en) + ' <em>(' + v.level + ')</em></span></span>';
+    });
+  });
+
+  // Second pass: single words (skip anything already inside a tag)
+  // Split on HTML tags to avoid matching inside tags
+  const parts = result.split(/(<[^>]*>)/);
+  for (let i = 0; i < parts.length; i++) {
+    if (parts[i].startsWith('<')) continue; // skip tags
+    parts[i] = parts[i].replace(/\b([a-zA-ZàáâãäåèéêëìíîïòóôõöùúûüýÿñçÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝŸÑÇ]+)\b/g, (match) => {
+      const lower = match.toLowerCase();
+      const v = _cefrVocabMap.get(lower);
+      if (!v || !isWithinCEFR(v.level)) return match;
+      const color = CEFR_LEVEL_COLORS[v.level] || '#333';
+      return '<span class="nos-vocab" style="color:' + color + ';border-bottom-color:' + color + '" data-en="' + escapeHTML(v.en) + '" data-level="' + v.level + '">' + match + '<span class="nos-vocab-tip">' + escapeHTML(v.en) + ' <em>(' + v.level + ')</em></span></span>';
+    });
+  }
+  return parts.join('');
+}
+
+// Collect highlighted vocab from a NOS card element
+function collectNOSCardVocab(cardIdx) {
+  const card = document.querySelector('.nos-card[data-nos-idx="' + cardIdx + '"]');
+  if (!card) return [];
+  const spans = card.querySelectorAll('.nos-vocab');
+  const seen = new Set();
+  const vocab = [];
+  spans.forEach(sp => {
+    const nl = sp.textContent.replace(sp.querySelector('.nos-vocab-tip')?.textContent || '', '').trim();
+    const en = sp.dataset.en;
+    const level = sp.dataset.level;
+    const key = nl.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    // Look up verb info
+    const verbInfo = _cefrVocabMap.get(key) || _cefrPhrases.find(p => p.nl.toLowerCase() === key);
+    const isVerb = verbInfo && verbInfo.verb;
+    // Find verb conjugation from VERBS array
+    let verbData = null;
+    if (isVerb && typeof VERBS !== 'undefined') {
+      verbData = VERBS.find(v => v.inf === key || v.id === key);
+    }
+    vocab.push({ nl, en, level, isVerb, verbData });
+  });
+  return vocab;
+}
+
+function exportNOSVocabPDF(cardIdx) {
+  const articles = window._nosArticles;
+  if (!articles || !articles[cardIdx]) return;
+  const art = articles[cardIdx];
+  const vocab = collectNOSCardVocab(cardIdx);
+  if (vocab.length === 0) { alert('Geen gemarkeerde woorden gevonden in dit artikel.'); return; }
+
+  let rows = '<h2>' + escapeHTML(art.title) + '</h2>';
+  rows += '<p style="color:#666;font-size:11px;">Bron: NOS.nl</p>';
+
+  // Vocab table
+  rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th><th>Niveau</th><th>Voorbeeldzin</th></tr></thead><tbody>';
+  vocab.forEach(v => {
+    const levelColor = CEFR_LEVEL_COLORS[v.level] || '#333';
+    let example = '';
+    if (v.verbData) {
+      example = 'Imperfectum: <em>' + v.verbData.imp_s + '</em> / Voltooid deelwoord: <em>' + v.verbData.pp + '</em>';
+    } else {
+      // Generate a simple context phrase
+      example = '<em>(Zie de context in het artikel)</em>';
+    }
+    rows += '<tr><td><strong style="color:' + levelColor + '">' + escapeHTML(v.nl) + '</strong></td><td>' + escapeHTML(v.en) + '</td><td><span class="pattern-label" style="background:' + levelColor + '">' + v.level + '</span></td><td>' + example + '</td></tr>';
+  });
+  rows += '</tbody></table>';
+
+  // Verb forms section
+  const verbVocab = vocab.filter(v => v.verbData);
+  if (verbVocab.length > 0) {
+    rows += '<h2>Werkwoordvormen</h2>';
+    rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th></tr></thead><tbody>';
+    verbVocab.forEach(v => {
+      const d = v.verbData;
+      rows += '<tr><td><strong>' + d.inf + '</strong></td><td>' + d.en + '</td><td>' + d.imp_s + '</td><td>' + d.imp_p + '</td><td>' + d.pp + '</td><td>' + d.aux + '</td></tr>';
+    });
+    rows += '</tbody></table>';
+  }
+
+  rows += '<div class="tip">Totaal: ' + vocab.length + ' woorden (' + verbVocab.length + ' werkwoorden)</div>';
+
+  generatePDFContent('Leeshoek — ' + art.title, rows);
+}
 
 // ==========================================
 // TAB 5: DAILY CHALLENGE
@@ -5004,7 +5268,7 @@ const HELP_CONTENT = {
 
   adventure: '<h2>De Stad \u2014 Hulp</h2><h3>Hoe werkt het?</h3><p>Verken zes scenario\'s in het dagelijks leven: de markt, een sollicitatie, de huisarts, het station, een date, en een burenruzie. Elk scenario is een meerdelige dialoog waar je de juiste Nederlandse reactie kiest.</p><h3>Tips</h3><ul><li>Lees de situatie en het gesprek goed door</li><li>Let op grammatica: werkwoordvervoeging, woordvolgorde, voegwoorden</li><li>Foute antwoorden leiden tot grappige situaties \u2014 maar je krijgt minder XP</li><li>Alle scenario\'s oefenen verschillende taalvaardigheden</li></ul><h3>Wat oefen je?</h3><div class="help-example"><span class="hl">Perfectum & imperfectum</span> in context<br><span class="gr">Voegwoorden</span>: omdat, hoewel, terwijl, zolang, tenzij<br><span style="color:var(--purple)">Beleefde vormen</span>: zou u kunnen, alstublieft<br><span class="hl">Dagelijkse uitdrukkingen</span>: bestellen, vragen, klagen</div><button class="help-close" onclick="closeHelp()">Begrepen</button>',
 
-  news: '<h2>Leeshoek \u2014 Hulp</h2><h3>Oefenartikelen</h3><p>Lees Nederlandse artikelen met woordenlijst en begripsvragen. Gekleurde woorden hebben een vertaling \u2014 beweeg je muis erover.</p><h3>NOS Nieuws</h3><p>Lees het laatste Nederlandse nieuws, rechtstreeks van NOS.nl. Elke dag nieuwe artikelen om je leesvaardigheid te oefenen.</p><h3>Vertalen & Opslaan</h3><ul><li><strong>Selecteer tekst</strong> in een artikel om de vertaalknop te zien</li><li>Klik <strong>Vertalen</strong> voor een Engelse vertaling</li><li>Klik <strong>Opslaan</strong> om de vertaling te bewaren</li><li>Bekijk je opgeslagen vertalingen onderaan de pagina</li><li><strong>Download PDF</strong> om je vertalingen te exporteren</li></ul><h3>Leesstrategieën</h3><ul><li>Lees eerst de hele tekst zonder te stoppen</li><li>Lees dan opnieuw met de woordenlijst</li><li>Beantwoord de vragen om je begrip te testen</li><li>Lees elke dag een NOS-artikel voor dagelijkse oefening</li></ul><button class="help-close" onclick="closeHelp()">Begrepen</button>',
+  news: '<h2>Leeshoek \u2014 Hulp</h2><h3>NOS Nieuws</h3><p>Lees het laatste Nederlandse nieuws, rechtstreeks van NOS.nl. Woorden worden automatisch gemarkeerd op basis van je CEFR-niveau.</p><h3>Automatische woordmarkering</h3><ul><li>Woorden in het artikel worden gekleurd per CEFR-niveau</li><li><strong>Hover</strong> over een gemarkeerd woord voor de Engelse vertaling</li><li>Pas je niveau aan met de CEFR-balk bovenaan</li></ul><h3>Vertalen & Opslaan</h3><ul><li><strong>Selecteer tekst</strong> in een artikel om de vertaalknop te zien</li><li>Klik <strong>Vertalen</strong> voor een Engelse vertaling</li><li>Klik <strong>Opslaan</strong> om de vertaling te bewaren</li></ul><h3>Vocab PDF</h3><ul><li>Klik <strong>Download Vocab PDF</strong> onder een artikel</li><li>Je krijgt een overzicht van alle gemarkeerde woorden met vertalingen, voorbeeldzinnen en werkwoordvormen</li></ul><button class="help-close" onclick="closeHelp()">Begrepen</button>',
 
   reader: '<h2>Tekstlezer \u2014 Hulp</h2><h3>Hoe werkt het?</h3><p>Plak een URL van NOS.nl of de Nederlandse Wikipedia en lees het artikel interactief. Elk woord is klikbaar.</p><h3>Functies</h3><ul><li><strong>Hover:</strong> Beweeg over een woord voor de Engelse vertaling</li><li><strong>Werkwoorden:</strong> Onderstreepte woorden zijn werkwoordvormen \u2014 met vervoegingdetails</li><li><strong>Opslaan:</strong> Klik op een woord om het toe te voegen aan je woordenlijst</li><li><strong>Zinnen:</strong> Selecteer tekst voor een complete zinsvertaling</li><li><strong>Exporteer:</strong> Download je woordenlijst als printbare PDF</li></ul><button class="help-close" onclick="closeHelp()">Begrepen</button>',
 
