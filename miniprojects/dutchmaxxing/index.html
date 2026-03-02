@@ -2595,12 +2595,9 @@ body::before, body::after { display: none; }
 
 <!-- Tabs -->
 <nav class="tab-bar">
-  <button class="tab-btn active" data-tab="spel">Spel</button>
+  <button class="tab-btn active" data-tab="spiekbriefjes">Spiekbriefjes</button>
   <button class="tab-btn" data-tab="news">Leeshoek</button>
-  <button class="tab-btn" data-tab="spreken">Spreken</button>
   <button class="tab-btn" data-tab="schrijven">Schrijven</button>
-  <button class="tab-btn" data-tab="cultuur">Cultuur</button>
-  <button class="tab-btn" data-tab="spiekbriefjes">Spiekbriefjes</button>
 </nav>
 
 <!-- CEFR Level Selector -->
@@ -2619,52 +2616,7 @@ body::before, body::after { display: none; }
 <!-- MAIN TAB: OEFENINGEN (removed) -->
 
 <!-- MAIN TAB: SPEL -->
-<div class="tab-content active" id="tab-spel">
-  <div class="spel-container">
-    <div class="help-row" style="margin-bottom:12px;">
-      <div style="flex:1"></div>
-      <button class="help-btn" onclick="showHelp('spel')" title="Hulp">?</button>
-    </div>
-    <div class="spel-difficulty-bar" id="spelDifficultyBar">
-      <div class="spel-welcome">
-        
-        <h2 class="spel-welcome-title">Het Nederlandse Avontuur</h2>
-        <p class="spel-welcome-desc">Overleef het dagelijks leven in Nederland. Absurde scenario's met taaloefeningen.</p>
-      </div>
-      <div class="spel-diff-buttons">
-        <button class="spel-diff-btn" data-diff="easy" onclick="setSpelDifficulty('easy')">
-          
-          <span class="spel-diff-label">Makkelijk</span>
-          <span class="spel-diff-desc">Meerkeuze, hints, geen timer</span>
-        </button>
-        <button class="spel-diff-btn" data-diff="medium" onclick="setSpelDifficulty('medium')">
-          
-          <span class="spel-diff-label">Gemiddeld</span>
-          <span class="spel-diff-desc">Meer gaten, 30s timer</span>
-        </button>
-        <button class="spel-diff-btn" data-diff="hard" onclick="setSpelDifficulty('hard')">
-          
-          <span class="spel-diff-label">Moeilijk</span>
-          <span class="spel-diff-desc">Typ antwoord, 15s timer</span>
-        </button>
-      </div>
-      <button class="spel-start-btn" id="spelStartBtn" onclick="startSpelRound()" disabled>Start Avontuur</button>
-    </div>
-    <div class="spel-game-area" id="spelGameArea" style="display:none;">
-      <div class="de-hud" id="deHud">
-        <div class="de-hud-location" id="deHudLocation"></div>
-        <div class="de-hud-skills" id="deHudSkills"></div>
-        <div class="de-hud-xp" id="deHudXp">0 XP</div>
-        <div class="de-timer-bar" id="deTimerBar" style="display:none;width:100%;">
-          <div class="de-timer-fill" id="deTimerFill"></div>
-        </div>
-      </div>
-      <div class="de-dialogue-container" id="deDialogueLog"></div>
-      <div class="de-choices" id="deChoices" style="display:none;"></div>
-      <div class="spel-source" id="spelSource"></div>
-    </div>
-  </div>
-</div>
+<!-- MAIN TAB: SPEL (removed) -->
 
 <!-- MAIN TAB: LEESHOEK -->
 <div class="tab-content" id="tab-news">
@@ -2731,44 +2683,7 @@ body::before, body::after { display: none; }
 
 <!-- MAIN TAB: WOORDENSCHAT (removed) -->
 
-<!-- MAIN TAB: SPREKEN -->
-<div class="tab-content" id="tab-spreken">
-  <div class="subtab-bar">
-    <button class="subtab-btn active" data-subtab="uitspraak" data-maintab="spreken">Uitspraak</button>
-    <button class="subtab-btn" data-subtab="watzegje" data-maintab="spreken">Wat zou je zeggen?</button>
-    <button class="subtab-btn" data-subtab="gebeurd" data-maintab="spreken">Wat is er gebeurd?</button>
-  </div>
-
-  <div class="subtab-content active" id="sub-uitspraak">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Uitspraak</h2>
-        <p>Minimale paren, IPA-gids en tongbrekers.</p>
-      </div>
-      <div id="uitspraakContent"></div>
-    </div>
-  </div>
-
-  <div class="subtab-content" id="sub-watzegje">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Wat zou je zeggen?</h2>
-        <p>Bedenk wat je zou zeggen in deze situatie. Klik om het modelantwoord te zien.</p>
-      </div>
-      <div id="watzegjeContent"></div>
-    </div>
-  </div>
-
-  <div class="subtab-content" id="sub-gebeurd">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Wat is er gebeurd?</h2>
-        <p>Oefen het vertellen over het verleden. Zeg hardop wat er is gebeurd en onthul het modelantwoord.</p>
-      </div>
-      <div id="gebeurdContent"></div>
-    </div>
-  </div>
-</div>
+<!-- MAIN TAB: SPREKEN (removed) -->
 
 <!-- MAIN TAB: SCHRIJVEN -->
 <div class="tab-content" id="tab-schrijven">
@@ -2809,58 +2724,10 @@ body::before, body::after { display: none; }
   </div>
 </div>
 
-<!-- MAIN TAB: CULTUUR -->
-<div class="tab-content" id="tab-cultuur">
-  <div class="subtab-bar">
-    <button class="subtab-btn active" data-subtab="etiquette" data-maintab="cultuur">Etiquette</button>
-    <button class="subtab-btn" data-subtab="communicatie" data-maintab="cultuur">Communicatie</button>
-    <button class="subtab-btn" data-subtab="praktisch" data-maintab="cultuur">Praktisch</button>
-    <button class="subtab-btn" data-subtab="uitdrukkingen-c" data-maintab="cultuur">Uitdrukkingen</button>
-  </div>
-
-  <div class="subtab-content active" id="sub-etiquette">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Nederlandse Etiquette</h2>
-        <p>Begrijp de Nederlandse omgangsvormen en sociale normen.</p>
-      </div>
-      <div class="cultuur-grid" id="etiquetteGrid"></div>
-    </div>
-  </div>
-
-  <div class="subtab-content" id="sub-communicatie">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Communicatie</h2>
-        <p>Formeel vs. informeel taalgebruik in Nederland.</p>
-      </div>
-      <div class="cultuur-grid" id="communicatieGrid"></div>
-    </div>
-  </div>
-
-  <div class="subtab-content" id="sub-praktisch">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Praktische Zaken</h2>
-        <p>Gemeente, huisarts, wonen, en meer — met handige zinnen.</p>
-      </div>
-      <div class="cultuur-grid" id="praktischGrid"></div>
-    </div>
-  </div>
-
-  <div class="subtab-content" id="sub-uitdrukkingen-c">
-    <div class="exercise-container">
-      <div class="exercise-header">
-        <h2>Nederlandse Uitdrukkingen</h2>
-        <p>Idiomen, spreekwoorden en hun culturele achtergrond.</p>
-      </div>
-      <div id="uitdrukkingenContent"></div>
-    </div>
-  </div>
-</div>
+<!-- MAIN TAB: CULTUUR (removed) -->
 
 <!-- MAIN TAB: SPIEKBRIEFJES -->
-<div class="tab-content" id="tab-spiekbriefjes">
+<div class="tab-content active" id="tab-spiekbriefjes">
   <div class="subtab-bar">
     <button class="subtab-btn active" data-subtab="sheets" data-maintab="spiekbriefjes">Werkwoorden</button>
     <button class="subtab-btn" data-subtab="sheets-prep" data-maintab="spiekbriefjes">Voorzetsels</button>
@@ -5578,7 +5445,7 @@ function refreshActiveTab() {
     }
   } else if (tab === 'news') { initNews(); }
   // else if (tab === 'vocab') { vocabInitialized = false; initVocab(); renderVocabList(); }
-  else if (tab === 'spreken') { sprekenInitialized = false; document.getElementById('uitspraakContent').innerHTML = ''; document.getElementById('watzegjeContent').innerHTML = ''; document.getElementById('gebeurdContent').innerHTML = ''; const activeSub = document.querySelector('#tab-spreken .subtab-btn.active'); if (activeSub) { const fn = SUBTAB_INIT[activeSub.dataset.subtab]; if (fn) fn(); } }
+  // spreken tab removed
   else if (tab === 'schrijven') { schrijvenInitialized = false; document.getElementById('whatsappContent').innerHTML = ''; document.getElementById('formulierenContent').innerHTML = ''; document.getElementById('reviewsContent').innerHTML = ''; const activeSub = document.querySelector('#tab-schrijven .subtab-btn.active'); if (activeSub) { const fn = SUBTAB_INIT[activeSub.dataset.subtab]; if (fn) fn(); } }
 }
 
@@ -5631,7 +5498,6 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
       if (fn) fn();
     }
     // Direct init for tabs without subtabs
-    if (btn.dataset.tab === 'spel') initSpel();
     if (btn.dataset.tab === 'news') initNews();
     // if (btn.dataset.tab === 'vocab') initVocab(); // commented out with tab
     updateCEFRBarVisibility();
@@ -8510,7 +8376,7 @@ function resetSpelToMenu() {
 // ==========================================
 loadState();
 initCEFR();
-initSpel();
+initSheets();
 
 // Enter key handlers for new dictee inputs
 
