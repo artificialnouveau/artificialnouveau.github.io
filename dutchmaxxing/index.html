@@ -6398,17 +6398,7 @@ function renderUitdrukkingen() {
   container.innerHTML = html;
 }
 
-// ==========================================
-// INIT
-// ==========================================
-loadState();
-initCEFR();
-initSpel();
-
-// Enter key handlers for new dictee inputs
-document.getElementById('dicteeLInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeL(); });
-document.getElementById('dicteeSInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeS(); });
-document.getElementById('woordenschatInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkWoordenschat(); });
+// (INIT block moved to end of script)
 
 // ==========================================
 // TAB 7: WOORDENSCHAT
@@ -8859,6 +8849,18 @@ function resetSpelToMenu() {
   renderSkillOverview();
   renderThoughtCabinet();
 }
+
+// ==========================================
+// INIT
+// ==========================================
+loadState();
+initCEFR();
+initSpel();
+
+// Enter key handlers for new dictee inputs
+document.getElementById('dicteeLInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeL(); });
+document.getElementById('dicteeSInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkDicteeS(); });
+document.getElementById('woordenschatInput')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkWoordenschat(); });
 
 </script>
 </body>
