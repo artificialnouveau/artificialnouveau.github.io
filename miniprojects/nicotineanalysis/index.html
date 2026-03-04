@@ -467,6 +467,49 @@ body {
   .section-title { font-size: 12px; }
   .outcome-label { width: 70px; font-size: 9px; }
 }
+
+/* ── Print / PDF styles ────────────────────────────────────────── */
+@media print {
+  * { color-adjust: exact; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff !important; color: #1a1a1a !important; font-size: 12pt; }
+  .top-bar, #network-container, .network-controls, .network-legend, #coi-sub-legend, #btn-pdf { display: none !important; }
+  .page { padding-top: 0 !important; }
+  .section { padding: 20px 0; max-width: 100%; }
+  .section-title { color: #333 !important; font-size: 14pt; border-bottom: 2px solid #333; padding-bottom: 4px; }
+  .stat-card { background: #f5f5f5 !important; border: 1px solid #ddd !important; }
+  .stat-card .value { color: #0066cc !important; }
+  .stat-card .label { color: #555 !important; }
+  .finding-card { background: #f9f9f9 !important; border: 1px solid #ddd !important; break-inside: avoid; }
+  .finding-card h3 { color: #1a1a1a !important; }
+  .finding-card p { color: #444 !important; }
+  .finding-card .stat-highlight { background: #eee !important; color: #1a1a1a !important; }
+  .stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .findings-grid { grid-template-columns: 1fr !important; }
+  .outcome-bar-seg span { color: #1a1a1a !important; text-shadow: none !important; }
+  /* Add a title for the PDF */
+  .page::before {
+    content: "Nicotine Research Analysis — Key Findings Report";
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 22pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    padding: 30px 0 10px;
+    border-bottom: 3px solid #1a1a1a;
+    margin-bottom: 20px;
+  }
+  .page::after {
+    content: "Generated from artificialnouveau.com/miniprojects/nicotineanalysis";
+    display: block;
+    font-size: 9pt;
+    color: #888;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+}
 </style>
 </head>
 <body>
@@ -476,6 +519,7 @@ body {
   <nav>
     <a href="index.html" class="active">Network</a>
     <a href="papers.html">Papers</a>
+    <a href="#" id="btn-pdf" style="border:1px solid var(--border);border-radius:6px;margin-left:8px;">PDF Report</a>
   </nav>
 </div>
 
@@ -592,86 +636,89 @@ body {
       <!-- 1. How we classified outcomes -->
       <div class="finding-card">
         <h3><span style="color: var(--green);">1</span> How We Classified Outcomes</h3>
-        <p>Each paper's abstract was analyzed using ~100 directional keyword patterns to assign an outcome label. Of 2,175 papers, 1,075 (49.4%) had classifiable outcome language. The remaining 1,100 were labeled "Not applicable" &mdash; their abstracts were either missing from PubMed, too short, or purely methodological (study protocols, review methods, instrument validation) with no directional findings.</p>
+        <p>We used a computer program to scan each paper's summary (abstract) for about 100 keyword patterns that indicate whether the research found nicotine/tobacco products to be helpful or harmful. About half the papers (1,075 of 2,175) contained clear enough language to classify. The other 1,100 could not be classified because their summaries were missing, too short, or purely about methods (e.g., study designs, review protocols) rather than results.</p>
         <div class="stat-highlight">
           Positive: <strong style="color:var(--positive)">392</strong> &nbsp;|&nbsp;
           Negative: <strong style="color:var(--negative)">331</strong> &nbsp;|&nbsp;
           Mixed: <strong style="color:var(--mixed)">291</strong> &nbsp;|&nbsp;
           Neutral: <strong style="color:var(--neutral)">61</strong> &nbsp;|&nbsp;
-          N/A: <strong style="color:var(--muted)">1,100</strong>
+          Not classifiable: <strong style="color:var(--muted)">1,100</strong>
         </div>
       </div>
 
       <!-- 2. Outcome distribution chart -->
       <div class="finding-card">
         <h3><span style="color: var(--cyan);">2</span> Outcome Distribution by Category</h3>
-        <p>Among the 1,075 classified papers, the proportion of positive outcomes varies by affiliation group. COI-declared papers show a noticeably higher positive rate.</p>
+        <p>Among the 1,075 classifiable papers, how do outcomes break down by group? The bars below show the percentage of positive, negative, mixed, and neutral findings for each category. Notice how the green (positive) segment is larger for COI-declared papers.</p>
         <div class="outcome-bars" id="outcome-bars"></div>
       </div>
 
       <!-- 3. Main finding: COI bias -->
       <div class="finding-card">
-        <h3><span style="color: var(--orange);">3</span> COI-Declared Papers Show Significant Positive Bias</h3>
-        <p>Papers with declared conflicts of interest are 46% more likely to report positive outcomes compared to independent research. This is the central finding &mdash; statistically significant across multiple tests.</p>
+        <h3><span style="color: var(--orange);">3</span> Conflicted Research Skews Positive</h3>
+        <p>This is the central finding: papers where authors declared a financial conflict of interest were <strong style="color:var(--text)">46% more likely</strong> to report favorable results for nicotine/tobacco products than independent research. In plain terms, if you picked a random COI paper and a random independent paper, the COI paper is nearly 1.5&times; as likely to have a positive conclusion.</p>
         <div class="stat-highlight">
-          Positive outcome rate: <strong style="color:var(--orange)">43.2%</strong> (COI) vs <strong style="color:var(--blue)">34.3%</strong> (Independent)<br>
-          Odds ratio: <strong>1.46</strong> (95% CI: 1.09&ndash;1.95, p = 0.012)
+          Positive rate: <strong style="color:var(--orange)">43.2%</strong> of COI papers vs <strong style="color:var(--blue)">34.3%</strong> of independent papers<br>
+          <span style="color:var(--muted);">Odds ratio = 1.46 &mdash; meaning COI papers have 1.46&times; the odds of a positive outcome. The 95% confidence interval (1.09&ndash;1.95) does not cross 1.0, confirming this is statistically significant (p&nbsp;=&nbsp;0.012).</span>
         </div>
       </div>
 
       <!-- 4. COI subcategory breakdown -->
       <div class="finding-card">
         <h3><span style="color: var(--coi);">4</span> Consulting &amp; Advisory Ties Drive the Bias</h3>
-        <p>Breaking down COI-declared papers by conflict type, consulting/advisory relationships account for most of the effect. Industry funding shows the highest odds ratio (5.77&times;) but with only 11 papers &mdash; too few for statistical significance.</p>
-        <div class="stat-highlight" style="line-height: 1.8;">
-          <strong style="color:var(--coi)">Consulting/Advisory</strong> (294 papers): OR = <strong>1.42</strong>, p = 0.045 <span style="color:var(--green);">&#10003;</span><br>
-          <strong style="color:var(--coi)">Legal</strong> (97 papers): OR = <strong>1.57</strong>, p = 0.163<br>
-          <strong style="color:var(--coi)">Financial Interest</strong> (35 papers): OR = <strong>1.60</strong>, p = 0.362<br>
-          <strong style="color:var(--coi)">Fees/Compensation</strong> (19 papers): OR = <strong>1.15</strong>, p = 1.000<br>
-          <strong style="color:var(--coi)">Industry Funding</strong> (11 papers): OR = <strong>5.77</strong>, p = 0.120
+        <p>Not all conflicts are equal. When we break down COI papers by the type of conflict, <strong style="color:var(--text)">consulting and advisory board relationships</strong> (294 papers) are the main driver of positive bias. Industry funding shows the strongest effect (5.8&times; the odds) but with only 11 papers, that could be due to chance.</p>
+        <div class="stat-highlight" style="line-height: 1.9;">
+          <strong style="color:var(--coi)">Consulting/Advisory</strong> (294 papers): <strong>1.42&times;</strong> the odds of positive <span style="color:var(--green);">&#10003; significant</span><br>
+          <strong style="color:var(--coi)">Legal</strong> (97 papers): <strong>1.57&times;</strong> the odds<br>
+          <strong style="color:var(--coi)">Financial Interest</strong> (35 papers): <strong>1.60&times;</strong> the odds<br>
+          <strong style="color:var(--coi)">Fees/Compensation</strong> (19 papers): <strong>1.15&times;</strong> the odds<br>
+          <strong style="color:var(--coi)">Industry Funding</strong> (11 papers): <strong>5.77&times;</strong> the odds<br>
+          <span style="color:var(--muted);font-size:13px;">&#10003; = statistically significant (p &lt; 0.05). Others may be real effects but sample too small to confirm.</span>
         </div>
       </div>
 
       <!-- 5. Tobacco company result -->
       <div class="finding-card">
-        <h3><span style="color: var(--red);">5</span> Tobacco Company Papers &mdash; No Significant Bias</h3>
-        <p>Surprisingly, papers directly authored by tobacco company researchers do not show statistically significant outcome bias. This may reflect more cautious framing in papers with overt industry authorship, or the small sample size (111 papers).</p>
+        <h3><span style="color: var(--red);">5</span> Tobacco Company Papers &mdash; No Clear Bias</h3>
+        <p>Surprisingly, papers written directly by tobacco company employees do <em>not</em> show a significant skew toward positive outcomes. Their positive rate (36.5%) is close to independent research (34.3%). This might be because tobacco-authored papers face more scrutiny, leading to more cautious framing, or because the sample (111 papers) is simply too small to detect a difference.</p>
         <div class="stat-highlight">
-          Positive outcome rate: <strong style="color:var(--red)">36.5%</strong> (Tobacco) vs <strong style="color:var(--blue)">34.3%</strong> (Independent)<br>
-          Odds ratio: <strong>1.10</strong> (95% CI: 0.65&ndash;1.88, p = 0.78)
+          Positive rate: <strong style="color:var(--red)">36.5%</strong> (Tobacco) vs <strong style="color:var(--blue)">34.3%</strong> (Independent)<br>
+          <span style="color:var(--muted);">Odds ratio = 1.10 (95% CI: 0.65&ndash;1.88). The confidence interval crosses 1.0, so we cannot rule out no difference (p&nbsp;=&nbsp;0.78).</span>
         </div>
       </div>
 
       <!-- 6. Network: insular clusters -->
       <div class="finding-card">
-        <h3><span style="color: var(--magenta);">6</span> Tobacco Researchers Form Insular Clusters</h3>
-        <p>The co-authorship network reveals that tobacco-affiliated authors overwhelmingly publish with each other rather than with independent researchers. An assortativity of 0.791 indicates near-complete segregation.</p>
+        <h3><span style="color: var(--magenta);">6</span> Tobacco Researchers Stick Together</h3>
+        <p>The co-authorship network shows that tobacco company researchers overwhelmingly publish with each other. They form tight, insular clusters with very few connections to independent researchers. A clustering score (assortativity) of 0.791 &mdash; where 1.0 would mean complete isolation &mdash; confirms this near-total segregation.</p>
         <div class="stat-highlight">
-          Network: <strong>1,651</strong> authors, <strong>13,405</strong> co-authorships<br>
-          <strong>92</strong> communities detected &nbsp;|&nbsp; Largest component: <strong>89%</strong> of network
+          <strong>1,651</strong> authors &nbsp;|&nbsp; <strong>13,405</strong> co-authorships<br>
+          <strong>92</strong> research communities detected &nbsp;|&nbsp; Largest connected group: <strong>89%</strong> of all authors
         </div>
       </div>
 
       <!-- 7. Network: COI as bridges -->
       <div class="finding-card">
         <h3><span style="color: var(--cyan);">7</span> COI Authors Bridge Research Communities</h3>
-        <p>In contrast to insular tobacco clusters, COI-declared authors have the highest betweenness centrality &mdash; they sit between communities, connecting otherwise isolated groups. This bridge position may amplify the influence of their work.</p>
+        <p>Unlike insular tobacco clusters, researchers with declared conflicts of interest tend to collaborate across different research groups. They act as "bridges" between communities that would otherwise be isolated. This central network position means their work reaches &mdash; and potentially influences &mdash; a wider audience.</p>
         <div class="stat-highlight">
-          Mean betweenness centrality:<br>
+          Bridge score (betweenness centrality):<br>
           COI: <strong style="color:var(--orange)">0.0035</strong> &nbsp;|&nbsp;
           Tobacco: <strong style="color:var(--red)">0.0011</strong> &nbsp;|&nbsp;
-          Independent: <strong style="color:var(--blue)">0.0006</strong>
+          Independent: <strong style="color:var(--blue)">0.0006</strong><br>
+          <span style="color:var(--muted);font-size:13px;">Higher = more connections between different groups. COI authors score 6&times; higher than independent ones.</span>
         </div>
       </div>
 
       <!-- 8. Statistical robustness -->
       <div class="finding-card">
-        <h3><span style="color: var(--yellow);">8</span> Statistical Robustness</h3>
-        <p>All findings were tested using multiple methods to guard against false positives. Holm-Bonferroni correction was applied across all hypothesis tests.</p>
+        <h3><span style="color: var(--yellow);">8</span> How Confident Are These Results?</h3>
+        <p>To make sure these findings aren't due to chance, we tested them using multiple independent methods. All key results held up across every test, including a correction (Holm-Bonferroni) that accounts for running many tests at once, which can inflate false positives.</p>
         <div class="stat-highlight">
-          Chi-square (enhanced, 3-group): &chi;&sup2; = 14.03, p = 0.029<br>
-          Permutation test COI vs Independent: p = 0.012<br>
-          Kruskal-Wallis centrality tests: all p &lt; 0.001
+          Pattern test across all 3 groups: p = 0.029 <span style="color:var(--green);">&#10003;</span><br>
+          Randomization test (COI vs Independent, 10,000 shuffles): p = 0.012 <span style="color:var(--green);">&#10003;</span><br>
+          Network centrality differences: p &lt; 0.001 <span style="color:var(--green);">&#10003;</span><br>
+          <span style="color:var(--muted);font-size:13px;">&#10003; = statistically significant. A p-value below 0.05 means there's less than a 5% chance the result is due to random chance alone.</span>
         </div>
       </div>
 
@@ -1040,13 +1087,20 @@ function renderOutcomeBars() {
     row.innerHTML = `<div class="outcome-label">${cat.label}</div><div class="outcome-bar-track">
       ${outcomes.map(o => {
         const pct = ((d[o] || 0) / coded * 100).toFixed(1);
+        const showLabel = pct >= 8; // only show % label if segment is wide enough
         return `<div class="outcome-bar-seg" style="width:${pct}%;background:${outColors[o]}"
-                     data-tooltip="${o}: ${d[o]} (${pct}%)"></div>`;
+                     data-tooltip="${o}: ${d[o]} (${pct}%)">${showLabel ? `<span style="font-size:11px;color:#fff;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,0.6);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">${pct}%</span>` : ''}</div>`;
       }).join('')}
     </div>`;
     container.appendChild(row);
   });
 }
+
+// ── PDF Download ──
+document.getElementById('btn-pdf').addEventListener('click', function(e) {
+  e.preventDefault();
+  window.print();
+});
 
 // ── Init ──
 init();
