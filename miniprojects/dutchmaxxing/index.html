@@ -1773,6 +1773,27 @@ body::before, body::after { display: none; }
   outline: none; width: 100%;
 }
 .phrases-search:focus { border-color: var(--mondrian-blue); }
+.spiek-search-bar { margin-bottom: 12px; position: relative; }
+.spiek-search {
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px; padding: 8px 34px 8px 14px;
+  border: 3px solid var(--mondrian-black); background: var(--mondrian-white);
+  outline: none; width: 100%;
+}
+.spiek-search:focus { border-color: var(--mondrian-blue); }
+.spiek-search-clear {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; font-size: 18px; cursor: pointer; color: #999;
+  display: none; padding: 0 4px; line-height: 1;
+}
+.spiek-search-clear:hover { color: var(--mondrian-black); }
+.spiek-search-results { display: none; }
+.spiek-search-results.active { display: block; }
+.spiek-results-section-title {
+  font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700;
+  margin: 20px 0 8px; padding-bottom: 4px; border-bottom: 3px solid #000;
+}
+.spiek-results-section-title:first-child { margin-top: 0; }
+.spiek-no-results { padding: 20px; text-align: center; color: #999; }
 .phrases-list { display: flex; flex-direction: column; gap: 10px; }
 .phrase-card {
   background: var(--mondrian-white); border: 3px solid var(--mondrian-black);
@@ -2726,12 +2747,17 @@ body::before, body::after { display: none; }
 
 <!-- MAIN TAB: SPIEKBRIEFJES -->
 <div class="tab-content active" id="tab-spiekbriefjes">
-  <div class="subtab-bar">
+  <div class="spiek-search-bar">
+    <input type="text" class="spiek-search" id="spiekSearch" placeholder="Zoek in alle spiekbriefjes..." oninput="searchSpiekbriefjes()" />
+    <button class="spiek-search-clear" id="spiekSearchClear" onclick="clearSpiekSearch()" title="Wissen">&times;</button>
+  </div>
+  <div class="subtab-bar" id="spiekSubtabBar">
     <button class="subtab-btn active" data-subtab="sheets" data-maintab="spiekbriefjes">Werkwoorden</button>
     <button class="subtab-btn" data-subtab="sheets-prep" data-maintab="spiekbriefjes">Voorzetsels</button>
     <button class="subtab-btn" data-subtab="phrases" data-maintab="spiekbriefjes">Uitdrukkingen</button>
     <button class="subtab-btn" data-subtab="grammar" data-maintab="spiekbriefjes">Grammatica</button>
   </div>
+  <div class="spiek-search-results" id="spiekSearchResults"></div>
 
   <div class="subtab-content active" id="sub-sheets">
   <div class="sheets-container">
@@ -8342,6 +8368,94 @@ function exportAllGrammar() {
   });
   rows += '<div class="tip">Totaal: ' + GRAMMAR_RULES.length + ' grammaticaregels</div>';
   generatePDFContent('Alle Grammaticaregels', rows);
+}
+
+// ==========================================
+// SPIEKBRIEFJES: GLOBAL SEARCH
+// ==========================================
+function clearSpiekSearch() {
+  document.getElementById('spiekSearch').value = '';
+  searchSpiekbriefjes();
+  document.getElementById('spiekSearch').focus();
+}
+
+function searchSpiekbriefjes() {
+  const input = document.getElementById('spiekSearch');
+  const query = (input.value || '').toLowerCase().trim();
+  const resultsEl = document.getElementById('spiekSearchResults');
+  const subtabBar = document.getElementById('spiekSubtabBar');
+  const subtabs = document.querySelectorAll('#tab-spiekbriefjes > .subtab-content');
+  document.getElementById('spiekSearchClear').style.display = input.value ? 'block' : 'none';
+
+  if (query.length < 3) {
+    resultsEl.classList.remove('active');
+    resultsEl.innerHTML = '';
+    subtabBar.style.display = '';
+    subtabs.forEach(s => s.style.display = '');
+    return;
+  }
+
+  subtabBar.style.display = 'none';
+  subtabs.forEach(s => s.style.display = 'none');
+  resultsEl.classList.add('active');
+
+  const strip = html => html.replace(/<[^>]*>/g, '');
+  let html = '';
+
+  // Grammar cards
+  const grammarMatches = GRAMMAR_RULES.filter(r =>
+    r.title.toLowerCase().includes(query) ||
+    r.subtitle.toLowerCase().includes(query) ||
+    strip(r.body).toLowerCase().includes(query)
+  );
+  if (grammarMatches.length) {
+    html += '<div class="spiek-results-section-title">Grammatica (' + grammarMatches.length + ')</div>';
+    html += '<div class="grammar-grid">' + grammarMatches.map(r =>
+      '<div class="grammar-card">'
+      + '<div class="grammar-card-accent" style="background:' + r.accent + ';"></div>'
+      + '<div class="grammar-card-header">'
+      + '<div class="grammar-card-title">' + r.title + '</div>'
+      + '<div class="grammar-card-subtitle">' + r.subtitle + '</div>'
+      + '</div>'
+      + '<div class="grammar-card-body">' + r.body + '</div>'
+      + '</div>'
+    ).join('') + '</div>';
+  }
+
+  // Phrases
+  const phraseMatches = PHRASES.filter(p =>
+    p.nl.toLowerCase().includes(query) || p.en.toLowerCase().includes(query)
+  );
+  if (phraseMatches.length) {
+    html += '<div class="spiek-results-section-title">Uitdrukkingen (' + phraseMatches.length + ')</div>';
+    html += '<div class="phrases-list">' + phraseMatches.map(p =>
+      '<div class="phrase-card" data-cat="' + p.cat + '">'
+      + '<span class="phrase-cat-label">' + (PHRASE_CAT_LABELS[p.cat] || p.cat) + '</span>'
+      + '<div class="phrase-nl">' + p.nl + '</div>'
+      + '<div class="phrase-en">' + p.en + '</div>'
+      + '<div class="phrase-example">' + (p.example || '') + '</div>'
+      + '<div class="phrase-example-en">' + (p.example_en || '') + '</div>'
+      + '</div>'
+    ).join('') + '</div>';
+  }
+
+  // Preposition verbs
+  const prepMatches = PREPOSITION_VERBS.filter(v =>
+    v.phrase.toLowerCase().includes(query) || v.en.toLowerCase().includes(query)
+  );
+  if (prepMatches.length) {
+    html += '<div class="spiek-results-section-title">Vaste Voorzetsels (' + prepMatches.length + ')</div>';
+    html += '<div class="phrases-list">' + prepMatches.map(v =>
+      '<div class="phrase-card" data-cat="connectors">'
+      + '<span class="phrase-cat-label">' + v.prep + '</span>'
+      + '<div class="phrase-nl">' + v.phrase + '</div>'
+      + '<div class="phrase-en">' + v.en + '</div>'
+      + '</div>'
+    ).join('') + '</div>';
+  }
+
+  if (!html) html = '<div class="spiek-no-results">Geen resultaten gevonden voor "' + query.replace(/</g,'&lt;') + '"</div>';
+  resultsEl.innerHTML = html;
 }
 
 // ==========================================
