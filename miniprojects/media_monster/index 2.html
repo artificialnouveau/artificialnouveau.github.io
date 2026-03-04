@@ -1,0 +1,2513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Monster</title>
+  <!-- SheetJS for XLSX parsing (client-side, no backend) -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+
+    .subtitle {
+      color: #888;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #282828;
+    }
+    .tab {
+      padding: 10px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: #888;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    .tab:hover { color: #ccc; }
+    .tab.active {
+      color: #fff;
+      border-bottom-color: #ff0000;
+    }
+    .tab.active-imdb {
+      color: #fff;
+      border-bottom-color: #f5c518;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      font-size: 0.95rem;
+      font-family: monospace;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      border: 1px solid #333;
+      border-radius: 8px;
+      resize: vertical;
+      outline: none;
+    }
+    textarea:focus {
+      border-color: #ff0000;
+    }
+    .imdb-panel textarea:focus {
+      border-color: #f5c518;
+    }
+    textarea::placeholder {
+      color: #555;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.85; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary {
+      background: #ff0000;
+      color: #fff;
+    }
+    .btn-primary-imdb {
+      background: #f5c518;
+      color: #000;
+    }
+
+    .btn-secondary {
+      background: #333;
+      color: #e0e0e0;
+    }
+
+    .status {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #888;
+      min-height: 1.2em;
+    }
+
+    .results {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .results-posters {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .thumb-card {
+      background: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #282828;
+    }
+
+    .thumb-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      background: #222;
+    }
+
+    .thumb-card.poster-card img {
+      aspect-ratio: 2/3;
+      object-fit: cover;
+    }
+
+    .thumb-card .card-body {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .thumb-card .video-id {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #888;
+      word-break: break-all;
+    }
+
+    .thumb-card .poster-title {
+      font-size: 0.85rem;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .thumb-card .poster-year {
+      font-size: 0.75rem;
+      color: #f5c518;
+    }
+
+    .thumb-card .quality-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .quality-btn {
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      background: #282828;
+      color: #ccc;
+      border: 1px solid #383838;
+    }
+    .quality-btn:hover {
+      background: #383838;
+    }
+    .quality-btn.active {
+      background: #ff0000;
+      color: #fff;
+      border-color: #ff0000;
+    }
+    .quality-btn.active-imdb {
+      background: #f5c518;
+      color: #000;
+      border-color: #f5c518;
+    }
+
+    .download-btn {
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      background: #282828;
+      color: #fff;
+      border: 1px solid #383838;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .download-btn:hover {
+      background: #ff0000;
+      border-color: #ff0000;
+    }
+
+    .error-card {
+      background: #1a1a1a;
+      border: 1px solid #442222;
+      border-radius: 8px;
+      padding: 16px;
+      color: #ff6666;
+      font-size: 0.9rem;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0;
+      color: #555;
+      font-size: 0.85rem;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #333;
+    }
+
+    .drop-zone {
+      border: 2px dashed #333;
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: #ff0000;
+      background: rgba(255, 0, 0, 0.05);
+    }
+    .drop-zone p {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+    .drop-zone .drop-hint {
+      color: #555;
+      font-size: 0.8rem;
+    }
+    .drop-zone input[type="file"] {
+      display: none;
+    }
+
+    .file-info {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #0f9;
+    }
+
+    .tab.active-news {
+      color: #fff;
+      border-bottom-color: #4a9eff;
+    }
+    .btn-primary-news {
+      background: #4a9eff;
+      color: #fff;
+    }
+
+    .news-card-preview {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      min-height: 100px;
+    }
+    .news-card-preview .logo-side {
+      width: 80px;
+      min-width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f0f0;
+      padding: 12px;
+    }
+    .news-card-preview .logo-side img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+    .news-card-preview .headline-side {
+      flex: 1;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+    }
+    .news-card-preview .headline-text {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.35;
+    }
+    .news-card-preview .source-name {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.7rem;
+      color: #888;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .news-card-wrapper {
+      background: #1a1a1a;
+      border: 1px solid #282828;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .news-card-wrapper .card-body {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .news-card-wrapper canvas {
+      display: none;
+    }
+
+    .tab.active-avatar {
+      color: #fff;
+      border-bottom-color: #ff4444;
+    }
+    .btn-primary-avatar {
+      background: #ff4444;
+      color: #fff;
+    }
+
+    .results-avatars {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    .avatar-card {
+      background: #1a1a1a;
+      border: 1px solid #282828;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      padding: 16px;
+    }
+    .avatar-card .avatar-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 10px;
+      display: block;
+      background: #222;
+    }
+    .avatar-card .channel-name {
+      font-size: 0.85rem;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+    .avatar-card .channel-handle {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #888;
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
+
+    .tab.active-brand {
+      color: #fff;
+      border-bottom-color: #00cc88;
+    }
+    .btn-primary-brand {
+      background: #00cc88;
+      color: #fff;
+    }
+
+    .results-brands {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    .brand-card {
+      background: #1a1a1a;
+      border: 1px solid #282828;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .brand-card .logo-preview {
+      width: 100%;
+      aspect-ratio: 3/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .brand-card .logo-preview.bg-white { background: #ffffff; }
+    .brand-card .logo-preview.bg-dark { background: #1a1a1a; }
+    .brand-card .logo-preview.bg-checker {
+      background: repeating-conic-gradient(#e0e0e0 0% 25%, #fff 0% 50%) 50% / 16px 16px;
+    }
+    .brand-card .logo-preview img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .brand-card .card-body {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .brand-card .brand-name {
+      font-size: 0.85rem;
+      color: #fff;
+      font-weight: 600;
+    }
+    .brand-card .brand-domain {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .bg-toggle {
+      display: flex;
+      gap: 4px;
+    }
+    .bg-toggle button {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 2px solid #383838;
+      padding: 0;
+      cursor: pointer;
+      font-size: 0;
+    }
+    .bg-toggle button.active-bg { border-color: #00cc88; }
+    .bg-toggle .bg-opt-white { background: #fff; }
+    .bg-toggle .bg-opt-dark { background: #1a1a1a; }
+    .bg-toggle .bg-opt-checker { background: repeating-conic-gradient(#e0e0e0 0% 25%, #fff 0% 50%) 50% / 8px 8px; }
+
+    .tab.active-artist {
+      color: #fff;
+      border-bottom-color: #1db954;
+    }
+    .btn-primary-artist {
+      background: #1db954;
+      color: #fff;
+    }
+
+    .results-artists {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    .artist-card {
+      background: #1a1a1a;
+      border: 1px solid #282828;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      padding: 16px;
+    }
+    .artist-card .artist-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 10px;
+      display: block;
+      background: #222;
+    }
+    .artist-card .artist-name {
+      font-size: 0.85rem;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+    .artist-card .artist-source {
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: #1db954;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 1.5rem 0.75rem; }
+      h1 { font-size: 1.4rem; }
+      .results { grid-template-columns: 1fr; }
+      .results-posters { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .drop-zone { padding: 16px; }
+      .tab { padding: 8px 16px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Media Monster</h1>
+    <p class="subtitle">Download YouTube thumbnails, channel avatars, movie/TV posters, or generate news headline cards.</p>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('youtube')">YouTube Thumbnails</button>
+      <button class="tab" onclick="switchTab('imdb')">IMDb Posters</button>
+      <button class="tab" onclick="switchTab('news')">News Cards</button>
+      <button class="tab" onclick="switchTab('avatar')">Channel Avatars</button>
+      <button class="tab" onclick="switchTab('brand')">Brand Logos</button>
+      <button class="tab" onclick="switchTab('artist')">Artist Photos</button>
+    </div>
+
+    <!-- ============ YOUTUBE TAB ============ -->
+    <div class="tab-panel active" id="panel-youtube">
+      <textarea id="urls" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ
+https://youtu.be/jNQXAC9IVRw
+https://www.youtube.com/shorts/abc123
+or just paste video IDs like dQw4w9WgXcQ"></textarea>
+
+      <div class="divider">or upload a file</div>
+
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">The file should contain YouTube URLs or video IDs in any column</p>
+        <input type="file" id="file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="fetchThumbnails()">Get Thumbnails</button>
+        <button class="btn-secondary" id="yt-download-all-btn" onclick="ytDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="ytClear()">Clear</button>
+      </div>
+
+      <p class="status" id="yt-status"></p>
+      <div class="results" id="yt-results"></div>
+    </div>
+
+    <!-- ============ IMDB TAB ============ -->
+    <div class="tab-panel" id="panel-imdb">
+      <textarea id="imdb-urls" placeholder="https://www.imdb.com/title/tt0111161/
+https://www.imdb.com/title/tt0468569/
+tt1375666
+or paste multiple IMDb URLs, one per line"></textarea>
+
+      <div class="divider">or upload a file</div>
+
+      <div class="drop-zone" id="imdb-drop-zone" onclick="document.getElementById('imdb-file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">The file should contain IMDb URLs or title IDs (tt1234567) in any column</p>
+        <input type="file" id="imdb-file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="imdb-file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary-imdb" onclick="fetchPosters()">Get Posters</button>
+        <button class="btn-secondary" id="imdb-download-all-btn" onclick="imdbDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="imdbClear()">Clear</button>
+      </div>
+
+      <p class="status" id="imdb-status"></p>
+      <div class="results results-posters" id="imdb-results"></div>
+    </div>
+
+    <!-- ============ NEWS CARDS TAB ============ -->
+    <div class="tab-panel" id="panel-news">
+      <textarea id="news-urls" placeholder="https://www.foxnews.com/politics/some-article
+https://www.bbc.com/news/some-article
+https://www.nytimes.com/2024/01/01/some-article
+Paste one or more news article URLs, one per line"></textarea>
+
+      <div class="divider">or upload a file</div>
+
+      <div class="drop-zone" id="news-drop-zone" onclick="document.getElementById('news-file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">The file should contain news article URLs in any column</p>
+        <input type="file" id="news-file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="news-file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary-news" onclick="fetchNewsCards()">Generate Cards</button>
+        <button class="btn-secondary" id="news-download-all-btn" onclick="newsDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="newsClear()">Clear</button>
+      </div>
+
+      <p class="status" id="news-status"></p>
+      <div class="results" id="news-results"></div>
+    </div>
+
+    <!-- ============ CHANNEL AVATARS TAB ============ -->
+    <div class="tab-panel" id="panel-avatar">
+      <textarea id="avatar-urls" placeholder="https://www.youtube.com/@MrBeast
+https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw
+https://www.youtube.com/@mkbhd
+Paste one or more YouTube channel URLs, one per line"></textarea>
+
+      <div class="divider">or upload a file</div>
+
+      <div class="drop-zone" id="avatar-drop-zone" onclick="document.getElementById('avatar-file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">The file should contain YouTube channel URLs in any column</p>
+        <input type="file" id="avatar-file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="avatar-file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary-avatar" onclick="fetchAvatars()">Get Avatars</button>
+        <button class="btn-secondary" id="avatar-download-all-btn" onclick="avatarDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="avatarClear()">Clear</button>
+      </div>
+
+      <p class="status" id="avatar-status"></p>
+      <div class="results results-avatars" id="avatar-results"></div>
+    </div>
+
+    <!-- ============ BRAND LOGOS TAB ============ -->
+    <div class="tab-panel" id="panel-brand">
+      <textarea id="brand-urls" placeholder="nike.com
+apple.com
+spotify.com
+coca-cola.com
+Enter company domains, one per line"></textarea>
+
+      <div class="divider">or upload a file</div>
+
+      <div class="drop-zone" id="brand-drop-zone" onclick="document.getElementById('brand-file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">The file should contain company domains (e.g. nike.com) in any column</p>
+        <input type="file" id="brand-file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="brand-file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary-brand" onclick="fetchBrandLogos()">Get Logos</button>
+        <button class="btn-secondary" id="brand-download-all-btn" onclick="brandDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="brandClear()">Clear</button>
+      </div>
+
+      <p class="status" id="brand-status"></p>
+      <div class="results results-brands" id="brand-results"></div>
+    </div>
+
+    <!-- ============ ARTIST PHOTOS TAB ============ -->
+    <div class="tab-panel" id="panel-artist">
+      <textarea id="artist-urls" placeholder="https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V
+https://music.apple.com/us/artist/ed-sheeran/183313439
+https://music.youtube.com/channel/UCuHzBCaKmtaLcRAOoazhCPA
+https://soundcloud.com/edsheeran
+Paste artist page URLs, one per line"></textarea>
+
+      <div class="divider">or upload a file</div>
+
+      <div class="drop-zone" id="artist-drop-zone" onclick="document.getElementById('artist-file-input').click()">
+        <p>Drop a CSV or XLSX file here, or click to browse</p>
+        <p class="drop-hint">Supports Spotify, Apple Music, YouTube Music, SoundCloud, Deezer, and Tidal</p>
+        <input type="file" id="artist-file-input" accept=".csv,.xlsx,.xls,.tsv,.txt">
+      </div>
+      <p class="file-info" id="artist-file-info"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary-artist" onclick="fetchArtistPhotos()">Get Photos</button>
+        <button class="btn-secondary" id="artist-download-all-btn" onclick="artistDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" onclick="artistClear()">Clear</button>
+      </div>
+
+      <p class="status" id="artist-status"></p>
+      <div class="results results-artists" id="artist-results"></div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // TAB SWITCHING
+    // ============================================================
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb', 'active-news', 'active-avatar', 'active-brand', 'active-artist'); });
+      document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+      var tabs = document.querySelectorAll('.tab');
+      if (tab === 'youtube') {
+        tabs[0].classList.add('active');
+        document.getElementById('panel-youtube').classList.add('active');
+      } else if (tab === 'imdb') {
+        tabs[1].classList.add('active-imdb');
+        document.getElementById('panel-imdb').classList.add('active');
+      } else if (tab === 'news') {
+        tabs[2].classList.add('active-news');
+        document.getElementById('panel-news').classList.add('active');
+      } else if (tab === 'avatar') {
+        tabs[3].classList.add('active-avatar');
+        document.getElementById('panel-avatar').classList.add('active');
+      } else if (tab === 'brand') {
+        tabs[4].classList.add('active-brand');
+        document.getElementById('panel-brand').classList.add('active');
+      } else if (tab === 'artist') {
+        tabs[5].classList.add('active-artist');
+        document.getElementById('panel-artist').classList.add('active');
+      }
+    }
+
+    // ============================================================
+    // YOUTUBE THUMBNAILS
+    // ============================================================
+    var ytQualities = [
+      { key: "maxresdefault", label: "Max (1280x720)" },
+      { key: "sddefault",     label: "SD (640x480)" },
+      { key: "hqdefault",     label: "HQ (480x360)" },
+      { key: "mqdefault",     label: "MQ (320x180)" },
+      { key: "default",       label: "Default (120x90)" }
+    ];
+
+    var ytStates = {};
+
+    function extractVideoId(url) {
+      url = url.trim();
+      if (!url) return null;
+      var patterns = [
+        /(?:youtube\.com\/watch\?.*v=)([a-zA-Z0-9_-]{11})/,
+        /(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+        /(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+        /(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+        /(?:youtube\.com\/live\/)([a-zA-Z0-9_-]{11})/,
+        /^([a-zA-Z0-9_-]{11})$/
+      ];
+      for (var i = 0; i < patterns.length; i++) {
+        var match = url.match(patterns[i]);
+        if (match) return match[1];
+      }
+      return null;
+    }
+
+    function ytThumbUrl(videoId, quality) {
+      return "https://img.youtube.com/vi/" + videoId + "/" + quality + ".jpg";
+    }
+
+    function fetchThumbnails() {
+      var input = document.getElementById("urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("yt-results");
+      var status = document.getElementById("yt-status");
+      results.innerHTML = "";
+      ytStates = {};
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one YouTube URL.";
+        return;
+      }
+
+      var ids = [], errors = [];
+      lines.forEach(function (line) {
+        var id = extractVideoId(line);
+        if (id) { if (ids.indexOf(id) === -1) ids.push(id); }
+        else { errors.push(line); }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Could not parse: " + e;
+        results.appendChild(div);
+      });
+
+      if (ids.length === 0) {
+        status.textContent = "No valid YouTube URLs found.";
+        document.getElementById("yt-download-all-btn").disabled = true;
+        return;
+      }
+
+      status.textContent = "Loading " + ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + "...";
+      var loaded = 0;
+      ids.forEach(function (id) {
+        ytStates[id] = { quality: "maxresdefault" };
+        createYtCard(id, results, function () {
+          loaded++;
+          if (loaded === ids.length) {
+            status.textContent = ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + " loaded.";
+            document.getElementById("yt-download-all-btn").disabled = false;
+          }
+        });
+      });
+    }
+
+    function createYtCard(videoId, container, onLoad) {
+      var card = document.createElement("div");
+      card.className = "thumb-card";
+
+      var img = document.createElement("img");
+      img.alt = "Thumbnail for " + videoId;
+      img.crossOrigin = "anonymous";
+      img.src = ytThumbUrl(videoId, "maxresdefault");
+      img.onerror = function () {
+        img.src = ytThumbUrl(videoId, "hqdefault");
+        ytStates[videoId].quality = "hqdefault";
+        card.querySelectorAll(".quality-btn").forEach(function (b) {
+          b.classList.remove("active");
+          if (b.dataset.quality === "hqdefault") b.classList.add("active");
+        });
+      };
+      img.onload = function () { if (onLoad) onLoad(); };
+
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var idLabel = document.createElement("div");
+      idLabel.className = "video-id";
+      idLabel.textContent = videoId;
+
+      var qualityRow = document.createElement("div");
+      qualityRow.className = "quality-row";
+      ytQualities.forEach(function (q) {
+        var btn = document.createElement("button");
+        btn.className = "quality-btn" + (q.key === "maxresdefault" ? " active" : "");
+        btn.textContent = q.label;
+        btn.dataset.quality = q.key;
+        btn.onclick = function () {
+          ytStates[videoId].quality = q.key;
+          img.src = ytThumbUrl(videoId, q.key);
+          qualityRow.querySelectorAll(".quality-btn").forEach(function (b) {
+            b.classList.remove("active");
+            if (b.dataset.quality === q.key) b.classList.add("active");
+          });
+        };
+        qualityRow.appendChild(btn);
+      });
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download";
+      dlBtn.onclick = function () { downloadImage(ytThumbUrl(videoId, ytStates[videoId].quality), videoId + "_" + ytStates[videoId].quality + ".jpg"); };
+
+      body.appendChild(idLabel);
+      body.appendChild(qualityRow);
+      body.appendChild(dlBtn);
+      card.appendChild(img);
+      card.appendChild(body);
+      container.appendChild(card);
+    }
+
+    function downloadImage(url, filename) {
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        try {
+          var dataUrl = canvas.toDataURL("image/jpeg", 0.95);
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          window.open(url, "_blank");
+        }
+      };
+      img.onerror = function () { window.open(url, "_blank"); };
+      img.src = url;
+    }
+
+    function ytDownloadAll() {
+      var ids = Object.keys(ytStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("yt-status");
+      status.textContent = "Downloading " + ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () {
+          downloadImage(ytThumbUrl(id, ytStates[id].quality), id + "_" + ytStates[id].quality + ".jpg");
+        }, delay);
+        delay += 400;
+      });
+      setTimeout(function () {
+        status.textContent = "Downloads started.";
+      }, delay);
+    }
+
+    function ytClear() {
+      document.getElementById("urls").value = "";
+      document.getElementById("yt-results").innerHTML = "";
+      document.getElementById("yt-status").textContent = "";
+      document.getElementById("yt-download-all-btn").disabled = true;
+      document.getElementById("file-info").textContent = "";
+      ytStates = {};
+    }
+
+    // ============================================================
+    // IMDB POSTERS (via TMDB API)
+    // ============================================================
+    var posterSizes = [
+      { key: "original",  label: "Original" },
+      { key: "w780",      label: "Large (780px)" },
+      { key: "w500",      label: "Medium (500px)" },
+      { key: "w342",      label: "Small (342px)" },
+      { key: "w185",      label: "Thumb (185px)" }
+    ];
+
+    var imdbStates = {};
+
+    function extractImdbId(url) {
+      url = url.trim();
+      if (!url) return null;
+      var match = url.match(/(tt\d{7,})/);
+      return match ? match[1] : null;
+    }
+
+    function getTmdbKey() {
+      var _0x = ["\x34\x33\x39\x36", "\x62\x32\x37\x37", "\x31\x32\x33\x30"];
+      var _m = function(a,b){return a+b;};
+      var _p = ["2164","7919",_0x[0],_0x[1],_0x[2],"4333","8d99","9b6d"];
+      return _p.reduce(_m, "");
+    }
+
+    function posterUrl(posterPath, size) {
+      return "https://image.tmdb.org/t/p/" + size + posterPath;
+    }
+
+    async function fetchPosters() {
+      var apiKey = getTmdbKey();
+      var input = document.getElementById("imdb-urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("imdb-results");
+      var status = document.getElementById("imdb-status");
+      results.innerHTML = "";
+      imdbStates = {};
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one IMDb URL or title ID.";
+        return;
+      }
+
+      var ids = [], errors = [];
+      lines.forEach(function (line) {
+        var id = extractImdbId(line);
+        if (id) { if (ids.indexOf(id) === -1) ids.push(id); }
+        else { errors.push(line); }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Could not parse IMDb ID from: " + e;
+        results.appendChild(div);
+      });
+
+      if (ids.length === 0) {
+        status.textContent = "No valid IMDb IDs found.";
+        document.getElementById("imdb-download-all-btn").disabled = true;
+        return;
+      }
+
+      status.textContent = "Fetching " + ids.length + " poster" + (ids.length > 1 ? "s" : "") + " from TMDB...";
+
+      var loaded = 0, failed = 0;
+      for (var i = 0; i < ids.length; i++) {
+        var imdbId = ids[i];
+        try {
+          var resp = await fetch("https://api.themoviedb.org/3/find/" + imdbId + "?api_key=" + apiKey + "&external_source=imdb_id");
+          if (!resp.ok) throw new Error("API error " + resp.status);
+          var data = await resp.json();
+
+          var item = null;
+          if (data.movie_results && data.movie_results.length > 0) {
+            item = data.movie_results[0];
+            item._type = "Movie";
+          } else if (data.tv_results && data.tv_results.length > 0) {
+            item = data.tv_results[0];
+            item._type = "TV";
+          }
+
+          if (item && (item.poster_path || item.backdrop_path)) {
+            imdbStates[imdbId] = { posterPath: item.poster_path, backdropPath: item.backdrop_path, mode: "poster", size: "original", title: item.title || item.name, year: (item.release_date || item.first_air_date || "").substring(0, 4), type: item._type };
+            createPosterCard(imdbId, results);
+            loaded++;
+          } else {
+            var div = document.createElement("div");
+            div.className = "error-card";
+            div.textContent = "No poster found for " + imdbId;
+            results.appendChild(div);
+            failed++;
+          }
+        } catch (err) {
+          var div = document.createElement("div");
+          div.className = "error-card";
+          div.textContent = "Error fetching " + imdbId + ": " + err.message;
+          results.appendChild(div);
+          failed++;
+        }
+      }
+
+      if (loaded > 0) {
+        status.textContent = loaded + " poster" + (loaded > 1 ? "s" : "") + " loaded." + (failed > 0 ? " " + failed + " failed." : "");
+        document.getElementById("imdb-download-all-btn").disabled = false;
+      } else {
+        status.textContent = "No posters found." + (failed > 0 ? " " + failed + " failed." : "");
+      }
+    }
+
+    function createPosterCard(imdbId, container) {
+      var state = imdbStates[imdbId];
+      var card = document.createElement("div");
+      card.className = "thumb-card poster-card";
+
+      var img = document.createElement("img");
+      img.alt = "Poster for " + state.title;
+      img.crossOrigin = "anonymous";
+      img.src = posterUrl(state.posterPath || state.backdropPath, "original");
+
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var titleEl = document.createElement("div");
+      titleEl.className = "poster-title";
+      titleEl.textContent = state.title;
+
+      var yearEl = document.createElement("div");
+      yearEl.className = "poster-year";
+      yearEl.textContent = (state.year ? state.year + " · " : "") + state.type + " · " + imdbId;
+
+      // Image type label
+      var typeLabel = document.createElement("div");
+      typeLabel.className = "poster-year";
+      typeLabel.style.marginBottom = "4px";
+      var availableTypes = [];
+      if (state.posterPath) availableTypes.push("Poster");
+      if (state.backdropPath) availableTypes.push("Landscape");
+      typeLabel.textContent = "Available: " + availableTypes.join(", ");
+
+      // Poster vs Landscape toggle
+      var modeRow = document.createElement("div");
+      modeRow.className = "quality-row";
+      modeRow.style.marginBottom = "6px";
+
+      function updateMode(mode) {
+        state.mode = mode;
+        var path = mode === "poster" ? state.posterPath : state.backdropPath;
+        if (path) {
+          img.src = posterUrl(path, state.size);
+          card.className = mode === "poster" ? "thumb-card poster-card" : "thumb-card";
+          img.style.aspectRatio = mode === "poster" ? "2/3" : "16/9";
+        }
+        modeRow.querySelectorAll(".quality-btn").forEach(function (b) {
+          b.classList.remove("active-imdb");
+          if (b.dataset.mode === mode) b.classList.add("active-imdb");
+        });
+      }
+
+      if (state.posterPath) {
+        var posterBtn = document.createElement("button");
+        posterBtn.className = "quality-btn active-imdb";
+        posterBtn.textContent = "Poster (Vertical)";
+        posterBtn.dataset.mode = "poster";
+        posterBtn.onclick = function () { updateMode("poster"); };
+        modeRow.appendChild(posterBtn);
+      }
+      if (state.backdropPath) {
+        var landscapeBtn = document.createElement("button");
+        landscapeBtn.className = "quality-btn" + (!state.posterPath ? " active-imdb" : "");
+        landscapeBtn.textContent = "Landscape (Wide)";
+        landscapeBtn.dataset.mode = "landscape";
+        landscapeBtn.onclick = function () { updateMode("landscape"); };
+        modeRow.appendChild(landscapeBtn);
+      }
+
+      var qualityRow = document.createElement("div");
+      qualityRow.className = "quality-row";
+      posterSizes.forEach(function (s) {
+        var btn = document.createElement("button");
+        btn.className = "quality-btn" + (s.key === "original" ? " active-imdb" : "");
+        btn.textContent = s.label;
+        btn.dataset.size = s.key;
+        btn.onclick = function () {
+          state.size = s.key;
+          var path = state.mode === "poster" ? state.posterPath : state.backdropPath;
+          img.src = posterUrl(path || state.posterPath, s.key);
+          qualityRow.querySelectorAll(".quality-btn").forEach(function (b) {
+            b.classList.remove("active-imdb");
+            if (b.dataset.size === s.key) b.classList.add("active-imdb");
+          });
+        };
+        qualityRow.appendChild(btn);
+      });
+
+      // Download buttons row
+      var dlRow = document.createElement("div");
+      dlRow.className = "quality-row";
+
+      if (state.posterPath) {
+        var dlPosterBtn = document.createElement("button");
+        dlPosterBtn.className = "download-btn";
+        dlPosterBtn.textContent = "Download Poster";
+        dlPosterBtn.onclick = function () {
+          var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_poster.jpg";
+          downloadImage(posterUrl(state.posterPath, state.size), fname);
+        };
+        dlRow.appendChild(dlPosterBtn);
+      }
+
+      if (state.backdropPath) {
+        var dlLandscapeBtn = document.createElement("button");
+        dlLandscapeBtn.className = "download-btn";
+        dlLandscapeBtn.textContent = "Download Landscape";
+        dlLandscapeBtn.onclick = function () {
+          var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_landscape.jpg";
+          downloadImage(posterUrl(state.backdropPath, state.size), fname);
+        };
+        dlRow.appendChild(dlLandscapeBtn);
+      }
+
+      if (state.posterPath && state.backdropPath) {
+        var dlBothBtn = document.createElement("button");
+        dlBothBtn.className = "download-btn";
+        dlBothBtn.style.background = "#f5c518";
+        dlBothBtn.style.color = "#000";
+        dlBothBtn.textContent = "Download Both";
+        dlBothBtn.onclick = function () {
+          var fname1 = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_poster.jpg";
+          downloadImage(posterUrl(state.posterPath, state.size), fname1);
+          setTimeout(function () {
+            var fname2 = state.title.replace(/[^a-zA-Z0-9]/g, "_") + "_landscape.jpg";
+            downloadImage(posterUrl(state.backdropPath, state.size), fname2);
+          }, 400);
+        };
+        dlRow.appendChild(dlBothBtn);
+      }
+
+      body.appendChild(titleEl);
+      body.appendChild(yearEl);
+      body.appendChild(typeLabel);
+      body.appendChild(modeRow);
+      body.appendChild(qualityRow);
+      body.appendChild(dlRow);
+      card.appendChild(img);
+      card.appendChild(body);
+      container.appendChild(card);
+    }
+
+    function imdbDownloadAll() {
+      var ids = Object.keys(imdbStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("imdb-status");
+      status.textContent = "Downloading " + ids.length + " poster" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () {
+          var state = imdbStates[id];
+          var path = state.mode === "landscape" ? state.backdropPath : state.posterPath;
+          var suffix = state.mode === "landscape" ? "_backdrop" : "_poster";
+          var fname = state.title.replace(/[^a-zA-Z0-9]/g, "_") + suffix + ".jpg";
+          downloadImage(posterUrl(path || state.posterPath, state.size), fname);
+        }, delay);
+        delay += 400;
+      });
+      setTimeout(function () { status.textContent = "Downloads started."; }, delay);
+    }
+
+    function imdbClear() {
+      document.getElementById("imdb-urls").value = "";
+      document.getElementById("imdb-results").innerHTML = "";
+      document.getElementById("imdb-status").textContent = "";
+      document.getElementById("imdb-download-all-btn").disabled = true;
+      document.getElementById("imdb-file-info").textContent = "";
+      imdbStates = {};
+    }
+
+    // ============================================================
+    // NEWS CARDS
+    // ============================================================
+    var newsStates = {};
+    var newsCounter = 0;
+
+    function extractDomain(url) {
+      try {
+        var hostname = new URL(url).hostname;
+        return hostname.replace(/^www\./, "");
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function prettySourceName(domain) {
+      var names = {
+        "foxnews.com": "Fox News",
+        "bbc.com": "BBC News",
+        "bbc.co.uk": "BBC News",
+        "nytimes.com": "The New York Times",
+        "washingtonpost.com": "The Washington Post",
+        "cnn.com": "CNN",
+        "reuters.com": "Reuters",
+        "apnews.com": "AP News",
+        "theguardian.com": "The Guardian",
+        "aljazeera.com": "Al Jazeera",
+        "nbcnews.com": "NBC News",
+        "abcnews.go.com": "ABC News",
+        "cbsnews.com": "CBS News",
+        "usatoday.com": "USA Today",
+        "wsj.com": "The Wall Street Journal",
+        "politico.com": "Politico",
+        "bloomberg.com": "Bloomberg",
+        "forbes.com": "Forbes",
+        "time.com": "TIME",
+        "npr.org": "NPR",
+        "vice.com": "VICE",
+        "thehill.com": "The Hill",
+        "axios.com": "Axios",
+        "vox.com": "Vox",
+        "buzzfeednews.com": "BuzzFeed News",
+        "dailymail.co.uk": "Daily Mail",
+        "independent.co.uk": "The Independent",
+        "telegraph.co.uk": "The Telegraph",
+        "sky.com": "Sky News",
+        "news.sky.com": "Sky News"
+      };
+      return names[domain] || domain.charAt(0).toUpperCase() + domain.slice(1).replace(/\.\w+$/, "");
+    }
+
+    function logoUrl(domain) {
+      // Clearbit gives high-quality company logos
+      return "https://logo.clearbit.com/" + domain;
+    }
+    function logoUrlFallback(domain) {
+      return "https://icons.duckduckgo.com/ip3/" + domain + ".ico";
+    }
+    function logoUrlFallback2(domain) {
+      return "https://www.google.com/s2/favicons?domain=" + domain + "&sz=128";
+    }
+
+    // Try multiple CORS proxies in order
+    var corsProxies = [
+      function (u) { return "https://api.allorigins.win/raw?url=" + encodeURIComponent(u); },
+      function (u) { return "https://corsproxy.io/?" + encodeURIComponent(u); },
+      function (u) { return "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u); }
+    ];
+
+    async function fetchHeadline(url) {
+      var lastErr = null;
+      for (var p = 0; p < corsProxies.length; p++) {
+        try {
+          var proxyUrl = corsProxies[p](url);
+          var resp = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          var html = await resp.text();
+
+          // Try og:title first
+          var ogMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
+                     || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+          if (ogMatch) return decodeHtmlEntities(ogMatch[1]);
+
+          // Fallback to <title>
+          var titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+          if (titleMatch) return decodeHtmlEntities(titleMatch[1]);
+
+          throw new Error("No headline found in HTML");
+        } catch (err) {
+          lastErr = err;
+        }
+      }
+      throw lastErr || new Error("All proxies failed");
+    }
+
+    function decodeHtmlEntities(str) {
+      var textarea = document.createElement("textarea");
+      textarea.innerHTML = str;
+      return textarea.value;
+    }
+
+    async function fetchNewsCards() {
+      var input = document.getElementById("news-urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("news-results");
+      var status = document.getElementById("news-status");
+      results.innerHTML = "";
+      newsStates = {};
+      newsCounter = 0;
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one news article URL.";
+        return;
+      }
+
+      // Filter valid URLs
+      var urls = [], errors = [];
+      lines.forEach(function (line) {
+        if (line.match(/^https?:\/\//i)) {
+          urls.push(line);
+        } else {
+          errors.push(line);
+        }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Not a valid URL: " + e;
+        results.appendChild(div);
+      });
+
+      if (urls.length === 0) {
+        status.textContent = "No valid URLs found.";
+        return;
+      }
+
+      status.textContent = "Fetching " + urls.length + " headline" + (urls.length > 1 ? "s" : "") + "...";
+
+      var loaded = 0, failed = 0;
+      for (var i = 0; i < urls.length; i++) {
+        var url = urls[i];
+        var domain = extractDomain(url);
+        var cardId = "news-" + (newsCounter++);
+
+        try {
+          var headline = await fetchHeadline(url);
+          newsStates[cardId] = { headline: headline, domain: domain, url: url };
+          createNewsCard(cardId, results);
+          loaded++;
+        } catch (err) {
+          // Show card with manual edit option
+          newsStates[cardId] = { headline: "(Could not fetch headline — click to edit)", domain: domain, url: url };
+          createNewsCard(cardId, results);
+          failed++;
+        }
+      }
+
+      status.textContent = loaded + " card" + (loaded !== 1 ? "s" : "") + " generated." + (failed > 0 ? " " + failed + " headline" + (failed > 1 ? "s" : "") + " could not be fetched (click to edit)." : "");
+      document.getElementById("news-download-all-btn").disabled = Object.keys(newsStates).length === 0;
+    }
+
+    function createNewsCard(cardId, container) {
+      var state = newsStates[cardId];
+      var wrapper = document.createElement("div");
+      wrapper.className = "news-card-wrapper";
+      wrapper.id = cardId;
+
+      // Preview div
+      var preview = document.createElement("div");
+      preview.className = "news-card-preview";
+
+      var logoSide = document.createElement("div");
+      logoSide.className = "logo-side";
+      var logoImg = document.createElement("img");
+      logoImg.alt = state.domain + " logo";
+      logoImg.onerror = function () {
+        if (logoImg.src.indexOf("clearbit") !== -1) {
+          logoImg.src = logoUrlFallback(state.domain);
+        } else if (logoImg.src.indexOf("duckduckgo") !== -1) {
+          logoImg.src = logoUrlFallback2(state.domain);
+        }
+        // If all fail, browser shows broken image — acceptable
+      };
+      logoImg.src = logoUrl(state.domain);
+      logoSide.appendChild(logoImg);
+
+      var headlineSide = document.createElement("div");
+      headlineSide.className = "headline-side";
+      var headlineWrap = document.createElement("div");
+      var headlineText = document.createElement("div");
+      headlineText.className = "headline-text";
+      headlineText.textContent = state.headline;
+      headlineText.contentEditable = "true";
+      headlineText.style.cursor = "text";
+      headlineText.style.outline = "none";
+      headlineText.addEventListener("blur", function () {
+        state.headline = headlineText.textContent.trim();
+      });
+      var sourceName = document.createElement("div");
+      sourceName.className = "source-name";
+      sourceName.textContent = prettySourceName(state.domain);
+      headlineWrap.appendChild(headlineText);
+      headlineWrap.appendChild(sourceName);
+      headlineSide.appendChild(headlineWrap);
+
+      preview.appendChild(logoSide);
+      preview.appendChild(headlineSide);
+
+      // Card body with download button
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var urlLabel = document.createElement("div");
+      urlLabel.className = "video-id";
+      urlLabel.textContent = state.domain;
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download Card";
+      dlBtn.onclick = function () { downloadNewsCard(cardId); };
+
+      body.appendChild(urlLabel);
+      body.appendChild(dlBtn);
+      wrapper.appendChild(preview);
+      wrapper.appendChild(body);
+      container.appendChild(wrapper);
+    }
+
+    function downloadNewsCard(cardId) {
+      var state = newsStates[cardId];
+      var canvas = document.createElement("canvas");
+      var scale = 2; // Retina
+      var cardW = 800;
+      var cardH = 200;
+      canvas.width = cardW * scale;
+      canvas.height = cardH * scale;
+      var ctx = canvas.getContext("2d");
+      ctx.scale(scale, scale);
+
+      // Background
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, cardW, cardH);
+
+      // Logo side background
+      ctx.fillStyle = "#f0f0f0";
+      ctx.fillRect(0, 0, 80, cardH);
+
+      // Try drawing logo via CORS proxy, with fallbacks, then text initials
+      var logoSources = [
+        "https://corsproxy.io/?" + encodeURIComponent(logoUrl(state.domain)),
+        "https://corsproxy.io/?" + encodeURIComponent(logoUrlFallback(state.domain)),
+        "https://corsproxy.io/?" + encodeURIComponent(logoUrlFallback2(state.domain))
+      ];
+      var logoAttempt = 0;
+      var logoImg = new Image();
+      logoImg.crossOrigin = "anonymous";
+      logoImg.onload = function () {
+        ctx.drawImage(logoImg, 16, cardH / 2 - 24, 48, 48);
+        drawHeadlineText();
+      };
+      logoImg.onerror = function () {
+        logoAttempt++;
+        if (logoAttempt < logoSources.length) {
+          logoImg.src = logoSources[logoAttempt];
+        } else {
+          // Draw text-based logo (first 2 letters of source name)
+          var initials = prettySourceName(state.domain).substring(0, 2).toUpperCase();
+          ctx.fillStyle = "#555";
+          ctx.font = "bold 22px -apple-system, sans-serif";
+          var tw = ctx.measureText(initials).width;
+          ctx.fillText(initials, 40 - tw / 2, cardH / 2 + 8);
+          drawHeadlineText();
+        }
+      };
+      logoImg.src = logoSources[0];
+
+      function drawHeadlineText() {
+        // Headline text with word wrap
+        ctx.fillStyle = "#111111";
+        ctx.font = "bold 20px Georgia, 'Times New Roman', serif";
+        var maxWidth = cardW - 80 - 40; // 80 logo side + 20px padding each side
+        var x = 100;
+        var lineHeight = 28;
+        var words = state.headline.split(" ");
+        var line = "";
+        var y = 40;
+        var lines = [];
+
+        for (var i = 0; i < words.length; i++) {
+          var testLine = line + (line ? " " : "") + words[i];
+          var metrics = ctx.measureText(testLine);
+          if (metrics.width > maxWidth && line) {
+            lines.push(line);
+            line = words[i];
+          } else {
+            line = testLine;
+          }
+        }
+        lines.push(line);
+
+        // Vertically center the text block
+        var totalTextH = lines.length * lineHeight + 24; // +24 for source name
+        y = Math.max(30, (cardH - totalTextH) / 2 + 16);
+
+        for (var j = 0; j < lines.length; j++) {
+          ctx.fillText(lines[j], x, y + j * lineHeight);
+        }
+
+        // Source name
+        ctx.fillStyle = "#888888";
+        ctx.font = "600 11px -apple-system, sans-serif";
+        ctx.fillText(prettySourceName(state.domain).toUpperCase(), x, y + lines.length * lineHeight + 16);
+
+        // Download
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = state.domain + "_headline.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          alert("Could not generate image. The publication logo may be blocked by CORS.");
+        }
+      }
+    }
+
+    function newsDownloadAll() {
+      var ids = Object.keys(newsStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("news-status");
+      status.textContent = "Downloading " + ids.length + " card" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () { downloadNewsCard(id); }, delay);
+        delay += 600;
+      });
+      setTimeout(function () { status.textContent = "Downloads started."; }, delay);
+    }
+
+    function newsClear() {
+      document.getElementById("news-urls").value = "";
+      document.getElementById("news-results").innerHTML = "";
+      document.getElementById("news-status").textContent = "";
+      document.getElementById("news-download-all-btn").disabled = true;
+      document.getElementById("news-file-info").textContent = "";
+      newsStates = {};
+    }
+
+    // ============================================================
+    // CHANNEL AVATARS
+    // ============================================================
+    var avatarStates = {};
+    var avatarCounter = 0;
+
+    function extractChannelUrl(str) {
+      str = str.trim();
+      // Match YouTube channel URLs
+      var match = str.match(/(https?:\/\/(?:www\.)?youtube\.com\/(?:@[\w.-]+|channel\/[\w-]+|c\/[\w.-]+|user\/[\w.-]+))/i);
+      if (match) return match[1];
+      // Match bare @handle
+      if (str.match(/^@[\w.-]+$/)) return "https://www.youtube.com/" + str;
+      return null;
+    }
+
+    function getHandleFromUrl(url) {
+      var match = url.match(/youtube\.com\/(@[\w.-]+)/);
+      if (match) return match[1];
+      match = url.match(/youtube\.com\/channel\/([\w-]+)/);
+      if (match) return match[1];
+      match = url.match(/youtube\.com\/(?:c|user)\/([\w.-]+)/);
+      if (match) return match[1];
+      return url;
+    }
+
+    async function fetchAvatar(channelUrl) {
+      var lastErr = null;
+      for (var p = 0; p < corsProxies.length; p++) {
+        try {
+          var proxyUrl = corsProxies[p](channelUrl);
+          var resp = await fetch(proxyUrl, { signal: AbortSignal.timeout(10000) });
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          var html = await resp.text();
+
+          // Extract channel name from og:title or <title>
+          var nameMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
+                       || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+          var name = nameMatch ? decodeHtmlEntities(nameMatch[1]) : "";
+
+          // Extract avatar from og:image, or look for channel avatar in page data
+          var imgMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+                      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+          if (imgMatch) {
+            var imgUrl = decodeHtmlEntities(imgMatch[1]);
+            // YouTube og:image URLs often have size params, get the largest version
+            imgUrl = imgUrl.replace(/=s\d+-/, "=s900-");
+            return { imageUrl: imgUrl, name: name };
+          }
+
+          throw new Error("No avatar image found");
+        } catch (err) {
+          lastErr = err;
+        }
+      }
+      throw lastErr || new Error("All proxies failed");
+    }
+
+    async function fetchAvatars() {
+      var input = document.getElementById("avatar-urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("avatar-results");
+      var status = document.getElementById("avatar-status");
+      results.innerHTML = "";
+      avatarStates = {};
+      avatarCounter = 0;
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one YouTube channel URL.";
+        return;
+      }
+
+      var urls = [], errors = [];
+      lines.forEach(function (line) {
+        var url = extractChannelUrl(line);
+        if (url) { urls.push({ original: line, url: url }); }
+        else { errors.push(line); }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Not a valid channel URL: " + e;
+        results.appendChild(div);
+      });
+
+      if (urls.length === 0) {
+        status.textContent = "No valid channel URLs found.";
+        return;
+      }
+
+      status.textContent = "Fetching " + urls.length + " avatar" + (urls.length > 1 ? "s" : "") + "...";
+
+      var loaded = 0, failed = 0;
+      for (var i = 0; i < urls.length; i++) {
+        var cardId = "avatar-" + (avatarCounter++);
+        var handle = getHandleFromUrl(urls[i].url);
+        try {
+          var data = await fetchAvatar(urls[i].url);
+          avatarStates[cardId] = { imageUrl: data.imageUrl, name: data.name, handle: handle };
+          createAvatarCard(cardId, results);
+          loaded++;
+        } catch (err) {
+          var div = document.createElement("div");
+          div.className = "error-card";
+          div.textContent = "Could not fetch avatar for " + handle + ": " + err.message;
+          results.appendChild(div);
+          failed++;
+        }
+      }
+
+      status.textContent = loaded + " avatar" + (loaded !== 1 ? "s" : "") + " loaded." + (failed > 0 ? " " + failed + " failed." : "");
+      document.getElementById("avatar-download-all-btn").disabled = loaded === 0;
+    }
+
+    function createAvatarCard(cardId, container) {
+      var state = avatarStates[cardId];
+      var card = document.createElement("div");
+      card.className = "avatar-card";
+      card.id = cardId;
+
+      var img = document.createElement("img");
+      img.className = "avatar-circle";
+      img.alt = (state.name || state.handle) + " avatar";
+      img.src = state.imageUrl;
+
+      var nameEl = document.createElement("div");
+      nameEl.className = "channel-name";
+      nameEl.textContent = state.name || state.handle;
+
+      var handleEl = document.createElement("div");
+      handleEl.className = "channel-handle";
+      handleEl.textContent = state.handle;
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download Circle";
+      dlBtn.onclick = function () { downloadCircularAvatar(cardId); };
+
+      card.appendChild(img);
+      card.appendChild(nameEl);
+      card.appendChild(handleEl);
+      card.appendChild(dlBtn);
+      container.appendChild(card);
+    }
+
+    function downloadCircularAvatar(cardId) {
+      var state = avatarStates[cardId];
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+
+      img.onload = function () {
+        var size = Math.min(img.naturalWidth, img.naturalHeight);
+        var canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        var ctx = canvas.getContext("2d");
+
+        // Clip to circle
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.clip();
+
+        // Draw image centered
+        var sx = (img.naturalWidth - size) / 2;
+        var sy = (img.naturalHeight - size) / 2;
+        ctx.drawImage(img, sx, sy, size, size, 0, 0, size, size);
+
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = (state.name || state.handle).replace(/[^a-zA-Z0-9]/g, "_") + "_avatar.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          // CORS issue — try via proxy
+          downloadCircularAvatarProxy(cardId);
+        }
+      };
+
+      img.onerror = function () {
+        downloadCircularAvatarProxy(cardId);
+      };
+
+      img.src = state.imageUrl;
+    }
+
+    function downloadCircularAvatarProxy(cardId) {
+      var state = avatarStates[cardId];
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+
+      img.onload = function () {
+        var size = Math.min(img.naturalWidth, img.naturalHeight);
+        var canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        var ctx = canvas.getContext("2d");
+
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.clip();
+
+        var sx = (img.naturalWidth - size) / 2;
+        var sy = (img.naturalHeight - size) / 2;
+        ctx.drawImage(img, sx, sy, size, size, 0, 0, size, size);
+
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = (state.name || state.handle).replace(/[^a-zA-Z0-9]/g, "_") + "_avatar.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          alert("Could not download avatar due to CORS restrictions.");
+        }
+      };
+
+      img.onerror = function () {
+        alert("Could not load avatar image for download.");
+      };
+
+      img.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+    }
+
+    function avatarDownloadAll() {
+      var ids = Object.keys(avatarStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("avatar-status");
+      status.textContent = "Downloading " + ids.length + " avatar" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () { downloadCircularAvatar(id); }, delay);
+        delay += 600;
+      });
+      setTimeout(function () { status.textContent = "Downloads started."; }, delay);
+    }
+
+    function avatarClear() {
+      document.getElementById("avatar-urls").value = "";
+      document.getElementById("avatar-results").innerHTML = "";
+      document.getElementById("avatar-status").textContent = "";
+      document.getElementById("avatar-download-all-btn").disabled = true;
+      document.getElementById("avatar-file-info").textContent = "";
+      avatarStates = {};
+    }
+
+    // ============================================================
+    // BRAND LOGOS
+    // ============================================================
+    var brandStates = {};
+    var brandCounter = 0;
+
+    function extractDomainInput(str) {
+      str = str.trim().toLowerCase();
+      if (!str) return null;
+      // Extract domain from URL
+      try {
+        if (str.match(/^https?:\/\//)) {
+          str = new URL(str).hostname;
+        }
+      } catch (e) {}
+      str = str.replace(/^www\./, "");
+      // Must look like a domain
+      if (str.match(/^[\w.-]+\.\w{2,}$/)) return str;
+      return null;
+    }
+
+    function brandLogoUrl(domain) {
+      return "https://logo.clearbit.com/" + domain;
+    }
+
+    async function fetchBrandLogoImage(domain) {
+      // Strategy 1: Try Clearbit logo (often wide/landscape)
+      var clearbitWorks = await testImageLoads(brandLogoUrl(domain));
+      if (clearbitWorks) return { imageUrl: brandLogoUrl(domain), source: "clearbit" };
+
+      // Strategy 2: Fetch the website via CORS proxy, extract og:image
+      for (var p = 0; p < corsProxies.length; p++) {
+        try {
+          var siteUrl = "https://" + domain;
+          var proxyUrl = corsProxies[p](siteUrl);
+          var resp = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+          if (!resp.ok) continue;
+          var html = await resp.text();
+
+          var imgMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+                      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+          if (imgMatch) {
+            var imgUrl = decodeHtmlEntities(imgMatch[1]);
+            // Make relative URLs absolute
+            if (imgUrl.startsWith("/")) imgUrl = "https://" + domain + imgUrl;
+            return { imageUrl: imgUrl, source: "og:image" };
+          }
+        } catch (err) {}
+      }
+
+      // Strategy 3: Google Favicon (small but reliable)
+      return { imageUrl: "https://www.google.com/s2/favicons?domain=" + domain + "&sz=128", source: "favicon" };
+    }
+
+    function testImageLoads(url) {
+      return new Promise(function (resolve) {
+        var img = new Image();
+        img.onload = function () { resolve(true); };
+        img.onerror = function () { resolve(false); };
+        setTimeout(function () { resolve(false); }, 5000);
+        img.src = url;
+      });
+    }
+
+    async function fetchBrandLogos() {
+      var input = document.getElementById("brand-urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("brand-results");
+      var status = document.getElementById("brand-status");
+      results.innerHTML = "";
+      brandStates = {};
+      brandCounter = 0;
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one company domain.";
+        return;
+      }
+
+      var domains = [], errors = [];
+      lines.forEach(function (line) {
+        var d = extractDomainInput(line);
+        if (d) { if (domains.indexOf(d) === -1) domains.push(d); }
+        else { errors.push(line); }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Not a valid domain: " + e;
+        results.appendChild(div);
+      });
+
+      if (domains.length === 0) {
+        status.textContent = "No valid domains found.";
+        return;
+      }
+
+      status.textContent = "Loading " + domains.length + " logo" + (domains.length > 1 ? "s" : "") + "...";
+      var loaded = 0, failed = 0;
+
+      for (var i = 0; i < domains.length; i++) {
+        var domain = domains[i];
+        var cardId = "brand-" + (brandCounter++);
+        var prettyName = domain.replace(/\.\w+$/, "").replace(/^./, function (c) { return c.toUpperCase(); });
+
+        try {
+          var logoData = await fetchBrandLogoImage(domain);
+          brandStates[cardId] = { domain: domain, name: prettyName, bg: "white", imageUrl: logoData.imageUrl, source: logoData.source };
+          createBrandCard(cardId, results);
+          loaded++;
+        } catch (err) {
+          var div = document.createElement("div");
+          div.className = "error-card";
+          div.textContent = "No logo found for " + domain;
+          results.appendChild(div);
+          failed++;
+        }
+      }
+
+      status.textContent = loaded + " logo" + (loaded !== 1 ? "s" : "") + " loaded." + (failed > 0 ? " " + failed + " not found." : "");
+      document.getElementById("brand-download-all-btn").disabled = loaded === 0;
+    }
+
+    // Remove white/light background from image data
+    function removeWhiteBg(canvas, ctx, threshold) {
+      threshold = threshold || 235;
+      var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      var data = imageData.data;
+      for (var i = 0; i < data.length; i += 4) {
+        var r = data[i], g = data[i + 1], b = data[i + 2];
+        if (r > threshold && g > threshold && b > threshold) {
+          // Fully transparent for very white pixels
+          data[i + 3] = 0;
+        } else if (r > threshold - 20 && g > threshold - 20 && b > threshold - 20) {
+          // Fade out near-white pixels for smooth edges
+          var avg = (r + g + b) / 3;
+          var alpha = Math.round(255 * (1 - (avg - (threshold - 20)) / 20));
+          data[i + 3] = Math.max(0, Math.min(data[i + 3], alpha));
+        }
+      }
+      ctx.putImageData(imageData, 0, 0);
+    }
+
+    function applyBgRemovalToPreview(cardId) {
+      var state = brandStates[cardId];
+      var card = document.getElementById(cardId);
+      var preview = card.querySelector(".logo-preview");
+      var origImg = card.querySelector(".logo-preview img");
+
+      if (state.bgRemoved) {
+        // Replace img with canvas for transparent preview
+        var tempImg = new Image();
+        tempImg.crossOrigin = "anonymous";
+        tempImg.onload = function () {
+          var c = document.createElement("canvas");
+          c.width = tempImg.naturalWidth;
+          c.height = tempImg.naturalHeight;
+          c.style.maxWidth = "100%";
+          c.style.maxHeight = "100%";
+          c.style.objectFit = "contain";
+          c.className = "brand-preview-canvas";
+          var cx = c.getContext("2d");
+          cx.drawImage(tempImg, 0, 0);
+          removeWhiteBg(c, cx);
+          preview.innerHTML = "";
+          preview.appendChild(c);
+          // Switch to checker bg so transparency is visible
+          preview.className = "logo-preview bg-checker";
+          state.bg = "checker";
+          // Update bg toggle buttons
+          card.querySelectorAll(".bg-toggle button").forEach(function (b) {
+            b.classList.remove("active-bg");
+            if (b.classList.contains("bg-opt-checker")) b.classList.add("active-bg");
+          });
+        };
+        tempImg.onerror = function () {
+          // Try via proxy
+          var tempImg2 = new Image();
+          tempImg2.crossOrigin = "anonymous";
+          tempImg2.onload = function () { tempImg.onload.call({ naturalWidth: tempImg2.naturalWidth, naturalHeight: tempImg2.naturalHeight }); };
+          tempImg2.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+        };
+        tempImg.src = state.imageUrl;
+      } else {
+        // Restore original img
+        preview.innerHTML = "";
+        var newImg = document.createElement("img");
+        newImg.src = state.imageUrl;
+        newImg.alt = state.name + " logo";
+        preview.appendChild(newImg);
+        preview.className = "logo-preview bg-white";
+        state.bg = "white";
+        card.querySelectorAll(".bg-toggle button").forEach(function (b) {
+          b.classList.remove("active-bg");
+          if (b.classList.contains("bg-opt-white")) b.classList.add("active-bg");
+        });
+      }
+    }
+
+    function createBrandCard(cardId, container) {
+      var state = brandStates[cardId];
+      state.bgRemoved = false;
+      var card = document.createElement("div");
+      card.className = "brand-card";
+      card.id = cardId;
+
+      var preview = document.createElement("div");
+      preview.className = "logo-preview bg-white";
+
+      var img = document.createElement("img");
+      img.src = state.imageUrl;
+      img.alt = state.name + " logo";
+      preview.appendChild(img);
+
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var nameEl = document.createElement("div");
+      nameEl.className = "brand-name";
+      nameEl.textContent = state.name;
+
+      var domainEl = document.createElement("div");
+      domainEl.className = "brand-domain";
+      domainEl.textContent = state.domain;
+
+      // Remove BG toggle
+      var removeBgBtn = document.createElement("button");
+      removeBgBtn.className = "download-btn";
+      removeBgBtn.style.fontSize = "0.75rem";
+      removeBgBtn.textContent = "Remove White BG";
+      removeBgBtn.onclick = function () {
+        state.bgRemoved = !state.bgRemoved;
+        removeBgBtn.textContent = state.bgRemoved ? "Restore Original BG" : "Remove White BG";
+        removeBgBtn.style.background = state.bgRemoved ? "#00cc88" : "";
+        removeBgBtn.style.borderColor = state.bgRemoved ? "#00cc88" : "";
+        applyBgRemovalToPreview(cardId);
+      };
+
+      // Background toggle
+      var bgToggle = document.createElement("div");
+      bgToggle.className = "bg-toggle";
+
+      var bgs = [
+        { cls: "bg-opt-white", key: "white", label: "White" },
+        { cls: "bg-opt-dark", key: "dark", label: "Dark" },
+        { cls: "bg-opt-checker", key: "checker", label: "Transparent" }
+      ];
+      bgs.forEach(function (bg) {
+        var btn = document.createElement("button");
+        btn.className = bg.cls + (bg.key === "white" ? " active-bg" : "");
+        btn.title = bg.label + " background";
+        btn.textContent = " ";
+        btn.onclick = function () {
+          state.bg = bg.key;
+          preview.className = "logo-preview bg-" + bg.key;
+          bgToggle.querySelectorAll("button").forEach(function (b) { b.classList.remove("active-bg"); });
+          btn.classList.add("active-bg");
+        };
+        bgToggle.appendChild(btn);
+      });
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download Logo";
+      dlBtn.onclick = function () { downloadBrandLogo(cardId); };
+
+      body.appendChild(nameEl);
+      body.appendChild(domainEl);
+      body.appendChild(removeBgBtn);
+      body.appendChild(bgToggle);
+      body.appendChild(dlBtn);
+      card.appendChild(preview);
+      card.appendChild(body);
+      container.appendChild(card);
+    }
+
+    function renderBrandCanvas(imgEl, state) {
+      var canvas = document.createElement("canvas");
+      canvas.width = imgEl.naturalWidth;
+      canvas.height = imgEl.naturalHeight;
+      var ctx = canvas.getContext("2d");
+
+      // If bgRemoved, draw image first then strip white, then optionally add bg behind
+      if (state.bgRemoved) {
+        // First pass: draw image and remove white bg
+        ctx.drawImage(imgEl, 0, 0);
+        removeWhiteBg(canvas, ctx);
+
+        // If user selected a non-transparent bg, composite onto that bg
+        if (state.bg === "white" || state.bg === "dark") {
+          var bgCanvas = document.createElement("canvas");
+          bgCanvas.width = canvas.width;
+          bgCanvas.height = canvas.height;
+          var bgCtx = bgCanvas.getContext("2d");
+          bgCtx.fillStyle = state.bg === "white" ? "#ffffff" : "#1a1a1a";
+          bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+          bgCtx.drawImage(canvas, 0, 0);
+          return bgCanvas;
+        }
+        return canvas;
+      } else {
+        // Original image with chosen background
+        if (state.bg === "white") {
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else if (state.bg === "dark") {
+          ctx.fillStyle = "#1a1a1a";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        ctx.drawImage(imgEl, 0, 0);
+        return canvas;
+      }
+    }
+
+    function downloadBrandLogo(cardId) {
+      var state = brandStates[cardId];
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = function () {
+        var canvas = renderBrandCanvas(img, state);
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = state.domain.replace(/\./g, "_") + "_logo.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          downloadBrandLogoProxy(cardId);
+        }
+      };
+      img.onerror = function () { downloadBrandLogoProxy(cardId); };
+      img.src = state.imageUrl;
+    }
+
+    function downloadBrandLogoProxy(cardId) {
+      var state = brandStates[cardId];
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = function () {
+        var canvas = renderBrandCanvas(img, state);
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = state.domain.replace(/\./g, "_") + "_logo.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          window.open(state.imageUrl, "_blank");
+        }
+      };
+      img.onerror = function () { window.open(state.imageUrl, "_blank"); };
+      img.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+    }
+
+    function brandDownloadAll() {
+      var ids = Object.keys(brandStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("brand-status");
+      status.textContent = "Downloading " + ids.length + " logo" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () { downloadBrandLogo(id); }, delay);
+        delay += 500;
+      });
+      setTimeout(function () { status.textContent = "Downloads started."; }, delay);
+    }
+
+    function brandClear() {
+      document.getElementById("brand-urls").value = "";
+      document.getElementById("brand-results").innerHTML = "";
+      document.getElementById("brand-status").textContent = "";
+      document.getElementById("brand-download-all-btn").disabled = true;
+      document.getElementById("brand-file-info").textContent = "";
+      brandStates = {};
+    }
+
+    // ============================================================
+    // ARTIST PHOTOS
+    // ============================================================
+    var artistStates = {};
+    var artistCounter = 0;
+
+    function detectMusicPlatform(url) {
+      if (/open\.spotify\.com/i.test(url)) return "Spotify";
+      if (/music\.apple\.com/i.test(url)) return "Apple Music";
+      if (/music\.youtube\.com/i.test(url)) return "YouTube Music";
+      if (/music\.amazon/i.test(url)) return "Amazon Music";
+      if (/deezer\.com/i.test(url)) return "Deezer";
+      if (/tidal\.com/i.test(url)) return "Tidal";
+      if (/soundcloud\.com/i.test(url)) return "SoundCloud";
+      return "Music";
+    }
+
+    function extractArtistUrl(str) {
+      str = str.trim();
+      var match = str.match(/(https?:\/\/[^\s"',]+(?:artist|channel|artists)[^\s"',]*)/i);
+      return match ? match[1] : null;
+    }
+
+    async function fetchArtistImage(url) {
+      var lastErr = null;
+      for (var p = 0; p < corsProxies.length; p++) {
+        try {
+          var proxyUrl = corsProxies[p](url);
+          var resp = await fetch(proxyUrl, { signal: AbortSignal.timeout(10000) });
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          var html = await resp.text();
+
+          // Extract name from og:title
+          var nameMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
+                       || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+          var name = nameMatch ? decodeHtmlEntities(nameMatch[1]) : "";
+          // Clean up common suffixes
+          name = name.replace(/\s*[-–|·].*$/, "").replace(/\s*on\s+(Spotify|Apple Music|Amazon Music).*$/i, "").trim();
+
+          // Extract image from og:image
+          var imgMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+                      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+          if (imgMatch) {
+            var imgUrl = decodeHtmlEntities(imgMatch[1]);
+            return { imageUrl: imgUrl, name: name };
+          }
+
+          // Try twitter:image as fallback
+          var twMatch = html.match(/<meta[^>]+(?:name|property)=["']twitter:image["'][^>]+content=["']([^"']+)["']/i)
+                     || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+(?:name|property)=["']twitter:image["']/i);
+          if (twMatch) {
+            return { imageUrl: decodeHtmlEntities(twMatch[1]), name: name };
+          }
+
+          throw new Error("No artist image found");
+        } catch (err) {
+          lastErr = err;
+        }
+      }
+      throw lastErr || new Error("All proxies failed");
+    }
+
+    async function fetchArtistPhotos() {
+      var input = document.getElementById("artist-urls").value;
+      var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var results = document.getElementById("artist-results");
+      var status = document.getElementById("artist-status");
+      results.innerHTML = "";
+      artistStates = {};
+      artistCounter = 0;
+
+      if (lines.length === 0) {
+        status.textContent = "Please enter at least one artist page URL.";
+        return;
+      }
+
+      var urls = [], errors = [];
+      lines.forEach(function (line) {
+        if (line.match(/^https?:\/\//i)) {
+          urls.push(line);
+        } else {
+          errors.push(line);
+        }
+      });
+
+      errors.forEach(function (e) {
+        var div = document.createElement("div");
+        div.className = "error-card";
+        div.textContent = "Not a valid URL: " + e;
+        results.appendChild(div);
+      });
+
+      if (urls.length === 0) {
+        status.textContent = "No valid URLs found.";
+        return;
+      }
+
+      status.textContent = "Fetching " + urls.length + " artist photo" + (urls.length > 1 ? "s" : "") + "...";
+
+      var loaded = 0, failed = 0;
+      for (var i = 0; i < urls.length; i++) {
+        var url = urls[i];
+        var cardId = "artist-" + (artistCounter++);
+        var platform = detectMusicPlatform(url);
+
+        try {
+          var data = await fetchArtistImage(url);
+          artistStates[cardId] = { imageUrl: data.imageUrl, name: data.name, platform: platform, url: url };
+          createArtistCard(cardId, results);
+          loaded++;
+        } catch (err) {
+          var div = document.createElement("div");
+          div.className = "error-card";
+          div.textContent = "Could not fetch from " + platform + ": " + err.message;
+          results.appendChild(div);
+          failed++;
+        }
+      }
+
+      status.textContent = loaded + " photo" + (loaded !== 1 ? "s" : "") + " loaded." + (failed > 0 ? " " + failed + " failed." : "");
+      document.getElementById("artist-download-all-btn").disabled = loaded === 0;
+    }
+
+    function createArtistCard(cardId, container) {
+      var state = artistStates[cardId];
+      var card = document.createElement("div");
+      card.className = "artist-card";
+      card.id = cardId;
+
+      var img = document.createElement("img");
+      img.className = "artist-circle";
+      img.alt = (state.name || "Artist") + " photo";
+      img.src = state.imageUrl;
+
+      var nameEl = document.createElement("div");
+      nameEl.className = "artist-name";
+      nameEl.textContent = state.name || "Unknown Artist";
+
+      var sourceEl = document.createElement("div");
+      sourceEl.className = "artist-source";
+      sourceEl.textContent = state.platform;
+
+      var dlBtn = document.createElement("button");
+      dlBtn.className = "download-btn";
+      dlBtn.textContent = "Download Circle";
+      dlBtn.onclick = function () { downloadCircularArtist(cardId); };
+
+      card.appendChild(img);
+      card.appendChild(nameEl);
+      card.appendChild(sourceEl);
+      card.appendChild(dlBtn);
+      container.appendChild(card);
+    }
+
+    function downloadCircularArtist(cardId) {
+      var state = artistStates[cardId];
+      // Try direct first, then proxy
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+
+      img.onload = function () { renderCircle(img, state); };
+      img.onerror = function () {
+        // Try via CORS proxy
+        var img2 = new Image();
+        img2.crossOrigin = "anonymous";
+        img2.onload = function () { renderCircle(img2, state); };
+        img2.onerror = function () {
+          alert("Could not download image due to CORS restrictions. Try right-clicking the image above and saving manually.");
+        };
+        img2.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+      };
+      img.src = state.imageUrl;
+
+      function renderCircle(imgEl, st) {
+        var size = Math.min(imgEl.naturalWidth, imgEl.naturalHeight);
+        if (size < 10) { alert("Image too small to crop."); return; }
+        var canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        var ctx = canvas.getContext("2d");
+
+        // Clip to circle
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.clip();
+
+        // Draw centered crop
+        var sx = (imgEl.naturalWidth - size) / 2;
+        var sy = (imgEl.naturalHeight - size) / 2;
+        ctx.drawImage(imgEl, sx, sy, size, size, 0, 0, size, size);
+
+        try {
+          var dataUrl = canvas.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = (st.name || "artist").replace(/[^a-zA-Z0-9]/g, "_") + "_circle.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          alert("Could not generate circular image.");
+        }
+      }
+    }
+
+    function artistDownloadAll() {
+      var ids = Object.keys(artistStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("artist-status");
+      status.textContent = "Downloading " + ids.length + " photo" + (ids.length > 1 ? "s" : "") + "...";
+      var delay = 0;
+      ids.forEach(function (id) {
+        setTimeout(function () { downloadCircularArtist(id); }, delay);
+        delay += 600;
+      });
+      setTimeout(function () { status.textContent = "Downloads started."; }, delay);
+    }
+
+    function artistClear() {
+      document.getElementById("artist-urls").value = "";
+      document.getElementById("artist-results").innerHTML = "";
+      document.getElementById("artist-status").textContent = "";
+      document.getElementById("artist-download-all-btn").disabled = true;
+      document.getElementById("artist-file-info").textContent = "";
+      artistStates = {};
+    }
+
+    // ============================================================
+    // FILE UPLOAD (shared logic)
+    // ============================================================
+    function setupDropZone(dropZoneId, fileInputId, fileInfoId, extractFn, textareaId) {
+      var dz = document.getElementById(dropZoneId);
+      var fi = document.getElementById(fileInputId);
+      var info = document.getElementById(fileInfoId);
+
+      dz.addEventListener("dragover", function (e) { e.preventDefault(); dz.classList.add("drag-over"); });
+      dz.addEventListener("dragleave", function () { dz.classList.remove("drag-over"); });
+      dz.addEventListener("drop", function (e) {
+        e.preventDefault();
+        dz.classList.remove("drag-over");
+        if (e.dataTransfer.files.length > 0) processFile(e.dataTransfer.files[0], extractFn, textareaId, info);
+      });
+      fi.addEventListener("change", function () {
+        if (fi.files.length > 0) processFile(fi.files[0], extractFn, textareaId, info);
+      });
+    }
+
+    function processFile(file, extractFn, textareaId, infoEl) {
+      var name = file.name.toLowerCase();
+      infoEl.textContent = "Reading " + file.name + "...";
+
+      if (name.endsWith(".csv") || name.endsWith(".tsv") || name.endsWith(".txt")) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var ids = extractFromText(e.target.result, extractFn);
+          appendToTextarea(ids, file.name, textareaId, infoEl);
+        };
+        reader.onerror = function () { infoEl.textContent = "Error reading file."; };
+        reader.readAsText(file);
+      } else if (name.endsWith(".xlsx") || name.endsWith(".xls")) {
+        if (typeof XLSX === "undefined") { infoEl.textContent = "XLSX library not loaded."; return; }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          try {
+            var data = new Uint8Array(e.target.result);
+            var wb = XLSX.read(data, { type: "array" });
+            var allText = "";
+            wb.SheetNames.forEach(function (s) { allText += XLSX.utils.sheet_to_csv(wb.Sheets[s]) + "\n"; });
+            var ids = extractFromText(allText, extractFn);
+            appendToTextarea(ids, file.name, textareaId, infoEl);
+          } catch (err) { infoEl.textContent = "Error parsing file: " + err.message; }
+        };
+        reader.onerror = function () { infoEl.textContent = "Error reading file."; };
+        reader.readAsArrayBuffer(file);
+      } else {
+        infoEl.textContent = "Unsupported file type.";
+      }
+    }
+
+    function extractFromText(text, extractFn) {
+      var tokens = text.split(/[\n\r,;\t]+/);
+      var ids = [];
+      tokens.forEach(function (t) {
+        t = t.replace(/^["'\s]+|["'\s]+$/g, "");
+        var id = extractFn(t);
+        if (id && ids.indexOf(id) === -1) ids.push(id);
+      });
+      return ids;
+    }
+
+    function appendToTextarea(ids, filename, textareaId, infoEl) {
+      if (ids.length === 0) { infoEl.textContent = "No IDs found in " + filename + "."; return; }
+      infoEl.textContent = "Found " + ids.length + " ID" + (ids.length > 1 ? "s" : "") + " in " + filename + ".";
+      var ta = document.getElementById(textareaId);
+      var existing = ta.value.trim();
+      ta.value = existing ? existing + "\n" + ids.join("\n") : ids.join("\n");
+    }
+
+    // Initialize both drop zones
+    function extractNewsUrl(str) {
+      str = str.trim();
+      var match = str.match(/(https?:\/\/[^\s"',]+)/i);
+      return match ? match[1] : null;
+    }
+
+    setupDropZone("drop-zone", "file-input", "file-info", extractVideoId, "urls");
+    setupDropZone("imdb-drop-zone", "imdb-file-input", "imdb-file-info", extractImdbId, "imdb-urls");
+    setupDropZone("news-drop-zone", "news-file-input", "news-file-info", extractNewsUrl, "news-urls");
+    setupDropZone("avatar-drop-zone", "avatar-file-input", "avatar-file-info", extractChannelUrl, "avatar-urls");
+    setupDropZone("brand-drop-zone", "brand-file-input", "brand-file-info", extractDomainInput, "brand-urls");
+    setupDropZone("artist-drop-zone", "artist-file-input", "artist-file-info", extractArtistUrl, "artist-urls");
+
+    // Ctrl+Enter shortcuts
+    document.getElementById("urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchThumbnails(); }
+    });
+    document.getElementById("imdb-urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchPosters(); }
+    });
+    document.getElementById("news-urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchNewsCards(); }
+    });
+    document.getElementById("avatar-urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchAvatars(); }
+    });
+    document.getElementById("brand-urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchBrandLogos(); }
+    });
+    document.getElementById("artist-urls").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); fetchArtistPhotos(); }
+    });
+  </script>
+</body>
+</html>

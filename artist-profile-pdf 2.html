@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahnjili ZhuParris, PhD - Artist Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Print-optimized Terminal Vaporwave Theme */
+
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #000000;
+            --color-accent: #ff10f0;
+            --color-accent-cyan: #00a0d0;
+            --color-accent-purple: #8010d0;
+            --color-muted: #666666;
+            --color-border: #00a0d0;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* A4 page setup */
+        @page {
+            size: A4 portrait;
+            margin: 1.5cm;
+        }
+
+        body {
+            font-family: var(--font-mono);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.5;
+            padding: 1.5cm;
+            font-size: 9pt;
+            max-width: 21cm;
+            margin: 0 auto;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                padding: 0;
+                font-size: 9pt;
+                max-width: 100%;
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
+
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+
+            table, .content-block {
+                page-break-inside: avoid;
+            }
+
+            a {
+                color: var(--color-accent-cyan);
+                text-decoration: none;
+            }
+
+            a[href^="http"]:after {
+                content: "";
+            }
+        }
+
+        /* Screen preview mimics A4 */
+        @media screen {
+            body {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                background: white;
+                margin: 2rem auto;
+            }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .header::after {
+            content: '════════════════════════════════════════════════════════════════════════════════════════════════════════';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            font-size: 0.5rem;
+            color: var(--color-border);
+            overflow: hidden;
+            white-space: nowrap;
+            letter-spacing: -1px;
+        }
+
+        .eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--color-accent-cyan);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        h1::before {
+            content: '> ';
+            color: var(--color-accent-cyan);
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Section headers */
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent-cyan);
+            border-left: 4px solid var(--color-accent);
+            padding-left: 0.75rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        h2::before {
+            content: '$ ';
+            color: var(--color-accent);
+            margin-right: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--color-accent-purple);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h3::before {
+            content: '>> ';
+            color: var(--color-accent-cyan);
+            margin-right: 0.3rem;
+        }
+
+        /* Content blocks */
+        .content-block {
+            margin: 0.75rem 0;
+            padding: 0.75rem;
+            border-left: 2px solid var(--color-accent-cyan);
+            background: rgba(0, 160, 208, 0.05);
+        }
+
+        .year-label {
+            color: var(--color-accent);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .year-label::before {
+            content: '[ ';
+        }
+
+        .year-label::after {
+            content: ' ]';
+        }
+
+        .location {
+            color: var(--color-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            border: 1px solid var(--color-border);
+            font-size: 0.9rem;
+        }
+
+        table td {
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px dotted rgba(0, 160, 208, 0.3);
+            vertical-align: top;
+        }
+
+        table td:first-child {
+            width: 150px;
+            font-weight: 700;
+            color: var(--color-accent-cyan);
+        }
+
+        /* Links */
+        a {
+            color: var(--color-accent-cyan);
+            text-decoration: underline;
+            text-decoration-style: dotted;
+        }
+
+        /* Lists */
+        ul {
+            margin: 0.5rem 0 0.5rem 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        li::marker {
+            color: var(--color-accent-cyan);
+        }
+
+        /* Contact info */
+        .contact-info {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            margin-top: 1rem;
+        }
+
+        .contact-info a {
+            color: var(--color-accent-cyan);
+            margin: 0 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--color-border);
+            padding-top: 0.75rem;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--color-muted);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '────────────────────────────────────────────────────────────────────────────────────────────────────────';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 100%;
+            font-size: 0.5rem;
+            color: var(--color-border);
+            overflow: hidden;
+            white-space: nowrap;
+            letter-spacing: -1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="eyebrow">AI Engineer × Artist × Researcher</div>
+        <h1>Ahnjili ZhuParris, PhD</h1>
+        <p class="subtitle">Exposing algorithmic violence through computational art and critical AI research</p>
+        <div class="contact-info">
+            <a href="mailto:contact@ahnjili.com">contact@ahnjili.com</a>
+            <span>•</span>
+            <a href="https://artificialnouveau.github.io">artificialnouveau.github.io</a>
+        </div>
+    </div>
+
+    <section id="about">
+        <h2>About</h2>
+        <p>Ahnjili ZhuParris, PhD (NL/USA), is a media researcher, computer vision AI engineer, and computational artist working between New York and the Netherlands. She develops AI applications for non-profits, as well as the medical and cosmetic industries while creating research-driven artistic work that raises awareness about AI and algorithmic violence, which is harm emerging from or justified by automated decision-making systems.</p>
+        <p>Ahnjili holds a PhD in Medicine from Leiden University, Master's in Cognitive Neuroscience from Radboud University and a Bachelor's in Neuroscience from the University of Edinburgh. She is a recipient of the Mozilla Creative Media Award, a Processing Foundation Fellow and a Public AI Creative Fellow. Ahnjili's work has garnered support from the Mozilla Foundation (US), IMPAKT(NL), and Constant (BE) and has showcased her work at Ars Electronica (AU), Articulating Data (UK), and the CICA Museum (KR).</p>
+    </section>
+
+    <section id="education">
+        <h2>Education</h2>
+        <table>
+            <tr>
+                <td><span class="year-label">2020 - 2024</span></td>
+                <td><strong>PhD in Medicine</strong><br>Leiden University</td>
+            </tr>
+            <tr>
+                <td><span class="year-label">2016 - 2018</span></td>
+                <td><strong>MSc in Cognitive Neuroscience</strong><br>Radboud Universiteit</td>
+            </tr>
+            <tr>
+                <td><span class="year-label">2012 - 2016</span></td>
+                <td><strong>BSc in Biomedical Sciences (with Honours)</strong><br>Edinburgh University</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="featured-projects" class="page-break">
+        <h2>Featured Projects</h2>
+
+        <div class="content-block">
+            <h3><span class="year-label">2025</span> DEEPFAKE: A Video Essay</h3>
+            <p>A critical video essay exploring the implications and technology behind deepfake media, examining the ethical considerations and societal impacts of synthetic media generation.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2024</span> Fashion Police Drones</h3>
+            <p>Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. This installation highlights the whimsical aspects of fashion norms while prompting serious reflection on discrimination and privacy.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2024</span> Screen-to-Soundscape</h3>
+            <p>An experimental approach to re-imaging screen readers, developing a free and open-source explorative tool that transforms a screen into an immersive soundscape with spatial audio and rich descriptive alt-text for blind and visually impaired users.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023</span> VOICES</h3>
+            <p>An interactive installation that invites participants to co-create a sound-art composition with their voice. Participants record a secret and can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2021</span> Future Wake</h3>
+            <p>An interactive art project that turns the practice of predictive policing upside down, allowing citizens to predict police brutality. Uses machine learning to predict who, when and how the next victim would die, and deepfake algorithms to generate the faces of potential victims.</p>
+        </div>
+    </section>
+
+    <section id="awards" class="page-break">
+        <h2>Awards, Fellowships & Grants</h2>
+
+        <div class="content-block">
+            <h3><span class="year-label">2025</span> Public AI Creative Fellowship</h3>
+            <p class="location">MetaGOV • USA</p>
+            <p>Public AI Creative Fellowship award.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2024</span> Fresh Perspective</h3>
+            <p class="location">Stimulering Fonds • Netherlands</p>
+            <p>Project 'Screen-to-Soundscape' received the 2024 Fresh Perspective grant from the StimuleringsFonds. This project focuses on cross-sector collaborative projects that offer new perspectives on current crises including the climate crisis, discrimination, migration and asylum crisis, social and opportunity inequality or the housing crisis.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2024</span> Processing Foundation Fellowship</h3>
+            <p class="location">Processing Foundation • USA</p>
+            <p>Project 'Screen-to-Soundscape' received the 2024 Processing Foundation Fellowship. Fellowships are an essential element of the Processing foundation's work in developing tools of community power, connection, stewardship and in nurturing the aims/needs of the people and communities who use our software.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023</span> European Festivals Fund for Emerging Artists</h3>
+            <p class="location">European Festivals Fund for Emerging Artists • Netherlands</p>
+            <p>VOICES installation granted "the European Festivals Fund for Emerging Artists". This grant, coupled with support from IMPAKT, enabled the VOICES installation exhibition at ARS ELECTRONICA 2023.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2021</span> Mozilla Creative Media Awards</h3>
+            <p class="location">Mozilla Foundation • United States</p>
+            <p>Future Wake interactive art project received Mozilla Creative Media Award. The project turns predictive policing upside down, allowing citizens to predict police brutality using machine learning and deepfake algorithms.</p>
+        </div>
+    </section>
+
+    <section id="exhibitions" class="page-break">
+        <h2>Exhibitions</h2>
+
+        <div class="content-block">
+            <h3><span class="year-label">2024</span> New Media Art Conference</h3>
+            <p class="location">CICA Museum, Seoul, Republic of Korea</p>
+            <p>Fashion Police Drones installation presented at the New Media Arts Conference. The Fashion Police Drones, armed with custom fashion recognition algorithms, track individuals based on audience-defined criteria for "fashion crimes".</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023</span> VOICES - ARS ELECTRONICA</h3>
+            <p class="location">Ars Electronica, Linz, Austria</p>
+            <p>Interactive installation inviting participants to co-create a sound-art composition with their voice, guided through the processing, analysis, and cloning of voice recordings by Machine Listening algorithms.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023</span> VOICES - IMPAKT Festival</h3>
+            <p class="location">IMPAKT Festival, Utrecht, Netherlands</p>
+            <p>Interactive installation exhibition at IMPAKT festival, supported by the European Festivals Fund for Emerging Artists grant.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023</span> Articulating Data</h3>
+            <p class="location">Edinburgh, United Kingdom</p>
+            <p>Babble-on web-based installation allowing users to create personalized babble tapes to disguise conversations from audio surveillance. Presented at the Articulating Data conference 2023.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2021</span> This Machine Is Black</h3>
+            <p class="location">Identity 2.0, London, United Kingdom</p>
+            <p>Exhibition exploring how Afrofuturism can be used to alleviate normative pressure that AI puts on non-normative bodies. Trained generative AI algorithms on Afrofuturistic datasets to envision the future of the Afrofuturism aesthetic.</p>
+        </div>
+    </section>
+
+    <section id="collaborations" class="page-break">
+        <h2>Collaborations</h2>
+
+        <div class="content-block">
+            <h3><span class="year-label">2022 - 2024</span> Shibboleth: Creation of a Hybrid Voice</h3>
+            <p class="location">Effi & Amir • Brussels, Belgium</p>
+            <p>Produced a 'dual voice' that transforms fluidly from a recognizable voice of Speaker A to Speaker B while speaking. The generated algorithm was used in 'The 8th Letter' theater performance of Effi and Amir.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023</span> Deepest Darkest Unknown</h3>
+            <p class="location">Kurina Sohn • Netherlands</p>
+            <p>Artistic collaboration with AI, generating speculative stories and images that illuminate the mysteries and potential losses of remote underwater environments. Customized StableDiffusion AI using deep-sea dataset and marine debris images.</p>
+        </div>
+    </section>
+
+    <section id="residencies">
+        <h2>International Exchanges/Residencies</h2>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023</span> IMPAKT</h3>
+            <p class="location">CODE: Reclaiming Digital Rights, Netherlands</p>
+            <p>Residency supporting the development of VOICES installation, which was exhibited at ARS ELECTRONICA 2023.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2022</span> Anaïs Berck: An Algoliterary Publishing House</h3>
+            <p class="location">Belgium</p>
+            <p>Developed algoliterary publications - publishing experiments with algorithms and literary, scientific, and activist datasets about trees and nature. Used decision tree algorithms to sort the histories of tree nomenclature.</p>
+        </div>
+    </section>
+
+    <section id="commissions" class="page-break">
+        <h2>Commissions</h2>
+
+        <div class="content-block">
+            <h3><span class="year-label">2024</span> Screen-to-Soundscape/Techno Disobedience</h3>
+            <p class="location">Constant, The Processing Foundation, The Simulerings Fonds • Belgium, USA, Netherlands</p>
+            <p>Speculative design prototype that transforms a browser or screen into an immersive soundscape with multiple layered voices reading all readable text in unison with spatial audio enabling users to discern text location.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023</span> Digital Pioneers: A Visionary Prelude</h3>
+            <p class="location">Stichting Impakt • Utrecht, Netherlands</p>
+            <p>Digital artwork blending technology and art as introduction to IMPAKT festival 2023. Features deepfake representations of three prominent tech CEOs as digital orators guiding audience through evolving landscape of technology and art.</p>
+        </div>
+    </section>
+
+    <section id="publications">
+        <h2>Selected Publications</h2>
+
+        <div class="content-block">
+            <h3><span class="year-label">2024</span> Embodying Data, Shifting Perspective</h3>
+            <p class="location">Book Chapter • Amsterdam University Press • Wevers, R Edited by Ponzanesi, S. and Leurs, Koen</p>
+            <p>Chapter discusses artistic project Future Wake (2021) examining predictive policing. By shifting focus from possible future crime offenders to possible future victims of fatal police encounters, the artwork activates critical reflection on politics and logics of predictive policing systems.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2022</span> Can AI imagine the next victims of police violence?</h3>
+            <p class="location">It's Nice That • London, United Kingdom</p>
+            <p>Article examining issues with using AI for predictive policing and whether it could reduce crime or reinforce racial biases in the criminal justice system.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2021</span> This horrifying AI model predicts future instances of police brutality</h3>
+            <p class="location">Fast Company • Mark Sullivan • United States</p>
+            <p>Feature on Future Wake as a searing critique of predictive policing, using past data on police violence to predict where it might occur in the future.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2021</span> Future Wake: the AI art project that predicts police violence</h3>
+            <p class="location">Coda Story • Caitlin Thompson • United States</p>
+            <p>Coverage of Mozilla Creative Media award winner 2021, interactive website calculating when and where fatal encounters with law enforcement will occur.</p>
+        </div>
+    </section>
+
+    <section id="workshops" class="page-break">
+        <h2>Selected Workshops and Talks</h2>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023 - Ongoing</span> Introduction to Deep Fakes</h3>
+            <p><strong>Institutions:</strong></p>
+            <ul>
+                <li>IMPAKT FESTIVAL (Netherlands)</li>
+                <li>Student Union of Arts at University of Arts London (UAL) (United Kingdom)</li>
+            </ul>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023 - Ongoing</span> Introduction to AI for Artists</h3>
+            <p><strong>Institutions:</strong></p>
+            <ul>
+                <li>HKU: Hogeschool voor de Kunsten Utrecht (Netherlands)</li>
+                <li>ArtEZ University of the Arts (Netherlands)</li>
+                <li>Piet Zwart Institute (Netherlands)</li>
+                <li>iii: Instrument Inventors (Netherlands)</li>
+            </ul>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2022 - Ongoing</span> Introduction to Generative AI</h3>
+            <p><strong>Institutions:</strong></p>
+            <ul>
+                <li>HKU: Hogeschool voor de Kunsten Utrecht (Netherlands)</li>
+                <li>iii: Instrument Inventors (Netherlands)</li>
+            </ul>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2022 - 2023</span> Introduction to Computer-Vision Surveillance for Artists</h3>
+            <p><strong>Institutions:</strong></p>
+            <ul>
+                <li>HKU: Hogeschool voor de Kunsten Utrecht (Netherlands)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="interviews">
+        <h2>Selected Interviews</h2>
+
+        <div class="content-block">
+            <h3><span class="year-label">2023</span> Artificial Intelligence, Autonomous Objects & Algorithmic Violence</h3>
+            <p class="location">Cross Pollination Podcast • The Hague, Netherlands</p>
+            <p>Interview discussing machine learning engineering, artistic research on AI and algorithmic violence, and science communication efforts dedicated to raising awareness about ethical implications of automated decision-making systems.</p>
+        </div>
+
+        <div class="content-block">
+            <h3><span class="year-label">2020</span> On Data</h3>
+            <p class="location">Bartalk Podcast • The Hague, Netherlands</p>
+            <p>Lecture, performance, and storytelling series discussion on data, featuring unique perspective on data practices and implications.</p>
+        </div>
+    </section>
+
+    <div class="footer">
+        <p>Last updated: February 2025</p>
+        <p class="contact-info">
+            <a href="mailto:contact@ahnjili.com">contact@ahnjili.com</a> •
+            <a href="https://artificialnouveau.github.io">artificialnouveau.github.io</a>
+        </p>
+    </div>
+</body>
+</html>

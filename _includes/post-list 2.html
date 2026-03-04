@@ -1,0 +1,12 @@
+<div class="gallery-grid">
+  {% for post in site.posts %}
+    <a href="{{ site.baseurl }}{{ post.url }}" class="gallery-card">
+      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="gallery-image">
+      <div class="gallery-content">
+        <span class="year-badge">{{ post.date | date: "%Y" }}</span>
+        <h2 class="gallery-title">{{ post.title }}</h2>
+        <p class="gallery-excerpt">{{ post.excerpt | markdownify | strip_html | truncatewords: 25 }}</p>
+      </div>
+    </a>
+  {% endfor %}
+</div>

@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicotine Research Network Analysis</title>
+<meta name="description" content="Interactive analysis of 2,175 nicotine research papers exploring conflicts of interest, industry influence, and outcome bias in tobacco science.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nicotine Research Network Analysis">
+<meta property="og:description" content="Interactive co-authorship network of 2,175 nicotine research papers. Explore industry ties, conflicts of interest, and outcome patterns.">
+<meta property="og:url" content="https://artificialnouveau.github.io/miniprojects/nicotineanalysis/">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #f5f7fa;
+  --surface2: #eef1f6;
+  --border: #d8dde6;
+  --text: #1a1a2e;
+  --muted: #5a6377;
+  --cyan: #003DA5;
+  --magenta: #8b3a9f;
+  --red: #c4302b;
+  --orange: #d4760a;
+  --green: #1a8a4a;
+  --blue: #003DA5;
+  --yellow: #b8860b;
+  --tobacco: #c4302b;
+  --coi: #d4760a;
+  --independent: #003DA5;
+  --positive: #1a8a4a;
+  --negative: #c4302b;
+  --neutral: #5a6377;
+  --mixed: #b8860b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Navigation ─────────────────────────────────────────────────── */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-bar h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 1px;
+}
+
+.top-bar nav {
+  display: flex;
+  gap: 4px;
+}
+
+.top-bar nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.top-bar nav a:hover { color: var(--text); background: var(--surface); }
+.top-bar nav a.active { color: var(--cyan); background: var(--surface); }
+
+/* ── Layout ─────────────────────────────────────────────────────── */
+.page { padding-top: 56px; }
+
+.section {
+  padding: 48px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+
+/* ── Network Container ──────────────────────────────────────────── */
+#network-container {
+  width: 100%;
+  height: 70vh;
+  min-height: 500px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+#network-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.network-legend {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 13px;
+  z-index: 10;
+}
+
+.network-legend h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.legend-item.dimmed { opacity: 0.3; }
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.network-controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10;
+}
+
+.net-btn {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.2s;
+}
+
+.net-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+/* ── Author Detail Panel ────────────────────────────────────────── */
+#author-panel {
+  display: none;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  z-index: 10;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+#author-panel h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+#author-panel .meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+#author-panel .paper-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#author-panel .paper-list li {
+  font-size: 13px;
+  padding: 8px 12px;
+  background: var(--surface2);
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+#author-panel .paper-list li a {
+  color: var(--cyan);
+  text-decoration: none;
+  flex: 1;
+}
+
+#author-panel .paper-list li a:hover { text-decoration: underline; }
+
+.panel-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.panel-close:hover { color: var(--text); }
+
+.tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tag-tobacco   { background: rgba(196,48,43,0.10); color: var(--tobacco); }
+.tag-coi       { background: rgba(212,118,10,0.10); color: var(--coi); }
+.tag-coi-sub   { background: rgba(212,118,10,0.12); color: var(--coi); font-size: 10px; border: 1px solid rgba(212,118,10,0.25); }
+.tag-independent { background: rgba(0,61,165,0.08); color: var(--independent); }
+.tag-positive  { background: rgba(26,138,74,0.10); color: var(--positive); }
+.tag-negative  { background: rgba(196,48,43,0.10); color: var(--negative); }
+.tag-neutral   { background: rgba(90,99,119,0.10); color: var(--neutral); }
+.tag-mixed     { background: rgba(184,134,11,0.10); color: var(--mixed); }
+
+/* ── Stats Grid ─────────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.stat-card .value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-card .label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ── Findings ───────────────────────────────────────────────────── */
+.findings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 20px;
+}
+
+.finding-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.finding-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.finding-card p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.finding-card .stat-highlight {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--surface2);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-top: 8px;
+}
+
+/* ── Outcome Bars ───────────────────────────────────────────────── */
+.outcome-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.outcome-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.outcome-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  width: 130px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.outcome-bar-track {
+  flex: 1;
+  height: 24px;
+  background: var(--surface2);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+}
+
+.outcome-bar-seg {
+  height: 100%;
+  transition: width 0.6s ease;
+  position: relative;
+}
+
+.outcome-bar-seg:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: var(--text);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+/* ── Loading ────────────────────────────────────────────────────── */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.loading::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--cyan);
+  border-radius: 50%;
+  margin-left: 12px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .top-bar { padding: 0 12px; }
+  .top-bar h1 { font-size: 12px; letter-spacing: 0.5px; }
+  .top-bar nav a { padding: 6px 8px; font-size: 10px; }
+  .section { padding: 24px 12px; }
+  #network-container { height: 60vh; min-height: 300px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-card { padding: 14px; }
+  .stat-card .value { font-size: 22px; }
+  .stat-card .label { font-size: 11px; }
+  .findings-grid { grid-template-columns: 1fr; gap: 12px; }
+  .finding-card { padding: 16px; }
+  .finding-card h3 { font-size: 14px; }
+  .finding-card p { font-size: 13px; }
+  .finding-card .stat-highlight { font-size: 11px; padding: 8px 10px; }
+  .network-legend { padding: 8px; font-size: 10px; max-width: 140px; }
+  .network-legend h3 { font-size: 9px; margin-bottom: 6px; }
+  .legend-dot { width: 10px; height: 10px; }
+  .net-btn { width: 32px; height: 32px; font-size: 16px; }
+  #author-panel { padding: 14px; max-height: 200px; }
+  #author-panel h3 { font-size: 14px; }
+  .outcome-label { width: 90px; font-size: 10px; }
+  .outcome-bar-track { height: 20px; }
+}
+
+@media (max-width: 480px) {
+  .top-bar h1 { font-size: 11px; }
+  .top-bar nav { gap: 2px; }
+  .top-bar nav a { padding: 4px 6px; font-size: 9px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-card .value { font-size: 18px; }
+  .section-title { font-size: 12px; }
+  .outcome-label { width: 70px; font-size: 9px; }
+}
+
+/* ── Print / PDF styles ────────────────────────────────────────── */
+@media print {
+  * { color-adjust: exact; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff !important; color: #1a1a1a !important; font-size: 12pt; }
+  .top-bar, #network-container, .network-controls, .network-legend, #coi-sub-legend, #btn-pdf { display: none !important; }
+  .page { padding-top: 0 !important; }
+  .section { padding: 20px 0; max-width: 100%; }
+  .section-title { color: #333 !important; font-size: 14pt; border-bottom: 2px solid #333; padding-bottom: 4px; }
+  .stat-card, .finding-card { break-inside: avoid; }
+  .finding-card .stat-highlight { background: #f0f0f0 !important; }
+  .stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .findings-grid { grid-template-columns: 1fr !important; }
+  .outcome-bar-seg span { color: #1a1a1a !important; text-shadow: none !important; }
+  /* Add a title for the PDF */
+  .page::before {
+    content: "Nicotine Research Analysis — Key Findings Report";
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 22pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    padding: 30px 0 10px;
+    border-bottom: 3px solid #1a1a1a;
+    margin-bottom: 20px;
+  }
+  .page::after {
+    content: "Generated from artificialnouveau.com/miniprojects/nicotineanalysis";
+    display: block;
+    font-size: 9pt;
+    color: #888;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>NICOTINE RESEARCH ANALYSIS</h1>
+  <nav>
+    <a href="index.html" class="active">Network</a>
+    <a href="papers.html">Papers</a>
+    <a href="#" id="btn-pdf">PDF Report</a>
+  </nav>
+</div>
+
+<div class="page">
+
+  <!-- Stats Overview -->
+  <div class="section">
+    <div class="section-title">Overview</div>
+    <p style="color: var(--muted); font-size: 16px; margin-bottom: 20px; max-width: 900px; line-height: 1.7;">
+      <strong style="color: var(--text);">Does tobacco industry involvement influence research findings?</strong>
+      This project analyzes over 2,000 published nicotine and tobacco research papers to investigate whether
+      financial conflicts of interest&mdash;such as tobacco company affiliations, consulting fees, or industry funding&mdash;are
+      associated with more favorable (positive) study outcomes.
+      Using co-authorship network analysis and statistical methods (odds ratios, chi-square tests, permutation tests with
+      Holm-Bonferroni correction), we compare outcome patterns across three groups:
+      papers with <span style="color: var(--tobacco);">tobacco industry ties</span>,
+      papers with <span style="color: var(--coi);">declared conflicts of interest</span> (non-tobacco),
+      and <span style="color: var(--independent);">independent papers</span> with no conflicts.
+      The goal is to provide transparent, data-driven evidence on the relationship between industry involvement and
+      the direction of research conclusions in nicotine science.
+    </p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="value">2,175</div>
+        <div class="label">Research papers analyzed</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">7,006</div>
+        <div class="label">Authors identified</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">111</div>
+        <div class="label">Tobacco company papers (5.1%)</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">425</div>
+        <div class="label">COI declared papers (19.5%)</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">1,639</div>
+        <div class="label">Independent papers (75.4%)</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">0.791</div>
+        <div class="label">Industry assortativity (clustering)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Network -->
+  <div class="section">
+    <div class="section-title">Co-Authorship Network</div>
+    <p style="color: var(--muted); font-size: 16px; margin-bottom: 16px; max-width: 900px; line-height: 1.7;">
+      <strong style="color: var(--text);">Co-authorship network</strong> of nicotine/tobacco researchers.
+      Each <strong style="color: var(--text);">dot is a researcher</strong> (minimum 3 papers);
+      <strong style="color: var(--text);">lines connect co-authors</strong> who published together (thicker = more shared papers).
+      The network uses a force-directed layout: connected authors pull toward each other while unconnected ones repel,
+      so <strong style="color: var(--text);">clusters reveal research communities</strong> that frequently collaborate.
+      Nodes settle into position after a few seconds. Click any node to see that author's papers.
+      Click a legend item to hide/show that category.
+    </p>
+    <div id="network-container">
+      <div class="network-legend">
+        <h3>Author Category</h3>
+        <div class="legend-item" data-cat="Tobacco Company">
+          <div class="legend-dot" style="background: #c4302b"></div>
+          <span>Tobacco Company</span>
+        </div>
+        <div class="legend-item" data-cat="COI Declared">
+          <div class="legend-dot" style="background: #d4760a"></div>
+          <span>COI Declared</span>
+        </div>
+        <div class="legend-item" data-cat="Independent">
+          <div class="legend-dot" style="background: #003DA5"></div>
+          <span>Independent</span>
+        </div>
+      </div>
+      <div class="network-controls">
+        <button class="net-btn" id="btn-zoom-in" title="Zoom in">+</button>
+        <button class="net-btn" id="btn-zoom-out" title="Zoom out">&minus;</button>
+        <button class="net-btn" id="btn-fit" title="Fit to view">&#8644;</button>
+        <button class="net-btn" id="btn-coi-toggle" title="Toggle COI subcategories" style="font-size:11px;margin-top:8px;">COI</button>
+      </div>
+      <div class="network-legend" id="coi-sub-legend" style="display:none;top:16px;left:16px;">
+        <h3>COI Subcategory</h3>
+        <div class="legend-item"><div class="legend-dot" style="background:#c4302b"></div><span>Tobacco Company</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#003DA5"></div><span>Independent</span></div>
+        <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#d4760a"></div><span>Consulting/Advisory</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8b3a9f"></div><span>Legal</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#b8860b"></div><span>Financial Interest</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#0077aa"></div><span>Fees/Compensation</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#c45030"></div><span>Industry Funding</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8899aa"></div><span>No COI Subtype</span></div>
+      </div>
+      <div id="network-canvas">
+        <div class="loading">Loading network</div>
+      </div>
+      <div id="author-panel">
+        <button class="panel-close" onclick="closePanel()">&times;</button>
+        <h3 id="panel-name"></h3>
+        <div class="meta" id="panel-meta"></div>
+        <ul class="paper-list" id="panel-papers"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Findings -->
+  <div class="section">
+    <div class="section-title">Key Findings</div>
+
+    <div class="findings-grid">
+
+      <!-- 1. How we classified outcomes -->
+      <div class="finding-card">
+        <h3><span style="color: var(--green);">1</span> How We Classified Outcomes</h3>
+        <p>We used a computer program to scan each paper's summary (abstract) for about 100 keyword patterns that indicate whether the research found nicotine/tobacco products to be helpful or harmful. About half the papers (1,075 of 2,175) contained clear enough language to classify. The other 1,100 could not be classified because their summaries were missing, too short, or purely about methods (e.g., study designs, review protocols) rather than results.</p>
+        <div class="stat-highlight">
+          Positive: <strong style="color:var(--positive)">392</strong> &nbsp;|&nbsp;
+          Negative: <strong style="color:var(--negative)">331</strong> &nbsp;|&nbsp;
+          Mixed: <strong style="color:var(--mixed)">291</strong> &nbsp;|&nbsp;
+          Neutral: <strong style="color:var(--neutral)">61</strong> &nbsp;|&nbsp;
+          Not classifiable: <strong style="color:var(--muted)">1,100</strong>
+        </div>
+      </div>
+
+      <!-- 2. Outcome distribution chart -->
+      <div class="finding-card">
+        <h3><span style="color: var(--cyan);">2</span> Outcome Distribution by Category</h3>
+        <p>Among the 1,075 classifiable papers, how do outcomes break down by group? The bars below show the percentage of positive, negative, mixed, and neutral findings for each category. Notice how the green (positive) segment is larger for COI-declared papers.</p>
+        <div class="outcome-bars" id="outcome-bars"></div>
+      </div>
+
+      <!-- 3. Main finding: COI bias -->
+      <div class="finding-card">
+        <h3><span style="color: var(--orange);">3</span> Conflicted Research Skews Positive</h3>
+        <p>This is the central finding: papers where authors declared a financial conflict of interest were <strong style="color:var(--text)">46% more likely</strong> to report favorable results for nicotine/tobacco products than independent research. In plain terms, if you picked a random COI paper and a random independent paper, the COI paper is nearly 1.5&times; as likely to have a positive conclusion.</p>
+        <div class="stat-highlight">
+          Positive rate: <strong style="color:var(--orange)">43.2%</strong> of COI papers vs <strong style="color:var(--blue)">34.3%</strong> of independent papers<br>
+          <span style="color:var(--muted);">Odds ratio = 1.46 &mdash; meaning COI papers have 1.46&times; the odds of a positive outcome. The 95% confidence interval (1.09&ndash;1.95) does not cross 1.0, confirming this is statistically significant (p&nbsp;=&nbsp;0.012).</span>
+        </div>
+      </div>
+
+      <!-- 4. COI subcategory breakdown -->
+      <div class="finding-card">
+        <h3><span style="color: var(--coi);">4</span> Consulting &amp; Advisory Ties Drive the Bias</h3>
+        <p>Not all conflicts are equal. When we break down COI papers by the type of conflict, <strong style="color:var(--text)">consulting and advisory board relationships</strong> (294 papers) are the main driver of positive bias. Industry funding shows the strongest effect (5.8&times; the odds) but with only 11 papers, that could be due to chance.</p>
+        <div class="stat-highlight" style="line-height: 1.9;">
+          <strong style="color:var(--coi)">Consulting/Advisory</strong> (294 papers): <strong>1.42&times;</strong> the odds of positive <span style="color:var(--green);">&#10003; significant</span><br>
+          <strong style="color:var(--coi)">Legal</strong> (97 papers): <strong>1.57&times;</strong> the odds<br>
+          <strong style="color:var(--coi)">Financial Interest</strong> (35 papers): <strong>1.60&times;</strong> the odds<br>
+          <strong style="color:var(--coi)">Fees/Compensation</strong> (19 papers): <strong>1.15&times;</strong> the odds<br>
+          <strong style="color:var(--coi)">Industry Funding</strong> (11 papers): <strong>5.77&times;</strong> the odds<br>
+          <span style="color:var(--muted);font-size:13px;">&#10003; = statistically significant (p &lt; 0.05). Others may be real effects but sample too small to confirm.</span>
+        </div>
+      </div>
+
+      <!-- 5. Tobacco company result -->
+      <div class="finding-card">
+        <h3><span style="color: var(--red);">5</span> Tobacco Company Papers &mdash; No Clear Bias</h3>
+        <p>Surprisingly, papers written directly by tobacco company employees do <em>not</em> show a significant skew toward positive outcomes. Their positive rate (36.5%) is close to independent research (34.3%). This might be because tobacco-authored papers face more scrutiny, leading to more cautious framing, or because the sample (111 papers) is simply too small to detect a difference.</p>
+        <div class="stat-highlight">
+          Positive rate: <strong style="color:var(--red)">36.5%</strong> (Tobacco) vs <strong style="color:var(--blue)">34.3%</strong> (Independent)<br>
+          <span style="color:var(--muted);">Odds ratio = 1.10 (95% CI: 0.65&ndash;1.88). The confidence interval crosses 1.0, so we cannot rule out no difference (p&nbsp;=&nbsp;0.78).</span>
+        </div>
+      </div>
+
+      <!-- 6. Network: insular clusters -->
+      <div class="finding-card">
+        <h3><span style="color: var(--magenta);">6</span> Tobacco Researchers Stick Together</h3>
+        <p>The co-authorship network shows that tobacco company researchers overwhelmingly publish with each other. They form tight, insular clusters with very few connections to independent researchers. A clustering score (assortativity) of 0.791 &mdash; where 1.0 would mean complete isolation &mdash; confirms this near-total segregation.</p>
+        <div class="stat-highlight">
+          <strong>1,651</strong> authors &nbsp;|&nbsp; <strong>13,405</strong> co-authorships<br>
+          <strong>92</strong> research communities detected &nbsp;|&nbsp; Largest connected group: <strong>89%</strong> of all authors
+        </div>
+      </div>
+
+      <!-- 7. Network: COI as bridges -->
+      <div class="finding-card">
+        <h3><span style="color: var(--cyan);">7</span> COI Authors Bridge Research Communities</h3>
+        <p>Unlike insular tobacco clusters, researchers with declared conflicts of interest tend to collaborate across different research groups. They act as "bridges" between communities that would otherwise be isolated. This central network position means their work reaches &mdash; and potentially influences &mdash; a wider audience.</p>
+        <div class="stat-highlight">
+          Bridge score (betweenness centrality):<br>
+          COI: <strong style="color:var(--orange)">0.0035</strong> &nbsp;|&nbsp;
+          Tobacco: <strong style="color:var(--red)">0.0011</strong> &nbsp;|&nbsp;
+          Independent: <strong style="color:var(--blue)">0.0006</strong><br>
+          <span style="color:var(--muted);font-size:13px;">Higher = more connections between different groups. COI authors score 6&times; higher than independent ones.</span>
+        </div>
+      </div>
+
+      <!-- 8. Statistical robustness -->
+      <div class="finding-card">
+        <h3><span style="color: var(--yellow);">8</span> How Confident Are These Results?</h3>
+        <p>To make sure these findings aren't due to chance, we tested them using multiple independent methods. All key results held up across every test, including a correction (Holm-Bonferroni) that accounts for running many tests at once, which can inflate false positives.</p>
+        <div class="stat-highlight">
+          Pattern test across all 3 groups: p = 0.029 <span style="color:var(--green);">&#10003;</span><br>
+          Randomization test (COI vs Independent, 10,000 shuffles): p = 0.012 <span style="color:var(--green);">&#10003;</span><br>
+          Network centrality differences: p &lt; 0.001 <span style="color:var(--green);">&#10003;</span><br>
+          <span style="color:var(--muted);font-size:13px;">&#10003; = statistically significant. A p-value below 0.05 means there's less than a 5% chance the result is due to random chance alone.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Methodology -->
+  <div class="section">
+    <div class="section-title">Methodology</div>
+    <div class="finding-card">
+      <p>This analysis examines <strong>2,175 nicotine/tobacco/e-cigarette research papers</strong> from PubMed (1964&ndash;2025). Papers are classified into three mutually exclusive categories based on author affiliations and conflict-of-interest statements:</p>
+      <ul style="margin: 12px 0 12px 24px; color: var(--muted); font-size: 16px; line-height: 1.8;">
+        <li><strong style="color:var(--tobacco)">Tobacco Company</strong> &mdash; Authors affiliated with Philip Morris, BAT, JUUL, R.J. Reynolds, Altria, Swedish Match, and other tobacco companies</li>
+        <li><strong style="color:var(--coi)">COI Declared</strong> &mdash; Authors with disclosed conflicts (consulting fees, advisory boards, funding) not tied to tobacco companies</li>
+        <li><strong style="color:var(--independent)">Independent</strong> &mdash; No conflict of interest declared</li>
+      </ul>
+      <p><strong style="color: var(--text);">Outcome Classification.</strong> Each paper's abstract is analyzed using an enhanced keyword classifier with approximately 100 directional patterns. The classifier assigns one of five labels:</p>
+      <ul style="margin: 12px 0 12px 24px; color: var(--muted); font-size: 16px; line-height: 1.8;">
+        <li><strong style="color:var(--positive)">Positive</strong> &mdash; Abstract contains language indicating favorable outcomes for nicotine/tobacco products: harm reduction, cessation aid efficacy, lower toxicant exposure, improved health markers, therapeutic benefits, or reduced-risk product claims</li>
+        <li><strong style="color:var(--negative)">Negative</strong> &mdash; Abstract contains language indicating adverse outcomes: health harms, addiction, cardiovascular/respiratory toxicity, carcinogenic effects, increased mortality, gateway effects, or youth uptake concerns</li>
+        <li><strong style="color:var(--mixed)">Mixed</strong> &mdash; Abstract contains both positive and negative directional keywords, or explicitly describes mixed/conflicting results</li>
+        <li><strong style="color:var(--neutral)">Neutral</strong> &mdash; Abstract is present but contains no strong directional language in either direction; purely descriptive or methodological findings</li>
+        <li><strong style="color:var(--muted)">Not applicable</strong> &mdash; Abstract is missing, too short, or entirely methodological (e.g., protocol papers, systematic review methods) with no classifiable outcome language</li>
+      </ul>
+      <p>The classifier first checks for negative patterns (e.g., "lung cancer", "nicotine addiction", "cardiovascular disease"), then positive patterns (e.g., "smoking cessation", "harm reduction", "reduced exposure"). If both are found, the paper is labeled Mixed. If neither is found, it defaults to Neutral (if abstract exists) or Not applicable. This keyword approach has known limitations&mdash;see the Limitations section below.</p>
+    </div>
+  </div>
+
+  <!-- Limitations -->
+  <div class="section">
+    <div class="section-title">Limitations</div>
+    <div class="finding-card">
+      <ul style="margin: 0 0 0 20px; color: var(--muted); font-size: 16px; line-height: 1.9;">
+        <li><strong style="color:var(--text)">PubMed-only corpus.</strong> This analysis is limited to papers indexed in PubMed. Research published in non-indexed journals, conference proceedings, or industry-only reports is not captured.</li>
+        <li><strong style="color:var(--text)">Keyword-based outcome classification.</strong> Outcomes are classified using automated keyword matching on abstracts (~100 patterns), not manual expert review. This may misclassify nuanced or ambiguous findings. 1,100 of 2,175 papers (50.6%) could not be classified ("Not applicable") due to missing or purely methodological abstracts.</li>
+        <li><strong style="color:var(--text)">COI disclosure depends on self-reporting.</strong> The "Independent" category includes papers where no conflict was declared &mdash; this does not guarantee the absence of undisclosed industry ties or indirect funding.</li>
+        <li><strong style="color:var(--text)">Industry affiliation detection is pattern-based.</strong> Authors are flagged as tobacco-affiliated by matching against a curated list of 15+ company names. Affiliations through subsidiaries, shell organizations, or intermediary consulting firms may be missed.</li>
+        <li><strong style="color:var(--text)">Correlation, not causation.</strong> The association between COI declarations and positive outcomes does not prove that conflicts of interest cause biased results. Selection effects, publication bias, and legitimate scientific disagreement may also contribute.</li>
+        <li><strong style="color:var(--text)">Network limited to co-authorship.</strong> The network only captures co-authorship relationships. Other forms of collaboration (shared funding, advisory roles, citation networks) are not represented.</li>
+        <li><strong style="color:var(--text)">Temporal coverage is uneven.</strong> The corpus spans 1964&ndash;2025, but the majority of papers are from the last two decades. Earlier papers often lack structured COI statements, which may inflate the "Independent" category for older research.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- vis.js Network Library -->
+<script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js"></script>
+
+<script>
+// ── Globals ──
+let networkInstance = null;
+let allPapers = [];
+let allAuthors = {};
+let networkData = null;
+
+// ── Load data ──
+async function init() {
+  const [papersRes, authorsRes, networkRes] = await Promise.all([
+    fetch('data/papers.json').then(r => r.json()),
+    fetch('data/authors.json').then(r => r.json()),
+    fetch('data/network.json').then(r => r.json()),
+  ]);
+
+  allPapers = papersRes;
+  authorsRes.forEach(a => { allAuthors[a.id] = a; });
+  networkData = networkRes;
+
+  // Build paper lookup
+  window.paperMap = {};
+  allPapers.forEach(p => { window.paperMap[p.id] = p; });
+
+  renderNetwork();
+  renderOutcomeBars();
+}
+
+// ── Category colors ──
+const CAT_COLORS = {
+  'Tobacco Company': { bg: '#c4302b', border: '#992222', highlight: '#e04040' },
+  'COI Declared':    { bg: '#d4760a', border: '#a85e08', highlight: '#e89530' },
+  'Independent':     { bg: '#003DA5', border: '#002e7a', highlight: '#1a5cc8' },
+};
+
+const COI_SUB_COLORS = {
+  'Consulting/Advisory': { bg: '#d4760a', border: '#a85e08', highlight: '#e89530' },
+  'Legal':               { bg: '#8b3a9f', border: '#6b2a7f', highlight: '#a855c0' },
+  'Financial Interest':  { bg: '#b8860b', border: '#8a6508', highlight: '#d4a020' },
+  'Fees/Compensation':   { bg: '#0077aa', border: '#005580', highlight: '#2099cc' },
+  'Industry Funding':    { bg: '#c45030', border: '#993822', highlight: '#e06848' },
+  'None':                { bg: '#8899aa', border: '#667788', highlight: '#a0b0c0' },
+};
+
+let coiSubMode = false; // toggle state
+
+// ── Render Network ──
+function renderNetwork() {
+  const container = document.getElementById('network-canvas');
+  container.innerHTML = '';
+
+  const nodes = new vis.DataSet(networkData.nodes.map(n => {
+    const c = CAT_COLORS[n.category] || CAT_COLORS['Independent'];
+    const size = Math.max(5, Math.min(30, Math.sqrt(n.papers) * 4));
+    // Derive COI subcategories from this author's papers
+    const author = allAuthors[n.id];
+    const authorPapers = author ? author.paper_ids.map(pid => window.paperMap[pid]).filter(Boolean) : [];
+    const coiSubs = [...new Set(authorPapers.map(p => p.coi_sub).filter(s => s && s !== 'None'))];
+    const coiLine = coiSubs.length ? `\nCOI: ${coiSubs.join(', ')}` : '';
+    const primarySub = coiSubs.length ? coiSubs[0] : 'None';
+    return {
+      id: n.id,
+      label: '',
+      title: `${n.label}\n${n.category}${coiLine}\n${n.papers} papers`,
+      size: size,
+      color: { background: c.bg, border: c.border, highlight: { background: c.highlight, border: '#fff' } },
+      borderWidth: 1,
+      borderWidthSelected: 3,
+      _category: n.category,
+      _name: n.label,
+      _papers: n.papers,
+      _coiSub: primarySub,
+      _catColor: { background: c.bg, border: c.border, highlight: { background: c.highlight, border: '#fff' } },
+    };
+  }));
+
+  const edges = new vis.DataSet(networkData.edges.map((e, i) => ({
+    id: i,
+    from: e.from,
+    to: e.to,
+    value: e.weight,
+    color: { color: 'rgba(100,110,130,0.35)', highlight: 'rgba(0,61,165,0.7)' },
+    smooth: false,
+  })));
+
+  const options = {
+    physics: {
+      solver: 'forceAtlas2Based',
+      forceAtlas2Based: {
+        gravitationalConstant: -30,
+        centralGravity: 0.02,
+        springLength: 80,
+        springConstant: 0.04,
+        damping: 0.9,
+        avoidOverlap: 0.3,
+      },
+      maxVelocity: 50,
+      stabilization: {
+        enabled: true,
+        iterations: 300,
+        updateInterval: 25,
+      },
+    },
+    interaction: {
+      hover: true,
+      tooltipDelay: 100,
+      zoomView: true,
+      dragView: false,
+      dragNodes: true,
+      zoomSpeed: 0.3,
+    },
+    edges: {
+      scaling: { min: 1, max: 4 },
+      smooth: false,
+      color: { inherit: false },
+    },
+    nodes: {
+      shape: 'dot',
+      font: { size: 0 },
+    },
+  };
+
+  networkInstance = new vis.Network(container, { nodes, edges }, options);
+
+  // Fit network to view after stabilization and on window resize
+  networkInstance.once('stabilizationIterationsDone', function() {
+    networkInstance.fit({ animation: { duration: 500, easingFunction: 'easeInOutQuad' } });
+  });
+  window.addEventListener('resize', () => {
+    if (networkInstance) networkInstance.fit({ animation: false });
+  });
+
+  // Constrain zoom and always keep network centered
+  networkInstance.on('zoom', function() {
+    const scale = networkInstance.getScale();
+    if (scale < 0.4) {
+      networkInstance.fit({ animation: { duration: 300, easingFunction: 'easeInOutQuad' } });
+    } else if (scale > 3) {
+      networkInstance.moveTo({ scale: 3 });
+    }
+  });
+
+  // Double-click to recenter the network
+  networkInstance.on('doubleClick', function(params) {
+    if (params.nodes.length === 0 && params.edges.length === 0) {
+      networkInstance.fit({ animation: { duration: 500, easingFunction: 'easeInOutQuad' } });
+    }
+  });
+
+  // Click to show author panel
+  networkInstance.on('click', function(params) {
+    if (params.nodes.length > 0) {
+      const nodeId = params.nodes[0];
+      const node = nodes.get(nodeId);
+      showAuthorPanel(nodeId, node._name, node._category);
+    } else {
+      closePanel();
+    }
+  });
+
+  // Show labels on hover
+  networkInstance.on('hoverNode', function(params) {
+    const node = nodes.get(params.node);
+    nodes.update({ id: params.node, label: node._name, font: { size: 12, color: '#1a1a2e', strokeWidth: 3, strokeColor: '#fff' } });
+  });
+
+  networkInstance.on('blurNode', function(params) {
+    nodes.update({ id: params.node, label: '', font: { size: 0 } });
+  });
+
+  // Controls
+  document.getElementById('btn-zoom-in').onclick = () => {
+    const scale = Math.min(3, networkInstance.getScale() * 1.3);
+    networkInstance.moveTo({ scale: scale, animation: { duration: 200 } });
+  };
+  document.getElementById('btn-zoom-out').onclick = () => {
+    const scale = Math.max(0.4, networkInstance.getScale() / 1.3);
+    networkInstance.moveTo({ scale: scale, animation: { duration: 200 } });
+  };
+  document.getElementById('btn-fit').onclick = () => {
+    networkInstance.fit({ animation: { duration: 400, easingFunction: 'easeInOutQuad' } });
+  };
+
+  // COI subcategory toggle
+  document.getElementById('btn-coi-toggle').onclick = () => {
+    coiSubMode = !coiSubMode;
+    const btn = document.getElementById('btn-coi-toggle');
+    const mainLegend = document.querySelector('.network-legend:not(#coi-sub-legend)');
+    const coiLegend = document.getElementById('coi-sub-legend');
+    const panel = document.getElementById('author-panel');
+
+    if (coiSubMode) {
+      btn.style.borderColor = 'var(--cyan)';
+      btn.style.color = 'var(--cyan)';
+      mainLegend.style.display = 'none';
+      coiLegend.style.display = 'block';
+      // Hide author panel if open (would overlap with legend)
+      panel.style.display = 'none';
+
+      // Only recolor COI Declared nodes by subcategory; keep Tobacco & Independent
+      const updates = [];
+      nodes.forEach(n => {
+        if (n._category === 'COI Declared') {
+          const sub = COI_SUB_COLORS[n._coiSub] || COI_SUB_COLORS['None'];
+          updates.push({
+            id: n.id,
+            color: { background: sub.bg, border: sub.border, highlight: { background: sub.highlight, border: '#fff' } },
+          });
+        }
+      });
+      nodes.update(updates);
+    } else {
+      btn.style.borderColor = '';
+      btn.style.color = '';
+      mainLegend.style.display = 'block';
+      coiLegend.style.display = 'none';
+
+      // Only reset COI Declared nodes back to orange
+      const updates = [];
+      nodes.forEach(n => {
+        if (n._category === 'COI Declared') {
+          updates.push({ id: n.id, color: n._catColor });
+        }
+      });
+      nodes.update(updates);
+    }
+  };
+
+  // Legend filter — batch update to avoid per-node re-render
+  document.querySelectorAll('.legend-item').forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('dimmed');
+      const dimmed = new Set();
+      document.querySelectorAll('.legend-item.dimmed').forEach(d => dimmed.add(d.dataset.cat));
+
+      const updates = [];
+      nodes.forEach(n => {
+        updates.push({ id: n.id, hidden: dimmed.has(n._category) });
+      });
+      nodes.update(updates);
+    });
+  });
+}
+
+// ── Author Panel ──
+function showAuthorPanel(authorId, name, category) {
+  const panel = document.getElementById('author-panel');
+  const author = allAuthors[authorId];
+  const papers = author ? author.paper_ids.map(pid => window.paperMap[pid]).filter(Boolean) : [];
+
+  document.getElementById('panel-name').textContent = name;
+  const catClass = category === 'Tobacco Company' ? 'tobacco' :
+                   category === 'COI Declared' ? 'coi' : 'independent';
+  // Derive COI subcategories from this author's papers
+  const coiSubs = [...new Set(papers.map(p => p.coi_sub).filter(s => s && s !== 'None'))];
+
+  document.getElementById('panel-meta').innerHTML =
+    `<span class="tag tag-${catClass}">${category}</span>` +
+    (coiSubs.length ? ' ' + coiSubs.map(s => `<span class="tag tag-coi-sub">${s}</span>`).join(' ') : '') +
+    ` &nbsp; ${papers.length} papers` +
+    (author && author.aff ? ` &nbsp;|&nbsp; ${author.aff.substring(0, 120)}${author.aff.length > 120 ? '...' : ''}` : '');
+
+  const list = document.getElementById('panel-papers');
+  list.innerHTML = papers.slice(0, 20).map(p => {
+    const outcomeClass = p.outcome.toLowerCase().replace(/\s+/g, '-').replace('not-applicable', 'neutral');
+    return `<li>
+      <a href="${p.url}" target="_blank" rel="noopener">${p.title || 'Untitled'}</a>
+      <span class="tag tag-${outcomeClass}">${p.outcome}</span>
+    </li>`;
+  }).join('');
+  if (papers.length > 20) {
+    list.innerHTML += `<li style="color:var(--muted);justify-content:center;">+ ${papers.length - 20} more papers</li>`;
+  }
+
+  panel.style.display = 'block';
+}
+
+function closePanel() {
+  document.getElementById('author-panel').style.display = 'none';
+}
+
+// ── Outcome Bars ──
+function renderOutcomeBars() {
+  const categories = [
+    { label: 'Tobacco Company', key: 'tobacco_company_outcomes', color: 'var(--tobacco)' },
+    { label: 'COI Declared',    key: 'coi_declared_outcomes',    color: 'var(--coi)' },
+    { label: 'Independent',     key: 'independent_outcomes',     color: 'var(--independent)' },
+  ];
+
+  const outcomes = ['Positive', 'Negative', 'Mixed', 'Neutral'];
+  const outColors = {
+    Positive: 'var(--positive)',
+    Negative: 'var(--negative)',
+    Mixed:    'var(--mixed)',
+    Neutral:  'var(--neutral)',
+  };
+
+  // Use hardcoded enhanced outcomes from stats
+  const data = {
+    tobacco_company_outcomes: { Positive: 23, Negative: 21, Mixed: 16, Neutral: 3, 'Not applicable': 48 },
+    coi_declared_outcomes:    { Positive: 108, Negative: 61, Mixed: 60, Neutral: 21, 'Not applicable': 175 },
+    independent_outcomes:     { Positive: 261, Negative: 249, Mixed: 215, Neutral: 37, 'Not applicable': 877 },
+  };
+
+  const container = document.getElementById('outcome-bars');
+
+  // Legend
+  container.innerHTML = `<div style="display:flex;gap:16px;margin-bottom:8px;font-size:12px;">
+    ${outcomes.map(o => `<span><span style="color:${outColors[o]}">&#9632;</span> ${o}</span>`).join('')}
+  </div>`;
+
+  categories.forEach(cat => {
+    const d = data[cat.key];
+    const coded = outcomes.reduce((s, o) => s + (d[o] || 0), 0);
+    if (coded === 0) return;
+
+    const row = document.createElement('div');
+    row.className = 'outcome-row';
+    row.innerHTML = `<div class="outcome-label">${cat.label}</div><div class="outcome-bar-track">
+      ${outcomes.map(o => {
+        const pct = ((d[o] || 0) / coded * 100).toFixed(1);
+        const showLabel = pct >= 8; // only show % label if segment is wide enough
+        return `<div class="outcome-bar-seg" style="width:${pct}%;background:${outColors[o]}"
+                     data-tooltip="${o}: ${d[o]} (${pct}%)">${showLabel ? `<span style="font-size:11px;color:#fff;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,0.6);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">${pct}%</span>` : ''}</div>`;
+      }).join('')}
+    </div>`;
+    container.appendChild(row);
+  });
+}
+
+// ── PDF Download ──
+document.getElementById('btn-pdf').addEventListener('click', function(e) {
+  e.preventDefault();
+  window.print();
+});
+
+// ── Init ──
+init();
+</script>
+</body>
+</html>

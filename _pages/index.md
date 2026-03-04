@@ -45,7 +45,7 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master's in Cognitive Ne
 | |  |
 | | The Public AI Creative Fellowship is a six-month initiative by MetaGov that brings together creative professionals to develop cultural narratives around public AI — systems that are open, democratically governed, and accountable to the communities they affect. As the Creative Technologist fellow, I developed interactive digital experiences exploring AI as public infrastructure. |
 | |  |
-| | [View Public AI projects](/publicai/) |
+| | [View Public AI projects](/public-ai/) |
 
 <br>
 
