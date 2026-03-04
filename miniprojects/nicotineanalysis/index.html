@@ -434,13 +434,37 @@ body {
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .top-bar { padding: 0 12px; }
-  .top-bar h1 { font-size: 13px; }
-  .top-bar nav a { padding: 6px 10px; font-size: 11px; }
-  .section { padding: 32px 16px; }
-  #network-container { height: 50vh; min-height: 350px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .findings-grid { grid-template-columns: 1fr; }
-  .network-legend { padding: 10px; font-size: 11px; }
+  .top-bar h1 { font-size: 12px; letter-spacing: 0.5px; }
+  .top-bar nav a { padding: 6px 8px; font-size: 10px; }
+  .section { padding: 24px 12px; }
+  #network-container { height: 60vh; min-height: 300px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-card { padding: 14px; }
+  .stat-card .value { font-size: 22px; }
+  .stat-card .label { font-size: 11px; }
+  .findings-grid { grid-template-columns: 1fr; gap: 12px; }
+  .finding-card { padding: 16px; }
+  .finding-card h3 { font-size: 14px; }
+  .finding-card p { font-size: 13px; }
+  .finding-card .stat-highlight { font-size: 11px; padding: 8px 10px; }
+  .network-legend { padding: 8px; font-size: 10px; max-width: 140px; }
+  .network-legend h3 { font-size: 9px; margin-bottom: 6px; }
+  .legend-dot { width: 10px; height: 10px; }
+  .net-btn { width: 32px; height: 32px; font-size: 16px; }
+  #author-panel { padding: 14px; max-height: 200px; }
+  #author-panel h3 { font-size: 14px; }
+  .outcome-label { width: 90px; font-size: 10px; }
+  .outcome-bar-track { height: 20px; }
+}
+
+@media (max-width: 480px) {
+  .top-bar h1 { font-size: 11px; }
+  .top-bar nav { gap: 2px; }
+  .top-bar nav a { padding: 4px 6px; font-size: 9px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-card .value { font-size: 18px; }
+  .section-title { font-size: 12px; }
+  .outcome-label { width: 70px; font-size: 9px; }
 }
 </style>
 </head>
@@ -619,7 +643,7 @@ body {
   </div>
 
   <!-- Methodology -->
-  <div class="section" style="padding-bottom: 80px;">
+  <div class="section">
     <div class="section-title">Methodology</div>
     <div class="finding-card">
       <p>This analysis examines <strong>2,175 nicotine/tobacco/e-cigarette research papers</strong> from PubMed (1964&ndash;2025). Papers are classified into three mutually exclusive categories based on author affiliations and conflict-of-interest statements:</p>
@@ -628,12 +652,20 @@ body {
         <li><strong style="color:var(--coi)">COI Declared</strong> &mdash; Authors with disclosed conflicts (consulting fees, advisory boards, funding) not tied to tobacco companies</li>
         <li><strong style="color:var(--independent)">Independent</strong> &mdash; No conflict of interest declared</li>
       </ul>
-      <p>Outcomes are classified using an enhanced keyword classifier with ~100 directional patterns applied to full abstracts, categorizing findings as positive (harm reduction, cessation success), negative (health harms, toxicity), mixed, or neutral.</p>
+      <p><strong style="color: var(--text);">Outcome Classification.</strong> Each paper's abstract is analyzed using an enhanced keyword classifier with approximately 100 directional patterns. The classifier assigns one of five labels:</p>
+      <ul style="margin: 12px 0 12px 24px; color: var(--muted); font-size: 14px; line-height: 1.8;">
+        <li><strong style="color:var(--positive)">Positive</strong> &mdash; Abstract contains language indicating favorable outcomes for nicotine/tobacco products: harm reduction, cessation aid efficacy, lower toxicant exposure, improved health markers, therapeutic benefits, or reduced-risk product claims</li>
+        <li><strong style="color:var(--negative)">Negative</strong> &mdash; Abstract contains language indicating adverse outcomes: health harms, addiction, cardiovascular/respiratory toxicity, carcinogenic effects, increased mortality, gateway effects, or youth uptake concerns</li>
+        <li><strong style="color:var(--mixed)">Mixed</strong> &mdash; Abstract contains both positive and negative directional keywords, or explicitly describes mixed/conflicting results</li>
+        <li><strong style="color:var(--neutral)">Neutral</strong> &mdash; Abstract is present but contains no strong directional language in either direction; purely descriptive or methodological findings</li>
+        <li><strong style="color:var(--muted)">Not applicable</strong> &mdash; Abstract is missing, too short, or entirely methodological (e.g., protocol papers, systematic review methods) with no classifiable outcome language</li>
+      </ul>
+      <p>The classifier first checks for negative patterns (e.g., "lung cancer", "nicotine addiction", "cardiovascular disease"), then positive patterns (e.g., "smoking cessation", "harm reduction", "reduced exposure"). If both are found, the paper is labeled Mixed. If neither is found, it defaults to Neutral (if abstract exists) or Not applicable. This keyword approach has known limitations&mdash;see the Limitations section below.</p>
     </div>
   </div>
 
   <!-- Limitations -->
-  <div class="section" style="padding-bottom: 80px;">
+  <div class="section">
     <div class="section-title">Limitations</div>
     <div class="finding-card">
       <ul style="margin: 0 0 0 20px; color: var(--muted); font-size: 14px; line-height: 1.9;">
@@ -739,7 +771,8 @@ function renderNetwork() {
       hover: true,
       tooltipDelay: 100,
       zoomView: true,
-      dragView: true,
+      dragView: false,
+      dragNodes: true,
       zoomSpeed: 0.3,
     },
     edges: {
@@ -778,28 +811,6 @@ function renderNetwork() {
     if (params.nodes.length === 0 && params.edges.length === 0) {
       networkInstance.fit({ animation: { duration: 500, easingFunction: 'easeInOutQuad' } });
     }
-  });
-
-  // Snap back to center if user drags too far away
-  let dragTimeout;
-  networkInstance.on('dragEnd', function() {
-    clearTimeout(dragTimeout);
-    dragTimeout = setTimeout(() => {
-      const viewPos = networkInstance.getViewPosition();
-      const positions = networkInstance.getPositions();
-      const nodeIds = Object.keys(positions);
-      if (nodeIds.length === 0) return;
-      let sumX = 0, sumY = 0;
-      nodeIds.forEach(id => { sumX += positions[id].x; sumY += positions[id].y; });
-      const cx = sumX / nodeIds.length;
-      const cy = sumY / nodeIds.length;
-      const dx = viewPos.x - cx;
-      const dy = viewPos.y - cy;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist > 2000) {
-        networkInstance.fit({ animation: { duration: 400, easingFunction: 'easeInOutQuad' } });
-      }
-    }, 200);
   });
 
   // Click to show author panel
