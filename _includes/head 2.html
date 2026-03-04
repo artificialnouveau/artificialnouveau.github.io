@@ -1,0 +1,43 @@
+<!-- Metadata -->
+<meta charset="{{ site.encoding | default: 'utf-8' }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="{{ site.description | default: 'A sleek and modern Jekyll theme tailored for bloggers seeking a seamless platform to express their ideas and stories.' }}">
+<meta name="author" content="{{ site.author.name }}">
+<!-- Favicons -->
+{% if site.favicons or site.avatarurl %}{% include site-favicons.html %}{% endif %}
+
+
+{% if page.indexing == false %}
+<meta name="robots" content="noindex">
+{% endif %}
+
+{% if page.collectionpage %}
+{% seo title=false %}
+
+{% assign collectiondata = site.collections | where: "label", page.collectionpage | first %}
+<!-- Title -->
+<title>{{ collectiondata.title }} | {{ site.title }}</title>
+<meta property="og:title" content="{{ collectiondata.title }}">
+<meta name="description" content="{{ collectiondata.description }}">
+<meta property="og:description" content="{{ collectiondata.description }}">
+{% else %}
+{% seo %}
+{% endif %}
+
+<!-- FontAwesome JS-->
+<!-- {% include site-fonts.html %} -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.js" integrity="sha512-HAXr8ULpyrhyIF0miP+mFTwOagNI+UVA38US1XdtBbkU7mse59ar0ck4KBil/jyzkTO37DWLfRQvEeUWgwHu0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{% if site.css_inline == true %}
+{% include site-styles.html %}
+{% else %}
+<!-- CSS -->
+<link id="theme-style" rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+<link id="custom-theme" rel="stylesheet" href="{{ '/assets/css/custom-theme.css' | relative_url }}">
+{% endif %}
+
+<!-- Drone Cursor Script -->
+<script src="{{ '/assets/js/drone-cursor.js' | relative_url }}" defer></script>
+
+<!-- End of _includes/head.html -->

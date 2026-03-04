@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Necromemex — Myth Density Dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; color: #e0e0e0; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 40px; }
+.title { font-family: 'Space Mono', monospace; font-size: 14px; color: #999; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 30px; }
+.dashboard { width: 1000px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.panel { background: #111; border: 1px solid #222; border-radius: 6px; padding: 24px; }
+.panel-title { font-family: 'Space Mono', monospace; font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+.big-number { font-family: 'Space Mono', monospace; font-size: 48px; font-weight: 700; }
+.big-label { font-size: 12px; color: #555; margin-top: 4px; }
+.wide { grid-column: 1 / -1; }
+.chart { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.chart-row { display: flex; align-items: center; gap: 12px; }
+.chart-label { font-family: 'Space Mono', monospace; font-size: 10px; color: #888; width: 150px; text-align: right; flex-shrink: 0; }
+.chart-bar-bg { flex: 1; height: 32px; background: #1a1a1a; border-radius: 3px; display: flex; overflow: hidden; }
+.bar-alive { display: flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; font-size: 9px; }
+.bar-myth { display: flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; font-size: 9px; }
+.bar-alive { background: linear-gradient(90deg, #4488ff, rgba(68,136,255,0.5)); color: rgba(255,255,255,0.8); }
+.bar-myth { background: linear-gradient(90deg, rgba(255,170,0,0.5), #ffaa00); color: rgba(255,255,255,0.8); }
+.chart-annotation { font-family: 'Space Mono', monospace; font-size: 9px; color: #555; width: 100px; flex-shrink: 0; }
+
+.stats-row { display: flex; gap: 16px; margin-top: 16px; }
+.stat { flex: 1; text-align: center; padding: 12px; background: #0d0d0d; border-radius: 4px; border: 1px solid #1a1a1a; }
+.stat-value { font-family: 'Space Mono', monospace; font-size: 20px; font-weight: 700; }
+.stat-label { font-size: 10px; color: #555; margin-top: 4px; }
+
+.acceleration-chart { margin-top: 16px; position: relative; height: 200px; border-left: 1px solid #333; border-bottom: 1px solid #333; }
+.caption { margin-top: 24px; font-family: 'Space Mono', monospace; font-size: 10px; color: #444; letter-spacing: 1px; text-align: center; max-width: 800px; }
+
+.legend-row { display: flex; gap: 24px; margin-top: 12px; justify-content: center; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #666; }
+.legend-swatch { width: 24px; height: 10px; border-radius: 2px; }
+
+.era-labels { display: flex; justify-content: space-between; margin-top: 8px; font-family: 'Space Mono', monospace; font-size: 8px; color: #444; }
+</style>
+</head>
+<body>
+  <div class="title">Necromemex — Necroimetic Density Dashboard</div>
+  <div class="dashboard">
+    <!-- Top left -->
+    <div class="panel">
+      <div class="panel-title">Core Metric: Myth-to-Person Ratio</div>
+      <div class="big-number" style="color:#ffaa00;">47:1</div>
+      <div class="big-label">Average ratio of posthumous media to lifetime media across all subjects</div>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-value" style="color:#4488ff;">2.1%</div><div class="stat-label">Avg lifetime media share</div></div>
+        <div class="stat"><div class="stat-value" style="color:#ffaa00;">97.9%</div><div class="stat-label">Avg posthumous media share</div></div>
+      </div>
+    </div>
+
+    <!-- Top right -->
+    <div class="panel">
+      <div class="panel-title">AI Acceleration Factor</div>
+      <div class="big-number" style="color:#ff4444;">12x</div>
+      <div class="big-label">Rate of posthumous content generation has increased 12x since generative AI (2022-present)</div>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-value" style="color:#888;">~340</div><div class="stat-label">Avg monthly images (pre-AI)</div></div>
+        <div class="stat"><div class="stat-value" style="color:#ff4444;">~4,100</div><div class="stat-label">Avg monthly images (post-AI)</div></div>
+      </div>
+    </div>
+
+    <!-- Ratio comparison -->
+    <div class="panel wide">
+      <div class="panel-title">Myth-to-Person Ratio by Subject</div>
+      <div class="chart">
+        <div class="chart-row">
+          <div class="chart-label">Jesus (d. ~33 AD)</div>
+          <div class="chart-bar-bg"><div class="bar-alive" style="width:0.5%"></div><div class="bar-myth" style="width:99.5%">99.9% myth</div></div>
+          <div class="chart-annotation" style="color:#ffaa00">2000 yrs</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Harambe (d. 2016)</div>
+          <div class="chart-bar-bg"><div class="bar-alive" style="width:2%"></div><div class="bar-myth" style="width:98%">98% myth</div></div>
+          <div class="chart-annotation" style="color:#ffaa00">10 yrs</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">George Floyd (d. 2020)</div>
+          <div class="chart-bar-bg"><div class="bar-alive" style="width:5%"></div><div class="bar-myth" style="width:95%">95% myth</div></div>
+          <div class="chart-annotation" style="color:#ff4444">6 yrs</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Charlie Kirk (living)</div>
+          <div class="chart-bar-bg"><div class="bar-alive" style="width:30%">30%</div><div class="bar-myth" style="width:70%">70% myth</div></div>
+          <div class="chart-annotation" style="color:#ff4444">pre-death</div>
+        </div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,#4488ff,rgba(68,136,255,0.5))"></div>Lifetime media (self-produced, authentic)</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,rgba(255,170,0,0.5),#ffaa00)"></div>Posthumous / others' depictions (myth)</div>
+      </div>
+      <div style="margin-top:16px; font-size:11px; color:#555; font-style:italic; text-align:center;">Jesus took 2000 years to reach 99.9% myth. George Floyd reached 95% in 6 years. Charlie Kirk is 70% myth while still alive. The timeline is compressing.</div>
+    </div>
+
+    <!-- Acceleration curve -->
+    <div class="panel wide">
+      <div class="panel-title">Necroimetic Acceleration — How Fast Does Myth Overtake Person?</div>
+      <div class="acceleration-chart">
+        <svg style="position:absolute;bottom:0;left:0;" width="100%" height="100%" viewBox="0 0 800 200" preserveAspectRatio="none">
+          <!-- Pre-modern: slow curve -->
+          <path d="M0,180 Q100,178 200,170 Q300,155 400,120" fill="none" stroke="#ffaa00" stroke-width="1.5" stroke-opacity="0.4"/>
+          <text x="200" y="160" font-family="Space Mono, monospace" font-size="10" fill="#ffaa00" fill-opacity="0.4">Pre-modern</text>
+
+          <!-- Mass media era: faster -->
+          <path d="M400,120 Q450,100 500,70" fill="none" stroke="#ffaa00" stroke-width="2" stroke-opacity="0.6"/>
+          <text x="420" y="90" font-family="Space Mono, monospace" font-size="10" fill="#ffaa00" fill-opacity="0.6">Mass media</text>
+
+          <!-- Internet era: steeper -->
+          <path d="M500,70 Q550,45 600,30" fill="none" stroke="#ffaa00" stroke-width="2" stroke-opacity="0.8"/>
+          <text x="530" y="35" font-family="Space Mono, monospace" font-size="10" fill="#ffaa00" fill-opacity="0.8">Internet</text>
+
+          <!-- AI era: vertical -->
+          <path d="M600,30 Q650,18 700,8 L800,5" fill="none" stroke="#ff4444" stroke-width="3"/>
+          <text x="680" y="22" font-family="Space Mono, monospace" font-size="10" fill="#ff4444">Generative AI</text>
+
+          <!-- Area fill -->
+          <path d="M0,180 Q100,178 200,170 Q300,155 400,120 Q450,100 500,70 Q550,45 600,30 Q650,18 700,8 L800,5 L800,200 L0,200 Z" fill="rgba(255,170,0,0.05)"/>
+          <path d="M600,30 Q650,18 700,8 L800,5 L800,200 L600,200 Z" fill="rgba(255,68,68,0.08)"/>
+        </svg>
+        <div style="position:absolute; top:4px; left:8px; font-family:'Space Mono',monospace; font-size:9px; color:#444;">myth density 100%</div>
+        <div style="position:absolute; bottom:4px; left:8px; font-family:'Space Mono',monospace; font-size:9px; color:#444;">myth density 0%</div>
+      </div>
+      <div class="era-labels">
+        <span>Antiquity</span>
+        <span>Print</span>
+        <span>Photography</span>
+        <span>Television</span>
+        <span>Internet</span>
+        <span>AI</span>
+      </div>
+      <div style="margin-top:16px; font-size:11px; color:#555; font-style:italic; text-align:center;">Each media epoch compresses the time it takes for myth to overtake person. Generative AI may eliminate the gap entirely — the myth can begin before the person dies.</div>
+    </div>
+  </div>
+  <div class="caption">Fig. 4 — Necroimetic density dashboard. Tracks the myth-to-person ratio across subjects and the accelerating timeline of mythologization from antiquity to generative AI.</div>
+</body>
+</html>

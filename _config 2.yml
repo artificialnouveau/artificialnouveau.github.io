@@ -1,0 +1,201 @@
+# =================================================================================
+# Site Configuration
+# Last rebuild: 2026-02-27
+# =================================================================================
+
+title        :  'Ahnjili ZhuParris'
+full_name      :  'Ahnjili ZhuParris'
+lang        :  en               # Site language (en for English)
+encoding      :  utf-8              # Site encoding (utf-8 for Unicode)
+icon        :  '/logo.jpg'  # Site favicon
+logo        :  '/logo.jpg'     # Site logo, also used in jekyll-seo-tag
+home-bg       :  '/assets/images/home-bg.jpg'  # Home background image
+url         :  'https://www.artificialnouveau.com/' # Site URL (if using a custom domain)
+baseurl       :  ''               # Site base URL (add if site is not at root)
+repo        :  'https://github.com/' # Site repository, also used in jekyll-seo-tag
+description     :  > # Site description and default description, also used in jekyll-seo-tag
+  Ahnjili is an AI engineer, Ph.D. candidate, artist, and science communicator.
+keywords      :  > # For SEO
+  jekyll, theme, minimal, responsive, blog, portfolio, fast, seo, social, web, development
+footer_text     :  '© 2021 Inkstream' # Footer text
+
+
+
+# =================================================================================
+# Theme Settings
+# =================================================================================
+
+# ---
+
+
+
+
+# =================================================================================
+# Social Integration
+# =================================================================================
+
+social_links: # Leave blank according to your need
+  github_username: artificialnouveau  # Keep your existing username
+  researchgate_username: "Ahnjili-Zhuparris"
+  instagram_username: "@artificialnouveau"
+  scholar_username: "6Xpqd-IAAAAJ"  # Scholar uses user ID, not username
+  pubmed_id: "https://www.ncbi.nlm.nih.gov/pubmed/?term=ahnjili+zhuparris"  # PubMed uses publication ID, not username  
+  orcid_id: "0000-0002-1413-1648"
+
+user:
+  name    :  Ahnjili ZhuParris, PhD        # Your name (required)
+  bio     :  'AI engineer, Science Communicator, and Artist'  # Short bio, You can also provide a links.
+  profession :  ''       # Your profession (optional)
+  location  :  ' The Netherlands, New York, Hong Kong'           # Your location (optional)
+  email    :        # Your email address (optional)
+
+download_resume: '/assets/resume/resume.pdf'  # Add the path to your resume
+
+
+
+# =================================================================================
+# Jekyll Settings
+# =================================================================================
+
+# Markdown and syntax highlight
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    css_class: "highlight"
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+      start_line: 1
+
+# Includes & excludes
+include: ["_pages", "blog", "_posts"]
+exclude:
+  - README.md
+  - LICENSE
+  - CODE_OF_CONDUCT.md
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - inkstream.gemspec
+  - .jekyll-cache
+  - /demo/
+  # - CONTRIBUTING.md
+  # - INSTALL.md
+
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+
+# Defaults
+defaults:
+  - # Page settings
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  - # Post settings
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  -
+    scope:
+      path: ""
+    values:
+      image: '/assets/images/posts/default-post-img.jpg' # Default post image
+  # - # Sitemap settings
+  #   scope:
+  #     path: "assets"
+  #   values:
+  #     sitemap: false
+
+
+
+# =================================================================================
+# Site Navigation
+# =================================================================================
+
+# Nav Links
+navigation_header:
+  -
+    title: About Me
+    url: /
+    icon: fa-solid fa-user
+  -
+    title: Gallery
+    url: /gallery/
+    icon: fa-regular fa-image
+  -
+    title: Small Tools
+    url: /tools/
+    icon: fa-solid fa-wrench
+  -
+    title: Publications
+    url: /publications/
+    icon: fa-solid fa-flask
+  -
+    title: Be Me
+    url: /be-me/
+    icon: fa-solid fa-mask
+
+navigation_footer: []
+
+# Gem settings (jekyll-paginate, jekyll-seo-tag)
+paginate      : 5     # jekyll-paginate > items per page
+paginate_path    : blog/:num # jekyll-paginate > blog page
+pinned       : false   # jekyll-seo-tag > pin the post to the top of the list
+author       : Ahnjili # jekyll-seo-tag > default author
+twitter:
+  username: # jekyll-seo-tag > Owners twitter username
+social: # jekyll-seo-tag > social overrides
+  name: Ahnjili # jekyll-seo-tag > real name
+  links: # jekyll-seo-tag > social aliases (sameAs)
+    - https://twitter.com/ # Add your Twitter URL
+    - https://www.linkedin.com/in/ # Add your LinkedIn URL
+    - https://github.com/ # Add your GitHub URL
+
+# 4. Jekyll settings
+# sass:
+#   style: compressed # Style compression
+# permalink: pretty # Permalink style (/YYYY/MM/DD/page-name/)
+# excerpt_separator: <!-- more --> # Marks end of excerpt in posts
+# timezone: Europe/London # Timezone for blog posts and alike
+
+# 5. Jekyll collections settings
+collections:
+  posts:
+    title: Posts # Needed for Siteleaf
+    output: true
+    description: 'My thoughts and ideas' # The post list page content
+    pin: true # Pin the post to the top of the list
+    image: 'https://picsum.photos/2560/600?image=866'
+
+# 8. Site favicons & manifest icons
+favicons: # Favicons are also used in the manifest file. Syntax is 'size: path'
+  '16': '/logo.jpg'
+  '32': '/logo.jpg'
+  '150': '/logo.jpg'
+  '180': '/logo.jpg'
+  '192': '/logo.jpg'
+  '512': '/logo.jpg'
+  webmanifest: '/logo.jpg'
+  safari: '/logo.jpg'
+
+
+#   Email: true
+
+# # Load custom fonts from fonts.google.com etc
+# #
+# # TIP: Try to keep the number of urls as low to reduce the performance cost
+# #   If multiple fonts can be requested in a single url opt for this
+# fonts:
+#   preconnect_urls:
+#     - https://fonts.gstatic.com
+#   font_urls:
+#     - https://use.fontawesome.com/releases/v5.7.1/js/all.js
