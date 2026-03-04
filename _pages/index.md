@@ -38,12 +38,14 @@ Ahnjili holds a PhD in Medicine from Leiden University, Master's in Cognitive Ne
 
 <br>
 
-| 2025 &nbsp;&nbsp;&nbsp;| Fresh Perspective |
+| 2025 &nbsp;&nbsp;&nbsp;| Public AI Creative Fellowship |
 |---|------------|
-| | Public AI Creative Fellowship, MetaGOV |
+| | MetaGov |
 | | USA |
 | |  |
-| | Details to come. |
+| | The Public AI Creative Fellowship is a six-month initiative by MetaGov that brings together creative professionals to develop cultural narratives around public AI — systems that are open, democratically governed, and accountable to the communities they affect. As the Creative Technologist fellow, I developed interactive digital experiences exploring AI as public infrastructure. |
+| |  |
+| | [View Public AI projects](/publicai/) |
 
 <br>
 
