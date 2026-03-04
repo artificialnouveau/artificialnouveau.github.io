@@ -18,11 +18,11 @@
     <style>
         :root {
             --color-bg: #0a0014;
-            --color-text: #f0f0f0;
+            --color-text: #ffffff;
             --color-accent: #ff10f0;
-            --color-accent-cyan: #00f0ff;
-            --color-accent-purple: #c840ff;
-            --color-muted: #d4cceb;
+            --color-accent-cyan: #40f4ff;
+            --color-accent-purple: #d060ff;
+            --color-muted: #e8e2f4;
             --color-card-bg: #000000;
             --font-body: 'Archivo', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -34,7 +34,9 @@
             background: var(--color-bg);
             color: var(--color-text);
             font-family: var(--font-body);
-            line-height: 1.7;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 1.8;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -55,7 +57,7 @@
 
         .page-header h1 {
             font-family: var(--font-mono);
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--color-accent-cyan);
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -63,13 +65,13 @@
 
         .page-header .subtitle {
             color: var(--color-muted);
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
+            font-size: 1.15rem;
+            margin-top: 0.75rem;
         }
 
         .back-link {
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--color-muted);
             text-decoration: none;
             display: inline-block;
@@ -85,10 +87,10 @@
         }
 
         .about-section p {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             color: var(--color-muted);
-            line-height: 1.85;
-            margin-bottom: 1.2rem;
+            line-height: 1.9;
+            margin-bottom: 1.4rem;
         }
 
         .about-section a {
@@ -97,7 +99,7 @@
 
         .section-title {
             font-family: var(--font-mono);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--color-accent);
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -114,7 +116,7 @@
 
         .project-card {
             display: block;
-            padding: 1.5rem;
+            padding: 2rem;
             background: var(--color-card-bg);
             border: 1px solid rgba(0, 240, 255, 0.3);
             text-decoration: none;
@@ -130,25 +132,25 @@
 
         .project-card h2 {
             font-family: var(--font-mono);
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             color: var(--color-accent-cyan);
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.03em;
         }
 
         .project-card p {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: var(--color-muted);
-            line-height: 1.85;
-            margin-bottom: 0.8rem;
+            line-height: 1.9;
+            margin-bottom: 1rem;
         }
 
         .project-tag {
             display: inline-block;
             font-family: var(--font-mono);
-            font-size: 0.75rem;
-            padding: 2px 8px;
+            font-size: 0.8rem;
+            padding: 3px 10px;
             border: 1px solid rgba(176, 16, 255, 0.4);
             color: var(--color-accent-purple);
             text-transform: uppercase;
@@ -164,7 +166,7 @@
 
         .repo-link a {
             font-family: var(--font-mono);
-            font-size: 0.85rem;
+            font-size: 1rem;
             color: var(--color-accent-cyan);
             text-decoration: none;
         }
