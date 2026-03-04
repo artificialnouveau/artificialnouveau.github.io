@@ -1758,7 +1758,7 @@ body::before, body::after { display: none; }
 
 /* ===== TAB 9: UITDRUKKINGEN ===== */
 .phrases-container { max-width: 900px; margin: 0 auto; }
-.phrases-sub-nav { display: flex; gap: 0; flex-wrap: wrap; }
+.phrases-sub-nav { display: flex; gap: 0; flex-wrap: wrap; justify-content: center; }
 .phrases-cat-btn {
   font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600;
   padding: 6px 14px; background: var(--mondrian-white); color: #555;
@@ -1809,7 +1809,7 @@ body::before, body::after { display: none; }
 
 /* ===== TAB 10: GRAMMATICA ===== */
 .grammar-container { max-width: 1000px; margin: 0 auto; }
-.grammar-sub-nav { display: flex; gap: 0; flex-wrap: wrap; }
+.grammar-sub-nav { display: flex; gap: 0; flex-wrap: wrap; justify-content: center; }
 .grammar-cat-btn {
   font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600;
   padding: 6px 14px; background: var(--mondrian-white); color: #555;
@@ -8293,8 +8293,10 @@ function renderGrammarCards() {
   let items = GRAMMAR_RULES;
   if (grammarCat !== 'all') items = items.filter(r => r.cat === grammarCat);
 
-  document.getElementById('grammarGrid').innerHTML = items.map(r =>
-    '<div class="grammar-card">'
+  const catOrder = ['verbs','spelling','articles','wordorder','pronouns','other'];
+  if (grammarCat === 'all') items = catOrder.flatMap(cat => items.filter(r => r.cat === cat));
+
+  const renderCard = r => '<div class="grammar-card">'
     + '<div class="grammar-card-accent" style="background:' + r.accent + ';"></div>'
     + '<div class="grammar-card-header">'
     + '<div class="grammar-card-title">' + r.title + '</div>'
@@ -8302,8 +8304,22 @@ function renderGrammarCards() {
     + '</div>'
     + '<div class="grammar-card-body">' + r.body + '</div>'
     + '<button class="grammar-card-print" onclick="printGrammarCard(\'' + r.id + '\')">Print dit spiekbriefje</button>'
-    + '</div>'
-  ).join('');
+    + '</div>';
+
+  if (grammarCat === 'all') {
+    let html = '';
+    let lastCat = '';
+    items.forEach(r => {
+      if (r.cat !== lastCat) {
+        lastCat = r.cat;
+        html += '<div style="grid-column:1/-1;font-family:Syne,sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;margin:20px 0 4px;padding-bottom:6px;border-bottom:3px solid #000;">' + (GRAMMAR_CAT_LABELS[r.cat] || r.cat) + '</div>';
+      }
+      html += renderCard(r);
+    });
+    document.getElementById('grammarGrid').innerHTML = html;
+  } else {
+    document.getElementById('grammarGrid').innerHTML = items.map(renderCard).join('');
+  }
 }
 
 function printGrammarCard(id) {
