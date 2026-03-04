@@ -1,0 +1,237 @@
+---
+layout: default
+title: Public AI Creative Fellowship
+---
+
+<header class="gallery-header">
+    <div class="container">
+        <a href="/" class="back-link">&larr; Back to Home</a>
+        <h1>Public AI Creative Fellowship</h1>
+        <p style="color: var(--color-muted); font-family: var(--font-mono); font-size: 0.85rem; margin-top: 0.5rem;">
+            MetaGov &mdash; Creative Technologist Fellow &mdash; 2025&ndash;2026
+        </p>
+    </div>
+</header>
+
+<section class="gallery-section">
+    <div class="container">
+
+        <div class="publicai-about">
+            <p>The <a href="https://metagov.org/join/jobs/public-ai-creative-fellowship" target="_blank" rel="noopener">Public AI Creative Fellowship</a> is a six-month initiative by <a href="https://metagov.org" target="_blank" rel="noopener">MetaGov</a> that brings together creative professionals to develop cultural narratives around public AI &mdash; systems that are open, democratically governed, and accountable to the communities they affect.</p>
+
+            <p>The fellowship recruited three fellows &mdash; a Video Creator, a Creative Technologist, and a Writer &mdash; to produce work that makes the case for AI as public infrastructure. The first phase focused on experimentation with formats and collaborative exploration of narratives. The second phase refined these explorations into interactive, public-facing experiences for broader engagement.</p>
+
+            <p>As the Creative Technologist fellow, I developed interactive digital experiences &mdash; games, simulators, satirical websites, and surveys &mdash; that explore what it means for AI to be publicly owned, governed, and accountable. Each project below takes a different angle on the question of who should control AI and for whose benefit.</p>
+        </div>
+
+        <h2 class="publicai-section-title">Projects</h2>
+
+        <div class="tools-grid">
+
+            <a href="https://www.artificialnouveau.com/publicai/moreaiineedit/index.html" class="tool-card" target="_blank" rel="noopener">
+                <div class="tool-icon">&#128722;</div>
+                <div class="tool-info">
+                    <h2>MORE AI! I NEED IT! PLEASE!</h2>
+                    <p>A satirical catalog of the most absurd, questionable, and bewilderingly real AI products flooding the market. Part consumer guide, part cultural critique &mdash; featuring tiered pricing models, a usefulness-vs-desirability rating chart, and a mystery box that randomly assigns you an AI service.</p>
+                    <span class="tool-tag">SATIRE</span>
+                    <span class="tool-tag">INTERACTIVE</span>
+                </div>
+            </a>
+
+            <a href="https://www.artificialnouveau.com/publicai/airbus-for-ai/index.html" class="tool-card" target="_blank" rel="noopener">
+                <div class="tool-icon">&#9992;</div>
+                <div class="tool-info">
+                    <h2>Airbus for AI</h2>
+                    <p>What if middle powers merged their sovereign AI companies into a Public AI Company? An interactive simulator based on the Bennett School analysis that lets you assemble national AI champions, run battle scenarios, and explore a 10-year roadmap for a publicly governed AI mega-corporation.</p>
+                    <span class="tool-tag">SIMULATOR</span>
+                    <span class="tool-tag">POLICY</span>
+                </div>
+            </a>
+
+            <a href="https://www.artificialnouveau.com/publicai/ai-perspectives-survey.html" class="tool-card" target="_blank" rel="noopener">
+                <div class="tool-icon">&#128202;</div>
+                <div class="tool-info">
+                    <h2>AI Perspectives Survey</h2>
+                    <p>An interactive survey that maps your views on AI onto an archetype spectrum &mdash; from AI accelerationists who want to hit the gas pedal, to cautious optimists tapping the brakes, to those who see AI as an existential threat. See how your perspective compares to others.</p>
+                    <span class="tool-tag">SURVEY</span>
+                    <span class="tool-tag">INTERACTIVE</span>
+                </div>
+            </a>
+
+            <a href="https://www.artificialnouveau.com/publicai/ai-governance-game/index.html" class="tool-card" target="_blank" rel="noopener">
+                <div class="tool-icon">&#127963;</div>
+                <div class="tool-info">
+                    <h2>AI Governance Simulator</h2>
+                    <p>A retro-styled strategy game where you navigate the complexities of AI governance. Make policy decisions, balance competing interests, and see how your choices shape the future of AI regulation and public accountability.</p>
+                    <span class="tool-tag">GAME</span>
+                    <span class="tool-tag">GOVERNANCE</span>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="publicai-repo">
+            <p><a href="https://github.com/artificialnouveau/publicai" target="_blank" rel="noopener">&gt; View source code on GitHub</a></p>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    .publicai-about {
+        margin-bottom: 2.5rem;
+        max-width: 780px;
+    }
+
+    .publicai-about p {
+        font-family: var(--font-mono, 'JetBrains Mono', monospace);
+        font-size: 0.85rem;
+        color: var(--color-muted, #b8a8d8);
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    .publicai-about a {
+        color: var(--color-accent-cyan, #00f0ff);
+    }
+
+    .publicai-section-title {
+        font-family: var(--font-mono, 'JetBrains Mono', monospace);
+        font-size: 1rem;
+        color: var(--color-accent, #ff10f0);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255, 16, 240, 0.3);
+        padding-bottom: 0.5rem;
+    }
+
+    .publicai-repo {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(0, 240, 255, 0.15);
+    }
+
+    .publicai-repo a {
+        font-family: var(--font-mono, 'JetBrains Mono', monospace);
+        font-size: 0.85rem;
+        color: var(--color-accent-cyan, #00f0ff);
+        text-decoration: none;
+    }
+
+    .publicai-repo a:hover {
+        color: var(--color-accent, #ff10f0);
+    }
+
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+
+    .tool-card {
+        display: flex;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: var(--color-card-bg, #000);
+        border: 1px solid var(--color-accent-cyan, #00f0ff);
+        text-decoration: none;
+        color: var(--color-text, #e0e0e0);
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tool-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0, 240, 255, 0.03) 0%, transparent 60%);
+        pointer-events: none;
+    }
+
+    .tool-card:hover {
+        border-color: var(--color-accent, #ff10f0);
+        box-shadow:
+            0 0 20px rgba(255, 16, 240, 0.15),
+            inset 0 0 0 1px rgba(255, 16, 240, 0.2);
+        transform: translateY(-2px);
+        background: var(--color-card-bg, #000);
+        padding: 1.5rem;
+    }
+
+    .tool-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 240, 255, 0.2);
+        background: rgba(0, 240, 255, 0.03);
+    }
+
+    .tool-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .tool-info h2 {
+        font-family: var(--font-mono, 'JetBrains Mono', monospace);
+        font-size: 1rem;
+        color: var(--color-accent-cyan, #00f0ff);
+        margin-bottom: 0.4rem;
+        border: none;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .tool-info p {
+        font-family: var(--font-mono, 'JetBrains Mono', monospace);
+        font-size: 0.78rem;
+        color: var(--color-muted, #b8a8d8);
+        line-height: 1.5;
+        margin-bottom: 0.6rem;
+    }
+
+    .tool-tag {
+        display: inline-block;
+        font-family: var(--font-mono, 'JetBrains Mono', monospace);
+        font-size: 0.6rem;
+        padding: 2px 8px;
+        border: 1px solid rgba(176, 16, 255, 0.4);
+        color: var(--color-accent-purple, #b010ff);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-right: 4px;
+    }
+
+    @media (max-width: 768px) {
+        .tools-grid {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .tool-card {
+            padding: 1rem;
+        }
+
+        .tool-card:hover {
+            padding: 1rem;
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+        }
+
+        .tool-info h2 {
+            font-size: 0.9rem;
+        }
+    }
+</style>
