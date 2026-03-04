@@ -31,6 +31,6 @@ Currently available for Rotterdam and Den Haag, with Amsterdam, Utrecht, and Ein
   </figure>
 </div>
 
-**Try it**: [artificialnouveau.github.io/stemwijzer_gemeente2026](https://artificialnouveau.github.io/stemwijzer_gemeente2026/)
+**Try it**: [www.artificialnouveau.com/miniprojects/stemwijzer_gemeente2026](https://www.artificialnouveau.com/miniprojects/stemwijzer_gemeente2026/)
 
 Note: Stellingen en partijposities zijn illustratief — niet officieel StemWijzer-materiaal.
