@@ -278,6 +278,7 @@ body {
 
 .tag-tobacco   { background: rgba(255,68,68,0.15); color: var(--tobacco); }
 .tag-coi       { background: rgba(255,153,64,0.15); color: var(--coi); }
+.tag-coi-sub   { background: rgba(255,153,64,0.20); color: var(--coi); font-size: 10px; border: 1px solid rgba(255,153,64,0.3); }
 .tag-independent { background: rgba(68,136,255,0.15); color: var(--independent); }
 .tag-positive  { background: rgba(68,221,136,0.15); color: var(--positive); }
 .tag-negative  { background: rgba(255,68,68,0.15); color: var(--negative); }
@@ -874,8 +875,13 @@ function showAuthorPanel(authorId, name, category) {
   document.getElementById('panel-name').textContent = name;
   const catClass = category === 'Tobacco Company' ? 'tobacco' :
                    category === 'COI Declared' ? 'coi' : 'independent';
+  // Derive COI subcategories from this author's papers
+  const coiSubs = [...new Set(papers.map(p => p.coi_sub).filter(s => s && s !== 'None'))];
+
   document.getElementById('panel-meta').innerHTML =
-    `<span class="tag tag-${catClass}">${category}</span> &nbsp; ${papers.length} papers` +
+    `<span class="tag tag-${catClass}">${category}</span>` +
+    (coiSubs.length ? ' ' + coiSubs.map(s => `<span class="tag tag-coi-sub">${s}</span>`).join(' ') : '') +
+    ` &nbsp; ${papers.length} papers` +
     (author && author.aff ? ` &nbsp;|&nbsp; ${author.aff.substring(0, 120)}${author.aff.length > 120 ? '...' : ''}` : '');
 
   const list = document.getElementById('panel-papers');
