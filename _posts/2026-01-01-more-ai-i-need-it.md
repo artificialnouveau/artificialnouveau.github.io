@@ -3,7 +3,7 @@ title: "MORE AI! I NEED IT! PLEASE!"
 image: /assets/portfolio/moreai.jpg
 ---
 
-[![MORE AI! I NEED IT! PLEASE!](/assets/portfolio/moreai.jpg)](https://www.artificialnouveau.com/moreaiineedit/index.html)
+[![MORE AI! I NEED IT! PLEASE!](/assets/portfolio/moreai.jpg)](https://www.artificialnouveau.com/publicai/moreaiineedit/index.html)
 
 MORE AI! I NEED IT! PLEASE! is a satirical catalog of the most absurd, questionable, and bewilderingly real AI products flooding the market. Part consumer guide, part cultural critique, it documents a world where artificial intelligence has been shoehorned into every conceivable corner of human existence — from ice makers with "AI NoiseGuard" to $175,000 animatronic companions.
 
@@ -13,4 +13,4 @@ The site features interactive elements including tiered pricing models, a useful
 
 MORE AI! I NEED IT! PLEASE! holds up a mirror to AI hype culture, letting the products speak for themselves. When a $699 AI pin gets universally panned and a "robot lawyer" gets fined by the FTC, the satire practically writes itself.
 
-Explore the full catalog at [www.artificialnouveau.com/moreaiineedit](https://www.artificialnouveau.com/moreaiineedit/index.html)
+Explore the full catalog at [www.artificialnouveau.com/publicai/moreaiineedit](https://www.artificialnouveau.com/publicai/moreaiineedit/index.html)
