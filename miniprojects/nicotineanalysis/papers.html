@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Papers - Nicotine Research Analysis</title>
+<meta name="description" content="Browse 2,175 nicotine research papers grouped by affiliation, conflict of interest, and outcome.">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a12;
+  --surface: #12121e;
+  --surface2: #1a1a2e;
+  --border: #2a2a44;
+  --text: #e0e0f0;
+  --muted: #8888aa;
+  --cyan: #00d4ff;
+  --magenta: #ff10f0;
+  --red: #ff4444;
+  --orange: #ff9940;
+  --green: #44dd88;
+  --blue: #4488ff;
+  --yellow: #ffcc00;
+  --tobacco: #ff4444;
+  --coi: #ff9940;
+  --independent: #4488ff;
+  --positive: #44dd88;
+  --negative: #ff4444;
+  --neutral: #8888aa;
+  --mixed: #ffcc00;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Top Bar ──────────────────────────────────────────────────── */
+.top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 18, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-bar h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 1px;
+}
+
+.top-bar nav { display: flex; gap: 4px; }
+
+.top-bar nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.top-bar nav a:hover { color: var(--text); background: var(--surface2); }
+.top-bar nav a.active { color: var(--cyan); background: var(--surface2); }
+
+/* ── Page ─────────────────────────────────────────────────────── */
+.page {
+  padding-top: 56px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.controls {
+  position: sticky;
+  top: 56px;
+  z-index: 100;
+  background: rgba(10, 10, 18, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px 10px 36px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-box input:focus { border-color: var(--cyan); }
+
+.search-box::before {
+  content: '\1F50D';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+/* ── Filter Buttons ───────────────────────────────────────────── */
+.filter-group {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.filter-group label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-right: 6px;
+  align-self: center;
+}
+
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.filter-btn:hover { border-color: var(--text); color: var(--text); }
+
+.filter-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0, 212, 255, 0.08); }
+.filter-btn[data-val="Tobacco Company"].active { border-color: var(--tobacco); color: var(--tobacco); background: rgba(255,68,68,0.08); }
+.filter-btn[data-val="COI Declared"].active { border-color: var(--coi); color: var(--coi); background: rgba(255,153,64,0.08); }
+.filter-btn[data-val="Independent"].active { border-color: var(--independent); color: var(--independent); background: rgba(68,136,255,0.08); }
+.filter-btn[data-val="Positive"].active { border-color: var(--positive); color: var(--positive); background: rgba(68,221,136,0.08); }
+.filter-btn[data-val="Negative"].active { border-color: var(--negative); color: var(--negative); background: rgba(255,68,68,0.08); }
+.filter-btn[data-val="Mixed"].active { border-color: var(--mixed); color: var(--mixed); background: rgba(255,204,0,0.08); }
+.filter-btn[data-val="Neutral"].active { border-color: var(--neutral); color: var(--neutral); background: rgba(136,136,170,0.08); }
+
+/* ── Group Mode ───────────────────────────────────────────────── */
+.group-toggle {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.group-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.group-btn:hover { color: var(--text); }
+.group-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.08); }
+
+/* ── Results ──────────────────────────────────────────────────── */
+.results-header {
+  padding: 16px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.group-header {
+  padding: 12px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cyan);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 124px;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-count {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* ── Paper Card ───────────────────────────────────────────────── */
+.paper-list {
+  padding: 0 24px;
+}
+
+.paper-card {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.paper-card:last-child { border-bottom: none; }
+
+.paper-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.paper-title a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.paper-title a:hover { color: var(--cyan); }
+
+.paper-meta {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.paper-authors {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.paper-authors a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.paper-authors a:hover {
+  color: var(--cyan);
+  text-decoration: underline;
+}
+
+.paper-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.tag-tobacco   { background: rgba(255,68,68,0.15); color: var(--tobacco); }
+.tag-coi       { background: rgba(255,153,64,0.15); color: var(--coi); }
+.tag-independent { background: rgba(68,136,255,0.15); color: var(--independent); }
+.tag-positive  { background: rgba(68,221,136,0.15); color: var(--positive); }
+.tag-negative  { background: rgba(255,68,68,0.15); color: var(--negative); }
+.tag-neutral   { background: rgba(136,136,170,0.15); color: var(--neutral); }
+.tag-mixed     { background: rgba(255,204,0,0.15); color: var(--mixed); }
+.tag-na        { background: rgba(136,136,170,0.08); color: var(--muted); }
+
+/* ── Loading / Empty ──────────────────────────────────────────── */
+.loading, .empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.loading::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--cyan);
+  border-radius: 50%;
+  margin-left: 12px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Pagination ───────────────────────────────────────────────── */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 24px;
+}
+
+.page-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.page-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.page-btn:disabled { opacity: 0.3; cursor: default; }
+.page-btn:disabled:hover { border-color: var(--border); color: var(--muted); }
+.page-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.08); }
+
+.page-info {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 0 8px;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .top-bar { padding: 0 12px; }
+  .top-bar h1 { font-size: 13px; }
+  .controls { padding: 12px 16px; }
+  .paper-list { padding: 0 16px; }
+  .paper-card { grid-template-columns: 1fr; }
+  .paper-tags { flex-direction: row; align-items: center; }
+  .group-header { padding: 10px 16px; top: 112px; }
+  .results-header { padding: 12px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>NICOTINE RESEARCH ANALYSIS</h1>
+  <nav>
+    <a href="index.html">Network</a>
+    <a href="papers.html" class="active">Papers</a>
+  </nav>
+</div>
+
+<div class="page">
+  <!-- Controls -->
+  <div class="controls">
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search papers, authors, journals...">
+    </div>
+
+    <div class="filter-group">
+      <label>Category</label>
+      <button class="filter-btn" data-filter="category" data-val="Tobacco Company">Tobacco</button>
+      <button class="filter-btn" data-filter="category" data-val="COI Declared">COI</button>
+      <button class="filter-btn" data-filter="category" data-val="Independent">Independent</button>
+    </div>
+
+    <div class="filter-group">
+      <label>Outcome</label>
+      <button class="filter-btn" data-filter="outcome" data-val="Positive">Positive</button>
+      <button class="filter-btn" data-filter="outcome" data-val="Negative">Negative</button>
+      <button class="filter-btn" data-filter="outcome" data-val="Mixed">Mixed</button>
+      <button class="filter-btn" data-filter="outcome" data-val="Neutral">Neutral</button>
+    </div>
+
+    <div class="group-toggle">
+      <label style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-right:6px;align-self:center;">Group by</label>
+      <button class="group-btn active" data-group="none">None</button>
+      <button class="group-btn" data-group="category">Category</button>
+      <button class="group-btn" data-group="outcome">Outcome</button>
+      <button class="group-btn" data-group="year">Year</button>
+    </div>
+  </div>
+
+  <div class="results-header" id="results-header"></div>
+  <div id="papers-container">
+    <div class="loading">Loading papers</div>
+  </div>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<script>
+// ── State ──
+let allPapers = [];
+let allAuthors = {};
+let filtered = [];
+let currentPage = 0;
+const PAGE_SIZE = 50;
+
+let filters = { category: null, outcome: null };
+let groupBy = 'none';
+let searchQuery = '';
+
+// ── Load ──
+async function init() {
+  const [papersRes, authorsRes] = await Promise.all([
+    fetch('data/papers.json').then(r => r.json()),
+    fetch('data/authors.json').then(r => r.json()),
+  ]);
+
+  allPapers = papersRes;
+  authorsRes.forEach(a => { allAuthors[a.id] = a; });
+
+  applyFilters();
+  bindEvents();
+}
+
+// ── Filter logic ──
+function applyFilters() {
+  filtered = allPapers.filter(p => {
+    if (filters.category && p.category !== filters.category) return false;
+    if (filters.outcome && p.outcome !== filters.outcome) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      const titleMatch = (p.title || '').toLowerCase().includes(q);
+      const journalMatch = (p.journal || '').toLowerCase().includes(q);
+      const authorMatch = p.auth_ids.some(aid => {
+        const a = allAuthors[aid];
+        return a && a.name.toLowerCase().includes(q);
+      });
+      if (!titleMatch && !journalMatch && !authorMatch) return false;
+    }
+    return true;
+  });
+
+  // Sort by year descending
+  filtered.sort((a, b) => (b.year || 0) - (a.year || 0));
+
+  currentPage = 0;
+  render();
+}
+
+// ── Render ──
+function render() {
+  const header = document.getElementById('results-header');
+  header.textContent = `${filtered.length.toLocaleString()} papers`;
+
+  const container = document.getElementById('papers-container');
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state">No papers match your filters</div>';
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  if (groupBy !== 'none') {
+    renderGrouped(container);
+  } else {
+    renderFlat(container);
+  }
+}
+
+function renderFlat(container) {
+  const start = currentPage * PAGE_SIZE;
+  const page = filtered.slice(start, start + PAGE_SIZE);
+
+  container.innerHTML = `<div class="paper-list">${page.map(renderPaperCard).join('')}</div>`;
+  renderPagination();
+}
+
+function renderGrouped(container) {
+  const groups = {};
+  filtered.forEach(p => {
+    let key;
+    if (groupBy === 'category') key = p.category;
+    else if (groupBy === 'outcome') key = p.outcome;
+    else if (groupBy === 'year') key = p.year || 'Unknown';
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(p);
+  });
+
+  // Sort groups
+  let sortedKeys;
+  if (groupBy === 'year') {
+    sortedKeys = Object.keys(groups).sort((a, b) => b - a);
+  } else if (groupBy === 'category') {
+    sortedKeys = ['Tobacco Company', 'COI Declared', 'Independent'].filter(k => groups[k]);
+  } else if (groupBy === 'outcome') {
+    sortedKeys = ['Positive', 'Negative', 'Mixed', 'Neutral', 'Not applicable'].filter(k => groups[k]);
+  } else {
+    sortedKeys = Object.keys(groups);
+  }
+
+  let html = '';
+  sortedKeys.forEach(key => {
+    const papers = groups[key];
+    html += `<div class="group-header">${key} <span class="group-count">${papers.length}</span></div>`;
+    html += `<div class="paper-list">${papers.slice(0, 50).map(renderPaperCard).join('')}`;
+    if (papers.length > 50) {
+      html += `<div style="padding:12px 0;color:var(--muted);font-size:13px;text-align:center;">
+        + ${papers.length - 50} more papers in this group</div>`;
+    }
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+  document.getElementById('pagination').innerHTML = '';
+}
+
+function renderPaperCard(p) {
+  const catClass = p.category === 'Tobacco Company' ? 'tobacco' :
+                   p.category === 'COI Declared' ? 'coi' : 'independent';
+  const outcomeKey = p.outcome.toLowerCase().replace(/\s+/g, '-');
+  const outcomeClass = outcomeKey === 'not-applicable' ? 'na' :
+                       outcomeKey === 'positive' ? 'positive' :
+                       outcomeKey === 'negative' ? 'negative' :
+                       outcomeKey === 'mixed' ? 'mixed' : 'neutral';
+
+  // Build author list
+  const authorNames = p.auth_ids.slice(0, 5).map(aid => {
+    const a = allAuthors[aid];
+    return a ? a.name : '';
+  }).filter(Boolean);
+  const authorStr = authorNames.join('; ') + (p.auth_ids.length > 5 ? ` + ${p.auth_ids.length - 5} more` : '');
+
+  return `<div class="paper-card">
+    <div>
+      <div class="paper-title"><a href="${p.url}" target="_blank" rel="noopener">${p.title || 'Untitled'}</a></div>
+      <div class="paper-meta">
+        <span>${p.journal || ''}</span>
+        ${p.year ? `<span>${p.year}</span>` : ''}
+        ${p.doi ? `<span>DOI: ${p.doi}</span>` : ''}
+      </div>
+      ${authorStr ? `<div class="paper-authors">${authorStr}</div>` : ''}
+    </div>
+    <div class="paper-tags">
+      <span class="tag tag-${catClass}">${p.category}</span>
+      <span class="tag tag-${outcomeClass}">${p.outcome}</span>
+    </div>
+  </div>`;
+}
+
+function renderPagination() {
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  if (totalPages <= 1) {
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  const pag = document.getElementById('pagination');
+  let html = `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 0 ? 'disabled' : ''}>&laquo; Prev</button>`;
+  html += `<span class="page-info">Page ${currentPage + 1} of ${totalPages}</span>`;
+  html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage >= totalPages - 1 ? 'disabled' : ''}>Next &raquo;</button>`;
+  pag.innerHTML = html;
+}
+
+window.goPage = function(n) {
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  if (n < 0 || n >= totalPages) return;
+  currentPage = n;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+// ── Events ──
+function bindEvents() {
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filterType = btn.dataset.filter;
+      const val = btn.dataset.val;
+
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        filters[filterType] = null;
+      } else {
+        document.querySelectorAll(`.filter-btn[data-filter="${filterType}"]`).forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filters[filterType] = val;
+      }
+      applyFilters();
+    });
+  });
+
+  // Group buttons
+  document.querySelectorAll('.group-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.group-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      groupBy = btn.dataset.group;
+      render();
+    });
+  });
+
+  // Search
+  let searchTimeout;
+  document.getElementById('search').addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      searchQuery = e.target.value.trim();
+      applyFilters();
+    }, 300);
+  });
+}
+
+// ── Init ──
+init();
+</script>
+</body>
+</html>
