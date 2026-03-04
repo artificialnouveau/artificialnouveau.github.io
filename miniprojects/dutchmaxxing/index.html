@@ -5932,7 +5932,11 @@ function generatePDFContent(title, rows) {
   const w = window.open('', '_blank');
   w.document.write(html);
   w.document.close();
-  setTimeout(() => w.print(), 500);
+  const printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF';
+  printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = () => { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
+  w.document.body.prepend(printBtn);
 }
 
 function exportWrongVerbs() {
@@ -6350,7 +6354,11 @@ function readerExportPDF() {
   const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Woordenlijst \u2014 ' + (readerArticleTitle || 'Tekstlezer') + '</title><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"><style>body{font-family:Inter,sans-serif;max-width:900px;margin:0 auto;padding:40px 20px;color:#111}h1{font-family:Syne,sans-serif;font-size:28px;color:#000;margin-bottom:4px;letter-spacing:3px}.source{font-size:11px;color:#888;margin-bottom:24px;word-break:break-all}.divider{height:4px;background:#000;margin:16px 0 24px}h2{font-family:Syne,sans-serif;font-size:18px;color:#1356A2;margin:28px 0 12px;padding-bottom:6px;border-bottom:3px solid #000}table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:13px;border:2px solid #000}th{background:#F7D842;color:#000;padding:10px 12px;text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-family:Space Grotesk,sans-serif;border-bottom:2px solid #000}td{padding:8px 12px;border-bottom:1px solid #ddd}tr:nth-child(even){background:#f9f9f9}.footer{margin-top:40px;text-align:center;font-size:11px;color:#888;font-style:italic;padding-top:16px;border-top:3px solid #000}@media print{body{padding:20px}}</style></head><body><h1>WOORDENLIJST</h1>' + (readerArticleTitle ? '<p style="font-size:15px;color:#D40920;font-weight:600;margin-bottom:4px">' + readerArticleTitle + '</p>' : '') + (readerArticleUrl ? '<p class="source">' + readerArticleUrl + '</p>' : '') + '<div class="divider"></div>' + (wordRows ? '<h2>Woorden</h2><table><thead><tr><th>Nederlands</th><th>Engels</th></tr></thead><tbody>' + wordRows + '</tbody></table>' : '') + (verbRows ? '<h2>Werkwoorden</h2><table><thead><tr><th>Gevonden</th><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>V.D.</th><th>Hulpww.</th><th>Patroon</th></tr></thead><tbody>' + verbRows + '</tbody></table>' : '') + '<div class="footer">\u201CThe words rearrange themselves when you are not looking.\u201D<br>Gegenereerd door TEKSTLEZER \u2014 DUTCHMAXXING</div></body></html>';
   const w = window.open('', '_blank');
   w.document.write(html); w.document.close();
-  setTimeout(() => w.print(), 500);
+  const printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF';
+  printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = () => { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
+  w.document.body.prepend(printBtn);
 }
 
 function initReader() { readerRenderWordList(); }
@@ -7233,6 +7241,7 @@ const SHEET_TEMPLATES = [
   { id: 'flashcards', icon: '\ud83c\udccf', title: 'Compact Flashcard Grid', desc: 'Uitknipbare flashcards: infinitief | imperfectum | voltooid deelwoord', countFn: () => VERBS.length + ' kaarten' },
   { id: 'wrong', icon: '\u274c', title: 'Mijn Fouten', desc: 'Werkwoorden die je fout hebt beantwoord, gesorteerd op aantal fouten', countFn: () => { const n = VERBS.filter(v => { const h = state.verbHistory[v.id]; return h && h.wrong > 0; }).length; return n + ' werkwoorden'; } },
   { id: 'separable', icon: '\u2702\ufe0f', title: 'Scheidbare Werkwoorden', desc: 'Werkwoorden die scheidbaar zijn met gescheiden vormen', countFn: () => getSeparableVerbs().length + ' werkwoorden' },
+  { id: 'conjunctions', icon: '\ud83d\udd17', title: 'Voegwoorden', desc: 'Alle voegwoorden met voorbeeldzinnen en woordvolgorde-effect', countFn: () => PHRASES.filter(p => p.cat === 'connectors').length + ' voegwoorden' },
 ];
 
 function getSeparableVerbs() {
@@ -7268,6 +7277,7 @@ function generateReadySheet(id) {
     case 'flashcards': generateSheetFlashcards(VERBS); break;
     case 'wrong': exportWrongVerbs(); break;
     case 'separable': generateSheetSeparable(); break;
+    case 'conjunctions': generateSheetConjunctions(); break;
   }
 }
 
@@ -7384,6 +7394,31 @@ function generateSheetCombined() {
   }
   rows += '<div class="tip">Totaal: ' + VERBS.length + ' werkwoorden + ' + PREPOSITION_VERBS.length + ' vaste voorzetsels</div>';
   generatePDFContent('Alles Samen — Compleet Overzicht', rows);
+}
+
+function generateSheetConjunctions() {
+  const connectors = PHRASES.filter(p => p.cat === 'connectors');
+  const onderschikkend = ['omdat','doordat','hoewel / alhoewel','terwijl','voordat / voor','nadat / na','totdat / tot','zodra','tenzij','mits','zolang','zodat','aangezien','naarmate','waardoor'];
+  const nevenschikkend = ['en','maar','of','want','dus'];
+  const correlatief = ['ofwel... ofwel...','noch... noch...','niet alleen... maar ook...','hoe... hoe...'];
+  const bijwoord = ['namelijk','overigens','daarentegen','desondanks / desalniettemin','vandaar dat...','bovendien'];
+  let rows = '<div class="tip"><strong>Woordvolgorde:</strong> Na onderschikkende voegwoorden gaat het werkwoord naar het <strong>einde</strong> van de bijzin. Na nevenschikkende voegwoorden blijft de woordvolgorde <strong>normaal</strong>.</div>';
+  rows += '<h2 style="color:#D40920;">Onderschikkend (bijzin \u2192 werkwoord naar einde)</h2>';
+  rows += '<table><thead><tr><th>Voegwoord</th><th>Engels</th><th>Voorbeeldzin</th><th>Vertaling</th></tr></thead><tbody>';
+  connectors.filter(c => onderschikkend.includes(c.nl)).forEach(c => { rows += '<tr><td><strong>' + c.nl + '</strong></td><td>' + c.en + '</td><td style="font-style:italic;">' + c.example + '</td><td style="color:#666;font-size:11px;">' + c.example_en + '</td></tr>'; });
+  rows += '</tbody></table>';
+  rows += '<h2 style="color:#1356A2;">Nevenschikkend (woordvolgorde blijft normaal)</h2>';
+  rows += '<div class="tip">Onthoud: <strong>en, maar, of, want, dus</strong></div>';
+  rows += '<h2 style="color:#2d8a56;">Correlatief (gekoppelde voegwoorden)</h2>';
+  rows += '<table><thead><tr><th>Voegwoord</th><th>Engels</th><th>Voorbeeldzin</th><th>Vertaling</th></tr></thead><tbody>';
+  connectors.filter(c => correlatief.includes(c.nl)).forEach(c => { rows += '<tr><td><strong>' + c.nl + '</strong></td><td>' + c.en + '</td><td style="font-style:italic;">' + c.example + '</td><td style="color:#666;font-size:11px;">' + c.example_en + '</td></tr>'; });
+  rows += '</tbody></table>';
+  rows += '<h2 style="color:#b08600;">Bijwoordelijke connectoren</h2>';
+  rows += '<table><thead><tr><th>Connector</th><th>Engels</th><th>Voorbeeldzin</th><th>Vertaling</th></tr></thead><tbody>';
+  connectors.filter(c => bijwoord.some(b => c.nl.includes(b.replace('...','')))).forEach(c => { rows += '<tr><td><strong>' + c.nl + '</strong></td><td>' + c.en + '</td><td style="font-style:italic;">' + c.example + '</td><td style="color:#666;font-size:11px;">' + c.example_en + '</td></tr>'; });
+  rows += '</tbody></table>';
+  rows += '<div class="tip">Totaal: ' + connectors.length + ' voegwoorden & connectoren</div>';
+  generatePDFContent('Voegwoorden & Connectoren — Spiekbriefje', rows);
 }
 
 // ==========================================
@@ -7508,6 +7543,7 @@ const DOWNLOAD_ALL_ITEMS = [
   { title: 'Alle werkwoorden (per patroon)', desc: 'Gegroepeerd op klinkerverandering', countFn: () => VERBS.length, fn: () => exportAllVerbs() },
   { title: 'Alle vaste voorzetsels (tabel)', desc: 'Alfabetische lijst van alle vaste voorzetsels', countFn: () => PREPOSITION_VERBS.length, fn: () => generateSheetPrepAlpha() },
   { title: 'Alle vaste voorzetsels (per voorzetsel)', desc: 'Gegroepeerd per voorzetsel', countFn: () => PREPOSITION_VERBS.length, fn: () => generateSheetPrepByPrep() },
+  { title: 'Alle voegwoorden', desc: 'Voegwoorden & connectoren met voorbeeldzinnen', countFn: () => PHRASES.filter(p => p.cat === 'connectors').length, fn: () => generateSheetConjunctions() },
   { title: 'Alles samen', desc: 'Alle werkwoorden + alle vaste voorzetsels gecombineerd', countFn: () => VERBS.length + PREPOSITION_VERBS.length, fn: () => generateSheetCombined() },
 ];
 
