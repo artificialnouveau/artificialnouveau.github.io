@@ -5965,16 +5965,6 @@ function generatePDFContent(title, rows) {
   w.document.body.prepend(printBtn);
 }
 
-function exportWrongVerbs() {
-  const wrongVerbs = VERBS.filter(v => { const h = state.verbHistory[v.id]; return h && h.wrong > 0; }).sort((a, b) => (state.verbHistory[b.id]?.wrong || 0) - (state.verbHistory[a.id]?.wrong || 0));
-  if (wrongVerbs.length === 0) { alert('Nog geen fouten! Speel eerst een paar rondes.'); return; }
-  let rows = '<div class="tip">Deze werkwoorden heb je fout beantwoord. Bestudeer de patronen!</div>';
-  rows += '<table><thead><tr><th>Infinitief</th><th>Engels</th><th>Imp. (ik)</th><th>Imp. (wij)</th><th>Volt. deelw.</th><th>Hulpww.</th><th>Patroon</th><th>Fouten</th></tr></thead><tbody>';
-  wrongVerbs.forEach(v => { const h = state.verbHistory[v.id]; const p = VERB_PATTERNS[v.pattern]; rows += '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.imp_s + '</td><td>' + v.imp_p + '</td><td>' + v.pp + '</td><td>' + v.aux + '</td><td><span class="pattern-label" style="background:' + p.color + '">' + p.label + '</span></td><td>' + h.wrong + 'x</td></tr>'; });
-  rows += '</tbody></table>';
-  generatePDFContent('Mijn Fouten \u2014 Werkwoorden om te oefenen', rows);
-}
-
 function exportAllVerbs() {
   let rows = '';
   const grouped = {};
@@ -6501,6 +6491,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     updateCEFRBarVisibility();
   });
 });
+
+// Hide CEFR bar on initial load if needed
+updateCEFRBarVisibility();
 
 // Subtab switching
 function switchSubtab(mainTabId, subtabId) {
@@ -7263,9 +7256,7 @@ const SHEET_TEMPLATES = [
   { id: 'hebben_zijn', icon: '\u2696\ufe0f', title: 'Hebben vs. Zijn', desc: 'Twee kolommen: werkwoorden met "heeft" vs "is"', countFn: () => VERBS.length + ' werkwoorden' },
   { id: 'alpha', icon: '\ud83d\udd24', title: 'Onregelmatig — Alfabet', desc: 'Alle onregelmatige werkwoorden op alfabetische volgorde', countFn: () => VERBS.filter(v => v.pattern !== 'regular').length + ' werkwoorden' },
   { id: 'prep_by_prep', icon: '\ud83d\udccc', title: 'Voorzetsels per voorzetsel', desc: 'Vaste voorzetsels gegroepeerd per voorzetsel', countFn: () => PREPOSITION_VERBS.length + ' uitdrukkingen' },
-  { id: 'prep_alpha', icon: '\ud83d\udcd6', title: 'Voorzetsels — Alfabet', desc: 'Alle vaste voorzetsels op alfabetische volgorde', countFn: () => PREPOSITION_VERBS.length + ' uitdrukkingen' },
   { id: 'flashcards', icon: '\ud83c\udccf', title: 'Compact Flashcard Grid', desc: 'Uitknipbare flashcards: infinitief | imperfectum | voltooid deelwoord', countFn: () => VERBS.length + ' kaarten' },
-  { id: 'wrong', icon: '\u274c', title: 'Mijn Fouten', desc: 'Werkwoorden die je fout hebt beantwoord, gesorteerd op aantal fouten', countFn: () => { const n = VERBS.filter(v => { const h = state.verbHistory[v.id]; return h && h.wrong > 0; }).length; return n + ' werkwoorden'; } },
   { id: 'separable', icon: '\u2702\ufe0f', title: 'Scheidbare Werkwoorden', desc: 'Werkwoorden die scheidbaar zijn met gescheiden vormen', countFn: () => getSeparableVerbs().length + ' werkwoorden' },
   { id: 'conjunctions', icon: '\ud83d\udd17', title: 'Voegwoorden', desc: 'Alle voegwoorden met voorbeeldzinnen en woordvolgorde-effect', countFn: () => PHRASES.filter(p => p.cat === 'connectors').length + ' voegwoorden' },
 ];
@@ -7299,9 +7290,7 @@ function generateReadySheet(id) {
     case 'hebben_zijn': generateSheetHebbenZijn(); break;
     case 'alpha': generateSheetAlphabetical(); break;
     case 'prep_by_prep': generateSheetPrepByPrep(); break;
-    case 'prep_alpha': generateSheetPrepAlpha(); break;
     case 'flashcards': generateSheetFlashcards(VERBS); break;
-    case 'wrong': exportWrongVerbs(); break;
     case 'separable': generateSheetSeparable(); break;
     case 'conjunctions': generateSheetConjunctions(); break;
   }
