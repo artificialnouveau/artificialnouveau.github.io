@@ -490,8 +490,14 @@ body {
   <!-- Network -->
   <div class="section">
     <div class="section-title">Co-Authorship Network</div>
-    <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px;">
-      Each node is a researcher (min. 3 papers). Edges represent co-authorship. Click a node to view their papers.
+    <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px; max-width: 900px; line-height: 1.6;">
+      <strong style="color: var(--text);">Co-authorship network</strong> of nicotine/tobacco researchers.
+      Each <strong style="color: var(--text);">dot is a researcher</strong> (minimum 3 papers);
+      <strong style="color: var(--text);">lines connect co-authors</strong> who published together (thicker = more shared papers).
+      The network uses a force-directed layout: connected authors pull toward each other while unconnected ones repel,
+      so <strong style="color: var(--text);">clusters reveal research communities</strong> that frequently collaborate.
+      Nodes settle into position after a few seconds. Click any node to see that author's papers.
+      Click a legend item to hide/show that category.
     </p>
     <div id="network-container">
       <div class="network-legend">
@@ -694,7 +700,7 @@ function renderNetwork() {
     from: e.from,
     to: e.to,
     value: e.weight,
-    color: { color: 'rgba(100,100,150,0.25)', highlight: 'rgba(0,212,255,0.6)' },
+    color: { color: 'rgba(140,140,180,0.45)', highlight: 'rgba(0,212,255,0.8)' },
     smooth: false,
   })));
 
@@ -724,8 +730,9 @@ function renderNetwork() {
       zoomSpeed: 0.3,
     },
     edges: {
-      scaling: { min: 0.5, max: 3 },
+      scaling: { min: 1, max: 4 },
       smooth: false,
+      color: { inherit: false },
     },
     nodes: {
       shape: 'dot',
@@ -743,13 +750,20 @@ function renderNetwork() {
     if (networkInstance) networkInstance.fit({ animation: false });
   });
 
-  // Constrain zoom so the network stays visible
+  // Constrain zoom so the network stays visible — can't zoom out too far
   networkInstance.on('zoom', function() {
     const scale = networkInstance.getScale();
-    if (scale < 0.15) {
-      networkInstance.moveTo({ scale: 0.15 });
+    if (scale < 0.3) {
+      networkInstance.moveTo({ scale: 0.3 });
     } else if (scale > 3) {
       networkInstance.moveTo({ scale: 3 });
+    }
+  });
+
+  // Double-click to recenter the network
+  networkInstance.on('doubleClick', function(params) {
+    if (params.nodes.length === 0 && params.edges.length === 0) {
+      networkInstance.fit({ animation: { duration: 500, easingFunction: 'easeInOutQuad' } });
     }
   });
 
