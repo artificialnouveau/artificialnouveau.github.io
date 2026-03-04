@@ -94,6 +94,12 @@ body {
   border-bottom: 1px solid var(--border);
   padding: 16px 24px;
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.controls-row {
+  display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
@@ -133,8 +139,9 @@ body {
 /* ── Filter Buttons ───────────────────────────────────────────── */
 .filter-group {
   display: flex;
-  gap: 4px;
+  gap: 6px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .filter-group label {
@@ -373,9 +380,11 @@ body {
   .top-bar { padding: 0 12px; }
   .top-bar h1 { font-size: 12px; letter-spacing: 0.5px; }
   .top-bar nav a { padding: 6px 8px; font-size: 10px; }
-  .controls { padding: 10px 12px; gap: 8px; }
+  .controls { padding: 10px 12px; gap: 6px; }
+  .controls-row { gap: 8px; }
   .filter-group { gap: 4px; }
   .filter-btn { padding: 4px 8px; font-size: 9px; }
+  .group-toggle { margin-left: 0; }
   .paper-list { padding: 0 12px; }
   .paper-card { grid-template-columns: 1fr; padding: 12px; gap: 8px; }
   .paper-title { font-size: 13px; }
@@ -409,40 +418,43 @@ body {
 <div class="page">
   <!-- Controls -->
   <div class="controls">
-    <div class="search-box">
-      <input type="text" id="search" placeholder="Search papers, authors, journals...">
+    <div class="controls-row">
+      <div class="search-box">
+        <input type="text" id="search" placeholder="Search papers, authors, journals...">
+      </div>
+      <div class="group-toggle">
+        <label style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-right:6px;align-self:center;">Group by</label>
+        <button class="group-btn active" data-group="none">None</button>
+        <button class="group-btn" data-group="category">Category</button>
+        <button class="group-btn" data-group="outcome">Outcome</button>
+        <button class="group-btn" data-group="year">Year</button>
+      </div>
     </div>
 
-    <div class="filter-group">
-      <label>Category</label>
-      <button class="filter-btn" data-filter="category" data-val="Tobacco Company">Tobacco</button>
-      <button class="filter-btn" data-filter="category" data-val="COI Declared">COI</button>
-      <button class="filter-btn" data-filter="category" data-val="Independent">Independent</button>
-    </div>
+    <div class="controls-row">
+      <div class="filter-group">
+        <label>Category</label>
+        <button class="filter-btn" data-filter="category" data-val="Tobacco Company">Tobacco</button>
+        <button class="filter-btn" data-filter="category" data-val="COI Declared">COI</button>
+        <button class="filter-btn" data-filter="category" data-val="Independent">Independent</button>
+      </div>
 
-    <div class="filter-group">
-      <label>Outcome</label>
-      <button class="filter-btn" data-filter="outcome" data-val="Positive">Positive</button>
-      <button class="filter-btn" data-filter="outcome" data-val="Negative">Negative</button>
-      <button class="filter-btn" data-filter="outcome" data-val="Mixed">Mixed</button>
-      <button class="filter-btn" data-filter="outcome" data-val="Neutral">Neutral</button>
-    </div>
+      <div class="filter-group">
+        <label>Outcome</label>
+        <button class="filter-btn" data-filter="outcome" data-val="Positive">Positive</button>
+        <button class="filter-btn" data-filter="outcome" data-val="Negative">Negative</button>
+        <button class="filter-btn" data-filter="outcome" data-val="Mixed">Mixed</button>
+        <button class="filter-btn" data-filter="outcome" data-val="Neutral">Neutral</button>
+      </div>
 
-    <div class="filter-group">
-      <label>COI Type</label>
-      <button class="filter-btn" data-filter="coi_sub" data-val="Industry Funding">Industry Funding</button>
-      <button class="filter-btn" data-filter="coi_sub" data-val="Consulting/Advisory">Consulting</button>
-      <button class="filter-btn" data-filter="coi_sub" data-val="Financial Interest">Financial</button>
-      <button class="filter-btn" data-filter="coi_sub" data-val="Fees/Compensation">Fees</button>
-      <button class="filter-btn" data-filter="coi_sub" data-val="Legal">Legal</button>
-    </div>
-
-    <div class="group-toggle">
-      <label style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-right:6px;align-self:center;">Group by</label>
-      <button class="group-btn active" data-group="none">None</button>
-      <button class="group-btn" data-group="category">Category</button>
-      <button class="group-btn" data-group="outcome">Outcome</button>
-      <button class="group-btn" data-group="year">Year</button>
+      <div class="filter-group" id="coi-type-filter" style="display:none;">
+        <label>COI Type</label>
+        <button class="filter-btn" data-filter="coi_sub" data-val="Industry Funding">Industry Funding</button>
+        <button class="filter-btn" data-filter="coi_sub" data-val="Consulting/Advisory">Consulting</button>
+        <button class="filter-btn" data-filter="coi_sub" data-val="Financial Interest">Financial</button>
+        <button class="filter-btn" data-filter="coi_sub" data-val="Fees/Compensation">Fees</button>
+        <button class="filter-btn" data-filter="coi_sub" data-val="Legal">Legal</button>
+      </div>
     </div>
   </div>
 
@@ -644,6 +656,20 @@ function bindEvents() {
         btn.classList.add('active');
         filters[filterType] = val;
       }
+
+      // Show/hide COI Type filter based on category selection
+      if (filterType === 'category') {
+        const coiTypeFilter = document.getElementById('coi-type-filter');
+        if (filters.category === 'COI Declared') {
+          coiTypeFilter.style.display = 'flex';
+        } else {
+          coiTypeFilter.style.display = 'none';
+          // Clear any active COI sub filter
+          filters.coi_sub = null;
+          document.querySelectorAll('.filter-btn[data-filter="coi_sub"]').forEach(b => b.classList.remove('active'));
+        }
+      }
+
       applyFilters();
     });
   });
