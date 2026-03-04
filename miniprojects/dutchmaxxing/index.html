@@ -7398,14 +7398,14 @@ function generateSheetCombined() {
 
 function generateSheetConjunctions() {
   const connectors = PHRASES.filter(p => p.cat === 'connectors');
-  const onderschikkend = ['omdat','doordat','hoewel / alhoewel','terwijl','voordat / voor','nadat / na','totdat / tot','zodra','tenzij','mits','zolang','zodat','aangezien','naarmate','waardoor'];
+  const onderschikkend = ['aangezien','doordat','hoewel / alhoewel','mits','naarmate','nadat / na','omdat','tenzij','terwijl','totdat / tot','voordat / voor','waardoor','zodat','zodra','zolang'];
   const nevenschikkend = ['en','maar','of','want','dus'];
   const correlatief = ['ofwel... ofwel...','noch... noch...','niet alleen... maar ook...','hoe... hoe...'];
   const bijwoord = ['namelijk','overigens','daarentegen','desondanks / desalniettemin','vandaar dat...','bovendien'];
   let rows = '<div class="tip"><strong>Woordvolgorde:</strong> Na onderschikkende voegwoorden gaat het werkwoord naar het <strong>einde</strong> van de bijzin. Na nevenschikkende voegwoorden blijft de woordvolgorde <strong>normaal</strong>.</div>';
   rows += '<h2 style="color:#D40920;">Onderschikkend (bijzin \u2192 werkwoord naar einde)</h2>';
   rows += '<table><thead><tr><th>Voegwoord</th><th>Engels</th><th>Voorbeeldzin</th><th>Vertaling</th></tr></thead><tbody>';
-  connectors.filter(c => onderschikkend.includes(c.nl)).forEach(c => { rows += '<tr><td><strong>' + c.nl + '</strong></td><td>' + c.en + '</td><td style="font-style:italic;">' + c.example + '</td><td style="color:#666;font-size:11px;">' + c.example_en + '</td></tr>'; });
+  connectors.filter(c => onderschikkend.includes(c.nl)).sort((a,b) => a.nl.localeCompare(b.nl)).forEach(c => { rows += '<tr><td><strong>' + c.nl + '</strong></td><td>' + c.en + '</td><td style="font-style:italic;">' + c.example + '</td><td style="color:#666;font-size:11px;">' + c.example_en + '</td></tr>'; });
   rows += '</tbody></table>';
   rows += '<h2 style="color:#1356A2;">Nevenschikkend (woordvolgorde blijft normaal)</h2>';
   rows += '<div class="tip">Onthoud: <strong>en, maar, of, want, dus</strong></div>';
