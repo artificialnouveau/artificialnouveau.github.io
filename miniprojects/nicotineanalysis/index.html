@@ -727,10 +727,15 @@ function renderNetwork() {
   const nodes = new vis.DataSet(networkData.nodes.map(n => {
     const c = CAT_COLORS[n.category] || CAT_COLORS['Independent'];
     const size = Math.max(5, Math.min(30, Math.sqrt(n.papers) * 4));
+    // Derive COI subcategories from this author's papers
+    const author = allAuthors[n.id];
+    const authorPapers = author ? author.paper_ids.map(pid => window.paperMap[pid]).filter(Boolean) : [];
+    const coiSubs = [...new Set(authorPapers.map(p => p.coi_sub).filter(s => s && s !== 'None'))];
+    const coiLine = coiSubs.length ? `\nCOI: ${coiSubs.join(', ')}` : '';
     return {
       id: n.id,
       label: '',
-      title: `${n.label}\n${n.category}\n${n.papers} papers`,
+      title: `${n.label}\n${n.category}${coiLine}\n${n.papers} papers`,
       size: size,
       color: { background: c.bg, border: c.border, highlight: { background: c.highlight, border: '#fff' } },
       borderWidth: 1,
@@ -848,20 +853,18 @@ function renderNetwork() {
     networkInstance.fit({ animation: { duration: 400, easingFunction: 'easeInOutQuad' } });
   };
 
-  // Legend filter
+  // Legend filter — batch update to avoid per-node re-render
   document.querySelectorAll('.legend-item').forEach(item => {
     item.addEventListener('click', () => {
       item.classList.toggle('dimmed');
       const dimmed = new Set();
       document.querySelectorAll('.legend-item.dimmed').forEach(d => dimmed.add(d.dataset.cat));
 
+      const updates = [];
       nodes.forEach(n => {
-        if (dimmed.has(n._category)) {
-          nodes.update({ id: n.id, hidden: true });
-        } else {
-          nodes.update({ id: n.id, hidden: false });
-        }
+        updates.push({ id: n.id, hidden: dimmed.has(n._category) });
       });
+      nodes.update(updates);
     });
   });
 }
