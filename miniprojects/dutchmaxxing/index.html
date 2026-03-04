@@ -5732,6 +5732,33 @@ const CEFR_LEVEL_COLORS = {
 // Max highlights per card scales with level: lower levels = fewer, higher = more
 const CEFR_HIGHLIGHT_LIMITS = { 'A2': 10, 'B1': 20, 'B2': 35, 'C1': 50 };
 
+// Common Dutch words that should NOT be highlighted as unknown
+const _dutchStopwords = new Set([
+  'de','het','een','en','van','in','is','dat','op','te','voor','met','zijn','was','er',
+  'niet','maar','die','aan','ook','als','nog','bij','dan','wel','al','om','dit','uit',
+  'naar','ze','we','je','hij','hun','haar','hen','zij','ik','mij','jij','jou','wij',
+  'ons','wie','wat','waar','hoe','wanneer','waarom','welk','welke','geen','meer','veel',
+  'zo','nu','hier','daar','toen','alle','deze','die','dit','dat','ander','andere',
+  'elk','elke','ieder','iedere','men','zelf','eigen','goed','groot','lang','hoog',
+  'klein','kort','nieuw','oud','jong','vaak','snel','ver','dicht','weer','heel',
+  'zeer','toe','af','kan','kon','wil','wou','zal','zou','mag','moet','moest',
+  'heeft','had','heb','hebben','wordt','werd','worden','gaat','ging','gaan',
+  'komt','kwam','komen','staat','stond','staan','zit','zat','zitten','ligt','lag',
+  'liggen','loopt','liep','lopen','geeft','gaf','geven','doet','deed','doen',
+  'zegt','zei','zeggen','maakt','maakte','maken','laat','liet','laten',
+  'vindt','vond','vinden','denkt','dacht','denken','weet','wist','weten',
+  'ziet','zag','zien','hoort','hoorde','horen','blijft','bleef','blijven',
+  'over','onder','door','tussen','tegen','achter','boven','buiten','binnen',
+  'sinds','tot','tijdens','zonder','omdat','zodat','terwijl','voordat','nadat',
+  'hoewel','toch','dus','want','echter','daarom','daarna','daarvoor','daarnaast',
+  'eerst','twee','drie','vier','vijf','zes','zeven','acht','negen','tien',
+  'jaar','dag','tijd','keer','mensen','land','stad','huis','werk','leven',
+  'deel','plaats','manier','vraag','hand','hoofd','oog','kind','vrouw','man',
+  'water','uur','week','maand','nacht','recht','punt','stuk','woord','naam',
+  'geld','aantal','regel','groep','brief','beeld','eind','begin','nieuwe',
+  'grote','eerste','laatste','tweede','hele','goede','beste','eigen','kleine'
+]);
+
 function highlightCEFRVocab(htmlStr) {
   const maxHighlights = CEFR_HIGHLIGHT_LIMITS[selectedCEFR] || 15;
   let highlightCount = 0;
@@ -5762,8 +5789,18 @@ function highlightCEFRVocab(htmlStr) {
     parts[i] = parts[i].replace(/\b([a-zA-ZàáâãäåèéêëìíîïòóôõöùúûüýÿñçÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝŸÑÇ]+)\b/g, (match) => {
       const lower = match.toLowerCase();
       const v = _cefrVocabMap.get(lower);
-      if (!v || !isWithinCEFR(v.level)) return match;
-      return makeSpan(match, v);
+      if (v) {
+        if (!isWithinCEFR(v.level)) return match;
+        return makeSpan(match, v);
+      }
+      // Heuristic: unknown words 6+ chars, not stopwords → estimate as B2/C1
+      if (lower.length >= 6 && !_dutchStopwords.has(lower) && selectedCEFR !== 'A2') {
+        const estLevel = lower.length >= 9 ? 'C1' : 'B2';
+        if (!isWithinCEFR(estLevel)) return match;
+        const estV = { nl: match, en: '(onbekend woord)', level: estLevel };
+        return makeSpan(match, estV);
+      }
+      return match;
     });
   }
   return parts.join('');
@@ -8056,6 +8093,31 @@ const GRAMMAR_RULES = [
       + '<div class="gr-rule"><strong>Er + voorzetsel</strong> combineert tot één woord:<br>'
       + 'er + op = <strong>erop</strong>, er + aan = <strong>eraan</strong>, er + over = <strong>erover</strong>, er + mee = <strong>ermee</strong></div>'
   },
+  {
+    id: 'indirecte_rede', cat: 'wordorder',
+    title: 'Indirecte Rede + Indirecte Vraag',
+    subtitle: 'Reported speech & indirect questions — bijzin-woordvolgorde',
+    accent: '#F7D842',
+    body: '<h4 style="margin:0 0 6px;">Indirecte rede</h4>'
+      + '<div class="gr-rule">Gebruik <strong>dat</strong> + bijzin (subject – rest – verba)</div>'
+      + '<div class="gr-example">Direct: Koning Willem-Alexander <u>brengt</u> volgende maand een bezoek aan Australië.<br>'
+      + 'Indirect: Ik heb in de krant gelezen <strong>dat</strong> koning Willem-Alexander volgende maand een bezoek aan Australië <u>brengt</u>.</div>'
+      + '<div class="gr-example">Direct: Het <u>wordt</u> een warme zomer.<br>'
+      + 'Indirect: We hopen <strong>dat</strong> het een warme zomer <u>wordt</u>.</div>'
+      + '<div class="gr-rule"><strong>Werkwoorden met dat:</strong> zeggen dat, denken dat, weten dat, vinden dat, hopen dat, geloven dat, horen dat</div>'
+      + '<h4 style="margin:12px 0 6px;">Indirecte vraag</h4>'
+      + '<div class="gr-rule"><strong>A. Open vraag</strong> (met vraagwoord) — herhaal het vraagwoord + bijzin-volgorde</div>'
+      + '<table><thead><tr><th>Directe vraag</th><th>Indirecte vraag</th></tr></thead><tbody>'
+      + '<tr><td><strong>Waarom</strong> <u>heb</u> je de deur niet op slot <u>gedaan</u>?</td><td>Kan je me vertellen <strong>waarom</strong> je de deur niet op slot <u>hebt gedaan</u>?</td></tr>'
+      + '<tr><td><strong>Waar</strong> <u>zijn</u> mijn sleutels?</td><td>Weet jij <strong>waar</strong> mijn sleutels <u>zijn</u>?</td></tr>'
+      + '<tr><td><strong>Hoe</strong> <u>heet</u> onze nieuwe collega?</td><td>Ik weet niet <strong>hoe</strong> onze nieuwe collega <u>heet</u>.</td></tr></tbody></table>'
+      + '<div class="gr-rule"><strong>B. Gesloten vraag</strong> (ja/nee-vraag) — gebruik <strong>of</strong> + bijzin-volgorde</div>'
+      + '<table><thead><tr><th>Directe vraag</th><th>Indirecte vraag</th></tr></thead><tbody>'
+      + '<tr><td><u>Kunnen</u> jullie voor mijn planten <u>zorgen</u>?</td><td>Ze vraagt <strong>of</strong> we voor haar planten <u>kunnen zorgen</u>.</td></tr>'
+      + '<tr><td><u>Heb</u> je mijn sleutels <u>gezien</u>?</td><td>Hij vraagt <strong>of</strong> ik zijn sleutels heb <u>gezien</u>.</td></tr>'
+      + '<tr><td><u>Gaan</u> jullie binnenkort op vakantie?</td><td>Ze wil weten <strong>of</strong> we binnenkort op vakantie <u>gaan</u>.</td></tr>'
+      + '<tr><td><u>Eten</u> we vandaag pasta of rijst?</td><td>Ik vraag me af <strong>of</strong> we vandaag pasta of rijst <u>eten</u>.</td></tr></tbody></table>'
+  },
 
   // === VOORNAAMWOORDEN (Pronouns) ===
   {
@@ -8496,9 +8558,9 @@ function showTranslateToolbar(e) {
 
   // Check if selection is within news content areas
   const anchorNode = sel.anchorNode;
-  const parentEl = anchorNode?.parentElement;
+  const parentEl = anchorNode?.nodeType === 3 ? anchorNode.parentElement : anchorNode;
   if (!parentEl) { toolbar.classList.remove('show'); return; }
-  const inNews = parentEl.closest('#newsContent, #nosFeed, .news-text, .nos-card');
+  const inNews = parentEl.closest('#tab-news');
   if (!inNews) { toolbar.classList.remove('show'); return; }
 
   currentTranslationText = text;
