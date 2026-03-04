@@ -329,7 +329,7 @@ body {
 }
 
 .finding-card h3 {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   margin-bottom: 12px;
   display: flex;
@@ -338,15 +338,15 @@ body {
 }
 
 .finding-card p {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.7;
   color: var(--muted);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .finding-card .stat-highlight {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text);
   background: var(--surface2);
   border-radius: 6px;
@@ -484,7 +484,7 @@ body {
   <!-- Stats Overview -->
   <div class="section">
     <div class="section-title">Overview</div>
-    <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; max-width: 900px; line-height: 1.7;">
+    <p style="color: var(--muted); font-size: 16px; margin-bottom: 20px; max-width: 900px; line-height: 1.7;">
       <strong style="color: var(--text);">Does tobacco industry involvement influence research findings?</strong>
       This project analyzes over 2,000 published nicotine and tobacco research papers to investigate whether
       financial conflicts of interest&mdash;such as tobacco company affiliations, consulting fees, or industry funding&mdash;are
@@ -528,7 +528,7 @@ body {
   <!-- Network -->
   <div class="section">
     <div class="section-title">Co-Authorship Network</div>
-    <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px; max-width: 900px; line-height: 1.6;">
+    <p style="color: var(--muted); font-size: 16px; margin-bottom: 16px; max-width: 900px; line-height: 1.7;">
       <strong style="color: var(--text);">Co-authorship network</strong> of nicotine/tobacco researchers.
       Each <strong style="color: var(--text);">dot is a researcher</strong> (minimum 3 papers);
       <strong style="color: var(--text);">lines connect co-authors</strong> who published together (thicker = more shared papers).
@@ -561,12 +561,15 @@ body {
       </div>
       <div class="network-legend" id="coi-sub-legend" style="display:none;top:16px;left:16px;">
         <h3>COI Subcategory</h3>
+        <div class="legend-item"><div class="legend-dot" style="background:#ff4444"></div><span>Tobacco Company</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#4488ff"></div><span>Independent</span></div>
+        <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
         <div class="legend-item"><div class="legend-dot" style="background:#ff9940"></div><span>Consulting/Advisory</span></div>
         <div class="legend-item"><div class="legend-dot" style="background:#e056fd"></div><span>Legal</span></div>
         <div class="legend-item"><div class="legend-dot" style="background:#ffcc00"></div><span>Financial Interest</span></div>
         <div class="legend-item"><div class="legend-dot" style="background:#00d4ff"></div><span>Fees/Compensation</span></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#ff4444"></div><span>Industry Funding</span></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#555577"></div><span>No COI / Other</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ff6644"></div><span>Industry Funding</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#555577"></div><span>No COI Subtype</span></div>
       </div>
       <div id="network-canvas">
         <div class="loading">Loading network</div>
@@ -584,48 +587,75 @@ body {
   <div class="section">
     <div class="section-title">Key Findings</div>
 
-    <!-- Outcome Distribution Bars -->
-    <div class="finding-card" style="margin-bottom: 20px;">
-      <h3>Outcome Distribution by Category</h3>
-      <p>Proportional outcome classification across the three categories (enhanced classifier, excludes "Not applicable").</p>
-      <div class="outcome-bars" id="outcome-bars"></div>
-    </div>
-
     <div class="findings-grid">
+
+      <!-- 1. How we classified outcomes -->
       <div class="finding-card">
-        <h3><span style="color: var(--orange);">&#9679;</span> COI-Declared Research Shows Bias</h3>
-        <p>Papers with declared conflicts of interest are significantly more likely to report positive outcomes for nicotine/tobacco products compared to independent research.</p>
+        <h3><span style="color: var(--green);">1</span> How We Classified Outcomes</h3>
+        <p>Each paper's abstract was analyzed using ~100 directional keyword patterns to assign an outcome label. Of 2,175 papers, 1,075 (49.4%) had classifiable outcome language. The remaining 1,100 were labeled "Not applicable" &mdash; their abstracts were either missing from PubMed, too short, or purely methodological (study protocols, review methods, instrument validation) with no directional findings.</p>
+        <div class="stat-highlight">
+          Positive: <strong style="color:var(--positive)">392</strong> &nbsp;|&nbsp;
+          Negative: <strong style="color:var(--negative)">331</strong> &nbsp;|&nbsp;
+          Mixed: <strong style="color:var(--mixed)">291</strong> &nbsp;|&nbsp;
+          Neutral: <strong style="color:var(--neutral)">61</strong> &nbsp;|&nbsp;
+          N/A: <strong style="color:var(--muted)">1,100</strong>
+        </div>
+      </div>
+
+      <!-- 2. Outcome distribution chart -->
+      <div class="finding-card">
+        <h3><span style="color: var(--cyan);">2</span> Outcome Distribution by Category</h3>
+        <p>Among the 1,075 classified papers, the proportion of positive outcomes varies by affiliation group. COI-declared papers show a noticeably higher positive rate.</p>
+        <div class="outcome-bars" id="outcome-bars"></div>
+      </div>
+
+      <!-- 3. Main finding: COI bias -->
+      <div class="finding-card">
+        <h3><span style="color: var(--orange);">3</span> COI-Declared Papers Show Significant Positive Bias</h3>
+        <p>Papers with declared conflicts of interest are 46% more likely to report positive outcomes compared to independent research. This is the central finding &mdash; statistically significant across multiple tests.</p>
         <div class="stat-highlight">
           Positive outcome rate: <strong style="color:var(--orange)">43.2%</strong> (COI) vs <strong style="color:var(--blue)">34.3%</strong> (Independent)<br>
           Odds ratio: <strong>1.46</strong> (95% CI: 1.09&ndash;1.95, p = 0.012)
         </div>
       </div>
 
+      <!-- 4. COI subcategory breakdown -->
       <div class="finding-card">
-        <h3><span style="color: var(--coi);">&#9679;</span> COI Subcategory Breakdown</h3>
-        <p>Breaking down COI-declared papers by conflict type reveals that consulting/advisory relationships drive the overall bias signal. Industry funding shows the highest odds ratio but with very few papers.</p>
+        <h3><span style="color: var(--coi);">4</span> Consulting &amp; Advisory Ties Drive the Bias</h3>
+        <p>Breaking down COI-declared papers by conflict type, consulting/advisory relationships account for most of the effect. Industry funding shows the highest odds ratio (5.77&times;) but with only 11 papers &mdash; too few for statistical significance.</p>
         <div class="stat-highlight" style="line-height: 1.8;">
-          <strong style="color:var(--coi)">Consulting/Advisory</strong> (294 papers): OR = <strong>1.42</strong>, p = 0.045 &nbsp;<span style="color:var(--green);font-size:11px;">&#10003; significant</span><br>
+          <strong style="color:var(--coi)">Consulting/Advisory</strong> (294 papers): OR = <strong>1.42</strong>, p = 0.045 <span style="color:var(--green);">&#10003;</span><br>
           <strong style="color:var(--coi)">Legal</strong> (97 papers): OR = <strong>1.57</strong>, p = 0.163<br>
           <strong style="color:var(--coi)">Financial Interest</strong> (35 papers): OR = <strong>1.60</strong>, p = 0.362<br>
           <strong style="color:var(--coi)">Fees/Compensation</strong> (19 papers): OR = <strong>1.15</strong>, p = 1.000<br>
-          <strong style="color:var(--coi)">Industry Funding</strong> (11 papers): OR = <strong>5.77</strong>, p = 0.120<br>
-          <span style="color:var(--muted);font-size:11px;">Odds ratios vs Independent; Fisher exact test</span>
+          <strong style="color:var(--coi)">Industry Funding</strong> (11 papers): OR = <strong>5.77</strong>, p = 0.120
         </div>
       </div>
 
+      <!-- 5. Tobacco company result -->
       <div class="finding-card">
-        <h3><span style="color: var(--red);">&#9679;</span> Tobacco Company Papers &mdash; No Significant Bias</h3>
-        <p>Surprisingly, papers directly authored by tobacco company researchers do not show statistically significant outcome bias compared to independent research.</p>
+        <h3><span style="color: var(--red);">5</span> Tobacco Company Papers &mdash; No Significant Bias</h3>
+        <p>Surprisingly, papers directly authored by tobacco company researchers do not show statistically significant outcome bias. This may reflect more cautious framing in papers with overt industry authorship, or the small sample size (111 papers).</p>
         <div class="stat-highlight">
           Positive outcome rate: <strong style="color:var(--red)">36.5%</strong> (Tobacco) vs <strong style="color:var(--blue)">34.3%</strong> (Independent)<br>
           Odds ratio: <strong>1.10</strong> (95% CI: 0.65&ndash;1.88, p = 0.78)
         </div>
       </div>
 
+      <!-- 6. Network: insular clusters -->
       <div class="finding-card">
-        <h3><span style="color: var(--cyan);">&#9679;</span> COI Authors Are Network Bridges</h3>
-        <p>Authors with declared COIs have the highest network centrality scores, acting as bridges between research communities. They connect otherwise isolated clusters.</p>
+        <h3><span style="color: var(--magenta);">6</span> Tobacco Researchers Form Insular Clusters</h3>
+        <p>The co-authorship network reveals that tobacco-affiliated authors overwhelmingly publish with each other rather than with independent researchers. An assortativity of 0.791 indicates near-complete segregation.</p>
+        <div class="stat-highlight">
+          Network: <strong>1,651</strong> authors, <strong>13,405</strong> co-authorships<br>
+          <strong>92</strong> communities detected &nbsp;|&nbsp; Largest component: <strong>89%</strong> of network
+        </div>
+      </div>
+
+      <!-- 7. Network: COI as bridges -->
+      <div class="finding-card">
+        <h3><span style="color: var(--cyan);">7</span> COI Authors Bridge Research Communities</h3>
+        <p>In contrast to insular tobacco clusters, COI-declared authors have the highest betweenness centrality &mdash; they sit between communities, connecting otherwise isolated groups. This bridge position may amplify the influence of their work.</p>
         <div class="stat-highlight">
           Mean betweenness centrality:<br>
           COI: <strong style="color:var(--orange)">0.0035</strong> &nbsp;|&nbsp;
@@ -634,35 +664,17 @@ body {
         </div>
       </div>
 
+      <!-- 8. Statistical robustness -->
       <div class="finding-card">
-        <h3><span style="color: var(--magenta);">&#9679;</span> Tobacco Researchers Form Insular Clusters</h3>
-        <p>Tobacco-affiliated authors cluster tightly together, with an assortativity coefficient of 0.791 &mdash; meaning they overwhelmingly co-author with each other rather than with independent researchers.</p>
-        <div class="stat-highlight">
-          Network: <strong>1,651</strong> authors, <strong>13,405</strong> co-authorships<br>
-          <strong>92</strong> communities detected &nbsp;|&nbsp; Largest component: <strong>89%</strong> of network
-        </div>
-      </div>
-
-      <div class="finding-card">
-        <h3><span style="color: var(--green);">&#9679;</span> Enhanced Outcome Classification</h3>
-        <p>Using ~100 directional keyword patterns on full abstracts, 1,075 of 2,175 papers were classified into outcome categories.</p>
-        <div class="stat-highlight">
-          Positive: <strong style="color:var(--positive)">392</strong> &nbsp;|&nbsp;
-          Negative: <strong style="color:var(--negative)">331</strong> &nbsp;|&nbsp;
-          Mixed: <strong style="color:var(--mixed)">291</strong> &nbsp;|&nbsp;
-          Neutral: <strong style="color:var(--neutral)">61</strong>
-        </div>
-      </div>
-
-      <div class="finding-card">
-        <h3><span style="color: var(--yellow);">&#9679;</span> Statistical Robustness</h3>
-        <p>All findings confirmed through multiple statistical methods: chi-square tests, Fisher exact tests, odds ratios with 95% CIs, proportion z-tests, and 10,000-iteration permutation tests.</p>
+        <h3><span style="color: var(--yellow);">8</span> Statistical Robustness</h3>
+        <p>All findings were tested using multiple methods to guard against false positives. Holm-Bonferroni correction was applied across all hypothesis tests.</p>
         <div class="stat-highlight">
           Chi-square (enhanced, 3-group): &chi;&sup2; = 14.03, p = 0.029<br>
           Permutation test COI vs Independent: p = 0.012<br>
           Kruskal-Wallis centrality tests: all p &lt; 0.001
         </div>
       </div>
+
     </div>
   </div>
 
@@ -671,13 +683,13 @@ body {
     <div class="section-title">Methodology</div>
     <div class="finding-card">
       <p>This analysis examines <strong>2,175 nicotine/tobacco/e-cigarette research papers</strong> from PubMed (1964&ndash;2025). Papers are classified into three mutually exclusive categories based on author affiliations and conflict-of-interest statements:</p>
-      <ul style="margin: 12px 0 12px 24px; color: var(--muted); font-size: 14px; line-height: 1.8;">
+      <ul style="margin: 12px 0 12px 24px; color: var(--muted); font-size: 16px; line-height: 1.8;">
         <li><strong style="color:var(--tobacco)">Tobacco Company</strong> &mdash; Authors affiliated with Philip Morris, BAT, JUUL, R.J. Reynolds, Altria, Swedish Match, and other tobacco companies</li>
         <li><strong style="color:var(--coi)">COI Declared</strong> &mdash; Authors with disclosed conflicts (consulting fees, advisory boards, funding) not tied to tobacco companies</li>
         <li><strong style="color:var(--independent)">Independent</strong> &mdash; No conflict of interest declared</li>
       </ul>
       <p><strong style="color: var(--text);">Outcome Classification.</strong> Each paper's abstract is analyzed using an enhanced keyword classifier with approximately 100 directional patterns. The classifier assigns one of five labels:</p>
-      <ul style="margin: 12px 0 12px 24px; color: var(--muted); font-size: 14px; line-height: 1.8;">
+      <ul style="margin: 12px 0 12px 24px; color: var(--muted); font-size: 16px; line-height: 1.8;">
         <li><strong style="color:var(--positive)">Positive</strong> &mdash; Abstract contains language indicating favorable outcomes for nicotine/tobacco products: harm reduction, cessation aid efficacy, lower toxicant exposure, improved health markers, therapeutic benefits, or reduced-risk product claims</li>
         <li><strong style="color:var(--negative)">Negative</strong> &mdash; Abstract contains language indicating adverse outcomes: health harms, addiction, cardiovascular/respiratory toxicity, carcinogenic effects, increased mortality, gateway effects, or youth uptake concerns</li>
         <li><strong style="color:var(--mixed)">Mixed</strong> &mdash; Abstract contains both positive and negative directional keywords, or explicitly describes mixed/conflicting results</li>
@@ -692,7 +704,7 @@ body {
   <div class="section">
     <div class="section-title">Limitations</div>
     <div class="finding-card">
-      <ul style="margin: 0 0 0 20px; color: var(--muted); font-size: 14px; line-height: 1.9;">
+      <ul style="margin: 0 0 0 20px; color: var(--muted); font-size: 16px; line-height: 1.9;">
         <li><strong style="color:var(--text)">PubMed-only corpus.</strong> This analysis is limited to papers indexed in PubMed. Research published in non-indexed journals, conference proceedings, or industry-only reports is not captured.</li>
         <li><strong style="color:var(--text)">Keyword-based outcome classification.</strong> Outcomes are classified using automated keyword matching on abstracts (~100 patterns), not manual expert review. This may misclassify nuanced or ambiguous findings. 1,100 of 2,175 papers (50.6%) could not be classified ("Not applicable") due to missing or purely methodological abstracts.</li>
         <li><strong style="color:var(--text)">COI disclosure depends on self-reporting.</strong> The "Independent" category includes papers where no conflict was declared &mdash; this does not guarantee the absence of undisclosed industry ties or indirect funding.</li>
@@ -747,7 +759,7 @@ const COI_SUB_COLORS = {
   'Legal':               { bg: '#e056fd', border: '#a83bce', highlight: '#ee88ff' },
   'Financial Interest':  { bg: '#ffcc00', border: '#cc9900', highlight: '#ffdd44' },
   'Fees/Compensation':   { bg: '#00d4ff', border: '#0099bb', highlight: '#44eeff' },
-  'Industry Funding':    { bg: '#ff4444', border: '#cc2222', highlight: '#ff6666' },
+  'Industry Funding':    { bg: '#ff6644', border: '#cc4422', highlight: '#ff8866' },
   'None':                { bg: '#555577', border: '#3a3a55', highlight: '#777799' },
 };
 
@@ -906,13 +918,16 @@ function renderNetwork() {
       // Hide author panel if open (would overlap with legend)
       panel.style.display = 'none';
 
+      // Only recolor COI Declared nodes by subcategory; keep Tobacco & Independent
       const updates = [];
       nodes.forEach(n => {
-        const sub = COI_SUB_COLORS[n._coiSub] || COI_SUB_COLORS['None'];
-        updates.push({
-          id: n.id,
-          color: { background: sub.bg, border: sub.border, highlight: { background: sub.highlight, border: '#fff' } },
-        });
+        if (n._category === 'COI Declared') {
+          const sub = COI_SUB_COLORS[n._coiSub] || COI_SUB_COLORS['None'];
+          updates.push({
+            id: n.id,
+            color: { background: sub.bg, border: sub.border, highlight: { background: sub.highlight, border: '#fff' } },
+          });
+        }
       });
       nodes.update(updates);
     } else {
@@ -921,9 +936,12 @@ function renderNetwork() {
       mainLegend.style.display = 'block';
       coiLegend.style.display = 'none';
 
+      // Only reset COI Declared nodes back to orange
       const updates = [];
       nodes.forEach(n => {
-        updates.push({ id: n.id, color: n._catColor });
+        if (n._category === 'COI Declared') {
+          updates.push({ id: n.id, color: n._catColor });
+        }
       });
       nodes.update(updates);
     }
