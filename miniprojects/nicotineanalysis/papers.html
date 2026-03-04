@@ -309,6 +309,7 @@ body {
 .tag-neutral   { background: rgba(136,136,170,0.15); color: var(--neutral); }
 .tag-mixed     { background: rgba(255,204,0,0.15); color: var(--mixed); }
 .tag-na        { background: rgba(136,136,170,0.08); color: var(--muted); }
+.tag-coi-sub   { background: rgba(255,153,64,0.10); color: var(--coi); font-size: 9px; }
 
 /* ── Loading / Empty ──────────────────────────────────────────── */
 .loading, .empty-state {
@@ -412,6 +413,15 @@ body {
       <button class="filter-btn" data-filter="outcome" data-val="Neutral">Neutral</button>
     </div>
 
+    <div class="filter-group">
+      <label>COI Type</label>
+      <button class="filter-btn" data-filter="coi_sub" data-val="Industry Funding">Industry Funding</button>
+      <button class="filter-btn" data-filter="coi_sub" data-val="Consulting/Advisory">Consulting</button>
+      <button class="filter-btn" data-filter="coi_sub" data-val="Financial Interest">Financial</button>
+      <button class="filter-btn" data-filter="coi_sub" data-val="Fees/Compensation">Fees</button>
+      <button class="filter-btn" data-filter="coi_sub" data-val="Legal">Legal</button>
+    </div>
+
     <div class="group-toggle">
       <label style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-right:6px;align-self:center;">Group by</label>
       <button class="group-btn active" data-group="none">None</button>
@@ -436,7 +446,7 @@ let filtered = [];
 let currentPage = 0;
 const PAGE_SIZE = 50;
 
-let filters = { category: null, outcome: null };
+let filters = { category: null, outcome: null, coi_sub: null };
 let groupBy = 'none';
 let searchQuery = '';
 
@@ -459,6 +469,7 @@ function applyFilters() {
   filtered = allPapers.filter(p => {
     if (filters.category && p.category !== filters.category) return false;
     if (filters.outcome && p.outcome !== filters.outcome) return false;
+    if (filters.coi_sub && (p.coi_sub || 'None') !== filters.coi_sub) return false;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       const titleMatch = (p.title || '').toLowerCase().includes(q);
@@ -575,6 +586,7 @@ function renderPaperCard(p) {
     <div class="paper-tags">
       <span class="tag tag-${catClass}">${p.category}</span>
       <span class="tag tag-${outcomeClass}">${p.outcome}</span>
+      ${p.coi_sub && p.coi_sub !== 'None' ? `<span class="tag tag-coi-sub">${p.coi_sub}</span>` : ''}
     </div>
   </div>`;
 }
