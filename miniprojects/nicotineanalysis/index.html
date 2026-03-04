@@ -100,8 +100,8 @@ body {
 
 .section-title {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
   color: var(--cyan);
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -317,8 +317,9 @@ body {
 /* ── Findings ───────────────────────────────────────────────────── */
 .findings-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  grid-template-columns: 1fr;
   gap: 20px;
+  max-width: 900px;
 }
 
 .finding-card {
@@ -329,8 +330,8 @@ body {
 }
 
 .finding-card h3 {
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   margin-bottom: 12px;
   display: flex;
   align-items: center;
@@ -477,8 +478,11 @@ body {
   .page { padding-top: 0 !important; }
   .section { padding: 20px 0; max-width: 100%; }
   .section-title { color: #333 !important; font-size: 14pt; border-bottom: 2px solid #333; padding-bottom: 4px; }
-  .stat-card, .finding-card { break-inside: avoid; }
+  .section { page-break-inside: avoid; break-inside: avoid; }
+  .stat-card, .finding-card { page-break-inside: avoid; break-inside: avoid; margin-bottom: 12px; }
+  .finding-card h3 { page-break-after: avoid; break-after: avoid; }
   .finding-card .stat-highlight { background: #f0f0f0 !important; }
+  .stats-grid { page-break-inside: avoid; break-inside: avoid; }
   .stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
   .findings-grid { grid-template-columns: 1fr !important; }
   .outcome-bar-seg span { color: #1a1a1a !important; text-shadow: none !important; }
@@ -524,7 +528,7 @@ body {
   <!-- Stats Overview -->
   <div class="section">
     <div class="section-title">Overview</div>
-    <p style="color: var(--muted); font-size: 16px; margin-bottom: 20px; max-width: 900px; line-height: 1.7;">
+    <p style="color: var(--muted); font-size: 16px; margin-bottom: 20px; line-height: 1.7;">
       <strong style="color: var(--text);">Does tobacco industry involvement influence research findings?</strong>
       This project analyzes over 2,000 published nicotine and tobacco research papers to investigate whether
       financial conflicts of interest&mdash;such as tobacco company affiliations, consulting fees, or industry funding&mdash;are
@@ -568,7 +572,7 @@ body {
   <!-- Network -->
   <div class="section">
     <div class="section-title">Co-Authorship Network</div>
-    <p style="color: var(--muted); font-size: 16px; margin-bottom: 16px; max-width: 900px; line-height: 1.7;">
+    <p style="color: var(--muted); font-size: 16px; margin-bottom: 16px; line-height: 1.7;">
       <strong style="color: var(--text);">Co-authorship network</strong> of nicotine/tobacco researchers.
       Each <strong style="color: var(--text);">dot is a researcher</strong> (minimum 3 papers);
       <strong style="color: var(--text);">lines connect co-authors</strong> who published together (thicker = more shared papers).
