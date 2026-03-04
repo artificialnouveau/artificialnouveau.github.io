@@ -8,26 +8,26 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a12;
-  --surface: #12121e;
-  --surface2: #1a1a2e;
-  --border: #2a2a44;
-  --text: #e0e0f0;
-  --muted: #8888aa;
-  --cyan: #00d4ff;
-  --magenta: #ff10f0;
-  --red: #ff4444;
-  --orange: #ff9940;
-  --green: #44dd88;
-  --blue: #4488ff;
-  --yellow: #ffcc00;
-  --tobacco: #ff4444;
-  --coi: #ff9940;
-  --independent: #4488ff;
-  --positive: #44dd88;
-  --negative: #ff4444;
-  --neutral: #8888aa;
-  --mixed: #ffcc00;
+  --bg: #ffffff;
+  --surface: #f5f7fa;
+  --surface2: #eef1f6;
+  --border: #d8dde6;
+  --text: #1a1a2e;
+  --muted: #5a6377;
+  --cyan: #003DA5;
+  --magenta: #8b3a9f;
+  --red: #c4302b;
+  --orange: #d4760a;
+  --green: #1a8a4a;
+  --blue: #003DA5;
+  --yellow: #b8860b;
+  --tobacco: #c4302b;
+  --coi: #d4760a;
+  --independent: #003DA5;
+  --positive: #1a8a4a;
+  --negative: #c4302b;
+  --neutral: #5a6377;
+  --mixed: #b8860b;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,7 +44,7 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  background: rgba(10, 10, 18, 0.95);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
@@ -75,8 +75,8 @@ body {
   transition: all 0.2s;
 }
 
-.top-bar nav a:hover { color: var(--text); background: var(--surface2); }
-.top-bar nav a.active { color: var(--cyan); background: var(--surface2); }
+.top-bar nav a:hover { color: var(--text); background: var(--surface); }
+.top-bar nav a.active { color: var(--cyan); background: var(--surface); }
 
 /* ── Page ─────────────────────────────────────────────────────── */
 .page {
@@ -89,7 +89,7 @@ body {
   position: sticky;
   top: 56px;
   z-index: 100;
-  background: rgba(10, 10, 18, 0.95);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   padding: 16px 24px;
@@ -170,14 +170,14 @@ body {
 
 .filter-btn:hover { border-color: var(--text); color: var(--text); }
 
-.filter-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0, 212, 255, 0.08); }
-.filter-btn[data-val="Tobacco Company"].active { border-color: var(--tobacco); color: var(--tobacco); background: rgba(255,68,68,0.08); }
-.filter-btn[data-val="COI Declared"].active { border-color: var(--coi); color: var(--coi); background: rgba(255,153,64,0.08); }
-.filter-btn[data-val="Independent"].active { border-color: var(--independent); color: var(--independent); background: rgba(68,136,255,0.08); }
-.filter-btn[data-val="Positive"].active { border-color: var(--positive); color: var(--positive); background: rgba(68,221,136,0.08); }
-.filter-btn[data-val="Negative"].active { border-color: var(--negative); color: var(--negative); background: rgba(255,68,68,0.08); }
-.filter-btn[data-val="Mixed"].active { border-color: var(--mixed); color: var(--mixed); background: rgba(255,204,0,0.08); }
-.filter-btn[data-val="Neutral"].active { border-color: var(--neutral); color: var(--neutral); background: rgba(136,136,170,0.08); }
+.filter-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,61,165,0.06); }
+.filter-btn[data-val="Tobacco Company"].active { border-color: var(--tobacco); color: var(--tobacco); background: rgba(196,48,43,0.06); }
+.filter-btn[data-val="COI Declared"].active { border-color: var(--coi); color: var(--coi); background: rgba(212,118,10,0.06); }
+.filter-btn[data-val="Independent"].active { border-color: var(--independent); color: var(--independent); background: rgba(0,61,165,0.06); }
+.filter-btn[data-val="Positive"].active { border-color: var(--positive); color: var(--positive); background: rgba(26,138,74,0.06); }
+.filter-btn[data-val="Negative"].active { border-color: var(--negative); color: var(--negative); background: rgba(196,48,43,0.06); }
+.filter-btn[data-val="Mixed"].active { border-color: var(--mixed); color: var(--mixed); background: rgba(184,134,11,0.06); }
+.filter-btn[data-val="Neutral"].active { border-color: var(--neutral); color: var(--neutral); background: rgba(90,99,119,0.06); }
 
 /* ── Group Mode ───────────────────────────────────────────────── */
 .group-toggle {
@@ -199,7 +199,7 @@ body {
 }
 
 .group-btn:hover { color: var(--text); }
-.group-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.08); }
+.group-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,61,165,0.06); }
 
 /* ── Results ──────────────────────────────────────────────────── */
 .results-header {
@@ -308,15 +308,15 @@ body {
   white-space: nowrap;
 }
 
-.tag-tobacco   { background: rgba(255,68,68,0.15); color: var(--tobacco); }
-.tag-coi       { background: rgba(255,153,64,0.15); color: var(--coi); }
-.tag-independent { background: rgba(68,136,255,0.15); color: var(--independent); }
-.tag-positive  { background: rgba(68,221,136,0.15); color: var(--positive); }
-.tag-negative  { background: rgba(255,68,68,0.15); color: var(--negative); }
-.tag-neutral   { background: rgba(136,136,170,0.15); color: var(--neutral); }
-.tag-mixed     { background: rgba(255,204,0,0.15); color: var(--mixed); }
-.tag-na        { background: rgba(136,136,170,0.08); color: var(--muted); }
-.tag-coi-sub   { background: rgba(255,153,64,0.20); color: var(--coi); font-size: 10px; border: 1px solid rgba(255,153,64,0.3); }
+.tag-tobacco   { background: rgba(196,48,43,0.10); color: var(--tobacco); }
+.tag-coi       { background: rgba(212,118,10,0.10); color: var(--coi); }
+.tag-independent { background: rgba(0,61,165,0.08); color: var(--independent); }
+.tag-positive  { background: rgba(26,138,74,0.10); color: var(--positive); }
+.tag-negative  { background: rgba(196,48,43,0.10); color: var(--negative); }
+.tag-neutral   { background: rgba(90,99,119,0.10); color: var(--neutral); }
+.tag-mixed     { background: rgba(184,134,11,0.10); color: var(--mixed); }
+.tag-na        { background: rgba(90,99,119,0.06); color: var(--muted); }
+.tag-coi-sub   { background: rgba(212,118,10,0.12); color: var(--coi); font-size: 10px; border: 1px solid rgba(212,118,10,0.25); }
 
 /* ── Loading / Empty ──────────────────────────────────────────── */
 .loading, .empty-state {
@@ -412,6 +412,7 @@ body {
   <nav>
     <a href="index.html">Network</a>
     <a href="papers.html" class="active">Papers</a>
+    <a href="index.html#" onclick="window.location.href='index.html';setTimeout(()=>window.print(),500);return false;">PDF Report</a>
   </nav>
 </div>
 
