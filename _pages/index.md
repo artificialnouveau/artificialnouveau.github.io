@@ -6,7 +6,7 @@ layout: page
 
 ## ABOUT
 
-Ahnjili ZhuParris, PhD (NL/USA), is a media researcher, computer vision AI engineer, and computational artist working between New York and the Netherlands. She develops AI applications for non-profits, as well as the medical and cosmetic industries while creating research-driven artistic work that raises awareness about AI and algorithmic violence, which is harm emerging from or justified by automated decision-making systems.
+Ahnjili ZhuParris, PhD (NL/USA), is a published scientist, media researcher, computer vision AI engineer, and computational artist. She builds interactive tools and installations that make AI ethics tangible for non-experts, turning opaque algorithms into experiences people can see, hear, and question. Her work spans predictive-policing visualizations, voice-cloning installations, and browser-based tools for digital rights.
 
 Ahnjili holds a PhD in Medicine from Leiden University, Master's in Cognitive Neuroscience from Radboud University and a Bachelor's in Neuroscience from the University of Edinburgh. She is a recipient of the Mozilla Creative Media Award, a Processing Foundation Fellow and a Public AI Creative Fellow. Ahnjili's work has garnered support from the Mozilla Foundation (US), IMPAKT(NL), and Constant (BE) and has showcased her work at Ars Electronica (AU), Articulating Data (UK), and the CICA Museum (KR).
 
