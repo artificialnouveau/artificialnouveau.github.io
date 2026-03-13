@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airbus for AI — The Public AI Company Simulator</title>
+<meta name="description" content="What if middle powers merged their sovereign AI companies into a Public AI Company? Interactive simulator based on the Bennett School analysis by Tan, Jackson, Berjon &amp; Coyle.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #ffffff;
+  --off-white: #f7f8fa;
+  --light-gray: #eef0f4;
+  --mid-gray: #c8cdd6;
+  --dark-gray: #6b7280;
+  --navy: #00205b;
+  --navy-light: #1a3a7a;
+  --navy-dark: #001540;
+  --sky: #0077c8;
+  --sky-light: #4da6e8;
+  --cyan: #00b4d8;
+  --gold: #f0a500;
+  --red: #e63946;
+  --green: #2ec4b6;
+  --purple: #7c3aed;
+  --text: #1a1a2e;
+  --text-secondary: #4a5568;
+  --text-muted: #9ca3af;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--text); background: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+/* === NAV === */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--light-gray);
+  padding: 0 2rem; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: box-shadow 0.3s;
+}
+.topnav.scrolled { box-shadow: var(--shadow-md); }
+.topnav-brand {
+  font-weight: 800; font-size: 1.1rem; color: var(--navy);
+  letter-spacing: -0.02em; display: flex; align-items: center; gap: 0.6rem;
+}
+.topnav-brand svg { width: 28px; height: 28px; }
+.topnav-links { display: flex; gap: 1.5rem; }
+.topnav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+.topnav-links a:hover { color: var(--navy); }
+.topnav-power { display: flex; align-items: center; gap: 0.75rem; font-family: var(--mono); font-size: 0.8rem; font-weight: 600; }
+.power-bar-mini { width: 120px; height: 8px; background: var(--light-gray); border-radius: 4px; overflow: hidden; }
+.power-bar-mini-fill { height: 100%; background: linear-gradient(90deg, var(--sky), var(--cyan)); border-radius: 4px; transition: width 0.8s cubic-bezier(0.16,1,0.3,1); width: 0%; }
+
+
+/* === HERO === */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 6rem 2rem 4rem;
+  background: linear-gradient(170deg, var(--navy-dark) 0%, var(--navy) 40%, var(--sky) 100%);
+  color: white; position: relative; overflow: hidden;
+}
+.hero-particles { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; }
+.hero-particles canvas { width: 100%; height: 100%; }
+.hero-content { position: relative; z-index: 2; max-width: 900px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); margin-bottom: 1.5rem;
+}
+.hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); animation: blink 2s ease infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+.hero-sub { font-size: clamp(1rem, 2vw, 1.25rem); color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.7; }
+.hero-cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.85rem 2rem; border-radius: 8px;
+  font-family: var(--font); font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; border: none; text-decoration: none; transition: all 0.25s;
+}
+.btn-primary { background: var(--white); color: var(--navy); }
+.btn-primary:hover { background: var(--off-white); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.3); }
+.btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
+.btn-action { background: var(--sky); color: white; }
+.btn-action:hover { background: var(--sky-light); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn-action:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn-navy { background: var(--navy); color: white; }
+.btn-navy:hover { background: var(--navy-light); transform: translateY(-2px); }
+.btn-sm { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
+.btn-ghost { background: transparent; color: var(--sky); border: 1px solid var(--light-gray); }
+.btn-ghost:hover { background: var(--off-white); }
+
+.hero-stats-row {
+  display: flex; gap: 3rem; justify-content: center; margin-top: 3rem;
+  padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.15);
+}
+.hero-stat { text-align: center; }
+.hero-stat-val { font-size: 1.5rem; font-weight: 800; font-family: var(--mono); }
+.hero-stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem; }
+
+/* === SECTIONS === */
+.section { padding: 6rem 2rem; max-width: 1280px; margin: 0 auto; }
+.section-header { margin-bottom: 3rem; }
+.section-header h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.75rem; }
+.section-header p { color: var(--text-secondary); font-size: 1.05rem; max-width: 600px; }
+.section-header.center { text-align: center; }
+.section-header.center p { margin: 0 auto; }
+
+/* === STORY === */
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 5rem; }
+.story-grid.reverse { direction: rtl; }
+.story-grid.reverse > * { direction: ltr; }
+.story-visual { background: var(--light-gray); border-radius: var(--radius-lg); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.story-text h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.01em; }
+.story-text p { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.7; }
+.story-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sky); margin-bottom: 0.75rem; }
+
+/* === ASSEMBLY === */
+.assembly-zone { padding: 4rem 2rem 6rem; background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%); }
+.assembly-inner { max-width: 1280px; margin: 0 auto; }
+.assembly-layout { display: grid; grid-template-columns: 300px 1fr 300px; gap: 2rem; min-height: 600px; align-items: start; }
+.company-dock { display: flex; flex-direction: column; gap: 0.75rem; }
+.dock-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem; }
+.company-chip {
+  display: flex; align-items: center; gap: 0.75rem;
+  background: var(--white); border: 2px solid var(--light-gray);
+  border-radius: var(--radius); padding: 0.75rem 1rem;
+  cursor: grab; user-select: none; transition: all 0.25s;
+}
+.company-chip:active { cursor: grabbing; }
+.company-chip:hover { border-color: var(--sky); box-shadow: var(--shadow-md); transform: scale(1.02); }
+.company-chip.merged { opacity: 0.3; pointer-events: none; border-style: dashed; }
+.chip-flag { font-size: 1.4rem; flex-shrink: 0; }
+.chip-info { flex: 1; min-width: 0; }
+.chip-name { font-weight: 700; font-size: 0.85rem; }
+.chip-power { font-size: 0.7rem; color: var(--text-muted); font-family: var(--mono); }
+.chip-add {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--light-gray); background: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--dark-gray);
+  cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+}
+.chip-add:hover { border-color: var(--sky); color: var(--sky); background: rgba(0,119,200,0.05); }
+
+.fusion-reactor { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: 520px; }
+.reactor-ring {
+  width: 360px; height: 360px; border-radius: 50%;
+  border: 3px solid var(--light-gray); position: relative;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.reactor-ring.active { border-color: var(--sky); box-shadow: 0 0 60px rgba(0,119,200,0.15), 0 0 120px rgba(0,119,200,0.05); }
+.reactor-ring.fusing { animation: reactorPulse 0.8s ease; }
+@keyframes reactorPulse {
+  0% { transform: scale(1); box-shadow: 0 0 60px rgba(0,119,200,0.15); }
+  50% { transform: scale(1.08); box-shadow: 0 0 100px rgba(0,119,200,0.4), 0 0 200px rgba(0,180,216,0.2); }
+  100% { transform: scale(1); box-shadow: 0 0 60px rgba(0,119,200,0.15); }
+}
+.reactor-orb {
+  position: absolute; width: 56px; height: 56px; border-radius: 50%;
+  background: var(--white); border: 3px solid var(--sky);
+  display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  box-shadow: var(--shadow-md); transition: all 0.5s cubic-bezier(0.16,1,0.3,1); z-index: 2;
+}
+.reactor-orb.entering { animation: orbEnter 0.6s cubic-bezier(0.16,1,0.3,1); }
+@keyframes orbEnter { 0% { transform: scale(0) rotate(-180deg); opacity: 0; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
+.reactor-center { text-align: center; z-index: 3; }
+.reactor-power-num { font-size: 3.5rem; font-weight: 900; font-family: var(--mono); color: var(--navy); line-height: 1; transition: all 0.3s; }
+.reactor-power-num.boosted { color: var(--sky); }
+.reactor-power-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); font-weight: 700; margin-top: 0.25rem; cursor: help; }
+.reactor-power-tooltip { font-size: 0.65rem; color: var(--text-muted); max-width: 180px; margin: 0.4rem auto 0; line-height: 1.4; opacity: 0; transition: opacity 0.3s; }
+.reactor-center:hover .reactor-power-tooltip { opacity: 1; }
+.reactor-empty-msg { color: var(--text-muted); font-size: 0.9rem; text-align: center; max-width: 200px; }
+.merge-btn-wrap { margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+
+/* Live panel */
+.live-panel {
+  background: var(--white); border: 1px solid var(--light-gray);
+  border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm);
+  position: sticky; top: 80px;
+}
+.live-panel-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 1.5s ease infinite; }
+.live-stat-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--light-gray); }
+.live-stat-row:last-child { border-bottom: none; }
+.live-stat-name { font-size: 0.8rem; color: var(--text-secondary); }
+.live-stat-val { font-family: var(--mono); font-weight: 700; font-size: 0.85rem; transition: all 0.3s; }
+.live-bar-wrap { margin-top: 0.3rem; }
+.live-bar { width: 100%; height: 4px; background: var(--light-gray); border-radius: 2px; overflow: hidden; }
+.live-bar-fill { height: 100%; border-radius: 2px; transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+.achievements { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--light-gray); }
+.achieve-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem; }
+.achieve-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.badge { font-size: 0.65rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 100px; background: var(--light-gray); color: var(--text-muted); transition: all 0.3s; white-space: nowrap; }
+.badge.unlocked { background: var(--navy); color: white; }
+.badge.unlocked.gold { background: var(--gold); color: var(--navy); }
+
+/* Data source indicator */
+.data-source {
+  margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--light-gray);
+  font-size: 0.65rem; color: var(--text-muted); text-align: center;
+}
+.data-source a { color: var(--sky); cursor: pointer; text-decoration: underline; }
+
+/* === NARRATIVE PROSE === */
+.narrative-block {
+  max-width: 720px; margin: 0 auto; padding: 5rem 2rem;
+}
+.narrative-block.wide { max-width: 900px; }
+.narrative-block.on-dark { color: white; }
+.narrative-block.on-dark .narrative-kicker { color: var(--cyan); }
+.narrative-block.on-dark .narrative-body { color: rgba(255,255,255,0.75); }
+.narrative-kicker {
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--sky); margin-bottom: 0.75rem;
+}
+.narrative-heading {
+  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; line-height: 1.2;
+  margin-bottom: 1.25rem; letter-spacing: -0.02em;
+}
+.narrative-body {
+  font-size: 1.1rem; line-height: 1.85; color: var(--text-secondary);
+}
+.narrative-body p { margin-bottom: 1.25rem; }
+.narrative-body strong { color: var(--text); font-weight: 600; }
+.narrative-block.on-dark .narrative-body strong { color: white; }
+.narrative-stats-row {
+  display: flex; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;
+}
+.narrative-stat-item {
+  flex: 1; min-width: 120px; text-align: center; padding: 1.25rem;
+  background: rgba(0,119,200,0.06); border-radius: var(--radius);
+}
+.narrative-block.on-dark .narrative-stat-item { background: rgba(255,255,255,0.06); }
+.narrative-stat-item .val { font-family: var(--mono); font-size: 1.6rem; font-weight: 800; color: var(--sky); }
+.narrative-stat-item .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.narrative-block.on-dark .narrative-stat-item .label { color: rgba(255,255,255,0.4); }
+
+.merge-context {
+  max-width: 720px; margin: 1.5rem auto 0; padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, rgba(0,119,200,0.06), rgba(0,180,216,0.06));
+  border-left: 3px solid var(--sky); border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.95rem; line-height: 1.7; color: var(--text-secondary);
+  transition: opacity 0.5s, max-height 0.5s; overflow: hidden;
+}
+.merge-context strong { color: var(--text); }
+.merge-context.hidden { opacity: 0; max-height: 0; padding: 0 1.5rem; margin: 0 auto; }
+
+/* === THE STRESS TEST === */
+.battle-section { padding: 5rem 2rem; background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy) 100%); color: white; }
+.battle-inner { max-width: 900px; margin: 0 auto; }
+.battle-header { text-align: center; margin-bottom: 2rem; }
+.battle-header h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: 0.5rem; }
+.battle-header p { color: rgba(255,255,255,0.5); font-size: 0.95rem; }
+
+/* Challenger select */
+.challenger-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+.challenger-btn {
+  padding: 0.5rem 1.25rem; border-radius: 100px;
+  background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.7); font-family: var(--font); font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; transition: all 0.25s;
+}
+.challenger-btn:hover { border-color: rgba(255,255,255,0.3); color: white; }
+.challenger-btn.active { border-color: var(--cyan); background: rgba(0,180,216,0.12); color: var(--cyan); }
+
+/* Scoreboard header */
+.battle-scoreboard {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.5rem 2rem; margin-bottom: 0.5rem;
+  background: rgba(255,255,255,0.03); border-radius: var(--radius) var(--radius) 0 0;
+  border: 1px solid rgba(255,255,255,0.06); border-bottom: none;
+}
+.battle-team { text-align: center; flex: 1; }
+.battle-team-name { font-size: 1rem; font-weight: 800; }
+.battle-team-sub { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 0.15rem; }
+.battle-team.ours .battle-team-name { color: var(--cyan); }
+.battle-team.theirs .battle-team-name { color: var(--red); }
+.battle-score-center {
+  font-family: var(--mono); font-size: 2.4rem; font-weight: 900;
+  min-width: 120px; text-align: center; letter-spacing: 0.05em;
+}
+.battle-score-center .s-ours { color: var(--cyan); }
+.battle-score-center .s-theirs { color: var(--red); }
+.battle-score-center .s-dash { color: rgba(255,255,255,0.2); margin: 0 0.15em; }
+
+/* Rounds */
+.battle-rounds {
+  display: flex; flex-direction: column; gap: 0;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+.battle-round {
+  display: grid; grid-template-columns: 1fr 100px 1fr; align-items: center;
+  padding: 1rem 1.5rem; background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.3s, opacity 0.5s, transform 0.5s;
+}
+.battle-round:last-child { border-bottom: none; }
+.battle-round:nth-child(even) { background: rgba(255,255,255,0.04); }
+.battle-round.round-hidden { opacity: 0; transform: translateY(10px); }
+.battle-round.round-reveal { opacity: 1; transform: translateY(0); }
+.battle-round .round-bar {
+  height: 8px; border-radius: 4px; transition: width 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.battle-round .round-left {
+  display: flex; align-items: center; gap: 0.75rem; justify-content: flex-end;
+}
+.battle-round .round-right {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.battle-round .round-left .round-bar { background: var(--cyan); margin-left: auto; }
+.battle-round .round-right .round-bar { background: var(--red); }
+.battle-round .round-val {
+  font-family: var(--mono); font-size: 0.85rem; font-weight: 700; min-width: 28px;
+}
+.battle-round .round-left .round-val { text-align: right; color: var(--cyan); }
+.battle-round .round-right .round-val { text-align: left; color: var(--red); }
+.battle-round .round-label {
+  text-align: center; font-size: 0.7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4);
+}
+.battle-round .round-winner-dot {
+  width: 6px; height: 6px; border-radius: 50%; display: inline-block;
+}
+.battle-round.won-ours .round-label { color: var(--cyan); }
+.battle-round.won-theirs .round-label { color: var(--red); }
+.battle-round.won-ours { background: rgba(0,180,216,0.06); }
+.battle-round.won-theirs { background: rgba(230,57,70,0.06); }
+
+/* Levers row */
+.scenario-levers {
+  display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+  margin: 2rem 0 1.5rem; padding: 1.25rem; border-radius: var(--radius);
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+}
+.scenario-levers-label {
+  width: 100%; text-align: center; font-size: 0.65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3);
+  margin-bottom: 0.4rem;
+}
+.lever-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+  padding: 0.5rem 0.9rem; border-radius: 8px; cursor: pointer;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: 600;
+  transition: all 0.2s; min-width: 85px;
+}
+.lever-btn:hover { background: rgba(255,255,255,0.08); color: white; }
+.lever-btn.active { background: rgba(0,119,200,0.2); border-color: var(--sky); color: white; }
+.lever-btn .lever-icon { font-size: 1.1rem; }
+.lever-btn .lever-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.lever-btn .lever-val { font-family: var(--mono); font-size: 0.7rem; font-weight: 700; color: var(--cyan); }
+.lever-btn input[type="range"] {
+  width: 65px; height: 3px; -webkit-appearance: none; appearance: none;
+  background: rgba(255,255,255,0.12); border-radius: 2px; outline: none; margin-top: 0.2rem;
+}
+.lever-btn input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--cyan); cursor: pointer;
+}
+
+/* Verdict */
+.battle-verdict {
+  text-align: center; margin-top: 1.5rem; padding: 1.5rem 2rem; border-radius: var(--radius);
+  background: rgba(255,255,255,0.04); font-size: 1.1rem; font-weight: 700;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.battle-verdict .win { color: var(--cyan); }
+.battle-verdict .lose { color: var(--red); }
+.battle-verdict .close { color: var(--gold); }
+.battle-verdict .verdict-sub { font-size: 0.85rem; font-weight: 400; color: rgba(255,255,255,0.5); margin-top: 0.5rem; }
+
+/* === BATTLE ROUND TOOLTIPS === */
+.battle-round { position: relative; cursor: pointer; }
+.battle-round:hover { background: rgba(255,255,255,0.07) !important; }
+.round-tooltip {
+  display: none; position: absolute; left: 50%; top: 100%; transform: translateX(-50%);
+  background: rgba(8,8,16,0.96); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px;
+  padding: 1rem 1.25rem; z-index: 50; width: 420px; max-width: 90vw;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5); backdrop-filter: blur(12px);
+  pointer-events: none;
+}
+.battle-round:hover .round-tooltip { display: block; }
+.round-tooltip .tt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.round-tooltip .tt-axis { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.6); }
+.round-tooltip .tt-what { font-size: 0.6rem; color: rgba(255,255,255,0.35); font-style: italic; }
+.round-tooltip .tt-side { margin-bottom: 0.5rem; }
+.round-tooltip .tt-side:last-child { margin-bottom: 0; }
+.round-tooltip .tt-side-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+.round-tooltip .tt-side-label.ours { color: var(--cyan); }
+.round-tooltip .tt-side-label.theirs { color: var(--red); }
+.round-tooltip .tt-fact { font-size: 0.65rem; color: rgba(255,255,255,0.7); line-height: 1.5; padding-left: 0.6rem; position: relative; }
+.round-tooltip .tt-fact::before { content: '•'; position: absolute; left: 0; color: rgba(255,255,255,0.3); }
+
+/* === STORY GUIDE === */
+.story-guide {
+  position: fixed; left: 1rem; top: 50%; transform: translateY(-50%); z-index: 90;
+  display: flex; flex-direction: column; gap: 0.25rem; align-items: flex-start;
+}
+.guide-step {
+  display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.75rem;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px; font-size: 0.65rem; font-weight: 600; color: rgba(255,255,255,0.35);
+  cursor: pointer; transition: all 0.3s; backdrop-filter: blur(8px); text-decoration: none;
+  white-space: nowrap;
+}
+.guide-step:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+.guide-step.active { background: rgba(0,119,200,0.2); border-color: var(--sky); color: var(--sky); }
+.guide-step .guide-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.guide-step .guide-num { font-family: var(--mono); font-size: 0.6rem; opacity: 0.6; }
+@media (max-width: 1200px) { .story-guide { display: none; } }
+
+/* === SCENARIO === */
+.scenario-section { padding: 5rem 2rem; background: var(--off-white); }
+.scenario-inner { max-width: 1100px; margin: 0 auto; }
+.scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.scenario-controls { display: flex; flex-direction: column; gap: 1rem; }
+.slider-card { background: var(--white); border: 1px solid var(--light-gray); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow-sm); }
+.slider-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+.slider-name { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+.slider-val { font-family: var(--mono); font-weight: 700; color: var(--sky); font-size: 0.9rem; }
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: var(--light-gray); border-radius: 3px; outline: none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--sky); cursor: pointer; border: 3px solid var(--white); box-shadow: var(--shadow-sm); }
+input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--sky); cursor: pointer; border: 3px solid var(--white); box-shadow: var(--shadow-sm); }
+.scenario-output { background: var(--white); border: 1px solid var(--light-gray); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-sm); }
+.scenario-output h3 { font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--navy); }
+.scenario-results { display: flex; flex-direction: column; gap: 1.25rem; }
+.scenario-row { display: flex; justify-content: space-between; align-items: center; }
+.scenario-row-label { font-size: 0.85rem; color: var(--text-secondary); }
+.scenario-row-val { font-family: var(--mono); font-weight: 700; font-size: 1.1rem; }
+.scenario-bar { width: 100%; height: 6px; background: var(--light-gray); border-radius: 3px; margin-top: 0.4rem; overflow: hidden; }
+.scenario-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+.scenario-verdict { margin-top: 1.5rem; padding: 1rem; background: var(--off-white); border-radius: var(--radius); text-align: center; font-weight: 600; font-size: 0.9rem; }
+
+/* === ROADMAP === */
+.timeline-section { padding: 5rem 2rem; background: var(--off-white); }
+.timeline-inner { max-width: 800px; margin: 0 auto; }
+.timeline-vertical {
+  position: relative; padding-left: 60px; margin-top: 2rem;
+}
+.timeline-vertical::before {
+  content: ''; position: absolute; left: 24px; top: 0; bottom: 0;
+  width: 3px; background: linear-gradient(180deg, var(--sky), var(--cyan), var(--green));
+  border-radius: 2px;
+}
+.tl-card {
+  position: relative; margin-bottom: 2.5rem; padding: 2rem;
+  background: white; border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md); border: 1px solid var(--light-gray);
+  transition: transform 0.3s, box-shadow 0.3s;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.tl-card.visible { opacity: 1; transform: translateY(0); }
+.tl-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.tl-card.visible:hover { transform: translateY(-2px); }
+.tl-card::before {
+  content: ''; position: absolute; left: -48px; top: 2rem;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: white; border: 3px solid var(--sky);
+  z-index: 1;
+}
+.tl-card.milestone::before { background: var(--sky); box-shadow: 0 0 12px rgba(0,119,200,0.4); }
+.tl-card-year {
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 700;
+  color: var(--sky); text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+.tl-card-title { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: 0.75rem; }
+.tl-card-body { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem; }
+.tl-card-metrics {
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+  padding-top: 1rem; border-top: 1px solid var(--light-gray);
+}
+.tl-metric { text-align: center; flex: 1; min-width: 80px; }
+.tl-metric-val { font-family: var(--mono); font-weight: 800; font-size: 1.3rem; color: var(--sky); }
+.tl-metric-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.15rem; }
+.tl-growth-bar {
+  height: 6px; background: var(--light-gray); border-radius: 3px;
+  margin-top: 1rem; overflow: hidden;
+}
+.tl-growth-bar-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--sky), var(--cyan));
+  transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* === NARRATIVE MODE OVERLAY === */
+.narrative-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 200;
+  background: rgba(0,0,0,0.92); display: none; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem; color: white;
+}
+.narrative-overlay.active { display: flex; }
+.narrative-card {
+  max-width: 700px; width: 100%; text-align: center;
+  animation: narrativeFadeIn 0.6s ease;
+}
+@keyframes narrativeFadeIn { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+.narrative-chapter {
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.15em; color: var(--cyan); margin-bottom: 1rem;
+}
+.narrative-card h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900;
+  line-height: 1.1; margin-bottom: 1.5rem;
+}
+.narrative-card p {
+  font-size: 1.1rem; color: rgba(255,255,255,0.7);
+  line-height: 1.8; margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto;
+}
+.narrative-stat-row {
+  display: flex; gap: 2rem; justify-content: center; margin: 2rem 0;
+  flex-wrap: wrap;
+}
+.narrative-stat { text-align: center; }
+.narrative-stat-val { font-family: var(--mono); font-size: 2rem; font-weight: 900; color: var(--cyan); }
+.narrative-stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; }
+.narrative-controls {
+  display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;
+}
+.narrative-progress {
+  display: flex; gap: 0.5rem; justify-content: center; margin-top: 2rem;
+}
+.narrative-pip {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.2); transition: all 0.3s;
+}
+.narrative-pip.active { background: var(--cyan); transform: scale(1.3); }
+.narrative-pip.done { background: rgba(255,255,255,0.5); }
+
+/* === DATA IMPORT MODAL === */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 300;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+  display: none; align-items: center; justify-content: center; padding: 2rem;
+}
+.modal-overlay.active { display: flex; }
+.modal-box {
+  background: var(--white); border-radius: var(--radius-lg); padding: 2rem;
+  max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+}
+.modal-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--navy); }
+.modal-box p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
+.modal-box textarea {
+  width: 100%; height: 200px; border: 1px solid var(--light-gray);
+  border-radius: var(--radius); padding: 1rem; font-family: var(--mono);
+  font-size: 0.75rem; resize: vertical; outline: none;
+}
+.modal-box textarea:focus { border-color: var(--sky); }
+.modal-actions { display: flex; gap: 0.75rem; margin-top: 1rem; justify-content: flex-end; }
+.modal-close { position: absolute; top: 1rem; right: 1rem; }
+
+/* === SHARE TOAST === */
+.toast {
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--navy); color: white; padding: 0.75rem 1.5rem;
+  border-radius: 100px; font-size: 0.85rem; font-weight: 600;
+  opacity: 0; transition: all 0.3s; z-index: 150; pointer-events: none;
+  box-shadow: var(--shadow-lg);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* === CTA === */
+.cta-section {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--sky) 100%);
+  color: white; text-align: center;
+}
+.cta-section h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 800; margin-bottom: 1rem; }
+.cta-section p { color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 2rem; }
+
+/* === FOOTER === */
+.site-footer { padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--light-gray); padding-bottom: 4rem; }
+.site-footer a { color: var(--sky); text-decoration: none; }
+
+/* === ANIMATIONS === */
+.fade-up { opacity: 0; transform: translateY(30px); transition: all 0.7s cubic-bezier(0.16,1,0.3,1); }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.confetti-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; }
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .assembly-layout { grid-template-columns: 1fr; }
+  .company-dock { flex-direction: row; flex-wrap: wrap; }
+  .company-chip { flex: 1; min-width: 250px; }
+  .reactor-ring { width: 280px; height: 280px; }
+  .reactor-power-num { font-size: 2.5rem; }
+  .live-panel { position: static; }
+  .battle-scoreboard { flex-direction: column; gap: 1rem; text-align: center; }
+  .scenario-levers { gap: 0.5rem; }
+  .story-grid, .story-grid.reverse { grid-template-columns: 1fr; gap: 2rem; direction: ltr; }
+}
+@media (max-width: 600px) {
+  .hero-stats-row { flex-direction: column; gap: 1rem; }
+  .topnav-links { display: none; }
+  .topnav-power { display: none; }
+  .timeline-vertical { padding-left: 40px; }
+  .tl-card::before { left: -28px; }
+}
+
+/* === PRINT / EXPORT === */
+@media print {
+  .topnav, .confetti-overlay, .narrative-overlay, .modal-overlay, .toast, .story-guide { display: none !important; }
+  .hero { min-height: auto; padding: 2rem; }
+  body { color: black; background: white; }
+  .battle-section { background: #f0f0f0; color: black; }
+  .battle-verdict .win, .battle-verdict .close { color: #006600; }
+  .battle-verdict .lose { color: #cc0000; }
+  .tl-card { box-shadow: none; border: 1px solid #ccc; opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav" id="topnav">
+  <div class="topnav-brand">
+    <svg viewBox="0 0 28 28" fill="none"><rect x="2" y="2" width="24" height="24" rx="6" stroke="currentColor" stroke-width="2.5"/><path d="M8 18 L14 8 L20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="15" x2="18" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    AIRBUS FOR AI
+  </div>
+  <div class="topnav-links">
+    <a href="#story">The Precedent</a>
+    <a href="#assembly">Assemble</a>
+    <a href="#battle">Stress Test</a>
+    <a href="#timeline">Roadmap</a>
+    <a href="#" id="narrativeLink" style="color:var(--sky);">Guided Tour</a>
+  </div>
+  <div class="topnav-power">
+    <span id="navPowerLabel">0%</span>
+    <div class="power-bar-mini"><div class="power-bar-mini-fill" id="navPowerBar"></div></div>
+  </div>
+</nav>
+
+<!-- STORY GUIDE (right-side sticky nav) -->
+<div class="story-guide" id="storyGuide">
+  <a href="#story" class="guide-step" data-section="story"><span class="guide-num">01</span> The Precedent <span class="guide-dot"></span></a>
+  <a href="#assembly" class="guide-step" data-section="assembly"><span class="guide-num">02</span> Assemble <span class="guide-dot"></span></a>
+  <a href="#battle" class="guide-step" data-section="battle"><span class="guide-num">03</span> Stress Test <span class="guide-dot"></span></a>
+  <a href="#timeline" class="guide-step" data-section="timeline"><span class="guide-num">04</span> Roadmap <span class="guide-dot"></span></a>
+</div>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-particles"><canvas id="particleCanvas"></canvas></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="dot"></span> Public AI Company Simulator</div>
+    <h1>What if they<br>merged into one?</h1>
+    <p class="hero-sub">ChatGPT holds 79.8% of the global consumer chatbot market. Even Mistral's Le Chat has less than 4% in France. Middle powers face a choice: consolidate or be captured. What happens when you build a Public AI Company?</p>
+    <div class="hero-cta-row">
+      <a href="#assembly" class="btn btn-primary">Start Building</a>
+      <a href="#story" class="btn btn-outline">Read the Story</a>
+      <button class="btn btn-outline" id="heroNarrativeBtn" style="border-color: var(--cyan); color: var(--cyan);">Guided Tour</button>
+    </div>
+    <div class="hero-stats-row">
+      <div class="hero-stat"><div class="hero-stat-val">6</div><div class="hero-stat-label">Companies</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">11</div><div class="hero-stat-label">Candidate Nations</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">$27B+</div><div class="hero-stat-label">Combined Value</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">79.8%</div><div class="hero-stat-label">ChatGPT Market Share</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story" class="section">
+  <div class="story-grid fade-up">
+    <div class="story-visual"><canvas id="airbusCanvas" width="500" height="375"></canvas></div>
+    <div class="story-text">
+      <div class="story-tag">1970 &mdash; The Precedent</div>
+      <h3>They said it couldn't be done</h3>
+      <p>In the late 1960s, European aerospace was fragmented. France, Germany, the UK, Spain &mdash; each had their own companies, each too small to challenge Boeing's dominance. This is the "<strong>middle powers' dilemma</strong>" &mdash; too small to compete alone, too proud to surrender.</p>
+      <p>So they did something radical: they <strong>merged everything</strong>. Not a loose consortium. A real company with shared R&D, shared manufacturing, one mission. A coordinated public-private partnership that bootstrapped a product and focused relentlessly on market strategy.</p>
+      <p><strong>The result?</strong> Airbus went from 0% to 50% of the global commercial aircraft market. 130,000 employees. Revenue exceeding Boeing's. A $100B+ enterprise. As Tan, Jackson, Berjon &amp; Coyle argue: the playbook exists.</p>
+    </div>
+  </div>
+  <div class="story-grid reverse fade-up">
+    <div class="story-visual"><canvas id="parallelCanvas" width="500" height="375"></canvas></div>
+    <div class="story-text">
+      <div class="story-tag">2026 &mdash; The Middle Powers' Dilemma</div>
+      <h3>Four problems, one solution</h3>
+      <p>Middle powers face four interlocking failures: <strong>scale</strong> (no single nation can match US compute), <strong>limited domestic markets</strong> (too small to sustain a frontier lab), <strong>foreign capture</strong> (ChatGPT holds 79.8% of consumer chatbots globally; Mistral's Le Chat has &lt;4% even in France), and <strong>fragmented sovereignty</strong> (dozens of national AI strategies pulling in different directions).</p>
+      <p>But across Canada, France, Germany, Japan, the Netherlands, Singapore, South Korea, Spain, Sweden, Switzerland, and the UK are <strong>extraordinary AI companies</strong> &mdash; private champions like Mistral and Cohere, infrastructure monopolies like ASML, public labs like BSC and RIKEN, and coalitions like New Nordics AI. Each world-class in a specific domain.</p>
+      <p><strong>What if they formed a Public AI Company?</strong> Not a loose consortium, but a real entity &mdash; with shared compute, shared R&D, and a market strategy. Assemble the entity below and find out.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NARRATIVE: THE PIECES -->
+<div class="narrative-block wide fade-up">
+  <div class="narrative-kicker">The Components</div>
+  <h2 class="narrative-heading">The pieces already exist. Nobody has put them together.</h2>
+  <div class="narrative-body">
+    <p>Across eleven candidate nations &mdash; Canada, France, Germany, Japan, the Netherlands, Singapore, South Korea, Spain, Sweden, Switzerland, and the UK &mdash; are <strong>extraordinary AI companies</strong>. Private champions with frontier models. Public labs with sovereign compute. Startups with compression breakthroughs that let frontier models run on a phone. And in the Netherlands, <a href="https://www.cnbc.com/2026/01/29/-ai-boom-nvidia-asml-dutch-chip-equipment-maker-lithography-.html" style="color:var(--sky);">ASML</a> &mdash; the only company on Earth that makes the EUV lithography machines required to manufacture every advanced AI chip.</p>
+    <p>Each is world-class in a specific domain. None can challenge <a href="https://gs.statcounter.com/ai-chatbot-market-share" style="color:var(--sky);">ChatGPT&rsquo;s 79.8% market share</a> alone. But together, they cover the full stack: <strong>models, compute, enterprise distribution, multilingual capability, sovereignty, and open-source community</strong>. The question is whether they stay fragments &mdash; or become something greater.</p>
+  </div>
+  <div class="narrative-stats-row">
+    <div class="narrative-stat-item"><div class="val">11</div><div class="label">Candidate Nations</div></div>
+    <div class="narrative-stat-item"><div class="val">6</div><div class="label">Core Companies</div></div>
+    <div class="narrative-stat-item"><div class="val"><a href="#references" style="color:inherit;text-decoration:none;border-bottom:1px dashed rgba(0,119,200,0.4);">$27B+</a></div><div class="label">Combined Value</div></div>
+    <div class="narrative-stat-item"><div class="val"><a href="#references" style="color:inherit;text-decoration:none;border-bottom:1px dashed rgba(0,119,200,0.4);">532K+</a></div><div class="label">Combined Customers</div></div>
+  </div>
+</div>
+
+<!-- ASSEMBLY -->
+<section class="assembly-zone" id="assembly">
+  <div class="assembly-inner">
+    <div class="section-header center">
+      <h2>Assemble the Entity</h2>
+      <p>Click companies to merge them into the reactor. Watch the power grow.</p>
+    </div>
+    <div class="assembly-layout">
+      <div>
+        <div class="dock-label">Available Companies</div>
+        <div class="company-dock" id="companyDock"></div>
+      </div>
+      <div class="fusion-reactor" id="reactor">
+        <div class="reactor-ring" id="reactorRing">
+          <div class="reactor-center" id="reactorCenter">
+            <div class="reactor-empty-msg">Click a company to begin the merger</div>
+          </div>
+        </div>
+        <div class="merge-btn-wrap">
+          <button class="btn btn-action" id="mergeAllBtn">Merge All Companies</button>
+          <button class="btn btn-ghost btn-sm" id="shareBtn" title="Copy shareable link">Share Link</button>
+          <button class="btn btn-ghost btn-sm" id="exportBtn" title="Export as PDF deck">Export Deck</button>
+        </div>
+      </div>
+      <div class="live-panel" id="livePanel">
+        <div class="live-panel-title"><span class="live-dot"></span> Live Merger Stats</div>
+        <div id="liveStats"></div>
+        <div class="achievements">
+          <div class="achieve-label">Achievements</div>
+          <div class="achieve-row" id="achievements"></div>
+        </div>
+        <div class="data-source" id="dataSource">
+          Data: public estimates (2025-2026)<br>
+          <a id="importDataLink">Load custom data (JSON)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MERGE CONTEXT (appears when companies are added) -->
+<div class="merge-context hidden" id="mergeContext"></div>
+
+<!-- NARRATIVE: THE CONFRONTATION -->
+<div class="narrative-block wide fade-up" style="background: var(--navy-dark); color: white; max-width: 100%; padding: 5rem 2rem;">
+  <div style="max-width: 720px; margin: 0 auto;">
+    <div class="narrative-kicker" style="color: var(--cyan);">The Stress Test</div>
+    <h2 class="narrative-heading">Now test it against the incumbents.</h2>
+    <div class="narrative-body" style="color: rgba(255,255,255,0.75);">
+      <p>A merged entity looks impressive on paper. But can it actually compete? OpenAI crossed $13B in revenue in 2025. Anthropic hit $14B ARR in February 2026, up from $1B just 14 months earlier. Google Gemini sits atop the world's largest compute infrastructure. xAI's Grok merged with SpaceX at a $250B valuation.</p>
+      <p>The gap is real. But it's not permanent. Use the <strong style="color:white;">scenario levers</strong> below to model what happens when governments invest: compute buildouts, procurement contracts, capital injections, talent programs. <strong style="color:white;">Every lever you pull changes the outcome.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- THE STRESS TEST -->
+<section class="battle-section" id="battle">
+  <div class="battle-inner">
+    <div class="battle-header">
+      <h2>The Stress Test</h2>
+      <p>Pick a US hyperscaler to challenge. See where the merged entity wins and loses. Then invest government resources to close the gap.</p>
+    </div>
+    <div class="challenger-row" id="challengerRow"></div>
+    <div class="battle-scoreboard" id="battleScoreboard"></div>
+    <div style="text-align:center;font-size:0.7rem;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;">Scores out of 99 &mdash; based on public data, market reports &amp; expert estimates. <strong style="color:rgba(255,255,255,0.55);">Hover any round</strong> to see the evidence behind each score.</div>
+    <div class="battle-rounds" id="battleRounds"></div>
+    <div class="scenario-levers" id="scenarioLevers">
+      <div class="scenario-levers-label">Government Investment in Public AI Co. &mdash; pull levers to boost the merged entity</div>
+    </div>
+    <div class="battle-verdict" id="battleVerdict"></div>
+  </div>
+</section>
+
+<!-- NARRATIVE: THE FUTURE -->
+<div class="narrative-block wide fade-up">
+  <div class="narrative-kicker">The Roadmap</div>
+  <h2 class="narrative-heading">From announcement to parity in ten years.</h2>
+  <div class="narrative-body">
+    <p>Airbus took three decades to reach parity with Boeing. AI moves faster. With coordinated investment, a merged Public AI Company could reach <strong>competitive parity with leading US labs within a decade</strong>. The roadmap below traces that trajectory &mdash; from the first letters of intent to a 50,000-person, $350B entity serving 30+ allied nations.</p>
+    <p>This isn't speculation. It's the Airbus playbook, applied to the fastest-moving industry in history.</p>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<section class="timeline-section" id="timeline">
+  <div class="timeline-inner">
+    <div class="section-header center fade-up">
+      <h2>The 10-Year Roadmap</h2>
+      <p>From first handshake to competitive parity. Each milestone builds on the last.</p>
+    </div>
+    <div class="timeline-vertical" id="timelineVertical"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>The question isn't whether.<br>It's when.</h2>
+  <p>Every month of fragmentation widens the gap. Airbus proved sovereign consolidation works. The playbook exists. The companies exist. The political will is forming across 11 nations. As Sam Altman himself said: he sometimes wishes this was happening in the public sector.</p>
+  <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+    <a href="#assembly" class="btn btn-primary">Rebuild the Entity</a>
+    <button class="btn btn-outline" id="ctaExportBtn">Export Deck</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" id="references">
+  <div style="max-width:900px; margin:0 auto; text-align:left; padding:2rem;">
+    <strong>Core Framework</strong><br>
+    Based on "<a href="https://publicai.co/airbus-for-ai.pdf">Airbus for AI: A global strategy for public value creation</a>" by Joshua Tan, Brandon Jackson, Robin Berjon &amp; Diane Coyle (Bennett School of Public Policy, Sept 2025).
+    <br><br>
+    <strong>Market Share</strong><br>
+    ChatGPT 79.8% global consumer chatbot market share (Dec 2025): <a href="https://gs.statcounter.com/ai-chatbot-market-share">StatCounter AI Chatbot Market Share</a>
+    <br><br>
+    <strong>Company Data (Middle Powers)</strong><br>
+    Mistral AI: $13.8B valuation, \u20AC300M ARR (Sept 2025) &mdash; <a href="https://mlq.ai/news/mistral-ai-surges-revenue-20-fold-to-over-400-million-arr-amid-europes-ai-push/">MLQ AI</a>, <a href="https://cloudsummit.eu/blog/mistral-ai-14-billion-valuation-europe-turning-point">Cloud Summit EU</a><br>
+    Cohere: $7B valuation, $240M ARR, 17K+ enterprise customers &mdash; <a href="https://betakit.com/coheres-valuation-hits-7-billion-usd-following-100-million-round-extension/">BetaKit</a>, <a href="https://www.cnbc.com/2026/02/13/ai-startup-cohere-revenue-ipo.html">CNBC</a><br>
+    Multiverse Computing: $215M Series B (June 2025), 160+ patents, 95% LLM compression &mdash; <a href="https://techcrunch.com/2025/06/12/multiverse-computing-raises-215m-for-tech-that-could-radically-slim-ai-costs/">TechCrunch</a><br>
+    Aleph Alpha: \u20AC500M raised, PhariaAI sovereign AI OS &mdash; <a href="https://aleph-alpha.com/phariaai/">Aleph Alpha</a><br>
+    DeepL: $2B valuation, $185M revenue (2024), 500K+ customers, considering $5B IPO &mdash; <a href="https://siliconangle.com/2025/10/02/ai-translation-startup-deepl-reportedly-weighing-5b-ipo/">SiliconANGLE</a>, <a href="https://getlatka.com/companies/deepl.com">Latka</a><br>
+    Stability AI: $2.8B valuation, 184 employees &mdash; <a href="https://fueler.io/blog/stability-ai-usage-revenue-valuation-growth-statistics">Fueler</a>
+    <br><br>
+    <strong>Challenger Data (Hyperscalers)</strong><br>
+    OpenAI: $500B+ valuation, $13B revenue (2025) &mdash; <a href="https://www.saastr.com/openai-crosses-12-billion-arr-the-3-year-sprint-that-redefined-whats-possible-in-scaling-software/">SaaStr</a>, <a href="https://fortune.com/2026/02/20/openai-revenue-forecast-280-billion-2030-capex-sam-altman/">Fortune</a><br>
+    Anthropic: $380B valuation, $14B ARR (Feb 2026) &mdash; <a href="https://www.saastr.com/anthropic-just-hit-14-billion-in-arr-up-from-1-billion-just-14-months-ago/">SaaStr</a>, <a href="https://www.anthropic.com/news/anthropic-raises-series-f-at-usd183b-post-money-valuation">Anthropic</a><br>
+    xAI/Grok: $250B valuation (SpaceX merger), $500M ARR &mdash; <a href="https://www.businessofapps.com/data/grok-statistics/">Business of Apps</a>, <a href="https://sacra.com/c/xai/">Sacra</a><br>
+    Google Gemini &amp; Meta AI: Alphabet &amp; Meta public earnings filings.
+    <br><br>
+    <strong>Competitive scores</strong> (compute, models, enterprise, sovereignty, research, revenue) are editorial estimates informed by the Bennett School analysis and public reporting. They are designed for relative comparison, not absolute measurement. Use the <a href="#" onclick="document.getElementById('importDataLink').click();return false;">custom data import</a> to substitute your own figures.
+    <br><br>
+    <em>Last updated: March 2026. All figures are public estimates and may not reflect the latest private valuations.</em>
+  </div>
+</footer>
+
+<!-- NARRATIVE MODE OVERLAY -->
+<div class="narrative-overlay" id="narrativeOverlay">
+  <div class="narrative-card" id="narrativeCard"></div>
+  <div class="narrative-progress" id="narrativePips"></div>
+</div>
+
+<!-- DATA IMPORT MODAL -->
+<div class="modal-overlay" id="importModal">
+  <div class="modal-box">
+    <h3>Load Custom Company Data</h3>
+    <p>Paste JSON data to replace the default estimates. This lets you use real data (e.g., from Jacob Taylor's modeling). Format: array of company objects with the same structure as the defaults.</p>
+    <p style="font-size:0.75rem; color:var(--text-muted);">
+      Required fields per company: <code>id, name, country, flag, color, superpower, desc, valuation, arr, employees, customers, patents, scores: {compute, models, enterprise, sovereignty, research, revenue}</code>
+    </p>
+    <textarea id="importTextarea" placeholder='[
+  {
+    "id": "mistral",
+    "name": "Mistral AI",
+    "country": "France",
+    "flag": "🇫🇷",
+    "color": "#3b82f6",
+    "superpower": "Frontier Models + Own Compute",
+    "desc": "675B MoE models, 18K NVIDIA Blackwell GPUs",
+    "valuation": 14,
+    "arr": 400,
+    "employees": 800,
+    "customers": 5000,
+    "patents": 30,
+    "scores": {
+      "compute": 82, "models": 90, "enterprise": 60,
+      "sovereignty": 85, "research": 88, "revenue": 72
+    }
+  }
+]'></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-sm" id="importCancel">Cancel</button>
+      <button class="btn btn-ghost btn-sm" id="importReset">Reset to Defaults</button>
+      <button class="btn btn-action btn-sm" id="importApply">Apply Data</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CONFETTI -->
+<canvas class="confetti-overlay" id="confettiCanvas"></canvas>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+// Sources for all data points are listed in the references section at the bottom of the page.
+// Company valuations: PitchBook, Crunchbase, TechCrunch funding announcements.
+// Revenue/ARR: Sacra, SaaStr, CNBC, Globe & Mail, company announcements.
+// Market share: StatCounter AI Chatbot Market Share (Dec 2025).
+const DEFAULT_COMPANIES = [
+  { id: 'mistral', name: 'Mistral AI', country: 'France', flag: '\u{1F1EB}\u{1F1F7}', color: '#3b82f6', superpower: 'Frontier Models + Own Compute', desc: '675B MoE models, nuclear-powered compute, targeting \u20AC1B revenue by end of 2026', valuation: 13.8, arr: 300, employees: 500, customers: 5000, patents: 30, scores: { compute: 82, models: 90, enterprise: 60, sovereignty: 85, research: 88, revenue: 72 } },
+  { id: 'cohere', name: 'Cohere', country: 'Canada', flag: '\u{1F1E8}\u{1F1E6}', color: '#ef4444', superpower: 'Enterprise AI + Agentic Platform', desc: 'North agentic platform, 17K+ enterprise customers, 70% gross margins', valuation: 7, arr: 240, employees: 600, customers: 17000, patents: 45, scores: { compute: 50, models: 72, enterprise: 95, sovereignty: 70, research: 75, revenue: 68 } },
+  { id: 'multiverse', name: 'Multiverse Computing', country: 'Spain', flag: '\u{1F1EA}\u{1F1F8}', color: '#f59e0b', superpower: '95% Quantum LLM Compression', desc: 'CompactifAI: compress LLMs by 95% with 2-3% precision loss, 160+ patents', valuation: 1.5, arr: 50, employees: 200, customers: 100, patents: 160, scores: { compute: 30, models: 40, enterprise: 45, sovereignty: 65, research: 92, revenue: 25 } },
+  { id: 'aleph', name: 'Aleph Alpha', country: 'Germany', flag: '\u{1F1E9}\u{1F1EA}', color: '#10b981', superpower: 'Sovereign Gov/Defense AI', desc: 'PhariaAI: full-stack sovereign AI OS for governments, air-gapped deployment', valuation: 0.5, arr: 30, employees: 150, customers: 50, patents: 20, scores: { compute: 25, models: 55, enterprise: 50, sovereignty: 98, research: 65, revenue: 20 } },
+  { id: 'deepl', name: 'DeepL', country: 'Germany', flag: '\u{1F1E9}\u{1F1EA}', color: '#06b6d4', superpower: 'Multilingual AI Dominance', desc: 'Best-in-class translation, 30+ languages, 500K+ customers, considering $5B IPO', valuation: 2, arr: 185, employees: 900, customers: 500000, patents: 35, scores: { compute: 35, models: 60, enterprise: 80, sovereignty: 75, research: 70, revenue: 55 } },
+  { id: 'stability', name: 'Stability AI', country: 'United Kingdom', flag: '\u{1F1EC}\u{1F1E7}', color: '#8b5cf6', superpower: 'Open-Source Multimodal', desc: 'Stable Diffusion ecosystem, open-source image/video/audio generation', valuation: 2.8, arr: 60, employees: 184, customers: 10000, patents: 15, scores: { compute: 40, models: 70, enterprise: 35, sovereignty: 55, research: 80, revenue: 30 } }
+];
+
+let COMPANIES = JSON.parse(JSON.stringify(DEFAULT_COMPANIES));
+
+// Hyperscaler data: OpenAI (SaaStr, Fortune Feb 2026), Anthropic (SaaStr Feb 2026, Series G),
+// Google Gemini (Alphabet earnings), Meta AI (Meta earnings), xAI/Grok (Business of Apps, Sacra).
+const HYPERSCALERS = [
+  { id: 'openai', name: 'OpenAI', sub: 'USA ($500B+ val, Feb 2026)', valuation: 500, arr: 13000, employees: 500, compute: 95, models: 96, enterprise: 85, sovereignty: 20, research: 95, revenue: 95 },
+  { id: 'gemini', name: 'Google Gemini', sub: 'USA (Alphabet)', valuation: 2000, arr: 50000, employees: 5000, compute: 99, models: 97, enterprise: 90, sovereignty: 15, research: 99, revenue: 99 },
+  { id: 'anthropic', name: 'Anthropic', sub: 'USA ($380B val, Feb 2026)', valuation: 380, arr: 14000, employees: 1500, compute: 80, models: 93, enterprise: 75, sovereignty: 25, research: 93, revenue: 88 },
+  { id: 'meta', name: 'Meta AI', sub: 'USA (Meta)', valuation: 1500, arr: 0, employees: 4000, compute: 95, models: 92, enterprise: 50, sovereignty: 10, research: 92, revenue: 70 },
+  { id: 'grok', name: 'Grok (xAI)', sub: 'USA ($250B val, SpaceX merger)', valuation: 250, arr: 500, employees: 1000, compute: 90, models: 88, enterprise: 40, sovereignty: 15, research: 85, revenue: 45 }
+];
+
+const AXES = ['compute', 'models', 'enterprise', 'sovereignty', 'research', 'revenue'];
+const AXIS_LABELS = { compute: 'Compute', models: 'Models', enterprise: 'Enterprise', sovereignty: 'Sovereignty', research: 'Research', revenue: 'Revenue' };
+const AXIS_HINTS = {
+  compute: 'GPU/TPU capacity, data center scale, FLOPS available',
+  models: 'Frontier model capability, benchmark scores, architecture',
+  enterprise: 'Business customers, platform maturity, SLA readiness',
+  sovereignty: 'Data residency, government trust, regulatory alignment',
+  research: 'Papers published, talent depth, open-source contributions',
+  revenue: 'Annual recurring revenue, growth rate, market penetration'
+};
+
+// Detailed rationale for each hyperscaler's axis scores
+const HYPER_RATIONALE = {
+  openai: {
+    compute: { score: 95, facts: ['$500B Stargate project with SoftBank/Oracle', 'Partnership with Microsoft Azure', 'Custom GPU clusters at scale'] },
+    models: { score: 96, facts: ['GPT-4o, o1, o3 frontier models', '#1 on LMSYS Arena (2025)', 'Multimodal: text, image, voice, video'] },
+    enterprise: { score: 85, facts: ['ChatGPT Enterprise: 1M+ business users', 'API serves 92% of Fortune 500', '$200/mo Pro tier launched'] },
+    sovereignty: { score: 20, facts: ['US-only headquarters', 'Subject to CLOUD Act', 'No EU data residency option'] },
+    research: { score: 95, facts: ['500+ research staff', 'Pioneered RLHF and scaling laws', 'InstructGPT, DALL-E, Whisper'] },
+    revenue: { score: 95, facts: ['$13B ARR (Jan 2026, SaaStr)', '400M+ weekly active users', '79.8% chatbot market share (StatCounter)'] }
+  },
+  gemini: {
+    compute: { score: 99, facts: ['World\'s largest AI compute fleet', '1M+ TPU v5p pods', '7 hyperscale data centers for AI'] },
+    models: { score: 97, facts: ['Gemini 2.0 Ultra: top benchmarks', '2M token context window', 'Native multimodal (text, code, image, video)'] },
+    enterprise: { score: 90, facts: ['Google Cloud: $43B/yr revenue', 'Vertex AI platform', 'Duet AI in Workspace (3B+ users)'] },
+    sovereignty: { score: 15, facts: ['US-headquartered (Alphabet)', 'Subject to FISA & CLOUD Act', 'Limited sovereign deployment options'] },
+    research: { score: 99, facts: ['DeepMind: 2,500+ researchers', 'AlphaFold, AlphaGo, Gemma open models', '2,000+ papers/year, top venue publications'] },
+    revenue: { score: 99, facts: ['Alphabet: $350B/yr total revenue', 'Cloud AI growing 35% YoY', 'Dominant in search + ads AI stack'] }
+  },
+  anthropic: {
+    compute: { score: 80, facts: ['$8B from Amazon (AWS partnership)', 'Custom Trainium chip access via AWS', 'Smaller than OpenAI/Google infra'] },
+    models: { score: 93, facts: ['Claude 3.5/4 Opus: top safety benchmarks', '#2 on LMSYS Arena coding tasks', '200K context window, strong reasoning'] },
+    enterprise: { score: 75, facts: ['14K ARR Feb 2026 (SaaStr)', 'Amazon Bedrock integration', 'Growing enterprise API adoption'] },
+    sovereignty: { score: 25, facts: ['US-headquartered, San Francisco', 'Dependent on AWS infrastructure', 'Strong safety/alignment focus'] },
+    research: { score: 93, facts: ['Founded by ex-OpenAI researchers', 'Constitutional AI, RLHF advances', '1,500 employees, research-heavy'] },
+    revenue: { score: 88, facts: ['$14B ARR (Feb 2026)', 'Up from $1B just 14 months prior', '$380B valuation (Series G, Feb 2026)'] }
+  },
+  meta: {
+    compute: { score: 95, facts: ['350K+ H100 GPUs (largest private fleet)', '$37B+ capex planned for AI (2025)', 'Custom MTIA inference chips'] },
+    models: { score: 92, facts: ['LLaMA 3.1 405B: top open model', 'Open-source leader (10M+ downloads)', 'Multimodal: text, image, video gen'] },
+    enterprise: { score: 50, facts: ['No enterprise API product (yet)', 'AI primarily powers Meta apps', 'LLaMA used widely but not sold as service'] },
+    sovereignty: { score: 10, facts: ['US-headquartered (Meta Platforms)', 'History of EU regulatory conflicts', 'GDPR fines exceeding €1.3B'] },
+    research: { score: 92, facts: ['FAIR lab: 700+ researchers', 'LLaMA, Segment Anything, DINO', 'Major open-source AI contributor'] },
+    revenue: { score: 70, facts: ['Meta: $160B/yr total revenue', 'AI drives ads (98% of revenue)', 'No standalone AI product revenue yet'] }
+  },
+  grok: {
+    compute: { score: 90, facts: ['100K H100 "Colossus" cluster (Memphis)', 'Largest single GPU cluster in world (2024)', 'SpaceX merger adds satellite infra'] },
+    models: { score: 88, facts: ['Grok-2: competitive on benchmarks', 'Real-time X/Twitter data access', 'Image generation (Aurora)'] },
+    enterprise: { score: 40, facts: ['Limited enterprise offering', 'Primarily consumer (X Premium)', '$500M ARR est. (Sacra)'] },
+    sovereignty: { score: 15, facts: ['US-headquartered', 'Tied to X/SpaceX ecosystem', 'Subject to US jurisdiction'] },
+    research: { score: 85, facts: ['1,000 employees, rapid hiring', 'Built Colossus in 122 days', 'Focus on speed over publication'] },
+    revenue: { score: 45, facts: ['~$500M ARR (Business of Apps)', '$250B valuation (SpaceX merger)', 'Revenue mostly from X Premium subs'] }
+  }
+};
+
+// Rationale for merged entity scores per axis (based on contributing companies)
+const COMPANY_AXIS_FACTS = {
+  mistral: {
+    compute: 'Mistral: nuclear-powered compute deal, own GPU clusters',
+    models: 'Mistral: 675B MoE models, top-5 on LMSYS Arena',
+    enterprise: 'Mistral: 5K customers, growing enterprise API',
+    sovereignty: 'Mistral: French HQ, EU data residency, GDPR compliant',
+    research: 'Mistral: founded by ex-DeepMind/Meta researchers',
+    revenue: 'Mistral: $300M ARR, targeting €1B by end 2026'
+  },
+  cohere: {
+    compute: 'Cohere: relies on cloud partners (AWS, GCP, Oracle)',
+    models: 'Cohere: Command R+ for RAG, strong multilingual',
+    enterprise: 'Cohere: 17K enterprise customers, North agentic platform',
+    sovereignty: 'Cohere: Canadian HQ, multi-cloud deployment',
+    research: 'Cohere: founded by Transformer paper co-authors',
+    revenue: 'Cohere: $240M ARR, 70% gross margins'
+  },
+  multiverse: {
+    compute: 'Multiverse: quantum-classical hybrid compression',
+    models: 'Multiverse: CompactifAI compresses LLMs 95%',
+    enterprise: 'Multiverse: 100 enterprise customers',
+    sovereignty: 'Multiverse: Spanish HQ, EU-based',
+    research: 'Multiverse: 160+ patents, quantum ML pioneer',
+    revenue: 'Multiverse: $50M ARR, early stage'
+  },
+  aleph: {
+    compute: 'Aleph Alpha: sovereign on-prem compute only',
+    models: 'Aleph Alpha: PhariaAI sovereign model stack',
+    enterprise: 'Aleph Alpha: gov/defense contracts (BND, Bundeswehr)',
+    sovereignty: 'Aleph Alpha: air-gapped deployment, German gov trusted',
+    research: 'Aleph Alpha: Heidelberg-based, EU AI research hub',
+    revenue: 'Aleph Alpha: $30M ARR, pivoted to sovereign platform'
+  },
+  deepl: {
+    compute: 'DeepL: own inference infrastructure for translation',
+    models: 'DeepL: best-in-class translation, 30+ languages',
+    enterprise: 'DeepL: 500K+ customers, enterprise translation API',
+    sovereignty: 'DeepL: German HQ, EU data processing, GDPR native',
+    research: 'DeepL: advanced NMT research, proprietary architectures',
+    revenue: 'DeepL: $185M ARR, considering $5B IPO'
+  },
+  stability: {
+    compute: 'Stability: distributed compute, open-source efficiency',
+    models: 'Stability: Stable Diffusion 3, image/video/audio gen',
+    enterprise: 'Stability: 10K customers, API + on-prem licensing',
+    sovereignty: 'Stability: UK HQ, open-source = deployable anywhere',
+    research: 'Stability: open-source leader, 100K+ community contributors',
+    revenue: 'Stability: $60M ARR, restructuring for profitability'
+  }
+};
+
+const ACHIEVEMENTS = [
+  { id: 'first', label: 'First Merger', check: s => s.size >= 1 },
+  { id: 'duo', label: 'Power Duo', check: s => s.size >= 2 },
+  { id: 'triple', label: 'Triple Threat', check: s => s.size >= 3 },
+  { id: 'eu', label: 'EU United', check: s => ['mistral','aleph','deepl','multiverse'].every(c => s.has(c)) },
+  { id: 'fiveeyes', label: 'Five Nations', check: s => { const countries = new Set(COMPANIES.filter(c => s.has(c.id)).map(c => c.country)); return countries.size >= 4; } },
+  { id: 'full', label: 'Full Merger', check: s => s.size === COMPANIES.length, gold: true }
+];
+
+const TIMELINE_DATA = [
+  { year: 2026, title: 'Announcement & LOI', desc: 'Letters of intent signed. Sovereign AI Alliance announced at a joint summit. Markets react. Initial combined valuation recognized.', valuation: 26, competitive: 45 },
+  { year: 2027, title: 'Legal Merger Completes', desc: 'Entity incorporated. Unified leadership team. Shared compute infrastructure begins integration. First joint model training run.', valuation: 35, competitive: 55 },
+  { year: 2028, title: 'First Joint Frontier Model', desc: 'Combined research team ships a flagship model trained on unified compute. CompactifAI compression makes it deployable anywhere. Government contracts accelerate.', valuation: 55, competitive: 68 },
+  { year: 2029, title: 'Enterprise Breakout', desc: 'Cohere\'s enterprise platform + Mistral\'s models + DeepL\'s multilingual stack = unbeatable enterprise offering. 500K+ customers.', valuation: 80, competitive: 75 },
+  { year: 2030, title: 'Compute Parity', desc: 'With government-backed compute buildout and Multiverse compression, effective compute rivals hyperscalers. Nuclear-powered EU data centers online.', valuation: 120, competitive: 82 },
+  { year: 2032, title: 'Global AI Superpower', desc: 'The merged entity is the world\'s third-largest AI company by revenue. Sovereign AI standard for 30+ allied nations. The Airbus story repeats.', valuation: 200, competitive: 90 },
+  { year: 2035, title: 'Parity Achieved', desc: 'Full competitive parity with leading US labs. Airbus for AI employs 50,000+ across 25 nations. Revenue exceeds $50B. The bet paid off.', valuation: 350, competitive: 96 }
+];
+
+// ============================================================
+// NARRATIVE MODE CHAPTERS
+// ============================================================
+const NARRATIVE_CHAPTERS = [
+  {
+    chapter: 'Chapter 1 of 7',
+    title: 'The Middle Powers\' Dilemma',
+    body: 'ChatGPT holds 79.8% of the global consumer chatbot market. Even in France, Mistral\'s Le Chat has less than 4%. Sam Altman himself has said he sometimes wishes AI development was happening in the public sector.\n\nMiddle powers face four interlocking failures: they lack scale, their domestic markets are too small, they face foreign capture, and their sovereignty efforts are fragmented.',
+    stats: [
+      { val: '79.8%', label: 'ChatGPT Market Share' },
+      { val: '<4%', label: 'Le Chat in France' },
+      { val: '4', label: 'Interlocking Failures' }
+    ],
+    action: null
+  },
+  {
+    chapter: 'Chapter 2 of 7',
+    title: 'The Precedent',
+    body: 'In 1970, Europe faced the same dilemma in aerospace. Boeing dominated. No single European company could compete.\n\nFrance, Germany, the UK, and Spain merged their companies into Airbus \u2014 a coordinated public-private partnership. It went from zero to 50% market share. As the Bennett School analysis argues: the playbook already exists.',
+    stats: [
+      { val: '0% \u2192 50%', label: 'Market Share' },
+      { val: '130K', label: 'Employees' },
+      { val: '$100B+', label: 'Enterprise Value' }
+    ],
+    action: null
+  },
+  {
+    chapter: 'Chapter 3 of 7',
+    title: 'The Pieces Exist',
+    body: 'Across 11 candidate nations \u2014 Canada, France, Germany, Japan, the Netherlands, Singapore, South Korea, Spain, Sweden, Switzerland, and the UK \u2014 are extraordinary AI companies: private champions, public labs, and national coalitions. Each world-class in a specific domain. And in the Netherlands, ASML \u2014 the only company that makes the EUV lithography machines every advanced AI chip requires.',
+    stats: [
+      { val: '11', label: 'Candidate Nations' },
+      { val: '6', label: 'Core Companies' },
+      { val: '$27B+', label: 'Combined Value' }
+    ],
+    action: 'clear'
+  },
+  {
+    chapter: 'Chapter 4 of 7',
+    title: 'The Frontier Engine',
+    body: 'Mistral AI brings frontier-class models trained on their own nuclear-powered compute. Cohere brings 100,000+ enterprise customers and the North agentic platform. Two powerhouses. One entity.',
+    stats: [
+      { val: '675B', label: 'Mistral Parameters' },
+      { val: '100K+', label: 'Cohere Customers' },
+      { val: '$21B', label: 'Combined Valuation' }
+    ],
+    action: ['mistral', 'cohere']
+  },
+  {
+    chapter: 'Chapter 5 of 7',
+    title: 'The Force Multipliers',
+    body: 'Multiverse Computing compresses those frontier models by 95% &mdash; deployable on phones, drones, even Raspberry Pi. Aleph Alpha makes the stack sovereign and air-gapped. DeepL makes it speak 30+ languages natively.',
+    stats: [
+      { val: '95%', label: 'Compression' },
+      { val: 'Air-gapped', label: 'Sovereignty' },
+      { val: '30+', label: 'Languages' }
+    ],
+    action: ['multiverse', 'aleph', 'deepl']
+  },
+  {
+    chapter: 'Chapter 6 of 7',
+    title: 'The Full Stack',
+    body: 'Add Stability AI for open-source multimodal generation and you have the complete entity: frontier models, enterprise platform, quantum compression, sovereign deployment, multilingual AI, and open-source community.',
+    stats: null,
+    action: ['stability']
+  },
+  {
+    chapter: 'Chapter 7 of 7',
+    title: 'The Public AI Company',
+    body: 'The case rests on four pillars: collective action solves problems no single nation can, AI is a public good that shouldn\'t be monopolized, sovereignty requires a kill switch you actually control, and scale without monopoly is possible through coordination.\n\nAs the Bennett School paper concludes: the question isn\'t whether. It\'s when. Every month of fragmentation is a month the gap widens.',
+    stats: null,
+    action: null,
+    final: true
+  }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+const S = {
+  merged: new Set(),
+  challenger: 'openai',
+  sliders: { compute: 0, contracts: 0, capital: 0, talent: 0 },
+  timelineIdx: 0,
+  narrativeIdx: 0,
+  narrativeOpen: false,
+  customData: false,
+  _confettiFired: false
+};
+
+// ============================================================
+// HELPERS
+// ============================================================
+function getSelected() { return COMPANIES.filter(c => S.merged.has(c.id)); }
+
+function getCombined() {
+  const sel = getSelected();
+  if (!sel.length) return null;
+  const scores = {};
+  AXES.forEach(a => {
+    const vals = sel.map(c => c.scores[a]);
+    const max = Math.max(...vals);
+    const avg = vals.reduce((s,v) => s+v, 0) / vals.length;
+    const synergy = Math.min(sel.length * 5, 30);
+    scores[a] = Math.min(99, Math.round(max * 0.7 + avg * 0.3 + synergy));
+  });
+  return {
+    valuation: sel.reduce((s,c) => s + c.valuation, 0),
+    arr: sel.reduce((s,c) => s + c.arr, 0),
+    employees: sel.reduce((s,c) => s + c.employees, 0),
+    customers: sel.reduce((s,c) => s + c.customers, 0),
+    patents: sel.reduce((s,c) => s + c.patents, 0),
+    countries: new Set(sel.map(c => c.country)).size,
+    scores
+  };
+}
+
+function powerPercent() {
+  const c = getCombined();
+  if (!c) return 0;
+  return Math.round(Object.values(c.scores).reduce((a,b)=>a+b,0) / (AXES.length * 99) * 100);
+}
+
+function showToast(msg, duration=2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ============================================================
+// 1. SHAREABLE URL STATE
+// ============================================================
+function saveToURL() {
+  const params = new URLSearchParams();
+  if (S.merged.size > 0) params.set('m', [...S.merged].join(','));
+  if (S.challenger !== 'openai') params.set('c', S.challenger);
+  const sl = S.sliders;
+  if (sl.compute || sl.contracts || sl.capital || sl.talent) {
+    params.set('s', `${sl.compute},${sl.contracts},${sl.capital},${sl.talent}`);
+  }
+  if (S.timelineIdx > 0) params.set('t', S.timelineIdx);
+  const hash = params.toString();
+  history.replaceState(null, '', hash ? '#' + hash : location.pathname);
+}
+
+function loadFromURL() {
+  const hash = location.hash.slice(1);
+  if (!hash) return;
+  try {
+    const params = new URLSearchParams(hash);
+    if (params.has('m')) {
+      params.get('m').split(',').forEach(id => {
+        if (COMPANIES.find(c => c.id === id)) S.merged.add(id);
+      });
+    }
+    if (params.has('c')) {
+      const cid = params.get('c');
+      if (HYPERSCALERS.find(h => h.id === cid)) S.challenger = cid;
+    }
+    if (params.has('s')) {
+      const parts = params.get('s').split(',').map(Number);
+      if (parts.length === 4) {
+        S.sliders.compute = parts[0] || 0;
+        S.sliders.contracts = parts[1] || 0;
+        S.sliders.capital = parts[2] || 0;
+        S.sliders.talent = parts[3] || 0;
+      }
+    }
+    if (params.has('t')) S.timelineIdx = parseInt(params.get('t')) || 0;
+  } catch(e) {}
+}
+
+function copyShareLink() {
+  saveToURL();
+  const url = location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    showToast('Link copied to clipboard!');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Link copied!');
+  });
+}
+
+// ============================================================
+// 2. EXPORT AS DECK (PDF via print)
+// ============================================================
+function exportDeck() {
+  const c = getCombined();
+  const sel = getSelected();
+  const h = HYPERSCALERS.find(x => x.id === S.challenger);
+  const { compute, contracts, capital, talent } = S.sliders;
+  const projVal = c ? c.valuation + capital * 2 + contracts * 10 + compute * 0.5 : 0;
+  const projArr = c ? c.arr + contracts * 1000 + capital * 30 + compute * 5 : 0;
+
+  const battles = c ? AXES.map(axis => {
+    const mScore = c.scores[axis];
+    const hScore = h[axis];
+    return { axis: AXIS_LABELS[axis], mScore, hScore, winner: mScore > hScore ? 'Public AI Co.' : h.name };
+  }) : [];
+  const wins = battles.filter(b => b.winner === 'Public AI Co.').length;
+
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html><head><title>Airbus for AI — Merger Deck</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Inter', sans-serif; color: #1a1a2e; background: white; }
+.page { padding: 60px; min-height: 100vh; page-break-after: always; display: flex; flex-direction: column; justify-content: center; }
+.page:last-child { page-break-after: auto; }
+h1 { font-size: 48px; font-weight: 900; color: #00205b; line-height: 1.1; margin-bottom: 16px; }
+h2 { font-size: 32px; font-weight: 800; color: #00205b; margin-bottom: 12px; }
+h3 { font-size: 20px; font-weight: 700; color: #0077c8; margin-bottom: 8px; }
+p { font-size: 16px; color: #4a5568; line-height: 1.7; margin-bottom: 12px; }
+.subtitle { font-size: 20px; color: #4a5568; max-width: 500px; }
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 32px 0; }
+.stat-box { background: #f7f8fa; border-radius: 12px; padding: 24px; text-align: center; }
+.stat-val { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 800; color: #0077c8; }
+.stat-label { font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+.company-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.company-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #f7f8fa; border-radius: 8px; }
+.company-item .flag { font-size: 24px; }
+.company-item .name { font-weight: 700; }
+.company-item .power { font-size: 12px; color: #6b7280; font-family: 'JetBrains Mono', monospace; }
+.battle-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eef0f4; font-size: 14px; }
+.battle-row:last-child { border-bottom: none; }
+.win { color: #2ec4b6; font-weight: 700; }
+.lose { color: #e63946; font-weight: 700; }
+.eyebrow { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #0077c8; margin-bottom: 8px; }
+.footer-note { font-size: 11px; color: #9ca3af; margin-top: 32px; }
+@media print { .page { padding: 40px; } }
+</style></head><body>
+
+<div class="page">
+  <div class="eyebrow">Airbus for AI</div>
+  <h1>What if they merged<br>into one?</h1>
+  <p class="subtitle">A sovereign AI merger analysis. ${sel.length} companies across ${c ? c.countries : 0} nations.</p>
+  <div class="stat-grid">
+    <div class="stat-box"><div class="stat-val">$${c ? c.valuation.toFixed(1) : 0}B</div><div class="stat-label">Combined Valuation</div></div>
+    <div class="stat-box"><div class="stat-val">$${c ? c.arr : 0}M</div><div class="stat-label">Combined ARR</div></div>
+    <div class="stat-box"><div class="stat-val">${c ? c.employees.toLocaleString() : 0}</div><div class="stat-label">Combined Workforce</div></div>
+  </div>
+  <div class="footer-note">Data from public filings & research estimates (2025-2026). ${S.customData ? 'Using custom data.' : ''}</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Components</div>
+  <h2>Selected Companies</h2>
+  <div class="company-list">
+    ${sel.map(c => `<div class="company-item"><span class="flag">${c.flag}</span><div><div class="name">${c.name}</div><div class="power">${c.superpower}</div></div></div>`).join('')}
+  </div>
+  <div class="stat-grid">
+    ${AXES.map(a => `<div class="stat-box"><div class="stat-val">${c ? c.scores[a] : 0}/99</div><div class="stat-label">${AXIS_LABELS[a]}</div></div>`).join('')}
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Competitive Analysis</div>
+  <h2>vs. ${h.name}</h2>
+  <p>Head-to-head comparison across 6 key dimensions. Public AI Co. ${wins > 3 ? 'wins' : wins === 3 ? 'ties' : 'trails'} ${wins}-${6-wins}.</p>
+  <div style="margin: 24px 0;">
+    ${battles.map(b => `<div class="battle-row"><span>${b.axis}</span><span>Public AI Co.: <strong>${b.mScore}</strong></span><span>${h.name}: <strong>${b.hScore}</strong></span><span class="${b.winner === 'Public AI Co.' ? 'win' : 'lose'}">${b.winner}</span></div>`).join('')}
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Scenario Projection (3 Years)</div>
+  <h2>With Government Support</h2>
+  <p>Modeled with: ${compute} EFLOPS compute, $${contracts}B/yr contracts, $${capital}B capital, ${talent} researchers.</p>
+  <div class="stat-grid">
+    <div class="stat-box"><div class="stat-val">$${projVal.toFixed(1)}B</div><div class="stat-label">Projected Valuation</div></div>
+    <div class="stat-box"><div class="stat-val">$${(projArr/1000).toFixed(1)}B</div><div class="stat-label">Projected ARR</div></div>
+    <div class="stat-box"><div class="stat-val">${Math.min(100, (projVal / 300 * 100)).toFixed(0)}%</div><div class="stat-label">vs OpenAI</div></div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Precedent</div>
+  <h2>Airbus proved it works.</h2>
+  <p>In 1970, four nations merged their aerospace companies into Airbus. It went from 0% to 50% global market share, now employing 130,000 people with revenue exceeding Boeing's.</p>
+  <p>The same playbook can work for AI. As Tan, Jackson, Berjon & Coyle argue in their Bennett School analysis: collective action, public goods, sovereignty, and scale without monopoly make the case for a Public AI Company across 11 middle-power nations.</p>
+  <h3 style="margin-top: 32px;">The question isn't whether. It's when.</h3>
+  <div class="footer-note">Based on "Airbus for AI" (Bennett School of Public Policy, Sept 2025). Generated from airbusforai.org. ${new Date().toLocaleDateString()}</div>
+</div>
+
+</body></html>`);
+  win.document.close();
+  setTimeout(() => win.print(), 500);
+}
+
+// ============================================================
+// 4. DATA IMPORT (Jacob Taylor data support)
+// ============================================================
+function openImportModal() {
+  document.getElementById('importModal').classList.add('active');
+  // Pre-fill with current data
+  document.getElementById('importTextarea').value = JSON.stringify(COMPANIES, null, 2);
+}
+
+function closeImportModal() {
+  document.getElementById('importModal').classList.remove('active');
+}
+
+function applyImportData() {
+  const raw = document.getElementById('importTextarea').value.trim();
+  try {
+    const data = JSON.parse(raw);
+    if (!Array.isArray(data) || data.length === 0) throw new Error('Must be a non-empty array');
+    // Validate each company has required fields
+    data.forEach((c, i) => {
+      if (!c.id || !c.name || !c.scores) throw new Error(`Company ${i} missing id, name, or scores`);
+      AXES.forEach(a => { if (typeof c.scores[a] !== 'number') throw new Error(`Company ${c.id} missing score: ${a}`); });
+    });
+    COMPANIES = data;
+    S.merged.clear();
+    S.customData = true;
+    document.getElementById('dataSource').innerHTML = 'Data: <strong>custom (imported)</strong><br><a id="importDataLink">Edit data</a>';
+    document.getElementById('importDataLink').addEventListener('click', e => { e.preventDefault(); openImportModal(); });
+    closeImportModal();
+    updateEverything();
+    renderDock();
+    showToast(`Loaded ${data.length} companies!`);
+  } catch(e) {
+    alert('Invalid JSON: ' + e.message);
+  }
+}
+
+function resetToDefaults() {
+  COMPANIES = JSON.parse(JSON.stringify(DEFAULT_COMPANIES));
+  S.merged.clear();
+  S.customData = false;
+  document.getElementById('dataSource').innerHTML = 'Data: public estimates (2025-2026)<br><a id="importDataLink">Load custom data (JSON)</a>';
+  document.getElementById('importDataLink').addEventListener('click', e => { e.preventDefault(); openImportModal(); });
+  closeImportModal();
+  updateEverything();
+  renderDock();
+  showToast('Reset to default data');
+}
+
+// ============================================================
+// 5. NARRATIVE MODE
+// ============================================================
+function openNarrative() {
+  S.narrativeIdx = 0;
+  S.narrativeOpen = true;
+  document.getElementById('narrativeOverlay').classList.add('active');
+  renderNarrativeChapter();
+}
+
+function closeNarrative() {
+  S.narrativeOpen = false;
+  document.getElementById('narrativeOverlay').classList.remove('active');
+}
+
+function renderNarrativeChapter() {
+  const ch = NARRATIVE_CHAPTERS[S.narrativeIdx];
+  const card = document.getElementById('narrativeCard');
+  const pips = document.getElementById('narrativePips');
+
+  // Execute action (merge companies)
+  if (ch.action === 'clear') {
+    S.merged.clear();
+    updateEverything();
+  } else if (Array.isArray(ch.action)) {
+    ch.action.forEach(id => S.merged.add(id));
+    updateEverything();
+  }
+
+  const bodyHtml = ch.body.split('\n\n').map(p => `<p>${p}</p>`).join('');
+  const statsHtml = ch.stats ? `<div class="narrative-stat-row">${ch.stats.map(s =>
+    `<div class="narrative-stat"><div class="narrative-stat-val">${s.val}</div><div class="narrative-stat-label">${s.label}</div></div>`
+  ).join('')}</div>` : '';
+
+  const isFirst = S.narrativeIdx === 0;
+  const isLast = S.narrativeIdx === NARRATIVE_CHAPTERS.length - 1;
+
+  card.innerHTML = `
+    <div class="narrative-chapter">${ch.chapter}</div>
+    <h2>${ch.title}</h2>
+    ${bodyHtml}
+    ${statsHtml}
+    <div class="narrative-controls">
+      ${!isFirst ? '<button class="btn btn-outline btn-sm" id="narPrev">Back</button>' : ''}
+      ${!isLast ? '<button class="btn btn-primary btn-sm" id="narNext">Continue</button>' : ''}
+      ${isLast ? '<button class="btn btn-primary btn-sm" id="narClose">Explore the Simulator</button>' : ''}
+      <button class="btn btn-outline btn-sm" id="narSkip" style="opacity:0.5;">Skip Tour</button>
+    </div>
+  `;
+
+  // Pips
+  pips.innerHTML = NARRATIVE_CHAPTERS.map((_, i) =>
+    `<div class="narrative-pip ${i === S.narrativeIdx ? 'active' : ''} ${i < S.narrativeIdx ? 'done' : ''}"></div>`
+  ).join('');
+
+  // Events
+  const next = document.getElementById('narNext');
+  const prev = document.getElementById('narPrev');
+  const close = document.getElementById('narClose');
+  const skip = document.getElementById('narSkip');
+  if (next) next.addEventListener('click', () => { S.narrativeIdx++; renderNarrativeChapter(); });
+  if (prev) prev.addEventListener('click', () => { S.narrativeIdx--; renderNarrativeChapter(); });
+  if (close) close.addEventListener('click', closeNarrative);
+  if (skip) skip.addEventListener('click', closeNarrative);
+}
+
+
+// ============================================================
+// PARTICLES
+// ============================================================
+function initParticles() {
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  const particles = [];
+  function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 60; i++) {
+    particles.push({ x: Math.random()*W, y: Math.random()*H, vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4, r: Math.random()*2+1, a: Math.random()*0.3+0.1 });
+  }
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x<0) p.x=W; if (p.x>W) p.x=0; if (p.y<0) p.y=H; if (p.y>H) p.y=0;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=`rgba(255,255,255,${p.a})`; ctx.fill();
+    });
+    for (let i=0;i<particles.length;i++) for (let j=i+1;j<particles.length;j++) {
+      const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y, d=Math.sqrt(dx*dx+dy*dy);
+      if (d<120) { ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.strokeStyle=`rgba(255,255,255,${0.06*(1-d/120)})`; ctx.lineWidth=1; ctx.stroke(); }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// ============================================================
+// STORY CANVASES
+// ============================================================
+function drawAirbusStory() {
+  const canvas = document.getElementById('airbusCanvas');
+  const ctx = canvas.getContext('2d');
+  const W=500, H=375;
+  ctx.clearRect(0,0,W,H);
+  const sky = ctx.createLinearGradient(0,0,0,H); sky.addColorStop(0,'#e0f0ff'); sky.addColorStop(1,'#f7f8fa');
+  ctx.fillStyle=sky; ctx.fillRect(0,0,W,H);
+  const colors=['#3b82f6','#10b981','#8b5cf6','#f59e0b'];
+  const positions=[{x:80,y:80},{x:80,y:280},{x:200,y:50},{x:200,y:310}];
+  positions.forEach((p,i) => {
+    ctx.save(); ctx.translate(p.x,p.y); ctx.fillStyle=colors[i];
+    ctx.beginPath(); ctx.moveTo(0,-6); ctx.lineTo(25,0); ctx.lineTo(0,6); ctx.lineTo(5,0); ctx.closePath(); ctx.fill();
+    ctx.fillRect(5,-15,8,30); ctx.restore();
+  });
+  ctx.strokeStyle='#c8cdd6'; ctx.lineWidth=2; ctx.setLineDash([4,4]);
+  positions.forEach(p => { ctx.beginPath(); ctx.moveTo(p.x+30,p.y); ctx.quadraticCurveTo(300,H/2,350,H/2); ctx.stroke(); });
+  ctx.setLineDash([]);
+  ctx.save(); ctx.translate(370,H/2); ctx.fillStyle='#00205b';
+  ctx.beginPath(); ctx.moveTo(0,-14); ctx.lineTo(70,0); ctx.lineTo(0,14); ctx.lineTo(10,0); ctx.closePath(); ctx.fill();
+  ctx.fillRect(15,-35,16,70); ctx.fillRect(-5,-20,10,40); ctx.restore();
+  ctx.font='bold 14px Inter,sans-serif'; ctx.fillStyle='#00205b'; ctx.textAlign='center'; ctx.fillText('AIRBUS',400,H/2+50);
+  ctx.font='11px Inter,sans-serif'; ctx.fillStyle='#6b7280';
+  ['Sud Aviation','Deutsche Airbus','Hawker Siddeley','CASA'].forEach((n,i) => ctx.fillText(n,positions[i].x+10,positions[i].y+25));
+}
+
+function drawParallelStory() {
+  const canvas = document.getElementById('parallelCanvas');
+  const ctx = canvas.getContext('2d');
+  const W=500, H=375;
+  ctx.clearRect(0,0,W,H);
+  const bg = ctx.createLinearGradient(0,0,0,H); bg.addColorStop(0,'#f0f4ff'); bg.addColorStop(1,'#f7f8fa');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  const companies = COMPANIES.slice(0,6);
+  const angleStep = (Math.PI*2)/companies.length;
+  const cx=W/2, cy=H/2, radius=130;
+  companies.forEach((c,i) => {
+    const angle=angleStep*i-Math.PI/2;
+    const x=cx+Math.cos(angle)*radius, y=cy+Math.sin(angle)*radius;
+    ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(cx,cy); ctx.strokeStyle=c.color+'40'; ctx.lineWidth=2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(x,y,22,0,Math.PI*2); ctx.fillStyle=c.color+'15'; ctx.fill(); ctx.strokeStyle=c.color; ctx.lineWidth=2.5; ctx.stroke();
+    ctx.font='18px serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(c.flag,x,y);
+    ctx.font='bold 9px Inter,sans-serif'; ctx.fillStyle='#1a1a2e'; ctx.fillText(c.name,x,y+34);
+  });
+  ctx.beginPath(); ctx.arc(cx,cy,30,0,Math.PI*2);
+  const grad=ctx.createRadialGradient(cx,cy,0,cx,cy,30); grad.addColorStop(0,'#0077c8'); grad.addColorStop(1,'#00205b');
+  ctx.fillStyle=grad; ctx.fill();
+  ctx.font='bold 10px Inter,sans-serif'; ctx.fillStyle='white'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('MERGE',cx,cy);
+}
+
+// ============================================================
+// ASSEMBLY
+// ============================================================
+function renderDock() {
+  const dock = document.getElementById('companyDock');
+  dock.innerHTML = COMPANIES.map(c => `
+    <div class="company-chip ${S.merged.has(c.id)?'merged':''}" data-id="${c.id}">
+      <div class="chip-flag">${c.flag}</div>
+      <div class="chip-info"><div class="chip-name">${c.name}</div><div class="chip-power">${c.superpower}</div></div>
+      <button class="chip-add" data-id="${c.id}">${S.merged.has(c.id)?'\u2713':'+'}</button>
+    </div>
+  `).join('');
+  dock.querySelectorAll('.chip-add').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); toggleCompany(btn.dataset.id); }));
+  dock.querySelectorAll('.company-chip').forEach(chip => chip.addEventListener('click', () => toggleCompany(chip.dataset.id)));
+}
+
+function toggleCompany(id) {
+  if (S.merged.has(id)) S.merged.delete(id); else { S.merged.add(id); pulseReactor(); }
+  updateEverything();
+  updateMergeContext();
+}
+
+function pulseReactor() {
+  const ring = document.getElementById('reactorRing');
+  ring.classList.remove('fusing'); void ring.offsetWidth; ring.classList.add('fusing');
+}
+
+function updateReactor() {
+  const ring = document.getElementById('reactorRing');
+  const center = document.getElementById('reactorCenter');
+  const sel = getSelected();
+  ring.classList.toggle('active', sel.length > 0);
+  ring.querySelectorAll('.reactor-orb').forEach(o => o.remove());
+  if (sel.length === 0) { center.innerHTML = '<div class="reactor-empty-msg">Click a company to begin the merger</div>'; return; }
+  const ringSize = ring.offsetWidth || 360;
+  const orbRadius = (ringSize / 2) - 32;
+  sel.forEach((c, i) => {
+    const angle = (Math.PI * 2 / sel.length) * i - Math.PI / 2;
+    const x = Math.cos(angle) * orbRadius, y = Math.sin(angle) * orbRadius;
+    const orb = document.createElement('div');
+    orb.className = 'reactor-orb entering';
+    orb.style.left = `calc(50% + ${x}px - 28px)`;
+    orb.style.top = `calc(50% + ${y}px - 28px)`;
+    orb.style.borderColor = c.color;
+    orb.textContent = c.flag;
+    ring.appendChild(orb);
+  });
+  const pct = powerPercent();
+  const tipText = pct >= 95 ? 'No single entity controls 100% of any technology stack — real-world overlap, competing standards, and diminishing returns create a natural ceiling.' : '';
+  center.innerHTML = `<div class="reactor-power-num ${pct > 60 ? 'boosted' : ''}">${pct}%</div><div class="reactor-power-label">Combined Power</div>${tipText ? `<div class="reactor-power-tooltip">${tipText}</div>` : ''}`;
+}
+
+function updateLivePanel() {
+  const c = getCombined();
+  const stats = document.getElementById('liveStats');
+  if (!c) { stats.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;padding:1rem 0;">No companies merged yet</div>'; updateAchievements(); return; }
+  const items = [
+    { name:'Valuation', val:`$${c.valuation.toFixed(1)}B`, bar:c.valuation/300, color:'#0077c8' },
+    { name:'ARR', val:`$${c.arr}M`, bar:c.arr/12000, color:'#2ec4b6' },
+    { name:'Employees', val:c.employees.toLocaleString(), bar:c.employees/5000, color:'#7c3aed' },
+    { name:'Customers', val:c.customers>=1000?`${(c.customers/1000).toFixed(0)}K`:c.customers, bar:Math.min(1,c.customers/200000), color:'#06b6d4' },
+    { name:'Patents', val:c.patents, bar:c.patents/500, color:'#f0a500' },
+    { name:'Nations', val:c.countries, bar:c.countries/5, color:'#3b82f6' }
+  ];
+  stats.innerHTML = items.map(s => `
+    <div class="live-stat-row"><span class="live-stat-name">${s.name}</span><span class="live-stat-val">${s.val}</span></div>
+    <div class="live-bar-wrap"><div class="live-bar"><div class="live-bar-fill" style="width:${Math.min(100,s.bar*100)}%;background:${s.color};"></div></div></div>
+  `).join('');
+  updateAchievements();
+}
+
+function updateAchievements() {
+  const container = document.getElementById('achievements');
+  container.innerHTML = ACHIEVEMENTS.map(a => {
+    const unlocked = a.check(S.merged);
+    return `<div class="badge ${unlocked?'unlocked':''} ${unlocked&&a.gold?'gold':''}">${unlocked?'\u2713 ':''}${a.label}</div>`;
+  }).join('');
+}
+
+function updateNavPower() {
+  const pct = powerPercent();
+  document.getElementById('navPowerLabel').textContent = pct + '%';
+  document.getElementById('navPowerBar').style.width = pct + '%';
+}
+
+// ============================================================
+// BATTLE
+// ============================================================
+function renderChallengers() {
+  const row = document.getElementById('challengerRow');
+  row.innerHTML = HYPERSCALERS.map(h => `<button class="challenger-btn ${S.challenger===h.id?'active':''}" data-id="${h.id}">${h.name}</button>`).join('');
+  row.querySelectorAll('.challenger-btn').forEach(btn => btn.addEventListener('click', () => { S.challenger=btn.dataset.id; renderChallengers(); updateBattle(true); saveToURL(); }));
+}
+
+function buildRoundTooltip(axis, hId) {
+  const sel = getSelected();
+  const hr = HYPER_RATIONALE[hId];
+  const hFacts = hr && hr[axis] ? hr[axis].facts : [];
+  // Gather facts from merged companies
+  const ourFacts = sel.map(c => COMPANY_AXIS_FACTS[c.id] ? COMPANY_AXIS_FACTS[c.id][axis] : null).filter(Boolean);
+  return `<div class="round-tooltip">
+    <div class="tt-header"><span class="tt-axis">${AXIS_LABELS[axis]}</span><span class="tt-what">${AXIS_HINTS[axis]}</span></div>
+    <div class="tt-side"><div class="tt-side-label ours">Public AI Co. — why this score</div>${ourFacts.map(f => `<div class="tt-fact">${f}</div>`).join('')}</div>
+    <div class="tt-side"><div class="tt-side-label theirs">${HYPERSCALERS.find(x=>x.id===hId).name} — why this score</div>${hFacts.map(f => `<div class="tt-fact">${f}</div>`).join('')}</div>
+  </div>`;
+}
+
+function updateBattle(animate) {
+  const scoreboard = document.getElementById('battleScoreboard');
+  const roundsEl = document.getElementById('battleRounds');
+  const verdict = document.getElementById('battleVerdict');
+  const c = getCombined(), h = HYPERSCALERS.find(x => x.id === S.challenger);
+
+  if (!c) {
+    scoreboard.innerHTML = '';
+    roundsEl.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:3rem;">Merge companies above to begin the stress test.</div>';
+    verdict.innerHTML = '';
+    return;
+  }
+
+  const boost = getScenarioBoost();
+  const hasBoost = Object.values(S.sliders).some(v => v > 0);
+  const rounds = AXES.map(axis => {
+    const baseScore = c.scores[axis];
+    const mScore = Math.min(99, baseScore + (boost[axis] || 0));
+    const hScore = h[axis];
+    const maxScore = Math.max(mScore, hScore);
+    return {
+      axis, mScore, hScore, boosted: mScore > baseScore,
+      mPct: (mScore / maxScore) * 100,
+      hPct: (hScore / maxScore) * 100,
+      winner: mScore > hScore ? 'ours' : mScore < hScore ? 'theirs' : 'draw'
+    };
+  });
+
+  const wins = rounds.filter(r => r.winner === 'ours').length;
+  const losses = rounds.filter(r => r.winner === 'theirs').length;
+
+  // Scoreboard
+  scoreboard.innerHTML = `
+    <div class="battle-team ours">
+      <div class="battle-team-name">Public AI Company</div>
+      <div class="battle-team-sub">${S.merged.size} companies${hasBoost ? ' + investment' : ''}</div>
+    </div>
+    <div class="battle-score-center">
+      <span class="s-ours">${wins}</span><span class="s-dash">&ndash;</span><span class="s-theirs">${losses}</span>
+    </div>
+    <div class="battle-team theirs">
+      <div class="battle-team-name">${h.name}</div>
+      <div class="battle-team-sub">${h.sub}</div>
+    </div>
+  `;
+
+  // Rounds
+  roundsEl.innerHTML = rounds.map((r, i) => `
+    <div class="battle-round won-${r.winner} ${animate ? 'round-hidden' : 'round-reveal'}" data-idx="${i}">
+      <div class="round-left">
+        <span class="round-val">${r.mScore}<span style="opacity:0.4;font-size:0.7em">/99</span>${r.boosted ? ' ↑' : ''}</span>
+        <div class="round-bar" style="width:${animate ? 0 : r.mPct}%; height:8px; min-width:4px;"></div>
+      </div>
+      <div class="round-label">${AXIS_LABELS[r.axis]}</div>
+      <div class="round-right">
+        <div class="round-bar" style="width:${animate ? 0 : r.hPct}%; height:8px; min-width:4px;"></div>
+        <span class="round-val">${r.hScore}<span style="opacity:0.4;font-size:0.7em">/99</span></span>
+      </div>
+      ${buildRoundTooltip(r.axis, S.challenger)}
+    </div>
+  `).join('');
+
+  // Animate rounds sequentially
+  if (animate) {
+    rounds.forEach((r, i) => {
+      setTimeout(() => {
+        const row = roundsEl.querySelector(`[data-idx="${i}"]`);
+        if (!row) return;
+        row.classList.remove('round-hidden');
+        row.classList.add('round-reveal');
+        const bars = row.querySelectorAll('.round-bar');
+        if (bars[0]) bars[0].style.width = r.mPct + '%';
+        if (bars[1]) bars[1].style.width = r.hPct + '%';
+      }, 200 + i * 300);
+    });
+  }
+
+  // Verdict
+  const verdictDelay = animate ? 200 + rounds.length * 300 + 200 : 0;
+  setTimeout(() => {
+    if (wins > losses) {
+      verdict.innerHTML = `<span class="win">The merged entity takes it, ${wins}&ndash;${losses}.</span><div class="verdict-sub">${hasBoost ? 'Government investment is decisive. The gap closes.' : 'Combined sovereignty and enterprise breadth overcome raw scale.'}</div>`;
+    } else if (wins < losses) {
+      verdict.innerHTML = `<span class="lose">${h.name} leads ${losses}&ndash;${wins}.</span><div class="verdict-sub">${losses - wins <= 2 ? 'Close. Pull the levers above &mdash; a few policy decisions change this outcome.' : 'The scale gap is real. But the levers above model what coordinated investment does.'}</div>`;
+    } else {
+      verdict.innerHTML = `<span class="close">Dead heat, ${wins}&ndash;${losses}.</span><div class="verdict-sub">${hasBoost ? 'Investment is working. One more push tips the balance.' : 'Already competitive at baseline. The levers show what breaks the tie.'}</div>`;
+    }
+  }, verdictDelay);
+}
+
+// ============================================================
+// SCENARIO (integrated into Battle as lever buttons)
+// ============================================================
+const LEVERS = [
+  { key:'compute', icon:'\u{1F5A5}', label:'Compute', min:0, max:100, step:25, fmt:v=>`${v} EFLOPS` },
+  { key:'contracts', icon:'\u{1F4DC}', label:'Contracts', min:0, max:50, step:10, fmt:v=>`$${v}B/yr` },
+  { key:'capital', icon:'\u{1F4B0}', label:'Capital', min:0, max:100, step:25, fmt:v=>`$${v}B` },
+  { key:'talent', icon:'\u{1F9D1}\u{200D}\u{1F4BB}', label:'Talent', min:0, max:2000, step:500, fmt:v=>v>=1000?`${(v/1000).toFixed(1)}K`:`${v}` }
+];
+
+function renderScenarioLevers() {
+  const container = document.getElementById('scenarioLevers');
+  container.innerHTML = `<div class="scenario-levers-label">Scenario Levers &mdash; tune to change the outcome</div>` +
+    LEVERS.map(l => `
+      <div class="lever-btn ${S.sliders[l.key]>0?'active':''}" data-key="${l.key}">
+        <span class="lever-icon">${l.icon}</span>
+        <span class="lever-label">${l.label}</span>
+        <span class="lever-val" id="lv-${l.key}">${l.fmt(S.sliders[l.key])}</span>
+        <input type="range" min="${l.min}" max="${l.max}" step="${l.step}" value="${S.sliders[l.key]}" id="lr-${l.key}">
+      </div>
+    `).join('');
+  LEVERS.forEach(l => {
+    const el = document.getElementById(`lr-${l.key}`);
+    el.addEventListener('input', () => {
+      S.sliders[l.key] = parseInt(el.value);
+      document.getElementById(`lv-${l.key}`).textContent = l.fmt(S.sliders[l.key]);
+      el.closest('.lever-btn').classList.toggle('active', S.sliders[l.key] > 0);
+      updateBattle();
+      saveToURL();
+    });
+  });
+}
+
+function getScenarioBoost() {
+  const {compute, contracts, capital, talent} = S.sliders;
+  // Normalize each lever to 0-1 range, then apply meaningful boost (up to ~25 pts each)
+  const cNorm = compute / 100;       // 0-1
+  const kNorm = contracts / 50;      // 0-1
+  const capNorm = capital / 100;     // 0-1
+  const tNorm = talent / 2000;       // 0-1
+  return {
+    compute:     Math.round(cNorm * 25 + capNorm * 8),
+    models:      Math.round(cNorm * 15 + tNorm * 18 + capNorm * 5),
+    enterprise:  Math.round(kNorm * 22 + capNorm * 12 + tNorm * 5),
+    sovereignty: Math.round(kNorm * 15 + cNorm * 18 + capNorm * 5),
+    research:    Math.round(tNorm * 25 + capNorm * 10 + cNorm * 8),
+    revenue:     Math.round(kNorm * 25 + capNorm * 15 + tNorm * 5)
+  };
+}
+
+// ============================================================
+// MERGE CONTEXT SNIPPETS
+// ============================================================
+const MERGE_SNIPPETS = {
+  mistral: '<strong>Mistral AI joins.</strong> 675B parameter frontier models and 18K NVIDIA Blackwell GPUs. The entity now has its own compute and its own models &mdash; the two things every sovereign AI strategy needs first.',
+  cohere: '<strong>Cohere joins.</strong> 17,000+ enterprise customers and the North agentic platform. The entity now has distribution &mdash; the hardest thing to build from scratch.',
+  multiverse: '<strong>Multiverse Computing joins.</strong> Their CompactifAI technology compresses frontier models by 95%. Suddenly the entity\'s models run on phones, drones, edge devices. No cloud dependency required.',
+  aleph: '<strong>Aleph Alpha joins.</strong> Air-gapped sovereign deployment for governments and defense. The entity can now serve the most security-sensitive customers in the world.',
+  deepl: '<strong>DeepL joins.</strong> Best-in-class multilingual AI across 30+ languages. The entity doesn\'t just serve Europe &mdash; it speaks Europe.',
+  stability: '<strong>Stability AI joins.</strong> Open-source multimodal generation &mdash; images, video, audio. The entity now has a community of millions of developers building on its stack.'
+};
+
+function updateMergeContext() {
+  const el = document.getElementById('mergeContext');
+  const sel = getSelected();
+  if (sel.length === 0) { el.classList.add('hidden'); return; }
+  const latest = sel[sel.length - 1];
+  const snippet = MERGE_SNIPPETS[latest.id];
+  if (snippet) {
+    el.innerHTML = snippet;
+    el.classList.remove('hidden');
+  }
+}
+
+// ============================================================
+// ROADMAP
+// ============================================================
+function renderTimeline() {
+  const container = document.getElementById('timelineVertical');
+  const lastIdx = TIMELINE_DATA.length - 1;
+  container.innerHTML = TIMELINE_DATA.map((t, i) => `
+    <div class="tl-card ${i === lastIdx ? 'milestone' : ''}" data-idx="${i}">
+      <div class="tl-card-year">${t.year}</div>
+      <div class="tl-card-title">${t.title}</div>
+      <div class="tl-card-body">${t.desc}</div>
+      <div class="tl-growth-bar"><div class="tl-growth-bar-fill" data-width="${t.competitive}"></div></div>
+      <div class="tl-card-metrics">
+        <div class="tl-metric"><div class="tl-metric-val">$${t.valuation}B</div><div class="tl-metric-label">Valuation</div></div>
+        <div class="tl-metric"><div class="tl-metric-val">${t.competitive}%</div><div class="tl-metric-label">Competitive Index</div></div>
+        <div class="tl-metric"><div class="tl-metric-val">${Math.round(t.valuation / 300 * 100)}%</div><div class="tl-metric-label">vs OpenAI</div></div>
+      </div>
+    </div>
+  `).join('');
+
+  // Scroll-triggered reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        const bar = e.target.querySelector('.tl-growth-bar-fill');
+        if (bar) setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 200);
+      }
+    });
+  }, { threshold: 0.2 });
+  container.querySelectorAll('.tl-card').forEach(card => observer.observe(card));
+}
+
+function updateTimeline() { /* now handled by scroll observer */ }
+
+// ============================================================
+// CONFETTI
+// ============================================================
+function fireConfetti() {
+  const canvas=document.getElementById('confettiCanvas'), ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  const pieces=[], colors=['#0077c8','#00b4d8','#f0a500','#2ec4b6','#3b82f6','#ef4444','#8b5cf6','#10b981'];
+  for (let i=0;i<150;i++) pieces.push({x:Math.random()*canvas.width,y:-20-Math.random()*200,w:Math.random()*8+4,h:Math.random()*6+2,vx:(Math.random()-0.5)*4,vy:Math.random()*4+2,rot:Math.random()*Math.PI*2,vr:(Math.random()-0.5)*0.2,color:colors[Math.floor(Math.random()*colors.length)],life:1});
+  let frame=0;
+  function animate() {
+    ctx.clearRect(0,0,canvas.width,canvas.height); let alive=false;
+    pieces.forEach(p => { if(p.life<=0)return; alive=true; p.x+=p.vx;p.y+=p.vy;p.vy+=0.05;p.rot+=p.vr;if(p.y>canvas.height)p.life-=0.02;p.life-=0.002;
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=Math.max(0,p.life);ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();
+    });
+    if(alive&&frame<300){frame++;requestAnimationFrame(animate);}else{ctx.clearRect(0,0,canvas.width,canvas.height);}
+  }
+  animate();
+}
+
+// ============================================================
+// MERGE ALL
+// ============================================================
+function setupMergeAll() {
+  document.getElementById('mergeAllBtn').addEventListener('click', () => {
+    const unmerged = COMPANIES.filter(c => !S.merged.has(c.id));
+    if (unmerged.length === 0) { S.merged.clear(); updateEverything(); return; }
+    let i = 0;
+    function mergeNext() {
+      if (i >= unmerged.length) return;
+      S.merged.add(unmerged[i].id); pulseReactor(); updateEverything(); i++;
+      if (i < unmerged.length) setTimeout(mergeNext, 250);
+    }
+    mergeNext();
+  });
+}
+
+// ============================================================
+// SCROLL
+// ============================================================
+function setupScroll() {
+  const nav = document.getElementById('topnav');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+    updateStoryGuide();
+  });
+}
+
+function updateStoryGuide() {
+  const sections = ['story', 'assembly', 'battle', 'timeline'];
+  const guide = document.getElementById('storyGuide');
+  if (!guide) return;
+  let active = null;
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < window.innerHeight * 0.5) active = id;
+  }
+  guide.querySelectorAll('.guide-step').forEach(s => {
+    s.classList.toggle('active', s.dataset.section === active);
+  });
+}
+
+// ============================================================
+// UPDATE ALL
+// ============================================================
+function updateEverything() {
+  renderDock();
+  updateReactor();
+  updateLivePanel();
+  updateNavPower();
+  updateBattle();
+  saveToURL();
+  const btn = document.getElementById('mergeAllBtn');
+  btn.textContent = S.merged.size === COMPANIES.length ? 'Reset All' : 'Merge All Companies';
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  loadFromURL();
+  initParticles();
+  drawAirbusStory();
+  drawParallelStory();
+  renderDock();
+  updateReactor();
+  updateLivePanel();
+  updateNavPower();
+  renderChallengers();
+  updateBattle();
+  renderScenarioLevers();
+  renderTimeline();
+  setupMergeAll();
+  setupScroll();
+
+  // Wire up buttons
+  document.getElementById('shareBtn').addEventListener('click', copyShareLink);
+  document.getElementById('exportBtn').addEventListener('click', exportDeck);
+  document.getElementById('ctaExportBtn').addEventListener('click', exportDeck);
+  document.getElementById('narrativeLink').addEventListener('click', e => { e.preventDefault(); openNarrative(); });
+  document.getElementById('heroNarrativeBtn').addEventListener('click', openNarrative);
+  document.getElementById('importDataLink').addEventListener('click', e => { e.preventDefault(); openImportModal(); });
+  document.getElementById('importCancel').addEventListener('click', closeImportModal);
+  document.getElementById('importApply').addEventListener('click', applyImportData);
+  document.getElementById('importReset').addEventListener('click', resetToDefaults);
+  document.getElementById('importModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeImportModal(); });
+
+  // Keyboard for narrative
+  document.addEventListener('keydown', e => {
+    if (!S.narrativeOpen) return;
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); if (S.narrativeIdx < NARRATIVE_CHAPTERS.length-1) { S.narrativeIdx++; renderNarrativeChapter(); } else closeNarrative(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); if (S.narrativeIdx > 0) { S.narrativeIdx--; renderNarrativeChapter(); } }
+    if (e.key === 'Escape') closeNarrative();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
