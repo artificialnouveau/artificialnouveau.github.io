@@ -1,255 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Public AI Creative Fellowship — Ahnjili ZhuParris</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/logo.jpg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Educational Resources — Public AI Creative Fellowship</title>
+<meta name="description" content="Beginner guides, interactive projects, and AI ethics quickstart cards — everything you need before, during, and after the flight.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #ffffff;
+  --off-white: #f7f8fa;
+  --light-gray: #eef0f4;
+  --mid-gray: #c8cdd6;
+  --dark-gray: #6b7280;
+  --navy: #00205b;
+  --navy-light: #1a3a7a;
+  --navy-dark: #001540;
+  --sky: #0077c8;
+  --sky-light: #4da6e8;
+  --cyan: #00b4d8;
+  --gold: #f0a500;
+  --red: #e63946;
+  --green: #2ec4b6;
+  --purple: #7c3aed;
+  --text: #1a1a2e;
+  --text-secondary: #4a5568;
+  --text-muted: #9ca3af;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--text); background: var(--white); line-height: 1.6; overflow-x: hidden; }
 
-    <meta property="og:title" content="Public AI Creative Fellowship" />
-    <meta property="og:description" content="Interactive digital experiences exploring AI as public infrastructure — by Ahnjili ZhuParris, Creative Technologist Fellow at MetaGov." />
-    <meta property="og:url" content="https://www.artificialnouveau.com/public-ai/" />
-    <meta property="og:site_name" content="Ahnjili ZhuParris" />
-    <meta property="og:type" content="website" />
+/* === NAV === */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--light-gray);
+  padding: 0 2rem; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topnav-brand {
+  font-weight: 800; font-size: 1.1rem; color: var(--navy);
+  letter-spacing: -0.02em; display: flex; align-items: center; gap: 0.6rem;
+  text-decoration: none;
+}
+.topnav-links { display: flex; gap: 1.5rem; }
+.topnav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+.topnav-links a:hover { color: var(--navy); }
 
-    <style>
-        :root {
-            --color-bg: #111118;
-            --color-text: #ffffff;
-            --color-accent: #ff10f0;
-            --color-accent-cyan: #40f4ff;
-            --color-accent-purple: #d060ff;
-            --color-muted: #eeeaf6;
-            --color-card-bg: #1a1a24;
-            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-        }
+/* === HERO === */
+.hero {
+  min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 8rem 2rem 4rem;
+  background: linear-gradient(170deg, var(--navy-dark) 0%, var(--navy) 40%, var(--sky) 100%);
+  color: white; position: relative;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); margin-bottom: 1.5rem;
+}
+.hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1rem; }
+.hero-sub { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto; line-height: 1.7; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+/* === SECTIONS === */
+.section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+.section + .section { border-top: 1px solid var(--light-gray); }
 
-        body {
-            background: var(--color-bg);
-            color: var(--color-text);
-            font-family: var(--font-body);
-            font-weight: 400;
-            font-size: 19px;
-            line-height: 1.85;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-        }
+.section-eyebrow {
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--sky);
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800;
+  letter-spacing: -0.02em; margin-bottom: 0.75rem; color: var(--navy);
+}
+.section-desc {
+  font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8;
+  max-width: 700px; margin-bottom: 2.5rem;
+}
 
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+/* === CHECKLIST === */
+.checklist { list-style: none; max-width: 700px; }
+.checklist li {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem; margin-bottom: 0.5rem;
+  background: var(--off-white); border-radius: var(--radius);
+  border: 1px solid var(--light-gray); transition: all 0.2s;
+}
+.checklist li:hover { border-color: var(--sky); box-shadow: var(--shadow-sm); }
+.check-icon {
+  width: 28px; height: 28px; border-radius: 6px;
+  background: var(--light-gray); display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; flex-shrink: 0;
+}
+.check-label { font-size: 1rem; font-weight: 500; color: var(--text); flex: 1; }
+.badge {
+  font-family: var(--mono); font-size: 0.65rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+.badge-soon { background: #f3e8ff; color: var(--purple); }
+.badge-tag { background: #e0f2fe; color: var(--sky); }
+.badge-accent { background: #fef3c7; color: #92400e; }
 
-        .page-header {
-            padding: 3rem 0 2rem;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
-            margin-bottom: 2.5rem;
-        }
+/* === STORY GRID === */
+.story-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+.story-card {
+  display: block; padding: 1.75rem; background: var(--white);
+  border: 1px solid var(--light-gray); border-radius: var(--radius);
+  text-decoration: none; color: var(--text); transition: all 0.25s;
+}
+.story-card:hover {
+  border-color: var(--sky); transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+.story-card h3 {
+  font-size: 1.05rem; font-weight: 700; color: var(--navy);
+  margin-bottom: 0.5rem; letter-spacing: -0.01em;
+}
+.story-card p {
+  font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65;
+  margin-bottom: 0.75rem;
+}
+.story-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
-        .page-header h1 {
-            font-family: var(--font-mono);
-            font-size: 2.2rem;
-            color: var(--color-accent-cyan);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+/* === SAFETY GRID === */
+.safety-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+.safety-card {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.75rem; padding: 2rem 1.5rem;
+  background: var(--off-white); border: 1px solid var(--light-gray);
+  border-radius: var(--radius); text-align: center; transition: all 0.25s;
+  position: relative; overflow: hidden;
+}
+.safety-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+}
+.safety-card:hover {
+  border-color: var(--red); transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.safety-card h4 {
+  font-size: 0.9rem; font-weight: 700; color: var(--text);
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
 
-        .page-header .subtitle {
-            color: var(--color-muted);
-            font-size: 1.15rem;
-            margin-top: 0.75rem;
-        }
+/* === FOOTER === */
+.page-footer {
+  text-align: center; padding: 3rem 2rem;
+  border-top: 1px solid var(--light-gray);
+  color: var(--text-muted); font-size: 0.85rem;
+}
+.page-footer a { color: var(--sky); text-decoration: none; }
+.page-footer a:hover { text-decoration: underline; }
 
-        .back-link {
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--color-muted);
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
-        .back-link:hover {
-            color: var(--color-accent);
-        }
-
-        .about-section {
-            margin-bottom: 3rem;
-        }
-
-        .about-section p {
-            font-size: 1.25rem;
-            font-weight: 400;
-            color: var(--color-muted);
-            line-height: 1.95;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.01em;
-        }
-
-        .about-section a {
-            color: var(--color-accent-cyan);
-        }
-
-        .section-title {
-            font-family: var(--font-mono);
-            font-size: 1.2rem;
-            color: var(--color-accent);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255, 16, 240, 0.3);
-            padding-bottom: 0.5rem;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .project-card {
-            display: block;
-            padding: 2rem;
-            background: var(--color-card-bg);
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            text-decoration: none;
-            color: var(--color-text);
-            transition: all 0.2s ease;
-        }
-
-        .project-card:hover {
-            border-color: var(--color-accent);
-            box-shadow: 0 0 20px rgba(255, 16, 240, 0.15), inset 0 0 0 1px rgba(255, 16, 240, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .project-card h2 {
-            font-family: var(--font-mono);
-            font-size: 1.25rem;
-            color: var(--color-accent-cyan);
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-        }
-
-        .project-card p {
-            font-size: 1.15rem;
-            font-weight: 400;
-            color: var(--color-muted);
-            line-height: 1.9;
-            margin-bottom: 1rem;
-            letter-spacing: 0.01em;
-        }
-
-        .project-tag {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            padding: 3px 10px;
-            border: 1px solid rgba(176, 16, 255, 0.4);
-            color: var(--color-accent-purple);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-right: 4px;
-        }
-
-        .repo-link {
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(0, 240, 255, 0.15);
-        }
-
-        .repo-link a {
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            color: var(--color-accent-cyan);
-            text-decoration: none;
-        }
-
-        .repo-link a:hover {
-            color: var(--color-accent);
-        }
-
-        .page-content {
-            padding: 0 0 4rem;
-        }
-
-        @media (max-width: 768px) {
-            .project-grid { grid-template-columns: 1fr; }
-            .project-card { padding: 1.25rem; }
-        }
-    </style>
+@media (max-width: 768px) {
+  .story-grid { grid-template-columns: 1fr; }
+  .safety-grid { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 3rem 1.25rem; }
+  .topnav-links { display: none; }
+}
+@media (max-width: 480px) {
+  .safety-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
 
-<header class="page-header">
-    <div class="container">
-        <a href="/" class="back-link">&larr; Back to Home</a>
-        <h1>Public AI Creative Fellowship</h1>
-        <p class="subtitle">MetaGov &mdash; Creative Technologist Fellow &mdash; 2025&ndash;2026</p>
-    </div>
+<!-- NAV -->
+<nav class="topnav">
+  <a href="/public-ai/" class="topnav-brand">Public AI Fellowship</a>
+  <div class="topnav-links">
+    <a href="#preflight">Pre-Flight</a>
+    <a href="#inflight">In-Flight Magazine</a>
+    <a href="#safety">Safety Card</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-eyebrow">Public AI Creative Fellowship</div>
+  <h1>Educational Resources</h1>
+  <p class="hero-sub">Welcome aboard. Please stow your assumptions and prepare for departure. Everything you need before, during, and after the flight.</p>
 </header>
 
-<div class="page-content">
-    <div class="container">
+<!-- PRE-FLIGHT CHECKLIST -->
+<section class="section" id="preflight">
+  <div class="section-eyebrow">01 &mdash; Before Takeoff</div>
+  <h2 class="section-title">Pre-Flight Checklist</h2>
+  <p class="section-desc">Before you take off, make sure you know what you're getting into. These guides walk you through the basics &mdash; what AI actually is, how these tools work under the hood, and what to watch out for before you start prompting your way through life.</p>
 
-        <div class="about-section">
-            <p>The <a href="https://metagov.org/join/jobs/public-ai-creative-fellowship" target="_blank" rel="noopener">Public AI Creative Fellowship</a> is a six-month initiative by <a href="https://metagov.org" target="_blank" rel="noopener">MetaGov</a> that brings together creative professionals to develop cultural narratives around public AI &mdash; systems that are open, democratically governed, and accountable to the communities they affect.</p>
+  <ul class="checklist">
+    <li>
+      <div class="check-icon"></div>
+      <span class="check-label">What is AI, actually?</span>
+      <span class="badge badge-soon">Coming Soon</span>
+    </li>
+    <li>
+      <div class="check-icon"></div>
+      <span class="check-label">How to read an AI hype headline</span>
+      <span class="badge badge-soon">Coming Soon</span>
+    </li>
+  </ul>
+</section>
 
-            <p>The fellowship recruited three fellows &mdash; a Video Creator, a Creative Technologist, and a Writer &mdash; to produce work that makes the case for AI as public infrastructure. The first phase focused on experimentation with formats and collaborative exploration of narratives. The second phase refined these explorations into interactive, public-facing experiences for broader engagement.</p>
+<!-- IN-FLIGHT MAGAZINE -->
+<section class="section" id="inflight">
+  <div class="section-eyebrow">02 &mdash; Cruising Altitude</div>
+  <h2 class="section-title">In-Flight Magazine</h2>
+  <p class="section-desc">Flip through our curated collection of interactive experiences &mdash; tools that make you think, laugh, and question the trajectory we're on. Each story is a window-seat view of AI's impact on work, governance, identity, and culture.</p>
 
-            <p>As the Creative Technologist fellow, I developed interactive digital experiences &mdash; games, simulators, satirical websites, and surveys &mdash; that explore what it means for AI to be publicly owned, governed, and accountable. Each project below takes a different angle on the question of who should control AI and for whose benefit.</p>
-        </div>
+  <div class="story-grid">
 
-        <h2 class="section-title">Projects</h2>
+    <a href="https://willihaveajob.com" target="_blank" rel="noopener" class="story-card">
+      <h3>Will I Have a Job?</h3>
+      <p>An automation risk predictor grounded in peer-reviewed research. Search 150+ occupations, upload your CV for a personalized risk assessment, or bet play money on when specific jobs disappear. Covers 80 million U.S. workers.</p>
+      <div class="story-tags">
+        <span class="badge badge-tag">Labor</span>
+        <span class="badge badge-tag">Automation</span>
+        <span class="badge badge-tag">Interactive</span>
+      </div>
+    </a>
 
-        <div class="project-grid">
+    <a href="https://doesthisjobexist.com" target="_blank" rel="noopener" class="story-card">
+      <h3>Phantasm &mdash; Ghost Job Detector</h3>
+      <p>Paste a job listing URL and find out if it's real or a ghost. Scores postings 0&ndash;100 across seven red-flag dimensions &mdash; posting age, salary transparency, role clarity &mdash; so you stop applying to jobs that were never meant to be filled.</p>
+      <div class="story-tags">
+        <span class="badge badge-tag">Labor</span>
+        <span class="badge badge-tag">Tool</span>
+        <span class="badge badge-tag">Detective</span>
+      </div>
+    </a>
 
-            <a href="https://www.artificialnouveau.com/publicai/moreaiineedit/index.html" class="project-card" target="_blank" rel="noopener">
-                <h2>MORE AI! I NEED IT! PLEASE!</h2>
-                <p>A satirical catalog of the most absurd, questionable, and bewilderingly real AI products flooding the market. Part consumer guide, part cultural critique &mdash; featuring tiered pricing models, a usefulness-vs-desirability rating chart, and a mystery box that randomly assigns you an AI service.</p>
-                <span class="project-tag">SATIRE</span>
-                <span class="project-tag">INTERACTIVE</span>
-            </a>
+    <a href="https://adhd.net" target="_blank" rel="noopener" class="story-card">
+      <h3>ADHD.net</h3>
+      <p>Coming soon.</p>
+      <div class="story-tags">
+        <span class="badge badge-tag">Health</span>
+        <span class="badge badge-tag">AI</span>
+      </div>
+    </a>
 
-            <a href="https://www.artificialnouveau.com/publicai/airbus-for-ai/index.html" class="project-card" target="_blank" rel="noopener">
-                <h2>Airbus for AI</h2>
-                <p>What if middle powers merged their sovereign AI companies into a Public AI Company? An interactive simulator based on the Bennett School analysis that lets you assemble national AI champions, run battle scenarios, and explore a 10-year roadmap for a publicly governed AI mega-corporation.</p>
-                <span class="project-tag">SIMULATOR</span>
-                <span class="project-tag">POLICY</span>
-            </a>
+    <a href="https://botidol.net" target="_blank" rel="noopener" class="story-card">
+      <h3>Bot Idol &mdash; The Audition</h3>
+      <p>Who will be America's next top bank app agent? Design an AI character, assign it a role, then watch it survive six escalating trials. A competition framework for stress-testing whether your bot can hold its personality under pressure.</p>
+      <div class="story-tags">
+        <span class="badge badge-tag">Character Design</span>
+        <span class="badge badge-tag">Game</span>
+        <span class="badge badge-tag">AI Behavior</span>
+      </div>
+    </a>
 
-            <a href="https://www.artificialnouveau.com/publicai/ai-perspectives-survey.html" class="project-card" target="_blank" rel="noopener">
-                <h2>AI Perspectives Survey</h2>
-                <p>An interactive survey that maps your views on AI onto an archetype spectrum &mdash; from AI accelerationists who want to hit the gas pedal, to cautious optimists tapping the brakes, to those who see AI as an existential threat. See how your perspective compares to others.</p>
-                <span class="project-tag">SURVEY</span>
-                <span class="project-tag">INTERACTIVE</span>
-            </a>
+    <a href="https://www.artificialnouveau.com/publicai/ai-governance-game/index.html" target="_blank" rel="noopener" class="story-card">
+      <h3>AI Governance Simulator</h3>
+      <p>Play as a policy advisor navigating the AI revolution over 36 quarters. Every decision ripples across Big Tech, citizens, military, and climate factions. Choose your stance &mdash; Accelerationist, Doomer, Boomer Optimist, or Regulator &mdash; and try not to let civilization collapse.</p>
+      <div class="story-tags">
+        <span class="badge badge-tag">Governance</span>
+        <span class="badge badge-tag">Simulation</span>
+        <span class="badge badge-tag">Strategy</span>
+      </div>
+    </a>
 
-            <a href="https://www.artificialnouveau.com/publicai/ai-governance-game/index.html" class="project-card" target="_blank" rel="noopener">
-                <h2>AI Governance Simulator</h2>
-                <p>A retro-styled strategy game where you navigate the complexities of AI governance. Make policy decisions, balance competing interests, and see how your choices shape the future of AI regulation and public accountability.</p>
-                <span class="project-tag">GAME</span>
-                <span class="project-tag">GOVERNANCE</span>
-            </a>
+    <a href="https://www.artificialnouveau.com/publicai/ai-perspectives-survey.html" target="_blank" rel="noopener" class="story-card">
+      <h3>AI Perspectives Survey</h3>
+      <p>What does the public actually think about AI? A survey mapping your views onto an archetype spectrum &mdash; not from pundits, but from people. Your answers feed a growing dataset of how humans feel about the machines.</p>
+      <div class="story-tags">
+        <span class="badge badge-tag">Survey</span>
+        <span class="badge badge-tag">Public Opinion</span>
+        <span class="badge badge-tag">Data</span>
+      </div>
+    </a>
 
-        </div>
+    <a href="https://www.artificialnouveau.com/publicai/airbus-for-ai/index.html" target="_blank" rel="noopener" class="story-card">
+      <h3>Airbus for AI</h3>
+      <p>Can middle powers challenge US/Chinese AI dominance by merging their sovereign AI companies? Drag-and-drop national AI champions into a reactor, watch them fuse, and stress-test your supercompany against ChatGPT. Inspired by how fragmented European aerospace became Airbus in 1970.</p>
+      <div class="story-tags">
+        <span class="badge badge-tag">Geopolitics</span>
+        <span class="badge badge-tag">Simulation</span>
+        <span class="badge badge-tag">Sovereignty</span>
+      </div>
+    </a>
 
-        <div class="repo-link">
-            <p><a href="https://github.com/artificialnouveau/publicai" target="_blank" rel="noopener">&gt; View source code on GitHub</a></p>
-        </div>
+    <a href="https://www.artificialnouveau.com/publicai/moreaiineedit/index.html" target="_blank" rel="noopener" class="story-card">
+      <h3>More AI! I Need It! Please!</h3>
+      <p>A satirical catalog of absurd-but-real AI products in full 1990s internet aesthetic. AI-powered ice makers, $699 wearable projectors, electrified salt spoons, and a fuzzy robot that peeks out of your bag. Every single one of these is real.</p>
+      <div class="story-tags">
+        <span class="badge badge-tag">Satire</span>
+        <span class="badge badge-tag">Consumer AI</span>
+        <span class="badge badge-tag">Retro Web</span>
+      </div>
+    </a>
 
+  </div>
+</section>
+
+<!-- SAFETY CARD -->
+<section class="section" id="safety">
+  <div class="section-eyebrow">03 &mdash; Emergency Procedures</div>
+  <h2 class="section-title">Safety Card</h2>
+  <p class="section-desc">In the event of an ethical emergency, please refer to the card in your seat pocket. These visual quickstart guides break down AI ethics concepts the way airplane safety cards break down emergency exits &mdash; clear, universal, and impossible to ignore.</p>
+
+  <div class="safety-grid">
+    <div class="safety-card">
+      <h4>Bias &amp; Fairness</h4>
+      <span class="badge badge-soon">Coming Soon</span>
     </div>
-</div>
+    <div class="safety-card">
+      <h4>Privacy &amp; Consent</h4>
+      <span class="badge badge-soon">Coming Soon</span>
+    </div>
+    <div class="safety-card">
+      <h4>Deepfakes &amp; Disinfo</h4>
+      <span class="badge badge-soon">Coming Soon</span>
+    </div>
+    <div class="safety-card">
+      <h4>Environmental Cost</h4>
+      <span class="badge badge-soon">Coming Soon</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <p><a href="/public-ai/">&larr; Back to Public AI Fellowship</a></p>
+</footer>
 
 </body>
 </html>
