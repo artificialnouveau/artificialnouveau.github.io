@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahnjili ZhuParris, PhD - AI Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 1.2cm 1.5cm;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #2d2d2d;
+            font-size: 9.5pt;
+            line-height: 1.45;
+            max-width: 21cm;
+            margin: 0 auto;
+            padding: 1.2cm 1.5cm;
+            background: white;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                max-width: 100%;
+            }
+            a { text-decoration: none; }
+        }
+
+        @media screen {
+            body {
+                box-shadow: 0 0 15px rgba(0,0,0,0.1);
+                margin: 2rem auto;
+            }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 0.6rem;
+        }
+
+        h1 {
+            font-size: 22pt;
+            font-weight: 700;
+            color: #4a3080;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-line {
+            font-size: 8.5pt;
+            color: #555;
+        }
+
+        .contact-line a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        .summary {
+            font-size: 9pt;
+            color: #444;
+            text-align: left;
+            margin: 0.5rem 0 0.6rem;
+            line-height: 1.5;
+            border-top: 2.5px solid #6b4c9a;
+            padding-top: 0.5rem;
+        }
+
+        /* Section headers */
+        h2 {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: white;
+            background: #6b4c9a;
+            padding: 0.25rem 0.5rem;
+            margin: 0.7rem 0 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Skills table */
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0.3rem;
+        }
+
+        .skills-table td {
+            padding: 0.15rem 0.4rem;
+            vertical-align: top;
+            font-size: 9pt;
+        }
+
+        .skills-table td:first-child {
+            font-weight: 600;
+            color: #2d2d2d;
+            width: 120px;
+            white-space: nowrap;
+        }
+
+        /* Job entries */
+        .job {
+            margin-bottom: 0.5rem;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-left: 3px solid #6b4c9a;
+            padding-left: 0.5rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .job-company {
+            font-weight: 700;
+            font-size: 10pt;
+            color: #2d2d2d;
+        }
+
+        .job-dates {
+            font-size: 9pt;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .job-title {
+            font-style: italic;
+            font-size: 9pt;
+            color: #555;
+            padding-left: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .job-bullets {
+            padding-left: 0.5rem;
+        }
+
+        .job-bullet {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.15rem;
+            font-size: 9pt;
+            line-height: 1.45;
+        }
+
+        .bullet-label {
+            color: #6b4c9a;
+            font-weight: 600;
+            white-space: nowrap;
+            min-width: 160px;
+        }
+
+        .bullet-text {
+            color: #333;
+        }
+
+        /* Education */
+        .edu-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.15rem;
+        }
+
+        .edu-degree {
+            font-weight: 600;
+            font-size: 9.5pt;
+        }
+
+        .edu-school {
+            font-style: italic;
+            font-size: 9pt;
+            color: #555;
+        }
+
+        .edu-dates {
+            font-size: 9pt;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .edu-detail {
+            font-size: 8.5pt;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Awards */
+        .award {
+            margin-bottom: 0.3rem;
+        }
+
+        .award-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .award-name {
+            font-weight: 700;
+            font-size: 9.5pt;
+        }
+
+        .award-date {
+            font-size: 9pt;
+            color: #555;
+        }
+
+        .award-desc {
+            font-size: 8.5pt;
+            color: #555;
+            font-style: italic;
+        }
+
+        /* Publications */
+        .publication {
+            font-size: 8.5pt;
+            margin-bottom: 0.25rem;
+            line-height: 1.45;
+        }
+
+        /* References */
+        .references {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .ref {
+            font-size: 8.5pt;
+        }
+
+        .ref-name {
+            font-weight: 600;
+        }
+
+        .ref-affil {
+            color: #555;
+            font-style: italic;
+        }
+
+        .ref-email a {
+            color: #6b4c9a;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>AHNJILI ZHUPARRIS, PHD</h1>
+        <div class="contact-line">
+            New York &amp; Netherlands &nbsp;|&nbsp; +31650415612 &nbsp;|&nbsp;
+            <a href="mailto:ahnjili@gmail.com">ahnjili@gmail.com</a> &nbsp;|&nbsp;
+            <a href="https://www.artificialnouveau.com">www.artificialnouveau.com</a> &nbsp;|&nbsp;
+            <a href="https://github.com/artificialnouveau">github.com/artificialnouveau</a>
+        </div>
+    </div>
+
+    <div class="summary">
+        Senior research scientist and AI engineer with end-to-end experience developing and deploying NLP, computer vision, and generative AI systems in
+        production. Specializing in AI-enabled research on media narratives, cultural consumption, and large-scale behavioral data. Computational artist
+        examining the societal impacts of automated decision-making.
+    </div>
+
+    <h2>Skills &amp; Qualifications</h2>
+    <table class="skills-table">
+        <tr>
+            <td>Programming:</td>
+            <td>Python, R, PySpark, SQL, Javascript, C++</td>
+        </tr>
+        <tr>
+            <td>ML &amp; Analytics:</td>
+            <td>PyTorch, TensorFlow, Sklearn, Computer Vision, Data Mining, Speech Synthesis</td>
+        </tr>
+        <tr>
+            <td>Generative AI:</td>
+            <td>GANs, Diffusion Models, LLMs, ChatGPT, ElevenLabs, RVC, Stable Diffusion, RunwayML, YOLO</td>
+        </tr>
+        <tr>
+            <td>Cloud:</td>
+            <td>Azure, Google Cloud Platform (GCP), Heroku, Amazon Web Services (AWS)</td>
+        </tr>
+        <tr>
+            <td>Languages:</td>
+            <td>English (Native), Mandarin (B1), Dutch (B1)</td>
+        </tr>
+    </table>
+
+    <h2>Work Experience</h2>
+
+    <div class="job">
+        <div class="job-header">
+            <span class="job-company">Harmony Labs</span>
+            <span class="job-dates">Feb 2025 - Present</span>
+        </div>
+        <div class="job-title">Senior Research Scientist</div>
+        <div class="job-bullets">
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; AI-Enabled Media Research:</span>
+                <span class="bullet-text">Lead statistically rigorous research on media narratives and cultural consumption at scale, applying NLP methods (embedding-based clustering, topic detection, network analysis) and statistical modeling to extract actionable insights from large, complex datasets.</span>
+            </div>
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; Stakeholder Communication:</span>
+                <span class="bullet-text">Translate complex analyses into clear narratives, briefs, and presentations for partners and decision-makers.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="job">
+        <div class="job-header">
+            <span class="job-company">RealFaceValue</span>
+            <span class="job-dates">Sep 2023 - Feb 2025</span>
+        </div>
+        <div class="job-title">AI Engineer</div>
+        <div class="job-bullets">
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; Generative Model Dev:</span>
+                <span class="bullet-text">Designed and refined prompts, GAN models, and diffusion models for automated image generation and content creation.</span>
+            </div>
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; Production Deployment:</span>
+                <span class="bullet-text">Collaborated with backend and frontend teams to integrate AI models into production, ensuring seamless user interaction.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="job">
+        <div class="job-header">
+            <span class="job-company">Centre for Human Drug Research</span>
+            <span class="job-dates">Sep 2019 - Sep 2023</span>
+        </div>
+        <div class="job-title">Lead Data Scientist</div>
+        <div class="job-bullets">
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; Digital Biomarker Dev:</span>
+                <span class="bullet-text">Built classification and severity estimation models using smartphone data (text, audio, voice, location), wearables, and electronic Patient Reported Outcomes for clinical trial-at-home studies.</span>
+            </div>
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; Literature Reviews:</span>
+                <span class="bullet-text">Conducted comprehensive reviews on disease classification and digital health technologies to inform research direction.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="job">
+        <div class="job-header">
+            <span class="job-company">Artificial Nouveau Studio</span>
+            <span class="job-dates">Jan 2018 - Present</span>
+        </div>
+        <div class="job-title">Freelance AI Engineer &amp; Science Communicator</div>
+        <div class="job-bullets">
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; Custom AI Development:</span>
+                <span class="bullet-text">Built analytical and generative algorithms for creative voice cloning and image generation applications.</span>
+            </div>
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; Workshops &amp; Advocacy:</span>
+                <span class="bullet-text">Designed and delivered workshops on generative AI, computer vision, and ML. Presented on ML ethics as panelist and juror.</span>
+            </div>
+        </div>
+    </div>
+
+    <h2>Education</h2>
+
+    <div>
+        <div class="edu-row">
+            <span><span class="edu-degree">PhD</span> <span class="edu-school">Leiden University, Netherlands</span></span>
+            <span class="edu-dates">2020 - 2024</span>
+        </div>
+        <div class="edu-detail">Doctor of Philosophy in Medicine (focusing on AI for health)</div>
+    </div>
+
+    <div>
+        <div class="edu-row">
+            <span><span class="edu-degree">MSc</span> <span class="edu-school">Radboud University Nijmegen, Netherlands</span></span>
+            <span class="edu-dates">2015 - 2017</span>
+        </div>
+        <div class="edu-detail">Research Master's Degree in Cognitive Neuroscience</div>
+    </div>
+
+    <div>
+        <div class="edu-row">
+            <span><span class="edu-degree">BSc</span> <span class="edu-school">University of Edinburgh, United Kingdom</span></span>
+            <span class="edu-dates">2011 - 2015</span>
+        </div>
+        <div class="edu-detail">Biomedical Bachelor's Degree with Honours in Neuroscience</div>
+    </div>
+
+    <h2>Awards &amp; Funding</h2>
+
+    <div class="award">
+        <div class="award-header">
+            <span class="award-name">Processing Foundation Fellowship</span>
+            <span class="award-date">June 2024</span>
+        </div>
+        <div class="award-desc">Screen-to-Soundscape: an open-source framework reimagining screen readers as immersive soundscapes.</div>
+    </div>
+
+    <div class="award">
+        <div class="award-header">
+            <span class="award-name">Mozilla Creative Media Awards</span>
+            <span class="award-date">Dec 2020</span>
+        </div>
+        <div class="award-desc">Future Wake: an interactive website using AI to analyze fatal police encounter data in the U.S. and predict future incidents.</div>
+    </div>
+
+    <h2>Selected Publications</h2>
+
+    <div class="publication">
+        <strong>Doctorate Thesis:</strong> Zhuparris, A. (2024). Development of machine learning-derived mHealth composite biomarkers for trial@home clinical trials.
+    </div>
+
+    <div class="publication">
+        Zhuparris et al., Machine Learning Techniques for Developing Remotely Monitored Central Nervous System Biomarkers Using Wearable Sensors: A Narrative Literature Review. Sensors 2023, 23, 5243.
+    </div>
+
+    <h2>References</h2>
+
+    <div class="references">
+        <div class="ref">
+            <div class="ref-name">Prof. Dr. Wessel Kraaij</div>
+            <div class="ref-affil">Leiden Institute for Advanced Computer Science</div>
+            <div class="ref-email"><a href="mailto:w.kraaij@liacs.leidenuniv.nl">w.kraaij@liacs.leidenuniv.nl</a></div>
+        </div>
+        <div class="ref">
+            <div class="ref-name">Dr. Robert-Jan Doll</div>
+            <div class="ref-affil">Centre for Human Drug Research (CHDR)</div>
+            <div class="ref-email"><a href="mailto:rjdoll@chdr.nl">rjdoll@chdr.nl</a></div>
+        </div>
+        <div class="ref">
+            <div class="ref-name">Prof. Dr. Adam Winstock</div>
+            <div class="ref-affil">Global Drug Survey, UK</div>
+            <div class="ref-email"><a href="mailto:adam@globaldrugsurvey.com">adam@globaldrugsurvey.com</a></div>
+        </div>
+    </div>
+</body>
+</html>
