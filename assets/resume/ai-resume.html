@@ -8,10 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @page {
-            size: A4 portrait;
-            margin: 1.2cm 1.5cm;
-        }
 
         * {
             box-sizing: border-box;
@@ -22,11 +18,11 @@
         body {
             font-family: 'Inter', sans-serif;
             color: #2d2d2d;
-            font-size: 9.5pt;
-            line-height: 1.45;
+            font-size: 9pt;
+            line-height: 1.4;
             max-width: 21cm;
             margin: 0 auto;
-            padding: 1.2cm 1.5cm;
+            padding: 1cm 1.5cm;
             background: white;
         }
 
@@ -36,6 +32,24 @@
                 max-width: 100%;
             }
             a { text-decoration: none; }
+            h2, .job, .award {
+                page-break-inside: avoid;
+            }
+            .page-break-before {
+                page-break-before: always;
+            }
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 1cm 1.5cm;
+            /* Hide browser headers and footers */
+            @top-left { content: none; }
+            @top-center { content: none; }
+            @top-right { content: none; }
+            @bottom-left { content: none; }
+            @bottom-center { content: none; }
+            @bottom-right { content: none; }
         }
 
         @media screen {
@@ -70,23 +84,23 @@
         }
 
         .summary {
-            font-size: 9pt;
+            font-size: 8.5pt;
             color: #444;
             text-align: left;
-            margin: 0.5rem 0 0.6rem;
-            line-height: 1.5;
+            margin: 0.4rem 0 0.4rem;
+            line-height: 1.45;
             border-top: 2.5px solid #6b4c9a;
-            padding-top: 0.5rem;
+            padding-top: 0.4rem;
         }
 
         /* Section headers */
         h2 {
-            font-size: 10.5pt;
+            font-size: 10pt;
             font-weight: 700;
             color: white;
             background: #6b4c9a;
-            padding: 0.25rem 0.5rem;
-            margin: 0.7rem 0 0.4rem;
+            padding: 0.2rem 0.5rem;
+            margin: 0.5rem 0 0.3rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -99,9 +113,9 @@
         }
 
         .skills-table td {
-            padding: 0.15rem 0.4rem;
+            padding: 0.1rem 0.4rem;
             vertical-align: top;
-            font-size: 9pt;
+            font-size: 8.5pt;
         }
 
         .skills-table td:first-child {
@@ -113,7 +127,7 @@
 
         /* Job entries */
         .job {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.35rem;
         }
 
         .job-header {
@@ -152,9 +166,9 @@
         .job-bullet {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 0.15rem;
-            font-size: 9pt;
-            line-height: 1.45;
+            margin-bottom: 0.1rem;
+            font-size: 8.5pt;
+            line-height: 1.4;
         }
 
         .bullet-label {
@@ -290,7 +304,7 @@
         </tr>
         <tr>
             <td>NLP:</td>
-            <td>SpaCy, NLTK, HuggingFace Transformers, Embeddings, Topic Modeling, Sentiment Analysis</td>
+            <td>HuggingFace Transformers, Retrieval Augmented Generation (RAG), Embeddings, Topic Modeling, Sentiment Analysis</td>
         </tr>
         <tr>
             <td>Generative AI:</td>
@@ -346,28 +360,6 @@
 
     <div class="job">
         <div class="job-header">
-            <span class="job-company">Centre for Human Drug Research</span>
-            <span class="job-dates">Sep 2019 - Sep 2023</span>
-        </div>
-        <div class="job-title">Lead Data Scientist</div>
-        <div class="job-bullets">
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Clinical Trial Analytics:</span>
-                <span class="bullet-text">Led end-to-end data science for multiple clinical trials, from statistical analysis planning and study design through to data collection, analysis, and reporting. Authored complete research packages including protocols, SAPs, and final study reports.</span>
-            </div>
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Digital Biomarker Dev:</span>
-                <span class="bullet-text">Built classification and severity estimation models using smartphone sensor data (text, audio, voice, location), wearables, and electronic Patient Reported Outcomes for decentralized trial-at-home studies.</span>
-            </div>
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Literature Reviews:</span>
-                <span class="bullet-text">Conducted systematic literature reviews on digital health technologies and disease classification to inform research direction.</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="job">
-        <div class="job-header">
             <span class="job-company">Artificial Nouveau Studio</span>
             <span class="job-dates">Jan 2018 - Present</span>
         </div>
@@ -388,7 +380,29 @@
         </div>
     </div>
 
-    <h2>Education</h2>
+    <div class="job">
+        <div class="job-header">
+            <span class="job-company">Centre for Human Drug Research</span>
+            <span class="job-dates">Sep 2019 - Sep 2023</span>
+        </div>
+        <div class="job-title">Lead Data Scientist</div>
+        <div class="job-bullets">
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; Clinical Trial Analytics:</span>
+                <span class="bullet-text">Led end-to-end data science for multiple clinical trials, from statistical analysis planning and study design through to data collection, analysis, and reporting. Authored complete research packages including protocols, SAPs, and final study reports.</span>
+            </div>
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; Digital Biomarker Dev:</span>
+                <span class="bullet-text">Built classification and severity estimation models using smartphone sensor data (text, audio, voice, location), wearables, and electronic Patient Reported Outcomes for decentralized trial-at-home studies.</span>
+            </div>
+            <div class="job-bullet">
+                <span class="bullet-label">&gt; Literature Reviews:</span>
+                <span class="bullet-text">Conducted systematic literature reviews on digital health technologies and disease classification to inform research direction.</span>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="page-break-before">Education</h2>
 
     <div>
         <div class="edu-row">
@@ -430,6 +444,16 @@
             <span class="award-date">Dec 2020</span>
         </div>
         <div class="award-desc">Future Wake: an interactive website using AI to analyze fatal police encounter data in the U.S. and predict future incidents.</div>
+    </div>
+
+    <h2>Selected Publications</h2>
+
+    <div class="publication">
+        <strong>Doctorate Thesis:</strong> Zhuparris, A. (2024). Development of machine learning-derived mHealth composite biomarkers for trial@home clinical trials.
+    </div>
+
+    <div class="publication">
+        Zhuparris et al., Machine Learning Techniques for Developing Remotely Monitored Central Nervous System Biomarkers Using Wearable Sensors: A Narrative Literature Review. Sensors 2023, 23, 5243.
     </div>
 
     <h2>References</h2>
