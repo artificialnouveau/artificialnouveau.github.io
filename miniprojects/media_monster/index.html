@@ -263,6 +263,10 @@
       border-color: #ff0000;
       background: rgba(255, 0, 0, 0.05);
     }
+    #panel-scene .drop-zone:hover, #panel-scene .drop-zone.drag-over {
+      border-color: #e040fb;
+      background: rgba(224, 64, 251, 0.05);
+    }
     .drop-zone p {
       color: #888;
       font-size: 0.9rem;
@@ -512,6 +516,66 @@
       text-transform: uppercase;
     }
 
+    .tab.active-scene {
+      color: #fff;
+      border-bottom-color: #e040fb;
+    }
+    .btn-primary-scene {
+      background: #e040fb;
+      color: #fff;
+    }
+
+    .scene-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: #1a1a1a;
+      border: 1px solid #282828;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .scene-row:hover {
+      border-color: #e040fb;
+    }
+    .scene-thumb {
+      width: 120px;
+      height: 68px;
+      object-fit: cover;
+      border-radius: 4px;
+      background: #222;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .scene-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .scene-label {
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .scene-times {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 2px;
+    }
+    .scene-speech {
+      font-size: 0.8rem;
+      color: #e040fb;
+      margin-top: 4px;
+      font-style: italic;
+      max-height: 2.4em;
+      overflow: hidden;
+    }
+    .scene-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
     @media (max-width: 600px) {
       .container { padding: 1.5rem 0.75rem; }
       h1 { font-size: 1.4rem; }
@@ -525,7 +589,7 @@
 <body>
   <div class="container">
     <h1>Media Monster</h1>
-    <p class="subtitle">Download YouTube thumbnails, channel avatars, movie/TV posters, or generate news headline cards.</p>
+    <p class="subtitle">Download YouTube thumbnails, channel avatars, movie/TV posters, generate news headline cards, or split videos by scene.</p>
 
     <div class="tabs">
       <button class="tab active" onclick="switchTab('youtube')">YouTube Thumbnails</button>
@@ -534,6 +598,7 @@
       <button class="tab" onclick="switchTab('avatar')">Channel Avatars</button>
       <button class="tab" onclick="switchTab('brand')">Brand Logos</button>
       <button class="tab" onclick="switchTab('artist')">Artist Photos</button>
+      <button class="tab" onclick="switchTab('scene')">Scene Splitter</button>
     </div>
 
     <!-- ============ YOUTUBE TAB ============ -->
@@ -693,6 +758,69 @@ Paste artist page URLs, one per line"></textarea>
       <p class="status" id="artist-status"></p>
       <div class="results results-artists" id="artist-results"></div>
     </div>
+
+    <!-- ============ SCENE SPLITTER TAB ============ -->
+    <div class="tab-panel" id="panel-scene">
+      <div class="drop-zone" id="scene-drop-zone" onclick="document.getElementById('scene-file-input').click()">
+        <p>Drop a video file here, or click to browse</p>
+        <p class="drop-hint">Supports MP4, WebM, MOV, and other browser-compatible formats</p>
+        <input type="file" id="scene-file-input" accept="video/*">
+      </div>
+      <p class="file-info" id="scene-file-info"></p>
+
+      <div id="scene-video-container" style="display:none;">
+        <video id="scene-video" style="width:100%;max-height:400px;background:#000;border-radius:8px;margin:12px 0;" controls></video>
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:end;margin:12px 0;">
+          <label style="font-size:0.85rem;color:#ccc;">
+            Sensitivity
+            <input type="range" id="scene-sensitivity" min="5" max="60" value="25" style="width:140px;vertical-align:middle;">
+            <span id="scene-sens-val" style="font-family:monospace;color:#fff;">25</span>
+          </label>
+          <label style="font-size:0.85rem;color:#ccc;">
+            Sample interval
+            <select id="scene-interval" style="padding:4px 8px;font-size:0.85rem;">
+              <option value="0.15">0.15s (precise)</option>
+              <option value="0.3" selected>0.3s (balanced)</option>
+              <option value="0.5">0.5s (fast)</option>
+              <option value="1">1s (fastest)</option>
+            </select>
+          </label>
+          <label style="font-size:0.85rem;color:#ccc;" title="Use browser-based Whisper AI to detect speech segments and merge with visual scene cuts">
+            <input type="checkbox" id="scene-whisper-toggle"> Speech detection (Whisper AI)
+          </label>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-primary-scene" id="scene-detect-btn" onclick="sceneDetect()">Detect Scenes</button>
+          <button class="btn-secondary" id="scene-download-all-btn" onclick="sceneDownloadAll()" disabled>Download All Clips</button>
+          <button class="btn-secondary" id="scene-copy-cmd-btn" onclick="sceneCopyCommands()" disabled>Copy FFmpeg Commands</button>
+          <button class="btn-secondary" onclick="sceneClear()">Clear</button>
+        </div>
+
+        <p class="status" id="scene-status"></p>
+
+        <!-- Progress bar -->
+        <div id="scene-progress-wrap" style="display:none;margin:12px 0;">
+          <div style="background:#282828;border-radius:4px;height:8px;overflow:hidden;">
+            <div id="scene-progress-bar" style="height:100%;background:#e040fb;width:0%;transition:width 0.2s;"></div>
+          </div>
+          <p id="scene-progress-text" style="font-size:0.8rem;color:#888;margin-top:4px;"></p>
+        </div>
+
+        <!-- Timeline -->
+        <div id="scene-timeline-wrap" style="display:none;margin:20px 0;">
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:#888;margin-bottom:4px;">
+            <span>0:00</span>
+            <span id="scene-timeline-duration"></span>
+          </div>
+          <div id="scene-timeline" style="position:relative;height:60px;background:#1a1a1a;border:1px solid #333;border-radius:4px;overflow:hidden;cursor:pointer;"></div>
+        </div>
+
+        <!-- Scene list -->
+        <div id="scene-list" style="margin-top:16px;"></div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -700,7 +828,7 @@ Paste artist page URLs, one per line"></textarea>
     // TAB SWITCHING
     // ============================================================
     function switchTab(tab) {
-      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb', 'active-news', 'active-avatar', 'active-brand', 'active-artist'); });
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active', 'active-imdb', 'active-news', 'active-avatar', 'active-brand', 'active-artist', 'active-scene'); });
       document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
       var tabs = document.querySelectorAll('.tab');
       if (tab === 'youtube') {
@@ -721,6 +849,9 @@ Paste artist page URLs, one per line"></textarea>
       } else if (tab === 'artist') {
         tabs[5].classList.add('active-artist');
         document.getElementById('panel-artist').classList.add('active');
+      } else if (tab === 'scene') {
+        tabs[6].classList.add('active-scene');
+        document.getElementById('panel-scene').classList.add('active');
       }
     }
 
@@ -2402,6 +2533,576 @@ Paste artist page URLs, one per line"></textarea>
       document.getElementById("artist-download-all-btn").disabled = true;
       document.getElementById("artist-file-info").textContent = "";
       artistStates = {};
+    }
+
+    // ============================================================
+    // SCENE SPLITTER
+    // ============================================================
+    var sceneData = { file: null, scenes: [], videoUrl: null, whisperSegments: null };
+    var sceneColors = ["#e040fb","#00bcd4","#ff5722","#4caf50","#ff9800","#2196f3","#f44336","#9c27b0","#009688","#ffc107"];
+
+    // --- File handling ---
+    (function () {
+      var dz = document.getElementById("scene-drop-zone");
+      var fi = document.getElementById("scene-file-input");
+      dz.addEventListener("dragover", function (e) { e.preventDefault(); dz.classList.add("drag-over"); });
+      dz.addEventListener("dragleave", function () { dz.classList.remove("drag-over"); });
+      dz.addEventListener("drop", function (e) {
+        e.preventDefault(); dz.classList.remove("drag-over");
+        if (e.dataTransfer.files.length > 0) sceneLoadFile(e.dataTransfer.files[0]);
+      });
+      fi.addEventListener("change", function () {
+        if (fi.files.length > 0) sceneLoadFile(fi.files[0]);
+      });
+    })();
+
+    function sceneLoadFile(file) {
+      if (sceneData.videoUrl) URL.revokeObjectURL(sceneData.videoUrl);
+      sceneData.file = file;
+      sceneData.videoUrl = URL.createObjectURL(file);
+      sceneData.scenes = [];
+      sceneData.whisperSegments = null;
+
+      var video = document.getElementById("scene-video");
+      video.src = sceneData.videoUrl;
+      document.getElementById("scene-video-container").style.display = "block";
+      document.getElementById("scene-file-info").textContent = file.name + " (" + (file.size / 1048576).toFixed(1) + " MB)";
+      document.getElementById("scene-status").textContent = "";
+      document.getElementById("scene-list").innerHTML = "";
+      document.getElementById("scene-timeline-wrap").style.display = "none";
+      document.getElementById("scene-download-all-btn").disabled = true;
+      document.getElementById("scene-copy-cmd-btn").disabled = true;
+    }
+
+    // --- Sensitivity slider ---
+    document.getElementById("scene-sensitivity").addEventListener("input", function () {
+      document.getElementById("scene-sens-val").textContent = this.value;
+    });
+
+    // --- Frame comparison ---
+    function computeFrameHash(ctx, w, h) {
+      var imgData = ctx.getImageData(0, 0, w, h).data;
+      // Divide into 8x8 grid, compute average brightness per cell
+      var gridW = Math.floor(w / 8), gridH = Math.floor(h / 8);
+      var hash = [];
+      for (var gy = 0; gy < 8; gy++) {
+        for (var gx = 0; gx < 8; gx++) {
+          var sum = 0, count = 0;
+          var sx = gx * gridW, sy = gy * gridH;
+          for (var y = sy; y < sy + gridH; y += 2) {
+            for (var x = sx; x < sx + gridW; x += 2) {
+              var i = (y * w + x) * 4;
+              sum += imgData[i] * 0.299 + imgData[i + 1] * 0.587 + imgData[i + 2] * 0.114;
+              count++;
+            }
+          }
+          hash.push(sum / count);
+        }
+      }
+      return hash;
+    }
+
+    function frameDiff(a, b) {
+      var sum = 0;
+      for (var i = 0; i < a.length; i++) sum += Math.abs(a[i] - b[i]);
+      return sum / a.length;
+    }
+
+    // --- Scene detection ---
+    async function sceneDetect() {
+      var video = document.getElementById("scene-video");
+      if (!video.src || !sceneData.file) return;
+
+      var btn = document.getElementById("scene-detect-btn");
+      btn.disabled = true;
+      btn.textContent = "Detecting...";
+
+      var status = document.getElementById("scene-status");
+      var progressWrap = document.getElementById("scene-progress-wrap");
+      var progressBar = document.getElementById("scene-progress-bar");
+      var progressText = document.getElementById("scene-progress-text");
+      progressWrap.style.display = "block";
+
+      var threshold = parseInt(document.getElementById("scene-sensitivity").value);
+      var interval = parseFloat(document.getElementById("scene-interval").value);
+      var useWhisper = document.getElementById("scene-whisper-toggle").checked;
+
+      // Ensure video metadata is loaded
+      await new Promise(function (resolve) {
+        if (video.readyState >= 1) return resolve();
+        video.addEventListener("loadedmetadata", resolve, { once: true });
+      });
+
+      var duration = video.duration;
+      if (!isFinite(duration) || duration <= 0) {
+        status.textContent = "Could not read video duration.";
+        btn.disabled = false;
+        btn.textContent = "Detect Scenes";
+        return;
+      }
+
+      document.getElementById("scene-timeline-duration").textContent = formatTime(duration);
+
+      // Canvas for frame extraction
+      var canvas = document.createElement("canvas");
+      var cw = 320, ch = Math.round(320 * (video.videoHeight / video.videoWidth) || 180);
+      canvas.width = cw;
+      canvas.height = ch;
+      var ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+      // Thumbnail canvas (higher res for display)
+      var thumbCanvas = document.createElement("canvas");
+      thumbCanvas.width = 240;
+      thumbCanvas.height = Math.round(240 * (video.videoHeight / video.videoWidth) || 135);
+      var thumbCtx = thumbCanvas.getContext("2d");
+
+      status.textContent = "Analyzing frames...";
+
+      var cuts = [0]; // Always start at 0
+      var prevHash = null;
+      var totalFrames = Math.floor(duration / interval);
+      var thumbnails = {};
+
+      // Capture thumbnail at a given time
+      function captureThumbnail(time) {
+        thumbCtx.drawImage(video, 0, 0, thumbCanvas.width, thumbCanvas.height);
+        return thumbCanvas.toDataURL("image/jpeg", 0.7);
+      }
+
+      // Grab the first frame thumbnail
+      thumbnails[0] = null; // placeholder
+
+      for (var t = 0; t < duration; t += interval) {
+        await seekTo(video, t);
+        ctx.drawImage(video, 0, 0, cw, ch);
+        var hash = computeFrameHash(ctx, cw, ch);
+
+        if (prevHash !== null) {
+          var diff = frameDiff(prevHash, hash);
+          if (diff > threshold) {
+            cuts.push(t);
+            thumbnails[t] = captureThumbnail(t);
+          }
+        } else {
+          thumbnails[0] = captureThumbnail(0);
+        }
+
+        prevHash = hash;
+
+        var pct = Math.round((t / duration) * 100);
+        progressBar.style.width = pct + "%";
+        progressText.textContent = "Frame analysis: " + pct + "% (" + Math.round(t) + "s / " + Math.round(duration) + "s)";
+      }
+
+      // Build scenes from cuts
+      var scenes = [];
+      for (var i = 0; i < cuts.length; i++) {
+        var start = cuts[i];
+        var end = (i < cuts.length - 1) ? cuts[i + 1] : duration;
+        scenes.push({
+          index: i,
+          start: start,
+          end: end,
+          thumbnail: thumbnails[start] || thumbnails[0],
+          speech: ""
+        });
+      }
+
+      // --- Optional Whisper speech detection ---
+      if (useWhisper) {
+        progressBar.style.width = "100%";
+        progressText.textContent = "Loading Whisper model (this may take a moment on first use)...";
+        status.textContent = "Running speech detection...";
+
+        try {
+          var segments = await runWhisper(sceneData.file, function (msg) {
+            progressText.textContent = msg;
+          });
+          sceneData.whisperSegments = segments;
+
+          // Assign speech text to scenes
+          scenes.forEach(function (scene) {
+            var texts = [];
+            segments.forEach(function (seg) {
+              // Check if speech segment overlaps with this scene
+              if (seg.end > scene.start && seg.start < scene.end) {
+                texts.push(seg.text.trim());
+              }
+            });
+            scene.speech = texts.join(" ");
+          });
+        } catch (err) {
+          status.textContent = "Whisper error: " + err.message + ". Showing visual scenes only.";
+        }
+      }
+
+      sceneData.scenes = scenes;
+
+      progressWrap.style.display = "none";
+      status.textContent = scenes.length + " scene" + (scenes.length !== 1 ? "s" : "") + " detected." + (useWhisper && sceneData.whisperSegments ? " Speech transcription included." : "");
+      btn.disabled = false;
+      btn.textContent = "Detect Scenes";
+      document.getElementById("scene-download-all-btn").disabled = false;
+      document.getElementById("scene-copy-cmd-btn").disabled = false;
+
+      renderTimeline(scenes, duration);
+      renderSceneList(scenes, duration);
+    }
+
+    function seekTo(video, time) {
+      return new Promise(function (resolve) {
+        video.currentTime = time;
+        video.addEventListener("seeked", function () { resolve(); }, { once: true });
+      });
+    }
+
+    function formatTime(s) {
+      var m = Math.floor(s / 60);
+      var sec = Math.floor(s % 60);
+      var ms = Math.floor((s % 1) * 10);
+      return m + ":" + (sec < 10 ? "0" : "") + sec + "." + ms;
+    }
+
+    function formatTimeFFmpeg(s) {
+      var h = Math.floor(s / 3600);
+      var m = Math.floor((s % 3600) / 60);
+      var sec = s % 60;
+      return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m + ":" + (sec < 10 ? "0" : "") + sec.toFixed(3);
+    }
+
+    // --- Timeline ---
+    function renderTimeline(scenes, duration) {
+      var wrap = document.getElementById("scene-timeline-wrap");
+      var tl = document.getElementById("scene-timeline");
+      wrap.style.display = "block";
+      tl.innerHTML = "";
+
+      scenes.forEach(function (scene, i) {
+        var left = (scene.start / duration) * 100;
+        var width = ((scene.end - scene.start) / duration) * 100;
+        var color = sceneColors[i % sceneColors.length];
+
+        var seg = document.createElement("div");
+        seg.style.cssText = "position:absolute;top:0;height:100%;left:" + left + "%;width:" + width + "%;background:" + color + ";opacity:0.6;transition:opacity 0.15s;cursor:pointer;";
+        seg.title = "Scene " + (i + 1) + ": " + formatTime(scene.start) + " → " + formatTime(scene.end);
+        seg.addEventListener("mouseenter", function () { seg.style.opacity = "1"; });
+        seg.addEventListener("mouseleave", function () { seg.style.opacity = "0.6"; });
+        seg.addEventListener("click", function () {
+          var video = document.getElementById("scene-video");
+          video.currentTime = scene.start;
+          video.play();
+          // Pause at scene end
+          var checkEnd = function () {
+            if (video.currentTime >= scene.end - 0.1) { video.pause(); video.removeEventListener("timeupdate", checkEnd); }
+          };
+          video.addEventListener("timeupdate", checkEnd);
+        });
+        tl.appendChild(seg);
+
+        // Scene number label
+        if (width > 3) {
+          var label = document.createElement("div");
+          label.style.cssText = "position:absolute;top:50%;left:" + (left + width / 2) + "%;transform:translate(-50%,-50%);font-size:0.7rem;color:#fff;font-weight:700;pointer-events:none;text-shadow:0 1px 2px rgba(0,0,0,0.8);";
+          label.textContent = i + 1;
+          tl.appendChild(label);
+        }
+      });
+    }
+
+    // --- Scene list ---
+    function renderSceneList(scenes, duration) {
+      var list = document.getElementById("scene-list");
+      list.innerHTML = "";
+
+      scenes.forEach(function (scene, i) {
+        var row = document.createElement("div");
+        row.className = "scene-row";
+
+        var thumb = document.createElement("img");
+        thumb.className = "scene-thumb";
+        thumb.src = scene.thumbnail || "";
+        thumb.alt = "Scene " + (i + 1) + " thumbnail";
+        thumb.onclick = function () {
+          var video = document.getElementById("scene-video");
+          video.currentTime = scene.start;
+          video.play();
+        };
+
+        var info = document.createElement("div");
+        info.className = "scene-info";
+
+        var label = document.createElement("div");
+        label.className = "scene-label";
+        label.style.color = sceneColors[i % sceneColors.length];
+        label.textContent = "Scene " + (i + 1);
+
+        var times = document.createElement("div");
+        times.className = "scene-times";
+        var sceneDur = scene.end - scene.start;
+        times.textContent = formatTime(scene.start) + " → " + formatTime(scene.end) + "  (" + sceneDur.toFixed(1) + "s)";
+
+        info.appendChild(label);
+        info.appendChild(times);
+
+        if (scene.speech) {
+          var speech = document.createElement("div");
+          speech.className = "scene-speech";
+          speech.textContent = '"' + scene.speech + '"';
+          info.appendChild(speech);
+        }
+
+        var actions = document.createElement("div");
+        actions.className = "scene-actions";
+
+        var dlBtn = document.createElement("button");
+        dlBtn.className = "download-btn";
+        dlBtn.textContent = "Export Clip";
+        dlBtn.onclick = function () { exportScene(scene, i, dlBtn); };
+
+        var previewBtn = document.createElement("button");
+        previewBtn.className = "quality-btn";
+        previewBtn.textContent = "Preview";
+        previewBtn.onclick = function () {
+          var video = document.getElementById("scene-video");
+          video.currentTime = scene.start;
+          video.play();
+          var checkEnd = function () {
+            if (video.currentTime >= scene.end - 0.1) { video.pause(); video.removeEventListener("timeupdate", checkEnd); }
+          };
+          video.addEventListener("timeupdate", checkEnd);
+        };
+
+        actions.appendChild(previewBtn);
+        actions.appendChild(dlBtn);
+
+        row.appendChild(thumb);
+        row.appendChild(info);
+        row.appendChild(actions);
+        list.appendChild(row);
+      });
+    }
+
+    // --- Export clip via MediaRecorder ---
+    async function exportScene(scene, index, btn) {
+      var origText = btn.textContent;
+      btn.textContent = "Recording...";
+      btn.disabled = true;
+
+      var video = document.getElementById("scene-video");
+      var canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth || 1280;
+      canvas.height = video.videoHeight || 720;
+      var ctx = canvas.getContext("2d");
+
+      // Create a stream from canvas + video audio
+      var canvasStream = canvas.captureStream(30);
+
+      // Try to capture audio from the video
+      var combinedStream;
+      try {
+        var audioCtx = new AudioContext();
+        var source = audioCtx.createMediaElementSource(video);
+        var dest = audioCtx.createMediaStreamDestination();
+        source.connect(dest);
+        source.connect(audioCtx.destination); // keep audio audible
+        combinedStream = new MediaStream([
+          ...canvasStream.getVideoTracks(),
+          ...dest.stream.getAudioTracks()
+        ]);
+      } catch (e) {
+        // Audio capture may fail if already connected; fall back to video only
+        combinedStream = canvasStream;
+      }
+
+      var mimeType = MediaRecorder.isTypeSupported("video/webm;codecs=vp9") ? "video/webm;codecs=vp9"
+                   : MediaRecorder.isTypeSupported("video/webm;codecs=vp8") ? "video/webm;codecs=vp8"
+                   : "video/webm";
+
+      var recorder = new MediaRecorder(combinedStream, { mimeType: mimeType, videoBitsPerSecond: 5000000 });
+      var chunks = [];
+
+      recorder.ondataavailable = function (e) { if (e.data.size > 0) chunks.push(e.data); };
+      recorder.onstop = function () {
+        var blob = new Blob(chunks, { type: mimeType });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "scene_" + (index + 1) + "_" + formatTime(scene.start).replace(/:/g, "-") + ".webm";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        btn.textContent = origText;
+        btn.disabled = false;
+      };
+
+      // Seek and play the scene segment
+      video.muted = false;
+      video.currentTime = scene.start;
+      await new Promise(function (r) { video.addEventListener("seeked", r, { once: true }); });
+
+      recorder.start();
+
+      // Draw frames
+      var animating = true;
+      function drawFrame() {
+        if (!animating) return;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        if (video.currentTime >= scene.end - 0.05 || video.paused || video.ended) {
+          animating = false;
+          recorder.stop();
+          video.pause();
+          return;
+        }
+        requestAnimationFrame(drawFrame);
+      }
+
+      video.play();
+      drawFrame();
+    }
+
+    // --- Download all scenes ---
+    async function sceneDownloadAll() {
+      var scenes = sceneData.scenes;
+      if (scenes.length === 0) return;
+      var status = document.getElementById("scene-status");
+      var btn = document.getElementById("scene-download-all-btn");
+      btn.disabled = true;
+
+      for (var i = 0; i < scenes.length; i++) {
+        status.textContent = "Exporting scene " + (i + 1) + " of " + scenes.length + "...";
+        await new Promise(function (resolve) {
+          var tempBtn = { textContent: "", disabled: false };
+          var origStop = null;
+          exportScene(scenes[i], i, {
+            get textContent() { return tempBtn.textContent; },
+            set textContent(v) { tempBtn.textContent = v; },
+            get disabled() { return tempBtn.disabled; },
+            set disabled(v) {
+              tempBtn.disabled = v;
+              if (v === false) resolve(); // re-enabled means export finished
+            }
+          });
+        });
+        // Small delay between exports
+        await new Promise(function (r) { setTimeout(r, 500); });
+      }
+
+      status.textContent = scenes.length + " clips exported.";
+      btn.disabled = false;
+    }
+
+    // --- Copy FFmpeg commands ---
+    function sceneCopyCommands() {
+      var scenes = sceneData.scenes;
+      if (scenes.length === 0) return;
+      var filename = sceneData.file ? sceneData.file.name : "input.mp4";
+      var cmds = scenes.map(function (s, i) {
+        return 'ffmpeg -ss ' + formatTimeFFmpeg(s.start) + ' -to ' + formatTimeFFmpeg(s.end) + ' -i "' + filename + '" -c copy "scene_' + (i + 1) + '.mp4"';
+      });
+      var text = cmds.join("\n");
+      navigator.clipboard.writeText(text).then(function () {
+        var btn = document.getElementById("scene-copy-cmd-btn");
+        var orig = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(function () { btn.textContent = orig; }, 2000);
+      });
+    }
+
+    function sceneClear() {
+      if (sceneData.videoUrl) URL.revokeObjectURL(sceneData.videoUrl);
+      sceneData = { file: null, scenes: [], videoUrl: null, whisperSegments: null };
+      document.getElementById("scene-video").src = "";
+      document.getElementById("scene-video-container").style.display = "none";
+      document.getElementById("scene-file-info").textContent = "";
+      document.getElementById("scene-status").textContent = "";
+      document.getElementById("scene-list").innerHTML = "";
+      document.getElementById("scene-timeline-wrap").style.display = "none";
+      document.getElementById("scene-progress-wrap").style.display = "none";
+      document.getElementById("scene-download-all-btn").disabled = true;
+      document.getElementById("scene-copy-cmd-btn").disabled = true;
+    }
+
+    // ============================================================
+    // WHISPER SPEECH DETECTION (via Transformers.js)
+    // ============================================================
+    var whisperPipeline = null;
+
+    async function runWhisper(videoFile, onProgress) {
+      onProgress("Loading Transformers.js library...");
+
+      // Dynamically load Transformers.js if not already loaded
+      if (typeof window.Transformers === "undefined" && typeof window.HfTransformers === "undefined") {
+        await new Promise(function (resolve, reject) {
+          var script = document.createElement("script");
+          script.src = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3";
+          script.onload = resolve;
+          script.onerror = function () { reject(new Error("Failed to load Transformers.js")); };
+          document.head.appendChild(script);
+        });
+      }
+
+      var T = window.Transformers || window.HfTransformers;
+      if (!T) {
+        // Try the module-style export
+        throw new Error("Transformers.js library not available");
+      }
+
+      onProgress("Loading Whisper model (whisper-tiny, ~150MB on first load)...");
+
+      if (!whisperPipeline) {
+        whisperPipeline = await T.pipeline("automatic-speech-recognition", "Xenova/whisper-tiny", {
+          dtype: "fp32",
+          device: "wasm"
+        });
+      }
+
+      onProgress("Extracting audio from video...");
+
+      // Extract audio as Float32Array using Web Audio API
+      var audioCtx = new OfflineAudioContext(1, 1, 16000); // dummy, re-create after decode
+      var arrayBuf = await videoFile.arrayBuffer();
+
+      var tempCtx = new AudioContext({ sampleRate: 16000 });
+      var decoded;
+      try {
+        decoded = await tempCtx.decodeAudioData(arrayBuf);
+      } catch (e) {
+        throw new Error("Could not decode audio from video file");
+      }
+      await tempCtx.close();
+
+      // Resample to 16kHz mono
+      var offlineCtx = new OfflineAudioContext(1, decoded.duration * 16000, 16000);
+      var bufferSource = offlineCtx.createBufferSource();
+      bufferSource.buffer = decoded;
+      bufferSource.connect(offlineCtx.destination);
+      bufferSource.start(0);
+      var rendered = await offlineCtx.startRendering();
+      var audioData = rendered.getChannelData(0);
+
+      onProgress("Running Whisper transcription...");
+
+      var result = await whisperPipeline(audioData, {
+        return_timestamps: true,
+        chunk_length_s: 30,
+        stride_length_s: 5,
+        language: "en",
+        task: "transcribe"
+      });
+
+      onProgress("Transcription complete.");
+
+      // result.chunks is an array of { text, timestamp: [start, end] }
+      var segments = (result.chunks || []).map(function (c) {
+        return {
+          text: c.text,
+          start: c.timestamp[0],
+          end: c.timestamp[1]
+        };
+      });
+
+      return segments;
     }
 
     // ============================================================
