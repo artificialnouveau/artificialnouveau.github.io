@@ -1,3 +1,70 @@
+/* Accessibility: Skip Link */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: var(--color-card-bg, #000);
+    color: var(--color-accent-cyan, #00f0ff);
+    padding: 0.75rem 1.5rem;
+    z-index: 100000;
+    font-family: 'JetBrains Mono', monospace;
+    text-decoration: none;
+    border: 2px solid var(--color-accent-cyan, #00f0ff);
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Accessibility: Focus Styles */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid #ff10f0;
+    outline-offset: 2px;
+}
+
+.btn:focus-visible,
+.btn-primary:focus-visible {
+    outline: 3px solid #ff10f0;
+    outline-offset: 2px;
+}
+
+.nav-link:focus-visible {
+    outline: 3px solid #ff10f0;
+    outline-offset: 2px;
+}
+
+/* Accessibility: Improved color contrast for muted text */
+.bio,
+.text-muted,
+.location {
+    color: #d0c4e8 !important;
+}
+
+/* Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    body::before {
+        animation: none !important;
+    }
+
+    .drone {
+        display: none !important;
+    }
+}
+
 /* Vaporwave Terminal Aesthetic Theme */
 
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
@@ -684,7 +751,8 @@ input:focus,
 textarea:focus,
 select:focus {
     border-color: var(--color-accent) !important;
-    outline: none;
+    outline: 3px solid #ff10f0;
+    outline-offset: 2px;
     box-shadow: inset 0 0 0 1px rgba(255, 16, 240, 0.3);
 }
 
