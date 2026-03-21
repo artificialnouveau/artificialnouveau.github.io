@@ -128,10 +128,39 @@
 
     <!-- ============ INDEX TAB ============ -->
     <div class="tab-panel active" id="panel-index">
-      <textarea id="yt-urls" placeholder="Paste YouTube URLs, one per line:
+      <div style="display:flex;gap:0;margin-bottom:12px;border-bottom:1px solid #282828;">
+        <button class="tab active" onclick="switchIndexMode('auto')" id="idx-tab-auto" style="font-size:0.85rem;padding:8px 16px;">Auto-fetch transcripts</button>
+        <button class="tab" onclick="switchIndexMode('manual')" id="idx-tab-manual" style="font-size:0.85rem;padding:8px 16px;">Paste transcript</button>
+      </div>
+
+      <!-- Auto mode -->
+      <div id="idx-mode-auto">
+        <textarea id="yt-urls" placeholder="Paste YouTube URLs, one per line:
 https://www.youtube.com/watch?v=dQw4w9WgXcQ
 https://youtu.be/jNQXAC9IVRw
 or just video IDs like dQw4w9WgXcQ"></textarea>
+        <p style="font-size:0.8rem;color:#666;margin-top:6px;">Fetches captions via CORS proxy. If YouTube blocks the request, use "Paste transcript" mode or the Scene Detection tab with Whisper.</p>
+      </div>
+
+      <!-- Manual mode -->
+      <div id="idx-mode-manual" style="display:none;">
+        <div style="margin-bottom:10px;">
+          <label style="font-size:0.85rem;color:#ccc;">Video URL or ID:</label>
+          <input type="text" id="manual-vid" placeholder="https://youtube.com/watch?v=... or video ID" style="width:100%;padding:8px 12px;background:#1a1a1a;color:#e0e0e0;border:1px solid #333;border-radius:6px;font-size:0.9rem;margin-top:4px;">
+        </div>
+        <label style="font-size:0.85rem;color:#ccc;">Transcript text:</label>
+        <textarea id="manual-transcript" placeholder="Paste the transcript here. You can get it by:
+
+1. On YouTube, click ··· under the video → Show transcript → copy all text
+2. Or run: yt-dlp --write-auto-sub --sub-lang en --sub-format srt --skip-download VIDEO_URL
+   then paste the .srt file contents here
+
+Plain text, SRT format, or timestamped lines all work." style="min-height:160px;margin-top:4px;"></textarea>
+        <div style="margin-top:8px;">
+          <label style="font-size:0.85rem;color:#ccc;">Title (optional):</label>
+          <input type="text" id="manual-title" placeholder="Video title" style="width:100%;padding:8px 12px;background:#1a1a1a;color:#e0e0e0;border:1px solid #333;border-radius:6px;font-size:0.9rem;margin-top:4px;">
+        </div>
+      </div>
 
       <div class="options-row">
         <label>Chunk size: <select id="chunk-seconds">
@@ -386,9 +415,84 @@ or just video IDs like dQw4w9WgXcQ"></textarea>
     }
 
     // ================================================================
+    // INDEX MODE SWITCHING
+    // ================================================================
+    var currentIndexMode = "auto";
+
+    function switchIndexMode(mode) {
+      currentIndexMode = mode;
+      document.getElementById("idx-mode-auto").style.display = mode === "auto" ? "block" : "none";
+      document.getElementById("idx-mode-manual").style.display = mode === "manual" ? "block" : "none";
+      document.getElementById("idx-tab-auto").classList.toggle("active", mode === "auto");
+      document.getElementById("idx-tab-manual").classList.toggle("active", mode === "manual");
+    }
+
+    function parsePlainTranscript(text) {
+      // Try to parse SRT format
+      var srtMatch = text.match(/\d+\r?\n\d{2}:\d{2}:\d{2}/);
+      if (srtMatch) return parseSrt(text);
+
+      // Try timestamped lines like "0:00 text" or "[0:00] text"
+      var tsLines = text.match(/^[\[(\s]*\d+:\d{2}[\])\s]/m);
+      if (tsLines) return parseTimestampedLines(text);
+
+      // Plain text — chunk by sentences
+      var sentences = text.split(/[.!?]+/).filter(function (s) { return s.trim().length > 0; });
+      var segments = [];
+      var charsPer30s = 500; // rough estimate
+      var accum = "", start = 0;
+      sentences.forEach(function (s, i) {
+        accum += s.trim() + ". ";
+        if (accum.length > charsPer30s || i === sentences.length - 1) {
+          var dur = 30;
+          segments.push({ start: start, duration: dur, text: accum.trim() });
+          start += dur;
+          accum = "";
+        }
+      });
+      return segments.length ? segments : [{ start: 0, duration: 60, text: text.trim() }];
+    }
+
+    function parseSrt(text) {
+      var blocks = text.split(/\r?\n\r?\n/);
+      var segments = [];
+      blocks.forEach(function (block) {
+        var lines = block.trim().split(/\r?\n/);
+        if (lines.length < 3) return;
+        var timeMatch = lines[1].match(/(\d{2}):(\d{2}):(\d{2})[,.](\d{3})\s*-->\s*(\d{2}):(\d{2}):(\d{2})[,.](\d{3})/);
+        if (!timeMatch) return;
+        var start = parseInt(timeMatch[1])*3600 + parseInt(timeMatch[2])*60 + parseInt(timeMatch[3]) + parseInt(timeMatch[4])/1000;
+        var end = parseInt(timeMatch[5])*3600 + parseInt(timeMatch[6])*60 + parseInt(timeMatch[7]) + parseInt(timeMatch[8])/1000;
+        var txt = lines.slice(2).join(" ").replace(/<[^>]+>/g, "").trim();
+        if (txt) segments.push({ start: start, duration: end - start, text: txt });
+      });
+      return segments;
+    }
+
+    function parseTimestampedLines(text) {
+      var segments = [];
+      var lines = text.split(/\r?\n/).filter(function (l) { return l.trim(); });
+      lines.forEach(function (line, i) {
+        var m = line.match(/^[\[(\s]*(\d+):(\d{2})[\])\s]+(.+)/);
+        if (!m) return;
+        var start = parseInt(m[1]) * 60 + parseInt(m[2]);
+        var txt = m[3].trim();
+        var dur = 30; // default
+        if (i < lines.length - 1) {
+          var next = lines[i+1].match(/^[\[(\s]*(\d+):(\d{2})/);
+          if (next) dur = Math.max(1, (parseInt(next[1])*60 + parseInt(next[2])) - start);
+        }
+        segments.push({ start: start, duration: dur, text: txt });
+      });
+      return segments;
+    }
+
+    // ================================================================
     // INDEXING PIPELINE
     // ================================================================
     async function indexVideos() {
+      if (currentIndexMode === "manual") return indexManual();
+
       var input = document.getElementById("yt-urls").value;
       var lines = input.split(/[\n,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
       var chunkSec = parseInt(document.getElementById("chunk-seconds").value);
@@ -471,13 +575,79 @@ or just video IDs like dQw4w9WgXcQ"></textarea>
           addLog(log, data.title + " — " + chunks.length + " chunks indexed", "success");
           indexed++;
         } catch (err) {
-          addLog(log, vid + " — " + err.message, "error");
+          addLog(log, vid + " — " + err.message + ". Try 'Paste transcript' mode or Scene Detection with Whisper.", "error");
         }
       }
 
       bar.style.width = "100%";
       progressText.textContent = "";
       document.getElementById("index-status").textContent = indexed + " of " + ids.length + " videos indexed. " + indexData.text_chunks.ids.length + " total chunks.";
+      btn.disabled = false;
+      updateStats();
+    }
+
+    async function indexManual() {
+      var vidInput = document.getElementById("manual-vid").value.trim();
+      var transcriptText = document.getElementById("manual-transcript").value.trim();
+      var title = document.getElementById("manual-title").value.trim();
+      var chunkSec = parseInt(document.getElementById("chunk-seconds").value);
+
+      if (!transcriptText) {
+        document.getElementById("index-status").textContent = "Please paste a transcript.";
+        return;
+      }
+
+      var vid = extractVideoId(vidInput) || vidInput || "manual_" + Date.now();
+      if (!title) title = vid;
+
+      var btn = document.getElementById("index-btn");
+      btn.disabled = true;
+      var log = document.getElementById("index-log");
+      log.innerHTML = "";
+      var progressWrap = document.getElementById("index-progress");
+      var bar = document.getElementById("index-bar");
+      progressWrap.style.display = "block";
+      bar.style.width = "30%";
+
+      try {
+        await ensureTextModel();
+      } catch (err) {
+        addLog(log, "Failed to load embedding model: " + err.message, "error");
+        btn.disabled = false;
+        return;
+      }
+
+      addLog(log, "Parsing transcript...", "info");
+      var segments = parsePlainTranscript(transcriptText);
+      var chunks = chunkTranscript(segments, chunkSec);
+
+      addLog(log, chunks.length + " chunks, embedding...", "info");
+      bar.style.width = "50%";
+
+      indexData.videos[vid] = {
+        title: title,
+        channel: "",
+        thumbnail: "https://img.youtube.com/vi/" + vid + "/hqdefault.jpg",
+      };
+
+      for (var c = 0; c < chunks.length; c++) {
+        var emb = await embedText(chunks[c].text);
+        var chunkId = vid + "_t_" + c;
+        indexData.text_chunks.ids.push(chunkId);
+        indexData.text_chunks.embeddings.push(emb);
+        indexData.text_chunks.documents.push(chunks[c].text);
+        indexData.text_chunks.metadatas.push({
+          video_id: vid,
+          start: chunks[c].start,
+          end: chunks[c].end,
+          type: "text",
+        });
+        bar.style.width = (50 + (c / chunks.length) * 50) + "%";
+      }
+
+      bar.style.width = "100%";
+      addLog(log, title + " — " + chunks.length + " chunks indexed", "success");
+      document.getElementById("index-status").textContent = "Indexed! " + indexData.text_chunks.ids.length + " total chunks.";
       btn.disabled = false;
       updateStats();
     }
