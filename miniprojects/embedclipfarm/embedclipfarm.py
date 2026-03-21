@@ -197,8 +197,9 @@ def fetch_metadata(video_ids, api_key=None):
                 }
     else:
         for vid in video_ids:
-            metadata[vid] = {
-                "title": "",
+            meta = _fetch_metadata_ytdlp(vid)
+            metadata[vid] = meta if meta else {
+                "title": vid,
                 "description": "",
                 "channel": "",
                 "tags": [],
@@ -208,27 +209,63 @@ def fetch_metadata(video_ids, api_key=None):
     return metadata
 
 
+def _fetch_metadata_ytdlp(video_id):
+    """Fetch video metadata using yt-dlp (no API key needed)."""
+    try:
+        url = f"https://www.youtube.com/watch?v={video_id}"
+        result = subprocess.run(
+            ["yt-dlp", "--dump-json", "--skip-download", url],
+            capture_output=True, text=True, timeout=30,
+        )
+        if result.returncode != 0:
+            return None
+        import json as _json
+        data = _json.loads(result.stdout)
+        return {
+            "title": data.get("title", video_id),
+            "description": data.get("description", ""),
+            "channel": data.get("channel", data.get("uploader", "")),
+            "tags": data.get("tags", []),
+            "published": data.get("upload_date", ""),
+            "thumbnail": data.get("thumbnail", f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"),
+        }
+    except Exception:
+        return None
+
+
 # ---------------------------------------------------------------------------
 # Transcript
 # ---------------------------------------------------------------------------
 
 def fetch_transcripts(video_ids, use_whisper=False, whisper_model_name="base"):
-    """Fetch transcripts for videos. Returns {video_id: [segments]}."""
-    TranscriptApi = _import_transcript_api()
+    """Fetch transcripts for videos. Returns {video_id: [segments]}.
+
+    Tries yt-dlp first (most reliable), then youtube-transcript-api,
+    then optionally Whisper as a last resort.
+    """
     transcripts = {}
     failed = []
 
     for vid in video_ids:
+        # Try yt-dlp first
+        segments = _fetch_transcript_ytdlp(vid)
+        if segments:
+            transcripts[vid] = segments
+            print(f"  [yt-dlp] {vid}: {len(segments)} segments")
+            continue
+
+        # Fall back to youtube-transcript-api
         try:
-            segments = TranscriptApi.get_transcript(vid)
+            TranscriptApi = _import_transcript_api()
+            segs = TranscriptApi.get_transcript(vid)
             transcripts[vid] = [
                 {"start": s["start"], "duration": s["duration"], "text": s["text"]}
-                for s in segments
+                for s in segs
             ]
-            print(f"  [transcript] {vid}: {len(segments)} segments")
+            print(f"  [transcript-api] {vid}: {len(segs)} segments")
         except Exception:
             failed.append(vid)
-            print(f"  [transcript] {vid}: no captions available")
+            print(f"  [transcript] {vid}: no captions via yt-dlp or API")
 
     # Whisper fallback for failed videos
     if use_whisper and failed:
@@ -248,6 +285,51 @@ def fetch_transcripts(video_ids, use_whisper=False, whisper_model_name="base"):
                 print(f"  [whisper] {vid}: error - {e}")
 
     return transcripts
+
+
+def _fetch_transcript_ytdlp(video_id):
+    """Fetch transcript using yt-dlp (most reliable method)."""
+    try:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            url = f"https://www.youtube.com/watch?v={video_id}"
+            out_path = os.path.join(tmpdir, "sub")
+            result = subprocess.run(
+                ["yt-dlp", "--write-auto-sub", "--sub-lang", "en",
+                 "--sub-format", "json3", "--skip-download",
+                 "-o", out_path, url],
+                capture_output=True, text=True, timeout=30,
+            )
+
+            # Find the subtitle file
+            sub_file = None
+            for f in Path(tmpdir).glob("*.json3"):
+                sub_file = f
+                break
+
+            if not sub_file or not sub_file.exists():
+                return None
+
+            import json as _json
+            with open(sub_file) as f:
+                data = _json.load(f)
+
+            segments = []
+            for event in data.get("events", []):
+                if "segs" not in event:
+                    continue
+                text = "".join(s.get("utf8", "") for s in event["segs"]).strip()
+                if not text:
+                    continue
+                start_ms = event.get("tStartMs", 0)
+                dur_ms = event.get("dDurationMs", 0)
+                segments.append({
+                    "start": start_ms / 1000,
+                    "duration": dur_ms / 1000,
+                    "text": text,
+                })
+            return segments if segments else None
+    except Exception:
+        return None
 
 
 def _whisper_transcribe(video_id, model):
@@ -511,9 +593,14 @@ class VectorStore:
 # ---------------------------------------------------------------------------
 
 def cmd_index(args):
-    print(f"Resolving source: {args.source}")
-    video_ids = resolve_source(args.source, api_key=args.api_key,
-                               max_results=args.max_videos)
+    video_ids = []
+    for source in args.source:
+        print(f"Resolving source: {source}")
+        ids = resolve_source(source, api_key=args.api_key,
+                             max_results=args.max_videos)
+        for vid in ids:
+            if vid not in video_ids:
+                video_ids.append(vid)
     if not video_ids:
         print("No video IDs found.")
         return
@@ -638,6 +725,18 @@ def cmd_export(args):
     data = store.export_all()
 
     output = args.output
+
+    # Convert numpy arrays to lists for JSON serialization
+    def make_serializable(obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        if isinstance(obj, list):
+            return [make_serializable(item) for item in obj]
+        if isinstance(obj, dict):
+            return {k: make_serializable(v) for k, v in obj.items()}
+        return obj
+
+    data = make_serializable(data)
     with open(output, "w") as f:
         json.dump(data, f)
 
@@ -673,8 +772,8 @@ def main():
 
     # --- index ---
     idx = sub.add_parser("index", help="Index YouTube videos")
-    idx.add_argument("source",
-        help="YouTube URL (video/playlist/channel), @handle, or file with URLs")
+    idx.add_argument("source", nargs="+",
+        help="YouTube URLs (video/playlist/channel), @handles, or file with URLs")
     idx.add_argument("--api-key", default=os.environ.get("YOUTUBE_API_KEY"),
         help="YouTube Data API key (or set YOUTUBE_API_KEY env var)")
     idx.add_argument("--db-path", default="./embedclipfarm_db",
