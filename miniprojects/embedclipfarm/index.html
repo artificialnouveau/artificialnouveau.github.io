@@ -128,47 +128,61 @@
 
     <!-- ============ INDEX TAB ============ -->
     <div class="tab-panel active" id="panel-index">
-      <div style="display:flex;gap:0;margin-bottom:12px;border-bottom:1px solid #282828;">
-        <button class="tab active" onclick="switchIndexMode('manual')" id="idx-tab-manual" style="font-size:0.85rem;padding:8px 16px;">Paste transcript</button>
-        <button class="tab" onclick="switchIndexMode('auto')" id="idx-tab-auto" style="font-size:0.85rem;padding:8px 16px;">Auto-fetch (unreliable)</button>
-      </div>
 
-      <!-- Manual mode (primary) -->
-      <div id="idx-mode-manual">
-        <div style="margin-bottom:10px;">
-          <label style="font-size:0.85rem;color:#ccc;">Video URL or ID:</label>
-          <input type="text" id="manual-vid" placeholder="https://youtube.com/watch?v=... or video ID" style="width:100%;padding:8px 12px;background:#1a1a1a;color:#e0e0e0;border:1px solid #333;border-radius:6px;font-size:0.9rem;margin-top:4px;" oninput="updateYtdlpCmd()">
+      <!-- Worker URL setup -->
+      <div id="worker-setup" style="background:#1a1a1a;border:1px solid #282828;border-radius:8px;padding:16px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <span id="worker-status-dot" style="width:10px;height:10px;border-radius:50%;background:#ff5722;flex-shrink:0;"></span>
+          <strong style="color:#fff;font-size:0.9rem;">Proxy Worker</strong>
+          <span id="worker-status-text" style="font-size:0.8rem;color:#888;">Not configured</span>
         </div>
-
-        <div style="background:#1a1a1a;border:1px solid #282828;border-radius:6px;padding:12px;margin-bottom:12px;">
-          <p style="font-size:0.85rem;color:#fff;font-weight:600;margin-bottom:8px;">How to get the transcript:</p>
-          <div style="font-size:0.8rem;color:#aaa;line-height:1.6;">
-            <p style="margin-bottom:6px;"><strong style="color:#e040fb;">Option 1:</strong> On YouTube, click <strong>···</strong> below the video → <strong>Show transcript</strong> → select all → copy → paste below</p>
-            <p style="margin-bottom:6px;"><strong style="color:#e040fb;">Option 2:</strong> Run this in your terminal:</p>
-            <div style="display:flex;gap:6px;align-items:center;">
-              <code id="ytdlp-cmd" style="flex:1;background:#282828;color:#4caf50;padding:6px 10px;border-radius:4px;font-size:0.75rem;word-break:break-all;">yt-dlp --write-auto-sub --sub-lang en --sub-format srt --skip-download "VIDEO_URL"</code>
-              <button onclick="copyYtdlpCmd()" style="padding:4px 10px;font-size:0.75rem;background:#282828;color:#e040fb;border:1px solid #444;border-radius:4px;" id="copy-cmd-btn">Copy</button>
-            </div>
-            <p style="margin-top:6px;">Then paste the <code style="background:#282828;color:#e040fb;padding:1px 4px;border-radius:2px;">.srt</code> file contents below.</p>
-            <p style="margin-top:4px;"><strong style="color:#e040fb;">Option 3:</strong> Use the <strong>Scene Detection</strong> tab → upload the video file → enable <strong>Whisper</strong> for fully in-browser transcription.</p>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="text" id="worker-url" placeholder="https://your-worker.username.workers.dev" style="flex:1;padding:8px 12px;background:#0f0f0f;color:#e0e0e0;border:1px solid #333;border-radius:6px;font-size:0.85rem;font-family:monospace;" value="">
+          <button onclick="testWorker()" style="padding:8px 16px;font-size:0.85rem;background:#e040fb;color:#fff;border:none;border-radius:6px;font-weight:600;white-space:nowrap;">Connect</button>
+        </div>
+        <details style="margin-top:10px;">
+          <summary style="font-size:0.8rem;color:#888;cursor:pointer;">How to set up (2 min, free)</summary>
+          <div style="font-size:0.78rem;color:#aaa;line-height:1.6;margin-top:8px;padding-left:4px;">
+            <ol style="padding-left:18px;">
+              <li>Go to <a href="https://workers.cloudflare.com" target="_blank" rel="noopener noreferrer" style="color:#e040fb;">workers.cloudflare.com</a> → sign up or log in</li>
+              <li>Click <strong>"Create a Worker"</strong></li>
+              <li>Delete the default code, paste the contents of <a href="worker.js" target="_blank" style="color:#e040fb;">worker.js</a></li>
+              <li>Click <strong>"Deploy"</strong></li>
+              <li>Copy the worker URL (e.g. <code style="background:#282828;color:#4caf50;padding:1px 4px;border-radius:2px;">https://my-worker.username.workers.dev</code>) and paste it above</li>
+            </ol>
+            <p style="margin-top:6px;color:#666;">The worker only proxies YouTube URLs and adds browser-like headers. 100k free requests/day.</p>
           </div>
-        </div>
-
-        <label style="font-size:0.85rem;color:#ccc;">Transcript text:</label>
-        <textarea id="manual-transcript" placeholder="Paste transcript here — plain text, SRT format, or timestamped lines all work." style="min-height:140px;margin-top:4px;"></textarea>
-        <div style="margin-top:8px;">
-          <label style="font-size:0.85rem;color:#ccc;">Title (optional):</label>
-          <input type="text" id="manual-title" placeholder="Video title" style="width:100%;padding:8px 12px;background:#1a1a1a;color:#e0e0e0;border:1px solid #333;border-radius:6px;font-size:0.9rem;margin-top:4px;">
-        </div>
+        </details>
       </div>
 
-      <!-- Auto mode (secondary) -->
-      <div id="idx-mode-auto" style="display:none;">
+      <div style="display:flex;gap:0;margin-bottom:12px;border-bottom:1px solid #282828;">
+        <button class="tab active" onclick="switchIndexMode('auto')" id="idx-tab-auto" style="font-size:0.85rem;padding:8px 16px;">Auto-fetch</button>
+        <button class="tab" onclick="switchIndexMode('manual')" id="idx-tab-manual" style="font-size:0.85rem;padding:8px 16px;">Paste transcript</button>
+      </div>
+
+      <!-- Auto mode (primary) -->
+      <div id="idx-mode-auto">
         <textarea id="yt-urls" placeholder="Paste YouTube URLs, one per line:
 https://www.youtube.com/watch?v=dQw4w9WgXcQ
 https://youtu.be/jNQXAC9IVRw
 or just video IDs like dQw4w9WgXcQ"></textarea>
-        <p style="font-size:0.8rem;color:#ff9800;margin-top:6px;">⚠ YouTube actively blocks CORS proxies. This may not work. Use "Paste transcript" mode for reliable results.</p>
+      </div>
+
+      <!-- Manual mode (fallback) -->
+      <div id="idx-mode-manual" style="display:none;">
+        <div style="margin-bottom:10px;">
+          <label style="font-size:0.85rem;color:#ccc;">Video URL or ID:</label>
+          <input type="text" id="manual-vid" placeholder="https://youtube.com/watch?v=... or video ID" style="width:100%;padding:8px 12px;background:#1a1a1a;color:#e0e0e0;border:1px solid #333;border-radius:6px;font-size:0.9rem;margin-top:4px;" oninput="updateYtdlpCmd()">
+        </div>
+        <label style="font-size:0.85rem;color:#ccc;">Transcript text:</label>
+        <textarea id="manual-transcript" placeholder="Paste transcript here — plain text, SRT format, or timestamped lines all work.
+
+Get it from YouTube (··· → Show transcript → copy) or via:
+yt-dlp --write-auto-sub --sub-lang en --sub-format srt --skip-download VIDEO_URL" style="min-height:140px;margin-top:4px;"></textarea>
+        <div style="margin-top:8px;">
+          <label style="font-size:0.85rem;color:#ccc;">Title (optional):</label>
+          <input type="text" id="manual-title" placeholder="Video title" style="width:100%;padding:8px 12px;background:#1a1a1a;color:#e0e0e0;border:1px solid #333;border-radius:6px;font-size:0.9rem;margin-top:4px;">
+        </div>
       </div>
 
       <div class="options-row">
@@ -307,6 +321,15 @@ or just video IDs like dQw4w9WgXcQ"></textarea>
     ];
 
     async function fetchWithProxy(url) {
+      // Try Cloudflare Worker first (most reliable)
+      if (workerUrl) {
+        try {
+          var resp = await fetch(workerUrl + "?url=" + encodeURIComponent(url), { signal: AbortSignal.timeout(15000) });
+          if (resp.ok) return await resp.text();
+        } catch (e) { /* fall through to public proxies */ }
+      }
+
+      // Fallback to public CORS proxies
       for (var i = 0; i < corsProxies.length; i++) {
         try {
           var resp = await fetch(corsProxies[i](url), { signal: AbortSignal.timeout(12000) });
@@ -314,7 +337,7 @@ or just video IDs like dQw4w9WgXcQ"></textarea>
           return await resp.text();
         } catch (e) { /* try next */ }
       }
-      throw new Error("All CORS proxies failed for " + url);
+      throw new Error("All proxies failed. Set up a Cloudflare Worker for reliable access.");
     }
 
     // ================================================================
@@ -426,7 +449,56 @@ or just video IDs like dQw4w9WgXcQ"></textarea>
     // ================================================================
     // INDEX MODE SWITCHING
     // ================================================================
-    var currentIndexMode = "manual";
+    var currentIndexMode = "auto";
+    var workerUrl = localStorage.getItem("ecf_worker_url") || "";
+
+    // ================================================================
+    // WORKER
+    // ================================================================
+    // Restore saved worker URL
+    (function () {
+      if (workerUrl) {
+        document.getElementById("worker-url").value = workerUrl;
+        setWorkerStatus("saved", "Saved — click Connect to verify");
+      }
+    })();
+
+    async function testWorker() {
+      var urlInput = document.getElementById("worker-url");
+      var url = urlInput.value.trim().replace(/\/+$/, "");
+      if (!url) {
+        setWorkerStatus("error", "Enter a worker URL");
+        return;
+      }
+
+      setWorkerStatus("loading", "Testing...");
+      try {
+        var testUrl = url + "?url=" + encodeURIComponent("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        var resp = await fetch(testUrl, { signal: AbortSignal.timeout(10000) });
+        var text = await resp.text();
+        if (text.indexOf("captionTracks") !== -1 || text.indexOf("ytInitialPlayerResponse") !== -1) {
+          workerUrl = url;
+          localStorage.setItem("ecf_worker_url", url);
+          setWorkerStatus("ok", "Connected — transcripts will auto-fetch");
+        } else if (text.indexOf("recaptcha") !== -1 || text.indexOf("captcha") !== -1) {
+          setWorkerStatus("error", "YouTube returned CAPTCHA — try again in a few minutes");
+        } else {
+          // Might still work for timedtext XML fetching
+          workerUrl = url;
+          localStorage.setItem("ecf_worker_url", url);
+          setWorkerStatus("ok", "Connected (response may vary, saved for use)");
+        }
+      } catch (err) {
+        setWorkerStatus("error", "Failed: " + err.message);
+      }
+    }
+
+    function setWorkerStatus(state, text) {
+      var dot = document.getElementById("worker-status-dot");
+      var label = document.getElementById("worker-status-text");
+      dot.style.background = state === "ok" ? "#4caf50" : state === "loading" ? "#ff9800" : state === "saved" ? "#ff9800" : "#ff5722";
+      label.textContent = text;
+    }
 
     function updateYtdlpCmd() {
       var vidInput = document.getElementById("manual-vid").value.trim();
