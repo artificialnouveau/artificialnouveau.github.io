@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmbedClipFarm — YouTube Semantic Search</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+    .container { max-width: 960px; margin: 0 auto; padding: 2rem 1rem; }
+    h1 { font-size: 1.8rem; margin-bottom: 0.3rem; color: #fff; }
+    .subtitle { color: #888; margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+    /* Search */
+    .search-wrap {
+      display: flex; gap: 10px; margin-bottom: 8px;
+    }
+    .search-input {
+      flex: 1; padding: 12px 16px; font-size: 1rem;
+      background: #1a1a1a; color: #e0e0e0; border: 1px solid #333;
+      border-radius: 8px; outline: none;
+    }
+    .search-input:focus { border-color: #e040fb; }
+    .search-input::placeholder { color: #555; }
+
+    .search-btn {
+      padding: 12px 24px; font-size: 1rem; font-weight: 600;
+      background: #e040fb; color: #fff; border: none; border-radius: 8px;
+      cursor: pointer; white-space: nowrap;
+    }
+    .search-btn:hover { opacity: 0.85; }
+    .search-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .search-options {
+      display: flex; gap: 16px; align-items: center;
+      font-size: 0.85rem; color: #888; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .search-options label { cursor: pointer; }
+    .search-options select, .search-options input[type="number"] {
+      background: #1a1a1a; color: #e0e0e0; border: 1px solid #333;
+      border-radius: 4px; padding: 4px 8px; font-size: 0.85rem;
+    }
+
+    /* Load index */
+    .load-section {
+      background: #1a1a1a; border: 2px dashed #333; border-radius: 8px;
+      padding: 32px; text-align: center; margin-bottom: 24px; cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .load-section:hover { border-color: #e040fb; }
+    .load-section p { color: #888; font-size: 0.95rem; }
+    .load-section .hint { color: #555; font-size: 0.8rem; margin-top: 4px; }
+    .load-section input { display: none; }
+
+    .index-info {
+      background: #1a1a1a; border: 1px solid #282828; border-radius: 8px;
+      padding: 12px 16px; margin-bottom: 20px; font-size: 0.85rem;
+      display: none;
+    }
+    .index-info .tag {
+      display: inline-block; background: #282828; color: #e040fb;
+      padding: 2px 8px; border-radius: 4px; margin-right: 8px; font-family: monospace;
+    }
+
+    /* Status */
+    .status {
+      font-size: 0.9rem; color: #888; min-height: 1.5em; margin-bottom: 16px;
+    }
+
+    /* Results */
+    .result-card {
+      display: flex; gap: 16px; padding: 16px;
+      background: #1a1a1a; border: 1px solid #282828; border-radius: 8px;
+      margin-bottom: 12px; transition: border-color 0.15s;
+    }
+    .result-card:hover { border-color: #e040fb; }
+
+    .result-thumb {
+      width: 200px; height: 112px; flex-shrink: 0; border-radius: 6px;
+      overflow: hidden; background: #222; position: relative; cursor: pointer;
+    }
+    .result-thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .result-thumb .time-badge {
+      position: absolute; bottom: 4px; right: 4px;
+      background: rgba(0,0,0,0.8); color: #fff; padding: 2px 6px;
+      border-radius: 3px; font-size: 0.7rem; font-family: monospace;
+    }
+
+    .result-body { flex: 1; min-width: 0; }
+    .result-title {
+      font-weight: 600; color: #fff; font-size: 0.95rem;
+      margin-bottom: 4px; word-break: break-word;
+    }
+    .result-channel {
+      font-size: 0.8rem; color: #888; margin-bottom: 6px;
+    }
+    .result-text {
+      font-size: 0.85rem; color: #bbb; line-height: 1.5;
+      max-height: 4.5em; overflow: hidden;
+    }
+    .result-text mark {
+      background: rgba(224, 64, 251, 0.3); color: #fff; border-radius: 2px;
+      padding: 0 2px;
+    }
+    .result-score {
+      font-family: monospace; font-size: 0.75rem; color: #e040fb;
+      margin-top: 6px;
+    }
+    .result-type {
+      display: inline-block; font-size: 0.7rem; padding: 1px 6px;
+      border-radius: 3px; margin-left: 8px;
+    }
+    .result-type.text { background: #1a3a5c; color: #4a9eff; }
+    .result-type.visual { background: #3a1a3c; color: #e040fb; }
+
+    .no-results {
+      text-align: center; color: #555; padding: 40px; font-size: 0.95rem;
+    }
+
+    /* Model loading */
+    .model-status {
+      font-size: 0.8rem; color: #555; margin-bottom: 12px;
+    }
+    .model-status .loaded { color: #4caf50; }
+    .model-status .loading { color: #ff9800; }
+
+    @media (max-width: 600px) {
+      .container { padding: 1.5rem 0.75rem; }
+      h1 { font-size: 1.4rem; }
+      .search-wrap { flex-direction: column; }
+      .result-card { flex-direction: column; }
+      .result-thumb { width: 100%; height: 180px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>EmbedClipFarm</h1>
+    <p class="subtitle">Semantic search over YouTube content — search by meaning, not just keywords.</p>
+
+    <!-- Load index -->
+    <div class="load-section" id="load-section" onclick="document.getElementById('index-file').click()">
+      <p>Load an exported index (JSON)</p>
+      <p class="hint">Generate with: <code>python embedclipfarm.py export --output index.json</code></p>
+      <input type="file" id="index-file" accept=".json">
+    </div>
+
+    <div class="index-info" id="index-info"></div>
+
+    <div class="model-status" id="model-status"></div>
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <input type="text" class="search-input" id="search-input"
+        placeholder="Search by meaning... e.g. &quot;economic impact of automation&quot;"
+        disabled>
+      <button class="search-btn" id="search-btn" onclick="doSearch()" disabled>Search</button>
+    </div>
+    <div class="search-options">
+      <label>
+        Mode:
+        <select id="search-mode">
+          <option value="text">Text (transcripts)</option>
+          <option value="visual">Visual (keyframes)</option>
+          <option value="both">Both</option>
+        </select>
+      </label>
+      <label>
+        Results:
+        <input type="number" id="top-k" value="10" min="1" max="50" style="width:50px;">
+      </label>
+    </div>
+
+    <p class="status" id="status"></p>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    var indexData = null;
+    var textModel = null;
+    var clipModel = null;
+    var textModelLoading = false;
+    var clipModelLoading = false;
+
+    // ---- Index loading ----
+    document.getElementById("index-file").addEventListener("change", function () {
+      if (this.files.length === 0) return;
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          indexData = JSON.parse(e.target.result);
+          showIndexInfo();
+          document.getElementById("search-input").disabled = false;
+          document.getElementById("search-btn").disabled = false;
+          document.getElementById("load-section").style.display = "none";
+          loadModels();
+        } catch (err) {
+          document.getElementById("status").textContent = "Error parsing JSON: " + err.message;
+        }
+      };
+      reader.readAsText(this.files[0]);
+    });
+
+    function showIndexInfo() {
+      var info = document.getElementById("index-info");
+      var videoCount = Object.keys(indexData.videos || {}).length;
+      var textCount = (indexData.text_chunks && indexData.text_chunks.ids) ? indexData.text_chunks.ids.length : 0;
+      var visualCount = (indexData.visual_frames && indexData.visual_frames.ids) ? indexData.visual_frames.ids.length : 0;
+
+      info.innerHTML =
+        '<span class="tag">' + videoCount + ' videos</span>' +
+        '<span class="tag">' + textCount + ' text chunks</span>' +
+        '<span class="tag">' + visualCount + ' visual frames</span>';
+      info.style.display = "block";
+
+      // Disable visual search if no visual data
+      var modeSelect = document.getElementById("search-mode");
+      if (visualCount === 0) {
+        modeSelect.value = "text";
+        Array.from(modeSelect.options).forEach(function (opt) {
+          if (opt.value === "visual" || opt.value === "both") opt.disabled = true;
+        });
+      }
+    }
+
+    // ---- Model loading (Transformers.js) ----
+    async function loadModels() {
+      var statusEl = document.getElementById("model-status");
+      statusEl.innerHTML = '<span class="loading">Loading Transformers.js...</span>';
+
+      // Load Transformers.js
+      if (!window.Transformers) {
+        await new Promise(function (resolve, reject) {
+          var s = document.createElement("script");
+          s.src = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3";
+          s.onload = resolve;
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+      }
+
+      var T = window.Transformers;
+
+      // Text model
+      statusEl.innerHTML = '<span class="loading">Loading text embedding model (all-MiniLM-L6-v2)...</span>';
+      try {
+        textModel = await T.pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2", {
+          dtype: "fp32",
+          device: "wasm",
+        });
+        statusEl.innerHTML = '<span class="loaded">Text model loaded.</span>';
+      } catch (err) {
+        statusEl.innerHTML = '<span style="color:#ff5722">Text model failed to load: ' + err.message + '</span>';
+      }
+
+      // CLIP model (only if visual data exists)
+      var visualCount = (indexData.visual_frames && indexData.visual_frames.ids) ? indexData.visual_frames.ids.length : 0;
+      if (visualCount > 0) {
+        statusEl.innerHTML += ' <span class="loading">Loading CLIP text encoder...</span>';
+        try {
+          clipModel = await T.pipeline("zero-shot-image-classification", "Xenova/clip-vit-base-patch32", {
+            dtype: "fp32",
+            device: "wasm",
+          });
+          statusEl.innerHTML = '<span class="loaded">Text model loaded.</span> <span class="loaded">CLIP model loaded.</span>';
+        } catch (err) {
+          statusEl.innerHTML += ' <span style="color:#ff5722">CLIP load failed.</span>';
+        }
+      }
+    }
+
+    // ---- Search ----
+    document.getElementById("search-input").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") doSearch();
+    });
+
+    async function doSearch() {
+      var query = document.getElementById("search-input").value.trim();
+      if (!query || !indexData) return;
+
+      var mode = document.getElementById("search-mode").value;
+      var topK = parseInt(document.getElementById("top-k").value) || 10;
+      var statusEl = document.getElementById("status");
+      var resultsEl = document.getElementById("results");
+      resultsEl.innerHTML = "";
+
+      var allResults = [];
+
+      // Text search
+      if ((mode === "text" || mode === "both") && textModel && indexData.text_chunks) {
+        statusEl.textContent = "Embedding query for text search...";
+        var queryEmb = await getTextEmbedding(query);
+        if (queryEmb) {
+          var chunks = indexData.text_chunks;
+          var scored = [];
+          for (var i = 0; i < chunks.ids.length; i++) {
+            var sim = cosineSim(queryEmb, chunks.embeddings[i]);
+            scored.push({
+              id: chunks.ids[i],
+              text: chunks.documents[i],
+              metadata: chunks.metadatas[i],
+              score: sim,
+              type: "text",
+            });
+          }
+          scored.sort(function (a, b) { return b.score - a.score; });
+          allResults = allResults.concat(scored.slice(0, topK));
+        }
+      }
+
+      // Visual search
+      if ((mode === "visual" || mode === "both") && indexData.visual_frames && indexData.visual_frames.ids.length > 0) {
+        statusEl.textContent = "Embedding query for visual search...";
+        var clipEmb = await getClipTextEmbedding(query);
+        if (clipEmb) {
+          var frames = indexData.visual_frames;
+          var scored = [];
+          for (var i = 0; i < frames.ids.length; i++) {
+            var sim = cosineSim(clipEmb, frames.embeddings[i]);
+            scored.push({
+              id: frames.ids[i],
+              text: frames.documents[i],
+              metadata: frames.metadatas[i],
+              score: sim,
+              type: "visual",
+            });
+          }
+          scored.sort(function (a, b) { return b.score - a.score; });
+          allResults = allResults.concat(scored.slice(0, topK));
+        }
+      }
+
+      // Merge and sort
+      allResults.sort(function (a, b) { return b.score - a.score; });
+      if (mode === "both") allResults = allResults.slice(0, topK);
+
+      statusEl.textContent = allResults.length + " result" + (allResults.length !== 1 ? "s" : "") + " found.";
+      renderResults(allResults, query);
+    }
+
+    async function getTextEmbedding(text) {
+      if (!textModel) return null;
+      var output = await textModel(text, { pooling: "mean", normalize: true });
+      return Array.from(output.data);
+    }
+
+    async function getClipTextEmbedding(text) {
+      // Transformers.js zero-shot-image-classification pipeline doesn't expose
+      // text encoding directly, so we use the tokenizer + model manually
+      if (!window.Transformers) return null;
+      var T = window.Transformers;
+      try {
+        var tokenizer = await T.AutoTokenizer.from_pretrained("Xenova/clip-vit-base-patch32");
+        var textModelClip = await T.CLIPTextModelWithProjection.from_pretrained("Xenova/clip-vit-base-patch32");
+        var inputs = await tokenizer(text, { padding: true, truncation: true });
+        var output = await textModelClip(inputs);
+        var emb = output.text_embeds.data;
+        // Normalize
+        var norm = Math.sqrt(Array.from(emb).reduce(function (s, v) { return s + v * v; }, 0));
+        return Array.from(emb).map(function (v) { return v / norm; });
+      } catch (e) {
+        console.error("CLIP text embedding error:", e);
+        return null;
+      }
+    }
+
+    function cosineSim(a, b) {
+      var dot = 0, normA = 0, normB = 0;
+      var len = Math.min(a.length, b.length);
+      for (var i = 0; i < len; i++) {
+        dot += a[i] * b[i];
+        normA += a[i] * a[i];
+        normB += b[i] * b[i];
+      }
+      return dot / (Math.sqrt(normA) * Math.sqrt(normB) + 1e-8);
+    }
+
+    // ---- Render results ----
+    function renderResults(results, query) {
+      var container = document.getElementById("results");
+      container.innerHTML = "";
+
+      if (results.length === 0) {
+        container.innerHTML = '<div class="no-results">No results found.</div>';
+        return;
+      }
+
+      var queryWords = query.toLowerCase().split(/\s+/);
+
+      results.forEach(function (r) {
+        var videoId = r.metadata.video_id;
+        var videoMeta = (indexData.videos && indexData.videos[videoId]) || {};
+        var title = videoMeta.title || videoId;
+        var channel = videoMeta.channel || "";
+        var thumbnail = videoMeta.thumbnail || "https://img.youtube.com/vi/" + videoId + "/hqdefault.jpg";
+
+        var timestamp = r.type === "visual"
+          ? (r.metadata.timestamp || 0)
+          : (r.metadata.start || 0);
+
+        var ytLink = "https://www.youtube.com/watch?v=" + videoId + "&t=" + Math.floor(timestamp);
+
+        var card = document.createElement("div");
+        card.className = "result-card";
+
+        // Thumbnail
+        var thumbDiv = document.createElement("div");
+        thumbDiv.className = "result-thumb";
+        thumbDiv.onclick = function () { window.open(ytLink, "_blank"); };
+
+        var img = document.createElement("img");
+        img.src = thumbnail;
+        img.alt = title;
+        thumbDiv.appendChild(img);
+
+        var timeBadge = document.createElement("div");
+        timeBadge.className = "time-badge";
+        timeBadge.textContent = formatTime(timestamp);
+        thumbDiv.appendChild(timeBadge);
+
+        // Body
+        var body = document.createElement("div");
+        body.className = "result-body";
+
+        var titleEl = document.createElement("div");
+        titleEl.className = "result-title";
+        var titleLink = document.createElement("a");
+        titleLink.href = ytLink;
+        titleLink.target = "_blank";
+        titleLink.rel = "noopener noreferrer";
+        titleLink.style.color = "inherit";
+        titleLink.style.textDecoration = "none";
+        titleLink.textContent = title;
+        titleEl.appendChild(titleLink);
+
+        var typeSpan = document.createElement("span");
+        typeSpan.className = "result-type " + r.type;
+        typeSpan.textContent = r.type === "text" ? "transcript" : "visual";
+        titleEl.appendChild(typeSpan);
+
+        body.appendChild(titleEl);
+
+        if (channel) {
+          var channelEl = document.createElement("div");
+          channelEl.className = "result-channel";
+          channelEl.textContent = channel;
+          body.appendChild(channelEl);
+        }
+
+        if (r.text) {
+          var textEl = document.createElement("div");
+          textEl.className = "result-text";
+          textEl.innerHTML = highlightText(r.text, queryWords);
+          body.appendChild(textEl);
+        }
+
+        var scoreEl = document.createElement("div");
+        scoreEl.className = "result-score";
+        scoreEl.textContent = "Score: " + r.score.toFixed(4) + "  •  " + formatTime(timestamp);
+        body.appendChild(scoreEl);
+
+        card.appendChild(thumbDiv);
+        card.appendChild(body);
+        container.appendChild(card);
+      });
+    }
+
+    function highlightText(text, words) {
+      var escaped = words.map(function (w) {
+        return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }).filter(function (w) { return w.length > 2; });
+      if (escaped.length === 0) return escapeHtml(text);
+      var regex = new RegExp("(" + escaped.join("|") + ")", "gi");
+      return escapeHtml(text).replace(regex, "<mark>$1</mark>");
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function formatTime(s) {
+      var m = Math.floor(s / 60);
+      var sec = Math.floor(s % 60);
+      return m + ":" + (sec < 10 ? "0" : "") + sec;
+    }
+  </script>
+</body>
+</html>
