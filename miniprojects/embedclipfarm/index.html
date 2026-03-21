@@ -362,21 +362,20 @@ or just video IDs like dQw4w9WgXcQ"></textarea>
     // ================================================================
     // EMBEDDING (Transformers.js)
     // ================================================================
+    var _transformersModule = null;
+
+    async function loadTransformers() {
+      if (_transformersModule) return _transformersModule;
+      _transformersModule = await import("https://cdn.jsdelivr.net/npm/@huggingface/transformers@3");
+      return _transformersModule;
+    }
+
     async function ensureTextModel() {
       if (textModel) return;
       var statusEl = document.getElementById("model-status");
       statusEl.innerHTML = '<span class="loading">Loading embedding model (all-MiniLM-L6-v2, ~80MB first time)...</span>';
 
-      if (!window.Transformers) {
-        await new Promise(function (resolve, reject) {
-          var s = document.createElement("script");
-          s.src = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3";
-          s.onload = resolve;
-          s.onerror = reject;
-          document.head.appendChild(s);
-        });
-      }
-      var T = window.Transformers;
+      var T = await loadTransformers();
       textModel = await T.pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2", { dtype: "fp32", device: "wasm" });
       statusEl.innerHTML = '<span class="loaded">Embedding model loaded.</span>';
     }
@@ -813,15 +812,8 @@ or just video IDs like dQw4w9WgXcQ"></textarea>
     // WHISPER
     // ================================================================
     async function runWhisper(videoFile, onProgress) {
-      if (!window.Transformers) {
-        onProgress("Loading Transformers.js...");
-        await new Promise(function (r, j) {
-          var s = document.createElement("script");
-          s.src = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3";
-          s.onload = r; s.onerror = j; document.head.appendChild(s);
-        });
-      }
-      var T = window.Transformers;
+      onProgress("Loading Transformers.js...");
+      var T = await loadTransformers();
 
       onProgress("Loading Whisper model (whisper-tiny, ~150MB first time)...");
       if (!whisperPipeline) {
