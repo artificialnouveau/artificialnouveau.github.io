@@ -129,37 +129,46 @@
     <!-- ============ INDEX TAB ============ -->
     <div class="tab-panel active" id="panel-index">
       <div style="display:flex;gap:0;margin-bottom:12px;border-bottom:1px solid #282828;">
-        <button class="tab active" onclick="switchIndexMode('auto')" id="idx-tab-auto" style="font-size:0.85rem;padding:8px 16px;">Auto-fetch transcripts</button>
-        <button class="tab" onclick="switchIndexMode('manual')" id="idx-tab-manual" style="font-size:0.85rem;padding:8px 16px;">Paste transcript</button>
+        <button class="tab active" onclick="switchIndexMode('manual')" id="idx-tab-manual" style="font-size:0.85rem;padding:8px 16px;">Paste transcript</button>
+        <button class="tab" onclick="switchIndexMode('auto')" id="idx-tab-auto" style="font-size:0.85rem;padding:8px 16px;">Auto-fetch (unreliable)</button>
       </div>
 
-      <!-- Auto mode -->
-      <div id="idx-mode-auto">
-        <textarea id="yt-urls" placeholder="Paste YouTube URLs, one per line:
-https://www.youtube.com/watch?v=dQw4w9WgXcQ
-https://youtu.be/jNQXAC9IVRw
-or just video IDs like dQw4w9WgXcQ"></textarea>
-        <p style="font-size:0.8rem;color:#666;margin-top:6px;">Fetches captions via CORS proxy. If YouTube blocks the request, use "Paste transcript" mode or the Scene Detection tab with Whisper.</p>
-      </div>
-
-      <!-- Manual mode -->
-      <div id="idx-mode-manual" style="display:none;">
+      <!-- Manual mode (primary) -->
+      <div id="idx-mode-manual">
         <div style="margin-bottom:10px;">
           <label style="font-size:0.85rem;color:#ccc;">Video URL or ID:</label>
-          <input type="text" id="manual-vid" placeholder="https://youtube.com/watch?v=... or video ID" style="width:100%;padding:8px 12px;background:#1a1a1a;color:#e0e0e0;border:1px solid #333;border-radius:6px;font-size:0.9rem;margin-top:4px;">
+          <input type="text" id="manual-vid" placeholder="https://youtube.com/watch?v=... or video ID" style="width:100%;padding:8px 12px;background:#1a1a1a;color:#e0e0e0;border:1px solid #333;border-radius:6px;font-size:0.9rem;margin-top:4px;" oninput="updateYtdlpCmd()">
         </div>
+
+        <div style="background:#1a1a1a;border:1px solid #282828;border-radius:6px;padding:12px;margin-bottom:12px;">
+          <p style="font-size:0.85rem;color:#fff;font-weight:600;margin-bottom:8px;">How to get the transcript:</p>
+          <div style="font-size:0.8rem;color:#aaa;line-height:1.6;">
+            <p style="margin-bottom:6px;"><strong style="color:#e040fb;">Option 1:</strong> On YouTube, click <strong>···</strong> below the video → <strong>Show transcript</strong> → select all → copy → paste below</p>
+            <p style="margin-bottom:6px;"><strong style="color:#e040fb;">Option 2:</strong> Run this in your terminal:</p>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <code id="ytdlp-cmd" style="flex:1;background:#282828;color:#4caf50;padding:6px 10px;border-radius:4px;font-size:0.75rem;word-break:break-all;">yt-dlp --write-auto-sub --sub-lang en --sub-format srt --skip-download "VIDEO_URL"</code>
+              <button onclick="copyYtdlpCmd()" style="padding:4px 10px;font-size:0.75rem;background:#282828;color:#e040fb;border:1px solid #444;border-radius:4px;" id="copy-cmd-btn">Copy</button>
+            </div>
+            <p style="margin-top:6px;">Then paste the <code style="background:#282828;color:#e040fb;padding:1px 4px;border-radius:2px;">.srt</code> file contents below.</p>
+            <p style="margin-top:4px;"><strong style="color:#e040fb;">Option 3:</strong> Use the <strong>Scene Detection</strong> tab → upload the video file → enable <strong>Whisper</strong> for fully in-browser transcription.</p>
+          </div>
+        </div>
+
         <label style="font-size:0.85rem;color:#ccc;">Transcript text:</label>
-        <textarea id="manual-transcript" placeholder="Paste the transcript here. You can get it by:
-
-1. On YouTube, click ··· under the video → Show transcript → copy all text
-2. Or run: yt-dlp --write-auto-sub --sub-lang en --sub-format srt --skip-download VIDEO_URL
-   then paste the .srt file contents here
-
-Plain text, SRT format, or timestamped lines all work." style="min-height:160px;margin-top:4px;"></textarea>
+        <textarea id="manual-transcript" placeholder="Paste transcript here — plain text, SRT format, or timestamped lines all work." style="min-height:140px;margin-top:4px;"></textarea>
         <div style="margin-top:8px;">
           <label style="font-size:0.85rem;color:#ccc;">Title (optional):</label>
           <input type="text" id="manual-title" placeholder="Video title" style="width:100%;padding:8px 12px;background:#1a1a1a;color:#e0e0e0;border:1px solid #333;border-radius:6px;font-size:0.9rem;margin-top:4px;">
         </div>
+      </div>
+
+      <!-- Auto mode (secondary) -->
+      <div id="idx-mode-auto" style="display:none;">
+        <textarea id="yt-urls" placeholder="Paste YouTube URLs, one per line:
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+https://youtu.be/jNQXAC9IVRw
+or just video IDs like dQw4w9WgXcQ"></textarea>
+        <p style="font-size:0.8rem;color:#ff9800;margin-top:6px;">⚠ YouTube actively blocks CORS proxies. This may not work. Use "Paste transcript" mode for reliable results.</p>
       </div>
 
       <div class="options-row">
@@ -417,7 +426,23 @@ Plain text, SRT format, or timestamped lines all work." style="min-height:160px;
     // ================================================================
     // INDEX MODE SWITCHING
     // ================================================================
-    var currentIndexMode = "auto";
+    var currentIndexMode = "manual";
+
+    function updateYtdlpCmd() {
+      var vidInput = document.getElementById("manual-vid").value.trim();
+      var vid = extractVideoId(vidInput);
+      var url = vid ? "https://www.youtube.com/watch?v=" + vid : (vidInput || "VIDEO_URL");
+      document.getElementById("ytdlp-cmd").textContent = 'yt-dlp --write-auto-sub --sub-lang en --sub-format srt --skip-download "' + url + '"';
+    }
+
+    function copyYtdlpCmd() {
+      var cmd = document.getElementById("ytdlp-cmd").textContent;
+      navigator.clipboard.writeText(cmd).then(function () {
+        var btn = document.getElementById("copy-cmd-btn");
+        btn.textContent = "Copied!";
+        setTimeout(function () { btn.textContent = "Copy"; }, 2000);
+      });
+    }
 
     function switchIndexMode(mode) {
       currentIndexMode = mode;
