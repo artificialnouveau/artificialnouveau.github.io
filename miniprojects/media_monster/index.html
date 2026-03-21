@@ -554,7 +554,8 @@ or just paste video IDs like dQw4w9WgXcQ"></textarea>
 
       <div class="btn-row">
         <button class="btn-primary" onclick="fetchThumbnails()">Get Thumbnails</button>
-        <button class="btn-secondary" id="yt-download-all-btn" onclick="ytDownloadAll()" disabled>Download All</button>
+        <button class="btn-secondary" id="yt-download-all-btn" onclick="ytDownloadAll()" disabled>Download All Thumbnails</button>
+        <button class="btn-secondary" id="yt-download-all-videos-btn" onclick="ytDownloadAllVideos()" disabled style="background:#ff0000;color:#fff;">Download All Videos</button>
         <button class="btn-secondary" onclick="ytClear()">Clear</button>
       </div>
 
@@ -801,6 +802,7 @@ Paste artist page URLs, one per line"></textarea>
           if (loaded === ids.length) {
             status.textContent = ids.length + " thumbnail" + (ids.length > 1 ? "s" : "") + " loaded.";
             document.getElementById("yt-download-all-btn").disabled = false;
+            document.getElementById("yt-download-all-videos-btn").disabled = false;
           }
         });
       });
@@ -862,8 +864,8 @@ Paste artist page URLs, one per line"></textarea>
       dlVideoBtn.style.background = "#ff0000";
       dlVideoBtn.style.color = "#fff";
       dlVideoBtn.style.borderColor = "#ff0000";
-      dlVideoBtn.textContent = "Download Video ↗";
-      dlVideoBtn.onclick = function () { window.open("https://cobalt.tools/#url=https://www.youtube.com/watch?v=" + videoId, "_blank", "noopener,noreferrer"); };
+      dlVideoBtn.textContent = "Download Video";
+      dlVideoBtn.onclick = function () { cobaltDownload(videoId, dlVideoBtn); };
 
       dlRow.appendChild(dlBtn);
       dlRow.appendChild(dlVideoBtn);
@@ -923,8 +925,95 @@ Paste artist page URLs, one per line"></textarea>
       document.getElementById("yt-results").innerHTML = "";
       document.getElementById("yt-status").textContent = "";
       document.getElementById("yt-download-all-btn").disabled = true;
+      document.getElementById("yt-download-all-videos-btn").disabled = true;
       document.getElementById("file-info").textContent = "";
       ytStates = {};
+    }
+
+    // ============================================================
+    // COBALT VIDEO DOWNLOAD
+    // ============================================================
+    var COBALT_API = "https://api.cobalt.tools/";
+
+    async function cobaltGetUrl(videoId) {
+      var ytUrl = "https://www.youtube.com/watch?v=" + videoId;
+      var resp = await fetch(COBALT_API, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ url: ytUrl })
+      });
+      if (!resp.ok) throw new Error("Cobalt API error " + resp.status);
+      var data = await resp.json();
+      if (data.url) return data.url;
+      if (data.picker && data.picker.length > 0) return data.picker[0].url;
+      throw new Error(data.text || "No download URL returned");
+    }
+
+    async function cobaltDownload(videoId, btn) {
+      var origText = btn.textContent;
+      btn.textContent = "Fetching...";
+      btn.disabled = true;
+      try {
+        var url = await cobaltGetUrl(videoId);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = videoId + ".mp4";
+        a.rel = "noopener noreferrer";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        btn.textContent = "Done ✓";
+        setTimeout(function () { btn.textContent = origText; btn.disabled = false; }, 2000);
+      } catch (err) {
+        // Fallback: open cobalt.tools in a new tab
+        btn.textContent = "Opening cobalt...";
+        window.open("https://cobalt.tools/#url=https://www.youtube.com/watch?v=" + videoId, "_blank", "noopener,noreferrer");
+        setTimeout(function () { btn.textContent = origText; btn.disabled = false; }, 2000);
+      }
+    }
+
+    async function ytDownloadAllVideos() {
+      var ids = Object.keys(ytStates);
+      if (ids.length === 0) return;
+      var status = document.getElementById("yt-status");
+      var btn = document.getElementById("yt-download-all-videos-btn");
+      btn.disabled = true;
+      var done = 0, failed = 0;
+
+      for (var i = 0; i < ids.length; i++) {
+        var id = ids[i];
+        status.textContent = "Downloading video " + (i + 1) + " of " + ids.length + "...";
+        try {
+          var url = await cobaltGetUrl(id);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = id + ".mp4";
+          a.rel = "noopener noreferrer";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          done++;
+          // Small delay between downloads to avoid browser blocking
+          if (i < ids.length - 1) await new Promise(function (r) { setTimeout(r, 800); });
+        } catch (err) {
+          failed++;
+        }
+      }
+
+      if (failed > 0 && done === 0) {
+        status.textContent = "Cobalt API unavailable — opening cobalt.tools for each video...";
+        ids.forEach(function (id, i) {
+          setTimeout(function () {
+            window.open("https://cobalt.tools/#url=https://www.youtube.com/watch?v=" + id, "_blank", "noopener,noreferrer");
+          }, i * 500);
+        });
+      } else {
+        status.textContent = done + " video download" + (done !== 1 ? "s" : "") + " started." + (failed > 0 ? " " + failed + " failed." : "");
+      }
+      btn.disabled = false;
     }
 
     // ============================================================
