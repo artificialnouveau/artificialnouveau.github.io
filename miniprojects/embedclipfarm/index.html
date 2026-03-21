@@ -49,13 +49,67 @@
     /* Load index */
     .load-section {
       background: #1a1a1a; border: 2px dashed #333; border-radius: 8px;
-      padding: 32px; text-align: center; margin-bottom: 24px; cursor: pointer;
+      padding: 24px 32px; text-align: center; margin-bottom: 24px; cursor: pointer;
       transition: border-color 0.2s;
     }
     .load-section:hover { border-color: #e040fb; }
     .load-section p { color: #888; font-size: 0.95rem; }
     .load-section .hint { color: #555; font-size: 0.8rem; margin-top: 4px; }
     .load-section input { display: none; }
+
+    /* Intro / How it works */
+    .intro {
+      margin-bottom: 28px;
+    }
+    .intro h2 {
+      font-size: 1.1rem; color: #fff; margin-bottom: 12px;
+    }
+    .pipeline {
+      display: flex; gap: 0; align-items: stretch; flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .pipeline-step {
+      flex: 1; min-width: 140px; padding: 14px;
+      background: #1a1a1a; border: 1px solid #282828;
+      position: relative;
+    }
+    .pipeline-step:first-child { border-radius: 8px 0 0 8px; }
+    .pipeline-step:last-child { border-radius: 0 8px 8px 0; }
+    .pipeline-step .step-num {
+      font-size: 0.7rem; color: #e040fb; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;
+    }
+    .pipeline-step .step-title {
+      font-size: 0.85rem; color: #fff; font-weight: 600; margin-bottom: 4px;
+    }
+    .pipeline-step .step-desc {
+      font-size: 0.75rem; color: #888; line-height: 1.4;
+    }
+    .pipeline-arrow {
+      display: flex; align-items: center; color: #e040fb; font-size: 1.2rem;
+      padding: 0 2px; flex-shrink: 0;
+    }
+
+    .setup-steps {
+      margin: 0; padding: 0; list-style: none;
+    }
+    .setup-steps li {
+      padding: 10px 14px; margin-bottom: 6px;
+      background: #1a1a1a; border: 1px solid #282828; border-radius: 6px;
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    .setup-steps li code {
+      background: #282828; color: #e040fb; padding: 2px 6px; border-radius: 3px;
+      font-size: 0.8rem;
+    }
+    .setup-steps .step-label {
+      color: #e040fb; font-weight: 700; margin-right: 6px;
+    }
+    .optional-badge {
+      display: inline-block; font-size: 0.65rem; color: #888;
+      border: 1px solid #444; border-radius: 3px; padding: 1px 4px;
+      margin-left: 4px; vertical-align: middle;
+    }
 
     .index-info {
       background: #1a1a1a; border: 1px solid #282828; border-radius: 8px;
@@ -145,10 +199,68 @@
     <h1>EmbedClipFarm</h1>
     <p class="subtitle">Semantic search over YouTube content — search by meaning, not just keywords.</p>
 
+    <!-- Intro -->
+    <div class="intro" id="intro-section">
+      <h2>How it works</h2>
+
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <div class="step-num">Step 1</div>
+          <div class="step-title">Index videos</div>
+          <div class="step-desc">CLI pulls transcripts &amp; metadata from YouTube — no video download needed</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-num">Step 2</div>
+          <div class="step-title">Embed</div>
+          <div class="step-desc">AI embeds transcript chunks into vectors that capture meaning</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-num">Step 3</div>
+          <div class="step-title">Export</div>
+          <div class="step-desc">Export index as JSON file</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-num">Step 4</div>
+          <div class="step-title">Search here</div>
+          <div class="step-desc">Load JSON, search by meaning — finds relevant moments even without exact keywords</div>
+        </div>
+      </div>
+
+      <h2>Quick start</h2>
+      <ol class="setup-steps">
+        <li>
+          <span class="step-label">Install:</span>
+          <code>pip install youtube-transcript-api chromadb sentence-transformers</code>
+        </li>
+        <li>
+          <span class="step-label">Index a video or playlist:</span>
+          <code>python embedclipfarm.py index "https://youtube.com/watch?v=VIDEO_ID"</code>
+          <br><span style="color:#888;font-size:0.8rem;margin-top:2px;display:inline-block;">
+            Add <code>--clip</code> for visual search, <code>--whisper</code> for videos without captions
+            <span class="optional-badge">optional</span>
+          </span>
+        </li>
+        <li>
+          <span class="step-label">Export the index:</span>
+          <code>python embedclipfarm.py export --output index.json</code>
+        </li>
+        <li>
+          <span class="step-label">Load it below</span> and start searching!
+        </li>
+      </ol>
+
+      <p style="color:#555;font-size:0.8rem;margin-top:12px;">
+        You can also search directly in the terminal: <code>python embedclipfarm.py search "your query"</code>
+      </p>
+    </div>
+
     <!-- Load index -->
     <div class="load-section" id="load-section" onclick="document.getElementById('index-file').click()">
-      <p>Load an exported index (JSON)</p>
-      <p class="hint">Generate with: <code>python embedclipfarm.py export --output index.json</code></p>
+      <p style="font-size:1.05rem;color:#fff;margin-bottom:6px;">Load your index.json file</p>
+      <p>Drop or click to load the JSON file exported from the CLI</p>
       <input type="file" id="index-file" accept=".json">
     </div>
 
@@ -191,8 +303,7 @@
     var clipModelLoading = false;
 
     // ---- Index loading ----
-    document.getElementById("index-file").addEventListener("change", function () {
-      if (this.files.length === 0) return;
+    function loadIndexFile(file) {
       var reader = new FileReader();
       reader.onload = function (e) {
         try {
@@ -201,12 +312,28 @@
           document.getElementById("search-input").disabled = false;
           document.getElementById("search-btn").disabled = false;
           document.getElementById("load-section").style.display = "none";
+          document.getElementById("intro-section").style.display = "none";
           loadModels();
         } catch (err) {
           document.getElementById("status").textContent = "Error parsing JSON: " + err.message;
         }
       };
-      reader.readAsText(this.files[0]);
+      reader.readAsText(file);
+    }
+
+    document.getElementById("index-file").addEventListener("change", function () {
+      if (this.files.length === 0) return;
+      loadIndexFile(this.files[0]);
+    });
+
+    // Drag and drop on load section
+    var loadSection = document.getElementById("load-section");
+    loadSection.addEventListener("dragover", function (e) { e.preventDefault(); loadSection.style.borderColor = "#e040fb"; });
+    loadSection.addEventListener("dragleave", function () { loadSection.style.borderColor = "#333"; });
+    loadSection.addEventListener("drop", function (e) {
+      e.preventDefault();
+      loadSection.style.borderColor = "#333";
+      if (e.dataTransfer.files.length > 0) loadIndexFile(e.dataTransfer.files[0]);
     });
 
     function showIndexInfo() {
