@@ -849,14 +849,28 @@ Paste artist page URLs, one per line"></textarea>
         qualityRow.appendChild(btn);
       });
 
+      var dlRow = document.createElement("div");
+      dlRow.className = "quality-row";
+
       var dlBtn = document.createElement("button");
       dlBtn.className = "download-btn";
-      dlBtn.textContent = "Download";
+      dlBtn.textContent = "Download Thumbnail";
       dlBtn.onclick = function () { downloadImage(ytThumbUrl(videoId, ytStates[videoId].quality), videoId + "_" + ytStates[videoId].quality + ".jpg"); };
+
+      var dlVideoBtn = document.createElement("button");
+      dlVideoBtn.className = "download-btn";
+      dlVideoBtn.style.background = "#ff0000";
+      dlVideoBtn.style.color = "#fff";
+      dlVideoBtn.style.borderColor = "#ff0000";
+      dlVideoBtn.textContent = "Download Video ↗";
+      dlVideoBtn.onclick = function () { window.open("https://cobalt.tools/#url=https://www.youtube.com/watch?v=" + videoId, "_blank", "noopener,noreferrer"); };
+
+      dlRow.appendChild(dlBtn);
+      dlRow.appendChild(dlVideoBtn);
 
       body.appendChild(idLabel);
       body.appendChild(qualityRow);
-      body.appendChild(dlBtn);
+      body.appendChild(dlRow);
       card.appendChild(img);
       card.appendChild(body);
       container.appendChild(card);
