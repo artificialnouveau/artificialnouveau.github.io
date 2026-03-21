@@ -1,6 +1,6 @@
 {% if site.navigation_header %}
 {% assign nav = site.navigation_header %}
-<nav>
+<nav aria-label="Main navigation">
     <ul class="navbar-nav flex-column text-left">
         {% for item in nav %}
         {% if item.url contains '://' %}
@@ -10,7 +10,7 @@
         {% endif %}
         {% assign icon = item.icon %}
         <li class="nav-item {% if item.url == page.url %} active {% endif %}">
-            <a class="nav-link" href="{{ url }}"><i class="{{ icon }} fa-fw mr-2"></i>
+            <a class="nav-link" href="{{ url }}" {% if item.url == page.url %}aria-current="page"{% endif %}><i class="{{ icon }} fa-fw mr-2" aria-hidden="true"></i>
                 {{ item.title }}
                 {% if item.url == page.url %}
                 <span class="sr-only">(current)</span>

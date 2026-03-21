@@ -1,5 +1,5 @@
 <header class="header text-center">
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark" aria-label="Site navigation">
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
             aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,7 +10,7 @@
             <!-- Profile Section Start -->
             <div class="profile-section pt-3 pt-lg-0">
                 <a href="{{ site.navigation_header[0].url }}">
-                    <img class="profile-image mb-3 rounded-circle mx-auto" src="{{ site.logo | relaive_url }}" alt="image">
+                    <img class="profile-image mb-3 rounded-circle mx-auto" src="{{ site.logo | relaive_url }}" alt="{{ site.user.name }} profile photo">
                 </a>
                 <h3 class="blog-name pt-2 mb-3">
                     <a href="{{ site.navigation_header[0].url }}">{{ site.user.name }}</a>
@@ -18,13 +18,13 @@
 
                 <!-- Bio Section Start-->
                 <div class="bio mb-3">
-                  
+
                     <p>
                         {{ site.user.bio }}
                     </p>
-                    
+
                 </div>
-                <ul class="social-list list-inline py-3 mx-auto">
+                <ul class="social-list list-inline py-3 mx-auto" aria-label="Social media links">
                     {% include social.html %}
                 </ul>
                 <hr>
@@ -35,12 +35,12 @@
             {% include nav-header.html %}
 
             <div class="my-2 my-md-3">
-                <a class="btn btn-primary" href="/assets/resume/ai.pdf" target="_blank"
-                    download="AZhuParris-AI-resume">AI Resume</a>
+                <a class="btn btn-primary" href="/assets/resume/ai.pdf" target="_blank" rel="noopener noreferrer"
+                    download="AZhuParris-AI-resume" aria-label="Download AI Resume (opens in new tab)">AI Resume</a>
             </div>
             <div class="my-2 my-md-3">
-                <a class="btn btn-primary" href="/assets/resume/creative.pdf" target="_blank"
-                    download="AZhuParris-creative-resume">Creative Resume</a>
+                <a class="btn btn-primary" href="/assets/resume/creative.pdf" target="_blank" rel="noopener noreferrer"
+                    download="AZhuParris-creative-resume" aria-label="Download Creative Resume (opens in new tab)">Creative Resume</a>
             </div>
         </div>
     </nav>
