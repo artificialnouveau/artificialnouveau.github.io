@@ -78,15 +78,24 @@
           moments even if those exact words are never spoken.
         </p>
         <p style="color:#aaa;font-size:0.85rem;margin-bottom:12px;">
-          <strong style="color:#fff;">How it works:</strong> The CLI tool downloads transcripts from YouTube, splits them into
-          30-second chunks, and converts each chunk into a vector embedding that captures its meaning.
-          When you search here, your query is embedded the same way, and results are ranked by
+          <strong style="color:#fff;">What gets analyzed:</strong>
+          The primary analysis is on <strong style="color:#e040fb;">speech transcripts</strong> — auto-generated captions pulled from YouTube via yt-dlp,
+          or transcribed locally using <strong style="color:#e040fb;">Whisper AI</strong> for videos without captions.
+          Optionally, <strong style="color:#e040fb;">CLIP visual embeddings</strong> can be generated from sampled keyframes, enabling search by visual description
+          (e.g. "person at a podium"). <strong style="color:#e040fb;">Scene detection</strong> uses frame-by-frame analysis to identify visual cut points
+          in the video, splitting it into distinct scenes that can be individually searched and downloaded as clips.
+        </p>
+        <p style="color:#aaa;font-size:0.85rem;margin-bottom:12px;">
+          <strong style="color:#fff;">How it works:</strong> Transcripts are split into ~30-second chunks, and each chunk is converted into
+          a 384-dimensional vector embedding (using all-MiniLM-L6-v2) that captures its semantic meaning.
+          When you search, your query is embedded the same way and results are ranked by
           <strong style="color:#e040fb;">cosine similarity</strong> — how close your query's meaning is to each chunk's meaning.
         </p>
         <p style="color:#aaa;font-size:0.85rem;margin-bottom:12px;">
-          <strong style="color:#fff;">Scores:</strong> Results show a similarity score from 0 to 1.
-          Higher is more relevant. Scores above <strong>0.3</strong> are usually strong matches,
-          <strong>0.15–0.3</strong> are related, below <strong>0.15</strong> is likely noise.
+          <strong style="color:#fff;">Scores:</strong>
+          <span style="color:#4caf50;font-weight:600;">strong</span> (>= 0.3) — high confidence match,
+          <span style="color:#ff9800;font-weight:600;">related</span> (0.15–0.3) — topically related,
+          below 0.15 is filtered out as noise.
         </p>
         <p style="color:#aaa;font-size:0.85rem;margin-bottom:0;">
           <strong style="color:#fff;">Before using this page:</strong> Run the CLI to index a YouTube channel or videos.
