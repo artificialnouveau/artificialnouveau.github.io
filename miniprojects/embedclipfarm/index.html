@@ -254,12 +254,21 @@
         });
       }
       scored.sort(function (a, b) { return b.score - a.score; });
-      lastScoredResults = scored;
-      lastQuery = query;
-      var results = scored.slice(0, topK);
 
-      statusEl.textContent = "Showing " + results.length + " of " + scored.length + " total chunks.";
-      renderResults(results, query, scored.length);
+      // Filter by relevance
+      var strong = scored.filter(function (r) { return r.score >= 0.3; });
+      var related = scored.filter(function (r) { return r.score >= 0.15 && r.score < 0.3; });
+      var relevant = scored.filter(function (r) { return r.score >= 0.15; });
+
+      lastScoredResults = relevant;
+      lastQuery = query;
+      var results = relevant.slice(0, topK);
+
+      var summary = strong.length + " strong match" + (strong.length !== 1 ? "es" : "") +
+        ", " + related.length + " related" +
+        " — showing " + results.length + " of " + relevant.length + " relevant";
+      statusEl.textContent = summary;
+      renderResults(results, query, relevant.length);
     }
 
     function cosineSim(a, b) {
@@ -313,7 +322,9 @@
         if (r.text) { var txt = document.createElement("div"); txt.className = "result-text"; txt.innerHTML = highlightText(r.text, qw); body.appendChild(txt); }
 
         var sc = document.createElement("div"); sc.className = "result-score";
-        sc.textContent = "Score: " + r.score.toFixed(3) + "  \u2022  " + fmtTime(ts) + " → " + fmtTime(endTs);
+        var strength = r.score >= 0.3 ? "strong" : "related";
+        var strengthColor = r.score >= 0.3 ? "#4caf50" : "#ff9800";
+        sc.innerHTML = '<span style="color:' + strengthColor + ';font-weight:600;">' + strength + '</span> ' + r.score.toFixed(3) + "  \u2022  " + fmtTime(ts) + " → " + fmtTime(endTs);
         body.appendChild(sc);
 
         // Action buttons
