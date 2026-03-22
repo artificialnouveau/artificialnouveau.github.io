@@ -171,9 +171,6 @@
           indexData = JSON.parse(e.target.result);
           showIndexInfo();
           document.getElementById("load-section").style.display = "none";
-          // Keep about section but collapse it to just the CLI commands
-          var aboutKids = document.getElementById("about-section").children;
-          for (var i = 0; i < aboutKids.length - 1; i++) aboutKids[i].style.display = "none";
           document.getElementById("search-section").style.display = "block";
           document.getElementById("search-input").focus();
           ensureTextModel();
@@ -264,68 +261,60 @@
 
         var card = document.createElement("div");
         card.className = "result-card";
-        card.style.flexDirection = "column";
 
-        // Header row: title + score
-        var header = document.createElement("div");
-        header.style.cssText = "display:flex;justify-content:space-between;align-items:start;gap:12px;";
-
-        var titleEl = document.createElement("div"); titleEl.className = "result-title";
-        var a = document.createElement("a"); a.href = link; a.target = "_blank"; a.rel = "noopener noreferrer"; a.textContent = title;
-        titleEl.appendChild(a);
-        if (meta.channel) { var ch = document.createElement("div"); ch.className = "result-channel"; ch.textContent = meta.channel; titleEl.appendChild(ch); }
-        header.appendChild(titleEl);
-
-        var sc = document.createElement("div"); sc.className = "result-score"; sc.style.whiteSpace = "nowrap";
-        sc.textContent = r.score.toFixed(3) + "  \u2022  " + fmtTime(ts) + " → " + fmtTime(endTs);
-        header.appendChild(sc);
-        card.appendChild(header);
-
-        // Embedded YouTube player starting at timestamp
+        // Left side: embedded YouTube player
         var playerWrap = document.createElement("div");
-        playerWrap.style.cssText = "margin:10px 0;border-radius:8px;overflow:hidden;position:relative;padding-bottom:56.25%;height:0;background:#000;";
+        playerWrap.style.cssText = "width:280px;height:158px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#000;";
         var iframe = document.createElement("iframe");
-        iframe.src = "https://www.youtube.com/embed/" + vid + "?start=" + ts + "&autoplay=0";
-        iframe.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:8px;";
+        iframe.src = "https://www.youtube-nocookie.com/embed/" + vid + "?start=" + ts;
+        iframe.style.cssText = "width:100%;height:100%;border:none;";
         iframe.allow = "accelerometer; encrypted-media; gyroscope; picture-in-picture";
         iframe.setAttribute("allowfullscreen", "");
         iframe.loading = "lazy";
         playerWrap.appendChild(iframe);
         card.appendChild(playerWrap);
 
-        // Transcript text
-        if (r.text) {
-          var txt = document.createElement("div"); txt.className = "result-text";
-          txt.style.maxHeight = "none";
-          txt.innerHTML = highlightText(r.text, qw);
-          card.appendChild(txt);
-        }
+        // Right side: info
+        var body = document.createElement("div"); body.className = "result-body";
 
-        // Actions row
+        var titleEl = document.createElement("div"); titleEl.className = "result-title";
+        var a = document.createElement("a"); a.href = link; a.target = "_blank"; a.rel = "noopener noreferrer"; a.textContent = title;
+        titleEl.appendChild(a);
+        body.appendChild(titleEl);
+
+        if (meta.channel) { var ch = document.createElement("div"); ch.className = "result-channel"; ch.textContent = meta.channel; body.appendChild(ch); }
+
+        if (r.text) { var txt = document.createElement("div"); txt.className = "result-text"; txt.innerHTML = highlightText(r.text, qw); body.appendChild(txt); }
+
+        var sc = document.createElement("div"); sc.className = "result-score";
+        sc.textContent = "Score: " + r.score.toFixed(3) + "  \u2022  " + fmtTime(ts) + " → " + fmtTime(endTs);
+        body.appendChild(sc);
+
+        // Action buttons
         var actions = document.createElement("div");
-        actions.style.cssText = "display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;";
+        actions.style.cssText = "display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;";
 
         var clipCmd = 'python embedclipfarm.py clip ' + vid + ' --start ' + ts + ' --end ' + endTs;
-
         var copyBtn = document.createElement("button");
-        copyBtn.textContent = "Copy clip command";
-        copyBtn.style.cssText = "padding:6px 14px;font-size:0.8rem;background:#282828;color:#e040fb;border:1px solid #444;border-radius:4px;cursor:pointer;";
+        copyBtn.textContent = "Copy clip cmd";
+        copyBtn.style.cssText = "padding:4px 10px;font-size:0.75rem;background:#282828;color:#e040fb;border:1px solid #444;border-radius:4px;cursor:pointer;";
         copyBtn.onclick = (function (cmd, btn) {
           return function () {
             navigator.clipboard.writeText(cmd);
             btn.textContent = "Copied!";
-            setTimeout(function () { btn.textContent = "Copy clip command"; }, 2000);
+            setTimeout(function () { btn.textContent = "Copy clip cmd"; }, 2000);
           };
         })(clipCmd, copyBtn);
         actions.appendChild(copyBtn);
 
         var openBtn = document.createElement("button");
-        openBtn.textContent = "Open on YouTube";
-        openBtn.style.cssText = "padding:6px 14px;font-size:0.8rem;background:#282828;color:#ccc;border:1px solid #444;border-radius:4px;cursor:pointer;";
+        openBtn.textContent = "YouTube";
+        openBtn.style.cssText = "padding:4px 10px;font-size:0.75rem;background:#282828;color:#ccc;border:1px solid #444;border-radius:4px;cursor:pointer;";
         openBtn.onclick = function () { window.open(link, "_blank"); };
         actions.appendChild(openBtn);
 
-        card.appendChild(actions);
+        body.appendChild(actions);
+        card.appendChild(body);
         container.appendChild(card);
       });
     }
