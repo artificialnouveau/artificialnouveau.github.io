@@ -67,7 +67,6 @@
     <h1>EmbedClipFarm</h1>
     <p class="subtitle">Semantic search over YouTube content — search by meaning, not just keywords.</p>
 
-    <div class="index-stats" id="index-stats"></div>
     <div class="model-status" id="model-status"></div>
 
     <!-- About section -->
@@ -180,7 +179,6 @@
       reader.onload = function (e) {
         try {
           indexData = JSON.parse(e.target.result);
-          showIndexInfo();
           document.getElementById("load-section").style.display = "none";
           // Show success banner
           var vc = Object.keys(indexData.videos || {}).length;
@@ -214,13 +212,6 @@
       document.getElementById("index-file").click();
     }
 
-    function showIndexInfo() {
-      var el = document.getElementById("index-stats");
-      var vc = Object.keys(indexData.videos || {}).length;
-      var tc = (indexData.text_chunks && indexData.text_chunks.ids) ? indexData.text_chunks.ids.length : 0;
-      el.innerHTML = '<span class="tag">' + vc + ' videos</span><span class="tag">' + tc + ' text chunks</span>';
-      el.style.display = "block";
-    }
 
     // ---- Search ----
     document.getElementById("search-input").addEventListener("keydown", function (e) {
