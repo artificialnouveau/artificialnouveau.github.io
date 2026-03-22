@@ -138,6 +138,11 @@
         <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--whisper</code><br>
         <span style="color:#aaa;"><strong style="color:#ff9800;">Speaker ID</strong> to tag who's talking</span> <span style="color:#555;">(requires <code style="background:#282828;color:#e040fb;padding:1px 4px;border-radius:2px;">pip install pyannote-audio</code> + <code style="background:#282828;color:#e040fb;padding:1px 4px;border-radius:2px;">HF_TOKEN</code> in .env)</span><br>
         <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--whisper --speaker-id</code><br><br>
+        <span style="color:#aaa;">Custom prompt for vision annotation:</span><br>
+        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--vision-prompt "Describe the fashion and clothing visible in this frame"</code><br>
+        <span style="color:#555;">Default prompt describes the scene in detail for search. Custom prompts let you focus on specific aspects (fashion, text on screen, emotions, etc.)</span><br><br>
+        <span style="color:#aaa;">Punctuation is added to transcripts by default. Disable with:</span><br>
+        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--no-punctuate</code><br><br>
         <span style="color:#aaa;">Example with everything:</span><br>
         <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "@channel" --vision gemini --whisper --speaker-id --max-videos 20</code>
       </div>
