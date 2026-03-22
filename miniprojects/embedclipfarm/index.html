@@ -265,7 +265,7 @@
         var title = meta.title || vid;
         var ts = Math.floor(r.metadata.start || 0);
         var endTs = Math.floor(r.metadata.end || ts + 30);
-        var link = "https://www.youtube.com/watch?v=" + vid + "&t=" + ts;
+        var link = "https://www.youtube.com/watch?v=" + vid + "&t=" + ts + "s";
 
         var card = document.createElement("div");
         card.className = "result-card";
