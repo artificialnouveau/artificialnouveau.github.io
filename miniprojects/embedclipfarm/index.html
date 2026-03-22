@@ -121,6 +121,18 @@
       <input type="file" id="index-file" accept=".json">
     </div>
 
+    <!-- Success banner (hidden until index loaded) -->
+    <div id="loaded-banner" style="display:none;background:#1a2e1a;border:1px solid #2d5a2d;border-radius:8px;padding:14px 20px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:1.3rem;">&#9989;</span>
+        <div>
+          <strong style="color:#4caf50;font-size:0.95rem;" id="loaded-title">Index loaded!</strong>
+          <span id="loaded-detail" style="color:#8bc38b;font-size:0.85rem;margin-left:8px;"></span>
+        </div>
+        <button onclick="loadAnother()" style="margin-left:auto;padding:5px 12px;font-size:0.78rem;background:#282828;color:#ccc;border:1px solid #444;border-radius:4px;cursor:pointer;">Load different index</button>
+      </div>
+    </div>
+
     <!-- Search (hidden until index loaded) -->
     <div id="search-section" style="display:none;">
       <div class="search-wrap">
@@ -130,7 +142,6 @@
       </div>
       <div class="search-options">
         <label>Results: <input type="number" id="top-k" value="10" min="1" max="50" style="width:50px;"></label>
-        <button onclick="loadAnother()" style="background:#333;color:#e0e0e0;padding:6px 14px;font-size:0.8rem;">Load another index</button>
       </div>
       <p class="status" id="search-status"></p>
       <div id="search-results"></div>
@@ -171,6 +182,12 @@
           indexData = JSON.parse(e.target.result);
           showIndexInfo();
           document.getElementById("load-section").style.display = "none";
+          // Show success banner
+          var vc = Object.keys(indexData.videos || {}).length;
+          var tc = (indexData.text_chunks && indexData.text_chunks.ids) ? indexData.text_chunks.ids.length : 0;
+          document.getElementById("loaded-title").textContent = "Index loaded!";
+          document.getElementById("loaded-detail").textContent = vc + " videos, " + tc + " searchable chunks";
+          document.getElementById("loaded-banner").style.display = "block";
           document.getElementById("search-section").style.display = "block";
           document.getElementById("search-input").focus();
           ensureTextModel();
@@ -266,7 +283,7 @@
         var playerWrap = document.createElement("div");
         playerWrap.style.cssText = "width:280px;height:158px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#000;";
         var iframe = document.createElement("iframe");
-        iframe.src = "https://www.youtube-nocookie.com/embed/" + vid + "?start=" + ts;
+        iframe.src = "https://www.youtube.com/embed/" + vid + "?start=" + ts + "&rel=0&modestbranding=1";
         iframe.style.cssText = "width:100%;height:100%;border:none;";
         iframe.allow = "accelerometer; encrypted-media; gyroscope; picture-in-picture";
         iframe.setAttribute("allowfullscreen", "");
