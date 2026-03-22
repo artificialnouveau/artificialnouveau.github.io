@@ -254,10 +254,12 @@
         });
       }
       scored.sort(function (a, b) { return b.score - a.score; });
+      lastScoredResults = scored;
+      lastQuery = query;
       var results = scored.slice(0, topK);
 
-      statusEl.textContent = results.length + " result" + (results.length !== 1 ? "s" : "") + " found.";
-      renderResults(results, query);
+      statusEl.textContent = "Showing " + results.length + " of " + scored.length + " total chunks.";
+      renderResults(results, query, scored.length);
     }
 
     function cosineSim(a, b) {
@@ -266,7 +268,10 @@
       return dot / (Math.sqrt(nA) * Math.sqrt(nB) + 1e-8);
     }
 
-    function renderResults(results, query) {
+    var lastScoredResults = [];
+    var lastQuery = "";
+
+    function renderResults(results, query, totalCount) {
       var container = document.getElementById("search-results");
       container.innerHTML = "";
       if (!results.length) { container.innerHTML = '<div class="no-results">No results found.</div>'; return; }
@@ -338,6 +343,26 @@
         card.appendChild(body);
         container.appendChild(card);
       });
+
+      // Show more button
+      if (results.length < totalCount) {
+        var moreWrap = document.createElement("div");
+        moreWrap.style.cssText = "text-align:center;margin:20px 0;";
+        var moreBtn = document.createElement("button");
+        moreBtn.textContent = "Show more (" + (totalCount - results.length) + " remaining)";
+        moreBtn.style.cssText = "padding:10px 24px;font-size:0.9rem;background:#282828;color:#e040fb;border:1px solid #444;border-radius:6px;cursor:pointer;font-weight:600;";
+        moreBtn.onclick = function () {
+          var currentCount = container.querySelectorAll(".result-card").length;
+          var nextBatch = lastScoredResults.slice(currentCount, currentCount + 10);
+          var statusEl = document.getElementById("search-status");
+          statusEl.textContent = "Showing " + (currentCount + nextBatch.length) + " of " + totalCount + " total chunks.";
+          moreWrap.remove();
+          // Re-render with more results
+          renderResults(lastScoredResults.slice(0, currentCount + 10), lastQuery, totalCount);
+        };
+        moreWrap.appendChild(moreBtn);
+        container.appendChild(moreWrap);
+      }
     }
 
     function highlightText(text, words) {
