@@ -82,7 +82,9 @@
           The primary analysis is on <strong style="color:#e040fb;">speech transcripts</strong> — auto-generated captions pulled from YouTube via yt-dlp,
           or transcribed locally using <strong style="color:#e040fb;">Whisper AI</strong> for videos without captions.
           Optionally, <strong style="color:#e040fb;">CLIP visual embeddings</strong> can be generated from sampled keyframes, enabling search by visual description
-          (e.g. "person at a podium"). <strong style="color:#e040fb;">Scene detection</strong> uses frame-by-frame analysis to identify visual cut points
+          (e.g. "person at a podium") — enable with <code style="background:#282828;color:#4caf50;padding:1px 4px;border-radius:2px;">--clip</code> during indexing.
+          For videos without captions, add <code style="background:#282828;color:#4caf50;padding:1px 4px;border-radius:2px;">--whisper</code> to transcribe audio locally using Whisper AI.
+          <strong style="color:#e040fb;">Scene detection</strong> uses frame-by-frame analysis to identify visual cut points
           in the video, splitting it into distinct scenes that can be individually searched and downloaded as clips.
         </p>
         <p style="color:#aaa;font-size:0.85rem;margin-bottom:12px;">
