@@ -30,6 +30,8 @@ Optional dependencies (install as needed):
 
 ### Index videos
 
+Indexing is the first step — it downloads transcripts (auto-captions) from YouTube videos, splits them into ~30-second chunks, and converts each chunk into a vector embedding that captures its semantic meaning. These embeddings are stored in a local database so you can search them later. You only need to index once per video; after that, you can search as many times as you want.
+
 ```bash
 # Single video
 python embedclipfarm.py index "https://youtube.com/watch?v=VIDEO_ID"
