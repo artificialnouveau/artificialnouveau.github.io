@@ -791,6 +791,23 @@ Paste artist page URLs, one per line"></textarea>
 
     <!-- ============ SCENE SPLITTER TAB ============ -->
     <div class="tab-panel" id="panel-scene">
+
+      <!-- yt-dlp helper -->
+      <div style="background:#1a1a1a;border:1px solid #282828;border-radius:8px;padding:16px;margin-bottom:16px;">
+        <p style="font-size:0.9rem;color:#fff;font-weight:600;margin-bottom:8px;">Download from YouTube first (optional)</p>
+        <p style="font-size:0.8rem;color:#888;margin-bottom:10px;">Paste YouTube URLs to generate yt-dlp download commands. Run them in your terminal, then drop the downloaded file below.</p>
+        <textarea id="scene-yt-urls" rows="2" placeholder="Paste YouTube URLs (one per line)&#10;e.g. https://youtube.com/watch?v=dQw4w9WgXcQ" style="width:100%;padding:10px;font-size:0.85rem;font-family:monospace;background:#0f0f0f;color:#e0e0e0;border:1px solid #333;border-radius:6px;resize:vertical;outline:none;margin-bottom:8px;"></textarea>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;">
+          <label style="font-size:0.8rem;color:#ccc;">Start (optional): <input type="text" id="scene-yt-start" placeholder="e.g. 1:30 or 90" style="width:80px;padding:4px 6px;font-size:0.8rem;font-family:monospace;background:#0f0f0f;color:#e0e0e0;border:1px solid #333;border-radius:4px;"></label>
+          <label style="font-size:0.8rem;color:#ccc;">End (optional): <input type="text" id="scene-yt-end" placeholder="e.g. 3:00 or 180" style="width:80px;padding:4px 6px;font-size:0.8rem;font-family:monospace;background:#0f0f0f;color:#e0e0e0;border:1px solid #333;border-radius:4px;"></label>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button onclick="generateYtdlpCmds()" style="padding:6px 14px;font-size:0.85rem;font-weight:600;background:#e040fb;color:#fff;border:none;border-radius:6px;cursor:pointer;">Generate Commands</button>
+          <button id="scene-yt-copy-btn" onclick="copyYtdlpCmds()" style="padding:6px 14px;font-size:0.85rem;background:#282828;color:#ccc;border:1px solid #444;border-radius:6px;cursor:pointer;display:none;">Copy to Clipboard</button>
+        </div>
+        <pre id="scene-yt-output" style="display:none;margin-top:10px;padding:10px;background:#0f0f0f;border:1px solid #333;border-radius:6px;font-size:0.8rem;color:#4caf50;white-space:pre-wrap;word-break:break-all;max-height:200px;overflow-y:auto;"></pre>
+      </div>
+
       <div class="drop-zone" id="scene-drop-zone" onclick="document.getElementById('scene-file-input').click()">
         <p>Drop a video file here, or click to browse</p>
         <p class="drop-hint">Supports MP4, WebM, MOV, and other browser-compatible formats</p>
@@ -2645,6 +2662,56 @@ Paste artist page URLs, one per line"></textarea>
       var sum = 0;
       for (var i = 0; i < a.length; i++) sum += Math.abs(a[i] - b[i]);
       return sum / a.length;
+    }
+
+    // --- yt-dlp helper ---
+    function parseTimestamp(val) {
+      val = val.trim();
+      if (!val) return "";
+      // Already seconds
+      if (/^\d+(\.\d+)?$/.test(val)) return val;
+      // MM:SS or HH:MM:SS
+      var parts = val.split(":").map(Number);
+      if (parts.length === 2) return String(parts[0] * 60 + parts[1]);
+      if (parts.length === 3) return String(parts[0] * 3600 + parts[1] * 60 + parts[2]);
+      return val;
+    }
+
+    function generateYtdlpCmds() {
+      var input = document.getElementById("scene-yt-urls").value.trim();
+      if (!input) return;
+      var startRaw = document.getElementById("scene-yt-start").value.trim();
+      var endRaw = document.getElementById("scene-yt-end").value.trim();
+      var startSec = parseTimestamp(startRaw);
+      var endSec = parseTimestamp(endRaw);
+
+      var urls = input.split(/[\n,]+/).map(function(s) { return s.trim(); }).filter(Boolean);
+      var cmds = urls.map(function(url) {
+        var cmd = 'yt-dlp -f "bv*+ba/b" --merge-output-format mp4';
+        if (startSec && endSec) {
+          cmd += ' --download-sections "*' + startSec + '-' + endSec + '"';
+        } else if (startSec) {
+          cmd += ' --download-sections "*' + startSec + '-inf"';
+        } else if (endSec) {
+          cmd += ' --download-sections "*0-' + endSec + '"';
+        }
+        cmd += ' -o "%(title)s_%(id)s.%(ext)s" "' + url + '"';
+        return cmd;
+      });
+
+      var output = document.getElementById("scene-yt-output");
+      output.textContent = cmds.join("\n\n");
+      output.style.display = "block";
+      document.getElementById("scene-yt-copy-btn").style.display = "inline-block";
+    }
+
+    function copyYtdlpCmds() {
+      var text = document.getElementById("scene-yt-output").textContent;
+      navigator.clipboard.writeText(text).then(function() {
+        var btn = document.getElementById("scene-yt-copy-btn");
+        btn.textContent = "Copied!";
+        setTimeout(function() { btn.textContent = "Copy to Clipboard"; }, 2000);
+      });
     }
 
     // --- Scene detection ---
