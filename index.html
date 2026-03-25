@@ -493,6 +493,30 @@
             font-family: var(--font-mono);
         }
 
+        /* Nav sections */
+        .nav-sections {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .nav-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-group-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.25rem;
+        }
+
         /* Terminal-style buttons */
         .btn {
             background: var(--color-card-bg);
@@ -504,7 +528,7 @@
             text-transform: uppercase;
             padding: 0.75rem 1.5rem;
             display: inline-block;
-            margin: 1rem 1rem 1rem 0;
+            margin: 0.4rem 0.5rem;
             transition: all 0.2s ease;
             box-shadow:
                 inset 0 0 0 1px rgba(0, 240, 255, 0.2),
@@ -614,14 +638,22 @@
         <div class="container hero-content">
             <div class="hero-eyebrow">AI Engineer × Artist × Researcher</div>
             <h1>Ahnjili ZhuParris, PhD</h1>
-            <div style="text-align: center;">
-                <a href="/assets/resume/ai.pdf" class="btn">AI Resume</a>
-                <a href="/assets/resume/creative.pdf" class="btn">Creative Resume</a>
-                <a href="/gallery/" class="btn">Gallery</a>
-                <a href="/tools/" class="btn">Small Tools</a>
-                <a href="/miniprojects/be-me/" class="btn">Be Me</a>
-                <a href="/talks/" class="btn">Talks & Workshops</a>
-
+            <div class="nav-sections">
+                <div class="nav-group">
+                    <div class="nav-group-label">Resume</div>
+                    <a href="/assets/resume/ai.pdf" class="btn">AI Resume</a>
+                    <a href="/assets/resume/creative.pdf" class="btn">Creative Resume</a>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-label">Projects</div>
+                    <a href="/gallery/" class="btn">Gallery</a>
+                    <a href="/talks/" class="btn">Talks & Workshops</a>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-label">Demos</div>
+                    <a href="/tools/" class="btn">Small Tools</a>
+                    <a href="/miniprojects/be-me/" class="btn">Be Me</a>
+                </div>
             </div>
         </div>
     </header>
