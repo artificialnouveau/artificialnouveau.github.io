@@ -1901,6 +1901,46 @@ body::before, body::after { display: none; }
   .grammar-cat-btn { white-space: nowrap; }
 }
 
+/* ===== PREP ZOEKER ===== */
+.prepz-mode {
+  flex:1;padding:12px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;
+  cursor:pointer;border:none;background:var(--mondrian-white);color:#666;
+  border-right:3px solid var(--mondrian-black);letter-spacing:0.5px;transition:all 0.2s;
+}
+.prepz-mode:last-child { border-right:none; }
+.prepz-mode:hover { background:var(--mondrian-yellow);color:#000; }
+.prepz-mode.active { background:var(--mondrian-red);color:#fff; }
+
+.prep-result-card {
+  border:2px solid var(--mondrian-black);padding:16px;margin-bottom:10px;background:#fff;transition:transform 0.15s;
+}
+.prep-result-card:hover { transform:translateX(4px); }
+.prep-result-phrase { font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:4px; }
+.prep-result-en { font-size:13px;color:#666;margin-bottom:8px; }
+.prep-result-prep { display:inline-block;padding:2px 10px;font-size:12px;font-weight:600;letter-spacing:0.5px;border:2px solid;margin-right:6px;margin-bottom:4px; }
+.prep-result-example { font-size:12px;color:#555;line-height:1.6;margin-top:8px;padding:8px 12px;background:#f8f8f8;border-left:3px solid var(--mondrian-blue); }
+.prep-result-waar { font-size:12px;margin-top:8px;padding:8px 12px;background:#f0f4ff;border-left:3px solid var(--mondrian-blue); }
+.prep-result-wie { font-size:12px;margin-top:4px;padding:8px 12px;background:#fff0f0;border-left:3px solid var(--mondrian-red); }
+
+.prepq-filter {
+  padding:6px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;
+  border:2px solid var(--mondrian-black);background:#fff;cursor:pointer;transition:all 0.2s;
+}
+.prepq-filter:hover { background:var(--mondrian-yellow); }
+.prepq-filter.active { background:var(--mondrian-black);color:#fff; }
+
+.prepq-sentence { font-size:18px;line-height:1.8;margin-bottom:16px;font-weight:500; }
+.prepq-blank { display:inline-block;min-width:80px;border-bottom:3px solid var(--mondrian-red);margin:0 4px;text-align:center; }
+.prepq-options { display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px; }
+.prepq-opt {
+  padding:10px 20px;border:3px solid var(--mondrian-black);background:#fff;font-family:'Space Grotesk',sans-serif;
+  font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s;
+}
+.prepq-opt:hover { background:var(--mondrian-yellow);transform:translateY(-2px); }
+.prepq-opt.correct { background:var(--green);color:#fff;border-color:var(--green); }
+.prepq-opt.wrong { background:var(--mondrian-red);color:#fff;border-color:var(--mondrian-red); }
+.prepq-feedback { margin-top:12px;padding:12px 16px;font-size:13px;line-height:1.6;border:2px solid; }
+
 /* ===== SUBTAB SYSTEM ===== */
 .subtab-bar {
   display: flex;
@@ -1926,9 +1966,105 @@ body::before, body::after { display: none; }
 .subtab-content { display: none; }
 .subtab-content.active { display: block; }
 
+/* Spiekbriefjes visual nav tiles */
+.spiek-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.spiek-nav-tile {
+  border: 3px solid var(--mondrian-black);
+  padding: 14px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--mondrian-white);
+  text-align: center;
+}
+.spiek-nav-tile:hover { background: var(--mondrian-yellow); }
+.spiek-nav-tile.active { background: var(--mondrian-red); color: #fff; }
+.spiek-nav-tile.active .spiek-nav-en { color: rgba(255,255,255,0.8); }
+.spiek-nav-tile.active .spiek-nav-hint { color: rgba(255,255,255,0.7); }
+.spiek-nav-nl {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.spiek-nav-en {
+  font-size: 11px;
+  color: #888;
+  margin-top: 2px;
+}
+.spiek-nav-hint {
+  font-size: 10px;
+  color: #aaa;
+  margin-top: 5px;
+  line-height: 1.3;
+}
+
+/* Quick directory for grammar section */
+.grammar-directory {
+  margin-bottom: 18px;
+  border: 3px solid var(--mondrian-black);
+  background: #fafafa;
+}
+.grammar-dir-header {
+  background: var(--mondrian-black);
+  color: #fff;
+  padding: 10px 14px;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.grammar-dir-header:hover { background: #333; }
+.grammar-dir-body {
+  display: none;
+  padding: 12px 14px;
+  columns: 2;
+  column-gap: 20px;
+}
+.grammar-dir-body.open { display: block; }
+.grammar-dir-section {
+  break-inside: avoid;
+  margin-bottom: 10px;
+}
+.grammar-dir-section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--mondrian-black);
+  padding-bottom: 3px;
+  margin-bottom: 4px;
+}
+.grammar-dir-link {
+  display: block;
+  font-size: 12px;
+  color: var(--mondrian-blue);
+  padding: 3px 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+.grammar-dir-link:hover { color: var(--mondrian-red); text-decoration: underline; }
+
 @media (max-width: 600px) {
   .subtab-bar { overflow-x: auto; flex-wrap: nowrap; }
   .subtab-btn { white-space: nowrap; font-size: 11px; padding: 6px 12px; }
+  .spiek-nav-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .spiek-nav-tile { padding: 10px 6px; }
+  .spiek-nav-nl { font-size: 12px; }
+  .spiek-nav-en { font-size: 10px; }
+  .spiek-nav-hint { font-size: 9px; }
+  .grammar-dir-body { columns: 1; }
 }
 
 /* ===== LEESHOEK TRANSLATE TOOLBAR ===== */
@@ -2751,11 +2887,48 @@ body::before, body::after { display: none; }
     <input type="text" class="spiek-search" id="spiekSearch" placeholder="Zoek in alle spiekbriefjes..." oninput="searchSpiekbriefjes()" />
     <button class="spiek-search-clear" id="spiekSearchClear" onclick="clearSpiekSearch()" title="Wissen">&times;</button>
   </div>
-  <div class="subtab-bar" id="spiekSubtabBar">
+  <div class="subtab-bar" id="spiekSubtabBar" style="display:none;">
     <button class="subtab-btn active" data-subtab="sheets" data-maintab="spiekbriefjes">Werkwoorden</button>
     <button class="subtab-btn" data-subtab="sheets-prep" data-maintab="spiekbriefjes">Voorzetsels</button>
     <button class="subtab-btn" data-subtab="phrases" data-maintab="spiekbriefjes">Uitdrukkingen</button>
     <button class="subtab-btn" data-subtab="grammar" data-maintab="spiekbriefjes">Grammatica</button>
+    <button class="subtab-btn" data-subtab="dehet" data-maintab="spiekbriefjes">De of Het?</button>
+    <button class="subtab-btn" data-subtab="prepzoeker" data-maintab="spiekbriefjes">Voorzetsel Zoeker</button>
+  </div>
+  <div class="spiek-nav-grid" id="spiekNavGrid">
+    <div class="spiek-nav-tile active" onclick="switchSpiekNav('sheets')">
+      <div class="spiek-nav-nl">Werkwoorden</div>
+      <div class="spiek-nav-en">Verb Conjugations</div>
+      <div class="spiek-nav-hint">hebben/zijn, patronen, scheidbaar</div>
+    </div>
+    <div class="spiek-nav-tile" onclick="switchSpiekNav('sheets-prep')">
+      <div class="spiek-nav-nl">Vaste Voorzetsels</div>
+      <div class="spiek-nav-en">Fixed Prepositions</div>
+      <div class="spiek-nav-hint">denken aan, wachten op...</div>
+    </div>
+    <div class="spiek-nav-tile" onclick="switchSpiekNav('phrases')">
+      <div class="spiek-nav-nl">Uitdrukkingen</div>
+      <div class="spiek-nav-en">Common Phrases</div>
+      <div class="spiek-nav-hint">dagelijks, meningen, connectoren</div>
+    </div>
+    <div class="spiek-nav-tile" onclick="switchSpiekNav('grammar')">
+      <div class="spiek-nav-nl">Grammatica</div>
+      <div class="spiek-nav-en">Grammar Cheat Sheets</div>
+      <div class="spiek-nav-hint">er, passief, woordvolgorde, spelling, de/het...</div>
+    </div>
+    <div class="spiek-nav-tile" onclick="switchSpiekNav('dehet')">
+      <div class="spiek-nav-nl">De of Het?</div>
+      <div class="spiek-nav-en">Article Checker</div>
+      <div class="spiek-nav-hint">typ een woord &rarr; de of het?</div>
+    </div>
+    <div class="spiek-nav-tile" onclick="switchSpiekNav('prepzoeker')">
+      <div class="spiek-nav-nl">Voorzetsel Zoeker</div>
+      <div class="spiek-nav-en">Preposition Finder</div>
+      <div class="spiek-nav-hint">zoek welk voorzetsel bij een werkwoord hoort</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-bottom:16px;">
+    <button class="mondrian-btn" onclick="exportUltimateCheatsheet()" style="font-size:13px;padding:10px 22px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download 2-pagina cheatsheet (grammatica + vocab)</button>
   </div>
   <div class="spiek-search-results" id="spiekSearchResults"></div>
 
@@ -2885,21 +3058,185 @@ body::before, body::after { display: none; }
 
   <div class="subtab-content" id="sub-grammar">
   <div class="grammar-container">
+    <div class="grammar-directory">
+      <div class="grammar-dir-header" onclick="toggleGrammarDir()">
+        <span>Find a card — Zoek een kaart</span>
+        <span id="grammarDirArrow">&#9660;</span>
+      </div>
+      <div class="grammar-dir-body" id="grammarDirBody"></div>
+    </div>
     <div class="help-row" style="margin-bottom:12px;">
       <div class="grammar-sub-nav" style="flex:1">
         <button class="grammar-cat-btn active" data-gcat="all" onclick="switchGrammarCat('all')">Alles</button>
-        <button class="grammar-cat-btn" data-gcat="verbs" onclick="switchGrammarCat('verbs')">Werkwoorden</button>
+        <button class="grammar-cat-btn" data-gcat="verbs" onclick="switchGrammarCat('verbs')">Werkwoorden <span style="font-weight:400;opacity:0.7;font-size:10px;">(verbs)</span></button>
         <button class="grammar-cat-btn" data-gcat="spelling" onclick="switchGrammarCat('spelling')">Spelling</button>
-        <button class="grammar-cat-btn" data-gcat="articles" onclick="switchGrammarCat('articles')">De / Het</button>
-        <button class="grammar-cat-btn" data-gcat="wordorder" onclick="switchGrammarCat('wordorder')">Woordvolgorde</button>
-        <button class="grammar-cat-btn" data-gcat="pronouns" onclick="switchGrammarCat('pronouns')">Voornaamwoorden</button>
-        <button class="grammar-cat-btn" data-gcat="other" onclick="switchGrammarCat('other')">Overig</button>
+        <button class="grammar-cat-btn" data-gcat="articles" onclick="switchGrammarCat('articles')">De / Het <span style="font-weight:400;opacity:0.7;font-size:10px;">(articles)</span></button>
+        <button class="grammar-cat-btn" data-gcat="wordorder" onclick="switchGrammarCat('wordorder')">Woordvolgorde <span style="font-weight:400;opacity:0.7;font-size:10px;">(word order)</span></button>
+        <button class="grammar-cat-btn" data-gcat="zinsbouw" onclick="switchGrammarCat('zinsbouw')">Zinsbouw <span style="font-weight:400;opacity:0.7;font-size:10px;">(sentence building)</span></button>
+        <button class="grammar-cat-btn" data-gcat="pronouns" onclick="switchGrammarCat('pronouns')">Voornaamwoorden <span style="font-weight:400;opacity:0.7;font-size:10px;">(pronouns)</span></button>
+        <button class="grammar-cat-btn" data-gcat="woordjes" onclick="switchGrammarCat('woordjes')">Kleine Woordjes <span style="font-weight:400;opacity:0.7;font-size:10px;">(er, prepositions...)</span></button>
+        <button class="grammar-cat-btn" data-gcat="woordvorming" onclick="switchGrammarCat('woordvorming')">Woordvorming <span style="font-weight:400;opacity:0.7;font-size:10px;">(word building)</span></button>
       </div>
       <button class="help-btn" onclick="showHelp('grammar')" title="Hulp">?</button>
     </div>
     <div class="grammar-grid" id="grammarGrid"></div>
+    <div style="text-align:center;margin-top:20px;">
+      <button class="mondrian-btn" onclick="exportAllGrammar()" style="font-size:15px;padding:12px 28px;">Alle spiekbriefjes downloaden als PDF</button>
+    </div>
   </div>
   </div><!-- /sub-grammar -->
+
+  <div class="subtab-content" id="sub-dehet">
+  <div class="dehet-container" style="max-width:600px;margin:0 auto;">
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header" style="text-align:center;">De of Het?</div>
+      <div class="card-body">
+        <p style="text-align:center;color:#666;margin-bottom:16px;">Typ een Nederlands zelfstandig naamwoord en ontdek of het een <strong style="color:var(--mondrian-red);">de</strong>-woord of een <strong style="color:var(--mondrian-blue);">het</strong>-woord is.</p>
+        <div style="display:flex;gap:8px;margin-bottom:16px;">
+          <input type="text" id="dehetInput" placeholder="bijv. huis, boek, tafel..." style="flex:1;padding:12px 16px;border:3px solid var(--mondrian-black);font-family:'Space Grotesk',sans-serif;font-size:16px;outline:none;" onkeydown="if(event.key==='Enter')lookupDeHet()" />
+          <button onclick="lookupDeHet()" style="padding:12px 24px;background:var(--mondrian-black);color:#fff;border:none;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:0.5px;">ZOEK</button>
+        </div>
+        <div id="dehetResult"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Vuistregels</div>
+      <div class="card-body" style="font-size:13px;">
+        <h4 style="margin:0 0 8px;color:var(--mondrian-blue);">Bijna altijd HET:</h4>
+        <ul style="margin:0 0 12px 18px;line-height:2;">
+          <li>Verkleinwoorden (-<strong>je, -tje, -pje, -etje</strong>): het hondje, het bloempje</li>
+          <li>Woorden op <strong>-isme</strong>: het racisme, het socialisme</li>
+          <li>Woorden op <strong>-ment</strong>: het moment, het experiment</li>
+          <li>Woorden op <strong>-sel</strong>: het raadsel, het baksel</li>
+          <li>Woorden op <strong>-um</strong>: het museum, het centrum</li>
+          <li>Infinitief als zn.: het eten, het lopen, het zwemmen</li>
+          <li>Talen: het Nederlands, het Frans</li>
+          <li>Windstreken: het noorden, het zuiden</li>
+          <li>Sporten/spellen: het voetbal, het tennis</li>
+          <li>Metalen/stoffen: het goud, het zilver</li>
+        </ul>
+        <h4 style="margin:0 0 8px;color:var(--mondrian-red);">Bijna altijd DE:</h4>
+        <ul style="margin:0 0 12px 18px;line-height:2;">
+          <li>Meervoud (altijd): de huizen, de boeken</li>
+          <li>Woorden op <strong>-ie</strong>: de politie, de energie</li>
+          <li>Woorden op <strong>-ij</strong>: de bakkerij, de slagerij</li>
+          <li>Woorden op <strong>-heid / -teit</strong>: de vrijheid, de universiteit</li>
+          <li>Woorden op <strong>-ing</strong>: de woning, de vergadering</li>
+          <li>Woorden op <strong>-tie / -sie</strong>: de situatie, de discussie</li>
+          <li>Woorden op <strong>-schap</strong>: de wetenschap, de vriendschap</li>
+          <li>Woorden op <strong>-te</strong>: de hoogte, de lengte</li>
+          <li>Personen (beroepen): de leraar, de dokter</li>
+          <li>Bomen/planten/bloemen: de eik, de roos, de tulp</li>
+          <li>Bergen/rivieren: de Alpen, de Rijn</li>
+        </ul>
+        <div style="background:var(--mondrian-yellow);border:2px solid var(--mondrian-black);padding:10px 14px;font-weight:500;">Twijfel? Het is waarschijnlijk <strong>de</strong> — ongeveer 2/3 van alle Nederlandse zelfstandige naamwoorden is een de-woord!</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px;">
+      <button class="mondrian-btn" onclick="exportDeHetRules()" style="font-size:14px;padding:10px 24px;">Download vuistregels als PDF</button>
+    </div>
+  </div>
+  </div><!-- /sub-dehet -->
+
+  <div class="subtab-content" id="sub-prepzoeker">
+  <div style="max-width:800px;margin:0 auto;">
+    <!-- Mode switcher -->
+    <div style="display:flex;gap:0;margin-bottom:20px;border:3px solid var(--mondrian-black);">
+      <button id="prepModeSearch" class="prepz-mode active" onclick="switchPrepMode('search')">Zoeken</button>
+      <button id="prepModeQuiz" class="prepz-mode" onclick="switchPrepMode('quiz')">Oefenen</button>
+    </div>
+
+    <!-- SEARCH MODE -->
+    <div id="prepSearchMode">
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">Voorzetsel Zoeker</div>
+        <div class="card-body">
+          <p style="color:#666;margin-bottom:12px;">Zoek een werkwoord of bijvoeglijk naamwoord om te zien welk voorzetsel erbij hoort. Ook met <strong>waar + voorzetsel</strong> en <strong>voorzetsel + wie</strong>.</p>
+          <div style="display:flex;gap:8px;margin-bottom:16px;">
+            <input type="text" id="prepSearchInput" placeholder="bijv. wachten, bang, denken..." style="flex:1;padding:12px 16px;border:3px solid var(--mondrian-black);font-family:'Space Grotesk',sans-serif;font-size:16px;outline:none;" oninput="searchPreps()" />
+          </div>
+          <div id="prepSearchResults"></div>
+        </div>
+      </div>
+
+      <!-- Quick reference: waar + prep -->
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">Waar + Voorzetsel (dingen)</div>
+        <div class="card-body" style="font-size:13px;">
+          <p style="color:#666;margin-bottom:10px;">Gebruik <strong>waar + voorzetsel</strong> als je naar een <strong>ding/zaak</strong> verwijst in een vraag of relatieve bijzin.</p>
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr><th style="text-align:left;padding:6px 10px;border-bottom:2px solid #000;font-size:12px;">Vorm</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid #000;font-size:12px;">Voorzetsel</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid #000;font-size:12px;">Voorbeeld (vraag)</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid #000;font-size:12px;">Voorbeeld (relatieve bijzin)</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waarin</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">in</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waarin</em> geloof je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">Het huis <em>waarin</em> ik woon</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waarop</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">op</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waarop</em> wacht je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De stoel <em>waarop</em> je zit</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waarmee</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">met</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waarmee</em> ben je bezig?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De pen <em>waarmee</em> ik schrijf</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waarvan</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">van</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waarvan</em> droom je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">Het boek <em>waarvan</em> ik hou</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waarover</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">over</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waarover</em> praat je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">Het onderwerp <em>waarover</em> we praten</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waarvoor</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">voor</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waarvoor</em> ben je bang?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">Het doel <em>waarvoor</em> ik werk</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waaraan</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">aan</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waaraan</em> denk je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De tafel <em>waaraan</em> we zitten</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waarnaar</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">naar</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waarnaar</em> kijk je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De film <em>waarnaar</em> ik kijk</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waaruit</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">uit</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waaruit</em> bestaat het?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">Het glas <em>waaruit</em> ik drink</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waartegen</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">tegen</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waartegen</em> vecht je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">Het beleid <em>waartegen</em> ze protesteren</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waartoe</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">tot</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waartoe</em> leidt dit?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De groep <em>waartoe</em> hij behoort</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>waarbij</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">bij</td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Waarbij</em> hoort dit?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De club <em>waarbij</em> ik zit</td></tr>
+              <tr><td style="padding:6px 10px;"><strong>waarom</strong></td><td style="padding:6px 10px;">om</td><td style="padding:6px 10px;"><em>Waarom</em> lach je?</td><td style="padding:6px 10px;">De reden <em>waarom</em> ik lach</td></tr>
+            </tbody>
+          </table>
+          <div style="background:var(--mondrian-yellow);border:2px solid var(--mondrian-black);padding:10px 14px;margin-top:12px;font-size:12px;">
+            <strong>Let op:</strong> "met" wordt <strong>mee</strong> → waar<strong>mee</strong> (niet "waarmet")<br>
+            "tot" wordt <strong>toe</strong> → waar<strong>toe</strong> (niet "waartot")
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick reference: prep + wie -->
+      <div class="card">
+        <div class="card-header">Voorzetsel + Wie (personen)</div>
+        <div class="card-body" style="font-size:13px;">
+          <p style="color:#666;margin-bottom:10px;">Gebruik <strong>voorzetsel + wie</strong> als je naar een <strong>persoon</strong> verwijst in een vraag of relatieve bijzin.</p>
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr><th style="text-align:left;padding:6px 10px;border-bottom:2px solid #000;font-size:12px;">Vorm</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid #000;font-size:12px;">Voorbeeld (vraag)</th><th style="text-align:left;padding:6px 10px;border-bottom:2px solid #000;font-size:12px;">Voorbeeld (relatieve bijzin)</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>met wie</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Met wie</em> praat je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De man <em>met wie</em> ik praat</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>op wie</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Op wie</em> wacht je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De vriend <em>op wie</em> ik wacht</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>van wie</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Van wie</em> hou je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De vrouw <em>van wie</em> ik hou</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>voor wie</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Voor wie</em> werk je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De baas <em>voor wie</em> ik werk</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>over wie</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Over wie</em> praat je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De schrijver <em>over wie</em> we praten</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>aan wie</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Aan wie</em> denk je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De collega <em>aan wie</em> ik het vroeg</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>naar wie</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Naar wie</em> luister je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De docent <em>naar wie</em> ik luister</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>bij wie</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Bij wie</em> logeer je?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De vriend <em>bij wie</em> ik logeer</td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><strong>tegen wie</strong></td><td style="padding:6px 10px;border-bottom:1px solid #eee;"><em>Tegen wie</em> zei je dat?</td><td style="padding:6px 10px;border-bottom:1px solid #eee;">De persoon <em>tegen wie</em> ik het zei</td></tr>
+              <tr><td style="padding:6px 10px;"><strong>om wie</strong></td><td style="padding:6px 10px;"><em>Om wie</em> geef je?</td><td style="padding:6px 10px;">De mensen <em>om wie</em> ik geef</td></tr>
+            </tbody>
+          </table>
+          <div style="background:#ffe0e0;border:2px solid var(--mondrian-red);padding:10px 14px;margin-top:12px;font-size:12px;">
+            <strong>Nooit "waar + voorzetsel" voor personen!</strong><br>
+            <span style="color:var(--mondrian-red);">&#10007;</span> De man <em>waarmee</em> ik praat → <span style="color:var(--green);">&#10003;</span> De man <strong>met wie</strong> ik praat<br>
+            <span style="color:var(--mondrian-red);">&#10007;</span> De vrouw <em>waarop</em> ik wacht → <span style="color:var(--green);">&#10003;</span> De vrouw <strong>op wie</strong> ik wacht
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ MODE -->
+    <div id="prepQuizMode" style="display:none;">
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">Voorzetsel Oefenen</div>
+        <div class="card-body">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+            <button class="prepq-filter active" data-pqf="all" onclick="setPrepQuizFilter('all')">Alles</button>
+            <button class="prepq-filter" data-pqf="fixed" onclick="setPrepQuizFilter('fixed')">Vaste voorzetsels</button>
+            <button class="prepq-filter" data-pqf="waar" onclick="setPrepQuizFilter('waar')">Waar + voorzetsel</button>
+            <button class="prepq-filter" data-pqf="wie" onclick="setPrepQuizFilter('wie')">Prep + wie</button>
+          </div>
+          <div id="prepQuizArea"></div>
+          <div id="prepQuizScore" style="text-align:center;margin-top:12px;font-size:13px;color:#666;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /sub-prepzoeker -->
+
 </div><!-- /tab-spiekbriefjes -->
 
 <!-- Reader Tooltip -->
@@ -6503,6 +6840,8 @@ const SUBTAB_INIT = {
   whatsapp: initWhatsApp,
   formulieren: initFormulieren,
   reviews: initReviews,
+  dehet: initDeHet,
+  prepzoeker: initPrepZoeker,
   etiquette: () => { initCultuur(); renderEtiquette(); },
   communicatie: renderCommunicatie,
   praktisch: renderPraktisch,
@@ -6552,6 +6891,15 @@ document.querySelectorAll('.subtab-btn').forEach(btn => {
     switchSubtab(btn.dataset.maintab, btn.dataset.subtab);
   });
 });
+
+// Visual tile navigation for spiekbriefjes
+function switchSpiekNav(subtabId) {
+  // Update tile highlights
+  document.querySelectorAll('#spiekNavGrid .spiek-nav-tile').forEach(t => t.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  // Delegate to existing subtab logic
+  switchSubtab('spiekbriefjes', subtabId);
+}
 
 // Preposition sheets grid init
 function initSheetsPrepGrid() {
@@ -7598,6 +7946,9 @@ const DOWNLOAD_ALL_ITEMS = [
   { title: 'Alle vaste voorzetsels (per voorzetsel)', desc: 'Gegroepeerd per voorzetsel', countFn: () => PREPOSITION_VERBS.length, fn: () => generateSheetPrepByPrep() },
   { title: 'Alle voegwoorden', desc: 'Voegwoorden & connectoren met voorbeeldzinnen', countFn: () => PHRASES.filter(p => p.cat === 'connectors').length, fn: () => generateSheetConjunctions() },
   { title: 'Alles samen', desc: 'Alle werkwoorden + alle vaste voorzetsels gecombineerd', countFn: () => VERBS.length + PREPOSITION_VERBS.length, fn: () => generateSheetCombined() },
+  { title: 'Alle grammaticaregels', desc: 'Alle grammatica-spiekbriefjes met inhoudsopgave', countFn: () => GRAMMAR_RULES.length, fn: () => exportAllGrammar() },
+  { title: 'De of Het — Vuistregels', desc: 'Overzicht wanneer de of het gebruiken', countFn: () => 21, fn: () => exportDeHetRules() },
+  { title: 'Ultimate Cheatsheet (2 pagina\'s)', desc: 'Grammatica + woordenschat op 2 printbare A4-pagina\'s', countFn: () => '2 pagina\'s', fn: () => exportUltimateCheatsheet() },
 ];
 
 function renderSheetDownloadGrid() {
@@ -7923,19 +8274,43 @@ const GRAMMAR_RULES = [
   {
     id: 'separable', cat: 'verbs',
     title: 'Scheidbare Werkwoorden',
-    subtitle: 'Wanneer gaat het voorvoegsel los?',
+    subtitle: 'Wanneer splitst het? Alle regels met voorbeelden',
     accent: '#1356A2',
-    body: '<div class="gr-rule"><strong>Hoofdzin:</strong> werkwoord splitst — prefix naar einde</div>'
-      + '<div class="gr-example">Ik <strong>bel</strong> je morgen <strong>op</strong>.</div>'
-      + '<div class="gr-example">Ze <strong>ruimt</strong> haar kamer <strong>op</strong>.</div>'
-      + '<div class="gr-rule"><strong>Bijzin:</strong> werkwoord blijft samen</div>'
-      + '<div class="gr-example">...omdat ik je morgen <strong>opbel</strong>.</div>'
-      + '<div class="gr-rule"><strong>Perfectum:</strong> ge- komt ertussen</div>'
-      + '<div class="gr-example">Ik heb je <strong>opgebeld</strong>.</div>'
-      + '<div class="gr-example">Ze heeft haar kamer <strong>opgeruimd</strong>.</div>'
-      + '<h4 style="margin:8px 0 4px;">Veelvoorkomende scheidbare prefixen</h4>'
+    body: '<div class="gr-mnemonic">Klemtoon op het prefix? → Scheidbaar! &nbsp; Klemtoon op de stam? → Niet scheidbaar!</div>'
+      + '<h4 style="margin:10px 0 6px;">De 4 situaties</h4>'
+      + '<table><thead><tr><th>Situatie</th><th>Regel</th><th>Voorbeeld (opbellen)</th></tr></thead><tbody>'
+      + '<tr><td><strong>1. Presens (hoofdzin)</strong></td><td>Prefix gaat naar het <strong>einde</strong></td><td>Ik <strong>bel</strong> je morgen <strong>op</strong>.</td></tr>'
+      + '<tr><td><strong>2. Bijzin</strong></td><td>Werkwoord blijft <strong>samen</strong></td><td>...omdat ik je morgen <strong>opbel</strong>.</td></tr>'
+      + '<tr><td><strong>3. Perfectum</strong></td><td><strong>ge-</strong> komt <strong>ertussen</strong></td><td>Ik heb je <strong>op-ge-beld</strong>.</td></tr>'
+      + '<tr><td><strong>4. Te + infinitief</strong></td><td><strong>te</strong> komt <strong>ertussen</strong></td><td>Ik probeer je <strong>op te bellen</strong>.</td></tr></tbody></table>'
+      + '<h4 style="margin:10px 0 6px;">Meer voorbeelden per situatie</h4>'
+      + '<table><thead><tr><th>Infinitief</th><th>Presens (hoofdzin)</th><th>Perfectum</th><th>Bijzin</th></tr></thead><tbody>'
+      + '<tr><td>opruimen</td><td>Ze <strong>ruimt</strong> op.</td><td>Ze <strong>heeft opgeruimd</strong>.</td><td>...dat ze <strong>opruimt</strong>.</td></tr>'
+      + '<tr><td>aankomen</td><td>De trein <strong>komt</strong> aan.</td><td>De trein <strong>is aangekomen</strong>.</td><td>...wanneer de trein <strong>aankomt</strong>.</td></tr>'
+      + '<tr><td>meenemen</td><td>Ik <strong>neem</strong> het mee.</td><td>Ik <strong>heb</strong> het <strong>meegenomen</strong>.</td><td>...als ik het <strong>meeneem</strong>.</td></tr>'
+      + '<tr><td>uitgaan</td><td>We <strong>gaan</strong> vanavond uit.</td><td>We <strong>zijn uitgegaan</strong>.</td><td>...omdat we <strong>uitgaan</strong>.</td></tr>'
+      + '<tr><td>terugkomen</td><td>Hij <strong>komt</strong> morgen terug.</td><td>Hij <strong>is teruggekomen</strong>.</td><td>...als hij <strong>terugkomt</strong>.</td></tr></tbody></table>'
+      + '<h4 style="margin:10px 0 6px;">Scheidbare prefixen</h4>'
       + '<div class="gr-mnemonic">aan, af, bij, in, mee, na, op, over, terug, toe, uit, voor, weg</div>'
-      + '<div class="gr-rule"><strong>Niet-scheidbaar</strong> (geen klemtoon op prefix): be-, ver-, ont-, ge-, her-, er-</div>'
+      + '<table><thead><tr><th>Prefix</th><th>Voorbeelden</th></tr></thead><tbody>'
+      + '<tr><td><strong>aan-</strong></td><td>aankomen (arrive), aanbieden (offer), aandoen (turn on)</td></tr>'
+      + '<tr><td><strong>af-</strong></td><td>afspreken (arrange), afwassen (do dishes), afmaken (finish)</td></tr>'
+      + '<tr><td><strong>mee-</strong></td><td>meenemen (bring along), meedoen (participate), meemaken (experience)</td></tr>'
+      + '<tr><td><strong>op-</strong></td><td>opbellen (call), opruimen (tidy up), opstaan (get up)</td></tr>'
+      + '<tr><td><strong>uit-</strong></td><td>uitgaan (go out), uitnodigen (invite), uitleggen (explain)</td></tr>'
+      + '<tr><td><strong>terug-</strong></td><td>terugkomen (come back), terugbellen (call back), teruggeven (give back)</td></tr></tbody></table>'
+      + '<h4 style="margin:10px 0 6px;">Niet-scheidbare prefixen</h4>'
+      + '<div class="gr-rule"><strong>be-, ver-, ont-, ge-, her-, er-</strong> — klemtoon ligt op de <em>stam</em>, niet op het prefix.<br>'
+      + 'Ze scheiden <strong>nooit</strong> en krijgen <strong>geen ge-</strong> in het perfectum!</div>'
+      + '<table><thead><tr><th>Prefix</th><th>Voorbeeld</th><th>Perfectum</th></tr></thead><tbody>'
+      + '<tr><td><strong>be-</strong></td><td>betalen (to pay)</td><td>Ik heb <strong>betaald</strong>. (niet: ge-betaald)</td></tr>'
+      + '<tr><td><strong>ver-</strong></td><td>vertellen (to tell)</td><td>Ik heb <strong>verteld</strong>. (niet: ge-verteld)</td></tr>'
+      + '<tr><td><strong>ont-</strong></td><td>ontdekken (to discover)</td><td>Ik heb <strong>ontdekt</strong>.</td></tr>'
+      + '<tr><td><strong>her-</strong></td><td>herhalen (to repeat)</td><td>Ik heb <strong>herhaald</strong>.</td></tr></tbody></table>'
+      + '<h4 style="margin:10px 0 6px;">Soms scheidbaar, soms niet!</h4>'
+      + '<div class="gr-rule">Sommige prefixen (over, door, onder, voor) zijn <strong>soms scheidbaar en soms niet</strong> — met verschillende betekenissen!</div>'
+      + '<div class="gr-example"><strong>Scheidbaar:</strong> Ik <strong>kom</strong> de brug <strong>over</strong>. (= cross) → overge<strong>komen</strong></div>'
+      + '<div class="gr-example"><strong>Niet-scheidbaar:</strong> Ik <strong>overleef</strong> het examen. (= survive) → <strong>overleefd</strong> (geen ge-!)</div>'
   },
   {
     id: 'modal', cat: 'verbs',
@@ -8081,21 +8456,87 @@ const GRAMMAR_RULES = [
       + '<div class="gr-example">Ik ga niet, <strong>want</strong> ik <strong>ben</strong> ziek. (normaal)</div>'
   },
   {
-    id: 'er', cat: 'wordorder',
+    id: 'er', cat: 'woordjes',
     title: 'Het Woordje "Er"',
-    subtitle: '5 functies van er',
+    subtitle: '5 functies van er — met voorbeeldzinnen',
     accent: '#F7D842',
-    body: '<table><thead><tr><th>Functie</th><th>Voorbeeld</th><th>Uitleg</th></tr></thead><tbody>'
-      + '<tr><td>Plaats (= daar)</td><td>Ik ben <strong>er</strong> geweest.</td><td>= ik ben daar geweest</td></tr>'
-      + '<tr><td>Onbepaald subject</td><td><strong>Er</strong> staat een man voor de deur.</td><td>Introductie onbekend subject</td></tr>'
-      + '<tr><td>Hoeveelheid</td><td>Ik heb <strong>er</strong> drie.</td><td>= ik heb er drie (van die dingen)</td></tr>'
-      + '<tr><td>Voorzetsel-verwijzing</td><td>Ik denk <strong>eraan</strong>.</td><td>= ik denk aan dat/het</td></tr>'
-      + '<tr><td>Passief</td><td><strong>Er</strong> wordt veel gedanst.</td><td>Onpersoonlijk passief</td></tr></tbody></table>'
-      + '<div class="gr-rule"><strong>Er + voorzetsel</strong> combineert tot één woord:<br>'
-      + 'er + op = <strong>erop</strong>, er + aan = <strong>eraan</strong>, er + over = <strong>erover</strong>, er + mee = <strong>ermee</strong></div>'
+    body: '<div class="gr-mnemonic">Er is het Zwitserse zakmes van het Nederlands — 5 functies, 1 woordje!</div>'
+      + '<h4 style="margin:10px 0 6px;">1. Plaatsverwijzing (er = daar)</h4>'
+      + '<div class="gr-rule"><strong>Er</strong> verwijst naar een eerder genoemde plaats.</div>'
+      + '<div class="gr-example">Ben je weleens in Amsterdam geweest? — Ja, ik ben <strong>er</strong> vorig jaar geweest.</div>'
+      + '<div class="gr-example">Ken je dat café? — Ja, ik kom <strong>er</strong> vaak.</div>'
+      + '<div class="gr-example">Hoe is het park? — Het is <strong>er</strong> heel rustig.</div>'
+      + '<h4 style="margin:10px 0 6px;">2. Onbepaald subject (introductie)</h4>'
+      + '<div class="gr-rule"><strong>Er</strong> introduceert iets nieuws of onbekends — vergelijkbaar met "there is/are" in het Engels.</div>'
+      + '<div class="gr-example"><strong>Er</strong> staat een man voor de deur.</div>'
+      + '<div class="gr-example"><strong>Er</strong> zijn veel studenten in de bibliotheek.</div>'
+      + '<div class="gr-example"><strong>Er</strong> is iets misgegaan met de bestelling.</div>'
+      + '<div class="gr-example"><strong>Er</strong> komt vanavond een storm.</div>'
+      + '<h4 style="margin:10px 0 6px;">3. Hoeveelheid (er + telwoord)</h4>'
+      + '<div class="gr-rule"><strong>Er</strong> verwijst naar een groep waarvan je een aantal noemt.</div>'
+      + '<div class="gr-example">Hoeveel kinderen heb je? — Ik heb <strong>er</strong> drie.</div>'
+      + '<div class="gr-example">Wil je koekjes? — Ja, ik neem <strong>er</strong> twee.</div>'
+      + '<div class="gr-example">Zijn er nog kaartjes? — Nee, <strong>er</strong> zijn <strong>er</strong> geen meer. <em>(eerste er = intro, tweede er = hoeveelheid)</em></div>'
+      + '<h4 style="margin:10px 0 6px;">4. Voorzetsel-verwijzing (er + voorzetsel)</h4>'
+      + '<div class="gr-rule"><strong>Er</strong> combineert met een voorzetsel om naar een ding/situatie te verwijzen. Niet voor personen!</div>'
+      + '<div class="gr-example">Denk je aan het examen? — Ja, ik denk <strong>eraan</strong>.</div>'
+      + '<div class="gr-example">Ben je blij met je baan? — Ja, ik ben <strong>ermee</strong> tevreden.</div>'
+      + '<div class="gr-example">Weet je iets over dat project? — Nee, ik weet <strong>er</strong> niets <strong>over</strong>. <em>(gesplitst in hoofdzin)</em></div>'
+      + '<div class="gr-example">er + op = <strong>erop</strong>, er + aan = <strong>eraan</strong>, er + over = <strong>erover</strong>, er + mee = <strong>ermee</strong>, er + van = <strong>ervan</strong></div>'
+      + '<h4 style="margin:10px 0 6px;">5. Passief zonder subject (onpersoonlijk passief)</h4>'
+      + '<div class="gr-rule"><strong>Er</strong> vult de eerste positie in bij passieve zinnen zonder logisch onderwerp.</div>'
+      + '<div class="gr-example"><strong>Er</strong> wordt veel gedanst op feestjes in Nederland.</div>'
+      + '<div class="gr-example"><strong>Er</strong> werd geklopt op de deur.</div>'
+      + '<div class="gr-example"><strong>Er</strong> wordt hier niet gerookt.</div>'
+      + '<div class="gr-example"><strong>Er</strong> is lang over gesproken in de vergadering.</div>'
+      + '<h4 style="margin:10px 0 6px;">Overzicht</h4>'
+      + '<table><thead><tr><th>Functie</th><th>Voorbeeld</th><th>Herkenning</th></tr></thead><tbody>'
+      + '<tr><td>1. Plaats</td><td>Ik ben <strong>er</strong> geweest.</td><td>Vervangbaar door "daar"</td></tr>'
+      + '<tr><td>2. Introductie</td><td><strong>Er</strong> staat een man.</td><td>Er + onbepaald subject</td></tr>'
+      + '<tr><td>3. Hoeveelheid</td><td>Ik heb <strong>er</strong> drie.</td><td>Er + telwoord</td></tr>'
+      + '<tr><td>4. Voorzetsel</td><td>Ik denk <strong>eraan</strong>.</td><td>Er + voorzetsel = één woord</td></tr>'
+      + '<tr><td>5. Passief</td><td><strong>Er</strong> wordt gedanst.</td><td>Er + worden, geen subject</td></tr></tbody></table>'
   },
   {
-    id: 'indirecte_rede', cat: 'wordorder',
+    id: 'er_hij_het', cat: 'woordjes',
+    title: 'Er vs. Hij vs. Het vs. Hem',
+    subtitle: 'Bepaald (the) vs. onbepaald (a/some) — wanneer gebruik je wat?',
+    accent: '#D40920',
+    body: '<div class="gr-mnemonic">Bepaald (de/het + zn.) → <strong>hij / het / hem</strong><br>Onbepaald (een/geen/getal + zn.) → <strong>er</strong></div>'
+      + '<h4 style="margin:10px 0 6px;">De basisregel</h4>'
+      + '<div class="gr-rule">Als je verwijst naar iets <strong>specifieks</strong> (met de/het), gebruik je een gewoon voornaamwoord.<br>'
+      + 'Als je verwijst naar iets <strong>onbepaalds</strong> (met een/geen/nummer), gebruik je <strong>er</strong>.</div>'
+      + '<h4 style="margin:10px 0 6px;">De-woorden (bepaald)</h4>'
+      + '<table><thead><tr><th>Vraag</th><th>Antwoord</th><th>Waarom?</th></tr></thead><tbody>'
+      + '<tr><td>Waar is <strong>de</strong> pen?</td><td><strong>Hij</strong> ligt op tafel.</td><td>de pen = bepaald de-woord → <strong>hij</strong></td></tr>'
+      + '<tr><td>Ken je <strong>de</strong> leraar?</td><td>Ja, ik ken <strong>hem</strong>.</td><td>object → <strong>hem</strong></td></tr>'
+      + '<tr><td>Hoe is <strong>de</strong> film?</td><td><strong>Hij</strong> is goed.</td><td>de film → <strong>hij</strong></td></tr></tbody></table>'
+      + '<h4 style="margin:10px 0 6px;">Het-woorden (bepaald)</h4>'
+      + '<table><thead><tr><th>Vraag</th><th>Antwoord</th><th>Waarom?</th></tr></thead><tbody>'
+      + '<tr><td>Waar is <strong>het</strong> boek?</td><td><strong>Het</strong> ligt op tafel.</td><td>het boek = bepaald het-woord → <strong>het</strong></td></tr>'
+      + '<tr><td>Hoe is <strong>het</strong> weer?</td><td><strong>Het</strong> is mooi.</td><td>het weer → <strong>het</strong></td></tr>'
+      + '<tr><td>Zie je <strong>het</strong> huis?</td><td>Ja, ik zie <strong>het</strong>.</td><td>object het-woord → <strong>het</strong></td></tr></tbody></table>'
+      + '<h4 style="margin:10px 0 6px;">Onbepaald → ER</h4>'
+      + '<table><thead><tr><th>Vraag</th><th>Antwoord</th><th>Waarom?</th></tr></thead><tbody>'
+      + '<tr><td>Heb je <strong>een</strong> pen?</td><td>Ja, ik heb <strong>er</strong> een.</td><td>een pen = onbepaald → <strong>er</strong></td></tr>'
+      + '<tr><td>Heb je <strong>geen</strong> fiets?</td><td>Nee, ik heb <strong>er</strong> geen.</td><td>geen fiets = onbepaald → <strong>er</strong></td></tr>'
+      + '<tr><td>Hoeveel kinderen heb je?</td><td>Ik heb <strong>er</strong> twee.</td><td>twee = getal → <strong>er</strong></td></tr>'
+      + '<tr><td>Zijn <strong>er</strong> koekjes?</td><td>Ja, <strong>er</strong> zijn <strong>er</strong> nog een paar.</td><td>eerste er = intro, tweede = hoeveelheid</td></tr>'
+      + '<tr><td>Wil je <strong>een</strong> biertje?</td><td>Ja, ik wil <strong>er</strong> graag een.</td><td>een biertje = onbepaald → <strong>er</strong></td></tr></tbody></table>'
+      + '<h4 style="margin:10px 0 6px;">Samenvatting</h4>'
+      + '<table><thead><tr><th>Situatie</th><th>Subject</th><th>Object</th><th>Voorbeeld</th></tr></thead><tbody>'
+      + '<tr><td><strong>de</strong>-woord (bepaald)</td><td><strong>hij</strong></td><td><strong>hem</strong></td><td>De stoel? <strong>Hij</strong> staat daar. / Ik zie <strong>hem</strong>.</td></tr>'
+      + '<tr><td><strong>het</strong>-woord (bepaald)</td><td><strong>het</strong></td><td><strong>het</strong></td><td>Het huis? <strong>Het</strong> is groot. / Ik zie <strong>het</strong>.</td></tr>'
+      + '<tr><td>Onbepaald (een/geen/#)</td><td colspan="2"><strong>er</strong> (+ een/geen/getal)</td><td>Een huis? Ik heb <strong>er</strong> een. / Ik heb <strong>er</strong> geen.</td></tr></tbody></table>'
+      + '<div class="gr-rule"><strong>Let op:</strong> In spreektaal gebruiken Nederlanders <strong>hij</strong> soms ook voor het-woorden:<br>'
+      + '"Waar is het boek?" → "<strong>Hij</strong> ligt daar." (informeel, maar veelgehoord!)</div>'
+      + '<h4 style="margin:10px 0 6px;">Veelgemaakte fouten</h4>'
+      + '<div class="gr-example"><span style="color:var(--mondrian-red)">✗</span> Heb je een auto? Ja, ik heb <s>het</s>. → <span style="color:#2d8a56">✓</span> Ja, ik heb <strong>er</strong> een.</div>'
+      + '<div class="gr-example"><span style="color:var(--mondrian-red)">✗</span> Waar is de sleutel? <s>Er</s> ligt op tafel. → <span style="color:#2d8a56">✓</span> <strong>Hij</strong> ligt op tafel.</div>'
+      + '<div class="gr-example"><span style="color:var(--mondrian-red)">✗</span> Hoeveel broers heb je? Ik heb <s>hen</s> twee. → <span style="color:#2d8a56">✓</span> Ik heb <strong>er</strong> twee.</div>'
+  },
+  {
+    id: 'indirecte_rede', cat: 'zinsbouw',
     title: 'Indirecte Rede + Indirecte Vraag',
     subtitle: 'Reported speech & indirect questions — bijzin-woordvolgorde',
     accent: '#F7D842',
@@ -8142,23 +8583,55 @@ const GRAMMAR_RULES = [
   {
     id: 'pronouns_relative', cat: 'pronouns',
     title: 'Betrekkelijke Voornaamwoorden',
-    subtitle: 'die, dat, wie, wat, waar',
+    subtitle: 'die, dat, wie, wat, waar — relatieve bijzin',
     accent: '#1356A2',
-    body: '<div class="gr-rule"><strong>die</strong> → verwijst naar de-woord of meervoud<br>'
-      + '<strong>dat</strong> → verwijst naar het-woord enkelvoud</div>'
-      + '<div class="gr-example">De man <strong>die</strong> daar staat, is mijn buurman.</div>'
-      + '<div class="gr-example">Het boek <strong>dat</strong> ik lees, is spannend.</div>'
-      + '<div class="gr-rule"><strong>wie</strong> → na voorzetsel (personen)<br>'
-      + '<strong>wat</strong> → na alles, niets, iets, het</div>'
-      + '<div class="gr-example">De man <strong>met wie</strong> ik praat...</div>'
+    body: '<h4 style="margin:0 0 6px;">1. Die of dat?</h4>'
+      + '<table><thead><tr><th>Antecedent</th><th>Voornaamwoord</th><th>Voorbeeld</th></tr></thead><tbody>'
+      + '<tr><td><strong>de</strong>-woord (enkelvoud)</td><td><strong>die</strong></td><td>De man <strong>die</strong> daar staat, is mijn buurman.</td></tr>'
+      + '<tr><td><strong>het</strong>-woord (enkelvoud)</td><td><strong>dat</strong></td><td>Het boek <strong>dat</strong> ik lees, is spannend.</td></tr>'
+      + '<tr><td><strong>meervoud</strong> (altijd)</td><td><strong>die</strong></td><td>De boeken <strong>die</strong> ik heb gelezen, zijn goed.</td></tr></tbody></table>'
+      + '<div class="gr-rule">Let op: in de relatieve bijzin gaat het werkwoord naar het <strong>einde</strong>!</div>'
+      + '<div class="gr-example">De vrouw <strong>die</strong> naast mij <strong>woont</strong>, is aardig.</div>'
+      + '<div class="gr-example">Het huis <strong>dat</strong> zij vorig jaar <strong>hebben gekocht</strong>, is mooi.</div>'
+      + '<h4 style="margin:10px 0 6px;">2. Waar + prepositie (voor dingen)</h4>'
+      + '<div class="gr-rule">Als je naar een <strong>ding/zaak</strong> verwijst met een voorzetsel, gebruik je <strong>waar + prepositie</strong>.</div>'
+      + '<table><thead><tr><th>Waar + prepositie</th><th>Voorbeeld</th></tr></thead><tbody>'
+      + '<tr><td><strong>waarin</strong> (waar + in)</td><td>Het huis <strong>waarin</strong> ik woon, is oud.</td></tr>'
+      + '<tr><td><strong>waarmee</strong> (waar + mee)</td><td>De pen <strong>waarmee</strong> ik schrijf, is blauw.</td></tr>'
+      + '<tr><td><strong>waarop</strong> (waar + op)</td><td>De stoel <strong>waarop</strong> je zit, is kapot.</td></tr>'
+      + '<tr><td><strong>waarover</strong> (waar + over)</td><td>Het onderwerp <strong>waarover</strong> we praten, is moeilijk.</td></tr>'
+      + '<tr><td><strong>waarvoor</strong> (waar + voor)</td><td>Het doel <strong>waarvoor</strong> ik werk, is belangrijk.</td></tr>'
+      + '<tr><td><strong>waaraan</strong> (waar + aan)</td><td>De tafel <strong>waaraan</strong> we zitten, is groot.</td></tr>'
+      + '<tr><td><strong>waarnaar</strong> (waar + naar)</td><td>De film <strong>waarnaar</strong> ik kijk, is spannend.</td></tr>'
+      + '<tr><td><strong>waaruit</strong> (waar + uit)</td><td>Het glas <strong>waaruit</strong> ik drink, is vuil.</td></tr>'
+      + '<tr><td><strong>waartussen</strong> (waar + tussen)</td><td>De bomen <strong>waartussen</strong> we lopen, zijn hoog.</td></tr></tbody></table>'
+      + '<div class="gr-rule"><strong>Let op:</strong> <em>waarmee</em> (niet "waarmet") — "met" wordt <strong>mee</strong><br>'
+      + '<em>waarin</em> — "in" blijft gewoon <strong>in</strong></div>'
+      + '<h4 style="margin:10px 0 6px;">3. Prepositie + wie (voor personen)</h4>'
+      + '<div class="gr-rule">Als je naar een <strong>persoon</strong> verwijst met een voorzetsel, gebruik je <strong>prepositie + wie</strong>.</div>'
+      + '<table><thead><tr><th>Prepositie + wie</th><th>Voorbeeld</th></tr></thead><tbody>'
+      + '<tr><td><strong>met wie</strong></td><td>De man <strong>met wie</strong> ik praat, is mijn docent.</td></tr>'
+      + '<tr><td><strong>voor wie</strong></td><td>De vrouw <strong>voor wie</strong> ik werk, is streng.</td></tr>'
+      + '<tr><td><strong>aan wie</strong></td><td>De collega <strong>aan wie</strong> ik het heb gevraagd, wist het niet.</td></tr>'
+      + '<tr><td><strong>over wie</strong></td><td>De schrijver <strong>over wie</strong> we het hadden, is beroemd.</td></tr>'
+      + '<tr><td><strong>naar wie</strong></td><td>De dokter <strong>naar wie</strong> ik ben verwezen, is specialist.</td></tr>'
+      + '<tr><td><strong>bij wie</strong></td><td>De vriend <strong>bij wie</strong> ik logeer, woont in Utrecht.</td></tr></tbody></table>'
+      + '<div class="gr-rule"><strong>Nooit</strong> "waar + prepositie" voor personen!<br>'
+      + '<span style="color:#D40920;">✗</span> De man <em>waarmee</em> ik praat → <span style="color:#2d8a56;">✓</span> De man <strong>met wie</strong> ik praat</div>'
+      + '<h4 style="margin:10px 0 6px;">4. Wat — na onbepaalde woorden</h4>'
+      + '<div class="gr-rule"><strong>wat</strong> → na <em>alles, niets, iets, veel, het enige, het beste, dat</em></div>'
       + '<div class="gr-example">Alles <strong>wat</strong> je zegt, klopt.</div>'
-      + '<div class="gr-rule"><strong>waar + voorzetsel</strong> → voor dingen<br>'
-      + 'Het huis <strong>waarin</strong> ik woon. De stoel <strong>waarop</strong> je zit.</div>'
+      + '<div class="gr-example">Het enige <strong>wat</strong> ik wil, is rust.</div>'
+      + '<h4 style="margin:10px 0 6px;">Samenvatting</h4>'
+      + '<table><thead><tr><th>Verwijst naar</th><th>Zonder prepositie</th><th>Met prepositie</th></tr></thead><tbody>'
+      + '<tr><td><strong>de</strong>-woord / meervoud</td><td>die</td><td>prepositie + wie (persoon)<br>waar + prepositie (ding)</td></tr>'
+      + '<tr><td><strong>het</strong>-woord</td><td>dat</td><td>waar + prepositie (ding)</td></tr>'
+      + '<tr><td>onbepaald (alles, iets...)</td><td>wat</td><td>waar + prepositie</td></tr></tbody></table>'
   },
 
   // === OVERIG (Other) ===
   {
-    id: 'comparatives', cat: 'other',
+    id: 'comparatives', cat: 'zinsbouw',
     title: 'Vergelijkingen',
     subtitle: 'Vergrotende en overtreffende trap',
     accent: '#2d8a56',
@@ -8175,7 +8648,7 @@ const GRAMMAR_RULES = [
       + 'Zij is net zo groot <strong>als</strong> ik. Zij is grot<strong>er</strong> <strong>dan</strong> ik.</div>'
   },
   {
-    id: 'negation', cat: 'other',
+    id: 'negation', cat: 'zinsbouw',
     title: 'Ontkenning',
     subtitle: 'niet, geen, nooit, nergens',
     accent: '#D40920',
@@ -8197,22 +8670,40 @@ const GRAMMAR_RULES = [
       + '<tr><td>iets</td><td>niets / niks</td></tr></tbody></table>'
   },
   {
-    id: 'passive', cat: 'verbs',
-    title: 'Passieve Zinnen',
-    subtitle: 'worden + voltooid deelwoord',
+    id: 'passive', cat: 'zinsbouw',
+    title: 'De Twee Passieve Systemen',
+    subtitle: 'Worden passief (actie) vs. zijn passief (toestand)',
     accent: '#8B4513',
-    body: '<div class="gr-rule"><strong>Actief:</strong> De kok maakt het eten.<br>'
-      + '<strong>Passief:</strong> Het eten <strong>wordt</strong> (door de kok) gemaakt.</div>'
-      + '<h4 style="margin:8px 0 4px;">Tijden</h4>'
-      + '<table><thead><tr><th>Tijd</th><th>Vorm</th><th>Voorbeeld</th></tr></thead><tbody>'
-      + '<tr><td>Tegenwoordig</td><td>worden + V.D.</td><td>Het huis <strong>wordt gebouwd</strong>.</td></tr>'
-      + '<tr><td>Verleden</td><td>werden + V.D.</td><td>Het huis <strong>werd gebouwd</strong>.</td></tr>'
-      + '<tr><td>Perfectum</td><td>zijn + V.D.</td><td>Het huis <strong>is gebouwd</strong>.</td></tr></tbody></table>'
-      + '<div class="gr-rule"><strong>Let op:</strong> perfectum passief gebruikt <strong>zijn</strong> (niet worden!)<br>'
-      + 'Het boek <strong>is</strong> geschreven. (niet: is geworden geschreven)</div>'
+    body: '<div class="gr-rule"><strong>Nederlands heeft twee manieren om het passief te vormen:</strong> met <em>worden</em> of met <em>zijn</em>.</div>'
+      + '<h4 style="margin:10px 0 6px;">1. Worden passief (actiefpassief)</h4>'
+      + '<div class="gr-rule">Focust op de <strong>actie</strong> die plaatsvindt. Gebruikt <span style="color:var(--mondrian-red);font-weight:700">worden</span> als hulpwerkwoord.</div>'
+      + '<table><thead><tr><th>Tijd</th><th>Hulpwerkwoord</th><th>Voorbeeld</th></tr></thead><tbody>'
+      + '<tr><td>Presens</td><td><span style="color:var(--mondrian-red);font-weight:700">wordt / worden</span></td><td>Er <strong>wordt</strong> gepraat.</td></tr>'
+      + '<tr><td>Imperfectum</td><td><span style="color:var(--mondrian-blue);font-weight:700">werd / werden</span></td><td>Er <strong>werd</strong> gepraat.</td></tr>'
+      + '<tr><td>Perfectum</td><td><span style="color:var(--green);font-weight:700">is / zijn geworden</span></td><td>Er <strong>is</strong> gepraat <strong>geworden</strong>.</td></tr></tbody></table>'
+      + '<h4 style="margin:14px 0 6px;">2. Zijn passief (toestandspassief)</h4>'
+      + '<div class="gr-rule">Focust op het <strong>resultaat</strong> of de <strong>toestand</strong> na de actie. Gebruikt <span style="color:var(--green);font-weight:700">zijn</span> als hulpwerkwoord.</div>'
+      + '<table><thead><tr><th>Tijd</th><th>Hulpwerkwoord</th><th>Voorbeeld</th></tr></thead><tbody>'
+      + '<tr><td>Presens</td><td><span style="color:var(--green);font-weight:700">is / zijn</span></td><td>De deur <strong>is</strong> gesloten.</td></tr>'
+      + '<tr><td>Imperfectum</td><td><span style="color:#8B4513;font-weight:700">was / waren</span></td><td>De deur <strong>was</strong> gesloten.</td></tr>'
+      + '<tr><td>Perfectum</td><td><span style="color:var(--mondrian-blue);font-weight:700">is / zijn geweest</span></td><td>De deur <strong>is</strong> gesloten <strong>geweest</strong>.</td></tr></tbody></table>'
+      + '<h4 style="margin:14px 0 6px;">Het belangrijkste verschil</h4>'
+      + '<table><thead><tr><th>Zin</th><th>Betekenis</th></tr></thead><tbody>'
+      + '<tr><td>De deur <span style="color:var(--mondrian-red);font-weight:700">werd</span> gesloten.</td><td>Iemand <strong>sluit</strong> de deur (de actie).</td></tr>'
+      + '<tr><td>De deur <span style="color:var(--green);font-weight:700">was</span> gesloten.</td><td>De deur <strong>was dicht</strong> (het resultaat).</td></tr></tbody></table>'
+      + '<h4 style="margin:14px 0 6px;">Enkelvoud vs. meervoud</h4>'
+      + '<div class="gr-rule">Dit geldt voor beide systemen:</div>'
+      + '<table><thead><tr><th></th><th>Enkelvoud</th><th>Meervoud</th></tr></thead><tbody>'
+      + '<tr><td><strong>Worden</strong></td><td>wordt, werd</td><td>worden, werden</td></tr>'
+      + '<tr><td><strong>Zijn</strong></td><td>is, was</td><td>zijn, waren</td></tr></tbody></table>'
+      + '<h4 style="margin:14px 0 6px;">Meer voorbeelden</h4>'
+      + '<table><thead><tr><th>Tijd</th><th>Worden passief (actie)</th><th>Zijn passief (toestand)</th></tr></thead><tbody>'
+      + '<tr><td>Presens</td><td>Het examen <strong>wordt</strong> gecorrigeerd.</td><td>Het examen <strong>is</strong> gecorrigeerd.</td></tr>'
+      + '<tr><td>Imperf.</td><td>Het examen <strong>werd</strong> gecorrigeerd.</td><td>Het examen <strong>was</strong> gecorrigeerd.</td></tr>'
+      + '<tr><td>Perf.</td><td>Het examen <strong>is</strong> gecorrigeerd <strong>geworden</strong>.</td><td>Het examen <strong>is</strong> gecorrigeerd <strong>geweest</strong>.</td></tr></tbody></table>'
   },
   {
-    id: 'conditional', cat: 'verbs',
+    id: 'conditional', cat: 'zinsbouw',
     title: 'Zou + Infinitief (Conditionalis)',
     subtitle: 'Beleefdheid, wensen, hypothetisch',
     accent: '#F7D842',
@@ -8226,7 +8717,7 @@ const GRAMMAR_RULES = [
       + '<div class="gr-example"><strong>Zou</strong> je het raam open willen doen?</div>'
   },
   {
-    id: 'prepositions_overview', cat: 'other',
+    id: 'prepositions_overview', cat: 'woordjes',
     title: 'Voorzetsels Overzicht',
     subtitle: 'De belangrijkste voorzetsels',
     accent: '#1356A2',
@@ -8252,7 +8743,7 @@ const GRAMMAR_RULES = [
       + '<tr><td>zonder</td><td>without</td><td>zonder suiker</td></tr></tbody></table>'
   },
   {
-    id: 'om_te', cat: 'other',
+    id: 'om_te', cat: 'zinsbouw',
     title: 'Om... te + Infinitief',
     subtitle: 'Doelzinnen en te-constructies',
     accent: '#2d8a56',
@@ -8268,7 +8759,7 @@ const GRAMMAR_RULES = [
       + 'Ik probeer op <strong>te</strong> bellen. (niet: te opbellen)</div>'
   },
   {
-    id: 'diminutives', cat: 'other',
+    id: 'diminutives', cat: 'woordvorming',
     title: 'Verkleinwoorden',
     subtitle: '-je, -tje, -pje, -etje, -kje',
     accent: '#F7D842',
@@ -8285,7 +8776,7 @@ const GRAMMAR_RULES = [
       + '<div class="gr-rule">Verkleinwoorden zijn niet alleen "klein" — ook voor genegenheid, vernedering, of gewoon dagelijks taalgebruik (biertje, broodje, kopje)</div>'
   },
   {
-    id: 'pronominal_adverbs', cat: 'other',
+    id: 'pronominal_adverbs', cat: 'woordjes',
     title: 'Voornaamwoordelijke Bijwoorden',
     subtitle: 'daar+voor, hier+mee, waar+over, er+aan \u2014 de "er/daar/hier/waar + voorzetsel" woorden',
     accent: '#1356A2',
@@ -8351,8 +8842,846 @@ const GRAMMAR_RULES = [
 
 const GRAMMAR_CAT_LABELS = {
   verbs: 'Werkwoorden', spelling: 'Spelling', articles: 'De / Het',
-  wordorder: 'Woordvolgorde', pronouns: 'Voornaamwoorden', other: 'Overig'
+  wordorder: 'Woordvolgorde', pronouns: 'Voornaamwoorden',
+  zinsbouw: 'Zinsbouw', woordjes: 'Kleine Woordjes', woordvorming: 'Woordvorming'
 };
+
+// ===== VOORZETSEL ZOEKER =====
+const WAAR_MAP = {
+  in:'waarin', op:'waarop', met:'waarmee', van:'waarvan', over:'waarover',
+  voor:'waarvoor', aan:'waaraan', naar:'waarnaar', uit:'waaruit',
+  tegen:'waartegen', tot:'waartoe', bij:'waarbij', om:'waarom',
+  onder:'waaronder', tussen:'waartussen', door:'waardoor', achter:'waarachter',
+  langs:'waarlangs', naast:'waarnaast', boven:'waarboven'
+};
+
+function initPrepZoeker() {
+  const input = document.getElementById('prepSearchInput');
+  if (input) { input.focus(); searchPreps(); }
+}
+
+function switchPrepMode(mode) {
+  document.getElementById('prepModeSearch').classList.toggle('active', mode === 'search');
+  document.getElementById('prepModeQuiz').classList.toggle('active', mode === 'quiz');
+  document.getElementById('prepSearchMode').style.display = mode === 'search' ? 'block' : 'none';
+  document.getElementById('prepQuizMode').style.display = mode === 'quiz' ? 'block' : 'none';
+  if (mode === 'quiz') startPrepQuiz();
+}
+
+function searchPreps() {
+  const q = (document.getElementById('prepSearchInput').value || '').trim().toLowerCase();
+  const out = document.getElementById('prepSearchResults');
+  if (!q) { out.innerHTML = '<div style="color:#999;text-align:center;padding:20px;">Typ een werkwoord of bijvoeglijk naamwoord om te zoeken...</div>'; return; }
+  const matches = PREPOSITION_VERBS.filter(p => {
+    const hay = (p.phrase + ' ' + p.en + ' ' + p.prep).toLowerCase();
+    return hay.includes(q);
+  });
+  if (matches.length === 0) {
+    out.innerHTML = '<div style="color:#999;text-align:center;padding:20px;">Geen resultaten voor "<strong>' + q + '</strong>". Probeer een ander woord.</div>';
+    return;
+  }
+  out.innerHTML = matches.slice(0, 20).map(p => {
+    const waar = WAAR_MAP[p.prep];
+    const prepColor = ['op','aan','in'].includes(p.prep) ? 'var(--mondrian-red)' : ['met','van','over'].includes(p.prep) ? 'var(--mondrian-blue)' : ['voor','naar','om'].includes(p.prep) ? 'var(--green)' : '#333';
+    let html = '<div class="prep-result-card">'
+      + '<div class="prep-result-phrase">' + p.phrase + '</div>'
+      + '<div class="prep-result-en">' + p.en + '</div>'
+      + '<span class="prep-result-prep" style="color:' + prepColor + ';border-color:' + prepColor + ';">' + p.prep.toUpperCase() + '</span>';
+    if (waar) {
+      html += '<div class="prep-result-waar"><strong>Ding/zaak:</strong> ' + waar + ' → <em>' + waar.charAt(0).toUpperCase() + waar.slice(1) + '</em> ... ?</div>';
+    }
+    html += '<div class="prep-result-wie"><strong>Persoon:</strong> ' + p.prep + ' wie → <em>' + p.prep.charAt(0).toUpperCase() + p.prep.slice(1) + ' wie</em> ... ?</div>';
+    if (p.example) {
+      html += '<div class="prep-result-example"><strong>Voorbeeld:</strong> ' + p.example + '</div>';
+    }
+    html += '</div>';
+    return html;
+  }).join('');
+  if (matches.length > 20) out.innerHTML += '<div style="color:#999;text-align:center;padding:10px;">... en nog ' + (matches.length - 20) + ' meer</div>';
+}
+
+// Quiz data: mix of fixed preps, waar+prep, prep+wie
+const PREP_QUIZ_BANK = [];
+function buildPrepQuizBank() {
+  if (PREP_QUIZ_BANK.length > 0) return;
+  // Type 1: fixed preposition fill-in
+  PREPOSITION_VERBS.forEach(p => {
+    if (!p.example) return;
+    PREP_QUIZ_BANK.push({
+      type: 'fixed',
+      sentence: p.example.replace(new RegExp('\\b' + p.prep + '\\b', 'i'), '___'),
+      answer: p.prep,
+      phrase: p.phrase,
+      en: p.en,
+      distractors: getDistractors(p.prep)
+    });
+  });
+  // Type 2: waar + prep questions
+  const waarExamples = [
+    { sentence: '___ wacht je?', answer: 'waarop', prep: 'op', context: 'wachten op (ding)' },
+    { sentence: '___ ben je bang?', answer: 'waarvoor', prep: 'voor', context: 'bang zijn voor (ding)' },
+    { sentence: '___ droom je?', answer: 'waarvan', prep: 'van', context: 'dromen van (ding)' },
+    { sentence: '___ denk je?', answer: 'waaraan', prep: 'aan', context: 'denken aan (ding)' },
+    { sentence: '___ praat je?', answer: 'waarover', prep: 'over', context: 'praten over (ding)' },
+    { sentence: '___ ben je bezig?', answer: 'waarmee', prep: 'met', context: 'bezig zijn met (ding)' },
+    { sentence: '___ geloof je?', answer: 'waarin', prep: 'in', context: 'geloven in (ding)' },
+    { sentence: '___ luister je?', answer: 'waarnaar', prep: 'naar', context: 'luisteren naar (ding)' },
+    { sentence: '___ lach je?', answer: 'waarom', prep: 'om', context: 'lachen om (ding)' },
+    { sentence: '___ vecht je?', answer: 'waartegen', prep: 'tegen', context: 'vechten tegen (ding)' },
+    { sentence: '___ leidt dit?', answer: 'waartoe', prep: 'tot', context: 'leiden tot (ding)' },
+    { sentence: '___ hoort dit?', answer: 'waarbij', prep: 'bij', context: 'horen bij (ding)' },
+    { sentence: '___ bestaat het team?', answer: 'waaruit', prep: 'uit', context: 'bestaan uit (ding)' },
+    { sentence: 'Het huis ___ ik woon, is oud.', answer: 'waarin', prep: 'in', context: 'wonen in → waarin (relatieve bijzin)' },
+    { sentence: 'De stoel ___ je zit, is kapot.', answer: 'waarop', prep: 'op', context: 'zitten op → waarop (relatieve bijzin)' },
+    { sentence: 'De pen ___ ik schrijf, is blauw.', answer: 'waarmee', prep: 'met', context: 'schrijven met → waarmee (relatieve bijzin)' },
+    { sentence: 'Het onderwerp ___ we praten, is moeilijk.', answer: 'waarover', prep: 'over', context: 'praten over → waarover (relatieve bijzin)' },
+    { sentence: 'Het doel ___ ik werk, is belangrijk.', answer: 'waarvoor', prep: 'voor', context: 'werken voor → waarvoor (relatieve bijzin)' },
+    { sentence: 'De tafel ___ we zitten, is groot.', answer: 'waaraan', prep: 'aan', context: 'zitten aan → waaraan (relatieve bijzin)' },
+    { sentence: 'De film ___ ik kijk, is spannend.', answer: 'waarnaar', prep: 'naar', context: 'kijken naar → waarnaar (relatieve bijzin)' },
+    { sentence: 'Het glas ___ ik drink, is vuil.', answer: 'waaruit', prep: 'uit', context: 'drinken uit → waaruit (relatieve bijzin)' },
+    { sentence: 'Het beleid ___ ze protesteren, is oneerlijk.', answer: 'waartegen', prep: 'tegen', context: 'protesteren tegen → waartegen (relatieve bijzin)' },
+    { sentence: 'De club ___ ik zit, is leuk.', answer: 'waarbij', prep: 'bij', context: 'zitten bij → waarbij (relatieve bijzin)' },
+  ];
+  waarExamples.forEach(e => {
+    const allWaar = Object.values(WAAR_MAP);
+    const dists = allWaar.filter(w => w !== e.answer).sort(() => Math.random() - 0.5).slice(0, 3);
+    PREP_QUIZ_BANK.push({ type: 'waar', sentence: e.sentence, answer: e.answer, phrase: e.context, en: '', distractors: dists });
+  });
+  // Type 3: prep + wie questions
+  const wieExamples = [
+    { sentence: '___ praat je? (persoon)', answer: 'met wie', prep: 'met', context: 'praten met (persoon)' },
+    { sentence: '___ wacht je? (persoon)', answer: 'op wie', prep: 'op', context: 'wachten op (persoon)' },
+    { sentence: '___ hou je? (persoon)', answer: 'van wie', prep: 'van', context: 'houden van (persoon)' },
+    { sentence: '___ werk je? (persoon)', answer: 'voor wie', prep: 'voor', context: 'werken voor (persoon)' },
+    { sentence: '___ denk je? (persoon)', answer: 'aan wie', prep: 'aan', context: 'denken aan (persoon)' },
+    { sentence: '___ luister je? (persoon)', answer: 'naar wie', prep: 'naar', context: 'luisteren naar (persoon)' },
+    { sentence: '___ logeer je? (persoon)', answer: 'bij wie', prep: 'bij', context: 'logeren bij (persoon)' },
+    { sentence: '___ geef je? (persoon)', answer: 'om wie', prep: 'om', context: 'geven om (persoon)' },
+    { sentence: '___ zei je dat? (persoon)', answer: 'tegen wie', prep: 'tegen', context: 'zeggen tegen (persoon)' },
+    { sentence: '___ heb je het gevraagd? (persoon)', answer: 'aan wie', prep: 'aan', context: 'vragen aan (persoon)' },
+    { sentence: 'De man ___ ik praat, is mijn docent.', answer: 'met wie', prep: 'met', context: 'praten met → met wie (persoon, relatieve bijzin)' },
+    { sentence: 'De vrouw ___ ik werk, is streng.', answer: 'voor wie', prep: 'voor', context: 'werken voor → voor wie (persoon, relatieve bijzin)' },
+    { sentence: 'De vriend ___ ik wacht, is te laat.', answer: 'op wie', prep: 'op', context: 'wachten op → op wie (persoon, relatieve bijzin)' },
+    { sentence: 'De collega ___ ik het heb gevraagd, wist het niet.', answer: 'aan wie', prep: 'aan', context: 'vragen aan → aan wie (persoon, relatieve bijzin)' },
+    { sentence: 'De schrijver ___ we praten, is beroemd.', answer: 'over wie', prep: 'over', context: 'praten over → over wie (persoon, relatieve bijzin)' },
+    { sentence: 'De vriend ___ ik logeer, woont in Utrecht.', answer: 'bij wie', prep: 'bij', context: 'logeren bij → bij wie (persoon, relatieve bijzin)' },
+    { sentence: 'De docent ___ ik luister, is geduldig.', answer: 'naar wie', prep: 'naar', context: 'luisteren naar → naar wie (persoon, relatieve bijzin)' },
+  ];
+  const allWie = ['met wie','op wie','van wie','voor wie','aan wie','naar wie','bij wie','om wie','tegen wie','over wie'];
+  wieExamples.forEach(e => {
+    const dists = allWie.filter(w => w !== e.answer).sort(() => Math.random() - 0.5).slice(0, 3);
+    PREP_QUIZ_BANK.push({ type: 'wie', sentence: e.sentence, answer: e.answer, phrase: e.context, en: '', distractors: dists });
+  });
+}
+
+function getDistractors(correct) {
+  const preps = ['op','van','aan','met','voor','over','in','naar','om','tegen','bij','uit','tot'];
+  return preps.filter(p => p !== correct).sort(() => Math.random() - 0.5).slice(0, 3);
+}
+
+let prepQuizFilter = 'all';
+let prepQuizCorrect = 0;
+let prepQuizTotal = 0;
+let prepQuizCurrent = null;
+
+function setPrepQuizFilter(f) {
+  document.querySelectorAll('.prepq-filter').forEach(b => b.classList.toggle('active', b.dataset.pqf === f));
+  prepQuizFilter = f;
+  prepQuizCorrect = 0;
+  prepQuizTotal = 0;
+  startPrepQuiz();
+}
+
+function startPrepQuiz() {
+  buildPrepQuizBank();
+  nextPrepQuestion();
+}
+
+function nextPrepQuestion() {
+  let pool = PREP_QUIZ_BANK;
+  if (prepQuizFilter !== 'all') pool = pool.filter(q => q.type === prepQuizFilter);
+  if (pool.length === 0) return;
+  prepQuizCurrent = pool[Math.floor(Math.random() * pool.length)];
+  const q = prepQuizCurrent;
+  const options = [q.answer, ...q.distractors].sort(() => Math.random() - 0.5);
+  const area = document.getElementById('prepQuizArea');
+  const sentence = q.sentence.replace('___', '<span class="prepq-blank">?</span>');
+  area.innerHTML = '<div class="prepq-sentence">' + sentence + '</div>'
+    + '<div class="prepq-options">' + options.map(o =>
+      '<button class="prepq-opt" onclick="checkPrepAnswer(this,\'' + o.replace(/'/g, "\\'") + '\')">' + o + '</button>'
+    ).join('') + '</div>'
+    + '<div id="prepQuizFeedback"></div>';
+  updatePrepScore();
+}
+
+function checkPrepAnswer(btn, chosen) {
+  const q = prepQuizCurrent;
+  if (!q) return;
+  const buttons = btn.parentElement.querySelectorAll('.prepq-opt');
+  buttons.forEach(b => { b.disabled = true; b.style.cursor = 'default'; });
+  prepQuizTotal++;
+  const fb = document.getElementById('prepQuizFeedback');
+  if (chosen === q.answer) {
+    btn.classList.add('correct');
+    prepQuizCorrect++;
+    fb.innerHTML = '<div class="prepq-feedback" style="border-color:var(--green);background:#f0fff0;">'
+      + '<strong style="color:var(--green);">Goed!</strong> '
+      + (q.phrase ? '<br><span style="color:#555;">' + q.phrase + '</span>' : '')
+      + '</div>';
+  } else {
+    btn.classList.add('wrong');
+    buttons.forEach(b => { if (b.textContent === q.answer) b.classList.add('correct'); });
+    fb.innerHTML = '<div class="prepq-feedback" style="border-color:var(--mondrian-red);background:#fff5f5;">'
+      + '<strong style="color:var(--mondrian-red);">Helaas!</strong> Het juiste antwoord is <strong>' + q.answer + '</strong>.'
+      + (q.phrase ? '<br><span style="color:#555;">' + q.phrase + '</span>' : '')
+      + '</div>';
+  }
+  updatePrepScore();
+  setTimeout(nextPrepQuestion, 2000);
+}
+
+function updatePrepScore() {
+  const el = document.getElementById('prepQuizScore');
+  if (prepQuizTotal === 0) { el.innerHTML = ''; return; }
+  const pct = Math.round((prepQuizCorrect / prepQuizTotal) * 100);
+  el.innerHTML = '<strong>' + prepQuizCorrect + '</strong> / ' + prepQuizTotal + ' goed (' + pct + '%)';
+}
+
+// ===== DE OF HET? =====
+const HET_WORDS = new Set([
+  // Household & objects
+  'huis','bed','boek','raam','glas','mes','bord','kopje','ding','pak','slot','rek','vak','schap',
+  'dak','bad','scherm','toetsenbord','apparaat','fornuis','gordijn','kleed','kussen','laken',
+  'matras','meubel','meubelstuk','plafond','tapijt','schilderij','behang',
+  // Body & nature
+  'been','bot','gezicht','haar','hart','hoofd','lichaam','oog','oor','bloed','kind','meisje',
+  'dier','paard','schaap','varken','konijn','beest','insect','ei','nest','bos','blad','gras',
+  'strand','meer','water','weer','ijs','vuur','licht','zand','land','eiland','dal','moeras',
+  'landschap','gebergte','klimaat','seizoen','onweer',
+  // Food & drink
+  'eten','drinken','brood','fruit','vlees','gebak','ontbijt','diner','gerecht','menu','recept',
+  'bier','sap','dessert','broodje','koekje','snoepje','ijsje',
+  // Abstract & concepts
+  'geluk','gevoel','idee','leven','moment','probleem','recht','systeem','verschil','voordeel',
+  'nadeel','begin','einde','doel','effect','feit','geduld','geheel','geloof','gemak','genie',
+  'gevolg','gevaar','gezag','kwaad','middel','nut','offer','plan','proces','project','punt',
+  'resultaat','risico','succes','talent','verlies','vermogen','verslag','vertrouwen','voorstel',
+  'woord','antwoord','begrip','belang','beleid','beroep','besluit','bestaan','bestuur','bewijs',
+  'bezit','bewustzijn','conflict','contact','debat','detail','diploma','document','drama',
+  'element','evenement','examen','voorbeeld','gebruik','gebied','gebouw','gedrag','geheugen',
+  'geheim','genot','gesprek','geweld','gewicht','gezin','huishouden','initiatief','inkomen',
+  'instituut','instrument','internet','interview','kapitaal','karakter','klimaat','kompas',
+  'lichaam','materiaal','medium','milieu','netwerk','niveau','object','onderwerp','onderzoek',
+  'ontwerp','oordeel','orgaan','overleg','patroon','percentage','plezier','potlood','principe',
+  'product','profiel','programma','publiek','rapport','record','regime','scenario','signaal',
+  'slachtoffer','spel','station','stelsel','stuk','symbool','terrein','thema','tijdschrift',
+  'toerisme','toeval','toneel','transport','type','uitzicht','uniform','verband','verbod',
+  'verdrag','verhaal','verkeer','verleden','verlof','vermoeden','verschijnsel','vertrek',
+  'verzet','visum','vliegtuig','voertuig','volkslied','voorbeeld','voorwerp','vraagstuk',
+  'wapen','werk','werkwoord','zelfstandig','ziekenhuis',
+  // -isme
+  'racisme','socialisme','kapitalisme','feminisme','communisme','fascisme','liberalisme',
+  'idealisme','materialisme','nationalisme','optimisme','pessimisme','populisme','realisme',
+  'seksisme','terrorisme','toerisme','veganisme','alcoholisme','atheisme','egoisme',
+  // -ment
+  'moment','experiment','instrument','document','monument','argument','cement','compliment',
+  'departement','element','fragment','fundament','gouvernement','medicament','ornament',
+  'parlement','regiment','segment','sentiment','supplement','temperament','testament',
+  // -sel
+  'raadsel','baksel','deksel','mengsel','stinksels','voedsel','stelsel','knipsel','uitsel',
+  'verzinsel','aanhangsel','beginsel','overblijfsel',
+  // -um
+  'museum','centrum','datum','forum','gymnasium','laboratorium','maximum','medium','minimum',
+  'podium','stadium','studium','album','aquarium','curriculum','delirium','referendum',
+  'symposium','ultimatum','visum',
+  // Verkleinwoorden (-je, -tje, -pje, -etje)
+  'mannetje','vrouwtje','hondje','katje','huisje','bloempje','boompje','biertje','wijntje',
+  'hapje','stukje','beetje','dingetje','zonnetje','kindje','plekje','maatje','telefoontje',
+  'appje','berichtje','briefje','flesje','potje','tasje','kaartje','plaatje','blaadjes',
+  // Places & buildings
+  'gebouw','kantoor','station','paleis','kasteel','hotel','restaurant','café','toilet',
+  'ziekenhuis','postkantoor','warenhuis','stadion','theater','concertgebouw',
+  // Transport
+  'vliegtuig','voertuig','schip','busje','treinstel',
+  // Tech & media
+  'internet','scherm','toestel','kanaal','netwerk','platform','portaal',
+  // Time & measures
+  'jaar','uur','weekend','kwartaal','decennium','tijdperk','halfjaar','etmaal',
+  // Education & work
+  'bedrijf','kantoor','salaris','contract','formulier','certificaat','portfolio',
+  // Government & law
+  'parlement','kabinet','ministerie','leger','regiment','regiment','verdrag',
+  // Sports & games
+  'voetbal','tennis','hockey','basketbal','schaak','kaartspel',
+  // Music & art
+  'concert','schilderij','portret','standbeeld','lied','nummer','orkest',
+  // Clothing
+  'pak','overhemd','shirt','vest','kostuum',
+  // Geography
+  'noorden','zuiden','oosten','westen','continent','werelddeel',
+  // Languages (as nouns)
+  'nederlands','engels','frans','duits','spaans','italiaans','arabisch','chinees','japans',
+  // Other common het-words
+  'geld','lot','feest','beeld','slot','plein','staal','goud','zilver','koper','stof','gas',
+  'papier','plastic','rubber','beton','hout','ijzer','leer','lood','marmer','porselein',
+  'asfalt','katoen','linnen','satijn','suede','fluweel','zijde',
+  'percentage','exemplaar','paar','stel','team','bedrag','cijfer','nummer','adres','recept',
+  'ticket','paspoort','rijbewijs','abonnement','pakket'
+]);
+
+function initDeHet() {
+  const input = document.getElementById('dehetInput');
+  if (input) input.focus();
+}
+
+function lookupDeHet() {
+  const input = document.getElementById('dehetInput');
+  const result = document.getElementById('dehetResult');
+  if (!input || !result) return;
+  let word = input.value.trim().toLowerCase();
+  if (!word) { result.innerHTML = ''; return; }
+  // Strip leading de/het/een
+  word = word.replace(/^(de|het|een)\s+/, '');
+  if (!word) { result.innerHTML = ''; return; }
+
+  // Check diminutive pattern (-je, -tje, -pje, -etje, -kje)
+  const isDiminutive = /(?:t?je|pje|etje|kje)s?$/.test(word);
+  // Check suffix patterns
+  const isIsme = /isme$/.test(word);
+  const isMent = /ment$/.test(word);
+  const isSel = /sel$/.test(word);
+  const isUm = /um$/.test(word);
+  // de-word suffixes
+  const isIe = /[^t]ie$/.test(word);
+  const isIj = /ij$/.test(word);
+  const isHeid = /heid$/.test(word);
+  const isTeit = /teit$/.test(word);
+  const isIng = /ing$/.test(word);
+  const isTie = /tie$/.test(word);
+  const isSie = /sie$/.test(word);
+  const isSchap = /schap$/.test(word);
+  const isTe = /te$/.test(word) && word.length > 3;
+
+  let article = null;
+  let confidence = '';
+  let rule = '';
+
+  if (HET_WORDS.has(word)) {
+    article = 'het';
+    confidence = 'high';
+    rule = 'Dit woord staat in het woordenboek als <strong>het</strong>-woord.';
+  } else if (isDiminutive) {
+    article = 'het';
+    confidence = 'high';
+    rule = 'Verkleinwoorden (<strong>-je, -tje, -pje, -etje</strong>) zijn altijd <strong>het</strong>-woorden.';
+  } else if (isIsme) {
+    article = 'het';
+    confidence = 'high';
+    rule = 'Woorden op <strong>-isme</strong> zijn bijna altijd <strong>het</strong>-woorden.';
+  } else if (isMent) {
+    article = 'het';
+    confidence = 'high';
+    rule = 'Woorden op <strong>-ment</strong> zijn bijna altijd <strong>het</strong>-woorden.';
+  } else if (isSel) {
+    article = 'het';
+    confidence = 'medium';
+    rule = 'Woorden op <strong>-sel</strong> zijn meestal <strong>het</strong>-woorden.';
+  } else if (isUm) {
+    article = 'het';
+    confidence = 'high';
+    rule = 'Woorden op <strong>-um</strong> zijn bijna altijd <strong>het</strong>-woorden.';
+  } else if (isHeid || isTeit) {
+    article = 'de';
+    confidence = 'high';
+    rule = 'Woorden op <strong>-heid / -teit</strong> zijn altijd <strong>de</strong>-woorden.';
+  } else if (isIng) {
+    article = 'de';
+    confidence = 'high';
+    rule = 'Woorden op <strong>-ing</strong> zijn altijd <strong>de</strong>-woorden.';
+  } else if (isTie) {
+    article = 'de';
+    confidence = 'high';
+    rule = 'Woorden op <strong>-tie</strong> zijn bijna altijd <strong>de</strong>-woorden.';
+  } else if (isSie) {
+    article = 'de';
+    confidence = 'high';
+    rule = 'Woorden op <strong>-sie</strong> zijn bijna altijd <strong>de</strong>-woorden.';
+  } else if (isSchap) {
+    article = 'de';
+    confidence = 'high';
+    rule = 'Woorden op <strong>-schap</strong> zijn bijna altijd <strong>de</strong>-woorden.';
+  } else if (isIj) {
+    article = 'de';
+    confidence = 'high';
+    rule = 'Woorden op <strong>-ij</strong> zijn bijna altijd <strong>de</strong>-woorden.';
+  } else if (isIe && !isTie && !isSie) {
+    article = 'de';
+    confidence = 'medium';
+    rule = 'Woorden op <strong>-ie</strong> zijn meestal <strong>de</strong>-woorden.';
+  } else {
+    article = 'de';
+    confidence = 'low';
+    rule = 'Niet gevonden in de woordenlijst. Statistisch is ~2/3 van alle zelfstandige naamwoorden een <strong>de</strong>-woord, dus <strong>de</strong> is de veiligste gok — maar controleer het!';
+  }
+
+  const color = article === 'het' ? 'var(--mondrian-blue)' : 'var(--mondrian-red)';
+  const confLabel = confidence === 'high' ? 'Zeker' : confidence === 'medium' ? 'Waarschijnlijk' : 'Beste gok';
+  const confColor = confidence === 'high' ? 'var(--green)' : confidence === 'medium' ? 'var(--mondrian-yellow)' : '#999';
+
+  result.innerHTML = '<div style="text-align:center;padding:20px;border:3px solid var(--mondrian-black);background:var(--mondrian-white);margin-top:8px;">'
+    + '<div style="font-size:14px;color:#666;margin-bottom:4px;">' + confLabel + '</div>'
+    + '<div style="font-family:Syne,sans-serif;font-size:clamp(32px,6vw,48px);font-weight:800;color:' + color + ';letter-spacing:2px;">'
+    + article.toUpperCase() + ' ' + word
+    + '</div>'
+    + '<div style="margin-top:12px;font-size:13px;color:#555;line-height:1.6;max-width:400px;margin-left:auto;margin-right:auto;">' + rule + '</div>'
+    + '<div style="margin-top:8px;display:inline-block;padding:3px 10px;border:2px solid ' + confColor + ';color:' + confColor + ';font-size:11px;font-weight:600;letter-spacing:0.5px;">'
+    + (article === 'het' ? 'HET-WOORD' : 'DE-WOORD')
+    + '</div>'
+    + '</div>';
+}
+
+function exportDeHetRules() {
+  const body = ''
+    + '<div style="text-align:center;margin-bottom:24px;">'
+    + '<h1 style="font-size:28px;margin:0;">De of Het?</h1>'
+    + '<p style="color:#666;font-size:13px;">Vuistregels voor het kiezen van het juiste lidwoord</p>'
+    + '</div>'
+    + '<div style="display:flex;gap:24px;flex-wrap:wrap;">'
+    + '<div style="flex:1;min-width:260px;">'
+    + '<h2 style="color:#1356A2;border-bottom:4px solid #1356A2;padding-bottom:6px;">Bijna altijd HET</h2>'
+    + '<table><tbody>'
+    + '<tr><td><strong>Verkleinwoorden</strong></td><td>-je, -tje, -pje, -etje</td><td>het hondje, het bloempje</td></tr>'
+    + '<tr><td><strong>-isme</strong></td><td></td><td>het racisme, het socialisme</td></tr>'
+    + '<tr><td><strong>-ment</strong></td><td></td><td>het moment, het experiment</td></tr>'
+    + '<tr><td><strong>-sel</strong></td><td></td><td>het raadsel, het baksel</td></tr>'
+    + '<tr><td><strong>-um</strong></td><td></td><td>het museum, het centrum</td></tr>'
+    + '<tr><td><strong>Infinitief als zn.</strong></td><td></td><td>het eten, het lopen, het zwemmen</td></tr>'
+    + '<tr><td><strong>Talen</strong></td><td></td><td>het Nederlands, het Frans</td></tr>'
+    + '<tr><td><strong>Windstreken</strong></td><td></td><td>het noorden, het zuiden</td></tr>'
+    + '<tr><td><strong>Sporten/spellen</strong></td><td></td><td>het voetbal, het tennis</td></tr>'
+    + '<tr><td><strong>Metalen/stoffen</strong></td><td></td><td>het goud, het zilver</td></tr>'
+    + '</tbody></table>'
+    + '</div>'
+    + '<div style="flex:1;min-width:260px;">'
+    + '<h2 style="color:#D40920;border-bottom:4px solid #D40920;padding-bottom:6px;">Bijna altijd DE</h2>'
+    + '<table><tbody>'
+    + '<tr><td><strong>Meervoud</strong></td><td>(altijd)</td><td>de huizen, de boeken</td></tr>'
+    + '<tr><td><strong>-ie</strong></td><td></td><td>de politie, de energie</td></tr>'
+    + '<tr><td><strong>-ij</strong></td><td></td><td>de bakkerij, de slagerij</td></tr>'
+    + '<tr><td><strong>-heid / -teit</strong></td><td></td><td>de vrijheid, de universiteit</td></tr>'
+    + '<tr><td><strong>-ing</strong></td><td></td><td>de woning, de vergadering</td></tr>'
+    + '<tr><td><strong>-tie / -sie</strong></td><td></td><td>de situatie, de discussie</td></tr>'
+    + '<tr><td><strong>-schap</strong></td><td></td><td>de wetenschap, de vriendschap</td></tr>'
+    + '<tr><td><strong>-te</strong></td><td></td><td>de hoogte, de lengte</td></tr>'
+    + '<tr><td><strong>Personen</strong></td><td>(beroepen)</td><td>de leraar, de dokter</td></tr>'
+    + '<tr><td><strong>Bomen/planten/bloemen</strong></td><td></td><td>de eik, de roos, de tulp</td></tr>'
+    + '<tr><td><strong>Bergen/rivieren</strong></td><td></td><td>de Alpen, de Rijn</td></tr>'
+    + '</tbody></table>'
+    + '</div>'
+    + '</div>'
+    + '<div style="background:#F7D842;border:2px solid #000;padding:12px 16px;margin-top:20px;font-weight:500;text-align:center;">'
+    + 'Twijfel? Het is waarschijnlijk <strong>de</strong> — ongeveer 2/3 van alle Nederlandse zelfstandige naamwoorden is een de-woord!'
+    + '</div>';
+  generatePDFContent('De of Het? — Vuistregels', body);
+}
+
+function exportUltimateCheatsheet() {
+  const siteUrl = 'artificialnouveau.com/miniprojects/dutchmaxxing';
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Dutchmaxxing — Ultimate Cheatsheet</title>
+<style>
+@page { margin: 10mm 9mm; size: A4; }
+body { font-family: Inter, Helvetica, sans-serif; font-size: 9.5px; line-height: 1.35; color: #111; margin: 0; padding: 0; }
+h1 { font-family: Syne, sans-serif; font-size: 16px; margin: 0 0 5px; border-bottom: 3px solid #000; padding-bottom: 4px; }
+h2 { font-family: Syne, sans-serif; font-size: 11px; margin: 7px 0 3px; color: #1356A2; border-bottom: 1px solid #1356A2; padding-bottom: 2px; }
+h3 { font-size: 9.5px; font-weight: 700; margin: 5px 0 2px; color: #D40920; }
+table { width: 100%; border-collapse: collapse; margin: 2px 0 5px; font-size: 9px; }
+th { background: #F7D842; padding: 3px 4px; text-align: left; font-size: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+td { padding: 2px 4px; border-bottom: 1px solid #eee; }
+tr:nth-child(even) { background: #f9f9f9; }
+.cols { display: flex; gap: 10px; }
+.col { flex: 1; min-width: 0; }
+.box { border: 1.5px solid #000; padding: 5px 6px; margin-bottom: 5px; }
+.box-title { font-family: Syne, sans-serif; font-size: 9.5px; font-weight: 700; margin-bottom: 3px; }
+.hl { color: #D40920; font-weight: 700; }
+.bl { color: #1356A2; font-weight: 700; }
+.gr { color: #2d8a56; font-weight: 700; }
+.br { color: #8B4513; font-weight: 700; }
+.rule { background: #fffde6; padding: 3px 5px; margin: 2px 0; font-size: 8.5px; border-left: 3px solid #D40920; }
+.page2 { page-break-before: always; }
+.footer { font-size: 7.5px; color: #999; text-align: center; margin-top: 5px; border-top: 1px solid #ddd; padding-top: 3px; }
+.mini-table td, .mini-table th { padding: 2px 4px; font-size: 8.5px; }
+.pat { display: inline-block; padding: 1px 4px; color: #fff; font-size: 7.5px; font-weight: 700; margin-right: 2px; }
+</style></head><body>
+
+<!-- ========== PAGE 1: GRAMMAR ========== -->
+<h1>Nederlandse Grammatica — Spiekbriefje</h1>
+
+<div class="cols">
+<div class="col">
+
+<h2>Werkwoordtijden</h2>
+<table>
+<tr><th>Tijd</th><th>Vorm</th><th>Voorbeeld</th></tr>
+<tr><td><strong>Presens</strong> (OTT)</td><td>stam (+t/en)</td><td>Ik <span class="hl">werk</span>, jij <span class="hl">werkt</span>, wij <span class="hl">werken</span></td></tr>
+<tr><td><strong>Imperfectum</strong> (OVT)</td><td>stam + te(n)/de(n)</td><td>Ik <span class="hl">werkte</span>, wij <span class="hl">werkten</span></td></tr>
+<tr><td><strong>Perfectum</strong> (VTT)</td><td>hebben/zijn + v.d.</td><td>Ik <span class="bl">heb</span> <span class="gr">gewerkt</span></td></tr>
+<tr><td><strong>Plusquamperf.</strong> (VVT)</td><td>had(den)/was + v.d.</td><td>Ik <span class="bl">had</span> <span class="gr">gewerkt</span></td></tr>
+</table>
+
+<div class="box">
+<div class="box-title">'t Kofschip — Regelmatige werkwoorden</div>
+Stam eindigt op <span class="hl">t, k, f, s, ch, p</span> → <strong>-te(n)</strong> (imperf.) / <strong>ge...-t</strong> (v.d.)<br>
+Anders → <strong>-de(n)</strong> (imperf.) / <strong>ge...-d</strong> (v.d.)<br>
+<em>werken → werk<span class="hl">te</span> / gewerk<span class="hl">t</span> &nbsp;|&nbsp; leven → leef<span class="bl">de</span> / gelee<span class="bl">fd</span></em>
+</div>
+
+<h2>Onregelmatige Patronen (klinkerverandering)</h2>
+<table class="mini-table">
+<tr><th>Patroon</th><th>Infinitief</th><th>Imperf.</th><th>Volt. deelw.</th></tr>
+<tr><td><span class="pat" style="background:#2d8a56">e → a → e</span></td><td>eten, geven, lezen, vergeten</td><td><span class="gr">at, gaf, las, vergat</span></td><td><span class="gr">gegeten, gegeven, gelezen, vergeten</span></td></tr>
+<tr><td><span class="pat" style="background:#8B4513">e → a → o</span></td><td>spreken, breken, nemen, stelen</td><td><span class="br">sprak, brak, nam, stal</span></td><td><span class="br">gesproken, gebroken, genomen, gestolen</span></td></tr>
+<tr><td><span class="pat" style="background:#D40920">ij → ee → e</span></td><td>schrijven, blijven, rijden, kijken</td><td><span class="hl">schreef, bleef, reed, keek</span></td><td><span class="hl">geschreven, gebleven, gereden, gekeken</span></td></tr>
+<tr><td><span class="pat" style="background:#1356A2">ie → oo → o</span></td><td>vliegen, bieden, kiezen, schieten</td><td><span class="bl">vloog, bood, koos, schoot</span></td><td><span class="bl">gevlogen, geboden, gekozen, geschoten</span></td></tr>
+<tr><td><span class="pat" style="background:#b08600">i → o → o</span></td><td>drinken, vinden, beginnen, zingen</td><td><span style="color:#b08600;font-weight:700">dronk, vond, begon, zong</span></td><td><span style="color:#b08600;font-weight:700">gedronken, gevonden, begonnen, gezongen</span></td></tr>
+<tr><td><span class="pat" style="background:#555">a → oe → a</span></td><td>dragen, slaan, varen, graven</td><td><span style="color:#555;font-weight:700">droeg, sloeg, voer, groef</span></td><td><span style="color:#555;font-weight:700">gedragen, geslagen, gevaren, gegraven</span></td></tr>
+</table>
+<div class="rule"><strong>Bijzonder:</strong> zijn (was/waren, geweest) · hebben (had, gehad) · doen (deed, gedaan) · gaan (ging, gegaan) · staan (stond, gestaan) · zien (zag, gezien) · komen (kwam, gekomen)</div>
+
+<h2>Hebben vs. Zijn</h2>
+<table class="mini-table">
+<tr><th>Zijn</th><th>Hebben</th></tr>
+<tr><td>Beweging + richting: gaan, komen, rijden, vliegen, vertrekken, vallen</td><td>Alles anders (de meeste werkwoorden)</td></tr>
+<tr><td>Verandering van staat: worden, groeien, sterven, stoppen, slagen</td><td>Transitief (+ lijdend vw.): eten, lezen, maken</td></tr>
+<tr><td>zijn, blijven, gebeuren</td><td>Reflexief: zich wassen, zich voelen</td></tr>
+</table>
+
+<h2>Passief vs. Actief</h2>
+<table class="mini-table">
+<tr><th>Tijd</th><th>Actief</th><th>Passief</th><th>Hulpww.</th></tr>
+<tr><td>Presens</td><td>Ze delen het.</td><td>Het <span class="bl">wordt</span> gedeeld.</td><td><span class="bl">wordt/worden</span></td></tr>
+<tr><td>Imperf.</td><td>Ze deelden het.</td><td>Het <span class="bl">werd</span> gedeeld.</td><td><span class="bl">werd/werden</span></td></tr>
+<tr><td>Perf.</td><td>Ze hebben gedeeld.</td><td>Het <span class="gr">is</span> gedeeld.</td><td><span class="gr">is/zijn</span></td></tr>
+<tr><td>Plusq.</td><td>Ze hadden gedeeld.</td><td>Het <span class="br">was</span> gedeeld.</td><td><span class="br">was/waren</span></td></tr>
+</table>
+<div class="rule">Passief perfectum: <span class="gr">is/zijn</span> + v.d. (NIET "is geworden"!) &nbsp;|&nbsp; Onpersoonlijk: <span class="hl">Er</span> wordt gedanst.</div>
+
+<h2>Modale Werkwoorden</h2>
+<table class="mini-table">
+<tr><th>Werkwoord</th><th>Betekenis</th><th>Ik/hij</th><th>Wij/zij</th><th>Imperf.</th></tr>
+<tr><td>kunnen</td><td>can</td><td>kan</td><td>kunnen</td><td>kon</td></tr>
+<tr><td>moeten</td><td>must</td><td>moet</td><td>moeten</td><td>moest</td></tr>
+<tr><td>mogen</td><td>may</td><td>mag</td><td>mogen</td><td>mocht</td></tr>
+<tr><td>willen</td><td>want</td><td>wil</td><td>willen</td><td>wilde/wou</td></tr>
+<tr><td>zullen</td><td>shall</td><td>zal</td><td>zullen</td><td>zou</td></tr>
+</table>
+<div class="rule">Modaal ww. op positie 2, infinitief naar het <strong>einde</strong>: Ik <span class="bl">kan</span> goed Nederlands <span class="bl">spreken</span>.</div>
+
+<h2>Spelling: dt-regels</h2>
+<span style="font-size:8.5px;">
+Stam eindigt op <strong>-d</strong>? Dan krijg je <strong>-dt</strong> bij jij/hij:<br>
+<em>vinden → ik vin<span class="hl">d</span>, jij vin<span class="hl">dt</span>, hij vin<span class="hl">dt</span></em><br>
+<strong>Inversie (jij na werkwoord):</strong> de -t valt weg! <em>Vin<span class="bl">d</span> jij dat ook?</em> (niet: vindt jij)<br>
+<strong>Stam op -t:</strong> <em>zitten → jij zi<span class="hl">t</span></em> (niet: zitt) — geen dubbele t!
+</span>
+
+</div>
+<div class="col">
+
+<h2>Woordvolgorde</h2>
+<div class="box">
+<div class="box-title">Hoofdzin: S + V2 + rest (+ V-eind)</div>
+Ik <span class="hl">werk</span> vandaag thuis. &nbsp;|&nbsp; Vandaag <span class="hl">werk</span> ik thuis. <em>(inversie)</em><br>
+Ik <span class="hl">heb</span> gisteren thuis <span class="bl">gewerkt</span>. <span style="font-size:8px;">(hulpww. op 2, v.d. op einde)</span>
+</div>
+<div class="box">
+<div class="box-title">Bijzin: voegwoord + S + rest + V (alle ww. naar eind)</div>
+...omdat ik vandaag thuis <span class="hl">werk</span>. &nbsp;|&nbsp; ...dat hij een boek <span class="hl">heeft gelezen</span>.
+</div>
+
+<h3>Voegwoorden</h3>
+<table class="mini-table">
+<tr><th>Nevenschikkend (V2)</th><th>Onderschikkend (V-eind)</th></tr>
+<tr><td>en, maar, of, want, dus</td><td>dat, omdat, als, wanneer, toen, terwijl, hoewel, tenzij, zodra, voordat, nadat, mits, zodat, doordat</td></tr>
+</table>
+
+<h2>De 5 functies van ER</h2>
+<table class="mini-table">
+<tr><th>#</th><th>Functie</th><th>Voorbeeld</th><th>Herkenning</th></tr>
+<tr><td>1</td><td>Plaats</td><td>Ik ben <span class="hl">er</span> geweest.</td><td>= daar</td></tr>
+<tr><td>2</td><td>Introductie</td><td><span class="hl">Er</span> staat een man.</td><td>there is/are</td></tr>
+<tr><td>3</td><td>Hoeveelheid</td><td>Ik heb <span class="hl">er</span> drie.</td><td>er + telwoord</td></tr>
+<tr><td>4</td><td>Voorzetsel</td><td>Ik denk <span class="hl">eraan</span>.</td><td>er + vz. = 1 woord</td></tr>
+<tr><td>5</td><td>Passief</td><td><span class="hl">Er</span> wordt gedanst.</td><td>er + worden</td></tr>
+</table>
+
+<h2>Er vs. Hij vs. Het (bepaald/onbepaald)</h2>
+<table class="mini-table">
+<tr><th>Situatie</th><th>Verwijzing</th><th>Voorbeeld</th></tr>
+<tr><td><strong>de</strong>-woord (bepaald)</td><td><span class="hl">hij</span> / <span class="hl">hem</span></td><td>De pen? <span class="hl">Hij</span> ligt daar. Ik pak <span class="hl">hem</span>.</td></tr>
+<tr><td><strong>het</strong>-woord (bepaald)</td><td><span class="bl">het</span></td><td>Het boek? <span class="bl">Het</span> ligt daar. Ik lees <span class="bl">het</span>.</td></tr>
+<tr><td>Onbepaald (een/geen/#)</td><td><span class="gr">er</span> + een/geen/#</td><td>Een pen? Ik heb <span class="gr">er</span> een. / Ik heb <span class="gr">er</span> drie.</td></tr>
+</table>
+<div class="rule" style="font-size:7px;">
+<span class="hl">✗</span> Heb je een auto? Ja, ik heb <em>het</em>. → <span class="gr">✓</span> Ja, ik heb <strong>er</strong> een.<br>
+<span class="hl">✗</span> Waar is de sleutel? <em>Er</em> ligt op tafel. → <span class="gr">✓</span> <strong>Hij</strong> ligt op tafel.
+</div>
+
+<h2>De of Het?</h2>
+<div class="cols">
+<div class="col">
+<h3 style="color:#1356A2;">HET</h3>
+<span style="font-size:7.5px;">verkleinwoorden (-je), -isme, -ment, -sel, -um, talen, windstreken, sporten, metalen, infinitief als zn.</span>
+</div>
+<div class="col">
+<h3>DE</h3>
+<span style="font-size:7.5px;">meervoud (altijd!), -ie, -ij, -heid/-teit, -ing, -tie/-sie, -schap, -te, personen, bomen/planten, bergen/rivieren</span>
+</div>
+</div>
+<div class="rule">Twijfel? Kies <strong>de</strong> — 2/3 is de-woord! &nbsp;|&nbsp; Verkleinwoord: altijd <span class="bl">het</span> (het huisje, het boompje)</div>
+
+<h2>Vergelijkingen & Ontkenning</h2>
+<span style="font-size:7.5px;">
+groot → grot<span class="hl">er</span> → groot<span class="hl">st</span> &nbsp;|&nbsp;
+<span class="bl">goed → beter → best</span> &nbsp;|&nbsp;
+<span class="bl">veel → meer → meest</span> &nbsp;|&nbsp;
+<span class="bl">weinig → minder → minst</span>
+</span>
+<table class="mini-table">
+<tr><td>niet / geen</td><td>nooit</td><td>nergens</td><td>niemand</td><td>niets</td></tr>
+<tr><td>wel / een</td><td>ooit / altijd</td><td>overal</td><td>iemand</td><td>iets</td></tr>
+</table>
+
+<h2>Conditionalis & Om...te</h2>
+<span style="font-size:7.5px;">
+<span class="bl">zou/zouden</span> + inf.: <em>Ik <span class="bl">zou</span> graag willen bestellen.</em> &nbsp;|&nbsp; <em>Als ik rijk was, <span class="bl">zou</span> ik een boot kopen.</em><br>
+<span class="hl">Om...te</span>: Ik ga naar de winkel <span class="hl">om</span> boodschappen <span class="hl">te doen</span>. &nbsp;|&nbsp; Scheidbaar: op <span class="hl">te</span> bellen (niet: te opbellen)
+</span>
+
+<h2>Voornaamwoorden</h2>
+<table class="mini-table">
+<tr><th>Subject</th><th>Object</th><th>Bezittelijk</th><th>Reflexief</th></tr>
+<tr><td>ik</td><td>mij/me</td><td>mijn</td><td>me</td></tr>
+<tr><td>jij/je</td><td>jou/je</td><td>jouw/je</td><td>je</td></tr>
+<tr><td>hij / zij/ze</td><td>hem / haar</td><td>zijn / haar</td><td>zich</td></tr>
+<tr><td>wij/we</td><td>ons</td><td>ons/onze</td><td>ons</td></tr>
+<tr><td>jullie</td><td>jullie</td><td>jullie</td><td>je</td></tr>
+<tr><td>zij/ze</td><td>hen/hun/ze</td><td>hun</td><td>zich</td></tr>
+<tr><td>u</td><td>u</td><td>uw</td><td>zich</td></tr>
+</table>
+
+<h2>Scheidbare vs. Niet-scheidbare Werkwoorden</h2>
+<table class="mini-table">
+<tr><th>Situatie</th><th>Regel</th><th>Voorbeeld (opbellen)</th></tr>
+<tr><td>Presens (hoofdzin)</td><td>Prefix → <strong>einde</strong></td><td>Ik <span class="hl">bel</span> je <span class="hl">op</span>.</td></tr>
+<tr><td>Bijzin</td><td><strong>Samen</strong> aan het eind</td><td>...omdat ik je <span class="bl">opbel</span>.</td></tr>
+<tr><td>Perfectum</td><td><strong>ge-</strong> ertussen</td><td>Ik heb je <span class="gr">op-ge-beld</span>.</td></tr>
+<tr><td>Te + infinitief</td><td><strong>te</strong> ertussen</td><td>Ik probeer <span class="br">op te bellen</span>.</td></tr>
+</table>
+<span style="font-size:7px;">
+<strong>Scheidbare prefixen:</strong> <span class="hl">aan, af, bij, in, mee, na, op, over, terug, toe, uit, voor, weg</span><br>
+<strong>Niet-scheidbaar</strong> (nooit splitsen, geen ge- in perf.): <span class="bl">be-, ver-, ont-, ge-, her-, er-</span><br>
+<em>betalen → heb <strong>betaald</strong></em> (niet: ge-betaald) · <em>vertellen → heb <strong>verteld</strong></em> · <em>ontdekken → heb <strong>ontdekt</strong></em>
+</span>
+<div class="rule" style="font-size:7px;"><strong>Let op:</strong> over, door, onder, voor zijn soms scheidbaar (klemtoon op prefix) en soms niet (klemtoon op stam) met andere betekenis!<br>
+<em>overkomen</em> (scheidb.) = cross → <strong>overgekomen</strong> &nbsp;|&nbsp; <em>overleven</em> (niet-scheidb.) = survive → <strong>overleefd</strong></div>
+
+</div>
+</div>
+<div class="footer">www.${siteUrl} — gegenereerd ${new Date().toLocaleDateString('nl-NL')}</div>
+
+<!-- ========== PAGE 2: VOCABULARY ========== -->
+<div class="page2">
+<h1>Belangrijkste Woordenschat — Spiekbriefje</h1>
+
+<div class="cols">
+<div class="col">
+
+<h2>Essentiële Werkwoorden</h2>
+<table class="mini-table">
+<tr><th>Nederlands</th><th>Engels</th><th>V.D.</th><th>Imperf.</th></tr>
+${(() => {
+  const essentialVerbs = ['zijn','hebben','worden','kunnen','moeten','willen','zullen','mogen','gaan','komen','doen','zien','weten','denken','maken','geven','nemen','staan','zitten','liggen','lopen','rijden','eten','drinken','slapen','schrijven','lezen','spreken','vragen','antwoorden','beginnen','stoppen','proberen','helpen','betalen','kopen','verkopen','werken','wonen','leven','zoeken','vinden','brengen','houden','vergeten','leren','verstaan','voelen','geloven','betekenen'];
+  return essentialVerbs.map(inf => {
+    const v = VERBS.find(x => x.inf === inf);
+    if (!v) return '<tr><td><strong>' + inf + '</strong></td><td></td><td></td><td></td></tr>';
+    return '<tr><td><strong>' + v.inf + '</strong></td><td>' + v.en + '</td><td>' + v.pp + '</td><td>' + v.imp_s + '</td></tr>';
+  }).join('');
+})()}
+</table>
+
+<h2>Veelgebruikte Vaste Voorzetsels</h2>
+<table class="mini-table">
+<tr><th>Werkwoord + vz.</th><th>Engels</th></tr>
+${(() => {
+  const topPreps = ['denken aan','wachten op','luisteren naar','kijken naar','zoeken naar','vragen om','vragen naar','beginnen met','stoppen met','praten over','vertellen over','houden van','dromen van','afhangen van','zorgen voor','kiezen voor','bedanken voor','feliciteren met','wennen aan','lijken op','bestaan uit','deelnemen aan','rekenen op','beschikken over','zich interesseren voor','twijfelen aan'];
+  return topPreps.map(phrase => {
+    const p = PREPOSITION_VERBS.find(x => x.phrase === phrase);
+    if (!p) return '';
+    return '<tr><td><strong>' + p.phrase.replace(p.prep, '<span class="hl">' + p.prep + '</span>') + '</strong></td><td>' + p.en + '</td></tr>';
+  }).filter(Boolean).join('');
+})()}
+</table>
+
+</div>
+<div class="col">
+
+<h2>Werk & Kantoor</h2>
+<table class="mini-table">
+<tr><th>NL</th><th>EN</th><th></th><th>NL</th><th>EN</th></tr>
+<tr><td><strong>de baan</strong></td><td>job</td><td></td><td><strong>het salaris</strong></td><td>salary</td></tr>
+<tr><td><strong>de collega</strong></td><td>colleague</td><td></td><td><strong>de baas</strong></td><td>boss</td></tr>
+<tr><td><strong>het kantoor</strong></td><td>office</td><td></td><td><strong>de vergadering</strong></td><td>meeting</td></tr>
+<tr><td><strong>de sollicitatie</strong></td><td>job application</td><td></td><td><strong>het gesprek</strong></td><td>conversation</td></tr>
+<tr><td><strong>de ervaring</strong></td><td>experience</td><td></td><td><strong>de opleiding</strong></td><td>education</td></tr>
+<tr><td><strong>het contract</strong></td><td>contract</td><td></td><td><strong>de deadline</strong></td><td>deadline</td></tr>
+<tr><td><strong>de klant</strong></td><td>client</td><td></td><td><strong>het project</strong></td><td>project</td></tr>
+<tr><td><strong>de opdracht</strong></td><td>assignment</td><td></td><td><strong>de afspraak</strong></td><td>appointment</td></tr>
+<tr><td><strong>ontslag</strong></td><td>dismissal</td><td></td><td><strong>de vakantie</strong></td><td>holiday</td></tr>
+</table>
+
+<h2>Huis & Dagelijks Leven</h2>
+<table class="mini-table">
+<tr><th>NL</th><th>EN</th><th></th><th>NL</th><th>EN</th></tr>
+<tr><td><strong>de keuken</strong></td><td>kitchen</td><td></td><td><strong>de slaapkamer</strong></td><td>bedroom</td></tr>
+<tr><td><strong>de badkamer</strong></td><td>bathroom</td><td></td><td><strong>de woonkamer</strong></td><td>living room</td></tr>
+<tr><td><strong>de tafel</strong></td><td>table</td><td></td><td><strong>de stoel</strong></td><td>chair</td></tr>
+<tr><td><strong>het bed</strong></td><td>bed</td><td></td><td><strong>de kast</strong></td><td>closet</td></tr>
+<tr><td><strong>de koelkast</strong></td><td>fridge</td><td></td><td><strong>de wasmachine</strong></td><td>washing machine</td></tr>
+<tr><td><strong>het bord</strong></td><td>plate</td><td></td><td><strong>het glas</strong></td><td>glass</td></tr>
+<tr><td><strong>de sleutel</strong></td><td>key</td><td></td><td><strong>de rekening</strong></td><td>bill</td></tr>
+<tr><td><strong>de buren</strong></td><td>neighbors</td><td></td><td><strong>de huur</strong></td><td>rent</td></tr>
+<tr><td><strong>het boodschappen</strong></td><td>groceries</td><td></td><td><strong>het afval</strong></td><td>trash</td></tr>
+</table>
+
+<h2>Alledaagse Gesprekken</h2>
+<table class="mini-table">
+<tr><th>NL</th><th>EN</th><th></th><th>NL</th><th>EN</th></tr>
+<tr><td><strong>het weer</strong></td><td>weather</td><td></td><td><strong>de vraag</strong></td><td>question</td></tr>
+<tr><td><strong>het antwoord</strong></td><td>answer</td><td></td><td><strong>het probleem</strong></td><td>problem</td></tr>
+<tr><td><strong>de oplossing</strong></td><td>solution</td><td></td><td><strong>het verschil</strong></td><td>difference</td></tr>
+<tr><td><strong>de reden</strong></td><td>reason</td><td></td><td><strong>het voorstel</strong></td><td>proposal</td></tr>
+<tr><td><strong>het geld</strong></td><td>money</td><td></td><td><strong>de tijd</strong></td><td>time</td></tr>
+<tr><td><strong>het nieuws</strong></td><td>news</td><td></td><td><strong>de trein</strong></td><td>train</td></tr>
+<tr><td><strong>de buurt</strong></td><td>neighborhood</td><td></td><td><strong>het ziekenhuis</strong></td><td>hospital</td></tr>
+<tr><td><strong>de klacht</strong></td><td>complaint</td><td></td><td><strong>de mening</strong></td><td>opinion</td></tr>
+</table>
+
+<h2>Bijvoeglijke Naamwoorden & Bijwoorden</h2>
+<table class="mini-table">
+<tr><th>NL</th><th>EN</th><th></th><th>NL</th><th>EN</th></tr>
+<tr><td>belangrijk</td><td>important</td><td></td><td>moeilijk</td><td>difficult</td></tr>
+<tr><td>gemakkelijk</td><td>easy</td><td></td><td>mogelijk</td><td>possible</td></tr>
+<tr><td>noodzakelijk</td><td>necessary</td><td></td><td>beschikbaar</td><td>available</td></tr>
+<tr><td>duidelijk</td><td>clear</td><td></td><td>waarschijnlijk</td><td>probably</td></tr>
+<tr><td>eigenlijk</td><td>actually</td><td></td><td>vooral</td><td>especially</td></tr>
+<tr><td>ongeveer</td><td>approximately</td><td></td><td>volgens</td><td>according to</td></tr>
+<tr><td>tenminste</td><td>at least</td><td></td><td>inmiddels</td><td>meanwhile</td></tr>
+<tr><td>blijkbaar</td><td>apparently</td><td></td><td>uiteindelijk</td><td>eventually</td></tr>
+<tr><td>tegenwoordig</td><td>nowadays</td><td></td><td>vroeger</td><td>in the past</td></tr>
+<tr><td>gezellig</td><td>cozy / sociable</td><td></td><td>lekker</td><td>nice / tasty</td></tr>
+<tr><td>handig</td><td>handy / useful</td><td></td><td>goedkoop</td><td>cheap</td></tr>
+</table>
+
+<h2>Handige Uitdrukkingen</h2>
+<table class="mini-table">
+<tr><th>Nederlands</th><th>Engels</th></tr>
+<tr><td>Ik ben het (niet) met je eens</td><td>I (don't) agree with you</td></tr>
+<tr><td>Naar mijn mening... / Ik vind dat...</td><td>In my opinion... / I think that...</td></tr>
+<tr><td>Wat mij betreft...</td><td>As far as I'm concerned...</td></tr>
+<tr><td>Aan de ene kant... aan de andere kant...</td><td>On the one hand... on the other...</td></tr>
+<tr><td>Het hangt ervan af</td><td>It depends</td></tr>
+<tr><td>Om eerlijk te zijn... / Eerlijk gezegd...</td><td>To be honest... / Honestly...</td></tr>
+<tr><td>Hoe bedoel je? / Dat klopt (niet)</td><td>What do you mean? / That's (not) correct</td></tr>
+<tr><td>Waar het op neerkomt is...</td><td>What it comes down to is...</td></tr>
+<tr><td>Trouwens,... / Dat doet me denken aan...</td><td>By the way,... / That reminds me of...</td></tr>
+<tr><td>Mag ik je iets vragen?</td><td>May I ask you something?</td></tr>
+<tr><td>Geen probleem / Het geeft niet</td><td>No problem / It doesn't matter</td></tr>
+<tr><td>Ik heb een vraag over...</td><td>I have a question about...</td></tr>
+<tr><td>Zou je dat kunnen herhalen?</td><td>Could you repeat that?</td></tr>
+<tr><td>Ik begrijp het (niet)</td><td>I (don't) understand</td></tr>
+</table>
+
+<h2>Connectoren</h2>
+<table class="mini-table">
+<tr><th>NL</th><th>EN</th><th></th><th>NL</th><th>EN</th></tr>
+<tr><td>daarom</td><td>therefore</td><td></td><td>bovendien</td><td>moreover</td></tr>
+<tr><td>echter</td><td>however</td><td></td><td>namelijk</td><td>namely</td></tr>
+<tr><td>toch</td><td>still / yet</td><td></td><td>daardoor</td><td>because of that</td></tr>
+<tr><td>daarna</td><td>after that</td><td></td><td>vervolgens</td><td>subsequently</td></tr>
+<tr><td>ten slotte</td><td>finally</td><td></td><td>kortom</td><td>in short</td></tr>
+<tr><td>enerzijds</td><td>on one hand</td><td></td><td>anderzijds</td><td>on the other</td></tr>
+<tr><td>daarentegen</td><td>on the contrary</td><td></td><td>desondanks</td><td>despite that</td></tr>
+</table>
+
+<h2>Tijdsuitdrukkingen</h2>
+<table class="mini-table">
+<tr><th>NL</th><th>EN</th><th></th><th>NL</th><th>EN</th></tr>
+<tr><td>gisteren</td><td>yesterday</td><td></td><td>morgen</td><td>tomorrow</td></tr>
+<tr><td>eergisteren</td><td>day before yesterday</td><td></td><td>overmorgen</td><td>day after tomorrow</td></tr>
+<tr><td>vorige week</td><td>last week</td><td></td><td>volgende week</td><td>next week</td></tr>
+<tr><td>net / zojuist</td><td>just now</td><td></td><td>straks</td><td>later / soon</td></tr>
+<tr><td>vroeger</td><td>in the past</td><td></td><td>tegenwoordig</td><td>nowadays</td></tr>
+<tr><td>sindsdien</td><td>since then</td><td></td><td>ondertussen</td><td>meanwhile</td></tr>
+<tr><td>af en toe</td><td>now and then</td><td></td><td>steeds</td><td>constantly / each time</td></tr>
+</table>
+
+</div>
+</div>
+
+<h2 style="margin-top:6px;">Getallen & Tellen</h2>
+<div class="cols">
+<div class="col">
+<table class="mini-table">
+<tr><th>#</th><th>NL</th><th>#</th><th>NL</th></tr>
+<tr><td>0</td><td>nul</td><td>11</td><td>elf</td></tr>
+<tr><td>1</td><td>een</td><td>12</td><td>twaalf</td></tr>
+<tr><td>2</td><td>twee</td><td>13</td><td>dertien</td></tr>
+<tr><td>3</td><td>drie</td><td>14</td><td>veertien</td></tr>
+<tr><td>4</td><td>vier</td><td>20</td><td>twintig</td></tr>
+<tr><td>5</td><td>vijf</td><td>21</td><td><span class="hl">een</span>en<span class="bl">twintig</span></td></tr>
+<tr><td>6</td><td>zes</td><td>30</td><td>dertig</td></tr>
+<tr><td>7</td><td>zeven</td><td>50</td><td>vijftig</td></tr>
+<tr><td>8</td><td>acht</td><td>100</td><td>honderd</td></tr>
+<tr><td>9</td><td>negen</td><td>1000</td><td>duizend</td></tr>
+<tr><td>10</td><td>tien</td><td>1M</td><td>een miljoen</td></tr>
+</table>
+</div>
+<div class="col">
+<div class="rule"><strong>NL leest getallen achterstevoren!</strong><br>
+21 = <span class="hl">een</span>-en-<span class="bl">twintig</span> (one-and-twenty)<br>
+84 = <span class="hl">vier</span>-en-<span class="bl">tachtig</span> (four-and-eighty)<br>
+365 = driehonderd<span class="hl">vijf</span>en<span class="bl">zestig</span></div>
+<h3 style="margin-top:4px;">Rangtelwoorden (ordinals)</h3>
+<span style="font-size:8.5px;">
+1-19: + <strong>-de</strong> (derde, vierde, vijfde...)<br>
+Uitz.: <span class="hl">eerste</span> (1e), <span class="hl">derde</span> (3e), <span class="hl">achtste</span> (8e)<br>
+20+: + <strong>-ste</strong> (twintigste, honderdste...)
+</span>
+<h3 style="margin-top:4px;">Tijd vertellen</h3>
+<span style="font-size:8.5px;">
+3:00 = drie uur &nbsp;|&nbsp; 3:15 = kwart <span class="hl">over</span> drie<br>
+3:30 = half <span class="bl">vier</span> (!!) &nbsp;|&nbsp; 3:45 = kwart <span class="hl">voor</span> vier<br>
+3:10 = tien <span class="hl">over</span> drie &nbsp;|&nbsp; 3:50 = tien <span class="hl">voor</span> vier<br>
+3:20 = tien <span class="hl">voor</span> half vier &nbsp;|&nbsp; 3:40 = tien <span class="hl">over</span> half vier
+</span>
+<div class="rule"><strong>Half vier = 3:30</strong> (niet 4:30!) — het half gaat <em>voor</em> het volgende uur.</div>
+</div>
+</div>
+
+<div class="footer">www.${siteUrl} — gegenereerd ${new Date().toLocaleDateString('nl-NL')}</div>
+
+</div>
+</body></html>`;
+
+  const w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  const printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF';
+  printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = () => { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
+  w.document.body.prepend(printBtn);
+}
 
 let grammarInitialized = false;
 let grammarCat = 'all';
@@ -8361,6 +9690,62 @@ function initGrammar() {
   if (grammarInitialized) return;
   grammarInitialized = true;
   renderGrammarCards();
+  renderGrammarDirectory();
+}
+
+const GRAMMAR_CAT_EN = {
+  verbs: 'Verbs', spelling: 'Spelling', articles: 'Articles',
+  wordorder: 'Word Order', zinsbouw: 'Sentence Building',
+  pronouns: 'Pronouns', woordjes: 'Small Words (er, prepositions)',
+  woordvorming: 'Word Building'
+};
+
+function renderGrammarDirectory() {
+  const catOrder = ['verbs','spelling','articles','wordorder','zinsbouw','pronouns','woordjes','woordvorming'];
+  const body = document.getElementById('grammarDirBody');
+  let html = '';
+  catOrder.forEach(cat => {
+    const cards = GRAMMAR_RULES.filter(r => r.cat === cat);
+    if (!cards.length) return;
+    html += '<div class="grammar-dir-section">'
+      + '<div class="grammar-dir-section-title">' + (GRAMMAR_CAT_LABELS[cat] || cat)
+      + ' <span style="font-weight:400;text-transform:none;font-size:10px;color:#888;">(' + (GRAMMAR_CAT_EN[cat] || '') + ')</span></div>';
+    cards.forEach(r => {
+      html += '<a class="grammar-dir-link" onclick="jumpToGrammarCard(\'' + r.id + '\',\'' + r.cat + '\')">'
+        + r.title + ' <span style="color:#aaa;font-size:10px;">— ' + r.subtitle + '</span></a>';
+    });
+    html += '</div>';
+  });
+  body.innerHTML = html;
+}
+
+function toggleGrammarDir() {
+  const body = document.getElementById('grammarDirBody');
+  const arrow = document.getElementById('grammarDirArrow');
+  body.classList.toggle('open');
+  arrow.innerHTML = body.classList.contains('open') ? '&#9650;' : '&#9660;';
+}
+
+function jumpToGrammarCard(id, cat) {
+  // Switch to the right category
+  switchGrammarCat(cat);
+  // Close directory
+  document.getElementById('grammarDirBody').classList.remove('open');
+  document.getElementById('grammarDirArrow').innerHTML = '&#9660;';
+  // Find and scroll to the card
+  setTimeout(() => {
+    const cards = document.querySelectorAll('#grammarGrid .grammar-card');
+    for (const card of cards) {
+      if (card.querySelector('.grammar-card-title') &&
+          card.querySelector('.grammar-card-title').textContent.trim() === GRAMMAR_RULES.find(r => r.id === id)?.title) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.style.outline = '4px solid var(--mondrian-red)';
+        card.style.outlineOffset = '4px';
+        setTimeout(() => { card.style.outline = ''; card.style.outlineOffset = ''; }, 2000);
+        break;
+      }
+    }
+  }, 100);
 }
 
 function switchGrammarCat(cat) {
@@ -8374,7 +9759,7 @@ function renderGrammarCards() {
   let items = GRAMMAR_RULES;
   if (grammarCat !== 'all') items = items.filter(r => r.cat === grammarCat);
 
-  const catOrder = ['verbs','spelling','articles','wordorder','pronouns','other'];
+  const catOrder = ['verbs','spelling','articles','wordorder','zinsbouw','pronouns','woordjes','woordvorming'];
   if (grammarCat === 'all') items = catOrder.flatMap(cat => items.filter(r => r.cat === cat));
 
   const renderCard = r => '<div class="grammar-card" onclick="printGrammarCard(\'' + r.id + '\')">'
@@ -8410,16 +9795,36 @@ function printGrammarCard(id) {
 }
 
 function exportAllGrammar() {
-  let rows = '';
-  GRAMMAR_RULES.forEach(r => {
-    rows += '<div style="page-break-inside:avoid;margin-bottom:20px;">';
-    rows += '<h2 style="color:' + r.accent + ';">' + r.title + '</h2>';
-    rows += '<p style="color:#888;font-size:11px;">' + r.subtitle + '</p>';
-    rows += r.body;
-    rows += '</div>';
+  const catOrder = ['verbs','spelling','articles','wordorder','zinsbouw','pronouns','woordjes','woordvorming'];
+  let rows = '<div style="text-align:center;margin-bottom:30px;"><h1 style="font-size:28px;margin:0;">Nederlandse Grammatica</h1>'
+    + '<p style="color:#666;font-size:13px;">Alle spiekbriefjes — ' + GRAMMAR_RULES.length + ' kaarten</p></div>';
+  // Table of contents
+  rows += '<div style="page-break-after:always;margin-bottom:20px;"><h2 style="border-bottom:3px solid #000;padding-bottom:6px;">Inhoudsopgave</h2><ol style="columns:2;column-gap:30px;">';
+  catOrder.forEach(cat => {
+    const label = GRAMMAR_CAT_LABELS[cat] || cat;
+    const cards = GRAMMAR_RULES.filter(r => r.cat === cat);
+    if (cards.length) {
+      rows += '<li style="font-weight:700;margin:8px 0 2px;">' + label + '<ul style="font-weight:400;margin:2px 0;">';
+      cards.forEach(r => { rows += '<li>' + r.title + '</li>'; });
+      rows += '</ul></li>';
+    }
   });
-  rows += '<div class="tip">Totaal: ' + GRAMMAR_RULES.length + ' grammaticaregels</div>';
-  generatePDFContent('Alle Grammaticaregels', rows);
+  rows += '</ol></div>';
+  // Content by section
+  catOrder.forEach(cat => {
+    const label = GRAMMAR_CAT_LABELS[cat] || cat;
+    const cards = GRAMMAR_RULES.filter(r => r.cat === cat);
+    if (!cards.length) return;
+    rows += '<div style="page-break-before:always;margin-bottom:10px;"><h1 style="font-size:22px;border-bottom:4px solid #000;padding-bottom:8px;margin-bottom:16px;">' + label + '</h1></div>';
+    cards.forEach(r => {
+      rows += '<div style="page-break-inside:avoid;margin-bottom:24px;border-left:5px solid ' + r.accent + ';padding-left:14px;">';
+      rows += '<h2 style="color:' + r.accent + ';margin:0 0 2px;">' + r.title + '</h2>';
+      rows += '<p style="color:#888;font-size:11px;margin:0 0 8px;">' + r.subtitle + '</p>';
+      rows += r.body;
+      rows += '</div>';
+    });
+  });
+  generatePDFContent('Nederlandse Grammatica — Alle Spiekbriefjes', rows);
 }
 
 // ==========================================
@@ -8436,6 +9841,7 @@ function searchSpiekbriefjes() {
   const query = (input.value || '').toLowerCase().trim();
   const resultsEl = document.getElementById('spiekSearchResults');
   const subtabBar = document.getElementById('spiekSubtabBar');
+  const navGrid = document.getElementById('spiekNavGrid');
   const subtabs = document.querySelectorAll('#tab-spiekbriefjes > .subtab-content');
   document.getElementById('spiekSearchClear').style.display = input.value ? 'block' : 'none';
 
@@ -8443,11 +9849,13 @@ function searchSpiekbriefjes() {
     resultsEl.classList.remove('active');
     resultsEl.innerHTML = '';
     subtabBar.style.display = '';
+    if (navGrid) navGrid.style.display = '';
     subtabs.forEach(s => s.style.display = '');
     return;
   }
 
   subtabBar.style.display = 'none';
+  if (navGrid) navGrid.style.display = 'none';
   subtabs.forEach(s => s.style.display = 'none');
   resultsEl.classList.add('active');
 
