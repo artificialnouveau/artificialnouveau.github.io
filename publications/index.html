@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Terminal — Ahnjili ZhuParris</title>
+    <title>Research Terminal — Publications & Interviews — Ahnjili ZhuParris</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -323,9 +323,9 @@
 
     <div id="boot-sequence">
         <div class="boot-line" data-delay="0">&gt; INITIALIZING RESEARCH DATABASE...</div>
-        <div class="boot-line" data-delay="400">&gt; LOADING <span class="highlight">34</span> PUBLICATIONS...</div>
+        <div class="boot-line" data-delay="400">&gt; LOADING <span class="highlight" id="total-count">0</span> ENTRIES...</div>
         <div class="boot-line" data-delay="800">&gt; TOTAL CITATIONS: <span class="pink" id="total-citations">0</span></div>
-        <div class="boot-line" data-delay="1200">&gt; YEARS ACTIVE: <span class="highlight">2019</span> &mdash; <span class="highlight">2024</span></div>
+        <div class="boot-line" data-delay="1200">&gt; YEARS ACTIVE: <span class="highlight">2019</span> &mdash; <span class="highlight">PRESENT</span></div>
         <div class="boot-line" data-delay="1600">&gt; READY. <span class="highlight">CLICK ANY ENTRY TO READ ABSTRACT.</span></div>
     </div>
 
@@ -341,6 +341,7 @@
         <button class="filter-tag" data-tag="DRUG SURVEY">DRUG SURVEY</button>
         <button class="filter-tag" data-tag="ML">ML</button>
         <button class="filter-tag" data-tag="CLINICAL TRIALS">CLINICAL TRIALS</button>
+        <button class="filter-tag" data-tag="INTERVIEW">INTERVIEW</button>
         <button class="filter-tag" data-tag="PRESS">PRESS</button>
         <button class="filter-tag" data-tag="OTHER">OTHER</button>
     </div>
@@ -351,6 +352,36 @@
 
 <script>
 const papers = [
+  {
+    year: 2023,
+    title: "Artificial Intelligence, Autonomous Objects & Algorithmic Violence",
+    authors: "Ahnjili ZhuParris & Jan Zuiderveld",
+    journal: "Cross Pollination Podcast",
+    citations: 0,
+    abstract: "Ahnjili is a machine learning engineer, Ph.D. candidate, artist, and science communicator currently working at an AI startup that specializes in developing deep learning models for facial augmentation. Ahnjili's academic research centers around the development of biomarkers for monitoring mental and physical well-being using smartphones and wearables, with a particular focus on their application in clinical trials. Ahnjili's artistic research and science communication efforts are dedicated to raising awareness about A.I. and algorithmic violence, which encompasses the violence that may arise from or be justified by automated decision-making systems.",
+    url: "https://podcasts.apple.com/us/podcast/cross-pollination/id1632059837?i=1000639042537",
+    tags: ["INTERVIEW"]
+  },
+  {
+    year: 2023,
+    title: "Are Pigeons Better than AI?",
+    authors: "Het Hem",
+    journal: "Het Hem Panel Discussion",
+    citations: 0,
+    abstract: "A panel discussion exploring the intersection of artificial intelligence, nature, and perception.",
+    url: "",
+    tags: ["INTERVIEW"]
+  },
+{
+    year: 2020,
+    title: "On Data",
+    authors: "Bartalk",
+    journal: "Bartalk Podcast",
+    citations: 0,
+    abstract: "BARTALK is a lecture, performance, and storytelling series that usually takes place in different bars in the Hague. Each of our podcast seasons has a different theme featuring one guest per episode offering their unique perspective.",
+    url: "",
+    tags: ["INTERVIEW"]
+  },
   {
     year: 2024,
     title: "Embodying Data, Shifting Perspective: a conversation with Ahnjili Zhuparris on Future Wake",
@@ -687,7 +718,10 @@ const papers = [
 const totalCitations = papers.reduce((sum, p) => sum + p.citations, 0);
 
 // Collect unique tags for filtering
-const filterCategories = ["WEARABLES", "PEDIATRICS", "CNS", "DRUG SURVEY", "ML", "CLINICAL TRIALS", "OTHER"];
+const filterCategories = ["WEARABLES", "PEDIATRICS", "CNS", "DRUG SURVEY", "ML", "CLINICAL TRIALS", "INTERVIEW", "OTHER"];
+
+// Set total count
+document.getElementById('total-count').textContent = papers.length;
 
 let activeTag = null;
 let typingTimer = null;
@@ -754,7 +788,7 @@ function renderPapers(list) {
                 <div class="paper-authors">${escapeHtml(paper.authors)}</div>
                 <div class="abstract-text"></div>
                 <div class="paper-tags">${paper.tags.map(t => `<span>${t}</span>`).join('')}</div>
-                <a class="paper-link" href="${paper.url}" target="_blank" rel="noopener">&gt; ${paper.url.includes('scholar.google') ? 'VIEW ON SCHOLAR' : 'READ FULL ARTICLE'}</a>
+                ${paper.url ? `<a class="paper-link" href="${paper.url}" target="_blank" rel="noopener">&gt; ${paper.url.includes('scholar.google') ? 'VIEW ON SCHOLAR' : paper.url.includes('podcasts.apple') ? 'LISTEN ON APPLE PODCASTS' : 'READ FULL ARTICLE'}</a>` : ''}
             </div>
         `;
 
