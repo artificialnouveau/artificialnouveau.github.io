@@ -276,7 +276,7 @@ function showExamSet(type, setNum) {
         const endSec = ts.end || 0;
         const playerId = `yt-${type}-${setNum}-${n}`;
         const ytLink = ytId ? `https://www.youtube.com/watch?v=${ytId}&t=${startSec}` : '';
-        const thumbUrl = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '';
+        const thumbUrl = `thumbnails/${type}_set${setNum}_ex${n}.jpg`;
         const durationMin = Math.floor((endSec - startSec) / 60);
         const durationSecRem = (endSec - startSec) % 60;
         const durationStr = endSec ? `${durationMin}:${String(durationSecRem).padStart(2,'0')}` : '';
