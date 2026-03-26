@@ -8458,9 +8458,9 @@ const GRAMMAR_RULES = [
   {
     id: 'er', cat: 'woordjes',
     title: 'Het Woordje "Er"',
-    subtitle: '5 functies van er — met voorbeeldzinnen',
+    subtitle: '6 functies van er — met voorbeeldzinnen',
     accent: '#F7D842',
-    body: '<div class="gr-mnemonic">Er is het Zwitserse zakmes van het Nederlands — 5 functies, 1 woordje!</div>'
+    body: '<div class="gr-mnemonic">Er is het Zwitserse zakmes van het Nederlands — 6 functies, 1 woordje!</div>'
       + '<h4 style="margin:10px 0 6px;">1. Plaatsverwijzing (er = daar)</h4>'
       + '<div class="gr-rule"><strong>Er</strong> verwijst naar een eerder genoemde plaats.</div>'
       + '<div class="gr-example">Ben je weleens in Amsterdam geweest? — Ja, ik ben <strong>er</strong> vorig jaar geweest.</div>'
@@ -8483,19 +8483,30 @@ const GRAMMAR_RULES = [
       + '<div class="gr-example">Ben je blij met je baan? — Ja, ik ben <strong>ermee</strong> tevreden.</div>'
       + '<div class="gr-example">Weet je iets over dat project? — Nee, ik weet <strong>er</strong> niets <strong>over</strong>. <em>(gesplitst in hoofdzin)</em></div>'
       + '<div class="gr-example">er + op = <strong>erop</strong>, er + aan = <strong>eraan</strong>, er + over = <strong>erover</strong>, er + mee = <strong>ermee</strong>, er + van = <strong>ervan</strong></div>'
-      + '<h4 style="margin:10px 0 6px;">5. Passief zonder subject (onpersoonlijk passief)</h4>'
-      + '<div class="gr-rule"><strong>Er</strong> vult de eerste positie in bij passieve zinnen zonder logisch onderwerp.</div>'
+      + '<h4 style="margin:10px 0 6px;">5. Er + passief worden (actiepassief)</h4>'
+      + '<div class="gr-rule"><strong>Er</strong> vult de eerste positie in bij passieve zinnen zonder logisch onderwerp. Focust op de <strong>actie</strong>.</div>'
       + '<div class="gr-example"><strong>Er</strong> wordt veel gedanst op feestjes in Nederland.</div>'
       + '<div class="gr-example"><strong>Er</strong> werd geklopt op de deur.</div>'
       + '<div class="gr-example"><strong>Er</strong> wordt hier niet gerookt.</div>'
+      + '<h4 style="margin:10px 0 6px;">6. Er + passief zijn (toestandspassief)</h4>'
+      + '<div class="gr-rule"><strong>Er</strong> + <strong>zijn</strong> + voltooid deelwoord beschrijft een <strong>toestand</strong> die het resultaat is van een eerdere actie, met een onbepaald subject.</div>'
+      + '<div class="gr-example"><strong>Er</strong> is een raam gebroken. <em>(Een raam is in gebroken toestand.)</em></div>'
       + '<div class="gr-example"><strong>Er</strong> is lang over gesproken in de vergadering.</div>'
+      + '<div class="gr-example"><strong>Er</strong> zijn veel fouten gemaakt.</div>'
+      + '<div class="gr-rule"><strong>Vergelijk:</strong><br>'
+      + '<strong>Er wordt</strong> een raam gebroken. → de actie vindt nu plaats<br>'
+      + '<strong>Er is</strong> een raam gebroken. → het resultaat / de toestand</div>'
       + '<h4 style="margin:10px 0 6px;">Overzicht</h4>'
-      + '<table><thead><tr><th>Functie</th><th>Voorbeeld</th><th>Herkenning</th></tr></thead><tbody>'
-      + '<tr><td>1. Plaats</td><td>Ik ben <strong>er</strong> geweest.</td><td>Vervangbaar door "daar"</td></tr>'
-      + '<tr><td>2. Introductie</td><td><strong>Er</strong> staat een man.</td><td>Er + onbepaald subject</td></tr>'
-      + '<tr><td>3. Hoeveelheid</td><td>Ik heb <strong>er</strong> drie.</td><td>Er + telwoord</td></tr>'
-      + '<tr><td>4. Voorzetsel</td><td>Ik denk <strong>eraan</strong>.</td><td>Er + voorzetsel = één woord</td></tr>'
-      + '<tr><td>5. Passief</td><td><strong>Er</strong> wordt gedanst.</td><td>Er + worden, geen subject</td></tr></tbody></table>'
+      + '<table><thead><tr><th>Functie</th><th>Signaalwoord</th><th>Voorbeeld</th></tr></thead><tbody>'
+      + '<tr><td>1. Er + telwoord</td><td>getal/hoeveelheid na er</td><td>Ik heb <strong>er</strong> twee.</td></tr>'
+      + '<tr><td>2. Plaatsaanduidend er</td><td>vervangt een plaats</td><td>Ik woon <strong>er</strong> al jaren.</td></tr>'
+      + '<tr><td>3. Onbepaald subject</td><td>"there is/are" constructie</td><td><strong>Er</strong> loopt een hond op straat.</td></tr>'
+      + '<tr><td>4. Er + prepositie</td><td>er gefuseerd met voorzetsel</td><td>Ik houd <strong>ervan</strong>.</td></tr>'
+      + '<tr><td>5. Er + passief worden</td><td>onbepaald subject, actie</td><td><strong>Er</strong> wordt gedanst.</td></tr>'
+      + '<tr><td>6. Er + passief zijn</td><td>onbepaald subject, toestand</td><td><strong>Er</strong> is een raam gebroken.</td></tr></tbody></table>'
+      + '<div class="gr-rule" style="margin-top:10px;"><strong>Onthoud:</strong><br>'
+      + '<strong>Er wordt</strong> + voltooid deelwoord = de actie vindt plaats (actiepassief)<br>'
+      + '<strong>Er is</strong> + voltooid deelwoord = het resultaat van de actie (toestandspassief)</div>'
   },
   {
     id: 'er_hij_het', cat: 'woordjes',
@@ -9436,15 +9447,17 @@ Ik <span class="hl">heb</span> gisteren thuis <span class="bl">gewerkt</span>. <
 <tr><td>en, maar, of, want, dus</td><td>dat, omdat, als, wanneer, toen, terwijl, hoewel, tenzij, zodra, voordat, nadat, mits, zodat, doordat</td></tr>
 </table>
 
-<h2>De 5 functies van ER</h2>
+<h2>De 6 functies van ER</h2>
 <table class="mini-table">
-<tr><th>#</th><th>Functie</th><th>Voorbeeld</th><th>Herkenning</th></tr>
-<tr><td>1</td><td>Plaats</td><td>Ik ben <span class="hl">er</span> geweest.</td><td>= daar</td></tr>
-<tr><td>2</td><td>Introductie</td><td><span class="hl">Er</span> staat een man.</td><td>there is/are</td></tr>
-<tr><td>3</td><td>Hoeveelheid</td><td>Ik heb <span class="hl">er</span> drie.</td><td>er + telwoord</td></tr>
-<tr><td>4</td><td>Voorzetsel</td><td>Ik denk <span class="hl">eraan</span>.</td><td>er + vz. = 1 woord</td></tr>
-<tr><td>5</td><td>Passief</td><td><span class="hl">Er</span> wordt gedanst.</td><td>er + worden</td></tr>
+<tr><th>#</th><th>Functie</th><th>Signaalwoord</th><th>Voorbeeld</th></tr>
+<tr><td>1</td><td>Er + telwoord</td><td>getal/hoeveelheid na er</td><td>Ik heb <span class="hl">er</span> twee.</td></tr>
+<tr><td>2</td><td>Plaatsaanduidend er</td><td>vervangt een plaats</td><td>Ik woon <span class="hl">er</span> al jaren.</td></tr>
+<tr><td>3</td><td>Onbepaald subject</td><td>"there is/are"</td><td><span class="hl">Er</span> loopt een hond op straat.</td></tr>
+<tr><td>4</td><td>Er + prepositie</td><td>er + voorzetsel = 1 woord</td><td>Ik houd <span class="hl">ervan</span>.</td></tr>
+<tr><td>5</td><td>Er + passief worden</td><td>onbep. subject, actie</td><td><span class="hl">Er</span> wordt gedanst.</td></tr>
+<tr><td>6</td><td>Er + passief zijn</td><td>onbep. subject, toestand</td><td><span class="hl">Er</span> is een raam gebroken.</td></tr>
 </table>
+<div class="rule"><span class="hl">Er wordt</span> + v.d. = actie vindt plaats &nbsp;|&nbsp; <span class="gr">Er is</span> + v.d. = resultaat/toestand</div>
 
 <h2>Er vs. Hij vs. Het (bepaald/onbepaald)</h2>
 <table class="mini-table">
