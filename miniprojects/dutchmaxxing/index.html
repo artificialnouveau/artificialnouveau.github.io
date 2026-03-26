@@ -1966,6 +1966,127 @@ body::before, body::after { display: none; }
 .subtab-content { display: none; }
 .subtab-content.active { display: block; }
 
+/* Examen Oefenen tab */
+.exam-set-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.exam-set-btn {
+  padding: 12px 8px;
+  border: 2px solid var(--mondrian-black);
+  background: var(--mondrian-white);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+.exam-set-btn:hover { background: var(--mondrian-yellow); }
+.exam-set-btn.active { background: var(--mondrian-red); color: #fff; }
+.exam-back-btn {
+  background: none;
+  border: 2px solid var(--mondrian-black);
+  padding: 8px 16px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.exam-back-btn:hover { background: var(--mondrian-yellow); }
+.exam-exercise-list { display: flex; flex-direction: column; gap: 16px; }
+.exam-exercise-card {
+  border: 2px solid var(--mondrian-black);
+  background: var(--mondrian-white);
+}
+.exam-exercise-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--mondrian-black);
+  background: #f5f5f5;
+}
+.exam-exercise-header h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+.exam-exercise-category {
+  font-size: 11px;
+  padding: 3px 8px;
+  background: var(--mondrian-blue);
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+.exam-video-container {
+  padding: 16px;
+}
+.exam-video-container video {
+  width: 100%;
+  max-height: 400px;
+  background: #000;
+  border: 1px solid #ddd;
+}
+.exam-transcript-toggle {
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  border-top: 2px solid var(--mondrian-black);
+  background: #f9f9f9;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.exam-transcript-toggle:hover { background: #f0f0f0; }
+.exam-transcript-toggle .arrow {
+  transition: transform 0.2s;
+  font-size: 11px;
+}
+.exam-transcript-toggle.open .arrow { transform: rotate(90deg); }
+.exam-transcript-body {
+  display: none;
+  border-top: 1px solid #eee;
+}
+.exam-transcript-body.open { display: flex; }
+.exam-transcript-side {
+  flex: 1;
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  font-family: 'Inter', sans-serif;
+}
+.exam-transcript-side:first-child {
+  border-right: 2px solid var(--mondrian-black);
+}
+.exam-transcript-side h5 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: var(--muted);
+}
+.exam-transcript-side.question { background: #fff; }
+.exam-transcript-side.answer { background: #f0faf4; }
+@media (max-width: 600px) {
+  .exam-transcript-body.open { flex-direction: column; }
+  .exam-transcript-side:first-child { border-right: none; border-bottom: 2px solid var(--mondrian-black); }
+  .exam-set-grid { grid-template-columns: repeat(auto-fill, minmax(55px, 1fr)); }
+}
+
 /* Spiekbriefjes visual nav tiles */
 .spiek-nav-grid {
   display: grid;
@@ -2761,6 +2882,7 @@ body::before, body::after { display: none; }
   <button class="tab-btn active" data-tab="spiekbriefjes">Spiekbriefjes</button>
   <button class="tab-btn" data-tab="news">Leeshoek</button>
   <button class="tab-btn" data-tab="schrijven">Schrijven</button>
+  <button class="tab-btn" data-tab="examen">NT2 B1 Oefenen</button>
 </nav>
 
 <!-- CEFR Level Selector -->
@@ -3238,6 +3360,25 @@ body::before, body::after { display: none; }
   </div><!-- /sub-prepzoeker -->
 
 </div><!-- /tab-spiekbriefjes -->
+
+<!-- NT2 B1 Oefenen Tab -->
+<div class="tab-content" id="tab-examen">
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#666;margin-bottom:12px;">Video's afkomstig van <a href="https://www.youtube.com/@AdAppeltaaltrainingen" target="_blank" rel="noopener" style="color:var(--mondrian-blue);">Ad Appel taaltrainingen</a></p>
+  <div class="subtab-bar">
+    <button class="subtab-btn active" data-subtab="exam-spreken" data-maintab="examen">Spreken</button>
+    <button class="subtab-btn" data-subtab="exam-schrijven" data-maintab="examen">Schrijven</button>
+  </div>
+
+  <div class="subtab-content active" id="sub-exam-spreken">
+    <div id="examSprekenSets"></div>
+    <div id="examSprekenExercises" style="display:none;"></div>
+  </div>
+
+  <div class="subtab-content" id="sub-exam-schrijven">
+    <div id="examSchrijvenSets"></div>
+    <div id="examSchrijvenExercises" style="display:none;"></div>
+  </div>
+</div><!-- /tab-examen -->
 
 <!-- Reader Tooltip -->
 <div class="reader-tooltip" id="readerTooltip"></div>
@@ -6816,7 +6957,7 @@ function updateCEFRBarVisibility() {
   const bar = document.getElementById('cefrBar');
   if (!bar) return;
   const activeBtn = document.querySelector('.tab-btn.active');
-  const hideOn = ['spiekbriefjes', 'cultuur'];
+  const hideOn = ['spiekbriefjes', 'cultuur', 'examen'];
   bar.style.display = (activeBtn && hideOn.includes(activeBtn.dataset.tab)) ? 'none' : '';
 }
 
@@ -6842,6 +6983,8 @@ const SUBTAB_INIT = {
   reviews: initReviews,
   dehet: initDeHet,
   prepzoeker: initPrepZoeker,
+  'exam-spreken': initExamen,
+  'exam-schrijven': initExamen,
   etiquette: () => { initCultuur(); renderEtiquette(); },
   communicatie: renderCommunicatie,
   praktisch: renderPraktisch,
@@ -6864,6 +7007,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     }
     // Direct init for tabs without subtabs
     if (btn.dataset.tab === 'news') initNews();
+    if (btn.dataset.tab === 'examen') initExamen();
     // if (btn.dataset.tab === 'vocab') initVocab(); // commented out with tab
     updateCEFRBarVisibility();
   });
@@ -11018,6 +11162,210 @@ initCEFR();
 initSheets();
 
 // Enter key handlers for new dictee inputs
+
+// ==========================================
+// NT2 B1 EXAMEN OEFENEN
+// ==========================================
+
+const EXAM_CATEGORIES = {
+  'voorstel': { label: 'Voorstel doen', keywords: ['voorstel', 'stel voor', 'doe een voorstel', 'bedenk een', 'verzin een'] },
+  'advies': { label: 'Advies geven', keywords: ['advies', 'adviseer', 'raad aan', 'wat zou je', 'geef advies', 'geef uw', 'tip'] },
+  'mening': { label: 'Mening geven', keywords: ['mening', 'wat vind', 'wat denk', 'vindt u', 'eens of oneens', 'voor- en nadelen', 'liever', 'voorkeur', 'beter vind'] },
+  'beschrijven': { label: 'Beschrijven', keywords: ['beschrijf', 'vertel over', 'leg uit', 'uitleggen', 'vertel wat', 'vertel hoe'] },
+  'klacht': { label: 'Klacht / Probleem', keywords: ['klacht', 'klagen', 'niet tevreden', 'probleem', 'kapot', 'fout', 'stuk', 'defect'] },
+  'verzoek': { label: 'Verzoek / Vragen', keywords: ['verzoek', 'vraag of', 'wilt u', 'zou u kunnen', 'vraag aan', 'vraagt u', 'bel', 'belt u', 'schrijf een', 'schrijf een e-mail', 'mail', 'brief'] },
+  'informatie': { label: 'Informatie', keywords: ['informatie', 'informeer', 'uitleg geven', 'aanmeld', 'formulier', 'invullen'] },
+  'reageren': { label: 'Reageren', keywords: ['reageer', 'reactie', 'antwoord', 'zeg tegen', 'spreek', 'wat zeg'] },
+  'argumenteren': { label: 'Argumenteren', keywords: ['noem', 'redenen', 'reden', 'argument', 'waarom', 'onderbouw', 'twee'] },
+  'bedanken': { label: 'Bedanken / Excuses', keywords: ['bedank', 'felicit', 'excus', 'sorry', 'verontschuldig'] },
+  'afspraken': { label: 'Afspraken / Plannen', keywords: ['afspra', 'plan', 'organiseer', 'reserv', 'bestel', 'regel', 'uitnodig', 'afzeg', 'opzeg', 'verzet'] },
+  'samenwerken': { label: 'Samenwerken', keywords: ['samenwerk', 'overleg', 'bespreek', 'collega', 'samen'] },
+  'kopen': { label: 'Kopen / Bestellen', keywords: ['kopen', 'koop', 'bestellen', 'betaal', 'winkel', 'verkop'] },
+  'helpen': { label: 'Hulp bieden', keywords: ['help', 'bied aan', 'aanbied', 'vrijwillig'] },
+};
+
+function classifyExercise(questionText) {
+  if (!questionText) return null;
+  const lower = questionText.toLowerCase();
+  for (const [key, cat] of Object.entries(EXAM_CATEGORIES)) {
+    for (const kw of cat.keywords) {
+      if (lower.includes(kw)) return key;
+    }
+  }
+  return null;
+}
+
+let examTranscripts = null;
+let examInitialized = false;
+
+async function initExamen() {
+  if (examInitialized) return;
+  examInitialized = true;
+  try {
+    const resp = await fetch('exercise_transcripts.json');
+    examTranscripts = await resp.json();
+  } catch(e) {
+    examTranscripts = {};
+  }
+  renderExamSets('spreken');
+  renderExamSets('schrijven');
+}
+
+function renderExamSets(type) {
+  const containerId = type === 'spreken' ? 'examSprekenSets' : 'examSchrijvenSets';
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const data = examTranscripts[type] || {};
+  const setNums = Object.keys(data).map(Number).sort((a,b) => a - b);
+
+  if (setNums.length === 0) {
+    // Fallback: generate set buttons from known count
+    const count = type === 'spreken' ? 30 : 33;
+    for (let i = 1; i <= count; i++) setNums.push(i);
+  }
+
+  const title = type === 'spreken' ? 'NT2 B1 Spreken' : 'NT2 B1 Schrijven';
+  container.innerHTML = `
+    <h3 style="font-family:'Syne',sans-serif;font-size:20px;margin-bottom:16px;">${title} - Kies een set</h3>
+    <div class="exam-set-grid">
+      ${setNums.map(n => `<button class="exam-set-btn" onclick="showExamSet('${type}', ${n})" data-set="${n}">Set ${n}</button>`).join('')}
+    </div>
+  `;
+}
+
+function showExamSet(type, setNum) {
+  const setsId = type === 'spreken' ? 'examSprekenSets' : 'examSchrijvenSets';
+  const exId = type === 'spreken' ? 'examSprekenExercises' : 'examSchrijvenExercises';
+  const setsEl = document.getElementById(setsId);
+  const exEl = document.getElementById(exId);
+
+  setsEl.style.display = 'none';
+  exEl.style.display = 'block';
+
+  const data = (examTranscripts[type] || {})[String(setNum)] || {};
+  const exerciseNums = Object.keys(data).map(Number).sort((a,b) => a - b);
+
+  // If no transcript data, generate 12 exercises
+  const exercises = exerciseNums.length > 0 ? exerciseNums :
+    Array.from({length: 12}, (_, i) => i + 1);
+
+  // Classify all exercises and collect unique categories
+  const exerciseCategories = {};
+  const allCats = new Set();
+  for (const exNum of exercises) {
+    const ex = data[String(exNum)];
+    const cat = ex ? classifyExercise(ex.question) : null;
+    exerciseCategories[exNum] = cat;
+    if (cat) allCats.add(cat);
+  }
+
+  const catFilterHtml = allCats.size > 0 ? `
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;">
+      <button class="exam-cat-filter active" data-cat="all" onclick="filterExamCategory(this, '${type}')">Alles</button>
+      ${[...allCats].map(c => `<button class="exam-cat-filter" data-cat="${c}" onclick="filterExamCategory(this, '${type}')">${EXAM_CATEGORIES[c]?.label || c}</button>`).join('')}
+    </div>
+  ` : '';
+
+  const typeLabel = type === 'spreken' ? 'Spreken' : 'Schrijven';
+  const videoFolder = type === 'spreken'
+    ? 'Staatsexamen NT2 Examenopgaven Spreken B1/split_by_exercise'
+    : 'Staatsexamen NT2 Examenopgaven Schrijven B1/split_by_exercise';
+
+  exEl.innerHTML = `
+    <button class="exam-back-btn" onclick="hideExamSet('${type}')">&#8592; Terug naar sets</button>
+    <h3 style="font-family:'Syne',sans-serif;font-size:20px;margin-bottom:12px;">${typeLabel} - Set ${setNum}</h3>
+    <div class="exam-jump-bar" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;">
+      ${exercises.map(n => `<a href="#exam-${type}-${setNum}-${n}" class="exam-set-btn" style="padding:8px 6px;font-size:13px;min-width:36px;text-decoration:none;color:inherit;">${n}</a>`).join('')}
+    </div>
+    ${catFilterHtml}
+    <div class="exam-exercise-list">
+      ${exercises.map(exNum => {
+        const ex = data[String(exNum)] || {};
+        const cat = exerciseCategories[exNum];
+        const catLabel = cat ? (EXAM_CATEGORIES[cat]?.label || '') : '';
+        const videoFile = ex.video || `Staatsexamen B1 - Examenopgaven Set ${setNum} - ${typeLabel}_exercise_${String(exNum).padStart(2,'0')}.webm`;
+        const videoPath = encodeURI(videoFolder + '/' + videoFile);
+        const question = (ex.question || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
+        const answer = (ex.answer || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
+        const hasTranscript = question || answer;
+
+        return `
+          <div class="exam-exercise-card" id="exam-${type}-${setNum}-${exNum}" data-category="${cat || 'none'}">
+            <div class="exam-exercise-header">
+              <h4>Opdracht ${exNum}</h4>
+              ${catLabel ? `<span class="exam-exercise-category">${catLabel}</span>` : ''}
+            </div>
+            <div class="exam-video-container">
+              <video controls preload="metadata">
+                <source src="${videoPath}" type="video/webm">
+              </video>
+            </div>
+            ${hasTranscript ? `
+              <button class="exam-transcript-toggle" onclick="toggleExamTranscript(this)">
+                <span class="arrow">&#9654;</span> Transcript
+              </button>
+              <div class="exam-transcript-body">
+                <div class="exam-transcript-side question">
+                  <h5>Vraag</h5>
+                  ${question || '<em style="color:#999">Geen transcript</em>'}
+                </div>
+                <div class="exam-transcript-side answer">
+                  <h5>Antwoord</h5>
+                  ${answer || '<em style="color:#999">Geen transcript</em>'}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function hideExamSet(type) {
+  const setsId = type === 'spreken' ? 'examSprekenSets' : 'examSchrijvenSets';
+  const exId = type === 'spreken' ? 'examSprekenExercises' : 'examSchrijvenExercises';
+  document.getElementById(setsId).style.display = 'block';
+  document.getElementById(exId).style.display = 'none';
+}
+
+function toggleExamTranscript(btn) {
+  btn.classList.toggle('open');
+  const body = btn.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function filterExamCategory(btn, type) {
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.exam-cat-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cat = btn.dataset.cat;
+
+  const exId = type === 'spreken' ? 'examSprekenExercises' : 'examSchrijvenExercises';
+  const cards = document.getElementById(exId).querySelectorAll('.exam-exercise-card');
+  cards.forEach(card => {
+    if (cat === 'all' || card.dataset.category === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Add exam-cat-filter styles dynamically
+(function() {
+  const s = document.createElement('style');
+  s.textContent = `
+    .exam-cat-filter {
+      padding: 5px 12px; border: 2px solid var(--mondrian-black); background: var(--mondrian-white);
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+    .exam-cat-filter:hover { background: var(--mondrian-yellow); }
+    .exam-cat-filter.active { background: var(--mondrian-red); color: #fff; }
+  `;
+  document.head.appendChild(s);
+})();
 
 </script>
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="artnou" data-description="Support me on Buy me a coffee!" data-message="" data-color="#D40920" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
