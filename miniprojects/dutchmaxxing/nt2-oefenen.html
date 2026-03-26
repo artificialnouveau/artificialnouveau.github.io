@@ -297,16 +297,16 @@ function showExamSet(type, setNum) {
             ${catLabel ? `<span class="exam-exercise-category">${catLabel}</span>` : ''}
           </div>
           <div class="exam-video-container">
-            ${ytId ? `<div class="exam-yt-wrapper" id="${playerId}" data-ytid="${ytId}" data-start="${startSec}" data-end="${endSec}">
+            ${ytId ? `<div class="exam-video-bar">
+                <a href="${ytLink}" target="_blank" rel="noopener" class="exam-yt-link">Werkt niet? Bekijk op YouTube &#8599;</a>
+                <span>${Math.floor(startSec/60)}:${String(startSec%60).padStart(2,'0')} - ${Math.floor(endSec/60)}:${String(endSec%60).padStart(2,'0')}</span>
+              </div>
+              <div class="exam-yt-wrapper" id="${playerId}" data-ytid="${ytId}" data-start="${startSec}" data-end="${endSec}">
               <a href="${ytLink}" target="_blank" rel="noopener" class="exam-video-link" onclick="return examPlayYT(this, '${playerId}', '${ytId}', ${startSec}, ${endSec})">
                 <img src="${thumbUrl}" alt="Opdracht ${n}" class="exam-video-thumb">
                 <div class="exam-video-play">&#9654;</div>
                 ${durationStr ? `<span class="exam-video-duration">${durationStr}</span>` : ''}
               </a>
-              <div class="exam-video-bar">
-                <span>Klik om af te spelen (${Math.floor(startSec/60)}:${String(startSec%60).padStart(2,'0')} - ${Math.floor(endSec/60)}:${String(endSec%60).padStart(2,'0')})</span>
-                <a href="${ytLink}" target="_blank" rel="noopener" class="exam-yt-link" onclick="event.stopPropagation()">Bekijk op YouTube &#8599;</a>
-              </div>
             </div>` : '<p style="color:#999;padding:16px;">Video niet beschikbaar</p>'}
           </div>
           ${has ? `
