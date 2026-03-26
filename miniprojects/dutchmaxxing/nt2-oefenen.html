@@ -109,10 +109,13 @@ header a:hover { text-decoration: underline; }
   position: absolute; bottom: 36px; right: 8px; background: rgba(0,0,0,0.8); color: #fff;
   font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; padding: 2px 6px;
 }
-.exam-video-label {
-  display: block; background: #222; color: #ccc; font-family: 'Space Grotesk', sans-serif;
-  font-size: 12px; padding: 8px 12px; text-align: center;
+.exam-video-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  background: #222; color: #999; font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px; padding: 8px 12px;
 }
+.exam-yt-link { color: #6af; text-decoration: none; font-weight: 600; white-space: nowrap; }
+.exam-yt-link:hover { text-decoration: underline; }
 
 /* Transcript toggle */
 .exam-transcript-toggle {
@@ -299,8 +302,11 @@ function showExamSet(type, setNum) {
                 <img src="${thumbUrl}" alt="Opdracht ${n}" class="exam-video-thumb">
                 <div class="exam-video-play">&#9654;</div>
                 ${durationStr ? `<span class="exam-video-duration">${durationStr}</span>` : ''}
-                <span class="exam-video-label">Klik om af te spelen (${Math.floor(startSec/60)}:${String(startSec%60).padStart(2,'0')} - ${Math.floor(endSec/60)}:${String(endSec%60).padStart(2,'0')})</span>
               </a>
+              <div class="exam-video-bar">
+                <span>Klik om af te spelen (${Math.floor(startSec/60)}:${String(startSec%60).padStart(2,'0')} - ${Math.floor(endSec/60)}:${String(endSec%60).padStart(2,'0')})</span>
+                <a href="${ytLink}" target="_blank" rel="noopener" class="exam-yt-link" onclick="event.stopPropagation()">Bekijk op YouTube &#8599;</a>
+              </div>
             </div>` : '<p style="color:#999;padding:16px;">Video niet beschikbaar</p>'}
           </div>
           ${has ? `
@@ -345,10 +351,12 @@ function filterCat(btn, type) {
 
 // YouTube player: on click, replace thumbnail with iframe
 function examPlayYT(anchor, containerId, videoId, startSec, endSec) {
-  const container = document.getElementById(containerId);
-  if (!container) return false;
-  const ytLink = `https://www.youtube.com/watch?v=${videoId}&t=${startSec}`;
-  container.innerHTML = `<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube-nocookie.com/embed/${videoId}?start=${startSec}&end=${endSec}&autoplay=1&rel=0&modestbranding=1" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div><a href="${ytLink}" target="_blank" rel="noopener" style="display:block;padding:6px 12px;background:#222;color:#aaa;font-family:'Space Grotesk',sans-serif;font-size:11px;text-align:center;text-decoration:none;">Werkt niet? Bekijk op YouTube (${Math.floor(startSec/60)}:${String(startSec%60).padStart(2,'0')}) &#8599;</a>`;
+  const wrapper = document.getElementById(containerId);
+  if (!wrapper) return false;
+  const linkEl = wrapper.querySelector('.exam-video-link');
+  if (linkEl) {
+    linkEl.outerHTML = `<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube-nocookie.com/embed/${videoId}?start=${startSec}&end=${endSec}&autoplay=1&rel=0&modestbranding=1" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>`;
+  }
   return false;
 }
 
