@@ -94,8 +94,25 @@ header a:hover { text-decoration: underline; }
   font-family: 'Space Grotesk', sans-serif; font-weight: 600;
 }
 .exam-video-container { padding: 16px; }
-.exam-video-container video {
-  width: 100%; max-height: 400px; background: #000; border: 1px solid #ddd;
+.exam-video-link {
+  display: block; position: relative; text-decoration: none; background: #000; overflow: hidden;
+}
+.exam-video-thumb { width: 100%; display: block; opacity: 0.85; transition: opacity 0.2s; }
+.exam-video-link:hover .exam-video-thumb { opacity: 1; }
+.exam-video-play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 64px; height: 64px; background: rgba(212,9,32,0.9); color: #fff;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 28px; padding-left: 4px; transition: transform 0.2s;
+}
+.exam-video-link:hover .exam-video-play { transform: translate(-50%, -50%) scale(1.1); }
+.exam-video-duration {
+  position: absolute; bottom: 36px; right: 8px; background: rgba(0,0,0,0.8); color: #fff;
+  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; padding: 2px 6px;
+}
+.exam-video-label {
+  display: block; background: #222; color: #ccc; font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px; padding: 8px 12px; text-align: center;
 }
 
 /* Transcript toggle */
@@ -257,7 +274,12 @@ function showExamSet(type, setNum) {
         const ts = ytExercises[String(n)] || {};
         const startSec = ts.start || 0;
         const endSec = ts.end || 0;
-        const ytSrc = ytId ? `https://www.youtube.com/embed/${ytId}?start=${startSec}&end=${endSec}&rel=0` : '';
+        const playerId = `yt-${type}-${setNum}-${n}`;
+        const ytLink = ytId ? `https://www.youtube.com/watch?v=${ytId}&t=${startSec}` : '';
+        const thumbUrl = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '';
+        const durationMin = Math.floor((endSec - startSec) / 60);
+        const durationSecRem = (endSec - startSec) % 60;
+        const durationStr = endSec ? `${durationMin}:${String(durationSecRem).padStart(2,'0')}` : '';
         const question = (ex.question || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
         const answer   = (ex.answer || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
         const has = question || answer;
@@ -268,7 +290,14 @@ function showExamSet(type, setNum) {
             ${catLabel ? `<span class="exam-exercise-category">${catLabel}</span>` : ''}
           </div>
           <div class="exam-video-container">
-            ${ytSrc ? `<iframe width="100%" height="400" src="${ytSrc}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>` : '<p style="color:#999;padding:16px;">Video niet beschikbaar</p>'}
+            ${ytId ? `<div class="exam-yt-wrapper" id="${playerId}" data-ytid="${ytId}" data-start="${startSec}" data-end="${endSec}">
+              <a href="${ytLink}" target="_blank" rel="noopener" class="exam-video-link" onclick="return examPlayYT(this, '${playerId}', '${ytId}', ${startSec}, ${endSec})">
+                <img src="${thumbUrl}" alt="Opdracht ${n}" class="exam-video-thumb">
+                <div class="exam-video-play">&#9654;</div>
+                ${durationStr ? `<span class="exam-video-duration">${durationStr}</span>` : ''}
+                <span class="exam-video-label">Klik om af te spelen (${Math.floor(startSec/60)}:${String(startSec%60).padStart(2,'0')} - ${Math.floor(endSec/60)}:${String(endSec%60).padStart(2,'0')})</span>
+              </a>
+            </div>` : '<p style="color:#999;padding:16px;">Video niet beschikbaar</p>'}
           </div>
           ${has ? `
           <button class="exam-transcript-toggle" onclick="toggleTranscript(this)">
@@ -308,6 +337,61 @@ function filterCat(btn, type) {
   exEl.querySelectorAll('.exam-exercise-card').forEach(card => {
     card.style.display = (cat === 'all' || card.dataset.category === cat) ? '' : 'none';
   });
+}
+
+// YouTube IFrame API
+let ytApiReady = false;
+let ytApiLoading = false;
+const ytPlayers = {};
+
+function loadYTApi() {
+  if (ytApiReady || ytApiLoading) return;
+  ytApiLoading = true;
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+}
+
+function onYouTubeIframeAPIReady() {
+  ytApiReady = true;
+  document.querySelectorAll('.exam-yt-pending').forEach(el => {
+    const { ytid, start, end, playerid } = el.dataset;
+    createYTPlayer(playerid, ytid, parseInt(start), parseInt(end));
+    el.classList.remove('exam-yt-pending');
+  });
+}
+
+function createYTPlayer(containerId, videoId, startSec, endSec) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = `<div id="${containerId}-player"></div>`;
+  ytPlayers[containerId] = new YT.Player(`${containerId}-player`, {
+    width: '100%', height: 400, videoId: videoId,
+    playerVars: { start: startSec, end: endSec, rel: 0, modestbranding: 1, origin: window.location.origin },
+    events: {
+      onReady: (e) => e.target.playVideo(),
+      onError: (e) => {
+        const link = `https://www.youtube.com/watch?v=${videoId}&t=${startSec}`;
+        container.innerHTML = `<a href="${link}" target="_blank" rel="noopener" style="display:block;padding:20px;text-align:center;background:#f5f5f5;color:var(--mondrian-blue);font-family:'Space Grotesk',sans-serif;font-weight:600;text-decoration:none;">Embedding geblokkeerd — Bekijk op YouTube (vanaf ${Math.floor(startSec/60)}:${String(startSec%60).padStart(2,'0')}) &#8599;</a>`;
+      }
+    }
+  });
+}
+
+function examPlayYT(anchor, containerId, videoId, startSec, endSec) {
+  loadYTApi();
+  if (ytApiReady) {
+    createYTPlayer(containerId, videoId, startSec, endSec);
+  } else {
+    const container = document.getElementById(containerId);
+    container.classList.add('exam-yt-pending');
+    container.dataset.ytid = videoId;
+    container.dataset.start = startSec;
+    container.dataset.end = endSec;
+    container.dataset.playerid = containerId;
+    container.innerHTML = `<div style="padding:40px;text-align:center;background:#000;color:#fff;font-family:'Space Grotesk',sans-serif;">YouTube speler laden...</div>`;
+  }
+  return false;
 }
 
 // Init
