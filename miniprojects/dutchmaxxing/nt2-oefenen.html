@@ -61,12 +61,11 @@ header a:hover { text-decoration: underline; }
 .exam-set-btn.active { background: var(--mondrian-red); color: #fff; }
 
 /* Back button */
-.exam-back-btn {
-  background: none; border: 2px solid var(--mondrian-black); padding: 8px 16px;
-  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 13px;
-  cursor: pointer; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 6px;
+.exam-set-select {
+  padding: 10px 16px; border: 2px solid var(--mondrian-black); background: var(--mondrian-white);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px;
+  cursor: pointer; appearance: auto;
 }
-.exam-back-btn:hover { background: var(--mondrian-yellow); }
 
 /* Category filters */
 .exam-cat-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
@@ -255,9 +254,14 @@ function showExamSet(type, setNum) {
   const ytId = tsData.youtube_id || '';
   const ytExercises = tsData.exercises || {};
 
+  const allSets = Object.keys(examTimestamps[type] || {}).map(Number).sort((a,b) => a - b);
+
   exEl.innerHTML = `
-    <button class="exam-back-btn" onclick="hideExamSet('${type}')">&larr; Terug naar sets</button>
-    <h3 style="font-family:'Syne',sans-serif;font-size:20px;margin-bottom:12px;">${typeLabel} — Set ${setNum}</h3>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <select class="exam-set-select" onchange="if(this.value) showExamSet('${type}', parseInt(this.value))">
+        ${allSets.map(n => `<option value="${n}" ${n === setNum ? 'selected' : ''}>Set ${n}</option>`).join('')}
+      </select>
+    </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;">
       ${exercises.map(n => `<a href="#exam-${type}-${setNum}-${n}" class="exam-set-btn" style="padding:8px 6px;font-size:13px;min-width:36px;text-decoration:none;color:inherit;">${n}</a>`).join('')}
     </div>
