@@ -186,6 +186,7 @@ function classifyExercise(questionText) {
 }
 
 let examTranscripts = {};
+let examTimestamps = {};
 
 function switchType(type) {
   document.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
@@ -233,9 +234,9 @@ function showExamSet(type, setNum) {
   }
 
   const typeLabel = type === 'spreken' ? 'Spreken' : 'Schrijven';
-  const videoFolder = type === 'spreken'
-    ? 'Staatsexamen NT2 Examenopgaven Spreken B1/split_by_exercise'
-    : 'Staatsexamen NT2 Examenopgaven Schrijven B1/split_by_exercise';
+  const tsData = (examTimestamps[type] || {})[String(setNum)] || {};
+  const ytId = tsData.youtube_id || '';
+  const ytExercises = tsData.exercises || {};
 
   exEl.innerHTML = `
     <button class="exam-back-btn" onclick="hideExamSet('${type}')">&larr; Terug naar sets</button>
@@ -253,8 +254,10 @@ function showExamSet(type, setNum) {
         const ex = data[String(n)] || {};
         const cat = exerciseCats[n];
         const catLabel = cat ? EXAM_CATEGORIES[cat].label : '';
-        const videoFile = ex.video || `Staatsexamen B1 - Examenopgaven Set ${setNum} - ${typeLabel}_exercise_${String(n).padStart(2,'0')}.webm`;
-        const videoPath = encodeURI(videoFolder + '/' + videoFile);
+        const ts = ytExercises[String(n)] || {};
+        const startSec = ts.start || 0;
+        const endSec = ts.end || 0;
+        const ytSrc = ytId ? `https://www.youtube.com/embed/${ytId}?start=${startSec}&end=${endSec}&rel=0` : '';
         const question = (ex.question || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
         const answer   = (ex.answer || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
         const has = question || answer;
@@ -265,9 +268,7 @@ function showExamSet(type, setNum) {
             ${catLabel ? `<span class="exam-exercise-category">${catLabel}</span>` : ''}
           </div>
           <div class="exam-video-container">
-            <video controls preload="metadata">
-              <source src="${videoPath}" type="video/webm">
-            </video>
+            ${ytSrc ? `<iframe width="100%" height="400" src="${ytSrc}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>` : '<p style="color:#999;padding:16px;">Video niet beschikbaar</p>'}
           </div>
           ${has ? `
           <button class="exam-transcript-toggle" onclick="toggleTranscript(this)">
@@ -310,14 +311,15 @@ function filterCat(btn, type) {
 }
 
 // Init
-fetch('exercise_transcripts.json')
-  .then(r => r.json())
-  .then(data => { examTranscripts = data; })
-  .catch(() => { examTranscripts = {}; })
-  .finally(() => {
-    renderExamSets('spreken');
-    renderExamSets('schrijven');
-  });
+Promise.all([
+  fetch('exercise_transcripts.json').then(r => r.json()).catch(() => ({})),
+  fetch('youtube_timestamps.json').then(r => r.json()).catch(() => ({})),
+]).then(([transcripts, timestamps]) => {
+  examTranscripts = transcripts;
+  examTimestamps = timestamps;
+  renderExamSets('spreken');
+  renderExamSets('schrijven');
+});
 </script>
 </body>
 </html>

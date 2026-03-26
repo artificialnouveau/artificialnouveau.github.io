@@ -11196,16 +11196,22 @@ function classifyExercise(questionText) {
 }
 
 let examTranscripts = null;
+let examTimestamps = null;
 let examInitialized = false;
 
 async function initExamen() {
   if (examInitialized) return;
   examInitialized = true;
   try {
-    const resp = await fetch('exercise_transcripts.json');
-    examTranscripts = await resp.json();
+    const [transcriptResp, timestampResp] = await Promise.all([
+      fetch('exercise_transcripts.json'),
+      fetch('youtube_timestamps.json'),
+    ]);
+    examTranscripts = await transcriptResp.json();
+    examTimestamps = await timestampResp.json();
   } catch(e) {
-    examTranscripts = {};
+    examTranscripts = examTranscripts || {};
+    examTimestamps = examTimestamps || {};
   }
   renderExamSets('spreken');
   renderExamSets('schrijven');
@@ -11268,9 +11274,9 @@ function showExamSet(type, setNum) {
   ` : '';
 
   const typeLabel = type === 'spreken' ? 'Spreken' : 'Schrijven';
-  const videoFolder = type === 'spreken'
-    ? 'Staatsexamen NT2 Examenopgaven Spreken B1/split_by_exercise'
-    : 'Staatsexamen NT2 Examenopgaven Schrijven B1/split_by_exercise';
+  const tsData = (examTimestamps[type] || {})[String(setNum)] || {};
+  const ytId = tsData.youtube_id || '';
+  const ytExercises = tsData.exercises || {};
 
   exEl.innerHTML = `
     <button class="exam-back-btn" onclick="hideExamSet('${type}')">&#8592; Terug naar sets</button>
@@ -11284,8 +11290,10 @@ function showExamSet(type, setNum) {
         const ex = data[String(exNum)] || {};
         const cat = exerciseCategories[exNum];
         const catLabel = cat ? (EXAM_CATEGORIES[cat]?.label || '') : '';
-        const videoFile = ex.video || `Staatsexamen B1 - Examenopgaven Set ${setNum} - ${typeLabel}_exercise_${String(exNum).padStart(2,'0')}.webm`;
-        const videoPath = encodeURI(videoFolder + '/' + videoFile);
+        const ts = ytExercises[String(exNum)] || {};
+        const startSec = ts.start || 0;
+        const endSec = ts.end || 0;
+        const ytSrc = ytId ? `https://www.youtube.com/embed/${ytId}?start=${startSec}&end=${endSec}&rel=0` : '';
         const question = (ex.question || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
         const answer = (ex.answer || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
         const hasTranscript = question || answer;
@@ -11297,9 +11305,7 @@ function showExamSet(type, setNum) {
               ${catLabel ? `<span class="exam-exercise-category">${catLabel}</span>` : ''}
             </div>
             <div class="exam-video-container">
-              <video controls preload="metadata">
-                <source src="${videoPath}" type="video/webm">
-              </video>
+              ${ytSrc ? `<iframe width="100%" height="400" src="${ytSrc}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>` : '<p style="color:#999;padding:16px;">Video niet beschikbaar</p>'}
             </div>
             ${hasTranscript ? `
               <button class="exam-transcript-toggle" onclick="toggleExamTranscript(this)">

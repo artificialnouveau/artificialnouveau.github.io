@@ -102,14 +102,15 @@ def find_exercise_transitions(video_path, num_exercises=12, sample_interval=0.5,
     print(f"  Video: {Path(video_path).name}")
     print(f"  Duration: {duration:.1f}s, FPS: {fps:.1f}, Exercises: {num_exercises}")
 
-    # Scan through the video
+    # Scan through the video using a single capture object
     transitions = []
     prev_exercise = None
     t = 0
 
     while t < duration:
-        frame = extract_frame(video_path, t)
-        if frame is None:
+        cap.set(cv2.CAP_PROP_POS_MSEC, t * 1000)
+        ret, frame = cap.read()
+        if not ret or frame is None:
             t += sample_interval
             continue
 
@@ -117,18 +118,17 @@ def find_exercise_transitions(video_path, num_exercises=12, sample_interval=0.5,
                                           debug=(debug and t < 2))
 
         if exercise is not None and exercise != prev_exercise:
-            # Require 2 consecutive detections of the same exercise to avoid flicker
-            if prev_exercise is None or exercise != prev_exercise:
-                # Verify by checking the next frame too
-                verify_frame = extract_frame(video_path, t + sample_interval * 0.5)
-                if verify_frame is not None:
-                    verify_exercise = detect_green_exercise(verify_frame,
-                                                             num_exercises=num_exercises)
-                    if verify_exercise == exercise:
-                        transitions.append((t, exercise))
-                        prev_exercise = exercise
-                        if debug:
-                            print(f"  t={t:.1f}s: Exercise {exercise}")
+            # Verify by checking the next frame too
+            cap.set(cv2.CAP_PROP_POS_MSEC, (t + sample_interval * 0.5) * 1000)
+            ret2, verify_frame = cap.read()
+            if ret2 and verify_frame is not None:
+                verify_exercise = detect_green_exercise(verify_frame,
+                                                         num_exercises=num_exercises)
+                if verify_exercise == exercise:
+                    transitions.append((t, exercise))
+                    prev_exercise = exercise
+                    if debug:
+                        print(f"  t={t:.1f}s: Exercise {exercise}")
 
         t += sample_interval
 
