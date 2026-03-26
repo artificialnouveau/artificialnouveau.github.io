@@ -2071,8 +2071,9 @@ body::before, body::after { display: none; }
 }
 .exam-video-bar {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  gap: 4px;
   background: #222;
   color: #999;
   font-family: 'Space Grotesk', sans-serif;
@@ -2083,8 +2084,7 @@ body::before, body::after { display: none; }
   color: #6af;
   text-decoration: none;
   font-weight: 700;
-  font-size: 14px;
-  white-space: nowrap;
+  font-size: 18px;
 }
 .exam-yt-link:hover { text-decoration: underline; }
 .exam-transcript-toggle {
