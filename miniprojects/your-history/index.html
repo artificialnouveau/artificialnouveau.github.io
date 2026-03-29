@@ -246,14 +246,7 @@
         }
 
         #mouse-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.2;
+            display: none;
         }
 
         .stat-grid {
@@ -339,15 +332,16 @@
         /* Scroll timeline */
         #scroll-timeline {
             position: fixed;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 6px;
-            height: 60vh;
+            right: 0;
+            top: 0;
+            width: 40px;
+            height: 100vh;
             z-index: 200;
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.6s ease;
+            background: rgba(10, 0, 20, 0.5);
+            border-left: 1px solid rgba(0,240,255,0.1);
         }
 
         #scroll-timeline.visible {
@@ -362,12 +356,12 @@
 
         #scroll-timeline-label {
             position: fixed;
-            right: 24px;
-            top: calc(50% - 30vh - 18px);
+            right: 44px;
+            top: 50%;
             transform: translateY(-50%);
             font-family: var(--font-display);
             font-size: 0.55rem;
-            color: rgba(0,240,255,0.4);
+            color: rgba(0,240,255,0.3);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             writing-mode: vertical-rl;
@@ -382,7 +376,7 @@
         }
 
         @media (max-width: 600px) {
-            #scroll-timeline { right: 4px; width: 4px; height: 50vh; }
+            #scroll-timeline { width: 24px; }
             #scroll-timeline-label { display: none; }
         }
 
@@ -2655,51 +2649,85 @@
 
                 if (scrollHistory.length < 2) { requestAnimationFrame(renderTimeline); return; }
 
-                // Draw track background
-                ctx.fillStyle = 'rgba(255,255,255,0.03)';
-                ctx.fillRect(0, 0, w, h);
-
-                // Draw the scroll path — X axis = time, Y axis = scroll position
-                // Map time to horizontal, position to vertical
+                const pad = 4; // padding from edges
+                const drawW = w - pad * 2;
                 const startT = scrollHistory[0].t;
                 const endT = scrollHistory[scrollHistory.length - 1].t;
                 const timeSpan = endT - startT || 1;
 
-                // Draw line
-                ctx.strokeStyle = 'rgba(0,240,255,0.6)';
-                ctx.lineWidth = 1.5;
+                // Draw faint position scale markers
+                ctx.strokeStyle = 'rgba(0,240,255,0.06)';
+                ctx.lineWidth = 1;
+                for (let p = 0; p <= 1; p += 0.25) {
+                    const x = pad + p * drawW;
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, h);
+                    ctx.stroke();
+                }
+
+                // Draw scroll path — glow layer
+                ctx.strokeStyle = 'rgba(0,240,255,0.15)';
+                ctx.lineWidth = 6;
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
                 ctx.beginPath();
                 for (let i = 0; i < scrollHistory.length; i++) {
                     const p = scrollHistory[i];
-                    const x = w / 2; // thin vertical bar, so x is always center-ish
-                    const y = p.y * h;
-                    // But we want to show the *journey*, so use time as Y and scroll pos encoded as brightness
-                    // Actually — let's do: Y axis = time (top=start, bottom=now), line deflects left/right based on scroll position
                     const ty = ((p.t - startT) / timeSpan) * h;
-                    const tx = p.y * w; // scroll pos maps to X within the thin bar
+                    const tx = pad + p.y * drawW;
                     if (i === 0) ctx.moveTo(tx, ty);
                     else ctx.lineTo(tx, ty);
                 }
                 ctx.stroke();
 
-                // Draw pause dots
-                ctx.fillStyle = 'rgba(255,16,240,0.9)';
+                // Draw scroll path — main line
+                ctx.strokeStyle = 'rgba(0,240,255,0.7)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                for (let i = 0; i < scrollHistory.length; i++) {
+                    const p = scrollHistory[i];
+                    const ty = ((p.t - startT) / timeSpan) * h;
+                    const tx = pad + p.y * drawW;
+                    if (i === 0) ctx.moveTo(tx, ty);
+                    else ctx.lineTo(tx, ty);
+                }
+                ctx.stroke();
+
+                // Draw pause dots — larger, with glow
                 for (let i = 0; i < scrollHistory.length; i++) {
                     if (scrollHistory[i].paused) {
                         const ty = ((scrollHistory[i].t - startT) / timeSpan) * h;
-                        const tx = scrollHistory[i].y * w;
+                        const tx = pad + scrollHistory[i].y * drawW;
+                        // Glow
+                        ctx.fillStyle = 'rgba(255,16,240,0.2)';
                         ctx.beginPath();
-                        ctx.arc(tx, ty, 2.5, 0, Math.PI * 2);
+                        ctx.arc(tx, ty, 6, 0, Math.PI * 2);
+                        ctx.fill();
+                        // Dot
+                        ctx.fillStyle = 'rgba(255,16,240,0.9)';
+                        ctx.beginPath();
+                        ctx.arc(tx, ty, 3, 0, Math.PI * 2);
                         ctx.fill();
                     }
                 }
 
-                // Current position indicator
+                // Current position — pulsing indicator
                 const docH = document.documentElement.scrollHeight - window.innerHeight;
                 const currentPos = docH > 0 ? window.scrollY / docH : 0;
-                ctx.fillStyle = 'rgba(0,240,255,1)';
+                const cx = pad + currentPos * drawW;
+                const pulse = 0.5 + Math.sin(performance.now() / 400) * 0.5;
+                // Horizontal line across the bar showing current viewport
+                ctx.strokeStyle = `rgba(0,240,255,${0.3 + pulse * 0.3})`;
+                ctx.lineWidth = 1;
                 ctx.beginPath();
-                ctx.arc(currentPos * w, h - 2, 3, 0, Math.PI * 2);
+                ctx.moveTo(0, h - 1);
+                ctx.lineTo(w, h - 1);
+                ctx.stroke();
+                // Dot
+                ctx.fillStyle = `rgba(0,240,255,${0.7 + pulse * 0.3})`;
+                ctx.beginPath();
+                ctx.arc(cx, h - 1, 4, 0, Math.PI * 2);
                 ctx.fill();
 
                 requestAnimationFrame(renderTimeline);
