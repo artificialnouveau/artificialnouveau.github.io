@@ -118,7 +118,7 @@
                 </span>
                 <span class="sv-info">This page knows you're on ${browserStr} (${deviceStr}) at ${timeStr}.</span>
                 <a href="/miniprojects/your-history/" class="sv-link">Full report &rarr;</a>
-                <button class="sv-toggle" aria-label="Expand details">&#9650;</button>
+                <button class="sv-toggle" aria-label="Expand details">Mini tracking report</button>
                 <button class="sv-close" aria-label="Dismiss">&times;</button>
             </div>
             <div class="sv-details">
@@ -167,18 +167,33 @@
                 flex-shrink: 0;
             }
             .sv-link:hover { color: #00f0ff; text-decoration: underline; }
-            .sv-toggle, .sv-close {
+            .sv-toggle {
+                background: none;
+                border: 1px solid rgba(0, 240, 255, 0.3);
+                color: rgba(0, 240, 255, 0.6);
+                font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+                font-size: 9px;
+                cursor: pointer;
+                padding: 3px 8px;
+                line-height: 1;
+                flex-shrink: 0;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                white-space: nowrap;
+            }
+            .sv-toggle:hover { color: #00f0ff; border-color: rgba(0, 240, 255, 0.6); }
+            .sv-toggle.open { color: rgba(255, 16, 240, 0.8); border-color: rgba(255, 16, 240, 0.4); }
+            .sv-close {
                 background: none;
                 border: none;
                 color: rgba(184, 168, 216, 0.4);
-                font-size: 12px;
+                font-size: 14px;
                 cursor: pointer;
                 padding: 2px 4px;
                 line-height: 1;
                 flex-shrink: 0;
             }
-            .sv-toggle:hover, .sv-close:hover { color: rgba(0, 240, 255, 0.8); }
-            .sv-toggle.open { transform: rotate(180deg); }
+            .sv-close:hover { color: rgba(255, 16, 240, 0.8); }
 
             .sv-details {
                 max-height: 0;
