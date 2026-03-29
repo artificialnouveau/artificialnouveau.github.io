@@ -336,66 +336,67 @@
             padding-left: 1rem;
         }
 
-        /* Heatmap */
-        .heatmap-intro {
-            color: var(--color-muted);
-            font-size: 0.85rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .heatmap-bar {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.6rem;
-            gap: 0.75rem;
+        /* Scroll timeline */
+        #scroll-timeline {
+            position: fixed;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 60vh;
+            z-index: 200;
+            pointer-events: none;
             opacity: 0;
-            animation: fadeInUp 0.3s ease forwards;
+            transition: opacity 0.6s ease;
         }
 
-        .heatmap-label {
-            font-size: 0.7rem;
-            color: var(--color-muted);
-            min-width: 120px;
-            text-align: right;
-            flex-shrink: 0;
+        #scroll-timeline.visible {
+            opacity: 1;
         }
 
-        .heatmap-track {
-            flex: 1;
-            height: 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 2px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .heatmap-fill {
+        #scroll-timeline canvas {
+            width: 100%;
             height: 100%;
-            border-radius: 2px;
-            transition: width 0.6s ease;
+            display: block;
         }
 
-        .heatmap-time {
-            font-size: 0.65rem;
-            color: var(--color-muted);
-            min-width: 40px;
-            flex-shrink: 0;
+        #scroll-timeline-label {
+            position: fixed;
+            right: 24px;
+            top: calc(50% - 30vh - 18px);
+            transform: translateY(-50%);
+            font-family: var(--font-display);
+            font-size: 0.55rem;
+            color: rgba(0,240,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            writing-mode: vertical-rl;
+            z-index: 200;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
         }
 
-        #heatmap-summary {
-            margin-top: 1.5rem;
-            padding: 1rem 1.25rem;
-            background: rgba(0,0,0,0.4);
-            border-left: 3px solid var(--color-accent-purple);
-            font-size: 0.85rem;
-            color: var(--color-muted);
-            line-height: 1.6;
+        #scroll-timeline-label.visible {
+            opacity: 1;
         }
 
-        #heatmap-summary strong {
-            color: var(--color-accent-cyan);
-            font-weight: 700;
+        @media (max-width: 600px) {
+            #scroll-timeline { right: 4px; width: 4px; height: 50vh; }
+            #scroll-timeline-label { display: none; }
+        }
+
+        /* Terrain heatmap */
+        #terrain-canvas {
+            width: 100%;
+            height: 400px;
+            display: block;
+            border: 1px solid rgba(0,240,255,0.2);
+            cursor: grab;
+        }
+
+        #terrain-canvas:active {
+            cursor: grabbing;
         }
 
         /* Assumptions */
@@ -559,10 +560,11 @@
     </style>
 </head>
 <body>
+    <div id="scroll-timeline"><canvas id="scroll-timeline-canvas"></canvas></div>
+    <div id="scroll-timeline-label">scroll history</div>
     <div class="container">
         <header style="padding-top:2rem; margin-bottom:2rem;">
             <h1>My Website,<br>Like Every Other Website,<br>Is Tracking You</h1>
-            <p class="subtitle">You agreed to nothing. We need no permission. This is just what browsers do.</p>
         </header>
 
         <!-- Phase 1: Scanning -->
@@ -609,12 +611,12 @@
             <div id="assumptions-output"></div>
         </div>
 
-        <!-- Attention Heatmap -->
-        <div id="phase-heatmap" class="phase hidden">
-            <h2>Your Attention Heatmap</h2>
-            <p class="heatmap-intro">This is how you read this page. Every section was tracked for how long it stayed in your viewport. Services like Hotjar, FullStory, and Microsoft Clarity do this on ~10% of the websites you visit.</p>
-            <div id="heatmap-bars"></div>
-            <div id="heatmap-summary"></div>
+        <!-- Heatmap — visible from start, updates live -->
+        <div id="phase-heatmap" class="phase">
+            <h2>Your Attention Terrain</h2>
+            <p style="color:var(--color-muted); font-size:0.85rem; margin-bottom:0.5rem; line-height:1.6;">This terrain is growing in real-time from your reading pattern. Peaks form where you linger. Valleys where you scroll past.</p>
+            <canvas id="terrain-canvas" height="400"></canvas>
+            <p style="color:var(--color-muted); font-size:0.7rem; text-align:center; margin-top:0.5rem;">Click and drag to rotate. Scroll to zoom.</p>
         </div>
 
         <!-- The Point -->
@@ -1441,7 +1443,7 @@
             const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
             if (!gl) return;
 
-            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            const dpr = Math.min(window.devicePixelRatio || 1, 1); // render at 1x for performance
             canvas.width = canvas.offsetWidth * dpr;
             canvas.height = 280 * dpr;
 
@@ -1458,7 +1460,7 @@
                 uniform vec2 u_mouse;
                 uniform float u_drunk;
 
-                #define MAX_STEPS 80
+                #define MAX_STEPS 40
                 #define MAX_DIST 20.0
                 #define SURF_DIST 0.001
                 #define PI 3.14159265
@@ -1489,7 +1491,7 @@
 
                 float fbm3(vec3 p) {
                     float v = 0.0, a = 0.5;
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < 2; i++) {
                         v += a * noise3d(p);
                         p = p * 2.1 + vec3(0.1);
                         a *= 0.5;
@@ -1519,7 +1521,7 @@
                     float sphere = sdSphere(p, 1.2 + disp * 0.5);
 
                     // Orbiting smaller spheres
-                    for (float i = 0.0; i < 4.0; i++) {
+                    for (float i = 0.0; i < 2.0; i++) {
                         float angle = t * (0.5 + i * 0.15) + i * PI * 0.5;
                         float radius = 2.0 + sin(t * 0.3 + i) * 0.3;
                         vec3 orbitPos = vec3(cos(angle) * radius, sin(angle * 0.7 + i) * 0.8, sin(angle) * radius);
@@ -1597,15 +1599,15 @@
 
                     // Volumetric glow around the object
                     float glow = 0.0;
-                    for (float i = 1.0; i <= 3.0; i++) {
-                        vec3 gp = ro + rd * (d - i * 0.3);
+                    for (float i = 1.0; i <= 2.0; i++) {
+                        vec3 gp = ro + rd * (d - i * 0.4);
                         float gd = scene(gp);
                         glow += exp(-gd * 3.0) * 0.08;
                     }
                     color += mix(c1, c2, sin(t * 0.5) * 0.5 + 0.5) * glow;
 
                     // Particles / dust
-                    for (float i = 0.0; i < 6.0; i++) {
+                    for (float i = 0.0; i < 3.0; i++) {
                         float pt = t * 0.2 + i * 1.7;
                         vec3 pp = vec3(sin(pt * 1.3 + i) * 3.0, cos(pt * 0.9 + i * 2.0) * 1.5, cos(pt + i) * 3.0);
                         vec3 projDir = pp - ro;
@@ -1614,7 +1616,7 @@
                             vec3 closest = ro + rd * projDist;
                             float pdist = length(closest - pp);
                             float sparkle = exp(-pdist * 15.0) * 0.5;
-                            color += mix(c1, c3, i / 6.0) * sparkle;
+                            color += mix(c1, c3, i / 3.0) * sparkle;
                         }
                     }
 
@@ -2524,106 +2526,398 @@
             }
         } catch(e) {}
 
-        // --- Attention Heatmap Tracking ---
-        const attentionData = {};
-        const sectionMeta = {
-            'phase-scan': 'Scanning',
-            'phase-tracking': 'Live Surveillance',
-            'phase-typing': 'Typing Cadence',
-            'phase-assumptions': 'Assumptions',
-            'phase-heatmap': 'Attention Heatmap',
-            'phase-point': 'The Point'
-        };
+        // --- Scroll Timeline ---
+        const scrollHistory = []; // { y: normalized 0-1, t: timestamp, paused: bool }
+        let timelineVisible = false;
 
-        // Track how long each section is in the viewport
-        function setupAttentionTracking() {
-            const sections = Object.keys(sectionMeta);
-            sections.forEach(id => { attentionData[id] = 0; });
+        function setupScrollTimeline() {
+            const el = document.getElementById('scroll-timeline');
+            const label = document.getElementById('scroll-timeline-label');
+            let lastRecordTime = 0;
+            let lastScrollPos = -1;
+            let pauseTimer = null;
+            let isPaused = false;
 
-            // Use IntersectionObserver to track visibility
-            const visibleSections = new Set();
+            function recordScroll() {
+                const now = performance.now();
+                if (now - lastRecordTime < 100) return; // sample every 100ms max
+                lastRecordTime = now;
 
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-                        visibleSections.add(entry.target.id);
-                    } else {
-                        visibleSections.delete(entry.target.id);
+                const docH = document.documentElement.scrollHeight - window.innerHeight;
+                const pos = docH > 0 ? window.scrollY / docH : 0;
+
+                // Detect pauses: if position hasn't changed, mark as paused
+                if (Math.abs(pos - lastScrollPos) < 0.002 && lastScrollPos >= 0) {
+                    if (!isPaused) {
+                        isPaused = true;
+                        // Mark the last point as a pause
+                        if (scrollHistory.length > 0) {
+                            scrollHistory[scrollHistory.length - 1].paused = true;
+                        }
                     }
-                });
-            }, { threshold: [0, 0.3, 0.6, 1.0] });
+                } else {
+                    isPaused = false;
+                }
 
-            sections.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) observer.observe(el);
-            });
+                scrollHistory.push({ y: pos, t: now, paused: false });
+                // Cap at 2000 points
+                if (scrollHistory.length > 2000) scrollHistory.shift();
+                lastScrollPos = pos;
+            }
 
-            // Accumulate time every 200ms (only when page is visible)
+            document.addEventListener('scroll', recordScroll);
+            // Also record periodically to catch pauses
+            setInterval(recordScroll, 200);
+
+            // Show after a moment
+            setTimeout(() => {
+                el.classList.add('visible');
+                label.classList.add('visible');
+                timelineVisible = true;
+            }, 3000);
+
+            // Render loop
+            const canvas = document.getElementById('scroll-timeline-canvas');
+            const ctx = canvas.getContext('2d');
+
+            function renderTimeline() {
+                if (!timelineVisible || !canvas.isConnected) { requestAnimationFrame(renderTimeline); return; }
+
+                const rect = el.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = Math.round(rect.width * dpr);
+                canvas.height = Math.round(rect.height * dpr);
+                const w = rect.width;
+                const h = rect.height;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                ctx.clearRect(0, 0, w, h);
+
+                if (scrollHistory.length < 2) { requestAnimationFrame(renderTimeline); return; }
+
+                // Draw track background
+                ctx.fillStyle = 'rgba(255,255,255,0.03)';
+                ctx.fillRect(0, 0, w, h);
+
+                // Draw the scroll path — X axis = time, Y axis = scroll position
+                // Map time to horizontal, position to vertical
+                const startT = scrollHistory[0].t;
+                const endT = scrollHistory[scrollHistory.length - 1].t;
+                const timeSpan = endT - startT || 1;
+
+                // Draw line
+                ctx.strokeStyle = 'rgba(0,240,255,0.6)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                for (let i = 0; i < scrollHistory.length; i++) {
+                    const p = scrollHistory[i];
+                    const x = w / 2; // thin vertical bar, so x is always center-ish
+                    const y = p.y * h;
+                    // But we want to show the *journey*, so use time as Y and scroll pos encoded as brightness
+                    // Actually — let's do: Y axis = time (top=start, bottom=now), line deflects left/right based on scroll position
+                    const ty = ((p.t - startT) / timeSpan) * h;
+                    const tx = p.y * w; // scroll pos maps to X within the thin bar
+                    if (i === 0) ctx.moveTo(tx, ty);
+                    else ctx.lineTo(tx, ty);
+                }
+                ctx.stroke();
+
+                // Draw pause dots
+                ctx.fillStyle = 'rgba(255,16,240,0.9)';
+                for (let i = 0; i < scrollHistory.length; i++) {
+                    if (scrollHistory[i].paused) {
+                        const ty = ((scrollHistory[i].t - startT) / timeSpan) * h;
+                        const tx = scrollHistory[i].y * w;
+                        ctx.beginPath();
+                        ctx.arc(tx, ty, 2.5, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                // Current position indicator
+                const docH = document.documentElement.scrollHeight - window.innerHeight;
+                const currentPos = docH > 0 ? window.scrollY / docH : 0;
+                ctx.fillStyle = 'rgba(0,240,255,1)';
+                ctx.beginPath();
+                ctx.arc(currentPos * w, h - 2, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                requestAnimationFrame(renderTimeline);
+            }
+            requestAnimationFrame(renderTimeline);
+        }
+
+        // --- Scroll Attention Heatmap ---
+        // Divide the page into rows and accumulate time spent viewing each
+        const HEATMAP_ROW_PX = 40; // each row = 40px of page height
+        let heatmapData = []; // array of seconds per row
+        let heatmapActive = false;
+
+        function setupHeatmapTracking() {
+            heatmapActive = true;
+            // Accumulate attention every 200ms
             setInterval(() => {
-                if (document.visibilityState === 'visible') {
-                    visibleSections.forEach(id => {
-                        attentionData[id] = (attentionData[id] || 0) + 0.2;
-                    });
+                if (!heatmapActive || document.visibilityState !== 'visible') return;
+                const scrollTop = window.scrollY;
+                const viewH = window.innerHeight;
+                const startRow = Math.floor(scrollTop / HEATMAP_ROW_PX);
+                const endRow = Math.floor((scrollTop + viewH) / HEATMAP_ROW_PX);
+                // Grow array if needed
+                while (heatmapData.length <= endRow) heatmapData.push(0);
+                // Weight center of viewport more (parabolic)
+                const midRow = (startRow + endRow) / 2;
+                const span = (endRow - startRow) || 1;
+                for (let r = startRow; r <= endRow; r++) {
+                    const distFromCenter = Math.abs(r - midRow) / (span / 2);
+                    const weight = 1.0 - distFromCenter * distFromCenter * 0.6; // 1.0 center → 0.4 edges
+                    heatmapData[r] += 0.2 * weight;
                 }
             }, 200);
         }
 
-        function generateHeatmap() {
-            show('phase-heatmap');
-            const container = document.getElementById('heatmap-bars');
-            const summary = document.getElementById('heatmap-summary');
+        function showHeatmapTerrain() {
+            const canvas = document.getElementById('terrain-canvas');
+            if (!canvas) return;
+            const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+            if (!gl) return;
 
-            // Only show sections that have been visible
-            const entries = Object.entries(attentionData)
-                .filter(([id]) => id !== 'phase-heatmap' && id !== 'phase-point')
-                .filter(([, time]) => time > 0);
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+            canvas.width = canvas.offsetWidth * dpr;
+            canvas.height = 400 * dpr;
 
-            if (entries.length === 0) {
-                container.innerHTML = '<p style="color:var(--color-muted); font-size:0.8rem;">No attention data collected yet.</p>';
-                return;
+            const GRID_Z = 80;
+            const GRID_X = 40;
+            const totalVerts = GRID_Z * GRID_X;
+
+            // Pre-build indices (topology doesn't change)
+            const indices = [];
+            for (let z = 0; z < GRID_Z - 1; z++) {
+                for (let x = 0; x < GRID_X - 1; x++) {
+                    const i = z * GRID_X + x;
+                    indices.push(i, i + 1, i + GRID_X);
+                    indices.push(i + 1, i + GRID_X + 1, i + GRID_X);
+                }
             }
 
-            const maxTime = Math.max(...entries.map(([, t]) => t), 1);
+            // Shaders
+            const vsrc = `
+                attribute vec3 aPos;
+                attribute vec3 aColor;
+                attribute vec3 aNormal;
+                uniform mat4 uMVP;
+                uniform mat4 uModel;
+                varying vec3 vColor;
+                varying vec3 vNormal;
+                varying vec3 vPos;
+                void main() {
+                    gl_Position = uMVP * vec4(aPos, 1.0);
+                    vColor = aColor;
+                    vNormal = mat3(uModel) * aNormal;
+                    vPos = (uModel * vec4(aPos, 1.0)).xyz;
+                }
+            `;
+            const fsrc = `
+                precision highp float;
+                varying vec3 vColor;
+                varying vec3 vNormal;
+                varying vec3 vPos;
+                void main() {
+                    vec3 n = normalize(vNormal);
+                    vec3 light1 = normalize(vec3(1.0, 2.0, 1.5));
+                    vec3 light2 = normalize(vec3(-1.0, 1.0, -0.5));
+                    float diff1 = max(dot(n, light1), 0.0);
+                    float diff2 = max(dot(n, light2), 0.0) * 0.3;
+                    float ambient = 0.15;
+                    vec3 viewDir = normalize(-vPos);
+                    float rim = pow(1.0 - max(dot(viewDir, n), 0.0), 3.0) * 0.4;
+                    vec3 color = vColor * (ambient + diff1 * 0.7 + diff2);
+                    color += vec3(0.0, 0.9, 1.0) * rim;
+                    float fog = 1.0 - exp(-length(vPos) * 0.08);
+                    color = mix(color, vec3(0.04, 0.0, 0.08), fog);
+                    gl_FragColor = vec4(color, 1.0);
+                }
+            `;
 
-            // Sort by page order
-            const order = ['phase-scan', 'phase-tracking', 'phase-typing', 'phase-assumptions'];
-            entries.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]));
+            function compile(src, type) {
+                const s = gl.createShader(type);
+                gl.shaderSource(s, src);
+                gl.compileShader(s);
+                return s;
+            }
+            const vs = compile(vsrc, gl.VERTEX_SHADER);
+            const fs = compile(fsrc, gl.FRAGMENT_SHADER);
+            const prog = gl.createProgram();
+            gl.attachShader(prog, vs); gl.attachShader(prog, fs);
+            gl.linkProgram(prog);
+            gl.useProgram(prog);
 
-            entries.forEach(([id, time], i) => {
-                const pct = (time / maxTime) * 100;
-                const label = sectionMeta[id] || id;
-                const secs = time.toFixed(1);
+            // Create buffers with DYNAMIC_DRAW for live updates
+            const posBuf = gl.createBuffer();
+            const colBuf = gl.createBuffer();
+            const normBuf = gl.createBuffer();
 
-                // Color: green (long attention) → yellow → red (skimmed)
-                let color;
-                const ratio = time / maxTime;
-                if (ratio > 0.6) color = '#00e87b';
-                else if (ratio > 0.3) color = '#fbbf24';
-                else color = '#ff10f0';
+            const aPos = gl.getAttribLocation(prog, 'aPos');
+            const aColor = gl.getAttribLocation(prog, 'aColor');
+            const aNormal = gl.getAttribLocation(prog, 'aNormal');
 
-                const bar = document.createElement('div');
-                bar.className = 'heatmap-bar';
-                bar.style.animationDelay = (i * 0.1) + 's';
-                bar.innerHTML =
-                    `<div class="heatmap-label">${label}</div>` +
-                    `<div class="heatmap-track"><div class="heatmap-fill" style="width:${pct}%; background:${color};"></div></div>` +
-                    `<div class="heatmap-time">${secs}s</div>`;
-                container.appendChild(bar);
+            const idxBuf = gl.createBuffer();
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, idxBuf);
+            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+
+            const uMVP = gl.getUniformLocation(prog, 'uMVP');
+            const uModel = gl.getUniformLocation(prog, 'uModel');
+
+            gl.enable(gl.DEPTH_TEST);
+            gl.clearColor(0.04, 0.0, 0.08, 1.0);
+
+            // Animated heights — lerp toward target
+            const currentHeights = new Float32Array(totalVerts);
+            const targetHeights = new Float32Array(totalVerts);
+
+            function rebuildMeshData() {
+                // Smooth heatmap data
+                const maxRow = Math.max(heatmapData.length, 1);
+                const smoothed = [];
+                for (let i = 0; i < maxRow; i++) {
+                    let sum = 0, count = 0;
+                    for (let j = Math.max(0, i - 3); j <= Math.min(maxRow - 1, i + 3); j++) {
+                        const w = 1 - Math.abs(j - i) / 4;
+                        sum += (heatmapData[j] || 0) * w;
+                        count += w;
+                    }
+                    smoothed.push(sum / count);
+                }
+                const maxVal = Math.max(...smoothed, 0.01);
+
+                // Update target heights
+                for (let z = 0; z < GRID_Z; z++) {
+                    for (let x = 0; x < GRID_X; x++) {
+                        const rowIdx = Math.min(Math.floor((z / GRID_Z) * maxRow), maxRow - 1);
+                        const baseHeight = (smoothed[rowIdx] || 0) / maxVal;
+                        const xNorm = (x / (GRID_X - 1)) * 2 - 1;
+                        const xFalloff = Math.exp(-xNorm * xNorm * 2.5);
+                        targetHeights[z * GRID_X + x] = baseHeight * xFalloff;
+                    }
+                }
+            }
+
+            function updateBuffers() {
+                const verts = new Float32Array(totalVerts * 3);
+                const cols = new Float32Array(totalVerts * 3);
+                const norms = new Float32Array(totalVerts * 3);
+
+                // Lerp current toward target
+                for (let i = 0; i < totalVerts; i++) {
+                    currentHeights[i] += (targetHeights[i] - currentHeights[i]) * 0.08;
+                }
+
+                // Build vertices + colors
+                for (let z = 0; z < GRID_Z; z++) {
+                    for (let x = 0; x < GRID_X; x++) {
+                        const idx = z * GRID_X + x;
+                        const h = currentHeights[idx];
+                        verts[idx * 3] = (x / (GRID_X - 1) - 0.5) * 4;
+                        verts[idx * 3 + 1] = h * 1.8;
+                        verts[idx * 3 + 2] = (z / (GRID_Z - 1) - 0.5) * 6;
+
+                        let r, g, b;
+                        if (h < 0.2) { r = 0.1; g = 0.2 + h * 2; b = 0.8; }
+                        else if (h < 0.4) { const t = (h-0.2)/0.2; r = t*0.1; g = 0.6+t*0.35; b = 0.8-t*0.5; }
+                        else if (h < 0.6) { const t = (h-0.4)/0.2; r = 0.1+t*0.6; g = 0.95; b = 0.3-t*0.3; }
+                        else if (h < 0.8) { const t = (h-0.6)/0.2; r = 0.7+t*0.3; g = 0.95-t*0.4; b = 0; }
+                        else { const t = Math.min((h-0.8)/0.2, 1); r = 1; g = 0.55-t*0.55; b = t*0.3; }
+                        cols[idx * 3] = r; cols[idx * 3 + 1] = g; cols[idx * 3 + 2] = b;
+                    }
+                }
+
+                // Compute normals
+                norms.fill(0);
+                for (let i = 0; i < indices.length; i += 3) {
+                    const ia = indices[i], ib = indices[i+1], ic = indices[i+2];
+                    const ax=verts[ia*3],ay=verts[ia*3+1],az=verts[ia*3+2];
+                    const bx=verts[ib*3],by=verts[ib*3+1],bz=verts[ib*3+2];
+                    const cx=verts[ic*3],cy=verts[ic*3+1],cz=verts[ic*3+2];
+                    const ux=bx-ax,uy=by-ay,uz=bz-az;
+                    const vvx=cx-ax,vvy=cy-ay,vvz=cz-az;
+                    const nx=uy*vvz-uz*vvy, ny=uz*vvx-ux*vvz, nz=ux*vvy-uy*vvx;
+                    norms[ia*3]+=nx;norms[ia*3+1]+=ny;norms[ia*3+2]+=nz;
+                    norms[ib*3]+=nx;norms[ib*3+1]+=ny;norms[ib*3+2]+=nz;
+                    norms[ic*3]+=nx;norms[ic*3+1]+=ny;norms[ic*3+2]+=nz;
+                }
+                for (let i = 0; i < norms.length; i += 3) {
+                    const len = Math.sqrt(norms[i]**2+norms[i+1]**2+norms[i+2]**2) || 1;
+                    norms[i]/=len; norms[i+1]/=len; norms[i+2]/=len;
+                }
+
+                // Upload
+                gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+                gl.bufferData(gl.ARRAY_BUFFER, verts, gl.DYNAMIC_DRAW);
+                gl.enableVertexAttribArray(aPos);
+                gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, colBuf);
+                gl.bufferData(gl.ARRAY_BUFFER, cols, gl.DYNAMIC_DRAW);
+                gl.enableVertexAttribArray(aColor);
+                gl.vertexAttribPointer(aColor, 3, gl.FLOAT, false, 0, 0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, normBuf);
+                gl.bufferData(gl.ARRAY_BUFFER, norms, gl.DYNAMIC_DRAW);
+                gl.enableVertexAttribArray(aNormal);
+                gl.vertexAttribPointer(aNormal, 3, gl.FLOAT, false, 0, 0);
+
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, idxBuf);
+            }
+
+            // Camera
+            let rotX = -0.7, rotY = 0.3, zoom = 5.5;
+            let dragging = false, dragStartX = 0, dragStartY = 0, dragRotX = 0, dragRotY = 0;
+
+            canvas.addEventListener('mousedown', e => { dragging = true; dragStartX = e.clientX; dragStartY = e.clientY; dragRotX = rotX; dragRotY = rotY; });
+            window.addEventListener('mouseup', () => { dragging = false; });
+            window.addEventListener('mousemove', e => {
+                if (!dragging) return;
+                rotY = dragRotY + (e.clientX - dragStartX) * 0.008;
+                rotX = dragRotX + (e.clientY - dragStartY) * 0.008;
+                rotX = Math.max(-1.5, Math.min(-0.1, rotX));
             });
+            canvas.addEventListener('wheel', e => { e.preventDefault(); zoom = Math.max(2, Math.min(12, zoom + e.deltaY * 0.01)); }, { passive: false });
 
-            // Summary
-            const sorted = entries.sort((a, b) => b[1] - a[1]);
-            const most = sectionMeta[sorted[0][0]];
-            const least = sorted.length > 1 ? sectionMeta[sorted[sorted.length - 1][0]] : null;
-            const totalTime = entries.reduce((sum, [, t]) => sum + t, 0).toFixed(0);
+            let touchStartX = 0, touchStartY = 0, touchRotX = 0, touchRotY = 0;
+            canvas.addEventListener('touchstart', e => { if (e.touches.length===1) { touchStartX=e.touches[0].clientX; touchStartY=e.touches[0].clientY; touchRotX=rotX; touchRotY=rotY; } });
+            canvas.addEventListener('touchmove', e => { if (e.touches.length===1) { e.preventDefault(); rotY=touchRotY+(e.touches[0].clientX-touchStartX)*0.008; rotX=touchRotX+(e.touches[0].clientY-touchStartY)*0.008; rotX=Math.max(-1.5,Math.min(-0.1,rotX)); } }, { passive: false });
 
-            let summaryText = `You spent <strong>${totalTime} seconds</strong> actively viewing this page. `;
-            summaryText += `Most attention went to <strong>${most}</strong> (${sorted[0][1].toFixed(1)}s). `;
-            if (least && sorted.length > 2) {
-                summaryText += `You barely glanced at <strong>${least}</strong> (${sorted[sorted.length - 1][1].toFixed(1)}s). `;
+            // Matrix math
+            function mat4Perspective(fov,aspect,near,far){const f=1/Math.tan(fov/2);return[f/aspect,0,0,0,0,f,0,0,0,0,(far+near)/(near-far),-1,0,0,(2*far*near)/(near-far),0];}
+            function mat4LookAt(eye,center,up){const zx=eye[0]-center[0],zy=eye[1]-center[1],zz=eye[2]-center[2],zl=Math.sqrt(zx*zx+zy*zy+zz*zz),fz=[zx/zl,zy/zl,zz/zl],sx=up[1]*fz[2]-up[2]*fz[1],sy=up[2]*fz[0]-up[0]*fz[2],sz=up[0]*fz[1]-up[1]*fz[0],sl=Math.sqrt(sx*sx+sy*sy+sz*sz),s=[sx/sl,sy/sl,sz/sl],u=[s[1]*fz[2]-s[2]*fz[1],s[2]*fz[0]-s[0]*fz[2],s[0]*fz[1]-s[1]*fz[0]];return[s[0],u[0],fz[0],0,s[1],u[1],fz[1],0,s[2],u[2],fz[2],0,-(s[0]*eye[0]+s[1]*eye[1]+s[2]*eye[2]),-(u[0]*eye[0]+u[1]*eye[1]+u[2]*eye[2]),-(fz[0]*eye[0]+fz[1]*eye[1]+fz[2]*eye[2]),1];}
+            function mat4Mul(a,b){const r=new Array(16);for(let i=0;i<4;i++)for(let j=0;j<4;j++){r[j*4+i]=a[i]*b[j*4]+a[4+i]*b[j*4+1]+a[8+i]*b[j*4+2]+a[12+i]*b[j*4+3];}return r;}
+            function mat4Identity(){return[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1];}
+
+            // Rebuild mesh data periodically from live heatmap data
+            let frameCount = 0;
+            function render() {
+                if (!canvas.isConnected) return;
+
+                // Rebuild mesh from heatmap data every 30 frames
+                if (frameCount % 30 === 0) rebuildMeshData();
+                frameCount++;
+
+                updateBuffers();
+
+                gl.viewport(0, 0, canvas.width, canvas.height);
+                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+                const aspect = canvas.width / canvas.height;
+                const proj = mat4Perspective(0.8, aspect, 0.1, 50);
+                const eye = [Math.sin(rotY)*Math.cos(rotX)*zoom, Math.sin(-rotX)*zoom, Math.cos(rotY)*Math.cos(rotX)*zoom];
+                const view = mat4LookAt(eye, [0, 0.3, 0], [0, 1, 0]);
+                const model = mat4Identity();
+                const mvp = mat4Mul(proj, mat4Mul(view, model));
+
+                gl.uniformMatrix4fv(uMVP, false, new Float32Array(mvp));
+                gl.uniformMatrix4fv(uModel, false, new Float32Array(model));
+                gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+                requestAnimationFrame(render);
             }
-            summaryText += `<br><br>Every major analytics platform builds this exact heatmap for every visitor. The difference is they don't show it to you.`;
-            summary.innerHTML = summaryText;
+            render();
         }
 
         function addLiveAssumption(key, quote, reason) {
@@ -2775,7 +3069,9 @@
 
         // --- Run everything ---
         async function main() {
-            setupAttentionTracking();
+            setupHeatmapTracking();
+            setupScrollTimeline();
+            showHeatmapTerrain();
             await runScan();
             setupTracking();
 
@@ -2809,9 +3105,6 @@
             await generateAssumptions();
 
             await sleep(1500);
-            generateHeatmap();
-
-            await sleep(2000);
             showThePoint();
         }
 
