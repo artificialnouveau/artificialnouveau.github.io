@@ -117,7 +117,7 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                 </span>
                 <span class="sv-info">This page knows you're on ${browserStr} (${deviceStr}) at ${timeStr}.</span>
-                <a href="/miniprojects/your-history/" class="sv-link">Full report &rarr;</a>
+                <a href="/miniprojects/your-history/" class="sv-link" id="sv-full-link">Full report &rarr;</a>
                 <button class="sv-toggle" aria-label="Expand details">Mini tracking report</button>
                 <button class="sv-close" aria-label="Dismiss">&times;</button>
             </div>
@@ -250,6 +250,16 @@
             setTimeout(() => bar.classList.add('visible'), 5000);
         }
 
+        // Full report loading state
+        const fullLink = document.getElementById('sv-full-link');
+        if (fullLink) {
+            fullLink.addEventListener('click', function() {
+                saveVisit(); // save latest data before navigating
+                fullLink.textContent = 'Loading full scan...';
+                fullLink.style.opacity = '0.5';
+            });
+        }
+
         // Close
         bar.querySelector('.sv-close').addEventListener('click', function() {
             bar.classList.remove('visible');
@@ -264,12 +274,21 @@
         toggleBtn.addEventListener('click', function() {
             expanded = !expanded;
             if (expanded) {
-                updateDetails();
-                details.classList.add('open');
+                // Show loading state
+                toggleBtn.textContent = 'Scanning...';
                 toggleBtn.classList.add('open');
+                const inner = document.getElementById('sv-details-inner');
+                if (inner) inner.innerHTML = '<div class="sv-full" style="text-align:center; padding:8px 0; opacity:0.5;">Collecting data...</div>';
+                details.classList.add('open');
+                // Simulate brief scan delay then reveal
+                setTimeout(function() {
+                    updateDetails();
+                    toggleBtn.textContent = 'Hide report';
+                }, 800);
             } else {
                 details.classList.remove('open');
                 toggleBtn.classList.remove('open');
+                toggleBtn.textContent = 'Mini tracking report';
             }
         });
 
