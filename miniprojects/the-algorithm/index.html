@@ -135,8 +135,8 @@
             padding: 1.5rem;
             font-size: 0.85rem;
             line-height: 1.8;
-            max-height: 500px;
-            overflow-y: auto;
+            max-height: none;
+            overflow-y: visible;
             margin-bottom: 1rem;
         }
 
@@ -218,6 +218,24 @@
             50% { content: '..'; }
             75% { content: '...'; }
             100% { content: ''; }
+        }
+
+        /* Shader canvas */
+        #shader-canvas {
+            width: 100%;
+            height: 280px;
+            border: 1px solid rgba(0,240,255,0.2);
+            margin: 1rem 0;
+            display: block;
+            border-radius: 2px;
+        }
+
+        .shader-label {
+            font-size: 0.7rem;
+            color: var(--color-muted);
+            text-align: center;
+            margin-top: 0.3rem;
+            font-style: italic;
         }
 
         /* Live tracking */
@@ -524,7 +542,7 @@
             #scan-output {
                 font-size: 0.75rem;
                 padding: 1rem;
-                max-height: 400px;
+                max-height: none;
                 -webkit-overflow-scrolling: touch;
             }
             .assumption {
@@ -776,6 +794,128 @@
                 const data = c.toDataURL();
                 D.canvasHash = hashCode(data);
                 return D.canvasHash;
+            } catch(e) {
+                return null;
+            }
+        }
+
+        async function collectWebGPUFingerprint() {
+            try {
+                if (!navigator.gpu) return null;
+
+                const adapter = await navigator.gpu.requestAdapter();
+                if (!adapter) return { supported: true, adapter: null };
+
+                const info = {};
+
+                // Adapter info (vendor, architecture, device, description)
+                if (adapter.info) {
+                    info.vendor = adapter.info.vendor || 'unknown';
+                    info.architecture = adapter.info.architecture || 'unknown';
+                    info.device = adapter.info.device || 'unknown';
+                    info.description = adapter.info.description || 'unknown';
+                } else if (adapter.requestAdapterInfo) {
+                    const ai = await adapter.requestAdapterInfo();
+                    info.vendor = ai.vendor || 'unknown';
+                    info.architecture = ai.architecture || 'unknown';
+                    info.device = ai.device || 'unknown';
+                    info.description = ai.description || 'unknown';
+                }
+
+                // Limits — these vary per GPU and driver, creating a fingerprint
+                info.maxTextureDimension2D = adapter.limits.maxTextureDimension2D;
+                info.maxTextureArrayLayers = adapter.limits.maxTextureArrayLayers;
+                info.maxBindGroups = adapter.limits.maxBindGroups;
+                info.maxBufferSize = adapter.limits.maxBufferSize;
+                info.maxComputeWorkgroupSizeX = adapter.limits.maxComputeWorkgroupSizeX;
+                info.maxComputeWorkgroupSizeY = adapter.limits.maxComputeWorkgroupSizeY;
+                info.maxComputeWorkgroupSizeZ = adapter.limits.maxComputeWorkgroupSizeZ;
+                info.maxComputeInvocationsPerWorkgroup = adapter.limits.maxComputeInvocationsPerWorkgroup;
+                info.maxStorageBufferBindingSize = adapter.limits.maxStorageBufferBindingSize;
+                info.maxComputeWorkgroupStorageSize = adapter.limits.maxComputeWorkgroupStorageSize;
+
+                // Features — which optional features the GPU supports
+                info.features = Array.from(adapter.features).sort();
+
+                // GPU timing fingerprint — run a tiny compute shader and measure execution time
+                // Different GPUs execute at different speeds, creating a timing signature
+                try {
+                    const device = await adapter.requestDevice();
+                    const module = device.createShaderModule({
+                        code: `
+                            @group(0) @binding(0) var<storage, read_write> data: array<f32>;
+                            @compute @workgroup_size(64)
+                            fn main(@builtin(global_invocation_id) id: vec3u) {
+                                let i = id.x;
+                                if (i < arrayLength(&data)) {
+                                    var v = data[i];
+                                    for (var j = 0u; j < 100u; j = j + 1u) {
+                                        v = sin(v) * cos(v) + f32(j) * 0.001;
+                                    }
+                                    data[i] = v;
+                                }
+                            }
+                        `
+                    });
+
+                    const bufferSize = 4096 * 4; // 4096 floats
+                    const gpuBuffer = device.createBuffer({
+                        size: bufferSize,
+                        usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST,
+                    });
+
+                    // Fill with data
+                    const inputData = new Float32Array(4096);
+                    for (let i = 0; i < 4096; i++) inputData[i] = Math.sin(i) * 100;
+                    device.queue.writeBuffer(gpuBuffer, 0, inputData);
+
+                    const pipeline = device.createComputePipeline({
+                        layout: 'auto',
+                        compute: { module, entryPoint: 'main' }
+                    });
+
+                    const bindGroup = device.createBindGroup({
+                        layout: pipeline.getBindGroupLayout(0),
+                        entries: [{ binding: 0, resource: { buffer: gpuBuffer } }]
+                    });
+
+                    // Time the execution
+                    const t0 = performance.now();
+                    const encoder = device.createCommandEncoder();
+                    const pass = encoder.beginComputePass();
+                    pass.setPipeline(pipeline);
+                    pass.setBindGroup(0, bindGroup);
+                    pass.dispatchWorkgroups(Math.ceil(4096 / 64));
+                    pass.end();
+
+                    // Read back to force synchronization
+                    const readBuffer = device.createBuffer({
+                        size: bufferSize,
+                        usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST,
+                    });
+                    encoder.copyBufferToBuffer(gpuBuffer, 0, readBuffer, 0, bufferSize);
+                    device.queue.submit([encoder.finish()]);
+
+                    await readBuffer.mapAsync(GPUMapMode.READ);
+                    const result = new Float32Array(readBuffer.getMappedRange().slice(0));
+                    readBuffer.unmap();
+                    const t1 = performance.now();
+
+                    info.computeTimeMs = Math.round((t1 - t0) * 100) / 100;
+                    // Hash a sample of the output — floating point differences reveal GPU precision
+                    info.computeHash = hashCode(Array.from(result.slice(0, 32)).map(v => v.toFixed(6)).join(','));
+
+                    device.destroy();
+                } catch(e) {
+                    info.computeError = true;
+                }
+
+                // Generate overall fingerprint hash
+                const fpStr = JSON.stringify(info);
+                info.hash = hashCode(fpStr);
+
+                D.webgpu = info;
+                return info;
             } catch(e) {
                 return null;
             }
@@ -1251,6 +1391,42 @@
                 await addLine(`<span class="prompt">&gt;</span> <span class="label">TTS voices:</span> <span class="value">${voices} installed</span>`, 80);
             }
 
+            // Shader visualization — inject canvas into scan output
+            const shaderDiv = document.createElement('div');
+            shaderDiv.innerHTML = '<canvas id="shader-canvas" height="280"></canvas><div class="shader-label">Live GPU shader — your graphics card is rendering this right now</div>';
+            output.appendChild(shaderDiv);
+            output.scrollTop = output.scrollHeight;
+            startShaderAnimation();
+
+            // WebGPU fingerprint
+            if (navigator.gpu) {
+                await addLine(`<span class="prompt">&gt;</span> <span class="label">WebGPU:</span> <span class="value">available — running compute shader...</span>`, 100);
+                const gpuFp = await collectWebGPUFingerprint();
+                if (gpuFp && gpuFp.hash) {
+                    if (gpuFp.vendor && gpuFp.vendor !== 'unknown') {
+                        await addLine(`<span class="prompt">&gt;</span> <span class="label">GPU vendor:</span> <span class="value">${gpuFp.vendor}</span>`, 70);
+                    }
+                    if (gpuFp.architecture && gpuFp.architecture !== 'unknown') {
+                        await addLine(`<span class="prompt">&gt;</span> <span class="label">GPU architecture:</span> <span class="value">${gpuFp.architecture}</span>`, 70);
+                    }
+                    if (gpuFp.features && gpuFp.features.length > 0) {
+                        await addLine(`<span class="prompt">&gt;</span> <span class="label">GPU features:</span> <span class="value">${gpuFp.features.length} supported</span>`, 70);
+                    }
+                    await addLine(`<span class="prompt">&gt;</span> <span class="label">GPU limits:</span> <span class="value">max texture ${gpuFp.maxTextureDimension2D}px, ${gpuFp.maxBindGroups} bind groups, workgroup ${gpuFp.maxComputeWorkgroupSizeX}×${gpuFp.maxComputeWorkgroupSizeY}×${gpuFp.maxComputeWorkgroupSizeZ}</span>`, 80);
+                    if (gpuFp.computeTimeMs) {
+                        await addLine(`<span class="prompt">&gt;</span> <span class="label">GPU compute time:</span> <span class="warn">${gpuFp.computeTimeMs}ms (timing signature unique to your GPU)</span>`, 90);
+                    }
+                    if (gpuFp.computeHash) {
+                        await addLine(`<span class="prompt">&gt;</span> <span class="label">GPU precision hash:</span> <span class="warn">${gpuFp.computeHash.substring(0, 8)}... (floating point rounding differs per chip)</span>`, 90);
+                    }
+                    await addLine(`<span class="prompt">&gt;</span> <span class="label">WebGPU fingerprint:</span> <span class="value">${gpuFp.hash.substring(0, 8)}...</span>`, 100);
+                } else if (gpuFp && gpuFp.supported) {
+                    await addLine(`<span class="prompt">&gt;</span> <span class="label">WebGPU:</span> <span class="value">supported but no adapter available</span>`, 80);
+                }
+            } else {
+                await addLine(`<span class="prompt">&gt;</span> <span class="label">WebGPU:</span> <span class="value">not available (older browser)</span>`, 70);
+            }
+
             // ═══════════════════════════════════
             // DONE
             // ═══════════════════════════════════
@@ -1258,7 +1434,260 @@
             await addLine(`<span class="prompt">&gt;</span> <span class="value">SCAN COMPLETE. ${Object.keys(D).length} data points collected.</span>`, 200);
         }
 
-        // --- Phase 2: Analyzing ---
+        // --- Shader animation: raymarched 3D scene ---
+        function startShaderAnimation() {
+            const canvas = document.getElementById('shader-canvas');
+            if (!canvas) return;
+            const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+            if (!gl) return;
+
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = canvas.offsetWidth * dpr;
+            canvas.height = 280 * dpr;
+
+            const vert = `
+                attribute vec2 a_pos;
+                void main() { gl_Position = vec4(a_pos, 0, 1); }
+            `;
+
+            // Raymarched 3D scene: rotating distorted sphere with volumetric glow
+            const frag = `
+                precision highp float;
+                uniform float u_time;
+                uniform vec2 u_res;
+                uniform vec2 u_mouse;
+                uniform float u_drunk;
+
+                #define MAX_STEPS 80
+                #define MAX_DIST 20.0
+                #define SURF_DIST 0.001
+                #define PI 3.14159265
+
+                mat2 rot(float a) {
+                    float s = sin(a), c = cos(a);
+                    return mat2(c, -s, s, c);
+                }
+
+                float hash(vec3 p) {
+                    p = fract(p * vec3(443.897, 441.423, 437.195));
+                    p += dot(p, p.yzx + 19.19);
+                    return fract((p.x + p.y) * p.z);
+                }
+
+                float noise3d(vec3 p) {
+                    vec3 i = floor(p);
+                    vec3 f = fract(p);
+                    f = f * f * (3.0 - 2.0 * f);
+                    return mix(
+                        mix(mix(hash(i), hash(i+vec3(1,0,0)), f.x),
+                            mix(hash(i+vec3(0,1,0)), hash(i+vec3(1,1,0)), f.x), f.y),
+                        mix(mix(hash(i+vec3(0,0,1)), hash(i+vec3(1,0,1)), f.x),
+                            mix(hash(i+vec3(0,1,1)), hash(i+vec3(1,1,1)), f.x), f.y),
+                        f.z
+                    );
+                }
+
+                float fbm3(vec3 p) {
+                    float v = 0.0, a = 0.5;
+                    for (int i = 0; i < 4; i++) {
+                        v += a * noise3d(p);
+                        p = p * 2.1 + vec3(0.1);
+                        a *= 0.5;
+                    }
+                    return v;
+                }
+
+                // SDF: sphere with noise displacement
+                float sdSphere(vec3 p, float r) {
+                    return length(p) - r;
+                }
+
+                float scene(vec3 p) {
+                    float t = u_time * 0.4;
+
+                    // Rotate the whole scene
+                    p.xz *= rot(t * 0.3 + u_mouse.x * 2.0);
+                    p.yz *= rot(t * 0.2 + u_mouse.y);
+
+                    // Main sphere with organic displacement
+                    float disp = fbm3(p * 2.0 + t * 0.5) * 0.6;
+                    disp += sin(p.x * 4.0 + t) * sin(p.y * 4.0 + t * 1.3) * sin(p.z * 4.0 + t * 0.7) * 0.15;
+
+                    // Drunk: more distortion
+                    disp += u_drunk * fbm3(p * 3.0 - t) * 0.4;
+
+                    float sphere = sdSphere(p, 1.2 + disp * 0.5);
+
+                    // Orbiting smaller spheres
+                    for (float i = 0.0; i < 4.0; i++) {
+                        float angle = t * (0.5 + i * 0.15) + i * PI * 0.5;
+                        float radius = 2.0 + sin(t * 0.3 + i) * 0.3;
+                        vec3 orbitPos = vec3(cos(angle) * radius, sin(angle * 0.7 + i) * 0.8, sin(angle) * radius);
+                        float orbDisp = fbm3(orbitPos * 3.0 + t) * 0.15;
+                        float orb = sdSphere(p - orbitPos, 0.2 + orbDisp);
+                        sphere = min(sphere, orb);
+                    }
+
+                    return sphere;
+                }
+
+                vec3 getNormal(vec3 p) {
+                    vec2 e = vec2(0.002, 0.0);
+                    return normalize(vec3(
+                        scene(p + e.xyy) - scene(p - e.xyy),
+                        scene(p + e.yxy) - scene(p - e.yxy),
+                        scene(p + e.yyx) - scene(p - e.yyx)
+                    ));
+                }
+
+                float raymarch(vec3 ro, vec3 rd) {
+                    float d = 0.0;
+                    for (int i = 0; i < MAX_STEPS; i++) {
+                        vec3 p = ro + rd * d;
+                        float ds = scene(p);
+                        d += ds;
+                        if (ds < SURF_DIST || d > MAX_DIST) break;
+                    }
+                    return d;
+                }
+
+                void main() {
+                    vec2 uv = (gl_FragCoord.xy - 0.5 * u_res) / u_res.y;
+                    float t = u_time;
+
+                    // Camera
+                    vec3 ro = vec3(0.0, 0.0, 4.5);
+                    vec3 rd = normalize(vec3(uv, -1.5));
+
+                    float d = raymarch(ro, rd);
+
+                    // Colors
+                    vec3 c1 = vec3(0.0, 0.94, 1.0);   // cyan
+                    vec3 c2 = vec3(1.0, 0.06, 0.94);   // magenta
+                    vec3 c3 = vec3(0.69, 0.06, 1.0);   // purple
+
+                    vec3 color = vec3(0.02, 0.0, 0.05); // dark bg
+
+                    if (d < MAX_DIST) {
+                        vec3 p = ro + rd * d;
+                        vec3 n = getNormal(p);
+
+                        // Lighting
+                        vec3 lightDir = normalize(vec3(1.0, 1.0, 1.0));
+                        float diff = max(dot(n, lightDir), 0.0);
+                        float fres = pow(1.0 - max(dot(-rd, n), 0.0), 3.0);
+
+                        // Iridescent surface — color shifts based on normal + time
+                        float angle = atan(n.z, n.x) + t * 0.2;
+                        vec3 iridescence = mix(c1, c2, sin(angle * 2.0) * 0.5 + 0.5);
+                        iridescence = mix(iridescence, c3, sin(angle * 3.0 + 1.0) * 0.5 + 0.5);
+
+                        // Surface noise for texture
+                        float surfNoise = fbm3(p * 4.0 + t * 0.2);
+                        iridescence *= 0.7 + surfNoise * 0.5;
+
+                        color = iridescence * (diff * 0.5 + 0.3);
+                        color += (c1 * 0.3 + c2 * 0.2) * fres; // rim light
+                        color += c3 * 0.05; // ambient
+
+                        // Subsurface-ish glow
+                        float sss = exp(-d * 0.5) * 0.2;
+                        color += mix(c2, c1, surfNoise) * sss;
+                    }
+
+                    // Volumetric glow around the object
+                    float glow = 0.0;
+                    for (float i = 1.0; i <= 3.0; i++) {
+                        vec3 gp = ro + rd * (d - i * 0.3);
+                        float gd = scene(gp);
+                        glow += exp(-gd * 3.0) * 0.08;
+                    }
+                    color += mix(c1, c2, sin(t * 0.5) * 0.5 + 0.5) * glow;
+
+                    // Particles / dust
+                    for (float i = 0.0; i < 6.0; i++) {
+                        float pt = t * 0.2 + i * 1.7;
+                        vec3 pp = vec3(sin(pt * 1.3 + i) * 3.0, cos(pt * 0.9 + i * 2.0) * 1.5, cos(pt + i) * 3.0);
+                        vec3 projDir = pp - ro;
+                        float projDist = dot(projDir, rd);
+                        if (projDist > 0.0) {
+                            vec3 closest = ro + rd * projDist;
+                            float pdist = length(closest - pp);
+                            float sparkle = exp(-pdist * 15.0) * 0.5;
+                            color += mix(c1, c3, i / 6.0) * sparkle;
+                        }
+                    }
+
+                    // Tone mapping + vignette
+                    color = color / (color + 1.0); // Reinhard
+                    float vig = 1.0 - length(uv * 1.3);
+                    color *= smoothstep(0.0, 0.7, vig);
+
+                    // Gamma
+                    color = pow(color, vec3(0.9));
+
+                    gl_FragColor = vec4(color, 1.0);
+                }
+            `;
+
+            function compileShader(src, type) {
+                const s = gl.createShader(type);
+                gl.shaderSource(s, src);
+                gl.compileShader(s);
+                if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+                    console.warn('Shader error:', gl.getShaderInfoLog(s));
+                    return null;
+                }
+                return s;
+            }
+
+            const vs = compileShader(vert, gl.VERTEX_SHADER);
+            const fs = compileShader(frag, gl.FRAGMENT_SHADER);
+            if (!vs || !fs) return;
+
+            const prog = gl.createProgram();
+            gl.attachShader(prog, vs);
+            gl.attachShader(prog, fs);
+            gl.linkProgram(prog);
+            if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+
+            gl.useProgram(prog);
+
+            const buf = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+            const aPos = gl.getAttribLocation(prog, 'a_pos');
+            gl.enableVertexAttribArray(aPos);
+            gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+            const uTime = gl.getUniformLocation(prog, 'u_time');
+            const uRes = gl.getUniformLocation(prog, 'u_res');
+            const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+            const uDrunk = gl.getUniformLocation(prog, 'u_drunk');
+
+            // Track mouse for scene rotation
+            let mx = 0.5, my = 0.5;
+            document.addEventListener('mousemove', function(e) {
+                mx = e.clientX / window.innerWidth;
+                my = e.clientY / window.innerHeight;
+            });
+
+            const startTime = performance.now();
+
+            function render() {
+                if (!canvas.isConnected) return;
+                const t = (performance.now() - startTime) / 1000;
+                gl.viewport(0, 0, canvas.width, canvas.height);
+                gl.uniform1f(uTime, t);
+                gl.uniform2f(uRes, canvas.width, canvas.height);
+                gl.uniform2f(uMouse, mx, my);
+                gl.uniform1f(uDrunk, (typeof drunkScore !== 'undefined' ? drunkScore : 0) / 100);
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                requestAnimationFrame(render);
+            }
+            render();
+        }
+
         // --- Phase 3: Tracking ---
         let mousePixels = 0, mouseSpeed = 0, hesitations = 0, scrollDepth = 0;
         let lastX = null, lastY = null, lastMoveTime = 0, moveTimer = null;
