@@ -1,7 +1,7 @@
 /**
  * Site-wide passive tracker for artificialnouveau.com
  * Silently collects browsing data, stores in localStorage.
- * Shows a subtle surveillance footer + Easter egg panel.
+ * Shows a unified surveillance bar at the bottom.
  * Data is surfaced on /miniprojects/your-history/
  */
 (function() {
@@ -60,13 +60,8 @@
         const href = link.getAttribute('href') || link.href;
         if (hoverData[href]) {
             const duration = Math.round(performance.now() - hoverData[href].start);
-            if (duration > 200) { // only log meaningful hovers
-                visit.linksHovered.push({
-                    href: href,
-                    text: hoverData[href].text,
-                    duration: duration
-                });
-                // Cap at 20
+            if (duration > 200) {
+                visit.linksHovered.push({ href, text: hoverData[href].text, duration });
                 if (visit.linksHovered.length > 20) visit.linksHovered.shift();
             }
             delete hoverData[href];
@@ -90,320 +85,243 @@
     function updateTime() { visit.timeOnPage = Math.round((Date.now() - pageStart) / 1000); }
     setInterval(updateTime, 1000);
 
-    // Save to localStorage on unload + periodically
+    // Save to localStorage
     function saveVisit() {
         updateTime();
         try {
             const history = JSON.parse(localStorage.getItem('_an_visits') || '[]');
-            // Update existing entry for this page or add new
             const existingIdx = history.findIndex(v => v.page === visit.page && v.timestamp === visit.timestamp);
-            if (existingIdx >= 0) {
-                history[existingIdx] = visit;
-            } else {
-                history.push(visit);
-            }
-            // Keep last 50 visits
+            if (existingIdx >= 0) history[existingIdx] = visit;
+            else history.push(visit);
             while (history.length > 50) history.shift();
             localStorage.setItem('_an_visits', JSON.stringify(history));
         } catch(e) {}
     }
-
     setInterval(saveVisit, 5000);
     window.addEventListener('beforeunload', saveVisit);
-    // Also save on visibility change (mobile backgrounding)
     document.addEventListener('visibilitychange', function() {
         if (document.visibilityState === 'hidden') saveVisit();
     });
 
-    // --- Surveillance footer ---
-    function createFooter() {
-        const footer = document.createElement('div');
-        footer.id = 'surveillance-footer';
-
-        // Gather one-liner info
-        const city = ''; // We won't fetch geolocation on every page — too slow
+    // --- Unified surveillance bar ---
+    function createBar() {
         const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const browserStr = visit.browser;
         const deviceStr = visit.deviceType === 'mobile' ? 'phone' : 'desktop';
 
-        footer.innerHTML = `
-            <span class="sf-text">
-                This page knows you're on ${browserStr} (${deviceStr}) at ${timeStr}.
-                <a href="/miniprojects/your-history/" class="sf-link">See everything we know &rarr;</a>
-                <span class="sf-local">All data stays in your browser. Nothing is sent to us.</span>
-            </span>
-            <button class="sf-close" aria-label="Dismiss">&times;</button>
+        const bar = document.createElement('div');
+        bar.id = 'sv-bar';
+        bar.innerHTML = `
+            <div class="sv-summary">
+                <span class="sv-eye">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </span>
+                <span class="sv-info">This page knows you're on ${browserStr} (${deviceStr}) at ${timeStr}.</span>
+                <a href="/miniprojects/your-history/" class="sv-link">Full report &rarr;</a>
+                <button class="sv-toggle" aria-label="Expand details">&#9650;</button>
+                <button class="sv-close" aria-label="Dismiss">&times;</button>
+            </div>
+            <div class="sv-details">
+                <div class="sv-details-inner" id="sv-details-inner"></div>
+                <div class="sv-local">All data stored locally in your browser. Nothing sent to any server.</div>
+            </div>
         `;
 
-        // Styles
         const style = document.createElement('style');
         style.textContent = `
-            #surveillance-footer {
+            #sv-bar {
                 position: fixed;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                background: rgba(10, 0, 20, 0.92);
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
+                background: rgba(10, 0, 20, 0.94);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
                 border-top: 1px solid rgba(0, 240, 255, 0.15);
-                padding: 10px 16px;
                 font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
                 font-size: 11px;
                 color: rgba(184, 168, 216, 0.7);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 12px;
                 z-index: 10000;
                 transform: translateY(100%);
                 transition: transform 0.5s ease;
             }
-            #surveillance-footer.visible {
-                transform: translateY(0);
+            #sv-bar.visible { transform: translateY(0); }
+
+            .sv-summary {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 14px;
             }
-            #surveillance-footer .sf-link {
-                color: rgba(0, 240, 255, 0.8);
+            .sv-eye {
+                color: rgba(0, 240, 255, 0.5);
+                display: flex;
+                align-items: center;
+                flex-shrink: 0;
+            }
+            .sv-info { flex: 1; min-width: 0; }
+            .sv-link {
+                color: rgba(0, 240, 255, 0.7);
                 text-decoration: none;
-                margin-left: 6px;
+                white-space: nowrap;
+                flex-shrink: 0;
             }
-            #surveillance-footer .sf-link:hover {
-                color: #00f0ff;
-                text-decoration: underline;
-            }
-            #surveillance-footer .sf-close {
+            .sv-link:hover { color: #00f0ff; text-decoration: underline; }
+            .sv-toggle, .sv-close {
                 background: none;
                 border: none;
                 color: rgba(184, 168, 216, 0.4);
-                font-size: 16px;
+                font-size: 12px;
                 cursor: pointer;
-                padding: 0 4px;
+                padding: 2px 4px;
                 line-height: 1;
+                flex-shrink: 0;
             }
-            #surveillance-footer .sf-local {
-                display: block;
-                font-size: 9px;
-                opacity: 0.4;
-                margin-top: 2px;
-            }
-            #surveillance-footer .sf-close:hover {
-                color: rgba(255, 16, 240, 0.8);
-            }
+            .sv-toggle:hover, .sv-close:hover { color: rgba(0, 240, 255, 0.8); }
+            .sv-toggle.open { transform: rotate(180deg); }
 
-            /* Easter egg eye icon */
-            #surveillance-eye {
-                position: fixed;
-                bottom: 50px;
-                right: 16px;
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                background: rgba(10, 0, 20, 0.85);
-                border: 1px solid rgba(0, 240, 255, 0.2);
-                cursor: pointer;
-                z-index: 10001;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 14px;
-                transition: all 0.3s ease;
-                opacity: 0;
-                transform: scale(0.8);
+            .sv-details {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease, padding 0.4s ease;
+                padding: 0 14px;
             }
-            #surveillance-eye.visible {
-                opacity: 1;
-                transform: scale(1);
-            }
-            #surveillance-eye:hover {
-                border-color: rgba(0, 240, 255, 0.6);
-                background: rgba(10, 0, 20, 0.95);
-                transform: scale(1.1);
-            }
-
-            /* Easter egg panel */
-            #surveillance-panel {
-                position: fixed;
-                bottom: 90px;
-                right: 16px;
-                width: 280px;
+            .sv-details.open {
                 max-height: 400px;
+                padding: 0 14px 10px;
                 overflow-y: auto;
-                background: rgba(10, 0, 20, 0.95);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                border: 1px solid rgba(0, 240, 255, 0.2);
-                border-radius: 4px;
-                padding: 14px;
-                font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+            }
+            .sv-details-inner {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3px 16px;
                 font-size: 10px;
-                color: rgba(184, 168, 216, 0.8);
-                z-index: 10001;
-                display: none;
-                line-height: 1.6;
+                line-height: 1.7;
             }
-            #surveillance-panel.open {
-                display: block;
-            }
-            #surveillance-panel .sp-title {
-                color: #ff10f0;
-                font-size: 11px;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                margin-bottom: 10px;
-            }
-            #surveillance-panel .sp-line {
-                margin-bottom: 4px;
-            }
-            #surveillance-panel .sp-label {
-                color: rgba(184, 168, 216, 0.5);
-            }
-            #surveillance-panel .sp-value {
-                color: #00f0ff;
-            }
-            #surveillance-panel .sp-warn {
-                color: #ffaa00;
-            }
-            #surveillance-panel .sp-section {
-                color: rgba(255, 16, 240, 0.6);
+            .sv-details .sv-dl { color: rgba(184, 168, 216, 0.45); }
+            .sv-details .sv-dv { color: #00f0ff; }
+            .sv-details .sv-dw { color: #ffaa00; }
+            .sv-details .sv-section {
+                grid-column: 1 / -1;
+                color: rgba(255, 16, 240, 0.5);
                 font-size: 9px;
                 text-transform: uppercase;
                 letter-spacing: 0.1em;
-                margin-top: 10px;
-                margin-bottom: 4px;
-                border-top: 1px solid rgba(0, 240, 255, 0.1);
-                padding-top: 8px;
+                margin-top: 6px;
+                padding-top: 6px;
+                border-top: 1px solid rgba(0, 240, 255, 0.08);
             }
-            #surveillance-panel .sp-footer {
-                margin-top: 10px;
-                padding-top: 8px;
-                border-top: 1px solid rgba(0, 240, 255, 0.1);
+            .sv-details .sv-full { grid-column: 1 / -1; }
+            .sv-local {
+                font-size: 8px;
+                opacity: 0.3;
                 text-align: center;
+                margin-top: 6px;
             }
-            #surveillance-panel .sp-footer a {
-                color: #00f0ff;
-                text-decoration: none;
-                font-size: 10px;
-            }
-            #surveillance-panel .sp-footer a:hover {
-                text-decoration: underline;
-            }
+
             @media (max-width: 600px) {
-                #surveillance-panel { width: calc(100vw - 32px); right: 16px; }
-                #surveillance-footer { font-size: 10px; padding: 8px 12px; }
+                #sv-bar { font-size: 10px; }
+                .sv-summary { padding: 6px 10px; gap: 6px; }
+                .sv-details-inner { grid-template-columns: 1fr; }
+                .sv-link { display: none; }
             }
         `;
 
         document.head.appendChild(style);
-        document.body.appendChild(footer);
+        document.body.appendChild(bar);
 
-        // Show footer after 5 seconds, unless dismissed before
-        const dismissed = sessionStorage.getItem('_an_footer_dismissed');
-        if (!dismissed) {
-            setTimeout(() => footer.classList.add('visible'), 5000);
+        // Show after 5s unless dismissed
+        if (!sessionStorage.getItem('_an_bar_dismissed')) {
+            setTimeout(() => bar.classList.add('visible'), 5000);
         }
 
-        footer.querySelector('.sf-close').addEventListener('click', function() {
-            footer.classList.remove('visible');
-            sessionStorage.setItem('_an_footer_dismissed', '1');
+        // Close
+        bar.querySelector('.sv-close').addEventListener('click', function() {
+            bar.classList.remove('visible');
+            sessionStorage.setItem('_an_bar_dismissed', '1');
         });
-    }
 
-    // --- Easter egg eye + panel ---
-    function createEasterEgg() {
-        // Eye icon
-        const eye = document.createElement('div');
-        eye.id = 'surveillance-eye';
-        eye.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(0,240,255,0.6)" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
-        document.body.appendChild(eye);
+        // Toggle details
+        const toggleBtn = bar.querySelector('.sv-toggle');
+        const details = bar.querySelector('.sv-details');
+        let expanded = false;
 
-        // Panel
-        const panel = document.createElement('div');
-        panel.id = 'surveillance-panel';
-        document.body.appendChild(panel);
-
-        // Show eye after 8 seconds
-        setTimeout(() => eye.classList.add('visible'), 8000);
-
-        let panelOpen = false;
-        eye.addEventListener('click', function() {
-            panelOpen = !panelOpen;
-            if (panelOpen) {
-                updatePanel();
-                panel.classList.add('open');
-                eye.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,16,240,0.8)" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+        toggleBtn.addEventListener('click', function() {
+            expanded = !expanded;
+            if (expanded) {
+                updateDetails();
+                details.classList.add('open');
+                toggleBtn.classList.add('open');
             } else {
-                panel.classList.remove('open');
-                eye.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(0,240,255,0.6)" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+                details.classList.remove('open');
+                toggleBtn.classList.remove('open');
             }
         });
+
+        // Update details periodically when open
+        setInterval(function() {
+            if (expanded) updateDetails();
+        }, 2000);
     }
 
-    function updatePanel() {
-        const panel = document.getElementById('surveillance-panel');
-        if (!panel) return;
+    function updateDetails() {
+        const inner = document.getElementById('sv-details-inner');
+        if (!inner) return;
 
         const history = JSON.parse(localStorage.getItem('_an_visits') || '[]');
         const totalVisits = history.length;
         const uniquePages = [...new Set(history.map(v => v.page))];
         const totalTime = history.reduce((sum, v) => sum + (v.timeOnPage || 0), 0);
 
-        let html = '<div class="sp-title">What this page knows</div>';
+        let html = '';
 
-        // Current session
-        html += '<div class="sp-line"><span class="sp-label">Browser:</span> <span class="sp-value">' + visit.browser + '</span></div>';
-        html += '<div class="sp-line"><span class="sp-label">Device:</span> <span class="sp-value">' + visit.deviceType + '</span></div>';
-        html += '<div class="sp-line"><span class="sp-label">Screen:</span> <span class="sp-value">' + screen.width + '×' + screen.height + '</span></div>';
-        html += '<div class="sp-line"><span class="sp-label">Dark mode:</span> <span class="sp-value">' + (visit.darkMode ? 'yes' : 'no') + '</span></div>';
-        html += '<div class="sp-line"><span class="sp-label">Time on page:</span> <span class="sp-value">' + visit.timeOnPage + 's</span></div>';
-        html += '<div class="sp-line"><span class="sp-label">Scroll depth:</span> <span class="sp-value">' + visit.scrollDepthMax + '%</span></div>';
+        // Current page stats
+        html += `<span class="sv-dl">Browser</span><span class="sv-dv">${visit.browser}</span>`;
+        html += `<span class="sv-dl">Device</span><span class="sv-dv">${visit.deviceType}</span>`;
+        html += `<span class="sv-dl">Screen</span><span class="sv-dv">${screen.width}&times;${screen.height}</span>`;
+        html += `<span class="sv-dl">Dark mode</span><span class="sv-dv">${visit.darkMode ? 'yes' : 'no'}</span>`;
+        html += `<span class="sv-dl">Time on page</span><span class="sv-dv">${visit.timeOnPage}s</span>`;
+        html += `<span class="sv-dl">Scroll depth</span><span class="sv-dv">${visit.scrollDepthMax}%</span>`;
 
         // Link hovers
         if (visit.linksHovered.length > 0) {
-            html += '<div class="sp-section">Link hover prediction</div>';
-            const sorted = [...visit.linksHovered].sort((a, b) => b.duration - a.duration).slice(0, 5);
+            html += '<div class="sv-section">Link hover prediction</div>';
+            const sorted = [...visit.linksHovered].sort((a, b) => b.duration - a.duration).slice(0, 3);
             sorted.forEach(h => {
-                const text = h.text || h.href;
-                html += '<div class="sp-line"><span class="sp-warn">' + text.substring(0, 30) + '</span> <span class="sp-label">' + h.duration + 'ms</span></div>';
+                const text = (h.text || h.href).substring(0, 25);
+                html += `<span class="sv-dw">${text}</span><span class="sv-dl">${h.duration}ms</span>`;
             });
-            html += '<div class="sp-line" style="margin-top:4px;"><span class="sp-label">Longest hover = most likely click. Chrome would have already preloaded it.</span></div>';
+            html += '<div class="sv-full" style="font-size:9px; opacity:0.5; margin-top:2px;">Longest hover = most likely click. Chrome would preload it.</div>';
         }
 
         // Cross-site history
         if (totalVisits > 1) {
-            html += '<div class="sp-section">Your history on this site</div>';
-            html += '<div class="sp-line"><span class="sp-label">Total visits:</span> <span class="sp-warn">' + totalVisits + '</span></div>';
-            html += '<div class="sp-line"><span class="sp-label">Pages seen:</span> <span class="sp-warn">' + uniquePages.length + '</span></div>';
-            html += '<div class="sp-line"><span class="sp-label">Total time:</span> <span class="sp-warn">' + totalTime + 's</span></div>';
+            html += '<div class="sv-section">Your history on this site</div>';
+            html += `<span class="sv-dl">Total visits</span><span class="sv-dw">${totalVisits}</span>`;
+            html += `<span class="sv-dl">Pages seen</span><span class="sv-dw">${uniquePages.length}</span>`;
+            html += `<span class="sv-dl">Total time</span><span class="sv-dw">${totalTime}s</span>`;
 
-            // Last 3 pages visited
             const recent = history.filter(v => v.page !== visit.page).slice(-3).reverse();
             if (recent.length > 0) {
-                html += '<div class="sp-line" style="margin-top:4px;"><span class="sp-label">Recent pages:</span></div>';
+                html += '<div class="sv-full" style="margin-top:4px;"><span class="sv-dl">Recent:</span></div>';
                 recent.forEach(v => {
                     const time = new Date(v.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                    const title = (v.title || v.page).substring(0, 30);
-                    html += '<div class="sp-line"><span class="sp-value">' + title + '</span> <span class="sp-label">' + time + '</span></div>';
+                    const title = (v.title || v.page).substring(0, 25);
+                    html += `<span class="sv-dv">${title}</span><span class="sv-dl">${time}</span>`;
                 });
             }
         }
 
-        html += '<div class="sp-footer"><a href="/miniprojects/your-history/">See the full report &rarr;</a><div style="margin-top:6px; font-size:8px; opacity:0.35;">All data stored locally in your browser. Nothing sent to any server.</div></div>';
+        // Full report link at bottom of details
+        html += `<div class="sv-full" style="text-align:center; margin-top:8px; padding-top:6px; border-top:1px solid rgba(0,240,255,0.08);"><a href="/miniprojects/your-history/" style="color:#00f0ff; text-decoration:none; font-size:10px;">See the full report &rarr;</a></div>`;
 
-        panel.innerHTML = html;
+        inner.innerHTML = html;
     }
-
-    // Periodically update panel if open
-    setInterval(function() {
-        const panel = document.getElementById('surveillance-panel');
-        if (panel && panel.classList.contains('open')) updatePanel();
-    }, 2000);
 
     // --- Initialize ---
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() { createFooter(); createEasterEgg(); });
+        document.addEventListener('DOMContentLoaded', createBar);
     } else {
-        createFooter();
-        createEasterEgg();
+        createBar();
     }
 })();
