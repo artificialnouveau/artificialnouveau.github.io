@@ -627,6 +627,7 @@
                 <p>Everything above was collected in that many seconds, using <span class="emphasis">zero permissions</span>.</p>
                 <p>No cookies. No popups. No "accept all." Just your browser, doing what browsers do.</p>
                 <p><span class="emphasis">Every website you visit can see all of this.</span><br>Most just don't tell you.</p>
+                <p><span class="emphasis">None of this data leaves your browser.</span> Everything you see here is collected and stored locally — in your browser's memory and localStorage. Nothing is sent to any server. I have no access to it. This was a conscious decision. The point isn't to surveil you. It's to show you what surveillance looks like.</p>
                 <details class="privacy-tips">
                     <summary>Want to reduce your fingerprint?</summary>
                     <ul>
@@ -1428,6 +1429,41 @@
             } else {
                 await addLine(`<span class="prompt">&gt;</span> <span class="label">WebGPU:</span> <span class="value">not available (older browser)</span>`, 70);
             }
+
+            // ═══════════════════════════════════
+            // CROSS-SITE HISTORY
+            // ═══════════════════════════════════
+            try {
+                const visitHistory = JSON.parse(localStorage.getItem('_an_visits') || '[]');
+                if (visitHistory.length > 0) {
+                    await addCategory('Your History on This Site');
+                    const uniquePages = [...new Set(visitHistory.map(v => v.page))];
+                    const totalTime = visitHistory.reduce((sum, v) => sum + (v.timeOnPage || 0), 0);
+                    await addLine(`<span class="prompt">&gt;</span> <span class="label">Pages visited:</span> <span class="warn">${visitHistory.length} visits across ${uniquePages.length} pages</span>`, 90);
+                    await addLine(`<span class="prompt">&gt;</span> <span class="label">Total time on site:</span> <span class="warn">${totalTime}s</span>`, 70);
+
+                    // Show recent pages
+                    const recent = visitHistory.slice(-5).reverse();
+                    for (const v of recent) {
+                        const time = new Date(v.timestamp).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                        const title = (v.title || v.page).substring(0, 40);
+                        const depth = v.scrollDepthMax || 0;
+                        await addLine(`<span class="prompt">&gt;</span> <span class="value">${title}</span> <span class="label">${time} · ${v.timeOnPage || 0}s · scrolled ${depth}%</span>`, 60);
+                    }
+
+                    // Link hover data from other pages
+                    const allHovers = visitHistory.flatMap(v => (v.linksHovered || []).map(h => ({ ...h, page: v.page })));
+                    if (allHovers.length > 0) {
+                        const sorted = allHovers.sort((a, b) => b.duration - a.duration).slice(0, 3);
+                        await addLine(`<span class="prompt">&gt;</span> <span class="label">Links you almost clicked:</span>`, 70);
+                        for (const h of sorted) {
+                            await addLine(`<span class="prompt">&gt;</span> <span class="warn">"${(h.text || h.href).substring(0, 35)}"</span> <span class="label">hovered ${h.duration}ms</span>`, 50);
+                        }
+                    }
+
+                    await addLine(`<span class="prompt">&gt;</span> <span class="value">We were tracking you before you arrived here.</span>`, 120);
+                }
+            } catch(e) {}
 
             // ═══════════════════════════════════
             // DONE
@@ -2509,6 +2545,31 @@
                 const val = e.target.value;
                 if (emojiRegex.test(val.slice(-4))) {
                     addLiveAssumption('emoji', 'You typed an emoji. We judge you fondly.', 'emoji character detected in input event');
+                }
+            }
+        });
+
+        // Link hover prediction
+        const linkHoverTimers = {};
+        document.addEventListener('mouseover', function(e) {
+            const link = e.target.closest('a');
+            if (!link || !link.href) return;
+            const href = link.getAttribute('href') || link.href;
+            const text = (link.textContent || '').trim().substring(0, 40);
+            linkHoverTimers[href] = { start: performance.now(), text: text };
+        });
+        document.addEventListener('mouseout', function(e) {
+            const link = e.target.closest('a');
+            if (!link || !link.href) return;
+            const href = link.getAttribute('href') || link.href;
+            if (linkHoverTimers[href]) {
+                const dur = Math.round(performance.now() - linkHoverTimers[href].start);
+                const text = linkHoverTimers[href].text;
+                delete linkHoverTimers[href];
+                if (dur > 800) {
+                    addLiveAssumption('hover-' + href.substring(0, 20),
+                        `You hovered over "${text}" for ${(dur/1000).toFixed(1)}s. Chrome would have already started loading that page for you.`,
+                        `mouseover duration: ${dur}ms on <a href="${href}">`);
                 }
             }
         });
