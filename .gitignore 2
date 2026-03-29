@@ -1,0 +1,25 @@
+*.gem
+.bundle
+.jekyll-cache
+.sass-cache
+_site
+Gemfile.lock
+.DS_Store
+__pycache__/
+*.pyc
+
+# Workshop slides (draft)
+workshops/hku2025_slides/
+
+# Portfolio PDFs
+portfolio-4projects.pdf
+portfolio-4projects.html
+femicide/articles_data.json
+femicide/scrape.py
+femicide/ew_data.json
+femicide/telegraaf_data.json
+femicide/telegraaf_urls.json
+artnoudrones/
+zhuparris_portfolio-4projects.pdf
+portfolio-4projects.html
+CLAUDE.md

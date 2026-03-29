@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome Extension Ideas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --card-bg: #12121a;
+            --border: #1e1e2e;
+            --text: #c9c9d9;
+            --text-muted: #6e6e8a;
+            --accent-green: #00e87b;
+            --accent-pink: #ff10f0;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #8b5cf6;
+            --accent-yellow: #fbbf24;
+            --accent-orange: #f97316;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            margin-bottom: 2.5rem;
+        }
+
+        .header h1 {
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            margin-bottom: 0.3rem;
+        }
+
+        .header h1::before { content: '> '; color: var(--accent-pink); }
+
+        .header p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .tier {
+            margin-bottom: 2.5rem;
+        }
+
+        .tier-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tier-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .tier-high .tier-badge { background: var(--accent-green); color: #000; }
+        .tier-medium .tier-badge { background: var(--accent-purple); color: #fff; }
+        .tier-fast .tier-badge { background: var(--accent-orange); color: #000; }
+
+        .tier-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.25rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+
+        .card:hover { border-color: var(--accent-cyan); }
+
+        .card-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-name::before {
+            content: '$ ';
+            color: var(--accent-pink);
+        }
+
+        .card-desc {
+            font-size: 0.75rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tag {
+            font-size: 0.6rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 2px;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .tag-audience {
+            background: rgba(255, 16, 240, 0.1);
+            color: var(--accent-pink);
+            border-color: rgba(255, 16, 240, 0.2);
+        }
+
+        .tag-price {
+            background: rgba(0, 232, 123, 0.1);
+            color: var(--accent-green);
+            border-color: rgba(0, 232, 123, 0.2);
+        }
+
+        .card-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.6rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 2px;
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--accent-yellow);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .summary {
+            margin-top: 2rem;
+            padding: 1.25rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .summary strong { color: var(--accent-cyan); }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Chrome Extension Ideas</h1>
+        <p>Profitable extensions based on existing skills and audience</p>
+    </div>
+
+    <div class="tier tier-high">
+        <div class="tier-header">
+            <span class="tier-badge">$$$</span>
+            <span class="tier-title">High Profit Potential</span>
+        </div>
+        <div class="grid">
+
+            <div class="card">
+                <div class="card-status">idea</div>
+                <div class="card-name">Alt-Text Generator</div>
+                <div class="card-desc">Auto-generates descriptive alt-text for any image on a page using vision models. Sell to web developers, content teams, accessibility consultants. Freemium model: 50 images/month free, then paid tier. The EU Accessibility Act is creating real demand for this right now.</div>
+                <div class="card-meta">
+                    <span class="tag">computer vision</span>
+                    <span class="tag">accessibility</span>
+                    <span class="tag-audience tag">devs / content teams</span>
+                    <span class="tag-price tag">$5-10/mo</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-status">idea</div>
+                <div class="card-name">AI Media Bias Highlighter</div>
+                <div class="card-desc">Highlights loaded language, framing techniques, and sourcing patterns in news articles as you read them. Basically what you do at Harmony Labs but packaged as a consumer tool. Freemium or donation-supported. Could also license to newsrooms and media literacy educators.</div>
+                <div class="card-meta">
+                    <span class="tag">NLP</span>
+                    <span class="tag">media analysis</span>
+                    <span class="tag-audience tag">journalists / educators</span>
+                    <span class="tag-price tag">freemium / license</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-status">idea</div>
+                <div class="card-name">Fake / AI-Generated Image Detector</div>
+                <div class="card-desc">Right-click any image to check if it's AI-generated or manipulated. You have deepfake expertise and the audience trusts you on this topic. Journalists, researchers, and fact-checkers would pay for this.</div>
+                <div class="card-meta">
+                    <span class="tag">deepfake detection</span>
+                    <span class="tag">computer vision</span>
+                    <span class="tag-audience tag">journalists / fact-checkers</span>
+                    <span class="tag-price tag">$3-8/mo</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="tier tier-medium">
+        <div class="tier-header">
+            <span class="tier-badge">$$</span>
+            <span class="tier-title">Medium Profit, Strong Niche</span>
+        </div>
+        <div class="grid">
+
+            <div class="card">
+                <div class="card-status">idea</div>
+                <div class="card-name">Screen-to-Soundscape Extension</div>
+                <div class="card-desc">You already built this as a standalone tool. Package it as a browser extension that spatializes any webpage's content into audio. Accessibility market is growing and this is genuinely novel. Could partner with screen reader companies or sell directly.</div>
+                <div class="card-meta">
+                    <span class="tag">spatial audio</span>
+                    <span class="tag">accessibility</span>
+                    <span class="tag-audience tag">blind / VI users</span>
+                    <span class="tag-price tag">partnership / direct</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-status">idea</div>
+                <div class="card-name">Research Network Analyzer</div>
+                <div class="card-desc">Paste a topic or author name, get a visual map of the co-authorship network, funding sources, and industry ties. You built this for nicotine research already. Academics and journalists investigating conflicts of interest would pay for it.</div>
+                <div class="card-meta">
+                    <span class="tag">network analysis</span>
+                    <span class="tag">data viz</span>
+                    <span class="tag-audience tag">academics / journalists</span>
+                    <span class="tag-price tag">$10/mo</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-status">idea</div>
+                <div class="card-name">Voice Anonymizer</div>
+                <div class="card-desc">Record or upload audio, get a voice-converted version that preserves content but masks identity. For whistleblowers, journalists, activists. Your voice cloning expertise in reverse. One-time purchase or credits model.</div>
+                <div class="card-meta">
+                    <span class="tag">voice cloning</span>
+                    <span class="tag">privacy</span>
+                    <span class="tag-audience tag">whistleblowers / journalists</span>
+                    <span class="tag-price tag">one-time / credits</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="tier tier-fast">
+        <div class="tier-header">
+            <span class="tier-badge">fast</span>
+            <span class="tier-title">Easiest to Build and Ship</span>
+        </div>
+        <div class="grid">
+
+            <div class="card">
+                <div class="card-status">idea</div>
+                <div class="card-name">Image Dataset Scraper + Organizer</div>
+                <div class="card-desc">Right-click to collect images from any page into labeled, organized datasets ready for ML training. Artists and researchers building custom models need this constantly. You know the workflow because you do it yourself.</div>
+                <div class="card-meta">
+                    <span class="tag">data collection</span>
+                    <span class="tag">ML workflow</span>
+                    <span class="tag-audience tag">artists / researchers</span>
+                    <span class="tag-price tag">$5/mo</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-status">idea</div>
+                <div class="card-name">Social Media Audit Tool</div>
+                <div class="card-desc">Analyze any public profile or feed for posting patterns, engagement manipulation signals, bot-like behavior. Lightweight NLP on visible content. Journalists and researchers are the buyers.</div>
+                <div class="card-meta">
+                    <span class="tag">NLP</span>
+                    <span class="tag">bot detection</span>
+                    <span class="tag-audience tag">journalists / researchers</span>
+                    <span class="tag-price tag">TBD</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="summary">
+        <strong>Top picks:</strong> The alt-text generator and AI image detector have the biggest markets and the clearest "why would someone pay for this" answer. The media bias highlighter is the most aligned with your existing work and could get press coverage from existing interest in your research.
+    </div>
+
+</body>
+</html>

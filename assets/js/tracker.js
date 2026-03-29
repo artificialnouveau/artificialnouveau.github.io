@@ -2,7 +2,7 @@
  * Site-wide passive tracker for artificialnouveau.com
  * Silently collects browsing data, stores in localStorage.
  * Shows a unified surveillance bar at the bottom.
- * Data is surfaced on /miniprojects/your-history/
+ * Data is surfaced on /smalltools/your-history/
  */
 (function() {
     'use strict';
@@ -118,7 +118,7 @@
                 </span>
                 <span class="sv-info">This page knows you're on ${browserStr} (${deviceStr}) at ${timeStr}.</span>
                 <button class="sv-toggle" aria-label="Expand details">Mini tracking report</button>
-                <a href="/miniprojects/your-history/" class="sv-link" id="sv-full-link">Full report &rarr;</a>
+                <a href="/smalltools/your-history/" class="sv-link" id="sv-full-link">Full report &rarr;</a>
                 <button class="sv-close" aria-label="Dismiss">&times;</button>
             </div>
             <div class="sv-details">
@@ -347,7 +347,7 @@
         }
 
         // Full report link at bottom of details
-        html += `<div class="sv-full" style="text-align:center; margin-top:8px; padding-top:6px; border-top:1px solid rgba(0,240,255,0.08);"><a href="/miniprojects/your-history/" style="color:#00f0ff; text-decoration:none; font-size:10px;">See the full report &rarr;</a></div>`;
+        html += `<div class="sv-full" style="text-align:center; margin-top:8px; padding-top:6px; border-top:1px solid rgba(0,240,255,0.08);"><a href="/smalltools/your-history/" style="color:#00f0ff; text-decoration:none; font-size:10px;">See the full report &rarr;</a></div>`;
 
         inner.innerHTML = html;
     }

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" font-family="Inter, Helvetica, Arial, sans-serif">
+
+  <rect width="1200" height="900" fill="#0a0a0a"/>
+
+  <!-- Title -->
+  <text x="600" y="55" fill="#ffffff" font-size="32" font-weight="bold" text-anchor="middle">GEEN BEZWAAR MOGELIJK</text>
+  <text x="600" y="85" fill="#888" font-size="16" text-anchor="middle">No Objection Possible</text>
+  <line x1="100" y1="110" x2="1100" y2="110" stroke="#444" stroke-width="1"/>
+
+  <text x="600" y="150" fill="#cccccc" font-size="24" font-weight="bold" text-anchor="middle">SCHEMATIC 1: ALGORITHMIC DATA FLOW</text>
+  <text x="600" y="180" fill="#777777" font-size="15" text-anchor="middle">How the Belastingdienst risk-classification system processed benefit applicants</text>
+
+  <!-- INPUT LAYER -->
+  <text x="120" y="230" fill="#ff6b6b" font-size="18" font-weight="bold">INPUT LAYER</text>
+
+  <rect x="60" y="250" width="190" height="60" rx="5" fill="none" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="155" y="276" fill="#ff6b6b" font-size="15" text-anchor="middle">Nationality</text>
+  <text x="155" y="296" fill="#ff6b6b" font-size="12" text-anchor="middle">(incl. dual nationality)</text>
+
+  <rect x="270" y="250" width="190" height="60" rx="5" fill="none" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="365" y="276" fill="#ff6b6b" font-size="15" text-anchor="middle">Income Data</text>
+  <text x="365" y="296" fill="#ff6b6b" font-size="12" text-anchor="middle">(household, employment)</text>
+
+  <rect x="480" y="250" width="190" height="60" rx="5" fill="none" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="575" y="276" fill="#ff6b6b" font-size="15" text-anchor="middle">Childcare Provider</text>
+  <text x="575" y="296" fill="#ff6b6b" font-size="12" text-anchor="middle">(gastouderbureau ID)</text>
+
+  <rect x="690" y="250" width="190" height="60" rx="5" fill="none" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="785" y="276" fill="#ff6b6b" font-size="15" text-anchor="middle">Address / Postcode</text>
+  <text x="785" y="296" fill="#ff6b6b" font-size="12" text-anchor="middle">(neighbourhood risk)</text>
+
+  <rect x="900" y="250" width="190" height="60" rx="5" fill="none" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="995" y="276" fill="#ff6b6b" font-size="15" text-anchor="middle">Prior Claims</text>
+  <text x="995" y="296" fill="#ff6b6b" font-size="12" text-anchor="middle">(correction history)</text>
+
+  <!-- Arrows to risk scoring -->
+  <line x1="155" y1="310" x2="545" y2="380" stroke="#ff6b6b" stroke-width="1.5" opacity="0.5"/>
+  <line x1="365" y1="310" x2="545" y2="380" stroke="#ff6b6b" stroke-width="1.5" opacity="0.5"/>
+  <line x1="575" y1="310" x2="575" y2="380" stroke="#ff6b6b" stroke-width="1.5" opacity="0.5"/>
+  <line x1="785" y1="310" x2="605" y2="380" stroke="#ff6b6b" stroke-width="1.5" opacity="0.5"/>
+  <line x1="995" y1="310" x2="605" y2="380" stroke="#ff6b6b" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- DECISION LAYER -->
+  <text x="120" y="370" fill="#ffa94d" font-size="18" font-weight="bold">DECISION LAYER</text>
+
+  <rect x="400" y="380" width="350" height="70" rx="6" fill="#ffa94d" fill-opacity="0.15" stroke="#ffa94d" stroke-width="2.5"/>
+  <text x="575" y="410" fill="#ffa94d" font-size="18" font-weight="bold" text-anchor="middle">RISK SCORING MODEL</text>
+  <text x="575" y="435" fill="#ffa94d" font-size="13" text-anchor="middle">Weighted composite score generated</text>
+
+  <!-- Score branches -->
+  <line x1="575" y1="450" x2="330" y2="520" stroke="#ffa94d" stroke-width="2"/>
+  <line x1="575" y1="450" x2="820" y2="520" stroke="#ffa94d" stroke-width="2"/>
+
+  <!-- Low risk -->
+  <rect x="210" y="520" width="240" height="55" rx="5" fill="none" stroke="#51cf66" stroke-width="2"/>
+  <text x="330" y="546" fill="#51cf66" font-size="16" text-anchor="middle">LOW RISK</text>
+  <text x="330" y="566" fill="#51cf66" font-size="13" text-anchor="middle">Benefits continue</text>
+
+  <!-- High risk -->
+  <rect x="700" y="520" width="240" height="55" rx="5" fill="none" stroke="#ff6b6b" stroke-width="2.5"/>
+  <text x="820" y="546" fill="#ff6b6b" font-size="16" font-weight="bold" text-anchor="middle">HIGH RISK FLAG</text>
+  <text x="820" y="566" fill="#ff6b6b" font-size="13" text-anchor="middle">Escalated for "fraud"</text>
+
+  <!-- Arrow down -->
+  <line x1="820" y1="575" x2="820" y2="620" stroke="#ff6b6b" stroke-width="2"/>
+  <polygon points="813,620 827,620 820,632" fill="#ff6b6b"/>
+
+  <!-- No human review -->
+  <rect x="940" y="560" width="230" height="50" rx="5" fill="#ff6b6b" fill-opacity="0.1" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="1055" y="582" fill="#ff6b6b" font-size="14" text-anchor="middle" font-style="italic">Often no human review</text>
+  <text x="1055" y="600" fill="#ff6b6b" font-size="14" text-anchor="middle" font-style="italic">at this stage</text>
+  <line x1="940" y1="585" x2="900" y2="570" stroke="#ff6b6b" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- CONSEQUENCE LAYER -->
+  <text x="120" y="650" fill="#e599f7" font-size="18" font-weight="bold">CONSEQUENCE LAYER</text>
+
+  <rect x="640" y="635" width="360" height="50" rx="5" fill="none" stroke="#e599f7" stroke-width="2"/>
+  <text x="820" y="658" fill="#e599f7" font-size="15" text-anchor="middle">Benefits terminated immediately</text>
+  <text x="820" y="676" fill="#e599f7" font-size="13" text-anchor="middle">Full repayment demanded (EUR 10,000 - 80,000+)</text>
+
+  <line x1="820" y1="685" x2="820" y2="715" stroke="#e599f7" stroke-width="1.5"/>
+  <polygon points="813,715 827,715 820,725" fill="#e599f7"/>
+
+  <rect x="640" y="725" width="360" height="45" rx="5" fill="none" stroke="#e599f7" stroke-width="2"/>
+  <text x="820" y="753" fill="#e599f7" font-size="15" text-anchor="middle">Appeals rejected / ignored</text>
+
+  <line x1="820" y1="770" x2="820" y2="795" stroke="#e599f7" stroke-width="1.5"/>
+  <polygon points="813,795 827,795 820,805" fill="#e599f7"/>
+
+  <!-- Human cost boxes -->
+  <rect x="160" y="810" width="190" height="55" rx="5" fill="#e599f7" fill-opacity="0.12" stroke="#e599f7" stroke-width="1.5"/>
+  <text x="255" y="835" fill="#e599f7" font-size="14" text-anchor="middle">Debt collection</text>
+  <text x="255" y="855" fill="#e599f7" font-size="12" text-anchor="middle">Wage garnishment</text>
+
+  <rect x="370" y="810" width="190" height="55" rx="5" fill="#e599f7" fill-opacity="0.12" stroke="#e599f7" stroke-width="1.5"/>
+  <text x="465" y="835" fill="#e599f7" font-size="14" text-anchor="middle">Housing loss</text>
+  <text x="465" y="855" fill="#e599f7" font-size="12" text-anchor="middle">Evictions</text>
+
+  <rect x="580" y="810" width="190" height="55" rx="5" fill="#e599f7" fill-opacity="0.12" stroke="#e599f7" stroke-width="1.5"/>
+  <text x="675" y="835" fill="#e599f7" font-size="14" text-anchor="middle">Family separation</text>
+  <text x="675" y="855" fill="#e599f7" font-size="12" text-anchor="middle">Children in state care</text>
+
+  <rect x="790" y="810" width="190" height="55" rx="5" fill="#e599f7" fill-opacity="0.12" stroke="#e599f7" stroke-width="1.5"/>
+  <text x="885" y="835" fill="#e599f7" font-size="14" text-anchor="middle">Mental health crisis</text>
+  <text x="885" y="855" fill="#e599f7" font-size="12" text-anchor="middle">Suicides</text>
+
+  <!-- Scale annotation -->
+  <rect x="60" y="810" width="80" height="55" rx="5" fill="none" stroke="#777" stroke-width="1" stroke-dasharray="5,4"/>
+  <text x="100" y="835" fill="#999" font-size="13" text-anchor="middle" font-style="italic">~26,000</text>
+  <text x="100" y="853" fill="#999" font-size="13" text-anchor="middle" font-style="italic">families</text>
+
+</svg>
