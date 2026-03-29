@@ -2,13 +2,13 @@
  * Site-wide passive tracker for artificialnouveau.com
  * Silently collects browsing data, stores in localStorage.
  * Shows a subtle surveillance footer + Easter egg panel.
- * Data is surfaced on /miniprojects/the-algorithm/
+ * Data is surfaced on /miniprojects/tracking-you/
  */
 (function() {
     'use strict';
 
     // Don't run on the tracking page itself
-    if (window.location.pathname.includes('/the-algorithm')) return;
+    if (window.location.pathname.includes('/tracking-you')) return;
 
     // --- Data collection ---
     const visit = {
@@ -129,7 +129,7 @@
         footer.innerHTML = `
             <span class="sf-text">
                 This page knows you're on ${browserStr} (${deviceStr}) at ${timeStr}.
-                <a href="/miniprojects/the-algorithm/" class="sf-link">See everything we know &rarr;</a>
+                <a href="/miniprojects/tracking-you/" class="sf-link">See everything we know &rarr;</a>
                 <span class="sf-local">All data stays in your browser. Nothing is sent to us.</span>
             </span>
             <button class="sf-close" aria-label="Dismiss">&times;</button>
@@ -388,7 +388,7 @@
             }
         }
 
-        html += '<div class="sp-footer"><a href="/miniprojects/the-algorithm/">See the full report &rarr;</a><div style="margin-top:6px; font-size:8px; opacity:0.35;">All data stored locally in your browser. Nothing sent to any server.</div></div>';
+        html += '<div class="sp-footer"><a href="/miniprojects/tracking-you/">See the full report &rarr;</a><div style="margin-top:6px; font-size:8px; opacity:0.35;">All data stored locally in your browser. Nothing sent to any server.</div></div>';
 
         panel.innerHTML = html;
     }
