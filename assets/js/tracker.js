@@ -117,8 +117,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                 </span>
                 <span class="sv-info">This page knows you're on ${browserStr} (${deviceStr}) at ${timeStr}.</span>
-                <a href="/miniprojects/your-history/" class="sv-link" id="sv-full-link">Full report &rarr;</a>
                 <button class="sv-toggle" aria-label="Expand details">Mini tracking report</button>
+                <a href="/miniprojects/your-history/" class="sv-link" id="sv-full-link">Full report &rarr;</a>
                 <button class="sv-close" aria-label="Dismiss">&times;</button>
             </div>
             <div class="sv-details">
