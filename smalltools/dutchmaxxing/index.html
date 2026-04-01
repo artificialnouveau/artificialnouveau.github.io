@@ -2929,6 +2929,16 @@ body::before, body::after { display: none; }
 .vocab-net-level-btn:last-child { border-right-width: 2px; }
 .vocab-net-level-btn:hover { background: #f0f0f0; }
 .vocab-net-level-btn.active { background: var(--lc, var(--mondrian-black)); color: #fff; }
+.vocab-net-family-bar {
+  display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+  border: 3px solid var(--mondrian-black); border-bottom: none; background: #fff;
+}
+.vocab-net-family-select {
+  padding: 6px 10px; border: 2px solid var(--mondrian-black); background: #fff;
+  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600;
+  cursor: pointer; outline: none;
+}
+.vocab-net-word-count { font-size: 11px; color: #999; }
 .vocab-net-filters { display: flex; gap: 6px; flex-wrap: wrap; }
 .vocab-net-filter-btn {
   padding: 5px 12px; border: 2px solid var(--mondrian-black); background: #fff;
@@ -2945,7 +2955,7 @@ body::before, body::after { display: none; }
 #vocabNetCanvas:active { cursor: grabbing; }
 .vocab-net-detail {
   width: 280px; border-left: 3px solid var(--mondrian-black); background: #fff;
-  padding: 20px; overflow-y: auto; max-height: 500px;
+  padding: 20px; overflow-y: auto; max-height: 600px; min-height: 0;
 }
 .vocab-net-detail-empty { color: #999; font-size: 12px; text-align: center; padding: 40px 10px; }
 .vocab-net-detail h2 {
@@ -3524,6 +3534,12 @@ body::before, body::after { display: none; }
       <button class="vocab-net-level-btn" data-level="B1" onclick="setVnetLevel('B1')" style="--lc:#1356A2">B1</button>
       <button class="vocab-net-level-btn" data-level="B2" onclick="setVnetLevel('B2')" style="--lc:#e67e22">B2</button>
       <button class="vocab-net-level-btn" data-level="C1" onclick="setVnetLevel('C1')" style="--lc:#D40920">C1</button>
+    </div>
+    <div class="vocab-net-family-bar">
+      <select id="vocabFamilySelect" onchange="setVnetFamily(this.value)" class="vocab-net-family-select">
+        <option value="">Alle woorden</option>
+      </select>
+      <span class="vocab-net-word-count" id="vocabWordCount"></span>
     </div>
     <div class="vocab-net-body">
       <canvas id="vocabNetCanvas"></canvas>
@@ -11433,6 +11449,7 @@ let vnetInitDone = false;
 let vnetCanvasW = 0;
 let vnetCanvasH = 0;
 let vnetSearchTerm = '';
+let vnetActiveFamily = '';
 
 const TAG_COLORS = {
   werkwoord: '#D40920', bijvoeglijk: '#1356A2', zelfstandig: '#2d8a56', connector: '#F7D842',
@@ -11478,6 +11495,7 @@ async function initVocabNet() {
   setupVocabCanvas();
   buildVocabFilters();
   buildVocabLegend();
+  buildVocabFamilyDropdown();
   drawVocabNet();
 }
 
@@ -11654,6 +11672,8 @@ function setupVocabCanvas() {
   canvas.addEventListener('click', (e) => {
     if (vnetHoveredNode) {
       selectVocabNode(vnetHoveredNode);
+    } else {
+      deselectVocabNode();
     }
   });
 
@@ -11733,14 +11753,50 @@ function setVnetLevel(level) {
   runVocabSimulation();
 }
 
+function buildVocabFamilyDropdown() {
+  const sel = document.getElementById('vocabFamilySelect');
+  if (!sel) return;
+  const families = {};
+  vnetData.forEach(w => w.tags.filter(t => t.endsWith('-familie')).forEach(t => {
+    families[t] = (families[t] || 0) + 1;
+  }));
+  const sorted = Object.entries(families).sort((a,b) => b[1] - a[1]);
+  sel.innerHTML = '<option value="">Alle woorden (' + vnetData.length + ')</option>'
+    + sorted.map(([f, c]) => '<option value="' + f + '">' + f.replace('-familie','') + ' (' + c + ')</option>').join('');
+  updateVocabWordCount();
+}
+
+function setVnetFamily(family) {
+  vnetActiveFamily = family;
+  applyVocabVisibility();
+  runVocabSimulation();
+}
+
+function updateVocabWordCount() {
+  const el = document.getElementById('vocabWordCount');
+  if (el) {
+    const vis = vnetNodes.filter(n => n.visible).length;
+    el.textContent = vis + ' / ' + vnetData.length + ' woorden zichtbaar';
+  }
+}
+
+function deselectVocabNode() {
+  vnetSelectedNode = null;
+  const detail = document.getElementById('vocabNetDetail');
+  if (detail) detail.innerHTML = '<div class="vocab-net-detail-empty">Klik op een woord in het netwerk om details te zien.</div>';
+  drawVocabNet();
+}
+
 function applyVocabVisibility() {
   vnetNodes.forEach(n => {
     let vis = true;
     if (vnetActiveLevel && n.word.level !== vnetActiveLevel) vis = false;
+    if (vnetActiveFamily && !n.word.tags.includes(vnetActiveFamily)) vis = false;
     if (vnetActiveFilter && !n.word.tags.includes(vnetActiveFilter)) vis = false;
     if (vnetSearchTerm && !n.word.nl.toLowerCase().includes(vnetSearchTerm) && !n.word.en.toLowerCase().includes(vnetSearchTerm)) vis = false;
     n.visible = vis;
   });
+  updateVocabWordCount();
 }
 
 function selectVocabNode(node) {
@@ -11770,7 +11826,7 @@ function selectVocabNode(node) {
     + (w.example ? '<div class="vocab-example">"' + w.example + '"</div>' : '')
     + '<div class="vocab-tags">' + w.tags.map(t => '<span class="vocab-tag" onclick="toggleVocabFilter(\'' + t + '\')" style="background:' + getTagColor(t) + '">' + t + '</span>').join('') + '</div>'
     + (topRelated.length > 0 ? '<div class="vocab-related"><h4>Verwante woorden</h4>'
-      + topRelated.map(r => '<span class="vocab-related-word" onclick="selectVocabNodeById(' + r.node.id + ')" title="' + r.tags.join(', ') + '">' + r.node.word.nl + ' <small style="color:#999;font-weight:400;">' + r.tags[0] + '</small></span>').join('')
+      + topRelated.map(r => '<span class="vocab-related-word" onclick="selectVocabNodeById(' + r.node.id + ')" title="' + r.tags.join(', ') + '">' + r.node.word.nl + '</span>').join('')
       + '</div>' : '');
   drawVocabNet();
 }
