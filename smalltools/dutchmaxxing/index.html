@@ -2939,109 +2939,168 @@ body::before, body::after { display: none; }
   .exercise-container { padding:12px 10px; }
 }
 
-/* Vocabulary Network */
-.vocab-net-container { max-width: 1100px; margin: 0 auto; }
-.vocab-net-toolbar {
+/* ===== PREFIX MATRIX ===== */
+.pm-container { max-width: 1200px; margin: 0 auto; }
+.pm-toolbar {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px;
 }
-.vocab-net-search {
-  flex: 1; min-width: 200px; padding: 10px 14px; border: 3px solid var(--mondrian-black);
-  font-family: 'Space Grotesk', sans-serif; font-size: 13px; background: #fff; outline: none;
+.pm-toolbar .mondrian-btn { font-size: 12px; padding: 8px 16px; background: var(--mondrian-blue); color: #fff; border: 2px solid var(--mondrian-black); }
+.pm-legend {
+  display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; font-size: 11px; color: #666;
+  justify-content: center; padding: 8px 12px; border: 2px solid var(--mondrian-black); background: #fff;
 }
-.vocab-net-search:focus { border-color: var(--mondrian-blue); }
-.vocab-net-levels { display: flex; gap: 0; margin-bottom: 0; }
-.vocab-net-level-btn {
-  padding: 6px 14px; border: 2px solid var(--mondrian-black); border-right-width: 0; background: #fff;
-  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700;
-  cursor: pointer; transition: all 0.15s; color: var(--lc, #333);
+.pm-legend-item { display: flex; align-items: center; gap: 5px; }
+.pm-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.pm-scroll {
+  overflow-x: auto; border: 3px solid var(--mondrian-black); background: #fff;
 }
-.vocab-net-level-btn:last-child { border-right-width: 2px; }
-.vocab-net-level-btn:hover { background: #f0f0f0; }
-.vocab-net-level-btn.active { background: var(--lc, var(--mondrian-black)); color: #fff; }
-.vocab-net-family-bar {
-  display: flex; align-items: center; gap: 10px; padding: 8px 12px;
-  border: 3px solid var(--mondrian-black); border-bottom: none; background: #fff;
+.pm-table {
+  border-collapse: collapse; font-size: 12px; min-width: 100%;
 }
-.vocab-net-family-select {
-  padding: 6px 10px; border: 2px solid var(--mondrian-black); background: #fff;
-  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600;
-  cursor: pointer; outline: none;
+.pm-table th, .pm-table td {
+  border: 1px solid #ddd; text-align: center; padding: 0; position: relative;
 }
-.vocab-net-word-count { font-size: 11px; color: #999; }
-.vocab-net-filters { display: flex; gap: 6px; flex-wrap: wrap; }
-.vocab-net-filter-btn {
-  padding: 5px 12px; border: 2px solid var(--mondrian-black); background: #fff;
-  font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600;
-  cursor: pointer; transition: all 0.15s;
+.pm-table thead th {
+  background: var(--mondrian-yellow); color: #000; font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 11px; padding: 8px 6px; position: sticky; top: 0; z-index: 2;
+  border-bottom: 3px solid var(--mondrian-black); white-space: nowrap;
+  writing-mode: vertical-lr; text-orientation: mixed; height: 90px;
 }
-.vocab-net-filter-btn:hover { background: var(--mondrian-yellow); }
-.vocab-net-filter-btn.active { background: var(--mondrian-red); color: #fff; border-color: var(--mondrian-red); }
-.vocab-net-body {
-  display: flex; gap: 0; border: 3px solid var(--mondrian-black); background: #fafafa;
-  min-height: 600px; position: relative;
+.pm-table thead th:first-child {
+  writing-mode: horizontal-tb; height: auto; background: var(--mondrian-black); color: #fff;
+  position: sticky; left: 0; z-index: 3; min-width: 70px;
 }
-#vocabNetCanvas { flex: 1; cursor: grab; display: block; min-height: 600px; }
-#vocabNetCanvas:active { cursor: grabbing; }
-.vocab-net-detail {
-  width: 280px; border-left: 3px solid var(--mondrian-black); background: #fff;
-  padding: 20px; overflow-y: auto; max-height: 600px; min-height: 0;
+.pm-table tbody th {
+  background: #f5f5f5; font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: 12px; padding: 6px 10px; text-align: left; white-space: nowrap;
+  position: sticky; left: 0; z-index: 1; border-right: 3px solid var(--mondrian-black);
 }
-.vocab-net-detail-empty { color: #999; font-size: 12px; text-align: center; padding: 40px 10px; }
-.vocab-net-detail h2 {
-  font-family: 'Syne', sans-serif; font-size: 22px; margin: 0 0 4px; color: var(--mondrian-black);
+.pm-table tbody th.pm-row-hl { background: var(--mondrian-yellow); }
+.pm-table td { width: 44px; height: 36px; cursor: default; transition: background 0.1s; }
+.pm-table td.pm-filled { cursor: pointer; }
+.pm-table td.pm-filled:hover { background: #f0f0f0; }
+.pm-table td.pm-hl { background: rgba(247, 216, 66, 0.25); }
+.pm-table thead th.pm-col-hl { background: rgba(247, 216, 66, 0.7); }
+.pm-dot {
+  display: inline-block; width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.2);
 }
-.vocab-net-detail .vocab-en { font-size: 14px; color: var(--mondrian-blue); font-weight: 600; margin-bottom: 10px; }
-.vocab-net-detail .vocab-level {
+.pm-tooltip {
+  position: fixed; pointer-events: none; background: #fff; border: 2px solid #000;
+  padding: 10px 14px; font-size: 12px; z-index: 200; max-width: 320px;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.15); line-height: 1.5;
+  transition: opacity 0.15s; opacity: 0;
+}
+.pm-tooltip.show { opacity: 1; }
+.pm-tooltip .tt-nl { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+.pm-tooltip .tt-en { color: var(--mondrian-blue); font-weight: 600; margin-bottom: 4px; }
+.pm-tooltip .tt-example { font-style: italic; color: #555; font-size: 11px; border-top: 1px solid #eee; padding-top: 4px; margin-top: 4px; }
+.pm-detail {
+  margin-top: 12px; border: 3px solid var(--mondrian-black); background: #fff; padding: 20px;
+  display: none;
+}
+.pm-detail.show { display: block; }
+.pm-detail h2 { font-family: 'Syne', sans-serif; font-size: 22px; margin: 0 0 4px; }
+.pm-detail .pm-detail-en { font-size: 14px; color: var(--mondrian-blue); font-weight: 600; margin-bottom: 10px; }
+.pm-detail .pm-detail-level {
   display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700;
   border: 2px solid var(--mondrian-black); margin-bottom: 10px;
 }
-.vocab-net-detail .vocab-note { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 12px; }
-.vocab-net-detail .vocab-example {
+.pm-detail .pm-detail-note { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 12px; }
+.pm-detail .pm-detail-example {
   font-size: 12px; line-height: 1.6; padding: 10px 12px;
   background: #fffde6; border-left: 4px solid var(--mondrian-yellow); margin-bottom: 12px;
   font-style: italic;
 }
-.vocab-net-detail .vocab-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-.vocab-net-detail .vocab-tag {
-  font-size: 10px; padding: 2px 7px; background: var(--mondrian-black); color: #fff;
-  font-weight: 600; cursor: pointer;
-}
-.vocab-net-detail .vocab-tag:hover { background: var(--mondrian-blue); }
-.vocab-net-detail .vocab-related { margin-top: 14px; }
-.vocab-net-detail .vocab-related h4 {
+.pm-detail .pm-detail-row-words, .pm-detail .pm-detail-col-words { margin-top: 10px; }
+.pm-detail .pm-detail-row-words h4, .pm-detail .pm-detail-col-words h4 {
   font-size: 11px; font-weight: 700; color: #999; text-transform: uppercase;
   letter-spacing: 1px; margin-bottom: 6px;
 }
-.vocab-net-detail .vocab-related-word {
+.pm-detail .pm-related-word {
   display: inline-block; padding: 4px 10px; margin: 2px 4px 2px 0; font-size: 12px;
   border: 2px solid var(--mondrian-black); cursor: pointer; font-weight: 600;
   transition: all 0.15s; background: #fff;
 }
-.vocab-net-detail .vocab-related-word:hover { background: var(--mondrian-yellow); }
-.vocab-net-legend {
-  display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; font-size: 11px; color: #666;
-  justify-content: center;
-}
-.vocab-net-legend-item { display: flex; align-items: center; gap: 5px; }
-.vocab-net-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.pm-detail .pm-related-word:hover { background: var(--mondrian-yellow); }
 
-/* Vocab tooltip on canvas */
-.vocab-net-tooltip {
-  position: absolute; pointer-events: none; background: #fff; border: 2px solid #000;
-  padding: 10px 14px; font-size: 12px; z-index: 100; max-width: 300px;
-  box-shadow: 3px 3px 0 rgba(0,0,0,0.15); line-height: 1.5;
-  transition: opacity 0.15s; opacity: 0;
+/* ===== WOORDBOOM (WORD TREE) ===== */
+.wt-container { max-width: 900px; margin: 0 auto; }
+.wt-toolbar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;
 }
-.vocab-net-tooltip.show { opacity: 1; }
-.vocab-net-tooltip .tt-nl { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
-.vocab-net-tooltip .tt-en { color: var(--mondrian-blue); font-weight: 600; margin-bottom: 4px; }
-.vocab-net-tooltip .tt-example { font-style: italic; color: #555; font-size: 11px; border-top: 1px solid #eee; padding-top: 4px; margin-top: 4px; }
-.vocab-net-tooltip .tt-tags { font-size: 10px; color: #666; margin-top: 4px; padding-top: 4px; border-top: 1px solid #eee; }
+.wt-family-select {
+  padding: 8px 12px; border: 3px solid var(--mondrian-black); background: #fff;
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; outline: none;
+}
+.wt-family-select:focus { border-color: var(--mondrian-blue); }
+.wt-legend {
+  display: flex; gap: 14px; flex-wrap: wrap; font-size: 11px; color: #666;
+  margin-left: auto;
+}
+.wt-legend-item { display: flex; align-items: center; gap: 5px; }
+.wt-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.wt-tree-area {
+  border: 3px solid var(--mondrian-black); background: #fff; position: relative;
+  min-height: 500px; overflow: hidden;
+}
+.wt-center-node {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  background: var(--mondrian-black); color: #fff; padding: 14px 24px;
+  font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800;
+  z-index: 2; border: 3px solid var(--mondrian-black); letter-spacing: 1px;
+}
+.wt-branch-line {
+  position: absolute; height: 2px; background: #ccc; transform-origin: 0 50%;
+  z-index: 0; pointer-events: none;
+}
+.wt-branch-node {
+  position: absolute; transform: translate(-50%, -50%);
+  background: #fff; border: 3px solid var(--mondrian-black);
+  padding: 6px 12px; font-size: 12px; cursor: pointer; transition: all 0.15s;
+  z-index: 1; white-space: nowrap; max-width: 200px; text-align: center;
+}
+.wt-branch-node:hover { background: var(--mondrian-yellow); transform: translate(-50%, -50%) scale(1.05); }
+.wt-branch-node.wt-selected { background: var(--mondrian-yellow); border-width: 4px; }
+.wt-branch-prefix {
+  font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+  color: #999; display: block; margin-bottom: 1px;
+}
+.wt-branch-word { font-weight: 700; font-family: 'Syne', sans-serif; font-size: 13px; }
+.wt-branch-en { font-size: 10px; color: var(--mondrian-blue); font-weight: 600; display: block; margin-top: 2px; }
+.wt-detail {
+  margin-top: 12px; border: 3px solid var(--mondrian-black); background: #fff; padding: 20px;
+  display: none;
+}
+.wt-detail.show { display: block; }
+.wt-detail h2 { font-family: 'Syne', sans-serif; font-size: 22px; margin: 0 0 4px; }
+.wt-detail .wt-detail-en { font-size: 14px; color: var(--mondrian-blue); font-weight: 600; margin-bottom: 10px; }
+.wt-detail .wt-detail-level {
+  display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700;
+  border: 2px solid var(--mondrian-black); margin-bottom: 10px;
+}
+.wt-detail .wt-detail-note { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 12px; }
+.wt-detail .wt-detail-example {
+  font-size: 12px; line-height: 1.6; padding: 10px 12px;
+  background: #fffde6; border-left: 4px solid var(--mondrian-yellow); margin-bottom: 12px;
+  font-style: italic;
+}
+.wt-detail .wt-detail-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.wt-detail .wt-detail-tag {
+  font-size: 10px; padding: 2px 7px; background: var(--mondrian-black); color: #fff; font-weight: 600;
+}
+.wt-empty {
+  text-align: center; color: #999; padding: 60px 20px; font-size: 13px;
+}
 
 @media (max-width: 700px) {
-  .vocab-net-body { flex-direction: column; }
-  .vocab-net-detail { width: 100%; border-left: none; border-top: 3px solid var(--mondrian-black); max-height: 300px; }
-  #vocabNetCanvas { min-height: 350px; }
+  .pm-table thead th { height: 60px; font-size: 10px; padding: 4px 3px; }
+  .pm-table td { width: 32px; height: 28px; }
+  .pm-dot { width: 10px; height: 10px; }
+  .wt-tree-area { min-height: 400px; }
+  .wt-branch-node { font-size: 10px; padding: 4px 8px; }
+  .wt-center-node { font-size: 16px; padding: 10px 16px; }
 }
 
 /* ===== SRS FLASHCARDS ===== */
@@ -3910,40 +3969,38 @@ body::before, body::after { display: none; }
 <!-- NT2 B1 Oefenen Tab -->
 <div class="tab-content" id="tab-vocab">
   <div class="subtab-bar">
-    <button class="subtab-btn active" data-subtab="vocab-network" data-maintab="vocab">Netwerk</button>
+    <button class="subtab-btn active" data-subtab="vocab-matrix" data-maintab="vocab">Prefix Matrix</button>
+    <button class="subtab-btn" data-subtab="vocab-woordboom" data-maintab="vocab">Woordboom</button>
     <button class="subtab-btn" data-subtab="vocab-flashcards" data-maintab="vocab">Flashcards</button>
     <button class="subtab-btn" data-subtab="vocab-prefixdrills" data-maintab="vocab">Prefix Drills</button>
   </div>
 
-  <div class="subtab-content active" id="sub-vocab-network">
-    <div class="vocab-net-container">
-      <div class="vocab-net-toolbar">
-        <input type="text" class="vocab-net-search" id="vocabNetSearch" placeholder="Zoek een woord..." oninput="filterVocabNet()" />
-        <div class="vocab-net-filters" id="vocabNetFilters"></div>
+  <div class="subtab-content active" id="sub-vocab-matrix">
+    <div class="pm-container" id="pmContainer">
+      <div class="pm-toolbar">
         <button class="mondrian-btn" onclick="exportVocabPDF()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download PDF</button>
       </div>
-      <div class="vocab-net-levels">
-        <button class="vocab-net-level-btn active" data-level="" onclick="setVnetLevel('')">Alle</button>
-        <button class="vocab-net-level-btn" data-level="A2" onclick="setVnetLevel('A2')" style="--lc:#2d8a56">A2</button>
-        <button class="vocab-net-level-btn" data-level="B1" onclick="setVnetLevel('B1')" style="--lc:#1356A2">B1</button>
-        <button class="vocab-net-level-btn" data-level="B2" onclick="setVnetLevel('B2')" style="--lc:#e67e22">B2</button>
-        <button class="vocab-net-level-btn" data-level="C1" onclick="setVnetLevel('C1')" style="--lc:#D40920">C1</button>
-      </div>
-      <div class="vocab-net-family-bar">
-        <select id="vocabFamilySelect" onchange="setVnetFamily(this.value)" class="vocab-net-family-select">
-          <option value="">Alle woorden</option>
-        </select>
-        <span class="vocab-net-word-count" id="vocabWordCount"></span>
-      </div>
-      <div class="vocab-net-body">
-        <canvas id="vocabNetCanvas"></canvas>
-        <div class="vocab-net-detail" id="vocabNetDetail">
-          <div class="vocab-net-detail-empty">Klik op een woord in het netwerk om details te zien.</div>
-        </div>
-      </div>
-      <div class="vocab-net-legend" id="vocabNetLegend"></div>
+      <div class="pm-legend" id="pmLegend"></div>
+      <div class="pm-scroll" id="pmScroll"></div>
+      <div class="pm-detail" id="pmDetail"></div>
+      <div class="pm-tooltip" id="pmTooltip"></div>
     </div>
-  </div><!-- /sub-vocab-network -->
+  </div><!-- /sub-vocab-matrix -->
+
+  <div class="subtab-content" id="sub-vocab-woordboom">
+    <div class="wt-container" id="wtContainer">
+      <div class="wt-toolbar">
+        <select class="wt-family-select" id="wtFamilySelect" onchange="renderWoordboom(this.value)">
+          <option value="">-- Kies een woordfamilie --</option>
+        </select>
+        <div class="wt-legend" id="wtLegend"></div>
+      </div>
+      <div class="wt-tree-area" id="wtTreeArea">
+        <div class="wt-empty">Kies een woordfamilie hierboven om de boom te zien.</div>
+      </div>
+      <div class="wt-detail" id="wtDetail"></div>
+    </div>
+  </div><!-- /sub-vocab-woordboom -->
 
   <div class="subtab-content" id="sub-vocab-flashcards">
     <div class="srs-container" id="srsContainer">
@@ -7587,7 +7644,8 @@ const SUBTAB_INIT = {
   dehet: initDeHet,
   prepzoeker: initPrepZoeker,
   woordfamilies: initWoordfamilies,
-  'vocab-network': () => { initVocabNet().then(() => runVocabSimulation()); },
+  'vocab-matrix': initPrefixMatrix,
+  'vocab-woordboom': initWoordboom,
   'vocab-flashcards': initSRS,
   'vocab-prefixdrills': initPrefixDrills,
   'exam-spreken': initExamen,
@@ -11850,23 +11908,11 @@ function resetSpelToMenu() {
 }
 
 // ==========================================
-// VOCABULARY NETWORK
+// VOCABULARY DATA & SHARED UTILITIES
 // ==========================================
 
 let vnetData = [];
-let vnetNodes = [];
-let vnetEdges = [];
-let vnetActiveFilter = null;
-let vnetActiveLevel = '';
-let vnetSelectedNode = null;
-let vnetHoveredNode = null;
-let vnetDragNode = null;
-let vnetAnimFrame = null;
 let vnetInitDone = false;
-let vnetCanvasW = 0;
-let vnetCanvasH = 0;
-let vnetSearchTerm = '';
-let vnetActiveFamily = '';
 
 const TAG_COLORS = {
   werkwoord: '#D40920', bijvoeglijk: '#1356A2', zelfstandig: '#2d8a56', connector: '#F7D842',
@@ -11901,533 +11947,319 @@ const TAG_COLORS = {
 
 function getTagColor(tag) { return TAG_COLORS[tag] || '#999'; }
 
-async function initVocabNet() {
-  if (vnetInitDone) { drawVocabNet(); return; }
-  try {
-    const resp = await fetch('vocabulary.json');
-    vnetData = await resp.json();
-  } catch(e) { vnetData = []; }
-  vnetInitDone = true;
-  buildVocabGraph();
-  setupVocabCanvas();
-  buildVocabFilters();
-  buildVocabLegend();
-  buildVocabFamilyDropdown();
-  drawVocabNet();
+// ==========================================
+// PREFIX MATRIX
+// ==========================================
+
+const PM_BASE_VERBS = ['stellen','kijken','geven','leggen','maken','doen','zetten','halen','werken','lopen','houden','laten','vallen','gaan','staan','denken','slaan','vangen','leiden','lichten'];
+const PM_PREFIXES = ['aan','af','be','bij','door','her','in','mee','na','neer','om','ont','op','over','uit','ver','voor','weg','terug','samen'];
+const PM_LEVEL_COLORS = { A2: '#2d8a56', B1: '#1356A2', B2: '#e67e22', C1: '#D40920' };
+let pmMatrixData = null; // { [prefix]: { [base]: wordObj } }
+let pmInitDone = false;
+let pmHighlightRow = null;
+let pmHighlightCol = null;
+
+async function initPrefixMatrix() {
+  if (pmInitDone) return;
+  await ensureVnetData();
+  pmInitDone = true;
+  buildPrefixMatrixData();
+  renderPrefixMatrix();
 }
 
-// Tags that create meaningful connections (semantic/thematic)
-const CONNECT_TAGS = new Set([
-  'gevoel','cultuur','mensen','communicatie','beweging','verandering','werk',
-  'geld','politiek','taal','doel','beeldspraak','reizen','gezondheid',
-  'karakter','lichaam','dagelijks','uitdrukking','stellen-familie','kijken-familie','leiden-familie','leggen-familie','lichten-familie','geven-familie','gaan-familie','staan-familie','vallen-familie','denken-familie','vangen-familie','maken-familie','slaan-familie','doen-familie','zetten-familie','halen-familie','werken-familie','lopen-familie','houden-familie','laten-familie'
-]);
-// Tags that are just grammar/style metadata (never create edges)
-// werkwoord, bijvoeglijk, zelfstandig, bijwoord, connector, scheidbaar,
-// informeel, formeel, schrijftaal, slang, ont-prefix
-
-// Common Dutch prefixes/suffixes for morphological connections
-const PREFIXES = ['uit','aan','op','af','over','onder','door','voor','ver','be','ont','mee','tegen','achter','vast','in'];
-
-function getSharedPrefix(a, b) {
-  for (const p of PREFIXES) {
-    if (a.startsWith(p) && b.startsWith(p) && a !== b) return p + '-';
-  }
-  return null;
-}
-
-function buildVocabGraph() {
-  vnetNodes = vnetData.map((w, i) => ({
-    id: i, word: w, x: 0, y: 0, vx: 0, vy: 0, radius: 0, visible: true
-  }));
-  vnetEdges = [];
-  const edgeMap = {}; // key -> { source, target, tags[] }
-
-  // 1) Thematic tag connections (only meaningful tags)
-  const tagMap = {};
-  vnetData.forEach((w, i) => {
-    w.tags.forEach(t => {
-      if (!CONNECT_TAGS.has(t)) return;
-      if (!tagMap[t]) tagMap[t] = [];
-      tagMap[t].push(i);
-    });
-  });
-  Object.entries(tagMap).forEach(([tag, indices]) => {
-    for (let a = 0; a < indices.length; a++) {
-      for (let b = a + 1; b < indices.length; b++) {
-        const key = Math.min(indices[a],indices[b]) + '-' + Math.max(indices[a],indices[b]);
-        if (!edgeMap[key]) edgeMap[key] = { source: indices[a], target: indices[b], tags: [] };
-        edgeMap[key].tags.push(tag);
-      }
-    }
-  });
-
-  // 2) Prefix/morphological connections
-  for (let i = 0; i < vnetData.length; i++) {
-    for (let j = i + 1; j < vnetData.length; j++) {
-      const prefix = getSharedPrefix(vnetData[i].nl, vnetData[j].nl);
-      if (prefix) {
-        const key = i + '-' + j;
-        if (!edgeMap[key]) edgeMap[key] = { source: i, target: j, tags: [] };
-        edgeMap[key].tags.push(prefix);
-      }
-    }
-  }
-
-  // Convert to edge array — use primary (first) tag for color
-  vnetEdges = Object.values(edgeMap).map(e => ({
-    source: e.source, target: e.target, tags: e.tags, tag: e.tags[0]
-  }));
-  // Initial random positions — spread wider
-  vnetNodes.forEach(n => {
-    n.x = Math.random() * 900 + 50;
-    n.y = Math.random() * 600 + 30;
-  });
-}
-
-function setupVocabCanvas() {
-  const canvas = document.getElementById('vocabNetCanvas');
-  if (!canvas) return;
-  const container = canvas.parentElement;
-
-  function resize() {
-    const rect = container.getBoundingClientRect();
-    const detailW = window.innerWidth > 700 ? 280 : 0;
-    vnetCanvasW = Math.max(rect.width - detailW - 6, 300);
-    vnetCanvasH = Math.max(rect.height, 600);
-    canvas.width = vnetCanvasW * (window.devicePixelRatio || 1);
-    canvas.height = vnetCanvasH * (window.devicePixelRatio || 1);
-    canvas.style.width = vnetCanvasW + 'px';
-    canvas.style.height = vnetCanvasH + 'px';
-    // Reinitialize positions when resizing
-    vnetNodes.forEach(n => {
-      if (n.x > vnetCanvasW) n.x = Math.random() * vnetCanvasW * 0.8 + vnetCanvasW * 0.1;
-      if (n.y > vnetCanvasH) n.y = Math.random() * vnetCanvasH * 0.8 + vnetCanvasH * 0.1;
-    });
-  }
-  resize();
-  window.addEventListener('resize', () => { resize(); drawVocabNet(); });
-
-  // Add tooltip element
-  let tooltip = document.getElementById('vocabNetTooltip');
-  if (!tooltip) {
-    tooltip = document.createElement('div');
-    tooltip.className = 'vocab-net-tooltip';
-    tooltip.id = 'vocabNetTooltip';
-    container.appendChild(tooltip);
-  }
-
-  // Mouse events
-  let mouseX = 0, mouseY = 0;
-  canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    mouseX = e.clientX - rect.left;
-    mouseY = e.clientY - rect.top;
-    if (vnetDragNode) {
-      vnetDragNode.x = mouseX;
-      vnetDragNode.y = mouseY;
-      vnetDragNode.vx = 0;
-      vnetDragNode.vy = 0;
-      drawVocabNet();
-    }
-    // Hover detection
-    const prev = vnetHoveredNode;
-    vnetHoveredNode = null;
-    for (let i = vnetNodes.length - 1; i >= 0; i--) {
-      const n = vnetNodes[i];
-      if (!n.visible) continue;
-      const dx = mouseX - n.x, dy = mouseY - n.y;
-      if (dx*dx + dy*dy < n.radius * n.radius) {
-        vnetHoveredNode = n;
-        break;
-      }
-    }
-    canvas.style.cursor = vnetHoveredNode ? 'pointer' : 'grab';
-    // Show/hide tooltip
-    if (vnetHoveredNode && !vnetDragNode) {
-      const w = vnetHoveredNode.word;
-      let ttTags = '';
-      if (vnetSelectedNode && vnetSelectedNode.id !== vnetHoveredNode.id) {
-        // Find the edge between selected and hovered
-        const edge = vnetEdges.find(e =>
-          (e.source === vnetSelectedNode.id && e.target === vnetHoveredNode.id) ||
-          (e.target === vnetSelectedNode.id && e.source === vnetHoveredNode.id)
-        );
-        if (edge) ttTags = '<div class="tt-tags">Verbonden via: ' + edge.tags.map(t => '<span style="color:' + getTagColor(t) + ';font-weight:700;">' + t + '</span>').join(', ') + '</div>';
-      }
-      tooltip.innerHTML = '<div class="tt-nl">' + w.nl + '</div>'
-        + '<div class="tt-en">' + w.en + '</div>'
-        + (w.example ? '<div class="tt-example">' + w.example + '</div>' : '')
-        + ttTags;
-      tooltip.classList.add('show');
-      let tx = mouseX + 16, ty = mouseY - 10;
-      if (tx + 300 > vnetCanvasW) tx = mouseX - 310;
-      if (ty + 100 > vnetCanvasH) ty = vnetCanvasH - 110;
-      if (ty < 5) ty = 5;
-      tooltip.style.left = tx + 'px';
-      tooltip.style.top = ty + 'px';
-    } else {
-      tooltip.classList.remove('show');
-    }
-    if (prev !== vnetHoveredNode) drawVocabNet();
-  });
-
-  canvas.addEventListener('mousedown', (e) => {
-    if (vnetHoveredNode) {
-      vnetDragNode = vnetHoveredNode;
-      canvas.style.cursor = 'grabbing';
-    }
-  });
-
-  canvas.addEventListener('mouseup', () => {
-    if (vnetDragNode && !vnetDragNode._dragged) {
-      selectVocabNode(vnetDragNode);
-    }
-    vnetDragNode = null;
-  });
-
-  canvas.addEventListener('click', (e) => {
-    if (vnetHoveredNode) {
-      selectVocabNode(vnetHoveredNode);
-    } else {
-      deselectVocabNode();
-    }
-  });
-
-  canvas.addEventListener('mouseleave', () => {
-    tooltip.classList.remove('show');
-    vnetHoveredNode = null;
-    vnetDragNode = null;
-    drawVocabNet();
-  });
-
-  // Touch events
-  canvas.addEventListener('touchstart', (e) => {
-    const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    mouseX = touch.clientX - rect.left;
-    mouseY = touch.clientY - rect.top;
-    for (let i = vnetNodes.length - 1; i >= 0; i--) {
-      const n = vnetNodes[i];
-      if (!n.visible) continue;
-      const dx = mouseX - n.x, dy = mouseY - n.y;
-      if (dx*dx + dy*dy < (n.radius + 5) * (n.radius + 5)) {
-        selectVocabNode(n);
-        e.preventDefault();
-        break;
-      }
-    }
-  });
-}
-
-function buildVocabFilters() {
-  const container = document.getElementById('vocabNetFilters');
-  if (!container) return;
-  // Get most common tags
-  const tagCount = {};
-  vnetData.forEach(w => w.tags.forEach(t => { tagCount[t] = (tagCount[t] || 0) + 1; }));
-  const topTags = Object.entries(tagCount).sort((a,b) => b[1] - a[1]).slice(0, 12).map(e => e[0]);
-  container.innerHTML = topTags.map(t =>
-    '<button class="vocab-net-filter-btn" data-tag="' + t + '" onclick="toggleVocabFilter(\'' + t + '\')">' + t + '</button>'
-  ).join('');
-}
-
-function buildVocabLegend() {
-  const container = document.getElementById('vocabNetLegend');
-  if (!container) return;
-  const levels = ['A2', 'B1', 'B2', 'C1'];
-  const colors = { A2: '#2d8a56', B1: '#1356A2', B2: '#e67e22', C1: '#D40920' };
-  container.innerHTML = levels.map(l =>
-    '<div class="vocab-net-legend-item"><div class="vocab-net-legend-dot" style="background:' + colors[l] + '"></div>' + l + '</div>'
-  ).join('') + '<div class="vocab-net-legend-item" style="margin-left:14px;"><span style="font-size:9px;">&#9679;</span> = kleiner woord &nbsp; <span style="font-size:16px;">&#9679;</span> = meer connecties</div>';
-}
-
-function toggleVocabFilter(tag) {
-  if (vnetActiveFilter === tag) {
-    vnetActiveFilter = null;
-  } else {
-    vnetActiveFilter = tag;
-  }
-  document.querySelectorAll('.vocab-net-filter-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.tag === vnetActiveFilter);
-  });
-  applyVocabVisibility();
-  runVocabSimulation();
-}
-
-function filterVocabNet() {
-  vnetSearchTerm = (document.getElementById('vocabNetSearch').value || '').toLowerCase().trim();
-  applyVocabVisibility();
-  runVocabSimulation();
-}
-
-function setVnetLevel(level) {
-  vnetActiveLevel = level;
-  document.querySelectorAll('.vocab-net-level-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.level === level);
-  });
-  applyVocabVisibility();
-  runVocabSimulation();
-}
-
-function buildVocabFamilyDropdown() {
-  const sel = document.getElementById('vocabFamilySelect');
-  if (!sel) return;
-  const families = {};
-  vnetData.forEach(w => w.tags.filter(t => t.endsWith('-familie')).forEach(t => {
-    families[t] = (families[t] || 0) + 1;
-  }));
-  const sorted = Object.entries(families).sort((a,b) => b[1] - a[1]);
-  sel.innerHTML = '<option value="">Alle woorden (' + vnetData.length + ')</option>'
-    + sorted.map(([f, c]) => '<option value="' + f + '">' + f.replace('-familie','') + ' (' + c + ')</option>').join('');
-  updateVocabWordCount();
-}
-
-function setVnetFamily(family) {
-  vnetActiveFamily = family;
-  applyVocabVisibility();
-  runVocabSimulation();
-}
-
-function updateVocabWordCount() {
-  const el = document.getElementById('vocabWordCount');
-  if (el) {
-    const vis = vnetNodes.filter(n => n.visible).length;
-    el.textContent = vis + ' / ' + vnetData.length + ' woorden zichtbaar';
-  }
-}
-
-function deselectVocabNode() {
-  vnetSelectedNode = null;
-  const detail = document.getElementById('vocabNetDetail');
-  if (detail) detail.innerHTML = '<div class="vocab-net-detail-empty">Klik op een woord in het netwerk om details te zien.</div>';
-  drawVocabNet();
-}
-
-function applyVocabVisibility() {
-  vnetNodes.forEach(n => {
-    let vis = true;
-    if (vnetActiveLevel && n.word.level !== vnetActiveLevel) vis = false;
-    if (vnetActiveFamily && !n.word.tags.includes(vnetActiveFamily)) vis = false;
-    if (vnetActiveFilter && !n.word.tags.includes(vnetActiveFilter)) vis = false;
-    if (vnetSearchTerm && !n.word.nl.toLowerCase().includes(vnetSearchTerm) && !n.word.en.toLowerCase().includes(vnetSearchTerm)) vis = false;
-    n.visible = vis;
-  });
-  updateVocabWordCount();
-}
-
-function selectVocabNode(node) {
-  vnetSelectedNode = node;
-  const detail = document.getElementById('vocabNetDetail');
-  if (!detail) return;
-  const w = node.word;
-  const levelColors = { A2: '#2d8a56', B1: '#1356A2', B2: '#e67e22', C1: '#D40920' };
-  // Find related words via actual edges
-  const related = [];
-  vnetEdges.forEach(e => {
-    let otherId = null;
-    if (e.source === node.id) otherId = e.target;
-    else if (e.target === node.id) otherId = e.source;
-    if (otherId !== null && vnetNodes[otherId].visible) {
-      related.push({ node: vnetNodes[otherId], tags: e.tags });
-    }
-  });
-  // Sort by number of shared tags, then alphabetically
-  related.sort((a,b) => b.tags.length - a.tags.length || a.node.word.nl.localeCompare(b.node.word.nl));
-  const topRelated = related.slice(0, 10);
-
-  detail.innerHTML = '<h2>' + w.nl + '</h2>'
-    + '<div class="vocab-en">' + w.en + '</div>'
-    + '<span class="vocab-level" style="border-color:' + (levelColors[w.level] || '#000') + ';color:' + (levelColors[w.level] || '#000') + '">' + w.level + '</span>'
-    + (w.note ? '<div class="vocab-note">' + w.note + '</div>' : '')
-    + (w.example ? '<div class="vocab-example">"' + w.example + '"</div>' : '')
-    + '<div class="vocab-tags">' + w.tags.map(t => '<span class="vocab-tag" onclick="toggleVocabFilter(\'' + t + '\')" style="background:' + getTagColor(t) + '">' + t + '</span>').join('') + '</div>'
-    + (topRelated.length > 0 ? '<div class="vocab-related"><h4>Verwante woorden</h4>'
-      + topRelated.map(r => '<span class="vocab-related-word" onclick="selectVocabNodeById(' + r.node.id + ')" title="' + r.tags.join(', ') + '">' + r.node.word.nl + '</span>').join('')
-      + '</div>' : '');
-  drawVocabNet();
-}
-
-function selectVocabNodeById(id) {
-  const node = vnetNodes.find(n => n.id === id);
-  if (node) selectVocabNode(node);
-}
-
-function drawVocabNet() {
-  const canvas = document.getElementById('vocabNetCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const dpr = window.devicePixelRatio || 1;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, vnetCanvasW, vnetCanvasH);
-
-  const levelColors = { A2: '#2d8a56', B1: '#1356A2', B2: '#e67e22', C1: '#D40920' };
-  const visibleSet = new Set(vnetNodes.filter(n => n.visible).map(n => n.id));
-
-  // Calculate node radii based on connections
-  const connCount = {};
-  vnetEdges.forEach(e => {
-    if (visibleSet.has(e.source) && visibleSet.has(e.target)) {
-      connCount[e.source] = (connCount[e.source] || 0) + 1;
-      connCount[e.target] = (connCount[e.target] || 0) + 1;
-    }
-  });
-  vnetNodes.forEach(n => {
-    n.radius = n.visible ? Math.max(4, Math.min(10, 3 + Math.sqrt(connCount[n.id] || 1) * 1.2)) : 0;
-  });
-
-  // Determine which node is "active" (selected or hovered)
-  const focusNode = vnetSelectedNode || vnetHoveredNode;
-
-  // Pre-compute connected set for focus node
-  const connectedNodes = new Set();
-  const focusEdges = [];
-  if (focusNode) {
-    vnetEdges.forEach(e => {
-      if (e.source === focusNode.id && visibleSet.has(e.target)) { connectedNodes.add(e.target); focusEdges.push(e); }
-      else if (e.target === focusNode.id && visibleSet.has(e.source)) { connectedNodes.add(e.source); focusEdges.push(e); }
-    });
-  }
-
-  // Draw background edges (subtle)
-  vnetEdges.forEach(e => {
-    if (!visibleSet.has(e.source) || !visibleSet.has(e.target)) return;
-    if (focusNode && (e.source === focusNode.id || e.target === focusNode.id)) return; // drawn later
-    const a = vnetNodes[e.source], b = vnetNodes[e.target];
-    ctx.globalAlpha = focusNode ? 0.03 : 0.08;
-    ctx.strokeStyle = getTagColor(e.tag);
-    ctx.lineWidth = focusNode ? 0.3 : 0.5;
-    ctx.beginPath();
-    ctx.moveTo(a.x, a.y);
-    ctx.lineTo(b.x, b.y);
-    ctx.stroke();
-  });
-
-  // Draw highlighted edges for focus node (bold + tag labels)
-  const drawnEdgeLabels = new Set();
-  if (focusNode) {
-    focusEdges.forEach(e => {
-      const a = vnetNodes[e.source], b = vnetNodes[e.target];
-      const tagColor = getTagColor(e.tag);
-      ctx.globalAlpha = 0.5;
-      ctx.strokeStyle = tagColor;
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
-      ctx.stroke();
-
-      // Draw all shared tags at midpoint
-      const otherId = e.source === focusNode.id ? e.target : e.source;
-      if (!drawnEdgeLabels.has(otherId)) {
-        drawnEdgeLabels.add(otherId);
-        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
-        const label = e.tags.join(', ');
-        ctx.globalAlpha = 0.85;
-        ctx.font = '600 8px "Space Grotesk", sans-serif';
-        ctx.fillStyle = tagColor;
-        ctx.textAlign = 'center';
-        ctx.fillText(label, mx, my - 3);
-      }
-    });
-  }
-  ctx.globalAlpha = 1;
-
-  // Draw nodes
-  vnetNodes.forEach(n => {
-    if (!n.visible) return;
-    const isSelected = vnetSelectedNode && vnetSelectedNode.id === n.id;
-    const isHovered = vnetHoveredNode && vnetHoveredNode.id === n.id;
-    const isConnected = focusNode && connectedNodes.has(n.id);
-    const color = levelColors[n.word.level] || '#999';
-
-    // Dim unconnected nodes when something is focused
-    if (focusNode && !isSelected && !isHovered && !isConnected) {
-      ctx.globalAlpha = 0.15;
-    } else {
-      ctx.globalAlpha = 1;
-    }
-
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-    ctx.fillStyle = isSelected ? '#000' : isHovered ? '#F7D842' : color;
-    ctx.fill();
-    if (isSelected || isHovered) {
-      ctx.strokeStyle = '#000';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    } else if (isConnected) {
-      ctx.strokeStyle = '#000';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-    }
-
-    // Draw label
-    const showLabel = isSelected || isHovered || isConnected || !focusNode;
-    if (showLabel) {
-      const fontSize = isSelected ? 13 : isHovered || isConnected ? 12 : 10;
-      ctx.font = (isSelected || isHovered || isConnected ? '700 ' : '500 ') + fontSize + 'px "Space Grotesk", sans-serif';
-      ctx.fillStyle = isSelected ? '#D40920' : isConnected ? '#000' : (focusNode ? 'rgba(0,0,0,0.2)' : '#111');
-      ctx.textAlign = 'center';
-      ctx.fillText(n.word.nl, n.x, n.y - n.radius - 4);
-    }
-    ctx.globalAlpha = 1;
-  });
-}
-
-// Simple force simulation
-function runVocabSimulation() {
-  const visible = vnetNodes.filter(n => n.visible);
-  const iterations = 200;
-  let step = 0;
-
-  function tick() {
-    if (step >= iterations) { drawVocabNet(); return; }
-    step++;
-    const alpha = 0.3 * (1 - step / iterations);
-
-    // Repulsion between all visible nodes
-    for (let i = 0; i < visible.length; i++) {
-      for (let j = i + 1; j < visible.length; j++) {
-        const a = visible[i], b = visible[j];
-        let dx = b.x - a.x, dy = b.y - a.y;
-        let dist = Math.sqrt(dx*dx + dy*dy) || 1;
-        const minDist = 80;
-        if (dist < minDist) {
-          const force = alpha * (minDist - dist) / dist * 0.8;
-          a.x -= dx * force; a.y -= dy * force;
-          b.x += dx * force; b.y += dy * force;
+function buildPrefixMatrixData() {
+  pmMatrixData = {};
+  PM_PREFIXES.forEach(p => { pmMatrixData[p] = {}; });
+  // For each family, find words and detect their prefix
+  PM_BASE_VERBS.forEach(base => {
+    const familyTag = base + '-familie';
+    const familyWords = vnetData.filter(w => w.tags.includes(familyTag));
+    familyWords.forEach(w => {
+      // Strip "zich " or "iemand " or "iets " from the beginning
+      let word = w.nl.replace(/^(zich|iemand|iets)\s+/, '');
+      // Check which prefix this word uses
+      for (const p of PM_PREFIXES) {
+        if (word.startsWith(p) && word.substring(p.length) === base) {
+          pmMatrixData[p][base] = w;
+          return;
         }
       }
-    }
-
-    // Attraction along edges
-    vnetEdges.forEach(e => {
-      const a = vnetNodes[e.source], b = vnetNodes[e.target];
-      if (!a.visible || !b.visible) return;
-      let dx = b.x - a.x, dy = b.y - a.y;
-      let dist = Math.sqrt(dx*dx + dy*dy) || 1;
-      const idealDist = 140;
-      const force = alpha * (dist - idealDist) / dist * 0.005;
-      a.x += dx * force; a.y += dy * force;
-      b.x -= dx * force; b.y -= dy * force;
+      // Some words have the prefix fused differently (e.g., bestellen = be+stellen)
+      for (const p of PM_PREFIXES) {
+        if (word.startsWith(p)) {
+          const remainder = word.substring(p.length);
+          // Check if remainder is the base (possibly with minor variation)
+          if (remainder === base || remainder === base.replace(/^(.)\1/, '$1')) {
+            pmMatrixData[p][base] = w;
+            return;
+          }
+        }
+      }
     });
+  });
+}
 
-    // Center gravity
-    const cx = vnetCanvasW / 2, cy = vnetCanvasH / 2;
-    visible.forEach(n => {
-      n.x += (cx - n.x) * alpha * 0.01;
-      n.y += (cy - n.y) * alpha * 0.01;
-      // Bounds
-      n.x = Math.max(n.radius + 30, Math.min(vnetCanvasW - n.radius - 30, n.x));
-      n.y = Math.max(n.radius + 30, Math.min(vnetCanvasH - n.radius - 30, n.y));
-    });
-
-    drawVocabNet();
-    vnetAnimFrame = requestAnimationFrame(tick);
+function renderPrefixMatrix() {
+  const container = document.getElementById('pmScroll');
+  if (!container) return;
+  // Build legend
+  const legendEl = document.getElementById('pmLegend');
+  if (legendEl) {
+    legendEl.innerHTML = Object.entries(PM_LEVEL_COLORS).map(function(e) {
+      return '<div class="pm-legend-item"><div class="pm-legend-dot" style="background:' + e[1] + '"></div>' + e[0] + '</div>';
+    }).join('');
   }
-  if (vnetAnimFrame) cancelAnimationFrame(vnetAnimFrame);
-  tick();
+
+  let html = '<table class="pm-table"><thead><tr><th></th>';
+  PM_BASE_VERBS.forEach(function(b) {
+    html += '<th data-base="' + b + '">' + b + '</th>';
+  });
+  html += '</tr></thead><tbody>';
+  PM_PREFIXES.forEach(function(p) {
+    html += '<tr><th data-prefix="' + p + '">' + p + '-</th>';
+    PM_BASE_VERBS.forEach(function(b) {
+      var w = pmMatrixData[p] && pmMatrixData[p][b];
+      if (w) {
+        var color = PM_LEVEL_COLORS[w.level] || '#999';
+        html += '<td class="pm-filled" data-prefix="' + p + '" data-base="' + b + '"><span class="pm-dot" style="background:' + color + ';"></span></td>';
+      } else {
+        html += '<td data-prefix="' + p + '" data-base="' + b + '"></td>';
+      }
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+
+  // Tooltip
+  var tooltip = document.getElementById('pmTooltip');
+  container.addEventListener('mouseover', function(e) {
+    var td = e.target.closest('td.pm-filled');
+    if (!td || !tooltip) return;
+    var p = td.dataset.prefix, b = td.dataset.base;
+    var w = pmMatrixData[p] && pmMatrixData[p][b];
+    if (!w) return;
+    tooltip.innerHTML = '<div class="tt-nl">' + w.nl + '</div>'
+      + '<div class="tt-en">' + w.en + '</div>'
+      + (w.example ? '<div class="tt-example">' + w.example + '</div>' : '');
+    tooltip.classList.add('show');
+  });
+  container.addEventListener('mousemove', function(e) {
+    if (!tooltip) return;
+    tooltip.style.left = (e.clientX + 16) + 'px';
+    tooltip.style.top = (e.clientY - 10) + 'px';
+  });
+  container.addEventListener('mouseout', function(e) {
+    var td = e.target.closest('td.pm-filled');
+    if (td && tooltip) tooltip.classList.remove('show');
+  });
+
+  // Click handler
+  container.addEventListener('click', function(e) {
+    var td = e.target.closest('td.pm-filled');
+    if (!td) {
+      pmClearHighlight();
+      return;
+    }
+    var p = td.dataset.prefix, b = td.dataset.base;
+    pmHighlightCell(p, b);
+  });
+}
+
+function pmClearHighlight() {
+  pmHighlightRow = null;
+  pmHighlightCol = null;
+  document.querySelectorAll('.pm-table td.pm-hl, .pm-table th.pm-row-hl, .pm-table th.pm-col-hl').forEach(function(el) {
+    el.classList.remove('pm-hl', 'pm-row-hl', 'pm-col-hl');
+  });
+  var detail = document.getElementById('pmDetail');
+  if (detail) { detail.classList.remove('show'); detail.innerHTML = ''; }
+}
+
+function pmHighlightCell(prefix, base) {
+  pmClearHighlight();
+  pmHighlightRow = prefix;
+  pmHighlightCol = base;
+  // Highlight row
+  document.querySelectorAll('.pm-table td[data-prefix="' + prefix + '"], .pm-table th[data-prefix="' + prefix + '"]').forEach(function(el) {
+    el.classList.add(el.tagName === 'TH' ? 'pm-row-hl' : 'pm-hl');
+  });
+  // Highlight column
+  document.querySelectorAll('.pm-table td[data-base="' + base + '"], .pm-table th[data-base="' + base + '"]').forEach(function(el) {
+    el.classList.add(el.tagName === 'TH' ? 'pm-col-hl' : 'pm-hl');
+  });
+  // Show detail panel
+  var w = pmMatrixData[prefix] && pmMatrixData[prefix][base];
+  if (!w) return;
+  var detail = document.getElementById('pmDetail');
+  if (!detail) return;
+  var lc = PM_LEVEL_COLORS[w.level] || '#000';
+  // Gather row words (all words with this prefix)
+  var rowWords = [];
+  PM_BASE_VERBS.forEach(function(b) {
+    var rw = pmMatrixData[prefix] && pmMatrixData[prefix][b];
+    if (rw && rw.nl !== w.nl) rowWords.push(rw);
+  });
+  // Gather col words (all words with this base)
+  var colWords = [];
+  PM_PREFIXES.forEach(function(p) {
+    var cw = pmMatrixData[p] && pmMatrixData[p][base];
+    if (cw && cw.nl !== w.nl) colWords.push(cw);
+  });
+
+  detail.innerHTML = '<h2>' + w.nl + '</h2>'
+    + '<div class="pm-detail-en">' + w.en + '</div>'
+    + '<span class="pm-detail-level" style="border-color:' + lc + ';color:' + lc + '">' + w.level + '</span>'
+    + (w.note ? '<div class="pm-detail-note">' + w.note + '</div>' : '')
+    + (w.example ? '<div class="pm-detail-example">"' + w.example + '"</div>' : '')
+    + (rowWords.length > 0 ? '<div class="pm-detail-row-words"><h4>' + prefix + '- woorden</h4>'
+      + rowWords.map(function(rw) { return '<span class="pm-related-word" onclick="pmHighlightCell(\'' + prefix + '\',\'' + PM_BASE_VERBS.find(function(bb) { return pmMatrixData[prefix] && pmMatrixData[prefix][bb] === rw; }) + '\')">' + rw.nl + '</span>'; }).join('')
+      + '</div>' : '')
+    + (colWords.length > 0 ? '<div class="pm-detail-col-words"><h4>' + base + '-familie</h4>'
+      + colWords.map(function(cw) { return '<span class="pm-related-word" onclick="pmHighlightCell(\'' + PM_PREFIXES.find(function(pp) { return pmMatrixData[pp] && pmMatrixData[pp][base] === cw; }) + '\',\'' + base + '\')">' + cw.nl + '</span>'; }).join('')
+      + '</div>' : '');
+  detail.classList.add('show');
+}
+
+// ==========================================
+// WOORDBOOM (WORD TREE)
+// ==========================================
+let wtInitDone = false;
+
+async function initWoordboom() {
+  await ensureVnetData();
+  if (!wtInitDone) {
+    wtInitDone = true;
+    buildWoordboomDropdown();
+    renderWoordboomLegend();
+  }
+}
+
+function buildWoordboomDropdown() {
+  var sel = document.getElementById('wtFamilySelect');
+  if (!sel) return;
+  var families = {};
+  vnetData.forEach(function(w) {
+    w.tags.filter(function(t) { return t.endsWith('-familie'); }).forEach(function(t) {
+      families[t] = (families[t] || 0) + 1;
+    });
+  });
+  var sorted = Object.entries(families).sort(function(a, b) { return b[1] - a[1]; });
+  sel.innerHTML = '<option value="">-- Kies een woordfamilie --</option>'
+    + sorted.map(function(e) { return '<option value="' + e[0] + '">' + e[0].replace('-familie', '') + ' (' + e[1] + ' woorden)</option>'; }).join('');
+}
+
+function renderWoordboomLegend() {
+  var legend = document.getElementById('wtLegend');
+  if (!legend) return;
+  legend.innerHTML = Object.entries(PM_LEVEL_COLORS).map(function(e) {
+    return '<div class="wt-legend-item"><div class="wt-legend-dot" style="background:' + e[1] + '"></div>' + e[0] + '</div>';
+  }).join('');
+}
+
+function renderWoordboom(familyTag) {
+  var area = document.getElementById('wtTreeArea');
+  var detail = document.getElementById('wtDetail');
+  if (!area) return;
+  if (detail) { detail.classList.remove('show'); detail.innerHTML = ''; }
+  if (!familyTag) {
+    area.innerHTML = '<div class="wt-empty">Kies een woordfamilie hierboven om de boom te zien.</div>';
+    return;
+  }
+  var base = familyTag.replace('-familie', '');
+  var words = vnetData.filter(function(w) { return w.tags.includes(familyTag); });
+  if (!words.length) {
+    area.innerHTML = '<div class="wt-empty">Geen woorden gevonden voor deze familie.</div>';
+    return;
+  }
+
+  // Separate base word from prefixed variants
+  var baseWord = null;
+  var variants = [];
+  words.forEach(function(w) {
+    var clean = w.nl.replace(/^(zich|iemand|iets)\s+/, '');
+    if (clean === base) {
+      baseWord = w;
+    } else {
+      // Detect prefix
+      var prefix = '';
+      for (var i = 0; i < PM_PREFIXES.length; i++) {
+        if (clean.startsWith(PM_PREFIXES[i])) {
+          var remainder = clean.substring(PM_PREFIXES[i].length);
+          if (remainder === base) { prefix = PM_PREFIXES[i]; break; }
+        }
+      }
+      if (!prefix) {
+        // Try longer compound prefixes or just use the difference
+        var idx = clean.indexOf(base);
+        if (idx > 0) prefix = clean.substring(0, idx);
+        else prefix = '?';
+      }
+      variants.push({ word: w, prefix: prefix, clean: clean });
+    }
+  });
+
+  // Calculate layout
+  var areaW = area.clientWidth || 800;
+  var count = variants.length;
+  var centerX = areaW / 2;
+  var centerY = 250;
+  var radius = Math.min(200, Math.max(120, count * 12));
+  var areaH = Math.max(500, (centerY + radius + 80) * 1.05);
+  area.style.minHeight = areaH + 'px';
+
+  var html = '<div class="wt-center-node">' + base + '</div>';
+
+  // Position branches in a circle
+  variants.forEach(function(v, i) {
+    var angle = (2 * Math.PI * i / count) - Math.PI / 2;
+    var bx = centerX + radius * Math.cos(angle);
+    var by = centerY + radius * Math.sin(angle);
+    var lc = PM_LEVEL_COLORS[v.word.level] || '#999';
+
+    // Draw line from center to branch
+    var dx = bx - centerX;
+    var dy = by - centerY;
+    var lineLen = Math.sqrt(dx * dx + dy * dy);
+    var lineAngle = Math.atan2(dy, dx) * 180 / Math.PI;
+    html += '<div class="wt-branch-line" style="left:' + centerX + 'px;top:' + centerY + 'px;width:' + lineLen + 'px;transform:rotate(' + lineAngle + 'deg);background:' + lc + ';opacity:0.3;"></div>';
+
+    // Branch node
+    var shortEn = v.word.en.split('/')[0].split(',')[0].trim();
+    if (shortEn.length > 24) shortEn = shortEn.substring(0, 22) + '...';
+    html += '<div class="wt-branch-node" style="left:' + bx + 'px;top:' + by + 'px;border-color:' + lc + ';" data-wt-idx="' + i + '" onclick="wtSelectWord(' + i + ')">'
+      + '<span class="wt-branch-prefix">' + v.prefix + '-</span>'
+      + '<span class="wt-branch-word">' + v.word.nl + '</span>'
+      + '<span class="wt-branch-en">' + shortEn + '</span>'
+      + '</div>';
+  });
+
+  area.innerHTML = html;
+  // Store variants for click handler
+  area._wtVariants = variants;
+  area._wtBase = baseWord;
+}
+
+function wtSelectWord(idx) {
+  var area = document.getElementById('wtTreeArea');
+  var detail = document.getElementById('wtDetail');
+  if (!area || !detail || !area._wtVariants) return;
+  var v = area._wtVariants[idx];
+  if (!v) return;
+  // Highlight
+  area.querySelectorAll('.wt-branch-node').forEach(function(n) { n.classList.remove('wt-selected'); });
+  var node = area.querySelector('.wt-branch-node[data-wt-idx="' + idx + '"]');
+  if (node) node.classList.add('wt-selected');
+  // Show detail
+  var w = v.word;
+  var lc = PM_LEVEL_COLORS[w.level] || '#000';
+  detail.innerHTML = '<h2>' + w.nl + '</h2>'
+    + '<div class="wt-detail-en">' + w.en + '</div>'
+    + '<span class="wt-detail-level" style="border-color:' + lc + ';color:' + lc + '">' + w.level + '</span>'
+    + (w.note ? '<div class="wt-detail-note">' + w.note + '</div>' : '')
+    + (w.example ? '<div class="wt-detail-example">"' + w.example + '"</div>' : '')
+    + '<div class="wt-detail-tags">' + w.tags.map(function(t) { return '<span class="wt-detail-tag" style="background:' + getTagColor(t) + '">' + t + '</span>'; }).join('') + '</div>';
+  detail.classList.add('show');
 }
 
 // ==========================================
