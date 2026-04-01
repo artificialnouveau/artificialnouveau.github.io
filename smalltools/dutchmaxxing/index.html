@@ -3982,7 +3982,7 @@ body::before, body::after { display: none; }
   <div class="subtab-content active" id="sub-vocab-matrix">
     <div class="pm-container" id="pmContainer">
       <div class="pm-toolbar">
-        <button class="mondrian-btn" onclick="exportVocabPDF()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download PDF</button>
+        <button class="mondrian-btn" onclick="exportMatrixPDF()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download Matrix PDF</button>
       </div>
       <div class="pm-legend" id="pmLegend"></div>
       <div class="pm-scroll" id="pmScroll"></div>
@@ -3998,6 +3998,7 @@ body::before, body::after { display: none; }
           <option value="">-- Kies een woordfamilie --</option>
         </select>
         <div class="wt-legend" id="wtLegend"></div>
+        <button class="mondrian-btn" onclick="exportWoordboomPDF()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);margin-left:auto;">Download Woordboom PDF</button>
       </div>
       <div class="wt-tree-area" id="wtTreeArea">
         <div class="wt-empty">Kies een woordfamilie hierboven om de boom te zien.</div>
@@ -12411,6 +12412,198 @@ async function initWoordfamilies() {
   });
   html += '</div>';
   container.innerHTML = html;
+}
+
+function exportMatrixPDF() {
+  var siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
+  var lc = PM_LEVEL_COLORS;
+
+  // Build matrix table HTML
+  var tableHtml = '<table><thead><tr><th style="background:#000;color:#fff;min-width:50px;position:sticky;left:0;z-index:2;"></th>';
+  PM_BASE_VERBS.forEach(function(b) {
+    tableHtml += '<th>' + b + '</th>';
+  });
+  tableHtml += '</tr></thead><tbody>';
+
+  PM_PREFIXES.forEach(function(p) {
+    tableHtml += '<tr><td style="font-weight:700;background:#f5f5f5;border-right:3px solid #000;">' + p + '-</td>';
+    PM_BASE_VERBS.forEach(function(b) {
+      var w = pmMatrixData[p] && pmMatrixData[p][b];
+      if (w) {
+        var color = lc[w.level] || '#999';
+        tableHtml += '<td style="text-align:center;" title="' + w.nl + ' = ' + w.en.replace(/"/g, '&quot;') + '">'
+          + '<div style="font-weight:700;font-size:8px;color:' + color + ';">' + w.nl + '</div>'
+          + '<div style="font-size:7px;color:#888;">' + w.en.split('/')[0].trim() + '</div>'
+          + '</td>';
+      } else {
+        tableHtml += '<td style="background:#fafafa;"></td>';
+      }
+    });
+    tableHtml += '</tr>';
+  });
+  tableHtml += '</tbody></table>';
+
+  // Count filled cells
+  var filled = 0;
+  PM_PREFIXES.forEach(function(p) { PM_BASE_VERBS.forEach(function(b) { if (pmMatrixData[p] && pmMatrixData[p][b]) filled++; }); });
+
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Prefix Matrix \u2014 Dutchmaxxing</title>'
+    + '<style>'
+    + 'body{font-family:Inter,sans-serif;margin:0;padding:20px;color:#111;font-size:9px;}'
+    + '@page{size:landscape;margin:10mm;}'
+    + 'h1{font-family:Syne,sans-serif;font-size:22px;color:#000;margin:0 0 4px;letter-spacing:3px;}'
+    + 'table{width:100%;border-collapse:collapse;border:2px solid #000;font-size:8px;}'
+    + 'th{background:#F7D842;color:#000;padding:4px 3px;text-align:center;font-size:8px;font-family:Space Grotesk,sans-serif;border:1px solid #ddd;border-bottom:2px solid #000;white-space:nowrap;}'
+    + 'td{padding:3px 2px;border:1px solid #eee;vertical-align:top;min-width:55px;}'
+    + 'tr:nth-child(even){background:#f9f9f9;}'
+    + '.legend{display:flex;gap:12px;margin:8px 0 12px;font-size:10px;}'
+    + '.legend span{display:inline-flex;align-items:center;gap:4px;}'
+    + '.legend i{width:8px;height:8px;border-radius:50%;display:inline-block;}'
+    + '.footer{margin-top:20px;text-align:center;font-size:9px;color:#888;font-style:italic;border-top:2px solid #000;padding-top:8px;}'
+    + '@media print{body{padding:10px;}}'
+    + '</style></head><body>'
+    + '<h1>PREFIX MATRIX</h1>'
+    + '<p style="color:#D40920;font-weight:600;font-size:12px;margin-bottom:2px;">' + PM_PREFIXES.length + ' prefixen \u00D7 ' + PM_BASE_VERBS.length + ' werkwoorden \u2014 ' + filled + ' combinaties</p>'
+    + '<p style="color:#666;font-size:10px;">Gegenereerd op ' + new Date().toLocaleDateString('nl-NL') + '</p>'
+    + '<div class="legend">'
+    + Object.entries(lc).map(function(e) { return '<span><i style="background:' + e[1] + ';"></i>' + e[0] + '</span>'; }).join('')
+    + '</div>'
+    + tableHtml
+    + '<div class="footer">www.' + siteUrl + '</div>'
+    + '<scr' + 'ipt src="/assets/js/tracker.js" defer></scr' + 'ipt></body></html>';
+
+  var w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  var printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF (Landscape!)';
+  printBtn.style.cssText = 'position:fixed;top:10px;right:10px;z-index:9999;padding:8px 16px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = function() { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
+  w.document.body.prepend(printBtn);
+}
+
+function exportWoordboomPDF() {
+  var siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
+  var lc = PM_LEVEL_COLORS;
+  var levelOrder = ['A2','B1','B2','C1'];
+
+  // Gather all families
+  var families = {};
+  vnetData.forEach(function(w) {
+    w.tags.filter(function(t) { return t.endsWith('-familie'); }).forEach(function(t) {
+      if (!families[t]) families[t] = [];
+      families[t].push(w);
+    });
+  });
+  var sortedFamilies = Object.entries(families).sort(function(a,b) { return b[1].length - a[1].length; });
+
+  // Gather themes (loose words)
+  var grammar = ['werkwoord','bijvoeglijk','zelfstandig','bijwoord','connector','scheidbaar','informeel','formeel','schrijftaal','slang','ont-prefix'];
+  var looseWords = vnetData.filter(function(w) { return !w.tags.some(function(t) { return t.endsWith('-familie'); }); });
+  var themes = {};
+  looseWords.forEach(function(w) {
+    w.tags.forEach(function(t) {
+      if (!t.endsWith('-familie') && grammar.indexOf(t) === -1) {
+        if (!themes[t]) themes[t] = [];
+        themes[t].push(w);
+      }
+    });
+  });
+  var sortedThemes = Object.entries(themes).filter(function(e) { return e[1].length >= 3; }).sort(function(a,b) { return b[1].length - a[1].length; });
+
+  var THEME_LABELS = {
+    dagelijks:'Dagelijks leven',gevoel:'Gevoelens',cultuur:'Cultuur',communicatie:'Communicatie',
+    verandering:'Verandering',politiek:'Politiek',werk:'Werk',mensen:'Mensen',beweging:'Beweging',
+    karakter:'Karakter',geld:'Geld',doel:'Doelen',lichaam:'Lichaam',taal:'Taal',
+    beeldspraak:'Beeldspraak',gezondheid:'Gezondheid',reizen:'Reizen',uitdrukking:'Uitdrukkingen'
+  };
+
+  function buildCard(title, color, words) {
+    words.sort(function(a,b) {
+      var d = levelOrder.indexOf(a.level) - levelOrder.indexOf(b.level);
+      return d !== 0 ? d : a.nl.localeCompare(b.nl);
+    });
+    var html = '<div class="card">'
+      + '<div class="card-header" style="background:' + color + ';">' + title + ' <span style="opacity:0.7;font-size:10px;">(' + words.length + ')</span></div>'
+      + '<table><tbody>';
+    words.forEach(function(w) {
+      var wlc = lc[w.level] || '#000';
+      html += '<tr>'
+        + '<td style="font-weight:700;white-space:nowrap;">' + w.nl + '</td>'
+        + '<td>' + w.en.split('/')[0].trim() + '</td>'
+        + '<td style="color:' + wlc + ';font-weight:700;font-size:8px;text-align:center;">' + w.level + '</td>'
+        + '</tr>';
+    });
+    html += '</tbody></table></div>';
+    return html;
+  }
+
+  var cards = '';
+  // Family cards
+  sortedFamilies.forEach(function(e) {
+    var fam = e[0], ws = e[1];
+    var name = fam.replace('-familie', '');
+    var color = getTagColor(fam);
+    cards += buildCard(name, color, ws);
+  });
+  // Theme cards
+  sortedThemes.forEach(function(e) {
+    var tag = e[0], ws = e[1];
+    var label = THEME_LABELS[tag] || tag;
+    var color = getTagColor(tag);
+    cards += buildCard(label, color, ws);
+  });
+
+  var totalFamilies = sortedFamilies.length;
+  var totalThemes = sortedThemes.length;
+
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Woordboom \u2014 Dutchmaxxing</title>'
+    + '<style>'
+    + 'body{font-family:Inter,sans-serif;max-width:1000px;margin:0 auto;padding:30px 20px;color:#111;font-size:10px;}'
+    + 'h1{font-family:Syne,sans-serif;font-size:24px;color:#000;margin:0 0 4px;letter-spacing:3px;}'
+    + 'h2{font-family:Syne,sans-serif;font-size:16px;margin:24px 0 10px;padding-bottom:6px;border-bottom:3px solid #000;}'
+    + '.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}'
+    + '.card{border:2px solid #000;page-break-inside:avoid;break-inside:avoid;}'
+    + '.card-header{padding:8px 12px;color:#fff;font-family:Syne,sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;}'
+    + 'table{width:100%;border-collapse:collapse;font-size:9px;}'
+    + 'td{padding:3px 8px;border-bottom:1px solid #f0f0f0;}'
+    + 'tr:nth-child(even){background:#f9f9f9;}'
+    + '.legend{display:flex;gap:12px;margin:8px 0 16px;font-size:10px;}'
+    + '.legend span{display:inline-flex;align-items:center;gap:4px;}'
+    + '.legend i{width:8px;height:8px;border-radius:50%;display:inline-block;}'
+    + '.footer{margin-top:30px;text-align:center;font-size:10px;color:#888;font-style:italic;border-top:2px solid #000;padding-top:8px;}'
+    + '@media print{body{padding:10px;}.grid{grid-template-columns:repeat(3,1fr);gap:8px;}.card{break-inside:avoid;}}'
+    + '</style></head><body>'
+    + '<h1>WOORDBOOM</h1>'
+    + '<p style="color:#D40920;font-weight:600;font-size:13px;margin-bottom:2px;">' + totalFamilies + ' werkwoordfamilies + ' + totalThemes + ' thema\u2019s \u2014 ' + vnetData.length + ' woorden</p>'
+    + '<p style="color:#666;font-size:10px;">Gegenereerd op ' + new Date().toLocaleDateString('nl-NL') + '</p>'
+    + '<div class="legend">'
+    + Object.entries(lc).map(function(e) { return '<span><i style="background:' + e[1] + ';"></i>' + e[0] + '</span>'; }).join('')
+    + '</div>'
+    + '<h2>Werkwoordfamilies</h2>'
+    + '<div class="grid">';
+
+  sortedFamilies.forEach(function(e) {
+    cards = buildCard(e[0].replace('-familie',''), getTagColor(e[0]), e[1]);
+    html += cards;
+  });
+  html += '</div><h2>Thema\u2019s (losse woorden)</h2><div class="grid">';
+  sortedThemes.forEach(function(e) {
+    cards = buildCard(THEME_LABELS[e[0]] || e[0], getTagColor(e[0]), e[1]);
+    html += cards;
+  });
+  html += '</div>'
+    + '<div class="footer">www.' + siteUrl + '</div>'
+    + '<scr' + 'ipt src="/assets/js/tracker.js" defer></scr' + 'ipt></body></html>';
+
+  var w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  var printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF';
+  printBtn.style.cssText = 'position:fixed;top:10px;right:10px;z-index:9999;padding:8px 16px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = function() { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
+  w.document.body.prepend(printBtn);
 }
 
 function exportVocabPDF() {
