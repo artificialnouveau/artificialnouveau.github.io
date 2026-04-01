@@ -3097,6 +3097,31 @@ body::before, body::after { display: none; }
 .wt-empty {
   text-align: center; color: #999; padding: 60px 20px; font-size: 13px;
 }
+.wt-export-panel {
+  border: 3px solid var(--mondrian-black); background: #fff; padding: 16px; margin-top: 12px;
+}
+.wt-export-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+  font-family: 'Syne', sans-serif; font-size: 14px;
+}
+.wt-export-section { margin-bottom: 12px; }
+.wt-export-lvl-btn {
+  padding: 6px 14px; border: 2px solid var(--mondrian-black); border-right-width: 0;
+  background: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all 0.15s; color: #999;
+}
+.wt-export-lvl-btn:last-child { border-right-width: 2px; }
+.wt-export-lvl-btn.active { background: var(--mondrian-black); color: #fff; }
+.wt-export-cards {
+  display: flex; flex-wrap: wrap; gap: 4px; max-height: 200px; overflow-y: auto;
+}
+.wt-export-card-btn {
+  padding: 4px 10px; border: 2px solid var(--mondrian-black); background: #fff;
+  font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+.wt-export-card-btn.active { background: var(--mondrian-yellow); }
+.wt-export-card-btn:hover { background: #f0f0f0; }
 
 @media (max-width: 700px) {
   .pm-table thead th { height: 60px; font-size: 10px; padding: 4px 3px; }
@@ -3998,7 +4023,33 @@ body::before, body::after { display: none; }
           <option value="">-- Kies een woordfamilie --</option>
         </select>
         <div class="wt-legend" id="wtLegend"></div>
-        <button class="mondrian-btn" onclick="exportWoordboomPDF()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);margin-left:auto;">Download Woordboom PDF</button>
+        <button class="mondrian-btn" onclick="showWoordboomExport()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);margin-left:auto;">Download Woordboom PDF</button>
+      </div>
+      <div class="wt-export-panel" id="wtExportPanel" style="display:none;">
+        <div class="wt-export-header">
+          <strong>PDF Instellingen</strong>
+          <button onclick="document.getElementById('wtExportPanel').style.display='none'" style="background:none;border:none;font-size:16px;cursor:pointer;">&times;</button>
+        </div>
+        <div class="wt-export-section">
+          <label style="font-size:11px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:1px;">Niveau</label>
+          <div class="wt-export-levels" style="display:flex;gap:0;margin-top:4px;">
+            <button class="wt-export-lvl-btn active" data-lvl="A2" onclick="toggleWtExportLvl(this)">A2</button>
+            <button class="wt-export-lvl-btn active" data-lvl="B1" onclick="toggleWtExportLvl(this)">B1</button>
+            <button class="wt-export-lvl-btn active" data-lvl="B2" onclick="toggleWtExportLvl(this)">B2</button>
+            <button class="wt-export-lvl-btn active" data-lvl="C1" onclick="toggleWtExportLvl(this)">C1</button>
+          </div>
+        </div>
+        <div class="wt-export-section">
+          <label style="font-size:11px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:1px;">Kaarten</label>
+          <div style="display:flex;gap:6px;margin:4px 0 8px;">
+            <button class="mondrian-btn" onclick="toggleAllWtExportCards(true)" style="font-size:10px;padding:4px 10px;border:2px solid #000;">Alles aan</button>
+            <button class="mondrian-btn" onclick="toggleAllWtExportCards(false)" style="font-size:10px;padding:4px 10px;border:2px solid #000;">Alles uit</button>
+          </div>
+          <div class="wt-export-cards" id="wtExportCards"></div>
+        </div>
+        <div style="text-align:center;margin-top:12px;">
+          <button class="mondrian-btn" onclick="exportWoordboomPDF()" style="font-size:13px;padding:10px 24px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Genereer PDF</button>
+        </div>
       </div>
       <div class="wt-tree-area" id="wtTreeArea">
         <div class="wt-empty">Kies een woordfamilie hierboven om de boom te zien.</div>
@@ -12482,12 +12533,79 @@ function exportMatrixPDF() {
   w.document.body.prepend(printBtn);
 }
 
+function showWoordboomExport() {
+  var panel = document.getElementById('wtExportPanel');
+  var cardsDiv = document.getElementById('wtExportCards');
+  if (!panel || !cardsDiv) return;
+
+  // Build card checkboxes
+  var families = {};
+  vnetData.forEach(function(w) {
+    w.tags.filter(function(t) { return t.endsWith('-familie'); }).forEach(function(t) {
+      families[t] = (families[t] || 0) + 1;
+    });
+  });
+  var grammar = ['werkwoord','bijvoeglijk','zelfstandig','bijwoord','connector','scheidbaar','informeel','formeel','schrijftaal','slang','ont-prefix'];
+  var looseWords = vnetData.filter(function(w) { return !w.tags.some(function(t) { return t.endsWith('-familie'); }); });
+  var themes = {};
+  looseWords.forEach(function(w) {
+    w.tags.forEach(function(t) {
+      if (!t.endsWith('-familie') && grammar.indexOf(t) === -1) themes[t] = (themes[t] || 0) + 1;
+    });
+  });
+
+  var THEME_LABELS = {
+    dagelijks:'Dagelijks leven',gevoel:'Gevoelens',cultuur:'Cultuur',communicatie:'Communicatie',
+    verandering:'Verandering',politiek:'Politiek',werk:'Werk',mensen:'Mensen',beweging:'Beweging',
+    karakter:'Karakter',geld:'Geld',doel:'Doelen',lichaam:'Lichaam',taal:'Taal',
+    beeldspraak:'Beeldspraak',gezondheid:'Gezondheid',reizen:'Reizen',uitdrukking:'Uitdrukkingen'
+  };
+
+  var html = '<div style="font-size:10px;font-weight:600;color:#999;margin-bottom:4px;">FAMILIES</div>';
+  Object.entries(families).sort(function(a,b) { return b[1]-a[1]; }).forEach(function(e) {
+    html += '<button class="wt-export-card-btn active" data-card="' + e[0] + '" onclick="this.classList.toggle(\'active\')">' + e[0].replace('-familie','') + ' (' + e[1] + ')</button>';
+  });
+  html += '<div style="font-size:10px;font-weight:600;color:#999;margin:8px 0 4px;">THEMA\u2019S</div>';
+  Object.entries(themes).filter(function(e) { return e[1] >= 3; }).sort(function(a,b) { return b[1]-a[1]; }).forEach(function(e) {
+    html += '<button class="wt-export-card-btn active" data-card="thema:' + e[0] + '" onclick="this.classList.toggle(\'active\')">' + (THEME_LABELS[e[0]]||e[0]) + ' (' + e[1] + ')</button>';
+  });
+  cardsDiv.innerHTML = html;
+  panel.style.display = 'block';
+}
+
+function toggleWtExportLvl(btn) {
+  btn.classList.toggle('active');
+}
+
+function toggleAllWtExportCards(on) {
+  document.querySelectorAll('.wt-export-card-btn').forEach(function(b) {
+    if (on) b.classList.add('active'); else b.classList.remove('active');
+  });
+}
+
 function exportWoordboomPDF() {
   var siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
   var lc = PM_LEVEL_COLORS;
   var levelOrder = ['A2','B1','B2','C1'];
 
-  // Gather all families
+  // Read filter state from export panel
+  var activeLevels = [];
+  document.querySelectorAll('.wt-export-lvl-btn.active').forEach(function(b) { activeLevels.push(b.dataset.lvl); });
+  if (activeLevels.length === 0) activeLevels = ['A2','B1','B2','C1'];
+
+  var activeCards = new Set();
+  document.querySelectorAll('.wt-export-card-btn.active').forEach(function(b) { activeCards.add(b.dataset.card); });
+  // If no cards selected (e.g. panel never opened), include everything
+  var noFilter = activeCards.size === 0 && !document.getElementById('wtExportPanel').style.display;
+
+  var THEME_LABELS = {
+    dagelijks:'Dagelijks leven',gevoel:'Gevoelens',cultuur:'Cultuur',communicatie:'Communicatie',
+    verandering:'Verandering',politiek:'Politiek',werk:'Werk',mensen:'Mensen',beweging:'Beweging',
+    karakter:'Karakter',geld:'Geld',doel:'Doelen',lichaam:'Lichaam',taal:'Taal',
+    beeldspraak:'Beeldspraak',gezondheid:'Gezondheid',reizen:'Reizen',uitdrukking:'Uitdrukkingen'
+  };
+
+  // Gather families
   var families = {};
   vnetData.forEach(function(w) {
     w.tags.filter(function(t) { return t.endsWith('-familie'); }).forEach(function(t) {
@@ -12497,7 +12615,7 @@ function exportWoordboomPDF() {
   });
   var sortedFamilies = Object.entries(families).sort(function(a,b) { return b[1].length - a[1].length; });
 
-  // Gather themes (loose words)
+  // Gather themes
   var grammar = ['werkwoord','bijvoeglijk','zelfstandig','bijwoord','connector','scheidbaar','informeel','formeel','schrijftaal','slang','ont-prefix'];
   var looseWords = vnetData.filter(function(w) { return !w.tags.some(function(t) { return t.endsWith('-familie'); }); });
   var themes = {};
@@ -12511,22 +12629,18 @@ function exportWoordboomPDF() {
   });
   var sortedThemes = Object.entries(themes).filter(function(e) { return e[1].length >= 3; }).sort(function(a,b) { return b[1].length - a[1].length; });
 
-  var THEME_LABELS = {
-    dagelijks:'Dagelijks leven',gevoel:'Gevoelens',cultuur:'Cultuur',communicatie:'Communicatie',
-    verandering:'Verandering',politiek:'Politiek',werk:'Werk',mensen:'Mensen',beweging:'Beweging',
-    karakter:'Karakter',geld:'Geld',doel:'Doelen',lichaam:'Lichaam',taal:'Taal',
-    beeldspraak:'Beeldspraak',gezondheid:'Gezondheid',reizen:'Reizen',uitdrukking:'Uitdrukkingen'
-  };
-
   function buildCard(title, color, words) {
-    words.sort(function(a,b) {
+    // Filter by level
+    var filtered = words.filter(function(w) { return activeLevels.indexOf(w.level) !== -1; });
+    if (filtered.length === 0) return '';
+    filtered.sort(function(a,b) {
       var d = levelOrder.indexOf(a.level) - levelOrder.indexOf(b.level);
       return d !== 0 ? d : a.nl.localeCompare(b.nl);
     });
     var html = '<div class="card">'
-      + '<div class="card-header" style="background:' + color + ';">' + title + ' <span style="opacity:0.7;font-size:10px;">(' + words.length + ')</span></div>'
+      + '<div class="card-header" style="background:' + color + ';">' + title + ' <span style="opacity:0.7;font-size:10px;">(' + filtered.length + ')</span></div>'
       + '<table><tbody>';
-    words.forEach(function(w) {
+    filtered.forEach(function(w) {
       var wlc = lc[w.level] || '#000';
       html += '<tr>'
         + '<td style="font-weight:700;white-space:nowrap;">' + w.nl + '</td>'
@@ -12538,24 +12652,25 @@ function exportWoordboomPDF() {
     return html;
   }
 
-  var cards = '';
-  // Family cards
+  // Build family cards
+  var familyCards = '';
+  var familyCount = 0;
   sortedFamilies.forEach(function(e) {
-    var fam = e[0], ws = e[1];
-    var name = fam.replace('-familie', '');
-    var color = getTagColor(fam);
-    cards += buildCard(name, color, ws);
-  });
-  // Theme cards
-  sortedThemes.forEach(function(e) {
-    var tag = e[0], ws = e[1];
-    var label = THEME_LABELS[tag] || tag;
-    var color = getTagColor(tag);
-    cards += buildCard(label, color, ws);
+    if (!noFilter && !activeCards.has(e[0])) return;
+    var card = buildCard(e[0].replace('-familie',''), getTagColor(e[0]), e[1]);
+    if (card) { familyCards += card; familyCount++; }
   });
 
-  var totalFamilies = sortedFamilies.length;
-  var totalThemes = sortedThemes.length;
+  // Build theme cards
+  var themeCards = '';
+  var themeCount = 0;
+  sortedThemes.forEach(function(e) {
+    if (!noFilter && !activeCards.has('thema:' + e[0])) return;
+    var card = buildCard(THEME_LABELS[e[0]] || e[0], getTagColor(e[0]), e[1]);
+    if (card) { themeCards += card; themeCount++; }
+  });
+
+  var levelLabel = activeLevels.length === 4 ? 'A2\u2013C1' : activeLevels.join(', ');
 
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Woordboom \u2014 Dutchmaxxing</title>'
     + '<style>'
@@ -12571,29 +12686,25 @@ function exportWoordboomPDF() {
     + '.legend{display:flex;gap:12px;margin:8px 0 16px;font-size:10px;}'
     + '.legend span{display:inline-flex;align-items:center;gap:4px;}'
     + '.legend i{width:8px;height:8px;border-radius:50%;display:inline-block;}'
+    + '.page-break{page-break-before:always;}'
     + '.footer{margin-top:30px;text-align:center;font-size:10px;color:#888;font-style:italic;border-top:2px solid #000;padding-top:8px;}'
-    + '@media print{body{padding:10px;}.grid{grid-template-columns:repeat(3,1fr);gap:8px;}.card{break-inside:avoid;}}'
+    + '@media print{body{padding:10px;}.grid{grid-template-columns:repeat(3,1fr);gap:8px;}.card{break-inside:avoid;}.page-break{page-break-before:always;}}'
     + '</style></head><body>'
     + '<h1>WOORDBOOM</h1>'
-    + '<p style="color:#D40920;font-weight:600;font-size:13px;margin-bottom:2px;">' + totalFamilies + ' werkwoordfamilies + ' + totalThemes + ' thema\u2019s \u2014 ' + vnetData.length + ' woorden</p>'
+    + '<p style="color:#D40920;font-weight:600;font-size:13px;margin-bottom:2px;">Niveau ' + levelLabel + '</p>'
     + '<p style="color:#666;font-size:10px;">Gegenereerd op ' + new Date().toLocaleDateString('nl-NL') + '</p>'
     + '<div class="legend">'
     + Object.entries(lc).map(function(e) { return '<span><i style="background:' + e[1] + ';"></i>' + e[0] + '</span>'; }).join('')
-    + '</div>'
-    + '<h2>Werkwoordfamilies</h2>'
-    + '<div class="grid">';
+    + '</div>';
 
-  sortedFamilies.forEach(function(e) {
-    cards = buildCard(e[0].replace('-familie',''), getTagColor(e[0]), e[1]);
-    html += cards;
-  });
-  html += '</div><h2>Thema\u2019s (losse woorden)</h2><div class="grid">';
-  sortedThemes.forEach(function(e) {
-    cards = buildCard(THEME_LABELS[e[0]] || e[0], getTagColor(e[0]), e[1]);
-    html += cards;
-  });
-  html += '</div>'
-    + '<div class="footer">www.' + siteUrl + '</div>'
+  if (familyCards) {
+    html += '<h2>Werkwoordfamilies (' + familyCount + ')</h2><div class="grid">' + familyCards + '</div>';
+  }
+  if (themeCards) {
+    html += '<div class="page-break"></div><h2>Thema\u2019s (' + themeCount + ')</h2><div class="grid">' + themeCards + '</div>';
+  }
+
+  html += '<div class="footer">www.' + siteUrl + '</div>'
     + '<scr' + 'ipt src="/assets/js/tracker.js" defer></scr' + 'ipt></body></html>';
 
   var w = window.open('', '_blank');
@@ -12604,6 +12715,9 @@ function exportWoordboomPDF() {
   printBtn.style.cssText = 'position:fixed;top:10px;right:10px;z-index:9999;padding:8px 16px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
   printBtn.onclick = function() { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
   w.document.body.prepend(printBtn);
+
+  // Close the export panel
+  document.getElementById('wtExportPanel').style.display = 'none';
 }
 
 function exportVocabPDF() {
