@@ -2909,6 +2909,91 @@ body::before, body::after { display: none; }
   .dictee-sentence { font-size:17px; }
   .exercise-container { padding:12px 10px; }
 }
+
+/* Vocabulary Network */
+.vocab-net-container { max-width: 1100px; margin: 0 auto; }
+.vocab-net-toolbar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px;
+}
+.vocab-net-search {
+  flex: 1; min-width: 200px; padding: 10px 14px; border: 3px solid var(--mondrian-black);
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px; background: #fff; outline: none;
+}
+.vocab-net-search:focus { border-color: var(--mondrian-blue); }
+.vocab-net-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.vocab-net-filter-btn {
+  padding: 5px 12px; border: 2px solid var(--mondrian-black); background: #fff;
+  font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+.vocab-net-filter-btn:hover { background: var(--mondrian-yellow); }
+.vocab-net-filter-btn.active { background: var(--mondrian-red); color: #fff; border-color: var(--mondrian-red); }
+.vocab-net-body {
+  display: flex; gap: 0; border: 3px solid var(--mondrian-black); background: #fafafa;
+  min-height: 500px; position: relative;
+}
+#vocabNetCanvas { flex: 1; cursor: grab; display: block; min-height: 500px; }
+#vocabNetCanvas:active { cursor: grabbing; }
+.vocab-net-detail {
+  width: 280px; border-left: 3px solid var(--mondrian-black); background: #fff;
+  padding: 20px; overflow-y: auto; max-height: 500px;
+}
+.vocab-net-detail-empty { color: #999; font-size: 12px; text-align: center; padding: 40px 10px; }
+.vocab-net-detail h2 {
+  font-family: 'Syne', sans-serif; font-size: 22px; margin: 0 0 4px; color: var(--mondrian-black);
+}
+.vocab-net-detail .vocab-en { font-size: 14px; color: var(--mondrian-blue); font-weight: 600; margin-bottom: 10px; }
+.vocab-net-detail .vocab-level {
+  display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700;
+  border: 2px solid var(--mondrian-black); margin-bottom: 10px;
+}
+.vocab-net-detail .vocab-note { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 12px; }
+.vocab-net-detail .vocab-example {
+  font-size: 12px; line-height: 1.6; padding: 10px 12px;
+  background: #fffde6; border-left: 4px solid var(--mondrian-yellow); margin-bottom: 12px;
+  font-style: italic;
+}
+.vocab-net-detail .vocab-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.vocab-net-detail .vocab-tag {
+  font-size: 10px; padding: 2px 7px; background: var(--mondrian-black); color: #fff;
+  font-weight: 600; cursor: pointer;
+}
+.vocab-net-detail .vocab-tag:hover { background: var(--mondrian-blue); }
+.vocab-net-detail .vocab-related { margin-top: 14px; }
+.vocab-net-detail .vocab-related h4 {
+  font-size: 11px; font-weight: 700; color: #999; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 6px;
+}
+.vocab-net-detail .vocab-related-word {
+  display: inline-block; padding: 4px 10px; margin: 2px 4px 2px 0; font-size: 12px;
+  border: 2px solid var(--mondrian-black); cursor: pointer; font-weight: 600;
+  transition: all 0.15s; background: #fff;
+}
+.vocab-net-detail .vocab-related-word:hover { background: var(--mondrian-yellow); }
+.vocab-net-legend {
+  display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; font-size: 11px; color: #666;
+  justify-content: center;
+}
+.vocab-net-legend-item { display: flex; align-items: center; gap: 5px; }
+.vocab-net-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* Vocab tooltip on canvas */
+.vocab-net-tooltip {
+  position: absolute; pointer-events: none; background: #fff; border: 2px solid #000;
+  padding: 10px 14px; font-size: 12px; z-index: 100; max-width: 300px;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.15); line-height: 1.5;
+  transition: opacity 0.15s; opacity: 0;
+}
+.vocab-net-tooltip.show { opacity: 1; }
+.vocab-net-tooltip .tt-nl { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+.vocab-net-tooltip .tt-en { color: var(--mondrian-blue); font-weight: 600; margin-bottom: 4px; }
+.vocab-net-tooltip .tt-example { font-style: italic; color: #555; font-size: 11px; border-top: 1px solid #eee; padding-top: 4px; margin-top: 4px; }
+
+@media (max-width: 700px) {
+  .vocab-net-body { flex-direction: column; }
+  .vocab-net-detail { width: 100%; border-left: none; border-top: 3px solid var(--mondrian-black); max-height: 300px; }
+  #vocabNetCanvas { min-height: 350px; }
+}
 </style>
 </head>
 <body>
@@ -2934,6 +3019,7 @@ body::before, body::after { display: none; }
   <button class="tab-btn active" data-tab="spiekbriefjes">Spiekbriefjes</button>
   <button class="tab-btn" data-tab="news">Leeshoek</button>
   <button class="tab-btn" data-tab="schrijven">Schrijven</button>
+  <button class="tab-btn" data-tab="vocab">Vocabulaire</button>
   <button class="tab-btn" data-tab="examen">NT2 B1 Oefenen</button>
 </nav>
 
@@ -3414,6 +3500,23 @@ body::before, body::after { display: none; }
 </div><!-- /tab-spiekbriefjes -->
 
 <!-- NT2 B1 Oefenen Tab -->
+<div class="tab-content" id="tab-vocab">
+  <div class="vocab-net-container">
+    <div class="vocab-net-toolbar">
+      <input type="text" class="vocab-net-search" id="vocabNetSearch" placeholder="Zoek een woord..." oninput="filterVocabNet()" />
+      <div class="vocab-net-filters" id="vocabNetFilters"></div>
+      <button class="mondrian-btn" onclick="exportVocabPDF()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download PDF</button>
+    </div>
+    <div class="vocab-net-body">
+      <canvas id="vocabNetCanvas"></canvas>
+      <div class="vocab-net-detail" id="vocabNetDetail">
+        <div class="vocab-net-detail-empty">Klik op een woord in het netwerk om details te zien.</div>
+      </div>
+    </div>
+    <div class="vocab-net-legend" id="vocabNetLegend"></div>
+  </div>
+</div>
+
 <div class="tab-content" id="tab-examen">
   <p style="font-family:'Inter',sans-serif;font-size:12px;color:#666;margin-bottom:12px;">Video's afkomstig van <a href="https://www.youtube.com/@AdAppeltaaltrainingen" target="_blank" rel="noopener" style="color:var(--mondrian-blue);">Ad Appel taaltrainingen</a></p>
   <div class="subtab-bar">
@@ -7009,7 +7112,7 @@ function updateCEFRBarVisibility() {
   const bar = document.getElementById('cefrBar');
   if (!bar) return;
   const activeBtn = document.querySelector('.tab-btn.active');
-  const hideOn = ['spiekbriefjes', 'cultuur', 'examen'];
+  const hideOn = ['spiekbriefjes', 'cultuur', 'examen', 'vocab'];
   bar.style.display = (activeBtn && hideOn.includes(activeBtn.dataset.tab)) ? 'none' : '';
 }
 
@@ -7060,7 +7163,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     // Direct init for tabs without subtabs
     if (btn.dataset.tab === 'news') initNews();
     if (btn.dataset.tab === 'examen') initExamen();
-    // if (btn.dataset.tab === 'vocab') initVocab(); // commented out with tab
+    if (btn.dataset.tab === 'vocab') { initVocabNet().then(() => runVocabSimulation()); }
     updateCEFRBarVisibility();
   });
 });
@@ -11205,6 +11308,480 @@ function resetSpelToMenu() {
   document.getElementById('spelDifficultyBar').style.display = '';
   renderSkillOverview();
   renderThoughtCabinet();
+}
+
+// ==========================================
+// VOCABULARY NETWORK
+// ==========================================
+
+let vnetData = [];
+let vnetNodes = [];
+let vnetEdges = [];
+let vnetActiveFilter = null;
+let vnetSelectedNode = null;
+let vnetHoveredNode = null;
+let vnetDragNode = null;
+let vnetAnimFrame = null;
+let vnetInitDone = false;
+let vnetCanvasW = 0;
+let vnetCanvasH = 0;
+let vnetSearchTerm = '';
+
+const TAG_COLORS = {
+  werkwoord: '#D40920', bijvoeglijk: '#1356A2', zelfstandig: '#2d8a56', connector: '#F7D842',
+  bijwoord: '#e67e22', informeel: '#9b59b6', formeel: '#34495e', cultuur: '#e74c3c',
+  dagelijks: '#3498db', gevoel: '#e91e63', mensen: '#ff9800', communicatie: '#00bcd4',
+  scheidbaar: '#8bc34a', beweging: '#673ab7', verandering: '#009688', werk: '#795548',
+  geld: '#ffc107', politiek: '#607d8b', taal: '#4caf50', doel: '#ff5722',
+  slang: '#9c27b0', beeldspraak: '#00acc1', schrijftaal: '#5d4037', lichaam: '#f44336',
+  reizen: '#03a9f4', gezondheid: '#4caf50', karakter: '#ff7043', uitdrukking: '#ab47bc',
+  'ont-prefix': '#26a69a'
+};
+
+function getTagColor(tag) { return TAG_COLORS[tag] || '#999'; }
+
+async function initVocabNet() {
+  if (vnetInitDone) { drawVocabNet(); return; }
+  try {
+    const resp = await fetch('vocabulary.json');
+    vnetData = await resp.json();
+  } catch(e) { vnetData = []; }
+  vnetInitDone = true;
+  buildVocabGraph();
+  setupVocabCanvas();
+  buildVocabFilters();
+  buildVocabLegend();
+  drawVocabNet();
+}
+
+function buildVocabGraph() {
+  vnetNodes = vnetData.map((w, i) => ({
+    id: i, word: w, x: 0, y: 0, vx: 0, vy: 0, radius: 0, visible: true
+  }));
+  // Create edges between words sharing tags
+  vnetEdges = [];
+  const tagMap = {};
+  vnetData.forEach((w, i) => {
+    w.tags.forEach(t => {
+      if (!tagMap[t]) tagMap[t] = [];
+      tagMap[t].push(i);
+    });
+  });
+  const edgeSet = new Set();
+  Object.entries(tagMap).forEach(([tag, indices]) => {
+    for (let a = 0; a < indices.length; a++) {
+      for (let b = a + 1; b < indices.length; b++) {
+        const key = indices[a] + '-' + indices[b];
+        if (!edgeSet.has(key)) {
+          edgeSet.add(key);
+          vnetEdges.push({ source: indices[a], target: indices[b], tag });
+        }
+      }
+    }
+  });
+  // Initial random positions
+  vnetNodes.forEach(n => {
+    n.x = Math.random() * 600 + 100;
+    n.y = Math.random() * 400 + 50;
+  });
+}
+
+function setupVocabCanvas() {
+  const canvas = document.getElementById('vocabNetCanvas');
+  if (!canvas) return;
+  const container = canvas.parentElement;
+
+  function resize() {
+    const rect = container.getBoundingClientRect();
+    const detailW = window.innerWidth > 700 ? 280 : 0;
+    vnetCanvasW = Math.max(rect.width - detailW - 6, 300);
+    vnetCanvasH = Math.max(rect.height, 500);
+    canvas.width = vnetCanvasW * (window.devicePixelRatio || 1);
+    canvas.height = vnetCanvasH * (window.devicePixelRatio || 1);
+    canvas.style.width = vnetCanvasW + 'px';
+    canvas.style.height = vnetCanvasH + 'px';
+    // Reinitialize positions when resizing
+    vnetNodes.forEach(n => {
+      if (n.x > vnetCanvasW) n.x = Math.random() * vnetCanvasW * 0.8 + vnetCanvasW * 0.1;
+      if (n.y > vnetCanvasH) n.y = Math.random() * vnetCanvasH * 0.8 + vnetCanvasH * 0.1;
+    });
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); drawVocabNet(); });
+
+  // Add tooltip element
+  let tooltip = document.getElementById('vocabNetTooltip');
+  if (!tooltip) {
+    tooltip = document.createElement('div');
+    tooltip.className = 'vocab-net-tooltip';
+    tooltip.id = 'vocabNetTooltip';
+    container.appendChild(tooltip);
+  }
+
+  // Mouse events
+  let mouseX = 0, mouseY = 0;
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+    if (vnetDragNode) {
+      vnetDragNode.x = mouseX;
+      vnetDragNode.y = mouseY;
+      vnetDragNode.vx = 0;
+      vnetDragNode.vy = 0;
+      drawVocabNet();
+    }
+    // Hover detection
+    const prev = vnetHoveredNode;
+    vnetHoveredNode = null;
+    for (let i = vnetNodes.length - 1; i >= 0; i--) {
+      const n = vnetNodes[i];
+      if (!n.visible) continue;
+      const dx = mouseX - n.x, dy = mouseY - n.y;
+      if (dx*dx + dy*dy < n.radius * n.radius) {
+        vnetHoveredNode = n;
+        break;
+      }
+    }
+    canvas.style.cursor = vnetHoveredNode ? 'pointer' : 'grab';
+    // Show/hide tooltip
+    if (vnetHoveredNode && !vnetDragNode) {
+      const w = vnetHoveredNode.word;
+      tooltip.innerHTML = '<div class="tt-nl">' + w.nl + '</div>'
+        + '<div class="tt-en">' + w.en + '</div>'
+        + (w.example ? '<div class="tt-example">' + w.example + '</div>' : '');
+      tooltip.classList.add('show');
+      let tx = mouseX + 16, ty = mouseY - 10;
+      if (tx + 300 > vnetCanvasW) tx = mouseX - 310;
+      if (ty + 100 > vnetCanvasH) ty = vnetCanvasH - 110;
+      if (ty < 5) ty = 5;
+      tooltip.style.left = tx + 'px';
+      tooltip.style.top = ty + 'px';
+    } else {
+      tooltip.classList.remove('show');
+    }
+    if (prev !== vnetHoveredNode) drawVocabNet();
+  });
+
+  canvas.addEventListener('mousedown', (e) => {
+    if (vnetHoveredNode) {
+      vnetDragNode = vnetHoveredNode;
+      canvas.style.cursor = 'grabbing';
+    }
+  });
+
+  canvas.addEventListener('mouseup', () => {
+    if (vnetDragNode && !vnetDragNode._dragged) {
+      selectVocabNode(vnetDragNode);
+    }
+    vnetDragNode = null;
+  });
+
+  canvas.addEventListener('click', (e) => {
+    if (vnetHoveredNode) {
+      selectVocabNode(vnetHoveredNode);
+    }
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    tooltip.classList.remove('show');
+    vnetHoveredNode = null;
+    vnetDragNode = null;
+    drawVocabNet();
+  });
+
+  // Touch events
+  canvas.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    mouseX = touch.clientX - rect.left;
+    mouseY = touch.clientY - rect.top;
+    for (let i = vnetNodes.length - 1; i >= 0; i--) {
+      const n = vnetNodes[i];
+      if (!n.visible) continue;
+      const dx = mouseX - n.x, dy = mouseY - n.y;
+      if (dx*dx + dy*dy < (n.radius + 5) * (n.radius + 5)) {
+        selectVocabNode(n);
+        e.preventDefault();
+        break;
+      }
+    }
+  });
+}
+
+function buildVocabFilters() {
+  const container = document.getElementById('vocabNetFilters');
+  if (!container) return;
+  // Get most common tags
+  const tagCount = {};
+  vnetData.forEach(w => w.tags.forEach(t => { tagCount[t] = (tagCount[t] || 0) + 1; }));
+  const topTags = Object.entries(tagCount).sort((a,b) => b[1] - a[1]).slice(0, 12).map(e => e[0]);
+  container.innerHTML = topTags.map(t =>
+    '<button class="vocab-net-filter-btn" data-tag="' + t + '" onclick="toggleVocabFilter(\'' + t + '\')">' + t + '</button>'
+  ).join('');
+}
+
+function buildVocabLegend() {
+  const container = document.getElementById('vocabNetLegend');
+  if (!container) return;
+  const levels = ['A2', 'B1', 'B2', 'C1'];
+  const colors = { A2: '#2d8a56', B1: '#1356A2', B2: '#e67e22', C1: '#D40920' };
+  container.innerHTML = levels.map(l =>
+    '<div class="vocab-net-legend-item"><div class="vocab-net-legend-dot" style="background:' + colors[l] + '"></div>' + l + '</div>'
+  ).join('') + '<div class="vocab-net-legend-item" style="margin-left:14px;"><span style="font-size:9px;">&#9679;</span> = kleiner woord &nbsp; <span style="font-size:16px;">&#9679;</span> = meer connecties</div>';
+}
+
+function toggleVocabFilter(tag) {
+  if (vnetActiveFilter === tag) {
+    vnetActiveFilter = null;
+  } else {
+    vnetActiveFilter = tag;
+  }
+  document.querySelectorAll('.vocab-net-filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tag === vnetActiveFilter);
+  });
+  applyVocabVisibility();
+  drawVocabNet();
+}
+
+function filterVocabNet() {
+  vnetSearchTerm = (document.getElementById('vocabNetSearch').value || '').toLowerCase().trim();
+  applyVocabVisibility();
+  drawVocabNet();
+}
+
+function applyVocabVisibility() {
+  vnetNodes.forEach(n => {
+    let vis = true;
+    if (vnetActiveFilter && !n.word.tags.includes(vnetActiveFilter)) vis = false;
+    if (vnetSearchTerm && !n.word.nl.toLowerCase().includes(vnetSearchTerm) && !n.word.en.toLowerCase().includes(vnetSearchTerm)) vis = false;
+    n.visible = vis;
+  });
+}
+
+function selectVocabNode(node) {
+  vnetSelectedNode = node;
+  const detail = document.getElementById('vocabNetDetail');
+  if (!detail) return;
+  const w = node.word;
+  const levelColors = { A2: '#2d8a56', B1: '#1356A2', B2: '#e67e22', C1: '#D40920' };
+  // Find related words (share at least one tag)
+  const related = [];
+  vnetNodes.forEach(n => {
+    if (n.id === node.id || !n.visible) return;
+    const shared = n.word.tags.filter(t => w.tags.includes(t));
+    if (shared.length > 0) related.push({ node: n, count: shared.length });
+  });
+  related.sort((a,b) => b.count - a.count);
+  const topRelated = related.slice(0, 8);
+
+  detail.innerHTML = '<h2>' + w.nl + '</h2>'
+    + '<div class="vocab-en">' + w.en + '</div>'
+    + '<span class="vocab-level" style="border-color:' + (levelColors[w.level] || '#000') + ';color:' + (levelColors[w.level] || '#000') + '">' + w.level + '</span>'
+    + (w.note ? '<div class="vocab-note">' + w.note + '</div>' : '')
+    + (w.example ? '<div class="vocab-example">"' + w.example + '"</div>' : '')
+    + '<div class="vocab-tags">' + w.tags.map(t => '<span class="vocab-tag" onclick="toggleVocabFilter(\'' + t + '\')" style="background:' + getTagColor(t) + '">' + t + '</span>').join('') + '</div>'
+    + (topRelated.length > 0 ? '<div class="vocab-related"><h4>Verwante woorden</h4>'
+      + topRelated.map(r => '<span class="vocab-related-word" onclick="selectVocabNodeById(' + r.node.id + ')">' + r.node.word.nl + '</span>').join('')
+      + '</div>' : '');
+  drawVocabNet();
+}
+
+function selectVocabNodeById(id) {
+  const node = vnetNodes.find(n => n.id === id);
+  if (node) selectVocabNode(node);
+}
+
+function drawVocabNet() {
+  const canvas = document.getElementById('vocabNetCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, vnetCanvasW, vnetCanvasH);
+
+  const levelColors = { A2: '#2d8a56', B1: '#1356A2', B2: '#e67e22', C1: '#D40920' };
+  const visibleSet = new Set(vnetNodes.filter(n => n.visible).map(n => n.id));
+
+  // Calculate node radii based on connections
+  const connCount = {};
+  vnetEdges.forEach(e => {
+    if (visibleSet.has(e.source) && visibleSet.has(e.target)) {
+      connCount[e.source] = (connCount[e.source] || 0) + 1;
+      connCount[e.target] = (connCount[e.target] || 0) + 1;
+    }
+  });
+  vnetNodes.forEach(n => {
+    n.radius = n.visible ? Math.max(6, Math.min(18, 5 + Math.sqrt(connCount[n.id] || 1) * 2.5)) : 0;
+  });
+
+  // Draw edges (only between visible nodes)
+  ctx.globalAlpha = 0.06;
+  vnetEdges.forEach(e => {
+    if (!visibleSet.has(e.source) || !visibleSet.has(e.target)) return;
+    const a = vnetNodes[e.source], b = vnetNodes[e.target];
+    // Highlight edges connected to selected or hovered node
+    if (vnetSelectedNode && (e.source === vnetSelectedNode.id || e.target === vnetSelectedNode.id)) {
+      ctx.globalAlpha = 0.3;
+      ctx.strokeStyle = getTagColor(e.tag);
+      ctx.lineWidth = 1.5;
+    } else if (vnetHoveredNode && (e.source === vnetHoveredNode.id || e.target === vnetHoveredNode.id)) {
+      ctx.globalAlpha = 0.25;
+      ctx.strokeStyle = getTagColor(e.tag);
+      ctx.lineWidth = 1;
+    } else {
+      ctx.globalAlpha = 0.06;
+      ctx.strokeStyle = '#999';
+      ctx.lineWidth = 0.5;
+    }
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.stroke();
+  });
+  ctx.globalAlpha = 1;
+
+  // Draw nodes
+  vnetNodes.forEach(n => {
+    if (!n.visible) return;
+    const isSelected = vnetSelectedNode && vnetSelectedNode.id === n.id;
+    const isHovered = vnetHoveredNode && vnetHoveredNode.id === n.id;
+    const isConnected = vnetSelectedNode && vnetEdges.some(e =>
+      (e.source === vnetSelectedNode.id && e.target === n.id) ||
+      (e.target === vnetSelectedNode.id && e.source === n.id)
+    );
+    const color = levelColors[n.word.level] || '#999';
+
+    // Dim unconnected nodes when something is selected
+    if (vnetSelectedNode && !isSelected && !isConnected) {
+      ctx.globalAlpha = 0.25;
+    } else {
+      ctx.globalAlpha = 1;
+    }
+
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+    ctx.fillStyle = isSelected ? '#000' : isHovered ? '#F7D842' : color;
+    ctx.fill();
+    if (isSelected || isHovered) {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // Draw label
+    const fontSize = isSelected ? 13 : isHovered ? 12 : isConnected ? 11 : 10;
+    ctx.font = (isSelected || isHovered ? '700 ' : '500 ') + fontSize + 'px "Space Grotesk", sans-serif';
+    ctx.fillStyle = isSelected ? '#D40920' : (vnetSelectedNode && !isConnected ? 'rgba(0,0,0,0.3)' : '#111');
+    ctx.textAlign = 'center';
+    ctx.fillText(n.word.nl, n.x, n.y - n.radius - 4);
+    ctx.globalAlpha = 1;
+  });
+}
+
+// Simple force simulation
+function runVocabSimulation() {
+  const visible = vnetNodes.filter(n => n.visible);
+  const iterations = 120;
+  let step = 0;
+
+  function tick() {
+    if (step >= iterations) { drawVocabNet(); return; }
+    step++;
+    const alpha = 0.3 * (1 - step / iterations);
+
+    // Repulsion between all visible nodes
+    for (let i = 0; i < visible.length; i++) {
+      for (let j = i + 1; j < visible.length; j++) {
+        const a = visible[i], b = visible[j];
+        let dx = b.x - a.x, dy = b.y - a.y;
+        let dist = Math.sqrt(dx*dx + dy*dy) || 1;
+        const minDist = 50;
+        if (dist < minDist) {
+          const force = alpha * (minDist - dist) / dist * 0.5;
+          a.x -= dx * force; a.y -= dy * force;
+          b.x += dx * force; b.y += dy * force;
+        }
+      }
+    }
+
+    // Attraction along edges
+    vnetEdges.forEach(e => {
+      const a = vnetNodes[e.source], b = vnetNodes[e.target];
+      if (!a.visible || !b.visible) return;
+      let dx = b.x - a.x, dy = b.y - a.y;
+      let dist = Math.sqrt(dx*dx + dy*dy) || 1;
+      const idealDist = 100;
+      const force = alpha * (dist - idealDist) / dist * 0.01;
+      a.x += dx * force; a.y += dy * force;
+      b.x -= dx * force; b.y -= dy * force;
+    });
+
+    // Center gravity
+    const cx = vnetCanvasW / 2, cy = vnetCanvasH / 2;
+    visible.forEach(n => {
+      n.x += (cx - n.x) * alpha * 0.02;
+      n.y += (cy - n.y) * alpha * 0.02;
+      // Bounds
+      n.x = Math.max(n.radius + 20, Math.min(vnetCanvasW - n.radius - 20, n.x));
+      n.y = Math.max(n.radius + 20, Math.min(vnetCanvasH - n.radius - 20, n.y));
+    });
+
+    drawVocabNet();
+    vnetAnimFrame = requestAnimationFrame(tick);
+  }
+  if (vnetAnimFrame) cancelAnimationFrame(vnetAnimFrame);
+  tick();
+}
+
+function exportVocabPDF() {
+  const siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
+  // Sort by level then alphabetically
+  const sorted = [...vnetData].sort((a,b) => {
+    const lo = ['A2','B1','B2','C1'];
+    const d = lo.indexOf(a.level) - lo.indexOf(b.level);
+    if (d !== 0) return d;
+    return a.nl.localeCompare(b.nl);
+  });
+  const levelColors = { A2: '#2d8a56', B1: '#1356A2', B2: '#e67e22', C1: '#D40920' };
+  let currentLevel = '';
+  let rows = '';
+  sorted.forEach(w => {
+    if (w.level !== currentLevel) {
+      currentLevel = w.level;
+      rows += '<h2 style="color:' + (levelColors[w.level]||'#000') + ';border-bottom:3px solid #000;padding-bottom:6px;margin-top:28px;">Niveau ' + w.level + '</h2>';
+      rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th><th>Voorbeeld</th><th>Tags</th></tr></thead><tbody>';
+    }
+    rows += '<tr><td style="font-weight:700;color:#D40920">' + w.nl + '</td><td>' + w.en + '</td><td style="font-style:italic;color:#555;font-size:11px;">' + (w.example || '') + '</td><td style="font-size:10px;color:#888;">' + w.tags.join(', ') + '</td></tr>';
+    // Close table at level boundary (will reopen)
+  });
+  if (currentLevel) rows += '</tbody></table>';
+
+  const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Woordenschat \u2014 Dutchmaxxing</title>'
+    + '<style>body{font-family:Inter,sans-serif;max-width:950px;margin:0 auto;padding:40px 20px;color:#111;font-size:12px;}'
+    + 'h1{font-family:Syne,sans-serif;font-size:28px;color:#000;margin-bottom:4px;letter-spacing:3px;}'
+    + 'h2{font-family:Syne,sans-serif;font-size:18px;margin:28px 0 12px;padding-bottom:6px;}'
+    + 'table{width:100%;border-collapse:collapse;margin-bottom:8px;border:2px solid #000;}'
+    + 'th{background:#F7D842;color:#000;padding:8px 10px;text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-family:Space Grotesk,sans-serif;border-bottom:2px solid #000;}'
+    + 'td{padding:6px 10px;border-bottom:1px solid #ddd;}'
+    + 'tr:nth-child(even){background:#f9f9f9;}'
+    + '.footer{margin-top:40px;text-align:center;font-size:11px;color:#888;font-style:italic;padding-top:16px;border-top:3px solid #000;}'
+    + '@media print{body{padding:15px;}table{page-break-inside:auto;}tr{page-break-inside:avoid;}thead{display:table-header-group;}}</style></head>'
+    + '<body><h1>WOORDENSCHAT</h1>'
+    + '<p style="color:#D40920;font-weight:600;font-size:14px;margin-bottom:4px;">' + vnetData.length + ' woorden \u2014 A2 tot C1</p>'
+    + '<p style="color:#666;font-size:11px;">Gegenereerd op ' + new Date().toLocaleDateString('nl-NL') + '</p>'
+    + '<div style="height:4px;background:#000;margin:16px 0 24px;"></div>'
+    + rows
+    + '<div class="footer">www.' + siteUrl + '</div>'
+    + '<scr' + 'ipt src="/assets/js/tracker.js" defer></scr' + 'ipt></body></html>';
+  const w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  const printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF';
+  printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = () => { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
+  w.document.body.prepend(printBtn);
 }
 
 // ==========================================
