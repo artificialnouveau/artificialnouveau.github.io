@@ -696,6 +696,103 @@
             return `${browser} ${version} on ${os}`;
         }
 
+        function collectBrowserAge() {
+            // Latest stable versions and release dates (update periodically)
+            // Each entry: [majorVersion, releaseDate, securityFixCount]
+            const chromeReleases = [
+                [136, '2026-03-25', 8],
+                [135, '2026-03-04', 14],
+                [134, '2026-02-04', 12],
+                [133, '2026-01-14', 16],
+                [132, '2025-12-10', 10],
+                [131, '2025-11-12', 12],
+                [130, '2025-10-15', 17],
+                [129, '2025-09-17', 9],
+                [128, '2025-08-20', 13],
+                [127, '2025-07-23', 24],
+                [126, '2025-06-11', 21],
+                [125, '2025-05-14', 16],
+                [124, '2025-04-16', 22],
+                [123, '2025-03-19', 12],
+                [122, '2025-02-19', 14],
+                [121, '2025-01-21', 17],
+                [120, '2024-12-04', 10],
+                [119, '2024-10-29', 15],
+            ];
+            const firefoxReleases = [
+                [138, '2026-03-25', 11],
+                [137, '2026-03-04', 9],
+                [136, '2026-02-04', 14],
+                [135, '2026-01-07', 10],
+                [134, '2024-12-03', 8],
+                [133, '2024-10-29', 11],
+                [132, '2024-10-01', 13],
+                [131, '2024-09-03', 9],
+                [130, '2024-08-06', 14],
+                [129, '2024-07-09', 16],
+                [128, '2024-06-11', 12],
+            ];
+            const safariReleases = [
+                [18, '2025-09-15', 28],
+                [17, '2024-09-18', 34],
+                [16, '2023-09-18', 27],
+            ];
+            const edgeReleases = chromeReleases; // Edge tracks Chromium versions
+
+            const browser = D.browser;
+            const versionStr = D.browserVersion;
+            const majorVersion = parseInt(versionStr);
+
+            if (!majorVersion || isNaN(majorVersion)) return null;
+
+            let releases;
+            if (browser === 'Chrome') releases = chromeReleases;
+            else if (browser === 'Firefox') releases = firefoxReleases;
+            else if (browser === 'Safari') releases = safariReleases;
+            else if (browser === 'Edge') releases = edgeReleases;
+            else return null;
+
+            const latestMajor = releases[0][0];
+            const versionsBehind = latestMajor - majorVersion;
+
+            if (versionsBehind < 0) return null; // newer than our data
+
+            // Count security fixes in versions between user's and latest
+            let totalCVEs = 0;
+            const missedVersions = [];
+            for (const [ver, date, fixes] of releases) {
+                if (ver > majorVersion) {
+                    totalCVEs += fixes;
+                    missedVersions.push({ ver, date, fixes });
+                }
+            }
+
+            // Find user's version release date
+            const userRelease = releases.find(r => r[0] === majorVersion);
+            let ageText = '';
+            if (userRelease) {
+                const releaseDate = new Date(userRelease[1]);
+                const now = new Date();
+                const daysBehind = Math.floor((now - releaseDate) / (1000 * 60 * 60 * 24));
+                if (daysBehind > 365) ageText = Math.floor(daysBehind / 365) + ' year' + (daysBehind >= 730 ? 's' : '') + ' old';
+                else if (daysBehind > 30) ageText = Math.floor(daysBehind / 30) + ' month' + (daysBehind >= 60 ? 's' : '') + ' old';
+                else if (daysBehind > 0) ageText = daysBehind + ' day' + (daysBehind > 1 ? 's' : '') + ' old';
+                else ageText = 'released today';
+            }
+
+            D.browserAge = {
+                versionsBehind,
+                totalCVEs,
+                missedVersions: missedVersions.slice(0, 5), // show up to 5
+                ageText,
+                latestMajor,
+                isLatest: versionsBehind === 0,
+                isCritical: versionsBehind >= 3
+            };
+
+            return D.browserAge;
+        }
+
         function collectScreen() {
             D.screenW = screen.width;
             D.screenH = screen.height;
@@ -1247,6 +1344,30 @@
 
             const browserStr = collectBrowser();
             await addLine(`<span class="prompt">&gt;</span> <span class="label">Browser:</span> <span class="value">${browserStr}</span>`, 100);
+
+            // Browser age & vulnerability check
+            const browserAge = collectBrowserAge();
+            if (browserAge) {
+                if (browserAge.isLatest) {
+                    await addLine(`<span class="prompt">&gt;</span> <span class="label">Version status:</span> <span class="value">UP TO DATE (${D.browser} ${D.browserVersion})</span>`, 80);
+                } else {
+                    await addLine(`<span class="prompt">&gt;</span> <span class="label">Version status:</span> <span class="warn">${browserAge.versionsBehind} version${browserAge.versionsBehind > 1 ? 's' : ''} behind (latest: ${browserAge.latestMajor})</span>`, 90);
+                    if (browserAge.ageText) {
+                        await addLine(`<span class="prompt">&gt;</span> <span class="label">Browser age:</span> <span class="warn">${browserAge.ageText}</span>`, 70);
+                    }
+                    if (browserAge.totalCVEs > 0) {
+                        await addLine(`<span class="prompt">&gt;</span> <span class="label">Security fixes missed:</span> <span class="warn">${browserAge.totalCVEs} patches you don't have</span>`, 90);
+                    }
+                    // Show missed versions
+                    for (const v of browserAge.missedVersions) {
+                        await addLine(`<span class="prompt">&gt;</span> <span class="label">&nbsp;&nbsp;v${v.ver} (${v.date}):</span> <span class="warn">${v.fixes} security fixes</span>`, 50);
+                    }
+                    if (browserAge.isCritical) {
+                        await addLine(`<span class="prompt">&gt;</span> <span class="warn">Your browser is critically out of date. Some of these patches fix actively exploited vulnerabilities.</span>`, 100);
+                    }
+                }
+            }
+
             await addLine(`<span class="prompt">&gt;</span> <span class="label">Platform:</span> <span class="value">${D.platform}</span>`, 70);
 
             if (D.touch) {
