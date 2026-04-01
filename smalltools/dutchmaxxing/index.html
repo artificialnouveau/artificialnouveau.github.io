@@ -2920,6 +2920,15 @@ body::before, body::after { display: none; }
   font-family: 'Space Grotesk', sans-serif; font-size: 13px; background: #fff; outline: none;
 }
 .vocab-net-search:focus { border-color: var(--mondrian-blue); }
+.vocab-net-levels { display: flex; gap: 0; margin-bottom: 0; }
+.vocab-net-level-btn {
+  padding: 6px 14px; border: 2px solid var(--mondrian-black); border-right-width: 0; background: #fff;
+  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all 0.15s; color: var(--lc, #333);
+}
+.vocab-net-level-btn:last-child { border-right-width: 2px; }
+.vocab-net-level-btn:hover { background: #f0f0f0; }
+.vocab-net-level-btn.active { background: var(--lc, var(--mondrian-black)); color: #fff; }
 .vocab-net-filters { display: flex; gap: 6px; flex-wrap: wrap; }
 .vocab-net-filter-btn {
   padding: 5px 12px; border: 2px solid var(--mondrian-black); background: #fff;
@@ -2930,9 +2939,9 @@ body::before, body::after { display: none; }
 .vocab-net-filter-btn.active { background: var(--mondrian-red); color: #fff; border-color: var(--mondrian-red); }
 .vocab-net-body {
   display: flex; gap: 0; border: 3px solid var(--mondrian-black); background: #fafafa;
-  min-height: 500px; position: relative;
+  min-height: 600px; position: relative;
 }
-#vocabNetCanvas { flex: 1; cursor: grab; display: block; min-height: 500px; }
+#vocabNetCanvas { flex: 1; cursor: grab; display: block; min-height: 600px; }
 #vocabNetCanvas:active { cursor: grabbing; }
 .vocab-net-detail {
   width: 280px; border-left: 3px solid var(--mondrian-black); background: #fff;
@@ -2988,6 +2997,7 @@ body::before, body::after { display: none; }
 .vocab-net-tooltip .tt-nl { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
 .vocab-net-tooltip .tt-en { color: var(--mondrian-blue); font-weight: 600; margin-bottom: 4px; }
 .vocab-net-tooltip .tt-example { font-style: italic; color: #555; font-size: 11px; border-top: 1px solid #eee; padding-top: 4px; margin-top: 4px; }
+.vocab-net-tooltip .tt-tags { font-size: 10px; color: #666; margin-top: 4px; padding-top: 4px; border-top: 1px solid #eee; }
 
 @media (max-width: 700px) {
   .vocab-net-body { flex-direction: column; }
@@ -3303,6 +3313,7 @@ body::before, body::after { display: none; }
         <button class="phrases-cat-btn" data-pcat="argument" onclick="switchPhrasesCat('argument')">Argumentatie</button>
         <button class="phrases-cat-btn" data-pcat="formal" onclick="switchPhrasesCat('formal')">Formeel</button>
         <button class="phrases-cat-btn" data-pcat="idiom" onclick="switchPhrasesCat('idiom')">Spreekwoorden</button>
+        <button class="phrases-cat-btn" data-pcat="subtext" onclick="switchPhrasesCat('subtext')">Wat we echt bedoelen</button>
       </div>
       <button class="help-btn" onclick="showHelp('phrases')" title="Hulp">?</button>
     </div>
@@ -3506,6 +3517,13 @@ body::before, body::after { display: none; }
       <input type="text" class="vocab-net-search" id="vocabNetSearch" placeholder="Zoek een woord..." oninput="filterVocabNet()" />
       <div class="vocab-net-filters" id="vocabNetFilters"></div>
       <button class="mondrian-btn" onclick="exportVocabPDF()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download PDF</button>
+    </div>
+    <div class="vocab-net-levels">
+      <button class="vocab-net-level-btn active" data-level="" onclick="setVnetLevel('')">Alle</button>
+      <button class="vocab-net-level-btn" data-level="A2" onclick="setVnetLevel('A2')" style="--lc:#2d8a56">A2</button>
+      <button class="vocab-net-level-btn" data-level="B1" onclick="setVnetLevel('B1')" style="--lc:#1356A2">B1</button>
+      <button class="vocab-net-level-btn" data-level="B2" onclick="setVnetLevel('B2')" style="--lc:#e67e22">B2</button>
+      <button class="vocab-net-level-btn" data-level="C1" onclick="setVnetLevel('C1')" style="--lc:#D40920">C1</button>
     </div>
     <div class="vocab-net-body">
       <canvas id="vocabNetCanvas"></canvas>
@@ -8405,6 +8423,94 @@ const PHRASES = [
   { nl:'Het roer omgooien', en:'To change course drastically', cat:'idiom', example:'Na zijn ontslag besloot hij het roer om te gooien.', example_en:'After being fired he decided to make a drastic change.', level:'B1' },
   { nl:'Iemand een hart onder de riem steken', en:'To encourage someone', cat:'idiom', example:'Ik wilde je even een hart onder de riem steken.', example_en:'I wanted to encourage you.', level:'B1' },
   { nl:'De knoop doorhakken', en:'To make a decision / cut the knot', cat:'idiom', example:'We moeten nu de knoop doorhakken.', example_en:'We need to make a decision now.', level:'B1' },
+
+  // === WAT WE ECHT BEDOELEN (What we say vs. what we really mean) ===
+  // -- Surprise / Amazement --
+  { nl:'Nou zeg', en:'Well, I never! / Seriously?', cat:'subtext', example:'Nou zeg, dat had ik niet verwacht!', example_en:'Well, I never! I didn\'t expect that!', level:'B1' },
+  { nl:'Nou ja', en:'Oh well... (mild surprise or resignation)', cat:'subtext', example:'Nou ja, het is niet anders.', example_en:'Oh well, it is what it is.', level:'A2' },
+  { nl:'Nou nou...', en:'Well, well... / Really? (impressed or skeptical)', cat:'subtext', example:'Nou nou, wat een groot huis!', example_en:'Well well, what a big house!', level:'B1' },
+  { nl:'Nou en...?', en:'So what? (dismissive)', cat:'subtext', example:'Nou en? Dat maakt toch niet uit.', example_en:'So what? That doesn\'t matter.', level:'B1' },
+  { nl:'Nee!', en:'Stop that! / No way! (surprise)', cat:'subtext', example:'Nee! Echt waar? Dat meen je niet!', example_en:'No way! Really? You can\'t be serious!', level:'A2' },
+  { nl:'Noouu!', en:'Oh nooo! / Disappointed (drawn out)', cat:'subtext', example:'Noouu, dat is jammer!', example_en:'Oh nooo, that\'s a shame!', level:'B1' },
+  { nl:'O ja?', en:'Oh really? / Is that true?', cat:'subtext', example:'O ja? Dat wist ik niet.', example_en:'Oh really? I didn\'t know that.', level:'A2' },
+  { nl:'Oh', en:'Oh / Ugh / I don\'t like that', cat:'subtext', example:'Oh... dat is niet wat ik had gehoopt.', example_en:'Oh... that\'s not what I hoped for.', level:'A2' },
+  { nl:'Tjonge jonge', en:'Geez / Good grief (amazement)', cat:'subtext', example:'Tjonge jonge, wat een puinhoop!', example_en:'Good grief, what a mess!', level:'B1' },
+  { nl:'Tja...', en:'Well... / Oh well (resigned acceptance)', cat:'subtext', example:'Tja, zo gaat dat soms.', example_en:'Well, that\'s how it goes sometimes.', level:'B1' },
+  { nl:'Nou', en:'Well / Disagreement, transition, or surprise', cat:'subtext', example:'Nou, ik weet het niet hoor.', example_en:'Well, I\'m not so sure about that.', level:'A2' },
+  { nl:'Hè', en:'Hey / Check if the other is still with you', cat:'subtext', example:'Leuk hè, dit restaurant?', example_en:'Nice, isn\'t it, this restaurant?', level:'A2' },
+  { nl:'Hehe', en:'Phew / Relief or irony', cat:'subtext', example:'Hehe, gelukkig is het goed afgelopen.', example_en:'Phew, luckily it turned out fine.', level:'B1' },
+
+  // -- Enthusiasm --
+  { nl:'Hoppa!', en:'There you go! / Bam! (excitement)', cat:'subtext', example:'Hoppa! Klaar! Dat ging snel!', example_en:'There you go! Done! That was quick!', level:'B1' },
+  { nl:'Zo hè!', en:'Wow! / Impressive!', cat:'subtext', example:'Zo hè, wat een prestatie!', example_en:'Wow, what an achievement!', level:'B1' },
+  { nl:'Toe maar', en:'Phew / Wow (can be sarcastic too)', cat:'subtext', example:'Toe maar, drie gebakjes? Lekker bezig!', example_en:'Well well, three pastries? Going for it!', level:'B1' },
+  { nl:'Geweldig!', en:'Great! / Awesome!', cat:'subtext', example:'Geweldig! Goed gedaan!', example_en:'Awesome! Well done!', level:'A2' },
+  { nl:'Hup!', en:'Let\'s go! / Move it!', cat:'subtext', example:'Hup, we gaan! De trein vertrekt zo.', example_en:'Come on, let\'s go! The train leaves soon.', level:'A2' },
+  { nl:'Toedeledokie', en:'Byeee! / No way that\'s happening (playful)', cat:'subtext', example:'Toedeledokie, ik ga ervandoor!', example_en:'Byeee, I\'m off!', level:'B2' },
+  { nl:'Gezellige mazzeltof', en:'Cozy congrats / warm informal tone', cat:'subtext', example:'Gezellige mazzeltof met je nieuwe baan!', example_en:'Big warm congrats on your new job!', level:'B2' },
+  { nl:'Eers', en:'Chill / Relaxed, informal tone', cat:'subtext', example:'Ja eers, doe maar rustig aan.', example_en:'Yeah chill, take it easy.', level:'B2' },
+  { nl:'Natuurlijk!', en:'Of course! (sounds self-evident)', cat:'subtext', example:'Natuurlijk help ik je!', example_en:'Of course I\'ll help you!', level:'A2' },
+
+  // -- Skeptical / Disbelief --
+  { nl:'Nee maar', en:'No way / You can\'t be serious', cat:'subtext', example:'Nee maar, dat geloof ik niet!', example_en:'No way, I don\'t believe that!', level:'B1' },
+  { nl:'Kom nou', en:'Come on / No, really not', cat:'subtext', example:'Kom nou, dat meen je niet.', example_en:'Come on, you can\'t mean that.', level:'B1' },
+  { nl:'Ja kom', en:'Come on, that can\'t be true', cat:'subtext', example:'Ja kom, dat slaat nergens op.', example_en:'Come on, that doesn\'t make sense.', level:'B1' },
+  { nl:'Ja (drawn out)', en:'Yeah right / I don\'t buy it', cat:'subtext', example:'Jaaa... dat zal wel.', example_en:'Yeah right... sure.', level:'B1' },
+  { nl:'Ooooo ja', en:'As if / I don\'t believe it', cat:'subtext', example:'Ooooo ja, en morgen wordt het ook 30 graden.', example_en:'Oh sure, and tomorrow it\'ll be 30 degrees too.', level:'B1' },
+  { nl:'(Na)tuurlijk (exaggerated)', en:'Yeah, right / That\'s nonsense', cat:'subtext', example:'Natúúrlijk, en ik ben de koningin.', example_en:'Yeah right, and I\'m the queen.', level:'B1' },
+  { nl:'Jaaaa hoor', en:'Sure... / Yeah, right', cat:'subtext', example:'Jaaaa hoor, dat zal best.', example_en:'Sure... whatever you say.', level:'B1' },
+  { nl:'Ja ja', en:'No way / I don\'t buy it', cat:'subtext', example:'Ja ja, vertel maar een ander.', example_en:'Yeah yeah, tell that to someone else.', level:'B1' },
+  { nl:'Ammehoela', en:'No way / Absolutely not', cat:'subtext', example:'Ammehoela! Dat doe ik mooi niet.', example_en:'No way! I\'m not doing that.', level:'B2' },
+  { nl:'M\'n neus!', en:'I doubt it / Probably not', cat:'subtext', example:'Zou het morgen mooi weer worden? M\'n neus!', example_en:'Will the weather be nice tomorrow? I doubt it!', level:'B2' },
+  { nl:'Aan me nooit niet (never ever)', en:'Over my dead body', cat:'subtext', example:'Aan me nooit niet dat ik daar naartoe ga.', example_en:'Over my dead body am I going there.', level:'B2' },
+  { nl:'Nou moos...', en:'You\'ve got to be kidding me', cat:'subtext', example:'Nou moos, weer vertraging?!', example_en:'You\'ve got to be kidding me, delayed again?!', level:'B2' },
+  { nl:'Oh?!', en:'Really? / I doubt it', cat:'subtext', example:'Oh?! Dat is voor het eerst dat ik dat hoor.', example_en:'Oh?! That\'s the first I\'ve heard of it.', level:'A2' },
+  { nl:'Eerlijk gezegd', en:'Honestly / Intro to bad news', cat:'subtext', example:'Eerlijk gezegd vind ik het geen goed idee.', example_en:'Honestly, I don\'t think it\'s a good idea.', level:'B1' },
+  { nl:'En / Tut tut', en:'Gut gut / Tsk tsk / Now, now', cat:'subtext', example:'En en, dat had je beter niet kunnen doen.', example_en:'Now now, you shouldn\'t have done that.', level:'B2' },
+  { nl:'Dus...', en:'So... (loaded pause)', cat:'subtext', example:'Dus... je hebt het toch gedaan.', example_en:'So... you did it anyway.', level:'A2' },
+  { nl:'Duuuus', en:'Sooo... / Just saying (drawn out)', cat:'subtext', example:'Duuuus, wat vind je ervan?', example_en:'Sooo, what do you think?', level:'B1' },
+
+  // -- Reassuring / Downplaying --
+  { nl:'Kom kom', en:'Come, come / It\'s not that bad', cat:'subtext', example:'Kom kom, het valt wel mee.', example_en:'Come come, it\'s not that bad.', level:'B1' },
+  { nl:'Maar', en:'But / Reassuring filler', cat:'subtext', example:'Maar, het komt allemaal goed.', example_en:'But, it\'ll all work out.', level:'A2' },
+  { nl:'Ha toch', en:'Oh dear / Poor thing (sympathetic)', cat:'subtext', example:'Ha toch, wat zielig voor je.', example_en:'Oh dear, how sad for you.', level:'B1' },
+  { nl:'Ach...', en:'Oh well / Alas', cat:'subtext', example:'Ach, het had erger kunnen zijn.', example_en:'Oh well, it could have been worse.', level:'A2' },
+  { nl:'Ha nou', en:'Oh dear / Sympathy', cat:'subtext', example:'Ha nou, dat klinkt niet leuk.', example_en:'Oh dear, that doesn\'t sound nice.', level:'B1' },
+  { nl:'Lekker dan', en:'Well, great... (sarcastic)', cat:'subtext', example:'Lekker dan, nu zitten we zonder stroom.', example_en:'Great, now we have no power. (sarcastic)', level:'B1' },
+  { nl:'Gewoon', en:'Just / Emphasizes normality', cat:'subtext', example:'Doe maar gewoon, dan doe je al gek genoeg.', example_en:'Just be normal, that\'s crazy enough.', level:'A2' },
+
+  // -- Directness with a Soft Edge --
+  { nl:'Even', en:'Just / Makes it lighter or temporary', cat:'subtext', example:'Mag ik even vragen...?', example_en:'May I just ask...?', level:'A2' },
+  { nl:'Misschien', en:'Maybe / Polite, friendly softener', cat:'subtext', example:'Misschien is het beter als je morgen belt.', example_en:'Maybe it\'s better if you call tomorrow.', level:'A2' },
+  { nl:'Weet je', en:'You know... (conversation filler)', cat:'subtext', example:'Weet je, ik denk dat ik toch niet ga.', example_en:'You know, I think I\'m not going after all.', level:'A2' },
+  { nl:'Zeg maar', en:'Sort of / Like', cat:'subtext', example:'Het is zeg maar een soort café.', example_en:'It\'s sort of like a café.', level:'A2' },
+  { nl:'Okee', en:'Okay / Fine', cat:'subtext', example:'Okee, dan doen we het zo.', example_en:'Okay, then we\'ll do it that way.', level:'A2' },
+  { nl:'Okee...?', en:'Okaaay? / Not sure...', cat:'subtext', example:'Okee...? Ik snap het niet helemaal.', example_en:'Okaaay...? I don\'t quite get it.', level:'A2' },
+  { nl:'Nee nee', en:'Thanks, but no', cat:'subtext', example:'Nee nee, ik hoef niks.', example_en:'No no, I don\'t need anything.', level:'A2' },
+  { nl:'Noo', en:'Not sure / I don\'t think so', cat:'subtext', example:'Noo, dat lijkt me niet handig.', example_en:'Hmm, I don\'t think that\'s a good idea.', level:'B1' },
+  { nl:'Heeft het gesmaakt?', en:'Did you enjoy the food? (genuine)', cat:'subtext', example:'Zo! Heeft het gesmaakt? Lekker hè?', example_en:'So! Did you enjoy the food? Tasty, right?', level:'A2' },
+  { nl:'Eigenlijk', en:'Actually / Shows how it really is', cat:'subtext', example:'Eigenlijk wilde ik iets anders zeggen.', example_en:'Actually, I wanted to say something else.', level:'A2' },
+
+  // -- Saying No Differently --
+  { nl:'Nee nee (snel, hoog)', en:'You\'re wrong, but I like you', cat:'subtext', example:'Nee nee, zo werkt het niet, maar goed geprobeerd!', example_en:'No no, that\'s not how it works, but good try!', level:'B1' },
+  { nl:'Nee nee (traag, laag)', en:'Thanks, but no', cat:'subtext', example:'Nee nee, het hoeft niet, dankjewel.', example_en:'No no, it\'s not necessary, thank you.', level:'B1' },
+  { nl:'Nee (traag, laag)', en:'Doubtful rejection / Open to more arguments', cat:'subtext', example:'Nee... ik denk het niet, maar vertel meer.', example_en:'No... I don\'t think so, but tell me more.', level:'B1' },
+  { nl:'De groeten!', en:'Get lost! / Buzz off (dismissive)', cat:'subtext', example:'Ze wilden meer geld? De groeten!', example_en:'They wanted more money? Forget it!', level:'B2' },
+  { nl:'Mij niet bellen', en:'Don\'t count me in / Not my problem', cat:'subtext', example:'Ze gaan verhuizen? Mij niet bellen.', example_en:'They\'re moving? Count me out.', level:'B2' },
+
+  // -- Clarifying --
+  { nl:'Echt hè', en:'Right?! / Totally', cat:'subtext', example:'Echt hè! Dat vind ik ook!', example_en:'Right?! I think so too!', level:'A2' },
+  { nl:'Nou kom', en:'Come on / Hurry up', cat:'subtext', example:'Nou kom, we zijn al laat!', example_en:'Come on, we\'re already late!', level:'B1' },
+  { nl:'Jaaa ja', en:'Yeah, yeah / I don\'t quite follow you', cat:'subtext', example:'Jaaa ja... en toen?', example_en:'Yeah yeah... and then?', level:'B1' },
+  { nl:'\'t Is wat', en:'That\'s something... / Oh dear', cat:'subtext', example:'\'t Is wat, al die veranderingen.', example_en:'It\'s something, all these changes.', level:'B1' },
+
+  // -- Dialect --
+  { nl:'Joa', en:'Nope (casual)', cat:'subtext', example:'Joa, niet echt nee.', example_en:'Nah, not really.', level:'B2' },
+  { nl:'Och jaa', en:'Oh really? (regional)', cat:'subtext', example:'Och jaa, is dat zo?', example_en:'Oh really, is that so?', level:'B2' },
+  { nl:'Joh joo', en:'No way, never (emphatic)', cat:'subtext', example:'Joh joo, dat doen we niet!', example_en:'No way, we\'re not doing that!', level:'B2' },
+  { nl:'Joa?!', en:'Yeah?! (teasing disbelief)', cat:'subtext', example:'Joa?! Dat geloof ik pas als ik het zie.', example_en:'Yeah?! I\'ll believe it when I see it.', level:'B2' },
+  { nl:'Ek sef nog wa bekiek\'n', en:'I\'ll think about it = Never!', cat:'subtext', example:'Ek sef nog wa bekiek\'n... (spoiler: het gebeurt niet)', example_en:'I\'ll have a look at it... (spoiler: it won\'t happen)', level:'C1' },
+  { nl:'Emm', en:'And... (many uses, filler)', cat:'subtext', example:'Emm... hoe zal ik het zeggen...', example_en:'Umm... how shall I put it...', level:'A2' },
 ];
 
 const PHRASE_CAT_LABELS = {
@@ -11318,6 +11424,7 @@ let vnetData = [];
 let vnetNodes = [];
 let vnetEdges = [];
 let vnetActiveFilter = null;
+let vnetActiveLevel = '';
 let vnetSelectedNode = null;
 let vnetHoveredNode = null;
 let vnetDragNode = null;
@@ -11335,7 +11442,12 @@ const TAG_COLORS = {
   geld: '#ffc107', politiek: '#607d8b', taal: '#4caf50', doel: '#ff5722',
   slang: '#9c27b0', beeldspraak: '#00acc1', schrijftaal: '#5d4037', lichaam: '#f44336',
   reizen: '#03a9f4', gezondheid: '#4caf50', karakter: '#ff7043', uitdrukking: '#ab47bc',
-  'ont-prefix': '#26a69a'
+  'ont-prefix': '#26a69a',
+  'stellen-familie': '#e040fb',
+  'kijken-familie': '#00897b',
+  'leiden-familie': '#5c6bc0',
+  'leggen-familie': '#8d6e63',
+  'lichten-familie': '#ffb300'
 };
 
 function getTagColor(tag) { return TAG_COLORS[tag] || '#999'; }
@@ -11354,35 +11466,72 @@ async function initVocabNet() {
   drawVocabNet();
 }
 
+// Tags that create meaningful connections (semantic/thematic)
+const CONNECT_TAGS = new Set([
+  'gevoel','cultuur','mensen','communicatie','beweging','verandering','werk',
+  'geld','politiek','taal','doel','beeldspraak','reizen','gezondheid',
+  'karakter','lichaam','dagelijks','uitdrukking','stellen-familie','kijken-familie','leiden-familie','leggen-familie','lichten-familie'
+]);
+// Tags that are just grammar/style metadata (never create edges)
+// werkwoord, bijvoeglijk, zelfstandig, bijwoord, connector, scheidbaar,
+// informeel, formeel, schrijftaal, slang, ont-prefix
+
+// Common Dutch prefixes/suffixes for morphological connections
+const PREFIXES = ['uit','aan','op','af','over','onder','door','voor','ver','be','ont','mee','tegen','achter','vast','in'];
+
+function getSharedPrefix(a, b) {
+  for (const p of PREFIXES) {
+    if (a.startsWith(p) && b.startsWith(p) && a !== b) return p + '-';
+  }
+  return null;
+}
+
 function buildVocabGraph() {
   vnetNodes = vnetData.map((w, i) => ({
     id: i, word: w, x: 0, y: 0, vx: 0, vy: 0, radius: 0, visible: true
   }));
-  // Create edges between words sharing tags
   vnetEdges = [];
+  const edgeMap = {}; // key -> { source, target, tags[] }
+
+  // 1) Thematic tag connections (only meaningful tags)
   const tagMap = {};
   vnetData.forEach((w, i) => {
     w.tags.forEach(t => {
+      if (!CONNECT_TAGS.has(t)) return;
       if (!tagMap[t]) tagMap[t] = [];
       tagMap[t].push(i);
     });
   });
-  const edgeSet = new Set();
   Object.entries(tagMap).forEach(([tag, indices]) => {
     for (let a = 0; a < indices.length; a++) {
       for (let b = a + 1; b < indices.length; b++) {
-        const key = indices[a] + '-' + indices[b];
-        if (!edgeSet.has(key)) {
-          edgeSet.add(key);
-          vnetEdges.push({ source: indices[a], target: indices[b], tag });
-        }
+        const key = Math.min(indices[a],indices[b]) + '-' + Math.max(indices[a],indices[b]);
+        if (!edgeMap[key]) edgeMap[key] = { source: indices[a], target: indices[b], tags: [] };
+        edgeMap[key].tags.push(tag);
       }
     }
   });
-  // Initial random positions
+
+  // 2) Prefix/morphological connections
+  for (let i = 0; i < vnetData.length; i++) {
+    for (let j = i + 1; j < vnetData.length; j++) {
+      const prefix = getSharedPrefix(vnetData[i].nl, vnetData[j].nl);
+      if (prefix) {
+        const key = i + '-' + j;
+        if (!edgeMap[key]) edgeMap[key] = { source: i, target: j, tags: [] };
+        edgeMap[key].tags.push(prefix);
+      }
+    }
+  }
+
+  // Convert to edge array — use primary (first) tag for color
+  vnetEdges = Object.values(edgeMap).map(e => ({
+    source: e.source, target: e.target, tags: e.tags, tag: e.tags[0]
+  }));
+  // Initial random positions — spread wider
   vnetNodes.forEach(n => {
-    n.x = Math.random() * 600 + 100;
-    n.y = Math.random() * 400 + 50;
+    n.x = Math.random() * 900 + 50;
+    n.y = Math.random() * 600 + 30;
   });
 }
 
@@ -11395,7 +11544,7 @@ function setupVocabCanvas() {
     const rect = container.getBoundingClientRect();
     const detailW = window.innerWidth > 700 ? 280 : 0;
     vnetCanvasW = Math.max(rect.width - detailW - 6, 300);
-    vnetCanvasH = Math.max(rect.height, 500);
+    vnetCanvasH = Math.max(rect.height, 600);
     canvas.width = vnetCanvasW * (window.devicePixelRatio || 1);
     canvas.height = vnetCanvasH * (window.devicePixelRatio || 1);
     canvas.style.width = vnetCanvasW + 'px';
@@ -11447,9 +11596,19 @@ function setupVocabCanvas() {
     // Show/hide tooltip
     if (vnetHoveredNode && !vnetDragNode) {
       const w = vnetHoveredNode.word;
+      let ttTags = '';
+      if (vnetSelectedNode && vnetSelectedNode.id !== vnetHoveredNode.id) {
+        // Find the edge between selected and hovered
+        const edge = vnetEdges.find(e =>
+          (e.source === vnetSelectedNode.id && e.target === vnetHoveredNode.id) ||
+          (e.target === vnetSelectedNode.id && e.source === vnetHoveredNode.id)
+        );
+        if (edge) ttTags = '<div class="tt-tags">Verbonden via: ' + edge.tags.map(t => '<span style="color:' + getTagColor(t) + ';font-weight:700;">' + t + '</span>').join(', ') + '</div>';
+      }
       tooltip.innerHTML = '<div class="tt-nl">' + w.nl + '</div>'
         + '<div class="tt-en">' + w.en + '</div>'
-        + (w.example ? '<div class="tt-example">' + w.example + '</div>' : '');
+        + (w.example ? '<div class="tt-example">' + w.example + '</div>' : '')
+        + ttTags;
       tooltip.classList.add('show');
       let tx = mouseX + 16, ty = mouseY - 10;
       if (tx + 300 > vnetCanvasW) tx = mouseX - 310;
@@ -11541,18 +11700,28 @@ function toggleVocabFilter(tag) {
     b.classList.toggle('active', b.dataset.tag === vnetActiveFilter);
   });
   applyVocabVisibility();
-  drawVocabNet();
+  runVocabSimulation();
 }
 
 function filterVocabNet() {
   vnetSearchTerm = (document.getElementById('vocabNetSearch').value || '').toLowerCase().trim();
   applyVocabVisibility();
-  drawVocabNet();
+  runVocabSimulation();
+}
+
+function setVnetLevel(level) {
+  vnetActiveLevel = level;
+  document.querySelectorAll('.vocab-net-level-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.level === level);
+  });
+  applyVocabVisibility();
+  runVocabSimulation();
 }
 
 function applyVocabVisibility() {
   vnetNodes.forEach(n => {
     let vis = true;
+    if (vnetActiveLevel && n.word.level !== vnetActiveLevel) vis = false;
     if (vnetActiveFilter && !n.word.tags.includes(vnetActiveFilter)) vis = false;
     if (vnetSearchTerm && !n.word.nl.toLowerCase().includes(vnetSearchTerm) && !n.word.en.toLowerCase().includes(vnetSearchTerm)) vis = false;
     n.visible = vis;
@@ -11565,15 +11734,19 @@ function selectVocabNode(node) {
   if (!detail) return;
   const w = node.word;
   const levelColors = { A2: '#2d8a56', B1: '#1356A2', B2: '#e67e22', C1: '#D40920' };
-  // Find related words (share at least one tag)
+  // Find related words via actual edges
   const related = [];
-  vnetNodes.forEach(n => {
-    if (n.id === node.id || !n.visible) return;
-    const shared = n.word.tags.filter(t => w.tags.includes(t));
-    if (shared.length > 0) related.push({ node: n, count: shared.length });
+  vnetEdges.forEach(e => {
+    let otherId = null;
+    if (e.source === node.id) otherId = e.target;
+    else if (e.target === node.id) otherId = e.source;
+    if (otherId !== null && vnetNodes[otherId].visible) {
+      related.push({ node: vnetNodes[otherId], tags: e.tags });
+    }
   });
-  related.sort((a,b) => b.count - a.count);
-  const topRelated = related.slice(0, 8);
+  // Sort by number of shared tags, then alphabetically
+  related.sort((a,b) => b.tags.length - a.tags.length || a.node.word.nl.localeCompare(b.node.word.nl));
+  const topRelated = related.slice(0, 10);
 
   detail.innerHTML = '<h2>' + w.nl + '</h2>'
     + '<div class="vocab-en">' + w.en + '</div>'
@@ -11582,7 +11755,7 @@ function selectVocabNode(node) {
     + (w.example ? '<div class="vocab-example">"' + w.example + '"</div>' : '')
     + '<div class="vocab-tags">' + w.tags.map(t => '<span class="vocab-tag" onclick="toggleVocabFilter(\'' + t + '\')" style="background:' + getTagColor(t) + '">' + t + '</span>').join('') + '</div>'
     + (topRelated.length > 0 ? '<div class="vocab-related"><h4>Verwante woorden</h4>'
-      + topRelated.map(r => '<span class="vocab-related-word" onclick="selectVocabNodeById(' + r.node.id + ')">' + r.node.word.nl + '</span>').join('')
+      + topRelated.map(r => '<span class="vocab-related-word" onclick="selectVocabNodeById(' + r.node.id + ')" title="' + r.tags.join(', ') + '">' + r.node.word.nl + ' <small style="color:#999;font-weight:400;">' + r.tags[0] + '</small></span>').join('')
       + '</div>' : '');
   drawVocabNet();
 }
@@ -11612,33 +11785,64 @@ function drawVocabNet() {
     }
   });
   vnetNodes.forEach(n => {
-    n.radius = n.visible ? Math.max(6, Math.min(18, 5 + Math.sqrt(connCount[n.id] || 1) * 2.5)) : 0;
+    n.radius = n.visible ? Math.max(4, Math.min(10, 3 + Math.sqrt(connCount[n.id] || 1) * 1.2)) : 0;
   });
 
-  // Draw edges (only between visible nodes)
-  ctx.globalAlpha = 0.06;
+  // Determine which node is "active" (selected or hovered)
+  const focusNode = vnetSelectedNode || vnetHoveredNode;
+
+  // Pre-compute connected set for focus node
+  const connectedNodes = new Set();
+  const focusEdges = [];
+  if (focusNode) {
+    vnetEdges.forEach(e => {
+      if (e.source === focusNode.id && visibleSet.has(e.target)) { connectedNodes.add(e.target); focusEdges.push(e); }
+      else if (e.target === focusNode.id && visibleSet.has(e.source)) { connectedNodes.add(e.source); focusEdges.push(e); }
+    });
+  }
+
+  // Draw background edges (subtle)
   vnetEdges.forEach(e => {
     if (!visibleSet.has(e.source) || !visibleSet.has(e.target)) return;
+    if (focusNode && (e.source === focusNode.id || e.target === focusNode.id)) return; // drawn later
     const a = vnetNodes[e.source], b = vnetNodes[e.target];
-    // Highlight edges connected to selected or hovered node
-    if (vnetSelectedNode && (e.source === vnetSelectedNode.id || e.target === vnetSelectedNode.id)) {
-      ctx.globalAlpha = 0.3;
-      ctx.strokeStyle = getTagColor(e.tag);
-      ctx.lineWidth = 1.5;
-    } else if (vnetHoveredNode && (e.source === vnetHoveredNode.id || e.target === vnetHoveredNode.id)) {
-      ctx.globalAlpha = 0.25;
-      ctx.strokeStyle = getTagColor(e.tag);
-      ctx.lineWidth = 1;
-    } else {
-      ctx.globalAlpha = 0.06;
-      ctx.strokeStyle = '#999';
-      ctx.lineWidth = 0.5;
-    }
+    ctx.globalAlpha = focusNode ? 0.03 : 0.08;
+    ctx.strokeStyle = getTagColor(e.tag);
+    ctx.lineWidth = focusNode ? 0.3 : 0.5;
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
     ctx.stroke();
   });
+
+  // Draw highlighted edges for focus node (bold + tag labels)
+  const drawnEdgeLabels = new Set();
+  if (focusNode) {
+    focusEdges.forEach(e => {
+      const a = vnetNodes[e.source], b = vnetNodes[e.target];
+      const tagColor = getTagColor(e.tag);
+      ctx.globalAlpha = 0.5;
+      ctx.strokeStyle = tagColor;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+
+      // Draw all shared tags at midpoint
+      const otherId = e.source === focusNode.id ? e.target : e.source;
+      if (!drawnEdgeLabels.has(otherId)) {
+        drawnEdgeLabels.add(otherId);
+        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+        const label = e.tags.join(', ');
+        ctx.globalAlpha = 0.85;
+        ctx.font = '600 8px "Space Grotesk", sans-serif';
+        ctx.fillStyle = tagColor;
+        ctx.textAlign = 'center';
+        ctx.fillText(label, mx, my - 3);
+      }
+    });
+  }
   ctx.globalAlpha = 1;
 
   // Draw nodes
@@ -11646,15 +11850,12 @@ function drawVocabNet() {
     if (!n.visible) return;
     const isSelected = vnetSelectedNode && vnetSelectedNode.id === n.id;
     const isHovered = vnetHoveredNode && vnetHoveredNode.id === n.id;
-    const isConnected = vnetSelectedNode && vnetEdges.some(e =>
-      (e.source === vnetSelectedNode.id && e.target === n.id) ||
-      (e.target === vnetSelectedNode.id && e.source === n.id)
-    );
+    const isConnected = focusNode && connectedNodes.has(n.id);
     const color = levelColors[n.word.level] || '#999';
 
-    // Dim unconnected nodes when something is selected
-    if (vnetSelectedNode && !isSelected && !isConnected) {
-      ctx.globalAlpha = 0.25;
+    // Dim unconnected nodes when something is focused
+    if (focusNode && !isSelected && !isHovered && !isConnected) {
+      ctx.globalAlpha = 0.15;
     } else {
       ctx.globalAlpha = 1;
     }
@@ -11667,14 +11868,21 @@ function drawVocabNet() {
       ctx.strokeStyle = '#000';
       ctx.lineWidth = 2;
       ctx.stroke();
+    } else if (isConnected) {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
     }
 
     // Draw label
-    const fontSize = isSelected ? 13 : isHovered ? 12 : isConnected ? 11 : 10;
-    ctx.font = (isSelected || isHovered ? '700 ' : '500 ') + fontSize + 'px "Space Grotesk", sans-serif';
-    ctx.fillStyle = isSelected ? '#D40920' : (vnetSelectedNode && !isConnected ? 'rgba(0,0,0,0.3)' : '#111');
-    ctx.textAlign = 'center';
-    ctx.fillText(n.word.nl, n.x, n.y - n.radius - 4);
+    const showLabel = isSelected || isHovered || isConnected || !focusNode;
+    if (showLabel) {
+      const fontSize = isSelected ? 13 : isHovered || isConnected ? 12 : 10;
+      ctx.font = (isSelected || isHovered || isConnected ? '700 ' : '500 ') + fontSize + 'px "Space Grotesk", sans-serif';
+      ctx.fillStyle = isSelected ? '#D40920' : isConnected ? '#000' : (focusNode ? 'rgba(0,0,0,0.2)' : '#111');
+      ctx.textAlign = 'center';
+      ctx.fillText(n.word.nl, n.x, n.y - n.radius - 4);
+    }
     ctx.globalAlpha = 1;
   });
 }
@@ -11682,7 +11890,7 @@ function drawVocabNet() {
 // Simple force simulation
 function runVocabSimulation() {
   const visible = vnetNodes.filter(n => n.visible);
-  const iterations = 120;
+  const iterations = 200;
   let step = 0;
 
   function tick() {
@@ -11696,9 +11904,9 @@ function runVocabSimulation() {
         const a = visible[i], b = visible[j];
         let dx = b.x - a.x, dy = b.y - a.y;
         let dist = Math.sqrt(dx*dx + dy*dy) || 1;
-        const minDist = 50;
+        const minDist = 80;
         if (dist < minDist) {
-          const force = alpha * (minDist - dist) / dist * 0.5;
+          const force = alpha * (minDist - dist) / dist * 0.8;
           a.x -= dx * force; a.y -= dy * force;
           b.x += dx * force; b.y += dy * force;
         }
@@ -11711,8 +11919,8 @@ function runVocabSimulation() {
       if (!a.visible || !b.visible) return;
       let dx = b.x - a.x, dy = b.y - a.y;
       let dist = Math.sqrt(dx*dx + dy*dy) || 1;
-      const idealDist = 100;
-      const force = alpha * (dist - idealDist) / dist * 0.01;
+      const idealDist = 140;
+      const force = alpha * (dist - idealDist) / dist * 0.005;
       a.x += dx * force; a.y += dy * force;
       b.x -= dx * force; b.y -= dy * force;
     });
@@ -11720,11 +11928,11 @@ function runVocabSimulation() {
     // Center gravity
     const cx = vnetCanvasW / 2, cy = vnetCanvasH / 2;
     visible.forEach(n => {
-      n.x += (cx - n.x) * alpha * 0.02;
-      n.y += (cy - n.y) * alpha * 0.02;
+      n.x += (cx - n.x) * alpha * 0.01;
+      n.y += (cy - n.y) * alpha * 0.01;
       // Bounds
-      n.x = Math.max(n.radius + 20, Math.min(vnetCanvasW - n.radius - 20, n.x));
-      n.y = Math.max(n.radius + 20, Math.min(vnetCanvasH - n.radius - 20, n.y));
+      n.x = Math.max(n.radius + 30, Math.min(vnetCanvasW - n.radius - 30, n.x));
+      n.y = Math.max(n.radius + 30, Math.min(vnetCanvasH - n.radius - 30, n.y));
     });
 
     drawVocabNet();
