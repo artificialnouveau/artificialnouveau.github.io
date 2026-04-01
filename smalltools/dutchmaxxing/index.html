@@ -11456,7 +11456,13 @@ const TAG_COLORS = {
   'vangen-familie': '#00838f',
   'maken-familie': '#6d4c41',
   'slaan-familie': '#c62828',
-  'doen-familie': '#2e7d32'
+  'doen-familie': '#2e7d32',
+  'zetten-familie': '#ad1457',
+  'halen-familie': '#00695c',
+  'werken-familie': '#bf360c',
+  'lopen-familie': '#0277bd',
+  'houden-familie': '#4e342e',
+  'laten-familie': '#558b2f'
 };
 
 function getTagColor(tag) { return TAG_COLORS[tag] || '#999'; }
@@ -11479,7 +11485,7 @@ async function initVocabNet() {
 const CONNECT_TAGS = new Set([
   'gevoel','cultuur','mensen','communicatie','beweging','verandering','werk',
   'geld','politiek','taal','doel','beeldspraak','reizen','gezondheid',
-  'karakter','lichaam','dagelijks','uitdrukking','stellen-familie','kijken-familie','leiden-familie','leggen-familie','lichten-familie','geven-familie','gaan-familie','staan-familie','vallen-familie','denken-familie','vangen-familie','maken-familie','slaan-familie','doen-familie'
+  'karakter','lichaam','dagelijks','uitdrukking','stellen-familie','kijken-familie','leiden-familie','leggen-familie','lichten-familie','geven-familie','gaan-familie','staan-familie','vallen-familie','denken-familie','vangen-familie','maken-familie','slaan-familie','doen-familie','zetten-familie','halen-familie','werken-familie','lopen-familie','houden-familie','laten-familie'
 ]);
 // Tags that are just grammar/style metadata (never create edges)
 // werkwoord, bijvoeglijk, zelfstandig, bijwoord, connector, scheidbaar,
