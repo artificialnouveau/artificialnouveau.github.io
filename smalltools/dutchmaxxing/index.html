@@ -12139,18 +12139,49 @@ async function initWoordboom() {
   }
 }
 
+// Tags that are grammatical (not useful for thematic grouping)
+var WT_GRAMMAR_TAGS = ['werkwoord','bijvoeglijk','zelfstandig','bijwoord','connector','scheidbaar','informeel','formeel','schrijftaal','slang','ont-prefix'];
+
 function buildWoordboomDropdown() {
   var sel = document.getElementById('wtFamilySelect');
   if (!sel) return;
+  // Verb families
   var families = {};
   vnetData.forEach(function(w) {
     w.tags.filter(function(t) { return t.endsWith('-familie'); }).forEach(function(t) {
       families[t] = (families[t] || 0) + 1;
     });
   });
-  var sorted = Object.entries(families).sort(function(a, b) { return b[1] - a[1]; });
-  sel.innerHTML = '<option value="">-- Kies een woordfamilie --</option>'
-    + sorted.map(function(e) { return '<option value="' + e[0] + '">' + e[0].replace('-familie', '') + ' (' + e[1] + ' woorden)</option>'; }).join('');
+  var sortedFamilies = Object.entries(families).sort(function(a, b) { return b[1] - a[1]; });
+
+  // Thematic tags (for words not in any family)
+  var looseWords = vnetData.filter(function(w) { return !w.tags.some(function(t) { return t.endsWith('-familie'); }); });
+  var themes = {};
+  looseWords.forEach(function(w) {
+    w.tags.forEach(function(t) {
+      if (!t.endsWith('-familie') && WT_GRAMMAR_TAGS.indexOf(t) === -1) {
+        themes[t] = (themes[t] || 0) + 1;
+      }
+    });
+  });
+  var sortedThemes = Object.entries(themes).filter(function(e) { return e[1] >= 3; }).sort(function(a, b) { return b[1] - a[1]; });
+
+  var THEME_LABELS = {
+    dagelijks: 'Dagelijks leven', gevoel: 'Gevoelens', cultuur: 'Cultuur',
+    communicatie: 'Communicatie', verandering: 'Verandering', politiek: 'Politiek',
+    werk: 'Werk', mensen: 'Mensen', beweging: 'Beweging', karakter: 'Karakter',
+    geld: 'Geld', doel: 'Doelen', lichaam: 'Lichaam', taal: 'Taal',
+    beeldspraak: 'Beeldspraak', gezondheid: 'Gezondheid', reizen: 'Reizen',
+    uitdrukking: 'Uitdrukkingen'
+  };
+
+  sel.innerHTML = '<option value="">-- Kies een groep --</option>'
+    + '<optgroup label="Werkwoordfamilies (prefix + stam)">'
+    + sortedFamilies.map(function(e) { return '<option value="' + e[0] + '">' + e[0].replace('-familie', '') + ' (' + e[1] + ')</option>'; }).join('')
+    + '</optgroup>'
+    + '<optgroup label="Thema\u2019s (losse woorden)">'
+    + sortedThemes.map(function(e) { return '<option value="thema:' + e[0] + '">' + (THEME_LABELS[e[0]] || e[0]) + ' (' + e[1] + ')</option>'; }).join('')
+    + '</optgroup>';
 }
 
 function renderWoordboomLegend() {
@@ -12161,23 +12192,30 @@ function renderWoordboomLegend() {
   }).join('');
 }
 
-function renderWoordboom(familyTag) {
+function renderWoordboom(value) {
+  if (value && value.startsWith('thema:')) {
+    renderWoordboomTheme(value.substring(6));
+  } else {
+    renderWoordboomFamily(value);
+  }
+}
+
+function renderWoordboomFamily(familyTag) {
   var area = document.getElementById('wtTreeArea');
   var detail = document.getElementById('wtDetail');
   if (!area) return;
   if (detail) { detail.classList.remove('show'); detail.innerHTML = ''; }
   if (!familyTag) {
-    area.innerHTML = '<div class="wt-empty">Kies een woordfamilie hierboven om de boom te zien.</div>';
+    area.innerHTML = '<div class="wt-empty">Kies een woordfamilie of thema hierboven.</div>';
     return;
   }
   var base = familyTag.replace('-familie', '');
   var words = vnetData.filter(function(w) { return w.tags.includes(familyTag); });
   if (!words.length) {
-    area.innerHTML = '<div class="wt-empty">Geen woorden gevonden voor deze familie.</div>';
+    area.innerHTML = '<div class="wt-empty">Geen woorden gevonden.</div>';
     return;
   }
 
-  // Separate base word from prefixed variants
   var baseWord = null;
   var variants = [];
   words.forEach(function(w) {
@@ -12201,10 +12239,8 @@ function renderWoordboom(familyTag) {
     }
   });
 
-  // Sort by prefix alphabetically
   variants.sort(function(a, b) { return a.prefix.localeCompare(b.prefix); });
 
-  // Build horizontal tree layout
   var html = '<div class="wt-trunk">' + base + '</div>';
   html += '<div class="wt-branches">';
   variants.forEach(function(v, i) {
@@ -12225,6 +12261,79 @@ function renderWoordboom(familyTag) {
   area.innerHTML = html;
   area._wtVariants = variants;
   area._wtBase = baseWord;
+  area._wtMode = 'family';
+}
+
+function renderWoordboomTheme(themeTag) {
+  var area = document.getElementById('wtTreeArea');
+  var detail = document.getElementById('wtDetail');
+  if (!area) return;
+  if (detail) { detail.classList.remove('show'); detail.innerHTML = ''; }
+
+  // Get all loose words (no -familie tag) with this theme
+  var words = vnetData.filter(function(w) {
+    return w.tags.includes(themeTag) && !w.tags.some(function(t) { return t.endsWith('-familie'); });
+  });
+
+  if (!words.length) {
+    area.innerHTML = '<div class="wt-empty">Geen woorden gevonden voor dit thema.</div>';
+    return;
+  }
+
+  // Sort by level then alphabetically
+  var levelOrder = ['A2','B1','B2','C1'];
+  words.sort(function(a, b) {
+    var d = levelOrder.indexOf(a.level) - levelOrder.indexOf(b.level);
+    return d !== 0 ? d : a.nl.localeCompare(b.nl);
+  });
+
+  var THEME_LABELS = {
+    dagelijks: 'Dagelijks leven', gevoel: 'Gevoelens', cultuur: 'Cultuur',
+    communicatie: 'Communicatie', verandering: 'Verandering', politiek: 'Politiek',
+    werk: 'Werk', mensen: 'Mensen', beweging: 'Beweging', karakter: 'Karakter',
+    geld: 'Geld', doel: 'Doelen', lichaam: 'Lichaam', taal: 'Taal',
+    beeldspraak: 'Beeldspraak', gezondheid: 'Gezondheid', reizen: 'Reizen',
+    uitdrukking: 'Uitdrukkingen'
+  };
+
+  var label = THEME_LABELS[themeTag] || themeTag;
+  var themeColor = getTagColor(themeTag);
+
+  // Build as grid cards (same layout as family but prefix badge shows word type instead)
+  var variants = words.map(function(w) {
+    // Determine a short word-type label
+    var type = '';
+    if (w.tags.includes('werkwoord')) type = 'ww';
+    else if (w.tags.includes('bijvoeglijk')) type = 'adj';
+    else if (w.tags.includes('zelfstandig')) type = 'zn';
+    else if (w.tags.includes('bijwoord')) type = 'bw';
+    else if (w.tags.includes('connector')) type = 'vw';
+    else if (w.tags.includes('uitdrukking')) type = 'expr';
+    else type = '~';
+    return { word: w, prefix: type, clean: w.nl };
+  });
+
+  var html = '<div class="wt-trunk" style="background:' + themeColor + ';">' + label + '</div>';
+  html += '<div class="wt-branches">';
+  variants.forEach(function(v, i) {
+    var lc = PM_LEVEL_COLORS[v.word.level] || '#999';
+    var shortEn = v.word.en.split('/')[0].split(',')[0].trim();
+    if (shortEn.length > 30) shortEn = shortEn.substring(0, 28) + '...';
+    html += '<div class="wt-branch-node" style="border-left: 5px solid ' + lc + ';" data-wt-idx="' + i + '" onclick="wtSelectWord(' + i + ')">'
+      + '<span class="wt-branch-prefix" style="background:' + themeColor + ';font-size:9px;">' + v.prefix + '</span>'
+      + '<span class="wt-branch-text">'
+      + '<span class="wt-branch-word">' + v.word.nl + '</span>'
+      + '<span class="wt-branch-en">' + shortEn + '</span>'
+      + '</span>'
+      + '<span class="wt-branch-level" style="color:' + lc + ';border-color:' + lc + ';">' + v.word.level + '</span>'
+      + '</div>';
+  });
+  html += '</div>';
+
+  area.innerHTML = html;
+  area._wtVariants = variants;
+  area._wtBase = null;
+  area._wtMode = 'theme';
 }
 
 function wtSelectWord(idx) {
