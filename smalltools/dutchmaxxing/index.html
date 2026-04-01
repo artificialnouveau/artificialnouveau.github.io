@@ -3042,33 +3042,37 @@ body::before, body::after { display: none; }
 .wt-legend-item { display: flex; align-items: center; gap: 5px; }
 .wt-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
 .wt-tree-area {
-  border: 3px solid var(--mondrian-black); background: #fff; position: relative;
-  min-height: 500px; overflow: hidden;
+  border: 3px solid var(--mondrian-black); background: #fff;
+  display: flex; align-items: stretch; min-height: 200px;
 }
-.wt-center-node {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  background: var(--mondrian-black); color: #fff; padding: 14px 24px;
+.wt-trunk {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--mondrian-black); color: #fff; padding: 24px 20px;
   font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800;
-  z-index: 2; border: 3px solid var(--mondrian-black); letter-spacing: 1px;
+  letter-spacing: 1px; writing-mode: vertical-rl; text-orientation: mixed;
+  min-width: 60px;
 }
-.wt-branch-line {
-  position: absolute; height: 2px; background: #ccc; transform-origin: 0 50%;
-  z-index: 0; pointer-events: none;
+.wt-branches {
+  flex: 1; display: flex; flex-wrap: wrap; align-content: flex-start; padding: 8px; gap: 6px;
 }
 .wt-branch-node {
-  position: absolute; transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 8px;
   background: #fff; border: 3px solid var(--mondrian-black);
-  padding: 6px 12px; font-size: 12px; cursor: pointer; transition: all 0.15s;
-  z-index: 1; white-space: nowrap; max-width: 200px; text-align: center;
+  padding: 8px 14px; font-size: 12px; cursor: pointer; transition: all 0.15s;
+  min-width: 220px; max-width: 300px; flex: 1 1 220px;
 }
-.wt-branch-node:hover { background: var(--mondrian-yellow); transform: translate(-50%, -50%) scale(1.05); }
+.wt-branch-node:hover { background: var(--mondrian-yellow); }
 .wt-branch-node.wt-selected { background: var(--mondrian-yellow); border-width: 4px; }
 .wt-branch-prefix {
-  font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
-  color: #999; display: block; margin-bottom: 1px;
+  font-weight: 700; font-size: 11px; color: #fff; padding: 2px 6px;
+  min-width: 40px; text-align: center; flex-shrink: 0;
 }
-.wt-branch-word { font-weight: 700; font-family: 'Syne', sans-serif; font-size: 13px; }
-.wt-branch-en { font-size: 10px; color: var(--mondrian-blue); font-weight: 600; display: block; margin-top: 2px; }
+.wt-branch-text { flex: 1; min-width: 0; }
+.wt-branch-word { font-weight: 700; font-family: 'Space Grotesk', sans-serif; font-size: 13px; }
+.wt-branch-en { font-size: 10px; color: var(--mondrian-blue); font-weight: 600; display: block; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wt-branch-level {
+  font-size: 9px; font-weight: 700; padding: 1px 5px; border: 2px solid; flex-shrink: 0;
+}
 .wt-detail {
   margin-top: 12px; border: 3px solid var(--mondrian-black); background: #fff; padding: 20px;
   display: none;
@@ -12181,7 +12185,6 @@ function renderWoordboom(familyTag) {
     if (clean === base) {
       baseWord = w;
     } else {
-      // Detect prefix
       var prefix = '';
       for (var i = 0; i < PM_PREFIXES.length; i++) {
         if (clean.startsWith(PM_PREFIXES[i])) {
@@ -12190,7 +12193,6 @@ function renderWoordboom(familyTag) {
         }
       }
       if (!prefix) {
-        // Try longer compound prefixes or just use the difference
         var idx = clean.indexOf(base);
         if (idx > 0) prefix = clean.substring(0, idx);
         else prefix = '?';
@@ -12199,43 +12201,28 @@ function renderWoordboom(familyTag) {
     }
   });
 
-  // Calculate layout
-  var areaW = area.clientWidth || 800;
-  var count = variants.length;
-  var centerX = areaW / 2;
-  var centerY = 250;
-  var radius = Math.min(200, Math.max(120, count * 12));
-  var areaH = Math.max(500, (centerY + radius + 80) * 1.05);
-  area.style.minHeight = areaH + 'px';
+  // Sort by prefix alphabetically
+  variants.sort(function(a, b) { return a.prefix.localeCompare(b.prefix); });
 
-  var html = '<div class="wt-center-node">' + base + '</div>';
-
-  // Position branches in a circle
+  // Build horizontal tree layout
+  var html = '<div class="wt-trunk">' + base + '</div>';
+  html += '<div class="wt-branches">';
   variants.forEach(function(v, i) {
-    var angle = (2 * Math.PI * i / count) - Math.PI / 2;
-    var bx = centerX + radius * Math.cos(angle);
-    var by = centerY + radius * Math.sin(angle);
     var lc = PM_LEVEL_COLORS[v.word.level] || '#999';
-
-    // Draw line from center to branch
-    var dx = bx - centerX;
-    var dy = by - centerY;
-    var lineLen = Math.sqrt(dx * dx + dy * dy);
-    var lineAngle = Math.atan2(dy, dx) * 180 / Math.PI;
-    html += '<div class="wt-branch-line" style="left:' + centerX + 'px;top:' + centerY + 'px;width:' + lineLen + 'px;transform:rotate(' + lineAngle + 'deg);background:' + lc + ';opacity:0.3;"></div>';
-
-    // Branch node
     var shortEn = v.word.en.split('/')[0].split(',')[0].trim();
-    if (shortEn.length > 24) shortEn = shortEn.substring(0, 22) + '...';
-    html += '<div class="wt-branch-node" style="left:' + bx + 'px;top:' + by + 'px;border-color:' + lc + ';" data-wt-idx="' + i + '" onclick="wtSelectWord(' + i + ')">'
-      + '<span class="wt-branch-prefix">' + v.prefix + '-</span>'
+    if (shortEn.length > 30) shortEn = shortEn.substring(0, 28) + '...';
+    html += '<div class="wt-branch-node" style="border-left: 5px solid ' + lc + ';" data-wt-idx="' + i + '" onclick="wtSelectWord(' + i + ')">'
+      + '<span class="wt-branch-prefix" style="background:' + lc + ';">' + v.prefix + '</span>'
+      + '<span class="wt-branch-text">'
       + '<span class="wt-branch-word">' + v.word.nl + '</span>'
       + '<span class="wt-branch-en">' + shortEn + '</span>'
+      + '</span>'
+      + '<span class="wt-branch-level" style="color:' + lc + ';border-color:' + lc + ';">' + v.word.level + '</span>'
       + '</div>';
   });
+  html += '</div>';
 
   area.innerHTML = html;
-  // Store variants for click handler
   area._wtVariants = variants;
   area._wtBase = baseWord;
 }
