@@ -3043,6 +3043,354 @@ body::before, body::after { display: none; }
   .vocab-net-detail { width: 100%; border-left: none; border-top: 3px solid var(--mondrian-black); max-height: 300px; }
   #vocabNetCanvas { min-height: 350px; }
 }
+
+/* ===== SRS FLASHCARDS ===== */
+.srs-container { max-width: 600px; margin: 0 auto; }
+
+.srs-stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 12px;
+  margin-bottom: 16px;
+  background: var(--mondrian-white);
+  border: 3px solid var(--mondrian-black);
+  flex-wrap: wrap;
+}
+
+.srs-stat {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.srs-stat-value { color: var(--mondrian-red); font-weight: 700; }
+.srs-stat-value.blue { color: var(--mondrian-blue); }
+.srs-stat-value.green { color: var(--green); }
+
+.srs-card-area { perspective: 800px; }
+
+.srs-card {
+  background: var(--mondrian-white);
+  border: 3px solid var(--mondrian-black);
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.srs-card.flipped { transform: rotateY(180deg); }
+
+.srs-card-front, .srs-card-back {
+  backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+}
+
+.srs-card-back { transform: rotateY(180deg); }
+
+.srs-card-word {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--mondrian-black);
+  margin-bottom: 8px;
+}
+
+.srs-card-prompt {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 16px;
+}
+
+.srs-card-meaning {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--mondrian-blue);
+  margin-bottom: 8px;
+}
+
+.srs-card-example {
+  font-size: 14px;
+  color: #555;
+  font-style: italic;
+  margin-top: 8px;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.srs-card-note {
+  font-size: 13px;
+  color: var(--mondrian-red);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.srs-card-level {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 12px;
+  border: 2px solid var(--mondrian-blue);
+  color: var(--mondrian-blue);
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.srs-card-fill {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  padding: 10px 20px;
+  border: 3px solid var(--mondrian-black);
+  text-align: center;
+  outline: none;
+  width: 240px;
+  margin-top: 12px;
+}
+
+.srs-card-fill:focus { border-color: var(--mondrian-blue); }
+
+.srs-rating-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.srs-rating-btn {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border: 3px solid var(--mondrian-black);
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 90px;
+  text-align: center;
+}
+
+.srs-rating-btn:hover { transform: translateY(-2px); }
+.srs-rating-btn.srs-again { background: #fce4e4; color: var(--mondrian-red); }
+.srs-rating-btn.srs-again:hover { background: var(--mondrian-red); color: #fff; }
+.srs-rating-btn.srs-hard { background: #fef8e0; color: #b8860b; }
+.srs-rating-btn.srs-hard:hover { background: var(--mondrian-yellow); color: #000; }
+.srs-rating-btn.srs-good { background: #e0ecf8; color: var(--mondrian-blue); }
+.srs-rating-btn.srs-good:hover { background: var(--mondrian-blue); color: #fff; }
+.srs-rating-btn.srs-easy { background: #e0f5e8; color: var(--green); }
+.srs-rating-btn.srs-easy:hover { background: var(--green); color: #fff; }
+
+.srs-done {
+  text-align: center;
+  padding: 60px 24px;
+  background: var(--mondrian-white);
+  border: 3px solid var(--mondrian-black);
+}
+
+.srs-done h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--mondrian-black);
+}
+
+.srs-done p { font-size: 15px; color: #555; line-height: 1.7; margin-bottom: 8px; }
+
+.srs-reset-btn {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 24px;
+  background: var(--mondrian-blue);
+  color: #fff;
+  border: 3px solid var(--mondrian-black);
+  cursor: pointer;
+  margin-top: 16px;
+  transition: all 0.2s;
+}
+
+.srs-reset-btn:hover { background: var(--mondrian-red); }
+
+/* ===== PREFIX DRILLS ===== */
+.pd-container { max-width: 800px; margin: 0 auto; }
+
+.pd-mode-bar {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 16px;
+}
+
+.pd-mode-btn {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 24px;
+  background: var(--mondrian-white);
+  color: #555;
+  border: 3px solid var(--mondrian-black);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pd-mode-btn + .pd-mode-btn { border-left: none; }
+.pd-mode-btn:hover { background: var(--mondrian-yellow); color: var(--mondrian-black); }
+.pd-mode-btn.active { background: var(--mondrian-red); color: #fff; }
+
+.pd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.pd-prefix-card {
+  background: var(--mondrian-white);
+  border: 3px solid var(--mondrian-black);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pd-prefix-card:hover { transform: translateY(-2px); background: #fafafa; }
+.pd-prefix-card.expanded { background: var(--mondrian-yellow); }
+
+.pd-prefix-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--mondrian-black);
+  margin-bottom: 4px;
+}
+
+.pd-prefix-meaning {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mondrian-blue);
+  margin-bottom: 4px;
+}
+
+.pd-prefix-effect {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.pd-prefix-examples {
+  display: none;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 2px solid var(--mondrian-black);
+}
+
+.pd-prefix-card.expanded .pd-prefix-examples { display: block; }
+
+.pd-example-item {
+  font-size: 13px;
+  color: #333;
+  padding: 4px 0;
+  line-height: 1.5;
+}
+
+.pd-example-item strong { color: var(--mondrian-red); }
+
+.pd-quiz-area {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pd-quiz-card {
+  background: var(--mondrian-white);
+  border: 3px solid var(--mondrian-black);
+  padding: 28px 24px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.pd-quiz-question {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--mondrian-black);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.pd-quiz-word {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--mondrian-red);
+  margin-bottom: 16px;
+}
+
+.pd-quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.pd-quiz-opt {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 16px;
+  background: var(--mondrian-white);
+  color: #333;
+  border: 2px solid var(--mondrian-black);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+}
+
+.pd-quiz-opt:hover { background: var(--mondrian-yellow); }
+.pd-quiz-opt.correct { border-color: var(--green); background: #eaffea; }
+.pd-quiz-opt.wrong { border-color: var(--mondrian-red); background: #fff0f0; }
+.pd-quiz-opt:disabled { cursor: default; opacity: 0.7; }
+
+.pd-quiz-score {
+  text-align: center;
+  padding: 12px;
+  background: var(--mondrian-white);
+  border: 3px solid var(--mondrian-black);
+  margin-bottom: 16px;
+}
+
+.pd-quiz-score span { font-weight: 700; color: var(--mondrian-red); }
+
+.pd-quiz-feedback {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  min-height: 30px;
+  padding: 8px;
+  line-height: 1.6;
+}
+
+@media (max-width: 500px) {
+  .srs-card { min-height: 220px; }
+  .srs-card-word { font-size: 24px; }
+  .srs-rating-bar { gap: 6px; }
+  .srs-rating-btn { padding: 8px 14px; font-size: 12px; min-width: 70px; }
+  .pd-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -3561,33 +3909,60 @@ body::before, body::after { display: none; }
 
 <!-- NT2 B1 Oefenen Tab -->
 <div class="tab-content" id="tab-vocab">
-  <div class="vocab-net-container">
-    <div class="vocab-net-toolbar">
-      <input type="text" class="vocab-net-search" id="vocabNetSearch" placeholder="Zoek een woord..." oninput="filterVocabNet()" />
-      <div class="vocab-net-filters" id="vocabNetFilters"></div>
-      <button class="mondrian-btn" onclick="exportVocabPDF()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download PDF</button>
+  <div class="subtab-bar">
+    <button class="subtab-btn active" data-subtab="vocab-network" data-maintab="vocab">Netwerk</button>
+    <button class="subtab-btn" data-subtab="vocab-flashcards" data-maintab="vocab">Flashcards</button>
+    <button class="subtab-btn" data-subtab="vocab-prefixdrills" data-maintab="vocab">Prefix Drills</button>
+  </div>
+
+  <div class="subtab-content active" id="sub-vocab-network">
+    <div class="vocab-net-container">
+      <div class="vocab-net-toolbar">
+        <input type="text" class="vocab-net-search" id="vocabNetSearch" placeholder="Zoek een woord..." oninput="filterVocabNet()" />
+        <div class="vocab-net-filters" id="vocabNetFilters"></div>
+        <button class="mondrian-btn" onclick="exportVocabPDF()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download PDF</button>
+      </div>
+      <div class="vocab-net-levels">
+        <button class="vocab-net-level-btn active" data-level="" onclick="setVnetLevel('')">Alle</button>
+        <button class="vocab-net-level-btn" data-level="A2" onclick="setVnetLevel('A2')" style="--lc:#2d8a56">A2</button>
+        <button class="vocab-net-level-btn" data-level="B1" onclick="setVnetLevel('B1')" style="--lc:#1356A2">B1</button>
+        <button class="vocab-net-level-btn" data-level="B2" onclick="setVnetLevel('B2')" style="--lc:#e67e22">B2</button>
+        <button class="vocab-net-level-btn" data-level="C1" onclick="setVnetLevel('C1')" style="--lc:#D40920">C1</button>
+      </div>
+      <div class="vocab-net-family-bar">
+        <select id="vocabFamilySelect" onchange="setVnetFamily(this.value)" class="vocab-net-family-select">
+          <option value="">Alle woorden</option>
+        </select>
+        <span class="vocab-net-word-count" id="vocabWordCount"></span>
+      </div>
+      <div class="vocab-net-body">
+        <canvas id="vocabNetCanvas"></canvas>
+        <div class="vocab-net-detail" id="vocabNetDetail">
+          <div class="vocab-net-detail-empty">Klik op een woord in het netwerk om details te zien.</div>
+        </div>
+      </div>
+      <div class="vocab-net-legend" id="vocabNetLegend"></div>
     </div>
-    <div class="vocab-net-levels">
-      <button class="vocab-net-level-btn active" data-level="" onclick="setVnetLevel('')">Alle</button>
-      <button class="vocab-net-level-btn" data-level="A2" onclick="setVnetLevel('A2')" style="--lc:#2d8a56">A2</button>
-      <button class="vocab-net-level-btn" data-level="B1" onclick="setVnetLevel('B1')" style="--lc:#1356A2">B1</button>
-      <button class="vocab-net-level-btn" data-level="B2" onclick="setVnetLevel('B2')" style="--lc:#e67e22">B2</button>
-      <button class="vocab-net-level-btn" data-level="C1" onclick="setVnetLevel('C1')" style="--lc:#D40920">C1</button>
-    </div>
-    <div class="vocab-net-family-bar">
-      <select id="vocabFamilySelect" onchange="setVnetFamily(this.value)" class="vocab-net-family-select">
-        <option value="">Alle woorden</option>
-      </select>
-      <span class="vocab-net-word-count" id="vocabWordCount"></span>
-    </div>
-    <div class="vocab-net-body">
-      <canvas id="vocabNetCanvas"></canvas>
-      <div class="vocab-net-detail" id="vocabNetDetail">
-        <div class="vocab-net-detail-empty">Klik op een woord in het netwerk om details te zien.</div>
+  </div><!-- /sub-vocab-network -->
+
+  <div class="subtab-content" id="sub-vocab-flashcards">
+    <div class="srs-container" id="srsContainer">
+      <div class="srs-stats-bar" id="srsStatsBar"></div>
+      <div class="srs-card-area" id="srsCardArea">
+        <p style="text-align:center;color:#666;">Laden...</p>
       </div>
     </div>
-    <div class="vocab-net-legend" id="vocabNetLegend"></div>
-  </div>
+  </div><!-- /sub-vocab-flashcards -->
+
+  <div class="subtab-content" id="sub-vocab-prefixdrills">
+    <div class="pd-container" id="pdContainer">
+      <div class="pd-mode-bar" id="pdModeBar"></div>
+      <div class="pd-content" id="pdContent">
+        <p style="text-align:center;color:#666;">Laden...</p>
+      </div>
+    </div>
+  </div><!-- /sub-vocab-prefixdrills -->
+
 </div>
 
 <div class="tab-content" id="tab-examen">
@@ -7212,6 +7587,9 @@ const SUBTAB_INIT = {
   dehet: initDeHet,
   prepzoeker: initPrepZoeker,
   woordfamilies: initWoordfamilies,
+  'vocab-network': () => { initVocabNet().then(() => runVocabSimulation()); },
+  'vocab-flashcards': initSRS,
+  'vocab-prefixdrills': initPrefixDrills,
   'exam-spreken': initExamen,
   'exam-schrijven': initExamen,
   etiquette: () => { initCultuur(); renderEtiquette(); },
@@ -7237,7 +7615,6 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     // Direct init for tabs without subtabs
     if (btn.dataset.tab === 'news') initNews();
     if (btn.dataset.tab === 'examen') initExamen();
-    if (btn.dataset.tab === 'vocab') { initVocabNet().then(() => runVocabSimulation()); }
     updateCEFRBarVisibility();
   });
 });
@@ -12156,6 +12533,385 @@ function exportVocabPDF() {
   printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
   printBtn.onclick = () => { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
   w.document.body.prepend(printBtn);
+}
+
+// ==========================================
+// SHARED: ENSURE VOCAB DATA LOADED
+// ==========================================
+async function ensureVnetData() {
+  if (vnetData.length > 0) return;
+  try { const r = await fetch('vocabulary.json'); vnetData = await r.json(); } catch(e) { vnetData = []; }
+}
+
+// ==========================================
+// SRS FLASHCARDS
+// ==========================================
+const SRS_KEY = 'dutchmaxxing_srs';
+let srsState = null;
+let srsDueCards = [];
+let srsCurrentIdx = 0;
+let srsFlipped = false;
+
+function srsLoadState() {
+  try {
+    const raw = localStorage.getItem(SRS_KEY);
+    if (raw) { srsState = JSON.parse(raw); }
+  } catch(e) { srsState = null; }
+  if (!srsState) srsState = { cards: {}, streak: 0, lastDate: null, reviewed: 0 };
+}
+
+function srsSaveState() {
+  try { localStorage.setItem(SRS_KEY, JSON.stringify(srsState)); } catch(e) {}
+}
+
+function srsGetCardState(word) {
+  if (!srsState.cards[word]) {
+    srsState.cards[word] = { interval: 0, repetition: 0, efactor: 2.5, due: Date.now(), correct: 0, total: 0 };
+  }
+  return srsState.cards[word];
+}
+
+function srsSM2(card, quality) {
+  // quality: 0=again, 1=hard, 2=good, 3=easy
+  card.total++;
+  if (quality >= 2) card.correct++;
+  if (quality < 2) {
+    card.repetition = 0;
+    card.interval = 1;
+  } else {
+    if (card.repetition === 0) card.interval = 1;
+    else if (card.repetition === 1) card.interval = 3;
+    else card.interval = Math.round(card.interval * card.efactor);
+    card.repetition++;
+  }
+  card.efactor = Math.max(1.3, card.efactor + 0.1 - (3 - quality) * (0.08 + (3 - quality) * 0.02));
+  const days = quality === 0 ? 0.007 : card.interval;
+  card.due = Date.now() + days * 86400000;
+}
+
+function srsGetDueCards() {
+  const now = Date.now();
+  const due = [];
+  for (const w of vnetData) {
+    const cs = srsGetCardState(w.nl);
+    if (cs.due <= now) due.push(w);
+  }
+  // Sort: new cards first (repetition 0), then by due date
+  due.sort((a, b) => {
+    const ca = srsState.cards[a.nl], cb = srsState.cards[b.nl];
+    if (ca.repetition === 0 && cb.repetition > 0) return -1;
+    if (cb.repetition === 0 && ca.repetition > 0) return 1;
+    return ca.due - cb.due;
+  });
+  return due.slice(0, 20); // Max 20 per session
+}
+
+function srsPickMode(word) {
+  // 3 modes: 0=word->meaning, 1=fill-in-blank, 2=prefix quiz
+  const hasPrefix = word.tags && word.tags.some(t => t.endsWith('-prefix') || t === 'scheidbaar');
+  const r = Math.random();
+  if (hasPrefix && r < 0.3) return 2;
+  if (r < 0.6) return 1;
+  return 0;
+}
+
+function srsRenderStats() {
+  const bar = document.getElementById('srsStatsBar');
+  if (!bar) return;
+  const today = new Date().toDateString();
+  if (srsState.lastDate !== today) { srsState.streak = 0; }
+  const totalCards = vnetData.length;
+  const mastered = Object.values(srsState.cards).filter(c => c.repetition >= 3).length;
+  const pct = totalCards ? Math.round(mastered / totalCards * 100) : 0;
+  bar.innerHTML =
+    '<span class="srs-stat">Te doen: <span class="srs-stat-value">' + srsDueCards.length + '</span></span>' +
+    '<span class="srs-stat">Streak: <span class="srs-stat-value blue">' + srsState.streak + ' dagen</span></span>' +
+    '<span class="srs-stat">Vandaag: <span class="srs-stat-value green">' + srsState.reviewed + '</span></span>' +
+    '<span class="srs-stat">Beheerst: <span class="srs-stat-value">' + pct + '%</span></span>';
+}
+
+function srsRenderCard() {
+  const area = document.getElementById('srsCardArea');
+  if (!area) return;
+  srsFlipped = false;
+
+  if (srsCurrentIdx >= srsDueCards.length) {
+    const today = new Date().toDateString();
+    if (srsState.lastDate !== today && srsState.reviewed > 0) { srsState.streak++; srsState.lastDate = today; }
+    srsSaveState();
+    area.innerHTML =
+      '<div class="srs-done">' +
+        '<h3>Klaar voor vandaag!</h3>' +
+        '<p>Je hebt <strong>' + srsState.reviewed + '</strong> kaarten geoefend.</p>' +
+        '<p>Streak: <strong>' + srsState.streak + '</strong> dagen</p>' +
+        '<button class="srs-reset-btn" onclick="srsRestart()">Opnieuw oefenen</button>' +
+      '</div>';
+    srsRenderStats();
+    return;
+  }
+
+  const word = srsDueCards[srsCurrentIdx];
+  const mode = srsPickMode(word);
+
+  let frontHTML = '', backHTML = '';
+
+  if (mode === 0) {
+    // Word -> meaning
+    frontHTML =
+      '<div class="srs-card-prompt">Wat betekent dit woord?</div>' +
+      '<div class="srs-card-word">' + escapeHTML(word.nl) + '</div>' +
+      '<div class="srs-card-prompt" style="margin-top:16px;font-size:12px;">(Klik om te draaien)</div>';
+    backHTML =
+      '<div class="srs-card-meaning">' + escapeHTML(word.en) + '</div>' +
+      '<div class="srs-card-example">' + escapeHTML(word.example || '') + '</div>' +
+      (word.note ? '<div class="srs-card-note">' + escapeHTML(word.note) + '</div>' : '') +
+      '<div class="srs-card-level">' + escapeHTML(word.level || '') + '</div>';
+  } else if (mode === 1) {
+    // Fill in the blank
+    const sentence = word.example || ('Gebruik het woord: ' + word.nl);
+    const blank = sentence.replace(new RegExp(word.nl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '______');
+    frontHTML =
+      '<div class="srs-card-prompt">Vul het ontbrekende woord in:</div>' +
+      '<div class="srs-card-example" style="font-style:normal;font-size:16px;font-weight:500;">' + escapeHTML(blank) + '</div>' +
+      '<div class="srs-card-meaning" style="font-size:14px;margin-top:12px;">(' + escapeHTML(word.en) + ')</div>' +
+      '<div class="srs-card-prompt" style="margin-top:16px;font-size:12px;">(Klik om te draaien)</div>';
+    backHTML =
+      '<div class="srs-card-word">' + escapeHTML(word.nl) + '</div>' +
+      '<div class="srs-card-example">' + escapeHTML(word.example || '') + '</div>' +
+      (word.note ? '<div class="srs-card-note">' + escapeHTML(word.note) + '</div>' : '');
+  } else {
+    // Prefix quiz
+    const prefix = (word.tags.find(t => t.endsWith('-prefix')) || 'prefix').replace('-prefix', '');
+    frontHTML =
+      '<div class="srs-card-prompt">Welk voorvoegsel heeft dit woord?</div>' +
+      '<div class="srs-card-word">' + escapeHTML(word.nl) + '</div>' +
+      '<div class="srs-card-meaning" style="font-size:14px;">(' + escapeHTML(word.en) + ')</div>' +
+      '<div class="srs-card-prompt" style="margin-top:16px;font-size:12px;">(Klik om te draaien)</div>';
+    backHTML =
+      '<div class="srs-card-word" style="color:var(--mondrian-red);">' + escapeHTML(prefix) + '-</div>' +
+      '<div class="srs-card-example">' + escapeHTML(word.example || '') + '</div>' +
+      (word.note ? '<div class="srs-card-note">' + escapeHTML(word.note) + '</div>' : '');
+  }
+
+  area.innerHTML =
+    '<div class="srs-card" id="srsCard" onclick="srsFlip()">' +
+      '<div class="srs-card-front">' + frontHTML + '</div>' +
+      '<div class="srs-card-back">' + backHTML + '</div>' +
+    '</div>' +
+    '<div class="srs-rating-bar" id="srsRatingBar" style="display:none;">' +
+      '<button class="srs-rating-btn srs-again" onclick="srsRate(0)">Again</button>' +
+      '<button class="srs-rating-btn srs-hard" onclick="srsRate(1)">Hard</button>' +
+      '<button class="srs-rating-btn srs-good" onclick="srsRate(2)">Good</button>' +
+      '<button class="srs-rating-btn srs-easy" onclick="srsRate(3)">Easy</button>' +
+    '</div>';
+}
+
+function srsFlip() {
+  if (srsFlipped) return;
+  srsFlipped = true;
+  const card = document.getElementById('srsCard');
+  if (card) card.classList.add('flipped');
+  const bar = document.getElementById('srsRatingBar');
+  if (bar) bar.style.display = 'flex';
+}
+
+function srsRate(quality) {
+  const word = srsDueCards[srsCurrentIdx];
+  if (!word) return;
+  const cs = srsGetCardState(word.nl);
+  srsSM2(cs, quality);
+  srsState.reviewed++;
+  srsSaveState();
+  srsCurrentIdx++;
+  srsRenderCard();
+  srsRenderStats();
+}
+
+function srsRestart() {
+  srsState.reviewed = 0;
+  srsDueCards = srsGetDueCards();
+  srsCurrentIdx = 0;
+  srsRenderCard();
+  srsRenderStats();
+}
+
+async function initSRS() {
+  await ensureVnetData();
+  srsLoadState();
+  srsDueCards = srsGetDueCards();
+  srsCurrentIdx = 0;
+  srsRenderStats();
+  srsRenderCard();
+}
+
+// ==========================================
+// PREFIX DRILLS
+// ==========================================
+const DUTCH_PREFIXES = [
+  { prefix: 'ver-', meaning: 'change / intensity', effect: 'Changes the state or intensifies the action', keywords: ['ver'] },
+  { prefix: 'be-', meaning: 'make transitive / apply to', effect: 'Makes an intransitive verb transitive or applies action to object', keywords: ['be'] },
+  { prefix: 'ont-', meaning: 'undo / reverse / begin', effect: 'Reverses or undoes an action, or marks a beginning', keywords: ['ont'] },
+  { prefix: 'her-', meaning: 're- / again', effect: 'Repeats the action', keywords: ['her'] },
+  { prefix: 'ge-', meaning: 'past participle / collective', effect: 'Forms past participles or collective nouns', keywords: ['ge'] },
+  { prefix: 'aan-', meaning: 'on / toward / begin', effect: 'Indicates direction toward or beginning an action', keywords: ['aan'] },
+  { prefix: 'af-', meaning: 'off / away / down', effect: 'Indicates separation, removal, or completion', keywords: ['af'] },
+  { prefix: 'uit-', meaning: 'out / fully', effect: 'Indicates outward movement or doing something thoroughly', keywords: ['uit'] },
+  { prefix: 'op-', meaning: 'up / open / complete', effect: 'Indicates upward movement or completion', keywords: ['op'] },
+  { prefix: 'mee-', meaning: 'along / with', effect: 'Indicates doing something together or along with', keywords: ['mee'] },
+  { prefix: 'tegen-', meaning: 'against / counter', effect: 'Indicates opposition or resistance', keywords: ['tegen'] },
+  { prefix: 'door-', meaning: 'through / continue', effect: 'Indicates going through or continuing', keywords: ['door'] },
+  { prefix: 'over-', meaning: 'over / across / again', effect: 'Indicates crossing, excess, or repetition', keywords: ['over'] },
+  { prefix: 'in-', meaning: 'in / into', effect: 'Indicates inward movement', keywords: ['in'] },
+  { prefix: 'terug-', meaning: 'back / return', effect: 'Indicates returning or going back', keywords: ['terug'] },
+];
+
+let pdMode = 'learn'; // 'learn' or 'quiz'
+let pdQuizQuestions = [];
+let pdQuizIdx = 0;
+let pdQuizScore = 0;
+let pdPrefixExamples = {};
+
+function pdFindExamples() {
+  pdPrefixExamples = {};
+  for (const p of DUTCH_PREFIXES) {
+    const pre = p.prefix.replace('-', '');
+    pdPrefixExamples[p.prefix] = vnetData.filter(w => {
+      const nl = w.nl.toLowerCase();
+      return nl.startsWith(pre) && nl.length > pre.length + 1;
+    }).slice(0, 5);
+  }
+}
+
+function pdRenderModeBar() {
+  const bar = document.getElementById('pdModeBar');
+  if (!bar) return;
+  bar.innerHTML =
+    '<button class="pd-mode-btn' + (pdMode === 'learn' ? ' active' : '') + '" onclick="pdSetMode(\'learn\')">Leren</button>' +
+    '<button class="pd-mode-btn' + (pdMode === 'quiz' ? ' active' : '') + '" onclick="pdSetMode(\'quiz\')">Quiz</button>';
+}
+
+function pdSetMode(mode) {
+  pdMode = mode;
+  pdRenderModeBar();
+  if (mode === 'learn') pdRenderLearn();
+  else pdStartQuiz();
+}
+
+function pdRenderLearn() {
+  const el = document.getElementById('pdContent');
+  if (!el) return;
+  let html = '<div class="pd-grid">';
+  for (const p of DUTCH_PREFIXES) {
+    const examples = pdPrefixExamples[p.prefix] || [];
+    let exHtml = '';
+    for (const ex of examples) {
+      exHtml += '<div class="pd-example-item"><strong>' + escapeHTML(ex.nl) + '</strong> — ' + escapeHTML(ex.en) + '</div>';
+    }
+    if (examples.length === 0) exHtml = '<div class="pd-example-item" style="color:#999;">Geen voorbeelden gevonden</div>';
+    html +=
+      '<div class="pd-prefix-card" onclick="this.classList.toggle(\'expanded\')">' +
+        '<div class="pd-prefix-name">' + escapeHTML(p.prefix) + '</div>' +
+        '<div class="pd-prefix-meaning">' + escapeHTML(p.meaning) + '</div>' +
+        '<div class="pd-prefix-effect">' + escapeHTML(p.effect) + '</div>' +
+        '<div class="pd-prefix-examples">' + exHtml + '</div>' +
+      '</div>';
+  }
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function pdGenerateQuestions() {
+  const questions = [];
+  // Type 1: What does [prefix] do?
+  const shuffled = [...DUTCH_PREFIXES].sort(() => Math.random() - 0.5);
+  for (const p of shuffled.slice(0, 8)) {
+    const others = DUTCH_PREFIXES.filter(x => x.prefix !== p.prefix).sort(() => Math.random() - 0.5).slice(0, 3);
+    const opts = [{ text: p.effect, correct: true }, ...others.map(o => ({ text: o.effect, correct: false }))].sort(() => Math.random() - 0.5);
+    questions.push({
+      type: 'effect',
+      question: 'Wat doet het voorvoegsel',
+      highlight: p.prefix,
+      options: opts
+    });
+  }
+  // Type 2: Which prefix means [meaning]?
+  const shuffled2 = [...DUTCH_PREFIXES].sort(() => Math.random() - 0.5);
+  for (const p of shuffled2.slice(0, 7)) {
+    const others = DUTCH_PREFIXES.filter(x => x.prefix !== p.prefix).sort(() => Math.random() - 0.5).slice(0, 3);
+    const opts = [{ text: p.prefix, correct: true }, ...others.map(o => ({ text: o.prefix, correct: false }))].sort(() => Math.random() - 0.5);
+    questions.push({
+      type: 'meaning',
+      question: 'Welk voorvoegsel betekent',
+      highlight: p.meaning,
+      options: opts
+    });
+  }
+  return questions.sort(() => Math.random() - 0.5).slice(0, 10);
+}
+
+function pdStartQuiz() {
+  pdQuizQuestions = pdGenerateQuestions();
+  pdQuizIdx = 0;
+  pdQuizScore = 0;
+  pdRenderQuiz();
+}
+
+function pdRenderQuiz() {
+  const el = document.getElementById('pdContent');
+  if (!el) return;
+
+  if (pdQuizIdx >= pdQuizQuestions.length) {
+    el.innerHTML =
+      '<div class="pd-quiz-area">' +
+        '<div class="srs-done">' +
+          '<h3>Quiz klaar!</h3>' +
+          '<p>Score: <strong>' + pdQuizScore + ' / ' + pdQuizQuestions.length + '</strong></p>' +
+          '<p>' + (pdQuizScore >= pdQuizQuestions.length * 0.7 ? 'Goed gedaan!' : 'Blijf oefenen!') + '</p>' +
+          '<button class="srs-reset-btn" onclick="pdStartQuiz()">Nieuwe quiz</button>' +
+        '</div>' +
+      '</div>';
+    return;
+  }
+
+  const q = pdQuizQuestions[pdQuizIdx];
+  let optsHTML = '';
+  q.options.forEach((opt, i) => {
+    optsHTML += '<button class="pd-quiz-opt" data-idx="' + i + '" onclick="pdAnswer(this,' + i + ',' + (opt.correct ? 'true' : 'false') + ')">' + escapeHTML(opt.text) + '</button>';
+  });
+
+  el.innerHTML =
+    '<div class="pd-quiz-area">' +
+      '<div class="pd-quiz-score">Vraag ' + (pdQuizIdx + 1) + ' / ' + pdQuizQuestions.length + ' &mdash; Score: <span>' + pdQuizScore + '</span></div>' +
+      '<div class="pd-quiz-card">' +
+        '<div class="pd-quiz-question">' + escapeHTML(q.question) + '</div>' +
+        '<div class="pd-quiz-word">' + escapeHTML(q.highlight) + '</div>' +
+        '<div class="pd-quiz-options">' + optsHTML + '</div>' +
+      '</div>' +
+      '<div class="pd-quiz-feedback" id="pdQuizFeedback"></div>' +
+    '</div>';
+}
+
+function pdAnswer(btn, idx, correct) {
+  const opts = document.querySelectorAll('.pd-quiz-opt');
+  opts.forEach(o => { o.disabled = true; });
+  if (correct) {
+    btn.classList.add('correct');
+    pdQuizScore++;
+    document.getElementById('pdQuizFeedback').textContent = 'Correct!';
+  } else {
+    btn.classList.add('wrong');
+    opts.forEach(o => { if (pdQuizQuestions[pdQuizIdx].options[o.dataset.idx] && pdQuizQuestions[pdQuizIdx].options[o.dataset.idx].correct) o.classList.add('correct'); });
+    document.getElementById('pdQuizFeedback').textContent = 'Helaas, probeer het opnieuw!';
+  }
+  setTimeout(() => { pdQuizIdx++; pdRenderQuiz(); }, 1200);
+}
+
+async function initPrefixDrills() {
+  await ensureVnetData();
+  pdFindExamples();
+  pdRenderModeBar();
+  if (pdMode === 'learn') pdRenderLearn();
+  else pdRenderQuiz();
 }
 
 // ==========================================
