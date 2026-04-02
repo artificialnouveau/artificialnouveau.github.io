@@ -4023,6 +4023,7 @@ body::before, body::after { display: none; }
           <option value="">-- Kies een woordfamilie --</option>
         </select>
         <div class="wt-legend" id="wtLegend"></div>
+        <button class="mondrian-btn" onclick="exportOpNiveauPDF()" style="font-size:12px;padding:8px 16px;background:#1a237e;color:#fff;border:2px solid var(--mondrian-black);">Op Niveau PDF</button>
         <button class="mondrian-btn" onclick="showWoordboomExport()" style="font-size:12px;padding:8px 16px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);margin-left:auto;">Download Woordboom PDF</button>
       </div>
       <div class="wt-export-panel" id="wtExportPanel" style="display:none;">
@@ -11998,7 +11999,8 @@ const TAG_COLORS = {
   'werken-familie': '#bf360c',
   'lopen-familie': '#0277bd',
   'houden-familie': '#4e342e',
-  'laten-familie': '#558b2f'
+  'laten-familie': '#558b2f',
+  'op-niveau': '#1a237e'
 };
 
 function getTagColor(tag) { return TAG_COLORS[tag] || '#999'; }
@@ -12224,7 +12226,7 @@ function buildWoordboomDropdown() {
     werk: 'Werk', mensen: 'Mensen', beweging: 'Beweging', karakter: 'Karakter',
     geld: 'Geld', doel: 'Doelen', lichaam: 'Lichaam', taal: 'Taal',
     beeldspraak: 'Beeldspraak', gezondheid: 'Gezondheid', reizen: 'Reizen',
-    uitdrukking: 'Uitdrukkingen'
+    uitdrukking: 'Uitdrukkingen', 'op-niveau': 'Op Niveau (Positief)'
   };
 
   sel.innerHTML = '<option value="">-- Kies een groep --</option>'
@@ -12345,7 +12347,7 @@ function renderWoordboomTheme(themeTag) {
     werk: 'Werk', mensen: 'Mensen', beweging: 'Beweging', karakter: 'Karakter',
     geld: 'Geld', doel: 'Doelen', lichaam: 'Lichaam', taal: 'Taal',
     beeldspraak: 'Beeldspraak', gezondheid: 'Gezondheid', reizen: 'Reizen',
-    uitdrukking: 'Uitdrukkingen'
+    uitdrukking: 'Uitdrukkingen', 'op-niveau': 'Op Niveau (Positief)'
   };
 
   var label = THEME_LABELS[themeTag] || themeTag;
@@ -12463,6 +12465,60 @@ async function initWoordfamilies() {
   });
   html += '</div>';
   container.innerHTML = html;
+}
+
+function exportOpNiveauPDF() {
+  var siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
+  var words = vnetData.filter(function(w) { return w.tags.includes('op-niveau'); });
+  words.sort(function(a, b) { return a.nl.localeCompare(b.nl); });
+
+  // Build 3-column card layout
+  var cols = [[], [], []];
+  words.forEach(function(w, i) { cols[i % 3].push(w); });
+
+  function buildCol(items) {
+    return items.map(function(w) {
+      return '<div class="word-card">'
+        + '<div class="word-nl">' + w.nl + '</div>'
+        + '<div class="word-en">' + w.en + '</div>'
+        + (w.example ? '<div class="word-ex">' + w.example + '</div>' : '')
+        + '</div>';
+    }).join('');
+  }
+
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Op Niveau B2 \u2014 Positief</title>'
+    + '<style>'
+    + 'body{font-family:Inter,sans-serif;max-width:900px;margin:0 auto;padding:30px 20px;color:#111;}'
+    + 'h1{font-family:Syne,sans-serif;font-size:24px;color:#1a237e;margin:0 0 4px;letter-spacing:3px;}'
+    + '.subtitle{color:#D40920;font-weight:600;font-size:13px;margin-bottom:16px;}'
+    + '.divider{height:4px;background:#1a237e;margin:12px 0 20px;}'
+    + '.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}'
+    + '.word-card{border:2px solid #1a237e;padding:10px 12px;page-break-inside:avoid;break-inside:avoid;}'
+    + '.word-nl{font-weight:700;font-size:14px;color:#1a237e;margin-bottom:2px;}'
+    + '.word-en{font-size:11px;color:#555;margin-bottom:4px;}'
+    + '.word-ex{font-size:10px;color:#888;font-style:italic;border-top:1px solid #eee;padding-top:4px;margin-top:4px;}'
+    + '.footer{margin-top:30px;text-align:center;font-size:10px;color:#888;font-style:italic;border-top:2px solid #1a237e;padding-top:8px;}'
+    + '@media print{body{padding:15px;}.word-card{break-inside:avoid;}}'
+    + '</style></head><body>'
+    + '<h1>OP NIVEAU B2</h1>'
+    + '<p class="subtitle">Hoofdstuk: Positief \u2014 ' + words.length + ' woorden</p>'
+    + '<div class="divider"></div>'
+    + '<div class="grid">'
+    + '<div>' + buildCol(cols[0]) + '</div>'
+    + '<div>' + buildCol(cols[1]) + '</div>'
+    + '<div>' + buildCol(cols[2]) + '</div>'
+    + '</div>'
+    + '<div class="footer">www.' + siteUrl + ' \u2014 Op Niveau B2 woordenlijst</div>'
+    + '<scr' + 'ipt src="/assets/js/tracker.js" defer></scr' + 'ipt></body></html>';
+
+  var w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  var printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF';
+  printBtn.style.cssText = 'position:fixed;top:10px;right:10px;z-index:9999;padding:8px 16px;background:#1a237e;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = function() { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
+  w.document.body.prepend(printBtn);
 }
 
 function exportMatrixPDF() {
