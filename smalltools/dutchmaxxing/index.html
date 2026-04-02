@@ -12469,57 +12469,69 @@ function exportMatrixPDF() {
   var siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
   var lc = PM_LEVEL_COLORS;
 
-  // Build matrix table HTML
-  var tableHtml = '<table><thead><tr><th style="background:#000;color:#fff;min-width:50px;position:sticky;left:0;z-index:2;"></th>';
-  PM_BASE_VERBS.forEach(function(b) {
-    tableHtml += '<th>' + b + '</th>';
-  });
-  tableHtml += '</tr></thead><tbody>';
+  // Split base verbs into two halves for two pages
+  var half = Math.ceil(PM_BASE_VERBS.length / 2);
+  var verbsPage1 = PM_BASE_VERBS.slice(0, half);
+  var verbsPage2 = PM_BASE_VERBS.slice(half);
 
-  PM_PREFIXES.forEach(function(p) {
-    tableHtml += '<tr><td style="font-weight:700;background:#f5f5f5;border-right:3px solid #000;">' + p + '-</td>';
-    PM_BASE_VERBS.forEach(function(b) {
-      var w = pmMatrixData[p] && pmMatrixData[p][b];
-      if (w) {
-        var color = lc[w.level] || '#999';
-        tableHtml += '<td style="text-align:center;" title="' + w.nl + ' = ' + w.en.replace(/"/g, '&quot;') + '">'
-          + '<div style="font-weight:700;font-size:8px;color:' + color + ';">' + w.nl + '</div>'
-          + '<div style="font-size:7px;color:#888;">' + w.en.split('/')[0].trim() + '</div>'
-          + '</td>';
-      } else {
-        tableHtml += '<td style="background:#fafafa;"></td>';
-      }
+  function buildTable(verbs, pageLabel) {
+    var t = '<h3 style="font-family:Syne,sans-serif;font-size:13px;margin:0 0 6px;color:#666;">' + pageLabel + '</h3>';
+    t += '<table><thead><tr><th class="prefix-col"></th>';
+    verbs.forEach(function(b) { t += '<th>' + b + '</th>'; });
+    t += '</tr></thead><tbody>';
+    PM_PREFIXES.forEach(function(p) {
+      t += '<tr><td class="prefix-col">' + p + '-</td>';
+      verbs.forEach(function(b) {
+        var w = pmMatrixData[p] && pmMatrixData[p][b];
+        if (w) {
+          var color = lc[w.level] || '#999';
+          t += '<td class="filled"><div style="font-weight:700;color:' + color + ';">' + w.nl + '</div>'
+            + '<div style="font-size:8px;color:#888;">' + w.en.split('/')[0].trim() + '</div></td>';
+        } else {
+          t += '<td class="empty"></td>';
+        }
+      });
+      t += '</tr>';
     });
-    tableHtml += '</tr>';
-  });
-  tableHtml += '</tbody></table>';
+    t += '</tbody></table>';
+    return t;
+  }
 
-  // Count filled cells
   var filled = 0;
   PM_PREFIXES.forEach(function(p) { PM_BASE_VERBS.forEach(function(b) { if (pmMatrixData[p] && pmMatrixData[p][b]) filled++; }); });
 
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Prefix Matrix \u2014 Dutchmaxxing</title>'
     + '<style>'
-    + 'body{font-family:Inter,sans-serif;margin:0;padding:20px;color:#111;font-size:9px;}'
-    + '@page{size:landscape;margin:10mm;}'
+    + 'body{font-family:Inter,sans-serif;margin:0;padding:20px;color:#111;}'
+    + '@page{size:landscape;margin:8mm;}'
     + 'h1{font-family:Syne,sans-serif;font-size:22px;color:#000;margin:0 0 4px;letter-spacing:3px;}'
-    + 'table{width:100%;border-collapse:collapse;border:2px solid #000;font-size:8px;}'
-    + 'th{background:#F7D842;color:#000;padding:4px 3px;text-align:center;font-size:8px;font-family:Space Grotesk,sans-serif;border:1px solid #ddd;border-bottom:2px solid #000;white-space:nowrap;}'
-    + 'td{padding:3px 2px;border:1px solid #eee;vertical-align:top;min-width:55px;}'
-    + 'tr:nth-child(even){background:#f9f9f9;}'
-    + '.legend{display:flex;gap:12px;margin:8px 0 12px;font-size:10px;}'
+    + 'table{width:100%;border-collapse:collapse;border:2px solid #000;font-size:10px;}'
+    + 'th{background:#F7D842;color:#000;padding:6px 4px;text-align:center;font-size:10px;font-weight:700;font-family:Space Grotesk,sans-serif;border:1px solid #ddd;border-bottom:2px solid #000;}'
+    + 'td{padding:4px 5px;border:1px solid #eee;vertical-align:top;}'
+    + 'td.filled{text-align:center;font-size:10px;}'
+    + 'td.empty{background:#fafafa;}'
+    + 'td.prefix-col,th.prefix-col{font-weight:700;background:#f0f0f0;border-right:3px solid #000;text-align:right;padding-right:8px;white-space:nowrap;width:50px;}'
+    + 'tr:nth-child(even) td:not(.prefix-col){background:#f9f9f9;}'
+    + '.legend{display:flex;gap:12px;margin:6px 0 10px;font-size:10px;}'
     + '.legend span{display:inline-flex;align-items:center;gap:4px;}'
     + '.legend i{width:8px;height:8px;border-radius:50%;display:inline-block;}'
-    + '.footer{margin-top:20px;text-align:center;font-size:9px;color:#888;font-style:italic;border-top:2px solid #000;padding-top:8px;}'
-    + '@media print{body{padding:10px;}}'
+    + '.page-break{page-break-before:always;margin-top:0;padding-top:12px;}'
+    + '.footer{margin-top:16px;text-align:center;font-size:9px;color:#888;font-style:italic;border-top:2px solid #000;padding-top:6px;}'
+    + '@media print{body{padding:8px;}.page-break{page-break-before:always;}}'
     + '</style></head><body>'
     + '<h1>PREFIX MATRIX</h1>'
     + '<p style="color:#D40920;font-weight:600;font-size:12px;margin-bottom:2px;">' + PM_PREFIXES.length + ' prefixen \u00D7 ' + PM_BASE_VERBS.length + ' werkwoorden \u2014 ' + filled + ' combinaties</p>'
-    + '<p style="color:#666;font-size:10px;">Gegenereerd op ' + new Date().toLocaleDateString('nl-NL') + '</p>'
+    + '<p style="color:#666;font-size:10px;margin-bottom:4px;">Gegenereerd op ' + new Date().toLocaleDateString('nl-NL') + '</p>'
     + '<div class="legend">'
     + Object.entries(lc).map(function(e) { return '<span><i style="background:' + e[1] + ';"></i>' + e[0] + '</span>'; }).join('')
     + '</div>'
-    + tableHtml
+    + buildTable(verbsPage1, 'Pagina 1: ' + verbsPage1[0] + ' \u2013 ' + verbsPage1[verbsPage1.length-1])
+    + '<div class="page-break">'
+    + '<div class="legend">'
+    + Object.entries(lc).map(function(e) { return '<span><i style="background:' + e[1] + ';"></i>' + e[0] + '</span>'; }).join('')
+    + '</div>'
+    + buildTable(verbsPage2, 'Pagina 2: ' + verbsPage2[0] + ' \u2013 ' + verbsPage2[verbsPage2.length-1])
+    + '</div>'
     + '<div class="footer">www.' + siteUrl + '</div>'
     + '<scr' + 'ipt src="/assets/js/tracker.js" defer></scr' + 'ipt></body></html>';
 
