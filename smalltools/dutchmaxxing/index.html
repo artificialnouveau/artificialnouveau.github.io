@@ -12486,7 +12486,7 @@ function exportMatrixPDF() {
         if (w) {
           var color = lc[w.level] || '#999';
           t += '<td class="filled"><div style="font-weight:700;color:' + color + ';">' + w.nl + '</div>'
-            + '<div style="font-size:8px;color:#888;">' + w.en.split('/')[0].trim() + '</div></td>';
+            + '<div style="font-size:7px;color:#888;line-height:1;">' + w.en.split('/')[0].trim() + '</div></td>';
         } else {
           t += '<td class="empty"></td>';
         }
@@ -12502,35 +12502,37 @@ function exportMatrixPDF() {
 
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Prefix Matrix \u2014 Dutchmaxxing</title>'
     + '<style>'
-    + 'body{font-family:Inter,sans-serif;margin:0;padding:20px;color:#111;}'
-    + '@page{size:landscape;margin:8mm;}'
-    + 'h1{font-family:Syne,sans-serif;font-size:22px;color:#000;margin:0 0 4px;letter-spacing:3px;}'
-    + 'table{width:100%;border-collapse:collapse;border:2px solid #000;font-size:10px;}'
-    + 'th{background:#F7D842;color:#000;padding:6px 4px;text-align:center;font-size:10px;font-weight:700;font-family:Space Grotesk,sans-serif;border:1px solid #ddd;border-bottom:2px solid #000;}'
-    + 'td{padding:4px 5px;border:1px solid #eee;vertical-align:top;}'
-    + 'td.filled{text-align:center;font-size:10px;}'
+    + 'body{font-family:Inter,sans-serif;margin:0;padding:8px 12px;color:#111;}'
+    + '@page{size:landscape;margin:5mm;}'
+    + 'h1{font-family:Syne,sans-serif;font-size:16px;color:#000;margin:0 0 2px;letter-spacing:2px;}'
+    + 'h3{margin:0 0 3px;}'
+    + 'table{width:100%;border-collapse:collapse;border:2px solid #000;font-size:9px;}'
+    + 'th{background:#F7D842;color:#000;padding:3px 2px;text-align:center;font-size:9px;font-weight:700;font-family:Space Grotesk,sans-serif;border:1px solid #ddd;border-bottom:2px solid #000;}'
+    + 'td{padding:2px 3px;border:1px solid #eee;vertical-align:top;line-height:1.2;}'
+    + 'td.filled{text-align:center;font-size:9px;}'
     + 'td.empty{background:#fafafa;}'
-    + 'td.prefix-col,th.prefix-col{font-weight:700;background:#f0f0f0;border-right:3px solid #000;text-align:right;padding-right:8px;white-space:nowrap;width:50px;}'
+    + 'td.prefix-col,th.prefix-col{font-weight:700;background:#f0f0f0;border-right:3px solid #000;text-align:right;padding-right:6px;white-space:nowrap;width:40px;}'
     + 'tr:nth-child(even) td:not(.prefix-col){background:#f9f9f9;}'
-    + '.legend{display:flex;gap:12px;margin:6px 0 10px;font-size:10px;}'
-    + '.legend span{display:inline-flex;align-items:center;gap:4px;}'
-    + '.legend i{width:8px;height:8px;border-radius:50%;display:inline-block;}'
-    + '.page-break{page-break-before:always;margin-top:0;padding-top:12px;}'
-    + '.footer{margin-top:16px;text-align:center;font-size:9px;color:#888;font-style:italic;border-top:2px solid #000;padding-top:6px;}'
-    + '@media print{body{padding:8px;}.page-break{page-break-before:always;}}'
+    + '.hdr{display:flex;align-items:center;gap:12px;margin-bottom:4px;}'
+    + '.legend{display:flex;gap:10px;font-size:9px;}'
+    + '.legend span{display:inline-flex;align-items:center;gap:3px;}'
+    + '.legend i{width:7px;height:7px;border-radius:50%;display:inline-block;}'
+    + '.page-break{page-break-before:always;padding-top:6px;}'
+    + '.footer{margin-top:8px;text-align:center;font-size:8px;color:#888;font-style:italic;border-top:1px solid #000;padding-top:4px;}'
+    + '@media print{body{padding:4px;}.page-break{page-break-before:always;}}'
     + '</style></head><body>'
-    + '<h1>PREFIX MATRIX</h1>'
-    + '<p style="color:#D40920;font-weight:600;font-size:12px;margin-bottom:2px;">' + PM_PREFIXES.length + ' prefixen \u00D7 ' + PM_BASE_VERBS.length + ' werkwoorden \u2014 ' + filled + ' combinaties</p>'
-    + '<p style="color:#666;font-size:10px;margin-bottom:4px;">Gegenereerd op ' + new Date().toLocaleDateString('nl-NL') + '</p>'
+    + '<div class="hdr"><h1>PREFIX MATRIX</h1>'
+    + '<span style="color:#D40920;font-weight:600;font-size:10px;">' + filled + ' combinaties</span>'
     + '<div class="legend">'
     + Object.entries(lc).map(function(e) { return '<span><i style="background:' + e[1] + ';"></i>' + e[0] + '</span>'; }).join('')
-    + '</div>'
-    + buildTable(verbsPage1, 'Pagina 1: ' + verbsPage1[0] + ' \u2013 ' + verbsPage1[verbsPage1.length-1])
+    + '</div></div>'
+    + buildTable(verbsPage1, verbsPage1[0] + ' \u2013 ' + verbsPage1[verbsPage1.length-1])
     + '<div class="page-break">'
+    + '<div class="hdr" style="margin-bottom:4px;"><h1>PREFIX MATRIX</h1>'
     + '<div class="legend">'
     + Object.entries(lc).map(function(e) { return '<span><i style="background:' + e[1] + ';"></i>' + e[0] + '</span>'; }).join('')
-    + '</div>'
-    + buildTable(verbsPage2, 'Pagina 2: ' + verbsPage2[0] + ' \u2013 ' + verbsPage2[verbsPage2.length-1])
+    + '</div></div>'
+    + buildTable(verbsPage2, verbsPage2[0] + ' \u2013 ' + verbsPage2[verbsPage2.length-1])
     + '</div>'
     + '<div class="footer">www.' + siteUrl + '</div>'
     + '<scr' + 'ipt src="/assets/js/tracker.js" defer></scr' + 'ipt></body></html>';
