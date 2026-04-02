@@ -3479,6 +3479,182 @@ body::before, body::after { display: none; }
   .srs-rating-btn { padding: 8px 14px; font-size: 12px; min-width: 70px; }
   .pd-grid { grid-template-columns: 1fr; }
 }
+
+/* ==========================================
+   DAGELIJKSE 10
+   ========================================== */
+.d10-banner {
+  border-left: 6px solid var(--mondrian-yellow);
+  background: #fff;
+  border-top: 3px solid var(--mondrian-black);
+  border-right: 3px solid var(--mondrian-black);
+  border-bottom: 3px solid var(--mondrian-black);
+  margin-bottom: 16px;
+  padding: 0;
+}
+.d10-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+  gap: 8px;
+}
+.d10-header:hover { background: rgba(247,216,66,0.12); }
+.d10-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.d10-check-badge {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+}
+.d10-toggle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: 'Space Grotesk', sans-serif;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.d10-body {
+  padding: 0 16px 16px;
+}
+.d10-body.d10-collapsed { display: none; }
+.d10-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.d10-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #eee;
+  border: 2px solid var(--mondrian-black);
+  border-radius: 0;
+  overflow: hidden;
+}
+.d10-progress-fill {
+  height: 100%;
+  background: var(--mondrian-red);
+  transition: width 0.3s ease;
+}
+.d10-card {
+  background: #fff;
+  border: 3px solid var(--mondrian-black);
+  padding: 28px 20px;
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.d10-word {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--mondrian-black);
+  margin-bottom: 16px;
+}
+.d10-answer { margin-top: 12px; }
+.d10-english {
+  font-size: 18px;
+  color: var(--mondrian-blue);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.d10-example {
+  font-size: 14px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 6px;
+}
+.d10-note {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 14px;
+}
+.d10-btn {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 24px;
+  border: 3px solid var(--mondrian-black);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.d10-btn:hover { opacity: 0.85; }
+.d10-btn-show {
+  background: var(--mondrian-yellow);
+  color: var(--mondrian-black);
+}
+.d10-btn-wrong {
+  background: var(--mondrian-red);
+  color: #fff;
+}
+.d10-btn-right {
+  background: var(--green);
+  color: #fff;
+}
+.d10-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.d10-complete {
+  text-align: center;
+  padding: 20px;
+}
+.d10-score {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.d10-missed {
+  margin-top: 12px;
+  font-size: 14px;
+}
+.d10-missed-word {
+  display: inline-block;
+  background: rgba(212,9,32,0.1);
+  color: var(--mondrian-red);
+  font-weight: 600;
+  padding: 2px 8px;
+  margin: 3px;
+  border: 2px solid var(--mondrian-red);
+  font-size: 13px;
+}
+.d10-done-msg {
+  color: var(--green);
+  font-weight: 600;
+  margin-top: 14px;
+  font-size: 14px;
+}
+@media (max-width: 600px) {
+  .d10-word { font-size: 22px; }
+  .d10-card { padding: 18px 12px; }
+  .d10-btn { padding: 8px 16px; font-size: 13px; }
+  .d10-title { font-size: 14px; }
+}
 </style>
 </head>
 <body>
@@ -3997,6 +4173,7 @@ body::before, body::after { display: none; }
 
 <!-- NT2 B1 Oefenen Tab -->
 <div class="tab-content" id="tab-vocab">
+  <div id="d10Container"></div>
   <div class="subtab-bar">
     <button class="subtab-btn active" data-subtab="vocab-matrix" data-maintab="vocab">Prefix Matrix</button>
     <button class="subtab-btn" data-subtab="vocab-woordboom" data-maintab="vocab">Woordboom</button>
@@ -7728,6 +7905,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
       if (fn) fn();
     }
     // Direct init for tabs without subtabs
+    if (btn.dataset.tab === 'vocab') initDagelijkse10();
     if (btn.dataset.tab === 'news') initNews();
     if (btn.dataset.tab === 'examen') initExamen();
     updateCEFRBarVisibility();
@@ -13474,6 +13652,305 @@ function examPlayYT(anchor, containerId, videoId, startSec, endSec) {
     linkEl.outerHTML = `<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube-nocookie.com/embed/${videoId}?start=${startSec}&end=${endSec}&autoplay=1&rel=0&modestbranding=1" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>`;
   }
   return false;
+}
+
+// ==========================================
+// DAGELIJKSE 10 — Daily Word Review
+// ==========================================
+let d10Words = [];
+let d10CurrentIdx = 0;
+let d10Revealed = false;
+let d10Results = []; // true=knew, false=didn't
+let d10Collapsed = false;
+
+function d10DayKey() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function d10SeededRandom(seed) {
+  // Simple hash-based PRNG from a string seed
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) {
+    h = ((h << 5) - h + seed.charCodeAt(i)) | 0;
+  }
+  return function() {
+    h = (h * 1664525 + 1013904223) | 0;
+    return ((h >>> 0) / 4294967296);
+  };
+}
+
+function getDailyWords() {
+  const dayKey = d10DayKey();
+  const stored = localStorage.getItem('dutchmaxxing_d10_' + dayKey);
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      if (parsed.words && parsed.words.length) {
+        // Map stored nl keys back to full word objects
+        const mapped = parsed.words.map(function(nl) {
+          return vnetData.find(function(w) { return w.nl === nl; });
+        }).filter(Boolean);
+        if (mapped.length > 0) return mapped;
+      }
+    } catch(e) {}
+  }
+
+  srsLoadState();
+  const now = Date.now();
+  const selected = [];
+  const usedKeys = {};
+
+  // First: pick words due for review
+  var dueWords = [];
+  for (var i = 0; i < vnetData.length; i++) {
+    var w = vnetData[i];
+    var card = srsState.cards[w.nl];
+    if (card && card.repetition > 0 && card.due <= now) {
+      dueWords.push(w);
+    }
+  }
+  // Sort by most overdue first
+  dueWords.sort(function(a, b) {
+    return (srsState.cards[a.nl].due || 0) - (srsState.cards[b.nl].due || 0);
+  });
+  for (var i = 0; i < dueWords.length && selected.length < 10; i++) {
+    selected.push(dueWords[i]);
+    usedKeys[dueWords[i].nl] = true;
+  }
+
+  // Fill remaining with new/unseen words, seeded by date
+  if (selected.length < 10) {
+    var unseenPool = vnetData.filter(function(w) {
+      if (usedKeys[w.nl]) return false;
+      var card = srsState.cards[w.nl];
+      return !card || card.repetition === 0;
+    });
+    var rng = d10SeededRandom(dayKey);
+    // Shuffle with seeded RNG
+    for (var i = unseenPool.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var tmp = unseenPool[i];
+      unseenPool[i] = unseenPool[j];
+      unseenPool[j] = tmp;
+    }
+    for (var i = 0; i < unseenPool.length && selected.length < 10; i++) {
+      selected.push(unseenPool[i]);
+      usedKeys[unseenPool[i].nl] = true;
+    }
+  }
+
+  // Store today's selection
+  try {
+    localStorage.setItem('dutchmaxxing_d10_' + dayKey, JSON.stringify({
+      words: selected.map(function(w) { return w.nl; })
+    }));
+  } catch(e) {}
+
+  return selected;
+}
+
+async function initDagelijkse10() {
+  var container = document.getElementById('d10Container');
+  if (!container) return;
+
+  await ensureVnetData();
+  if (!vnetData.length) return;
+
+  srsLoadState();
+  var dayKey = d10DayKey();
+
+  // Check if already completed today
+  var alreadyDone = srsState.dailyCompleted === dayKey;
+
+  d10Words = getDailyWords();
+  if (!d10Words.length) return;
+
+  // Load progress if resuming
+  var progressKey = 'dutchmaxxing_d10_progress_' + dayKey;
+  var savedProgress = null;
+  try { savedProgress = JSON.parse(localStorage.getItem(progressKey)); } catch(e) {}
+
+  if (alreadyDone && srsState.dailyScore !== undefined) {
+    d10Results = savedProgress ? savedProgress.results : [];
+    d10CurrentIdx = 10;
+    renderD10Banner(container, true);
+    completeDailyReview();
+    return;
+  }
+
+  if (savedProgress && savedProgress.results) {
+    d10Results = savedProgress.results;
+    d10CurrentIdx = d10Results.length;
+  } else {
+    d10Results = [];
+    d10CurrentIdx = 0;
+  }
+
+  d10Collapsed = false;
+  renderD10Banner(container, false);
+  if (d10CurrentIdx >= d10Words.length) {
+    completeDailyReview();
+  } else {
+    showDailyWord(d10CurrentIdx);
+  }
+}
+
+function renderD10Banner(container, completed) {
+  var dayKey = d10DayKey();
+  var badge = completed ? ' <span class="d10-check-badge">&#10003;</span>' : '';
+  container.innerHTML =
+    '<div class="d10-banner">' +
+      '<div class="d10-header" onclick="toggleD10()">' +
+        '<span class="d10-title">Dagelijkse 10' + badge + '</span>' +
+        '<button class="d10-toggle" id="d10ToggleBtn">' + (d10Collapsed ? '&#9660; tonen' : '&#9650; verbergen') + '</button>' +
+      '</div>' +
+      '<div class="d10-body' + (d10Collapsed ? ' d10-collapsed' : '') + '" id="d10Body">' +
+        '<div class="d10-progress-row">' +
+          '<span id="d10ProgressLabel">Woord 1/10</span>' +
+          '<div class="d10-progress-bar"><div class="d10-progress-fill" id="d10ProgressFill" style="width:0%"></div></div>' +
+        '</div>' +
+        '<div id="d10CardArea"></div>' +
+      '</div>' +
+    '</div>';
+}
+
+function toggleD10() {
+  var body = document.getElementById('d10Body');
+  var btn = document.getElementById('d10ToggleBtn');
+  if (!body || !btn) return;
+  d10Collapsed = !d10Collapsed;
+  if (d10Collapsed) {
+    body.classList.add('d10-collapsed');
+    btn.innerHTML = '&#9660; tonen';
+  } else {
+    body.classList.remove('d10-collapsed');
+    btn.innerHTML = '&#9650; verbergen';
+  }
+}
+
+function d10UpdateProgress() {
+  var label = document.getElementById('d10ProgressLabel');
+  var fill = document.getElementById('d10ProgressFill');
+  if (label) label.textContent = 'Woord ' + Math.min(d10CurrentIdx + 1, d10Words.length) + '/' + d10Words.length;
+  if (fill) fill.style.width = (d10CurrentIdx / d10Words.length * 100) + '%';
+}
+
+function showDailyWord(index) {
+  d10CurrentIdx = index;
+  d10Revealed = false;
+  d10UpdateProgress();
+  var area = document.getElementById('d10CardArea');
+  if (!area || index >= d10Words.length) return;
+  var w = d10Words[index];
+  area.innerHTML =
+    '<div class="d10-card">' +
+      '<div class="d10-word">' + escapeHTML(w.nl) + '</div>' +
+      '<div class="d10-btn-row">' +
+        '<button class="d10-btn d10-btn-show" onclick="revealDailyWord()">Laat zien</button>' +
+      '</div>' +
+    '</div>';
+}
+
+function revealDailyWord() {
+  if (d10Revealed) return;
+  d10Revealed = true;
+  var area = document.getElementById('d10CardArea');
+  if (!area || d10CurrentIdx >= d10Words.length) return;
+  var w = d10Words[d10CurrentIdx];
+  var html = '<div class="d10-card">' +
+    '<div class="d10-word">' + escapeHTML(w.nl) + '</div>' +
+    '<div class="d10-answer">' +
+      '<div class="d10-english">' + escapeHTML(w.en) + '</div>';
+  if (w.example) {
+    html += '<div class="d10-example">"' + escapeHTML(w.example) + '"</div>';
+  }
+  if (w.note) {
+    html += '<div class="d10-note">' + escapeHTML(w.note) + '</div>';
+  }
+  html += '</div>' +
+    '<div class="d10-btn-row">' +
+      '<button class="d10-btn d10-btn-wrong" onclick="rateDailyWord(false)">Wist ik niet &#10007;</button>' +
+      '<button class="d10-btn d10-btn-right" onclick="rateDailyWord(true)">Wist ik wel &#10003;</button>' +
+    '</div>' +
+  '</div>';
+  area.innerHTML = html;
+}
+
+function rateDailyWord(knew) {
+  d10Results.push(knew);
+
+  // Update SRS for this word
+  srsLoadState();
+  var w = d10Words[d10CurrentIdx];
+  var card = srsGetCardState(w.nl);
+  if (knew) {
+    srsSM2(card, 3); // easy
+  } else {
+    srsSM2(card, 0); // again
+  }
+  srsSaveState();
+
+  // Save progress
+  var dayKey = d10DayKey();
+  try {
+    localStorage.setItem('dutchmaxxing_d10_progress_' + dayKey, JSON.stringify({ results: d10Results }));
+  } catch(e) {}
+
+  d10CurrentIdx++;
+  if (d10CurrentIdx >= d10Words.length) {
+    completeDailyReview();
+  } else {
+    showDailyWord(d10CurrentIdx);
+  }
+}
+
+function completeDailyReview() {
+  var dayKey = d10DayKey();
+  var score = d10Results.filter(Boolean).length;
+
+  // Mark as completed in SRS state
+  srsLoadState();
+  srsState.dailyCompleted = dayKey;
+  srsState.dailyScore = score;
+  srsSaveState();
+
+  // Update banner header to show checkmark
+  var container = document.getElementById('d10Container');
+  var header = container ? container.querySelector('.d10-title') : null;
+  if (header && !header.querySelector('.d10-check-badge')) {
+    header.innerHTML = 'Dagelijkse 10 <span class="d10-check-badge">&#10003;</span>';
+  }
+
+  // Update progress to 100%
+  var fill = document.getElementById('d10ProgressFill');
+  var label = document.getElementById('d10ProgressLabel');
+  if (fill) fill.style.width = '100%';
+  if (label) label.textContent = 'Woord 10/10';
+
+  var area = document.getElementById('d10CardArea');
+  if (!area) return;
+
+  var html = '<div class="d10-complete">' +
+    '<div class="d10-score">' + score + '/10 goed!</div>';
+
+  // Show missed words
+  var missed = [];
+  for (var i = 0; i < d10Results.length; i++) {
+    if (!d10Results[i] && d10Words[i]) {
+      missed.push(d10Words[i]);
+    }
+  }
+  if (missed.length > 0) {
+    html += '<div class="d10-missed"><strong>Te herhalen:</strong><br>';
+    for (var i = 0; i < missed.length; i++) {
+      html += '<span class="d10-missed-word">' + escapeHTML(missed[i].nl) + ' — ' + escapeHTML(missed[i].en) + '</span>';
+    }
+    html += '</div>';
+  }
+
+  html += '<div class="d10-done-msg">Klaar voor vandaag! Kom morgen terug voor nieuwe woorden.</div>' +
+    '</div>';
+  area.innerHTML = html;
 }
 
 </script>
