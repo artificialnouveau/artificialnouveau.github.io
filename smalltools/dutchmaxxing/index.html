@@ -1872,6 +1872,17 @@ body::before, body::after { display: none; }
 .nt2-scenario-card[data-scenario="sollicitatie"] .nt2-scenario-header { background: #4B0082; }
 .nt2-scenario-card[data-scenario="buren"] .nt2-scenario-header { background: #006B6B; }
 .nt2-scenario-card[data-scenario="studie"] .nt2-scenario-header { background: #5B2C8E; }
+.nt2-scenario-card[data-scenario="vergadering"] .nt2-scenario-header { background: #1565C0; }
+.nt2-scenario-card[data-scenario="presentatie"] .nt2-scenario-header { background: #6A1B9A; }
+.nt2-scenario-card[data-scenario="onderhandeling"] .nt2-scenario-header { background: #00695C; }
+.nt2-scenario-card[data-scenario="academisch"] .nt2-scenario-header { background: #283593; }
+.nt2-scenario-card[data-scenario="debat"] .nt2-scenario-header { background: #BF360C; }
+.nt2-scenario-card[data-scenario="media"] .nt2-scenario-header { background: #37474F; }
+.nt2-scenario-card[data-scenario="juridisch"] .nt2-scenario-header { background: #4E342E; }
+.nt2-scenario-card[data-scenario="financieel"] .nt2-scenario-header { background: #1B5E20; }
+.nt2-scenario-card[data-scenario="formeel"] .nt2-scenario-header { background: #0D47A1; }
+.nt2-scenario-card[data-scenario="gezondheidszorg"] .nt2-scenario-header { background: #AD1457; }
+.nt2-scenario-card[data-scenario="netwerken"] .nt2-scenario-header { background: #E65100; }
 
 /* Word Family Cards */
 .wf-container { max-width: 1000px; margin: 0 auto; }
@@ -3732,6 +3743,7 @@ body::before, body::after { display: none; }
   <button class="tab-btn" data-tab="schrijven">Schrijven</button>
   <button class="tab-btn" data-tab="vocab">Vocabulaire</button>
   <button class="tab-btn" data-tab="examen">NT2 B1 Oefenen</button>
+  <button class="tab-btn" data-tab="examen-b2">NT2 B2 Oefenen</button>
 </nav>
 
 <!-- CEFR Level Selector -->
@@ -4328,6 +4340,15 @@ body::before, body::after { display: none; }
     <div id="examWoorenschatContent"></div>
   </div>
 </div><!-- /tab-examen -->
+
+<div class="tab-content" id="tab-examen-b2">
+  <div class="subtab-bar">
+    <button class="subtab-btn active" data-subtab="exam-b2-woordenschat" data-maintab="examen-b2">Woordenschat</button>
+  </div>
+  <div class="subtab-content active" id="sub-exam-b2-woordenschat">
+    <div id="examB2WoordenschatContent"></div>
+  </div>
+</div><!-- /tab-examen-b2 -->
 
 <!-- Reader Tooltip -->
 <div class="reader-tooltip" id="readerTooltip"></div>
@@ -7906,7 +7927,7 @@ function updateCEFRBarVisibility() {
   const bar = document.getElementById('cefrBar');
   if (!bar) return;
   const activeBtn = document.querySelector('.tab-btn.active');
-  const hideOn = ['spiekbriefjes', 'cultuur', 'examen', 'vocab'];
+  const hideOn = ['spiekbriefjes', 'cultuur', 'examen', 'examen-b2', 'vocab'];
   bar.style.display = (activeBtn && hideOn.includes(activeBtn.dataset.tab)) ? 'none' : '';
 }
 
@@ -7940,6 +7961,7 @@ const SUBTAB_INIT = {
   'exam-spreken': initExamen,
   'exam-schrijven': initExamen,
   'exam-woordenschat': initExamWoordenschat,
+  'exam-b2-woordenschat': initExamB2Woordenschat,
   etiquette: () => { initCultuur(); renderEtiquette(); },
   communicatie: renderCommunicatie,
   praktisch: renderPraktisch,
@@ -13822,6 +13844,311 @@ function exportNT2Woordenschat() {
   let total = NT2_SCENARIOS.reduce((n, s) => n + s.vocab.length + s.phrases.length, 0);
   rows += '<div class="tip">Totaal: ' + NT2_SCENARIOS.length + ' scenario\'s, ' + total + ' items</div>';
   generatePDFContent('NT2 B1 Woordenschat per Scenario', rows);
+}
+
+// ==========================================
+// NT2 B2 Woordenschat — Scenario Practice Cards
+// ==========================================
+const NT2_B2_SCENARIOS = [
+  {
+    id: 'vergadering', icon: '📋', title: 'Vergaderingen & Overleg',
+    desc: 'Deelnemen aan en leiden van vergaderingen. Agendapunten bespreken, notulen maken, besluiten nemen. Essentieel voor de Nederlandse werkvloer.',
+    vocab: [
+      {nl:'de vergadering',en:'meeting'},{nl:'het agendapunt',en:'agenda item'},{nl:'de notulen',en:'minutes (of a meeting)'},
+      {nl:'de voorzitter',en:'chairperson'},{nl:'het besluit',en:'decision / resolution'},{nl:'de toelichting',en:'explanation / clarification'},
+      {nl:'het voorstel',en:'proposal'},{nl:'de stemming',en:'vote'},{nl:'de meerderheid',en:'majority'},
+      {nl:'de actiepunten',en:'action items'},{nl:'de rondvraag',en:'any other business'},{nl:'de vergaderruimte',en:'meeting room'},
+      {nl:'de bijdrage',en:'contribution'},{nl:'het verslag',en:'report / minutes'},{nl:'de consensus',en:'consensus'},
+      {nl:'de aanwezigen',en:'attendees'}
+    ],
+    phrases: [
+      {nl:'Laten we beginnen met het eerste agendapunt.',en:'Let\'s start with the first agenda item.'},
+      {nl:'Heeft iemand hier nog iets aan toe te voegen?',en:'Does anyone have anything to add?'},
+      {nl:'Ik stel voor dat we hierover stemmen.',en:'I suggest we vote on this.'},
+      {nl:'Kunnen we dit punt doorschuiven naar de volgende vergadering?',en:'Can we push this item to the next meeting?'},
+      {nl:'Om samen te vatten: we hebben besloten dat...',en:'To summarize: we have decided that...'},
+      {nl:'Zijn er nog punten voor de rondvraag?',en:'Are there any points for the round of questions?'},
+      {nl:'Ik wil graag terugkomen op het vorige punt.',en:'I would like to come back to the previous point.'}
+    ],
+    tip: 'Nederlandse vergaderingen zijn relatief informeel, maar volgen een vaste structuur: opening, agendapunten, rondvraag, sluiting. De voorzitter leidt, maar iedereen mag bijdragen. "Overlegcultuur" is typisch Nederlands.'
+  },
+  {
+    id: 'presentatie', icon: '📊', title: 'Presentaties Geven',
+    desc: 'Een presentatie voorbereiden en geven. Structuur aanbrengen, argumenteren, vragen beantwoorden. Voor werk of studie.',
+    vocab: [
+      {nl:'de dia / slide',en:'slide'},{nl:'de inleiding',en:'introduction'},{nl:'het hoofdpunt',en:'main point'},
+      {nl:'de conclusie',en:'conclusion'},{nl:'de grafiek',en:'graph / chart'},{nl:'de tabel',en:'table'},
+      {nl:'het publiek',en:'audience'},{nl:'de kernboodschap',en:'key message'},{nl:'de toehoorder',en:'listener'},
+      {nl:'de vragenronde',en:'Q&A session'},{nl:'de samenvatting',en:'summary'},{nl:'het voorbeeld',en:'example'},
+      {nl:'de onderbouwing',en:'substantiation / evidence'},{nl:'de aanbeveling',en:'recommendation'},
+      {nl:'het standpunt',en:'position / viewpoint'},{nl:'de overtuigingskracht',en:'persuasive power'}
+    ],
+    phrases: [
+      {nl:'Ik wil het vandaag hebben over...',en:'I would like to talk about... today.'},
+      {nl:'Mijn presentatie bestaat uit drie delen.',en:'My presentation consists of three parts.'},
+      {nl:'Zoals u kunt zien in deze grafiek...',en:'As you can see in this graph...'},
+      {nl:'Dit brengt mij bij mijn volgende punt.',en:'This brings me to my next point.'},
+      {nl:'Om af te sluiten wil ik benadrukken dat...',en:'To conclude, I would like to emphasize that...'},
+      {nl:'Zijn er nog vragen?',en:'Are there any questions?'},
+      {nl:'Dat is een goede vraag. Ik denk dat...',en:'That\'s a good question. I think that...'}
+    ],
+    tip: 'Structuurwoorden zijn cruciaal: "ten eerste", "vervolgens", "daarnaast", "tot slot". Gebruik ze om je publiek mee te nemen. Maak oogcontact en spreek niet te snel.'
+  },
+  {
+    id: 'onderhandeling', icon: '🤝', title: 'Onderhandelen',
+    desc: 'Onderhandelen over salaris, contractvoorwaarden, samenwerkingen. Belangen verdedigen en compromissen sluiten.',
+    vocab: [
+      {nl:'de onderhandeling',en:'negotiation'},{nl:'het salaris',en:'salary'},{nl:'de arbeidsvoorwaarden',en:'employment conditions'},
+      {nl:'het compromis',en:'compromise'},{nl:'het bod',en:'offer / bid'},{nl:'de tegenprestatie',en:'consideration / quid pro quo'},
+      {nl:'de voorwaarde',en:'condition / requirement'},{nl:'de concessie',en:'concession'},{nl:'de marge',en:'margin'},
+      {nl:'het voorbehoud',en:'reservation / caveat'},{nl:'de salarisverhoging',en:'pay raise'},{nl:'de secundaire voorwaarden',en:'fringe benefits'},
+      {nl:'het eindbod',en:'final offer'},{nl:'de overeenkomst',en:'agreement'},{nl:'de impasse',en:'deadlock / impasse'},
+      {nl:'de onderhandelingspositie',en:'bargaining position'}
+    ],
+    phrases: [
+      {nl:'Ik zou graag willen bespreken of er ruimte is voor...',en:'I would like to discuss whether there is room for...'},
+      {nl:'Wat kunt u mij bieden op het gebied van...',en:'What can you offer me in terms of...'},
+      {nl:'Ik begrijp uw positie, maar ik zou willen voorstellen dat...',en:'I understand your position, but I would like to propose that...'},
+      {nl:'Kunnen we hier een compromis over sluiten?',en:'Can we reach a compromise on this?'},
+      {nl:'Dat is helaas niet acceptabel voor mij.',en:'Unfortunately, that is not acceptable to me.'},
+      {nl:'Onder welke voorwaarden zou u bereid zijn om...?',en:'Under what conditions would you be willing to...?'},
+      {nl:'Laten we de belangrijkste punten samenvatten.',en:'Let\'s summarize the key points.'}
+    ],
+    tip: 'In Nederland is directheid normaal bij onderhandelingen, maar blijf altijd respectvol. Bereid je goed voor: weet wat je wilt, wat je minimaal accepteert, en waar je flexibel bent.'
+  },
+  {
+    id: 'academisch', icon: '🎓', title: 'Academisch Schrijven',
+    desc: 'Academische teksten schrijven: essays, verslagen, scripties. Bronnen vermelden, argumenteren, conclusies trekken.',
+    vocab: [
+      {nl:'de scriptie',en:'thesis'},{nl:'het onderzoek',en:'research'},{nl:'de hypothese',en:'hypothesis'},
+      {nl:'de bronvermelding',en:'citation / reference'},{nl:'het betoog',en:'argument / essay'},{nl:'de stelling',en:'thesis statement / proposition'},
+      {nl:'de analyse',en:'analysis'},{nl:'de methodologie',en:'methodology'},{nl:'het literatuuronderzoek',en:'literature review'},
+      {nl:'de bevindingen',en:'findings'},{nl:'het bewijs',en:'evidence'},{nl:'de nuance',en:'nuance'},
+      {nl:'de betrouwbaarheid',en:'reliability'},{nl:'de validiteit',en:'validity'},{nl:'het kader',en:'framework'},
+      {nl:'de aanbeveling',en:'recommendation'}
+    ],
+    phrases: [
+      {nl:'Uit onderzoek blijkt dat...',en:'Research shows that...'},
+      {nl:'In dit essay zal ik betogen dat...',en:'In this essay I will argue that...'},
+      {nl:'Volgens [auteur] (2024)...',en:'According to [author] (2024)...'},
+      {nl:'Er kan geconcludeerd worden dat...',en:'It can be concluded that...'},
+      {nl:'Dit is in overeenstemming met eerder onderzoek.',en:'This is consistent with earlier research.'},
+      {nl:'Nader onderzoek is nodig om...',en:'Further research is needed to...'},
+      {nl:'Een kanttekening hierbij is dat...',en:'A caveat here is that...'}
+    ],
+    tip: 'Academisch Nederlands vermijdt "ik" vaak. Gebruik passiefconstructies ("er werd vastgesteld") of onpersoonlijke formuleringen ("men kan stellen dat"). Verwijs altijd naar bronnen.'
+  },
+  {
+    id: 'debat', icon: '💬', title: 'Debatteren & Discussie',
+    desc: 'Deelnemen aan debatten en discussies. Je mening onderbouwen, reageren op tegenargumenten, genuanceerd formuleren.',
+    vocab: [
+      {nl:'het argument',en:'argument'},{nl:'het tegenargument',en:'counterargument'},{nl:'het standpunt',en:'viewpoint / position'},
+      {nl:'de onderbouwing',en:'substantiation'},{nl:'de weerlegging',en:'refutation'},{nl:'de drogreden',en:'fallacy'},
+      {nl:'het dilemma',en:'dilemma'},{nl:'de nuancering',en:'nuancing'},{nl:'het perspectief',en:'perspective'},
+      {nl:'de discussie',en:'discussion'},{nl:'het debat',en:'debate'},{nl:'de moderator',en:'moderator'},
+      {nl:'de stellingname',en:'taking a stance'},{nl:'het tegengeluid',en:'dissenting voice'},{nl:'de consensus',en:'consensus'},
+      {nl:'de polarisatie',en:'polarization'}
+    ],
+    phrases: [
+      {nl:'Ik ben het hier niet mee eens, want...',en:'I disagree with this, because...'},
+      {nl:'Daar staat tegenover dat...',en:'On the other hand...'},
+      {nl:'Je zou ook kunnen stellen dat...',en:'One could also argue that...'},
+      {nl:'Dat is een valide punt, maar...',en:'That\'s a valid point, but...'},
+      {nl:'Ik wil daar een kanttekening bij plaatsen.',en:'I would like to add a caveat to that.'},
+      {nl:'Laten we het probleem van beide kanten bekijken.',en:'Let\'s look at the problem from both sides.'},
+      {nl:'Met alle respect, maar ik zie dat anders.',en:'With all due respect, but I see that differently.'}
+    ],
+    tip: 'In een debat gaat het niet om gelijk hebben, maar om goed argumenteren. Gebruik signaalwoorden: "enerzijds... anderzijds", "weliswaar... maar", "hoewel... toch". Luister actief en verwijs naar wat de ander zei.'
+  },
+  {
+    id: 'media', icon: '📰', title: 'Media & Actualiteit',
+    desc: 'Nieuwsartikelen begrijpen en bespreken. Opiniestukken analyseren, mediageletterdheid, bronkritiek.',
+    vocab: [
+      {nl:'het opiniestuk',en:'opinion piece'},{nl:'de columnist',en:'columnist'},{nl:'de redactie',en:'editorial board'},
+      {nl:'het persbericht',en:'press release'},{nl:'de kop',en:'headline'},{nl:'de insteek',en:'angle / approach'},
+      {nl:'de berichtgeving',en:'reporting / coverage'},{nl:'de bron',en:'source'},{nl:'het nepnieuws',en:'fake news'},
+      {nl:'de objectiviteit',en:'objectivity'},{nl:'de vooringenomenheid',en:'bias'},{nl:'het commentaar',en:'commentary'},
+      {nl:'de ingezonden brief',en:'letter to the editor'},{nl:'het interview',en:'interview'},
+      {nl:'de verslaggever',en:'reporter'},{nl:'de mediageletterdheid',en:'media literacy'}
+    ],
+    phrases: [
+      {nl:'In dit artikel wordt beweerd dat...',en:'In this article it is claimed that...'},
+      {nl:'De auteur stelt dat..., maar dat is discutabel.',en:'The author claims that..., but that is debatable.'},
+      {nl:'Het valt op dat de berichtgeving eenzijdig is.',en:'It is notable that the reporting is one-sided.'},
+      {nl:'Welke bronnen worden hiervoor aangehaald?',en:'What sources are cited for this?'},
+      {nl:'Dit artikel laat een belangrijke nuance achterwege.',en:'This article omits an important nuance.'},
+      {nl:'Uit de cijfers blijkt een ander beeld.',en:'The figures paint a different picture.'},
+      {nl:'Men dient kritisch te kijken naar...',en:'One should look critically at...'}
+    ],
+    tip: 'Bij het NT2 B2-examen wordt verwacht dat je niet alleen begrijpt WAT er staat, maar ook HOE het geschreven is: welk perspectief neemt de auteur in? Welke woorden verraden een mening?'
+  },
+  {
+    id: 'juridisch', icon: '⚖️', title: 'Juridisch & Contracten',
+    desc: 'Contracten en juridische documenten begrijpen. Huurovereenkomsten, algemene voorwaarden, rechten en plichten.',
+    vocab: [
+      {nl:'het contract',en:'contract'},{nl:'de huurovereenkomst',en:'rental agreement'},{nl:'de clausule',en:'clause'},
+      {nl:'de opzegtermijn',en:'notice period'},{nl:'de aansprakelijkheid',en:'liability'},{nl:'de waarborgsom',en:'deposit / security'},
+      {nl:'de algemene voorwaarden',en:'terms and conditions'},{nl:'het geschil',en:'dispute'},
+      {nl:'de rechtsbijstand',en:'legal aid'},{nl:'de huurcommissie',en:'rent tribunal'},{nl:'de opzegging',en:'termination / cancellation'},
+      {nl:'de boeteclausule',en:'penalty clause'},{nl:'de handtekening',en:'signature'},{nl:'de getuige',en:'witness'},
+      {nl:'het vonnis',en:'verdict / judgment'},{nl:'de verplichtingen',en:'obligations'}
+    ],
+    phrases: [
+      {nl:'Volgens artikel 3 van het contract...',en:'According to article 3 of the contract...'},
+      {nl:'De opzegtermijn bedraagt twee maanden.',en:'The notice period is two months.'},
+      {nl:'Ik wil bezwaar maken tegen deze beslissing.',en:'I want to object to this decision.'},
+      {nl:'Kunt u mij uitleggen wat deze clausule inhoudt?',en:'Can you explain what this clause entails?'},
+      {nl:'Ik heb recht op juridische bijstand.',en:'I am entitled to legal aid.'},
+      {nl:'Hierbij zeg ik het contract op per...',en:'I hereby terminate the contract as of...'},
+      {nl:'Welke verplichtingen heb ik als huurder?',en:'What obligations do I have as a tenant?'}
+    ],
+    tip: 'Juridisch Nederlands is formeel en precies. Let op woorden als "bedragen" (to amount to), "inhouden" (to entail), "behoudens" (except for). Lees contracten altijd helemaal door voor je tekent.'
+  },
+  {
+    id: 'financieel', icon: '💶', title: 'Financien & Belasting',
+    desc: 'Belastingaangifte doen, bankzaken regelen, verzekeringen begrijpen. Financiele zelfredzaamheid in Nederland.',
+    vocab: [
+      {nl:'de belastingaangifte',en:'tax return'},{nl:'de Belastingdienst',en:'Tax Authority'},{nl:'de aftrekpost',en:'tax deduction'},
+      {nl:'het toeslagen',en:'benefits / allowances'},{nl:'de zorgtoeslag',en:'healthcare allowance'},{nl:'de huurtoeslag',en:'rent allowance'},
+      {nl:'het bruto / netto',en:'gross / net'},{nl:'de hypotheek',en:'mortgage'},{nl:'de rente',en:'interest'},
+      {nl:'de verzekeringspremie',en:'insurance premium'},{nl:'het eigen risico',en:'deductible / excess'},
+      {nl:'de rekening-courant',en:'current account'},{nl:'de spaarrekening',en:'savings account'},
+      {nl:'de loonstrook',en:'pay slip'},{nl:'de jaaropgave',en:'annual income statement'},{nl:'het inkomen',en:'income'}
+    ],
+    phrases: [
+      {nl:'Ik wil graag mijn belastingaangifte doen.',en:'I would like to file my tax return.'},
+      {nl:'Kom ik in aanmerking voor huurtoeslag?',en:'Am I eligible for rent allowance?'},
+      {nl:'Wat is het verschil tussen bruto en netto?',en:'What is the difference between gross and net?'},
+      {nl:'Ik wil een afspraak maken bij de Belastingdienst.',en:'I would like to make an appointment at the Tax Authority.'},
+      {nl:'Mijn eigen risico is al verbruikt dit jaar.',en:'My deductible has already been used up this year.'},
+      {nl:'Kan ik deze kosten aftrekken van de belasting?',en:'Can I deduct these costs from my taxes?'},
+      {nl:'Ik heb een vraag over mijn jaaropgave.',en:'I have a question about my annual income statement.'}
+    ],
+    tip: 'De belastingaangifte is elk jaar voor 1 mei. Bewaar je jaaropgave en loonstroken. De Belastingdienst heeft een hulplijn en invulhulpen voor wie hulp nodig heeft. Ken de toeslagen waar je recht op hebt.'
+  },
+  {
+    id: 'formeel', icon: '✉️', title: 'Formele Correspondentie',
+    desc: 'Formele brieven en e-mails schrijven aan instanties, bedrijven en overheid. Bezwaarschriften, verzoeken, officieel taalgebruik.',
+    vocab: [
+      {nl:'het bezwaarschrift',en:'letter of objection'},{nl:'de instantie',en:'authority / institution'},{nl:'het verzoek',en:'request'},
+      {nl:'de gemeente',en:'municipality'},{nl:'de bevestiging',en:'confirmation'},{nl:'de afwijzing',en:'rejection'},
+      {nl:'de toekenning',en:'granting / approval'},{nl:'het kenmerk',en:'reference number'},{nl:'de bijlage',en:'attachment / enclosure'},
+      {nl:'de termijn',en:'deadline / term'},{nl:'de ontvangstbevestiging',en:'acknowledgment of receipt'},
+      {nl:'het beroep',en:'appeal'},{nl:'de machtiging',en:'authorization'},{nl:'de volmacht',en:'power of attorney'},
+      {nl:'de aanhef',en:'salutation'},{nl:'de slotformule',en:'closing formula'}
+    ],
+    phrases: [
+      {nl:'Geachte heer/mevrouw,',en:'Dear Sir/Madam, (formal opening)'},
+      {nl:'Naar aanleiding van uw brief van [datum]...',en:'In response to your letter of [date]...'},
+      {nl:'Hierbij dien ik een bezwaarschrift in tegen...',en:'I hereby file an objection against...'},
+      {nl:'Ik verzoek u vriendelijk om...',en:'I kindly request you to...'},
+      {nl:'Bijgaand treft u aan...',en:'Enclosed you will find...'},
+      {nl:'In afwachting van uw reactie verblijf ik,',en:'Awaiting your response, I remain, (formal closing)'},
+      {nl:'Ik vertrouw erop dat u mijn verzoek in behandeling neemt.',en:'I trust you will process my request.'}
+    ],
+    tip: 'Formele brieven volgen een vaste structuur: aanhef, aanleiding, kern, verzoek/actie, afsluiting. Gebruik "u" en vermijd samentrekkingen ("ik heb" niet "ik\'ve"). Een bezwaarschrift moet binnen zes weken na het besluit worden ingediend.'
+  },
+  {
+    id: 'gezondheidszorg', icon: '🏥', title: 'Gezondheidszorg (Gevorderd)',
+    desc: 'Gesprekken met specialisten, zorgverzekering regelen, medische verslagen begrijpen. Verder dan de basisgezondheidswoordenschat.',
+    vocab: [
+      {nl:'de specialist',en:'specialist'},{nl:'de verwijzing',en:'referral'},{nl:'de diagnose',en:'diagnosis'},
+      {nl:'de behandeling',en:'treatment'},{nl:'het bloedonderzoek',en:'blood test'},{nl:'de vergoeding',en:'reimbursement'},
+      {nl:'de zorgverzekering',en:'health insurance'},{nl:'de aanvullende verzekering',en:'supplementary insurance'},
+      {nl:'het eigen risico',en:'deductible'},{nl:'de wachtlijst',en:'waiting list'},{nl:'de second opinion',en:'second opinion'},
+      {nl:'het medisch dossier',en:'medical file'},{nl:'de informed consent',en:'informed consent'},
+      {nl:'de prognose',en:'prognosis'},{nl:'de revalidatie',en:'rehabilitation'},{nl:'de mantelzorg',en:'informal care'}
+    ],
+    phrases: [
+      {nl:'Ik heb een verwijzing nodig van mijn huisarts.',en:'I need a referral from my GP.'},
+      {nl:'Wordt deze behandeling vergoed door mijn verzekering?',en:'Is this treatment covered by my insurance?'},
+      {nl:'Ik wil graag een second opinion aanvragen.',en:'I would like to request a second opinion.'},
+      {nl:'Kunt u de diagnose in begrijpelijke taal uitleggen?',en:'Can you explain the diagnosis in understandable language?'},
+      {nl:'Hoe lang is de wachtlijst voor deze ingreep?',en:'How long is the waiting list for this procedure?'},
+      {nl:'Ik geef toestemming voor de voorgestelde behandeling.',en:'I give consent for the proposed treatment.'},
+      {nl:'Wat zijn de mogelijke bijwerkingen?',en:'What are the possible side effects?'}
+    ],
+    tip: 'In Nederland heb je altijd een verwijzing van de huisarts nodig voor een specialist (behalve spoedeisende hulp). Je eigen risico (standaard 385 euro) moet je zelf betalen. Check je polis voor vergoedingen.'
+  },
+  {
+    id: 'netwerken', icon: '🔗', title: 'Professioneel Netwerken',
+    desc: 'Jezelf professioneel voorstellen, elevator pitches geven, netwerkevenementen bijwonen, LinkedIn-profiel opbouwen.',
+    vocab: [
+      {nl:'het netwerkevenement',en:'networking event'},{nl:'de elevator pitch',en:'elevator pitch'},{nl:'het visitekaartje',en:'business card'},
+      {nl:'de connectie',en:'connection'},{nl:'de branche',en:'industry / sector'},{nl:'de expertise',en:'expertise'},
+      {nl:'de samenwerking',en:'collaboration'},{nl:'het portfolio',en:'portfolio'},{nl:'de aanbeveling',en:'recommendation'},
+      {nl:'de vakgenoot',en:'colleague in the field'},{nl:'het congres',en:'conference / congress'},{nl:'de keynote',en:'keynote'},
+      {nl:'de workshop',en:'workshop'},{nl:'de follow-up',en:'follow-up'},{nl:'het LinkedIn-profiel',en:'LinkedIn profile'},
+      {nl:'de carrierewisseling',en:'career change'}
+    ],
+    phrases: [
+      {nl:'Leuk om kennis te maken. Ik ben... en ik werk bij...',en:'Nice to meet you. I am... and I work at...'},
+      {nl:'Ik houd me bezig met...',en:'I am involved in... / I work on...'},
+      {nl:'Dat klinkt interessant, daar wil ik graag meer over weten.',en:'That sounds interesting, I would like to know more about that.'},
+      {nl:'Zullen we contactgegevens uitwisselen?',en:'Shall we exchange contact details?'},
+      {nl:'Ik ben op zoek naar mogelijkheden in de richting van...',en:'I am looking for opportunities in the direction of...'},
+      {nl:'Mag ik u toevoegen op LinkedIn?',en:'May I add you on LinkedIn?'},
+      {nl:'Ik stuur u volgende week een mailtje om verder te praten.',en:'I\'ll send you an email next week to continue the conversation.'}
+    ],
+    tip: 'In Nederland is netwerken informeler dan in veel andere landen. Gebruik voornamen (tenzij het erg formeel is), wees direct over wat je zoekt, en volg altijd op na een eerste ontmoeting. Een goed LinkedIn-profiel in het Nederlands helpt enorm.'
+  }
+];
+
+let examB2WoordenschatInitialized = false;
+function initExamB2Woordenschat() {
+  if (examB2WoordenschatInitialized) return;
+  examB2WoordenschatInitialized = true;
+  const container = document.getElementById('examB2WoordenschatContent');
+  let html = '<p style="font-family:\'Inter\',sans-serif;font-size:13px;color:#666;margin-bottom:16px;line-height:1.6;">Gevorderde scenario\'s voor NT2 B2. Professionele, academische en maatschappelijke contexten met formeler taalgebruik.</p>';
+  html += '<div class="nt2-scenario-grid">';
+  NT2_B2_SCENARIOS.forEach(s => {
+    html += '<div class="nt2-scenario-card" data-scenario="' + s.id + '">';
+    html += '<div class="nt2-scenario-header"><span class="nt2-icon">' + s.icon + '</span>' + s.title + '</div>';
+    html += '<div class="nt2-scenario-body">';
+    html += '<div class="nt2-scenario-desc">' + s.desc + '</div>';
+    html += '<div class="nt2-vocab-section"><div class="nt2-vocab-section-title">Woordenschat</div>';
+    s.vocab.forEach(v => {
+      html += '<div class="nt2-vocab-item"><span class="nt2-vocab-nl">' + v.nl + '</span><span class="nt2-vocab-en">' + v.en + '</span></div>';
+    });
+    html += '</div>';
+    html += '<div class="nt2-vocab-section"><div class="nt2-vocab-section-title">Standaardzinnen</div>';
+    s.phrases.forEach(p => {
+      html += '<div class="nt2-phrase-item"><div class="nt2-phrase-nl">' + p.nl + '</div><div class="nt2-phrase-en">' + p.en + '</div></div>';
+    });
+    html += '</div>';
+    if (s.tip) {
+      html += '<div class="nt2-tip-box"><strong>Tip:</strong> ' + s.tip + '</div>';
+    }
+    html += '</div></div>';
+  });
+  html += '</div>';
+  html += '<div style="margin-top:20px;text-align:center;padding-top:16px;border-top:3px solid var(--mondrian-black);"><button class="mondrian-btn" onclick="exportNT2B2Woordenschat()" style="font-size:13px;padding:10px 22px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download Woordenschat PDF</button></div>';
+  container.innerHTML = html;
+}
+
+function exportNT2B2Woordenschat() {
+  let rows = '';
+  NT2_B2_SCENARIOS.forEach(s => {
+    rows += '<h2 style="color:#1356A2;margin-top:24px;">' + s.icon + ' ' + s.title + '</h2>';
+    rows += '<p style="font-size:11px;color:#666;margin-bottom:8px;">' + s.desc + '</p>';
+    rows += '<table><thead><tr><th style="width:40%">Nederlands</th><th style="width:40%">Engels</th></tr></thead><tbody>';
+    s.vocab.forEach(v => {
+      rows += '<tr><td><strong>' + v.nl + '</strong></td><td>' + v.en + '</td></tr>';
+    });
+    rows += '</tbody></table>';
+    rows += '<h3 style="font-size:13px;color:#333;margin:10px 0 4px;">Standaardzinnen</h3>';
+    rows += '<table><thead><tr><th style="width:50%">Nederlands</th><th style="width:50%">Engels</th></tr></thead><tbody>';
+    s.phrases.forEach(p => {
+      rows += '<tr><td><strong>' + p.nl + '</strong></td><td style="font-size:11px;">' + p.en + '</td></tr>';
+    });
+    rows += '</tbody></table>';
+    if (s.tip) {
+      rows += '<div class="tip"><strong>Tip:</strong> ' + s.tip + '</div>';
+    }
+  });
+  let total = NT2_B2_SCENARIOS.reduce((n, s) => n + s.vocab.length + s.phrases.length, 0);
+  rows += '<div class="tip">Totaal: ' + NT2_B2_SCENARIOS.length + ' scenario\'s, ' + total + ' items</div>';
+  generatePDFContent('NT2 B2 Woordenschat per Scenario', rows);
 }
 
 async function initExamen() {
