@@ -13795,7 +13795,33 @@ function initExamWoordenschat() {
     html += '</div></div>';
   });
   html += '</div>';
+  html += '<div style="margin-top:20px;text-align:center;padding-top:16px;border-top:3px solid var(--mondrian-black);"><button class="mondrian-btn" onclick="exportNT2Woordenschat()" style="font-size:13px;padding:10px 22px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download Woordenschat PDF</button></div>';
   container.innerHTML = html;
+}
+
+function exportNT2Woordenschat() {
+  let rows = '';
+  NT2_SCENARIOS.forEach(s => {
+    rows += '<h2 style="color:#1356A2;margin-top:24px;">' + s.icon + ' ' + s.title + '</h2>';
+    rows += '<p style="font-size:11px;color:#666;margin-bottom:8px;">' + s.desc + '</p>';
+    rows += '<table><thead><tr><th style="width:40%">Nederlands</th><th style="width:40%">Engels</th></tr></thead><tbody>';
+    s.vocab.forEach(v => {
+      rows += '<tr><td><strong>' + v.nl + '</strong></td><td>' + v.en + '</td></tr>';
+    });
+    rows += '</tbody></table>';
+    rows += '<h3 style="font-size:13px;color:#333;margin:10px 0 4px;">Standaardzinnen</h3>';
+    rows += '<table><thead><tr><th style="width:50%">Nederlands</th><th style="width:50%">Engels</th></tr></thead><tbody>';
+    s.phrases.forEach(p => {
+      rows += '<tr><td><strong>' + p.nl + '</strong></td><td style="font-size:11px;">' + p.en + '</td></tr>';
+    });
+    rows += '</tbody></table>';
+    if (s.tip) {
+      rows += '<div class="tip"><strong>Tip:</strong> ' + s.tip + '</div>';
+    }
+  });
+  let total = NT2_SCENARIOS.reduce((n, s) => n + s.vocab.length + s.phrases.length, 0);
+  rows += '<div class="tip">Totaal: ' + NT2_SCENARIOS.length + ' scenario\'s, ' + total + ' items</div>';
+  generatePDFContent('NT2 B1 Woordenschat per Scenario', rows);
 }
 
 async function initExamen() {
