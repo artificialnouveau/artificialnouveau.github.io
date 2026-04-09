@@ -1871,6 +1871,7 @@ body::before, body::after { display: none; }
 .nt2-scenario-card[data-scenario="klacht"] .nt2-scenario-header { background: #8B0000; }
 .nt2-scenario-card[data-scenario="sollicitatie"] .nt2-scenario-header { background: #4B0082; }
 .nt2-scenario-card[data-scenario="buren"] .nt2-scenario-header { background: #006B6B; }
+.nt2-scenario-card[data-scenario="studie"] .nt2-scenario-header { background: #5B2C8E; }
 
 /* Word Family Cards */
 .wf-container { max-width: 1000px; margin: 0 auto; }
@@ -13733,6 +13734,33 @@ const NT2_SCENARIOS = [
       {nl:'Ik schrijf u over een probleem in het trappenhuis.',en:'I\'m writing to you about an issue in the stairwell.'}
     ],
     tip: 'Brieven aan de woningcorporatie zijn formeel. Begin met het probleem, geef details (wanneer, waar), en vraag om actie. Wees concreet.'
+  },
+  {
+    id: 'studie', icon: '🎓', title: 'Studie / Opleiding',
+    desc: 'Studeren aan een ROC, mbo of taalschool. Inschrijven, roosters begrijpen, contact met docenten, studievoortgang bespreken.',
+    vocab: [
+      {nl:'de opleiding',en:'program / course of study'},{nl:'de docent',en:'teacher / instructor'},
+      {nl:'het rooster',en:'timetable / schedule'},{nl:'de les',en:'class / lesson'},
+      {nl:'het lesmateriaal',en:'course materials'},{nl:'de toets',en:'test / exam'},
+      {nl:'het tentamen',en:'exam'},{nl:'de herkansing',en:'retake / resit'},
+      {nl:'het cijfer',en:'grade'},{nl:'de beoordeling',en:'assessment / evaluation'},
+      {nl:'de studiebegeleider',en:'study counselor'},{nl:'de stage',en:'internship / placement'},
+      {nl:'de inschrijving',en:'enrollment / registration'},{nl:'het collegegeld',en:'tuition fee'},
+      {nl:'de studielast',en:'study workload'},{nl:'de aanwezigheidsplicht',en:'mandatory attendance'},
+      {nl:'het huiswerk',en:'homework'},{nl:'de presentatie',en:'presentation'},
+      {nl:'de groepsopdracht',en:'group assignment'},{nl:'de studievoortgang',en:'study progress'}
+    ],
+    phrases: [
+      {nl:'Ik wil me graag inschrijven voor de opleiding...',en:'I would like to enroll in the program...'},
+      {nl:'Wanneer is de herkansing?',en:'When is the retake?'},
+      {nl:'Ik heb de les gemist, kan ik het huiswerk krijgen?',en:'I missed the class, can I get the homework?'},
+      {nl:'Mag ik een afspraak maken met de studiebegeleider?',en:'May I make an appointment with the study counselor?'},
+      {nl:'Ik begrijp de opdracht niet helemaal, kunt u het uitleggen?',en:'I don\'t fully understand the assignment, can you explain it?'},
+      {nl:'Mijn rooster klopt niet, bij wie kan ik dat melden?',en:'My schedule is incorrect, who can I report that to?'},
+      {nl:'Ik wil graag van opleiding wisselen.',en:'I would like to switch programs.'},
+      {nl:'Kan ik vrijstelling krijgen voor dit vak?',en:'Can I get an exemption for this subject?'}
+    ],
+    tip: 'Tegen docenten gebruik je meestal "u" in formele situaties (e-mail, gesprek over cijfers) en "je" in de klas. Bij de studiebegeleider is "u" gebruikelijk. Ken het verschil tussen toets (klein), tentamen (groot), en examen (eindexamen).'
   }
 ];
 
