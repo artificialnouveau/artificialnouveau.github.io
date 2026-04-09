@@ -1884,6 +1884,75 @@ body::before, body::after { display: none; }
 .nt2-scenario-card[data-scenario="gezondheidszorg"] .nt2-scenario-header { background: #AD1457; }
 .nt2-scenario-card[data-scenario="netwerken"] .nt2-scenario-header { background: #E65100; }
 
+/* Op Niveau Chapter Tracker */
+.onv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; margin-top: 16px; }
+.onv-card { border: 3px solid var(--mondrian-black); background: var(--mondrian-white); overflow: hidden; }
+.onv-card-header {
+  padding: 14px 16px; font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700;
+  color: #fff; display: flex; align-items: center; justify-content: space-between; cursor: pointer;
+}
+.onv-card-header .onv-ch-num { font-size: 13px; opacity: 0.8; font-family: 'Space Grotesk', sans-serif; }
+.onv-card-body { padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.onv-card.open .onv-card-body { max-height: 3000px; padding: 16px; }
+.onv-card-toggle { font-size: 18px; transition: transform 0.3s; }
+.onv-card.open .onv-card-toggle { transform: rotate(180deg); }
+.onv-progress-bar { height: 4px; background: rgba(255,255,255,0.3); margin-top: 8px; border-radius: 2px; overflow: hidden; }
+.onv-progress-fill { height: 100%; background: #fff; transition: width 0.3s; border-radius: 2px; }
+.onv-status-select {
+  padding: 4px 8px; border: 2px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.15);
+  color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600;
+  cursor: pointer; border-radius: 0;
+}
+.onv-status-select option { color: #111; background: #fff; }
+.onv-section { margin-bottom: 16px; }
+.onv-section-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.onv-grammar-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.onv-grammar-tag {
+  padding: 4px 10px; border: 2px solid var(--mondrian-black); background: #f5f5f5;
+  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600;
+}
+.onv-reading-list { display: flex; flex-direction: column; gap: 4px; }
+.onv-reading-item { font-size: 13px; color: #444; padding: 3px 0; border-bottom: 1px solid #eee; }
+.onv-reading-item:last-child { border-bottom: none; }
+.onv-exercise-list { display: flex; flex-direction: column; gap: 4px; }
+.onv-exercise-item {
+  display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 4px 0;
+  border-bottom: 1px solid #eee; cursor: pointer; user-select: none;
+}
+.onv-exercise-item:last-child { border-bottom: none; }
+.onv-exercise-cb {
+  width: 18px; height: 18px; border: 2px solid var(--mondrian-black); background: #fff;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  font-size: 12px; font-weight: 700; color: var(--mondrian-red);
+}
+.onv-exercise-item.done .onv-exercise-cb { background: var(--mondrian-yellow); }
+.onv-exercise-item.done { color: #999; text-decoration: line-through; }
+.onv-notes-area {
+  width: 100%; min-height: 80px; padding: 10px; border: 2px solid #ddd; background: #fafafa;
+  font-family: 'Inter', sans-serif; font-size: 13px; resize: vertical; line-height: 1.5;
+}
+.onv-notes-area:focus { border-color: var(--mondrian-blue); outline: none; }
+.onv-vocab-count {
+  font-family: 'Space Grotesk', sans-serif; font-size: 11px; color: var(--mondrian-blue);
+  font-weight: 600;
+}
+.onv-card[data-ch="1"] .onv-card-header { background: var(--mondrian-red); }
+.onv-card[data-ch="2"] .onv-card-header { background: var(--mondrian-blue); }
+.onv-card[data-ch="3"] .onv-card-header { background: #2d8a56; }
+.onv-card[data-ch="4"] .onv-card-header { background: #8B4513; }
+.onv-card[data-ch="5"] .onv-card-header { background: #6A1B9A; }
+.onv-card[data-ch="6"] .onv-card-header { background: #00695C; }
+.onv-overview { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+.onv-stat {
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+  padding: 6px 14px; border: 2px solid var(--mondrian-black); background: var(--mondrian-white);
+}
+.onv-stat strong { color: var(--mondrian-red); }
+
 /* Word Family Cards */
 .wf-container { max-width: 1000px; margin: 0 auto; }
 .wf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
@@ -3744,6 +3813,7 @@ body::before, body::after { display: none; }
   <button class="tab-btn" data-tab="vocab">Vocabulaire</button>
   <button class="tab-btn" data-tab="examen">NT2 B1 Oefenen</button>
   <button class="tab-btn" data-tab="examen-b2">NT2 B2 Oefenen</button>
+  <button class="tab-btn" data-tab="opniveau">Op Niveau</button>
 </nav>
 
 <!-- CEFR Level Selector -->
@@ -4349,6 +4419,10 @@ body::before, body::after { display: none; }
     <div id="examB2WoordenschatContent"></div>
   </div>
 </div><!-- /tab-examen-b2 -->
+
+<div class="tab-content" id="tab-opniveau">
+  <div id="opNiveauContent"></div>
+</div><!-- /tab-opniveau -->
 
 <!-- Reader Tooltip -->
 <div class="reader-tooltip" id="readerTooltip"></div>
@@ -7927,7 +8001,7 @@ function updateCEFRBarVisibility() {
   const bar = document.getElementById('cefrBar');
   if (!bar) return;
   const activeBtn = document.querySelector('.tab-btn.active');
-  const hideOn = ['spiekbriefjes', 'cultuur', 'examen', 'examen-b2', 'vocab'];
+  const hideOn = ['spiekbriefjes', 'cultuur', 'examen', 'examen-b2', 'vocab', 'opniveau'];
   bar.style.display = (activeBtn && hideOn.includes(activeBtn.dataset.tab)) ? 'none' : '';
 }
 
@@ -7986,6 +8060,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     if (btn.dataset.tab === 'vocab') initDagelijkse10();
     if (btn.dataset.tab === 'news') initNews();
     if (btn.dataset.tab === 'examen') initExamen();
+    if (btn.dataset.tab === 'opniveau') initOpNiveau();
     updateCEFRBarVisibility();
   });
 });
@@ -13844,6 +13919,317 @@ function exportNT2Woordenschat() {
   let total = NT2_SCENARIOS.reduce((n, s) => n + s.vocab.length + s.phrases.length, 0);
   rows += '<div class="tip">Totaal: ' + NT2_SCENARIOS.length + ' scenario\'s, ' + total + ' items</div>';
   generatePDFContent('NT2 B1 Woordenschat per Scenario', rows);
+}
+
+// ==========================================
+// OP NIVEAU B1-B2 Chapter Tracker
+// ==========================================
+const OP_NIVEAU_CHAPTERS = [
+  {
+    ch: 1, title: 'Positief', pages: '21-53',
+    grammar: ['Conjuncties en adverbia (1)', 'Conjuncties en adverbia (2)'],
+    readings: [
+      'Positieve eigenschappen',
+      'Geschiedenis: Willem van Oranje',
+      'Complimentendag',
+      'Kader: Complimenten geven',
+      'Jij bent echt goed bezig',
+      'Wat zie je er leuk uit',
+      'Andere tijden: Zing, vecht, huil, knippen in de voedselbank',
+      'Zonnig de herfst in',
+      'Happy news',
+      'Toen en nu',
+      'Hoe gaat het met het imago van Nederland?'
+    ],
+    exercises: [
+      'Opdrachten p.22', 'Taalbiografie p.24', 'Vertel over je held p.25',
+      'Vocabulaire vooraf p.25', 'Opdracht p.27', 'Vocabulaire p.28',
+      'Opdrachten p.29', 'Positief lied p.33', 'Tip: Vocabulaire p.35',
+      'Opdracht p.37', 'Vocabulaire p.39', 'Opdrachten p.41',
+      'Opdrachten p.43', 'Vocabulairelijst', 'Reflectie'
+    ],
+    vocabTag: 'op-niveau-h1'
+  },
+  {
+    ch: 2, title: 'Sociaal', pages: '55-96',
+    grammar: ['Proposities (zou - zouden)', 'Passivum met modale werkwoorden'],
+    readings: [
+      'Social talk',
+      'Lekker dak zonnige zo',
+      'Verkeerd dak zo',
+      'Geschiedenis: Da\'s fiets',
+      'Fietsspotters',
+      'Passivum',
+      'Het er in passieve zinnen',
+      'Schelden maar in stijl',
+      'Kader: Hoe achter zinnen',
+      'Beste Ben en Rosa',
+      'Reageren op online',
+      'Altijd en overal, want zonder wifi leven',
+      'Korte film: Cor Vos - Alles fifty/fifty is zo makkelijk nog niet'
+    ],
+    exercises: [
+      'Herhaling p.55', 'Vocabulaire vooraf p.57', 'Opdracht p.58',
+      'Vocabulaire p.60', 'Opdrachten p.61', 'Opdrachten p.65',
+      'Vocabulaire vooraf p.69', 'Opdracht p.73',
+      'Vocabulaire p.73', 'Opdrachten p.76',
+      'Vocabulaire vooraf p.80', 'Opdracht p.82',
+      'Tip: Structuur p.48', 'Vocabulairelijst', 'Reflectie'
+    ],
+    vocabTag: 'op-niveau-h2'
+  },
+  {
+    ch: 3, title: 'Progressief', pages: '97-136',
+    grammar: ['Het gebruik van er (1)', 'Passivum (verdieping)', 'Het en er in passieve zinnen'],
+    readings: [
+      'Korte film p.97',
+      'Mannen en vrouwen',
+      'Een zinvolle dag',
+      'Kader: Hoe reageren',
+      'Reageren op online',
+      'Beste Ben en Rosa',
+      'Altijd en overal',
+      'Geschiedenis: Calvijn',
+      'Kader: Een voorbeeld',
+      'Positieve en negatieve reacties geven',
+      'Waarom een tatoerage?',
+      'Als Rihanna vooraf',
+      'Da\'s niet meer onder haar meus, getatoeeerd wil hebben'
+    ],
+    exercises: [
+      'Opdrachten p.108', 'Vocabulaire vooraf p.113',
+      'Tip: Woordenschat p.113', 'Bonte vrouwen - safarilieden p.114',
+      'Opdracht p.117', 'Vocabulaire vooraf p.117',
+      'Vocabulaire p.120', 'Opdrachten p.121',
+      'Het gebruik van er (1) p.120', 'Kader: Meervoudige argumenten p.125',
+      'Essay/brief p.127', 'Opdracht p.128',
+      'Staatsexamen deel 1 en 2', 'Preposities p.131',
+      'Onregelmatige werkwoorden p.133', 'Vocabulairelijst p.134', 'Reflectie p.135'
+    ],
+    vocabTag: 'op-niveau-h3'
+  },
+  {
+    ch: 4, title: 'Internationaal', pages: '137-180',
+    grammar: ['Werkwoordstijden (1)', 'Werkwoordstijden (2)'],
+    readings: [
+      'Integreren is een achterhaald concept',
+      'Kader: Figuren beschrijven',
+      'Figuren beschrijven (1) en (2)',
+      'Spreek Nederlands met mij',
+      'Buitenlandse expat wil Nederlands spreken',
+      'Tekst A: In het Engels vloeken op school of werk is dat de toekomst?',
+      'Tekst B: Engels spreken lukt beter',
+      'Nederlands of Engels?',
+      'Kader: Leenwoorden gebruiken',
+      'Heb ik iets van je geleerd?',
+      'Geschiedenis: Uitgebeeld',
+      'De avond van de korte film',
+      'Amstel',
+      'Ik vertrek',
+      'Een slecht hotel / Een klacht / Twee hotels'
+    ],
+    exercises: [
+      'Vocabulaire vooraf p.140', 'Opdracht p.144',
+      'Vocabulaire p.145/148', 'Grammatica: Werkwoordstijden (1) p.150/151/153',
+      'Verteil p.154', 'Opdrachten p.155/157',
+      'Vocabulaire vooraf p.160', 'Opdracht p.162',
+      'Vocabulaire p.165', 'Opdrachten p.166',
+      'Placemat p.169', 'Verslag p.174',
+      'Werkwoordstijden (2) p.171/173', 'Opdrachten p.172/173',
+      'Vocabulairelijst', 'Reflectie'
+    ],
+    vocabTag: 'op-niveau-h4'
+  },
+  {
+    ch: 5, title: 'Creatief', pages: '181-210',
+    grammar: ['Conditionalis (als ik jou was / zou - zouden)', 'Het relatief pronomen'],
+    readings: [
+      'Hoe het verderging',
+      'Met mij gaat het goed',
+      'Staatsexamen deel 1 en 2',
+      'Goede reclame onderscheidt',
+      'Overtuigende communicatie',
+      'Tip: Spelling en interpunctie',
+      'Nederlandse televisie',
+      'Reclamespot',
+      'Kader: Alles van Richard Brautigan',
+      'Mijn mooiste boek',
+      'Presentatie',
+      'Een beroemd persoon',
+      'Geschiedenis: Vincent',
+      'Roosendaal designers'
+    ],
+    exercises: [
+      'Als ik jou was p.180', 'Wat zou jij doen? p.182',
+      'Tip: Als ik jou/jij zou(den) p.182', 'Party & taal p.183',
+      'Opdracht p.182', 'Preposities p.183',
+      'Onregelmatige werkwoorden p.185', 'Vocabulairelijst p.186',
+      'Reflectie p.187',
+      'Vocabulaire vooraf p.191', 'Opdracht p.195',
+      'Vocabulaire p.196', 'Opdrachten p.198',
+      'Opdrachten p.206', 'Voorwerpen beschrijven p.210'
+    ],
+    vocabTag: 'op-niveau-h5'
+  },
+  {
+    ch: 6, title: 'Duurzaam', pages: '211-264',
+    grammar: ['Het voornaamwoordelijk bijwoord', 'Chattaal', 'Zou - zouden (verdieping)'],
+    readings: [
+      'Plastic cas',
+      'Het andere is meer een huispot van gedachtes dan een smakelijk geheel',
+      'Energie besparen',
+      'Boerderijen met zeewier',
+      'Britse fietsimmigrant over Nederland',
+      'Recensie',
+      'Afkorting / Jobstudent',
+      'Kader: Chattaal',
+      'Echt waar?',
+      'Greenwheels',
+      'Toegethr',
+      'Heb jij genoeg aan de aardbol?',
+      'Goed doel: Dank je',
+      'Duurzaam trouwen',
+      'Kader: Diagnose homo sapiens / Webbo Okken / Ruimteschip Aarde',
+      'Duurzame huisvesting / Duurzaam voor rijkeluis',
+      'Zonnepanelen monteren',
+      'Geschiedenis: Molen / Schependollen / Tegenwindmolens'
+    ],
+    exercises: [
+      'Vocabulaire vooraf p.211', 'Opdracht p.212',
+      'Vocabulaire p.215', 'Opdrachten p.216/217',
+      'Taalbiografie p.225', 'Vocabulairelijst p.226',
+      'Reflectie p.228',
+      'Vocabulaire vooraf p.229', 'Opdracht p.234',
+      'Vocabulaire p.235', 'Opdrachten p.236',
+      'Het voornaamwoordelijk bijwoord p.238/239/240',
+      'Opdrachten p.242',
+      'Staatsexamen deel 1 en 2 p.255',
+      'Preposities p.256', 'Onregelmatige werkwoorden p.258/259',
+      'Vocabulairelijst p.261', 'Reflectie p.263'
+    ],
+    vocabTag: 'op-niveau-h6'
+  }
+];
+
+let opNiveauInitialized = false;
+function initOpNiveau() {
+  if (opNiveauInitialized) return;
+  opNiveauInitialized = true;
+  const container = document.getElementById('opNiveauContent');
+  const saved = JSON.parse(localStorage.getItem('opniveau-progress') || '{}');
+
+  function save() { localStorage.setItem('opniveau-progress', JSON.stringify(saved)); }
+
+  function getChapterProgress(ch) {
+    const d = saved['ch' + ch] || {};
+    const exDone = Object.keys(d.exercises || {}).filter(k => d.exercises[k]).length;
+    const exTotal = OP_NIVEAU_CHAPTERS.find(c => c.ch === ch).exercises.length;
+    return { status: d.status || 'niet-begonnen', exDone, exTotal, pct: exTotal ? Math.round(exDone / exTotal * 100) : 0 };
+  }
+
+  function renderOverview() {
+    let done = 0, inProgress = 0;
+    OP_NIVEAU_CHAPTERS.forEach(c => { const p = getChapterProgress(c.ch); if (p.status === 'klaar') done++; else if (p.status === 'bezig') inProgress++; });
+    return '<div class="onv-overview">'
+      + '<div class="onv-stat"><strong>' + done + '</strong> / 6 klaar</div>'
+      + '<div class="onv-stat"><strong>' + inProgress + '</strong> bezig</div>'
+      + '</div>';
+  }
+
+  function renderCards() {
+    let html = '<p style="font-family:\'Inter\',sans-serif;font-size:13px;color:#666;margin-bottom:12px;line-height:1.6;">Op Niveau B1-B2. Klik op een hoofdstuk om je voortgang bij te houden.</p>';
+    html += renderOverview();
+    html += '<div class="onv-grid">';
+    OP_NIVEAU_CHAPTERS.forEach(c => {
+      const prog = getChapterProgress(c.ch);
+      const chData = saved['ch' + c.ch] || {};
+      html += '<div class="onv-card" data-ch="' + c.ch + '" id="onv-card-' + c.ch + '">';
+      html += '<div class="onv-card-header" onclick="toggleOpNiveauCard(' + c.ch + ')">';
+      html += '<div><span class="onv-ch-num">Hoofdstuk ' + c.ch + '</span><br>' + c.title + '</div>';
+      html += '<div style="display:flex;align-items:center;gap:10px;">';
+      html += '<select class="onv-status-select" id="onv-status-' + c.ch + '" onclick="event.stopPropagation()" onchange="updateOpNiveauStatus(' + c.ch + ', this.value)">';
+      html += '<option value="niet-begonnen"' + (prog.status === 'niet-begonnen' ? ' selected' : '') + '>Niet begonnen</option>';
+      html += '<option value="bezig"' + (prog.status === 'bezig' ? ' selected' : '') + '>Bezig</option>';
+      html += '<option value="klaar"' + (prog.status === 'klaar' ? ' selected' : '') + '>Klaar</option>';
+      html += '</select>';
+      html += '<span class="onv-card-toggle">&#9660;</span></div></div>';
+      html += '<div class="onv-progress-bar"><div class="onv-progress-fill" style="width:' + prog.pct + '%"></div></div>';
+
+      html += '<div class="onv-card-body">';
+      // Grammar
+      html += '<div class="onv-section"><div class="onv-section-title">Grammatica</div><div class="onv-grammar-list">';
+      c.grammar.forEach(g => { html += '<span class="onv-grammar-tag">' + g + '</span>'; });
+      html += '</div></div>';
+
+      // Readings
+      html += '<div class="onv-section"><div class="onv-section-title">Teksten & Onderwerpen</div><div class="onv-reading-list">';
+      c.readings.forEach(r => { html += '<div class="onv-reading-item">' + r + '</div>'; });
+      html += '</div></div>';
+
+      // Exercises
+      html += '<div class="onv-section"><div class="onv-section-title">Oefeningen <span style="color:var(--mondrian-blue);">(' + prog.exDone + '/' + prog.exTotal + ')</span></div><div class="onv-exercise-list">';
+      c.exercises.forEach((ex, i) => {
+        const isDone = chData.exercises && chData.exercises['ex' + i];
+        html += '<div class="onv-exercise-item' + (isDone ? ' done' : '') + '" onclick="toggleOpNiveauExercise(' + c.ch + ',' + i + ')">';
+        html += '<div class="onv-exercise-cb">' + (isDone ? '&#10003;' : '') + '</div>';
+        html += '<span>' + ex + '</span></div>';
+      });
+      html += '</div></div>';
+
+      // Notes
+      html += '<div class="onv-section"><div class="onv-section-title">Eigen notities</div>';
+      html += '<textarea class="onv-notes-area" id="onv-notes-' + c.ch + '" placeholder="Schrijf hier je aantekeningen voor hoofdstuk ' + c.ch + '..." onblur="saveOpNiveauNotes(' + c.ch + ')">' + (chData.notes || '') + '</textarea></div>';
+
+      html += '</div></div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  container.innerHTML = renderCards();
+
+  // Expose functions globally
+  window.toggleOpNiveauCard = function(ch) {
+    document.getElementById('onv-card-' + ch).classList.toggle('open');
+  };
+
+  window.updateOpNiveauStatus = function(ch, val) {
+    if (!saved['ch' + ch]) saved['ch' + ch] = {};
+    saved['ch' + ch].status = val;
+    save();
+    // Update overview stats
+    const overview = container.querySelector('.onv-overview');
+    if (overview) {
+      let done = 0, inProg = 0;
+      OP_NIVEAU_CHAPTERS.forEach(c => { const s = (saved['ch' + c.ch] || {}).status || 'niet-begonnen'; if (s === 'klaar') done++; else if (s === 'bezig') inProg++; });
+      overview.innerHTML = '<div class="onv-stat"><strong>' + done + '</strong> / 6 klaar</div><div class="onv-stat"><strong>' + inProg + '</strong> bezig</div>';
+    }
+  };
+
+  window.toggleOpNiveauExercise = function(ch, idx) {
+    if (!saved['ch' + ch]) saved['ch' + ch] = {};
+    if (!saved['ch' + ch].exercises) saved['ch' + ch].exercises = {};
+    saved['ch' + ch].exercises['ex' + idx] = !saved['ch' + ch].exercises['ex' + idx];
+    save();
+    // Re-render just this card's exercise list
+    const card = document.getElementById('onv-card-' + ch);
+    const item = card.querySelectorAll('.onv-exercise-item')[idx];
+    const isDone = saved['ch' + ch].exercises['ex' + idx];
+    item.classList.toggle('done', isDone);
+    item.querySelector('.onv-exercise-cb').innerHTML = isDone ? '&#10003;' : '';
+    // Update progress bar and count
+    const chObj = OP_NIVEAU_CHAPTERS.find(c => c.ch === ch);
+    const exDone = Object.keys(saved['ch' + ch].exercises).filter(k => saved['ch' + ch].exercises[k]).length;
+    const pct = Math.round(exDone / chObj.exercises.length * 100);
+    card.querySelector('.onv-progress-fill').style.width = pct + '%';
+    card.querySelector('.onv-section-title span').innerHTML = '(' + exDone + '/' + chObj.exercises.length + ')';
+  };
+
+  window.saveOpNiveauNotes = function(ch) {
+    if (!saved['ch' + ch]) saved['ch' + ch] = {};
+    saved['ch' + ch].notes = document.getElementById('onv-notes-' + ch).value;
+    save();
+  };
 }
 
 // ==========================================
