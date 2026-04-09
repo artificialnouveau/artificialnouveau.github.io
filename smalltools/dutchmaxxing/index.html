@@ -1823,6 +1823,55 @@ body::before, body::after { display: none; }
 }
 .phrases-export-bar { margin-top: 20px; text-align: center; padding-top: 16px; border-top: 3px solid var(--mondrian-black); }
 
+/* NT2 B1 Scenario Cards */
+.nt2-scenario-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+.nt2-scenario-card {
+  border: 3px solid var(--mondrian-black); background: var(--mondrian-white); overflow: hidden;
+}
+.nt2-scenario-header {
+  padding: 14px 16px; font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700;
+  color: #fff; display: flex; align-items: center; gap: 10px;
+}
+.nt2-scenario-header .nt2-icon { font-size: 22px; }
+.nt2-scenario-body { padding: 16px; }
+.nt2-scenario-desc {
+  font-size: 12px; color: #666; margin-bottom: 14px; line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+}
+.nt2-vocab-section { margin-bottom: 14px; }
+.nt2-vocab-section-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 8px;
+}
+.nt2-vocab-item {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 5px 0; border-bottom: 1px solid #eee; font-size: 13px;
+}
+.nt2-vocab-item:last-child { border-bottom: none; }
+.nt2-vocab-nl { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #111; }
+.nt2-vocab-en { font-size: 12px; color: var(--mondrian-blue); text-align: right; }
+.nt2-phrase-item {
+  padding: 8px 0; border-bottom: 1px solid #eee; font-size: 13px;
+}
+.nt2-phrase-item:last-child { border-bottom: none; }
+.nt2-phrase-nl { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #111; margin-bottom: 2px; }
+.nt2-phrase-en { font-size: 11px; color: #888; }
+.nt2-tip-box {
+  background: #f8f8f0; border: 2px solid var(--mondrian-yellow); padding: 10px 12px;
+  font-size: 12px; color: #555; line-height: 1.5; margin-top: 10px;
+}
+.nt2-tip-box strong { font-weight: 700; color: #333; }
+.nt2-scenario-card[data-scenario="supermarkt"] .nt2-scenario-header { background: var(--mondrian-red); }
+.nt2-scenario-card[data-scenario="horeca"] .nt2-scenario-header { background: #8B4513; }
+.nt2-scenario-card[data-scenario="techniek"] .nt2-scenario-header { background: var(--mondrian-blue); }
+.nt2-scenario-card[data-scenario="zorg"] .nt2-scenario-header { background: #2d8a56; }
+.nt2-scenario-card[data-scenario="kinderopvang"] .nt2-scenario-header { background: #b08600; }
+.nt2-scenario-card[data-scenario="kantoor"] .nt2-scenario-header { background: #555; }
+.nt2-scenario-card[data-scenario="ziekmelden"] .nt2-scenario-header { background: #D4750E; }
+.nt2-scenario-card[data-scenario="klacht"] .nt2-scenario-header { background: #8B0000; }
+.nt2-scenario-card[data-scenario="sollicitatie"] .nt2-scenario-header { background: #4B0082; }
+.nt2-scenario-card[data-scenario="buren"] .nt2-scenario-header { background: #006B6B; }
+
 /* Word Family Cards */
 .wf-container { max-width: 1000px; margin: 0 auto; }
 .wf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
@@ -4261,6 +4310,7 @@ body::before, body::after { display: none; }
   <div class="subtab-bar">
     <button class="subtab-btn active" data-subtab="exam-spreken" data-maintab="examen">Spreken</button>
     <button class="subtab-btn" data-subtab="exam-schrijven" data-maintab="examen">Schrijven</button>
+    <button class="subtab-btn" data-subtab="exam-woordenschat" data-maintab="examen">Woordenschat</button>
   </div>
 
   <div class="subtab-content active" id="sub-exam-spreken">
@@ -4271,6 +4321,10 @@ body::before, body::after { display: none; }
   <div class="subtab-content" id="sub-exam-schrijven">
     <div id="examSchrijvenSets"></div>
     <div id="examSchrijvenExercises" style="display:none;"></div>
+  </div>
+
+  <div class="subtab-content" id="sub-exam-woordenschat">
+    <div id="examWoorenschatContent"></div>
   </div>
 </div><!-- /tab-examen -->
 
@@ -7884,6 +7938,7 @@ const SUBTAB_INIT = {
   'vocab-prefixdrills': initPrefixDrills,
   'exam-spreken': initExamen,
   'exam-schrijven': initExamen,
+  'exam-woordenschat': initExamWoordenschat,
   etiquette: () => { initCultuur(); renderEtiquette(); },
   communicatie: renderCommunicatie,
   praktisch: renderPraktisch,
@@ -13446,6 +13501,274 @@ function classifyExercise(questionText) {
 let examTranscripts = null;
 let examTimestamps = null;
 let examInitialized = false;
+
+// ==========================================
+// NT2 B1 Woordenschat — Scenario Practice Cards
+// ==========================================
+const NT2_SCENARIOS = [
+  {
+    id: 'supermarkt', icon: '🛒', title: 'Supermarkt / Winkel',
+    desc: 'Werken in een supermarkt of winkel: kassa, schappen vullen, klanten helpen. Veel voorkomend in NT2 B1 spreek- en schrijfopdrachten.',
+    vocab: [
+      {nl:'de kassa',en:'cash register / checkout'},{nl:'het schap',en:'shelf'},{nl:'de voorraad',en:'stock / inventory'},
+      {nl:'de bestelling',en:'order'},{nl:'de klant',en:'customer'},{nl:'de kassabon',en:'receipt'},
+      {nl:'het winkelmandje',en:'shopping basket'},{nl:'het winkelwagentje',en:'shopping cart'},
+      {nl:'de streepjescode',en:'barcode'},{nl:'de houdbaarheidsdatum',en:'expiration date'},
+      {nl:'de aanbieding',en:'special offer'},{nl:'de korting',en:'discount'},
+      {nl:'het wisselgeld',en:'change (money)'},{nl:'de afdeling',en:'department / section'},
+      {nl:'de schoonmaakmiddelen',en:'cleaning products'},{nl:'het gangpad',en:'aisle'}
+    ],
+    phrases: [
+      {nl:'Kan ik u ergens mee helpen?',en:'Can I help you with something?'},
+      {nl:'Het spijt me, dat artikel is uitverkocht.',en:'I\'m sorry, that item is sold out.'},
+      {nl:'De aanbieding geldt tot en met vrijdag.',en:'The offer is valid until Friday.'},
+      {nl:'Wilt u een tasje erbij?',en:'Would you like a bag with that?'},
+      {nl:'U kunt pinnen of contant betalen.',en:'You can pay by card or cash.'},
+      {nl:'De schappen moeten voor tien uur gevuld zijn.',en:'The shelves must be stocked before ten.'}
+    ],
+    tip: 'Let op het verschil tussen formeel (u) en informeel (je). Tegen klanten gebruik je altijd "u" in een professionele setting.'
+  },
+  {
+    id: 'horeca', icon: '🍽️', title: 'Restaurant / Horeca',
+    desc: 'Werken in een restaurant, cafe of kantine: bestellingen opnemen, gerechten uitleggen, afrekenen.',
+    vocab: [
+      {nl:'de bestelling',en:'order'},{nl:'het gerecht',en:'dish / course'},{nl:'de menukaart',en:'menu'},
+      {nl:'het voorgerecht',en:'starter / appetizer'},{nl:'het hoofdgerecht',en:'main course'},
+      {nl:'het nagerecht',en:'dessert'},{nl:'de rekening',en:'the bill'},
+      {nl:'de fooi',en:'tip'},{nl:'het dienblad',en:'tray'},{nl:'de ober / serveerster',en:'waiter / waitress'},
+      {nl:'de keuken',en:'kitchen'},{nl:'de bar',en:'bar'},{nl:'het terras',en:'terrace / patio'},
+      {nl:'de allergenen',en:'allergens'},{nl:'de dagschotel',en:'dish of the day'},
+      {nl:'de afwas',en:'the dishes / dishwashing'}
+    ],
+    phrases: [
+      {nl:'Heeft u al een keuze gemaakt?',en:'Have you made a choice yet?'},
+      {nl:'Ik zou de dagschotel aanraden.',en:'I would recommend the daily special.'},
+      {nl:'Er zit geen gluten in dit gerecht.',en:'This dish is gluten-free.'},
+      {nl:'Wilt u de rekening?',en:'Would you like the bill?'},
+      {nl:'Ik breng het zo bij u.',en:'I\'ll bring it to you right away.'},
+      {nl:'Helaas is dat gerecht op.',en:'Unfortunately that dish is finished.'}
+    ],
+    tip: 'Bij de horeca is "u" standaard voor gasten. Ken de allergenen goed: dat wordt vaak gevraagd in spreekopdrachten.'
+  },
+  {
+    id: 'techniek', icon: '🔧', title: 'Techniek / Vakwerk',
+    desc: 'Technische opleidingen en beroepen: monteur, installateur, magazijnmedewerker. Praktische taal voor op de werkvloer.',
+    vocab: [
+      {nl:'het gereedschap',en:'tools'},{nl:'de monteur',en:'mechanic / technician'},
+      {nl:'de storing',en:'malfunction / breakdown'},{nl:'de reparatie',en:'repair'},
+      {nl:'het magazijn',en:'warehouse'},{nl:'de heftruckchauffeur',en:'forklift driver'},
+      {nl:'de veiligheidsbril',en:'safety goggles'},{nl:'de werkhandschoenen',en:'work gloves'},
+      {nl:'de handleiding',en:'manual / instructions'},{nl:'de bouwtekening',en:'construction drawing'},
+      {nl:'de leiding',en:'pipe / management'},{nl:'de schakelaar',en:'switch'},
+      {nl:'de stekker',en:'plug'},{nl:'het snoer',en:'cord / cable'},
+      {nl:'de meetlat',en:'ruler / measuring stick'},{nl:'het beschermingsmiddel',en:'protective equipment'}
+    ],
+    phrases: [
+      {nl:'Er is een storing gemeld op de derde verdieping.',en:'A malfunction has been reported on the third floor.'},
+      {nl:'Kun je even het gereedschap pakken?',en:'Can you grab the tools?'},
+      {nl:'Het apparaat doet het niet meer.',en:'The device no longer works.'},
+      {nl:'We moeten eerst de stroom uitschakelen.',en:'We need to turn off the power first.'},
+      {nl:'Volgens de handleiding moet je deze bout losdraaien.',en:'According to the manual you need to unscrew this bolt.'},
+      {nl:'Vergeet je veiligheidsbril niet!',en:'Don\'t forget your safety goggles!'}
+    ],
+    tip: 'In technische contexten is de gebiedende wijs (imperatief) heel normaal: "Draai los", "Sluit aan", "Controleer". Dat is niet onbeleefd, maar praktisch.'
+  },
+  {
+    id: 'zorg', icon: '🏥', title: 'Zorg / Verzorging',
+    desc: 'Werken in de zorg: verpleeghuis, thuiszorg, ziekenhuis. Patienten helpen, afspraken maken, rapporteren.',
+    vocab: [
+      {nl:'de verzorging',en:'care'},{nl:'het medicijn',en:'medicine'},
+      {nl:'de afspraak',en:'appointment'},{nl:'de huisarts',en:'general practitioner (GP)'},
+      {nl:'de pijnstiller',en:'painkiller'},{nl:'het recept',en:'prescription'},
+      {nl:'de bloeddruk',en:'blood pressure'},{nl:'de temperatuur',en:'temperature'},
+      {nl:'het verband',en:'bandage'},{nl:'de rolstoel',en:'wheelchair'},
+      {nl:'de dienstoverdracht',en:'shift handover'},{nl:'het dossier',en:'patient file'},
+      {nl:'de bewoner',en:'resident (care home)'},{nl:'de mantelzorger',en:'informal caregiver'},
+      {nl:'de wond',en:'wound'},{nl:'de bijwerking',en:'side effect'}
+    ],
+    phrases: [
+      {nl:'Hoe voelt u zich vandaag?',en:'How are you feeling today?'},
+      {nl:'Het is tijd voor uw medicijnen.',en:'It\'s time for your medicine.'},
+      {nl:'Ik ga uw bloeddruk meten.',en:'I\'m going to measure your blood pressure.'},
+      {nl:'Heeft u ergens pijn?',en:'Are you in pain anywhere?'},
+      {nl:'Ik zal het doorgeven aan de arts.',en:'I\'ll pass it on to the doctor.'},
+      {nl:'U moet dit medicijn twee keer per dag innemen.',en:'You need to take this medicine twice a day.'}
+    ],
+    tip: 'In de zorg is empathie in je taalgebruik belangrijk. Gebruik altijd "u" tegen bewoners/patienten. Rapporteer kort en feitelijk.'
+  },
+  {
+    id: 'kinderopvang', icon: '👶', title: 'Kinderopvang / School',
+    desc: 'Werken op een kinderdagverblijf, BSO of school. Communicatie met ouders, dagritme, activiteiten.',
+    vocab: [
+      {nl:'de opvang',en:'childcare / daycare'},{nl:'ophalen',en:'to pick up'},
+      {nl:'brengen',en:'to drop off'},{nl:'de ziekmelding',en:'sick report'},
+      {nl:'het dagritme',en:'daily routine'},{nl:'de pauze',en:'break'},
+      {nl:'de buitenspeeltijd',en:'outdoor playtime'},{nl:'de luier',en:'diaper / nappy'},
+      {nl:'de dutje',en:'nap'},{nl:'de ouderavond',en:'parent evening'},
+      {nl:'het oudergesprek',en:'parent-teacher meeting'},{nl:'de pedagogisch medewerker',en:'childcare worker'},
+      {nl:'de groepsleider',en:'group leader'},{nl:'de verjaardagsviering',en:'birthday celebration'},
+      {nl:'het knutselen',en:'arts and crafts'},{nl:'de traktatie',en:'birthday treat'}
+    ],
+    phrases: [
+      {nl:'Uw kind heeft goed gegeten vandaag.',en:'Your child ate well today.'},
+      {nl:'Hij/zij had een fijn dagje.',en:'He/she had a nice day.'},
+      {nl:'Kunt u uw kind voor negen uur brengen?',en:'Can you drop off your child before nine?'},
+      {nl:'We hebben een luier nodig voor morgen.',en:'We need a diaper for tomorrow.'},
+      {nl:'Er is een ouderavond op dinsdag.',en:'There\'s a parent evening on Tuesday.'},
+      {nl:'Uw kind heeft koorts, kunt u hem/haar ophalen?',en:'Your child has a fever, can you pick him/her up?'}
+    ],
+    tip: 'Tegen ouders gebruik je "u" in formele berichten, maar "je" is ook prima bij dagelijks contact. Let op diplomatisch taalgebruik bij problemen.'
+  },
+  {
+    id: 'kantoor', icon: '💼', title: 'Kantoor / Administratie',
+    desc: 'Kantoorwerk: formulieren invullen, e-mails schrijven, vergaderingen, telefoneren. Formele communicatie.',
+    vocab: [
+      {nl:'het formulier',en:'form'},{nl:'de aanvraag',en:'application / request'},
+      {nl:'verlengen',en:'to extend / renew'},{nl:'de vergadering',en:'meeting'},
+      {nl:'de agenda',en:'agenda / schedule'},{nl:'de bijlage',en:'attachment / appendix'},
+      {nl:'het verslag',en:'report / minutes'},{nl:'de deadline',en:'deadline'},
+      {nl:'de collega',en:'colleague'},{nl:'de leidinggevende',en:'supervisor / manager'},
+      {nl:'het rooster',en:'schedule / roster'},{nl:'de pauze',en:'break'},
+      {nl:'het contract',en:'contract'},{nl:'de vakantiedagen',en:'vacation days'},
+      {nl:'de overuren',en:'overtime hours'},{nl:'de salarisstrook',en:'pay slip'}
+    ],
+    phrases: [
+      {nl:'Zou u dit formulier willen invullen?',en:'Would you like to fill in this form?'},
+      {nl:'Ik stuur u de bijlage per e-mail.',en:'I\'ll send you the attachment by email.'},
+      {nl:'De vergadering begint om twee uur.',en:'The meeting starts at two.'},
+      {nl:'Kunt u mij doorverbinden met mevrouw De Vries?',en:'Can you transfer me to Mrs. De Vries?'},
+      {nl:'Ik wil graag mijn contract verlengen.',en:'I would like to extend my contract.'},
+      {nl:'Met vriendelijke groet,',en:'Kind regards, (formal email closing)'}
+    ],
+    tip: 'E-mails beginnen met "Geachte heer/mevrouw" (formeel) of "Beste..." (semi-formeel). Eindig met "Met vriendelijke groet" en je naam.'
+  },
+  {
+    id: 'ziekmelden', icon: '🤒', title: 'Ziekmelden / Verlof',
+    desc: 'Je ziek melden bij je werkgever, verlof aanvragen, afspraken verzetten. Heel belangrijk voor NT2 spreekopdrachten.',
+    vocab: [
+      {nl:'ziek melden',en:'to call in sick'},{nl:'het verlof',en:'leave'},
+      {nl:'de griep',en:'the flu'},{nl:'koorts',en:'fever'},
+      {nl:'de huisarts',en:'GP / family doctor'},{nl:'het spreekuur',en:'consultation hours'},
+      {nl:'de afspraak verzetten',en:'to reschedule the appointment'},{nl:'herstellen',en:'to recover'},
+      {nl:'de bedrijfsarts',en:'company doctor'},{nl:'arbeidsongeschikt',en:'unfit for work'},
+      {nl:'het ziekteverzuim',en:'sick leave / absenteeism'},{nl:'de werkgever',en:'employer'},
+      {nl:'beter melden',en:'to report better (back to work)'},{nl:'het thuiswerken',en:'working from home'},
+      {nl:'de doktersverklaring',en:'doctor\'s note'},{nl:'de vervanger',en:'substitute / replacement'}
+    ],
+    phrases: [
+      {nl:'Ik bel om me ziek te melden.',en:'I\'m calling to report in sick.'},
+      {nl:'Ik voel me niet lekker, ik heb koorts.',en:'I don\'t feel well, I have a fever.'},
+      {nl:'Ik denk dat ik morgen weer kan komen.',en:'I think I can come in again tomorrow.'},
+      {nl:'Kan iemand mijn dienst overnemen?',en:'Can someone take over my shift?'},
+      {nl:'Ik wil graag een dag verlof aanvragen.',en:'I would like to request a day off.'},
+      {nl:'De huisarts heeft gezegd dat ik moet rusten.',en:'The GP said I need to rest.'}
+    ],
+    tip: 'Bel altijd VOOR aanvang van je dienst. Zeg duidelijk wie je bent, dat je ziek bent, en wanneer je denkt terug te komen. Dit is een veelvoorkomende spreekopdracht!'
+  },
+  {
+    id: 'klacht', icon: '😤', title: 'Klacht / Probleem Melden',
+    desc: 'Een klacht indienen, een probleem melden, vragen om een oplossing. Belangrijk voor zowel schrijf- als spreekopdrachten.',
+    vocab: [
+      {nl:'de klacht',en:'complaint'},{nl:'de oplossing',en:'solution'},
+      {nl:'het probleem',en:'problem'},{nl:'de terugbetaling',en:'refund'},
+      {nl:'de klantenservice',en:'customer service'},{nl:'de garantie',en:'warranty'},
+      {nl:'kapot',en:'broken'},{nl:'beschadigd',en:'damaged'},
+      {nl:'teleurgesteld',en:'disappointed'},{nl:'ontevreden',en:'dissatisfied'},
+      {nl:'het bewijs',en:'proof / evidence'},{nl:'de bon',en:'receipt'},
+      {nl:'de omruiling',en:'exchange'},{nl:'de leverancier',en:'supplier'},
+      {nl:'de bezorgdienst',en:'delivery service'},{nl:'de compensatie',en:'compensation'}
+    ],
+    phrases: [
+      {nl:'Ik wil graag een klacht indienen.',en:'I would like to file a complaint.'},
+      {nl:'Het product dat ik heb ontvangen is beschadigd.',en:'The product I received is damaged.'},
+      {nl:'Ik ben erg teleurgesteld over de service.',en:'I am very disappointed with the service.'},
+      {nl:'Kunt u mij vertellen hoe ik dit kan oplossen?',en:'Can you tell me how to resolve this?'},
+      {nl:'Ik verwacht een terugbetaling.',en:'I expect a refund.'},
+      {nl:'Ik heb meerdere keren contact opgenomen, maar nog geen reactie ontvangen.',en:'I have contacted you multiple times but received no response.'}
+    ],
+    tip: 'Een klachtbrief heeft een vaste structuur: (1) wat is het probleem, (2) wanneer is het gebeurd, (3) wat verwacht je als oplossing. Blijf beleefd maar duidelijk.'
+  },
+  {
+    id: 'sollicitatie', icon: '📝', title: 'Solliciteren / Werk Zoeken',
+    desc: 'Sollicitatiebrief schrijven, jezelf voorstellen, motivatie uitleggen. Komt veel voor in NT2 schrijfopdrachten.',
+    vocab: [
+      {nl:'de sollicitatie',en:'job application'},{nl:'de vacature',en:'job opening / vacancy'},
+      {nl:'het cv',en:'resume / CV'},{nl:'de motivatiebrief',en:'cover letter'},
+      {nl:'de ervaring',en:'experience'},{nl:'de opleiding',en:'education / training'},
+      {nl:'de vaardigheid',en:'skill'},{nl:'het diploma',en:'diploma / degree'},
+      {nl:'het sollicitatiegesprek',en:'job interview'},{nl:'de werkervaring',en:'work experience'},
+      {nl:'parttime / fulltime',en:'part-time / full-time'},{nl:'het uitzendbureau',en:'temp agency'},
+      {nl:'de proeftijd',en:'probation period'},{nl:'de arbeidsvoorwaarden',en:'employment conditions'},
+      {nl:'beschikbaar',en:'available'},{nl:'gemotiveerd',en:'motivated'}
+    ],
+    phrases: [
+      {nl:'Hierbij solliciteer ik naar de functie van...',en:'I hereby apply for the position of...'},
+      {nl:'Ik heb twee jaar ervaring als...',en:'I have two years of experience as...'},
+      {nl:'Ik ben beschikbaar vanaf...',en:'I am available from...'},
+      {nl:'Ik ben een gemotiveerde en betrouwbare werknemer.',en:'I am a motivated and reliable employee.'},
+      {nl:'Graag kom ik mijn sollicitatie toelichten in een gesprek.',en:'I would be happy to discuss my application in an interview.'},
+      {nl:'In afwachting van uw reactie,',en:'Awaiting your response, (formal closing)'}
+    ],
+    tip: 'Een sollicitatiebrief begint met "Geachte heer/mevrouw" en eindigt met "Met vriendelijke groet". Noem altijd de vacature, je motivatie, en je relevante ervaring.'
+  },
+  {
+    id: 'buren', icon: '🏠', title: 'Buren / Wonen',
+    desc: 'Contact met buren, woningcorporatie, gemeente. Melden van overlast, afspraken maken, brieven schrijven.',
+    vocab: [
+      {nl:'de buurman / buurvrouw',en:'neighbor (m/f)'},{nl:'de overlast',en:'nuisance'},
+      {nl:'het geluid',en:'noise / sound'},{nl:'de woningcorporatie',en:'housing association'},
+      {nl:'de huurder',en:'tenant'},{nl:'de verhuurder',en:'landlord'},
+      {nl:'de huur',en:'rent'},{nl:'het onderhoud',en:'maintenance'},
+      {nl:'de reparatie',en:'repair'},{nl:'het trappenhuis',en:'stairwell'},
+      {nl:'de huisregels',en:'house rules'},{nl:'het afval',en:'waste / garbage'},
+      {nl:'de glasbak',en:'glass recycling bin'},{nl:'de vuilnisbak',en:'garbage bin'},
+      {nl:'de storing',en:'breakdown / issue'},{nl:'de lekkage',en:'leak'}
+    ],
+    phrases: [
+      {nl:'Ik wil graag een reparatie melden.',en:'I would like to report a repair.'},
+      {nl:'Er is een lekkage in de badkamer.',en:'There\'s a leak in the bathroom.'},
+      {nl:'Kunt u iets rustiger zijn na tien uur?',en:'Could you be a bit quieter after ten?'},
+      {nl:'Ik heb last van geluidsoverlast.',en:'I\'m bothered by noise nuisance.'},
+      {nl:'Wanneer kan de monteur langskomen?',en:'When can the repairman come by?'},
+      {nl:'Ik schrijf u over een probleem in het trappenhuis.',en:'I\'m writing to you about an issue in the stairwell.'}
+    ],
+    tip: 'Brieven aan de woningcorporatie zijn formeel. Begin met het probleem, geef details (wanneer, waar), en vraag om actie. Wees concreet.'
+  }
+];
+
+let examWoordenschatInitialized = false;
+function initExamWoordenschat() {
+  if (examWoordenschatInitialized) return;
+  examWoordenschatInitialized = true;
+  const container = document.getElementById('examWoorenschatContent');
+  let html = '<p style="font-family:\'Inter\',sans-serif;font-size:13px;color:#666;margin-bottom:16px;line-height:1.6;">Veelvoorkomende scenario\'s in NT2 B1 spreek- en schrijfopdrachten. Leer de woordenschat en standaardzinnen per situatie.</p>';
+  html += '<div class="nt2-scenario-grid">';
+  NT2_SCENARIOS.forEach(s => {
+    html += '<div class="nt2-scenario-card" data-scenario="' + s.id + '">';
+    html += '<div class="nt2-scenario-header"><span class="nt2-icon">' + s.icon + '</span>' + s.title + '</div>';
+    html += '<div class="nt2-scenario-body">';
+    html += '<div class="nt2-scenario-desc">' + s.desc + '</div>';
+    // Vocab section
+    html += '<div class="nt2-vocab-section"><div class="nt2-vocab-section-title">Woordenschat</div>';
+    s.vocab.forEach(v => {
+      html += '<div class="nt2-vocab-item"><span class="nt2-vocab-nl">' + v.nl + '</span><span class="nt2-vocab-en">' + v.en + '</span></div>';
+    });
+    html += '</div>';
+    // Phrases section
+    html += '<div class="nt2-vocab-section"><div class="nt2-vocab-section-title">Standaardzinnen</div>';
+    s.phrases.forEach(p => {
+      html += '<div class="nt2-phrase-item"><div class="nt2-phrase-nl">' + p.nl + '</div><div class="nt2-phrase-en">' + p.en + '</div></div>';
+    });
+    html += '</div>';
+    // Tip
+    if (s.tip) {
+      html += '<div class="nt2-tip-box"><strong>Tip:</strong> ' + s.tip + '</div>';
+    }
+    html += '</div></div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
 
 async function initExamen() {
   if (examInitialized) return;
