@@ -8841,6 +8841,7 @@ const SHEET_TEMPLATES = [
   { id: 'flashcards', icon: '\ud83c\udccf', title: 'Compact Flashcard Grid', desc: 'Uitknipbare flashcards: infinitief | imperfectum | voltooid deelwoord', countFn: () => VERBS.length + ' kaarten' },
   { id: 'separable', icon: '\u2702\ufe0f', title: 'Scheidbare Werkwoorden', desc: 'Werkwoorden die scheidbaar zijn met gescheiden vormen', countFn: () => getSeparableVerbs().length + ' werkwoorden' },
   { id: 'conjunctions', icon: '\ud83d\udd17', title: 'Voegwoorden', desc: 'Alle voegwoorden met voorbeeldzinnen en woordvolgorde-effect', countFn: () => PHRASES.filter(p => p.cat === 'connectors').length + ' voegwoorden' },
+  { id: 'datdaar', icon: '\ud83d\udd00', title: 'Omdat/Daarom & Familie', desc: 'Conjuncties vs. bijwoorden: omdat/daarom, doordat/daardoor, voordat/daarvoor, nadat/daarna', countFn: () => '4 paren' },
 ];
 
 function getSeparableVerbs() {
@@ -8875,6 +8876,7 @@ function generateReadySheet(id) {
     case 'flashcards': generateSheetFlashcards(VERBS); break;
     case 'separable': generateSheetSeparable(); break;
     case 'conjunctions': generateSheetConjunctions(); break;
+    case 'datdaar': generateSheetDatDaar(); break;
   }
 }
 
@@ -9016,6 +9018,85 @@ function generateSheetConjunctions() {
   rows += '</tbody></table>';
   rows += '<div class="tip">Totaal: ' + connectors.length + ' voegwoorden & connectoren</div>';
   generatePDFContent('Voegwoorden & Connectoren — Spiekbriefje', rows);
+}
+
+function generateSheetDatDaar() {
+  let rows = '';
+  rows += '<div class="tip"><strong>De regel:</strong> <em>...dat</em>-woorden zijn <strong>conjuncties</strong> (verbinden twee zinsdelen, werkwoord naar het einde). <em>Daar...</em>-woorden zijn <strong>bijwoorden</strong> (beginnen een nieuwe hoofdzin, werkwoord op positie 2 met inversie).</div>';
+
+  // Overview table
+  rows += '<h2 style="color:#1356A2;">Overzicht: 4 paren</h2>';
+  rows += '<table><thead><tr><th>Conjunctie (bijzin)</th><th>Bijwoord (hoofdzin)</th><th>Betekenis</th></tr></thead><tbody>';
+  rows += '<tr><td><strong>omdat</strong></td><td><strong>daarom</strong></td><td>because / therefore</td></tr>';
+  rows += '<tr><td><strong>doordat</strong></td><td><strong>daardoor</strong></td><td>because of / as a result</td></tr>';
+  rows += '<tr><td><strong>voordat</strong></td><td><strong>daarvoor</strong></td><td>before / before that</td></tr>';
+  rows += '<tr><td><strong>nadat</strong></td><td><strong>daarna</strong></td><td>after / after that</td></tr>';
+  rows += '</tbody></table>';
+
+  // Woordvolgorde
+  rows += '<h2 style="color:#D40920;">Woordvolgorde</h2>';
+  rows += '<table><thead><tr><th>Type</th><th>Regel</th><th>Voorbeeld</th></tr></thead><tbody>';
+  rows += '<tr><td><strong>...dat</strong> (conjunctie)</td><td>Werkwoord naar het <strong>einde</strong></td><td>Ik bleef thuis <strong>omdat</strong> ik ziek <u>was</u>.</td></tr>';
+  rows += '<tr><td><strong>daar...</strong> (bijwoord)</td><td>Werkwoord op positie <strong>2</strong> (inversie)</td><td><strong>Daarom</strong> <u>bleef</u> ik thuis.</td></tr>';
+  rows += '</tbody></table>';
+
+  // Omdat vs Daarom
+  rows += '<h2 style="color:#D40920;">1. Omdat vs. Daarom</h2>';
+  rows += '<div class="tip"><strong>Omdat</strong> = geeft de reden (kijkt terug). <strong>Daarom</strong> = geeft het gevolg (kijkt vooruit).</div>';
+  rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th><th>Richting</th></tr></thead><tbody>';
+  rows += '<tr><td>Ik bleef thuis <strong>omdat</strong> ik ziek <u>was</u>.</td><td>I stayed home because I was sick.</td><td>\u2190 reden</td></tr>';
+  rows += '<tr><td>Ik was ziek, <strong>daarom</strong> <u>bleef</u> ik thuis.</td><td>I was sick, therefore I stayed home.</td><td>\u2192 gevolg</td></tr>';
+  rows += '<tr><td>Ze kwam te laat <strong>omdat</strong> de trein vertraging <u>had</u>.</td><td>She was late because the train was delayed.</td><td>\u2190 reden</td></tr>';
+  rows += '<tr><td>De trein had vertraging, <strong>daarom</strong> <u>kwam</u> ze te laat.</td><td>The train was delayed, therefore she was late.</td><td>\u2192 gevolg</td></tr>';
+  rows += '</tbody></table>';
+
+  // Doordat vs Daardoor
+  rows += '<h2 style="color:#1356A2;">2. Doordat vs. Daardoor</h2>';
+  rows += '<div class="tip"><strong>Doordat</strong> = externe oorzaak (niemand kiest ervoor). <strong>Daardoor</strong> = automatisch gevolg.</div>';
+  rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th><th>Richting</th></tr></thead><tbody>';
+  rows += '<tr><td>De brug brak <strong>doordat</strong> het hard <u>stormde</u>.</td><td>The bridge broke because of the heavy storm.</td><td>\u2190 oorzaak</td></tr>';
+  rows += '<tr><td>Het stormde hard, <strong>daardoor</strong> <u>brak</u> de brug.</td><td>The storm was heavy, as a result the bridge broke.</td><td>\u2192 gevolg</td></tr>';
+  rows += '<tr><td>Het ongeluk gebeurde <strong>doordat</strong> de remmen niet <u>werkten</u>.</td><td>The accident happened because the brakes didn\'t work.</td><td>\u2190 oorzaak</td></tr>';
+  rows += '<tr><td>De remmen werkten niet, <strong>daardoor</strong> <u>gebeurde</u> het ongeluk.</td><td>The brakes didn\'t work, as a result the accident happened.</td><td>\u2192 gevolg</td></tr>';
+  rows += '</tbody></table>';
+
+  // Omdat vs Doordat
+  rows += '<h2 style="color:#2d8a56;">Omdat vs. Doordat: wat is het verschil?</h2>';
+  rows += '<table><thead><tr><th></th><th>Omdat</th><th>Doordat</th></tr></thead><tbody>';
+  rows += '<tr><td><strong>Type reden</strong></td><td>Algemeen, persoonlijk, bewuste keuze</td><td>Externe oorzaak, mechanisch, onbedoeld</td></tr>';
+  rows += '<tr><td><strong>Voorbeeld</strong></td><td>Ik ga niet <strong>omdat</strong> ik geen zin heb.</td><td>Het dak lekte <strong>doordat</strong> het stormde.</td></tr>';
+  rows += '<tr><td><strong>Test</strong></td><td>Kun je "want" gebruiken? \u2192 omdat</td><td>Is er geen keuze/intentie? \u2192 doordat</td></tr>';
+  rows += '</tbody></table>';
+
+  // Voordat vs Daarvoor
+  rows += '<h2 style="color:#8B4513;">3. Voordat vs. Daarvoor</h2>';
+  rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th></tr></thead><tbody>';
+  rows += '<tr><td><strong>Voordat</strong> je weggaat, moet je je kamer <u>opruimen</u>.</td><td>Before you leave, you have to clean your room.</td></tr>';
+  rows += '<tr><td>Ik ga om drie uur weg. <strong>Daarvoor</strong> <u>moet</u> ik nog boodschappen doen.</td><td>I\'m leaving at three. Before that, I still need to do groceries.</td></tr>';
+  rows += '<tr><td><strong>Voordat</strong> ik begon te studeren, woonde ik in Belgie.</td><td>Before I started studying, I lived in Belgium.</td></tr>';
+  rows += '<tr><td>Ik begon in 2020 te studeren. <strong>Daarvoor</strong> <u>woonde</u> ik in Belgie.</td><td>I started studying in 2020. Before that, I lived in Belgium.</td></tr>';
+  rows += '</tbody></table>';
+
+  // Nadat vs Daarna
+  rows += '<h2 style="color:#6A1B9A;">4. Nadat vs. Daarna</h2>';
+  rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th></tr></thead><tbody>';
+  rows += '<tr><td><strong>Nadat</strong> ik had gegeten, ging ik <u>wandelen</u>.</td><td>After I had eaten, I went for a walk.</td></tr>';
+  rows += '<tr><td>Ik at eerst. <strong>Daarna</strong> <u>ging</u> ik wandelen.</td><td>I ate first. After that, I went for a walk.</td></tr>';
+  rows += '<tr><td><strong>Nadat</strong> de vergadering was afgelopen, dronken we <u>koffie</u>.</td><td>After the meeting was over, we drank coffee.</td></tr>';
+  rows += '<tr><td>De vergadering was afgelopen. <strong>Daarna</strong> <u>dronken</u> we koffie.</td><td>The meeting was over. After that, we drank coffee.</td></tr>';
+  rows += '</tbody></table>';
+  rows += '<div class="tip"><strong>Let op:</strong> Na <em>nadat</em> gebruik je vaak de voltooid verleden tijd (had + voltooid deelwoord) voor de eerste actie.</div>';
+
+  // Quick reference
+  rows += '<h2 style="color:#000;">Geheugensteun</h2>';
+  rows += '<table><thead><tr><th>Patroon</th><th>Onthoud</th></tr></thead><tbody>';
+  rows += '<tr><td><strong>...dat</strong> = conjunctie</td><td>\u2190 Kijkt TERUG naar de reden/tijd. Werkwoord naar het einde.</td></tr>';
+  rows += '<tr><td><strong>daar...</strong> = bijwoord</td><td>\u2192 Kijkt VOORUIT naar het gevolg/volgende. Werkwoord op positie 2.</td></tr>';
+  rows += '<tr><td><strong>omdat</strong> vs <strong>doordat</strong></td><td>Omdat = persoonlijk/bewust. Doordat = extern/mechanisch.</td></tr>';
+  rows += '<tr><td><strong>daarom</strong> vs <strong>daardoor</strong></td><td>Daarom = bewuste conclusie. Daardoor = automatisch gevolg.</td></tr>';
+  rows += '</tbody></table>';
+
+  generatePDFContent('Omdat/Daarom & Familie \u2014 Spiekbriefje', rows);
 }
 
 // ==========================================
