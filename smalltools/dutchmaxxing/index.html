@@ -14008,7 +14008,46 @@ function exportNT2Woordenschat() {
 const OP_NIVEAU_CHAPTERS = [
   {
     ch: 1, title: 'Positief', pages: '21-53',
-    grammar: ['Conjuncties en adverbia (1)', 'Conjuncties en adverbia (2)'],
+    grammar: [
+      { title: 'Conjuncties en adverbia (1)', content:
+        '<table style="width:100%;border-collapse:collapse;font-size:13px;margin:8px 0;">'
+        + '<thead><tr><th style="text-align:left;padding:6px;border-bottom:2px solid #000;">Conjunctie (bijzin)</th><th style="text-align:left;padding:6px;border-bottom:2px solid #000;">Bijwoord (hoofdzin)</th><th style="text-align:left;padding:6px;border-bottom:2px solid #000;">Betekenis</th></tr></thead>'
+        + '<tbody>'
+        + '<tr><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>omdat</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>daarom</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;">because / therefore</td></tr>'
+        + '<tr><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>doordat</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>daardoor</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;">because of / as a result</td></tr>'
+        + '<tr><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>voordat</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>daarvoor</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;">before / before that</td></tr>'
+        + '<tr><td style="padding:5px 6px;"><strong>nadat</strong></td><td style="padding:5px 6px;"><strong>daarna</strong></td><td style="padding:5px 6px;">after / after that</td></tr>'
+        + '</tbody></table>'
+        + '<div style="font-size:12px;color:#555;line-height:1.6;margin-top:8px;">'
+        + '<strong>De regel:</strong> <em>...dat</em> = conjunctie (werkwoord naar het einde). <em>Daar...</em> = bijwoord (werkwoord op positie 2, inversie).<br><br>'
+        + '<strong>Woordvolgorde:</strong><br>'
+        + 'Ik bleef thuis <strong>omdat</strong> ik ziek <u>was</u>. (werkwoord einde)<br>'
+        + '<strong>Daarom</strong> <u>bleef</u> ik thuis. (werkwoord positie 2)<br><br>'
+        + '<strong>Omdat vs. doordat:</strong><br>'
+        + '&bull; <strong>omdat</strong> = persoonlijke/bewuste reden (Ik ga niet omdat ik geen zin heb)<br>'
+        + '&bull; <strong>doordat</strong> = externe oorzaak, niemand kiest ervoor (De brug brak doordat het stormde)<br><br>'
+        + '<strong>Geheugensteun:</strong><br>'
+        + '&bull; <em>...dat</em> kijkt TERUG naar de reden &#8592;<br>'
+        + '&bull; <em>daar...</em> kijkt VOORUIT naar het gevolg &#8594;'
+        + '</div>'
+      },
+      { title: 'Conjuncties en adverbia (2)', content:
+        '<div style="font-size:12px;color:#555;line-height:1.6;">'
+        + '<strong>Meer paren om te onthouden:</strong><br><br>'
+        + '<table style="width:100%;border-collapse:collapse;font-size:13px;margin:8px 0;">'
+        + '<thead><tr><th style="text-align:left;padding:6px;border-bottom:2px solid #000;">Conjunctie</th><th style="text-align:left;padding:6px;border-bottom:2px solid #000;">Bijwoord</th><th style="text-align:left;padding:6px;border-bottom:2px solid #000;">Betekenis</th></tr></thead>'
+        + '<tbody>'
+        + '<tr><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>hoewel / alhoewel</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>toch / desondanks</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;">although / nevertheless</td></tr>'
+        + '<tr><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>zodat</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>daardoor / daarom</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;">so that / therefore</td></tr>'
+        + '<tr><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>terwijl</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>ondertussen</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;">while / meanwhile</td></tr>'
+        + '<tr><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>tenzij</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;"><strong>anders</strong></td><td style="padding:5px 6px;border-bottom:1px solid #eee;">unless / otherwise</td></tr>'
+        + '<tr><td style="padding:5px 6px;"><strong>zodra</strong></td><td style="padding:5px 6px;"><strong>dan / vervolgens</strong></td><td style="padding:5px 6px;">as soon as / then</td></tr>'
+        + '</tbody></table>'
+        + '<strong>Onderschikkend</strong> (bijzin, werkwoord einde): omdat, doordat, voordat, nadat, hoewel, zodat, terwijl, tenzij, zodra, totdat, mits, naarmate, zolang<br><br>'
+        + '<strong>Nevenschikkend</strong> (woordvolgorde normaal): en, maar, of, want, dus'
+        + '</div>'
+      }
+    ],
     readings: [
       'Positieve eigenschappen',
       'Geschiedenis: Willem van Oranje',
@@ -14218,9 +14257,19 @@ async function initOpNiveau() {
 
       html += '<div class="onv-card-body">';
       // Grammar
-      html += '<div class="onv-section"><div class="onv-section-title">Grammatica</div><div class="onv-grammar-list">';
-      c.grammar.forEach(g => { html += '<span class="onv-grammar-tag">' + g + '</span>'; });
-      html += '</div></div>';
+      html += '<div class="onv-section"><div class="onv-section-title">Grammatica</div>';
+      c.grammar.forEach((g, gi) => {
+        if (typeof g === 'string') {
+          html += '<div class="onv-grammar-list"><span class="onv-grammar-tag">' + g + '</span></div>';
+        } else {
+          const gid = 'onv-gram-' + c.ch + '-' + gi;
+          html += '<div style="margin-bottom:8px;">';
+          html += '<span class="onv-grammar-tag" style="cursor:pointer;" onclick="var el=document.getElementById(\'' + gid + '\');el.style.display=el.style.display===\'none\'?\'block\':\'none\';">' + g.title + ' &#9660;</span>';
+          html += '<div id="' + gid + '" style="display:none;margin-top:8px;padding:12px;border:2px solid #eee;background:#fafafa;">' + g.content + '</div>';
+          html += '</div>';
+        }
+      });
+      html += '</div>';
 
       // Vocabulary from vocabulary.json
       const chVocab = vocabByChapter[c.ch] || [];
