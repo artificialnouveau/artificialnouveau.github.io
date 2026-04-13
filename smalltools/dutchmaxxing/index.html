@@ -14401,11 +14401,57 @@ async function initOpNiveau() {
         html += '</div></div>';
       }
 
+      // Per-chapter PDF button
+      html += '<div style="margin-top:12px;text-align:right;"><button class="mondrian-btn" onclick="exportOpNiveauChapter(' + c.ch + ')" style="font-size:11px;padding:6px 14px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Download H' + c.ch + ' PDF</button></div>';
+
       html += '</div></div>';
     });
     html += '</div>';
+    // Download all button
+    html += '<div style="margin-top:20px;text-align:center;padding-top:16px;border-top:3px solid var(--mondrian-black);"><button class="mondrian-btn" onclick="exportOpNiveauAll()" style="font-size:13px;padding:10px 22px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Download alle hoofdstukken als PDF</button></div>';
     return html;
   }
+
+  function buildChapterPDFRows(c) {
+    const chVocab = vocabByChapter[c.ch] || [];
+    let rows = '';
+    // Grammar
+    rows += '<h2 style="color:#1356A2;">Grammatica</h2>';
+    c.grammar.forEach(g => {
+      if (typeof g === 'string') {
+        rows += '<div style="display:inline-block;padding:4px 10px;border:2px solid #000;background:#f5f5f5;font-size:12px;font-weight:600;margin:0 4px 4px 0;">' + g + '</div>';
+      } else {
+        rows += '<h3 style="color:#333;margin:12px 0 6px;">' + g.title + '</h3>';
+        rows += g.content;
+      }
+    });
+    // Vocabulary
+    if (chVocab.length > 0) {
+      rows += '<h2 style="color:#1356A2;margin-top:20px;">Woordenschat (' + chVocab.length + ' woorden)</h2>';
+      rows += '<table><thead><tr><th style="width:40%">Nederlands</th><th style="width:40%">Engels</th></tr></thead><tbody>';
+      chVocab.forEach(w => {
+        rows += '<tr><td><strong>' + w.nl + '</strong></td><td>' + w.en + '</td></tr>';
+      });
+      rows += '</tbody></table>';
+    }
+    return rows;
+  }
+
+  window.exportOpNiveauChapter = function(ch) {
+    const c = OP_NIVEAU_CHAPTERS.find(x => x.ch === ch);
+    const rows = '<h2 style="color:#D40920;font-size:20px;">Hoofdstuk ' + c.ch + ': ' + c.title + ' <span style="font-size:14px;color:#666;font-weight:normal;">(p.' + c.pages + ')</span></h2>' + buildChapterPDFRows(c);
+    generatePDFContent('Op Niveau B1-B2 — Hoofdstuk ' + c.ch + ': ' + c.title, rows);
+  };
+
+  window.exportOpNiveauAll = function() {
+    let rows = '';
+    OP_NIVEAU_CHAPTERS.forEach(c => {
+      if (rows) rows += '<div style="page-break-before:always;"></div>';
+      rows += '<h2 style="color:#D40920;font-size:20px;margin-top:24px;">Hoofdstuk ' + c.ch + ': ' + c.title + ' <span style="font-size:14px;color:#666;font-weight:normal;">(p.' + c.pages + ')</span></h2>';
+      rows += buildChapterPDFRows(c);
+    });
+    generatePDFContent('Op Niveau B1-B2 — Alle Hoofdstukken', rows);
+  };
 
   container.innerHTML = renderCards();
 
