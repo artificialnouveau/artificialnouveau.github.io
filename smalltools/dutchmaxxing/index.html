@@ -3836,6 +3836,12 @@ body::before, body::after { display: none; }
 
 <!-- MAIN TAB: LEESHOEK -->
 <div class="tab-content" id="tab-news">
+  <div class="subtab-bar">
+    <button class="subtab-btn active" data-subtab="news-nos" data-maintab="news">NOS Nieuws</button>
+    <button class="subtab-btn" data-subtab="news-algemeen" data-maintab="news">Algemeen</button>
+  </div>
+
+  <div class="subtab-content active" id="sub-news-nos">
   <div class="news-container">
     <div class="help-row" style="justify-content:center;margin-bottom:12px;">
       <button class="help-btn" onclick="showHelp('news')" title="Hulp">?</button>
@@ -3868,6 +3874,11 @@ body::before, body::after { display: none; }
         <button class="saved-translations-export" id="savedTranslationsExport" onclick="exportSavedTranslations()" disabled>Download PDF</button>
       </div>
     </div>
+  </div>
+  </div>
+
+  <div class="subtab-content" id="sub-news-algemeen">
+    <div id="algemeenContent"></div>
   </div>
 </div>
 
@@ -6202,6 +6213,111 @@ function initNews() {
   fetchNOSFeed();
 }
 
+// ==========================================
+// ALGEMEEN — Recommended Reading
+// ==========================================
+const ALGEMEEN_ARTICLES = [
+  {
+    title: 'Sociale media willen geen waarheid, ze willen je woede',
+    author: 'Omid Iranmehr',
+    authorRole: 'Journalist',
+    source: 'De Correspondent',
+    url: 'https://decorrespondent.nl/16867/sociale-media-willen-geen-waarheid-ze-willen-je-woede/bf170ce3-4202-0797-3a9b-0e4ab3f3b82a',
+    highlightWords: {
+      'eenvoudiger':'simpler','beperkter':'more limited','tegenpartij':'opposing party','neergeslagen':'crushed / beaten down','slachting':'slaughter','miskenning':'misjudgment / failure to recognize','werkelijkheid':'reality','prikkeling':'stimulation / provocation','rechtvaardigen':'to justify','medeplichtig':'complicit','polarisatie':'polarization','verspreidt':'spreads','vergaande':'far-reaching','brachten':'brought','kaders':'frameworks','opzettelijk':'deliberately','verdraaid':'distorted','hevig':'intense / fierce','noodtoestand':'state of emergency','tekortkomingen':'shortcomings','overschaduwd':'overshadowed','marges':'margins','geleidelijk':'gradually','vernauwing':'narrowing','blikveld':'field of vision','slikken':'to swallow','verzameling':'collection','overtuigingen':'convictions','ongekende':'unprecedented','bekritiseren':'to criticize','inmenging':'interference','tegelijkertijd':'at the same time','eenvoudige':'simple','genegeerd':'ignored','omstandigheden':'circumstances','moedige':'courageous','misverstand':'misunderstanding','bewering':'claim / assertion','voortdurende':'continuous / ongoing','tweedeling':'division / dichotomy'
+    },
+    paragraphs: [
+      'Op sociale media lijkt de wereld elke dag eenvoudiger, maar we leven niet in een wereld waarin de feiten eenvoudiger zijn geworden. Het lijkt eerder alsof onze manier van kijken beperkter is. Als je vandaag iets schrijft over geweld, oorlog of onderdrukking, word je geacht een kant te kiezen; je moet je loyaliteit tonen en je uitspreken over in welk \'kamp\' je zit. En als je dat niet doet, doen anderen het voor je: je hoort automatisch bij de tegenpartij.',
+      'In de winter schreef ik over de slachtoffers van de bloedig neergeslagen protesten in Iran en het verzet van hun families tegen de vergetelheid. Dat artikel was geschreven v\u00f3\u00f3r het begin van de oorlog van de VS en Isra\u00ebl tegen Iran. Maar het werd in maart, midden in de oorlog, gepubliceerd, want opeens kreeg het artikel over het bloedbad een andere lading.',
+      'Een van de eerste reacties luidde: \'Jullie zijn in de val van het zionisme gelopen!\' Voor mij was het verdrietig dat sommigen dit artikel, over de slachting van mensen door de Iraanse regering, als prozionistisch zagen. Ik vond het een miskenning van dit deel van de werkelijkheid.',
+      '<strong>Alles voor de prikkeling</strong>',
+      'Ik kan begrijpen waarom sommigen in Iran, hoe pijnlijk ook, hopen op de steun van Donald Trump.',
+      'Volgens het offici\u00eble verhaal van de Iraanse regering was wat er in januari op straat gebeurde, inclusief het doden van demonstranten, onderdeel van een Amerikaans-Isra\u00eblisch project om oorlog te rechtvaardigen. Deel je beelden van overheidsgeweld, dan dien je volgens deze mensen de \'vijand\'. Maar verzet je je tegen de Amerikaans-Isra\u00eblische oorlog, dan ben je medeplichtig aan een regime dat geweld inzet tegen zijn eigen burgers.',
+      'Deze polarisatie is geen toeval. Sociale media zijn niet ontworpen om de waarheid te vinden, maar om onze aandacht vast te houden. Algoritmes leren wat ons prikkelt \u2013 zoals woede, angst of een gevoel van erbij horen \u2013 en versterken dat. Emotionele en polariserende inhoud verspreidt zich sneller.',
+      'Machtige spelers en staten maken dankbaar gebruik van de mogelijkheid tot vergaande manipulatie via sociale media. In de afgelopen jaren brachten landen als Rusland, Iran en Isra\u00ebl hele cyberlegers op de been om de publieke opinie te be\u00efnvloeden.',
+      '<strong>Angst regeert</strong>',
+      'In zo\'n landschap staan nuance en nieuwsgierigheid onder druk en heerst angst. Angst om hardop te denken. Om direct te worden afgewezen als je iets buiten de bestaande kaders zegt. Angst dat je verkeerd begrepen wordt, of \u2013 erger \u2013 dat je verhaal opzettelijk wordt verdraaid.',
+      'Een hevig gepolariseerd debat voedt radicalisme. Een voorbeeld: Isra\u00ebl en de Islamitische Republiek vergelden kwaad met kwaad door naar de daden van de ander te wijzen. Maar in Iran gaan de binnenlandse repressie en de politieke executies door, en Isra\u00ebl blijft nieuwe manieren zoeken om de Palestijnse bevolking te onderdrukken.',
+      'In deze permanente \'noodtoestand\' worden alle tekortkomingen en vormen van binnenlands geweld overschaduwd door het grotere geweld \u2013 de oorlog \u2013 en verdrongen naar de marges van het nieuws. De grens tussen de \'externe vijand\' en de \'interne tegenstander\' vervaagt geleidelijk.',
+      'Het resultaat is dat de autoritaire blokken aan beide zijden van het conflict hun macht versterken en daarvan profiteren. Dit heeft grote gevolgen voor de manier waarop we naar crises kijken.',
+      '<strong>Het resultaat: vernauwing van ons blikveld</strong>',
+      'De wederzijdse versterking van de cyclus van extern geweld en interne onderdrukking leidt er uiteindelijk toe dat de ruimte voor onafhankelijke stemmen en andere perspectieven steeds verder wordt ingeperkt.',
+      'We slikken onze woorden in en zoeken de mensen op die het met ons eens zijn. Het resultaat is een vernauwing van ons blikveld. We zien niet langer een verzameling verschillende perspectieven, maar herhaalde versies van onze eigen overtuigingen. Terwijl we toegang hebben tot ongekende informatie, wordt ons begrip van de wereld versimpeld en minder gelaagd.',
+      'Je kunt tegelijkertijd een autoritaire regering bekritiseren \u00e9n kritisch zijn over buitenlandse inmenging',
+      'Meerdere vormen van onrecht kunnen naast elkaar bestaan. Je kunt tegelijkertijd een autoritaire regering bekritiseren \u00e9n kritisch zijn over buitenlandse inmenging. Maar in het online debat lijkt \'tegelijkertijd\' niet te bestaan. Complexe realiteiten worden gereduceerd tot eenvoudige verhalen, die de wereld opdelen in goed en slecht. En elke realiteit die niet in dit kader past, wordt genegeerd of de kop in gedrukt.',
+      'In zulke omstandigheden is onafhankelijke journalistiek een moedige missie: je moet accepteren dat je van beide kanten wordt aangevallen. Je moet leven met het misverstand dat mensen vinden dat je \'een kant\' kiest, ook al doe je dat niet. En toch is dat wellicht de kern van de journalistiek \u2013 niet de bewering dat je de volledige waarheid bezit, maar de voortdurende poging er dichterbij te komen. In de erkenning dat niemand de volledige waarheid heeft en dat iedereen die dat beweert \u00f3f na\u00efef is \u00f3f anderen misleidt.',
+      'De waarheid beperkt zich niet tot een tweedeling. In werkelijkheid ontstaat begrip vaak in iets wat je een \'derde ruimte\' zou kunnen noemen, een grijs gebied voorbij bestaande categorie\u00ebn en polen, waar je meerdere realiteiten tegelijkertijd kunt zien. Het cre\u00ebren van deze ruimte is niet eenvoudig. Het vereist het verdragen van het niet-weten, van twijfel. Juist daar wordt nadenken mogelijk.',
+      'Misschien is het belangrijkste om iets langer te pauzeren, meer te kijken en minder bang te zijn om in geen enkele categorie te passen. Juist in een tijd waarin iedereen van ons verlangt dat we snel een standpunt innemen. Want in een wereld waarin verhalen zwart-wit lijken te zijn, of zo worden voorgesteld, is vragen, onderzoeken en de complexiteit omarmen niet slechts een intellectuele keuze, maar een vorm van verzet.'
+    ]
+  }
+];
+
+function highlightAlgemeenWords(text, wordMap) {
+  const words = Object.keys(wordMap).sort((a, b) => b.length - a.length);
+  let result = text;
+  words.forEach(word => {
+    const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp('(?<![\\w<])(' + escaped + ')(?![\\w>])', 'gi');
+    result = result.replace(re, function(match) {
+      const en = wordMap[word.toLowerCase()] || wordMap[word];
+      return '<span class="nos-vocab" style="color:#D40920;border-bottom-color:#D40920" data-en="' + escapeHTML(en) + '" data-level="B2" data-base="' + escapeHTML(word) + '">' + match + '<span class="nos-vocab-tip">' + escapeHTML(en) + ' <em>(B2)</em></span></span>';
+    });
+  });
+  return result;
+}
+
+let algemeenInitialized = false;
+function initAlgemeen() {
+  if (algemeenInitialized) return;
+  algemeenInitialized = true;
+  const container = document.getElementById('algemeenContent');
+  let html = '<p style="font-family:\'Inter\',sans-serif;font-size:13px;color:#666;margin-bottom:16px;line-height:1.6;">Aanbevolen artikelen om je leesvaardigheid te oefenen. Gemarkeerde woorden tonen een vertaling bij hover.</p>';
+  ALGEMEEN_ARTICLES.forEach((art, ai) => {
+    html += '<div class="nos-card" data-algemeen-idx="' + ai + '">';
+    html += '<div class="nos-card-header" style="padding:16px;">';
+    html += '<h3 style="font-family:\'Syne\',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px;">' + art.title + '</h3>';
+    html += '<p style="font-size:12px;color:#666;margin-bottom:4px;"><strong>' + art.author + '</strong> \u2014 ' + art.authorRole + '</p>';
+    html += '<p style="font-size:11px;"><a href="' + art.url + '" target="_blank" rel="noopener" style="color:var(--mondrian-blue);">' + art.source + ' \u2192 Lees origineel</a></p>';
+    html += '</div>';
+    html += '<div class="nos-card-body" style="padding:16px;">';
+    art.paragraphs.forEach(p => {
+      if (p.startsWith('<strong>')) {
+        html += '<h4 style="font-family:\'Syne\',sans-serif;font-size:15px;font-weight:700;margin:16px 0 8px;">' + p + '</h4>';
+      } else {
+        html += '<p style="font-size:14px;line-height:1.8;margin-bottom:12px;color:#222;">' + highlightAlgemeenWords(p, art.highlightWords) + '</p>';
+      }
+    });
+    html += '</div>';
+    html += '<div style="padding:12px 16px;border-top:2px solid #eee;text-align:right;">';
+    html += '<button class="mondrian-btn" onclick="exportAlgemeenArticle(' + ai + ')" style="font-size:11px;padding:6px 14px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Download PDF</button>';
+    html += '</div>';
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function exportAlgemeenArticle(idx) {
+  const art = ALGEMEEN_ARTICLES[idx];
+  let rows = '';
+  rows += '<p style="font-size:12px;color:#666;margin-bottom:4px;"><strong>' + art.author + '</strong> \u2014 ' + art.authorRole + ' | <a href="' + art.url + '">' + art.source + '</a></p>';
+  rows += '<hr style="border:1px solid #ddd;margin:12px 0;">';
+  art.paragraphs.forEach(p => {
+    if (p.startsWith('<strong>')) {
+      rows += '<h3 style="margin:16px 0 8px;">' + p + '</h3>';
+    } else {
+      rows += '<p style="font-size:13px;line-height:1.8;margin-bottom:10px;">' + p + '</p>';
+    }
+  });
+  rows += '<hr style="border:1px solid #ddd;margin:16px 0;">';
+  rows += '<h2 style="color:#1356A2;">Woordenschat</h2>';
+  rows += '<table><thead><tr><th>Nederlands</th><th>Engels</th></tr></thead><tbody>';
+  Object.keys(art.highlightWords).sort().forEach(w => {
+    rows += '<tr><td><strong>' + w + '</strong></td><td>' + art.highlightWords[w] + '</td></tr>';
+  });
+  rows += '</tbody></table>';
+  generatePDFContent(art.title, rows);
+}
+
 function renderArticle(idx) {
   const art = NEWS_ARTICLES[idx];
   const content = document.getElementById('newsContent');
@@ -8034,6 +8150,8 @@ const SUBTAB_INIT = {
   'vocab-prefixdrills': initPrefixDrills,
   'exam-spreken': initExamen,
   'exam-schrijven': initExamen,
+  'news-nos': initNews,
+  'news-algemeen': initAlgemeen,
   'exam-woordenschat': initExamWoordenschat,
   'exam-b2-woordenschat': initExamB2Woordenschat,
   etiquette: () => { initCultuur(); renderEtiquette(); },
