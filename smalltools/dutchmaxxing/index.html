@@ -14193,11 +14193,20 @@ const OP_NIVEAU_CHAPTERS = [
 ];
 
 let opNiveauInitialized = false;
-function initOpNiveau() {
+async function initOpNiveau() {
   if (opNiveauInitialized) return;
   opNiveauInitialized = true;
   const container = document.getElementById('opNiveauContent');
   const saved = JSON.parse(localStorage.getItem('opniveau-progress') || '{}');
+
+  // Load vocabulary data
+  if (!vnetData.length) {
+    try { const r = await fetch('vocabulary.json'); vnetData = await r.json(); } catch(e) { vnetData = []; }
+  }
+  const vocabByChapter = {};
+  OP_NIVEAU_CHAPTERS.forEach(c => {
+    vocabByChapter[c.ch] = vnetData.filter(w => w.tags && w.tags.includes(c.vocabTag));
+  });
 
   function save() { localStorage.setItem('opniveau-progress', JSON.stringify(saved)); }
 
@@ -14241,6 +14250,17 @@ function initOpNiveau() {
       html += '<div class="onv-section"><div class="onv-section-title">Grammatica</div><div class="onv-grammar-list">';
       c.grammar.forEach(g => { html += '<span class="onv-grammar-tag">' + g + '</span>'; });
       html += '</div></div>';
+
+      // Vocabulary from vocabulary.json
+      const chVocab = vocabByChapter[c.ch] || [];
+      if (chVocab.length > 0) {
+        html += '<div class="onv-section"><div class="onv-section-title">Woordenschat <span class="onv-vocab-count">(' + chVocab.length + ' woorden)</span></div>';
+        html += '<div style="display:flex;flex-direction:column;gap:4px;">';
+        chVocab.forEach(w => {
+          html += '<div class="nt2-vocab-item"><span class="nt2-vocab-nl">' + w.nl + '</span><span class="nt2-vocab-en">' + w.en + '</span></div>';
+        });
+        html += '</div></div>';
+      }
 
       // Readings
       html += '<div class="onv-section"><div class="onv-section-title">Teksten & Onderwerpen</div><div class="onv-reading-list">';
