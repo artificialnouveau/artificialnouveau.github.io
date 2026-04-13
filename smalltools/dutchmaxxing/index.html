@@ -6348,13 +6348,16 @@ function initAlgemeen() {
   const container = document.getElementById('algemeenContent');
   let html = '<p style="font-family:\'Inter\',sans-serif;font-size:13px;color:#666;margin-bottom:16px;line-height:1.6;">Aanbevolen artikelen om je leesvaardigheid te oefenen. Gemarkeerde woorden tonen een vertaling bij hover.</p>';
   ALGEMEEN_ARTICLES.forEach((art, ai) => {
-    html += '<div class="nos-card" data-algemeen-idx="' + ai + '">';
-    html += '<div class="nos-card-header" style="padding:16px;">';
-    html += '<h3 style="font-family:\'Syne\',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px;">' + art.title + '</h3>';
-    html += '<p style="font-size:12px;color:#666;margin-bottom:4px;"><strong>' + art.author + '</strong> \u2014 ' + art.authorRole + '</p>';
-    html += '<p style="font-size:11px;"><a href="' + art.url + '" target="_blank" rel="noopener" style="color:var(--mondrian-blue);">' + art.source + ' \u2192 Lees origineel</a></p>';
+    html += '<div class="nos-card" data-algemeen-idx="' + ai + '" style="margin-bottom:12px;">';
+    html += '<div class="nos-card-header" style="padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onclick="toggleAlgemeenArticle(' + ai + ')">';
+    html += '<div>';
+    html += '<h3 style="font-family:\'Syne\',sans-serif;font-size:16px;font-weight:700;margin-bottom:2px;">' + art.title + '</h3>';
+    html += '<p style="font-size:11px;color:#666;margin:0;"><strong>' + art.author + '</strong> \u2014 ' + art.authorRole + ' | <a href="' + art.url + '" target="_blank" rel="noopener" style="color:var(--mondrian-blue);" onclick="event.stopPropagation()">' + art.source + '</a></p>';
     html += '</div>';
-    html += '<div class="nos-card-body" style="padding:16px;">';
+    html += '<span id="algToggle' + ai + '" style="font-size:18px;transition:transform 0.3s;">&#9660;</span>';
+    html += '</div>';
+    html += '<div id="algBody' + ai + '" style="display:none;">';
+    html += '<div style="padding:16px;">';
     art.paragraphs.forEach(p => {
       if (p.startsWith('<strong>')) {
         html += '<h4 style="font-family:\'Syne\',sans-serif;font-size:15px;font-weight:700;margin:16px 0 8px;">' + p + '</h4>';
@@ -6367,7 +6370,21 @@ function initAlgemeen() {
     html += '<button class="mondrian-btn" onclick="exportAlgemeenArticle(' + ai + ')" style="font-size:11px;padding:6px 14px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Download PDF</button>';
     html += '</div>';
     html += '</div>';
+    html += '</div>';
   });
+
+  window.toggleAlgemeenArticle = function(idx) {
+    const body = document.getElementById('algBody' + idx);
+    const toggle = document.getElementById('algToggle' + idx);
+    if (body.style.display === 'none') {
+      body.style.display = 'block';
+      toggle.style.transform = 'rotate(180deg)';
+    } else {
+      body.style.display = 'none';
+      toggle.style.transform = 'rotate(0deg)';
+    }
+  };
+
   container.innerHTML = html;
 }
 
