@@ -14243,7 +14243,6 @@ async function initOpNiveau() {
       html += '<option value="klaar"' + (prog.status === 'klaar' ? ' selected' : '') + '>Klaar</option>';
       html += '</select>';
       html += '<span class="onv-card-toggle">&#9660;</span></div></div>';
-      html += '<div class="onv-progress-bar"><div class="onv-progress-fill" style="width:' + prog.pct + '%"></div></div>';
 
       html += '<div class="onv-card-body">';
       // Grammar
@@ -14261,21 +14260,6 @@ async function initOpNiveau() {
         });
         html += '</div></div>';
       }
-
-      // Readings
-      html += '<div class="onv-section"><div class="onv-section-title">Teksten & Onderwerpen</div><div class="onv-reading-list">';
-      c.readings.forEach(r => { html += '<div class="onv-reading-item">' + r + '</div>'; });
-      html += '</div></div>';
-
-      // Exercises
-      html += '<div class="onv-section"><div class="onv-section-title">Oefeningen <span style="color:var(--mondrian-blue);">(' + prog.exDone + '/' + prog.exTotal + ')</span></div><div class="onv-exercise-list">';
-      c.exercises.forEach((ex, i) => {
-        const isDone = chData.exercises && chData.exercises['ex' + i];
-        html += '<div class="onv-exercise-item' + (isDone ? ' done' : '') + '" onclick="toggleOpNiveauExercise(' + c.ch + ',' + i + ')">';
-        html += '<div class="onv-exercise-cb">' + (isDone ? '&#10003;' : '') + '</div>';
-        html += '<span>' + ex + '</span></div>';
-      });
-      html += '</div></div>';
 
       // Notes
       html += '<div class="onv-section"><div class="onv-section-title">Eigen notities</div>';
@@ -14305,25 +14289,6 @@ async function initOpNiveau() {
       OP_NIVEAU_CHAPTERS.forEach(c => { const s = (saved['ch' + c.ch] || {}).status || 'niet-begonnen'; if (s === 'klaar') done++; else if (s === 'bezig') inProg++; });
       overview.innerHTML = '<div class="onv-stat"><strong>' + done + '</strong> / 6 klaar</div><div class="onv-stat"><strong>' + inProg + '</strong> bezig</div>';
     }
-  };
-
-  window.toggleOpNiveauExercise = function(ch, idx) {
-    if (!saved['ch' + ch]) saved['ch' + ch] = {};
-    if (!saved['ch' + ch].exercises) saved['ch' + ch].exercises = {};
-    saved['ch' + ch].exercises['ex' + idx] = !saved['ch' + ch].exercises['ex' + idx];
-    save();
-    // Re-render just this card's exercise list
-    const card = document.getElementById('onv-card-' + ch);
-    const item = card.querySelectorAll('.onv-exercise-item')[idx];
-    const isDone = saved['ch' + ch].exercises['ex' + idx];
-    item.classList.toggle('done', isDone);
-    item.querySelector('.onv-exercise-cb').innerHTML = isDone ? '&#10003;' : '';
-    // Update progress bar and count
-    const chObj = OP_NIVEAU_CHAPTERS.find(c => c.ch === ch);
-    const exDone = Object.keys(saved['ch' + ch].exercises).filter(k => saved['ch' + ch].exercises[k]).length;
-    const pct = Math.round(exDone / chObj.exercises.length * 100);
-    card.querySelector('.onv-progress-fill').style.width = pct + '%';
-    card.querySelector('.onv-section-title span').innerHTML = '(' + exDone + '/' + chObj.exercises.length + ')';
   };
 
   window.saveOpNiveauNotes = function(ch) {
