@@ -14197,7 +14197,6 @@ async function initOpNiveau() {
   if (opNiveauInitialized) return;
   opNiveauInitialized = true;
   const container = document.getElementById('opNiveauContent');
-  const saved = JSON.parse(localStorage.getItem('opniveau-progress') || '{}');
 
   // Load vocabulary data
   if (!vnetData.length) {
@@ -14208,41 +14207,14 @@ async function initOpNiveau() {
     vocabByChapter[c.ch] = vnetData.filter(w => w.tags && w.tags.includes(c.vocabTag));
   });
 
-  function save() { localStorage.setItem('opniveau-progress', JSON.stringify(saved)); }
-
-  function getChapterProgress(ch) {
-    const d = saved['ch' + ch] || {};
-    const exDone = Object.keys(d.exercises || {}).filter(k => d.exercises[k]).length;
-    const exTotal = OP_NIVEAU_CHAPTERS.find(c => c.ch === ch).exercises.length;
-    return { status: d.status || 'niet-begonnen', exDone, exTotal, pct: exTotal ? Math.round(exDone / exTotal * 100) : 0 };
-  }
-
-  function renderOverview() {
-    let done = 0, inProgress = 0;
-    OP_NIVEAU_CHAPTERS.forEach(c => { const p = getChapterProgress(c.ch); if (p.status === 'klaar') done++; else if (p.status === 'bezig') inProgress++; });
-    return '<div class="onv-overview">'
-      + '<div class="onv-stat"><strong>' + done + '</strong> / 6 klaar</div>'
-      + '<div class="onv-stat"><strong>' + inProgress + '</strong> bezig</div>'
-      + '</div>';
-  }
-
   function renderCards() {
-    let html = '<p style="font-family:\'Inter\',sans-serif;font-size:13px;color:#666;margin-bottom:12px;line-height:1.6;">Op Niveau B1-B2. Klik op een hoofdstuk om je voortgang bij te houden.</p>';
-    html += renderOverview();
+    let html = '<p style="font-family:\'Inter\',sans-serif;font-size:13px;color:#666;margin-bottom:12px;line-height:1.6;">Op Niveau B1-B2. Klik op een hoofdstuk om de woordenschat te bekijken.</p>';
     html += '<div class="onv-grid">';
     OP_NIVEAU_CHAPTERS.forEach(c => {
-      const prog = getChapterProgress(c.ch);
-      const chData = saved['ch' + c.ch] || {};
       html += '<div class="onv-card" data-ch="' + c.ch + '" id="onv-card-' + c.ch + '">';
       html += '<div class="onv-card-header" onclick="toggleOpNiveauCard(' + c.ch + ')">';
       html += '<div><span class="onv-ch-num">Hoofdstuk ' + c.ch + '</span><br>' + c.title + '</div>';
-      html += '<div style="display:flex;align-items:center;gap:10px;">';
-      html += '<select class="onv-status-select" id="onv-status-' + c.ch + '" onclick="event.stopPropagation()" onchange="updateOpNiveauStatus(' + c.ch + ', this.value)">';
-      html += '<option value="niet-begonnen"' + (prog.status === 'niet-begonnen' ? ' selected' : '') + '>Niet begonnen</option>';
-      html += '<option value="bezig"' + (prog.status === 'bezig' ? ' selected' : '') + '>Bezig</option>';
-      html += '<option value="klaar"' + (prog.status === 'klaar' ? ' selected' : '') + '>Klaar</option>';
-      html += '</select>';
-      html += '<span class="onv-card-toggle">&#9660;</span></div></div>';
+      html += '<span class="onv-card-toggle">&#9660;</span></div>';
 
       html += '<div class="onv-card-body">';
       // Grammar
@@ -14261,10 +14233,6 @@ async function initOpNiveau() {
         html += '</div></div>';
       }
 
-      // Notes
-      html += '<div class="onv-section"><div class="onv-section-title">Eigen notities</div>';
-      html += '<textarea class="onv-notes-area" id="onv-notes-' + c.ch + '" placeholder="Schrijf hier je aantekeningen voor hoofdstuk ' + c.ch + '..." onblur="saveOpNiveauNotes(' + c.ch + ')">' + (chData.notes || '') + '</textarea></div>';
-
       html += '</div></div>';
     });
     html += '</div>';
@@ -14278,24 +14246,6 @@ async function initOpNiveau() {
     document.getElementById('onv-card-' + ch).classList.toggle('open');
   };
 
-  window.updateOpNiveauStatus = function(ch, val) {
-    if (!saved['ch' + ch]) saved['ch' + ch] = {};
-    saved['ch' + ch].status = val;
-    save();
-    // Update overview stats
-    const overview = container.querySelector('.onv-overview');
-    if (overview) {
-      let done = 0, inProg = 0;
-      OP_NIVEAU_CHAPTERS.forEach(c => { const s = (saved['ch' + c.ch] || {}).status || 'niet-begonnen'; if (s === 'klaar') done++; else if (s === 'bezig') inProg++; });
-      overview.innerHTML = '<div class="onv-stat"><strong>' + done + '</strong> / 6 klaar</div><div class="onv-stat"><strong>' + inProg + '</strong> bezig</div>';
-    }
-  };
-
-  window.saveOpNiveauNotes = function(ch) {
-    if (!saved['ch' + ch]) saved['ch' + ch] = {};
-    saved['ch' + ch].notes = document.getElementById('onv-notes-' + ch).value;
-    save();
-  };
 }
 
 // ==========================================
