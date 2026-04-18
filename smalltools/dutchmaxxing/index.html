@@ -7722,7 +7722,7 @@ function toggleHint() {
 // ==========================================
 function generatePDFContent(title, rows) {
   const siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
-  const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + title + '</title><style>body{font-family:Inter,sans-serif;padding:30px;background:#fff;color:#111;}h1{font-family:Syne,sans-serif;font-size:22px;border-bottom:4px solid #000;padding-bottom:8px;color:#000;}h2{font-size:16px;color:#1356A2;margin-top:20px;font-family:Syne,sans-serif;}table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px;border:2px solid #000;}th{background:#F7D842;color:#000;padding:8px;text-align:left;border-bottom:2px solid #000;}td{padding:6px 8px;border-bottom:1px solid #ddd;}tr:nth-child(even){background:#f9f9f9;}.pattern-label{display:inline-block;padding:2px 6px;color:#fff;font-size:10px;background:#1356A2;}.tip{background:#fffde6;border-left:4px solid #D40920;padding:8px 12px;margin:10px 0;font-size:12px;}h2,h3{page-break-after:avoid;}table{page-break-inside:auto;}tr{page-break-inside:avoid;page-break-after:auto;}thead{display:table-header-group;}table+.tip{page-break-before:avoid;}.tip{page-break-inside:avoid;}.pdf-footer{margin-top:30px;padding-top:10px;border-top:2px solid #ddd;font-size:10px;color:#999;text-align:center;}@media print{body{padding:15px;}h2,h3{page-break-after:avoid;}table{page-break-inside:auto;}tr{page-break-inside:avoid;}thead{display:table-header-group;}.pdf-footer{position:fixed;bottom:0;left:0;right:0;padding:8px;background:#fff;}}</style></head><body><h1>Dutchmaxxing \u2014 ' + title + '</h1><p style="color:#666;font-size:11px;">Gegenereerd op ' + new Date().toLocaleDateString('nl-NL') + '</p>' + rows + '<div class="pdf-footer">www.' + siteUrl + '</div><scr' + 'ipt src="/assets/js/tracker.js" defer></scr' + 'ipt></body></html>';
+  const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + title + '</title><style>@page{margin:12mm 10mm 18mm 10mm;size:A4;}body{font-family:Inter,sans-serif;padding:30px;padding-bottom:40px;background:#fff;color:#111;}h1{font-family:Syne,sans-serif;font-size:22px;border-bottom:4px solid #000;padding-bottom:8px;color:#000;}h2{font-size:16px;color:#1356A2;margin-top:20px;font-family:Syne,sans-serif;}table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px;border:2px solid #000;}th{background:#F7D842;color:#000;padding:8px;text-align:left;border-bottom:2px solid #000;}th.section-label{background:#1356A2;color:#fff;font-size:13px;font-family:Syne,sans-serif;padding:6px 8px;}td{padding:6px 8px;border-bottom:1px solid #ddd;}tr:nth-child(even){background:#f9f9f9;}.pattern-label{display:inline-block;padding:2px 6px;color:#fff;font-size:10px;background:#1356A2;}.tip{background:#fffde6;border-left:4px solid #D40920;padding:8px 12px;margin:10px 0;font-size:12px;}h2,h3{page-break-after:avoid;}table{page-break-inside:auto;}tr{page-break-inside:avoid;page-break-after:auto;}thead{display:table-header-group;}table+.tip{page-break-before:avoid;}.tip{page-break-inside:avoid;}.pdf-footer{margin-top:30px;padding-top:10px;border-top:2px solid #ddd;font-size:10px;color:#999;text-align:center;}@media print{body{padding:15px;padding-bottom:30px;}h2,h3{page-break-after:avoid;}table{page-break-inside:auto;}tr{page-break-inside:avoid;}thead{display:table-header-group;}.pdf-footer{position:fixed;bottom:0;left:0;right:0;padding:8px;background:#fff;}}</style></head><body><h1>Dutchmaxxing \u2014 ' + title + '</h1><p style="color:#666;font-size:11px;">Gegenereerd op ' + new Date().toLocaleDateString('nl-NL') + '</p>' + rows + '<div class="pdf-footer">www.' + siteUrl + '</div><scr' + 'ipt src="/assets/js/tracker.js" defer></scr' + 'ipt></body></html>';
   const w = window.open('', '_blank');
   w.document.write(html);
   w.document.close();
@@ -14299,80 +14299,87 @@ const OP_NIVEAU_CHAPTERS = [
       { title: 'Structuurwoorden', content:
         '<div style="font-size:12px;color:#555;line-height:1.6;">'
         + '<table style="width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px;">'
-        + '<thead><tr style="background:#D40920;color:#fff;"><th style="text-align:left;padding:8px;" colspan="2">Tijd</th></tr></thead>'
+        + '<thead><tr style="background:#D40920;color:#fff;"><th style="text-align:left;padding:8px;" colspan="3">Tijd</th></tr>'
+        + '<tr style="background:#f5f5f5;"><th style="padding:5px 8px;width:25%;text-align:left;">Woord</th><th style="padding:5px 8px;width:30%;text-align:left;">Engels / Notities</th><th style="padding:5px 8px;width:45%;text-align:left;">Voorbeeld</th></tr></thead>'
         + '<tbody>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;width:40%;"><strong>voordat</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">before</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>terwijl</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">while</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>tijdens</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">during</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>zolang</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">as long as</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>gedurende</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">during / for the duration of</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>nadat</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">after</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>nadien</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">afterwards (formal)</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>daarna</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">after that / then</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>toen</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">when / then (past)</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ten slotte</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">finally</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>vervolgens</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">subsequently / next</td></tr>'
-        + '<tr><td style="padding:5px 8px;"><strong>tegelijkertijd</strong></td><td style="padding:5px 8px;">at the same time</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>voordat</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">before<br><span style="font-size:11px;color:#888;">Onderschikkend. Werkwoord naar einde.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Voordat ik vertrok, belde ik haar op.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>terwijl</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">while / whereas<br><span style="font-size:11px;color:#888;">Tijd (gelijktijdig) of tegenstelling.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Terwijl ik kookte, dekte hij de tafel.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>tijdens</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">during<br><span style="font-size:11px;color:#888;">Voorzetsel (+ zelfstandig naamwoord).</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Tijdens de vergadering was het stil.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>zolang</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">as long as<br><span style="font-size:11px;color:#888;">Onderschikkend. Duur van voorwaarde.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Zolang je je best doet, is het goed.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>gedurende</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">during / for the duration of<br><span style="font-size:11px;color:#888;">Formeel. Voorzetsel (+ zn).</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Gedurende de winter blijft het koud.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>nadat</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">after<br><span style="font-size:11px;color:#888;">Onderschikkend. Vaak met voltooid verleden tijd.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Nadat we hadden gegeten, gingen we wandelen.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>nadien</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">afterwards (formal)<br><span style="font-size:11px;color:#888;">Bijwoord. Formeler dan "daarna".</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ze verhuisde naar Utrecht en werd nadien docent.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>daarna</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">after that / then<br><span style="font-size:11px;color:#888;">Bijwoord. Inversie: daarna + werkwoord.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">We aten eerst. Daarna gingen we naar huis.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>toen</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">when / then (past)<br><span style="font-size:11px;color:#888;">Alleen verleden tijd! Toen ik jong was...</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Toen ik klein was, woonden we in Groningen.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ten slotte</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">finally<br><span style="font-size:11px;color:#888;">Slot van opsomming. = uiteindelijk.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ten slotte wil ik iedereen bedanken.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>vervolgens</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">subsequently / next<br><span style="font-size:11px;color:#888;">Bijwoord. Geeft volgorde aan.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Meng de bloem. Vervolgens voeg je de eieren toe.</td></tr>'
+        + '<tr><td style="padding:5px 8px;"><strong>tegelijkertijd</strong></td><td style="padding:5px 8px;">at the same time<br><span style="font-size:11px;color:#888;">Bijwoord. Tegelijk = kort. Gelijktijdig = formeel.</span></td><td style="padding:5px 8px;font-style:italic;">Ze studeert en werkt tegelijkertijd.</td></tr>'
         + '</tbody></table>'
         + '<table style="width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px;">'
-        + '<thead><tr style="background:#1356A2;color:#fff;"><th style="text-align:left;padding:8px;" colspan="2">Opsomming</th></tr></thead>'
+        + '<thead><tr style="background:#1356A2;color:#fff;"><th style="text-align:left;padding:8px;" colspan="3">Opsomming</th></tr>'
+        + '<tr style="background:#f5f5f5;"><th style="padding:5px 8px;width:25%;text-align:left;">Woord</th><th style="padding:5px 8px;width:30%;text-align:left;">Engels / Notities</th><th style="padding:5px 8px;width:45%;text-align:left;">Voorbeeld</th></tr></thead>'
         + '<tbody>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;width:40%;"><strong>daarnaast</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">besides / in addition</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>en</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">and</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>bovendien</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">moreover / furthermore</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ten eerste</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">firstly</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ten tweede</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">secondly</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>verder</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">furthermore</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ook</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">also</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ten slotte</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">finally / lastly</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>in de eerste plaats</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">in the first place</td></tr>'
-        + '<tr><td style="padding:5px 8px;"><strong>in de tweede plaats</strong></td><td style="padding:5px 8px;">in the second place</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>daarnaast</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">besides / in addition<br><span style="font-size:11px;color:#888;">Bijwoord. Inversie. Voegt extra punt toe.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Daarnaast is hij ook een goede kok.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>en</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">and<br><span style="font-size:11px;color:#888;">Nevenschikkend. Geen inversie.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ik houd van lezen en schrijven.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>bovendien</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">moreover / furthermore<br><span style="font-size:11px;color:#888;">Bijwoord. Inversie. Sterker dan "ook".</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Het is goedkoop. Bovendien is het duurzaam.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ten eerste</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">firstly<br><span style="font-size:11px;color:#888;">Gebruik met ten tweede, ten derde...</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ten eerste moeten we het probleem begrijpen.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ten tweede</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">secondly</td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ten tweede moeten we een oplossing vinden.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>verder</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">furthermore<br><span style="font-size:11px;color:#888;">Bijwoord. Inversie. Minder formeel dan bovendien.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Verder wil ik nog iets zeggen over het budget.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ook</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">also<br><span style="font-size:11px;color:#888;">Bijwoord. Geen inversie (midden van de zin).</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Zij spreekt ook vloeiend Frans.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ten slotte</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">finally / lastly<br><span style="font-size:11px;color:#888;">Laatste punt in opsomming.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ten slotte nog een opmerking over de planning.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>in de eerste plaats</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">in the first place<br><span style="font-size:11px;color:#888;">Formeler dan "ten eerste".</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">In de eerste plaats is veiligheid belangrijk.</td></tr>'
+        + '<tr><td style="padding:5px 8px;"><strong>in de tweede plaats</strong></td><td style="padding:5px 8px;">in the second place</td><td style="padding:5px 8px;font-style:italic;">In de tweede plaats moeten we naar de kosten kijken.</td></tr>'
         + '</tbody></table>'
         + '<table style="width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px;">'
-        + '<thead><tr style="background:#2d8a56;color:#fff;"><th style="text-align:left;padding:8px;" colspan="2">Reden en oorzaak</th></tr></thead>'
+        + '<thead><tr style="background:#2d8a56;color:#fff;"><th style="text-align:left;padding:8px;" colspan="3">Reden en oorzaak</th></tr>'
+        + '<tr style="background:#f5f5f5;"><th style="padding:5px 8px;width:25%;text-align:left;">Woord</th><th style="padding:5px 8px;width:30%;text-align:left;">Engels / Notities</th><th style="padding:5px 8px;width:45%;text-align:left;">Voorbeeld</th></tr></thead>'
         + '<tbody>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;width:40%;"><strong>want</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">because (nevenschikkend)</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>door</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">because of / due to</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>namelijk</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">namely / that is to say</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>immers</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">after all</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>omdat</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">because (onderschikkend)</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>vanwege</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">because of / on account of</td></tr>'
-        + '<tr><td style="padding:5px 8px;"><strong>aangezien</strong></td><td style="padding:5px 8px;">since / given that</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>want</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">because (nevenschikkend)<br><span style="font-size:11px;color:#888;">Geen inversie. Normale woordvolgorde.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ik blijf thuis, want ik ben ziek.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>door</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">because of / due to<br><span style="font-size:11px;color:#888;">Voorzetsel (+ zn). Doordat = voegwoord (+ bijzin).</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Door het slechte weer bleef iedereen thuis.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>namelijk</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">namely / that is to say<br><span style="font-size:11px;color:#888;">Geen inversie. Staat midden in de zin.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ik kan niet komen. Ik heb namelijk een afspraak.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>immers</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">after all<br><span style="font-size:11px;color:#888;">Formeel. Geen inversie. = want tenslotte.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Dat is niet vreemd; hij is immers nog jong.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>omdat</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">because (onderschikkend)<br><span style="font-size:11px;color:#888;">Werkwoord naar einde. Persoonlijke reden.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ik bleef thuis omdat ik ziek was.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>vanwege</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">because of / on account of<br><span style="font-size:11px;color:#888;">Voorzetsel (+ zn). Wegens = formeler.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">De wedstrijd werd afgelast vanwege de regen.</td></tr>'
+        + '<tr><td style="padding:5px 8px;"><strong>aangezien</strong></td><td style="padding:5px 8px;">since / given that<br><span style="font-size:11px;color:#888;">Onderschikkend. Formeler dan omdat. Staat vaak vooraan.</span></td><td style="padding:5px 8px;font-style:italic;">Aangezien het al laat is, gaan we naar huis.</td></tr>'
         + '</tbody></table>'
         + '<table style="width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px;">'
-        + '<thead><tr style="background:#8B4513;color:#fff;"><th style="text-align:left;padding:8px;" colspan="2">Tegenstelling</th></tr></thead>'
+        + '<thead><tr style="background:#8B4513;color:#fff;"><th style="text-align:left;padding:8px;" colspan="3">Tegenstelling</th></tr>'
+        + '<tr style="background:#f5f5f5;"><th style="padding:5px 8px;width:25%;text-align:left;">Woord</th><th style="padding:5px 8px;width:30%;text-align:left;">Engels / Notities</th><th style="padding:5px 8px;width:45%;text-align:left;">Voorbeeld</th></tr></thead>'
         + '<tbody>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;width:40%;"><strong>enerzijds... anderzijds</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">on the one hand... on the other hand</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>maar</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">but</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>hoewel</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">although</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>toch</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">yet / still / nevertheless</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>daarentegen</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">on the other hand / in contrast</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>desondanks</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">despite that / nonetheless</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>integendeel</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">on the contrary</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ondanks (het feit dat)</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">despite (the fact that)</td></tr>'
-        + '<tr><td style="padding:5px 8px;"><strong>terwijl</strong></td><td style="padding:5px 8px;">while / whereas</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>enerzijds... anderzijds</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">on the one hand... on the other hand<br><span style="font-size:11px;color:#888;">Bijwoorden. Beide met inversie.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Enerzijds is het duur, anderzijds is het goed.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>maar</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">but<br><span style="font-size:11px;color:#888;">Nevenschikkend. Geen inversie.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Het is koud, maar de zon schijnt.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>hoewel</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">although<br><span style="font-size:11px;color:#888;">Onderschikkend. Werkwoord naar einde. = alhoewel.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Hoewel het regende, gingen we toch wandelen.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>toch</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">yet / still / nevertheless<br><span style="font-size:11px;color:#888;">Bijwoord. Midden in de zin of met inversie.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Het was moeilijk, maar ik heb het toch gedaan.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>daarentegen</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">on the other hand / in contrast<br><span style="font-size:11px;color:#888;">Bijwoord. Inversie.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Zij houdt van klassiek. Hij daarentegen luistert naar pop.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>desondanks</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">despite that / nonetheless<br><span style="font-size:11px;color:#888;">Bijwoord. Inversie. = ondanks dat.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Het regende. Desondanks ging ze fietsen.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>integendeel</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">on the contrary<br><span style="font-size:11px;color:#888;">Bijwoord. Vaak als reactie: "Integendeel!"</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ik ben niet boos. Integendeel, ik ben blij!</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>ondanks (het feit dat)</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">despite (the fact that)<br><span style="font-size:11px;color:#888;">Voorzetsel (+ zn) of ondanks dat (+ bijzin).</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ondanks zijn ziekte ging hij naar zijn werk.</td></tr>'
+        + '<tr><td style="padding:5px 8px;"><strong>terwijl</strong></td><td style="padding:5px 8px;">while / whereas<br><span style="font-size:11px;color:#888;">Onderschikkend. Hier als tegenstelling (niet tijd).</span></td><td style="padding:5px 8px;font-style:italic;">Hij werkt hard, terwijl zij niets doet.</td></tr>'
         + '</tbody></table>'
         + '<table style="width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px;">'
-        + '<thead><tr style="background:#b08600;color:#fff;"><th style="text-align:left;padding:8px;" colspan="2">Toelichting</th></tr></thead>'
+        + '<thead><tr style="background:#b08600;color:#fff;"><th style="text-align:left;padding:8px;" colspan="3">Toelichting</th></tr>'
+        + '<tr style="background:#f5f5f5;"><th style="padding:5px 8px;width:25%;text-align:left;">Woord</th><th style="padding:5px 8px;width:30%;text-align:left;">Engels / Notities</th><th style="padding:5px 8px;width:45%;text-align:left;">Voorbeeld</th></tr></thead>'
         + '<tbody>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;width:40%;"><strong>zo</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">so / for example</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>bijvoorbeeld</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">for example</td></tr>'
-        + '<tr><td style="padding:5px 8px;"><strong>dus</strong></td><td style="padding:5px 8px;">so / therefore</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>zo</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">so / for example<br><span style="font-size:11px;color:#888;">Als toelichting: zo + voorbeeld.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Er zijn veel voordelen. Zo is het goedkoper.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>bijvoorbeeld</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">for example<br><span style="font-size:11px;color:#888;">Afkorting: bijv. of bv. Midden in de zin.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Je kunt veel sporten doen, bijvoorbeeld zwemmen.</td></tr>'
+        + '<tr><td style="padding:5px 8px;"><strong>dus</strong></td><td style="padding:5px 8px;">so / therefore<br><span style="font-size:11px;color:#888;">Nevenschikkend. Geen inversie (of wel, als bijwoord).</span></td><td style="padding:5px 8px;font-style:italic;">Het regent, dus ik neem een paraplu mee.</td></tr>'
         + '</tbody></table>'
         + '<table style="width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px;">'
-        + '<thead><tr style="background:#6A1B9A;color:#fff;"><th style="text-align:left;padding:8px;" colspan="2">Voorwaarde</th></tr></thead>'
+        + '<thead><tr style="background:#6A1B9A;color:#fff;"><th style="text-align:left;padding:8px;" colspan="3">Voorwaarde</th></tr>'
+        + '<tr style="background:#f5f5f5;"><th style="padding:5px 8px;width:25%;text-align:left;">Woord</th><th style="padding:5px 8px;width:30%;text-align:left;">Engels / Notities</th><th style="padding:5px 8px;width:45%;text-align:left;">Voorbeeld</th></tr></thead>'
         + '<tbody>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;width:40%;"><strong>als</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">if</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>indien</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">if (formal)</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>mits</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">provided that</td></tr>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>tenzij</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">unless</td></tr>'
-        + '<tr><td style="padding:5px 8px;"><strong>wanneer</strong></td><td style="padding:5px 8px;">when / whenever</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>als</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">if<br><span style="font-size:11px;color:#888;">Onderschikkend. Spreektaal. Indien = formeel.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Als het mooi weer is, gaan we naar het strand.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>indien</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">if (formal)<br><span style="font-size:11px;color:#888;">Onderschikkend. Zakelijk/juridisch.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Indien u vragen heeft, neem dan contact op.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>mits</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">provided that<br><span style="font-size:11px;color:#888;">Positieve voorwaarde. Tegenovergestelde: tenzij.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Je mag mee, mits je je gedraagt.</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>tenzij</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">unless<br><span style="font-size:11px;color:#888;">Negatieve voorwaarde. Tegenovergestelde: mits.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ik ga, tenzij ik ziek ben.</td></tr>'
+        + '<tr><td style="padding:5px 8px;"><strong>wanneer</strong></td><td style="padding:5px 8px;">when / whenever<br><span style="font-size:11px;color:#888;">Onderschikkend. Herhaling of onbekend moment. Formeler dan "als".</span></td><td style="padding:5px 8px;font-style:italic;">Wanneer het regent, neem ik de bus.</td></tr>'
         + '</tbody></table>'
         + '<table style="width:100%;border-collapse:collapse;font-size:13px;">'
-        + '<thead><tr style="background:#37474F;color:#fff;"><th style="text-align:left;padding:8px;" colspan="2">Conclusie</th></tr></thead>'
+        + '<thead><tr style="background:#37474F;color:#fff;"><th style="text-align:left;padding:8px;" colspan="3">Conclusie</th></tr>'
+        + '<tr style="background:#f5f5f5;"><th style="padding:5px 8px;width:25%;text-align:left;">Woord</th><th style="padding:5px 8px;width:30%;text-align:left;">Engels / Notities</th><th style="padding:5px 8px;width:45%;text-align:left;">Voorbeeld</th></tr></thead>'
         + '<tbody>'
-        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;width:40%;"><strong>dus</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">so / therefore</td></tr>'
-        + '<tr><td style="padding:5px 8px;"><strong>dan ook</strong></td><td style="padding:5px 8px;">therefore / accordingly</td></tr>'
+        + '<tr><td style="padding:5px 8px;border-bottom:1px solid #eee;"><strong>dus</strong></td><td style="padding:5px 8px;border-bottom:1px solid #eee;">so / therefore<br><span style="font-size:11px;color:#888;">Nevenschikkend. Conclusie uit voorgaande.</span></td><td style="padding:5px 8px;border-bottom:1px solid #eee;font-style:italic;">Ik heb hard gestudeerd, dus ik haal het wel.</td></tr>'
+        + '<tr><td style="padding:5px 8px;"><strong>dan ook</strong></td><td style="padding:5px 8px;">therefore / accordingly<br><span style="font-size:11px;color:#888;">Bijwoord. Logisch gevolg. Midden in de zin.</span></td><td style="padding:5px 8px;font-style:italic;">Het is dan ook niet verwonderlijk dat hij slaagde.</td></tr>'
         + '</tbody></table>'
         + '</div>'
       }
@@ -14608,24 +14615,38 @@ async function initOpNiveau() {
 
       // Vocabulary from vocabulary.json
       const chVocab = vocabByChapter[c.ch] || [];
+      function sortAlpha(arr) { return arr.slice().sort((a, b) => a.nl.localeCompare(b.nl, 'nl')); }
+      function renderVocabCard(words) {
+        let h = '<div style="display:flex;flex-direction:column;gap:6px;">';
+        words.forEach(w => {
+          h += '<div style="border:1px solid #eee;border-radius:4px;padding:6px 8px;background:#fafafa;">';
+          h += '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;"><span class="nt2-vocab-nl">' + w.nl + '</span><span class="nt2-vocab-en">' + w.en + '</span></div>';
+          if (w.note) { const noteClean = w.note.replace(/^Op Niveau [A-Z0-9]+[\s.:-]*/i, '').replace(/^Positief[\s.:-]*/i, ''); if (noteClean) h += '<div style="font-size:11px;color:#555;margin-top:3px;line-height:1.4;">' + noteClean + '</div>'; }
+          if (w.example) h += '<div style="font-size:11px;color:#1356A2;margin-top:2px;font-style:italic;">' + w.example + '</div>';
+          h += '</div>';
+        });
+        h += '</div>';
+        return h;
+      }
       if (c.vocabSections) {
         c.vocabSections.forEach((sec, si) => {
-          const secWords = vnetData.filter(w => w.tags && w.tags.includes(sec.tag));
+          const secWords = sortAlpha(vnetData.filter(w => w.tags && w.tags.includes(sec.tag)));
           if (secWords.length > 0) {
-            html += '<div class="onv-section"><div class="onv-section-title">' + sec.label + ' <span class="onv-vocab-count">(' + secWords.length + ' woorden)</span></div>';
-            html += '<div style="display:flex;flex-direction:column;gap:4px;">';
-            secWords.forEach(w => {
-              html += '<div class="nt2-vocab-item"><span class="nt2-vocab-nl">' + w.nl + '</span><span class="nt2-vocab-en">' + w.en + '</span></div>';
-            });
+            const vid = 'onv-vocab-' + c.ch + '-' + si;
+            html += '<div class="onv-section" style="margin-bottom:8px;">';
+            html += '<span class="onv-grammar-tag" style="cursor:pointer;" onclick="var el=document.getElementById(\'' + vid + '\');el.style.display=el.style.display===\'none\'?\'block\':\'none\';">' + sec.label + ' (' + secWords.length + ' woorden) &#9660;</span>';
+            html += '<div id="' + vid + '" style="display:none;margin-top:8px;">';
+            html += renderVocabCard(secWords);
             html += '</div></div>';
           }
         });
       } else if (chVocab.length > 0) {
-        html += '<div class="onv-section"><div class="onv-section-title">Woordenschat <span class="onv-vocab-count">(' + chVocab.length + ' woorden)</span></div>';
-        html += '<div style="display:flex;flex-direction:column;gap:4px;">';
-        chVocab.forEach(w => {
-          html += '<div class="nt2-vocab-item"><span class="nt2-vocab-nl">' + w.nl + '</span><span class="nt2-vocab-en">' + w.en + '</span></div>';
-        });
+        const sorted = sortAlpha(chVocab);
+        const vid = 'onv-vocab-' + c.ch + '-all';
+        html += '<div class="onv-section" style="margin-bottom:8px;">';
+        html += '<span class="onv-grammar-tag" style="cursor:pointer;" onclick="var el=document.getElementById(\'' + vid + '\');el.style.display=el.style.display===\'none\'?\'block\':\'none\';">Woordenschat (' + sorted.length + ' woorden) &#9660;</span>';
+        html += '<div id="' + vid + '" style="display:none;margin-top:8px;">';
+        html += renderVocabCard(sorted);
         html += '</div></div>';
       }
 
@@ -14654,25 +14675,26 @@ async function initOpNiveau() {
       }
     });
     // Vocabulary
+    function buildVocabTable(label, words) {
+      const sorted = words.slice().sort((a, b) => a.nl.localeCompare(b.nl, 'nl'));
+      let t = '<table style="margin-top:20px;"><thead><tr><th colspan="3" class="section-label">' + label + '</th></tr><tr><th style="width:25%">Nederlands</th><th style="width:35%">Engels / Notities</th><th style="width:40%">Voorbeeld</th></tr></thead><tbody>';
+      sorted.forEach(w => {
+        const noteClean = (w.note || '').replace(/^Op Niveau [A-Z0-9]+[\s.:-]*/i, '').replace(/^Positief[\s.:-]*/i, '');
+        const enCol = '<strong>' + w.en + '</strong>' + (noteClean ? '<br><span style="font-size:10px;color:#555;">' + noteClean + '</span>' : '');
+        t += '<tr><td><strong>' + w.nl + '</strong></td><td>' + enCol + '</td><td style="font-style:italic;color:#333;font-size:11px;">' + (w.example || '') + '</td></tr>';
+      });
+      t += '</tbody></table>';
+      return t;
+    }
     if (c.vocabSections) {
       c.vocabSections.forEach(sec => {
         const secWords = vnetData.filter(w => w.tags && w.tags.includes(sec.tag));
         if (secWords.length > 0) {
-          rows += '<h2 style="color:#1356A2;margin-top:20px;">' + sec.label + ' (' + secWords.length + ' woorden)</h2>';
-          rows += '<table><thead><tr><th style="width:40%">Nederlands</th><th style="width:40%">Engels</th></tr></thead><tbody>';
-          secWords.forEach(w => {
-            rows += '<tr><td><strong>' + w.nl + '</strong></td><td>' + w.en + '</td></tr>';
-          });
-          rows += '</tbody></table>';
+          rows += buildVocabTable(sec.label + ' (' + secWords.length + ' woorden)', secWords);
         }
       });
     } else if (chVocab.length > 0) {
-      rows += '<h2 style="color:#1356A2;margin-top:20px;">Woordenschat (' + chVocab.length + ' woorden)</h2>';
-      rows += '<table><thead><tr><th style="width:40%">Nederlands</th><th style="width:40%">Engels</th></tr></thead><tbody>';
-      chVocab.forEach(w => {
-        rows += '<tr><td><strong>' + w.nl + '</strong></td><td>' + w.en + '</td></tr>';
-      });
-      rows += '</tbody></table>';
+      rows += buildVocabTable('Woordenschat (' + chVocab.length + ' woorden)', chVocab);
     }
     return rows;
   }
