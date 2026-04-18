@@ -6224,7 +6224,7 @@ const ALGEMEEN_ARTICLES = [
     source: 'De Correspondent',
     url: 'https://decorrespondent.nl/16867/sociale-media-willen-geen-waarheid-ze-willen-je-woede/bf170ce3-4202-0797-3a9b-0e4ab3f3b82a',
     highlightWords: {
-      'eenvoudiger':'simpler','beperkter':'more limited','tegenpartij':'opposing party','neergeslagen':'crushed / beaten down','slachting':'slaughter','miskenning':'misjudgment / failure to recognize','werkelijkheid':'reality','prikkeling':'stimulation / provocation','rechtvaardigen':'to justify','medeplichtig':'complicit','polarisatie':'polarization','verspreidt':'spreads','vergaande':'far-reaching','brachten':'brought','kaders':'frameworks','opzettelijk':'deliberately','verdraaid':'distorted','hevig':'intense / fierce','noodtoestand':'state of emergency','tekortkomingen':'shortcomings','overschaduwd':'overshadowed','marges':'margins','geleidelijk':'gradually','vernauwing':'narrowing','blikveld':'field of vision','slikken':'to swallow','verzameling':'collection','overtuigingen':'convictions','ongekende':'unprecedented','bekritiseren':'to criticize','inmenging':'interference','tegelijkertijd':'at the same time','eenvoudige':'simple','genegeerd':'ignored','omstandigheden':'circumstances','moedige':'courageous','misverstand':'misunderstanding','bewering':'claim / assertion','voortdurende':'continuous / ongoing','tweedeling':'division / dichotomy'
+      'eenvoudiger':'simpler','beperkter':'more limited','tegenpartij':'opposing party','neergeslagen':'crushed / beaten down','slachting':'slaughter','miskenning':'misjudgment / failure to recognize','werkelijkheid':'reality','prikkeling':'stimulation / provocation','rechtvaardigen':'to justify','medeplichtig':'complicit','polarisatie':'polarization','verspreidt':'spreads','vergaande':'far-reaching','brachten':'brought','kaders':'frameworks','opzettelijk':'deliberately','verdraaid':'distorted','hevig':'intense / fierce','noodtoestand':'state of emergency','tekortkomingen':'shortcomings','overschaduwd':'overshadowed','marges':'margins','geleidelijk':'gradually','vernauwing':'narrowing','blikveld':'field of vision','slikken':'to swallow','verzameling':'collection','overtuigingen':'convictions','ongekende':'unprecedented','bekritiseren':'to criticize','inmenging':'interference','tegelijkertijd':'at the same time','eenvoudige':'simple','genegeerd':'ignored','omstandigheden':'circumstances','moedige':'courageous','misverstand':'misunderstanding','bewering':'claim / assertion','voortdurende':'continuous / ongoing','tweedeling':'division / dichotomy','woede':'anger / rage','verzet':'resistance','vergetelheid':'oblivion / being forgotten','opeens':'suddenly','wederzijdse':'mutual'
     },
     paragraphs: [
       'Op sociale media lijkt de wereld elke dag eenvoudiger, maar we leven niet in een wereld waarin de feiten eenvoudiger zijn geworden. Het lijkt eerder alsof onze manier van kijken beperkter is. Als je vandaag iets schrijft over geweld, oorlog of onderdrukking, word je geacht een kant te kiezen; je moet je loyaliteit tonen en je uitspreken over in welk \'kamp\' je zit. En als je dat niet doet, doen anderen het voor je: je hoort automatisch bij de tegenpartij.',
@@ -14397,7 +14397,13 @@ const OP_NIVEAU_CHAPTERS = [
       'Opdracht p.37', 'Vocabulaire p.39', 'Opdrachten p.41',
       'Opdrachten p.43', 'Vocabulairelijst', 'Reflectie'
     ],
-    vocabTag: 'op-niveau-h1'
+    vocabTag: 'op-niveau-h1',
+    vocabSections: [
+      { label: 'Persoonlijkheid (Personality)', tag: 'op-niveau-h1-personality' },
+      { label: 'Algemene woordenschat', tag: 'op-niveau-h1-general' },
+      { label: 'Woordenschat 3', tag: 'op-niveau-h1-sec3' },
+      { label: 'Preposities, voegwoorden & onregelmatige werkwoorden', tag: 'op-niveau-h1-sec4' }
+    ]
   },
   {
     ch: 2, title: 'Sociaal', pages: '55-96',
@@ -14602,7 +14608,19 @@ async function initOpNiveau() {
 
       // Vocabulary from vocabulary.json
       const chVocab = vocabByChapter[c.ch] || [];
-      if (chVocab.length > 0) {
+      if (c.vocabSections) {
+        c.vocabSections.forEach((sec, si) => {
+          const secWords = vnetData.filter(w => w.tags && w.tags.includes(sec.tag));
+          if (secWords.length > 0) {
+            html += '<div class="onv-section"><div class="onv-section-title">' + sec.label + ' <span class="onv-vocab-count">(' + secWords.length + ' woorden)</span></div>';
+            html += '<div style="display:flex;flex-direction:column;gap:4px;">';
+            secWords.forEach(w => {
+              html += '<div class="nt2-vocab-item"><span class="nt2-vocab-nl">' + w.nl + '</span><span class="nt2-vocab-en">' + w.en + '</span></div>';
+            });
+            html += '</div></div>';
+          }
+        });
+      } else if (chVocab.length > 0) {
         html += '<div class="onv-section"><div class="onv-section-title">Woordenschat <span class="onv-vocab-count">(' + chVocab.length + ' woorden)</span></div>';
         html += '<div style="display:flex;flex-direction:column;gap:4px;">';
         chVocab.forEach(w => {
@@ -14636,7 +14654,19 @@ async function initOpNiveau() {
       }
     });
     // Vocabulary
-    if (chVocab.length > 0) {
+    if (c.vocabSections) {
+      c.vocabSections.forEach(sec => {
+        const secWords = vnetData.filter(w => w.tags && w.tags.includes(sec.tag));
+        if (secWords.length > 0) {
+          rows += '<h2 style="color:#1356A2;margin-top:20px;">' + sec.label + ' (' + secWords.length + ' woorden)</h2>';
+          rows += '<table><thead><tr><th style="width:40%">Nederlands</th><th style="width:40%">Engels</th></tr></thead><tbody>';
+          secWords.forEach(w => {
+            rows += '<tr><td><strong>' + w.nl + '</strong></td><td>' + w.en + '</td></tr>';
+          });
+          rows += '</tbody></table>';
+        }
+      });
+    } else if (chVocab.length > 0) {
       rows += '<h2 style="color:#1356A2;margin-top:20px;">Woordenschat (' + chVocab.length + ' woorden)</h2>';
       rows += '<table><thead><tr><th style="width:40%">Nederlands</th><th style="width:40%">Engels</th></tr></thead><tbody>';
       chVocab.forEach(w => {
