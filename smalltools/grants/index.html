@@ -7,11 +7,16 @@
 <meta name="description" content="An isometric office desk of paid open calls, fellowships and residencies in tech, art and research. Sorted into Hot Files, New Arrivals and Long-Term Projects, updated daily.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Grant Desk">
-<meta property="og:description" content="An isometric office desk of paid open calls, fellowships and residencies. Sorted into Hot Files, New Arrivals and Long-Term Projects, updated daily.">
-<meta property="og:url" content="https://artificialnouveau.github.io/smalltools/grants/">
+<meta property="og:description" content="A hand-picked desk of paid open calls, fellowships and residencies for tech, art and research. Auto-sorted by deadline. RSS and calendar feeds.">
+<meta property="og:url" content="https://www.artificialnouveau.com/smalltools/grants/">
+<meta property="og:image" content="https://www.artificialnouveau.com/smalltools/grants/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Grant Desk: paid open calls, fellowships and residencies for tech, art and research">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Grant Desk">
-<meta name="twitter:description" content="Paid open calls for tech, art and research, sorted into the right pile.">
+<meta name="twitter:description" content="Paid open calls, fellowships and residencies for tech, art and research. Auto-sorted by deadline.">
+<meta name="twitter:image" content="https://www.artificialnouveau.com/smalltools/grants/og-image.png">
 <link rel="alternate" type="application/rss+xml" title="The Grant Desk RSS" href="feed.xml">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -760,6 +765,39 @@ body {
 .folder.is-archive .folder-region,
 .folder.is-archive .meta-row .pill { filter: grayscale(0.5); }
 
+.folder .copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(255,255,255,0.85);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  padding: 3px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+  z-index: 2;
+  display: inline-block;
+  text-decoration: none;
+  line-height: 1.2;
+  transition: transform 0.1s, background 0.1s;
+}
+.folder .copy-btn:hover {
+  background: var(--sticky-yellow);
+  transform: translate(-1px, -1px);
+}
+.folder .copy-btn.copied {
+  background: var(--hot);
+  border-color: var(--hot);
+  color: #fff;
+}
+.folder.is-archive .copy-btn { display: none; }
+
 /* --- Empty state --- */
 .empty-state {
   font-family: 'DM Mono', monospace;
@@ -1096,7 +1134,11 @@ function renderFolder(grant, category, today) {
   const region = REGION_LABELS[grant.region] || grant.region || 'Open';
   const dl = deadlinePill(grant, today);
 
+  const copyText = buildCopyText(grant, dl);
+  a.dataset.copyText = copyText;
+
   const parts = [];
+  parts.push(`<span class="copy-btn" role="button" tabindex="0" aria-label="Copy grant info to clipboard">Copy info</span>`);
   parts.push(`<span class="folder-tab">${escapeHtml(tabLabel)}</span>`);
   parts.push(`<span class="folder-region">${escapeHtml(region)}</span>`);
   parts.push(`<h3>${escapeHtml(grant.title)}</h3>`);
@@ -1113,6 +1155,32 @@ function renderFolder(grant, category, today) {
 
   a.innerHTML = parts.join('');
   return a;
+}
+
+function buildCopyText(grant, dl) {
+  const lines = [];
+  lines.push(grant.title);
+  if (grant.organization) lines.push(grant.organization);
+  const loc = [grant.region, grant.location].filter(Boolean).join(' · ');
+  if (loc) lines.push(loc);
+  const moneyLine = [];
+  if (grant.amount) moneyLine.push(grant.amount);
+  if (grant.duration) moneyLine.push(grant.duration);
+  if (moneyLine.length) lines.push(moneyLine.join(' · '));
+  const deadlineDate = parseDate(grant.deadline);
+  if (deadlineDate) {
+    lines.push('Deadline: ' + formatDate(deadlineDate));
+  } else {
+    lines.push('Deadline: Rolling / undated');
+  }
+  lines.push('');
+  if (grant.description) {
+    lines.push(grant.description);
+    lines.push('');
+  }
+  if (grant.url) lines.push('Apply: ' + grant.url);
+  lines.push('More grants: https://www.artificialnouveau.com/smalltools/grants/');
+  return lines.join('\n');
 }
 
 function escapeHtml(str) {
@@ -1229,6 +1297,35 @@ function setupCopy(buttonId, urlElId, filename) {
 }
 setupCopy('copy-feed', 'feed-url-text', 'feed.xml');
 setupCopy('copy-cal', 'cal-url-text', 'calendar.ics');
+
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('.copy-btn');
+  if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const folder = btn.closest('.folder');
+  if (!folder) return;
+  const text = folder.dataset.copyText || '';
+  const original = btn.textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+  } catch (err) {
+    window.prompt('Copy this:', text);
+  }
+  setTimeout(() => {
+    btn.textContent = original;
+    btn.classList.remove('copied');
+  }, 1600);
+});
+
+document.addEventListener('keydown', (e) => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('copy-btn')) {
+    e.preventDefault();
+    e.target.click();
+  }
+});
 
 const FILTER_STATE = { region: '', type: '', amount: '', search: '' };
 
