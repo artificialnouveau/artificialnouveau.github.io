@@ -1,0 +1,51 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - UK
+X-WR-CALNAME:The Grant Desk - UK deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in tech\, art an
+ d research\, sorted into the right pile. Updated as new calls land on the 
+ desk. Filtered to: UK.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:xaixarts-4-2026@artificialnouveau.github.io
+DTSTAMP:20260425T234401Z
+DTSTART;VALUE=DATE:20260423
+DTEND;VALUE=DATE:20260424
+SUMMARY:Deadline: XAIxArts 4: 4th International Workshop on Explainable AI 
+ for the Arts
+DESCRIPTION:Call for papers\, pictorials or videos for a workshop bringing 
+ together HCI\, interaction design\, AI\, explainable AI and digital-arts r
+ esearchers and practitioners to examine explainability through creative an
+ d artistic domains. Notifications 14 May 2026.\n\nOrganisation: ACM Creati
+ vity & Cognition (University of the Arts London)\nLocation: London\, UK\nA
+ ward: Workshop participation (funding TBC)\nDuration: 1 day workshop\, 13 
+ July 2026\n\nMore: https://xaixarts.github.io/2026/
+URL:https://xaixarts.github.io/2026/
+LOCATION:London\, UK
+END:VEVENT
+BEGIN:VEVENT
+UID:cubitt-curatorial-fellowship-2026-28@artificialnouveau.github.io
+DTSTAMP:20260425T234401Z
+DTSTART;VALUE=DATE:20260510
+DTEND;VALUE=DATE:20260511
+SUMMARY:Deadline: Cubitt Curatorial Fellowship 2026-28
+DESCRIPTION:15th edition of the Cubitt Curatorial Fellowship: a 24-month re
+ sidency for one curator with in-depth contemporary-art knowledge and an in
+ terest in Cubitt's growing Civic\, Education and Community programmes. The
+  only scheme of its kind in the UK\; previous fellows have gone on to lead
+  at Glasgow International\, Rijksakademie Amsterdam and Kunsthalle Wien. T
+ hree days/week (Wed-Fri) on-site\, with evening/weekend work and TOIL poli
+ cy. Mentorship and practical support from senior management. Application d
+ eadline 23:59 Monday 10 May 2026\; interview invites 21 May\; interviews 2
+ 8 May.\n\nOrganisation: Cubitt Gallery\nLocation: London\, UK (on-site Wed
+ -Fri at 8 Angel Mews\, N1)\nAward: £34\,500 pro-rata for 3 days/week (24-
+ month fellowship)\nDuration: 24 months (June 2026 to May 2028)\n\nMore: ht
+ tps://callforcurators.com/call/cubitt-curatorial-fellowship-2026-28/
+URL:https://callforcurators.com/call/cubitt-curatorial-fellowship-2026-28/
+LOCATION:London\, UK (on-site Wed-Fri at 8 Angel Mews\, N1)
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Remote
+X-WR-CALNAME:The Grant Desk - Remote deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in tech\, art an
+ d research\, sorted into the right pile. Updated as new calls land on the 
+ desk. Filtered to: Remote.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:osv-fellowship-2026@artificialnouveau.github.io
+DTSTAMP:20260425T234401Z
+DTSTART;VALUE=DATE:20260430
+DTEND;VALUE=DATE:20260501
+SUMMARY:Deadline: O'Shaughnessy Fellowships
+DESCRIPTION:Equity-free fellowship open to adults worldwide. No application
+  fee. Includes access to investors\, partners\, mentors and optional in-pe
+ rson gatherings for Fellows.\n\nOrganisation: OSV Fellowship\nLocation: Re
+ mote\nAward: Up to $100\,000\nDuration: 1 year (remote)\n\nMore: https://w
+ ww.osvfellowship.com/
+URL:https://www.osvfellowship.com/
+LOCATION:Remote
+END:VEVENT
+END:VCALENDAR

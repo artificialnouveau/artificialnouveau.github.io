@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
-"""Generate feed.xml (RSS 2.0) and calendar.ics from grants.json
-for The Grant Desk.
+"""Generate per-region and per-timeline RSS feeds, plus calendar.ics,
+from grants.json for The Grant Desk.
+
+Outputs:
+- feed.xml                  (all grants)
+- feed-{region}.xml         (one per region: eu/us/uk/nl/remote/worldwide)
+- feed-30d.xml              (deadlines in next 30 days)
+- feed-90d.xml              (deadlines in next 90 days)
+- feed-{region}-{30d|90d}.xml  (cross product)
+- calendar.ics              (all grants with a deadline)
 
 Run manually:
     python3 smalltools/grants/generate_feed.py
 
-Also wired into .github/workflows/jekyll.yml so both files are
-regenerated on every Pages deploy. No external dependencies,
-only stdlib.
+Wired into .github/workflows/jekyll.yml so feeds regenerate on every
+Pages deploy. No external dependencies, only stdlib.
 """
 from __future__ import annotations
 
@@ -18,8 +25,6 @@ from xml.sax.saxutils import escape
 
 HERE = Path(__file__).parent
 PAGE_URL = "https://artificialnouveau.github.io/smalltools/grants/"
-FEED_URL = PAGE_URL + "feed.xml"
-CAL_URL = PAGE_URL + "calendar.ics"
 TITLE = "The Grant Desk"
 DESCRIPTION = (
     "Paid open calls, fellowships and residencies in tech, art and research, "
@@ -27,8 +32,11 @@ DESCRIPTION = (
 )
 MAX_ITEMS = 50
 
+REGIONS = ["EU", "US", "UK", "NL", "Remote", "Worldwide"]
+TIMELINES = ["30d", "90d"]
 
-def parse_date(value: str | None) -> date | None:
+
+def parse_date(value):
     if not value:
         return None
     try:
@@ -37,7 +45,7 @@ def parse_date(value: str | None) -> date | None:
         return None
 
 
-def rfc822(d: date | datetime) -> str:
+def rfc822(d):
     if isinstance(d, datetime):
         dt = d if d.tzinfo else d.replace(tzinfo=timezone.utc)
     else:
@@ -45,7 +53,7 @@ def rfc822(d: date | datetime) -> str:
     return dt.strftime("%a, %d %b %Y %H:%M:%S +0000")
 
 
-def deadline_label(deadline: date | None, today: date) -> str:
+def deadline_label(deadline, today):
     if not deadline:
         return "Rolling / undated"
     days = (deadline - today).days
@@ -59,7 +67,7 @@ def deadline_label(deadline: date | None, today: date) -> str:
     return f"{formatted} ({days} days left)"
 
 
-def build_item(grant: dict, today: date) -> str:
+def build_item(grant, today):
     title = grant.get("title", "Untitled")
     link = grant.get("url") or PAGE_URL
     guid = grant.get("id") or link
@@ -109,16 +117,88 @@ def build_item(grant: dict, today: date) -> str:
     )
 
 
-def sort_key(grant: dict):
-    added = parse_date(grant.get("addedDate"))
-    return added or date.min
+def feed_filename(region, timeline):
+    parts = ["feed"]
+    if region:
+        parts.append(region.lower())
+    if timeline:
+        parts.append(timeline)
+    return "-".join(parts) + ".xml"
 
 
-def ics_escape(value: str) -> str:
+def feed_title_desc(region, timeline):
+    suffix = []
+    if region:
+        suffix.append(region)
+    if timeline == "30d":
+        suffix.append("next 30 days")
+    elif timeline == "90d":
+        suffix.append("next 90 days")
+    if suffix:
+        return (
+            f"{TITLE} - {', '.join(suffix)}",
+            f"{DESCRIPTION} Filtered to: {', '.join(suffix)}.",
+        )
+    return TITLE, DESCRIPTION
+
+
+def filter_grants(grants, region, timeline, today):
+    out = []
+    for g in grants:
+        if region and g.get("region") != region:
+            continue
+        if timeline:
+            d = parse_date(g.get("deadline"))
+            if not d:
+                continue
+            days = (d - today).days
+            if days < 0:
+                continue
+            if timeline == "30d" and days > 30:
+                continue
+            if timeline == "90d" and days > 90:
+                continue
+        out.append(g)
+    return out
+
+
+def build_feed(grants, region, timeline, today):
+    title, desc = feed_title_desc(region, timeline)
+    filename = feed_filename(region, timeline)
+    feed_url = PAGE_URL + filename
+
+    grants_sorted = sorted(
+        grants,
+        key=lambda g: parse_date(g.get("addedDate")) or date.min,
+        reverse=True,
+    )[:MAX_ITEMS]
+
+    build_date = rfc822(datetime.now(timezone.utc))
+    items = "".join(build_item(g, today) for g in grants_sorted)
+
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
+        "<channel>\n"
+        f"  <title>{escape(title)}</title>\n"
+        f"  <link>{escape(PAGE_URL)}</link>\n"
+        f"  <description>{escape(desc)}</description>\n"
+        "  <language>en</language>\n"
+        "  <ttl>360</ttl>\n"
+        f"  <lastBuildDate>{build_date}</lastBuildDate>\n"
+        f'  <atom:link href="{escape(feed_url)}" rel="self" type="application/rss+xml"/>\n'
+        + items
+        + "</channel>\n"
+        "</rss>\n"
+    )
+
+
+def ics_escape(value):
     if not value:
         return ""
     return (
-        value.replace("\\", "\\\\")
+        str(value)
+        .replace("\\", "\\\\")
         .replace(",", "\\,")
         .replace(";", "\\;")
         .replace("\n", "\\n")
@@ -126,8 +206,7 @@ def ics_escape(value: str) -> str:
     )
 
 
-def fold_line(line: str) -> str:
-    """Fold lines longer than 75 octets per RFC 5545."""
+def fold_line(line):
     if len(line.encode("utf-8")) <= 75:
         return line
     out = []
@@ -143,32 +222,36 @@ def fold_line(line: str) -> str:
     return "\r\n".join(out)
 
 
-def build_calendar(grants: list[dict]) -> str:
-    today = date.today()
-    now_stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+def calendar_filename(region):
+    if not region:
+        return "calendar.ics"
+    return f"calendar-{region.lower()}.ics"
 
+
+def build_calendar(grants, today, region=None):
+    now_stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    name_suffix = f" - {region}" if region else ""
+    desc_suffix = f" Filtered to: {region}." if region else ""
     lines = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
         "PRODID:-//The Grant Desk//Calendar//EN",
         "CALSCALE:GREGORIAN",
         "METHOD:PUBLISH",
-        f"NAME:{ics_escape(TITLE)}",
-        f"X-WR-CALNAME:{ics_escape(TITLE + ' deadlines')}",
-        f"X-WR-CALDESC:{ics_escape(DESCRIPTION)}",
+        f"NAME:{ics_escape(TITLE + name_suffix)}",
+        f"X-WR-CALNAME:{ics_escape(TITLE + name_suffix + ' deadlines')}",
+        f"X-WR-CALDESC:{ics_escape(DESCRIPTION + desc_suffix)}",
         "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
         "X-PUBLISHED-TTL:PT12H",
     ]
-
+    if region:
+        grants = [g for g in grants if g.get("region") == region]
     for grant in grants:
         deadline = parse_date(grant.get("deadline"))
         if not deadline:
             continue
-        # Keep recently expired (last 60 days) so subscribers see them
-        # briefly disappear from the calendar rather than vanishing instantly.
         if (today - deadline).days > 60:
             continue
-
         end = deadline + timedelta(days=1)
         title = grant.get("title", "Untitled")
         url = grant.get("url") or ""
@@ -218,43 +301,35 @@ def build_calendar(grants: list[dict]) -> str:
     return "\r\n".join(fold_line(line) for line in lines) + "\r\n"
 
 
-def main() -> int:
+def main():
     src = HERE / "grants.json"
-    feed_dst = HERE / "feed.xml"
-    cal_dst = HERE / "calendar.ics"
     data = json.loads(src.read_text(encoding="utf-8"))
     grants = data.get("grants", []) or []
-
     today = date.today()
-    grants_sorted = sorted(grants, key=sort_key, reverse=True)[:MAX_ITEMS]
 
-    build_date = rfc822(datetime.now(timezone.utc))
-    items = "".join(build_item(g, today) for g in grants_sorted)
+    region_options = [None] + REGIONS
+    timeline_options = [None] + TIMELINES
 
-    feed = (
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
-        "<channel>\n"
-        f"  <title>{escape(TITLE)}</title>\n"
-        f"  <link>{escape(PAGE_URL)}</link>\n"
-        f"  <description>{escape(DESCRIPTION)}</description>\n"
-        "  <language>en</language>\n"
-        "  <ttl>360</ttl>\n"
-        f"  <lastBuildDate>{build_date}</lastBuildDate>\n"
-        f'  <atom:link href="{escape(FEED_URL)}" rel="self" type="application/rss+xml"/>\n'
-        + items
-        + "</channel>\n"
-        "</rss>\n"
-    )
-    feed_dst.write_text(feed, encoding="utf-8")
-    print(f"Wrote {feed_dst.relative_to(HERE.parent.parent)} ({len(grants_sorted)} RSS items)")
+    written = []
+    for region in region_options:
+        for timeline in timeline_options:
+            filtered = filter_grants(grants, region, timeline, today)
+            feed = build_feed(filtered, region, timeline, today)
+            name = feed_filename(region, timeline)
+            (HERE / name).write_text(feed, encoding="utf-8")
+            written.append((name, len(filtered)))
 
-    cal_dst.write_text(build_calendar(grants), encoding="utf-8")
-    cal_event_count = sum(
-        1 for g in grants
-        if (d := parse_date(g.get("deadline"))) and (today - d).days <= 60
-    )
-    print(f"Wrote {cal_dst.relative_to(HERE.parent.parent)} ({cal_event_count} calendar events)")
+    cals_written = []
+    for region in [None] + REGIONS:
+        ics_text = build_calendar(grants, today, region=region)
+        name = calendar_filename(region)
+        (HERE / name).write_text(ics_text, encoding="utf-8")
+        cals_written.append(name)
+
+    print(f"Wrote {len(written)} RSS feeds:")
+    for name, count in written:
+        print(f"  {name}: {count} items")
+    print(f"Wrote {len(cals_written)} calendars: {', '.join(cals_written)}")
     return 0
 
 
