@@ -1305,7 +1305,7 @@ function renderFolder(grant, category, today) {
   if (grant.amount) meta.push(`<span class="pill amount">${escapeHtml(grant.amount)}</span>`);
   meta.push(`<span class="pill deadline ${dl.cls}">${escapeHtml(dl.text)}</span>`);
   if (grant.duration) meta.push(`<span class="pill">${escapeHtml(grant.duration)}</span>`);
-  if (grant.fee === false) meta.push(`<span class="pill">No fee</span>`);
+  if (grant.fee === false) meta.push(`<span class="pill">No application fee</span>`);
   parts.push(`<div class="meta-row">${meta.join('')}</div>`);
 
   a.innerHTML = parts.join('');
