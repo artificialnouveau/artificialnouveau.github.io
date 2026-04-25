@@ -1089,14 +1089,6 @@ body {
   </div>
 </section>
 
-<div class="new-banner" id="new-banner">
-  <div class="inner">
-    <span id="new-status">All caught up. Nothing new since your last visit.</span>
-    <button type="button" id="new-toggle" aria-pressed="false">Show only new</button>
-    <button type="button" class="dismiss-btn" id="new-dismiss">Mark as seen</button>
-  </div>
-</div>
-
 <section class="shortlist-bar" id="shortlist-bar" aria-label="My shortlist">
   <span class="sl-label">My shortlist:</span>
   <button type="button" id="sl-toggle" aria-pressed="false">Show only my picks (<span id="sl-count">0</span>)</button>
@@ -1104,6 +1096,14 @@ body {
   <button type="button" id="sl-ics" disabled>Download .ics</button>
   <button type="button" id="sl-clear" disabled>Clear</button>
 </section>
+
+<div class="new-banner" id="new-banner">
+  <div class="inner">
+    <span id="new-status">All caught up. Nothing new since your last visit.</span>
+    <button type="button" id="new-toggle" aria-pressed="false">Show only new</button>
+    <button type="button" class="dismiss-btn" id="new-dismiss">Mark as seen</button>
+  </div>
+</div>
 
 <main class="sections" id="sections">
   <section class="section" id="section-hot">
@@ -1655,7 +1655,9 @@ function refreshNewBanner(grants) {
   if (newCount === 0) {
     status.textContent = 'All caught up. Nothing new since your last visit.';
     toggle.disabled = true;
+    toggle.title = 'Disabled: there are no new grants since your last visit. The next time a grant is added, this will switch on.';
     dismiss.disabled = true;
+    dismiss.title = 'Disabled: there is nothing to mark as seen yet.';
     if (NEW_ONLY) {
       NEW_ONLY = false;
       toggle.classList.remove('is-active');
@@ -1666,7 +1668,9 @@ function refreshNewBanner(grants) {
   } else {
     status.innerHTML = '<strong>' + newCount + '</strong> new since your last visit';
     toggle.disabled = false;
+    toggle.title = 'Filter the page to only the grants added since your last visit.';
     dismiss.disabled = false;
+    dismiss.title = 'Reset the new-since baseline to today, so the NEW badges and banner clear until something else lands.';
   }
 }
 
