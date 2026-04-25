@@ -468,6 +468,7 @@ body {
 .chip.toggle.is-active { background: var(--hot); border-color: var(--hot); color: #fff; }
 
 .folder.filtered-out { display: none !important; }
+.folder.not-shortlisted { display: none !important; }
 .empty-state.filter-empty { background: rgba(255,255,255,0.55); }
 
 /* --- Submit-a-grant --- */
@@ -765,10 +766,18 @@ body {
 .folder.is-archive .folder-region,
 .folder.is-archive .meta-row .pill { filter: grayscale(0.5); }
 
-.folder .copy-btn {
+.folder .card-actions {
   position: absolute;
   top: 8px;
   right: 8px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  z-index: 2;
+}
+
+.folder .copy-btn,
+.folder .pick-btn {
   font-family: 'DM Mono', monospace;
   font-size: 10px;
   text-transform: uppercase;
@@ -781,13 +790,13 @@ body {
   cursor: pointer;
   font-weight: 600;
   user-select: none;
-  z-index: 2;
   display: inline-block;
   text-decoration: none;
   line-height: 1.2;
   transition: transform 0.1s, background 0.1s;
 }
-.folder .copy-btn:hover {
+.folder .copy-btn:hover,
+.folder .pick-btn:hover {
   background: var(--sticky-yellow);
   transform: translate(-1px, -1px);
 }
@@ -796,7 +805,66 @@ body {
   border-color: var(--hot);
   color: #fff;
 }
-.folder.is-archive .copy-btn { display: none; }
+.folder .pick-btn {
+  font-size: 13px;
+  padding: 2px 8px;
+  line-height: 1;
+}
+.folder .pick-btn.is-picked {
+  background: var(--sticky-yellow);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.folder.is-archive .copy-btn,
+.folder.is-archive .pick-btn { display: none; }
+
+/* --- Shortlist bar --- */
+.shortlist-bar {
+  max-width: 1180px;
+  margin: 12px auto 0;
+  padding: 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+}
+.shortlist-bar .sl-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+  margin-right: 6px;
+}
+.shortlist-bar button {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #fff;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  padding: 5px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.shortlist-bar button:hover { background: var(--sticky-yellow); }
+.shortlist-bar button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.shortlist-bar button:disabled:hover { background: #fff; }
+.shortlist-bar button.is-active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.shortlist-bar button.copied {
+  background: var(--hot);
+  border-color: var(--hot);
+  color: #fff;
+}
 
 /* --- Empty state --- */
 .empty-state {
@@ -948,6 +1016,14 @@ body {
     <button class="chip" type="button" data-value="25k-plus">$25K+</button>
     <button class="chip" type="button" data-value="in-kind">Funded / in-kind</button>
   </div>
+</section>
+
+<section class="shortlist-bar" id="shortlist-bar" aria-label="My shortlist">
+  <span class="sl-label">My shortlist:</span>
+  <button type="button" id="sl-toggle" aria-pressed="false">Show only my picks (<span id="sl-count">0</span>)</button>
+  <button type="button" id="sl-share" disabled>Share picks</button>
+  <button type="button" id="sl-ics" disabled>Download .ics</button>
+  <button type="button" id="sl-clear" disabled>Clear</button>
 </section>
 
 <main class="sections" id="sections">
@@ -1136,9 +1212,13 @@ function renderFolder(grant, category, today) {
 
   const copyText = buildCopyText(grant, dl);
   a.dataset.copyText = copyText;
+  a.dataset.grantId = grant.id || '';
 
   const parts = [];
-  parts.push(`<span class="copy-btn" role="button" tabindex="0" aria-label="Copy grant info to clipboard">Copy info</span>`);
+  parts.push(`<div class="card-actions">
+    <span class="pick-btn" role="button" tabindex="0" data-pick-id="${escapeHtml(grant.id || '')}" aria-label="Save to shortlist" title="Save to shortlist">&#9733;</span>
+    <span class="copy-btn" role="button" tabindex="0" aria-label="Copy grant info to clipboard">Copy info</span>
+  </div>`);
   parts.push(`<span class="folder-tab">${escapeHtml(tabLabel)}</span>`);
   parts.push(`<span class="folder-region">${escapeHtml(region)}</span>`);
   parts.push(`<h3>${escapeHtml(grant.title)}</h3>`);
@@ -1257,6 +1337,7 @@ async function load() {
   renderInto('grid-archive', buckets.archive, 'archive');
 
   buildFilterChips();
+  refreshPickStates();
 
   document.getElementById('meta-hot').textContent = buckets.hot.length === 1 ? '1 grant' : `${buckets.hot.length} grants`;
   document.getElementById('meta-new').textContent = buckets.new.length === 1 ? '1 grant' : `${buckets.new.length} grants`;
@@ -1322,7 +1403,7 @@ document.addEventListener('click', async (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
-  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('copy-btn')) {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && (e.target.classList.contains('copy-btn') || e.target.classList.contains('pick-btn'))) {
     e.preventDefault();
     e.target.click();
   }
@@ -1457,6 +1538,195 @@ function applyFilters() {
     }
   }
 }
+
+// --- Shortlist (localStorage + URL hash) ---
+const PICKS_KEY = 'grantdesk-picks';
+const PICKS = new Set();
+let SHORTLIST_ONLY = false;
+
+function loadPicks() {
+  const m = window.location.hash.match(/picks=([^&]*)/);
+  if (m && m[1]) {
+    const ids = decodeURIComponent(m[1]).split(',').filter(Boolean);
+    ids.forEach(id => PICKS.add(id));
+    try { localStorage.setItem(PICKS_KEY, JSON.stringify([...PICKS])); } catch (_) {}
+    return;
+  }
+  try {
+    const stored = JSON.parse(localStorage.getItem(PICKS_KEY) || '[]');
+    if (Array.isArray(stored)) stored.forEach(id => PICKS.add(id));
+  } catch (_) {}
+}
+
+function savePicks() {
+  try { localStorage.setItem(PICKS_KEY, JSON.stringify([...PICKS])); } catch (_) {}
+  updateHash();
+}
+
+function updateHash() {
+  const ids = [...PICKS];
+  if (ids.length === 0) {
+    if (window.location.hash) history.replaceState(null, '', window.location.pathname + window.location.search);
+  } else {
+    history.replaceState(null, '', window.location.pathname + window.location.search + '#picks=' + encodeURIComponent(ids.join(',')));
+  }
+}
+
+function refreshPickStates() {
+  document.querySelectorAll('.pick-btn').forEach(btn => {
+    const id = btn.dataset.pickId;
+    const picked = PICKS.has(id);
+    btn.classList.toggle('is-picked', picked);
+    btn.title = picked ? 'Remove from shortlist' : 'Save to shortlist';
+  });
+  const count = PICKS.size;
+  const countEl = document.getElementById('sl-count');
+  if (countEl) countEl.textContent = count;
+  ['sl-share', 'sl-ics', 'sl-clear'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) b.disabled = count === 0;
+  });
+  if (count === 0 && SHORTLIST_ONLY) {
+    SHORTLIST_ONLY = false;
+    const t = document.getElementById('sl-toggle');
+    if (t) { t.classList.remove('is-active'); t.setAttribute('aria-pressed', 'false'); }
+    applyShortlistFilter();
+  }
+}
+
+function applyShortlistFilter() {
+  document.querySelectorAll('.folder').forEach(f => {
+    if (!SHORTLIST_ONLY) {
+      f.classList.remove('not-shortlisted');
+    } else {
+      f.classList.toggle('not-shortlisted', !PICKS.has(f.dataset.grantId));
+    }
+  });
+}
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.pick-btn');
+  if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const id = btn.dataset.pickId;
+  if (!id) return;
+  if (PICKS.has(id)) PICKS.delete(id); else PICKS.add(id);
+  savePicks();
+  refreshPickStates();
+  if (SHORTLIST_ONLY) applyShortlistFilter();
+});
+
+function setupShortlistBar() {
+  const toggle = document.getElementById('sl-toggle');
+  const share = document.getElementById('sl-share');
+  const clear = document.getElementById('sl-clear');
+  const ics = document.getElementById('sl-ics');
+  if (!toggle) return;
+  toggle.addEventListener('click', () => {
+    SHORTLIST_ONLY = !SHORTLIST_ONLY;
+    toggle.classList.toggle('is-active', SHORTLIST_ONLY);
+    toggle.setAttribute('aria-pressed', String(SHORTLIST_ONLY));
+    applyShortlistFilter();
+  });
+  share.addEventListener('click', async () => {
+    if (!PICKS.size) return;
+    const url = window.location.origin + window.location.pathname + '#picks=' + encodeURIComponent([...PICKS].join(','));
+    try {
+      await navigator.clipboard.writeText(url);
+      const original = share.textContent;
+      share.textContent = 'Copied';
+      share.classList.add('copied');
+      setTimeout(() => { share.textContent = original; share.classList.remove('copied'); }, 1600);
+    } catch (_) {
+      window.prompt('Copy this URL:', url);
+    }
+  });
+  clear.addEventListener('click', () => {
+    if (!PICKS.size) return;
+    if (!confirm('Clear all ' + PICKS.size + ' shortlisted grants?')) return;
+    PICKS.clear();
+    savePicks();
+    refreshPickStates();
+    applyShortlistFilter();
+  });
+  ics.addEventListener('click', async () => {
+    try {
+      const res = await fetch('grants.json', { cache: 'no-cache' });
+      const data = await res.json();
+      const today = new Date(); today.setHours(0,0,0,0);
+      const picked = (data.grants || []).filter(g => PICKS.has(g.id));
+      const blob = new Blob([buildShortlistICS(picked, today)], { type: 'text/calendar;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'grant-desk-shortlist.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    } catch (err) {
+      alert('Could not generate calendar: ' + err.message);
+    }
+  });
+}
+
+function icsEscape(s) {
+  if (!s) return '';
+  return String(s).replace(/\\/g, '\\\\').replace(/,/g, '\\,').replace(/;/g, '\\;').replace(/\n/g, '\\n').replace(/\r/g, '');
+}
+function icsDate(d) {
+  return d.getFullYear() + String(d.getMonth() + 1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
+}
+function icsTimestamp(d) {
+  return d.getUTCFullYear() + String(d.getUTCMonth()+1).padStart(2,'0') + String(d.getUTCDate()).padStart(2,'0') + 'T' + String(d.getUTCHours()).padStart(2,'0') + String(d.getUTCMinutes()).padStart(2,'0') + String(d.getUTCSeconds()).padStart(2,'0') + 'Z';
+}
+function buildShortlistICS(grants) {
+  const now = new Date();
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//The Grant Desk//Shortlist//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'NAME:My Grant Desk Shortlist',
+    'X-WR-CALNAME:My Grant Desk Shortlist',
+  ];
+  let withDeadline = 0;
+  for (const g of grants) {
+    const d = parseDate(g.deadline);
+    if (!d) continue;
+    withDeadline++;
+    const end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+    const uid = (g.id || g.url || g.title) + '@thegrantdesk.shortlist';
+    const desc = [
+      g.organization,
+      g.location ? 'Location: ' + g.location : '',
+      g.amount ? 'Award: ' + g.amount : '',
+      g.description || '',
+      g.url ? 'More: ' + g.url : ''
+    ].filter(Boolean).join('\n\n');
+    lines.push(
+      'BEGIN:VEVENT',
+      'UID:' + uid,
+      'DTSTAMP:' + icsTimestamp(now),
+      'DTSTART;VALUE=DATE:' + icsDate(d),
+      'DTEND;VALUE=DATE:' + icsDate(end),
+      'SUMMARY:' + icsEscape('Deadline: ' + g.title),
+      'DESCRIPTION:' + icsEscape(desc),
+    );
+    if (g.url) lines.push('URL:' + g.url);
+    if (g.location) lines.push('LOCATION:' + icsEscape(g.location));
+    lines.push('END:VEVENT');
+  }
+  lines.push('END:VCALENDAR');
+  if (withDeadline === 0) {
+    setTimeout(() => alert('None of your shortlisted grants have a fixed deadline; the calendar will be empty. Rolling/undated grants cannot be added as calendar events.'), 100);
+  }
+  return lines.join('\r\n') + '\r\n';
+}
+
+loadPicks();
+setupShortlistBar();
 
 (function setupPopovers() {
   const closeAll = () => {
