@@ -534,6 +534,17 @@ body {
   cursor: not-allowed;
   transform: none;
 }
+.new-banner .inner .banner-help {
+  flex-basis: 100%;
+  margin-top: 4px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+.new-banner .inner .banner-help strong { color: var(--ink); font-weight: 700; }
 .new-banner .inner button.is-active { background: var(--hot); border-color: var(--hot); }
 .new-banner .inner .dismiss-btn {
   background: transparent;
@@ -1102,6 +1113,7 @@ body {
     <span id="new-status">All caught up. Nothing new since your last visit.</span>
     <button type="button" id="new-toggle" aria-pressed="false">Show only new</button>
     <button type="button" class="dismiss-btn" id="new-dismiss">Mark as seen</button>
+    <small class="banner-help"><strong>Show only new</strong> filters the page to grants added since your last visit. <strong>Mark as seen</strong> resets that baseline to today, clearing the NEW badges.</small>
   </div>
 </div>
 
@@ -1655,9 +1667,9 @@ function refreshNewBanner(grants) {
   if (newCount === 0) {
     status.textContent = 'All caught up. Nothing new since your last visit.';
     toggle.disabled = true;
-    toggle.title = 'Disabled: there are no new grants since your last visit. The next time a grant is added, this will switch on.';
-    dismiss.disabled = true;
-    dismiss.title = 'Disabled: there is nothing to mark as seen yet.';
+    toggle.title = 'Disabled: there are no new grants to filter. The next time a grant is added, this will switch on.';
+    dismiss.disabled = false;
+    dismiss.title = 'Set today as your "last seen" baseline. Useful on a first visit to anchor when you started watching the desk.';
     if (NEW_ONLY) {
       NEW_ONLY = false;
       toggle.classList.remove('is-active');
