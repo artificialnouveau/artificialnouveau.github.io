@@ -469,6 +469,72 @@ body {
 
 .folder.filtered-out { display: none !important; }
 .folder.not-shortlisted { display: none !important; }
+.folder.not-new { display: none !important; }
+
+/* "NEW since last visit" badge on a card */
+.folder.is-new .new-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--hot);
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 2px 6px;
+  border: 1.5px solid var(--line);
+  border-radius: 3px;
+  transform: rotate(-4deg);
+  box-shadow: 1px 1px 0 var(--line);
+  z-index: 1;
+}
+.folder:not(.is-new) .new-badge { display: none; }
+
+/* "X new since last visit" banner */
+.new-banner {
+  max-width: 1180px;
+  margin: 18px auto 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.new-banner[hidden] { display: none; }
+.new-banner .inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--sticky-yellow);
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 14px;
+  box-shadow: 3px 3px 0 var(--line);
+  transform: rotate(-0.4deg);
+  flex-wrap: wrap;
+}
+.new-banner .inner strong { font-weight: 700; }
+.new-banner .inner button {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1.5px solid var(--line);
+  padding: 5px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.new-banner .inner button:hover { transform: translate(-1px, -1px); }
+.new-banner .inner button.is-active { background: var(--hot); border-color: var(--hot); }
+.new-banner .inner .dismiss-btn {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+}
 .empty-state.filter-empty { background: rgba(255,255,255,0.55); }
 
 /* --- Submit-a-grant --- */
@@ -1018,6 +1084,14 @@ body {
   </div>
 </section>
 
+<div class="new-banner" id="new-banner" hidden>
+  <div class="inner">
+    <span><strong id="new-count">0</strong> new since your last visit</span>
+    <button type="button" id="new-toggle" aria-pressed="false">Show only new</button>
+    <button type="button" class="dismiss-btn" id="new-dismiss">Mark as seen</button>
+  </div>
+</div>
+
 <section class="shortlist-bar" id="shortlist-bar" aria-label="My shortlist">
   <span class="sl-label">My shortlist:</span>
   <button type="button" id="sl-toggle" aria-pressed="false">Show only my picks (<span id="sl-count">0</span>)</button>
@@ -1219,6 +1293,7 @@ function renderFolder(grant, category, today) {
     <span class="pick-btn" role="button" tabindex="0" data-pick-id="${escapeHtml(grant.id || '')}" aria-label="Save to shortlist" title="Save to shortlist">&#9733;</span>
     <span class="copy-btn" role="button" tabindex="0" aria-label="Copy grant info to clipboard">Copy info</span>
   </div>`);
+  parts.push(`<span class="new-badge" aria-hidden="true">NEW</span>`);
   parts.push(`<span class="folder-tab">${escapeHtml(tabLabel)}</span>`);
   parts.push(`<span class="folder-region">${escapeHtml(region)}</span>`);
   parts.push(`<h3>${escapeHtml(grant.title)}</h3>`);
@@ -1338,6 +1413,10 @@ async function load() {
 
   buildFilterChips();
   refreshPickStates();
+  loadLastSeen();
+  setupNewBanner(data.grants || []);
+  markFolderNewness(data.grants || []);
+  refreshNewBanner(data.grants || []);
 
   document.getElementById('meta-hot').textContent = buckets.hot.length === 1 ? '1 grant' : `${buckets.hot.length} grants`;
   document.getElementById('meta-new').textContent = buckets.new.length === 1 ? '1 grant' : `${buckets.new.length} grants`;
@@ -1536,6 +1615,94 @@ function applyFilters() {
     } else {
       meta.textContent = `${visible} of ${total} shown`;
     }
+  }
+}
+
+// --- "New since last visit" tracking ---
+const SEEN_KEY = 'grantdesk-last-seen';
+let LAST_SEEN = null;
+let NEW_ONLY = false;
+
+function loadLastSeen() {
+  LAST_SEEN = localStorage.getItem(SEEN_KEY);
+}
+
+function isNewGrant(grant) {
+  if (!LAST_SEEN) return false;
+  if (!grant.addedDate) return false;
+  return grant.addedDate > LAST_SEEN;
+}
+
+function markFolderNewness(grants) {
+  const idToNew = new Map();
+  for (const g of grants) idToNew.set(g.id, isNewGrant(g));
+  document.querySelectorAll('.folder').forEach(f => {
+    f.classList.toggle('is-new', !!idToNew.get(f.dataset.grantId));
+  });
+}
+
+function refreshNewBanner(grants) {
+  const newCount = grants.filter(isNewGrant).length;
+  const banner = document.getElementById('new-banner');
+  const countEl = document.getElementById('new-count');
+  if (!banner || !countEl) return;
+  if (newCount === 0) {
+    banner.setAttribute('hidden', '');
+    if (NEW_ONLY) {
+      NEW_ONLY = false;
+      applyNewFilter();
+    }
+    return;
+  }
+  countEl.textContent = newCount;
+  banner.removeAttribute('hidden');
+}
+
+function applyNewFilter() {
+  document.querySelectorAll('.folder').forEach(f => {
+    if (!NEW_ONLY) f.classList.remove('not-new');
+    else f.classList.toggle('not-new', !f.classList.contains('is-new'));
+  });
+}
+
+function setupNewBanner(grants) {
+  const toggle = document.getElementById('new-toggle');
+  const dismiss = document.getElementById('new-dismiss');
+  if (!toggle || !dismiss) return;
+  toggle.addEventListener('click', () => {
+    NEW_ONLY = !NEW_ONLY;
+    toggle.classList.toggle('is-active', NEW_ONLY);
+    toggle.setAttribute('aria-pressed', String(NEW_ONLY));
+    toggle.textContent = NEW_ONLY ? 'Show all' : 'Show only new';
+    applyNewFilter();
+  });
+  dismiss.addEventListener('click', () => {
+    LAST_SEEN = new Date().toISOString().slice(0, 10);
+    localStorage.setItem(SEEN_KEY, LAST_SEEN);
+    NEW_ONLY = false;
+    toggle.classList.remove('is-active');
+    toggle.setAttribute('aria-pressed', 'false');
+    toggle.textContent = 'Show only new';
+    markFolderNewness(grants);
+    applyNewFilter();
+    document.getElementById('new-banner').setAttribute('hidden', '');
+  });
+  // Auto-update lastSeen when user leaves the tab/page
+  let scheduled = false;
+  const updateSeen = () => {
+    if (scheduled) return;
+    scheduled = true;
+    const today = new Date().toISOString().slice(0, 10);
+    localStorage.setItem(SEEN_KEY, today);
+  };
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) updateSeen();
+  });
+  window.addEventListener('beforeunload', updateSeen);
+  // First-time visitor: silently set today's date so they don't see "everything is new"
+  if (!LAST_SEEN) {
+    LAST_SEEN = new Date().toISOString().slice(0, 10);
+    localStorage.setItem(SEEN_KEY, LAST_SEEN);
   }
 }
 
