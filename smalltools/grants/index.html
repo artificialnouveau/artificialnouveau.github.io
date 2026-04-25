@@ -1011,7 +1011,7 @@ body {
 </section>
 
 <footer class="page-footer">
-  <p>Maintained by hand. Sorted automatically by deadline. <a href="/">artificialnouveau</a></p>
+  <p>Maintained by hand. Sorted automatically by deadline.</p>
   <p style="margin-top: 14px;">
     <a class="bmc-link" href="https://buymeacoffee.com/artnou" target="_blank" rel="noopener">
       <span class="cup" aria-hidden="true"></span>
@@ -1179,7 +1179,8 @@ function buildCopyText(grant, dl) {
     lines.push('');
   }
   if (grant.url) lines.push('Apply: ' + grant.url);
-  lines.push('More grants: https://www.artificialnouveau.com/smalltools/grants/');
+  const pageUrl = new URL('.', window.location.href).toString();
+  lines.push('More grants: ' + pageUrl);
   return lines.join('\n');
 }
 
