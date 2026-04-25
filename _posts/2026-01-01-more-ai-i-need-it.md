@@ -1,6 +1,7 @@
 ---
 title: "MORE AI! I NEED IT! PLEASE!"
 image: /assets/portfolio/moreai.jpg
+archived: true
 ---
 
 [![MORE AI! I NEED IT! PLEASE!](/assets/portfolio/moreai.jpg)](https://www.artificialnouveau.com/publicai/moreaiineedit/index.html)

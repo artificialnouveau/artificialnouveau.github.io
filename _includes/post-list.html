@@ -1,5 +1,7 @@
 <div class="gallery-grid">
   {% for post in site.posts %}
+    {% if post.archived %}{% continue %}{% endif %}
+    {% if post.hidden_from_gallery %}{% continue %}{% endif %}
     <a href="{{ site.baseurl }}{{ post.url }}" class="gallery-card">
       <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="gallery-image">
       <div class="gallery-content">

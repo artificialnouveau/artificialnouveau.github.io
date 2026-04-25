@@ -2,6 +2,7 @@
 title: "StemWijzer Gemeente 2026"
 image: /assets/portfolio/stemwijzer_gemeente2026.png
 excerpt: "An isometric pixel-art quiz game for the 2026 Dutch municipal elections. Walk through themed city zones, talk to NPCs, and discover which political party matches your views."
+hidden_from_gallery: true
 ---
 
 StemWijzer Gemeente 2026 is an interactive isometric quiz game inspired by the Dutch StemWijzer voting guide, built for the 2026 municipal elections (Gemeenteraadsverkiezingen). Instead of a standard questionnaire, players explore a stylized city — rendered in a Patrick Caulfield-inspired flat pop-art aesthetic — walking between themed zones and interacting with NPCs to answer policy statements.
