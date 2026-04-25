@@ -1664,24 +1664,15 @@ function refreshNewBanner(grants) {
   const toggle = document.getElementById('new-toggle');
   const dismiss = document.getElementById('new-dismiss');
   if (!status || !toggle || !dismiss) return;
+  toggle.disabled = false;
+  dismiss.disabled = false;
   if (newCount === 0) {
     status.textContent = 'All caught up. Nothing new since your last visit.';
-    toggle.disabled = true;
-    toggle.title = 'Disabled: there are no new grants to filter. The next time a grant is added, this will switch on.';
-    dismiss.disabled = false;
+    toggle.title = 'Filter to grants added since your last visit (currently 0).';
     dismiss.title = 'Set today as your "last seen" baseline. Useful on a first visit to anchor when you started watching the desk.';
-    if (NEW_ONLY) {
-      NEW_ONLY = false;
-      toggle.classList.remove('is-active');
-      toggle.setAttribute('aria-pressed', 'false');
-      toggle.textContent = 'Show only new';
-      applyNewFilter();
-    }
   } else {
     status.innerHTML = '<strong>' + newCount + '</strong> new since your last visit';
-    toggle.disabled = false;
     toggle.title = 'Filter the page to only the grants added since your last visit.';
-    dismiss.disabled = false;
     dismiss.title = 'Reset the new-since baseline to today, so the NEW badges and banner clear until something else lands.';
   }
 }
