@@ -529,6 +529,11 @@ body {
   font-weight: 600;
 }
 .new-banner .inner button:hover { transform: translate(-1px, -1px); }
+.new-banner .inner button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
 .new-banner .inner button.is-active { background: var(--hot); border-color: var(--hot); }
 .new-banner .inner .dismiss-btn {
   background: transparent;
@@ -1084,9 +1089,9 @@ body {
   </div>
 </section>
 
-<div class="new-banner" id="new-banner" hidden>
+<div class="new-banner" id="new-banner">
   <div class="inner">
-    <span><strong id="new-count">0</strong> new since your last visit</span>
+    <span id="new-status">All caught up. Nothing new since your last visit.</span>
     <button type="button" id="new-toggle" aria-pressed="false">Show only new</button>
     <button type="button" class="dismiss-btn" id="new-dismiss">Mark as seen</button>
   </div>
@@ -1643,19 +1648,26 @@ function markFolderNewness(grants) {
 
 function refreshNewBanner(grants) {
   const newCount = grants.filter(isNewGrant).length;
-  const banner = document.getElementById('new-banner');
-  const countEl = document.getElementById('new-count');
-  if (!banner || !countEl) return;
+  const status = document.getElementById('new-status');
+  const toggle = document.getElementById('new-toggle');
+  const dismiss = document.getElementById('new-dismiss');
+  if (!status || !toggle || !dismiss) return;
   if (newCount === 0) {
-    banner.setAttribute('hidden', '');
+    status.textContent = 'All caught up. Nothing new since your last visit.';
+    toggle.disabled = true;
+    dismiss.disabled = true;
     if (NEW_ONLY) {
       NEW_ONLY = false;
+      toggle.classList.remove('is-active');
+      toggle.setAttribute('aria-pressed', 'false');
+      toggle.textContent = 'Show only new';
       applyNewFilter();
     }
-    return;
+  } else {
+    status.innerHTML = '<strong>' + newCount + '</strong> new since your last visit';
+    toggle.disabled = false;
+    dismiss.disabled = false;
   }
-  countEl.textContent = newCount;
-  banner.removeAttribute('hidden');
 }
 
 function applyNewFilter() {
@@ -1685,7 +1697,7 @@ function setupNewBanner(grants) {
     toggle.textContent = 'Show only new';
     markFolderNewness(grants);
     applyNewFilter();
-    document.getElementById('new-banner').setAttribute('hidden', '');
+    refreshNewBanner(grants);
   });
   // Auto-update lastSeen when user leaves the tab/page
   let scheduled = false;
