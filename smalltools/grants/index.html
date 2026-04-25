@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Grant Desk</title>
+<meta name="description" content="An isometric office desk of paid open calls, fellowships and residencies in tech, art and research. Sorted into Hot Files, New Arrivals and Long-Term Projects, updated daily.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Grant Desk">
+<meta property="og:description" content="An isometric office desk of paid open calls, fellowships and residencies. Sorted into Hot Files, New Arrivals and Long-Term Projects, updated daily.">
+<meta property="og:url" content="https://artificialnouveau.github.io/smalltools/grants/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Grant Desk">
+<meta name="twitter:description" content="Paid open calls for tech, art and research, sorted into the right pile.">
+<link rel="alternate" type="application/rss+xml" title="The Grant Desk RSS" href="feed.xml">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F4ECDC;
+  --paper-2: #ECE0C2;
+  --ink: #1F1B16;
+  --ink-soft: #4A413A;
+  --ink-mute: #7A6F63;
+  --line: #2A241D;
+  --desk-top: #B5894F;
+  --desk-side: #8A6432;
+  --desk-edge: #5A3F1E;
+  --manila: #F0D38A;
+  --manila-tab: #C9A45C;
+  --manila-shadow: #A8853F;
+  --hot: #D94B3C;
+  --hot-soft: #F8C7C0;
+  --new: #E8B73D;
+  --new-soft: #F8E6A8;
+  --long: #3E5C7E;
+  --long-soft: #C5D3E2;
+  --sticky-yellow: #FFE066;
+  --sticky-pink: #FFB3BA;
+  --sticky-blue: #B5E8FF;
+  --archive: #6B6357;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Space Grotesk', 'Inter', -apple-system, sans-serif;
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(0,0,0,0.025) 0, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(0,0,0,0.02) 0, transparent 50%);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* --- Top strip --- */
+.top-strip {
+  border-bottom: 2px solid var(--line);
+  background: var(--paper-2);
+  padding: 10px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.top-strip a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 1px;
+}
+
+.top-strip a:hover { background: var(--sticky-yellow); }
+
+.strip-meta { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+.strip-rss {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.strip-rss:hover { background: var(--sticky-yellow); }
+.strip-rss .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--hot);
+  display: inline-block;
+}
+
+.pop-host { position: relative; }
+
+.strip-pill {
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  color: var(--ink);
+}
+.strip-pill[aria-expanded="true"] { background: var(--sticky-yellow); }
+
+.strip-pop {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  z-index: 200;
+  width: 360px;
+  max-width: calc(100vw - 24px);
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 15px;
+}
+.strip-pop[hidden] { display: none; }
+.strip-pop .sub-note {
+  width: 100%;
+  max-width: none;
+  flex: none;
+  min-width: 0;
+}
+.strip-pop .sub-note.rss-note { transform: rotate(-1deg); }
+.strip-pop .sub-note.cal-note { transform: rotate(1deg); }
+@media (max-width: 720px) {
+  .strip-pop {
+    right: auto;
+    left: 0;
+    width: 320px;
+  }
+}
+
+/* --- Header --- */
+.page-header {
+  padding: 40px 24px 6px;
+  text-align: center;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.page-header h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(40px, 7vw, 76px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  margin-bottom: 14px;
+}
+
+.page-header .underline {
+  display: inline-block;
+  background: var(--sticky-yellow);
+  padding: 0 8px;
+  transform: rotate(-1deg);
+}
+
+.page-header p.lede {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 720px;
+  margin: 14px auto 0;
+}
+.page-header p.lede.subtle {
+  margin-top: 8px;
+  color: var(--ink-mute);
+  font-size: 13.5px;
+  font-family: 'DM Mono', monospace;
+}
+.page-header p.lede strong { color: var(--ink); background: var(--sticky-yellow); padding: 0 4px; }
+
+.page-header .stats {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-pill {
+  border: 1.5px solid var(--line);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+/* --- Isometric desk hero --- */
+.desk-hero {
+  padding: 6px 16px 20px;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.desk-scene {
+  width: 100%;
+  max-width: 980px;
+  height: auto;
+  display: block;
+}
+
+.desk-scene .anchor-link { cursor: pointer; }
+.desk-scene .anchor-link:hover .iso-cabinet,
+.desk-scene .anchor-link:hover .iso-tray,
+.desk-scene .anchor-link:hover .iso-drawer {
+  filter: brightness(1.06);
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(0, -3px); }
+}
+.desk-scene .sticky { transform-origin: center; }
+.desk-scene .sticky:hover { animation: wiggle 0.5s ease; }
+.desk-scene .bmc-mug { cursor: pointer; }
+.desk-scene .bmc-mug:hover g { animation: wiggle 0.5s ease; }
+
+/* --- Subscribe section --- */
+.subscribe-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 12px 24px 0;
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.subscribe-wrap.subscribe-bottom {
+  padding: 36px 24px 24px;
+}
+
+.sub-note {
+  background: var(--sticky-yellow);
+  border: 2px solid var(--line);
+  border-radius: 4px;
+  padding: 18px 20px 16px;
+  box-shadow: 4px 4px 0 var(--line);
+  flex: 1 1 320px;
+  min-width: 280px;
+  max-width: 420px;
+  position: relative;
+}
+
+.sub-note.rss-note { transform: rotate(-0.7deg); }
+.sub-note.cal-note { background: var(--sticky-blue); transform: rotate(0.6deg); }
+
+.sub-note .pin {
+  position: absolute;
+  top: -8px;
+  left: 18px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--hot);
+  border: 2px solid var(--line);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.25);
+}
+
+.sub-note h4 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.sub-note .blurb {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+
+.sub-note .feed-url {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 4px;
+  padding: 6px 10px;
+  user-select: all;
+  word-break: break-all;
+  color: var(--ink);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.sub-note .row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.sub-note button,
+.sub-note a.btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--line);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.12s;
+  flex: 1;
+}
+.sub-note button:hover,
+.sub-note a.btn:hover { transform: translate(-1px, -1px); }
+.sub-note button.copied { background: var(--hot); border-color: var(--hot); }
+
+.sub-note details {
+  border-top: 1.5px dashed var(--line);
+  padding-top: 8px;
+  font-size: 12.5px;
+}
+.sub-note details summary {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sub-note details summary::-webkit-details-marker { display: none; }
+.sub-note details summary::before {
+  content: "+";
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 3px;
+  background: #fff;
+  text-align: center;
+  line-height: 11px;
+  font-weight: 700;
+}
+.sub-note details[open] summary::before { content: "−"; }
+.sub-note details ol {
+  margin-top: 8px;
+  padding-left: 18px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+.sub-note details ol li { margin-bottom: 4px; }
+.sub-note details ol li code {
+  font-size: 11px;
+  background: rgba(255,255,255,0.6);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+/* --- Filter chips --- */
+.filters {
+  max-width: 1180px;
+  margin: 28px auto 0;
+  padding: 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 22px;
+  align-items: center;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 0 0 100%;
+  max-width: 420px;
+}
+.search-wrap input[type="search"] {
+  width: 100%;
+  font-family: 'DM Mono', monospace;
+  font-size: 12.5px;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 30px 8px 14px;
+  color: var(--ink);
+  outline: none;
+}
+.search-wrap input[type="search"]::placeholder {
+  color: var(--ink-mute);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.search-wrap input[type="search"]::-webkit-search-cancel-button { display: none; }
+.search-wrap input[type="search"]:focus {
+  background: var(--sticky-yellow);
+  border-color: var(--ink);
+}
+.search-wrap #filter-search-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px; height: 22px;
+  border: none;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
+  padding: 0;
+}
+.search-wrap #filter-search-clear[hidden] { display: none; }
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.filter-group .filter-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+  margin-right: 6px;
+}
+
+.chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #fff;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  padding: 5px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: transform 0.12s, background 0.12s;
+}
+.chip:hover { background: var(--sticky-yellow); }
+.chip.is-active { background: var(--ink); color: var(--paper); }
+.chip.toggle.is-active { background: var(--hot); border-color: var(--hot); color: #fff; }
+
+.folder.filtered-out { display: none !important; }
+.empty-state.filter-empty { background: rgba(255,255,255,0.55); }
+
+/* --- Submit-a-grant --- */
+.submit-card {
+  max-width: 1180px;
+  margin: 36px auto 0;
+  padding: 0 24px;
+}
+.submit-card .inner {
+  border: 2px dashed var(--line);
+  background: var(--paper-2);
+  padding: 18px 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.submit-card .inner h4 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.submit-card .inner p {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+.submit-card a.btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--line);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.12s;
+}
+.submit-card a.btn:hover { transform: translate(-1px, -1px); background: var(--hot); border-color: var(--hot); }
+
+/* --- Buy me a coffee --- */
+.bmc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--sticky-yellow);
+  color: var(--ink);
+  border: 2px solid var(--line);
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 2px 2px 0 var(--line);
+  transition: transform 0.12s;
+}
+.bmc-link:hover { transform: translate(-1px, -1px); background: #FFD23F; }
+.bmc-link .cup {
+  width: 14px; height: 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 0 0 4px 4px;
+  border-top: none;
+  position: relative;
+  display: inline-block;
+  background: #fff;
+}
+.bmc-link .cup::after {
+  content: "";
+  position: absolute;
+  right: -5px; top: 2px;
+  width: 5px; height: 7px;
+  border: 1.5px solid var(--line);
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+}
+
+/* --- Sections --- */
+.sections {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 24px 80px;
+}
+
+.section {
+  margin-bottom: 48px;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px dashed var(--line);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.section-title .label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 8px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  border-radius: 4px;
+}
+
+.section-title h2 {
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.section-title .meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-mute);
+}
+
+.section-help {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#section-hot .section-title .label { background: var(--hot-soft); border-color: var(--hot); color: var(--hot); }
+#section-new .section-title .label { background: var(--new-soft); border-color: #B58A1A; color: #7C5D08; }
+#section-long .section-title .label { background: var(--long-soft); border-color: var(--long); color: var(--long); }
+#section-archive .section-title .label { background: #DCD7CC; border-color: var(--archive); color: var(--archive); }
+
+/* --- Folder grid --- */
+.folder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 22px;
+}
+
+/* --- Folder card --- */
+.folder {
+  position: relative;
+  background: var(--manila);
+  border: 2px solid var(--line);
+  border-radius: 4px;
+  padding: 26px 18px 18px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s;
+  box-shadow: 4px 4px 0 var(--line);
+  min-height: 240px;
+}
+
+.folder::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  width: 80px;
+  height: 14px;
+  background: var(--manila-tab);
+  border: 2px solid var(--line);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+}
+
+.folder::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  background: var(--manila-shadow);
+  opacity: 0.6;
+}
+
+.folder:hover {
+  transform: translate(-2px, -8px) rotate(-0.4deg);
+  box-shadow: 6px 12px 0 var(--line);
+}
+
+.folder:active { transform: translate(0, -2px); }
+
+.folder.is-hot { background: #FCE6E1; }
+.folder.is-hot::before { background: var(--hot); }
+
+.folder.is-long { background: #DEE7F0; }
+.folder.is-long::before { background: var(--long); }
+
+.folder.is-archive { background: #DCD5C4; opacity: 0.78; box-shadow: 3px 3px 0 var(--ink-mute); border-color: var(--archive); color: var(--ink-soft); }
+.folder.is-archive::before { background: var(--archive); border-color: var(--archive); }
+.folder.is-archive:hover { transform: translate(-1px, -4px); box-shadow: 4px 6px 0 var(--ink-mute); }
+
+.folder .folder-tab {
+  position: absolute;
+  top: -8px;
+  left: 22px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.folder .folder-region {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2px 7px;
+  border-radius: 3px;
+  align-self: flex-start;
+}
+
+.folder h3 {
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.folder .org {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.folder .desc {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.folder .meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink);
+  border-top: 1px dashed var(--line);
+  padding-top: 10px;
+  margin-top: auto;
+}
+
+.folder .meta-row .pill {
+  background: rgba(255,255,255,0.55);
+  padding: 3px 7px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+.folder .meta-row .pill.amount { background: var(--sticky-yellow); border-color: var(--line); font-weight: 600; }
+.folder .meta-row .pill.deadline { background: #fff; border-color: var(--line); font-weight: 600; }
+.folder .meta-row .pill.deadline.urgent { background: var(--hot); color: #fff; border-color: var(--hot); }
+.folder .meta-row .pill.deadline.passed { background: var(--archive); color: #fff; border-color: var(--archive); }
+
+.folder .location {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-mute);
+}
+
+.folder.is-archive .folder-region,
+.folder.is-archive .meta-row .pill { filter: grayscale(0.5); }
+
+/* --- Empty state --- */
+.empty-state {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 22px;
+  border: 1.5px dashed var(--line);
+  border-radius: 4px;
+  text-align: center;
+  background: rgba(255,255,255,0.4);
+}
+
+/* --- Archive collapse --- */
+#section-archive { opacity: 0.85; }
+
+#section-archive .section-head { border-bottom-style: solid; border-color: var(--archive); }
+
+.archive-toggle {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--paper-2);
+  border: 1.5px solid var(--archive);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ink);
+}
+.archive-toggle:hover { background: #fff; }
+
+#section-archive[data-open="false"] .folder-grid,
+#section-archive[data-open="false"] .empty-state { display: none; }
+
+/* --- Footer --- */
+.page-footer {
+  border-top: 2px solid var(--line);
+  padding: 28px 24px;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--paper-2);
+}
+
+.page-footer a { color: var(--ink); border-bottom: 1px solid var(--ink); text-decoration: none; padding-bottom: 1px; }
+.page-footer a:hover { background: var(--sticky-yellow); }
+
+@media (max-width: 600px) {
+  .desk-hero { padding: 16px 8px 4px; }
+  .page-header { padding: 36px 18px 14px; }
+  .sections { padding: 8px 16px 60px; }
+  .folder-grid { grid-template-columns: 1fr; gap: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-strip">
+  <div>the grant desk</div>
+  <div class="strip-meta">
+    <span id="today-date">Today: --</span>
+    <span>Updated daily on load</span>
+    <div class="pop-host">
+      <button class="strip-rss strip-pill" type="button" data-pop="pop-rss" aria-haspopup="true" aria-expanded="false">
+        <span class="dot"></span> RSS
+      </button>
+      <div class="strip-pop" id="pop-rss" hidden>
+        <div class="sub-note rss-note" role="region" aria-label="Subscribe via RSS">
+          <span class="pin" aria-hidden="true"></span>
+          <h4>Subscribe by RSS</h4>
+          <p class="blurb">A ping in your reader whenever a new call lands on the desk.</p>
+          <a class="feed-url" id="feed-url-text" href="feed.xml">feed.xml</a>
+          <div class="row">
+            <button type="button" id="copy-feed">Copy URL</button>
+            <a class="btn" href="feed.xml" target="_blank" rel="noopener">Open feed</a>
+          </div>
+          <details>
+            <summary>How to subscribe</summary>
+            <ol>
+              <li>Copy the feed URL above.</li>
+              <li>Paste it into your RSS reader (Feedly, NetNewsWire, Inoreader, Reeder, Thunderbird).</li>
+              <li>New grants show up automatically. Older items rotate out as the feed refreshes.</li>
+            </ol>
+          </details>
+        </div>
+      </div>
+    </div>
+    <div class="pop-host">
+      <button class="strip-rss strip-cal strip-pill" type="button" data-pop="pop-cal" aria-haspopup="true" aria-expanded="false">
+        <span class="dot"></span> Calendar
+      </button>
+      <div class="strip-pop" id="pop-cal" hidden>
+        <div class="sub-note cal-note" role="region" aria-label="Subscribe to calendar">
+          <span class="pin" aria-hidden="true"></span>
+          <h4>Add deadlines to your calendar</h4>
+          <p class="blurb">A live calendar of upcoming deadlines. Stays in sync as new calls land or details change.</p>
+          <a class="feed-url" id="cal-url-text" href="calendar.ics">calendar.ics</a>
+          <div class="row">
+            <button type="button" id="copy-cal">Copy URL</button>
+            <a class="btn" href="calendar.ics" target="_blank" rel="noopener">Download once</a>
+          </div>
+          <details>
+            <summary>How to subscribe</summary>
+            <ol>
+              <li>Copy the calendar URL above.</li>
+              <li><strong>Google Calendar:</strong> "Other calendars" &rarr; "+" &rarr; "From URL", paste, Add.</li>
+              <li><strong>Apple Calendar:</strong> "File" &rarr; "New Calendar Subscription", paste, OK.</li>
+              <li><strong>Outlook:</strong> "Add calendar" &rarr; "Subscribe from web", paste.</li>
+              <li>Your calendar refreshes every few hours, so new grants and changes flow in automatically.</li>
+            </ol>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="page-header">
+  <h1>The <span class="underline">Grant</span> Desk</h1>
+  <p class="lede">A hand-picked desk of <strong>paid</strong> open calls, fellowships and residencies for tech, art and research. Every entry here is funded, no unpaid "exposure opportunities". Sorted by deadline into Hot Files, New Arrivals and Long-Term Projects, with closed calls auto-filed away.</p>
+  <p class="lede subtle">Subscribe via RSS or add deadlines to your calendar so you do not miss a thing.</p>
+</header>
+
+
+<section class="filters" id="filters" aria-label="Filter grants">
+  <div class="search-wrap">
+    <input type="search" id="filter-search" placeholder="Search title, org, location, description..." aria-label="Search grants">
+    <button type="button" id="filter-search-clear" aria-label="Clear search" hidden>&times;</button>
+  </div>
+  <div class="filter-group" data-filter="region" id="filter-region">
+    <span class="filter-label">Region</span>
+    <button class="chip is-active" type="button" data-value="">All</button>
+  </div>
+  <div class="filter-group" data-filter="type" id="filter-type">
+    <span class="filter-label">Type</span>
+    <button class="chip is-active" type="button" data-value="">All</button>
+  </div>
+  <div class="filter-group" data-filter="amount" id="filter-amount">
+    <span class="filter-label">Amount</span>
+    <button class="chip is-active" type="button" data-value="">All</button>
+    <button class="chip" type="button" data-value="under-5k">Under $5K</button>
+    <button class="chip" type="button" data-value="5k-25k">$5K to $25K</button>
+    <button class="chip" type="button" data-value="25k-plus">$25K+</button>
+    <button class="chip" type="button" data-value="in-kind">Funded / in-kind</button>
+  </div>
+</section>
+
+<main class="sections" id="sections">
+  <section class="section" id="section-hot">
+    <div class="section-head">
+      <div class="section-title">
+        <span class="label">&le;90 DAYS</span>
+        <h2>Deadline next 90 days</h2>
+        <span class="meta" id="meta-hot"></span>
+      </div>
+      <span class="section-help">Closing within 90 days. Get the application in.</span>
+    </div>
+    <div class="folder-grid" id="grid-hot"></div>
+  </section>
+
+  <section class="section" id="section-new">
+    <div class="section-head">
+      <div class="section-title">
+        <span class="label">OPEN</span>
+        <h2>You got time</h2>
+        <span class="meta" id="meta-new"></span>
+      </div>
+      <span class="section-help">Deadlines more than 90 days out. Bookmark and come back.</span>
+    </div>
+    <div class="folder-grid" id="grid-new"></div>
+  </section>
+
+  <section class="section" id="section-long">
+    <div class="section-head">
+      <div class="section-title">
+        <span class="label">LONG</span>
+        <h2>Long-Term Projects</h2>
+        <span class="meta" id="meta-long"></span>
+      </div>
+    </div>
+    <div class="folder-grid" id="grid-long"></div>
+  </section>
+
+  <section class="section" id="section-archive" data-open="false">
+    <div class="section-head">
+      <div class="section-title">
+        <span class="label">ARCHIVE</span>
+        <h2>Filed Away</h2>
+        <span class="meta" id="meta-archive"></span>
+      </div>
+      <button class="archive-toggle" id="archive-toggle" type="button">Open drawer</button>
+    </div>
+    <div class="folder-grid" id="grid-archive"></div>
+  </section>
+</main>
+
+<section class="submit-card" aria-label="Suggest a grant">
+  <div class="inner">
+    <div>
+      <h4>Got a grant to submit?</h4>
+      <p>Send a paid open call my way and I will add it to the desk.</p>
+    </div>
+    <a class="btn" id="submit-grant-link" href="https://tally.so/r/BzLb4K" target="_blank" rel="noopener">Suggest a grant</a>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <p>Maintained by hand. Sorted automatically by deadline. <a href="/">artificialnouveau</a></p>
+  <p style="margin-top: 14px;">
+    <a class="bmc-link" href="https://buymeacoffee.com/artnou" target="_blank" rel="noopener">
+      <span class="cup" aria-hidden="true"></span>
+      Buy me a coffee
+    </a>
+  </p>
+</footer>
+
+<script>
+const REGION_LABELS = {
+  EU: 'EU', US: 'US', UK: 'UK', NL: 'NL',
+  Remote: 'Remote', Worldwide: 'Worldwide', Global: 'Global'
+};
+
+function parseDate(iso) {
+  if (!iso) return null;
+  const d = new Date(iso + 'T23:59:59');
+  return isNaN(d.getTime()) ? null : d;
+}
+
+function daysUntil(date, ref) {
+  if (!date) return null;
+  const ms = date.getTime() - ref.getTime();
+  return Math.ceil(ms / (1000 * 60 * 60 * 24));
+}
+
+function formatDate(date) {
+  if (!date) return null;
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function categorise(grant, today) {
+  const deadline = parseDate(grant.deadline);
+  if (!deadline) return 'long';
+  const days = daysUntil(deadline, today);
+  if (days < 0) return 'archive';
+  if (days <= 90) return 'hot';
+  return 'new';
+}
+
+function deadlinePill(grant, today) {
+  const deadline = parseDate(grant.deadline);
+  if (!deadline) return { text: 'Rolling / undated', cls: '' };
+  const days = daysUntil(deadline, today);
+  const formatted = formatDate(deadline);
+  if (days < 0) return { text: `Closed ${formatted}`, cls: 'passed' };
+  if (days === 0) return { text: `Due today (${formatted})`, cls: 'urgent' };
+  if (days === 1) return { text: `1 day left, ${formatted}`, cls: 'urgent' };
+  if (days <= 14) return { text: `${days} days left, ${formatted}`, cls: 'urgent' };
+  return { text: `${formatted} (${days}d)`, cls: '' };
+}
+
+const TYPE_TAGS = ['residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'open-call', 'job'];
+
+function detectType(grant) {
+  const tags = (grant.tags || []).map(t => String(t).toLowerCase());
+  for (const t of TYPE_TAGS) {
+    if (tags.includes(t)) return t;
+  }
+  return 'other';
+}
+
+function parseAmountValue(amountStr) {
+  if (!amountStr) return null;
+  const s = String(amountStr).toLowerCase();
+  // Match numbers, optionally with thousand separators and an optional 'k' suffix
+  const re = /(\d{1,3}(?:[,.]\d{3})+|\d+(?:[.,]\d+)?)\s*([km])?/gi;
+  let max = 0;
+  let m;
+  while ((m = re.exec(s)) !== null) {
+    let raw = m[1];
+    let num;
+    if (/[,.]\d{3}/.test(raw)) {
+      num = parseFloat(raw.replace(/[,.]/g, ''));
+    } else {
+      num = parseFloat(raw.replace(',', '.'));
+    }
+    const suffix = (m[2] || '').toLowerCase();
+    if (suffix === 'k') num *= 1000;
+    if (suffix === 'm') num *= 1000000;
+    if (!isNaN(num) && num > max) max = num;
+  }
+  return max > 0 ? max : null;
+}
+
+function detectAmountTier(grant) {
+  const num = parseAmountValue(grant.amount);
+  if (num === null) return 'in-kind';
+  if (num < 5000) return 'under-5k';
+  if (num < 25000) return '5k-25k';
+  return '25k-plus';
+}
+
+function renderFolder(grant, category, today) {
+  const a = document.createElement('a');
+  a.className = 'folder';
+  if (category === 'hot') a.classList.add('is-hot');
+  if (category === 'long') a.classList.add('is-long');
+  if (category === 'archive') a.classList.add('is-archive');
+  a.href = grant.url || '#';
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+
+  const grantType = detectType(grant);
+  a.dataset.region = grant.region || '';
+  a.dataset.type = grantType;
+  a.dataset.amount = detectAmountTier(grant);
+  a.dataset.fee = grant.fee === false ? 'false' : (grant.fee === true ? 'true' : 'unknown');
+  a.dataset.search = [
+    grant.title, grant.organization, grant.location, grant.region,
+    grant.description, grant.amount,
+    (grant.tags || []).join(' ')
+  ].filter(Boolean).join(' ').toLowerCase();
+
+  const tabLabel = (grant.tags && grant.tags[0]) ? grant.tags[0].toUpperCase() : (grant.region || '').toUpperCase();
+  const region = REGION_LABELS[grant.region] || grant.region || 'Open';
+  const dl = deadlinePill(grant, today);
+
+  const parts = [];
+  parts.push(`<span class="folder-tab">${escapeHtml(tabLabel)}</span>`);
+  parts.push(`<span class="folder-region">${escapeHtml(region)}</span>`);
+  parts.push(`<h3>${escapeHtml(grant.title)}</h3>`);
+  if (grant.organization) parts.push(`<div class="org">${escapeHtml(grant.organization)}</div>`);
+  if (grant.location) parts.push(`<div class="location">${escapeHtml(grant.location)}</div>`);
+  if (grant.description) parts.push(`<p class="desc">${escapeHtml(grant.description)}</p>`);
+
+  const meta = [];
+  if (grant.amount) meta.push(`<span class="pill amount">${escapeHtml(grant.amount)}</span>`);
+  meta.push(`<span class="pill deadline ${dl.cls}">${escapeHtml(dl.text)}</span>`);
+  if (grant.duration) meta.push(`<span class="pill">${escapeHtml(grant.duration)}</span>`);
+  if (grant.fee === false) meta.push(`<span class="pill">No fee</span>`);
+  parts.push(`<div class="meta-row">${meta.join('')}</div>`);
+
+  a.innerHTML = parts.join('');
+  return a;
+}
+
+function escapeHtml(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function sortByDeadline(a, b) {
+  const da = parseDate(a.deadline);
+  const db = parseDate(b.deadline);
+  if (da && db) return da - db;
+  if (da && !db) return -1;
+  if (!da && db) return 1;
+  return (a.title || '').localeCompare(b.title || '');
+}
+
+function sortArchive(a, b) {
+  const da = parseDate(a.deadline);
+  const db = parseDate(b.deadline);
+  if (da && db) return db - da;
+  return 0;
+}
+
+async function load() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const todayEl = document.getElementById('today-date');
+  todayEl.textContent = 'Today: ' + today.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+  let data;
+  try {
+    const res = await fetch('grants.json', { cache: 'no-cache' });
+    data = await res.json();
+  } catch (err) {
+    console.error('Failed to load grants.json', err);
+    document.getElementById('grid-hot').innerHTML = '<div class="empty-state">Could not load grants.json. Check the file exists at /smalltools/grants/grants.json.</div>';
+    return;
+  }
+
+  const buckets = { hot: [], new: [], long: [], archive: [] };
+  for (const grant of (data.grants || [])) {
+    const cat = categorise(grant, today);
+    buckets[cat].push(grant);
+  }
+
+  buckets.hot.sort(sortByDeadline);
+  buckets.new.sort(sortByDeadline);
+  buckets.long.sort(sortByDeadline);
+  buckets.archive.sort(sortArchive);
+
+  const renderInto = (id, list, cat) => {
+    const grid = document.getElementById(id);
+    grid.innerHTML = '';
+    if (!list.length) {
+      const empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.textContent = cat === 'archive' ? 'Drawer empty. Nothing has expired yet.' : 'Empty pile. No grants in this category.';
+      grid.appendChild(empty);
+      return;
+    }
+    for (const g of list) grid.appendChild(renderFolder(g, cat, today));
+  };
+
+  renderInto('grid-hot', buckets.hot, 'hot');
+  renderInto('grid-new', buckets.new, 'new');
+  renderInto('grid-long', buckets.long, 'long');
+  renderInto('grid-archive', buckets.archive, 'archive');
+
+  buildFilterChips();
+
+  document.getElementById('meta-hot').textContent = buckets.hot.length === 1 ? '1 grant' : `${buckets.hot.length} grants`;
+  document.getElementById('meta-new').textContent = buckets.new.length === 1 ? '1 grant' : `${buckets.new.length} grants`;
+  document.getElementById('meta-long').textContent = buckets.long.length === 1 ? '1 grant' : `${buckets.long.length} grants`;
+  document.getElementById('meta-archive').textContent = buckets.archive.length === 1 ? '1 grant' : `${buckets.archive.length} grants`;
+
+  const archiveSection = document.getElementById('section-archive');
+  const archiveBtn = document.getElementById('archive-toggle');
+  archiveBtn.addEventListener('click', () => {
+    const open = archiveSection.getAttribute('data-open') === 'true';
+    archiveSection.setAttribute('data-open', open ? 'false' : 'true');
+    archiveBtn.textContent = open ? 'Open drawer' : 'Close drawer';
+  });
+}
+
+load();
+
+function setupCopy(buttonId, urlElId, filename) {
+  const btn = document.getElementById(buttonId);
+  const urlEl = document.getElementById(urlElId);
+  if (!btn || !urlEl) return;
+  const absoluteUrl = new URL(filename, window.location.href).toString();
+  urlEl.textContent = absoluteUrl;
+  urlEl.setAttribute('href', absoluteUrl);
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(absoluteUrl);
+      const original = btn.textContent;
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1600);
+    } catch (err) {
+      window.prompt('Copy this URL:', absoluteUrl);
+    }
+  });
+}
+setupCopy('copy-feed', 'feed-url-text', 'feed.xml');
+setupCopy('copy-cal', 'cal-url-text', 'calendar.ics');
+
+const FILTER_STATE = { region: '', type: '', amount: '', search: '' };
+
+const SEED_REGIONS = ['EU', 'US', 'UK', 'NL', 'Remote'];
+const EXCLUDE_REGIONS = new Set(['Worldwide', 'Global']);
+
+function buildFilterChips() {
+  const folders = Array.from(document.querySelectorAll('.folder'));
+  const regions = new Set(SEED_REGIONS);
+  const types = new Set();
+  for (const f of folders) {
+    if (f.dataset.region && !EXCLUDE_REGIONS.has(f.dataset.region)) regions.add(f.dataset.region);
+    if (f.dataset.type) types.add(f.dataset.type);
+  }
+
+  const regionOrder = ['EU', 'US', 'UK', 'NL', 'Remote', 'Worldwide', 'Global'];
+  const sortedRegions = [...regions].sort((a, b) => {
+    const ai = regionOrder.indexOf(a);
+    const bi = regionOrder.indexOf(b);
+    if (ai >= 0 && bi >= 0) return ai - bi;
+    if (ai >= 0) return -1;
+    if (bi >= 0) return 1;
+    return a.localeCompare(b);
+  });
+
+  const typeOrder = ['residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'open-call', 'job', 'other'];
+  const sortedTypes = [...types].sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b));
+
+  const regionGroup = document.getElementById('filter-region');
+  for (const r of sortedRegions) {
+    const btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.type = 'button';
+    btn.dataset.value = r;
+    btn.textContent = r;
+    regionGroup.appendChild(btn);
+  }
+
+  const typeGroup = document.getElementById('filter-type');
+  for (const t of sortedTypes) {
+    const btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.type = 'button';
+    btn.dataset.value = t;
+    btn.textContent = t.replace('-', ' ');
+    typeGroup.appendChild(btn);
+  }
+
+  regionGroup.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    FILTER_STATE.region = chip.dataset.value || '';
+    regionGroup.querySelectorAll('.chip').forEach(c => c.classList.toggle('is-active', c === chip));
+    applyFilters();
+  });
+
+  typeGroup.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    FILTER_STATE.type = chip.dataset.value || '';
+    typeGroup.querySelectorAll('.chip').forEach(c => c.classList.toggle('is-active', c === chip));
+    applyFilters();
+  });
+
+  const amountGroup = document.getElementById('filter-amount');
+  if (amountGroup) {
+    amountGroup.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      FILTER_STATE.amount = chip.dataset.value || '';
+      amountGroup.querySelectorAll('.chip').forEach(c => c.classList.toggle('is-active', c === chip));
+      applyFilters();
+    });
+  }
+
+  const searchInput = document.getElementById('filter-search');
+  const searchClear = document.getElementById('filter-search-clear');
+  if (searchInput && searchClear) {
+    searchInput.addEventListener('input', () => {
+      FILTER_STATE.search = searchInput.value.trim();
+      searchClear.hidden = !FILTER_STATE.search;
+      applyFilters();
+    });
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      FILTER_STATE.search = '';
+      searchClear.hidden = true;
+      applyFilters();
+      searchInput.focus();
+    });
+  }
+}
+
+function applyFilters() {
+  const folders = document.querySelectorAll('.folder');
+  const searchTerms = FILTER_STATE.search
+    ? FILTER_STATE.search.toLowerCase().split(/\s+/).filter(Boolean)
+    : [];
+  folders.forEach(f => {
+    let show = true;
+    if (FILTER_STATE.region && f.dataset.region !== FILTER_STATE.region) show = false;
+    if (FILTER_STATE.type && f.dataset.type !== FILTER_STATE.type) show = false;
+    if (FILTER_STATE.amount && f.dataset.amount !== FILTER_STATE.amount) show = false;
+    if (searchTerms.length) {
+      const hay = f.dataset.search || '';
+      if (!searchTerms.every(term => hay.includes(term))) show = false;
+    }
+    f.classList.toggle('filtered-out', !show);
+  });
+
+  const sectionMap = {
+    'section-hot': 'meta-hot',
+    'section-new': 'meta-new',
+    'section-long': 'meta-long',
+    'section-archive': 'meta-archive',
+  };
+  for (const [secId, metaId] of Object.entries(sectionMap)) {
+    const section = document.getElementById(secId);
+    if (!section) continue;
+    const total = section.querySelectorAll('.folder').length;
+    const visible = section.querySelectorAll('.folder:not(.filtered-out)').length;
+    const meta = document.getElementById(metaId);
+    if (!meta) continue;
+    if (total === visible) {
+      meta.textContent = total === 1 ? '1 grant' : `${total} grants`;
+    } else {
+      meta.textContent = `${visible} of ${total} shown`;
+    }
+  }
+}
+
+(function setupPopovers() {
+  const closeAll = () => {
+    document.querySelectorAll('.strip-pop').forEach(p => p.setAttribute('hidden', ''));
+    document.querySelectorAll('.strip-pill').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  };
+  document.querySelectorAll('.strip-pill').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const pop = document.getElementById(btn.dataset.pop);
+      if (!pop) return;
+      const wasOpen = !pop.hasAttribute('hidden');
+      closeAll();
+      if (!wasOpen) {
+        pop.removeAttribute('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.strip-pop, .strip-pill')) closeAll();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAll();
+  });
+})();
+</script>
+
+</body>
+</html>
