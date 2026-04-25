@@ -912,11 +912,11 @@ body {
   <section class="section" id="section-hot">
     <div class="section-head">
       <div class="section-title">
-        <span class="label">&le;90 DAYS</span>
-        <h2>Deadline next 90 days</h2>
+        <span class="label">HOT</span>
+        <h2>Hot Grants</h2>
         <span class="meta" id="meta-hot"></span>
       </div>
-      <span class="section-help">Closing within 90 days. Get the application in.</span>
+      <span class="section-help">Closing within 30 days. Get the application in.</span>
     </div>
     <div class="folder-grid" id="grid-hot"></div>
   </section>
@@ -928,7 +928,7 @@ body {
         <h2>You got time</h2>
         <span class="meta" id="meta-new"></span>
       </div>
-      <span class="section-help">Deadlines more than 90 days out. Bookmark and come back.</span>
+      <span class="section-help">Just landed in the tray. Deadlines 30 to 90 days out.</span>
     </div>
     <div class="folder-grid" id="grid-new"></div>
   </section>
@@ -940,6 +940,7 @@ body {
         <h2>Long-Term Projects</h2>
         <span class="meta" id="meta-long"></span>
       </div>
+      <span class="section-help">Deadlines beyond 90 days, or rolling and continuous calls.</span>
     </div>
     <div class="folder-grid" id="grid-long"></div>
   </section>
@@ -1005,8 +1006,9 @@ function categorise(grant, today) {
   if (!deadline) return 'long';
   const days = daysUntil(deadline, today);
   if (days < 0) return 'archive';
-  if (days <= 90) return 'hot';
-  return 'new';
+  if (days <= 30) return 'hot';
+  if (days <= 90) return 'new';
+  return 'long';
 }
 
 function deadlinePill(grant, today) {
