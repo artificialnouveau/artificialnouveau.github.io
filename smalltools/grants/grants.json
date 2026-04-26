@@ -3,6 +3,30 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "ngi-fediversity-11",
+      "title": "NGI Fediversity (11th call)",
+      "organization": "NLnet / NGI Fediversity (funded by EU Horizon Europe)",
+      "location": "Europe and beyond",
+      "region": "EU",
+      "amount": "€5,000 to €50,000 per project",
+      "duration": "Project-based",
+      "startDate": null,
+      "deadline": "2026-06-01",
+      "addedDate": "2026-04-26",
+      "description": "Small to medium-sized R&D grants for projects making federated and self-hosted internet services easier to deploy and operate at scale. Funds practical work on portable Fediverse-style infrastructure, hosted Mastodon-like or PeerTube-like services, secure email, private cloud and other tools that support decentralisation and digital self-determination. Open to individuals and organisations of any type; results released under free or open-source licences. Deadline 1 June 2026, 12:00 CEST.",
+      "url": "https://nlnet.nl/fediversity/",
+      "tags": [
+        "grant",
+        "tech",
+        "open-source",
+        "internet",
+        "fediverse",
+        "decentralisation"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "ssrc-just-tech-fellowship-2027",
       "title": "SSRC Just Tech Fellowship 2027",
       "organization": "Social Science Research Council (SSRC)",
