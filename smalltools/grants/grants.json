@@ -1,7 +1,50 @@
 {
-  "lastUpdated": "2026-04-25",
+  "lastUpdated": "2026-04-26",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
+    {
+      "id": "lumen-prize-2026",
+      "title": "The 2026 Lumen Prize",
+      "organization": "The Lumen Prize",
+      "location": "Global",
+      "region": "Worldwide",
+      "amount": "3 x $5,000 category awards + $15,000 Gold Award",
+      "duration": "One-off prize",
+      "startDate": null,
+      "deadline": "2026-05-23",
+      "addedDate": "2026-04-26",
+      "description": "International art prize across three categories, each with a $5,000 award: Legacy Futures (works engaging past, present and future, examining our relationship to technology, culture and time); Systems & Structures (works examining or critically engaging with cultural, ecological, technological and social systems via code, data, networks, biological or environmental processes, institutional frameworks etc., e.g. misinformation, machine vision, human-machine relations); and Experiential Innovation (works prioritising experience via participation, presence, sensation or environment, including live coding, performance, interactive installations, experiential VR/AR and cross-modal practices). The Jury also selects one Gold Award Winner across all categories, awarded $15,000 in 2026. Two-stage judging: an International Selectors Committee curates a longlist of finalists, then a Jury Panel selects the winners. Standard entry fee $45.00; submissions close 23 May 2026 at 19:00. If the entry fee is a barrier, contact info@lumenprize.org.",
+      "url": "https://zealous.co/lumenprize/opportunity/the-2026-lumen-prize/",
+      "tags": [
+        "prize",
+        "competition",
+        "digital-art",
+        "art-technology"
+      ],
+      "fee": true,
+      "featured": false
+    },
+    {
+      "id": "v2-alex-adriaansens-residency-2026",
+      "title": "Call for Proposals: Alex Adriaansens Residency 2026",
+      "organization": "V2_ Lab for the Unstable Media",
+      "location": "Rotterdam, Netherlands",
+      "region": "NL",
+      "amount": "€7,500",
+      "duration": "3 months (starts 1 September 2026)",
+      "startDate": "2026-09-01",
+      "deadline": "2026-06-01",
+      "addedDate": "2026-04-26",
+      "description": "Residency honouring V2_ co-founder Alex Adriaansens, aimed at upcoming curators, festival/programme initiators, community organisers and cultural practitioners in media art, digital cultures and related fields who are starting their professional careers. Duos or teams may apply (sharing the grant). No thematic requirement; applicants choose their own research focus and have access to V2_'s extensive archive. Apply with a letter of motivation (max 2 pages), short CV (max 1 page) and a specific research question (max 1 page) via the linked Google form, or email v2@v2.nl if you do not have a Google account. A jury of V2_ team members decides. Results will be presented in Rotterdam at a jointly organised event (e.g. expert meeting), or via an essay, or another format proposed by the resident.",
+      "url": "https://v2.nl/events/call-for-proposals-alex-adriaansens-residency-2026",
+      "tags": [
+        "residency",
+        "curatorial",
+        "media-art"
+      ],
+      "fee": false,
+      "featured": false
+    },
     {
       "id": "eu-policy-lab-ai-residency-2026",
       "title": "Artist-in-Residence: Reimagining AI at the EU Policy Lab",
