@@ -1046,6 +1046,29 @@ body {
 #section-archive[data-open="false"] .folder-grid,
 #section-archive[data-open="false"] .empty-state { display: none; }
 
+/* --- Per-section collapse --- */
+.section-collapse {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  background: transparent;
+  border: 1.5px solid var(--line);
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.section-collapse:hover { background: var(--paper-2); }
+.section[data-collapsed="true"] .section-collapse { transform: rotate(-90deg); }
+.section[data-collapsed="true"] .folder-grid,
+.section[data-collapsed="true"] .empty-state { display: none; }
+
 /* --- Footer --- */
 .page-footer {
   border-top: 2px solid var(--line);
@@ -1270,6 +1293,7 @@ code *, pre *, kbd *, samp * {
         <span class="label">HOT</span>
         <h2>Hot Grants</h2>
         <span class="meta" id="meta-hot"></span>
+        <button class="section-collapse" type="button" aria-expanded="true" aria-controls="grid-hot" aria-label="Collapse Hot Grants">&#9662;</button>
       </div>
       <span class="section-help">Closing within 30 days. Get the application in.</span>
     </div>
@@ -1282,6 +1306,7 @@ code *, pre *, kbd *, samp * {
         <span class="label">OPEN</span>
         <h2>You got time</h2>
         <span class="meta" id="meta-new"></span>
+        <button class="section-collapse" type="button" aria-expanded="true" aria-controls="grid-new" aria-label="Collapse You got time">&#9662;</button>
       </div>
       <span class="section-help">Just landed in the tray. Deadlines 30 to 90 days out.</span>
     </div>
@@ -1294,6 +1319,7 @@ code *, pre *, kbd *, samp * {
         <span class="label">LONG</span>
         <h2>Deadlines Beyond 90 Days</h2>
         <span class="meta" id="meta-long"></span>
+        <button class="section-collapse" type="button" aria-expanded="true" aria-controls="grid-long" aria-label="Collapse Deadlines Beyond 90 Days">&#9662;</button>
       </div>
       <span class="section-help">Plenty of time. Plan it in.</span>
     </div>
@@ -1306,6 +1332,7 @@ code *, pre *, kbd *, samp * {
         <span class="label">ROLLING</span>
         <h2>Rolling or Continuous Calls</h2>
         <span class="meta" id="meta-rolling"></span>
+        <button class="section-collapse" type="button" aria-expanded="true" aria-controls="grid-rolling" aria-label="Collapse Rolling or Continuous Calls">&#9662;</button>
       </div>
       <span class="section-help">No fixed deadline. Apply whenever you are ready.</span>
     </div>
@@ -1610,6 +1637,18 @@ async function load() {
     const open = archiveSection.getAttribute('data-open') === 'true';
     archiveSection.setAttribute('data-open', open ? 'false' : 'true');
     archiveBtn.textContent = open ? 'Open drawer' : 'Close drawer';
+  });
+
+  document.querySelectorAll('.section-collapse').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const section = btn.closest('.section');
+      if (!section) return;
+      const collapsed = section.getAttribute('data-collapsed') === 'true';
+      section.setAttribute('data-collapsed', collapsed ? 'false' : 'true');
+      btn.setAttribute('aria-expanded', collapsed ? 'true' : 'false');
+      const heading = section.querySelector('.section-title h2')?.textContent?.trim() || 'section';
+      btn.setAttribute('aria-label', (collapsed ? 'Collapse ' : 'Expand ') + heading);
+    });
   });
 }
 
