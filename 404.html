@@ -35,7 +35,7 @@ html, body {
   font-family: 'Young Serif', Georgia, serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M8 22 C3 22 1.5 17 6 15 C4.5 10.5 9 7.5 13.5 11 C14.5 5.5 22.5 6 23 12 C28.5 11 30.5 17.5 26 19.5 Z' fill='%23FFFFFF' stroke='%231F1B16' stroke-width='1.6' stroke-linejoin='round'/></svg>") 6 14, auto;
+  cursor: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20d%3D%22M8%2022%20C3%2022%201.5%2017%206%2015%20C4.5%2010.5%209%207.5%2013.5%2011%20C14.5%205.5%2022.5%206%2023%2012%20C28.5%2011%2030.5%2017.5%2026%2019.5%20Z%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%231F1B16%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E") 6 14, auto;
 }
 
 body {
@@ -65,7 +65,8 @@ body {
   background: #87B8D9;
 }
 
-.video-bg iframe {
+.video-bg iframe,
+.video-bg #ytplayer {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -82,16 +83,23 @@ body {
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(180deg, #6FA8C9 0%, #9CC4DD 55%, #C8DEEC 100%);
-  animation: curtain-fade 1.6s ease-out 5s forwards;
+  opacity: 1;
+  transition: opacity 1.6s ease-out;
+  /* Fallback: fade after 12s in case the YouTube API never reports PLAYING */
+  animation: curtain-fallback 0s linear 12s forwards;
 }
 
-@keyframes curtain-fade {
-  from { opacity: 1; }
-  to   { opacity: 0; visibility: hidden; }
+.video-curtain.faded {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes curtain-fallback {
+  to { opacity: 0; visibility: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .video-curtain { animation: none; opacity: 0; }
+  .video-curtain { opacity: 0; visibility: hidden; }
 }
 
 .wrap {
@@ -103,12 +111,13 @@ body {
 }
 
 .peace {
-  font-size: clamp(54px, 10.5vw, 124px);
+  font-size: clamp(40px, 9vw, 110px);
   line-height: 1.05;
   letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.92);
   font-weight: 400;
   font-style: italic;
+  white-space: nowrap;
   text-shadow:
     0 2px 40px rgba(255, 255, 255, 0.25),
     0 4px 60px rgba(0, 0, 0, 0.25),
@@ -148,18 +157,44 @@ body {
 <div class="top-bar"></div>
 
 <div class="video-bg" aria-hidden="true">
-  <iframe
-    src="https://www.youtube.com/embed/Y8ACyHYsb6Q?autoplay=1&mute=1&loop=1&playlist=Y8ACyHYsb6Q&controls=0&modestbranding=1&playsinline=1&rel=0&disablekb=1&iv_load_policy=3&showinfo=0&fs=0"
-    title="Flying above the clouds"
-    frameborder="0"
-    allow="autoplay; encrypted-media; picture-in-picture"
-    allowfullscreen></iframe>
-  <div class="video-curtain"></div>
+  <div id="ytplayer"></div>
+  <div class="video-curtain" id="curtain"></div>
 </div>
 
 <div class="wrap">
   <h1 class="peace">You Found Peace</h1>
   <p class="peace-sub">Savour It</p>
 </div>
+
+<script>
+(function () {
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+})();
+
+function onYouTubeIframeAPIReady() {
+  new YT.Player('ytplayer', {
+    videoId: 'Y8ACyHYsb6Q',
+    playerVars: {
+      autoplay: 1, mute: 1, loop: 1, playlist: 'Y8ACyHYsb6Q',
+      controls: 0, modestbranding: 1, playsinline: 1, rel: 0,
+      disablekb: 1, iv_load_policy: 3, showinfo: 0, fs: 0
+    },
+    events: {
+      onReady: function (e) { e.target.mute(); e.target.playVideo(); },
+      onStateChange: function (e) {
+        if (e.data === YT.PlayerState.PLAYING) {
+          // Wait ~3.5s for any YouTube title overlay to fade out, then drop the curtain.
+          setTimeout(function () {
+            var c = document.getElementById('curtain');
+            if (c) c.classList.add('faded');
+          }, 3500);
+        }
+      }
+    }
+  });
+}
+</script>
 </body>
 </html>
