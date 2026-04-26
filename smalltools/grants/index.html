@@ -1283,6 +1283,7 @@ function categorise(grant, today) {
   const deadline = parseDate(grant.deadline);
   if (!deadline) return 'long';
   const days = daysUntil(deadline, today);
+  if (days < -365) return null;
   if (days < 0) return 'archive';
   if (days <= 30) return 'hot';
   if (days <= 90) return 'new';
@@ -1468,6 +1469,7 @@ async function load() {
   const buckets = { hot: [], new: [], long: [], archive: [] };
   for (const grant of (data.grants || [])) {
     const cat = categorise(grant, today);
+    if (!cat) continue; // closed > 365 days ago, hide from page
     buckets[cat].push(grant);
   }
 
