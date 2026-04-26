@@ -56,15 +56,10 @@ def rfc822(d):
 def deadline_label(deadline, today):
     if not deadline:
         return "Rolling / undated"
-    days = (deadline - today).days
     formatted = deadline.strftime("%d %b %Y")
-    if days < 0:
+    if (deadline - today).days < 0:
         return f"Closed {formatted}"
-    if days == 0:
-        return f"Due today ({formatted})"
-    if days == 1:
-        return f"1 day left, {formatted}"
-    return f"{formatted} ({days} days left)"
+    return formatted
 
 
 def build_item(grant, today):
@@ -76,7 +71,15 @@ def build_item(grant, today):
 
     deadline = parse_date(grant.get("deadline"))
     label = deadline_label(deadline, today)
-    title_full = f"{title} - deadline {label}"
+    amount = grant.get("amount")
+    parts = [title]
+    if amount:
+        parts.append(str(amount))
+    if deadline and (deadline - today).days >= 0:
+        parts.append(f"deadline {label}")
+    else:
+        parts.append(label)
+    title_full = " - ".join(parts)
 
     body = []
     org = grant.get("organization")
