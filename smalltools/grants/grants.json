@@ -3,6 +3,94 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "european-edtech-fellowship-2026",
+      "title": "European EdTech Fellowship 2026 (paid program, €1,000 fee)",
+      "organization": "European EdTech Alliance",
+      "location": "Europe (online sessions)",
+      "region": "EU",
+      "amount": "Paid program: €1,000 fee paid BY the fellow (this is the cost of participation, NOT a cash grant). Includes 6 monthly curated sessions, mentorship and access to the European EdTech Alliance network.",
+      "duration": "6 months (1 session per month)",
+      "startDate": null,
+      "deadline": "2026-05-22",
+      "addedDate": "2026-04-26",
+      "description": "Note: this is a paid learning program, not a grant. Fellows pay €1,000 to attend 6 monthly intensive sessions teaching how to navigate European education systems (procurement cycles, trust frameworks, regulatory landscape, localised dynamics). Building on the Female EdTech Fellowship; this iteration is cross-sector, cross-gender, cross-border. Run by the European EdTech Alliance, a non-profit dedicated to fostering EdTech innovation and collaboration across Europe. Sessions cover ministry buying, framework agreements, pricing models for public education, digital sovereignty, GDPR and student data protection, sustainability communication, VC due diligence, social impact measurement, cross-border growth, and a final demo day with mentor matching. Applications close 22 May 2026.",
+      "url": "https://www.edtech-fellowship.eu/european-edtech-fellowship",
+      "tags": [
+        "fellowship",
+        "edtech",
+        "education",
+        "paid-program"
+      ],
+      "fee": true,
+      "featured": false
+    },
+    {
+      "id": "pollination-project-daily-seed-grants",
+      "title": "The Pollination Project: Daily Seed Grants",
+      "organization": "The Pollination Project",
+      "location": "Anywhere (worldwide)",
+      "region": "Worldwide",
+      "amount": "Up to $500",
+      "duration": "Per project",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-04-26",
+      "description": "Daily seed grants for early-stage volunteer-driven projects with social and environmental impact. Open to grassroots changemakers worldwide: individuals, informal groups and small nonprofits. Project budget under $10,000 and organisational budget under $50,000; no paid staff. Applications reviewed monthly; submit before month-end for that month's review.",
+      "url": "https://thepollinationproject.org/apply",
+      "tags": [
+        "grant",
+        "micro-grant",
+        "grassroots",
+        "social-impact"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "fca-emergency-grants",
+      "title": "Foundation for Contemporary Arts: Emergency Grants",
+      "organization": "Foundation for Contemporary Arts",
+      "location": "United States and US territories",
+      "region": "US",
+      "amount": "$500 to $3,000 (average ~$2,200)",
+      "duration": "Per project",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-04-26",
+      "description": "Year-round support for unanticipated opportunities or emergencies tied to a confirmed innovative artistic project. Open to individual visual and performing artists and poets living in the US or US territories with a US tax ID. Apply 8 to 10 weeks before your public presentation date. Designed to cover sudden costs (a venue change, a confirmed exhibition or performance opportunity with a tight runway, etc.).",
+      "url": "https://www.foundationforcontemporaryarts.org/grants/emergency-grants/",
+      "tags": [
+        "grant",
+        "art",
+        "emergency",
+        "rolling"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "wikimedia-rapid-fund",
+      "title": "Wikimedia Foundation Rapid Fund",
+      "organization": "Wikimedia Foundation",
+      "location": "Worldwide",
+      "region": "Worldwide",
+      "amount": "Up to $5,000",
+      "duration": "Per project (short-term)",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-04-26",
+      "description": "Quick-turnaround grants for individuals, groups or affiliates running short-term Wikimedia or free-knowledge projects worldwide. Funds editathons, training, content campaigns, documentation drives, and small experiments aligned with the Wikimedia movement. Rolling year-round; next formal cycle deadline 1 July 2026; transfers run slower in June and December. CEE region applications routed via the CEE Hub from 1 April 2026.",
+      "url": "https://meta.wikimedia.org/wiki/Grants:Programs/Rapid_Fund",
+      "tags": [
+        "grant",
+        "free-knowledge",
+        "wikipedia",
+        "open-content"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "olympic-heritage-artists-residence-2026",
       "title": "Olympic Heritage: Artists in Residence 2026",
       "organization": "3-2-1 Qatar Olympic & Sports Museum (QOSM) and The Olympic Museum, Lausanne",
