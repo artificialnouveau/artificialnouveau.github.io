@@ -35,6 +35,7 @@ html, body {
   font-family: 'Young Serif', Georgia, serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M8 22 C3 22 1.5 17 6 15 C4.5 10.5 9 7.5 13.5 11 C14.5 5.5 22.5 6 23 12 C28.5 11 30.5 17.5 26 19.5 Z' fill='%23FFFFFF' stroke='%231F1B16' stroke-width='1.6' stroke-linejoin='round'/></svg>") 6 14, auto;
 }
 
 body {
@@ -69,10 +70,28 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: max(125vw, 222.22vh);
-  height: max(125vh, 70.31vw);
+  width: max(150vw, 266.67vh);
+  height: max(150vh, 84.38vw);
   pointer-events: none;
   border: 0;
+}
+
+.video-curtain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, #6FA8C9 0%, #9CC4DD 55%, #C8DEEC 100%);
+  animation: curtain-fade 1.6s ease-out 5s forwards;
+}
+
+@keyframes curtain-fade {
+  from { opacity: 1; }
+  to   { opacity: 0; visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-curtain { animation: none; opacity: 0; }
 }
 
 .wrap {
@@ -130,11 +149,12 @@ body {
 
 <div class="video-bg" aria-hidden="true">
   <iframe
-    src="https://www.youtube.com/embed/Y8ACyHYsb6Q?autoplay=1&mute=1&loop=1&playlist=Y8ACyHYsb6Q&controls=0&modestbranding=1&playsinline=1&rel=0&disablekb=1&iv_load_policy=3&showinfo=0"
+    src="https://www.youtube.com/embed/Y8ACyHYsb6Q?autoplay=1&mute=1&loop=1&playlist=Y8ACyHYsb6Q&controls=0&modestbranding=1&playsinline=1&rel=0&disablekb=1&iv_load_policy=3&showinfo=0&fs=0"
     title="Flying above the clouds"
     frameborder="0"
     allow="autoplay; encrypted-media; picture-in-picture"
     allowfullscreen></iframe>
+  <div class="video-curtain"></div>
 </div>
 
 <div class="wrap">
