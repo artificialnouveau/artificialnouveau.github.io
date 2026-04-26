@@ -3,6 +3,73 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "olympic-heritage-artists-residence-2026",
+      "title": "Olympic Heritage: Artists in Residence 2026",
+      "organization": "3-2-1 Qatar Olympic & Sports Museum (QOSM) and The Olympic Museum, Lausanne",
+      "location": "Doha, Qatar OR La Tour-de-Peilz, Switzerland (one residency in each location)",
+      "region": "Worldwide",
+      "amount": "Round-trip flights + accommodation + living expenses allowance + mentorship + QAR 30,000 / €8,000 acquisition fee for resulting artwork (museums' permanent collections) + participation in international exhibition as part of the Cultural Olympiad (including LA 2028)",
+      "duration": "3 months (1 September to 1 December 2026)",
+      "startDate": "2026-09-01",
+      "deadline": "2026-04-30",
+      "addedDate": "2026-04-26",
+      "description": "Joint residency by the 3-2-1 Qatar Olympic & Sports Museum and The Olympic Museum in Lausanne for digital and immersive media artists to critically engage with sports culture and Olympic Legacy. Residents get exclusive access to museum collections, mentorship and expert support. The Doha residency is hosted at QOSM; the Swiss residency is at La Becque Artist Residence in La Tour-de-Peilz. Open to multi-disciplinary artists worldwide aged 18 to 35 (as of 31.12.2026) whose practice involves a significant element of digital art (any new media form, possibly combined with physical media). Free entry. Submit in English via the official online form by 30 April 2026 at 23:59 (GMT+1). Full guidelines on the Olympic Heritage residency landing page (linked URL is the Olympic Museum parent site; navigate to the Artists in Residence call or contact the museums directly).",
+      "url": "https://www.olympics.com/museum/en",
+      "tags": [
+        "residency",
+        "digital-art",
+        "art-technology",
+        "youth"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "shared-futures-social-dreamers-2026",
+      "title": "Shared Futures: Open Call for Social Dreamers (Cultural Facilitators)",
+      "organization": "LivingNet (Shared Futures, co-funded by Creative Europe)",
+      "location": "Across Creative Europe countries (in-person camps in Hungary July 2026 and Portugal April 2027)",
+      "region": "EU",
+      "amount": "Approx. €7,500 fee + intensive 7-day training camp + ongoing mentoring + access to European network + participation in international events",
+      "duration": "Approx. 1 year (orientation June 2026 to final workshop April 2027)",
+      "startDate": "2026-06-01",
+      "deadline": "2026-05-13",
+      "addedDate": "2026-04-26",
+      "description": "Open call for 3 cultural facilitators (\"Social Dreamers\") to work directly with diverse stakeholders, lead workshops, build spaces for dialogue, and contribute concrete tools for the cultural sector. The role combines facilitation, artistic thinking, mentoring and interdisciplinary collaboration; outputs include stakeholder manifestos, a Shared Future Vision Manifesto, and the development/testing of an AI-based tool for future scenarios. Eligible: individual professionals in the cultural and creative sector with experience in (a) group facilitation through artistic practices, (b) future visioning and scenario building, and (c) stakeholder engagement and management. Must reside in a Creative Europe country and be proficient in English plus the local language of the selected profile. Timeline: Open House online 28 April 2026; application deadline 13 May 2026 23:59 CET; selection by 10 June 2026; orientation late June 2026; 7-day Social Dreaming Camp 27 July to 2 August 2026 in Hungary; workshop phase July 2026 to January 2027; Future Vision phase February to April 2027 (final workshop in Portugal). Two-step selection: written application then online interview for shortlisted candidates. Apply in English via https://forms.gle/PSH9qVvDwUNR4x8q6.",
+      "url": "https://www.livingnet.eu/shared-future-open-call/",
+      "tags": [
+        "fellowship",
+        "facilitation",
+        "creative-europe",
+        "culture"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "kapor-foundation-research-fellowship-2026",
+      "title": "Kapor Foundation Research Fellowship",
+      "organization": "Kapor Foundation",
+      "location": "Remote (US-focused tech policy/research)",
+      "region": "US",
+      "amount": "Cash award (amount per project; first awards announced by 30 June 2026)",
+      "duration": "Per project",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-04-26",
+      "description": "Supports journalists producing long-form investigative reports and tech-policy researchers conducting research, analysis or evaluation that informs policy related to the Kapor Foundation's three priority areas, with an emphasis on responsible AI and tech ethics. Priority areas: CS/AI Education, Innovation, Governance. Aims to dismantle systemic inequities in the tech sector by funding researchers and investigative journalists exploring barriers and driving actionable solutions. Applications accepted on a rolling basis; first awards to be announced by 30 June 2026.",
+      "url": "https://kaporfoundation.org/research-fellowship/",
+      "tags": [
+        "fellowship",
+        "research",
+        "journalism",
+        "AI",
+        "tech-ethics"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "ngi-fediversity-11",
       "title": "NGI Fediversity (11th call)",
       "organization": "NLnet / NGI Fediversity (funded by EU Horizon Europe)",
