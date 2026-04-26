@@ -2,13 +2,13 @@
 """Prune grants whose deadline is more than 365 days in the past.
 
 Usage:
-    python3 smalltools/grants/prune_grants.py            # dry-run, just lists
-    python3 smalltools/grants/prune_grants.py --apply    # actually deletes
+    python3 smalltools/grants/prune_grants.py                    # dry-run, just lists
+    python3 smalltools/grants/prune_grants.py --apply            # asks 'yes' then deletes
+    python3 smalltools/grants/prune_grants.py --apply --auto     # deletes without prompting (CI)
 
-Always lists what would be removed first. The --apply flag still asks for
-y/N confirmation before writing. Rolling/undated grants are never pruned
-since they have no deadline. Run this once a year (or whenever the file
-feels heavy) to reclaim space.
+The --auto flag skips the interactive confirmation and is meant for the
+scheduled GitHub Action (.github/workflows/prune-grants.yml). Rolling/
+undated grants are never pruned since they have no deadline.
 """
 from __future__ import annotations
 
@@ -32,6 +32,7 @@ def parse_date(value):
 
 def main():
     apply = "--apply" in sys.argv
+    auto = "--auto" in sys.argv
     src = HERE / "grants.json"
     data = json.loads(src.read_text(encoding="utf-8"))
     grants = data.get("grants", []) or []
@@ -64,10 +65,13 @@ def main():
         print("\nDry run. Re-run with --apply to actually remove these.")
         return 0
 
-    confirm = input("\nProceed with deletion? Type 'yes' to confirm: ").strip().lower()
-    if confirm != "yes":
-        print("Aborted.")
-        return 1
+    if auto:
+        print("\n--auto mode: skipping confirmation prompt.")
+    else:
+        confirm = input("\nProceed with deletion? Type 'yes' to confirm: ").strip().lower()
+        if confirm != "yes":
+            print("Aborted.")
+            return 1
 
     data["grants"] = keep
     src.write_text(
