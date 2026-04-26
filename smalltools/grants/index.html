@@ -1786,8 +1786,8 @@ document.addEventListener('keydown', (e) => {
 
 const FILTER_STATE = { region: '', type: '', amount: '', search: '' };
 
-const SEED_REGIONS = ['EU', 'US', 'UK', 'NL', 'Remote'];
-const EXCLUDE_REGIONS = new Set(['Worldwide', 'Global']);
+const SEED_REGIONS = ['EU', 'US', 'UK', 'NL', 'Remote', 'Worldwide'];
+const EXCLUDE_REGIONS = new Set(['Global']);
 
 function buildFilterChips() {
   const folders = Array.from(document.querySelectorAll('.folder'));
