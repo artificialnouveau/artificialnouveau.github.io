@@ -3,6 +3,115 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "ssrc-just-tech-fellowship-2027",
+      "title": "SSRC Just Tech Fellowship 2027",
+      "organization": "Social Science Research Council (SSRC)",
+      "location": "United States (must reside in US during fellowship year)",
+      "region": "US",
+      "amount": "Up to $60,000 unrestricted",
+      "duration": "1 year",
+      "startDate": null,
+      "deadline": "2026-06-28",
+      "addedDate": "2026-04-26",
+      "description": "SSRC's flagship public-interest tech fellowship for individuals working on a more just, equitable and representative technological future. Open to researchers, practitioners, organisers, artists and technologists; no degree requirement; must reside in the US during the fellowship year. Includes mentoring and an in-person workshop. Strong fit for critical data, algorithmic justice, platform governance and digital rights work.",
+      "url": "https://www.ssrc.org/programs/just-tech/just-tech-fellowship/",
+      "tags": [
+        "fellowship",
+        "tech",
+        "data-society",
+        "research"
+      ],
+      "fee": false,
+      "featured": true
+    },
+    {
+      "id": "constellation-astra-fellowship-fall-2026",
+      "title": "Constellation Astra Fellowship (Fall 2026)",
+      "organization": "Constellation",
+      "location": "Berkeley, California, US (in-person; visa support provided)",
+      "region": "US",
+      "amount": "$8,400/month stipend; empirical fellows additionally get ~$15,000/month in compute",
+      "duration": "Approx. 5 months (14 September 2026 to 5 February 2027)",
+      "startDate": "2026-09-14",
+      "deadline": "2026-05-03",
+      "addedDate": "2026-04-26",
+      "description": "In-person Berkeley fellowship pairing fellows with senior mentors to do technical AI safety research (alignment, control, model evaluations, scalable oversight, interpretability). Open to motivated individuals worldwide; visa support provided. Sits on the trustworthy ML / AI safety end of data and society but legitimately individual-funded with one of the strongest cash + compute packages in the space.",
+      "url": "https://constellation.org/programs/astra",
+      "tags": [
+        "fellowship",
+        "AI",
+        "AI-safety",
+        "research"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "journalismfund-europe-cross-border-2026",
+      "title": "Journalismfund Europe: European Cross-Border Grants",
+      "organization": "Journalismfund Europe",
+      "location": "Europe (cross-border projects)",
+      "region": "EU",
+      "amount": "Variable, typically €5,000 to €50,000 per project",
+      "duration": "Per project",
+      "startDate": null,
+      "deadline": "2026-05-21",
+      "addedDate": "2026-04-26",
+      "description": "Supports independent investigative journalism across Europe, well-suited to surveillance, AI, platform governance and data-driven investigations. Cross-border team requirement: at least two professional journalists (freelance or staff) from at least two different countries. Next round after this one expected 2026-06-26.",
+      "url": "https://www.journalismfund.eu/grants",
+      "tags": [
+        "grant",
+        "journalism",
+        "investigative",
+        "cross-border"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "pulitzer-center-data-journalism-grants",
+      "title": "Pulitzer Center: Data Journalism Grants",
+      "organization": "Pulitzer Center on Crisis Reporting",
+      "location": "Worldwide (remote application)",
+      "region": "Worldwide",
+      "amount": "Typically $5,000 to $10,000+ per project (covers reporting hard costs; no salaries or equipment)",
+      "duration": "Per project",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-04-26",
+      "description": "Funds data-driven reporting that uses ML, NLP, satellite imagery, sensors and other computational methods on under-reported issues. Open to freelance and staff data journalists worldwide. Reviewed first-come, first-served on a rolling basis; decisions usually within a month.",
+      "url": "https://pulitzercenter.org/grants-fellowships/opportunities-journalists/data-journalism-grants",
+      "tags": [
+        "grant",
+        "journalism",
+        "data"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "pulitzer-center-ai-reporting-grants",
+      "title": "Pulitzer Center: AI Reporting Grants",
+      "organization": "Pulitzer Center on Crisis Reporting",
+      "location": "Worldwide (remote application)",
+      "region": "Worldwide",
+      "amount": "Variable reporting hard costs (no salaries or equipment)",
+      "duration": "Per project",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-04-26",
+      "description": "Lightweight rolling grant for individual journalists worldwide (writers, photographers, radio, film; freelance or staff) examining how AI systems are designed, sold and deployed in communities. Faster turnaround than the Pulitzer AI Accountability Fellowship: decisions in 1 to 2 weeks.",
+      "url": "https://pulitzercenter.org/grants-fellowships/opportunities-journalists/ai-reporting-grants",
+      "tags": [
+        "grant",
+        "journalism",
+        "AI",
+        "data-society"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "bek-studio-residencies-autumn-2026",
       "title": "BEK: Studio Residencies Autumn 2026",
       "organization": "BEK (Bergen Senter for Elektronisk Kunst)",
