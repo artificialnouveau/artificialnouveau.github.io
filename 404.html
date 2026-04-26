@@ -7,7 +7,7 @@ sitemap: false
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>404 - filed away by mistake</title>
+<title>404 - You found peace</title>
 <meta name="robots" content="noindex">
 <style>
 @font-face {
@@ -21,15 +21,10 @@ sitemap: false
 
 :root {
   --paper: #F4ECDC;
-  --paper-2: #ECE0C2;
   --ink: #1F1B16;
   --ink-soft: #4A413A;
   --ink-mute: #7A6F63;
-  --line: #2A241D;
   --hot: #D94B3C;
-  --sticky-yellow: #FFE066;
-  --sticky-pink: #FFB3BA;
-  --sticky-blue: #B5E8FF;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,177 +54,94 @@ body {
   z-index: 10;
 }
 
-/* --- Drifting cloud background --- */
-.sky {
+/* --- Background video (clouds) --- */
+.video-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  background: #87B8D9;
 }
 
-.cloud {
+.video-bg iframe {
   position: absolute;
-  opacity: 0.55;
-  will-change: transform;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100vw, 177.78vh);
+  height: max(100vh, 56.25vw);
+  pointer-events: none;
+  border: 0;
 }
-
-.cloud svg { display: block; width: 100%; height: 100%; }
-
-.cloud-1 { top: 8%;  width: 220px; height: 110px; animation: drift 70s linear infinite; animation-delay: -20s; }
-.cloud-2 { top: 22%; width: 320px; height: 160px; animation: drift 110s linear infinite; opacity: 0.4; animation-delay: -55s; }
-.cloud-3 { top: 42%; width: 180px; height: 90px;  animation: drift 55s linear infinite; opacity: 0.65; animation-delay: -10s; }
-.cloud-4 { top: 62%; width: 280px; height: 140px; animation: drift 95s linear infinite; opacity: 0.5; animation-delay: -45s; }
-.cloud-5 { top: 78%; width: 200px; height: 100px; animation: drift 80s linear infinite; opacity: 0.6; animation-delay: -30s; }
-
-@keyframes drift {
-  from { transform: translateX(-30vw); }
-  to   { transform: translateX(110vw); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cloud { animation: none !important; opacity: 0.35; }
-  .cloud-1 { left: 5%; }
-  .cloud-2 { left: 60%; }
-  .cloud-3 { left: 25%; }
-  .cloud-4 { left: 70%; }
-  .cloud-5 { left: 10%; }
-}
-
-.wrap, .top-bar { position: relative; z-index: 2; }
 
 .wrap {
-  max-width: 720px;
-  width: 100%;
-  text-align: center;
   position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 880px;
+  width: 100%;
 }
 
 .peace {
-  font-size: clamp(48px, 9vw, 96px);
-  line-height: 1.05;
+  font-size: clamp(56px, 11vw, 128px);
+  line-height: 1.0;
   letter-spacing: -0.02em;
-  color: var(--ink);
+  color: #FFFFFF;
   font-weight: 400;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35), 0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 .peace-sub {
-  margin-top: 20px;
-  font-size: clamp(22px, 3.5vw, 34px);
-  color: var(--ink-soft);
+  margin-top: 24px;
+  font-size: clamp(24px, 4vw, 40px);
+  color: #FFFFFF;
   font-style: italic;
-}
-
-.note {
-  font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace;
-  font-size: 14px;
-  color: var(--ink-mute);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-top: 14px;
-}
-
-.body-text {
-  font-size: 18px;
-  line-height: 1.55;
-  margin-top: 36px;
-  color: var(--ink-soft);
-  max-width: 540px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.body-text p + p { margin-top: 14px; }
-
-.links {
-  margin-top: 44px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
-
-.links a {
-  font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ink);
-  background: #fff;
-  border: 1.5px solid var(--line);
-  padding: 10px 16px;
-  border-radius: 999px;
-  text-decoration: none;
-  transition: background 0.15s ease, transform 0.15s ease;
-}
-.links a:hover {
-  background: var(--sticky-yellow);
-  transform: translate(-1px, -1px);
-}
-
-.sticky {
-  position: absolute;
-  background: var(--sticky-pink);
-  border: 1.5px solid var(--line);
-  padding: 14px 18px;
-  font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace;
-  font-size: 13px;
-  color: var(--ink);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  box-shadow: 4px 6px 0 rgba(0,0,0,0.12);
-  transform: rotate(-4deg);
-  line-height: 1.4;
-}
-
-.sticky-1 {
-  top: -10px;
-  right: -20px;
-  background: var(--sticky-yellow);
-  transform: rotate(6deg);
-}
-
-.sticky-2 {
-  bottom: -30px;
-  left: -10px;
-  background: var(--sticky-blue);
-  transform: rotate(-5deg);
-}
-
-@media (max-width: 600px) {
-  .sticky-1, .sticky-2 { display: none; }
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 footer {
-  margin-top: 60px;
+  position: fixed;
+  bottom: 18px;
+  left: 0; right: 0;
+  text-align: center;
   font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace;
   font-size: 11px;
-  color: var(--ink-mute);
+  color: #FFFFFF;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
+  z-index: 5;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
 }
 
-footer a { color: var(--ink-mute); }
+footer a {
+  color: #FFFFFF;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  padding-bottom: 1px;
+}
+footer a:hover { border-bottom-color: #FFFFFF; }
 </style>
 </head>
 <body>
 <div class="top-bar"></div>
 
-<div class="sky" aria-hidden="true">
-  <div class="cloud cloud-1"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M40 75 C20 75 10 60 25 50 C20 35 40 25 55 35 C60 20 90 20 95 40 C115 30 140 45 135 60 C160 60 165 80 145 80 Z" fill="#FFFFFF" stroke="#1F1B16" stroke-width="2.5" stroke-linejoin="round"/></svg></div>
-  <div class="cloud cloud-2"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M30 80 C10 78 8 60 25 55 C18 40 40 28 60 38 C70 22 110 22 115 45 C140 35 170 50 165 70 C180 72 178 88 160 85 Z" fill="#FFFFFF" stroke="#1F1B16" stroke-width="2.5" stroke-linejoin="round"/></svg></div>
-  <div class="cloud cloud-3"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M45 78 C25 76 22 58 38 52 C35 38 55 30 70 40 C75 25 105 28 108 48 C128 42 145 60 135 75 Z" fill="#FFFFFF" stroke="#1F1B16" stroke-width="2.5" stroke-linejoin="round"/></svg></div>
-  <div class="cloud cloud-4"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M35 82 C12 80 10 62 28 56 C22 42 45 32 62 42 C70 25 105 28 112 48 C135 38 165 55 158 72 C170 75 168 88 152 85 Z" fill="#FFFFFF" stroke="#1F1B16" stroke-width="2.5" stroke-linejoin="round"/></svg></div>
-  <div class="cloud cloud-5"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M40 80 C20 78 18 58 35 52 C30 38 50 30 65 40 C72 25 102 28 108 50 C128 42 150 60 138 75 Z" fill="#FFFFFF" stroke="#1F1B16" stroke-width="2.5" stroke-linejoin="round"/></svg></div>
+<div class="video-bg" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/Y8ACyHYsb6Q?autoplay=1&mute=1&loop=1&playlist=Y8ACyHYsb6Q&controls=0&modestbranding=1&playsinline=1&rel=0&disablekb=1&iv_load_policy=3&showinfo=0"
+    title="Flying above the clouds"
+    frameborder="0"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    allowfullscreen></iframe>
 </div>
 
 <div class="wrap">
   <h1 class="peace">You Found Peace.</h1>
   <p class="peace-sub">Savour It.</p>
-
-  <footer>
-    <a href="/">artificialnouveau.com</a>
-  </footer>
 </div>
+
+<footer>
+  <a href="/">artificialnouveau.com</a>
+</footer>
 </body>
 </html>
