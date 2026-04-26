@@ -39,6 +39,8 @@
   --new-soft: #F8E6A8;
   --long: #3E5C7E;
   --long-soft: #C5D3E2;
+  --rolling: #2E7D5B;
+  --rolling-soft: #C8E2D2;
   --sticky-yellow: #FFE066;
   --sticky-pink: #FFB3BA;
   --sticky-blue: #B5E8FF;
@@ -755,6 +757,7 @@ body {
 #section-hot .section-title .label { background: var(--hot-soft); border-color: var(--hot); color: var(--hot); }
 #section-new .section-title .label { background: var(--new-soft); border-color: #B58A1A; color: #7C5D08; }
 #section-long .section-title .label { background: var(--long-soft); border-color: var(--long); color: var(--long); }
+#section-rolling .section-title .label { background: var(--rolling-soft); border-color: var(--rolling); color: var(--rolling); }
 #section-archive .section-title .label { background: #DCD7CC; border-color: var(--archive); color: var(--archive); }
 
 /* --- Folder grid --- */
@@ -818,6 +821,9 @@ body {
 
 .folder.is-long { background: #DEE7F0; }
 .folder.is-long::before { background: var(--long); }
+
+.folder.is-rolling { background: #DEEDE3; }
+.folder.is-rolling::before { background: var(--rolling); }
 
 .folder.is-archive { background: #DCD5C4; opacity: 0.78; box-shadow: 3px 3px 0 var(--ink-mute); border-color: var(--archive); color: var(--ink-soft); }
 .folder.is-archive::before { background: var(--archive); border-color: var(--archive); }
@@ -1212,7 +1218,7 @@ code *, pre *, kbd *, samp * {
 
 <header class="page-header">
   <h1>The <span class="underline">Grant</span> Desk</h1>
-  <p class="lede">A hand-picked desk of <strong>paid</strong> open calls, fellowships and residencies for tech, art and research. Every entry here is funded, no unpaid "exposure opportunities". Sorted by deadline into Hot Files, New Arrivals and Long-Term Projects, with closed calls auto-filed away.</p>
+  <p class="lede">A hand-picked desk of <strong>paid</strong> open calls, fellowships and residencies for tech, art and research. Every entry here is funded, no unpaid "exposure opportunities". Sorted by deadline into Hot Grants, You Got Time, Deadlines Beyond 90 Days and Rolling or Continuous Calls, with closed calls auto-filed away.</p>
   <p class="lede subtle">Subscribe via RSS or add deadlines to your calendar so you do not miss a thing.</p>
 </header>
 
@@ -1286,12 +1292,24 @@ code *, pre *, kbd *, samp * {
     <div class="section-head">
       <div class="section-title">
         <span class="label">LONG</span>
-        <h2>Long-Term Projects</h2>
+        <h2>Deadlines Beyond 90 Days</h2>
         <span class="meta" id="meta-long"></span>
       </div>
-      <span class="section-help">Deadlines beyond 90 days, or rolling and continuous calls.</span>
+      <span class="section-help">Plenty of time. Plan it in.</span>
     </div>
     <div class="folder-grid" id="grid-long"></div>
+  </section>
+
+  <section class="section" id="section-rolling">
+    <div class="section-head">
+      <div class="section-title">
+        <span class="label">ROLLING</span>
+        <h2>Rolling or Continuous Calls</h2>
+        <span class="meta" id="meta-rolling"></span>
+      </div>
+      <span class="section-help">No fixed deadline. Apply whenever you are ready.</span>
+    </div>
+    <div class="folder-grid" id="grid-rolling"></div>
   </section>
 
   <section class="section" id="section-archive" data-open="false">
@@ -1355,7 +1373,7 @@ function formatDate(date) {
 
 function categorise(grant, today) {
   const deadline = parseDate(grant.deadline);
-  if (!deadline) return 'long';
+  if (!deadline) return 'rolling';
   const days = daysUntil(deadline, today);
   if (days < -365) return null;
   if (days < 0) return 'archive';
@@ -1376,7 +1394,7 @@ function deadlinePill(grant, today) {
   return { text: `${formatted} (${days}d)`, cls: '' };
 }
 
-const TYPE_TAGS = ['residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'open-call', 'job'];
+const TYPE_TAGS = ['open-call', 'residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'job'];
 
 function detectType(grant) {
   const tags = (grant.tags || []).map(t => String(t).toLowerCase());
@@ -1422,6 +1440,7 @@ function renderFolder(grant, category, today) {
   a.className = 'folder';
   if (category === 'hot') a.classList.add('is-hot');
   if (category === 'long') a.classList.add('is-long');
+  if (category === 'rolling') a.classList.add('is-rolling');
   if (category === 'archive') a.classList.add('is-archive');
   a.href = grant.url || '#';
   a.target = '_blank';
@@ -1540,7 +1559,7 @@ async function load() {
     return;
   }
 
-  const buckets = { hot: [], new: [], long: [], archive: [] };
+  const buckets = { hot: [], new: [], long: [], rolling: [], archive: [] };
   for (const grant of (data.grants || [])) {
     const cat = categorise(grant, today);
     if (!cat) continue; // closed > 365 days ago, hide from page
@@ -1550,6 +1569,7 @@ async function load() {
   buckets.hot.sort(sortByDeadline);
   buckets.new.sort(sortByDeadline);
   buckets.long.sort(sortByDeadline);
+  buckets.rolling.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
   buckets.archive.sort(sortArchive);
 
   const renderInto = (id, list, cat) => {
@@ -1568,6 +1588,7 @@ async function load() {
   renderInto('grid-hot', buckets.hot, 'hot');
   renderInto('grid-new', buckets.new, 'new');
   renderInto('grid-long', buckets.long, 'long');
+  renderInto('grid-rolling', buckets.rolling, 'rolling');
   renderInto('grid-archive', buckets.archive, 'archive');
 
   buildFilterChips();
@@ -1580,6 +1601,7 @@ async function load() {
   document.getElementById('meta-hot').textContent = buckets.hot.length === 1 ? '1 grant' : `${buckets.hot.length} grants`;
   document.getElementById('meta-new').textContent = buckets.new.length === 1 ? '1 grant' : `${buckets.new.length} grants`;
   document.getElementById('meta-long').textContent = buckets.long.length === 1 ? '1 grant' : `${buckets.long.length} grants`;
+  document.getElementById('meta-rolling').textContent = buckets.rolling.length === 1 ? '1 grant' : `${buckets.rolling.length} grants`;
   document.getElementById('meta-archive').textContent = buckets.archive.length === 1 ? '1 grant' : `${buckets.archive.length} grants`;
 
   const archiveSection = document.getElementById('section-archive');
@@ -1747,7 +1769,7 @@ function buildFilterChips() {
     return a.localeCompare(b);
   });
 
-  const typeOrder = ['residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'open-call', 'job', 'other'];
+  const typeOrder = ['open-call', 'residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'job', 'other'];
   const sortedTypes = [...types].sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b));
 
   const regionGroup = document.getElementById('filter-region');
@@ -1836,6 +1858,7 @@ function applyFilters() {
     'section-hot': 'meta-hot',
     'section-new': 'meta-new',
     'section-long': 'meta-long',
+    'section-rolling': 'meta-rolling',
     'section-archive': 'meta-archive',
   };
   for (const [secId, metaId] of Object.entries(sectionMap)) {
