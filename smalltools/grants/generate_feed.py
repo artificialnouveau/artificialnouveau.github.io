@@ -24,7 +24,7 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 HERE = Path(__file__).parent
-PAGE_URL = "https://artificialnouveau.github.io/smalltools/grants/"
+PAGE_URL = "https://www.artificialnouveau.com/smalltools/grants/"
 TITLE = "The Grant Desk"
 DESCRIPTION = (
     "Paid open calls, fellowships and residencies in tech, art and research, "
@@ -33,7 +33,7 @@ DESCRIPTION = (
 MAX_ITEMS = 50
 
 REGIONS = ["EU", "US", "UK", "NL", "Remote", "Worldwide"]
-TIMELINES = ["30d", "90d"]
+TIMELINES = ["30d", "90d", "added-30d"]
 
 
 def parse_date(value):
@@ -96,6 +96,10 @@ def build_item(grant, today):
     if desc:
         body.append(f"<p>{escape(str(desc))}</p>")
     body.append(f'<p><a href="{escape(link)}">Open call details</a></p>')
+    body.append(
+        f'<p>Want to see more grants? Visit '
+        f'<a href="{escape(PAGE_URL)}">The Grant Desk</a> ({escape(PAGE_URL)}).</p>'
+    )
     body_html = "".join(body)
 
     cats = []
@@ -134,6 +138,8 @@ def feed_title_desc(region, timeline):
         suffix.append("next 30 days")
     elif timeline == "90d":
         suffix.append("next 90 days")
+    elif timeline == "added-30d":
+        suffix.append("added in last 30 days")
     if suffix:
         return (
             f"{TITLE} - {', '.join(suffix)}",
@@ -147,7 +153,15 @@ def filter_grants(grants, region, timeline, today):
     for g in grants:
         if region and g.get("region") != region:
             continue
-        if timeline:
+        if timeline and timeline.startswith("added-"):
+            window_days = int(timeline.split("-")[1].rstrip("d"))
+            added = parse_date(g.get("addedDate"))
+            if not added:
+                continue
+            age_days = (today - added).days
+            if age_days < 0 or age_days > window_days:
+                continue
+        elif timeline:
             d = parse_date(g.get("deadline"))
             if not d:
                 continue

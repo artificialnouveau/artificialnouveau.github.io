@@ -1144,9 +1144,10 @@ code *, pre *, kbd *, samp * {
             <label>
               <span>Timeline</span>
               <select id="feed-timeline">
-                <option value="">All deadlines</option>
-                <option value="90d">Next 90 days</option>
-                <option value="30d">Next 30 days</option>
+                <option value="">All grants</option>
+                <option value="90d">Deadline in next 90 days</option>
+                <option value="30d">Deadline in next 30 days</option>
+                <option value="added-30d">Added in last 30 days</option>
               </select>
             </label>
           </div>
@@ -1161,7 +1162,8 @@ code *, pre *, kbd *, samp * {
               <li>Optionally pick a Region and/or Timeline above to narrow the feed.</li>
               <li>Copy the feed URL or click Open feed.</li>
               <li>Paste the URL into your RSS reader (Feedly, NetNewsWire, Inoreader, Reeder, Thunderbird).</li>
-              <li>Timeline-filtered feeds (Next 30 / 90 days) only include grants with a fixed deadline in that window. Rolling/undated grants are excluded from those.</li>
+              <li>Deadline-filtered feeds (Next 30 / 90 days) only include grants with a fixed deadline in that window. Rolling/undated grants are excluded from those.</li>
+              <li>"Added in last 30 days" includes everything added recently regardless of deadline (great for a "what's new" feed).</li>
             </ol>
           </details>
         </div>
