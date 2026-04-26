@@ -11,9 +11,68 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in tech\, art an
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:filmfonds-wildcards-2026@artificialnouveau.github.io
+DTSTAMP:20260426T163358Z
+DTSTART;VALUE=DATE:20260707
+DTEND;VALUE=DATE:20260708
+SUMMARY:Deadline: Filmfonds Wildcards (Documentary\, Fiction\, Animation)
+DESCRIPTION:Talent prize for recently graduated bachelor filmmakers from a 
+ Dutch film or art academy (documentary\, fiction or animation). Winners re
+ ceive a small development purse to start a new short film\, and a much lar
+ ger realisation budget once they have a producer attached. Annual round\; 
+ deadline 7 July 2026 at 17:00.\n\nOrganisation: Nederlands Filmfonds\nLoca
+ tion: Netherlands\nAward: Up to €3\,000 development to the maker + up to
+  €50\,000 realisation (paid via attached producer)\nDuration: One-off ta
+ lent prize per round\n\nMore: https://www.filmfonds.nl/subsidies/subsidie/
+ filmfonds-wildcards-documentaire-fictie-en-animatie
+URL:https://www.filmfonds.nl/subsidies/subsidie/filmfonds-wildcards-documen
+ taire-fictie-en-animatie
+LOCATION:Netherlands
+END:VEVENT
+BEGIN:VEVENT
+UID:filmfonds-cypher-cinema-2026@artificialnouveau.github.io
+DTSTAMP:20260426T163358Z
+DTSTART;VALUE=DATE:20260616
+DTEND;VALUE=DATE:20260617
+SUMMARY:Deadline: Filmfonds Cypher Cinema
+DESCRIPTION:Talent-development track for self-taught Dutch-based directors 
+ or artist collectives without formal film-school training\, making a disti
+ nctive short film. Comes with development money\, individual coaching\, wo
+ rkshops and matchmaking with producers. Applicant must live and work in th
+ e Kingdom of the Netherlands. Deadline 16 June 2026 at 17:00.\n\nOrganisat
+ ion: Nederlands Filmfonds\nLocation: Netherlands (Kingdom of the Netherlan
+ ds)\nAward: €10\,000 per project (€8\,500 to autodidact director or co
+ llective + €1\,500 routed via attached producer)\nDuration: Per short fi
+ lm project\n\nMore: https://www.filmfonds.nl/subsidies/subsidie/cypher-cin
+ ema
+URL:https://www.filmfonds.nl/subsidies/subsidie/cypher-cinema
+LOCATION:Netherlands (Kingdom of the Netherlands)
+END:VEVENT
+BEGIN:VEVENT
+UID:filmfonds-immerse-interact-2026@artificialnouveau.github.io
+DTSTAMP:20260426T163358Z
+DTSTART;VALUE=DATE:20260825
+DTEND;VALUE=DATE:20260826
+SUMMARY:Deadline: Filmfonds Immerse\\Interact
+DESCRIPTION:Funding for the development\, realisation and distribution of a
+ rtistically ambitious immersive or interactive media works with a strong c
+ inematic-storytelling component. Open to independent makers as well as pro
+ ducers\; scheme is run jointly by Nederlands Filmfonds and Stimuleringsfon
+ ds Creatieve Industrie\, with applications submitted to the Stimuleringsfo
+ nds. Annual rounds\; next deadline 25 August 2026 at 17:00.\n\nOrganisatio
+ n: Stimuleringsfonds Creatieve Industrie (in collaboration with Nederlands
+  Filmfonds)\nLocation: Netherlands\nAward: Per applicant's primary activit
+ y\; about six development grants per round (no single ceiling published on
+  this scheme page)\nDuration: Per project (development\, realisation or di
+ stribution)\n\nMore: https://www.filmfonds.nl/subsidies/subsidie/immerse-i
+ nteract
+URL:https://www.filmfonds.nl/subsidies/subsidie/immerse-interact
+LOCATION:Netherlands
+END:VEVENT
+BEGIN:VEVENT
 UID:stichting-grensloos-dichterbij-weiteveen-2026@artificialnouveau.github.
  io
-DTSTAMP:20260426T161007Z
+DTSTAMP:20260426T163358Z
 DTSTART;VALUE=DATE:20260501
 DTEND;VALUE=DATE:20260502
 SUMMARY:Deadline: Stichting Grensloos: Dichter/bij Weiteveen Open Call
@@ -35,7 +94,7 @@ LOCATION:Weiteveen\, Southeast Drenthe\, Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:v2-alex-adriaansens-residency-2026@artificialnouveau.github.io
-DTSTAMP:20260426T161007Z
+DTSTAMP:20260426T163358Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: Call for Proposals: Alex Adriaansens Residency 2026
@@ -59,7 +118,7 @@ LOCATION:Rotterdam\, Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:critical-pathways-utrecht-2026@artificialnouveau.github.io
-DTSTAMP:20260426T161007Z
+DTSTAMP:20260426T163358Z
 DTSTART;VALUE=DATE:20260427
 DTEND;VALUE=DATE:20260428
 SUMMARY:Deadline: Making Visible the Invisible: Critical Pathways Fellowshi
@@ -85,7 +144,7 @@ LOCATION:Utrecht\, Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:art-office-iv-rotterdam-2026@artificialnouveau.github.io
-DTSTAMP:20260426T161007Z
+DTSTAMP:20260426T163358Z
 DTSTART;VALUE=DATE:20260921
 DTEND;VALUE=DATE:20260922
 SUMMARY:Deadline: Impulse and In-Depth Scheme (I&V) for Rotterdam Visual Ar
@@ -107,7 +166,7 @@ LOCATION:Rotterdam\, Netherlands (Rotterdam-based artists only)
 END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-awareness-history-of-slavery@artificialnouveau.github.io
-DTSTAMP:20260426T161007Z
+DTSTAMP:20260426T163358Z
 DTSTART;VALUE=DATE:20260716
 DTEND;VALUE=DATE:20260717
 SUMMARY:Deadline: Mondriaan Fund: Awareness of the History of Slavery

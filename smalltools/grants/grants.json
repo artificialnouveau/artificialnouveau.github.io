@@ -3,6 +3,114 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "see-nl-travel-grant-2026",
+      "title": "SEE NL: Travel Grant Scheme",
+      "organization": "SEE NL (Eye Filmmuseum)",
+      "location": "Netherlands (for travel to international festivals)",
+      "region": "NL",
+      "amount": "Features: up to €700 outside Europe, €300 in Europe (+€100 train bonus). Shorts: up to €400 outside Europe, €250 in Europe (+€100 train bonus). Mileage allowance €0.23/km for European car travel.",
+      "duration": "Per festival visit",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-04-26",
+      "description": "Travel grant for directors and/or producers of Dutch films (or Dutch majority co-productions; modified scheme for minority co-productions) invited to attend the screening of their film at festivals on the SEE NL Travel Grant List. The festival must extend an official invitation and offer at least one of the invitees (director or producer) at least 3 nights of hotel accommodation. Maximum two travel grants per film per festival (1x director, 1x producer, in a single application). Up to two festivals per film per year. Apply at least 4 weeks before the festival start by emailing international@eyefilm.nl with the official festival invitation that confirms the number of accommodations offered. Sustainable travel rewarded: train travel within Europe gets +€100 (halved if train used only one direction). Costs already reimbursed by SEE NL or third parties are not eligible; ticket changes, cancellations, local transport and taxis at destination are not claimable. Budget allocated quarterly across the year and finite; applications considered as long as resources remain. Rolling/continuous application via email.",
+      "url": "https://www.eyefilm.nl/en/professionals/see-nl/financial-support",
+      "tags": [
+        "travel-grant",
+        "film",
+        "festivals"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "filmfonds-wildcards-2026",
+      "title": "Filmfonds Wildcards (Documentary, Fiction, Animation)",
+      "organization": "Nederlands Filmfonds",
+      "location": "Netherlands",
+      "region": "NL",
+      "amount": "Up to €3,000 development to the maker + up to €50,000 realisation (paid via attached producer)",
+      "duration": "One-off talent prize per round",
+      "startDate": null,
+      "deadline": "2026-07-07",
+      "addedDate": "2026-04-26",
+      "description": "Talent prize for recently graduated bachelor filmmakers from a Dutch film or art academy (documentary, fiction or animation). Winners receive a small development purse to start a new short film, and a much larger realisation budget once they have a producer attached. Annual round; deadline 7 July 2026 at 17:00.",
+      "url": "https://www.filmfonds.nl/subsidies/subsidie/filmfonds-wildcards-documentaire-fictie-en-animatie",
+      "tags": [
+        "grant",
+        "film",
+        "emerging"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "filmfonds-cypher-cinema-2026",
+      "title": "Filmfonds Cypher Cinema",
+      "organization": "Nederlands Filmfonds",
+      "location": "Netherlands (Kingdom of the Netherlands)",
+      "region": "NL",
+      "amount": "€10,000 per project (€8,500 to autodidact director or collective + €1,500 routed via attached producer)",
+      "duration": "Per short film project",
+      "startDate": null,
+      "deadline": "2026-06-16",
+      "addedDate": "2026-04-26",
+      "description": "Talent-development track for self-taught Dutch-based directors or artist collectives without formal film-school training, making a distinctive short film. Comes with development money, individual coaching, workshops and matchmaking with producers. Applicant must live and work in the Kingdom of the Netherlands. Deadline 16 June 2026 at 17:00.",
+      "url": "https://www.filmfonds.nl/subsidies/subsidie/cypher-cinema",
+      "tags": [
+        "grant",
+        "film",
+        "self-taught",
+        "shorts"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "filmfonds-immerse-interact-2026",
+      "title": "Filmfonds Immerse\\Interact",
+      "organization": "Stimuleringsfonds Creatieve Industrie (in collaboration with Nederlands Filmfonds)",
+      "location": "Netherlands",
+      "region": "NL",
+      "amount": "Per applicant's primary activity; about six development grants per round (no single ceiling published on this scheme page)",
+      "duration": "Per project (development, realisation or distribution)",
+      "startDate": null,
+      "deadline": "2026-08-25",
+      "addedDate": "2026-04-26",
+      "description": "Funding for the development, realisation and distribution of artistically ambitious immersive or interactive media works with a strong cinematic-storytelling component. Open to independent makers as well as producers; scheme is run jointly by Nederlands Filmfonds and Stimuleringsfonds Creatieve Industrie, with applications submitted to the Stimuleringsfonds. Annual rounds; next deadline 25 August 2026 at 17:00.",
+      "url": "https://www.filmfonds.nl/subsidies/subsidie/immerse-interact",
+      "tags": [
+        "grant",
+        "film",
+        "XR",
+        "immersive",
+        "interactive"
+      ],
+      "fee": false,
+      "featured": true
+    },
+    {
+      "id": "filmfonds-onderzoek-2026",
+      "title": "Filmfonds Onderzoek (Research)",
+      "organization": "Nederlands Filmfonds",
+      "location": "Netherlands",
+      "region": "NL",
+      "amount": "Up to 75% of total project costs (exact amount set per application; requires two third-party co-funders)",
+      "duration": "Per research project",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-04-26",
+      "description": "Grant for research projects relevant to the Dutch professional film sector, open to individual researchers (natural persons) as well as organisations. At least two third-party co-funders required. Results must be made publicly available. Applications accepted on a continuous basis (no fixed rounds).",
+      "url": "https://www.filmfonds.nl/subsidies/subsidie/onderzoek",
+      "tags": [
+        "grant",
+        "research",
+        "film"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "art-explora-tirana-vila31-2026",
       "title": "Art Explora: Tirana - Vila 31 Residencies",
       "organization": "Art Explora",
