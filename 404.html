@@ -69,8 +69,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: max(100vw, 177.78vh);
-  height: max(100vh, 56.25vw);
+  width: max(125vw, 222.22vh);
+  height: max(125vh, 70.31vw);
   pointer-events: none;
   border: 0;
 }
@@ -84,43 +84,45 @@ body {
 }
 
 .peace {
-  font-size: clamp(56px, 11vw, 128px);
-  line-height: 1.0;
-  letter-spacing: -0.02em;
-  color: #FFFFFF;
+  font-size: clamp(54px, 10.5vw, 124px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.92);
   font-weight: 400;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35), 0 1px 4px rgba(0, 0, 0, 0.45);
+  font-style: italic;
+  text-shadow:
+    0 2px 40px rgba(255, 255, 255, 0.25),
+    0 4px 60px rgba(0, 0, 0, 0.25),
+    0 1px 6px rgba(0, 0, 0, 0.35);
+  animation: drift-up 9s ease-in-out infinite alternate, fade-in 2.4s ease-out;
 }
 
 .peace-sub {
-  margin-top: 24px;
-  font-size: clamp(24px, 4vw, 40px);
-  color: #FFFFFF;
+  margin-top: 28px;
+  font-size: clamp(22px, 3.6vw, 38px);
+  color: rgba(255, 255, 255, 0.85);
   font-style: italic;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 2px 32px rgba(255, 255, 255, 0.2),
+    0 3px 40px rgba(0, 0, 0, 0.25),
+    0 1px 4px rgba(0, 0, 0, 0.3);
+  animation: drift-up 11s ease-in-out infinite alternate, fade-in 3.2s ease-out 0.6s backwards;
 }
 
-footer {
-  position: fixed;
-  bottom: 18px;
-  left: 0; right: 0;
-  text-align: center;
-  font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace;
-  font-size: 11px;
-  color: #FFFFFF;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  z-index: 5;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+@keyframes drift-up {
+  from { transform: translateY(6px); }
+  to   { transform: translateY(-6px); }
 }
 
-footer a {
-  color: #FFFFFF;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-  padding-bottom: 1px;
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
-footer a:hover { border-bottom-color: #FFFFFF; }
+
+@media (prefers-reduced-motion: reduce) {
+  .peace, .peace-sub { animation: none; }
+}
 </style>
 </head>
 <body>
@@ -136,12 +138,8 @@ footer a:hover { border-bottom-color: #FFFFFF; }
 </div>
 
 <div class="wrap">
-  <h1 class="peace">You Found Peace.</h1>
-  <p class="peace-sub">Savour It.</p>
+  <h1 class="peace">You Found Peace</h1>
+  <p class="peace-sub">Savour It</p>
 </div>
-
-<footer>
-  <a href="/">artificialnouveau.com</a>
-</footer>
 </body>
 </html>
