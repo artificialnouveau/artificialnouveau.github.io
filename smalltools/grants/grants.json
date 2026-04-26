@@ -3,6 +3,29 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "fab-city-awards-2026",
+      "title": "Fab City Awards 2026",
+      "organization": "Fab City",
+      "location": "Anywhere in the world",
+      "region": "Worldwide",
+      "amount": "€1,000 per category winner (3) + €1,500 Overall Impact Award + up to USD 600 in Seeed Studio products + mentoring + free FAB26 Boston ticket",
+      "duration": "Winners announced 3 June 2026; showcase at FAB26 Boston 27 to 31 July 2026",
+      "startDate": null,
+      "deadline": "2026-04-29",
+      "addedDate": "2026-04-26",
+      "description": "The Fab City Awards recognise implemented and piloted initiatives showing how collective action can shape real transitions in cities and regions. 2026 theme: Collective Action for Regenerative Urban Futures. Looking for initiatives that combine design, technology and civic engagement; connect scientific knowledge with local know-how; demonstrate real on-the-ground implementation; and show potential to scale across cities and regions. Projects, platforms, policies, infrastructures or community-led programmes that are already piloted/implemented with evidence and documentation. Three categories: Community (participation, organisation, local empowerment), Technology (accessible distributed tech with social value), Nature (conservation, restoration, ecosystem protection). Three category winners each receive €1,000 seed funding plus up to USD 600 in Seeed Studio products, optional technical guidance, potential lab access (plus Fab Lab Puebla and Litchee Lab for initiatives based there), mentoring with the Fab City ecosystem, a feature across Fab City channels, and a free ticket to present at FAB26 in Boston (July 2026). One Overall Impact Award (€1,500 + the same network/mentoring/FAB26 benefits) goes to the project with the strongest systemic integration across all dimensions. One Thomas Duggan Award is given as a special distinction for Arts and Design. Open to individuals and teams across public, private and civic sectors, including for-profit and nonprofit organisations, collectives, public institutions, labs and makerspaces, community groups, NGOs, academia and companies, anywhere in the world. Evaluation 30 April to 26 May 2026; winners announced 3 June 2026. Powered by Fab City; supported by Seeed Studio, Fab Foundation, Ibero Puebla, and Litchee Lab.",
+      "url": "https://creativesunite.eu/article/submit-your-project-for-the-fab-city-awards",
+      "tags": [
+        "award",
+        "prize",
+        "sustainability",
+        "design",
+        "technology"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "backslash-fellowship-2026",
       "title": "Backslash Fellowship 2026",
       "organization": "Backslash (Cornell Tech)",
