@@ -136,6 +136,7 @@ body {
 }
 .strip-pop .sub-note.rss-note { transform: rotate(-1deg); }
 .strip-pop .sub-note.cal-note { transform: rotate(1deg); }
+.strip-pop .sub-note.share-note { transform: rotate(-1deg); }
 @media (max-width: 720px) {
   .strip-pop {
     right: auto;
@@ -260,6 +261,31 @@ body {
 
 .sub-note.rss-note { transform: rotate(-0.7deg); }
 .sub-note.cal-note { background: var(--sticky-blue); transform: rotate(0.6deg); }
+.sub-note.share-note { background: var(--sticky-pink); transform: rotate(-0.4deg); }
+
+.sub-note .qr-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 4px;
+}
+.sub-note .qr-tile img {
+  width: 160px;
+  height: 160px;
+  display: block;
+}
+.sub-note .qr-tile .qr-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+}
 
 .sub-note .pin {
   position: absolute;
@@ -1149,6 +1175,27 @@ code *, pre *, kbd *, samp * {
               <li>Your calendar refreshes every few hours, so new grants and changes flow in automatically.</li>
             </ol>
           </details>
+        </div>
+      </div>
+    </div>
+    <div class="pop-host">
+      <button class="strip-rss strip-share strip-pill" type="button" data-pop="pop-share" aria-haspopup="true" aria-expanded="false">
+        <span class="dot"></span> Share
+      </button>
+      <div class="strip-pop" id="pop-share" hidden>
+        <div class="sub-note share-note" role="region" aria-label="Share The Grant Desk">
+          <span class="pin" aria-hidden="true"></span>
+          <h4>Share the desk</h4>
+          <p class="blurb">Pass it along. Short link or QR, whichever fits.</p>
+          <a class="feed-url" id="share-url-text" href="https://tinyurl.com/artnougrants" target="_blank" rel="noopener">https://tinyurl.com/artnougrants</a>
+          <div class="row">
+            <button type="button" id="copy-share">Copy link</button>
+            <button type="button" id="native-share" hidden>Share...</button>
+          </div>
+          <div class="qr-tile">
+            <img src="share-qr.svg" alt="QR code for https://tinyurl.com/artnougrants" width="160" height="160">
+            <span class="qr-label">Scan to open</span>
+          </div>
         </div>
       </div>
     </div>
@@ -2076,6 +2123,37 @@ function buildShortlistICS(grants) {
 
 loadPicks();
 setupShortlistBar();
+
+(function setupShareLink() {
+  const SHARE_URL = 'https://tinyurl.com/artnougrants';
+  const copyBtn = document.getElementById('copy-share');
+  const nativeBtn = document.getElementById('native-share');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(SHARE_URL);
+        const original = copyBtn.textContent;
+        copyBtn.textContent = 'Copied';
+        copyBtn.classList.add('copied');
+        setTimeout(() => { copyBtn.textContent = original; copyBtn.classList.remove('copied'); }, 1600);
+      } catch (_) {
+        window.prompt('Copy this link:', SHARE_URL);
+      }
+    });
+  }
+  if (nativeBtn && navigator.share) {
+    nativeBtn.hidden = false;
+    nativeBtn.addEventListener('click', async () => {
+      try {
+        await navigator.share({
+          title: 'The Grant Desk',
+          text: 'Paid open calls, fellowships and residencies for tech, art and research.',
+          url: SHARE_URL
+        });
+      } catch (_) { /* user cancelled or unsupported */ }
+    });
+  }
+})();
 
 (function setupPopovers() {
   const closeAll = () => {
