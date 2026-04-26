@@ -3,6 +3,28 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "backslash-fellowship-2026",
+      "title": "Backslash Fellowship 2026",
+      "organization": "Backslash (Cornell Tech)",
+      "location": "Cornell Tech, New York City, US",
+      "region": "US",
+      "amount": "$50,000 ($20K artist stipend + $20K materials + $10K collaborator) + studio space",
+      "duration": "1 year Visiting Fellow appointment (academic year, starts September)",
+      "startDate": "2026-09-01",
+      "deadline": "2026-05-08",
+      "addedDate": "2026-04-26",
+      "description": "$50,000 fellowship supporting an established practicing artist to create a significant new work engaging bleeding-edge digital research and technology, with sustained teamwork from a dedicated technical PhD or faculty collaborator at Cornell Tech. Fellow receives a one-year Visiting Fellow appointment (individual, not studio-contractual), $20,000 artist stipend, $20,000 project materials budget, $10,000 to support the collaborator, on-campus studio space, and badged campus access. 'Established' means a sustained professional practice with institutional recognition (major exhibitions, significant grants/fellowships, published critical coverage, distinct developed practice). Three-stage selection: written project proposal (2 to 4 pages) reviewed by Backslash Team and potential collaborators, then an interview with the candidate collaborator and a Backslash Team member to confirm technical fit, then a single Fellow is selected. Research areas open for collaboration include computational/digital fabrication and accessibility, public interaction with autonomous systems and robotics/HRI, computer vision and graphics (controllable generation, 2D/3D), AI algorithmic fairness and statistics, urban planning + AI fairness, and AI interpretability and human-AI interfaces (with named labs and faculty listed on the call). Fellow responsibilities: collaborate deeply with the assigned collaborator, show the resulting work (Cornell Tech and via the artist's own channels), contribute culturally to campus via a public-facing event and an intimate mentorship/dialogue session, and document the work. Backslash explicitly favours nonlinear, unconventional and exceptional approaches to emerging tech.",
+      "url": "https://backslash.org/fellowship",
+      "tags": [
+        "fellowship",
+        "art-technology",
+        "AI",
+        "research"
+      ],
+      "fee": false,
+      "featured": true
+    },
+    {
       "id": "creativity-pioneers-fund-2026",
       "title": "Creativity Pioneers Fund 2026",
       "organization": "Creativity Pioneers Fund (Moleskine Foundation)",
