@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:olympic-heritage-artists-residence-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260430
 DTEND;VALUE=DATE:20260501
 SUMMARY:Deadline: Olympic Heritage: Artists in Residence 2026
@@ -41,7 +41,7 @@ LOCATION:Doha\, Qatar OR La Tour-de-Peilz\, Switzerland (one residency in e
 END:VEVENT
 BEGIN:VEVENT
 UID:shared-futures-social-dreamers-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260513
 DTEND;VALUE=DATE:20260514
 SUMMARY:Deadline: Shared Futures: Open Call for Social Dreamers (Cultural F
@@ -76,7 +76,7 @@ LOCATION:Across Creative Europe countries (in-person camps in Hungary July
 END:VEVENT
 BEGIN:VEVENT
 UID:ngi-fediversity-11@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI Fediversity (11th call)
@@ -95,7 +95,7 @@ LOCATION:Europe and beyond
 END:VEVENT
 BEGIN:VEVENT
 UID:ssrc-just-tech-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260628
 DTEND;VALUE=DATE:20260629
 SUMMARY:Deadline: SSRC Just Tech Fellowship 2027
@@ -114,26 +114,79 @@ LOCATION:United States (must reside in US during fellowship year)
 END:VEVENT
 BEGIN:VEVENT
 UID:constellation-astra-fellowship-fall-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260503
 DTEND;VALUE=DATE:20260504
-SUMMARY:Deadline: Constellation Astra Fellowship (Fall 2026)
-DESCRIPTION:In-person Berkeley fellowship pairing fellows with senior mento
- rs to do technical AI safety research (alignment\, control\, model evaluat
- ions\, scalable oversight\, interpretability). Open to motivated individua
- ls worldwide\; visa support provided. Sits on the trustworthy ML / AI safe
- ty end of data and society but legitimately individual-funded with one of 
- the strongest cash + compute packages in the space.\n\nOrganisation: Const
- ellation\nLocation: Berkeley\, California\, US (in-person\; visa support p
- rovided)\nAward: $8\,400/month stipend\; empirical fellows additionally ge
- t ~$15\,000/month in compute\nDuration: Approx. 5 months (14 September 202
- 6 to 5 February 2027)\n\nMore: https://constellation.org/programs/astra
-URL:https://constellation.org/programs/astra
-LOCATION:Berkeley\, California\, US (in-person\; visa support provided)
+SUMMARY:Deadline: Constellation Astra Fellowship: Empirical Stream (Fall 20
+ 26)
+DESCRIPTION:Fully funded in-person fellowship pairing fellows with senior m
+ entors to do machine-learning research and engineering on core technical A
+ I safety topics: AI alignment\, AI control\, model evaluations\, scalable 
+ oversight. Mentors are drawn from partner organisations (full list on the 
+ Astra site). Includes weekly mentor and research-manager meetings\, talent
+  mobilisation/career support\, startup incubation services\, and access to
+  a world-leading AI safety convening space (300+ weekly visits). Visa supp
+ ort: J-1\; F-1/CPT (full-time only) or OPT\, with DSO approval. Looking fo
+ r: strong Python proficiency\, agency and proactivity\, basic ML and AI sa
+ fety knowledge\, ability to learn and iterate quickly. Application: resume
+  + at least two references (Constellation network preferred) + optional CV
+ /website/written samples. Stages: initial screening\, coding test + refere
+ nce check\, work tests\, interview. Deadline 3 May 2026\, 23:59 Anywhere o
+ n Earth. Contact astra@constellation.org. Over 80% of the first cohort mov
+ ed into full-time AI safety roles at OpenAI\, Anthropic\, Google DeepMind\
+ , Redwood Research\, METR\, CAISI and the UK AI Security Institute.\n\nOrg
+ anisation: Constellation\nLocation: Berkeley\, California\, US (secondary 
+ hub at LISA in London\; rare remote exceptions)\nAward: $8\,400/month stip
+ end + up to $15\,000/month compute budget\nDuration: Full-time\, ~5 months
+  (September 2026 to February 2027)\n\nMore: https://constellation.org/prog
+ rams/astra/empirical
+URL:https://constellation.org/programs/astra/empirical
+LOCATION:Berkeley\, California\, US (secondary hub at LISA in London\; rare
+  remote exceptions)
+END:VEVENT
+BEGIN:VEVENT
+UID:constellation-astra-strategy-governance-fall-2026@artificialnouveau.git
+ hub.io
+DTSTAMP:20260426T201813Z
+DTSTART;VALUE=DATE:20260503
+DTEND;VALUE=DATE:20260504
+SUMMARY:Deadline: Constellation Astra Fellowship: Strategy and Governance S
+ tream (Fall 2026)
+DESCRIPTION:Fully funded in-person fellowship to develop and pursue researc
+ h projects that reduce catastrophic risks from AI\, on the strategy and go
+ vernance side rather than the technical/empirical side. Mentor organisatio
+ ns include Forethought\, AI Policy Network and Coefficient Giving\, plus i
+ ndependent mentors starting new orgs or scoping novel directions. A small 
+ number of fellows pursue independent strategy research (high bar) on topic
+ s such as macrostrategy for AI safety\, prevention of concentration of pow
+ er\, exploration of better-futures scenarios\, and implementing AI strateg
+ y in government or frontier AI companies. Includes weekly mentor and resea
+ rch-manager meetings\, career support\, startup incubation services\, and 
+ access to the Constellation convening space (300+ weekly visits). Visa sup
+ port: J-1\; F-1/CPT (full-time only) or OPT\, with DSO approval. Strongest
+  applicants have deep familiarity with catastrophic AI risks\, can communi
+ cate clearly\, reason about complex issues and work autonomously. Preferre
+ d: macrostrategy/grantmaking/cause-prioritisation experience\, ability to 
+ set and pursue research agendas\, complementary career experience (policy\
+ , empirical AI)\, deep understanding of frontier AI companies / government
+ s / investors. Application: resume + at least two references + highly reco
+ mmended written samples (blog posts\, papers). Stages: initial screening\,
+  mentor-specific work tests + reference check\, interview. Deadline 3 May 
+ 2026\, 23:59 Anywhere on Earth. Contact astra@constellation.org. Past Stra
+ tegy fellows include co-founders of the AI Futures Project (authors of AI 
+ 2027) and people briefing senior international stakeholders on AI verifica
+ tion.\n\nOrganisation: Constellation\nLocation: Berkeley\, California\, US
+  (secondary hub at LISA in London\; rare remote exceptions)\nAward: $8\,40
+ 0/month stipend + $2\,000 travel budget for workshops and conferences\nDur
+ ation: Full-time\, ~5 months (September 2026 to February 2027)\n\nMore: ht
+ tps://constellation.org/programs/astra/strategy
+URL:https://constellation.org/programs/astra/strategy
+LOCATION:Berkeley\, California\, US (secondary hub at LISA in London\; rare
+  remote exceptions)
 END:VEVENT
 BEGIN:VEVENT
 UID:journalismfund-europe-cross-border-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260521
 DTEND;VALUE=DATE:20260522
 SUMMARY:Deadline: Journalismfund Europe: European Cross-Border Grants
@@ -150,7 +203,7 @@ LOCATION:Europe (cross-border projects)
 END:VEVENT
 BEGIN:VEVENT
 UID:bek-studio-residencies-autumn-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260515
 DTEND;VALUE=DATE:20260516
 SUMMARY:Deadline: BEK: Studio Residencies Autumn 2026
@@ -185,7 +238,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:film-independent-documentary-producing-lab-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260504
 DTEND;VALUE=DATE:20260505
 SUMMARY:Deadline: Film Independent: Documentary Producing Lab 2026
@@ -207,7 +260,7 @@ LOCATION:Los Angeles / Remote\, US
 END:VEVENT
 BEGIN:VEVENT
 UID:film-independent-fiction-producing-lab-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260504
 DTEND;VALUE=DATE:20260505
 SUMMARY:Deadline: Film Independent: Fiction Producing Lab 2026
@@ -227,7 +280,7 @@ LOCATION:Los Angeles / Remote\, US
 END:VEVENT
 BEGIN:VEVENT
 UID:film-independent-fast-track-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260608
 DTEND;VALUE=DATE:20260609
 SUMMARY:Deadline: Film Independent: Fast Track 2026
@@ -249,7 +302,7 @@ LOCATION:Los Angeles\, US
 END:VEVENT
 BEGIN:VEVENT
 UID:film-independent-project-involve-2027@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260713
 DTEND;VALUE=DATE:20260714
 SUMMARY:Deadline: Film Independent: Project Involve 2027
@@ -276,7 +329,7 @@ LOCATION:Los Angeles\, US
 END:VEVENT
 BEGIN:VEVENT
 UID:film-independent-screenwriting-lab-2027@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: Film Independent: Screenwriting Lab 2027
@@ -297,7 +350,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:film-independent-episodic-directing-intensive-2027@artificialnouveau.gi
  thub.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260928
 DTEND;VALUE=DATE:20260929
 SUMMARY:Deadline: Film Independent: Episodic Directing Intensive 2027
@@ -316,7 +369,7 @@ LOCATION:Los Angeles\, US
 END:VEVENT
 BEGIN:VEVENT
 UID:filmfonds-wildcards-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260707
 DTEND;VALUE=DATE:20260708
 SUMMARY:Deadline: Filmfonds Wildcards (Documentary\, Fiction\, Animation)
@@ -335,7 +388,7 @@ LOCATION:Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:filmfonds-cypher-cinema-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260616
 DTEND;VALUE=DATE:20260617
 SUMMARY:Deadline: Filmfonds Cypher Cinema
@@ -354,7 +407,7 @@ LOCATION:Netherlands (Kingdom of the Netherlands)
 END:VEVENT
 BEGIN:VEVENT
 UID:filmfonds-immerse-interact-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260825
 DTEND;VALUE=DATE:20260826
 SUMMARY:Deadline: Filmfonds Immerse\\Interact
@@ -375,7 +428,7 @@ LOCATION:Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:art-explora-tirana-vila31-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260501
 DTEND;VALUE=DATE:20260502
 SUMMARY:Deadline: Art Explora: Tirana - Vila 31 Residencies
@@ -403,7 +456,7 @@ LOCATION:Tirana\, Albania (Vila 31)
 END:VEVENT
 BEGIN:VEVENT
 UID:zmina-resilience-cocreation-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260510
 DTEND;VALUE=DATE:20260511
 SUMMARY:Deadline: ZMINA Resilience: Co-Creation Funding (First Call) 2026
@@ -439,7 +492,7 @@ LOCATION:Ukraine + Creative Europe partner countries
 END:VEVENT
 BEGIN:VEVENT
 UID:creative-europe-cooperation-projects-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260505
 DTEND;VALUE=DATE:20260506
 SUMMARY:Deadline: Creative Europe: European Cooperation Projects 2026
@@ -474,7 +527,7 @@ LOCATION:Across EU and Creative Europe partner countries
 END:VEVENT
 BEGIN:VEVENT
 UID:fab-city-awards-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260429
 DTEND;VALUE=DATE:20260430
 SUMMARY:Deadline: Fab City Awards 2026
@@ -514,7 +567,7 @@ LOCATION:Anywhere in the world
 END:VEVENT
 BEGIN:VEVENT
 UID:backslash-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260508
 DTEND;VALUE=DATE:20260509
 SUMMARY:Deadline: Backslash Fellowship 2026
@@ -551,7 +604,7 @@ LOCATION:Cornell Tech\, New York City\, US
 END:VEVENT
 BEGIN:VEVENT
 UID:creativity-pioneers-fund-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260424
 DTEND;VALUE=DATE:20260425
 SUMMARY:Deadline: Creativity Pioneers Fund 2026
@@ -579,7 +632,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:stichting-grensloos-dichterbij-weiteveen-2026@artificialnouveau.github.
  io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260501
 DTEND;VALUE=DATE:20260502
 SUMMARY:Deadline: Stichting Grensloos: Dichter/bij Weiteveen Open Call
@@ -601,7 +654,7 @@ LOCATION:Weiteveen\, Southeast Drenthe\, Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:william-morris-art-futures-bursary-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260511
 DTEND;VALUE=DATE:20260512
 SUMMARY:Deadline: William Morris Art Futures Bursary
@@ -622,7 +675,7 @@ LOCATION:London Boroughs of Hackney and Waltham Forest\, UK
 END:VEVENT
 BEGIN:VEVENT
 UID:lumen-prize-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260523
 DTEND;VALUE=DATE:20260524
 SUMMARY:Deadline: The 2026 Lumen Prize
@@ -649,7 +702,7 @@ LOCATION:Global
 END:VEVENT
 BEGIN:VEVENT
 UID:v2-alex-adriaansens-residency-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: Call for Proposals: Alex Adriaansens Residency 2026
@@ -673,7 +726,7 @@ LOCATION:Rotterdam\, Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:eu-policy-lab-ai-residency-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260522
 DTEND;VALUE=DATE:20260523
 SUMMARY:Deadline: Artist-in-Residence: Reimagining AI at the EU Policy Lab
@@ -688,7 +741,7 @@ LOCATION:Brussels\, Belgium (with possible site visit in Ispra\, Italy)
 END:VEVENT
 BEGIN:VEVENT
 UID:osv-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260430
 DTEND;VALUE=DATE:20260501
 SUMMARY:Deadline: O'Shaughnessy Fellowships
@@ -702,7 +755,7 @@ LOCATION:Remote
 END:VEVENT
 BEGIN:VEVENT
 UID:baltan-sit-plu-2027@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260531
 DTEND;VALUE=DATE:20260601
 SUMMARY:Deadline: Open Call: SIT/PLU Residencies 2027
@@ -721,7 +774,7 @@ LOCATION:Eindhoven\, Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:critical-pathways-utrecht-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260427
 DTEND;VALUE=DATE:20260428
 SUMMARY:Deadline: Making Visible the Invisible: Critical Pathways Fellowshi
@@ -747,7 +800,7 @@ LOCATION:Utrecht\, Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:xaixarts-4-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260423
 DTEND;VALUE=DATE:20260424
 SUMMARY:Deadline: XAIxArts 4: 4th International Workshop on Explainable AI 
@@ -764,7 +817,7 @@ LOCATION:London\, UK
 END:VEVENT
 BEGIN:VEVENT
 UID:netstalgia-not-acceptable-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260504
 DTEND;VALUE=DATE:20260505
 SUMMARY:Deadline: Open Call: Netstalgia (Not Acceptable) - Error 406
@@ -785,7 +838,7 @@ LOCATION:Online
 END:VEVENT
 BEGIN:VEVENT
 UID:kyoto-retreat-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260717
 DTEND;VALUE=DATE:20260718
 SUMMARY:Deadline: The Kyoto Retreat 2026
@@ -803,7 +856,7 @@ LOCATION:Kyoto\, Japan
 END:VEVENT
 BEGIN:VEVENT
 UID:harpo-impact-award-native-american-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260427
 DTEND;VALUE=DATE:20260428
 SUMMARY:Deadline: Impact Award for Native American Art
@@ -818,7 +871,7 @@ LOCATION:USA (open to applicants worldwide)
 END:VEVENT
 BEGIN:VEVENT
 UID:lighthouse-works-fellowship@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20261015
 DTEND;VALUE=DATE:20261016
 SUMMARY:Deadline: The Lighthouse Works Fellowship
@@ -837,7 +890,7 @@ LOCATION:Fishers Island\, New York\, USA
 END:VEVENT
 BEGIN:VEVENT
 UID:culture-moves-europe-mobility-2025-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260430
 DTEND;VALUE=DATE:20260501
 SUMMARY:Deadline: Culture Moves Europe: Call for Individual Mobility 2025-2
@@ -860,7 +913,7 @@ LOCATION:Creative Europe countries (incl. overseas territories and outermos
 END:VEVENT
 BEGIN:VEVENT
 UID:european-cooperation-projects-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260505
 DTEND;VALUE=DATE:20260506
 SUMMARY:Deadline: 2026 European Cooperation Projects (CREA-CULT-2026-COOP)
@@ -879,7 +932,7 @@ LOCATION:Creative Europe countries
 END:VEVENT
 BEGIN:VEVENT
 UID:art-office-iv-rotterdam-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260921
 DTEND;VALUE=DATE:20260922
 SUMMARY:Deadline: Impulse and In-Depth Scheme (I&V) for Rotterdam Visual Ar
@@ -901,7 +954,7 @@ LOCATION:Rotterdam\, Netherlands (Rotterdam-based artists only)
 END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-awareness-history-of-slavery@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260716
 DTEND;VALUE=DATE:20260717
 SUMMARY:Deadline: Mondriaan Fund: Awareness of the History of Slavery
@@ -916,7 +969,7 @@ LOCATION:Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:hmk-rotating-airs-colonialism-climate@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260501
 DTEND;VALUE=DATE:20260502
 SUMMARY:Deadline: Rotating AiRs: Residency on Colonialism and Climate Chang
@@ -940,7 +993,7 @@ LOCATION:Mexico City / Lubumbashi / Yogyakarta (start) to Hoorn / Antwerp /
 END:VEVENT
 BEGIN:VEVENT
 UID:art-explora-tirana-vila-31@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260515
 DTEND;VALUE=DATE:20260516
 SUMMARY:Deadline: Vila 31 x Art Explora Residency Programme\, 2027 Sessions
@@ -965,7 +1018,7 @@ LOCATION:Tirana\, Albania
 END:VEVENT
 BEGIN:VEVENT
 UID:grund1535-peripheral-grounds-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260430
 DTEND;VALUE=DATE:20260501
 SUMMARY:Deadline: Open Call: Peripheral Grounds\, Resonant Centers (Sound a
@@ -987,7 +1040,7 @@ LOCATION:Rietz\, Tyrol\, Austria (with festival across Innsbruck)
 END:VEVENT
 BEGIN:VEVENT
 UID:openai-safety-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260503
 DTEND;VALUE=DATE:20260504
 SUMMARY:Deadline: OpenAI Safety Fellowship 2026
@@ -1005,7 +1058,7 @@ LOCATION:Berkeley\, California\, USA (open to all nationalities)
 END:VEVENT
 BEGIN:VEVENT
 UID:cifra-award-restart-reality-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260508
 DTEND;VALUE=DATE:20260509
 SUMMARY:Deadline: CIFRA Award: RestArt Reality (Open Call)
@@ -1021,7 +1074,7 @@ LOCATION:International (online submissions)
 END:VEVENT
 BEGIN:VEVENT
 UID:mta-arts-digital-art-program-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260528
 DTEND;VALUE=DATE:20260529
 SUMMARY:Deadline: MTA Arts & Design Digital Art Program 2026 Open Call
@@ -1046,7 +1099,7 @@ LOCATION:New York City\, USA (Fulton Transit Center\, Grand Central Madison
 END:VEVENT
 BEGIN:VEVENT
 UID:cubitt-curatorial-fellowship-2026-28@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260510
 DTEND;VALUE=DATE:20260511
 SUMMARY:Deadline: Cubitt Curatorial Fellowship 2026-28
@@ -1067,7 +1120,7 @@ LOCATION:London\, UK (on-site Wed-Fri at 8 Angel Mews\, N1)
 END:VEVENT
 BEGIN:VEVENT
 UID:cbai-summer-research-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260518
 DTEND;VALUE=DATE:20260519
 SUMMARY:Deadline: CBAI Summer Research Fellowship 2026 (with AI Objectives 
@@ -1089,7 +1142,7 @@ LOCATION:Cambridge\, Massachusetts\, USA (offices on Harvard Yard)
 END:VEVENT
 BEGIN:VEVENT
 UID:isoc-foundation-research-grant-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260522
 DTEND;VALUE=DATE:20260523
 SUMMARY:Deadline: Internet Society Foundation: Research Grant Program 2026
@@ -1111,7 +1164,7 @@ LOCATION:Worldwide
 END:VEVENT
 BEGIN:VEVENT
 UID:data-conversations-pisa-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260531
 DTEND;VALUE=DATE:20260601
 SUMMARY:Deadline: Data Conversations: Artistic Research and Development Res
@@ -1134,7 +1187,7 @@ LOCATION:Pisa\, Italy (outputs implemented at Estonian National Museum in 2
 END:VEVENT
 BEGIN:VEVENT
 UID:lacma-art-technology-lab-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260422
 DTEND;VALUE=DATE:20260423
 SUMMARY:Deadline: LACMA Art + Technology Lab Grant 2026
@@ -1153,7 +1206,7 @@ LOCATION:Worldwide (recipients need not be in Los Angeles)
 END:VEVENT
 BEGIN:VEVENT
 UID:macdowell-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260910
 DTEND;VALUE=DATE:20260911
 SUMMARY:Deadline: MacDowell Fellowship
@@ -1171,7 +1224,7 @@ LOCATION:Peterborough\, New Hampshire\, USA
 END:VEVENT
 BEGIN:VEVENT
 UID:yaddo-residency-summer-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260701
 DTEND;VALUE=DATE:20260702
 SUMMARY:Deadline: Yaddo Residency (Summer Cycle)
@@ -1190,7 +1243,7 @@ LOCATION:Saratoga Springs\, New York\, USA
 END:VEVENT
 BEGIN:VEVENT
 UID:headlands-air-2027@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: Headlands Center for the Arts: 2027 Artist in Residence (
@@ -1208,7 +1261,7 @@ LOCATION:Sausalito\, California\, USA
 END:VEVENT
 BEGIN:VEVENT
 UID:centre-for-text-margins-aalto-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260506
 DTEND;VALUE=DATE:20260507
 SUMMARY:Deadline: Designer-Writer Residency 2026-2027 (Centre for Text Marg
@@ -1233,7 +1286,7 @@ LOCATION:Espoo\, Finland
 END:VEVENT
 BEGIN:VEVENT
 UID:knight-cities-challenge-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260430
 DTEND;VALUE=DATE:20260501
 SUMMARY:Deadline: Knight Cities Challenge 2026
@@ -1252,7 +1305,7 @@ LOCATION:26 Knight communities\, USA
 END:VEVENT
 BEGIN:VEVENT
 UID:elevate-prize-2027@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260508
 DTEND;VALUE=DATE:20260509
 SUMMARY:Deadline: 2027 Elevate Prize
@@ -1273,7 +1326,7 @@ LOCATION:Worldwide (US 501(c)(3) or international equivalent)
 END:VEVENT
 BEGIN:VEVENT
 UID:neh-media-projects-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260625
 DTEND;VALUE=DATE:20260626
 SUMMARY:Deadline: NEH Media Projects: Development and Production Grants
@@ -1298,7 +1351,7 @@ LOCATION:United States
 END:VEVENT
 BEGIN:VEVENT
 UID:fund-for-investigative-journalism-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260914
 DTEND;VALUE=DATE:20260915
 SUMMARY:Deadline: Fund for Investigative Journalism (FIJ) Grants
@@ -1319,7 +1372,7 @@ LOCATION:USA-primary (foreign-based stories require strong U.S. angle)
 END:VEVENT
 BEGIN:VEVENT
 UID:ngi-fediversity-11@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI Fediversity (11th call): Hosting Stack of the Future
@@ -1339,7 +1392,7 @@ LOCATION:Europe and beyond
 END:VEVENT
 BEGIN:VEVENT
 UID:ngi-taler-13@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI TALER (13th call): Privacy-Preserving Digital Payment
@@ -1360,7 +1413,7 @@ LOCATION:Europe and beyond
 END:VEVENT
 BEGIN:VEVENT
 UID:ngi-zero-commons-fund-13@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI Zero Commons Fund (13th call)
@@ -1380,7 +1433,7 @@ LOCATION:Europe and beyond
 END:VEVENT
 BEGIN:VEVENT
 UID:transitional-justice-with-artists-2026@artificialnouveau.github.io
-DTSTAMP:20260426T201039Z
+DTSTAMP:20260426T201813Z
 DTSTART;VALUE=DATE:20260502
 DTEND;VALUE=DATE:20260503
 SUMMARY:Deadline: Transitional Justice with Artists Grant and Fellowship
