@@ -13444,7 +13444,26 @@ function exportVocabPDF() {
     + 'td{padding:6px 10px;border-bottom:1px solid #ddd;}'
     + 'tr:nth-child(even){background:#f9f9f9;}'
     + '.footer{margin-top:40px;text-align:center;font-size:11px;color:#888;font-style:italic;padding-top:16px;border-top:3px solid #000;}'
-    + '@media print{body{padding:15px;}table{page-break-inside:auto;}tr{page-break-inside:avoid;}thead{display:table-header-group;}}</style></head>'
+    + '@media print{body{padding:15px;}table{page-break-inside:auto;}tr{page-break-inside:avoid;}thead{display:table-header-group;}}</style><!-- Young Serif site-wide (self-hosted, SIL OFL 1.1) -->
+<style id="young-serif-override">
+@font-face {
+  font-family: 'Young Serif';
+  src: url('/assets/fonts/YoungSerif-Regular.woff2') format('woff2'),
+       url('/assets/fonts/YoungSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+html, body, h1, h2, h3, h4, h5, h6, p, a, li, span, div, section, article, header, footer, main, aside, nav, button, input, textarea, select, label, blockquote, figcaption, summary, details, dl, dt, dd, table, th, td {
+  font-family: 'Young Serif', Georgia, 'Times New Roman', serif !important;
+}
+code, pre, kbd, samp, tt, var,
+.mono, [class*="mono"], [class*="-mono"],
+code *, pre *, kbd *, samp * {
+  font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace !important;
+}
+</style>
+</head>'
     + '<body><h1>WOORDENSCHAT</h1>'
     + '<p style="color:#D40920;font-weight:600;font-size:14px;margin-bottom:4px;">' + vnetData.length + ' woorden \u2014 A2 tot C1</p>'
     + '<p style="color:#666;font-size:11px;">Gegenereerd op ' + new Date().toLocaleDateString('nl-NL') + '</p>'

@@ -631,6 +631,25 @@
             }
         }
     </style>
+<!-- Young Serif site-wide (self-hosted, SIL OFL 1.1) -->
+<style id="young-serif-override">
+@font-face {
+  font-family: 'Young Serif';
+  src: url('/assets/fonts/YoungSerif-Regular.woff2') format('woff2'),
+       url('/assets/fonts/YoungSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+html, body, h1, h2, h3, h4, h5, h6, p, a, li, span, div, section, article, header, footer, main, aside, nav, button, input, textarea, select, label, blockquote, figcaption, summary, details, dl, dt, dd, table, th, td {
+  font-family: 'Young Serif', Georgia, 'Times New Roman', serif !important;
+}
+code, pre, kbd, samp, tt, var,
+.mono, [class*="mono"], [class*="-mono"],
+code *, pre *, kbd *, samp * {
+  font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace !important;
+}
+</style>
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
