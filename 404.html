@@ -1,0 +1,209 @@
+---
+permalink: /404.html
+sitemap: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 - filed away by mistake</title>
+<meta name="robots" content="noindex">
+<style>
+@font-face {
+  font-family: 'Young Serif';
+  src: url('/assets/fonts/YoungSerif-Regular.woff2') format('woff2'),
+       url('/assets/fonts/YoungSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper: #F4ECDC;
+  --paper-2: #ECE0C2;
+  --ink: #1F1B16;
+  --ink-soft: #4A413A;
+  --ink-mute: #7A6F63;
+  --line: #2A241D;
+  --hot: #D94B3C;
+  --sticky-yellow: #FFE066;
+  --sticky-pink: #FFB3BA;
+  --sticky-blue: #B5E8FF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Young Serif', Georgia, serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 10px;
+  background: var(--hot);
+  z-index: 10;
+}
+
+.wrap {
+  max-width: 720px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+.big {
+  font-size: clamp(120px, 24vw, 240px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  position: relative;
+  display: inline-block;
+}
+
+.big .zero-mid {
+  background: linear-gradient(transparent 50%, var(--sticky-yellow) 50%, var(--sticky-yellow) 88%, transparent 88%);
+}
+
+.lede {
+  font-size: clamp(24px, 4vw, 36px);
+  margin-top: 28px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.note {
+  font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace;
+  font-size: 14px;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 14px;
+}
+
+.body-text {
+  font-size: 18px;
+  line-height: 1.55;
+  margin-top: 36px;
+  color: var(--ink-soft);
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.body-text p + p { margin-top: 14px; }
+
+.links {
+  margin-top: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.links a {
+  font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid var(--line);
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.links a:hover {
+  background: var(--sticky-yellow);
+  transform: translate(-1px, -1px);
+}
+
+.sticky {
+  position: absolute;
+  background: var(--sticky-pink);
+  border: 1.5px solid var(--line);
+  padding: 14px 18px;
+  font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: 4px 6px 0 rgba(0,0,0,0.12);
+  transform: rotate(-4deg);
+  line-height: 1.4;
+}
+
+.sticky-1 {
+  top: -10px;
+  right: -20px;
+  background: var(--sticky-yellow);
+  transform: rotate(6deg);
+}
+
+.sticky-2 {
+  bottom: -30px;
+  left: -10px;
+  background: var(--sticky-blue);
+  transform: rotate(-5deg);
+}
+
+@media (max-width: 600px) {
+  .sticky-1, .sticky-2 { display: none; }
+}
+
+footer {
+  margin-top: 60px;
+  font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace;
+  font-size: 11px;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+footer a { color: var(--ink-mute); }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="wrap">
+  <div class="sticky sticky-1">Filed<br>away</div>
+  <div class="sticky sticky-2">Returned to<br>sender</div>
+
+  <div class="big">4<span class="zero-mid">0</span>4</div>
+  <p class="note">Page not found</p>
+  <h1 class="lede">This page missed its deadline.</h1>
+
+  <div class="body-text">
+    <p>Either you made up the URL, the link rotted, or I quietly deleted the page in a fit of editorial spring cleaning. Pick your favourite explanation.</p>
+    <p>While you're here, the desk has plenty of things that <em>do</em> exist:</p>
+  </div>
+
+  <div class="links">
+    <a href="/">Home</a>
+    <a href="/smalltools/grants/">The Grant Desk</a>
+    <a href="/blog/">Blog</a>
+    <a href="/gallery/">Gallery</a>
+  </div>
+
+  <footer>
+    <a href="/">artificialnouveau.com</a> &middot; if you arrived via a broken link from elsewhere, sorry about that
+  </footer>
+</div>
+</body>
+</html>
