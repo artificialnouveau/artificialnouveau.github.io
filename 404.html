@@ -105,24 +105,19 @@ body {
   position: relative;
 }
 
-.big {
-  font-size: clamp(120px, 24vw, 240px);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
+.peace {
+  font-size: clamp(48px, 9vw, 96px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   color: var(--ink);
-  position: relative;
-  display: inline-block;
+  font-weight: 400;
 }
 
-.big .zero-mid {
-  background: linear-gradient(transparent 50%, var(--sticky-yellow) 50%, var(--sticky-yellow) 88%, transparent 88%);
-}
-
-.lede {
-  font-size: clamp(24px, 4vw, 36px);
-  margin-top: 28px;
-  line-height: 1.25;
-  color: var(--ink);
+.peace-sub {
+  margin-top: 20px;
+  font-size: clamp(22px, 3.5vw, 34px);
+  color: var(--ink-soft);
+  font-style: italic;
 }
 
 .note {
@@ -229,26 +224,11 @@ footer a { color: var(--ink-mute); }
 </div>
 
 <div class="wrap">
-  <div class="sticky sticky-1">Filed<br>away</div>
-  <div class="sticky sticky-2">Returned to<br>sender</div>
-
-  <div class="big">4<span class="zero-mid">0</span>4</div>
-  <p class="note">Page not found</p>
-
-  <div class="body-text">
-    <p>Either you made up the URL, the link rotted, or I quietly deleted the page in a fit of editorial spring cleaning. Pick your favourite explanation.</p>
-    <p>While you're here, the desk has plenty of things that <em>do</em> exist:</p>
-  </div>
-
-  <div class="links">
-    <a href="/">Home</a>
-    <a href="/smalltools/grants/">The Grant Desk</a>
-    <a href="/blog/">Blog</a>
-    <a href="/gallery/">Gallery</a>
-  </div>
+  <h1 class="peace">You Found Peace.</h1>
+  <p class="peace-sub">Savour It.</p>
 
   <footer>
-    <a href="/">artificialnouveau.com</a> &middot; if you arrived via a broken link from elsewhere, sorry about that
+    <a href="/">artificialnouveau.com</a>
   </footer>
 </div>
 </body>
