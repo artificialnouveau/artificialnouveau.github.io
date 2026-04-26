@@ -1784,7 +1784,37 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-const FILTER_STATE = { region: '', type: '', amount: '', search: '' };
+const FILTER_STATE = { region: new Set(), type: new Set(), amount: new Set(), search: '' };
+
+function syncChipGroup(group, key) {
+  const all = group.querySelector('.chip[data-value=""]');
+  const others = group.querySelectorAll('.chip:not([data-value=""])');
+  if (FILTER_STATE[key].size === 0) {
+    if (all) all.classList.add('is-active');
+    others.forEach(c => c.classList.remove('is-active'));
+  } else {
+    if (all) all.classList.remove('is-active');
+    others.forEach(c => c.classList.toggle('is-active', FILTER_STATE[key].has(c.dataset.value)));
+  }
+}
+
+function bindMultiSelectGroup(group, key) {
+  if (!group) return;
+  group.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip || !group.contains(chip)) return;
+    const value = chip.dataset.value || '';
+    if (value === '') {
+      FILTER_STATE[key].clear();
+    } else if (FILTER_STATE[key].has(value)) {
+      FILTER_STATE[key].delete(value);
+    } else {
+      FILTER_STATE[key].add(value);
+    }
+    syncChipGroup(group, key);
+    applyFilters();
+  });
+}
 
 const SEED_REGIONS = ['EU', 'US', 'UK', 'NL', 'Remote', 'Worldwide'];
 const EXCLUDE_REGIONS = new Set(['Global']);
@@ -1831,32 +1861,11 @@ function buildFilterChips() {
     typeGroup.appendChild(btn);
   }
 
-  regionGroup.addEventListener('click', (e) => {
-    const chip = e.target.closest('.chip');
-    if (!chip) return;
-    FILTER_STATE.region = chip.dataset.value || '';
-    regionGroup.querySelectorAll('.chip').forEach(c => c.classList.toggle('is-active', c === chip));
-    applyFilters();
-  });
-
-  typeGroup.addEventListener('click', (e) => {
-    const chip = e.target.closest('.chip');
-    if (!chip) return;
-    FILTER_STATE.type = chip.dataset.value || '';
-    typeGroup.querySelectorAll('.chip').forEach(c => c.classList.toggle('is-active', c === chip));
-    applyFilters();
-  });
+  bindMultiSelectGroup(regionGroup, 'region');
+  bindMultiSelectGroup(typeGroup, 'type');
 
   const amountGroup = document.getElementById('filter-amount');
-  if (amountGroup) {
-    amountGroup.addEventListener('click', (e) => {
-      const chip = e.target.closest('.chip');
-      if (!chip) return;
-      FILTER_STATE.amount = chip.dataset.value || '';
-      amountGroup.querySelectorAll('.chip').forEach(c => c.classList.toggle('is-active', c === chip));
-      applyFilters();
-    });
-  }
+  bindMultiSelectGroup(amountGroup, 'amount');
 
   const searchInput = document.getElementById('filter-search');
   const searchClear = document.getElementById('filter-search-clear');
@@ -1883,9 +1892,9 @@ function applyFilters() {
     : [];
   folders.forEach(f => {
     let show = true;
-    if (FILTER_STATE.region && f.dataset.region !== FILTER_STATE.region) show = false;
-    if (FILTER_STATE.type && f.dataset.type !== FILTER_STATE.type) show = false;
-    if (FILTER_STATE.amount && f.dataset.amount !== FILTER_STATE.amount) show = false;
+    if (FILTER_STATE.region.size && !FILTER_STATE.region.has(f.dataset.region)) show = false;
+    if (FILTER_STATE.type.size && !FILTER_STATE.type.has(f.dataset.type)) show = false;
+    if (FILTER_STATE.amount.size && !FILTER_STATE.amount.has(f.dataset.amount)) show = false;
     if (searchTerms.length) {
       const hay = f.dataset.search || '';
       if (!searchTerms.every(term => hay.includes(term))) show = false;
