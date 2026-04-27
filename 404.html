@@ -84,10 +84,8 @@ body {
   pointer-events: none;
   background: linear-gradient(180deg, #6FA8C9 0%, #9CC4DD 55%, #C8DEEC 100%);
   opacity: 1;
-  transition: opacity 4.5s cubic-bezier(0.45, 0, 0.55, 1);
+  transition: opacity 4.5s cubic-bezier(0.45, 0, 0.55, 1), visibility 0s linear 4.5s;
   overflow: hidden;
-  /* Fallback: gently fade out after 12s in case the YouTube API never reports PLAYING */
-  animation: curtain-fallback 4.5s cubic-bezier(0.45, 0, 0.55, 1) 12s forwards;
 }
 
 .video-curtain.faded {
@@ -111,10 +109,6 @@ body {
 @keyframes curtain-drift {
   from { transform: translateX(-40vw); }
   to   { transform: translateX(120vw); }
-}
-
-@keyframes curtain-fallback {
-  to { opacity: 0; visibility: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -210,6 +204,14 @@ body {
   document.head.appendChild(tag);
 })();
 
+function fadeCurtain() {
+  var c = document.getElementById('curtain');
+  if (c) c.classList.add('faded');
+}
+
+// Fallback: drop the curtain after 12s even if the YouTube API never fires PLAYING.
+setTimeout(fadeCurtain, 12000);
+
 function onYouTubeIframeAPIReady() {
   new YT.Player('ytplayer', {
     videoId: 'Y8ACyHYsb6Q',
@@ -223,10 +225,7 @@ function onYouTubeIframeAPIReady() {
       onStateChange: function (e) {
         if (e.data === YT.PlayerState.PLAYING) {
           // Wait ~3.5s for any YouTube title overlay to fade out, then drop the curtain.
-          setTimeout(function () {
-            var c = document.getElementById('curtain');
-            if (c) c.classList.add('faded');
-          }, 3500);
+          setTimeout(fadeCurtain, 3500);
         }
       }
     }
