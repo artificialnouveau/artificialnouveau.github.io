@@ -584,7 +584,14 @@ def main() -> int:
                 "",
             ]
         )
-    PR_BODY_FILE.write_text("\n".join(body_lines))
+    body = "\n".join(body_lines)
+    PR_BODY_FILE.write_text(body)
+
+    # Also dump to stdout so the candidates appear in workflow logs even when
+    # the push step is skipped or fails (e.g. when GH_PAT isn't set).
+    print("\n========== PR BODY ==========\n")
+    print(body)
+    print("\n========== END PR BODY ==========\n")
 
     print(f"Wrote {len(candidates)} candidate(s) to grants.json")
     return 0

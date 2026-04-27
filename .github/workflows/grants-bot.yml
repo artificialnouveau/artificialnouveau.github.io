@@ -41,9 +41,9 @@ jobs:
         run: python3 smalltools/grants/generate_feed.py
 
       - name: Open draft PR
-        if: steps.bot.outputs.has_candidates == 'true'
+        if: ${{ steps.bot.outputs.has_candidates == 'true' && secrets.GH_PAT != '' }}
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           set -euo pipefail
           DATE=$(date -u +%Y-%m-%d)
@@ -65,3 +65,10 @@ jobs:
       - name: No candidates
         if: steps.bot.outputs.has_candidates != 'true'
         run: echo "No candidates this run; skipping PR."
+
+      - name: PAT missing (candidates found but cannot open PR)
+        if: ${{ steps.bot.outputs.has_candidates == 'true' && secrets.GH_PAT == '' }}
+        run: |
+          echo "::warning::Found candidates but GH_PAT secret is not set."
+          echo "The candidates are listed above (search for 'PR BODY' in this log)."
+          echo "Add a Personal Access Token with 'workflow' scope as repo secret 'GH_PAT' to enable the draft PR step."
