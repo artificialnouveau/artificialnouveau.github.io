@@ -30,6 +30,17 @@ jobs:
       - name: Install dependencies
         run: pip install --quiet 'anthropic>=0.40' 'requests>=2.31' 'feedparser>=6.0'
 
+      - name: Detect GH_PAT presence
+        id: pat
+        env:
+          PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -n "$PAT" ]; then
+            echo "set=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "set=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run grants bot
         id: bot
         env:
@@ -41,7 +52,7 @@ jobs:
         run: python3 smalltools/grants/generate_feed.py
 
       - name: Open draft PR
-        if: ${{ steps.bot.outputs.has_candidates == 'true' && secrets.GH_PAT != '' }}
+        if: ${{ steps.bot.outputs.has_candidates == 'true' && steps.pat.outputs.set == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
@@ -67,7 +78,7 @@ jobs:
         run: echo "No candidates this run; skipping PR."
 
       - name: PAT missing (candidates found but cannot open PR)
-        if: ${{ steps.bot.outputs.has_candidates == 'true' && secrets.GH_PAT == '' }}
+        if: ${{ steps.bot.outputs.has_candidates == 'true' && steps.pat.outputs.set == 'false' }}
         run: |
           echo "::warning::Found candidates but GH_PAT secret is not set."
           echo "The candidates are listed above (search for 'PR BODY' in this log)."
