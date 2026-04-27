@@ -84,10 +84,10 @@ body {
   pointer-events: none;
   background: linear-gradient(180deg, #6FA8C9 0%, #9CC4DD 55%, #C8DEEC 100%);
   opacity: 1;
-  transition: opacity 1.6s ease-out;
+  transition: opacity 4.5s cubic-bezier(0.45, 0, 0.55, 1);
   overflow: hidden;
-  /* Fallback: fade after 12s in case the YouTube API never reports PLAYING */
-  animation: curtain-fallback 0s linear 12s forwards;
+  /* Fallback: gently fade out after 12s in case the YouTube API never reports PLAYING */
+  animation: curtain-fallback 4.5s cubic-bezier(0.45, 0, 0.55, 1) 12s forwards;
 }
 
 .video-curtain.faded {
