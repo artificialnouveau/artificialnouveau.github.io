@@ -5,14 +5,14 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 NAME:The Grant Desk - Remote
 X-WR-CALNAME:The Grant Desk - Remote deadlines
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in tech\, media 
- and computational art and research\, sorted into the right pile. Updated a
- s new calls land on the desk. Filtered to: Remote.
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Remote.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:osv-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260427T090415Z
+DTSTAMP:20260427T143334Z
 DTSTART;VALUE=DATE:20260430
 DTEND;VALUE=DATE:20260501
 SUMMARY:Deadline: O'Shaughnessy Fellowships

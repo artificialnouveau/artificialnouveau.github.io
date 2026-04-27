@@ -27,13 +27,22 @@ HERE = Path(__file__).parent
 PAGE_URL = "https://www.artificialnouveau.com/smalltools/grants/"
 TITLE = "The Grant Desk"
 DESCRIPTION = (
-    "Paid open calls, fellowships and residencies in tech, media and computational art and research, "
+    "Paid open calls, fellowships and residencies in AI, tech, research, and digital and mixed-media arts, "
     "sorted into the right pile. Updated as new calls land on the desk."
 )
 MAX_ITEMS = 50
 
 REGIONS = ["EU", "US", "UK", "NL", "Remote", "Worldwide"]
 TIMELINES = ["30d", "90d", "added-30d"]
+CATEGORIES = ["ai", "tech", "research", "film", "arts", "cross"]
+CATEGORY_LABELS = {
+    "ai": "AI & Safety",
+    "tech": "Tech & Infrastructure",
+    "research": "Research & Journalism",
+    "film": "Film & Video",
+    "arts": "Visual & Media Arts",
+    "cross": "Cross-disciplinary & Social Impact",
+}
 
 
 def parse_date(value):
@@ -124,8 +133,11 @@ def build_item(grant, today):
     )
 
 
-def feed_filename(region, timeline):
+def feed_filename(region, timeline, category=None):
     parts = ["feed"]
+    if category:
+        parts.append("cat")
+        parts.append(category)
     if region:
         parts.append(region.lower())
     if timeline:
@@ -133,8 +145,10 @@ def feed_filename(region, timeline):
     return "-".join(parts) + ".xml"
 
 
-def feed_title_desc(region, timeline):
+def feed_title_desc(region, timeline, category=None):
     suffix = []
+    if category:
+        suffix.append(CATEGORY_LABELS.get(category, category))
     if region:
         suffix.append(region)
     if timeline == "30d":
@@ -151,9 +165,11 @@ def feed_title_desc(region, timeline):
     return TITLE, DESCRIPTION
 
 
-def filter_grants(grants, region, timeline, today):
+def filter_grants(grants, region, timeline, today, category=None):
     out = []
     for g in grants:
+        if category and g.get("category") != category:
+            continue
         if region and g.get("region") != region:
             continue
         if timeline and timeline.startswith("added-"):
@@ -179,9 +195,9 @@ def filter_grants(grants, region, timeline, today):
     return out
 
 
-def build_feed(grants, region, timeline, today):
-    title, desc = feed_title_desc(region, timeline)
-    filename = feed_filename(region, timeline)
+def build_feed(grants, region, timeline, today, category=None):
+    title, desc = feed_title_desc(region, timeline, category)
+    filename = feed_filename(region, timeline, category)
     feed_url = PAGE_URL + filename
 
     grants_sorted = sorted(
@@ -239,16 +255,27 @@ def fold_line(line):
     return "\r\n".join(out)
 
 
-def calendar_filename(region):
-    if not region:
+def calendar_filename(region, category=None):
+    parts = ["calendar"]
+    if category:
+        parts.append("cat")
+        parts.append(category)
+    if region:
+        parts.append(region.lower())
+    if len(parts) == 1:
         return "calendar.ics"
-    return f"calendar-{region.lower()}.ics"
+    return "-".join(parts) + ".ics"
 
 
-def build_calendar(grants, today, region=None):
+def build_calendar(grants, today, region=None, category=None):
     now_stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    name_suffix = f" - {region}" if region else ""
-    desc_suffix = f" Filtered to: {region}." if region else ""
+    suffix_parts = []
+    if category:
+        suffix_parts.append(CATEGORY_LABELS.get(category, category))
+    if region:
+        suffix_parts.append(region)
+    name_suffix = f" - {', '.join(suffix_parts)}" if suffix_parts else ""
+    desc_suffix = f" Filtered to: {', '.join(suffix_parts)}." if suffix_parts else ""
     lines = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
@@ -261,6 +288,8 @@ def build_calendar(grants, today, region=None):
         "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
         "X-PUBLISHED-TTL:PT12H",
     ]
+    if category:
+        grants = [g for g in grants if g.get("category") == category]
     if region:
         grants = [g for g in grants if g.get("region") == region]
     for grant in grants:
@@ -328,6 +357,7 @@ def main():
     timeline_options = [None] + TIMELINES
 
     written = []
+    # Region x Timeline matrix (existing)
     for region in region_options:
         for timeline in timeline_options:
             filtered = filter_grants(grants, region, timeline, today)
@@ -336,10 +366,24 @@ def main():
             (HERE / name).write_text(feed, encoding="utf-8")
             written.append((name, len(filtered)))
 
+    # Category x Timeline (new) - independent of region
+    for category in CATEGORIES:
+        for timeline in timeline_options:
+            filtered = filter_grants(grants, None, timeline, today, category=category)
+            feed = build_feed(filtered, None, timeline, today, category=category)
+            name = feed_filename(None, timeline, category=category)
+            (HERE / name).write_text(feed, encoding="utf-8")
+            written.append((name, len(filtered)))
+
     cals_written = []
     for region in [None] + REGIONS:
         ics_text = build_calendar(grants, today, region=region)
         name = calendar_filename(region)
+        (HERE / name).write_text(ics_text, encoding="utf-8")
+        cals_written.append(name)
+    for category in CATEGORIES:
+        ics_text = build_calendar(grants, today, category=category)
+        name = calendar_filename(None, category=category)
         (HERE / name).write_text(ics_text, encoding="utf-8")
         cals_written.append(name)
 
