@@ -22,6 +22,7 @@ import time
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
+import feedparser
 import requests
 from anthropic import Anthropic, APIError
 
@@ -42,6 +43,18 @@ HASHTAGS = [
     "funding",
     "call4artists",
     "artgrant",
+]
+
+# RSS feeds to scan each run. Add (feed_url, category_hint, source_label) tuples.
+# Verify a feed actually exists before adding (curl -sIL <url> -o /dev/null -w '%{http_code} %{content_type}\n').
+RSS_FEEDS: list[tuple[str, str, str]] = [
+    (
+        "https://hyperallergic.com/tag/opportunities/rss/",
+        "arts",
+        "Hyperallergic Opportunities",
+    ),
+    # Examples to verify and add:
+    # ("https://example.com/feed.xml", "tech", "Example Source"),
 ]
 
 LOOKBACK_DAYS = 14
@@ -242,7 +255,8 @@ def load_state() -> dict:
 
 
 def save_state(state: dict) -> None:
-    state["processed_uris"] = state["processed_uris"][-MAX_PROCESSED_HISTORY:]
+    state["processed_uris"] = state.get("processed_uris", [])[-MAX_PROCESSED_HISTORY:]
+    state["processed_guids"] = state.get("processed_guids", [])[-MAX_PROCESSED_HISTORY:]
     STATE_FILE.write_text(json.dumps(state, indent=2) + "\n")
 
 
@@ -296,6 +310,79 @@ def set_output(name: str, value: str) -> None:
         f.write(f"{name}={value}\n")
 
 
+def build_candidate(
+    extracted: dict | None,
+    today: date,
+    fallback_url: str,
+    source_label: str,
+    source_url: str,
+    category_hint: str,
+    existing_ids: set[str],
+    existing_urls: set[str],
+) -> dict | None:
+    """Validate Claude's extraction and shape it into a desk-ready entry.
+
+    Returns the candidate dict (with `entry`, `confidence`, etc.) if the
+    extraction passes confidence + future-deadline + non-duplicate checks,
+    otherwise None. Mutates `existing_ids` / `existing_urls` on accept so
+    later candidates in the same run dedupe against it.
+    """
+    if not extracted or "reject" in extracted:
+        return None
+
+    try:
+        confidence = float(extracted.get("confidence", 0) or 0)
+    except (TypeError, ValueError):
+        confidence = 0.0
+    if confidence < CONFIDENCE_THRESHOLD:
+        return None
+
+    deadline_str = extracted.get("deadline")
+    deadline_date = parse_iso_date(deadline_str)
+    if not deadline_date or deadline_date < today:
+        return None
+
+    grant_url = (extracted.get("url") or fallback_url).strip()
+    if grant_url.rstrip("/") in existing_urls:
+        return None
+
+    base_id = slugify(extracted.get("title") or "untitled")
+    grant_id = base_id
+    counter = 2
+    while grant_id in existing_ids:
+        grant_id = f"{base_id}-{counter}"
+        counter += 1
+
+    entry = {
+        "id": grant_id,
+        "title": extracted.get("title") or "Untitled",
+        "organization": extracted.get("organization") or "",
+        "location": extracted.get("location") or "",
+        "region": extracted.get("region") or "Worldwide",
+        "amount": extracted.get("amount") or "",
+        "duration": "Per project",
+        "startDate": None,
+        "deadline": deadline_str,
+        "addedDate": today.isoformat(),
+        "description": extracted.get("description") or "",
+        "url": grant_url,
+        "tags": category_to_tags(extracted.get("category") or "cross"),
+        "fee": False,
+        "featured": False,
+    }
+
+    existing_ids.add(grant_id)
+    existing_urls.add(grant_url.rstrip("/"))
+
+    return {
+        "entry": entry,
+        "confidence": confidence,
+        "category_hint": category_hint,
+        "source_label": source_label,
+        "source_url": source_url,
+    }
+
+
 # --- Main ----------------------------------------------------------------- #
 
 
@@ -307,6 +394,7 @@ def main() -> int:
 
     state = load_state()
     processed_uris: set[str] = set(state.get("processed_uris", []))
+    processed_guids: set[str] = set(state.get("processed_guids", []))
 
     grants_data = json.loads(GRANTS_FILE.read_text())
     existing_ids: set[str] = {g["id"] for g in grants_data.get("grants", [])}
@@ -361,68 +449,93 @@ def main() -> int:
             )
             time.sleep(INTER_CALL_SLEEP_S)
 
-            if not extracted or "reject" in extracted:
-                processed_uris.add(uri)
-                continue
-
-            try:
-                confidence = float(extracted.get("confidence", 0) or 0)
-            except (TypeError, ValueError):
-                confidence = 0.0
-            if confidence < CONFIDENCE_THRESHOLD:
-                processed_uris.add(uri)
-                continue
-
-            deadline_str = extracted.get("deadline")
-            deadline_date = parse_iso_date(deadline_str)
-            if not deadline_date or deadline_date < today:
-                processed_uris.add(uri)
-                continue
-
-            grant_url = (extracted.get("url") or link_url).strip()
-            if grant_url.rstrip("/") in existing_urls:
-                processed_uris.add(uri)
-                continue
-
-            base_id = slugify(extracted.get("title") or "untitled")
-            grant_id = base_id
-            counter = 2
-            while grant_id in existing_ids:
-                grant_id = f"{base_id}-{counter}"
-                counter += 1
-
-            entry = {
-                "id": grant_id,
-                "title": extracted.get("title") or "Untitled",
-                "organization": extracted.get("organization") or "",
-                "location": extracted.get("location") or "",
-                "region": extracted.get("region") or "Worldwide",
-                "amount": extracted.get("amount") or "",
-                "duration": "Per project",
-                "startDate": None,
-                "deadline": deadline_str,
-                "addedDate": today.isoformat(),
-                "description": extracted.get("description") or "",
-                "url": grant_url,
-                "tags": category_to_tags(extracted.get("category") or "cross"),
-                "fee": False,
-                "featured": False,
-            }
-
-            candidates.append(
-                {
-                    "post_uri": uri,
-                    "post_url": post_uri_to_url(uri, handle),
-                    "entry": entry,
-                    "confidence": confidence,
-                    "category_hint": category_hint_for(tag),
-                }
+            cand = build_candidate(
+                extracted,
+                today,
+                fallback_url=link_url,
+                source_label="Bluesky",
+                source_url=post_uri_to_url(uri, handle),
+                category_hint=category_hint_for(tag),
+                existing_ids=existing_ids,
+                existing_urls=existing_urls,
             )
-            existing_ids.add(grant_id)
-            existing_urls.add(grant_url.rstrip("/"))
+            if cand:
+                candidates.append(cand)
             processed_uris.add(uri)
 
+    # --- RSS feeds -------------------------------------------------------- #
+
+    for feed_url, hint, label in RSS_FEEDS:
+        print(f"[rss] {label}")
+        try:
+            feed = feedparser.parse(feed_url)
+        except Exception as e:
+            print(f"[rss] {label} parse failed: {e}", file=sys.stderr)
+            continue
+
+        for entry_obj in feed.entries[:50]:
+            guid = (
+                entry_obj.get("id")
+                or entry_obj.get("guid")
+                or entry_obj.get("link")
+                or ""
+            )
+            if not guid or guid in processed_guids:
+                continue
+
+            published = entry_obj.get("published_parsed") or entry_obj.get(
+                "updated_parsed"
+            )
+            if published:
+                try:
+                    pub_date = date(
+                        published.tm_year, published.tm_mon, published.tm_mday
+                    )
+                    if pub_date < cutoff:
+                        processed_guids.add(guid)
+                        continue
+                except (TypeError, ValueError):
+                    pass
+
+            link_url = (entry_obj.get("link") or "").strip()
+            if not link_url:
+                processed_guids.add(guid)
+                continue
+            link_url = resolve_redirects(link_url)
+            normalised = link_url.rstrip("/")
+            if normalised in existing_urls or link_url in seen_link_urls:
+                processed_guids.add(guid)
+                continue
+            seen_link_urls.add(link_url)
+
+            print(f"  → {link_url}")
+            page_text = fetch_page_text(link_url)
+
+            entry_text = (
+                (entry_obj.get("title") or "")
+                + "\n\n"
+                + (entry_obj.get("summary") or entry_obj.get("description") or "")
+            )[:2000]
+
+            extracted = call_claude(client, entry_text, link_url, page_text, hint)
+            time.sleep(INTER_CALL_SLEEP_S)
+
+            cand = build_candidate(
+                extracted,
+                today,
+                fallback_url=link_url,
+                source_label=f"RSS: {label}",
+                source_url=link_url,
+                category_hint=hint,
+                existing_ids=existing_ids,
+                existing_urls=existing_urls,
+            )
+            if cand:
+                candidates.append(cand)
+            processed_guids.add(guid)
+
     state["processed_uris"] = sorted(processed_uris)
+    state["processed_guids"] = sorted(processed_guids)
     save_state(state)
 
     set_output("has_candidates", "true" if candidates else "false")
@@ -440,10 +553,15 @@ def main() -> int:
         json.dumps(grants_data, indent=2, ensure_ascii=False) + "\n"
     )
 
+    by_source: dict[str, int] = {}
+    for c in candidates:
+        by_source[c["source_label"]] = by_source.get(c["source_label"], 0) + 1
+    breakdown = ", ".join(f"{n} from {label}" for label, n in by_source.items())
+
     body_lines = [
         f"# Grants bot - {today.isoformat()}",
         "",
-        f"Found **{len(candidates)}** candidate grant(s) from Bluesky in the last {LOOKBACK_DAYS} days.",
+        f"Found **{len(candidates)}** candidate grant(s) ({breakdown}) in the last {LOOKBACK_DAYS} days.",
         "",
         "Review the diff in `smalltools/grants/grants.json`. Delete any rows you don't want, then mark this PR ready to merge. The branch deletes itself on merge.",
         "",
@@ -462,7 +580,7 @@ def main() -> int:
                 f"- **Confidence:** {c['confidence']:.2f} - Category hint: {c['category_hint']}",
                 f"- **Description:** {e['description']}",
                 f"- **Apply URL:** {e['url']}",
-                f"- **Source post:** {c['post_url']}",
+                f"- **Source:** {c['source_label']} ({c['source_url']})",
                 "",
             ]
         )
