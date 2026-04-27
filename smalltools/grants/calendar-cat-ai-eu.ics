@@ -1,0 +1,28 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - AI & Safety\, EU
+X-WR-CALNAME:The Grant Desk - AI & Safety\, EU deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: AI & Safety\, EU.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:eu-policy-lab-ai-residency-2026@artificialnouveau.github.io
+DTSTAMP:20260427T143845Z
+DTSTART;VALUE=DATE:20260522
+DTEND;VALUE=DATE:20260523
+SUMMARY:Deadline: Artist-in-Residence: Reimagining AI at the EU Policy Lab
+DESCRIPTION:Open call for an artist residency reimagining AI at the EU Poli
+ cy Lab. The 15\,000 EUR contracted budget covers expert fees\, allowance\,
+  accommodation and travel during on-site work.\n\nOrganisation: Joint Rese
+ arch Centre\, European Commission\nLocation: Brussels\, Belgium (with poss
+ ible site visit in Ispra\, Italy)\nAward: €15\,000\nDuration: 6 months\n
+ \nMore: https://science-art-society.ec.europa.eu/node/627
+URL:https://science-art-society.ec.europa.eu/node/627
+LOCATION:Brussels\, Belgium (with possible site visit in Ispra\, Italy)
+END:VEVENT
+END:VCALENDAR

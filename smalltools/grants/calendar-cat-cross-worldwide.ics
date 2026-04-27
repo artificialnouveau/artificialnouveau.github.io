@@ -1,0 +1,36 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Cross-disciplinary & Social Impact\, Worldwide
+X-WR-CALNAME:The Grant Desk - Cross-disciplinary & Social Impact\, Worldwid
+ e deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Cross-disciplinary & So
+ cial Impact\, Worldwide.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:elevate-prize-2027@artificialnouveau.github.io
+DTSTAMP:20260427T143845Z
+DTSTART;VALUE=DATE:20260508
+DTEND;VALUE=DATE:20260509
+SUMMARY:Deadline: 2027 Elevate Prize
+DESCRIPTION:Nomination-based prize for nonprofit leaders driving meaningful
+  change. Each winner receives $300\,000 in unrestricted funding plus a two
+ -year tailored programme with visibility\, scaling support and a global co
+ mmunity. Eligibility: 18+\, serving as Executive Director\, CEO\, Founder 
+ or equivalent of a registered nonprofit (US 501(c)(3) or international equ
+ ivalent) able to receive philanthropic funds. Ideally for organisations wi
+ th annual budgets between $2M and $10M (others may be considered based on 
+ readiness and impact opportunity).\n\nOrganisation: Elevate Prize Foundati
+ on\nLocation: Worldwide (US 501(c)(3) or international equivalent)\nAward:
+  $300\,000 unrestricted ($250\,000 to organisation + $50\,000 to the indiv
+ idual)\nDuration: 2-year tailored programme + global community\n\nMore: ht
+ tps://elevateprize.org/the-elevate-prize/
+URL:https://elevateprize.org/the-elevate-prize/
+LOCATION:Worldwide (US 501(c)(3) or international equivalent)
+END:VEVENT
+END:VCALENDAR

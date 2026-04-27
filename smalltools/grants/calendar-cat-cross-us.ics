@@ -1,0 +1,49 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Cross-disciplinary & Social Impact\, US
+X-WR-CALNAME:The Grant Desk - Cross-disciplinary & Social Impact\, US deadl
+ ines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Cross-disciplinary & So
+ cial Impact\, US.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:harpo-impact-award-native-american-2026@artificialnouveau.github.io
+DTSTAMP:20260427T143845Z
+DTSTART;VALUE=DATE:20260427
+DTEND;VALUE=DATE:20260428
+SUMMARY:Deadline: Impact Award for Native American Art
+DESCRIPTION:Fellowship to amplify the contributions of under-recognised Nat
+ ive American contemporary visual artists.\n\nOrganisation: Harpo Foundatio
+ n\nLocation: USA (open to applicants worldwide)\nAward: $25\,000 fellowshi
+ p\nDuration: One-time award\n\nMore: https://creative-capital.org/opportun
+ ities/the-impact-award-for-native-american-art/
+URL:https://creative-capital.org/opportunities/the-impact-award-for-native-
+ american-art/
+LOCATION:USA (open to applicants worldwide)
+END:VEVENT
+BEGIN:VEVENT
+UID:knight-cities-challenge-2026@artificialnouveau.github.io
+DTSTAMP:20260427T143845Z
+DTSTART;VALUE=DATE:20260430
+DTEND;VALUE=DATE:20260501
+SUMMARY:Deadline: Knight Cities Challenge 2026
+DESCRIPTION:Open call for individuals and organisations across Knight's 26 
+ communities to submit creative ideas for projects that spark change and le
+ ave lasting local impact. Project ideas must focus on at least one of Knig
+ ht's investment areas: strengthening local news and information\, creating
+  pathways for economic opportunity\, or cultivating connection through art
+ s\, culture and shared places. Applications close 30 April 2026 at 11:59 P
+ M ET.\n\nOrganisation: Knight Foundation\nLocation: 26 Knight communities\
+ , USA\nAward: Up to $200\,000 per project ($5M total pool)\nDuration: 1 ye
+ ar (project completion)\n\nMore: https://knightfoundation.org/knight-citie
+ s-challenge/
+URL:https://knightfoundation.org/knight-cities-challenge/
+LOCATION:26 Knight communities\, USA
+END:VEVENT
+END:VCALENDAR

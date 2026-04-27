@@ -1,0 +1,94 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Tech & Infrastructure\, EU
+X-WR-CALNAME:The Grant Desk - Tech & Infrastructure\, EU deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Tech & Infrastructure\,
+  EU.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:ngi-fediversity-11@artificialnouveau.github.io
+DTSTAMP:20260427T143845Z
+DTSTART;VALUE=DATE:20260601
+DTEND;VALUE=DATE:20260602
+SUMMARY:Deadline: NGI Fediversity (11th call)
+DESCRIPTION:Small to medium-sized R&D grants for projects making federated 
+ and self-hosted internet services easier to deploy and operate at scale. F
+ unds practical work on portable Fediverse-style infrastructure\, hosted Ma
+ stodon-like or PeerTube-like services\, secure email\, private cloud and o
+ ther tools that support decentralisation and digital self-determination. O
+ pen to individuals and organisations of any type\; results released under 
+ free or open-source licences. Deadline 1 June 2026\, 12:00 CEST.\n\nOrgani
+ sation: NLnet / NGI Fediversity (funded by EU Horizon Europe)\nLocation: E
+ urope and beyond\nAward: €5\,000 to €50\,000 per project\nDuration: Pr
+ oject-based\n\nMore: https://nlnet.nl/fediversity/
+URL:https://nlnet.nl/fediversity/
+LOCATION:Europe and beyond
+END:VEVENT
+BEGIN:VEVENT
+UID:ngi-fediversity-11@artificialnouveau.github.io
+DTSTAMP:20260427T143845Z
+DTSTART;VALUE=DATE:20260601
+DTEND;VALUE=DATE:20260602
+SUMMARY:Deadline: NGI Fediversity (11th call): Hosting Stack of the Future
+DESCRIPTION:Small to medium-sized R&D grants for projects that strengthen F
+ ediversity\, an effort to bring easy-to-use hosted cloud services with ser
+ vice portability and personal freedom at their core to everyone. Built on 
+ NixOS for declarative\, reproducible\, reliable deployment of Fediverse se
+ rvices (PeerTube\, Mastodon\, Owncast\, Lemmy)\, email\, VPN\, private clo
+ ud storage\, wikis and more. Project results released under open source li
+ cences. Deadline 1 June 2026\, 12:00 CEST.\n\nOrganisation: NLnet / NGI Fe
+ diversity (funded by EU Horizon Europe)\nLocation: Europe and beyond\nAwar
+ d: €5\,000 to €50\,000 per project (€450\,000 total budget for open 
+ calls)\nDuration: Project-based (programme runs to November 2027)\n\nMore:
+  https://nlnet.nl/fediversity/
+URL:https://nlnet.nl/fediversity/
+LOCATION:Europe and beyond
+END:VEVENT
+BEGIN:VEVENT
+UID:ngi-taler-13@artificialnouveau.github.io
+DTSTAMP:20260427T143845Z
+DTSTART;VALUE=DATE:20260601
+DTEND;VALUE=DATE:20260602
+SUMMARY:Deadline: NGI TALER (13th call): Privacy-Preserving Digital Payment
+ s
+DESCRIPTION:Small to medium-sized R&D grants for free and open source effor
+ ts aligned with privacy-preserving digital payments. Build new GNU Taler c
+ apabilities\, auxiliary tools\, UX\, FOSS-app and open-standard integratio
+ ns (P2P micropayments in messengers\, social media\, video conferencing)\,
+  or merchant-backend improvements. All results released under a free or op
+ en-source licence. Strong projects can scale up via NGI0 Core. Deadline 1 
+ June 2026\, 12:00 CEST.\n\nOrganisation: NLnet / NGI TALER (with GNU Taler
+  community\, funded by EU Horizon Europe and Swiss SERI)\nLocation: Europe
+  and beyond\nAward: €5\,000 to €50\,000 per project (€676\,000 total
+  budget for open calls)\nDuration: Project-based (programme runs to Novemb
+ er 2026)\n\nMore: https://nlnet.nl/taler/
+URL:https://nlnet.nl/taler/
+LOCATION:Europe and beyond
+END:VEVENT
+BEGIN:VEVENT
+UID:ngi-zero-commons-fund-13@artificialnouveau.github.io
+DTSTAMP:20260427T143845Z
+DTSTART;VALUE=DATE:20260601
+DTEND;VALUE=DATE:20260602
+SUMMARY:Deadline: NGI Zero Commons Fund (13th call)
+DESCRIPTION:Small to medium-sized R&D grants to help reclaim the public nat
+ ure of the internet across the full technology spectrum: libre silicon\, m
+ iddleware\, P2P infrastructure\, end-user applications\, open standards\, 
+ open data and AI\, open science\, creative commons and open educational re
+ sources. Project results released under free or open-source licences. Aime
+ d at troubleshooters tackling hard\, important internet-commons challenges
+ . Total programme: €21.6m through 2027. Deadline 1 June 2026\, 12:00 CES
+ T.\n\nOrganisation: NLnet / NGI Zero (funded by EU Horizon Europe and Swis
+ s SERI)\nLocation: Europe and beyond\nAward: €5\,000 to €50\,000 per p
+ roject (scalable for proven potential)\nDuration: Project-based\n\nMore: h
+ ttps://nlnet.nl/commonsfund/
+URL:https://nlnet.nl/commonsfund/
+LOCATION:Europe and beyond
+END:VEVENT
+END:VCALENDAR

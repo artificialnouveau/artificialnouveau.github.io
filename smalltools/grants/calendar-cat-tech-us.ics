@@ -1,0 +1,33 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Tech & Infrastructure\, US
+X-WR-CALNAME:The Grant Desk - Tech & Infrastructure\, US deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Tech & Infrastructure\,
+  US.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:pace-research-fellowship-summer-2026@artificialnouveau.github.io
+DTSTAMP:20260427T143845Z
+DTSTART;VALUE=DATE:20260516
+DTEND;VALUE=DATE:20260517
+SUMMARY:Deadline: Pace Research Fellowship Summer 2026
+DESCRIPTION:Four-week paid summer residency for technologists working at th
+ e intersection of computing infrastructure\, economics and the physical wo
+ rld. Fellows work alongside the Pace investment team and leave with origin
+ al\, publishable research artifacts (one sharp public piece on the systems
+  shaping the next decade). Open to students\, researchers\, founders and i
+ ndependent thinkers who want real room to go deep on infrastructure and ec
+ onomics questions. Hosted at Pace HQ in NYC.\n\nOrganisation: Pace\nLocati
+ on: Pace HQ\, New York City\, US\nAward: Paid residency (specific amount n
+ ot published\; access to compute and the Pace investment-team network)\nDu
+ ration: 4 weeks (July 2026)\n\nMore: https://pacefellows.com/
+URL:https://pacefellows.com/
+LOCATION:Pace HQ\, New York City\, US
+END:VEVENT
+END:VCALENDAR

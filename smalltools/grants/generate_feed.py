@@ -366,14 +366,15 @@ def main():
             (HERE / name).write_text(feed, encoding="utf-8")
             written.append((name, len(filtered)))
 
-    # Category x Timeline (new) - independent of region
+    # Category x Region x Timeline cross-product
     for category in CATEGORIES:
-        for timeline in timeline_options:
-            filtered = filter_grants(grants, None, timeline, today, category=category)
-            feed = build_feed(filtered, None, timeline, today, category=category)
-            name = feed_filename(None, timeline, category=category)
-            (HERE / name).write_text(feed, encoding="utf-8")
-            written.append((name, len(filtered)))
+        for region in region_options:
+            for timeline in timeline_options:
+                filtered = filter_grants(grants, region, timeline, today, category=category)
+                feed = build_feed(filtered, region, timeline, today, category=category)
+                name = feed_filename(region, timeline, category=category)
+                (HERE / name).write_text(feed, encoding="utf-8")
+                written.append((name, len(filtered)))
 
     cals_written = []
     for region in [None] + REGIONS:
@@ -382,10 +383,11 @@ def main():
         (HERE / name).write_text(ics_text, encoding="utf-8")
         cals_written.append(name)
     for category in CATEGORIES:
-        ics_text = build_calendar(grants, today, category=category)
-        name = calendar_filename(None, category=category)
-        (HERE / name).write_text(ics_text, encoding="utf-8")
-        cals_written.append(name)
+        for region in [None] + REGIONS:
+            ics_text = build_calendar(grants, today, region=region, category=category)
+            name = calendar_filename(region, category=category)
+            (HERE / name).write_text(ics_text, encoding="utf-8")
+            cals_written.append(name)
 
     print(f"Wrote {len(written)} RSS feeds:")
     for name, count in written:

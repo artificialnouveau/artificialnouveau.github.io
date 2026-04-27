@@ -342,6 +342,40 @@ body {
   color: var(--ink);
   cursor: pointer;
 }
+.sub-note .cat-checks {
+  flex: 1 1 100%;
+  border: 1.5px solid var(--line);
+  border-radius: 3px;
+  padding: 6px 8px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+}
+.sub-note .cat-checks legend {
+  display: none;
+}
+.sub-note .cat-checks label {
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+  cursor: pointer;
+}
+.sub-note .cat-checks label input { margin: 0; cursor: pointer; }
+.sub-note .feed-url-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.sub-note .feed-url-list .feed-url { margin-bottom: 0; }
 
 .sub-note .feed-url {
   font-family: 'DM Mono', monospace;
@@ -1127,18 +1161,15 @@ code *, pre *, kbd *, samp * {
           <h4>Subscribe by RSS</h4>
           <p class="blurb">A ping in your reader whenever a new call lands on the desk. Pick a slice if you want a focused feed.</p>
           <div class="feed-options">
-            <label>
-              <span>Category</span>
-              <select id="feed-category">
-                <option value="">All categories</option>
-                <option value="ai">AI &amp; Safety</option>
-                <option value="tech">Tech &amp; Infrastructure</option>
-                <option value="research">Research &amp; Journalism</option>
-                <option value="film">Film &amp; Video</option>
-                <option value="arts">Visual &amp; Media Arts</option>
-                <option value="cross">Cross-disciplinary &amp; Social Impact</option>
-              </select>
-            </label>
+            <fieldset class="cat-checks" id="feed-categories">
+              <legend>Categories</legend>
+              <label><input type="checkbox" value="ai"> AI &amp; Safety</label>
+              <label><input type="checkbox" value="tech"> Tech &amp; Infrastructure</label>
+              <label><input type="checkbox" value="research"> Research &amp; Journalism</label>
+              <label><input type="checkbox" value="film"> Film &amp; Video</label>
+              <label><input type="checkbox" value="arts"> Visual &amp; Media Arts</label>
+              <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
+            </fieldset>
             <label>
               <span>Region</span>
               <select id="feed-region">
@@ -1161,7 +1192,9 @@ code *, pre *, kbd *, samp * {
               </select>
             </label>
           </div>
-          <a class="feed-url" id="feed-url-text" href="feed.xml">feed.xml</a>
+          <div class="feed-url-list" id="feed-url-list">
+            <a class="feed-url" id="feed-url-text" href="feed.xml">feed.xml</a>
+          </div>
           <div class="row">
             <button type="button" id="copy-feed">Copy URL</button>
             <a class="btn" id="feed-open-btn" href="feed.xml" target="_blank" rel="noopener">Open feed</a>
@@ -1169,7 +1202,7 @@ code *, pre *, kbd *, samp * {
           <details>
             <summary>How to subscribe</summary>
             <ol>
-              <li>Optionally pick a Region and/or Timeline above to narrow the feed.</li>
+              <li>Optionally tick one or more Categories, pick a Region, and/or pick a Timeline to narrow the feed. If you tick multiple categories, you'll get one feed URL per category, which you can subscribe to separately in your reader.</li>
               <li>Copy the feed URL or click Open feed.</li>
               <li>Paste the URL into your RSS reader (Feedly, NetNewsWire, Inoreader, Reeder, Thunderbird).</li>
               <li>Deadline-filtered feeds (Next 30 / 90 days) only include grants with a fixed deadline in that window. Rolling/undated grants are excluded from those.</li>
@@ -1189,18 +1222,15 @@ code *, pre *, kbd *, samp * {
           <h4>Add deadlines to your calendar</h4>
           <p class="blurb">A live calendar of upcoming deadlines. Stays in sync as new calls land or details change.</p>
           <div class="feed-options">
-            <label>
-              <span>Category</span>
-              <select id="cal-category">
-                <option value="">All categories</option>
-                <option value="ai">AI &amp; Safety</option>
-                <option value="tech">Tech &amp; Infrastructure</option>
-                <option value="research">Research &amp; Journalism</option>
-                <option value="film">Film &amp; Video</option>
-                <option value="arts">Visual &amp; Media Arts</option>
-                <option value="cross">Cross-disciplinary &amp; Social Impact</option>
-              </select>
-            </label>
+            <fieldset class="cat-checks" id="cal-categories">
+              <legend>Categories</legend>
+              <label><input type="checkbox" value="ai"> AI &amp; Safety</label>
+              <label><input type="checkbox" value="tech"> Tech &amp; Infrastructure</label>
+              <label><input type="checkbox" value="research"> Research &amp; Journalism</label>
+              <label><input type="checkbox" value="film"> Film &amp; Video</label>
+              <label><input type="checkbox" value="arts"> Visual &amp; Media Arts</label>
+              <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
+            </fieldset>
             <label>
               <span>Region</span>
               <select id="cal-region">
@@ -1214,7 +1244,9 @@ code *, pre *, kbd *, samp * {
               </select>
             </label>
           </div>
-          <a class="feed-url" id="cal-url-text" href="calendar.ics">calendar.ics</a>
+          <div class="feed-url-list" id="cal-url-list">
+            <a class="feed-url" id="cal-url-text" href="calendar.ics">calendar.ics</a>
+          </div>
           <div class="row">
             <button type="button" id="copy-cal">Copy URL</button>
             <a class="btn" id="cal-open-btn" href="calendar.ics" target="_blank" rel="noopener">Download once</a>
@@ -1222,7 +1254,7 @@ code *, pre *, kbd *, samp * {
           <details>
             <summary>How to subscribe</summary>
             <ol>
-              <li>Optionally pick a Region above to narrow the calendar.</li>
+              <li>Optionally tick one or more Categories and/or pick a Region to narrow the calendar. If you tick multiple categories, you'll get one .ics URL per category, which you can subscribe to separately.</li>
               <li>Copy the calendar URL.</li>
               <li><strong>Google Calendar:</strong> "Other calendars" &rarr; "+" &rarr; "From URL", paste, Add.</li>
               <li><strong>Apple Calendar:</strong> "File" &rarr; "New Calendar Subscription", paste, OK.</li>
@@ -1707,35 +1739,52 @@ function setupCopy(buttonId, urlElId, filename) {
 }
 (function setupCalendarSelector() {
   const regionSel = document.getElementById('cal-region');
-  const categorySel = document.getElementById('cal-category');
-  const urlEl = document.getElementById('cal-url-text');
+  const catFieldset = document.getElementById('cal-categories');
+  const urlList = document.getElementById('cal-url-list');
   const openBtn = document.getElementById('cal-open-btn');
   const copyBtn = document.getElementById('copy-cal');
-  if (!regionSel || !urlEl || !copyBtn) return;
+  if (!regionSel || !urlList || !copyBtn) return;
 
-  const buildName = () => {
-    if (categorySel && categorySel.value) return `calendar-cat-${categorySel.value}.ics`;
-    return regionSel.value ? `calendar-${regionSel.value}.ics` : 'calendar.ics';
+  const selectedCategories = () =>
+    catFieldset
+      ? Array.from(catFieldset.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value)
+      : [];
+
+  const buildName = (cat, region) => {
+    const parts = ['calendar'];
+    if (cat) { parts.push('cat'); parts.push(cat); }
+    if (region) parts.push(region);
+    if (parts.length === 1) return 'calendar.ics';
+    return parts.join('-') + '.ics';
   };
-  const syncEnabled = () => {
-    if (!categorySel) return;
-    const catActive = !!categorySel.value;
-    regionSel.disabled = catActive;
-    if (catActive) regionSel.value = '';
-    const regionActive = !!regionSel.value;
-    categorySel.disabled = regionActive;
-  };
+
   const update = () => {
-    syncEnabled();
-    const filename = buildName();
-    const absUrl = new URL(filename, window.location.href).toString();
-    urlEl.textContent = absUrl;
-    urlEl.setAttribute('href', filename);
-    if (openBtn) openBtn.setAttribute('href', filename);
-    copyBtn.dataset.url = absUrl;
+    const cats = selectedCategories();
+    const region = regionSel.value;
+    const names = cats.length ? cats.map(c => buildName(c, region)) : [buildName(null, region)];
+
+    urlList.innerHTML = '';
+    const absUrls = [];
+    names.forEach((filename) => {
+      const absUrl = new URL(filename, window.location.href).toString();
+      absUrls.push(absUrl);
+      const a = document.createElement('a');
+      a.className = 'feed-url';
+      a.href = filename;
+      a.textContent = absUrl;
+      urlList.appendChild(a);
+    });
+
+    if (openBtn) {
+      openBtn.setAttribute('href', names[0]);
+      openBtn.textContent = names.length > 1 ? 'Download first' : 'Download once';
+    }
+    copyBtn.dataset.url = absUrls.join('\n');
+    copyBtn.textContent = absUrls.length > 1 ? `Copy ${absUrls.length} URLs` : 'Copy URL';
   };
+
   regionSel.addEventListener('change', update);
-  if (categorySel) categorySel.addEventListener('change', update);
+  if (catFieldset) catFieldset.addEventListener('change', update);
   copyBtn.addEventListener('click', async () => {
     const url = copyBtn.dataset.url;
     if (!url) return;
@@ -1754,46 +1803,56 @@ function setupCopy(buttonId, urlElId, filename) {
 
 (function setupRssFeedSelector() {
   const regionSel = document.getElementById('feed-region');
-  const categorySel = document.getElementById('feed-category');
+  const catFieldset = document.getElementById('feed-categories');
   const timelineSel = document.getElementById('feed-timeline');
-  const urlEl = document.getElementById('feed-url-text');
+  const urlList = document.getElementById('feed-url-list');
   const openBtn = document.getElementById('feed-open-btn');
   const copyBtn = document.getElementById('copy-feed');
-  if (!regionSel || !timelineSel || !urlEl || !copyBtn) return;
+  if (!regionSel || !timelineSel || !urlList || !copyBtn) return;
 
-  const buildName = () => {
+  const selectedCategories = () =>
+    catFieldset
+      ? Array.from(catFieldset.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value)
+      : [];
+
+  const buildName = (cat, region, timeline) => {
     const parts = ['feed'];
-    if (categorySel && categorySel.value) {
-      parts.push('cat');
-      parts.push(categorySel.value);
-    } else if (regionSel.value) {
-      parts.push(regionSel.value);
-    }
-    if (timelineSel.value) parts.push(timelineSel.value);
+    if (cat) { parts.push('cat'); parts.push(cat); }
+    if (region) parts.push(region);
+    if (timeline) parts.push(timeline);
     return parts.join('-') + '.xml';
   };
 
-  const syncEnabled = () => {
-    if (!categorySel) return;
-    const catActive = !!categorySel.value;
-    regionSel.disabled = catActive;
-    if (catActive) regionSel.value = '';
-    const regionActive = !!regionSel.value;
-    categorySel.disabled = regionActive;
-  };
-
   const update = () => {
-    syncEnabled();
-    const filename = buildName();
-    const absUrl = new URL(filename, window.location.href).toString();
-    urlEl.textContent = absUrl;
-    urlEl.setAttribute('href', filename);
-    if (openBtn) openBtn.setAttribute('href', filename);
-    copyBtn.dataset.url = absUrl;
+    const cats = selectedCategories();
+    const region = regionSel.value;
+    const timeline = timelineSel.value;
+    const names = cats.length
+      ? cats.map(c => buildName(c, region, timeline))
+      : [buildName(null, region, timeline)];
+
+    urlList.innerHTML = '';
+    const absUrls = [];
+    names.forEach((filename) => {
+      const absUrl = new URL(filename, window.location.href).toString();
+      absUrls.push(absUrl);
+      const a = document.createElement('a');
+      a.className = 'feed-url';
+      a.href = filename;
+      a.textContent = absUrl;
+      urlList.appendChild(a);
+    });
+
+    if (openBtn) {
+      openBtn.setAttribute('href', names[0]);
+      openBtn.textContent = names.length > 1 ? 'Open first' : 'Open feed';
+    }
+    copyBtn.dataset.url = absUrls.join('\n');
+    copyBtn.textContent = absUrls.length > 1 ? `Copy ${absUrls.length} URLs` : 'Copy URL';
   };
 
   regionSel.addEventListener('change', update);
-  if (categorySel) categorySel.addEventListener('change', update);
+  if (catFieldset) catFieldset.addEventListener('change', update);
   timelineSel.addEventListener('change', update);
 
   copyBtn.addEventListener('click', async () => {
