@@ -32,7 +32,7 @@ DESCRIPTION = (
 )
 MAX_ITEMS = 50
 
-REGIONS = ["EU", "US", "UK", "NL", "Remote", "Worldwide"]
+REGIONS = ["EU", "US", "UK", "NL", "Canada", "Remote", "Worldwide"]
 TIMELINES = ["30d", "90d", "added-30d"]
 CATEGORIES = ["ai", "tech", "research", "film", "arts", "cross"]
 CATEGORY_LABELS = {

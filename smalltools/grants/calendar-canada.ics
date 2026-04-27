@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Canada
+X-WR-CALNAME:The Grant Desk - Canada deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Canada.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:aws-imagine-go-further-faster-canada-2026@artificialnouveau.github.io
+DTSTAMP:20260427T145718Z
+DTSTART;VALUE=DATE:20260605
+DTEND;VALUE=DATE:20260606
+SUMMARY:Deadline: AWS Imagine Grant Canada 2026: Go Further\, Faster Award
+DESCRIPTION:Canadian track of the 2026 AWS Imagine Grant for nonprofits lev
+ eraging advanced cloud services (AI/ML\, HPC\, IoT). Up to $75K USD cash +
+  $25K USD AWS credits\, plus AWS marketing support and technical specialis
+ t access. Two-round selection: Round One closes 5 June 2026\; Round One no
+ tification and Round Two invitations on 3 July 2026. Eligibility: nonprofi
+ ts in Canada with a CRA-registered charitable organisation number (a 9-dig
+ it Business Number\, often followed by RR0001 or similar). NOTE: this is a
+  charities-only programme and is not open to individual artists\, research
+ ers\, or for-profit studios.\n\nOrganisation: Amazon Web Services (AWS Ima
+ gine Grant Program)\nLocation: Canada (CRA-registered charitable organisat
+ ions only)\nAward: Up to $75\,000 USD unrestricted cash + up to $25\,000 U
+ SD in AWS Promotional Credits + AWS marketing support and access to AWS te
+ chnical specialists\nDuration: Two-round process. Round One closes 5 June 
+ 2026\; notifications 3 July 2026 with Round Two invitations issued the sam
+ e day.\n\nMore: https://aws.amazon.com/government-education/nonprofits/aws
+ -imagine-grant-program/aws-imagine-grant-canada/
+URL:https://aws.amazon.com/government-education/nonprofits/aws-imagine-gran
+ t-program/aws-imagine-grant-canada/
+LOCATION:Canada (CRA-registered charitable organisations only)
+END:VEVENT
+END:VCALENDAR

@@ -1178,6 +1178,7 @@ code *, pre *, kbd *, samp * {
                 <option value="us">US</option>
                 <option value="uk">UK</option>
                 <option value="nl">NL</option>
+                <option value="canada">Canada</option>
                 <option value="remote">Remote</option>
                 <option value="worldwide">Worldwide</option>
               </select>
@@ -1239,6 +1240,7 @@ code *, pre *, kbd *, samp * {
                 <option value="us">US</option>
                 <option value="uk">UK</option>
                 <option value="nl">NL</option>
+                <option value="canada">Canada</option>
                 <option value="remote">Remote</option>
                 <option value="worldwide">Worldwide</option>
               </select>
@@ -1943,7 +1945,7 @@ function bindMultiSelectGroup(group, key) {
   });
 }
 
-const SEED_REGIONS = ['EU', 'US', 'UK', 'NL', 'Remote', 'Worldwide'];
+const SEED_REGIONS = ['EU', 'US', 'UK', 'NL', 'Canada', 'Remote', 'Worldwide'];
 const EXCLUDE_REGIONS = new Set(['Global']);
 
 function buildFilterChips() {
@@ -1957,7 +1959,7 @@ function buildFilterChips() {
     if (f.dataset.category) categories.add(f.dataset.category);
   }
 
-  const regionOrder = ['EU', 'US', 'UK', 'NL', 'Remote', 'Worldwide', 'Global'];
+  const regionOrder = ['EU', 'US', 'UK', 'NL', 'Canada', 'Remote', 'Worldwide', 'Global'];
   const sortedRegions = [...regions].sort((a, b) => {
     const ai = regionOrder.indexOf(a);
     const bi = regionOrder.indexOf(b);
