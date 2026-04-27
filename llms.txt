@@ -1,0 +1,34 @@
+# The Grant Desk
+
+A curated database of paid grants, fellowships and residencies for artists, researchers and technologists working in AI and AI safety, digital and mixed-media arts, film and video, research and journalism, tech and infrastructure, and cross-disciplinary practice.
+
+Maintained by Ahnjili ZhuParris. Updated weekly. Every entry is funded; exposure-only calls are filtered out.
+
+## Primary
+
+- [The Grant Desk (interactive)](https://www.artificialnouveau.com/smalltools/grants/): Filterable list of all active grants, fellowships and residencies.
+- [All grants RSS feed](https://www.artificialnouveau.com/smalltools/grants/feed.xml): Full RSS feed of all entries, sorted by date added.
+- [All grants calendar (.ics)](https://www.artificialnouveau.com/smalltools/grants/calendar.ics): ICS calendar of all upcoming deadlines.
+
+## By category
+
+- [AI and AI safety](https://www.artificialnouveau.com/smalltools/grants/ai/)
+- [Tech and infrastructure](https://www.artificialnouveau.com/smalltools/grants/tech/)
+- [Research and journalism](https://www.artificialnouveau.com/smalltools/grants/research/)
+- [Film and video](https://www.artificialnouveau.com/smalltools/grants/film/)
+- [Visual and media arts](https://www.artificialnouveau.com/smalltools/grants/arts/)
+- [Cross-disciplinary and social impact](https://www.artificialnouveau.com/smalltools/grants/cross/)
+
+## By region
+
+- [EU](https://www.artificialnouveau.com/smalltools/grants/eu/)
+- [UK](https://www.artificialnouveau.com/smalltools/grants/uk/)
+- [US](https://www.artificialnouveau.com/smalltools/grants/us/)
+- [Netherlands](https://www.artificialnouveau.com/smalltools/grants/nl/)
+- [Canada](https://www.artificialnouveau.com/smalltools/grants/canada/)
+- [Remote (work-from-anywhere)](https://www.artificialnouveau.com/smalltools/grants/remote/)
+- [Worldwide](https://www.artificialnouveau.com/smalltools/grants/worldwide/)
+
+## Data
+
+- [grants.json](https://www.artificialnouveau.com/smalltools/grants/grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, amount, duration, deadline, addedDate, category, description, url, tags, fee, featured.
