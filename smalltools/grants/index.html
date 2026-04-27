@@ -1483,7 +1483,7 @@ function deadlinePill(grant, today) {
   return { text: `${formatted} (${days}d)`, cls: '' };
 }
 
-const TYPE_TAGS = ['open-call', 'residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'job'];
+const TYPE_TAGS = ['residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'job'];
 
 function detectType(grant) {
   const tags = (grant.tags || []).map(t => String(t).toLowerCase());
@@ -1969,7 +1969,7 @@ function buildFilterChips() {
     return a.localeCompare(b);
   });
 
-  const typeOrder = ['open-call', 'residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'job', 'other'];
+  const typeOrder = ['residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'job', 'other'];
   const sortedTypes = [...types].sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b));
 
   const sortedCategories = CATEGORY_ORDER.filter(c => categories.has(c));
