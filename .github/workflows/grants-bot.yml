@@ -1,0 +1,62 @@
+name: Grants Bot
+
+on:
+  schedule:
+    # Sundays at 09:00 UTC
+    - cron: '0 9 * * 0'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install --quiet 'anthropic>=0.40' 'requests>=2.31'
+
+      - name: Run grants bot
+        id: bot
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 smalltools/grants/grants_bot.py
+
+      - name: Regenerate feeds
+        if: steps.bot.outputs.has_candidates == 'true'
+        run: python3 smalltools/grants/generate_feed.py
+
+      - name: Open draft PR
+        if: steps.bot.outputs.has_candidates == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          DATE=$(date -u +%Y-%m-%d)
+          BRANCH="grants-bot/${DATE}"
+          git config user.name "grants-bot"
+          git config user.email "grants-bot@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add smalltools/grants/grants.json \
+                  smalltools/grants/feed*.xml \
+                  smalltools/grants/calendar*.ics \
+                  smalltools/grants/.bot_state.json
+          git commit -m "Grants bot: ${{ steps.bot.outputs.count }} Bluesky candidate(s) (${DATE})"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --draft \
+            --title "Grants bot: ${{ steps.bot.outputs.count }} Bluesky candidate(s) (${DATE})" \
+            --body-file /tmp/pr_body.md
+
+      - name: No candidates
+        if: steps.bot.outputs.has_candidates != 'true'
+        run: echo "No candidates this run; skipping PR."
