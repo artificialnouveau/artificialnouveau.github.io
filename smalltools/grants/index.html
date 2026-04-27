@@ -785,19 +785,6 @@ body {
   min-height: 240px;
 }
 
-.folder::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 14px;
-  width: 80px;
-  height: 14px;
-  background: var(--manila-tab);
-  border: 2px solid var(--line);
-  border-bottom: none;
-  border-radius: 4px 4px 0 0;
-}
-
 .folder::after {
   content: "";
   position: absolute;
@@ -817,28 +804,39 @@ body {
 .folder:active { transform: translate(0, -2px); }
 
 .folder.is-hot { background: #FCE6E1; }
-.folder.is-hot::before { background: var(--hot); }
+.folder.is-hot .folder-tab { background: var(--hot); }
 
 .folder.is-long { background: #DEE7F0; }
-.folder.is-long::before { background: var(--long); }
+.folder.is-long .folder-tab { background: var(--long); }
 
 .folder.is-rolling { background: #DEEDE3; }
-.folder.is-rolling::before { background: var(--rolling); }
+.folder.is-rolling .folder-tab { background: var(--rolling); }
 
 .folder.is-archive { background: #DCD5C4; opacity: 0.78; box-shadow: 3px 3px 0 var(--ink-mute); border-color: var(--archive); color: var(--ink-soft); }
-.folder.is-archive::before { background: var(--archive); border-color: var(--archive); }
+.folder.is-archive .folder-tab { background: var(--archive); border-color: var(--archive); }
 .folder.is-archive:hover { transform: translate(-1px, -4px); box-shadow: 4px 6px 0 var(--ink-mute); }
 
+/* Tab label is also the visible tab graphic — sized to fit its content */
 .folder .folder-tab {
   position: absolute;
-  top: -8px;
-  left: 22px;
+  top: -10px;
+  left: 14px;
+  display: inline-block;
+  max-width: calc(100% - 28px);
+  padding: 1px 8px 2px;
+  background: var(--manila-tab);
+  border: 2px solid var(--line);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
   font-family: 'DM Mono', monospace;
   font-size: 10px;
   color: var(--ink);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   z-index: 1;
 }
 
