@@ -27,7 +27,7 @@ HERE = Path(__file__).parent
 PAGE_URL = "https://www.artificialnouveau.com/smalltools/grants/"
 TITLE = "The Grant Desk"
 DESCRIPTION = (
-    "Paid open calls, fellowships and residencies in tech, art and research, "
+    "Paid open calls, fellowships and residencies in tech, media and computational art and research, "
     "sorted into the right pile. Updated as new calls land on the desk."
 )
 MAX_ITEMS = 50
