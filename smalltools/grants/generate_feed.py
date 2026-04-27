@@ -347,6 +347,511 @@ def build_calendar(grants, today, region=None, category=None):
     return "\r\n".join(fold_line(line) for line in lines) + "\r\n"
 
 
+SITE_ROOT_URL = "https://www.artificialnouveau.com/"
+GRANTS_BASE_PATH = "smalltools/grants/"
+
+REGION_PHRASE = {
+    "EU": "the EU",
+    "US": "the US",
+    "UK": "the UK",
+    "NL": "the Netherlands",
+    "Canada": "Canada",
+    "Remote": "Remote (work-from-anywhere)",
+    "Worldwide": "Worldwide",
+}
+
+REGION_TITLE_TAIL = {
+    "EU": "in the EU",
+    "US": "in the US",
+    "UK": "in the UK",
+    "NL": "in the Netherlands",
+    "Canada": "in Canada",
+    "Remote": "(Remote)",
+    "Worldwide": "(Worldwide)",
+}
+
+CATEGORY_TITLE_PHRASE = {
+    "ai": "AI and AI Safety",
+    "tech": "Tech and Infrastructure",
+    "research": "Research and Journalism",
+    "film": "Film and Video",
+    "arts": "Visual and Media Arts",
+    "cross": "Cross-Disciplinary and Social Impact",
+}
+
+
+def static_slug(region=None, category=None):
+    parts = []
+    if category:
+        parts.append(category)
+    if region:
+        parts.append(region.lower())
+    return "-".join(parts) if parts else ""
+
+
+def static_page_url(region=None, category=None):
+    slug = static_slug(region=region, category=category)
+    if not slug:
+        return SITE_ROOT_URL + GRANTS_BASE_PATH
+    return f"{SITE_ROOT_URL}{GRANTS_BASE_PATH}{slug}/"
+
+
+def static_page_title(region=None, category=None):
+    if category and region:
+        return f"{CATEGORY_TITLE_PHRASE[category]} Grants {REGION_TITLE_TAIL[region]} | The Grant Desk"
+    if category:
+        return f"{CATEGORY_TITLE_PHRASE[category]} Grants, Fellowships and Residencies | The Grant Desk"
+    if region:
+        return f"Grants, Fellowships and Residencies {REGION_TITLE_TAIL[region]} | The Grant Desk"
+    return "AI, Arts & Tech Grants, Fellowships and Residencies | The Grant Desk"
+
+
+def static_page_h1(region=None, category=None):
+    if category and region:
+        return f"{CATEGORY_TITLE_PHRASE[category]} Grants {REGION_TITLE_TAIL[region]}"
+    if category:
+        return f"{CATEGORY_TITLE_PHRASE[category]} Grants, Fellowships and Residencies"
+    if region:
+        return f"Grants, Fellowships and Residencies {REGION_TITLE_TAIL[region]}"
+    return "AI, Arts and Tech Grants, Fellowships and Residencies"
+
+
+def static_page_intro(grant_count, region=None, category=None):
+    cat_phrase = CATEGORY_TITLE_PHRASE[category].lower() if category else None
+    region_phrase = REGION_PHRASE[region] if region else None
+    if cat_phrase and region_phrase:
+        scope = f"{cat_phrase} grants, fellowships and residencies open to applicants in {region_phrase}"
+    elif cat_phrase:
+        scope = f"paid {cat_phrase} grants, fellowships and residencies"
+    elif region_phrase:
+        scope = f"paid grants, fellowships and residencies open to applicants in {region_phrase}, across AI, arts, film, research, tech and cross-disciplinary practice"
+    else:
+        scope = "paid grants, fellowships and residencies in AI, arts, film, research, tech and cross-disciplinary practice"
+    return (
+        f"Currently <strong>{grant_count}</strong> active {scope}. "
+        "Hand-curated and updated weekly. Every entry is funded, no exposure-only calls. "
+        "Browse the list below, or use the interactive desk for filtering and shortlisting."
+    )
+
+
+def amount_value_currency(amount_str):
+    if not amount_str:
+        return None, None
+    s = str(amount_str)
+    currency = None
+    if "€" in s or "EUR" in s.upper():
+        currency = "EUR"
+    elif "£" in s or "GBP" in s.upper():
+        currency = "GBP"
+    elif "$" in s or "USD" in s.upper():
+        currency = "USD"
+    elif "CAD" in s.upper():
+        currency = "CAD"
+    return s, currency
+
+
+def grant_jsonld(grant, today):
+    name = grant.get("title", "Untitled")
+    url = grant.get("url") or PAGE_URL
+    description = grant.get("description") or ""
+    org = grant.get("organization") or ""
+    location = grant.get("location") or ""
+    amount_text, currency = amount_value_currency(grant.get("amount"))
+
+    item = {
+        "@type": "MonetaryGrant",
+        "name": name,
+        "description": description,
+        "url": url,
+    }
+    if org:
+        item["funder"] = {"@type": "Organization", "name": org}
+    if amount_text:
+        if currency:
+            item["amount"] = {
+                "@type": "MonetaryAmount",
+                "currency": currency,
+                "value": amount_text,
+            }
+        else:
+            item["amount"] = amount_text
+    additional = []
+    deadline = parse_date(grant.get("deadline"))
+    if deadline:
+        additional.append({
+            "@type": "PropertyValue",
+            "name": "applicationDeadline",
+            "value": deadline.isoformat(),
+        })
+    if location:
+        additional.append({
+            "@type": "PropertyValue",
+            "name": "location",
+            "value": location,
+        })
+    region = grant.get("region")
+    if region:
+        additional.append({
+            "@type": "PropertyValue",
+            "name": "region",
+            "value": region,
+        })
+    if additional:
+        item["additionalProperty"] = additional
+    return item
+
+
+def itemlist_jsonld(grants, today, page_url, page_name):
+    items = []
+    for idx, g in enumerate(grants, start=1):
+        items.append({
+            "@type": "ListItem",
+            "position": idx,
+            "item": grant_jsonld(g, today),
+        })
+    payload = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": page_name,
+        "url": page_url,
+        "numberOfItems": len(grants),
+        "itemListElement": items,
+    }
+    return json.dumps(payload, ensure_ascii=False, indent=2)
+
+
+def website_jsonld():
+    payload = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "The Grant Desk",
+        "url": SITE_ROOT_URL + GRANTS_BASE_PATH,
+        "description": (
+            "A curated database of paid grants, fellowships and residencies for "
+            "artists, researchers and technologists in AI, arts, film, research, "
+            "tech and cross-disciplinary practice."
+        ),
+        "publisher": {
+            "@type": "Person",
+            "name": "Ahnjili ZhuParris",
+            "url": SITE_ROOT_URL,
+        },
+    }
+    return json.dumps(payload, ensure_ascii=False, indent=2)
+
+
+def filter_active(grants, today):
+    out = []
+    for g in grants:
+        d = parse_date(g.get("deadline"))
+        if d and (d - today).days < 0:
+            continue
+        out.append(g)
+    return out
+
+
+def sort_by_deadline(grants):
+    return sorted(
+        grants,
+        key=lambda g: parse_date(g.get("deadline")) or date.max,
+    )
+
+
+def html_escape(s):
+    if s is None:
+        return ""
+    return (
+        str(s)
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+    )
+
+
+def render_grant_list_html(grants, today):
+    if not grants:
+        return "<p><em>No grants currently match this slice. Check back soon.</em></p>"
+    parts = ["<ol>"]
+    for g in grants:
+        title = html_escape(g.get("title", "Untitled"))
+        url = html_escape(g.get("url") or PAGE_URL)
+        org = html_escape(g.get("organization", ""))
+        location = html_escape(g.get("location", ""))
+        amount = html_escape(g.get("amount", ""))
+        description = html_escape(g.get("description", ""))
+        deadline = parse_date(g.get("deadline"))
+        deadline_str = deadline_label(deadline, today)
+        meta_bits = []
+        if org:
+            meta_bits.append(org)
+        if location:
+            meta_bits.append(location)
+        meta_bits.append(f"Deadline: {html_escape(deadline_str)}")
+        if amount:
+            meta_bits.append(f"Award: {amount}")
+        meta_line = " &middot; ".join(meta_bits)
+        parts.append("<li>")
+        parts.append(f'<h3><a href="{url}" target="_blank" rel="noopener">{title}</a></h3>')
+        parts.append(f'<p class="meta-line">{meta_line}</p>')
+        if description:
+            parts.append(f"<p>{description}</p>")
+        parts.append("</li>")
+    parts.append("</ol>")
+    return "\n".join(parts)
+
+
+def related_links_html(current_region, current_category):
+    items = []
+    if not current_category:
+        for cat in CATEGORIES:
+            label = CATEGORY_TITLE_PHRASE[cat]
+            href = f"/{GRANTS_BASE_PATH}{static_slug(category=cat)}/"
+            items.append(f'<li><a href="{href}">{html_escape(label)} grants</a></li>')
+    if not current_region:
+        for region in REGIONS:
+            label = REGION_PHRASE[region]
+            href = f"/{GRANTS_BASE_PATH}{static_slug(region=region)}/"
+            items.append(f'<li><a href="{href}">Grants in {html_escape(label)}</a></li>')
+    if current_category and not current_region:
+        for region in REGIONS:
+            label = REGION_PHRASE[region]
+            href = f"/{GRANTS_BASE_PATH}{static_slug(region=region, category=current_category)}/"
+            items.append(f'<li><a href="{href}">{html_escape(CATEGORY_TITLE_PHRASE[current_category])} in {html_escape(label)}</a></li>')
+    if current_region and not current_category:
+        for cat in CATEGORIES:
+            label = CATEGORY_TITLE_PHRASE[cat]
+            href = f"/{GRANTS_BASE_PATH}{static_slug(region=current_region, category=cat)}/"
+            items.append(f'<li><a href="{href}">{html_escape(label)} in {html_escape(REGION_PHRASE[current_region])}</a></li>')
+    if not items:
+        return ""
+    return "<ul class='related-links'>" + "".join(items) + "</ul>"
+
+
+STATIC_PAGE_CSS = """
+body { font-family: 'Space Grotesk', 'Inter', -apple-system, sans-serif; background: #F4ECDC; color: #1F1B16; margin: 0; line-height: 1.55; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 32px 24px 80px; }
+.top-bar { font-family: 'DM Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 18px; border-bottom: 2px solid #2A241D; margin-bottom: 28px; }
+.top-bar a { color: #1F1B16; }
+h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin: 12px 0 18px; }
+h2 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; margin: 32px 0 14px; }
+.intro { font-size: 16px; color: #4A413A; max-width: 720px; margin-bottom: 24px; }
+ol { list-style: none; padding: 0; }
+ol li { background: #fff; border: 2px solid #2A241D; border-radius: 6px; padding: 16px 18px; margin-bottom: 14px; box-shadow: 3px 3px 0 #2A241D; }
+ol h3 { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+ol h3 a { color: #1F1B16; text-decoration: none; border-bottom: 1px solid #1F1B16; }
+ol .meta-line { font-family: 'DM Mono', monospace; font-size: 12px; color: #7A6F63; margin-bottom: 8px; }
+ol p { font-size: 14px; color: #4A413A; }
+.related-links { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.related-links li a { display: inline-block; background: #fff; border: 1.5px solid #2A241D; padding: 6px 12px; border-radius: 999px; font-size: 13px; color: #1F1B16; text-decoration: none; font-family: 'DM Mono', monospace; }
+.related-links li a:hover { background: #FFE066; }
+.back-link { display: inline-block; background: #FFE066; padding: 8px 14px; border: 2px solid #2A241D; border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 13px; text-decoration: none; color: #1F1B16; box-shadow: 2px 2px 0 #2A241D; }
+.back-link:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 #2A241D; }
+footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #7A6F63; font-family: 'DM Mono', monospace; font-size: 11px; color: #7A6F63; text-transform: uppercase; letter-spacing: 0.05em; }
+"""
+
+
+def build_static_page(grants_for_slice, today, region=None, category=None):
+    title = static_page_title(region=region, category=category)
+    h1 = static_page_h1(region=region, category=category)
+    page_url = static_page_url(region=region, category=category)
+    active = filter_active(grants_for_slice, today)
+    sorted_grants = sort_by_deadline(active)
+    intro = static_page_intro(len(sorted_grants), region=region, category=category)
+    grant_html = render_grant_list_html(sorted_grants, today)
+    related = related_links_html(region, category)
+    itemlist = itemlist_jsonld(sorted_grants, today, page_url, h1)
+    description = (
+        f"{len(sorted_grants)} active paid grants, fellowships and residencies. "
+        "Curated weekly. RSS and calendar feeds available."
+    )
+
+    feed_url = SITE_ROOT_URL + GRANTS_BASE_PATH + feed_filename(region, None, category=category)
+    cal_url = SITE_ROOT_URL + GRANTS_BASE_PATH + calendar_filename(region, category=category)
+
+    related_block = ""
+    if related:
+        related_block = f"<h2>Related slices</h2>\n{related}"
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{html_escape(title)}</title>
+<meta name="description" content="{html_escape(description)}">
+<link rel="canonical" href="{html_escape(page_url)}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{html_escape(title)}">
+<meta property="og:description" content="{html_escape(description)}">
+<meta property="og:url" content="{html_escape(page_url)}">
+<meta property="og:image" content="https://www.artificialnouveau.com/smalltools/grants/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{html_escape(title)}">
+<meta name="twitter:description" content="{html_escape(description)}">
+<meta name="twitter:image" content="https://www.artificialnouveau.com/smalltools/grants/og-image.png">
+<link rel="alternate" type="application/rss+xml" title="{html_escape(title)}" href="{html_escape(feed_url)}">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>{STATIC_PAGE_CSS}</style>
+<script type="application/ld+json">
+{itemlist}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-bar">
+    <a class="back-link" href="/{GRANTS_BASE_PATH}">&larr; The Grant Desk (interactive)</a>
+  </div>
+  <h1>{html_escape(h1)}</h1>
+  <p class="intro">{intro}</p>
+  <p class="intro" style="font-size:13.5px;font-family:'DM Mono',monospace;color:#7A6F63;">
+    Subscribe: <a href="{html_escape(feed_url)}">RSS feed</a> &middot;
+    <a href="{html_escape(cal_url)}">Calendar (.ics)</a>
+  </p>
+  <h2>Open calls</h2>
+  {grant_html}
+  {related_block}
+  <footer>
+    Maintained by Ahnjili ZhuParris &middot; <a href="/{GRANTS_BASE_PATH}">Back to the desk</a>
+  </footer>
+</div>
+</body>
+</html>
+"""
+
+
+def inject_into_main_index(grants, today):
+    index_path = HERE / "index.html"
+    text = index_path.read_text(encoding="utf-8")
+
+    active = sort_by_deadline(filter_active(grants, today))
+    grant_list_html = render_grant_list_html(active, today)
+    page_url = SITE_ROOT_URL + GRANTS_BASE_PATH
+    itemlist = itemlist_jsonld(active, today, page_url, "The Grant Desk")
+    website = website_jsonld()
+
+    jsonld_block = (
+        "<!-- BEGIN_JSONLD -->\n"
+        f'<script type="application/ld+json">\n{website}\n</script>\n'
+        f'<script type="application/ld+json">\n{itemlist}\n</script>\n'
+        "<!-- END_JSONLD -->"
+    )
+    noscript_block = (
+        "<!-- BEGIN_NOSCRIPT_GRANTS -->\n"
+        "<noscript>\n"
+        '<section class="static-grant-list" aria-label="Static list of all active grants">\n'
+        "<h2>All active grants (text-only list)</h2>\n"
+        f"{grant_list_html}\n"
+        "</section>\n"
+        "</noscript>\n"
+        "<!-- END_NOSCRIPT_GRANTS -->"
+    )
+
+    import re
+    text = re.sub(
+        r"<!-- BEGIN_JSONLD -->.*?<!-- END_JSONLD -->",
+        lambda m: jsonld_block,
+        text,
+        flags=re.DOTALL,
+    )
+    text = re.sub(
+        r"<!-- BEGIN_NOSCRIPT_GRANTS -->.*?<!-- END_NOSCRIPT_GRANTS -->",
+        lambda m: noscript_block,
+        text,
+        flags=re.DOTALL,
+    )
+
+    index_path.write_text(text, encoding="utf-8")
+
+
+def discover_smalltools_pages(repo_root):
+    smalltools = repo_root / "smalltools"
+    found = []
+    if not smalltools.exists():
+        return found
+    for child in sorted(smalltools.iterdir()):
+        if child.is_dir() and (child / "index.html").exists():
+            found.append(f"smalltools/{child.name}/")
+    return found
+
+
+def build_sitemap(static_paths, today, repo_root):
+    lastmod = today.isoformat()
+    urls = []
+    urls.append(SITE_ROOT_URL)
+    for path in discover_smalltools_pages(repo_root):
+        urls.append(SITE_ROOT_URL + path)
+    urls.append(SITE_ROOT_URL + GRANTS_BASE_PATH)
+    for path in static_paths:
+        urls.append(SITE_ROOT_URL + GRANTS_BASE_PATH + path + "/")
+
+    seen = set()
+    deduped = []
+    for u in urls:
+        if u not in seen:
+            seen.add(u)
+            deduped.append(u)
+
+    body_parts = ['<?xml version="1.0" encoding="UTF-8"?>']
+    body_parts.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    for u in deduped:
+        body_parts.append(
+            f"  <url><loc>{escape(u)}</loc><lastmod>{lastmod}</lastmod></url>"
+        )
+    body_parts.append("</urlset>\n")
+    return "\n".join(body_parts)
+
+
+def build_robots_txt():
+    sitemap_url = SITE_ROOT_URL + "sitemap.xml"
+    return (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "\n"
+        f"Sitemap: {sitemap_url}\n"
+    )
+
+
+def build_llms_txt():
+    base = SITE_ROOT_URL + GRANTS_BASE_PATH
+    return f"""# The Grant Desk
+
+A curated database of paid grants, fellowships and residencies for artists, researchers and technologists working in AI and AI safety, digital and mixed-media arts, film and video, research and journalism, tech and infrastructure, and cross-disciplinary practice.
+
+Maintained by Ahnjili ZhuParris. Updated weekly. Every entry is funded; exposure-only calls are filtered out.
+
+## Primary
+
+- [The Grant Desk (interactive)]({base}): Filterable list of all active grants, fellowships and residencies.
+- [All grants RSS feed]({base}feed.xml): Full RSS feed of all entries, sorted by date added.
+- [All grants calendar (.ics)]({base}calendar.ics): ICS calendar of all upcoming deadlines.
+
+## By category
+
+- [AI and AI safety]({base}ai/)
+- [Tech and infrastructure]({base}tech/)
+- [Research and journalism]({base}research/)
+- [Film and video]({base}film/)
+- [Visual and media arts]({base}arts/)
+- [Cross-disciplinary and social impact]({base}cross/)
+
+## By region
+
+- [EU]({base}eu/)
+- [UK]({base}uk/)
+- [US]({base}us/)
+- [Netherlands]({base}nl/)
+- [Canada]({base}canada/)
+- [Remote (work-from-anywhere)]({base}remote/)
+- [Worldwide]({base}worldwide/)
+
+## Data
+
+- [grants.json]({base}grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, amount, duration, deadline, addedDate, category, description, url, tags, fee, featured.
+"""
+
+
 def main():
     src = HERE / "grants.json"
     data = json.loads(src.read_text(encoding="utf-8"))
@@ -393,6 +898,69 @@ def main():
     for name, count in written:
         print(f"  {name}: {count} items")
     print(f"Wrote {len(cals_written)} calendars: {', '.join(cals_written)}")
+
+    # --- Static SEO landing pages (per region, per category, and cross-product when dense) ---
+    static_paths_written = []
+    MIN_GRANTS_FOR_PAGE = 1  # always emit single-axis pages
+    MIN_GRANTS_FOR_CROSS = 3  # avoid thin content
+
+    # Single-axis: region only
+    for region in REGIONS:
+        slice_grants = [g for g in grants if g.get("region") == region]
+        active_count = len(filter_active(slice_grants, today))
+        if active_count < MIN_GRANTS_FOR_PAGE:
+            continue
+        slug = static_slug(region=region)
+        out_dir = HERE / slug
+        out_dir.mkdir(exist_ok=True)
+        html = build_static_page(slice_grants, today, region=region)
+        (out_dir / "index.html").write_text(html, encoding="utf-8")
+        static_paths_written.append(slug)
+
+    # Single-axis: category only
+    for category in CATEGORIES:
+        slice_grants = [g for g in grants if g.get("category") == category]
+        active_count = len(filter_active(slice_grants, today))
+        if active_count < MIN_GRANTS_FOR_PAGE:
+            continue
+        slug = static_slug(category=category)
+        out_dir = HERE / slug
+        out_dir.mkdir(exist_ok=True)
+        html = build_static_page(slice_grants, today, category=category)
+        (out_dir / "index.html").write_text(html, encoding="utf-8")
+        static_paths_written.append(slug)
+
+    # Cross-product: category x region (only when dense enough to avoid thin-content pages)
+    for category in CATEGORIES:
+        for region in REGIONS:
+            slice_grants = [
+                g for g in grants
+                if g.get("category") == category and g.get("region") == region
+            ]
+            active_count = len(filter_active(slice_grants, today))
+            if active_count < MIN_GRANTS_FOR_CROSS:
+                continue
+            slug = static_slug(region=region, category=category)
+            out_dir = HERE / slug
+            out_dir.mkdir(exist_ok=True)
+            html = build_static_page(slice_grants, today, region=region, category=category)
+            (out_dir / "index.html").write_text(html, encoding="utf-8")
+            static_paths_written.append(slug)
+
+    print(f"Wrote {len(static_paths_written)} static SEO pages: {', '.join(static_paths_written)}")
+
+    # --- Inject JSON-LD + noscript fallback into main index.html ---
+    inject_into_main_index(grants, today)
+    print("Injected JSON-LD and noscript fallback into smalltools/grants/index.html")
+
+    # --- Sitemap, robots.txt, llms.txt at site root ---
+    repo_root = HERE.parent.parent
+    sitemap_xml = build_sitemap(static_paths_written, today, repo_root)
+    (repo_root / "sitemap.xml").write_text(sitemap_xml, encoding="utf-8")
+    (repo_root / "robots.txt").write_text(build_robots_txt(), encoding="utf-8")
+    (repo_root / "llms.txt").write_text(build_llms_txt(), encoding="utf-8")
+    print(f"Wrote sitemap.xml, robots.txt, llms.txt at repo root ({repo_root})")
+
     return 0
 
 
