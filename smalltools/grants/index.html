@@ -1299,7 +1299,7 @@ code *, pre *, kbd *, samp * {
 
 <header class="page-header">
   <h1>The <span class="underline">Grant</span> Desk</h1>
-  <p class="lede">A hand-picked selection of <strong>paid</strong> open calls, fellowships and residencies in AI, tech, research, and digital and mixed-media arts. Every entry here is funded, no unpaid "exposure opportunities". Sorted by deadline into Hot Grants, You Got Time, Deadlines Beyond 90 Days and Rolling or Continuous Calls, with closed calls auto-filed away.</p>
+  <p class="lede"><strong id="active-count">--</strong> active grants on the desk right now. A hand-picked selection of <strong>paid</strong> open calls, fellowships and residencies in AI, tech, research, and digital and mixed-media arts. Every entry here is funded, no unpaid "exposure opportunities". Sorted by deadline into Hot Grants, You Got Time, Deadlines Beyond 90 Days and Rolling or Continuous Calls, with closed calls auto-filed away.</p>
   <p class="lede subtle">Subscribe via RSS or add deadlines to your calendar so you do not miss a thing.</p>
 </header>
 
@@ -1693,6 +1693,10 @@ async function load() {
   document.getElementById('meta-long').textContent = buckets.long.length === 1 ? '1 grant' : `${buckets.long.length} grants`;
   document.getElementById('meta-rolling').textContent = buckets.rolling.length === 1 ? '1 grant' : `${buckets.rolling.length} grants`;
   document.getElementById('meta-archive').textContent = buckets.archive.length === 1 ? '1 grant' : `${buckets.archive.length} grants`;
+
+  const activeCount = buckets.hot.length + buckets.new.length + buckets.long.length + buckets.rolling.length;
+  const activeEl = document.getElementById('active-count');
+  if (activeEl) activeEl.textContent = activeCount;
 
   const archiveSection = document.getElementById('section-archive');
   const archiveBtn = document.getElementById('archive-toggle');
