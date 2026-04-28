@@ -928,6 +928,25 @@ body {
   flex: 1;
 }
 
+.folder .desc[hidden] { display: none; }
+
+.folder .desc-toggle {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-mute);
+  cursor: pointer;
+  user-select: none;
+  align-self: flex-start;
+  padding: 4px 0;
+  margin-top: 2px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.folder .desc-toggle:hover { color: var(--ink); }
+.folder.is-archive .desc-toggle { display: none; }
+
 .folder .meta-row {
   display: flex;
   flex-wrap: wrap;
@@ -6097,7 +6116,10 @@ function renderFolder(grant, category, today) {
   parts.push(`<h3>${escapeHtml(grant.title)}</h3>`);
   if (grant.organization) parts.push(`<div class="org">${escapeHtml(grant.organization)}</div>`);
   if (grant.location) parts.push(`<div class="location">${escapeHtml(grant.location)}</div>`);
-  if (grant.description) parts.push(`<p class="desc">${escapeHtml(grant.description)}</p>`);
+  if (grant.description) {
+    parts.push(`<span class="desc-toggle" role="button" tabindex="0" aria-expanded="false">Show description &#9662;</span>`);
+    parts.push(`<p class="desc" hidden>${escapeHtml(grant.description)}</p>`);
+  }
 
   const meta = [];
   if (grant.amount) meta.push(`<span class="pill amount">${escapeHtml(grant.amount)}</span>`);
@@ -6431,8 +6453,29 @@ document.addEventListener('click', async (e) => {
   }, 1600);
 });
 
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.desc-toggle');
+  if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const folder = btn.closest('.folder');
+  if (!folder) return;
+  const desc = folder.querySelector('.desc');
+  if (!desc) return;
+  const isHidden = desc.hasAttribute('hidden');
+  if (isHidden) {
+    desc.removeAttribute('hidden');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.innerHTML = 'Hide description &#9652;';
+  } else {
+    desc.setAttribute('hidden', '');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = 'Show description &#9662;';
+  }
+});
+
 document.addEventListener('keydown', (e) => {
-  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && (e.target.classList.contains('copy-btn') || e.target.classList.contains('pick-btn'))) {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && (e.target.classList.contains('copy-btn') || e.target.classList.contains('pick-btn') || e.target.classList.contains('desc-toggle'))) {
     e.preventDefault();
     e.target.click();
   }
