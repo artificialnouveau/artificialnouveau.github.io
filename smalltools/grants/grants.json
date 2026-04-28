@@ -3,6 +3,54 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "pivotal-research-fellowship-2026-q3",
+      "title": "Pivotal Research Fellowship (2026 Q3)",
+      "organization": "Pivotal Research",
+      "location": "London (London Initiative for Safe AI / LISA)",
+      "region": "UK",
+      "amount": "£6,000 to £8,000 stipend + travel to London + £2,000 housing for non-London fellows + weekday lunch and dinner + compute. Extensions of up to 6 months with continued financial support, mentorship, management and workspace (70 to 90% of fellows in recent cohorts received extensions).",
+      "duration": "9 weeks (29 June to 28 August 2026), with up to 6-month extensions",
+      "startDate": "2026-06-29",
+      "deadline": "2026-05-03",
+      "addedDate": "2026-04-28",
+      "category": "ai",
+      "description": "In-person AI safety research fellowship in London for anyone committed to ensuring AI develops safely. Weekly 1-on-1s with established researchers (mentors include staff from Google DeepMind, UK AI Security Institute, Redwood Research and SecureBio), dedicated research-management support, in-person co-working at LISA, weekday lunch and dinner included, workshops and Q&As with leading domain experts. Application stages: written application (1-2h), short recorded video interview (<10min), mentor-specific work task (1-3h), personal interview (30-45min). Decisions by 22 May 2026. Past fellows have moved to GovAI, SaferAI, UK AISI, IAPS, AI Futures Project, Anthropic Fellowship, Timaeus, Google DeepMind, Cooperative AI Foundation, FLI; some have founded organisations (PRISM Evals, Catalyze Impact, Moirai) or started PhDs at Oxford, Stanford, EPFL, Max Planck. 7 cohorts completed; 129 alumni; peer recommendation 9.1/10. $1,000 referral bonus if you recommend an accepted fellow.",
+      "url": "https://www.pivotal-research.org/fellowship",
+      "tags": [
+        "fellowship",
+        "ai-safety",
+        "research",
+        "mentorship",
+        "ai"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "imagination-practice-fund-year-4-2026",
+      "title": "Imagination Practice Fund: Year 4",
+      "organization": "Collective Imagination Practice Community (Fund Circle, supported by Joseph Rowntree Foundation)",
+      "location": "Worldwide",
+      "region": "Worldwide",
+      "amount": "Up to £3,000 per project; approximately 16 collective imagination projects funded",
+      "duration": "Activities to complete by Autumn 2026; documentation by December 2026",
+      "startDate": "2026-04-20",
+      "deadline": "2026-05-10",
+      "addedDate": "2026-04-28",
+      "category": "cross",
+      "description": "Final-year practice fund supporting projects that use collective imagination to change the world by disrupting extractive or divisive narratives and/or nurturing equitable and regenerative imaginaries. Looking for work that pushes the boundaries of collective imagination practice, realises material benefits from it, creates change inside or outside the system, and contributes to the wider Collective Imagination Practice Community via the CIPC Seed Library. Two-stage application: (1) brief initial application by 23:59 BST Sunday 10 May 2026; (2) Community Shortlisting events Tuesday 12 May (10:00 to 12:00 BST) and Thursday 14 May (17:00 to 19:00 BST); (3) shortlist announced Monday 18 May; (4) full application from shortlisted applicants by 23:59 BST Sunday 7 June 2026; (5) successful projects announced Monday 22 June 2026. This year decision-making is shared with the community via the shortlisting events. Apply via the initial application form linked from the Medium post; questions to hello@imaginationpractice.info.",
+      "url": "https://medium.com/imagination-practice/imagination-practice-fund-year-4-e2de01f54da5",
+      "tags": [
+        "grant",
+        "imagination",
+        "social-change",
+        "community",
+        "regenerative"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "iii-development-residency-spring-2027",
       "title": "iii Development Residency (Spring 2027 round)",
       "organization": "iii (Instrument Inventors Initiative)",
