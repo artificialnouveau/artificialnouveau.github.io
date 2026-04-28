@@ -155,7 +155,6 @@
 
         /* Collapsible sections */
         details {
-            border-bottom: 1px solid var(--color-border);
             position: relative;
         }
 
@@ -220,7 +219,6 @@
         /* Publications link section */
         .publications-link-section {
             padding: 2rem;
-            border-bottom: 1px solid var(--color-border);
             position: relative;
         }
 
@@ -279,22 +277,24 @@
             flex-direction: column;
             justify-content: center;
             position: relative;
-            padding: 8rem 2rem 4rem;
-            border-bottom: 2px solid var(--color-border);
+            padding: 4rem 2rem 2rem;
         }
 
-        /* Terminal ASCII border pattern */
+        /* Terminal ASCII border pattern (matches section::before) */
         header::after {
-            content: '';
+            content: '────────────────────────────────────────────────────────────────────────';
             position: absolute;
-            bottom: 0;
+            bottom: -1px;
             left: 0;
             width: 100%;
-            height: 2px;
-            background: var(--color-accent-cyan);
-            box-shadow: 0 0 10px var(--color-accent-cyan);
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--color-accent-cyan);
+            opacity: 0.4;
+            overflow: hidden;
+            white-space: nowrap;
+            letter-spacing: -2px;
             pointer-events: none;
-            z-index: 0;
         }
 
         .hero-content {
@@ -403,8 +403,7 @@
 
         /* Terminal window sections */
         section {
-            padding: 6rem 2rem;
-            border-bottom: 1px solid var(--color-border);
+            padding: 4rem 2rem;
             position: relative;
         }
 
@@ -423,10 +422,7 @@
             letter-spacing: -2px;
         }
 
-        /* Remove duplicate border from sections inside details */
-        details section {
-            border-bottom: none;
-        }
+        /* Suppress duplicate divider on sections nested inside details */
         details section::before {
             display: none;
         }
