@@ -5478,6 +5478,13 @@ code *, pre *, kbd *, samp * {
     <button class="chip" type="button" data-value="25k-plus">$25K+</button>
     <button class="chip" type="button" data-value="in-kind">Funded / in-kind</button>
   </div>
+  <div class="filter-group" data-filter="added" id="filter-added">
+    <span class="filter-label">Added</span>
+    <button class="chip is-active" type="button" data-value="">All time</button>
+    <button class="chip" type="button" data-value="24h">Last 24h</button>
+    <button class="chip" type="button" data-value="7d">This week</button>
+    <button class="chip" type="button" data-value="30d">This month</button>
+  </div>
 </section>
 
 <section class="shortlist-bar" id="shortlist-bar" aria-label="My shortlist">
@@ -6353,6 +6360,7 @@ function renderFolder(grant, category, today) {
   a.dataset.region = grant.region || '';
   a.dataset.type = grantType;
   a.dataset.amount = detectAmountTier(grant);
+  a.dataset.addedDate = grant.addedDate || '';
   a.dataset.fee = grant.fee === false ? 'false' : (grant.fee === true ? 'true' : 'unknown');
   a.dataset.search = [
     grant.title, grant.organization, grant.location, grant.region,
@@ -6754,7 +6762,7 @@ const CATEGORY_LABELS = {
 };
 const CATEGORY_ORDER = ['ai', 'tech', 'research', 'film', 'arts', 'cross'];
 
-const FILTER_STATE = { category: new Set(), region: new Set(), type: new Set(), amount: new Set(), search: '' };
+const FILTER_STATE = { category: new Set(), region: new Set(), type: new Set(), amount: new Set(), added: new Set(), search: '' };
 
 function syncChipGroup(group, key) {
   const all = group.querySelector('.chip[data-value=""]');
@@ -6852,6 +6860,9 @@ function buildFilterChips() {
   const amountGroup = document.getElementById('filter-amount');
   bindMultiSelectGroup(amountGroup, 'amount');
 
+  const addedGroup = document.getElementById('filter-added');
+  bindMultiSelectGroup(addedGroup, 'added');
+
   const searchInput = document.getElementById('filter-search');
   const searchClear = document.getElementById('filter-search-clear');
   if (searchInput && searchClear) {
@@ -6875,12 +6886,26 @@ function applyFilters() {
   const searchTerms = FILTER_STATE.search
     ? FILTER_STATE.search.toLowerCase().split(/\s+/).filter(Boolean)
     : [];
+  const now = new Date();
   folders.forEach(f => {
     let show = true;
     if (FILTER_STATE.category.size && !FILTER_STATE.category.has(f.dataset.category)) show = false;
     if (FILTER_STATE.region.size && !FILTER_STATE.region.has(f.dataset.region)) show = false;
     if (FILTER_STATE.type.size && !FILTER_STATE.type.has(f.dataset.type)) show = false;
     if (FILTER_STATE.amount.size && !FILTER_STATE.amount.has(f.dataset.amount)) show = false;
+    if (FILTER_STATE.added.size) {
+      const addedDate = parseDate(f.dataset.addedDate);
+      if (!addedDate) {
+        show = false;
+      } else {
+        const daysSinceAdded = -daysUntil(addedDate, now);
+        let matches = false;
+        if (FILTER_STATE.added.has('24h') && daysSinceAdded <= 1) matches = true;
+        if (FILTER_STATE.added.has('7d') && daysSinceAdded <= 7) matches = true;
+        if (FILTER_STATE.added.has('30d') && daysSinceAdded <= 30) matches = true;
+        if (!matches) show = false;
+      }
+    }
     if (searchTerms.length) {
       const hay = f.dataset.search || '';
       if (!searchTerms.every(term => hay.includes(term))) show = false;
