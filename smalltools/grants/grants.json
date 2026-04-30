@@ -3,6 +3,31 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "pop-culture-collaborative-rapid-response-grants",
+      "title": "Pop Culture Collaborative: Rapid Response Grants",
+      "organization": "Pop Culture Collaborative",
+      "location": "United States (US-based applicants only; individuals must apply via fiscal sponsorship)",
+      "region": "US",
+      "amount": "Up to $100,000",
+      "duration": "Per project",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-04-30",
+      "category": "cross",
+      "description": "Rolling rapid-response funding for projects that respond to or anticipate peak and timely cultural moments, using cultural and behavioral change approaches. Funds content development, audience engagement strategies and narrative environment creation. Eligible applicants: US-based nonprofits, for-profit companies, and individuals with fiscal sponsorship. The mass-audience requirement is hard: projects must reach 1 million people or more (PCC orients its grantmaking around shifting the narrative ocean for marginalised communities at scale). Process: (1) review the Rapid Response guidelines and the Grantmaking FAQ; (2) take the self-assessment quiz on PCC's site; (3) submit a brief idea (not a full proposal) via the Airtable portal at any time. NOTE: full proposals are by invitation only. PCC staff review idea submissions on a rolling basis and reach out only to matching submissions; most idea submissions will not progress to a full proposal. Treat the idea-intake as a low-cost LOI-style inquiry rather than a guaranteed open RFP. Sister tracks at PCC: Infrastructure Grants and the Becoming America Fund (different remit and process). Strong fit for organisations doing narrative-and-pop-culture work, especially aligned with marginalised-community media strategies.",
+      "url": "https://popcollab.org/grantmaking/",
+      "tags": [
+        "grant",
+        "rapid-response",
+        "narrative",
+        "media",
+        "pop-culture",
+        "rolling"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "third-wave-fund-artist-in-residence-2026",
       "title": "Third Wave Fund: Artist-in-Residence Program 2026",
       "organization": "Third Wave Fund",
