@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marga Klompe - Mini presentatie</title>
+<title>Marga Klompé - Mini presentatie</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -209,6 +209,46 @@ body {
 }
 .slide-6 .questions ul li { font-size: 17px; }
 
+/* Speaker notes — hidden by default, toggle with 'N' key */
+.speaker-notes {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 48px; /* sits above the nav bar */
+  background: #111;
+  color: #f5f5f5;
+  border-top: 4px solid var(--mondrian-yellow);
+  padding: 18px 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  max-height: 45vh;
+  overflow-y: auto;
+  z-index: 50;
+}
+body.show-notes .slide.active .speaker-notes { display: block; }
+.speaker-notes .notes-label {
+  display: inline-block;
+  background: var(--mondrian-yellow);
+  color: var(--mondrian-black);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 3px 8px;
+  margin-bottom: 10px;
+}
+.speaker-notes p { font-size: 16px; margin-bottom: 10px; max-width: none; }
+.speaker-notes p:last-child { margin-bottom: 0; }
+
+/* Notes hint pill in the nav bar */
+.notes-hint {
+  font-size: 11px; opacity: 0.6; margin-left: 10px;
+  font-family: 'Space Grotesk', sans-serif; letter-spacing: 1px;
+}
+body.show-notes .notes-hint { opacity: 1; color: var(--mondrian-yellow); }
+
 /* Navigation bar */
 .nav-bar {
   position: absolute; bottom: 0; left: 0; right: 0;
@@ -252,14 +292,18 @@ body {
   <section class="slide slide-1 active" data-slide="1">
     <div class="hero-text">
       <div class="slide-kicker">Mini presentatie</div>
-      <h1>Marga<br>Klompe</h1>
+      <h1>Marga<br>Klompé</h1>
       <div class="subtitle">De eerste vrouwelijke minister van Nederland</div>
       <div class="lifespan">1912 - 1986</div>
     </div>
     <div class="photo-slot yellow">
-      <img src="img/marga-portret-1.png" alt="Marga Klompe portret">
+      <img src="img/marga-portret-1.png" alt="Marga Klompé portret">
       <span class="slot-label">photo-slot 1</span>
     </div>
+    <aside class="speaker-notes">
+      <span class="notes-label">Notities - Introductie</span>
+      <p>Stel je voor: het is 1956. Nederland heeft voor het eerst een vrouwelijke minister. Haar naam is Marga Klompé. Vandaag vertel ik jullie wie zij was, wat ze deed, en waarom we haar nog steeds belangrijk vinden.</p>
+    </aside>
   </section>
 
   <!-- SLIDE 2 — Wie was zij? -->
@@ -268,16 +312,18 @@ body {
       <div class="slide-kicker">Slide 2</div>
       <h2 class="slide-title">Wie was zij?</h2>
       <ul>
-        <li>Geboren in 1912 in Arnhem</li>
-        <li>Studeerde scheikunde, werd later lerares</li>
-        <li>Actief in het verzet tijdens de Tweede Wereldoorlog</li>
-        <li>Hielp onderduikers</li>
+        <li>1912, geboren in Arnhem, katholiek gezin</li>
+        <li>Enige van vijf kinderen die mocht studeren</li>
+        <li>Doctoraat in wis- en natuurkunde</li>
+        <li>Tweede Wereldoorlog: actief in het verzet</li>
+        <li>Hulp aan gevluchte burgers (eten, medische zorg)</li>
+        <li>Na de oorlog politiek actief: meer vrouwen nodig in de partij</li>
       </ul>
     </div>
 
     <div class="photo-card">
       <div class="photo-slot blue">
-        <img src="img/marga-born-on-this-day.jpeg" alt="Marga Klompe - geboren in Arnhem, 1912">
+        <img src="img/marga-born-on-this-day.jpeg" alt="Marga Klompé - geboren in Arnhem, 1912">
         <span class="slot-label">photo-slot 2a</span>
       </div>
       <div class="caption">
@@ -288,7 +334,7 @@ body {
 
     <div class="photo-card">
       <div class="photo-slot red">
-        <img src="img/marga-portret-vintage.jpeg" alt="Marga Klompe tijdens de oorlogsjaren">
+        <img src="img/marga-portret-vintage.jpeg" alt="Marga Klompé tijdens de oorlogsjaren">
         <span class="slot-label">photo-slot 2b</span>
       </div>
       <div class="caption">
@@ -296,6 +342,11 @@ body {
         Actief in het verzet, hielp onderduikers.
       </div>
     </div>
+    <aside class="speaker-notes">
+      <span class="notes-label">Notities - Wie was zij?</span>
+      <p>Marga Klompé werd geboren in 1912 in Arnhem, in een katholiek gezin. Ze was slim en mocht als enige van de vijf kinderen studeren. Ze deed haar doctoraat in de wis- en natuurkunde.</p>
+      <p>Tijdens de Tweede Wereldoorlog werkte ze voor het verzet. Ze hielp gevluchte burgers met eten en medische hulp. Na de oorlog werd ze politiek actief, omdat ze vond dat haar partij meer vrouwen nodig had.</p>
+    </aside>
   </section>
 
   <!-- SLIDE 3 — Wat heeft ze bereikt? (alle 4 mijlpalen op 1 slide) -->
@@ -309,7 +360,7 @@ body {
       <div class="tl-event">
         <span class="year">1948</span>
         <div class="photo-slot yellow">
-          <img src="img/tweede-kamer-1948.jpg" alt="Marga Klompe in de Tweede Kamer, 1948">
+          <img src="img/tweede-kamer-1948.jpg" alt="Marga Klompé in de Tweede Kamer, 1948">
           <span class="slot-label">photo-slot 3a</span>
         </div>
         <div class="event-text">
@@ -321,7 +372,7 @@ body {
       <div class="tl-event">
         <span class="year">1952</span>
         <div class="photo-slot blue">
-          <img src="img/europees-parlement-1952.jpeg" alt="Marga Klompe in het Europees Parlement, 1952">
+          <img src="img/europees-parlement-1952.jpeg" alt="Marga Klompé in het Europees Parlement, 1952">
           <span class="slot-label">photo-slot 3b</span>
         </div>
         <div class="event-text">
@@ -333,7 +384,7 @@ body {
       <div class="tl-event">
         <span class="year">1956</span>
         <div class="photo-slot red">
-          <img src="img/marga-minister-1956.jpg" alt="Marga Klompe als eerste vrouwelijke minister, 1956">
+          <img src="img/marga-minister-1956.jpg" alt="Marga Klompé als eerste vrouwelijke minister, 1956">
           <span class="slot-label">photo-slot 3c</span>
         </div>
         <div class="event-text">
@@ -345,7 +396,7 @@ body {
       <div class="tl-event">
         <span class="year">1965</span>
         <div class="photo-slot yellow">
-          <img src="img/bijstandswet-1965.jpeg" alt="Marga Klompe presenteert de Algemene Bijstandswet, 1965">
+          <img src="img/bijstandswet-1965.jpeg" alt="Marga Klompé presenteert de Algemene Bijstandswet, 1965">
           <span class="slot-label">photo-slot 3d</span>
         </div>
         <div class="event-text">
@@ -354,13 +405,19 @@ body {
         </div>
       </div>
     </div>
+    <aside class="speaker-notes">
+      <span class="notes-label">Notities - Wat heeft ze bereikt?</span>
+      <p>Marga Klompé heeft veel belangrijke dingen gedaan:</p>
+      <p>In 1948 werd ze lid van de Tweede Kamer. In 1952 was ze de eerste vrouwelijke parlementarier voor Europa. In 1956 werd ze de eerste vrouwelijke minister van Nederland.</p>
+      <p>In 1965 introduceerde ze de Algemene bijstandswet. Deze wet zorgde ervoor dat mensen die niet genoeg geld hadden, hulp konden krijgen van de overheid. Bijstand was niet langer liefdadigheid, maar een recht.</p>
+    </aside>
   </section>
 
   <!-- SLIDE 4 — Waarom is ze belangrijk? -->
   <section class="slide slide-5" data-slide="4">
     <div class="left-photo">
       <div class="photo-slot blue">
-        <img src="img/open-het-dorp.jpg" alt="Marga Klompe bij Open het Dorp">
+        <img src="img/open-het-dorp.jpg" alt="Marga Klompé bij Open het Dorp">
         <span class="slot-label">photo-slot 4</span>
       </div>
     </div>
@@ -375,12 +432,16 @@ body {
         <li>Een leven in dienst van de samenleving</li>
       </ul>
     </div>
+    <aside class="speaker-notes">
+      <span class="notes-label">Notities - Waarom is ze belangrijk?</span>
+      <p>Marga Klompé hielp de verzorgingsstaat bouwen. Dankzij haar werk konden armere Nederlanders zelfstandiger leven. Ze liet ook zien dat vrouwen een belangrijke rol kunnen spelen in de politiek, op een tijd dat dat nog heel bijzonder was.</p>
+    </aside>
   </section>
 
   <!-- SLIDE 5 — Afsluiting -->
   <section class="slide slide-6" data-slide="5">
     <div class="photo-slot red">
-      <img src="img/marga-portret-afsluiting.jpg" alt="Marga Klompe portret">
+      <img src="img/marga-portret-afsluiting.jpg" alt="Marga Klompé portret">
       <span class="slot-label">photo-slot 5</span>
     </div>
     <div>
@@ -390,6 +451,10 @@ body {
         "Ze opende een deur, en liet hem open voor wie na haar kwam."
       </div>
     </div>
+    <aside class="speaker-notes">
+      <span class="notes-label">Notities - Afsluiting</span>
+      <p>Marga Klompé overleed in 1986. Maar haar werk leeft voort. De bijstandswet bestaat nog steeds, in een andere vorm. Ze is een van de belangrijkste politici in de Nederlandse geschiedenis.</p>
+    </aside>
   </section>
 
   <!-- Navigation -->
@@ -399,7 +464,8 @@ body {
       <span class="current" id="slide-current">1</span>
       <span> / </span>
       <span id="slide-total">6</span>
-      <span style="margin-left: 16px; opacity: 0.7;">Marga Klompe - Op Niveau H1</span>
+      <span style="margin-left: 16px; opacity: 0.7;">Marga Klompé - Op Niveau H1</span>
+      <span class="notes-hint">[N] notities</span>
     </div>
     <button class="nav-btn" id="next-btn">Volgende &rarr;</button>
   </div>
@@ -442,6 +508,9 @@ body {
       show(0);
     } else if (e.key === 'End') {
       show(total - 1);
+    } else if (e.key === 'n' || e.key === 'N') {
+      e.preventDefault();
+      document.body.classList.toggle('show-notes');
     }
   });
 
