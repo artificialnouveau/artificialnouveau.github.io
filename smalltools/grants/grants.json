@@ -3,6 +3,80 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "blue-ridge-labs-founder-fellowship-2026",
+      "title": "Blue Ridge Labs Founder Fellowship 2026",
+      "organization": "Robin Hood (via Blue Ridge Labs venture studio)",
+      "location": "United States (Phase 1 virtual; Phase 2 in-person at BRL Lab in Brooklyn, NYC)",
+      "region": "US",
+      "amount": "$20,000 stipend in Phase 2 to support MVP development. No equity terms mentioned. Includes weekly mentorship and coaching, workshops on product, growth and fundraising, co-working space at BRL Lab Brooklyn, access to the Design Insights Group (DIG) community for user testing, and network introductions across tech, philanthropy and policy.",
+      "duration": "Phase 1 (Explore & Test): 6 to 8 weeks, June to July 2026, virtual-first. Phase 2 (Build MVP): 10 to 12 weeks, September to November 2026, in-person Brooklyn.",
+      "startDate": "2026-06-01",
+      "deadline": "2026-05-03",
+      "addedDate": "2026-04-30",
+      "category": "tech",
+      "description": "Founder fellowship for early-stage or new founders tackling problems in Robin Hood's five economic-mobility focus areas: Education, Financial Empowerment, Health, Housing, and Hunger & Jobs. Applicants need lived or learned experience with the challenges they propose to address. No prototype or co-founder required at application. Approximately 25 founders advance from Phase 1 to Phase 2. Open to US applicants only; no relocation expected for Phase 1, but Phase 2 requires in-person time at the BRL Lab in Brooklyn. Apply via the Airtable application form linked from the Robin Hood page; submit an idea summary and background. Fellowship is fully funded by Robin Hood (no application fee, no equity stake disclosed). Note: this is a startup/entrepreneur-style fellowship rather than an arts/research fellowship; applicants should be building venture-track ideas tied to economic mobility outcomes.",
+      "url": "https://robinhood.org/our-work/blue-ridge-labs/founder-fellowship/",
+      "tags": [
+        "fellowship",
+        "founder",
+        "venture",
+        "social-impact",
+        "tech"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "bbq-plus-academic-fellowship-2026-27",
+      "title": "BBQ+ Academic Fellowship 2026-27",
+      "organization": "Center for Black, Brown, and Queer Studies (BBQ+), supported by the Mellon Foundation",
+      "location": "Remote (fully virtual organisation; all fellowship meetings via Zoom with closed captioning)",
+      "region": "Remote",
+      "amount": "Tiered research stipend by academic level: College students $1,000; Master's/Early PhD $2,000; Advanced PhD $5,000; Recent postdoctoral scholars $10,000. Fellows may also apply to reimburse other research or professionalisation expenses.",
+      "duration": "Approximately mid-September 2026 through end of April 2027 (~8 months); weekly Friday meetings 12:00 to 14:00 ET",
+      "startDate": "2026-09-15",
+      "deadline": "2026-05-01",
+      "addedDate": "2026-04-30",
+      "category": "research",
+      "description": "Annual academic fellowship for underrepresented scholars (broadly and intersectionally defined) working in critical race, Indigenous, postcolonial and queer studies. Open to college students (Sophomores and up, including community college students), recent graduates, Master's students and recent Master's holders (up to 3 years post-degree), PhD/EdD/other doctoral students, and recent postdoctoral scholars (up to 8 years post-degree). Parental, family, sick and similar leaves do not count toward years-post-degree. Open to undocumented and international applicants. Fellows are placed in one of four cohorts (Undergraduate, Master's & Early Doctoral, Advanced Doctoral/Dissertation, Postdoctoral) with a dedicated cohort advisor. Weekly meetings alternate among Writing Clinic, Theory Clinic, Colloquium and Fellows Circle. Application materials: 1-page cover letter, 1-2 page research proposal, CV, and academic writing sample of at least 8 pages of continuous prose. Deadline 1 May 2026 by midnight ET; review begins 4 May 2026; late applications unlikely to receive full consideration. Questions: fellowships@bbqplus.org.",
+      "url": "https://www.bbqplus.org/fellowship/apply",
+      "tags": [
+        "fellowship",
+        "academic",
+        "research",
+        "critical-race",
+        "queer-studies",
+        "remote"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "rooted-futures-lab-ejit-fellowship-summer-2026",
+      "title": "Rooted Futures Lab: Environmental Justice & Technology (EJIT) Fellowship - Summer 2026",
+      "organization": "Rooted Futures Lab",
+      "location": "Remote (worldwide)",
+      "region": "Remote",
+      "amount": "$3,000 USD stipend (flexible payment schedule)",
+      "duration": "~12 weeks (15 June to 4 September 2026), ~20 hours/week (flexible)",
+      "startDate": "2026-06-15",
+      "deadline": "2026-04-30",
+      "addedDate": "2026-04-30",
+      "category": "cross",
+      "description": "Project-based summer fellowship for individuals working at the intersection of technology, infrastructure and environmental justice. Each Fellow contributes to a defined project area working independently and in close collaboration with Rooted Futures Lab staff and other Fellows. All tracks produce tangible outputs that support communities, advance critical inquiry and strengthen the broader EJIT field. Summer 2026 tracks: (1) Data Centers & Environmental Justice: Creative Technologist Fellow; (2) Data Centers & Environmental Justice: Investigative Storyteller Fellow; (3) Study Hall: Democratic Governance & Collective Systems Fellow; (4) GLITCH Zine: Editor & Strategist Fellow. Applications reviewed on a rolling basis; status notification within 3 weeks of the deadline. Inclusive selection: RFL does not discriminate on sexual orientation, gender, gender identity, race, ethnicity, religion, age or economic background, and explicitly encourages applicants from underrepresented identities. Inspired by Dr. Robert Bullard's environmental justice framework and Octavia Butler's histofuturism. Questions: info@rootedfutureslab.io (subject 'EJIT Fellowship Application').",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSdXR7TbhqyY65XKH4M0gxlV-CZunuEdKW0R1fOuSydHNxn71A/viewform",
+      "tags": [
+        "fellowship",
+        "environmental-justice",
+        "tech",
+        "data-centers",
+        "remote",
+        "investigative"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "via-art-fund-artistic-production-fall-2026",
       "title": "VIA Art Fund: Artistic Production Grant (Fall 2026 cycle)",
       "organization": "VIA Art Fund",
@@ -848,29 +922,6 @@
       "fee": false,
       "featured": false,
       "category": "arts"
-    },
-    {
-      "id": "european-edtech-fellowship-2026",
-      "title": "European EdTech Fellowship 2026 (paid program, €1,000 fee)",
-      "organization": "European EdTech Alliance",
-      "location": "Europe (online sessions)",
-      "region": "EU",
-      "amount": "Paid program: €1,000 fee paid BY the fellow (this is the cost of participation, NOT a cash grant). Includes 6 monthly curated sessions, mentorship and access to the European EdTech Alliance network.",
-      "duration": "6 months (1 session per month)",
-      "startDate": null,
-      "deadline": "2026-05-22",
-      "addedDate": "2026-04-26",
-      "description": "Note: this is a paid learning program, not a grant. Fellows pay €1,000 to attend 6 monthly intensive sessions teaching how to navigate European education systems (procurement cycles, trust frameworks, regulatory landscape, localised dynamics). Building on the Female EdTech Fellowship; this iteration is cross-sector, cross-gender, cross-border. Run by the European EdTech Alliance, a non-profit dedicated to fostering EdTech innovation and collaboration across Europe. Sessions cover ministry buying, framework agreements, pricing models for public education, digital sovereignty, GDPR and student data protection, sustainability communication, VC due diligence, social impact measurement, cross-border growth, and a final demo day with mentor matching. Applications close 22 May 2026.",
-      "url": "https://www.edtech-fellowship.eu/european-edtech-fellowship",
-      "tags": [
-        "fellowship",
-        "edtech",
-        "education",
-        "paid-program"
-      ],
-      "fee": true,
-      "featured": false,
-      "category": "research"
     },
     {
       "id": "pollination-project-daily-seed-grants",
