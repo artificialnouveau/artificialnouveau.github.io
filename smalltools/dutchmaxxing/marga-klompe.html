@@ -189,25 +189,12 @@ body {
   margin-bottom: 8px;
 }
 
-/* SLIDE 6 — Afsluiting */
-.slide-6 { grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-.slide-6 .photo-slot { height: 75vh; max-height: 650px; }
-.slide-6 h2 {
-  font-family: 'Syne', sans-serif; font-size: 64px; font-weight: 800;
-  line-height: 1; margin-bottom: 20px;
+/* SLIDE 6 — Afsluiting (centered photo only) */
+.slide-6 { grid-template-columns: 1fr; place-items: center; }
+.slide-6 .photo-slot {
+  height: 80vh; max-height: 700px;
+  width: min(70vw, 700px);
 }
-.slide-6 .quote {
-  font-family: 'Syne', sans-serif; font-style: italic; font-size: 26px;
-  line-height: 1.3; padding: 18px 22px;
-  border-left: 6px solid var(--mondrian-red);
-  background: #fff8d8; margin-bottom: 24px;
-}
-.slide-6 .questions h3 {
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px;
-  letter-spacing: 1.5px; text-transform: uppercase; color: var(--mondrian-blue);
-  margin-bottom: 10px;
-}
-.slide-6 .questions ul li { font-size: 17px; }
 
 /* Speaker notes — hidden by default, toggle with 'N' key */
 .speaker-notes {
@@ -443,13 +430,6 @@ body.show-notes .notes-hint { opacity: 1; color: var(--mondrian-yellow); }
     <div class="photo-slot red">
       <img src="img/marga-portret-afsluiting.jpg" alt="Marga Klompé portret">
       <span class="slot-label">photo-slot 5</span>
-    </div>
-    <div>
-      <div class="slide-kicker">Slide 5</div>
-      <h2>Afsluiting</h2>
-      <div class="quote">
-        "Ze opende een deur, en liet hem open voor wie na haar kwam."
-      </div>
     </div>
     <aside class="speaker-notes">
       <span class="notes-label">Notities - Afsluiting</span>
