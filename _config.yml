@@ -14,10 +14,10 @@ url         :  'https://www.artificialnouveau.com/' # Site URL (if using a custo
 baseurl       :  ''               # Site base URL (add if site is not at root)
 repo        :  'https://github.com/' # Site repository, also used in jekyll-seo-tag
 description     :  > # Site description and default description, also used in jekyll-seo-tag
-  Ahnjili is an AI engineer, Ph.D. candidate, artist, and science communicator.
+  Ahnjili ZhuParris, PhD, is an AI artist, engineer and researcher working in voice cloning, machine listening, deepfake art, critical AI and AI satire. Available for exhibitions, talks, workshops and residencies.
 keywords      :  > # For SEO
-  jekyll, theme, minimal, responsive, blog, portfolio, fast, seo, social, web, development
-footer_text     :  '© 2021 Inkstream' # Footer text
+  AI artist, AI art, voice cloning artist, machine listening art, critical AI art, generative voice, deepfake art, AI satire art, AI installation art, generative art, sound art, computational art
+footer_text     :  '&copy; Ahnjili ZhuParris' # Footer text
 
 
 
@@ -145,7 +145,7 @@ navigation_header:
     icon: fa-solid fa-chalkboard-user
   -
     title: Be Me
-    url: /be-me/
+    url: /smalltools/be-me/
     icon: fa-solid fa-mask
 
 navigation_footer: []
