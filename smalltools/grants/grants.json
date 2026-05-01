@@ -3,6 +3,55 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline.",
   "grants": [
     {
+      "id": "peckham-digital-programme-open-call-2026",
+      "title": "Peckham Digital: Programme Open Call 2026",
+      "organization": "Peckham Digital",
+      "location": "Peckham, London, United Kingdom (in-person festival 22 to 25 October 2026)",
+      "region": "UK",
+      "amount": "Paid: facilitators and speakers compensated at Artist Union England pay rates (contingent on Peckham Digital's own funding application; if funding is not received the festival will not go ahead)",
+      "duration": "Festival programme slot (22 to 25 October 2026)",
+      "startDate": "2026-10-22",
+      "deadline": "2026-06-14",
+      "addedDate": "2026-05-01",
+      "category": "arts",
+      "description": "Open call for the 5th edition of Peckham Digital, a festival celebrating creative computing. This call is for the PROGRAMME track: artists, creative technologists and creative coders to facilitate workshops, present talks, provide demos, or deliver performances (the separate Artwork Open Call covers exhibition pieces). Emerging applicants explicitly welcomed; over half of past Peckham Digital artists had this as their first paid professional exhibition. Selected facilitators/speakers paid at Artist Union England rates. Workshop facilitators are asked whether their software will be open-source. Application requires: type of contribution (demo/workshop/talk/performance/other), 200-word description (text or video), 250-word facilitator statement on experience, 200 words on professional development impact, sample images or video, technical requirements, and any access needs. Equal Opportunities form also requested. Important caveat: festival is contingent on Peckham Digital's own funding being confirmed; if their funding application is not successful the festival will not go ahead.",
+      "url": "https://peckhamdigital.com/",
+      "tags": [
+        "festival",
+        "creative-computing",
+        "workshop",
+        "talk",
+        "performance",
+        "open-source"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "peckham-digital-artwork-open-call-2026",
+      "title": "Peckham Digital: Artwork Open Call 2026",
+      "organization": "Peckham Digital",
+      "location": "Peckham, London, United Kingdom (in-person festival 22 to 25 October 2026)",
+      "region": "UK",
+      "amount": "Paid: each selected artist receives a fee (contingent on Peckham Digital's own funding application; outcome expected early July 2026; if funding is not received the festival will not go ahead). Submission to the open call is free.",
+      "duration": "Festival exhibition slot (22 to 25 October 2026)",
+      "startDate": "2026-10-22",
+      "deadline": "2026-06-14",
+      "addedDate": "2026-05-01",
+      "category": "arts",
+      "description": "Open call for the 5th edition of Peckham Digital, a festival celebrating creative computing in all its shapes and forms. This call is for the ARTWORK EXHIBITION track only (the separate Programme Open Call covers talks, workshops, demos, performances and films). Looking for artists, creative technologists, creative coders and performers to exhibit artworks. Emerging applicants and early-career creative technologists explicitly welcomed; over half of past Peckham Digital artists had this as their first paid professional exhibition. Submission to the open call is free; selected artists receive a fee. Important caveat: festival is contingent on Peckham Digital's own funding being confirmed (decision expected early July 2026); if funding is not received the festival will not go ahead. Read the Application Guidelines before submitting.",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSclhQnqL31riIh78TPYDwWvP4J3KfCwKGvMDtuQ30-9WZjYpQ/viewform",
+      "tags": [
+        "festival",
+        "creative-computing",
+        "exhibition",
+        "art",
+        "open-source"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "pop-culture-collaborative-grants",
       "title": "Pop Culture Collaborative Grants",
       "organization": "Pop Culture Collaborative",
