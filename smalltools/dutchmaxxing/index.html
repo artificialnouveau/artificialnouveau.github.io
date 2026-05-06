@@ -3997,8 +3997,9 @@ body::before, body::after { display: none; }
       <div class="spiek-nav-hint">stellen, kijken, geven, leggen, doen...</div>
     </div>
   </div>
-  <div style="text-align:center;margin-bottom:16px;">
+  <div style="text-align:center;margin-bottom:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
     <button class="mondrian-btn" onclick="exportUltimateCheatsheet()" style="font-size:13px;padding:10px 22px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download 2-pagina cheatsheet (grammatica + vocab)</button>
+    <button class="mondrian-btn" onclick="exportPassiefErCheatsheet()" style="font-size:13px;padding:10px 22px;background:#D40920;color:#fff;border:2px solid var(--mondrian-black);">Passief &amp; Er — A4 cheatsheet</button>
   </div>
   <div class="spiek-search-results" id="spiekSearchResults"></div>
 
@@ -9436,6 +9437,7 @@ const DOWNLOAD_ALL_ITEMS = [
   { title: 'Alle grammaticaregels', desc: 'Alle grammatica-spiekbriefjes met inhoudsopgave', countFn: () => GRAMMAR_RULES.length, fn: () => exportAllGrammar() },
   { title: 'De of Het — Vuistregels', desc: 'Overzicht wanneer de of het gebruiken', countFn: () => 21, fn: () => exportDeHetRules() },
   { title: 'Ultimate Cheatsheet (2 pagina\'s)', desc: 'Grammatica + woordenschat op 2 printbare A4-pagina\'s', countFn: () => '2 pagina\'s', fn: () => exportUltimateCheatsheet() },
+  { title: 'Passief & Er (A4)', desc: 'Diepgaande spiekbriefje over passieve vormen, onpersoonlijk passief, en de zes functies van er', countFn: () => '1 A4', fn: () => exportPassiefErCheatsheet() },
 ];
 
 function renderSheetDownloadGrid() {
@@ -11302,6 +11304,182 @@ ${(() => {
 <div class="footer">www.${siteUrl} — gegenereerd ${new Date().toLocaleDateString('nl-NL')}</div>
 
 </div>
+</body></html>`;
+
+  const w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  const printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF';
+  printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = () => { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
+  w.document.body.prepend(printBtn);
+}
+
+function exportPassiefErCheatsheet() {
+  const siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Passief & Er — Spiekbriefje</title>
+<style>
+@page { margin: 8mm 8mm; size: A4 landscape; }
+body { font-family: Inter, Helvetica, sans-serif; font-size: 8.5px; line-height: 1.3; color: #111; margin: 0; padding: 0; }
+h1 { font-family: Syne, sans-serif; font-size: 14px; margin: 0 0 4px; border-bottom: 2.5px solid #000; padding-bottom: 3px; }
+h2 { font-family: Syne, sans-serif; font-size: 10px; margin: 5px 0 2px; color: #1356A2; border-bottom: 1px solid #1356A2; padding-bottom: 1px; break-after: avoid; -webkit-column-break-after: avoid; }
+h3 { font-size: 9px; font-weight: 700; margin: 3px 0 2px; color: #D40920; break-after: avoid; -webkit-column-break-after: avoid; }
+table { width: 100%; border-collapse: collapse; margin: 1px 0 4px; font-size: 8px; break-inside: avoid; -webkit-column-break-inside: avoid; }
+th { background: #F7D842; padding: 2px 3px; text-align: left; font-size: 7.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+td { padding: 1.5px 3px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:nth-child(even) { background: #fafafa; }
+.cheat-3col { column-count: 3; column-gap: 8px; column-fill: balance; }
+.cheat-3col h2:first-child { margin-top: 0; }
+.cheat-3col table, .cheat-3col .box, .cheat-3col .rule { break-inside: avoid; -webkit-column-break-inside: avoid; }
+.box { border: 1.5px solid #000; padding: 4px 5px; margin-bottom: 4px; break-inside: avoid; }
+.box-title { font-family: Syne, sans-serif; font-size: 8.5px; font-weight: 700; margin-bottom: 2px; }
+.hl { color: #D40920; font-weight: 700; }
+.bl { color: #1356A2; font-weight: 700; }
+.gr { color: #2d8a56; font-weight: 700; }
+.br { color: #8B4513; font-weight: 700; }
+.rule { background: #fffde6; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #D40920; break-inside: avoid; }
+.tip { background: #e8f4fd; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #1356A2; break-inside: avoid; }
+.warn { background: #fff3e0; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #E69100; break-inside: avoid; }
+.footer { font-size: 7px; color: #999; text-align: center; margin-top: 4px; border-top: 1px solid #ddd; padding-top: 2px; }
+.mini-table td, .mini-table th { padding: 1.5px 3px; font-size: 8px; }
+</style></head><body>
+
+<h1>Passief & Er — Spiekbriefje</h1>
+
+<div class="cheat-3col">
+
+<h2>Passief vs. actief — alle tijden</h2>
+<table class="mini-table">
+<tr><th>Tijd</th><th>Actief</th><th>Passief</th></tr>
+<tr><td><strong>Presens</strong></td><td>De man <span class="hl">schrijft</span> een brief.</td><td>Een brief <span class="hl">wordt</span> geschreven.</td></tr>
+<tr><td><strong>Imperf.</strong></td><td>De man <span class="bl">schreef</span> een brief.</td><td>Een brief <span class="bl">werd</span> geschreven.</td></tr>
+<tr><td><strong>Perfectum</strong></td><td>De man <span class="gr">heeft</span> geschreven.</td><td>Een brief <span class="gr">is</span> geschreven.</td></tr>
+<tr><td><strong>Plusquamp.</strong></td><td>De man <span class="br">had</span> geschreven.</td><td>Een brief <span class="br">was</span> geschreven.</td></tr>
+<tr><td><strong>Futurum</strong></td><td>Hij <span class="bl">zal</span> schrijven.</td><td>Een brief <span class="bl">zal worden</span> geschreven.</td></tr>
+<tr><td><strong>Fut. perf.</strong></td><td>Hij <span class="bl">zal</span> hebben geschreven.</td><td>Een brief <span class="bl">zal zijn</span> geschreven.</td></tr>
+</table>
+<div class="rule"><strong>Sleutelwoorden:</strong> <span class="hl">wordt/worden</span> &rarr; <span class="bl">werd/werden</span> &rarr; <span class="gr">is/zijn</span> &rarr; <span class="br">was/waren</span></div>
+
+<h2>3-stappen recept (passief bouwen)</h2>
+<div class="box">
+<div class="box-title">Step-by-step</div>
+<strong>1.</strong> Lijdend voorwerp (object) wordt nieuw onderwerp.<br>
+<strong>2.</strong> Kies hulpwerkwoord op basis van tijd (<span class="hl">wordt</span> / <span class="bl">werd</span> / <span class="gr">is</span> / <span class="br">was</span>).<br>
+<strong>3.</strong> Origineel onderwerp: weglaten OF behouden met <span class="hl">door + persoon</span>.
+</div>
+<div class="tip"><strong>Voorbeeld:</strong> <em>De jury kiest de winnaar.</em> &rarr; <em>De winnaar <span class="hl">wordt door de jury</span> gekozen.</em></div>
+
+<h2>3 grote regels</h2>
+<div class="rule"><strong>1. In perfectum/plusq. valt <em>worden</em> weg.</strong> Alleen <span class="gr">is/zijn</span> of <span class="br">was/waren</span> + v.d. blijven.<br>
+&#10007; Hij is ontslagen <em>geworden</em>. &nbsp; &#10003; Hij <span class="gr">is</span> ontslagen.</div>
+<div class="rule"><strong>2. Alleen transitieve werkwoorden</strong> (met lijdend voorwerp) hebben een gewoon passief. Intransitieve (slapen, dansen, lachen) gebruiken <span class="hl">er + worden</span>.</div>
+<div class="rule"><strong>3. Modale werkwoorden blijven op V2.</strong> <em>worden</em> migreert naar het einde als infinitief: <em>Het werk <strong>moet</strong> gedaan <strong>worden</strong>.</em></div>
+
+<h2>Onpersoonlijk passief (er + worden)</h2>
+<table class="mini-table">
+<tr><th>Constructie</th><th>NL</th><th>EN</th></tr>
+<tr><td>Plain</td><td><span class="hl">Er</span> wordt gedanst.</td><td>There is dancing.</td></tr>
+<tr><td>+ tijd/plaats</td><td><span class="hl">Er</span> wordt vanavond gedanst.</td><td>Dancing is on tonight.</td></tr>
+<tr><td>+ modaal</td><td><span class="hl">Er moet</span> gewerkt <span class="hl">worden</span>.</td><td>Work has to be done.</td></tr>
+<tr><td>+ door</td><td><span class="hl">Er</span> werd door iedereen gelachen.</td><td>Everyone laughed.</td></tr>
+<tr><td>Plusq.</td><td><span class="hl">Er</span> was hard gewerkt.</td><td>Hard work had been done.</td></tr>
+</table>
+<div class="warn"><strong>Waarom moeilijk voor EN-sprekers:</strong> "There is danced" bestaat niet in EN. Vertaal als <em>"people are -ing"</em> of <em>"there's -ing going on"</em>.</div>
+
+<h2>Bepaling met door (the agent)</h2>
+<table class="mini-table">
+<tr><th>NL</th><th>EN</th></tr>
+<tr><td>De brief wordt <span class="hl">door de postbode</span> bezorgd.</td><td>The letter is delivered <strong>by the postman</strong>.</td></tr>
+<tr><td>Het boek werd <span class="hl">door de leraar</span> voorgelezen.</td><td>The book was read <strong>by the teacher</strong>.</td></tr>
+<tr><td>Het project is <span class="hl">door het team</span> voltooid.</td><td>The project has been completed <strong>by the team</strong>.</td></tr>
+<tr><td>Er werd <span class="hl">door iedereen</span> gelachen.</td><td>Everyone was laughing.</td></tr>
+</table>
+<div class="tip"><strong>Tip:</strong> <em>door</em> is optioneel. Vaak laat NL de agent gewoon weg: <em>De fiets is gestolen.</em></div>
+
+<h2>Wanneer wel/niet passief?</h2>
+<div class="box">
+<div class="box-title" style="color:#2d8a56;">&#10003; Gebruik passief</div>
+&bull; Agent onbekend: <em>De fiets is gestolen.</em><br>
+&bull; Focus op actie/object: <em>De wet werd in 2024 aangenomen.</em><br>
+&bull; Formele/journalistieke stijl<br>
+&bull; Diplomatiek/blame-loos: <em>Er zijn fouten gemaakt.</em>
+</div>
+<div class="box">
+<div class="box-title" style="color:#D40920;">&#10007; Vermijd passief</div>
+&bull; Agent is belangrijk: <em>Mijn moeder kookt.</em><br>
+&bull; Casual gesprek met vrienden<br>
+&bull; Vaag of generiek object
+</div>
+
+<h2>Het gebruik van er — 6 functies</h2>
+<table class="mini-table">
+<tr><th>#</th><th>Functie</th><th>Voorbeeld</th></tr>
+<tr><td>1</td><td>Telwoord <span style="font-size:7px;color:#888;">(partitive)</span></td><td>Ik heb <span class="hl">er</span> drie.</td></tr>
+<tr><td>2</td><td>Plaats <span style="font-size:7px;color:#888;">(locative)</span></td><td>Ik woon <span class="hl">er</span> al jaren.</td></tr>
+<tr><td>3</td><td>Onbep. subject <span style="font-size:7px;color:#888;">(existential)</span></td><td><span class="hl">Er</span> loopt een hond.</td></tr>
+<tr><td>4</td><td>+ voorzetsel <span style="font-size:7px;color:#888;">(prepositional)</span></td><td>Ik denk <span class="hl">erover</span> na.</td></tr>
+<tr><td>5</td><td>+ worden <span style="font-size:7px;color:#888;">(action passive)</span></td><td><span class="hl">Er</span> wordt gedanst.</td></tr>
+<tr><td>6</td><td>+ is/zijn <span style="font-size:7px;color:#888;">(state passive)</span></td><td><span class="hl">Er</span> is veel veranderd.</td></tr>
+</table>
+<div class="rule"><strong>Verschil 5 vs. 6:</strong> <em>wordt</em> = actie loopt nu. <em>is</em> = resultaat is zichtbaar.</div>
+
+<h2>Stacking er (twee functies tegelijk)</h2>
+<div class="tip"><em>Er zijn er drie.</em> &rarr; existential (3) + partitive (1) = "There are three of them."</div>
+<div class="tip"><em>Er wordt veel over gesproken.</em> &rarr; existential + prepositional = "There's a lot of talk about it."</div>
+
+<h2>Volgorde — Word order met er</h2>
+<div class="rule"><em>Er</em> staat direct na het V2-werkwoord, vóór alle andere middenveld-elementen.</div>
+<div class="box" style="font-family:ui-monospace,Menlo,monospace;font-size:8px;">
+Vandaag [<span class="hl">wordt</span>] [<span class="hl">er</span>] op kantoor [hard] [gewerkt].
+</div>
+<div class="tip"><strong>Vraag:</strong> <em>Wordt <span class="hl">er</span> hard gewerkt?</em> (er na hulpwerkwoord)</div>
+
+<h2>Er vs. hij vs. het</h2>
+<table class="mini-table">
+<tr><th>Situatie</th><th>Verwijzing</th><th>Voorbeeld</th></tr>
+<tr><td>de-woord, bepaald</td><td><span class="hl">hij/hem</span></td><td>De pen? <strong>Hij</strong> ligt daar.</td></tr>
+<tr><td>het-woord, bepaald</td><td><span class="bl">het</span></td><td>Het boek? <strong>Het</strong> ligt daar.</td></tr>
+<tr><td>onbepaald (een/getal)</td><td><span class="gr">er</span></td><td>Een pen? Ik heb <strong>er</strong> een.</td></tr>
+</table>
+
+<h2>Actief is/zijn vs. passief is/zijn</h2>
+<div class="rule"><strong>Test:</strong> kun je "door + agent" toevoegen? &rarr; passief. Zo niet &rarr; actief.</div>
+<table class="mini-table">
+<tr><th>Zin</th><th>Voice</th><th>Reden</th></tr>
+<tr><td>Hij is gegaan.</td><td><span class="gr">Actief</span></td><td>"gaan" = beweging, neemt zijn in actief perf.</td></tr>
+<tr><td>Hij is ontslagen.</td><td><span class="hl">Passief</span></td><td>"ontslaan" is transitief; is + v.d. = passief perf.</td></tr>
+<tr><td>De brief is geschreven.</td><td><span class="hl">Passief</span></td><td>"schrijven" is transitief.</td></tr>
+<tr><td>De plant is gegroeid.</td><td><span class="gr">Actief</span></td><td>"groeien" = verandering van staat.</td></tr>
+</table>
+
+<h2>Veelgemaakte fouten</h2>
+<div class="warn">&#10007; Hij is ontslagen <em>geworden</em>. &nbsp; &#10003; Hij <span class="gr">is</span> ontslagen.</div>
+<div class="warn">&#10007; Het moet gedaan. &nbsp; &#10003; Het moet gedaan <span class="hl">worden</span>.</div>
+<div class="warn">&#10007; Wordt veel gedanst. &nbsp; &#10003; <span class="hl">Er</span> wordt veel gedanst.</div>
+<div class="warn">&#10007; Heb je een fiets? Ja, ik heb <em>het</em>. &nbsp; &#10003; Ja, ik heb <span class="hl">er</span> een.</div>
+<div class="warn">&#10007; Waar is de sleutel? <em>Er</em> ligt op tafel. &nbsp; &#10003; <span class="hl">Hij</span> ligt op tafel.</div>
+
+<h2>Snel vertalen: NL passief &rarr; EN</h2>
+<table class="mini-table">
+<tr><th>Nederlands</th><th>English</th></tr>
+<tr><td>Er wordt gedanst.</td><td>People are dancing. / There's dancing.</td></tr>
+<tr><td>Er moet gewerkt worden.</td><td>Work has to be done.</td></tr>
+<tr><td>Hij wordt ontslagen.</td><td>He is being fired.</td></tr>
+<tr><td>Hij is ontslagen.</td><td>He has been fired.</td></tr>
+<tr><td>Hij was ontslagen.</td><td>He had been fired.</td></tr>
+<tr><td>Hij zal worden ontslagen.</td><td>He will be fired.</td></tr>
+</table>
+
+<h2>Voltooid deelwoord — quick check</h2>
+<div class="rule"><strong>Regelmatig ('t kofschip):</strong> stam op t/k/f/s/ch/p &rarr; ge...t (gewerkt). Anders &rarr; ge...d (geleefd).</div>
+<div class="rule"><strong>Niet-scheidbaar (be-, ver-, ont-, ge-, her-, er-):</strong> geen <em>ge-</em> in v.d. <em>betalen &rarr; betaald</em>, <em>vertellen &rarr; verteld</em>.</div>
+<div class="rule"><strong>Scheidbaar:</strong> <em>ge-</em> ertussen. <em>opbellen &rarr; opgebeld</em>.</div>
+
+</div>
+
+<div class="footer">www.${siteUrl} &mdash; gegenereerd ${new Date().toLocaleDateString('nl-NL')}</div>
+
 </body></html>`;
 
   const w = window.open('', '_blank');
@@ -14991,8 +15169,13 @@ async function initOpNiveau() {
         html += '</div></div>';
       }
 
-      // Per-chapter PDF button
-      html += '<div style="margin-top:12px;text-align:right;"><button class="mondrian-btn" onclick="exportOpNiveauChapter(' + c.ch + ')" style="font-size:11px;padding:6px 14px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Download H' + c.ch + ' PDF</button></div>';
+      // Per-chapter PDF button(s)
+      html += '<div style="margin-top:12px;text-align:right;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;">';
+      if (c.ch === 2) {
+        html += '<button class="mondrian-btn" onclick="exportPassiefErCheatsheet()" style="font-size:11px;padding:6px 14px;background:#D40920;color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Passief &amp; Er — A4 cheatsheet</button>';
+      }
+      html += '<button class="mondrian-btn" onclick="exportOpNiveauChapter(' + c.ch + ')" style="font-size:11px;padding:6px 14px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Download H' + c.ch + ' PDF</button>';
+      html += '</div>';
 
       html += '</div></div>';
     });
