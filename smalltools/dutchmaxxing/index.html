@@ -4000,6 +4000,7 @@ body::before, body::after { display: none; }
   <div style="text-align:center;margin-bottom:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
     <button class="mondrian-btn" onclick="exportUltimateCheatsheet()" style="font-size:13px;padding:10px 22px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);">Download 2-pagina cheatsheet (grammatica + vocab)</button>
     <button class="mondrian-btn" onclick="exportPassiefErCheatsheet()" style="font-size:13px;padding:10px 22px;background:#D40920;color:#fff;border:2px solid var(--mondrian-black);">Passief &amp; Er — A4 cheatsheet</button>
+    <button class="mondrian-btn" onclick="exportCollocatiesCheatsheet()" style="font-size:13px;padding:10px 22px;background:#2d8a56;color:#fff;border:2px solid var(--mondrian-black);">Uitdrukkingen &amp; Collocaties — A4</button>
   </div>
   <div class="spiek-search-results" id="spiekSearchResults"></div>
 
@@ -9438,6 +9439,7 @@ const DOWNLOAD_ALL_ITEMS = [
   { title: 'De of Het — Vuistregels', desc: 'Overzicht wanneer de of het gebruiken', countFn: () => 21, fn: () => exportDeHetRules() },
   { title: 'Ultimate Cheatsheet (2 pagina\'s)', desc: 'Grammatica + woordenschat op 2 printbare A4-pagina\'s', countFn: () => '2 pagina\'s', fn: () => exportUltimateCheatsheet() },
   { title: 'Passief & Er (A4)', desc: 'Diepgaande spiekbriefje over passieve vormen, onpersoonlijk passief, en de zes functies van er', countFn: () => '1 A4', fn: () => exportPassiefErCheatsheet() },
+  { title: 'Uitdrukkingen & Collocaties (A4)', desc: 'Multi-woord uitdrukkingen, werkwoord+voorzetsel, eens/oneens, idiomen — met variaties en woordvolgorde-trucs', countFn: () => '1 A4', fn: () => exportCollocatiesCheatsheet() },
 ];
 
 function renderSheetDownloadGrid() {
@@ -11492,6 +11494,362 @@ tr:nth-child(even) { background: #fafafa; }
 &rarr; <strong>Stap 3:</strong> door Johan (matters)<br>
 &rarr; <strong>Stap 4:</strong> winnen (onregelmatig) &rarr; gewonnen<br>
 &rarr; <strong>Passief:</strong> De hoofdprijs <span class="gr">is</span> door Johan gewonnen.</div>
+
+</div>
+
+<div class="footer">www.${siteUrl} &mdash; gegenereerd ${new Date().toLocaleDateString('nl-NL')}</div>
+
+</body></html>`;
+
+  const w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  const printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF';
+  printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = () => { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
+  w.document.body.prepend(printBtn);
+}
+
+function exportCollocatiesCheatsheet() {
+  const siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Uitdrukkingen & Collocaties — Spiekbriefje</title>
+<style>
+@page { margin: 7mm 7mm; size: A4 landscape; }
+body { font-family: Inter, Helvetica, sans-serif; font-size: 8.5px; line-height: 1.32; color: #111; margin: 0; padding: 0; }
+h1 { font-family: Syne, sans-serif; font-size: 14px; margin: 0 0 4px; border-bottom: 2.5px solid #000; padding-bottom: 3px; }
+h2 { font-family: Syne, sans-serif; font-size: 10px; margin: 5px 0 2px; color: #1356A2; border-bottom: 1px solid #1356A2; padding-bottom: 1px; break-after: avoid; -webkit-column-break-after: avoid; }
+table { width: 100%; border-collapse: collapse; margin: 1px 0 4px; font-size: 8px; break-inside: avoid; -webkit-column-break-inside: avoid; }
+th { background: #F7D842; padding: 2px 3px; text-align: left; font-size: 7.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+td { padding: 1.5px 3px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:nth-child(even) { background: #fafafa; }
+.cheat-3col { column-count: 3; column-gap: 8px; column-fill: balance; }
+.cheat-3col h2:first-child { margin-top: 0; }
+.cheat-3col table, .cheat-3col .box, .cheat-3col .rule, .cheat-3col .tip, .cheat-3col .warn { break-inside: avoid; -webkit-column-break-inside: avoid; }
+.box { border: 1.5px solid #000; padding: 4px 5px; margin-bottom: 4px; }
+.box-title { font-family: Syne, sans-serif; font-size: 8.5px; font-weight: 700; margin-bottom: 2px; }
+.hl { color: #D40920; font-weight: 700; }
+.bl { color: #1356A2; font-weight: 700; }
+.gr { color: #2d8a56; font-weight: 700; }
+.br { color: #8B4513; font-weight: 700; }
+.rule { background: #fffde6; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #D40920; }
+.tip { background: #e8f4fd; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #1356A2; }
+.warn { background: #fff3e0; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #E69100; }
+.footer { font-size: 7px; color: #999; text-align: center; margin-top: 4px; border-top: 1px solid #ddd; padding-top: 2px; }
+.phrase { font-weight: 700; color: #1356A2; }
+.prep { color: #D40920; font-weight: 700; }
+.var { font-style: italic; color: #333; display: block; margin: 1px 0; }
+</style></head><body>
+
+<h1>Uitdrukkingen & Collocaties &mdash; Spiekbriefje</h1>
+
+<div class="cheat-3col">
+
+<h2>Eens / oneens (variaties)</h2>
+<table>
+<tr><th colspan="2" style="background:#2d8a56;color:#fff;">EENS (agree)</th></tr>
+<tr><td><strong>Ik ben het met je eens.</strong></td><td>I agree with you.</td></tr>
+<tr><td><strong>Ik ben het met je eens dat...</strong></td><td>I agree with you that...</td></tr>
+<tr><td><strong>Ik ben het ermee eens.</strong></td><td>I agree with that. (er = vervangt eerder genoemd)</td></tr>
+<tr><td><strong>Daar ben ik het mee eens.</strong></td><td>I agree with that. (daar + mee splitsbaar)</td></tr>
+<tr><td>Helemaal / volkomen mee eens.</td><td>Totally / completely agree.</td></tr>
+<tr><td>Mee eens! / Eens.</td><td>Agreed! (kort)</td></tr>
+<tr><td>Inderdaad. / Klopt. / Dat klopt.</td><td>Indeed. / Right. / That's right.</td></tr>
+<tr><td>Je hebt gelijk. / Daar heb je gelijk in.</td><td>You're right. / You're right about that.</td></tr>
+<tr><td>Ik vind van wel.</td><td>I think so.</td></tr>
+</table>
+<table>
+<tr><th colspan="2" style="background:#D40920;color:#fff;">ONEENS (disagree)</th></tr>
+<tr><td><strong>Ik ben het niet met je eens.</strong></td><td>I don't agree with you.</td></tr>
+<tr><td><strong>Ik ben het er niet mee eens.</strong></td><td>I don't agree with that.</td></tr>
+<tr><td><strong>Daar ben ik het niet mee eens.</strong></td><td>I don't agree with that. (variant)</td></tr>
+<tr><td>Helemaal niet mee eens.</td><td>Completely disagree.</td></tr>
+<tr><td>Niet mee eens! / Oneens.</td><td>Disagreed! (kort)</td></tr>
+<tr><td>Dat klopt niet. / Niet waar.</td><td>That's not right. / Not true.</td></tr>
+<tr><td>Ik vind van niet.</td><td>I don't think so.</td></tr>
+<tr><td>Daar zit ik anders in.</td><td>I see it differently.</td></tr>
+<tr><td>Toch niet helemaal.</td><td>Not entirely.</td></tr>
+</table>
+<div class="rule"><strong>Patroon:</strong> "Ik ben het [met X] [niet] eens" of "Ik ben het [er/daar] [niet] mee eens" &mdash; <em>het</em> is verplicht!</div>
+
+<h2>Werkwoord + voorzetsel (collocaties)</h2>
+<table>
+<tr><th>Vaste vorm</th><th>Variaties / voorbeelden</th></tr>
+<tr><td><span class="phrase">afleiden <span class="prep">uit</span></span><br><span style="color:#888;font-size:7.5px;">to deduce/infer from</span></td>
+<td><span class="var">Uit zijn gedrag kun je afleiden dat hij gehaast is.</span>
+<span class="var">Je kunt wel afleiden <span class="prep">uit het feit dat</span> ze niet kwam.</span>
+<span class="var"><strong>Daaruit</strong> leid ik af dat... (er + uit fused).</span></td></tr>
+<tr><td><span class="phrase">afstand nemen <span class="prep">van</span></span><br><span style="color:#888;font-size:7.5px;">to distance oneself from</span></td>
+<td><span class="var">Hij neemt afstand van zijn vroegere standpunten.</span>
+<span class="var">We moeten even afstand nemen van het probleem.</span>
+<span class="var">Daar moet je afstand <strong>van</strong> nemen.</span></td></tr>
+<tr><td><span class="phrase">de nadruk leggen <span class="prep">op</span></span><br><span style="color:#888;font-size:7.5px;">to emphasize</span></td>
+<td><span class="var">De docent legt de nadruk op kritisch denken.</span>
+<span class="var">Daar wordt de nadruk op gelegd. (passief + er-split)</span>
+<span class="var">Op welke punten leggen we de nadruk?</span></td></tr>
+<tr><td><span class="phrase">onderzoek doen <span class="prep">naar</span></span><br><span style="color:#888;font-size:7.5px;">to research / investigate</span></td>
+<td><span class="var">Wetenschappers doen onderzoek naar de gevolgen.</span>
+<span class="var">Er wordt onderzoek gedaan naar fraude.</span>
+<span class="var">Waar doen jullie onderzoek naar?</span></td></tr>
+<tr><td><span class="phrase">rekening houden <span class="prep">met</span></span><br><span style="color:#888;font-size:7.5px;">to take into account</span></td>
+<td><span class="var">Houd rekening met andere weggebruikers.</span>
+<span class="var"><strong>Daar</strong> moet je rekening <strong>mee</strong> houden.</span>
+<span class="var">Hier wordt rekening mee gehouden.</span></td></tr>
+<tr><td><span class="phrase">een effect hebben <span class="prep">op</span></span><br><span style="color:#888;font-size:7.5px;">to have an effect on</span></td>
+<td><span class="var">Schermtijd heeft een effect op de slaap.</span>
+<span class="var">Welk effect heeft dit op het gedrag?</span>
+<span class="var">Daar heeft het een groot effect op.</span></td></tr>
+<tr><td><span class="phrase">enthousiast zijn <span class="prep">over</span></span><br><span style="color:#888;font-size:7.5px;">to be enthusiastic about</span></td>
+<td><span class="var">Ze is enthousiast over haar nieuwe baan.</span>
+<span class="var">Waar ben je enthousiast over?</span>
+<span class="var">Daar ben ik niet zo enthousiast over.</span></td></tr>
+<tr><td><span class="phrase">gericht zijn <span class="prep">op</span></span><br><span style="color:#888;font-size:7.5px;">to be focused on / aimed at</span></td>
+<td><span class="var">Deze app is gericht op tieners.</span>
+<span class="var">Op welke doelgroep is dit gericht?</span>
+<span class="var">Daar is het programma op gericht.</span></td></tr>
+<tr><td><span class="phrase">zin hebben <span class="prep">in</span></span><br><span style="color:#888;font-size:7.5px;">to feel like / be in the mood for</span></td>
+<td><span class="var">Ik heb zin in koffie.</span>
+<span class="var">Heb je zin om mee te gaan? (in/om-variant)</span>
+<span class="var">Daar heb ik geen zin in.</span></td></tr>
+<tr><td><span class="phrase">geven <span class="prep">om</span></span><br><span style="color:#888;font-size:7.5px;">to care about</span></td>
+<td><span class="var">Hij geeft veel om zijn vrienden.</span>
+<span class="var">Daar geef ik niet zo veel om.</span>
+<span class="var">Geef je er nog om?</span></td></tr>
+<tr><td><span class="phrase">een hekel hebben <span class="prep">aan</span></span><br><span style="color:#888;font-size:7.5px;">to dislike / hate</span></td>
+<td><span class="var">Ik heb een hekel aan reclames.</span>
+<span class="var">Daar heb ik echt een hekel aan.</span>
+<span class="var">Aan wat heb je een hekel?</span></td></tr>
+</table>
+
+<h2>Reflexieve uitdrukkingen</h2>
+<table>
+<tr><th>Vaste vorm</th><th>Variaties / voorbeelden</th></tr>
+<tr><td><span class="phrase">zich <span class="prep">verheven</span> voelen</span><br><span style="color:#888;font-size:7.5px;">to feel superior</span></td>
+<td><span class="var">Ze voelt zich verheven boven de rest van de groep.</span>
+<span class="var">Hij voelde zich verheven, alsof hij beter was.</span>
+<span class="var">Voel je je verheven boven anderen?</span></td></tr>
+<tr><td><span class="phrase">zich <span class="prep">iets voor de geest halen</span></span><br><span style="color:#888;font-size:7.5px;">to bring/recall to mind</span></td>
+<td><span class="var">Ik kan me dat moment nog goed voor de geest halen.</span>
+<span class="var">Probeer je je oma voor de geest te halen.</span>
+<span class="var">Haal je dat plaatje even voor de geest.</span></td></tr>
+<tr><td><span class="phrase">zich ergeren <span class="prep">aan</span></span><br><span style="color:#888;font-size:7.5px;">to be annoyed at</span></td>
+<td><span class="var">Ik erger me aan zijn gedrag.</span>
+<span class="var">Daar erger ik me kapot aan. (idiom: extreem ergeren)</span>
+<span class="var">Waar erger jij je aan?</span></td></tr>
+<tr><td><span class="phrase">zich verheugen <span class="prep">op</span></span><br><span style="color:#888;font-size:7.5px;">to look forward to</span></td>
+<td><span class="var">Ik verheug me op de vakantie.</span>
+<span class="var">We verheugen ons erop.</span>
+<span class="var">Waar verheug jij je op?</span></td></tr>
+<tr><td><span class="phrase">zich richten <span class="prep">op</span></span><br><span style="color:#888;font-size:7.5px;">to focus on</span></td>
+<td><span class="var">Ze richt zich nu op haar studie.</span>
+<span class="var">Daar moet je je op richten.</span>
+<span class="var">Waarop richt het bedrijf zich?</span></td></tr>
+<tr><td><span class="phrase">zich afvragen <span class="prep">of</span></span><br><span style="color:#888;font-size:7.5px;">to wonder whether</span></td>
+<td><span class="var">Ik vraag me af of het echt nodig is.</span>
+<span class="var">Hij vroeg zich af waarom niemand reageerde.</span>
+<span class="var">Vraag je je dat ook af?</span></td></tr>
+<tr><td><span class="phrase">zich uiten <span class="prep">over</span></span><br><span style="color:#888;font-size:7.5px;">to express oneself about</span></td>
+<td><span class="var">Hij uit zich vaak negatief over politiek.</span>
+<span class="var">Ze uitte zich kritisch over de regering.</span>
+<span class="var">Daar wil ik me niet over uiten.</span></td></tr>
+<tr><td><span class="phrase">zich bezighouden <span class="prep">met</span></span><br><span style="color:#888;font-size:7.5px;">to be busy with</span></td>
+<td><span class="var">Ik houd me bezig met het project.</span>
+<span class="var">Waar hou jij je mee bezig?</span>
+<span class="var">Daar hou ik me niet mee bezig.</span></td></tr>
+</table>
+
+<h2>Idiomatische werkwoordsuitdrukkingen</h2>
+<table>
+<tr><th>Vaste vorm</th><th>Variaties / voorbeelden</th></tr>
+<tr><td><span class="phrase">ter sprake komen</span><br><span style="color:#888;font-size:7.5px;">to come up (in conversation)</span></td>
+<td><span class="var">Tijdens het debat kwam ook online verslaving ter sprake.</span>
+<span class="var">Het onderwerp is nog niet ter sprake gekomen.</span>
+<span class="var">Ter sprake brengen = to raise (a topic).</span></td></tr>
+<tr><td><span class="phrase">sprake zijn van</span><br><span style="color:#888;font-size:7.5px;">to be a question of / be in the air</span></td>
+<td><span class="var">Er is sprake van een misverstand.</span>
+<span class="var">Daar is geen sprake van! (= absolutely not)</span>
+<span class="var">Er was geen sprake meer van het oude plan.</span></td></tr>
+<tr><td><span class="phrase">in de war raken / zijn</span><br><span style="color:#888;font-size:7.5px;">to get/be confused</span></td>
+<td><span class="var">Door alle borden raakte ik in de war.</span>
+<span class="var">Hij is een beetje in de war.</span>
+<span class="var">Iemand in de war brengen = to confuse someone.</span>
+<span class="var">Mijn haar zit in de war = my hair is messy.</span></td></tr>
+<tr><td><span class="phrase">nagenieten van</span><br><span style="color:#888;font-size:7.5px;">to bask in / enjoy in retrospect</span></td>
+<td><span class="var">We genoten nog na van de vakantie.</span>
+<span class="var">Hij geniet na van een succesvol concert.</span>
+<span class="var">Ik kan nog dagenlang nagenieten van die maaltijd.</span></td></tr>
+<tr><td><span class="phrase">aan bod komen</span><br><span style="color:#888;font-size:7.5px;">to be addressed / get a turn</span></td>
+<td><span class="var">Iedereen komt straks aan bod.</span>
+<span class="var">Dit thema komt later aan bod.</span>
+<span class="var">Aan bod laten komen = to give the floor to.</span></td></tr>
+<tr><td><span class="phrase">van pas komen</span><br><span style="color:#888;font-size:7.5px;">to come in handy</span></td>
+<td><span class="var">Die paraplu komt nu goed van pas.</span>
+<span class="var">Dat zal je later van pas komen.</span>
+<span class="var">Komt het je goed van pas?</span></td></tr>
+<tr><td><span class="phrase">terecht komen</span><br><span style="color:#888;font-size:7.5px;">to end up / arrive somewhere</span></td>
+<td><span class="var">Hoe ben je hier terechtgekomen?</span>
+<span class="var">De brief is bij de buren terechtgekomen.</span>
+<span class="var">Het komt allemaal goed terecht.</span></td></tr>
+<tr><td><span class="phrase">de moeite waard zijn</span><br><span style="color:#888;font-size:7.5px;">to be worth it</span></td>
+<td><span class="var">De film is de moeite waard.</span>
+<span class="var">Het is de moeite waard om het te proberen.</span>
+<span class="var">Niet de moeite waard.</span></td></tr>
+<tr><td><span class="phrase">koste wat (het) kost</span><br><span style="color:#888;font-size:7.5px;">at all costs</span></td>
+<td><span class="var">Hij wilde koste wat het kost winnen.</span>
+<span class="var">Dat moet koste wat kost vermeden worden.</span>
+<span class="var">(Letterlijk: cost what it may)</span></td></tr>
+</table>
+
+<h2>Spreektaal idiomen</h2>
+<table>
+<tr><th>Vaste vorm</th><th>Variaties / voorbeelden</th></tr>
+<tr><td><span class="phrase">iets niet uitvlakken</span><br><span style="color:#888;font-size:7.5px;">don't dismiss / don't underestimate</span></td>
+<td><span class="var">Dat moet je niet uitvlakken!</span>
+<span class="var">Zijn invloed valt niet uit te vlakken.</span>
+<span class="var">Vlak zijn talent niet uit.</span>
+<span class="var">(Lett. "wegvegen" &mdash; figuurlijk: niet bagatelliseren)</span></td></tr>
+<tr><td><span class="phrase">ergens <span class="prep">van</span> opkijken</span><br><span style="color:#888;font-size:7.5px;">to be surprised at</span></td>
+<td><span class="var">Daar kijk ik niet van op.</span>
+<span class="var">Je zou ervan opkijken hoe vaak dit gebeurt.</span>
+<span class="var">Hij keek raar op van de prijs.</span>
+<span class="var">Ik kijk er niet meer van op.</span></td></tr>
+<tr><td><span class="phrase">het positiefste wat ervan af kan</span><br><span style="color:#888;font-size:7.5px;">the most positive thing that can be said</span></td>
+<td><span class="var">"Niet slecht" is het positiefste wat ervan af kan.</span>
+<span class="var">Een schouderklopje is het meeste wat ervan af kan.</span>
+<span class="var">(Patroon: <em>het + superlatief + wat ervan af kan</em>)</span></td></tr>
+<tr><td><span class="phrase">aan de grond raken</span><br><span style="color:#888;font-size:7.5px;">to hit rock bottom</span></td>
+<td><span class="var">Na het faillissement was hij aan de grond geraakt.</span>
+<span class="var">Hun bedrijf raakte volledig aan de grond.</span>
+<span class="var">(Letterlijk ook: een schip raakt aan de grond = ship runs aground)</span></td></tr>
+<tr><td><span class="phrase">de handen uit de mouwen steken</span><br><span style="color:#888;font-size:7.5px;">to roll up one's sleeves / get to work</span></td>
+<td><span class="var">Genoeg vergaderd, nu de handen uit de mouwen!</span>
+<span class="var">Het wordt tijd dat we de handen uit de mouwen steken.</span>
+<span class="var">(Typisch Nederlandse "doe-mentaliteit")</span></td></tr>
+<tr><td><span class="phrase">iets in de markt zetten</span><br><span style="color:#888;font-size:7.5px;">to launch / position a product</span></td>
+<td><span class="var">Het bedrijf wist het nieuwe model goed in de markt te zetten.</span>
+<span class="var">Hoe ga je dat product in de markt zetten?</span>
+<span class="var">(Commercieel jargon)</span></td></tr>
+<tr><td><span class="phrase">iemand <span class="prep">met de neus op de feiten</span> drukken</span><br><span style="color:#888;font-size:7.5px;">to confront with the facts</span></td>
+<td><span class="var">De cijfers drukten hem met de neus op de feiten.</span>
+<span class="var">Soms moet je iemand met de neus op de feiten drukken.</span>
+<span class="var">(Vaak in ongemakkelijke confrontaties)</span></td></tr>
+<tr><td><span class="phrase">er is iets niet in orde</span><br><span style="color:#888;font-size:7.5px;">something is not right</span></td>
+<td><span class="var">Aan zijn stem te horen is er iets niet in orde.</span>
+<span class="var">Er is iets niet in orde met de motor.</span>
+<span class="var">Tegenovergestelde: <em>alles is in orde</em> = everything is fine.</span></td></tr>
+<tr><td><span class="phrase">aan de slag gaan</span><br><span style="color:#888;font-size:7.5px;">to get down to work</span></td>
+<td><span class="var">We hebben er lang over gepraat, nu gaan we aan de slag.</span>
+<span class="var">Ze ging meteen aan de slag met het project.</span>
+<span class="var">Iemand aan de slag helpen = to help someone find work.</span></td></tr>
+<tr><td><span class="phrase">iets waar je u tegen zegt</span><br><span style="color:#888;font-size:7.5px;">something seriously impressive</span></td>
+<td><span class="var">Die storm gisteren, dat was iets waar je u tegen zegt.</span>
+<span class="var">Een prestatie waar je u tegen zegt.</span>
+<span class="var">(Letterlijk: zo indrukwekkend dat je beleefd "u" zegt)</span></td></tr>
+<tr><td><span class="phrase">dan wordt het een ander verhaal</span><br><span style="color:#888;font-size:7.5px;">then it's a different story</span></td>
+<td><span class="var">Als hij ook meedoet, dan wordt het een ander verhaal.</span>
+<span class="var">Met meer geld wordt het een ander verhaal.</span>
+<span class="var">(Geeft aan dat een nieuwe omstandigheid alles verandert)</span></td></tr>
+</table>
+
+<h2>"Snap je?" &mdash; Begrip & onbegrip</h2>
+<table>
+<tr><th>NL</th><th>EN</th></tr>
+<tr><td>Snap je wat ik bedoel?</td><td>Do you get what I mean?</td></tr>
+<tr><td>Begrijp je wat ik bedoel?</td><td>Do you understand what I mean?</td></tr>
+<tr><td>Je weet wel wat ik bedoel.</td><td>You know what I mean.</td></tr>
+<tr><td>Je begrijpt me wel.</td><td>You get me.</td></tr>
+<tr><td>Hoe bedoel je?</td><td>How do you mean? / What do you mean?</td></tr>
+<tr><td>Wat bedoel je daarmee?</td><td>What do you mean by that?</td></tr>
+<tr><td>Snap je het?</td><td>Got it?</td></tr>
+<tr><td>Begrepen!</td><td>Got it! / Understood!</td></tr>
+<tr><td>Ik snap er niets van.</td><td>I don't get any of this.</td></tr>
+<tr><td>Ik begrijp het (niet).</td><td>I (don't) understand.</td></tr>
+<tr><td>Hoezo? / Hoezo niet?</td><td>How so? / Why not?</td></tr>
+<tr><td>Dat doet me ergens aan denken.</td><td>That reminds me of something.</td></tr>
+</table>
+
+<h2>Mening uitdrukken (inleiders)</h2>
+<table>
+<tr><th>NL</th><th>EN</th></tr>
+<tr><td>Naar mijn mening...</td><td>In my opinion...</td></tr>
+<tr><td>Volgens mij...</td><td>According to me / I think...</td></tr>
+<tr><td>Ik vind dat...</td><td>I think that...</td></tr>
+<tr><td>Wat mij betreft...</td><td>As far as I'm concerned...</td></tr>
+<tr><td>Persoonlijk denk ik...</td><td>Personally, I think...</td></tr>
+<tr><td>Eerlijk gezegd...</td><td>Honestly...</td></tr>
+<tr><td>Om eerlijk te zijn...</td><td>To be honest...</td></tr>
+<tr><td>Aan de ene kant... aan de andere kant...</td><td>On the one hand... on the other...</td></tr>
+<tr><td>Het hangt ervan af.</td><td>It depends.</td></tr>
+<tr><td>Waar het op neerkomt is...</td><td>What it comes down to is...</td></tr>
+</table>
+
+<h2>Discourse markers (zinsverbinders)</h2>
+<table>
+<tr><th>NL</th><th>EN / wanneer</th></tr>
+<tr><td><strong>Trouwens,...</strong></td><td>By the way,... (verandert van onderwerp)</td></tr>
+<tr><td><strong>Overigens,...</strong></td><td>Incidentally,... (formeler)</td></tr>
+<tr><td><strong>Hoe dan ook,...</strong></td><td>Anyway / either way</td></tr>
+<tr><td><strong>In ieder geval,...</strong></td><td>In any case</td></tr>
+<tr><td><strong>Tot slot,...</strong></td><td>Finally,... (laatste punt)</td></tr>
+<tr><td><strong>Kortom,...</strong></td><td>In short,...</td></tr>
+<tr><td><strong>Bovendien,...</strong></td><td>Moreover,... (extra argument)</td></tr>
+<tr><td><strong>Daarentegen,...</strong></td><td>On the other hand,...</td></tr>
+<tr><td><strong>Met andere woorden,...</strong></td><td>In other words,...</td></tr>
+<tr><td><strong>Sterker nog,...</strong></td><td>Even more so,...</td></tr>
+</table>
+
+<h2>Trucs &amp; vuistregels (woordvolgorde)</h2>
+<div class="rule"><strong>Regel 1 &mdash; "het" is verplicht bij eens/oneens:</strong> <em>Ik ben het met je eens</em>, NIET <em>Ik ben met je eens</em>. Het functioneert als placeholder.</div>
+<div class="rule"><strong>Regel 2 &mdash; voorzetsel + het/dat/wat &rarr; <span class="prep">erop / daarop / waarop</span>:</strong> Je vervangt nooit "op het" of "aan dat" letterlijk. Altijd fuseren tot <em>erop / eraan / daarop / daaraan / waarop / waaraan</em>. <em>Ik denk er<strong>aan</strong></em>, niet <em>Ik denk aan het</em>.</div>
+<div class="rule"><strong>Regel 3 &mdash; "er + voorzetsel" kan splitsen:</strong> <em>Daar denk ik <strong>aan</strong>.</em> &nbsp; <em>Waar denk je <strong>aan</strong>?</em> &nbsp; <em>Ik denk <strong>er</strong> niet vaak <strong>aan</strong>.</em> Het voorzetsel landt rechts; ertussenin staat de rest van de zin.</div>
+<div class="rule"><strong>Regel 4 &mdash; scheidbaar werkwoord splitst in hoofdzin:</strong> <em>Ik leid daaruit <strong>af</strong> dat...</em> (niet <em>Ik afleid...</em>). In bijzin blijft het samen: <em>...dat ik daaruit afleid dat...</em></div>
+<div class="rule"><strong>Regel 5 &mdash; reflexief pronomen vroeg in de zin:</strong> direct na het V2-werkwoord. <em>Ik herinner <span class="hl">me</span> dat...</em>, <em>Zij verheugt <span class="hl">zich</span> erop.</em> NIET aan het einde.</div>
+<div class="rule"><strong>Regel 6 &mdash; in bijzin: ALLE werkwoorden naar het einde:</strong> <em>...dat ik me kan voorstellen wat hij bedoelt.</em> Reflexief pronomen blijft vroeg, werkwoorden gaan rechts.</div>
+<div class="rule"><strong>Regel 7 &mdash; vraag met voorzetsel: kies "waar..." vs. "wat":</strong> Voorkeur: <em>Waar denk je aan?</em> over <em>Aan wat denk je?</em> (correct maar formeel). Voor personen: <em>Aan wie denk je?</em></div>
+<div class="rule"><strong>Regel 8 &mdash; negatie van eens/oneens:</strong> <em>niet</em> staat tussen "het" en "eens": <em>Ik ben het <strong>niet</strong> met je eens</em>. NIET <em>Ik ben <strong>niet</strong> het met je eens</em>.</div>
+
+<h2>Cheats: 3 patronen voor elk multi-woord uitdrukking</h2>
+<div class="box">
+<div class="box-title" style="color:#1356A2;">Voor elk werkwoord+voorzetsel, oefen DEZE drie:</div>
+<strong>Patroon A &mdash; expliciet object:</strong> <em>Ik denk <span class="prep">aan</span> mijn vriendin.</em><br>
+<strong>Patroon B &mdash; pronominaal (er/daar/waar fusie):</strong> <em>Ik denk <span class="prep">eraan</span>. / <span class="prep">Daar</span> denk ik <span class="prep">aan</span>. / <span class="prep">Waar</span> denk je <span class="prep">aan</span>?</em><br>
+<strong>Patroon C &mdash; bijzin (alles naar einde):</strong> <em>...dat ik <span class="prep">aan</span> haar denk.</em>
+</div>
+<div class="tip">Heb je een uitdrukking nieuw geleerd? Test of je hem in alle 3 vormen kunt gebruiken. Dan zit hij echt vast.</div>
+
+<h2>Snelle herkenningstrucs</h2>
+<div class="rule"><strong>Trick 1 &mdash; "ik vind dat..." = mening, "ik denk aan..." = onderwerp:</strong> Verschillende werkwoorden, verschillende constructies. <em>Vinden</em> krijgt een dat-zin; <em>denken aan</em> krijgt een object via "aan".</div>
+<div class="rule"><strong>Trick 2 &mdash; reflexief? Dan altijd zich/me/je/zich erbij:</strong> Ezelsbruggetje: als de actie op de spreker zelf werkt, is het reflexief. <em>Ik haast (mij/me)</em>, <em>Ik haast iemand anders</em> kan niet.</div>
+<div class="rule"><strong>Trick 3 &mdash; voorzetsel onthouden? Lees de uitdrukking honderd keer als <em>één blok</em>:</strong> "denken-aan", "afhangen-van", "rekenen-op". Schrijf nooit het werkwoord zonder zijn voorzetsel.</div>
+<div class="rule"><strong>Trick 4 &mdash; bij twijfel over <em>op</em>, <em>aan</em>, <em>over</em>:</strong> denken <span class="hl">aan</span> = focus op object &middot; denken <span class="bl">over</span> = overwegen/wikken &middot; nadenken <span class="hl">over</span> = reflecteren. Klein verschil, grote nuance.</div>
+<div class="rule"><strong>Trick 5 &mdash; tijdens het luisteren: hoor je een voorzetsel "los" aan het einde?</strong> Dat is bijna altijd een werkwoord+voorzetsel-uitdrukking. <em>"...waar je je hele leven mee bezig bent geweest."</em> &rarr; <em>zich bezighouden met</em>.</div>
+
+<h2>Vraagvorm checklist</h2>
+<table>
+<tr><th>Vraag</th><th>Patroon</th><th>Voorbeeld</th></tr>
+<tr><td>Over een ding/onderwerp</td><td><strong>Waar</strong> + ww. + onderwerp + ... + voorzetsel?</td><td>Waar denk je aan?</td></tr>
+<tr><td>Over een persoon</td><td><strong>Aan/Voor/Op</strong> + wie + ww. + onderwerp?</td><td>Aan wie denk je?</td></tr>
+<tr><td>Wat-vraag (formeel)</td><td><strong>Voorzetsel</strong> + wat + ww.?</td><td>Aan wat denk je? (correct maar zeldzaam)</td></tr>
+<tr><td>Eens/oneens-vraag</td><td>Ben je het ermee eens (dat...)?</td><td>Ben je het met me eens?</td></tr>
+<tr><td>Bevestiging zoeken</td><td>...he? / ...toch? / ...niet?</td><td>Je bent het ermee eens, toch?</td></tr>
+</table>
+
+<h2>Veelgemaakte fouten</h2>
+<div class="warn">&#10007; <em>Ik agree met je.</em> &nbsp; &#10003; <em>Ik ben het met je eens.</em> ("eens" + verplichte "het")</div>
+<div class="warn">&#10007; <em>Ik ben mee eens dat...</em> &nbsp; &#10003; <em>Ik ben het ermee eens dat...</em></div>
+<div class="warn">&#10007; <em>Ik denk over het.</em> &nbsp; &#10003; <em>Ik denk erover.</em> (er + over fused)</div>
+<div class="warn">&#10007; <em>Ik herinner...</em> (geen reflexief). &nbsp; &#10003; <em>Ik herinner me...</em></div>
+<div class="warn">&#10007; <em>Ik heb hekel aan dat.</em> &nbsp; &#10003; <em>Ik heb daar een hekel aan.</em> / <em>Daar heb ik een hekel aan.</em></div>
+<div class="warn">&#10007; <em>Met dat moet je rekening houden.</em> &nbsp; &#10003; <em>Daar moet je rekening mee houden.</em></div>
+
+<h2>Patroon: hoe leer je deze het snelst?</h2>
+<div class="box">
+<div class="box-title">Voor elk multi-woord uitdrukking, leer DRIE varianten:</div>
+<strong>1.</strong> De basisvorm met expliciet object: <em>Ik denk <span class="prep">aan</span> mijn vriendin.</em><br>
+<strong>2.</strong> Met <em>er-/daar-/waar-</em> + voorzetsel: <em>Ik denk <span class="prep">eraan</span>. / <span class="prep">Daar</span> denk ik aan. / <span class="prep">Waar</span> denk je aan?</em><br>
+<strong>3.</strong> In bijzin (werkwoord naar einde): <em>...dat ik <span class="prep">aan</span> haar denk.</em>
+</div>
+<div class="tip">Met deze drie patronen kun je elke werkwoord+voorzetsel uitdrukking flexibel gebruiken in elke zinsstructuur.</div>
 
 </div>
 
@@ -15192,6 +15550,7 @@ async function initOpNiveau() {
       html += '<div style="margin-top:12px;text-align:right;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;">';
       if (c.ch === 2) {
         html += '<button class="mondrian-btn" onclick="exportPassiefErCheatsheet()" style="font-size:11px;padding:6px 14px;background:#D40920;color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Passief &amp; Er — A4 cheatsheet</button>';
+        html += '<button class="mondrian-btn" onclick="exportCollocatiesCheatsheet()" style="font-size:11px;padding:6px 14px;background:#2d8a56;color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Uitdrukkingen &amp; Collocaties — A4</button>';
       }
       html += '<button class="mondrian-btn" onclick="exportOpNiveauChapter(' + c.ch + ')" style="font-size:11px;padding:6px 14px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Download H' + c.ch + ' PDF</button>';
       html += '</div>';
