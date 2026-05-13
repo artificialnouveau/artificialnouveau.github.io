@@ -5870,6 +5870,20 @@
     "level": "B2"
   },
   {
+    "nl": "bescheiden",
+    "en": "modest / humble",
+    "note": "",
+    "example": "Ondanks zijn succes bleef hij bescheiden.",
+    "tags": [
+      "bijvoeglijk",
+      "karakter",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-personality"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "betrouwbaar",
     "en": "reliable / trustworthy",
     "note": "",
@@ -5879,20 +5893,6 @@
       "karakter",
       "op-niveau",
       "werk",
-      "op-niveau-h1",
-      "op-niveau-h1-personality"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "bescheiden",
-    "en": "modest / humble",
-    "note": "",
-    "example": "Ondanks zijn succes bleef hij bescheiden.",
-    "tags": [
-      "bijvoeglijk",
-      "karakter",
-      "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-personality"
     ],
@@ -6593,20 +6593,6 @@
     "level": "B2"
   },
   {
-    "nl": "populair",
-    "en": "popular",
-    "note": "",
-    "example": "Die zanger is erg populair in Nederland.",
-    "tags": [
-      "bijvoeglijk",
-      "op-niveau",
-      "dagelijks",
-      "op-niveau-h1",
-      "op-niveau-h1-personality"
-    ],
-    "level": "B2"
-  },
-  {
     "nl": "poetisch",
     "en": "poetic",
     "note": "",
@@ -6615,6 +6601,20 @@
       "bijvoeglijk",
       "op-niveau",
       "taal",
+      "op-niveau-h1",
+      "op-niveau-h1-personality"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "populair",
+    "en": "popular",
+    "note": "",
+    "example": "Die zanger is erg populair in Nederland.",
+    "tags": [
+      "bijvoeglijk",
+      "op-niveau",
+      "dagelijks",
       "op-niveau-h1",
       "op-niveau-h1-personality"
     ],
@@ -8017,12 +8017,40 @@
     "level": "B2"
   },
   {
+    "nl": "beledigen",
+    "en": "to insult / to offend",
+    "note": "Op Niveau H1. De belediging = the insult. Beledigd = offended. Beledigend = offensive",
+    "example": "Ik wilde je niet beledigen.",
+    "tags": [
+      "werkwoord",
+      "communicatie",
+      "gevoel",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "beslaan",
     "en": "to cover / to span / to fog up",
     "note": "Irregular: beslaan - besloeg - beslagen. Also: to shoe a horse. Pattern like slaan",
     "example": "Het hoofdstuk besloeg twintig pagina's.",
     "tags": [
       "werkwoord",
+      "formeel",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "beweren",
+    "en": "to claim / to assert",
+    "note": "Op Niveau H1. De bewering = the claim/assertion. Stronger than 'zeggen', implies doubt",
+    "example": "Hij beweert dat hij onschuldig is.",
+    "tags": [
+      "werkwoord",
+      "communicatie",
       "formeel",
       "op-niveau-h1",
       "op-niveau-h1-general"
@@ -8044,20 +8072,6 @@
     "level": "B1"
   },
   {
-    "nl": "opstand",
-    "en": "revolt / rebellion / uprising",
-    "note": "In opstand komen = to rise up. Opstandig = rebellious. Opstandeling = rebel",
-    "example": "De opstand tegen de Spanjaarden begon in 1568.",
-    "tags": [
-      "zelfstandig",
-      "geschiedenis",
-      "politiek",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
     "nl": "ergens van opkijken",
     "en": "to be surprised by something",
     "note": "Op Niveau H1. Ik kijk er niet van op = I'm not surprised. Opkijken = scheidbaar",
@@ -8071,29 +8085,31 @@
     "level": "B2"
   },
   {
-    "nl": "het positiefste wat ervan af kan",
-    "en": "the most positive thing that can come from it",
-    "note": "Op Niveau H1. Set expression: het [superlative] wat ervan af kan = the best/worst that can come of it",
-    "example": "Een glimlach is het positiefste wat ervan af kan.",
+    "nl": "feeksachtig",
+    "en": "shrewish / bitchy",
+    "note": "Op Niveau H1. Feeks = shrew/hag. -achtig = -like. Strong negative word, old-fashioned but still used",
+    "example": "Ze werd neergezet als een feeksachtige vrouw.",
     "tags": [
-      "uitdrukking",
-      "formeel",
+      "bijvoeglijk",
+      "karakter",
+      "mensen",
       "op-niveau-h1",
       "op-niveau-h1-general"
     ],
-    "level": "B2"
+    "level": "C1"
   },
   {
-    "nl": "uitvlakken",
-    "en": "to underestimate / to write off / to dismiss",
-    "note": "Op Niveau H1. Vlak dat niet uit = don't dismiss that. Often used in negative: niet uitvlakken",
-    "example": "Je moet de concurrentie niet uitvlakken.",
+    "nl": "gaaf",
+    "en": "cool / awesome / intact",
+    "note": "Op Niveau H1. Informal: gaaf! = cool! Formal: gaaf = intact/undamaged (gave tanden)",
+    "example": "Wat een gaaf idee!",
     "tags": [
-      "werkwoord",
+      "bijvoeglijk",
+      "informeel",
       "op-niveau-h1",
       "op-niveau-h1-general"
     ],
-    "level": "B2"
+    "level": "B1"
   },
   {
     "nl": "het grootste compliment dat gegeven wordt",
@@ -8102,100 +8118,6 @@
     "example": "Het grootste compliment dat gegeven wordt, is dat je betrouwbaar bent.",
     "tags": [
       "uitdrukking",
-      "formeel",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "onderschatten",
-    "en": "to underestimate",
-    "note": "Op Niveau H1. Onder- (under) + schatten (to estimate). Tegenovergestelde: overschatten",
-    "example": "Je moet de moeilijkheid van het examen niet onderschatten.",
-    "tags": [
-      "werkwoord",
-      "formeel",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "verbaasd zijn over",
-    "en": "to be surprised / amazed about",
-    "note": "Op Niveau H1. Vaste prepositie: verbaasd + over. Verbazing = surprise (noun)",
-    "example": "Ik was verbaasd over zijn reactie.",
-    "tags": [
-      "uitdrukking",
-      "gevoel",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "van nature",
-    "en": "by nature / naturally",
-    "note": "Op Niveau H1. Van nature = innate quality. Hij is van nature optimistisch",
-    "example": "Ze is van nature een rustig persoon.",
-    "tags": [
-      "uitdrukking",
-      "karakter",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "neigen",
-    "en": "to tend / to be inclined",
-    "note": "Op Niveau H1. De neiging = the tendency/inclination. Neigen tot/naar = to tend toward",
-    "example": "Hij neigt naar pessimisme.",
-    "tags": [
-      "werkwoord",
-      "karakter",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "redelijk",
-    "en": "reasonable / fairly",
-    "note": "Op Niveau H1. As adjective: reasonable (een redelijk voorstel). As adverb: fairly (redelijk goed)",
-    "example": "Dat is een redelijk voorstel.",
-    "tags": [
-      "bijvoeglijk",
-      "bijwoord",
-      "dagelijks",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "beledigen",
-    "en": "to insult / to offend",
-    "note": "Op Niveau H1. De belediging = the insult. Beledigd = offended. Beledigend = offensive",
-    "example": "Ik wilde je niet beledigen.",
-    "tags": [
-      "werkwoord",
-      "communicatie",
-      "gevoel",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "suggereren",
-    "en": "to suggest / to imply",
-    "note": "Op Niveau H1. De suggestie = the suggestion. Suggereren kan ook 'impliceren' betekenen",
-    "example": "Wat suggereer je daarmee?",
-    "tags": [
-      "werkwoord",
-      "communicatie",
       "formeel",
       "op-niveau-h1",
       "op-niveau-h1-general"
@@ -8217,13 +8139,39 @@
     "level": "B1"
   },
   {
-    "nl": "beweren",
-    "en": "to claim / to assert",
-    "note": "Op Niveau H1. De bewering = the claim/assertion. Stronger than 'zeggen', implies doubt",
-    "example": "Hij beweert dat hij onschuldig is.",
+    "nl": "kruiperig",
+    "en": "sycophantic / groveling / slimy",
+    "note": "Op Niveau H1. Kruipen = to crawl. Someone who sucks up to people in power",
+    "example": "Wat een kruiperig gedrag tegenover de baas.",
+    "tags": [
+      "bijvoeglijk",
+      "karakter",
+      "mensen",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "neigen",
+    "en": "to tend / to be inclined",
+    "note": "Op Niveau H1. De neiging = the tendency/inclination. Neigen tot/naar = to tend toward",
+    "example": "Hij neigt naar pessimisme.",
     "tags": [
       "werkwoord",
-      "communicatie",
+      "karakter",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "onderschatten",
+    "en": "to underestimate",
+    "note": "Op Niveau H1. Onder- (under) + schatten (to estimate). Tegenovergestelde: overschatten",
+    "example": "Je moet de moeilijkheid van het examen niet onderschatten.",
+    "tags": [
+      "werkwoord",
       "formeel",
       "op-niveau-h1",
       "op-niveau-h1-general"
@@ -8244,17 +8192,59 @@
     "level": "B2"
   },
   {
-    "nl": "gaaf",
-    "en": "cool / awesome / intact",
-    "note": "Op Niveau H1. Informal: gaaf! = cool! Formal: gaaf = intact/undamaged (gave tanden)",
-    "example": "Wat een gaaf idee!",
+    "nl": "opstand",
+    "en": "revolt / rebellion / uprising",
+    "note": "In opstand komen = to rise up. Opstandig = rebellious. Opstandeling = rebel",
+    "example": "De opstand tegen de Spanjaarden begon in 1568.",
+    "tags": [
+      "zelfstandig",
+      "geschiedenis",
+      "politiek",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "het positiefste wat ervan af kan",
+    "en": "the most positive thing that can come from it",
+    "note": "Op Niveau H1. Set expression: het [superlative] wat ervan af kan = the best/worst that can come of it",
+    "example": "Een glimlach is het positiefste wat ervan af kan.",
+    "tags": [
+      "uitdrukking",
+      "formeel",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "redelijk",
+    "en": "reasonable / fairly",
+    "note": "Op Niveau H1. As adjective: reasonable (een redelijk voorstel). As adverb: fairly (redelijk goed)",
+    "example": "Dat is een redelijk voorstel.",
     "tags": [
       "bijvoeglijk",
-      "informeel",
+      "bijwoord",
+      "dagelijks",
       "op-niveau-h1",
       "op-niveau-h1-general"
     ],
     "level": "B1"
+  },
+  {
+    "nl": "suggereren",
+    "en": "to suggest / to imply",
+    "note": "Op Niveau H1. De suggestie = the suggestion. Suggereren kan ook 'impliceren' betekenen",
+    "example": "Wat suggereer je daarmee?",
+    "tags": [
+      "werkwoord",
+      "communicatie",
+      "formeel",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
   },
   {
     "nl": "toegeven (aan)",
@@ -8271,28 +8261,38 @@
     "level": "B2"
   },
   {
-    "nl": "feeksachtig",
-    "en": "shrewish / bitchy",
-    "note": "Op Niveau H1. Feeks = shrew/hag. -achtig = -like. Strong negative word, old-fashioned but still used",
-    "example": "Ze werd neergezet als een feeksachtige vrouw.",
+    "nl": "uitvlakken",
+    "en": "to underestimate / to write off / to dismiss",
+    "note": "Op Niveau H1. Vlak dat niet uit = don't dismiss that. Often used in negative: niet uitvlakken",
+    "example": "Je moet de concurrentie niet uitvlakken.",
     "tags": [
-      "bijvoeglijk",
-      "karakter",
-      "mensen",
+      "werkwoord",
       "op-niveau-h1",
       "op-niveau-h1-general"
     ],
-    "level": "C1"
+    "level": "B2"
   },
   {
-    "nl": "kruiperig",
-    "en": "sycophantic / groveling / slimy",
-    "note": "Op Niveau H1. Kruipen = to crawl. Someone who sucks up to people in power",
-    "example": "Wat een kruiperig gedrag tegenover de baas.",
+    "nl": "van nature",
+    "en": "by nature / naturally",
+    "note": "Op Niveau H1. Van nature = innate quality. Hij is van nature optimistisch",
+    "example": "Ze is van nature een rustig persoon.",
     "tags": [
-      "bijvoeglijk",
+      "uitdrukking",
       "karakter",
-      "mensen",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "verbaasd zijn over",
+    "en": "to be surprised / amazed about",
+    "note": "Op Niveau H1. Vaste prepositie: verbaasd + over. Verbazing = surprise (noun)",
+    "example": "Ik was verbaasd over zijn reactie.",
+    "tags": [
+      "uitdrukking",
+      "gevoel",
       "op-niveau-h1",
       "op-niveau-h1-general"
     ],
@@ -8314,18 +8314,18 @@
     "level": "B2"
   },
   {
-    "nl": "erfgoed",
-    "en": "heritage / cultural heritage",
-    "note": "Op Niveau H1. Erf (inheritance) + goed (goods). UNESCO-werelderfgoed = world heritage",
-    "example": "De grachten zijn onderdeel van het Nederlandse erfgoed.",
+    "nl": "bazig",
+    "en": "bossy",
+    "note": "Op Niveau H1. Baas (boss) + -ig. De baas spelen = to boss people around",
+    "example": "Ze is nogal bazig tegen haar collega's.",
     "tags": [
-      "zelfstandig",
-      "cultuur",
-      "geschiedenis",
+      "bijvoeglijk",
+      "karakter",
+      "mensen",
       "op-niveau-h1",
       "op-niveau-h1-general"
     ],
-    "level": "B2"
+    "level": "B1"
   },
   {
     "nl": "cabaretier",
@@ -8342,28 +8342,41 @@
     "level": "B2"
   },
   {
-    "nl": "bazig",
-    "en": "bossy",
-    "note": "Op Niveau H1. Baas (boss) + -ig. De baas spelen = to boss people around",
-    "example": "Ze is nogal bazig tegen haar collega's.",
+    "nl": "erfgoed",
+    "en": "heritage / cultural heritage",
+    "note": "Op Niveau H1. Erf (inheritance) + goed (goods). UNESCO-werelderfgoed = world heritage",
+    "example": "De grachten zijn onderdeel van het Nederlandse erfgoed.",
     "tags": [
-      "bijvoeglijk",
-      "karakter",
-      "mensen",
+      "zelfstandig",
+      "cultuur",
+      "geschiedenis",
       "op-niveau-h1",
       "op-niveau-h1-general"
     ],
-    "level": "B1"
+    "level": "B2"
   },
   {
-    "nl": "trouw",
-    "en": "faithful / loyal / wedding",
-    "note": "Op Niveau H1. As adjective: trouw = loyal/faithful. As noun: de trouw = loyalty, or wedding (trouwen = to marry)",
-    "example": "Hij is altijd trouw gebleven aan zijn principes.",
+    "nl": "aandachtspunt",
+    "en": "point of attention / issue to watch",
+    "note": "Op Niveau H1. Het aandachtspunt. Aandacht (attention) + punt (point). Common in meetings and reports",
+    "example": "De veiligheid is een belangrijk aandachtspunt.",
+    "tags": [
+      "zelfstandig",
+      "formeel",
+      "werk",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "gespannen",
+    "en": "tense / nervous / strained",
+    "note": "Op Niveau H1. Spannen = to tighten. Gespannen sfeer = tense atmosphere. De spanning = tension",
+    "example": "De sfeer op kantoor was erg gespannen.",
     "tags": [
       "bijvoeglijk",
-      "zelfstandig",
-      "karakter",
+      "gevoel",
       "op-niveau-h1",
       "op-niveau-h1-sec3"
     ],
@@ -8384,119 +8397,14 @@
     "level": "B1"
   },
   {
-    "nl": "uitvinding",
-    "en": "invention",
-    "note": "Op Niveau H1. De uitvinding. Uitvinden = to invent (vond uit, uitgevonden). De uitvinder = inventor",
-    "example": "De boekdrukkunst was een belangrijke uitvinding.",
+    "nl": "ondertussen",
+    "en": "meanwhile / in the meantime",
+    "note": "Op Niveau H1. Synonym of inmiddels/intussen. Connector for simultaneous events",
+    "example": "Hij kookte, ondertussen dekte zij de tafel.",
     "tags": [
-      "zelfstandig",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "gespannen",
-    "en": "tense / nervous / strained",
-    "note": "Op Niveau H1. Spannen = to tighten. Gespannen sfeer = tense atmosphere. De spanning = tension",
-    "example": "De sfeer op kantoor was erg gespannen.",
-    "tags": [
-      "bijvoeglijk",
-      "gevoel",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "aandachtspunt",
-    "en": "point of attention / issue to watch",
-    "note": "Op Niveau H1. Het aandachtspunt. Aandacht (attention) + punt (point). Common in meetings and reports",
-    "example": "De veiligheid is een belangrijk aandachtspunt.",
-    "tags": [
-      "zelfstandig",
-      "formeel",
-      "werk",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "schoonheid",
-    "en": "beauty",
-    "note": "Op Niveau H1. De schoonheid. Schoon = clean/beautiful. Schoonheidssalon = beauty salon",
-    "example": "De schoonheid van het landschap viel haar op.",
-    "tags": [
-      "zelfstandig",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "verminderen",
-    "en": "to reduce / to decrease",
-    "note": "Op Niveau H1. De vermindering = reduction. Ver- + minderen (to lessen). Tegenovergestelde: vermeerderen",
-    "example": "We moeten de kosten verminderen.",
-    "tags": [
-      "werkwoord",
-      "formeel",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "zich iets voor de geest halen",
-    "en": "to recall / to visualize something",
-    "note": "Op Niveau H1. De geest = mind/spirit. Literally: to bring something before your mind's eye",
-    "example": "Ik kan me zijn gezicht niet meer voor de geest halen.",
-    "tags": [
-      "uitdrukking",
-      "gevoel",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "waarnemen",
-    "en": "to observe / to perceive",
-    "note": "Op Niveau H1. Nam waar, waargenomen. De waarneming = observation/perception. Also: to stand in for someone",
-    "example": "De politie nam verdacht gedrag waar.",
-    "tags": [
-      "werkwoord",
-      "scheidbaar",
-      "formeel",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-overig"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "verrassen",
-    "en": "to surprise",
-    "note": "Op Niveau H1. De verrassing = surprise. Verrast = surprised. Verrassend = surprising",
-    "example": "Hij verraste haar met bloemen.",
-    "tags": [
-      "werkwoord",
-      "gevoel",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "toevoegen (aan)",
-    "en": "to add (to)",
-    "note": "Op Niveau H1. De toevoeging = addition. Scheidbaar: voegde toe, toegevoegd. Toegevoegde waarde = added value",
-    "example": "Wil je nog iets toevoegen aan de lijst?",
-    "tags": [
-      "werkwoord",
-      "scheidbaar",
+      "bijwoord",
+      "connector",
+      "dagelijks",
       "op-niveau-h1",
       "op-niveau-h1-sec3"
     ],
@@ -8517,18 +8425,110 @@
     "level": "B2"
   },
   {
-    "nl": "ondertussen",
-    "en": "meanwhile / in the meantime",
-    "note": "Op Niveau H1. Synonym of inmiddels/intussen. Connector for simultaneous events",
-    "example": "Hij kookte, ondertussen dekte zij de tafel.",
+    "nl": "schoonheid",
+    "en": "beauty",
+    "note": "Op Niveau H1. De schoonheid. Schoon = clean/beautiful. Schoonheidssalon = beauty salon",
+    "example": "De schoonheid van het landschap viel haar op.",
     "tags": [
-      "bijwoord",
-      "connector",
-      "dagelijks",
+      "zelfstandig",
       "op-niveau-h1",
       "op-niveau-h1-sec3"
     ],
     "level": "B1"
+  },
+  {
+    "nl": "toevoegen (aan)",
+    "en": "to add (to)",
+    "note": "Op Niveau H1. De toevoeging = addition. Scheidbaar: voegde toe, toegevoegd. Toegevoegde waarde = added value",
+    "example": "Wil je nog iets toevoegen aan de lijst?",
+    "tags": [
+      "werkwoord",
+      "scheidbaar",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "trouw",
+    "en": "faithful / loyal / wedding",
+    "note": "Op Niveau H1. As adjective: trouw = loyal/faithful. As noun: de trouw = loyalty, or wedding (trouwen = to marry)",
+    "example": "Hij is altijd trouw gebleven aan zijn principes.",
+    "tags": [
+      "bijvoeglijk",
+      "zelfstandig",
+      "karakter",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "uitvinding",
+    "en": "invention",
+    "note": "Op Niveau H1. De uitvinding. Uitvinden = to invent (vond uit, uitgevonden). De uitvinder = inventor",
+    "example": "De boekdrukkunst was een belangrijke uitvinding.",
+    "tags": [
+      "zelfstandig",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "verminderen",
+    "en": "to reduce / to decrease",
+    "note": "Op Niveau H1. De vermindering = reduction. Ver- + minderen (to lessen). Tegenovergestelde: vermeerderen",
+    "example": "We moeten de kosten verminderen.",
+    "tags": [
+      "werkwoord",
+      "formeel",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "verrassen",
+    "en": "to surprise",
+    "note": "Op Niveau H1. De verrassing = surprise. Verrast = surprised. Verrassend = surprising",
+    "example": "Hij verraste haar met bloemen.",
+    "tags": [
+      "werkwoord",
+      "gevoel",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "waarnemen",
+    "en": "to observe / to perceive",
+    "note": "Op Niveau H1. Nam waar, waargenomen. De waarneming = observation/perception. Also: to stand in for someone",
+    "example": "De politie nam verdacht gedrag waar.",
+    "tags": [
+      "werkwoord",
+      "scheidbaar",
+      "formeel",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-overig"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "zich iets voor de geest halen",
+    "en": "to recall / to visualize something",
+    "note": "Op Niveau H1. De geest = mind/spirit. Literally: to bring something before your mind's eye",
+    "example": "Ik kan me zijn gezicht niet meer voor de geest halen.",
+    "tags": [
+      "uitdrukking",
+      "gevoel",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B2"
   },
   {
     "nl": "aarzelen",
@@ -8544,27 +8544,14 @@
     "level": "B2"
   },
   {
-    "nl": "geloofwaardig",
-    "en": "credible / believable",
-    "note": "Op Niveau H1. Geloof (belief) + waardig (worthy). De geloofwaardigheid = credibility",
-    "example": "Zijn verhaal klonk niet erg geloofwaardig.",
-    "tags": [
-      "bijvoeglijk",
-      "communicatie",
-      "formeel",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "nagenieten (van)",
-    "en": "to savor the memory of / to enjoy in retrospect",
-    "note": "Op Niveau H1. Na (after) + genieten (to enjoy). Genoot na, nagenoten",
-    "example": "We hebben nog lang nagenoten van die vakantie.",
+    "nl": "begeleiden",
+    "en": "to guide / to accompany / to supervise",
+    "note": "Op Niveau H1. De begeleiding = guidance/supervision. De begeleider = guide/supervisor/counselor",
+    "example": "De docent begeleidt de studenten bij hun scriptie.",
     "tags": [
       "werkwoord",
-      "gevoel",
+      "formeel",
+      "werk",
       "op-niveau-h1",
       "op-niveau-h1-sec3"
     ],
@@ -8584,6 +8571,33 @@
     "level": "B1"
   },
   {
+    "nl": "gebeurtenis",
+    "en": "event / occurrence",
+    "note": "Op Niveau H1. De gebeurtenis. Gebeuren = to happen. Een belangrijke gebeurtenis = an important event",
+    "example": "Dat was een ingrijpende gebeurtenis in haar leven.",
+    "tags": [
+      "zelfstandig",
+      "formeel",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "geloofwaardig",
+    "en": "credible / believable",
+    "note": "Op Niveau H1. Geloof (belief) + waardig (worthy). De geloofwaardigheid = credibility",
+    "example": "Zijn verhaal klonk niet erg geloofwaardig.",
+    "tags": [
+      "bijvoeglijk",
+      "communicatie",
+      "formeel",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "gevoelig",
     "en": "sensitive",
     "note": "Op Niveau H1. Gevoel (feeling) + -ig. Gevoelig voor kritiek = sensitive to criticism. De gevoeligheid = sensitivity",
@@ -8596,6 +8610,19 @@
       "op-niveau-h1-sec3"
     ],
     "level": "B1"
+  },
+  {
+    "nl": "nagenieten (van)",
+    "en": "to savor the memory of / to enjoy in retrospect",
+    "note": "Op Niveau H1. Na (after) + genieten (to enjoy). Genoot na, nagenoten",
+    "example": "We hebben nog lang nagenoten van die vakantie.",
+    "tags": [
+      "werkwoord",
+      "gevoel",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B2"
   },
   {
     "nl": "toegang",
@@ -8611,46 +8638,6 @@
     "level": "B1"
   },
   {
-    "nl": "gebeurtenis",
-    "en": "event / occurrence",
-    "note": "Op Niveau H1. De gebeurtenis. Gebeuren = to happen. Een belangrijke gebeurtenis = an important event",
-    "example": "Dat was een ingrijpende gebeurtenis in haar leven.",
-    "tags": [
-      "zelfstandig",
-      "formeel",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "begeleiden",
-    "en": "to guide / to accompany / to supervise",
-    "note": "Op Niveau H1. De begeleiding = guidance/supervision. De begeleider = guide/supervisor/counselor",
-    "example": "De docent begeleidt de studenten bij hun scriptie.",
-    "tags": [
-      "werkwoord",
-      "formeel",
-      "werk",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de neiging",
-    "en": "the tendency / the inclination",
-    "note": "Op Niveau H1. Neigen = to tend. De neiging hebben om = to have a tendency to",
-    "example": "Hij heeft de neiging om te laat te komen.",
-    "tags": [
-      "zelfstandig",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
     "nl": "de belediging",
     "en": "the insult / the offense",
     "note": "Op Niveau H1. From beledigen (to insult). Een zware belediging = a serious insult",
@@ -8658,20 +8645,6 @@
     "tags": [
       "zelfstandig",
       "gevoel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de suggestie",
-    "en": "the suggestion",
-    "note": "Op Niveau H1. From suggereren (to suggest). Een suggestie doen = to make a suggestion",
-    "example": "Heb je misschien een suggestie?",
-    "tags": [
-      "zelfstandig",
-      "communicatie",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-general"
@@ -8694,6 +8667,33 @@
     "level": "B2"
   },
   {
+    "nl": "de neiging",
+    "en": "the tendency / the inclination",
+    "note": "Op Niveau H1. Neigen = to tend. De neiging hebben om = to have a tendency to",
+    "example": "Hij heeft de neiging om te laat te komen.",
+    "tags": [
+      "zelfstandig",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de suggestie",
+    "en": "the suggestion",
+    "note": "Op Niveau H1. From suggereren (to suggest). Een suggestie doen = to make a suggestion",
+    "example": "Heb je misschien een suggestie?",
+    "tags": [
+      "zelfstandig",
+      "communicatie",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "de adem",
     "en": "the breath",
     "note": "Op Niveau H1. Ademhalen = to breathe. Buiten adem = out of breath. Op adem komen = to catch one's breath",
@@ -8701,6 +8701,34 @@
     "tags": [
       "zelfstandig",
       "lichaam",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de begeleiding",
+    "en": "the guidance / the supervision / the accompaniment",
+    "note": "Op Niveau H1. From begeleiden (to guide). Onder begeleiding van = under the guidance of",
+    "example": "De studenten krijgen goede begeleiding van hun docent.",
+    "tags": [
+      "zelfstandig",
+      "formeel",
+      "werk",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de geest",
+    "en": "the mind / the spirit / the ghost",
+    "note": "Op Niveau H1. In de geest van = in the spirit of. De Heilige Geest = the Holy Spirit. Geestelijk = mental/spiritual",
+    "example": "Ze had een scherpe geest.",
+    "tags": [
+      "zelfstandig",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-sec3"
@@ -8722,13 +8750,13 @@
     "level": "B2"
   },
   {
-    "nl": "de uitademing",
-    "en": "the exhalation",
-    "note": "Op Niveau H1. From uitademen (to breathe out). Uit + ademing",
-    "example": "De uitademing moet langzaam en gecontroleerd zijn.",
+    "nl": "de toevoeging",
+    "en": "the addition",
+    "note": "Op Niveau H1. From toevoegen (to add). Zonder toevoeging van suiker = without added sugar",
+    "example": "De toevoeging van een bijlage is verplicht.",
     "tags": [
       "zelfstandig",
-      "lichaam",
+      "formeel",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-sec3"
@@ -8736,12 +8764,13 @@
     "level": "B2"
   },
   {
-    "nl": "de uitvinding",
-    "en": "the invention",
-    "note": "Op Niveau H1. From uitvinden (to invent). De uitvinder = the inventor",
-    "example": "De boekdrukkunst was een belangrijke uitvinding.",
+    "nl": "de uitademing",
+    "en": "the exhalation",
+    "note": "Op Niveau H1. From uitademen (to breathe out). Uit + ademing",
+    "example": "De uitademing moet langzaam en gecontroleerd zijn.",
     "tags": [
       "zelfstandig",
+      "lichaam",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-sec3"
@@ -8763,13 +8792,12 @@
     "level": "B2"
   },
   {
-    "nl": "de vermindering",
-    "en": "the reduction / the decrease",
-    "note": "Op Niveau H1. From verminderen (to reduce). Kostenvermindering = cost reduction",
-    "example": "De vermindering van het aantal klachten is een goed teken.",
+    "nl": "de uitvinding",
+    "en": "the invention",
+    "note": "Op Niveau H1. From uitvinden (to invent). De uitvinder = the inventor",
+    "example": "De boekdrukkunst was een belangrijke uitvinding.",
     "tags": [
       "zelfstandig",
-      "formeel",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-sec3"
@@ -8777,23 +8805,10 @@
     "level": "B2"
   },
   {
-    "nl": "de geest",
-    "en": "the mind / the spirit / the ghost",
-    "note": "Op Niveau H1. In de geest van = in the spirit of. De Heilige Geest = the Holy Spirit. Geestelijk = mental/spiritual",
-    "example": "Ze had een scherpe geest.",
-    "tags": [
-      "zelfstandig",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "de waarneming",
-    "en": "the observation / the perception",
-    "note": "Op Niveau H1. From waarnemen (to observe). Zintuiglijke waarneming = sensory perception",
-    "example": "De waarneming van de politie was correct.",
+    "nl": "de vermindering",
+    "en": "the reduction / the decrease",
+    "note": "Op Niveau H1. From verminderen (to reduce). Kostenvermindering = cost reduction",
+    "example": "De vermindering van het aantal klachten is een goed teken.",
     "tags": [
       "zelfstandig",
       "formeel",
@@ -8818,28 +8833,13 @@
     "level": "B1"
   },
   {
-    "nl": "de toevoeging",
-    "en": "the addition",
-    "note": "Op Niveau H1. From toevoegen (to add). Zonder toevoeging van suiker = without added sugar",
-    "example": "De toevoeging van een bijlage is verplicht.",
+    "nl": "de waarneming",
+    "en": "the observation / the perception",
+    "note": "Op Niveau H1. From waarnemen (to observe). Zintuiglijke waarneming = sensory perception",
+    "example": "De waarneming van de politie was correct.",
     "tags": [
       "zelfstandig",
       "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de begeleiding",
-    "en": "the guidance / the supervision / the accompaniment",
-    "note": "Op Niveau H1. From begeleiden (to guide). Onder begeleiding van = under the guidance of",
-    "example": "De studenten krijgen goede begeleiding van hun docent.",
-    "tags": [
-      "zelfstandig",
-      "formeel",
-      "werk",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-sec3"
@@ -8855,192 +8855,6 @@
       "voegwoord",
       "formeel",
       "connector",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "daardoor",
-    "en": "because of that / as a result",
-    "note": "Op Niveau H1. Adverb. Points forward to the consequence. Inversie: daardoor + werkwoord + subject",
-    "example": "Het regende hard. Daardoor kwamen we te laat.",
-    "tags": [
-      "bijwoord",
-      "connector",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "daarna",
-    "en": "after that / then",
-    "note": "Op Niveau H1. Adverb of time. Na = after. Daarna + inversie",
-    "example": "We aten eerst. Daarna gingen we wandelen.",
-    "tags": [
-      "bijwoord",
-      "connector",
-      "dagelijks",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "daarom",
-    "en": "therefore / that is why",
-    "note": "Op Niveau H1. Adverb. Points forward to the reason/result. Daarom + inversie",
-    "example": "Ik was moe, daarom ging ik vroeg naar bed.",
-    "tags": [
-      "bijwoord",
-      "connector",
-      "dagelijks",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "daarvoor",
-    "en": "before that / for that purpose",
-    "note": "Op Niveau H1. Adverb. Daar + voor. Can mean time (before that) or purpose (for that)",
-    "example": "Daarvoor had ik nog nooit sushi gegeten.",
-    "tags": [
-      "bijwoord",
-      "connector",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "indien",
-    "en": "if (formal)",
-    "note": "Op Niveau H1. Conjunction (onderschikkend). Formal/written version of als. Used in contracts, official letters",
-    "example": "Indien u vragen heeft, neem dan contact op.",
-    "tags": [
-      "voegwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "mits",
-    "en": "provided that / on condition that",
-    "note": "Op Niveau H1 & H2. Conjunction (onderschikkend). Positive condition. Opposite of tenzij. Werkwoord naar het einde: Je mag mee, mits je je goed gedraagt.",
-    "example": "Je mag mee, mits je je gedraagt.",
-    "tags": [
-      "voegwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h2",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "naarmate",
-    "en": "as / in proportion to / the more... the more",
-    "note": "Op Niveau H1. Conjunction (onderschikkend). Gradual change. Naarmate X, hoe meer Y",
-    "example": "Naarmate je ouder wordt, leer je meer.",
-    "tags": [
-      "voegwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "ofschoon",
-    "en": "although (formal/literary)",
-    "note": "Op Niveau H1. Conjunction (onderschikkend). Formal synonym of hoewel. Literary register",
-    "example": "Ofschoon hij moe was, werkte hij door.",
-    "tags": [
-      "voegwoord",
-      "formeel",
-      "literair",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "opdat",
-    "en": "so that / in order that (formal)",
-    "note": "Op Niveau H1. Conjunction (onderschikkend). Formal version of zodat. Expresses purpose",
-    "example": "Hij sprak luid, opdat iedereen hem kon horen.",
-    "tags": [
-      "voegwoord",
-      "formeel",
-      "literair",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "sinds",
-    "en": "since (time)",
-    "note": "Op Niveau H1. Conjunction/preposition. Indicates starting point in time. Sinds + present tense in Dutch",
-    "example": "Sinds ik in Nederland woon, fiets ik elke dag.",
-    "tags": [
-      "voegwoord",
-      "voorzetsel",
-      "dagelijks",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-prep"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "tenzij",
-    "en": "unless",
-    "note": "Op Niveau H1. Conjunction (onderschikkend). Negative condition. Opposite of mits",
-    "example": "Ik ga naar het feest, tenzij ik ziek ben.",
-    "tags": [
-      "voegwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-voeg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "zolang",
-    "en": "as long as",
-    "note": "Op Niveau H1. Conjunction (onderschikkend). Duration: the action lasts as long as the condition holds",
-    "example": "Zolang je je best doet, is het goed genoeg.",
-    "tags": [
-      "voegwoord",
-      "dagelijks",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-sec4",
@@ -9173,6 +8987,68 @@
     "level": "B2"
   },
   {
+    "nl": "daardoor",
+    "en": "because of that / as a result",
+    "note": "Op Niveau H1. Adverb. Points forward to the consequence. Inversie: daardoor + werkwoord + subject",
+    "example": "Het regende hard. Daardoor kwamen we te laat.",
+    "tags": [
+      "bijwoord",
+      "connector",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-voeg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "daarna",
+    "en": "after that / then",
+    "note": "Op Niveau H1. Adverb of time. Na = after. Daarna + inversie",
+    "example": "We aten eerst. Daarna gingen we wandelen.",
+    "tags": [
+      "bijwoord",
+      "connector",
+      "dagelijks",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-voeg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "daarom",
+    "en": "therefore / that is why",
+    "note": "Op Niveau H1. Adverb. Points forward to the reason/result. Daarom + inversie",
+    "example": "Ik was moe, daarom ging ik vroeg naar bed.",
+    "tags": [
+      "bijwoord",
+      "connector",
+      "dagelijks",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-voeg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "daarvoor",
+    "en": "before that / for that purpose",
+    "note": "Op Niveau H1. Adverb. Daar + voor. Can mean time (before that) or purpose (for that)",
+    "example": "Daarvoor had ik nog nooit sushi gegeten.",
+    "tags": [
+      "bijwoord",
+      "connector",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-voeg"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "delen met",
     "en": "to share with",
     "note": "Op Niveau H1. Delen = to share/divide. Het deel = the part. Verdelen = to distribute",
@@ -9232,6 +9108,21 @@
       "op-niveau-h1",
       "op-niveau-h1-sec4",
       "op-niveau-h1-prep"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "fluiten",
+    "en": "to whistle (floot, gefloten)",
+    "note": "Op Niveau H1. Irregular: fluiten - floot - gefloten. Also: een fluitje van een cent = a piece of cake",
+    "example": "Hij floot een vrolijk liedje.",
+    "tags": [
+      "werkwoord",
+      "onregelmatig",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-onreg"
     ],
     "level": "B2"
   },
@@ -9362,6 +9253,21 @@
     "level": "B2"
   },
   {
+    "nl": "indien",
+    "en": "if (formal)",
+    "note": "Op Niveau H1. Conjunction (onderschikkend). Formal/written version of als. Used in contracts, official letters",
+    "example": "Indien u vragen heeft, neem dan contact op.",
+    "tags": [
+      "voegwoord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-voeg"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "ingaan op",
     "en": "to respond to / to address / to go into",
     "note": "Op Niveau H1. Scheidbaar: ging in, ingegaan. Ingaan op een vraag = to address a question",
@@ -9475,6 +9381,37 @@
     "level": "B2"
   },
   {
+    "nl": "mits",
+    "en": "provided that / on condition that",
+    "note": "Op Niveau H1 & H2. Conjunction (onderschikkend). Positive condition. Opposite of tenzij. Werkwoord naar het einde: Je mag mee, mits je je goed gedraagt.",
+    "example": "Je mag mee, mits je je gedraagt.",
+    "tags": [
+      "voegwoord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h2",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-voeg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "naarmate",
+    "en": "as / in proportion to / the more... the more",
+    "note": "Op Niveau H1. Conjunction (onderschikkend). Gradual change. Naarmate X, hoe meer Y",
+    "example": "Naarmate je ouder wordt, leer je meer.",
+    "tags": [
+      "voegwoord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-voeg"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "oefenen met",
     "en": "to practice with",
     "note": "Op Niveau H1. De oefening = the exercise. Oefening baart kunst = practice makes perfect",
@@ -9486,6 +9423,70 @@
       "op-niveau-h1",
       "op-niveau-h1-sec4",
       "op-niveau-h1-prep"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "ofschoon",
+    "en": "although (formal/literary)",
+    "note": "Op Niveau H1. Conjunction (onderschikkend). Formal synonym of hoewel. Literary register",
+    "example": "Ofschoon hij moe was, werkte hij door.",
+    "tags": [
+      "voegwoord",
+      "formeel",
+      "literair",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-voeg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "ontbijten",
+    "en": "to have breakfast (ontbeet, ontbeten)",
+    "note": "Op Niveau H1. Irregular: ontbijten - ontbeet - ontbeten. Het ontbijt = breakfast",
+    "example": "We ontbijten elke ochtend samen.",
+    "tags": [
+      "werkwoord",
+      "onregelmatig",
+      "dagelijks",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-onreg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "ontbreken",
+    "en": "to be missing / to lack (ontbrak, ontbroken)",
+    "note": "Op Niveau H1. Irregular: ontbreken - ontbrak - ontbroken. Er ontbreekt iets = something is missing",
+    "example": "Er ontbrak een pagina in het boek.",
+    "tags": [
+      "werkwoord",
+      "onregelmatig",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-onreg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "opdat",
+    "en": "so that / in order that (formal)",
+    "note": "Op Niveau H1. Conjunction (onderschikkend). Formal version of zodat. Expresses purpose",
+    "example": "Hij sprak luid, opdat iedereen hem kon horen.",
+    "tags": [
+      "voegwoord",
+      "formeel",
+      "literair",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-voeg"
     ],
     "level": "B2"
   },
@@ -9570,6 +9571,22 @@
     "level": "B2"
   },
   {
+    "nl": "sinds",
+    "en": "since (time)",
+    "note": "Op Niveau H1. Conjunction/preposition. Indicates starting point in time. Sinds + present tense in Dutch",
+    "example": "Sinds ik in Nederland woon, fiets ik elke dag.",
+    "tags": [
+      "voegwoord",
+      "voorzetsel",
+      "dagelijks",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-prep"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "spreken over iets met iemand",
     "en": "to speak about something with someone",
     "note": "Op Niveau H1. Sprak, gesproken. Irregular. Over = topic. Met = person",
@@ -9614,6 +9631,37 @@
       "op-niveau-h1",
       "op-niveau-h1-sec4",
       "op-niveau-h1-prep"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "strijken",
+    "en": "to iron / to stroke (streek, gestreken)",
+    "note": "Op Niveau H1. Irregular: strijken - streek - gestreken. Kleren strijken = to iron clothes",
+    "example": "Ze streek haar jurk voor het feest.",
+    "tags": [
+      "werkwoord",
+      "onregelmatig",
+      "dagelijks",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-onreg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "tenzij",
+    "en": "unless",
+    "note": "Op Niveau H1. Conjunction (onderschikkend). Negative condition. Opposite of mits",
+    "example": "Ik ga naar het feest, tenzij ik ziek ben.",
+    "tags": [
+      "voegwoord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-voeg"
     ],
     "level": "B2"
   },
@@ -9665,6 +9713,21 @@
     "level": "B2"
   },
   {
+    "nl": "de vaardigheden",
+    "en": "the skills / abilities",
+    "note": "Op Niveau H1. Plural of de vaardigheid. Vaardig = skilful. Sociale vaardigheden = social skills. Communicatieve vaardigheden = communication skills.",
+    "example": "Voor deze functie zijn goede communicatieve vaardigheden vereist.",
+    "tags": [
+      "zelfstandig",
+      "werk",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-overig"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "vergelijken met",
     "en": "to compare with",
     "note": "Op Niveau H1. Vergeleek, vergeleken. Irregular. De vergelijking = the comparison",
@@ -9676,6 +9739,21 @@
       "op-niveau-h1",
       "op-niveau-h1-sec4",
       "op-niveau-h1-prep"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "vermijden",
+    "en": "to avoid (vermeed, vermeden)",
+    "note": "Op Niveau H1. Irregular: vermijden - vermeed - vermeden. Vermijdbaar = avoidable",
+    "example": "Probeer stress te vermijden.",
+    "tags": [
+      "werkwoord",
+      "onregelmatig",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-onreg"
     ],
     "level": "B2"
   },
@@ -9697,19 +9775,18 @@
     "level": "B2"
   },
   {
-    "nl": "voorstellen aan",
-    "en": "to introduce to",
-    "note": "Op Niveau H1. Scheidbaar: stelde voor, voorgesteld. Zich voorstellen = to imagine / to introduce oneself",
-    "example": "Mag ik je voorstellen aan mijn collega?",
+    "nl": "verwerven",
+    "en": "to acquire / to obtain (verwierf, verworven)",
+    "note": "Op Niveau H1. Irregular: verwerven - verwierf - verworven. Formal. Kennis verwerven = to acquire knowledge",
+    "example": "Hij verwierf een goede reputatie.",
     "tags": [
       "werkwoord",
-      "voorzetsel",
-      "scheidbaar",
-      "communicatie",
+      "onregelmatig",
+      "formeel",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-sec4",
-      "op-niveau-h1-prep"
+      "op-niveau-h1-onreg"
     ],
     "level": "B2"
   },
@@ -9730,17 +9807,19 @@
     "level": "B2"
   },
   {
-    "nl": "de vaardigheden",
-    "en": "the skills / abilities",
-    "note": "Op Niveau H1. Plural of de vaardigheid. Vaardig = skilful. Sociale vaardigheden = social skills. Communicatieve vaardigheden = communication skills.",
-    "example": "Voor deze functie zijn goede communicatieve vaardigheden vereist.",
+    "nl": "voorstellen aan",
+    "en": "to introduce to",
+    "note": "Op Niveau H1. Scheidbaar: stelde voor, voorgesteld. Zich voorstellen = to imagine / to introduce oneself",
+    "example": "Mag ik je voorstellen aan mijn collega?",
     "tags": [
-      "zelfstandig",
-      "werk",
+      "werkwoord",
+      "voorzetsel",
+      "scheidbaar",
+      "communicatie",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-sec4",
-      "op-niveau-h1-overig"
+      "op-niveau-h1-prep"
     ],
     "level": "B2"
   },
@@ -9773,6 +9852,22 @@
       "op-niveau-h1",
       "op-niveau-h1-sec4",
       "op-niveau-h1-prep"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "wegen",
+    "en": "to weigh (woog, gewogen)",
+    "note": "Op Niveau H1. Irregular: wegen - woog - gewogen. Het gewicht = the weight. Overwegen = to consider",
+    "example": "De koffer woog meer dan twintig kilo.",
+    "tags": [
+      "werkwoord",
+      "onregelmatig",
+      "dagelijks",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec4",
+      "op-niveau-h1-onreg"
     ],
     "level": "B2"
   },
@@ -9858,435 +9953,50 @@
     "level": "B2"
   },
   {
-    "nl": "fluiten",
-    "en": "to whistle (floot, gefloten)",
-    "note": "Op Niveau H1. Irregular: fluiten - floot - gefloten. Also: een fluitje van een cent = a piece of cake",
-    "example": "Hij floot een vrolijk liedje.",
+    "nl": "zolang",
+    "en": "as long as",
+    "note": "Op Niveau H1. Conjunction (onderschikkend). Duration: the action lasts as long as the condition holds",
+    "example": "Zolang je je best doet, is het goed genoeg.",
     "tags": [
-      "werkwoord",
-      "onregelmatig",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-onreg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "ontbijten",
-    "en": "to have breakfast (ontbeet, ontbeten)",
-    "note": "Op Niveau H1. Irregular: ontbijten - ontbeet - ontbeten. Het ontbijt = breakfast",
-    "example": "We ontbijten elke ochtend samen.",
-    "tags": [
-      "werkwoord",
-      "onregelmatig",
+      "voegwoord",
       "dagelijks",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-sec4",
-      "op-niveau-h1-onreg"
+      "op-niveau-h1-voeg"
     ],
     "level": "B2"
   },
   {
-    "nl": "ontbreken",
-    "en": "to be missing / to lack (ontbrak, ontbroken)",
-    "note": "Op Niveau H1. Irregular: ontbreken - ontbrak - ontbroken. Er ontbreekt iets = something is missing",
-    "example": "Er ontbrak een pagina in het boek.",
-    "tags": [
-      "werkwoord",
-      "onregelmatig",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-onreg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "strijken",
-    "en": "to iron / to stroke (streek, gestreken)",
-    "note": "Op Niveau H1. Irregular: strijken - streek - gestreken. Kleren strijken = to iron clothes",
-    "example": "Ze streek haar jurk voor het feest.",
-    "tags": [
-      "werkwoord",
-      "onregelmatig",
-      "dagelijks",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-onreg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "vermijden",
-    "en": "to avoid (vermeed, vermeden)",
-    "note": "Op Niveau H1. Irregular: vermijden - vermeed - vermeden. Vermijdbaar = avoidable",
-    "example": "Probeer stress te vermijden.",
-    "tags": [
-      "werkwoord",
-      "onregelmatig",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-onreg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "verwerven",
-    "en": "to acquire / to obtain (verwierf, verworven)",
-    "note": "Op Niveau H1. Irregular: verwerven - verwierf - verworven. Formal. Kennis verwerven = to acquire knowledge",
-    "example": "Hij verwierf een goede reputatie.",
-    "tags": [
-      "werkwoord",
-      "onregelmatig",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-onreg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "wegen",
-    "en": "to weigh (woog, gewogen)",
-    "note": "Op Niveau H1. Irregular: wegen - woog - gewogen. Het gewicht = the weight. Overwegen = to consider",
-    "example": "De koffer woog meer dan twintig kilo.",
-    "tags": [
-      "werkwoord",
-      "onregelmatig",
-      "dagelijks",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec4",
-      "op-niveau-h1-onreg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de eis",
-    "en": "the demand / the requirement",
-    "note": "Op Niveau H1. From eisen (to demand). Eisen stellen = to set demands. Plural: de eisen",
-    "example": "De eisen voor deze baan zijn hoog.",
-    "tags": [
-      "zelfstandig",
-      "formeel",
-      "werk",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "veeleisend",
-    "en": "demanding / exacting",
-    "note": "Op Niveau H1. Veel (much) + eisend (demanding). Een veeleisende baan = a demanding job",
-    "example": "Ze is een veeleisende manager.",
-    "tags": [
-      "bijvoeglijk",
-      "formeel",
-      "werk",
-      "karakter",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "geëist",
-    "en": "demanded / required",
-    "note": "Op Niveau H1. Past participle of eisen. Regular (kofschip): eiste, geëist",
-    "example": "De vakbond heeft hogere lonen geëist.",
-    "tags": [
-      "bijvoeglijk",
-      "werkwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "uiterst",
-    "en": "extremely / utmost",
-    "note": "Op Niveau H1. As adverb: uiterst belangrijk = extremely important. As adjective: het uiterste = the utmost/extreme. Stronger than 'heel' or 'zeer'",
-    "example": "Dit is een uiterst moeilijke situatie.",
-    "tags": [
-      "bijwoord",
-      "bijvoeglijk",
-      "formeel",
-      "versterker",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "reusachtig",
-    "en": "gigantic / enormous / huge",
-    "note": "Op Niveau H1. De reus = the giant. -achtig = -like. Een reusachtig probleem = a huge problem. Synonym: enorm, gigantisch",
-    "example": "Ze hebben een reusachtig huis gekocht.",
-    "tags": [
-      "bijvoeglijk",
-      "versterker",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "waardevol",
-    "en": "valuable / precious",
-    "note": "Op Niveau H1. Waarde (value) + vol (full). De waarde = the value. Waardevolle ervaring = valuable experience. Tegenovergestelde: waardeloos",
-    "example": "Dit is een waardevol advies voor mij.",
-    "tags": [
-      "bijvoeglijk",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "bergachtig",
-    "en": "mountainous",
-    "note": "Op Niveau H1. De berg (mountain) + -achtig (-like/-y). Suffix -achtig maakt bijvoeglijke naamwoorden: rotsachtig, heuvelachtig, bosachtig",
-    "example": "Zwitserland is een bergachtig land.",
-    "tags": [
-      "bijvoeglijk",
-      "natuur",
-      "geografie",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "ik kan wel zingen",
-    "en": "I could burst into song / I feel like singing",
-    "note": "Op Niveau H1. Uitdrukking voor grote blijdschap. 'Wel' versterkt hier het gevoel: zo blij dat je ervan zou kunnen zingen",
-    "example": "Als ik dat hoor of zie, kan ik wel zingen.",
-    "tags": [
-      "uitdrukking",
-      "gevoel",
-      "informeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "op het eerste gezicht lijkt...",
-    "en": "at first glance, it seems...",
-    "note": "Op Niveau H1. Set expression: op het eerste gezicht = at first sight/glance. Vaak gevolgd door een tegenstelling: 'op het eerste gezicht lijkt X, maar eigenlijk...'",
-    "example": "Op het eerste gezicht lijkt het lied positief, maar eigenlijk is het ironisch.",
-    "tags": [
-      "uitdrukking",
-      "connector",
-      "formeel",
-      "schrijftaal",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "uitbreiden",
-    "en": "to expand / to extend",
-    "note": "Op Niveau H1. Scheidbaar werkwoord: ik breid uit, breidde uit, uitgebreid. Met 'te': 'om je woordenschat uit te breiden'. De uitbreiding = the expansion",
-    "example": "Lezen is de beste manier om je woordenschat uit te breiden.",
+    "nl": "aanslaan",
+    "en": "to catch on / to resonate / to strike a chord",
+    "note": "Op Niveau H1. Scheidbaar: sloeg aan, aangeslagen. Bij publiek aanslaan = to catch on with an audience. Ook: een motor slaat aan = an engine starts. Let op: bestaat al als entry 3444 met andere betekenis, deze entry focus op figuurlijke 'catch on'",
+    "example": "Zijn nieuwe nummer is meteen aangeslagen bij het publiek.",
     "tags": [
       "werkwoord",
       "scheidbaar",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "vermelden",
-    "en": "to mention / to state",
-    "note": "Op Niveau H1. Regelmatig (kofschip): vermeldde, vermeld. Vermeld = past participle/adjective (mentioned/stated). Formeler dan 'noemen'. De vermelding = mention",
-    "example": "Zoals eerder vermeld, begint de cursus volgende week.",
-    "tags": [
-      "werkwoord",
-      "formeel",
-      "schrijftaal",
-      "communicatie",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "overigens",
-    "en": "by the way / incidentally / moreover",
-    "note": "Op Niveau H1. Connector om extra informatie toe te voegen. Formeler dan 'trouwens'. Vaak aan het begin van een zin of tussen komma's",
-    "example": "Hij is overigens ook een goede kok.",
-    "tags": [
-      "bijwoord",
-      "connector",
-      "formeel",
-      "schrijftaal",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de woordenschatuitbreiding",
-    "en": "vocabulary expansion",
-    "note": "Op Niveau H1. Woordenschat (vocabulary) + uitbreiding (expansion). Term uit taalonderwijs. Synoniem: woordenschat uitbreiden (als werkwoord)",
-    "example": "Dit hoofdstuk is gericht op woordenschatuitbreiding.",
-    "tags": [
-      "zelfstandig",
-      "onderwijs",
-      "taal",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "in wezen",
-    "en": "in essence / essentially / basically",
-    "note": "Op Niveau H1. Formelere variant van 'eigenlijk' of 'in feite'. Het wezen = the essence/being. Gebruikt om de kern van iets aan te geven",
-    "example": "In wezen komt het erop neer dat we meer moeten investeren.",
-    "tags": [
-      "uitdrukking",
-      "connector",
-      "formeel",
-      "schrijftaal",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "grenzen vervagen",
-    "en": "boundaries blur / lines become blurred",
-    "note": "Op Niveau H1. De grens (boundary) + vervagen (to fade/blur). Vervaagde, vervaagd. Vaak in sociale/morele context: de grens tussen werk en privé vervaagt",
-    "example": "Door sociale media vervagen de grenzen tussen werk en privéleven.",
-    "tags": [
-      "uitdrukking",
-      "werkwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "het beroepsgeheim",
-    "en": "professional confidentiality / duty of secrecy",
-    "note": "Op Niveau H1. Beroep (profession) + geheim (secret). Geldt voor artsen, advocaten, priesters. Onder het beroepsgeheim vallen = be bound by confidentiality",
-    "example": "De arts mag vanwege het beroepsgeheim niets over de patiënt zeggen.",
-    "tags": [
-      "zelfstandig",
-      "formeel",
-      "werk",
-      "juridisch",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "mishandelen",
-    "en": "to abuse / to mistreat",
-    "note": "Op Niveau H1. Mis- (wrong/badly) + handelen (to act/treat). Regular: mishandelde, mishandeld. De mishandeling = abuse/mistreatment",
-    "example": "Ze werd als kind mishandeld door haar vader.",
-    "tags": [
-      "werkwoord",
-      "formeel",
-      "geweld",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "confronterend",
-    "en": "confronting / confrontational",
-    "note": "Op Niveau H1. Van confronteren (to confront). Een confronterende ervaring = a confronting experience. Vaak in de betekenis 'ongemakkelijk maar verhelderend'",
-    "example": "Het was een confronterend gesprek, maar ik heb er veel van geleerd.",
-    "tags": [
-      "bijvoeglijk",
-      "gevoel",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de leegloopuren",
-    "en": "idle hours / downtime / slack hours",
-    "note": "Op Niveau H1. Leeg (empty) + loop (run) + uren (hours). Rustige uren zonder klanten. Ook: leegloop = staff/customer drain. Typisch zakelijk Nederlands",
-    "example": "Veel kappers gebruiken hun leegloopuren voor administratie.",
-    "tags": [
-      "zelfstandig",
-      "werk",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de voedselbank",
-    "en": "food bank",
-    "note": "Op Niveau H1. Voedsel (food) + bank. Organisatie die gratis voedsel uitdeelt aan mensen met weinig geld. De cliënten van de voedselbank = food bank clients",
-    "example": "Steeds meer gezinnen zijn afhankelijk van de voedselbank.",
-    "tags": [
-      "zelfstandig",
-      "maatschappij",
-      "armoede",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "zich opgeven",
-    "en": "to sign up / to register (oneself)",
-    "note": "Op Niveau H1. Scheidbaar + wederkerend (reflexive): ik geef me op, gaf op, opgegeven. Zich opgeven voor een cursus = to sign up for a course",
-    "example": "Je kunt je opgeven via de website.",
-    "tags": [
-      "werkwoord",
-      "scheidbaar",
-      "wederkerend",
       "onregelmatig",
+      "cultuur",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-general"
     ],
-    "level": "B1"
+    "level": "B2"
+  },
+  {
+    "nl": "een aanvaring hebben met",
+    "en": "to have a clash / run-in with",
+    "note": "Op Niveau H1. De aanvaring = collision (letterlijk tussen schepen). Figuurlijk: een ruzie of conflict. Vaak in nieuwsberichten",
+    "example": "De speler kreeg een rode kaart na een aanvaring met de scheidsrechter.",
+    "tags": [
+      "uitdrukking",
+      "conflict",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
   },
   {
     "nl": "afrekenen",
@@ -10321,14 +10031,121 @@
     "level": "B2"
   },
   {
-    "nl": "rechtop",
-    "en": "upright / straight up",
-    "note": "Op Niveau H1. Recht (straight) + op. Rechtop staan/lopen/zitten = to stand/walk/sit upright. Figuurlijk: rechtop blijven = to stay strong",
-    "example": "Ga rechtop zitten, dat is beter voor je rug.",
+    "nl": "bemoedigend",
+    "en": "encouraging / heartening",
+    "note": "Op Niveau H1. Van bemoedigen (to encourage). Be- + moed (courage) + -igen. Een bemoedigend woord = a word of encouragement",
+    "example": "De reacties van de lezers waren erg bemoedigend.",
     "tags": [
-      "bijwoord",
-      "lichaam",
-      "houding",
+      "bijvoeglijk",
+      "gevoel",
+      "positief",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "het bereik",
+    "en": "reach / range",
+    "note": "Op Niveau H1. Van bereiken (to reach). Een groot bereik hebben = to have a wide reach (audience, signal). Ook: buiten/binnen bereik = out of/within reach",
+    "example": "Dankzij social media heeft haar muziek een mondiaal bereik.",
+    "tags": [
+      "zelfstandig",
+      "media",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "bergachtig",
+    "en": "mountainous",
+    "note": "Op Niveau H1. De berg (mountain) + -achtig (-like/-y). Suffix -achtig maakt bijvoeglijke naamwoorden: rotsachtig, heuvelachtig, bosachtig",
+    "example": "Zwitserland is een bergachtig land.",
+    "tags": [
+      "bijvoeglijk",
+      "natuur",
+      "geografie",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "het beroepsgeheim",
+    "en": "professional confidentiality / duty of secrecy",
+    "note": "Op Niveau H1. Beroep (profession) + geheim (secret). Geldt voor artsen, advocaten, priesters. Onder het beroepsgeheim vallen = be bound by confidentiality",
+    "example": "De arts mag vanwege het beroepsgeheim niets over de patiënt zeggen.",
+    "tags": [
+      "zelfstandig",
+      "formeel",
+      "werk",
+      "juridisch",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "concessies doen",
+    "en": "to make concessions / compromise",
+    "note": "Op Niveau H1. De concessie = concession/compromise. Concessies doen aan = to compromise on. Zonder concessies = without compromise",
+    "example": "Ze wil geen concessies doen aan de kwaliteit van haar werk.",
+    "tags": [
+      "uitdrukking",
+      "formeel",
+      "werk",
+      "onderhandelen",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "confronterend",
+    "en": "confronting / confrontational",
+    "note": "Op Niveau H1. Van confronteren (to confront). Een confronterende ervaring = a confronting experience. Vaak in de betekenis 'ongemakkelijk maar verhelderend'",
+    "example": "Het was een confronterend gesprek, maar ik heb er veel van geleerd.",
+    "tags": [
+      "bijvoeglijk",
+      "gevoel",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "het eerbetoon",
+    "en": "tribute / homage",
+    "note": "Op Niveau H1. Eer (honour) + betoon (display). Een eerbetoon aan = a tribute to. Vaak gebruikt bij kunst, muziek, sport om respect uit te drukken",
+    "example": "Zijn nieuwe album is een eerbetoon aan de jaren negentig.",
+    "tags": [
+      "zelfstandig",
+      "formeel",
+      "kunst",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de eis",
+    "en": "the demand / the requirement",
+    "note": "Op Niveau H1. From eisen (to demand). Eisen stellen = to set demands. Plural: de eisen",
+    "example": "De eisen voor deze baan zijn hoog.",
+    "tags": [
+      "zelfstandig",
+      "formeel",
+      "werk",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-general"
@@ -10336,13 +10153,105 @@
     "level": "B1"
   },
   {
-    "nl": "de overlevingskracht",
-    "en": "resilience / survival power",
-    "note": "Op Niveau H1. Overleven (to survive) + kracht (power/strength). Overlevingskracht hebben = to have resilience. Synoniem: veerkracht",
-    "example": "Je merkt hoe een overlevingskracht mensen hebben in moeilijke tijden.",
+    "nl": "de erkenning",
+    "en": "recognition / acknowledgement",
+    "note": "Op Niveau H1. Van erkennen (to acknowledge). Internationale erkenning krijgen = to gain international recognition. Erkend = recognized",
+    "example": "Na jaren hard werken kreeg ze eindelijk de erkenning die ze verdiende.",
     "tags": [
       "zelfstandig",
-      "karakter",
+      "formeel",
+      "werk",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "geëist",
+    "en": "demanded / required",
+    "note": "Op Niveau H1. Past participle of eisen. Regular (kofschip): eiste, geëist",
+    "example": "De vakbond heeft hogere lonen geëist.",
+    "tags": [
+      "bijvoeglijk",
+      "werkwoord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "grenzen vervagen",
+    "en": "boundaries blur / lines become blurred",
+    "note": "Op Niveau H1. De grens (boundary) + vervagen (to fade/blur). Vervaagde, vervaagd. Vaak in sociale/morele context: de grens tussen werk en privé vervaagt",
+    "example": "Door sociale media vervagen de grenzen tussen werk en privéleven.",
+    "tags": [
+      "uitdrukking",
+      "werkwoord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "ik kan wel zingen",
+    "en": "I could burst into song / I feel like singing",
+    "note": "Op Niveau H1. Uitdrukking voor grote blijdschap. 'Wel' versterkt hier het gevoel: zo blij dat je ervan zou kunnen zingen",
+    "example": "Als ik dat hoor of zie, kan ik wel zingen.",
+    "tags": [
+      "uitdrukking",
+      "gevoel",
+      "informeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "in het kielzog van",
+    "en": "in the wake of / following on from",
+    "note": "Op Niveau H1. Het kielzog = wake of a ship. Figuurlijk: na het voorbeeld van iemand anders. Vaak in journalistiek en historisch gebruik",
+    "example": "In het kielzog van Van Gogh volgden veel andere Nederlandse schilders.",
+    "tags": [
+      "uitdrukking",
+      "formeel",
+      "schrijftaal",
+      "beeldspraak",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "in wezen",
+    "en": "in essence / essentially / basically",
+    "note": "Op Niveau H1. Formelere variant van 'eigenlijk' of 'in feite'. Het wezen = the essence/being. Gebruikt om de kern van iets aan te geven",
+    "example": "In wezen komt het erop neer dat we meer moeten investeren.",
+    "tags": [
+      "uitdrukking",
+      "connector",
+      "formeel",
+      "schrijftaal",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de leegloopuren",
+    "en": "idle hours / downtime / slack hours",
+    "note": "Op Niveau H1. Leeg (empty) + loop (run) + uren (hours). Rustige uren zonder klanten. Ook: leegloop = staff/customer drain. Typisch zakelijk Nederlands",
+    "example": "Veel kappers gebruiken hun leegloopuren voor administratie.",
+    "tags": [
+      "zelfstandig",
+      "werk",
       "formeel",
       "op-niveau",
       "op-niveau-h1",
@@ -10382,14 +10291,14 @@
     "level": "B2"
   },
   {
-    "nl": "het eerbetoon",
-    "en": "tribute / homage",
-    "note": "Op Niveau H1. Eer (honour) + betoon (display). Een eerbetoon aan = a tribute to. Vaak gebruikt bij kunst, muziek, sport om respect uit te drukken",
-    "example": "Zijn nieuwe album is een eerbetoon aan de jaren negentig.",
+    "nl": "mishandelen",
+    "en": "to abuse / to mistreat",
+    "note": "Op Niveau H1. Mis- (wrong/badly) + handelen (to act/treat). Regular: mishandelde, mishandeld. De mishandeling = abuse/mistreatment",
+    "example": "Ze werd als kind mishandeld door haar vader.",
     "tags": [
-      "zelfstandig",
+      "werkwoord",
       "formeel",
-      "kunst",
+      "geweld",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-general"
@@ -10397,10 +10306,10 @@
     "level": "B2"
   },
   {
-    "nl": "opzienbarend",
-    "en": "remarkable / striking / sensational",
-    "note": "Op Niveau H1. Van 'opzien baren' (to cause a stir). Een opzienbarende ontdekking = a remarkable discovery. Formeler dan 'bijzonder'",
-    "example": "Het was een opzienbarende show die iedereen verraste.",
+    "nl": "mondiaal",
+    "en": "global / worldwide",
+    "note": "Op Niveau H1. Van 'monde' (wereld in het Frans/Latijn). Synoniem: wereldwijd, internationaal. Mondiale opwarming = global warming",
+    "example": "Klimaatverandering is een mondiaal probleem.",
     "tags": [
       "bijvoeglijk",
       "formeel",
@@ -10412,43 +10321,13 @@
     "level": "B2"
   },
   {
-    "nl": "in het kielzog van",
-    "en": "in the wake of / following on from",
-    "note": "Op Niveau H1. Het kielzog = wake of a ship. Figuurlijk: na het voorbeeld van iemand anders. Vaak in journalistiek en historisch gebruik",
-    "example": "In het kielzog van Van Gogh volgden veel andere Nederlandse schilders.",
+    "nl": "op het eerste gezicht lijkt...",
+    "en": "at first glance, it seems...",
+    "note": "Op Niveau H1. Set expression: op het eerste gezicht = at first sight/glance. Vaak gevolgd door een tegenstelling: 'op het eerste gezicht lijkt X, maar eigenlijk...'",
+    "example": "Op het eerste gezicht lijkt het lied positief, maar eigenlijk is het ironisch.",
     "tags": [
       "uitdrukking",
-      "formeel",
-      "schrijftaal",
-      "beeldspraak",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "een aanvaring hebben met",
-    "en": "to have a clash / run-in with",
-    "note": "Op Niveau H1. De aanvaring = collision (letterlijk tussen schepen). Figuurlijk: een ruzie of conflict. Vaak in nieuwsberichten",
-    "example": "De speler kreeg een rode kaart na een aanvaring met de scheidsrechter.",
-    "tags": [
-      "uitdrukking",
-      "conflict",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "van een andere orde",
-    "en": "of a different caliber / on another level",
-    "note": "Op Niveau H1. De orde = order/rank. Gebruikt om iets uitzonderlijks aan te duiden, meestal positief. Vergelijkbaar: van een heel ander niveau",
-    "example": "Haar talent is echt van een andere orde dan dat van de rest.",
-    "tags": [
-      "uitdrukking",
+      "connector",
       "formeel",
       "schrijftaal",
       "op-niveau",
@@ -10474,15 +10353,45 @@
     "level": "B2"
   },
   {
-    "nl": "ter plaatse",
-    "en": "on site / on the spot",
-    "note": "Op Niveau H1. Vaste uitdrukking met 'ter' (= op de). Ter plaatse aanwezig = present on site. Veel gebruikt in nieuws en journalistiek",
-    "example": "De politie was snel ter plaatse na het ongeluk.",
+    "nl": "opzienbarend",
+    "en": "remarkable / striking / sensational",
+    "note": "Op Niveau H1. Van 'opzien baren' (to cause a stir). Een opzienbarende ontdekking = a remarkable discovery. Formeler dan 'bijzonder'",
+    "example": "Het was een opzienbarende show die iedereen verraste.",
     "tags": [
-      "uitdrukking",
+      "bijvoeglijk",
       "formeel",
       "schrijftaal",
-      "journalistiek",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "overigens",
+    "en": "by the way / incidentally / moreover",
+    "note": "Op Niveau H1. Connector om extra informatie toe te voegen. Formeler dan 'trouwens'. Vaak aan het begin van een zin of tussen komma's",
+    "example": "Hij is overigens ook een goede kok.",
+    "tags": [
+      "bijwoord",
+      "connector",
+      "formeel",
+      "schrijftaal",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de overlevingskracht",
+    "en": "resilience / survival power",
+    "note": "Op Niveau H1. Overleven (to survive) + kracht (power/strength). Overlevingskracht hebben = to have resilience. Synoniem: veerkracht",
+    "example": "Je merkt hoe een overlevingskracht mensen hebben in moeilijke tijden.",
+    "tags": [
+      "zelfstandig",
+      "karakter",
+      "formeel",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-general"
@@ -10505,28 +10414,14 @@
     "level": "B1"
   },
   {
-    "nl": "de erkenning",
-    "en": "recognition / acknowledgement",
-    "note": "Op Niveau H1. Van erkennen (to acknowledge). Internationale erkenning krijgen = to gain international recognition. Erkend = recognized",
-    "example": "Na jaren hard werken kreeg ze eindelijk de erkenning die ze verdiende.",
+    "nl": "rechtop",
+    "en": "upright / straight up",
+    "note": "Op Niveau H1. Recht (straight) + op. Rechtop staan/lopen/zitten = to stand/walk/sit upright. Figuurlijk: rechtop blijven = to stay strong",
+    "example": "Ga rechtop zitten, dat is beter voor je rug.",
     "tags": [
-      "zelfstandig",
-      "formeel",
-      "werk",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "teleurstellend",
-    "en": "disappointing",
-    "note": "Op Niveau H1. Van teleurstellen (to disappoint). Teleurgesteld = disappointed (over iemand). Een teleurstellend resultaat = a disappointing result. De teleurstelling = disappointment",
-    "example": "De wedstrijd had een teleurstellend einde.",
-    "tags": [
-      "bijvoeglijk",
-      "gevoel",
+      "bijwoord",
+      "lichaam",
+      "houding",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-general"
@@ -10534,29 +10429,13 @@
     "level": "B1"
   },
   {
-    "nl": "bemoedigend",
-    "en": "encouraging / heartening",
-    "note": "Op Niveau H1. Van bemoedigen (to encourage). Be- + moed (courage) + -igen. Een bemoedigend woord = a word of encouragement",
-    "example": "De reacties van de lezers waren erg bemoedigend.",
+    "nl": "reusachtig",
+    "en": "gigantic / enormous / huge",
+    "note": "Op Niveau H1. De reus = the giant. -achtig = -like. Een reusachtig probleem = a huge problem. Synonym: enorm, gigantisch",
+    "example": "Ze hebben een reusachtig huis gekocht.",
     "tags": [
       "bijvoeglijk",
-      "gevoel",
-      "positief",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "mondiaal",
-    "en": "global / worldwide",
-    "note": "Op Niveau H1. Van 'monde' (wereld in het Frans/Latijn). Synoniem: wereldwijd, internationaal. Mondiale opwarming = global warming",
-    "example": "Klimaatverandering is een mondiaal probleem.",
-    "tags": [
-      "bijvoeglijk",
-      "formeel",
-      "schrijftaal",
+      "versterker",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-general"
@@ -10579,15 +10458,29 @@
     "level": "B1"
   },
   {
-    "nl": "concessies doen",
-    "en": "to make concessions / compromise",
-    "note": "Op Niveau H1. De concessie = concession/compromise. Concessies doen aan = to compromise on. Zonder concessies = without compromise",
-    "example": "Ze wil geen concessies doen aan de kwaliteit van haar werk.",
+    "nl": "teleurstellend",
+    "en": "disappointing",
+    "note": "Op Niveau H1. Van teleurstellen (to disappoint). Teleurgesteld = disappointed (over iemand). Een teleurstellend resultaat = a disappointing result. De teleurstelling = disappointment",
+    "example": "De wedstrijd had een teleurstellend einde.",
+    "tags": [
+      "bijvoeglijk",
+      "gevoel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "ter plaatse",
+    "en": "on site / on the spot",
+    "note": "Op Niveau H1. Vaste uitdrukking met 'ter' (= op de). Ter plaatse aanwezig = present on site. Veel gebruikt in nieuws en journalistiek",
+    "example": "De politie was snel ter plaatse na het ongeluk.",
     "tags": [
       "uitdrukking",
       "formeel",
-      "werk",
-      "onderhandelen",
+      "schrijftaal",
+      "journalistiek",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-general"
@@ -10595,33 +10488,154 @@
     "level": "B2"
   },
   {
-    "nl": "aanslaan",
-    "en": "to catch on / to resonate / to strike a chord",
-    "note": "Op Niveau H1. Scheidbaar: sloeg aan, aangeslagen. Bij publiek aanslaan = to catch on with an audience. Ook: een motor slaat aan = an engine starts. Let op: bestaat al als entry 3444 met andere betekenis, deze entry focus op figuurlijke 'catch on'",
-    "example": "Zijn nieuwe nummer is meteen aangeslagen bij het publiek.",
+    "nl": "uitbreiden",
+    "en": "to expand / to extend",
+    "note": "Op Niveau H1. Scheidbaar werkwoord: ik breid uit, breidde uit, uitgebreid. Met 'te': 'om je woordenschat uit te breiden'. De uitbreiding = the expansion",
+    "example": "Lezen is de beste manier om je woordenschat uit te breiden.",
     "tags": [
       "werkwoord",
       "scheidbaar",
-      "onregelmatig",
-      "cultuur",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "het bereik",
-    "en": "reach / range",
-    "note": "Op Niveau H1. Van bereiken (to reach). Een groot bereik hebben = to have a wide reach (audience, signal). Ook: buiten/binnen bereik = out of/within reach",
-    "example": "Dankzij social media heeft haar muziek een mondiaal bereik.",
-    "tags": [
-      "zelfstandig",
-      "media",
       "formeel",
       "op-niveau",
       "op-niveau-h1",
       "op-niveau-h1-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "uiterst",
+    "en": "extremely / utmost",
+    "note": "Op Niveau H1. As adverb: uiterst belangrijk = extremely important. As adjective: het uiterste = the utmost/extreme. Stronger than 'heel' or 'zeer'",
+    "example": "Dit is een uiterst moeilijke situatie.",
+    "tags": [
+      "bijwoord",
+      "bijvoeglijk",
+      "formeel",
+      "versterker",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "van een andere orde",
+    "en": "of a different caliber / on another level",
+    "note": "Op Niveau H1. De orde = order/rank. Gebruikt om iets uitzonderlijks aan te duiden, meestal positief. Vergelijkbaar: van een heel ander niveau",
+    "example": "Haar talent is echt van een andere orde dan dat van de rest.",
+    "tags": [
+      "uitdrukking",
+      "formeel",
+      "schrijftaal",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "veeleisend",
+    "en": "demanding / exacting",
+    "note": "Op Niveau H1. Veel (much) + eisend (demanding). Een veeleisende baan = a demanding job",
+    "example": "Ze is een veeleisende manager.",
+    "tags": [
+      "bijvoeglijk",
+      "formeel",
+      "werk",
+      "karakter",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "vermelden",
+    "en": "to mention / to state",
+    "note": "Op Niveau H1. Regelmatig (kofschip): vermeldde, vermeld. Vermeld = past participle/adjective (mentioned/stated). Formeler dan 'noemen'. De vermelding = mention",
+    "example": "Zoals eerder vermeld, begint de cursus volgende week.",
+    "tags": [
+      "werkwoord",
+      "formeel",
+      "schrijftaal",
+      "communicatie",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de voedselbank",
+    "en": "food bank",
+    "note": "Op Niveau H1. Voedsel (food) + bank. Organisatie die gratis voedsel uitdeelt aan mensen met weinig geld. De cliënten van de voedselbank = food bank clients",
+    "example": "Steeds meer gezinnen zijn afhankelijk van de voedselbank.",
+    "tags": [
+      "zelfstandig",
+      "maatschappij",
+      "armoede",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "waardevol",
+    "en": "valuable / precious",
+    "note": "Op Niveau H1. Waarde (value) + vol (full). De waarde = the value. Waardevolle ervaring = valuable experience. Tegenovergestelde: waardeloos",
+    "example": "Dit is een waardevol advies voor mij.",
+    "tags": [
+      "bijvoeglijk",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de woordenschatuitbreiding",
+    "en": "vocabulary expansion",
+    "note": "Op Niveau H1. Woordenschat (vocabulary) + uitbreiding (expansion). Term uit taalonderwijs. Synoniem: woordenschat uitbreiden (als werkwoord)",
+    "example": "Dit hoofdstuk is gericht op woordenschatuitbreiding.",
+    "tags": [
+      "zelfstandig",
+      "onderwijs",
+      "taal",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "zich opgeven",
+    "en": "to sign up / to register (oneself)",
+    "note": "Op Niveau H1. Scheidbaar + wederkerend (reflexive): ik geef me op, gaf op, opgegeven. Zich opgeven voor een cursus = to sign up for a course",
+    "example": "Je kunt je opgeven via de website.",
+    "tags": [
+      "werkwoord",
+      "scheidbaar",
+      "wederkerend",
+      "onregelmatig",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de aarzeling",
+    "en": "the hesitation",
+    "note": "Op Niveau H1. From aarzelen (to hesitate). Zonder aarzeling = without hesitation",
+    "example": "Na een korte aarzeling zei ze ja.",
+    "tags": [
+      "zelfstandig",
+      "gevoel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
     ],
     "level": "B2"
   },
@@ -10633,6 +10647,35 @@
     "tags": [
       "werkwoord",
       "lichaam",
+      "scheidbaar",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "nagenieten",
+    "en": "to savor afterwards / to enjoy the afterglow",
+    "note": "Op Niveau H1. Na + genieten. Separable verb: ik geniet na, genoot na, nagenoten. To keep enjoying a past experience",
+    "example": "We zitten nog even na te genieten van de vakantie.",
+    "tags": [
+      "werkwoord",
+      "scheidbaar",
+      "gevoel",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h1-sec3"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "toevoegen",
+    "en": "to add",
+    "note": "Op Niveau H1. Separable verb: ik voeg toe, voegde toe, toegevoegd. Noun: de toevoeging",
+    "example": "Wil je nog wat suiker aan je koffie toevoegen?",
+    "tags": [
+      "werkwoord",
       "scheidbaar",
       "op-niveau",
       "op-niveau-h1",
@@ -10672,45 +10715,43 @@
     "level": "B2"
   },
   {
-    "nl": "toevoegen",
-    "en": "to add",
-    "note": "Op Niveau H1. Separable verb: ik voeg toe, voegde toe, toegevoegd. Noun: de toevoeging",
-    "example": "Wil je nog wat suiker aan je koffie toevoegen?",
+    "nl": "aandachtig",
+    "en": "attentive / attentively",
+    "note": "Op Niveau H1. Aandacht (attention) + -ig. Aandachtig luisteren/kijken = to listen/look attentively",
+    "example": "De leerlingen luisterden aandachtig naar het verhaal.",
     "tags": [
-      "werkwoord",
-      "scheidbaar",
+      "bijvoeglijk",
+      "bijwoord",
+      "houding",
       "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "de aarzeling",
-    "en": "the hesitation",
-    "note": "Op Niveau H1. From aarzelen (to hesitate). Zonder aarzeling = without hesitation",
-    "example": "Na een korte aarzeling zei ze ja.",
-    "tags": [
-      "zelfstandig",
-      "gevoel",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
+      "op-niveau-h1"
     ],
     "level": "B2"
   },
   {
-    "nl": "nagenieten",
-    "en": "to savor afterwards / to enjoy the afterglow",
-    "note": "Op Niveau H1. Na + genieten. Separable verb: ik geniet na, genoot na, nagenoten. To keep enjoying a past experience",
-    "example": "We zitten nog even na te genieten van de vakantie.",
+    "nl": "aarzeling",
+    "en": "hesitation",
+    "note": "Op Niveau H1. De aarzeling. From aarzelen = to hesitate. Zonder aarzeling = without hesitation",
+    "example": "Na een korte aarzeling besloot ze toch te gaan.",
     "tags": [
-      "werkwoord",
-      "scheidbaar",
-      "gevoel",
+      "zelfstandig",
+      "houding",
       "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h1-sec3"
+      "op-niveau-h1"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "begeleide",
+    "en": "guided / accompanied (inflected past participle)",
+    "note": "Op Niveau H1. Past participle of begeleiden used as adjective with -e ending. Een begeleide meditatie = a guided meditation",
+    "example": "Tijdens een begeleide oefening leer je bewuster waarnemen.",
+    "tags": [
+      "bijvoeglijk",
+      "voltooid-deelwoord",
+      "verbuiging",
+      "op-niveau",
+      "op-niveau-h1"
     ],
     "level": "B2"
   },
@@ -10728,58 +10769,17 @@
     "level": "B2"
   },
   {
-    "nl": "scherp",
-    "en": "sharp / keen / acute",
-    "note": "Op Niveau H1. Used literally (sharp knife) and figuratively (sharp mind, sharp senses). Scherp waarnemen = to observe keenly",
-    "example": "Hij heeft een scherp oog voor detail.",
-    "tags": [
-      "bijvoeglijk",
-      "zintuigen",
-      "op-niveau",
-      "op-niveau-h1"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "continu",
-    "en": "continuous / continually",
-    "note": "Op Niveau H1. Used as both adjective and adverb. Synoniem: voortdurend, aanhoudend",
-    "example": "Ze is continu bezig met haar telefoon.",
-    "tags": [
-      "bijwoord",
-      "bijvoeglijk",
-      "tijd",
-      "op-niveau",
-      "op-niveau-h1"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "besteden",
-    "en": "to spend / to devote",
-    "note": "Op Niveau H1. Besteedde, besteed. Aandacht besteden aan = to pay attention to. Tijd/geld besteden aan iets",
-    "example": "Hij besteedt veel aandacht aan de details van zijn werk.",
+    "nl": "beleven",
+    "en": "to experience / to live through",
+    "note": "Op Niveau H1. Be- + leven. Beleefde, beleefd. De belevenis = the experience. Iets intens beleven = to experience something intensely",
+    "example": "Op vakantie wil ik nieuwe culturen beleven.",
     "tags": [
       "werkwoord",
-      "formeel",
+      "gevoel",
       "op-niveau",
       "op-niveau-h1"
     ],
     "level": "B1"
-  },
-  {
-    "nl": "aandachtig",
-    "en": "attentive / attentively",
-    "note": "Op Niveau H1. Aandacht (attention) + -ig. Aandachtig luisteren/kijken = to listen/look attentively",
-    "example": "De leerlingen luisterden aandachtig naar het verhaal.",
-    "tags": [
-      "bijvoeglijk",
-      "bijwoord",
-      "houding",
-      "op-niveau",
-      "op-niveau-h1"
-    ],
-    "level": "B2"
   },
   {
     "nl": "benoemen",
@@ -10795,124 +10795,27 @@
     "level": "B2"
   },
   {
-    "nl": "roepen",
-    "en": "to call / to shout",
-    "note": "Op Niveau H1. Riep, geroepen. Iemand roepen = to call someone. Herinneringen oproepen = to evoke memories",
-    "example": "De geur van vers brood roept herinneringen op aan mijn jeugd.",
+    "nl": "besteden",
+    "en": "to spend / to devote",
+    "note": "Op Niveau H1. Besteedde, besteed. Aandacht besteden aan = to pay attention to. Tijd/geld besteden aan iets",
+    "example": "Hij besteedt veel aandacht aan de details van zijn werk.",
     "tags": [
       "werkwoord",
-      "communicatie",
-      "dagelijks",
-      "op-niveau",
-      "op-niveau-h1",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "overblijven",
-    "en": "to remain / to be left over",
-    "note": "Op Niveau H1. Separable: bleef over, overgebleven. Wat is er overgebleven? = what is left over?",
-    "example": "Van de oude buurt zijn alleen nog wat herinneringen overgebleven.",
-    "tags": [
-      "werkwoord",
-      "scheidbaar",
-      "op-niveau",
-      "op-niveau-h1"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "overgebleven",
-    "en": "remaining / left over / leftover",
-    "note": "Op Niveau H1. Past participle of overblijven, often used as an adjective. Het overgebleven eten = the leftover food",
-    "example": "De overgebleven sprankjes hoop hielden hem op de been.",
-    "tags": [
-      "bijvoeglijk",
-      "voltooid-deelwoord",
-      "op-niveau",
-      "op-niveau-h1"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "sprankje",
-    "en": "spark / glimmer / hint",
-    "note": "Op Niveau H1. Het sprankje, plural sprankjes. Een sprankje hoop = a glimmer of hope. Diminutive of sprank",
-    "example": "In haar ogen zag je nog sprankjes van vroeger plezier.",
-    "tags": [
-      "zelfstandig",
-      "beeldspraak",
-      "op-niveau",
-      "op-niveau-h1"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "vernieuwing",
-    "en": "renewal / innovation",
-    "note": "Op Niveau H1. De vernieuwing, plural vernieuwingen. From vernieuwen = to renew/innovate",
-    "example": "De vernieuwingen in de wijk vielen meteen op.",
-    "tags": [
-      "zelfstandig",
-      "verandering",
-      "op-niveau",
-      "op-niveau-h1"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "oppepper",
-    "en": "boost / pick-me-up / pep talk",
-    "note": "Op Niveau H1. De oppepper. From oppeppen = to perk up/boost. Een oppepper nodig hebben = to need a boost",
-    "example": "Een wandeling buiten is een goede oppepper na een lange werkdag.",
-    "tags": [
-      "zelfstandig",
-      "informeel",
-      "gevoel",
-      "op-niveau",
-      "op-niveau-h1"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "geneigd",
-    "en": "inclined / tending to",
-    "note": "Op Niveau H1. Geneigd zijn om iets te doen = to be inclined to do something. Past participle of neigen, used as adjective",
-    "example": "Ik ben geneigd om het met je eens te zijn.",
-    "tags": [
-      "bijvoeglijk",
-      "houding",
       "formeel",
       "op-niveau",
       "op-niveau-h1"
     ],
-    "level": "B2"
-  },
-  {
-    "nl": "levendig",
-    "en": "lively / vivid",
-    "note": "Op Niveau H1. Leven (life) + -dig. Een levendige herinnering = a vivid memory. Een levendig gesprek = a lively conversation",
-    "example": "Ze heeft nog levendige herinneringen aan haar studietijd.",
-    "tags": [
-      "bijvoeglijk",
-      "geheugen",
-      "op-niveau",
-      "op-niveau-h1"
-    ],
     "level": "B1"
   },
   {
-    "nl": "opborrelen",
-    "en": "to bubble up / to well up",
-    "note": "Op Niveau H1. Separable: borrelde op, opgeborreld. Borrel = bubble. Used for emotions/memories that surge up unexpectedly",
-    "example": "Bij het horen van dat liedje borrelden er allerlei emoties bij me op.",
+    "nl": "bewust",
+    "en": "conscious / aware / deliberate",
+    "note": "Op Niveau H1. Comparative: bewuster = more consciously. Zich bewust zijn van = to be aware of. Bewust leven = to live consciously",
+    "example": "Door te mediteren ga je bewuster door het leven.",
     "tags": [
-      "werkwoord",
-      "scheidbaar",
-      "gevoel",
-      "beeldspraak",
+      "bijvoeglijk",
+      "bijwoord",
+      "houding",
       "op-niveau",
       "op-niveau-h1"
     ],
@@ -10932,13 +10835,14 @@
     "level": "B1"
   },
   {
-    "nl": "graven",
-    "en": "to dig",
-    "note": "Op Niveau H1. Strong verb: groef (sg), groeven (pl), gegraven. Een gat graven, in je geheugen graven = to dig into your memory",
-    "example": "Ze groef diep in haar herinneringen om de naam terug te vinden.",
+    "nl": "continu",
+    "en": "continuous / continually",
+    "note": "Op Niveau H1. Used as both adjective and adverb. Synoniem: voortdurend, aanhoudend",
+    "example": "Ze is continu bezig met haar telefoon.",
     "tags": [
-      "werkwoord",
-      "beweging",
+      "bijwoord",
+      "bijvoeglijk",
+      "tijd",
       "op-niveau",
       "op-niveau-h1"
     ],
@@ -10972,41 +10876,95 @@
     "level": "B2"
   },
   {
-    "nl": "bewust",
-    "en": "conscious / aware / deliberate",
-    "note": "Op Niveau H1. Comparative: bewuster = more consciously. Zich bewust zijn van = to be aware of. Bewust leven = to live consciously",
-    "example": "Door te mediteren ga je bewuster door het leven.",
+    "nl": "geneigd",
+    "en": "inclined / tending to",
+    "note": "Op Niveau H1. Geneigd zijn om iets te doen = to be inclined to do something. Past participle of neigen, used as adjective",
+    "example": "Ik ben geneigd om het met je eens te zijn.",
     "tags": [
       "bijvoeglijk",
-      "bijwoord",
       "houding",
+      "formeel",
       "op-niveau",
       "op-niveau-h1"
     ],
     "level": "B2"
   },
   {
-    "nl": "beleven",
-    "en": "to experience / to live through",
-    "note": "Op Niveau H1. Be- + leven. Beleefde, beleefd. De belevenis = the experience. Iets intens beleven = to experience something intensely",
-    "example": "Op vakantie wil ik nieuwe culturen beleven.",
+    "nl": "graven",
+    "en": "to dig",
+    "note": "Op Niveau H1. Strong verb: groef (sg), groeven (pl), gegraven. Een gat graven, in je geheugen graven = to dig into your memory",
+    "example": "Ze groef diep in haar herinneringen om de naam terug te vinden.",
     "tags": [
       "werkwoord",
-      "gevoel",
+      "beweging",
       "op-niveau",
       "op-niveau-h1"
     ],
     "level": "B1"
   },
   {
-    "nl": "terugdenken",
-    "en": "to think back / to reminisce",
-    "note": "Op Niveau H1. Separable: dacht terug, teruggedacht. Terugdenken aan = to think back to/about something",
-    "example": "Ik denk graag terug aan onze zomers in Italie.",
+    "nl": "levendig",
+    "en": "lively / vivid",
+    "note": "Op Niveau H1. Leven (life) + -dig. Een levendige herinnering = a vivid memory. Een levendig gesprek = a lively conversation",
+    "example": "Ze heeft nog levendige herinneringen aan haar studietijd.",
+    "tags": [
+      "bijvoeglijk",
+      "geheugen",
+      "op-niveau",
+      "op-niveau-h1"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "opborrelen",
+    "en": "to bubble up / to well up",
+    "note": "Op Niveau H1. Separable: borrelde op, opgeborreld. Borrel = bubble. Used for emotions/memories that surge up unexpectedly",
+    "example": "Bij het horen van dat liedje borrelden er allerlei emoties bij me op.",
     "tags": [
       "werkwoord",
       "scheidbaar",
-      "geheugen",
+      "gevoel",
+      "beeldspraak",
+      "op-niveau",
+      "op-niveau-h1"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "oppepper",
+    "en": "boost / pick-me-up / pep talk",
+    "note": "Op Niveau H1. De oppepper. From oppeppen = to perk up/boost. Een oppepper nodig hebben = to need a boost",
+    "example": "Een wandeling buiten is een goede oppepper na een lange werkdag.",
+    "tags": [
+      "zelfstandig",
+      "informeel",
+      "gevoel",
+      "op-niveau",
+      "op-niveau-h1"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "overblijven",
+    "en": "to remain / to be left over",
+    "note": "Op Niveau H1. Separable: bleef over, overgebleven. Wat is er overgebleven? = what is left over?",
+    "example": "Van de oude buurt zijn alleen nog wat herinneringen overgebleven.",
+    "tags": [
+      "werkwoord",
+      "scheidbaar",
+      "op-niveau",
+      "op-niveau-h1"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "overgebleven",
+    "en": "remaining / left over / leftover",
+    "note": "Op Niveau H1. Past participle of overblijven, often used as an adjective. Het overgebleven eten = the leftover food",
+    "example": "De overgebleven sprankjes hoop hielden hem op de been.",
+    "tags": [
+      "bijvoeglijk",
+      "voltooid-deelwoord",
       "op-niveau",
       "op-niveau-h1"
     ],
@@ -11026,19 +10984,6 @@
     "level": "B1"
   },
   {
-    "nl": "aarzeling",
-    "en": "hesitation",
-    "note": "Op Niveau H1. De aarzeling. From aarzelen = to hesitate. Zonder aarzeling = without hesitation",
-    "example": "Na een korte aarzeling besloot ze toch te gaan.",
-    "tags": [
-      "zelfstandig",
-      "houding",
-      "op-niveau",
-      "op-niveau-h1"
-    ],
-    "level": "B2"
-  },
-  {
     "nl": "plezierige",
     "en": "pleasant / enjoyable (inflected)",
     "note": "Op Niveau H1. Inflected form of plezierig with -e ending (after de-words and definite articles). Een plezierige avond, de plezierige herinneringen",
@@ -11053,14 +10998,69 @@
     "level": "B1"
   },
   {
-    "nl": "begeleide",
-    "en": "guided / accompanied (inflected past participle)",
-    "note": "Op Niveau H1. Past participle of begeleiden used as adjective with -e ending. Een begeleide meditatie = a guided meditation",
-    "example": "Tijdens een begeleide oefening leer je bewuster waarnemen.",
+    "nl": "roepen",
+    "en": "to call / to shout",
+    "note": "Op Niveau H1. Riep, geroepen. Iemand roepen = to call someone. Herinneringen oproepen = to evoke memories",
+    "example": "De geur van vers brood roept herinneringen op aan mijn jeugd.",
+    "tags": [
+      "werkwoord",
+      "communicatie",
+      "dagelijks",
+      "op-niveau",
+      "op-niveau-h1",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "scherp",
+    "en": "sharp / keen / acute",
+    "note": "Op Niveau H1. Used literally (sharp knife) and figuratively (sharp mind, sharp senses). Scherp waarnemen = to observe keenly",
+    "example": "Hij heeft een scherp oog voor detail.",
     "tags": [
       "bijvoeglijk",
-      "voltooid-deelwoord",
-      "verbuiging",
+      "zintuigen",
+      "op-niveau",
+      "op-niveau-h1"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "sprankje",
+    "en": "spark / glimmer / hint",
+    "note": "Op Niveau H1. Het sprankje, plural sprankjes. Een sprankje hoop = a glimmer of hope. Diminutive of sprank",
+    "example": "In haar ogen zag je nog sprankjes van vroeger plezier.",
+    "tags": [
+      "zelfstandig",
+      "beeldspraak",
+      "op-niveau",
+      "op-niveau-h1"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "terugdenken",
+    "en": "to think back / to reminisce",
+    "note": "Op Niveau H1. Separable: dacht terug, teruggedacht. Terugdenken aan = to think back to/about something",
+    "example": "Ik denk graag terug aan onze zomers in Italie.",
+    "tags": [
+      "werkwoord",
+      "scheidbaar",
+      "geheugen",
+      "op-niveau",
+      "op-niveau-h1"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "vernieuwing",
+    "en": "renewal / innovation",
+    "note": "Op Niveau H1. De vernieuwing, plural vernieuwingen. From vernieuwen = to renew/innovate",
+    "example": "De vernieuwingen in de wijk vielen meteen op.",
+    "tags": [
+      "zelfstandig",
+      "verandering",
       "op-niveau",
       "op-niveau-h1"
     ],
@@ -11196,22 +11196,6 @@
     "level": "C1"
   },
   {
-    "nl": "zich verheven voelen",
-    "en": "to feel superior / above others",
-    "note": "Op Niveau H2 (receptief). Reflexief. Zich boven iets/iemand verheven voelen = to feel superior to something/someone. Vaak negatief geconnoteerd.",
-    "example": "Ze voelde zich verheven boven de rest van de groep.",
-    "tags": [
-      "werkwoord",
-      "reflexief",
-      "uitdrukking",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-receptief",
-      "op-niveau-h2-general"
-    ],
-    "level": "C1"
-  },
-  {
     "nl": "het verenigingsleven",
     "en": "club life / associational life",
     "note": "Op Niveau H2 (receptief). Het sociale leven binnen verenigingen (sport-, cultuur-, studentenverenigingen). Typisch Nederlands maatschappelijk fenomeen.",
@@ -11288,6 +11272,22 @@
     "level": "C1"
   },
   {
+    "nl": "zich verheven voelen",
+    "en": "to feel superior / above others",
+    "note": "Op Niveau H2 (receptief). Reflexief. Zich boven iets/iemand verheven voelen = to feel superior to something/someone. Vaak negatief geconnoteerd.",
+    "example": "Ze voelde zich verheven boven de rest van de groep.",
+    "tags": [
+      "werkwoord",
+      "reflexief",
+      "uitdrukking",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-receptief",
+      "op-niveau-h2-general"
+    ],
+    "level": "C1"
+  },
+  {
     "nl": "koste wat (het) kost",
     "en": "at all costs / whatever it takes",
     "note": "Op Niveau H2 (idiomatisch). Vaste uitdrukking. Iets koste wat het kost willen bereiken = to want to achieve something at any cost.",
@@ -11318,10 +11318,10 @@
     "level": "C1"
   },
   {
-    "nl": "de handen uit de mouwen steken",
-    "en": "to roll up one's sleeves / get to work",
-    "note": "Op Niveau H2 (idiomatisch). Hard aan het werk gaan, niet langer praten maar doen. Typisch Nederlandse uitdrukking voor doe-mentaliteit.",
-    "example": "Genoeg vergaderd, nu de handen uit de mouwen steken!",
+    "nl": "aan de slag gaan",
+    "en": "to get down to work / get started",
+    "note": "Op Niveau H2 (idiomatisch). Beginnen met een taak. Veelgebruikte uitdrukking. Ook: iemand aan de slag helpen = to help someone get started/find work.",
+    "example": "We hebben er lang over gepraat, nu gaan we aan de slag.",
     "tags": [
       "uitdrukking",
       "idioom",
@@ -11330,17 +11330,31 @@
       "op-niveau-h2",
       "op-niveau-h2-idioom"
     ],
-    "level": "C1"
+    "level": "B2"
   },
   {
-    "nl": "iets in de markt zetten",
-    "en": "to bring something to market / launch a product",
-    "note": "Op Niveau H2 (idiomatisch). Commerciële uitdrukking: een product introduceren of positioneren. Een product slim in de markt zetten = to position a product cleverly.",
-    "example": "Het bedrijf wist het nieuwe model goed in de markt te zetten.",
+    "nl": "er is iets niet in orde",
+    "en": "something is not right / something is off",
+    "note": "Op Niveau H2 (idiomatisch). Vaste uitdrukking om aan te geven dat er een probleem is, vaak op een vage of voorzichtige manier.",
+    "example": "Aan zijn stem te horen is er iets niet in orde.",
     "tags": [
       "uitdrukking",
       "idioom",
-      "economie",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-idioom"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "de handen uit de mouwen steken",
+    "en": "to roll up one's sleeves / get to work",
+    "note": "Op Niveau H2 (idiomatisch). Hard aan het werk gaan, niet langer praten maar doen. Typisch Nederlandse uitdrukking voor doe-mentaliteit.",
+    "example": "Genoeg vergaderd, nu de handen uit de mouwen steken!",
+    "tags": [
+      "uitdrukking",
+      "idioom",
+      "werk",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-idioom"
@@ -11363,33 +11377,19 @@
     "level": "C1"
   },
   {
-    "nl": "er is iets niet in orde",
-    "en": "something is not right / something is off",
-    "note": "Op Niveau H2 (idiomatisch). Vaste uitdrukking om aan te geven dat er een probleem is, vaak op een vage of voorzichtige manier.",
-    "example": "Aan zijn stem te horen is er iets niet in orde.",
+    "nl": "iets in de markt zetten",
+    "en": "to bring something to market / launch a product",
+    "note": "Op Niveau H2 (idiomatisch). Commerciële uitdrukking: een product introduceren of positioneren. Een product slim in de markt zetten = to position a product cleverly.",
+    "example": "Het bedrijf wist het nieuwe model goed in de markt te zetten.",
     "tags": [
       "uitdrukking",
       "idioom",
+      "economie",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-idioom"
     ],
     "level": "C1"
-  },
-  {
-    "nl": "aan de slag gaan",
-    "en": "to get down to work / get started",
-    "note": "Op Niveau H2 (idiomatisch). Beginnen met een taak. Veelgebruikte uitdrukking. Ook: iemand aan de slag helpen = to help someone get started/find work.",
-    "example": "We hebben er lang over gepraat, nu gaan we aan de slag.",
-    "tags": [
-      "uitdrukking",
-      "idioom",
-      "werk",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-idioom"
-    ],
-    "level": "B2"
   },
   {
     "nl": "iets waar je u tegen zegt",
@@ -11422,9 +11422,24 @@
     "level": "B2"
   },
   {
+    "nl": "(on)verstandig",
+    "en": "(un)wise / (un)sensible",
+    "note": "Op Niveau H2. Verstandig = wise. Onverstandig = unwise. Het is onverstandig om... = it's unwise to...",
+    "example": "Het is <strong>verstandig</strong> om een paraplu mee te nemen.<br>Het is <strong>onverstandig</strong> om zonder licht te fietsen.<br>Een verstandig advies.<br>Verstandiger had geweest om eerst te bellen.",
+    "tags": [
+      "bijvoeglijk",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-fietsetiquette",
+      "op-niveau-h2-general",
+      "op-niveau-h2-kern"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "afleiden uit",
     "en": "to infer from / to deduce from",
-    "note": "Op Niveau H2 (fietsetiquette / preposities). Scheidbaar: leidde af, afgeleid. Iets uit iets afleiden = to infer X from Y. Verschilt van 'afleiden' (= to distract).",
+    "note": "Op Niveau H2 (preposities). Scheidbaar: leidde af, afgeleid. Iets uit iets afleiden = to infer X from Y. Verschilt van 'afleiden' (= to distract).<br><br><strong>Structuur-checklist:</strong> [<em>af</em>] + [<em>leiden</em>] + [<em>uit</em>]. Prefix &rarr; einde. Werkwoord &rarr; positie 2. Voorzetsel blijft bij zijn naamwoord in het midden.<br>&bull; <strong>Pres:</strong> Ik <strong>LEID</strong> dat uit zijn woorden <strong>AF</strong>.<br>&bull; <strong>Perf (hebben):</strong> Ik <strong>HEB</strong> dat uit zijn woorden <strong>AFGELEID</strong>.<br>&bull; <strong>Modaal:</strong> Ik <strong>KAN</strong> dat uit zijn woorden <strong>AFLEIDEN</strong>.<br>&bull; <strong>Bijzin:</strong> ...dat ik dat uit zijn woorden <strong>AFLEID</strong>.",
     "example": "Uit zijn gedrag kun je afleiden dat hij gehaast is.<br>Je kunt wel <strong>afleiden uit het feit dat</strong> ze niet kwam, dat ze geen interesse heeft.<br>Uit deze cijfers leiden we af dat de economie groeit.",
     "tags": [
       "werkwoord",
@@ -11442,7 +11457,7 @@
   {
     "nl": "afwijken",
     "en": "to deviate / to differ (week af, afgeweken)",
-    "note": "Op Niveau H2 (fietsetiquette / onregelmatig). Onregelmatig en scheidbaar: week af, afgeweken. Afwijken van de regels = to deviate from the rules.",
+    "note": "Op Niveau H2 (onregelmatig). Onregelmatig en scheidbaar: week af, afgeweken. Afwijken van de regels = to deviate from the rules.",
     "example": "De fietser week plotseling af van zijn route.<br><strong>Afwijken van de regels</strong> = to deviate from the rules.<br>Hij is afgeweken van zijn oorspronkelijke plan.<br>Onregelmatig: week af, is afgeweken.",
     "tags": [
       "werkwoord",
@@ -11460,7 +11475,7 @@
   {
     "nl": "de afwijking",
     "en": "the deviation / abnormality",
-    "note": "Op Niveau H2 (fietsetiquette). Van afwijken. Een afwijking van de norm = a deviation from the norm.",
+    "note": "Op Niveau H2. Van afwijken. Een afwijking van de norm = a deviation from the norm.",
     "example": "Er was een kleine afwijking in zijn rijgedrag.<br>Een afwijking van de norm.<br>Kleine afwijkingen zijn normaal.<br>Idiom: <strong>De afwijkingen horen erbij</strong> = deviations are part of it.",
     "tags": [
       "zelfstandig",
@@ -11474,27 +11489,9 @@
     "level": "B2"
   },
   {
-    "nl": "zich ergeren aan",
-    "en": "to be annoyed by / to get irritated at",
-    "note": "Op Niveau H2 (fietsetiquette / preposities). Reflexief: ik erger me aan, hij ergert zich aan. Vast voorzetsel: aan.",
-    "example": "Ik erger me aan zijn gedrag.<br>Veel fietsers ergeren zich aan toeristen op het fietspad.<br>Idiom: <em>Ze ergerde zich groen en geel</em> = she was extremely irritated.",
-    "tags": [
-      "werkwoord",
-      "reflexief",
-      "voorzetsel",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-fietsetiquette",
-      "op-niveau-h2-preposities",
-      "op-niveau-h2-general",
-      "op-niveau-h2-kern"
-    ],
-    "level": "B2"
-  },
-  {
     "nl": "de ergernis",
     "en": "the irritation / annoyance",
-    "note": "Op Niveau H2 (fietsetiquette). Van ergeren. Tot mijn grote ergernis = to my great annoyance.",
+    "note": "Op Niveau H2. Van ergeren. Tot mijn grote ergernis = to my great annoyance.",
     "example": "Tot mijn <strong>grote ergernis</strong> kwam de bus weer te laat.<br>De ergernis onder fietsers groeit.<br>Hij uitte zijn ergernis door luid te toeteren.",
     "tags": [
       "zelfstandig",
@@ -11511,7 +11508,7 @@
   {
     "nl": "gevaarlijk",
     "en": "dangerous",
-    "note": "Op Niveau H2 (fietsetiquette). Van het gevaar (danger). Levensgevaarlijk = life-threatening.",
+    "note": "Op Niveau H2. Van het gevaar (danger). Levensgevaarlijk = life-threatening.",
     "example": "Bellen tijdens het fietsen is gevaarlijk.<br>Een gevaarlijke kruising.<br>Hij stond <strong>gevaarlijk dichtbij</strong> de rand.<br>Levensgevaarlijk = life-threatening.",
     "tags": [
       "bijvoeglijk",
@@ -11527,7 +11524,7 @@
   {
     "nl": "gooien (naar)",
     "en": "to throw (at)",
-    "note": "Op Niveau H2 (fietsetiquette). Regelmatig: gooide, gegooid. Naar iemand gooien = to throw at someone. Iets weggooien = to throw something away.",
+    "note": "Op Niveau H2. Regelmatig: gooide, gegooid. Naar iemand gooien = to throw at someone. Iets weggooien = to throw something away.",
     "example": "Iemand gooide een blikje naar de fietser.<br>Gooi de bal naar mij.<br>Hij gooide met geld &mdash; spilde geld zonder na te denken.<br>Idiom: <em>het roer omgooien</em> = to change course completely.",
     "tags": [
       "werkwoord",
@@ -11543,7 +11540,7 @@
   {
     "nl": "de haast",
     "en": "the haste / hurry",
-    "note": "Op Niveau H2 (fietsetiquette). Geen haast hebben = to not be in a hurry. In allerijl = in great haste.",
+    "note": "Op Niveau H2. Geen haast hebben = to not be in a hurry. In allerijl = in great haste.",
     "example": "Ik heb haast.<br>In de haast vergat hij zijn sleutel.<br><em>haast</em> als bijwoord (= bijna): <strong>Ik heb haast geen contant geld</strong> = I have hardly any cash.<br>Zonder haast werken.",
     "tags": [
       "zelfstandig",
@@ -11557,25 +11554,9 @@
     "level": "B1"
   },
   {
-    "nl": "zich haasten",
-    "en": "to hurry / to rush",
-    "note": "Op Niveau H2 (fietsetiquette). Reflexief: ik haast me, hij haastte zich. Haast je! = hurry up!",
-    "example": "Haast je niet zo!<br>Ze haastte zich naar het station.<br>Ik heb me gehaast om op tijd te zijn.",
-    "tags": [
-      "werkwoord",
-      "reflexief",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-fietsetiquette",
-      "op-niveau-h2-general",
-      "op-niveau-h2-kern"
-    ],
-    "level": "B1"
-  },
-  {
     "nl": "haastig",
     "en": "hasty / hurried",
-    "note": "Op Niveau H2 (fietsetiquette). Bijvoeglijk en bijwoord. Een haastige beslissing = a hasty decision. Haastig vertrekken = to leave hurriedly.",
+    "note": "Op Niveau H2. Bijvoeglijk en bijwoord. Een haastige beslissing = a hasty decision. Haastig vertrekken = to leave hurriedly.",
     "example": "Hij at haastig zijn ontbijt op.",
     "tags": [
       "bijvoeglijk",
@@ -11588,9 +11569,25 @@
     "level": "B2"
   },
   {
+    "nl": "in de war raken / zijn",
+    "en": "to get / be confused",
+    "note": "Op Niveau H2. Vaste uitdrukking. In de war raken = to become confused. In de war zijn = to be confused. Iemand in de war brengen = to confuse someone.",
+    "example": "Door alle borden raakte ik volledig in de war.<br>Hij is een beetje in de war na het ongeluk.<br><strong>Iemand in de war brengen</strong> = to confuse someone.<br>Mijn haar zit in de war = my hair is messy.",
+    "tags": [
+      "uitdrukking",
+      "idioom",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-fietsetiquette",
+      "op-niveau-h2-general",
+      "op-niveau-h2-kern"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "onvoorstelbaar",
     "en": "unimaginable / inconceivable",
-    "note": "Op Niveau H2 (fietsetiquette). On + voorstelbaar (van zich voorstellen = to imagine). Het is onvoorstelbaar dat... = it's inconceivable that...",
+    "note": "Op Niveau H2. On + voorstelbaar (van zich voorstellen = to imagine). Het is onvoorstelbaar dat... = it's inconceivable that...",
     "example": "Het is onvoorstelbaar hoe vaak fietsers door rood rijden.<br>Een onvoorstelbare hoeveelheid mensen kwam opdagen.<br>Het lijkt me onvoorstelbaar dat hij dat zou doen.",
     "tags": [
       "bijvoeglijk",
@@ -11605,7 +11602,7 @@
   {
     "nl": "de overkant",
     "en": "the other side",
-    "note": "Op Niveau H2 (fietsetiquette). Aan de overkant van de straat = on the other side of the street. Naar de overkant oversteken = to cross to the other side.",
+    "note": "Op Niveau H2. Aan de overkant van de straat = on the other side of the street. Naar de overkant oversteken = to cross to the other side.",
     "example": "Aan de overkant van de straat staat een caf&eacute;.<br>Naar de overkant oversteken.<br>Aan de overkant van het water = on the other side of the water.<br>Hij woont aan de overkant.",
     "tags": [
       "zelfstandig",
@@ -11620,25 +11617,9 @@
     "level": "B1"
   },
   {
-    "nl": "schandelijk",
-    "en": "shameful / disgraceful",
-    "note": "Op Niveau H2 (fietsetiquette). Van de schande. Sterkere variant: schandalig. Schandelijk gedrag = shameful behaviour.",
-    "example": "Het is schandelijk hoe sommige automobilisten fietsers behandelen.<br>Een schandelijke vergissing.<br>Schandelijk gedrag.<br>Sterker variant: <em>schandalig</em>.",
-    "tags": [
-      "bijvoeglijk",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-fietsetiquette",
-      "op-niveau-h2-general",
-      "op-niveau-h2-kern"
-    ],
-    "level": "B2"
-  },
-  {
     "nl": "de schande",
     "en": "the disgrace / shame",
-    "note": "Op Niveau H2 (fietsetiquette). Schande spreken van iets = to speak shamefully of something. Wat een schande! = What a disgrace!",
+    "note": "Op Niveau H2. Schande spreken van iets = to speak shamefully of something. Wat een schande! = What a disgrace!",
     "example": "Wat een schande!<br>Het is een schande dat er zoveel fietsen worden gestolen.<br><strong>Schande spreken van iets</strong> = to speak shamefully of something.<br>Iemand te schande maken = to disgrace someone.",
     "tags": [
       "zelfstandig",
@@ -11653,9 +11634,25 @@
     "level": "B2"
   },
   {
+    "nl": "schandelijk",
+    "en": "shameful / disgraceful",
+    "note": "Op Niveau H2. Van de schande. Sterkere variant: schandalig. Schandelijk gedrag = shameful behaviour.",
+    "example": "Het is schandelijk hoe sommige automobilisten fietsers behandelen.<br>Een schandelijke vergissing.<br>Schandelijk gedrag.<br>Sterker variant: <em>schandalig</em>.",
+    "tags": [
+      "bijvoeglijk",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-fietsetiquette",
+      "op-niveau-h2-general",
+      "op-niveau-h2-kern"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "toeteren",
     "en": "to honk / to toot",
-    "note": "Op Niveau H2 (fietsetiquette). Regelmatig: toeterde, getoeterd. Wat een geluid maken auto's, fietsen (bij sommige), of trompetten.",
+    "note": "Op Niveau H2. Regelmatig: toeterde, getoeterd. Wat een geluid maken auto's, fietsen (bij sommige), of trompetten.",
     "example": "De automobilist toeterde naar de fietser die plots overstak.<br>Toeter niet zo hard!<br>Het getoeter in de stad maakte hem gek.",
     "tags": [
       "werkwoord",
@@ -11671,7 +11668,7 @@
   {
     "nl": "de troep",
     "en": "the mess / clutter",
-    "note": "Op Niveau H2 (fietsetiquette). Informeel. Wat een troep! = what a mess! Ook: een troep dieren = a herd/pack (formal use).",
+    "note": "Op Niveau H2. Informeel. Wat een troep! = what a mess! Ook: een troep dieren = a herd/pack (formal use).",
     "example": "Wat een troep!<br>Ruim die troep op &mdash; we krijgen visite.<br>De troep op straat is schandelijk.<br>Formeel: <em>een troep dieren</em> = a herd/pack of animals.",
     "tags": [
       "zelfstandig",
@@ -11688,7 +11685,7 @@
   {
     "nl": "de uiting",
     "en": "the expression / utterance",
-    "note": "Op Niveau H2 (fietsetiquette). Van uiten. Een uiting van frustratie = an expression of frustration. Vrijheid van meningsuiting = freedom of expression.",
+    "note": "Op Niveau H2. Van uiten. Een uiting van frustratie = an expression of frustration. Vrijheid van meningsuiting = freedom of expression.",
     "example": "Toeteren is vaak een uiting van ergernis.<br><strong>Vrijheid van meningsuiting</strong> = freedom of expression.<br>Een spontane uiting van vreugde.<br>Tot uiting komen = to find expression / become apparent.",
     "tags": [
       "zelfstandig",
@@ -11705,7 +11702,7 @@
   {
     "nl": "het verstand",
     "en": "the mind / common sense",
-    "note": "Op Niveau H2 (fietsetiquette). Gezond verstand = common sense. Verstand hebben van = to know about. Het gaat boven mijn verstand = it's beyond me.",
+    "note": "Op Niveau H2. Gezond verstand = common sense. Verstand hebben van = to know about. Het gaat boven mijn verstand = it's beyond me.",
     "example": "Gebruik je verstand in het verkeer.<br><strong>Gezond verstand</strong> = common sense.<br><strong>Verstand hebben van</strong> X = to know about X.<br><strong>Het gaat boven mijn verstand</strong> = it's beyond me.",
     "tags": [
       "zelfstandig",
@@ -11719,24 +11716,9 @@
     "level": "B2"
   },
   {
-    "nl": "(on)verstandig",
-    "en": "(un)wise / (un)sensible",
-    "note": "Op Niveau H2 (fietsetiquette). Verstandig = wise. Onverstandig = unwise. Het is onverstandig om... = it's unwise to...",
-    "example": "Het is <strong>verstandig</strong> om een paraplu mee te nemen.<br>Het is <strong>onverstandig</strong> om zonder licht te fietsen.<br>Een verstandig advies.<br>Verstandiger had geweest om eerst te bellen.",
-    "tags": [
-      "bijvoeglijk",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-fietsetiquette",
-      "op-niveau-h2-general",
-      "op-niveau-h2-kern"
-    ],
-    "level": "B2"
-  },
-  {
     "nl": "verwarren",
     "en": "to confuse",
-    "note": "Op Niveau H2 (fietsetiquette). Regelmatig: verwarde, verward. X met Y verwarren = to confuse X with Y. Het verwarrende verkeerssignaal = the confusing traffic signal.",
+    "note": "Op Niveau H2. Regelmatig: verwarde, verward. X met Y verwarren = to confuse X with Y. Het verwarrende verkeerssignaal = the confusing traffic signal.",
     "example": "De gebarentaal van de fietser verwarde me.",
     "tags": [
       "werkwoord",
@@ -11750,7 +11732,7 @@
   {
     "nl": "de verwarring",
     "en": "the confusion",
-    "note": "Op Niveau H2 (fietsetiquette). Van verwarren. In verwarring brengen = to bring into confusion. Tot mijn verwarring = to my confusion.",
+    "note": "Op Niveau H2. Van verwarren. In verwarring brengen = to bring into confusion. Tot mijn verwarring = to my confusion.",
     "example": "Tot mijn verwarring sloeg hij plots rechtsaf.<br>Het ontbreken van borden zorgde voor veel verwarring.<br><strong>In verwarring brengen</strong> = to bring into confusion.<br>In alle verwarring vergat hij zijn jas.",
     "tags": [
       "zelfstandig",
@@ -11765,25 +11747,9 @@
     "level": "B2"
   },
   {
-    "nl": "in de war raken / zijn",
-    "en": "to get / be confused",
-    "note": "Op Niveau H2 (fietsetiquette). Vaste uitdrukking. In de war raken = to become confused. In de war zijn = to be confused. Iemand in de war brengen = to confuse someone.",
-    "example": "Door alle borden raakte ik volledig in de war.<br>Hij is een beetje in de war na het ongeluk.<br><strong>Iemand in de war brengen</strong> = to confuse someone.<br>Mijn haar zit in de war = my hair is messy.",
-    "tags": [
-      "uitdrukking",
-      "idioom",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-fietsetiquette",
-      "op-niveau-h2-general",
-      "op-niveau-h2-kern"
-    ],
-    "level": "B2"
-  },
-  {
     "nl": "de voorrang",
     "en": "the right of way / priority",
-    "note": "Op Niveau H2 (fietsetiquette). Voorrang geven = to yield. Voorrang hebben = to have right of way. Voorrangsbord = priority sign. Cruciaal in Nederlands fietsverkeer.",
+    "note": "Op Niveau H2. Voorrang geven = to yield. Voorrang hebben = to have right of way. Voorrangsbord = priority sign. Cruciaal in Nederlands fietsverkeer.",
     "example": "Fietsers hebben voorrang op deze kruising.<br>Je moet <strong>voorrang geven</strong> aan verkeer van rechts.<br>Voorrangsbord = priority sign.<br>Voorrang krijgen = to be given priority.",
     "tags": [
       "zelfstandig",
@@ -11794,6 +11760,54 @@
       "op-niveau-h2-fietsetiquette",
       "op-niveau-h2-general",
       "op-niveau-h2-kern"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "zich ergeren aan",
+    "en": "to be annoyed by / to get irritated at",
+    "note": "Op Niveau H2 (preposities). Reflexief: ik erger me aan, hij ergert zich aan. Vast voorzetsel: aan.",
+    "example": "Ik erger me aan zijn gedrag.<br>Veel fietsers ergeren zich aan toeristen op het fietspad.<br>Idiom: <em>Ze ergerde zich groen en geel</em> = she was extremely irritated.",
+    "tags": [
+      "werkwoord",
+      "reflexief",
+      "voorzetsel",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-fietsetiquette",
+      "op-niveau-h2-preposities",
+      "op-niveau-h2-general",
+      "op-niveau-h2-kern"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "zich haasten",
+    "en": "to hurry / to rush",
+    "note": "Op Niveau H2. Reflexief: ik haast me, hij haastte zich. Haast je! = hurry up!",
+    "example": "Haast je niet zo!<br>Ze haastte zich naar het station.<br>Ik heb me gehaast om op tijd te zijn.",
+    "tags": [
+      "werkwoord",
+      "reflexief",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-fietsetiquette",
+      "op-niveau-h2-general",
+      "op-niveau-h2-kern"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "(zich) beheersen",
+    "en": "to control / master (oneself or something)",
+    "note": "Op Niveau H2 (online). Regelmatig: beheerste, beheerst. Reflexief: zich beheersen = to control oneself. Een taal beheersen = to master a language.",
+    "example": "Je moet je beheersen op sociale media.",
+    "tags": [
+      "werkwoord",
+      "reflexief",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-online"
     ],
     "level": "B2"
   },
@@ -11811,20 +11825,6 @@
       "op-niveau-h2-online"
     ],
     "level": "B1"
-  },
-  {
-    "nl": "(zich) beheersen",
-    "en": "to control / master (oneself or something)",
-    "note": "Op Niveau H2 (online). Regelmatig: beheerste, beheerst. Reflexief: zich beheersen = to control oneself. Een taal beheersen = to master a language.",
-    "example": "Je moet je beheersen op sociale media.",
-    "tags": [
-      "werkwoord",
-      "reflexief",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-online"
-    ],
-    "level": "B2"
   },
   {
     "nl": "de beheersing",
@@ -12335,21 +12335,6 @@
     "level": "B1"
   },
   {
-    "nl": "zich richten op",
-    "en": "to focus on",
-    "note": "Op Niveau H2 (preposities). Reflexief, vast voorzetsel: op. Zich richten op een doel = to focus on a goal.",
-    "example": "Ze richt zich nu op haar studie in plaats van op TikTok.",
-    "tags": [
-      "werkwoord",
-      "reflexief",
-      "voorzetsel",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-preposities"
-    ],
-    "level": "B2"
-  },
-  {
     "nl": "staren naar",
     "en": "to stare at",
     "note": "Op Niveau H2 (preposities). Vast voorzetsel: naar. Staarde, gestaard. Naar een scherm staren = to stare at a screen.",
@@ -12379,6 +12364,21 @@
     "level": "B1"
   },
   {
+    "nl": "zich richten op",
+    "en": "to focus on",
+    "note": "Op Niveau H2 (preposities). Reflexief, vast voorzetsel: op. Zich richten op een doel = to focus on a goal.",
+    "example": "Ze richt zich nu op haar studie in plaats van op TikTok.",
+    "tags": [
+      "werkwoord",
+      "reflexief",
+      "voorzetsel",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-preposities"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "zin hebben in",
     "en": "to feel like / to be in the mood for",
     "note": "Op Niveau H2 (preposities). Vast voorzetsel: in. Ik heb zin in koffie = I feel like coffee. Geen zin in iets hebben = to not feel like something.",
@@ -12393,17 +12393,199 @@
     "level": "B1"
   },
   {
-    "nl": "zich gedragen",
-    "en": "to behave (gedroeg, gedragen)",
-    "note": "Op Niveau H2 (onregelmatig). Reflexief en onregelmatig: gedroeg zich, heeft zich gedragen. Goed/slecht gedrag = good/bad behaviour. Gedrag (het) = behaviour.",
-    "example": "Hij gedroeg zich vreemd op de fiets.",
+    "nl": "aanmoedigen",
+    "en": "to encourage / to cheer on",
+    "note": "Op Niveau H2. Scheidbaar: moedigde aan, aangemoedigd. Iemand aanmoedigen om iets te doen = to encourage someone to do something. Pairs with de aanmoediging (the encouragement).",
+    "example": "Mijn ouders hebben mij altijd aangemoedigd om te studeren.",
     "tags": [
       "werkwoord",
-      "reflexief",
-      "onregelmatig",
+      "scheidbaar",
+      "emotie",
       "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-onreg"
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de aanmoediging",
+    "en": "the encouragement",
+    "note": "Op Niveau H2. De-woord, meervoud: aanmoedigingen. Van aanmoedigen (scheidbaar: moedigde aan, aangemoedigd). Iemand een aanmoediging geven = to give someone encouragement.",
+    "example": "Een beetje aanmoediging deed hem goed.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "emotie",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "allerlei",
+    "en": "all kinds of / various",
+    "note": "Op Niveau H2. Onveranderlijk bijvoeglijk naamwoord; staat altijd voor zelfstandig naamwoord (geen verbuiging). Allerlei mensen / allerlei dingen. Synoniem: allerhande.",
+    "example": "Op de markt zijn er allerlei soorten kaas te koop.",
+    "tags": [
+      "bijvoeglijk",
+      "onveranderlijk",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "bemoedigend / bemoedigende",
+    "en": "encouraging / comforting / heartening",
+    "note": "Op Niveau H2. Tegenwoordig deelwoord van bemoedigen (to comfort / to give heart), gebruikt als bijvoeglijk naamwoord. Verbogen vorm: bemoedigende (voor de-woorden, het-woorden met lidwoord, en meervoud). Bemoedigende woorden = encouraging words. Synoniemen: hoopgevend, geruststellend.",
+    "example": "Ze sprak bemoedigende woorden tegen het ontmoedigde team.",
+    "tags": [
+      "bijvoeglijk",
+      "tegenwoordig-deelwoord",
+      "verbuiging",
+      "emotie",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "het betoog",
+    "en": "the argument / discourse / treatise",
+    "note": "Op Niveau H2. Het-woord, meervoud: betogen. Een uitgebreid pleidooi waarin iets verdedigd wordt. Een betoog houden = to give a speech / argument. Betogen (ww.) = to argue / to demonstrate. Komt van betogen = to argue.",
+    "example": "Zijn betoog over duurzaamheid was overtuigend.",
+    "tags": [
+      "zelfstandig",
+      "het-woord",
+      "communicatie",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "dergelijk",
+    "en": "such / similar / like that",
+    "note": "Op Niveau H2. Bijvoeglijk en onbepaald aanwijzend voornaamwoord. Verbogen vorm: dergelijke. Een dergelijke situatie = a situation like that / such a situation. Iets dergelijks = something like that. Formeler dan 'zo'n'.",
+    "example": "Een dergelijke fout mag niet meer voorkomen.",
+    "tags": [
+      "bijvoeglijk",
+      "voornaamwoord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de gelegenheid",
+    "en": "the opportunity / occasion",
+    "note": "Op Niveau H2. De-woord, meervoud: gelegenheden. Een gelegenheid krijgen = to get an opportunity. Bij gelegenheid = on occasion. Gelegenheidskleding = occasion-wear. In de gelegenheid zijn om = to be in a position to.",
+    "example": "Ik heb nog geen gelegenheid gehad om het boek te lezen.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "gesprekken voeren",
+    "en": "to hold conversations / to have discussions",
+    "note": "Op Niveau H2. Vaste collocatie: gesprekken (mv. van het gesprek) + voeren (= to wage / to conduct). Gesprek voeren met iemand = to have a conversation with someone. Onderhandelingsgesprekken voeren = to conduct negotiations.",
+    "example": "We voeren elke maand gesprekken met onze klanten.",
+    "tags": [
+      "uitdrukking",
+      "communicatie",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de gevoelsuitingen",
+    "en": "expressions of emotion / displays of feeling",
+    "note": "Op Niveau H2. Meervoud (enkelvoud: de gevoelsuiting). Gevoel (feeling) + uiting (expression). Wordt vaak gebruikt in psychologische of culturele context. Spontane gevoelsuitingen = spontaneous displays of emotion.",
+    "example": "Nederlanders staan niet bekend om hun overdreven gevoelsuitingen.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "samengesteld",
+      "emotie",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "maf / maffe",
+    "en": "crazy / weird / loopy",
+    "note": "Op Niveau H2. Informeel bijvoeglijk naamwoord. Verbogen vorm: maffe (voor de-woorden of meervoud). Een maffe vent = a weird guy. Synoniemen: gek, raar, idioot. Lichter en vriendelijker dan 'gek'.",
+    "example": "Wat een maffe situatie! / Hij heeft maffe ideeën.",
+    "tags": [
+      "bijvoeglijk",
+      "informeel",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "malen",
+    "en": "to grind / to mind (informal: to care)",
+    "note": "Op Niveau H2. Onregelmatig: maalde, gemalen (or maalde in older usage). Twee betekenissen: (1) letterlijk: koffie malen = to grind coffee. (2) figuurlijk/informeel: ergens om malen = to care about / to mind. Ik maal er niet om = I don't care.",
+    "example": "Hij maalt er niet om wat anderen denken.",
+    "tags": [
+      "werkwoord",
+      "onregelmatig",
+      "informeel",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de moeite",
+    "en": "the effort / trouble",
+    "note": "Op Niveau H2. De-woord, geen meervoud. Idiomatisch: moeite doen voor = to make an effort for. De moeite waard = worth the trouble. Geen moeite = no problem. Met moeite = with difficulty.",
+    "example": "Het kostte hem veel moeite om Nederlands te leren.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "uitdrukking",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "nader",
+    "en": "closer / further (more detailed)",
+    "note": "Op Niveau H2. Bijvoeglijk en bijwoord, formeel. Vergelijkende trap (van na/dichtbij). Nader bekijken = to look at more closely. Iets nader toelichten = to explain in more detail. Nadere informatie = further information.",
+    "example": "Kunt u dit nader toelichten?",
+    "tags": [
+      "bijvoeglijk",
+      "bijwoord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "navertellen",
+    "en": "to retell / to recount",
+    "note": "Op Niveau H2. Scheidbaar: vertelde na, naverteld. Een verhaal navertellen = to retell a story. Vaak in onderwijscontext: leerlingen vertellen wat ze gehoord hebben na.",
+    "example": "Kun je in eigen woorden navertellen wat er in de tekst stond?",
+    "tags": [
+      "werkwoord",
+      "scheidbaar",
+      "communicatie",
+      "op-niveau",
+      "op-niveau-h2"
     ],
     "level": "B2"
   },
@@ -12452,6 +12634,34 @@
     "level": "B2"
   },
   {
+    "nl": "samenhangend",
+    "en": "coherent / connected",
+    "note": "Op Niveau H2. Tegenwoordig deelwoord van samenhangen (to be connected, to cohere). Verbogen: samenhangende. Een samenhangend verhaal = a coherent story. De samenhang = the coherence/connection. Antoniem: onsamenhangend.",
+    "example": "Schrijf een samenhangend betoog van 300 woorden.",
+    "tags": [
+      "bijvoeglijk",
+      "tegenwoordig-deelwoord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de schakel",
+    "en": "the link / connection",
+    "note": "Op Niveau H2. De-woord, meervoud: schakels. Letterlijk: link in een ketting. Figuurlijk: connecting element. Zwakke schakel = weak link. Een belangrijke schakel zijn = to be a key link.",
+    "example": "De docent vormt de belangrijkste schakel tussen leerlingen en ouders.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "figuurlijk",
+      "op-niveau",
+      "op-niveau-h2"
+    ],
+    "level": "B2"
+  },
+  {
     "nl": "toestaan",
     "en": "to allow / to permit (stond toe, toegestaan)",
     "note": "Op Niveau H2 (onregelmatig). Scheidbaar en onregelmatig: stond toe, toegestaan. Iemand iets toestaan = to allow someone something. Toegestaan = allowed.",
@@ -12464,6 +12674,19 @@
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-onreg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "uiteraard",
+    "en": "of course / naturally",
+    "note": "Op Niveau H2. Bijwoord, formeler dan 'natuurlijk'. Wordt vaak aan het begin of eind van de zin geplaatst. Synoniemen: vanzelfsprekend, natuurlijk.",
+    "example": "Uiteraard zijn we het ermee eens. / U bent uiteraard welkom.",
+    "tags": [
+      "bijwoord",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h2"
     ],
     "level": "B2"
   },
@@ -12483,131 +12706,6 @@
     "level": "B1"
   },
   {
-    "nl": "vervangen",
-    "en": "to replace (verving, vervangen)",
-    "note": "Op Niveau H2 (onregelmatig). Onregelmatig: verving, vervangen. Niet scheidbaar. X door Y vervangen = to replace X with Y.",
-    "example": "Ze vervingen de oude lantaarnpalen door LED-lampen.",
-    "tags": [
-      "werkwoord",
-      "onregelmatig",
-      "voorzetsel",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-onreg"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de schakel",
-    "en": "the link / connection",
-    "note": "Op Niveau H2. De-woord, meervoud: schakels. Letterlijk: link in een ketting. Figuurlijk: connecting element. Zwakke schakel = weak link. Een belangrijke schakel zijn = to be a key link.",
-    "example": "De docent vormt de belangrijkste schakel tussen leerlingen en ouders.",
-    "tags": [
-      "zelfstandig",
-      "de-woord",
-      "figuurlijk",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "maf / maffe",
-    "en": "crazy / weird / loopy",
-    "note": "Op Niveau H2. Informeel bijvoeglijk naamwoord. Verbogen vorm: maffe (voor de-woorden of meervoud). Een maffe vent = a weird guy. Synoniemen: gek, raar, idioot. Lichter en vriendelijker dan 'gek'.",
-    "example": "Wat een maffe situatie! / Hij heeft maffe ideeën.",
-    "tags": [
-      "bijvoeglijk",
-      "informeel",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de aanmoediging",
-    "en": "the encouragement",
-    "note": "Op Niveau H2. De-woord, meervoud: aanmoedigingen. Van aanmoedigen (scheidbaar: moedigde aan, aangemoedigd). Iemand een aanmoediging geven = to give someone encouragement.",
-    "example": "Een beetje aanmoediging deed hem goed.",
-    "tags": [
-      "zelfstandig",
-      "de-woord",
-      "emotie",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "uiteraard",
-    "en": "of course / naturally",
-    "note": "Op Niveau H2. Bijwoord, formeler dan 'natuurlijk'. Wordt vaak aan het begin of eind van de zin geplaatst. Synoniemen: vanzelfsprekend, natuurlijk.",
-    "example": "Uiteraard zijn we het ermee eens. / U bent uiteraard welkom.",
-    "tags": [
-      "bijwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "dergelijk",
-    "en": "such / similar / like that",
-    "note": "Op Niveau H2. Bijvoeglijk en onbepaald aanwijzend voornaamwoord. Verbogen vorm: dergelijke. Een dergelijke situatie = a situation like that / such a situation. Iets dergelijks = something like that. Formeler dan 'zo'n'.",
-    "example": "Een dergelijke fout mag niet meer voorkomen.",
-    "tags": [
-      "bijvoeglijk",
-      "voornaamwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "aanmoedigen",
-    "en": "to encourage / to cheer on",
-    "note": "Op Niveau H2. Scheidbaar: moedigde aan, aangemoedigd. Iemand aanmoedigen om iets te doen = to encourage someone to do something. Pairs with de aanmoediging (the encouragement).",
-    "example": "Mijn ouders hebben mij altijd aangemoedigd om te studeren.",
-    "tags": [
-      "werkwoord",
-      "scheidbaar",
-      "emotie",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "bemoedigend / bemoedigende",
-    "en": "encouraging / comforting / heartening",
-    "note": "Op Niveau H2. Tegenwoordig deelwoord van bemoedigen (to comfort / to give heart), gebruikt als bijvoeglijk naamwoord. Verbogen vorm: bemoedigende (voor de-woorden, het-woorden met lidwoord, en meervoud). Bemoedigende woorden = encouraging words. Synoniemen: hoopgevend, geruststellend.",
-    "example": "Ze sprak bemoedigende woorden tegen het ontmoedigde team.",
-    "tags": [
-      "bijvoeglijk",
-      "tegenwoordig-deelwoord",
-      "verbuiging",
-      "emotie",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "allerlei",
-    "en": "all kinds of / various",
-    "note": "Op Niveau H2. Onveranderlijk bijvoeglijk naamwoord; staat altijd voor zelfstandig naamwoord (geen verbuiging). Allerlei mensen / allerlei dingen. Synoniem: allerhande.",
-    "example": "Op de markt zijn er allerlei soorten kaas te koop.",
-    "tags": [
-      "bijvoeglijk",
-      "onveranderlijk",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B1"
-  },
-  {
     "nl": "verslagen",
     "en": "defeated / dejected (adj.) / reports (pl. n.)",
     "note": "Op Niveau H2. Twee betekenissen: (1) bijvoeglijk: verslagen voelen = to feel defeated / crushed. (2) meervoud van het verslag = the reports. Voltooid deelwoord van verslaan (versloeg, verslagen) = to defeat.",
@@ -12623,143 +12721,74 @@
     "level": "B2"
   },
   {
-    "nl": "de moeite",
-    "en": "the effort / trouble",
-    "note": "Op Niveau H2. De-woord, geen meervoud. Idiomatisch: moeite doen voor = to make an effort for. De moeite waard = worth the trouble. Geen moeite = no problem. Met moeite = with difficulty.",
-    "example": "Het kostte hem veel moeite om Nederlands te leren.",
+    "nl": "vervangen",
+    "en": "to replace (verving, vervangen)",
+    "note": "Op Niveau H2 (onregelmatig). Onregelmatig: verving, vervangen. Niet scheidbaar. X door Y vervangen = to replace X with Y.",
+    "example": "Ze vervingen de oude lantaarnpalen door LED-lampen.",
     "tags": [
-      "zelfstandig",
-      "de-woord",
-      "uitdrukking",
+      "werkwoord",
+      "onregelmatig",
+      "voorzetsel",
       "op-niveau",
-      "op-niveau-h2"
+      "op-niveau-h2",
+      "op-niveau-h2-onreg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "zich gedragen",
+    "en": "to behave (gedroeg, gedragen)",
+    "note": "Op Niveau H2 (onregelmatig). Reflexief en onregelmatig: gedroeg zich, heeft zich gedragen. Goed/slecht gedrag = good/bad behaviour. Gedrag (het) = behaviour.",
+    "example": "Hij gedroeg zich vreemd op de fiets.",
+    "tags": [
+      "werkwoord",
+      "reflexief",
+      "onregelmatig",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-onreg"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "aan de andere kant",
+    "en": "on the other hand",
+    "note": "Op Niveau H2 (algemeen). Discoursemarkeerder voor contrast. Synoniem: <em>daarentegen</em> (formeler). Vaak gecombineerd met <em>enerzijds ... anderzijds</em> in geschreven taal. Letterlijk ook ruimtelijk: aan de andere kant van de straat.",
+    "example": "Het is duur, maar <strong>aan de andere kant</strong> is de kwaliteit uitstekend.<br>Aan de ene kant wil ik gaan, aan de andere kant ben ik moe.<br>Hij woont aan de andere kant van de stad.",
+    "tags": [
+      "uitdrukking",
+      "connector",
+      "contrast",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
     ],
     "level": "B1"
   },
   {
-    "nl": "nader",
-    "en": "closer / further (more detailed)",
-    "note": "Op Niveau H2. Bijvoeglijk en bijwoord, formeel. Vergelijkende trap (van na/dichtbij). Nader bekijken = to look at more closely. Iets nader toelichten = to explain in more detail. Nadere informatie = further information.",
-    "example": "Kunt u dit nader toelichten?",
-    "tags": [
-      "bijvoeglijk",
-      "bijwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de gelegenheid",
-    "en": "the opportunity / occasion",
-    "note": "Op Niveau H2. De-woord, meervoud: gelegenheden. Een gelegenheid krijgen = to get an opportunity. Bij gelegenheid = on occasion. Gelegenheidskleding = occasion-wear. In de gelegenheid zijn om = to be in a position to.",
-    "example": "Ik heb nog geen gelegenheid gehad om het boek te lezen.",
-    "tags": [
-      "zelfstandig",
-      "de-woord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "malen",
-    "en": "to grind / to mind (informal: to care)",
-    "note": "Op Niveau H2. Onregelmatig: maalde, gemalen (or maalde in older usage). Twee betekenissen: (1) letterlijk: koffie malen = to grind coffee. (2) figuurlijk/informeel: ergens om malen = to care about / to mind. Ik maal er niet om = I don't care.",
-    "example": "Hij maalt er niet om wat anderen denken.",
+    "nl": "aangelegd",
+    "en": "constructed / built / laid out (past part. of aanleggen)",
+    "note": "Op Niveau H2 (algemeen). Voltooid deelwoord van aanleggen (scheidbaar onregelmatig: legde aan, aangelegd). Een fietspad aanleggen = to construct a cycle path. Een tuin aanleggen = to lay out a garden.",
+    "example": "Er zijn nieuwe vrijliggende fietspaden aangelegd.",
     "tags": [
       "werkwoord",
-      "onregelmatig",
-      "informeel",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "gesprekken voeren",
-    "en": "to hold conversations / to have discussions",
-    "note": "Op Niveau H2. Vaste collocatie: gesprekken (mv. van het gesprek) + voeren (= to wage / to conduct). Gesprek voeren met iemand = to have a conversation with someone. Onderhandelingsgesprekken voeren = to conduct negotiations.",
-    "example": "We voeren elke maand gesprekken met onze klanten.",
-    "tags": [
-      "uitdrukking",
-      "communicatie",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de gevoelsuitingen",
-    "en": "expressions of emotion / displays of feeling",
-    "note": "Op Niveau H2. Meervoud (enkelvoud: de gevoelsuiting). Gevoel (feeling) + uiting (expression). Wordt vaak gebruikt in psychologische of culturele context. Spontane gevoelsuitingen = spontaneous displays of emotion.",
-    "example": "Nederlanders staan niet bekend om hun overdreven gevoelsuitingen.",
-    "tags": [
-      "zelfstandig",
-      "de-woord",
-      "samengesteld",
-      "emotie",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "navertellen",
-    "en": "to retell / to recount",
-    "note": "Op Niveau H2. Scheidbaar: vertelde na, naverteld. Een verhaal navertellen = to retell a story. Vaak in onderwijscontext: leerlingen vertellen wat ze gehoord hebben na.",
-    "example": "Kun je in eigen woorden navertellen wat er in de tekst stond?",
-    "tags": [
-      "werkwoord",
+      "voltooid-deelwoord",
       "scheidbaar",
-      "communicatie",
+      "stad",
       "op-niveau",
-      "op-niveau-h2"
+      "op-niveau-h2",
+      "op-niveau-h2-general"
     ],
     "level": "B2"
   },
   {
-    "nl": "het betoog",
-    "en": "the argument / discourse / treatise",
-    "note": "Op Niveau H2. Het-woord, meervoud: betogen. Een uitgebreid pleidooi waarin iets verdedigd wordt. Een betoog houden = to give a speech / argument. Betogen (ww.) = to argue / to demonstrate. Komt van betogen = to argue.",
-    "example": "Zijn betoog over duurzaamheid was overtuigend.",
-    "tags": [
-      "zelfstandig",
-      "het-woord",
-      "communicatie",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "C1"
-  },
-  {
-    "nl": "samenhangend",
-    "en": "coherent / connected",
-    "note": "Op Niveau H2. Tegenwoordig deelwoord van samenhangen (to be connected, to cohere). Verbogen: samenhangende. Een samenhangend verhaal = a coherent story. De samenhang = the coherence/connection. Antoniem: onsamenhangend.",
-    "example": "Schrijf een samenhangend betoog van 300 woorden.",
+    "nl": "aangenaam",
+    "en": "pleasant / nice (to meet)",
+    "note": "Op Niveau H2 (algemeen). Bijvoeglijk. Verbogen: aangename. Aangename temperatuur = pleasant temperature. Ook als beleefdheidsformule bij kennismaking: 'Aangenaam!' = Pleased to meet you.",
+    "example": "Het was een aangename rit door de polder.",
     "tags": [
       "bijvoeglijk",
-      "tegenwoordig-deelwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "het vervoermiddel",
-    "en": "the means of transport / vehicle",
-    "note": "Op Niveau H2 (algemeen). Het-woord, mv. vervoermiddelen. Vervoer (transport) + middel (means). Openbaar vervoermiddel = public transport. De fiets is een populair vervoermiddel in Nederland.",
-    "example": "Welk vervoermiddel gebruik je het meest?",
-    "tags": [
-      "zelfstandig",
-      "het-woord",
-      "verkeer",
-      "samengesteld",
+      "beleefdheid",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -12782,48 +12811,14 @@
     "level": "B2"
   },
   {
-    "nl": "de steden",
-    "en": "the cities",
-    "note": "Op Niveau H2 (algemeen). Meervoud van de stad. Onregelmatig meervoud (niet 'stadden'). Grote steden = big cities. De vier grote steden van Nederland (G4) = Amsterdam, Rotterdam, Den Haag, Utrecht.",
-    "example": "In de Nederlandse steden wonen veel mensen op een fiets.",
+    "nl": "beschouwd",
+    "en": "considered / regarded (past part. of beschouwen)",
+    "note": "Op Niveau H2 (algemeen). Voltooid deelwoord van beschouwen (regelmatig, niet scheidbaar: beschouwde, beschouwd — geen ge-). Iets als X beschouwen = to regard something as X. Algemeen beschouwd = generally regarded.",
+    "example": "De fiets wordt in Nederland beschouwd als een nationaal symbool.",
     "tags": [
-      "zelfstandig",
-      "de-woord",
-      "meervoud",
-      "onregelmatig",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "A2"
-  },
-  {
-    "nl": "de verenigingen",
-    "en": "the associations / clubs",
-    "note": "Op Niveau H2 (algemeen). Meervoud van de vereniging. Van verenigen (to unite). Sportvereniging, studentenvereniging, buurtvereniging. Typisch Nederlands maatschappelijk fenomeen — zie 'het verenigingsleven'.",
-    "example": "Veel Nederlanders zijn lid van een of meer verenigingen.",
-    "tags": [
-      "zelfstandig",
-      "de-woord",
-      "meervoud",
-      "maatschappij",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "de toertochten",
-    "en": "the recreational tours / cycling tours",
-    "note": "Op Niveau H2 (algemeen). Meervoud van de toertocht. Toer (tour) + tocht (journey/trip). Vooral fiets- of motortoertochten. Een fietstoertocht door de polder = a cycling tour through the polder.",
-    "example": "In de zomer organiseren veel verenigingen toertochten.",
-    "tags": [
-      "zelfstandig",
-      "de-woord",
-      "meervoud",
-      "verkeer",
-      "samengesteld",
+      "werkwoord",
+      "voltooid-deelwoord",
+      "formeel",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -12831,15 +12826,56 @@
     "level": "B2"
   },
   {
-    "nl": "de tochten",
-    "en": "the journeys / trips / outings",
-    "note": "Op Niveau H2 (algemeen). Meervoud van de tocht. Een tocht = a journey/trip, vaak te voet, op de fiets, of per boot. Lang en avontuurlijker dan 'reis'. Elfstedentocht = the famous 11-cities skating tour.",
-    "example": "We hebben mooie tochten gemaakt langs de Vecht.",
+    "nl": "deftig",
+    "en": "refined / posh / dignified",
+    "note": "Op Niveau H2 (algemeen). Bijvoeglijk. Verbogen: deftige. Comp.: deftiger. Een deftige buurt = a posh neighborhood. Deftig taalgebruik = formal/refined language.",
+    "example": "Hij heeft een deftiger toon dan zijn collega's.",
+    "tags": [
+      "bijvoeglijk",
+      "karakter",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "ene",
+    "en": "the one (in 'de ene... de andere')",
+    "note": "Op Niveau H2 (algemeen). Onbepaald aanwijzend. Vaak in tegenstellingen: de ene week wel, de andere niet = one week yes, the next not. Ook: een zekere — ene meneer Jansen = a certain Mr Jansen.",
+    "example": "De ene fietser parkeert netjes, de andere zet zijn fiets midden op de stoep.",
+    "tags": [
+      "voornaamwoord",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "eng onduidelijk",
+    "en": "scarily unclear / unsettlingly vague",
+    "note": "Op Niveau H2 (algemeen). <em>Eng</em> (= scary) wordt hier als versterker bij een bijvoeglijk naamwoord gebruikt, vergelijkbaar met Engels 'eerily' of 'creepy'. Vergelijk: <em>eng stil</em> (eerily quiet), <em>eng leeg</em> (creepily empty). Geeft een onbehaaglijk gevoel weer.",
+    "example": "Dan wordt <strong>het gesprek voor mij eng onduidelijk</strong>.<br>Het was eng stil in het huis.<br>Haar reactie was eng kalm.",
+    "tags": [
+      "uitdrukking",
+      "bijvoeglijk",
+      "emotie",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de etalage",
+    "en": "the shop window / display",
+    "note": "Op Niveau H2 (algemeen). De-woord, mv. etalages. Iets in de etalage zetten = to put on display. Etalagepop = mannequin.",
+    "example": "Hij stalde zijn fiets pal voor een etalage.",
     "tags": [
       "zelfstandig",
       "de-woord",
-      "meervoud",
-      "verkeer",
+      "stad",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -12847,13 +12883,101 @@
     "level": "B1"
   },
   {
-    "nl": "voorop",
-    "en": "in front / at the head",
-    "note": "Op Niveau H2 (algemeen). Bijwoord. Voorop fietsen = to cycle at the front. Voorop staan = to take the lead / be at the forefront. Verschilt van vooraan (= at the front of a row).",
-    "example": "Bij de toertocht reed de oudste deelnemer voorop.",
+    "nl": "even",
+    "en": "just / for a moment / equally",
+    "note": "Op Niveau H2 (algemeen). Bijwoord met meerdere betekenissen: (1) briefly: even wachten = wait a moment; (2) equally: even groot = equally big; (3) softener in requests: kun je even helpen? = can you help for a sec?",
+    "example": "Wacht even, ik moet mijn fiets nog op slot zetten.",
     "tags": [
       "bijwoord",
+      "beleefdheid",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "A2"
+  },
+  {
+    "nl": "fanatiek",
+    "en": "fanatical / passionate",
+    "note": "Op Niveau H2 (algemeen). Bijvoeglijk en bijwoord. Verbogen: fanatieke. Een fanatieke fietser = a passionate cyclist. Sterker dan 'enthousiast'.",
+    "example": "Hij is een fanatieke wielrenner; elk weekend zit hij op de fiets.",
+    "tags": [
+      "bijvoeglijk",
+      "karakter",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "flexibel",
+    "en": "flexible / adaptable",
+    "note": "Op Niveau H2 (algemeen). Bijvoeglijk en bijwoord. Verbogen: flexibele. Synoniemen: soepel, aanpasbaar. De flexibiliteit = flexibility. Tegenovergestelde: star, rigide.",
+    "example": "We zoeken een flexibele werknemer die zich snel kan aanpassen.",
+    "tags": [
+      "bijvoeglijk",
+      "werk",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "gelden",
+    "en": "to apply / to be valid (gold, gegolden)",
+    "note": "Op Niveau H2 (algemeen). Onregelmatig: gold, gegolden. De regels gelden voor iedereen = the rules apply to everyone. Dit gold vroeger ook = this used to apply too. Geldig = valid.",
+    "example": "Vroeger gold er een andere norm voor fietsparkeren.",
+    "tags": [
+      "werkwoord",
+      "onregelmatig",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "genegeerd",
+    "en": "ignored (past part. of negeren)",
+    "note": "Op Niveau H2 (algemeen). Voltooid deelwoord van negeren (regelmatig, niet scheidbaar maar krijgt ge- omdat het niet met be-/ver-/ont- begint: negeerde, genegeerd). Iemand negeren = to ignore someone. Verkeersregels negeren = to ignore traffic rules.",
+    "example": "De fietser werd door de automobilist volkomen genegeerd.",
+    "tags": [
+      "werkwoord",
+      "voltooid-deelwoord",
+      "communicatie",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "het getoeter",
+    "en": "the honking / tooting (noise)",
+    "note": "Op Niveau H2 (algemeen). Het-woord, geen meervoud. Verzamelnaam van toeteren — het continue geluid. Vergelijk: gekraak (creaking), gepraat (chatter), gefiets (lots of cycling). Vaak negatief gebruikt.",
+    "example": "Het getoeter in de stad maakte hem gek.",
+    "tags": [
+      "zelfstandig",
+      "het-woord",
+      "verzamelnaam",
       "verkeer",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "groeien",
+    "en": "to grow (groeide, is gegroeid)",
+    "note": "Op Niveau H2 (algemeen). Regelmatig MAAR neemt 'zijn' in perfectum (verandering van staat). Gegroeid = past part. De ergernis is gegroeid = irritation has grown.",
+    "example": "Het aantal fietsers is de afgelopen jaren flink gegroeid.",
+    "tags": [
+      "werkwoord",
+      "verandering",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -12877,45 +13001,14 @@
     "level": "B1"
   },
   {
-    "nl": "het getoeter",
-    "en": "the honking / tooting (noise)",
-    "note": "Op Niveau H2 (algemeen). Het-woord, geen meervoud. Verzamelnaam van toeteren — het continue geluid. Vergelijk: gekraak (creaking), gepraat (chatter), gefiets (lots of cycling). Vaak negatief gebruikt.",
-    "example": "Het getoeter in de stad maakte hem gek.",
+    "nl": "ik moet snel weg",
+    "en": "I have to leave quickly / I have to run",
+    "note": "Op Niveau H2 (algemeen). Spreektaal. <em>Weg</em> functioneert hier als richtingsbijwoord; het hoofdwerkwoord (gaan/lopen) wordt weggelaten, wat typisch is voor modale werkwoorden + richting in het Nederlands. Vergelijk: ik moet naar huis, ik moet ervandoor.",
+    "example": "Sorry, <strong>ik moet snel weg</strong>, ik heb een afspraak.<br>Hij moest snel weg na de vergadering.<br>We moeten zo weg, anders missen we de trein.",
     "tags": [
-      "zelfstandig",
-      "het-woord",
-      "verzamelnaam",
-      "verkeer",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "beschouwd",
-    "en": "considered / regarded (past part. of beschouwen)",
-    "note": "Op Niveau H2 (algemeen). Voltooid deelwoord van beschouwen (regelmatig, niet scheidbaar: beschouwde, beschouwd — geen ge-). Iets als X beschouwen = to regard something as X. Algemeen beschouwd = generally regarded.",
-    "example": "De fiets wordt in Nederland beschouwd als een nationaal symbool.",
-    "tags": [
-      "werkwoord",
-      "voltooid-deelwoord",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "tegenwoordig",
-    "en": "nowadays / currently",
-    "note": "Op Niveau H2 (algemeen). Bijwoord en bijvoeglijk. Bijwoord: tegenwoordig fietst iedereen elektrisch = nowadays everyone cycles electric. Bijvoeglijk: het tegenwoordige / het tegenwoordig deelwoord = the present participle.",
-    "example": "Tegenwoordig hebben veel mensen een elektrische fiets.",
-    "tags": [
-      "bijwoord",
-      "bijvoeglijk",
-      "tijd",
+      "uitdrukking",
+      "spreektaal",
+      "modaal",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -12923,28 +13016,14 @@
     "level": "B1"
   },
   {
-    "nl": "verheffen",
-    "en": "to lift up / to raise / to elevate",
-    "note": "Op Niveau H2 (algemeen). Onregelmatig: verhief, verheven. Niet scheidbaar (geen ge- in v.d.). Letterlijk: iets optillen. Figuurlijk: zijn stem verheffen = to raise one's voice. Zich verheven voelen = to feel superior. Verheven (bijv.) = elevated/lofty.",
-    "example": "Hij verhief zijn stem om gehoord te worden boven het lawaai.",
+    "nl": "ik weet niets van",
+    "en": "I don't know anything about",
+    "note": "Op Niveau H2 (algemeen). Vaste constructie met voorzetsel <strong>van</strong> om onwetendheid over een onderwerp uit te drukken. Variant: <em>ik weet er niets van</em> (met er-constructie als onderwerp al genoemd is). Tegenovergestelde: ik weet er veel van.",
+    "example": "<strong>Ik weet niets van</strong> politiek.<br>Ik weet niets van het ongeluk &mdash; ik was er niet bij.<br>Vraag het haar niet, ze weet er niets van.",
     "tags": [
-      "werkwoord",
-      "onregelmatig",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "flexibel",
-    "en": "flexible / adaptable",
-    "note": "Op Niveau H2 (algemeen). Bijvoeglijk en bijwoord. Verbogen: flexibele. Synoniemen: soepel, aanpasbaar. De flexibiliteit = flexibility. Tegenovergestelde: star, rigide.",
-    "example": "We zoeken een flexibele werknemer die zich snel kan aanpassen.",
-    "tags": [
-      "bijvoeglijk",
-      "werk",
+      "uitdrukking",
+      "voorzetsel",
+      "spreektaal",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -12952,74 +13031,13 @@
     "level": "B1"
   },
   {
-    "nl": "de natuurliefhebber",
-    "en": "nature lover",
-    "note": "Op Niveau H2 (algemeen). De-woord, mv. natuurliefhebbers. Natuur (nature) + liefhebber (enthusiast/aficionado). Iemand die graag in de natuur is. Vrouwelijk: natuurliefhebster. Vergelijk: kunstliefhebber, muziekliefhebber.",
-    "example": "Als natuurliefhebber wandelt hij elke zondag in het bos.",
+    "nl": "irriteren (iemand)",
+    "en": "to irritate / annoy (someone)",
+    "note": "Op Niveau H2 (algemeen). Regelmatig: irriteerde, geïrriteerd. Transitief: <strong>iets irriteert mij</strong>. Vergelijk met reflexief <em>zich ergeren aan</em> (= jezelf irriteren aan iets). Geïrriteerd = annoyed (adj.).",
+    "example": "Dat <strong>irriteert me</strong> enorm.<br>Zijn manier van praten irriteert me.<br>Ik raakte geïrriteerd door het lawaai.",
     "tags": [
-      "zelfstandig",
-      "de-woord",
-      "samengesteld",
-      "karakter",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de vastberadenheid",
-    "en": "firmness / determination / resolve",
-    "note": "Op Niveau H2 (algemeen). De-woord, geen meervoud. Van vastberaden = determined/resolute. Met vastberadenheid = with determination. Synoniemen: standvastigheid, doelgerichtheid.",
-    "example": "Met grote vastberadenheid begon ze aan haar nieuwe project.",
-    "tags": [
-      "zelfstandig",
-      "de-woord",
-      "karakter",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "de omslag",
-    "en": "the cover / turnaround / shift",
-    "note": "Op Niveau H2 (algemeen). De-woord. Drie betekenissen: (1) cover van boek/tijdschrift; (2) plotselinge verandering (een cultuuromslag = a cultural shift); (3) wisseling. Een omslag in denken = a change of mindset.",
-    "example": "Er is een duidelijke omslag in hoe we naar mobiliteit kijken.",
-    "tags": [
-      "zelfstandig",
-      "de-woord",
-      "verandering",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "fanatiek",
-    "en": "fanatical / passionate",
-    "note": "Op Niveau H2 (algemeen). Bijvoeglijk en bijwoord. Verbogen: fanatieke. Een fanatieke fietser = a passionate cyclist. Sterker dan 'enthousiast'.",
-    "example": "Hij is een fanatieke wielrenner; elk weekend zit hij op de fiets.",
-    "tags": [
-      "bijvoeglijk",
-      "karakter",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "wel eens / weleens",
-    "en": "sometimes / ever (at some point)",
-    "note": "Op Niveau H2 (algemeen). Bijwoord van frequentie. Beide spellingen worden gebruikt. Heb je wel eens...? = Have you ever...? Ik kom er wel eens = I go there sometimes.",
-    "example": "Erger jij je wel eens aan automobilisten?",
-    "tags": [
-      "bijwoord",
-      "frequentie",
+      "werkwoord",
+      "emotie",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -13027,14 +13045,13 @@
     "level": "B1"
   },
   {
-    "nl": "uitsteken",
-    "en": "to stick out / to extend (stak uit, uitgestoken)",
-    "note": "Op Niveau H2 (algemeen). Scheidbaar en onregelmatig: stak uit, uitgestoken. Je hand uitsteken = to put out your hand (also: to signal as a cyclist). Een uitgestoken hand = an outstretched hand.",
-    "example": "Steek je hand uit voordat je afslaat.",
+    "nl": "laden en lossen",
+    "en": "loading and unloading",
+    "note": "Op Niveau H2 (algemeen). Vaste collocatie. Laden = to load, lossen = to unload. Plaats voor laden en lossen = loading zone. Vaak op verkeersborden.",
+    "example": "Hier mag je alleen stoppen om te laden en te lossen.",
     "tags": [
+      "uitdrukking",
       "werkwoord",
-      "scheidbaar",
-      "onregelmatig",
       "verkeer",
       "op-niveau",
       "op-niveau-h2",
@@ -13059,14 +13076,14 @@
     "level": "B2"
   },
   {
-    "nl": "de omgang",
-    "en": "interaction / dealings / contact",
-    "note": "Op Niveau H2 (algemeen). De-woord, geen meervoud. Van omgaan met (to deal with). De omgang met collega's = interaction with colleagues. Omgangsvormen = manners.",
-    "example": "De omgang tussen fietsers en automobilisten is niet altijd makkelijk.",
+    "nl": "met behulp van",
+    "en": "with the help of / by means of",
+    "note": "Op Niveau H2 (algemeen). Vaste voorzetseluitdrukking, iets formeel. Synoniem: <em>door middel van</em>. Wordt vaak gevolgd door een zelfstandig naamwoord + een <strong>om ... te</strong> of <strong>uit te</strong>-constructie die het doel uitdrukt. Niet te verwarren met <em>behulpzaam</em> (= helpful).",
+    "example": "Ik probeer <strong>met behulp van details uit te vinden</strong> wat er gebeurd is.<br>Met behulp van een woordenboek begrijp ik de tekst beter.<br>De politie heeft de dader met behulp van camerabeelden geïdentificeerd.",
     "tags": [
-      "zelfstandig",
-      "de-woord",
-      "communicatie",
+      "uitdrukking",
+      "voorzetsel",
+      "formeel",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -13088,28 +13105,14 @@
     "level": "B1"
   },
   {
-    "nl": "aangenaam",
-    "en": "pleasant / nice (to meet)",
-    "note": "Op Niveau H2 (algemeen). Bijvoeglijk. Verbogen: aangename. Aangename temperatuur = pleasant temperature. Ook als beleefdheidsformule bij kennismaking: 'Aangenaam!' = Pleased to meet you.",
-    "example": "Het was een aangename rit door de polder.",
+    "nl": "de natuurliefhebber",
+    "en": "nature lover",
+    "note": "Op Niveau H2 (algemeen). De-woord, mv. natuurliefhebbers. Natuur (nature) + liefhebber (enthusiast/aficionado). Iemand die graag in de natuur is. Vrouwelijk: natuurliefhebster. Vergelijk: kunstliefhebber, muziekliefhebber.",
+    "example": "Als natuurliefhebber wandelt hij elke zondag in het bos.",
     "tags": [
-      "bijvoeglijk",
-      "beleefdheid",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "zich misdragen",
-    "en": "to misbehave (misdroeg, heeft zich misdragen)",
-    "note": "Op Niveau H2 (algemeen). Reflexief en onregelmatig (volgt dragen): misdroeg zich, heeft zich misdragen. Niet scheidbaar — geen ge- in v.d. Sterker dan 'zich slecht gedragen'.",
-    "example": "De leerlingen hebben zich tijdens de les misdragen.",
-    "tags": [
-      "werkwoord",
-      "reflexief",
-      "onregelmatig",
+      "zelfstandig",
+      "de-woord",
+      "samengesteld",
       "karakter",
       "op-niveau",
       "op-niveau-h2",
@@ -13118,71 +13121,14 @@
     "level": "B2"
   },
   {
-    "nl": "groeien",
-    "en": "to grow (groeide, is gegroeid)",
-    "note": "Op Niveau H2 (algemeen). Regelmatig MAAR neemt 'zijn' in perfectum (verandering van staat). Gegroeid = past part. De ergernis is gegroeid = irritation has grown.",
-    "example": "Het aantal fietsers is de afgelopen jaren flink gegroeid.",
-    "tags": [
-      "werkwoord",
-      "verandering",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "stallen",
-    "en": "to park / to store (a bike)",
-    "note": "Op Niveau H2 (algemeen). Regelmatig: stalde, gestald. Specifiek voor fietsen: je fiets stallen = to park your bike. Fietsenstalling = bicycle parking.",
-    "example": "Waar kan ik mijn fiets stallen?",
-    "tags": [
-      "werkwoord",
-      "verkeer",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "oprapen",
-    "en": "to pick up (off the ground)",
-    "note": "Op Niveau H2 (algemeen). Scheidbaar regelmatig: raapte op, opgeraapt. Iets van de grond oprapen = to pick something up off the ground. Vergelijk: oppakken (pick up generally).",
-    "example": "Iemand moet die troep oprapen.",
-    "tags": [
-      "werkwoord",
-      "scheidbaar",
-      "dagelijks",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "de etalage",
-    "en": "the shop window / display",
-    "note": "Op Niveau H2 (algemeen). De-woord, mv. etalages. Iets in de etalage zetten = to put on display. Etalagepop = mannequin.",
-    "example": "Hij stalde zijn fiets pal voor een etalage.",
+    "nl": "de omgang",
+    "en": "interaction / dealings / contact",
+    "note": "Op Niveau H2 (algemeen). De-woord, geen meervoud. Van omgaan met (to deal with). De omgang met collega's = interaction with colleagues. Omgangsvormen = manners.",
+    "example": "De omgang tussen fietsers en automobilisten is niet altijd makkelijk.",
     "tags": [
       "zelfstandig",
       "de-woord",
-      "stad",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B1"
-  },
-  {
-    "nl": "zeulen",
-    "en": "to lug / to drag along",
-    "note": "Op Niveau H2 (algemeen). Regelmatig: zeulde, gezeuld. Met iets zeulen = to lug something around (informeel, klinkt zwaar/onwillig). Synoniem: sjouwen.",
-    "example": "Ik zeulde de hele dag boodschappen mee op mijn fiets.",
-    "tags": [
-      "werkwoord",
-      "informeel",
+      "communicatie",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -13190,13 +13136,14 @@
     "level": "B2"
   },
   {
-    "nl": "sjouwen",
-    "en": "to haul / to lug (heavy things)",
-    "note": "Op Niveau H2 (algemeen). Regelmatig: sjouwde, gesjouwd. Iets zwaars sjouwen = to haul something heavy. Synoniem: zeulen. Sjouwer = laborer/dock worker.",
-    "example": "We moesten alle dozen drie trappen op sjouwen.",
+    "nl": "de omslag",
+    "en": "the cover / turnaround / shift",
+    "note": "Op Niveau H2 (algemeen). De-woord. Drie betekenissen: (1) cover van boek/tijdschrift; (2) plotselinge verandering (een cultuuromslag = a cultural shift); (3) wisseling. Een omslag in denken = a change of mindset.",
+    "example": "Er is een duidelijke omslag in hoe we naar mobiliteit kijken.",
     "tags": [
-      "werkwoord",
-      "informeel",
+      "zelfstandig",
+      "de-woord",
+      "verandering",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -13217,27 +13164,30 @@
     "level": "B2"
   },
   {
-    "nl": "tegenover",
-    "en": "opposite / facing / towards",
-    "note": "Op Niveau H2 (algemeen). Voorzetsel. Tegenover de winkel = opposite the shop. Ook figuurlijk: tegenover iemand staan = to be opposed to someone. Tegenovergesteld = opposite.",
-    "example": "Hij parkeert zijn fiets altijd tegenover de bibliotheek.",
+    "nl": "opbreken",
+    "en": "to dig up (a road) / to break up (brak op, opgebroken)",
+    "note": "Op Niveau H2 (algemeen). Scheidbaar en onregelmatig: brak op, opgebroken. De straat is opgebroken = the street has been dug up. Een opgebroken straat = a road being worked on.",
+    "example": "De straat werd opgebroken om kabels te leggen.",
     "tags": [
-      "voorzetsel",
-      "plaats",
+      "werkwoord",
+      "scheidbaar",
+      "onregelmatig",
+      "stad",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
     ],
-    "level": "A2"
+    "level": "B2"
   },
   {
-    "nl": "gelden",
-    "en": "to apply / to be valid (gold, gegolden)",
-    "note": "Op Niveau H2 (algemeen). Onregelmatig: gold, gegolden. De regels gelden voor iedereen = the rules apply to everyone. Dit gold vroeger ook = this used to apply too. Geldig = valid.",
-    "example": "Vroeger gold er een andere norm voor fietsparkeren.",
+    "nl": "opgesteld",
+    "en": "drawn up / set up / arranged (past part. of opstellen)",
+    "note": "Op Niveau H2 (algemeen). Voltooid deelwoord van opstellen (scheidbaar regelmatig: stelde op, opgesteld). Een plan opstellen = to draw up a plan. Regels worden opgesteld door de gemeente = rules are drawn up by the municipality.",
+    "example": "De regels voor fietsparkeren zijn door de gemeente opgesteld.",
     "tags": [
       "werkwoord",
-      "onregelmatig",
+      "voltooid-deelwoord",
+      "scheidbaar",
       "formeel",
       "op-niveau",
       "op-niveau-h2",
@@ -13246,15 +13196,30 @@
     "level": "B2"
   },
   {
-    "nl": "de vensterbank",
-    "en": "the windowsill",
-    "note": "Op Niveau H2 (algemeen). De-woord, mv. vensterbanken. Venster (window) + bank (bench/ledge). Iets op de vensterbank zetten = to put something on the windowsill.",
-    "example": "Bloemen op de vensterbank zijn typisch Nederlands.",
+    "nl": "opkomen voor",
+    "en": "to stand up for / to defend",
+    "note": "Op Niveau H2 (algemeen). Scheidbaar onregelmatig: kwam op, opgekomen. Hulpwerkwoord: <strong>zijn</strong> (ik ben opgekomen, niet *ik heb opgekomen). Voor iemand opkomen = iemand verdedigen of beschermen. Voor je rechten opkomen = to stand up for your rights.<br><br><strong>Structuur-checklist:</strong> [<em>op</em>] + [<em>komen</em>] + [<em>voor</em>]. Prefix &rarr; einde. Werkwoord &rarr; positie 2. Voorzetsel blijft bij zijn naamwoord in het midden.<br>&bull; <strong>Pres:</strong> Ik <strong>KOM</strong> voor mijn collega <strong>OP</strong>.<br>&bull; <strong>Perf (zijn):</strong> Ik <strong>BEN</strong> voor mijn collega <strong>OPGEKOMEN</strong>.<br>&bull; <strong>Modaal:</strong> Ik <strong>WIL</strong> voor mijn collega <strong>OPKOMEN</strong>.<br>&bull; <strong>Bijzin:</strong> ...dat ik voor mijn collega <strong>OPKOM</strong>.",
+    "example": "Ze <strong>komt altijd op voor</strong> de zwakkeren.<br>Hij is voor zijn rechten opgekomen.<br>Je moet voor jezelf leren opkomen.<br>Idiom: <em>voor jezelf opkomen</em> = to assert yourself / stand up for yourself.",
     "tags": [
-      "zelfstandig",
-      "de-woord",
-      "samengesteld",
-      "huis",
+      "werkwoord",
+      "scheidbaar",
+      "onregelmatig",
+      "voorzetsel",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "oprapen",
+    "en": "to pick up (off the ground)",
+    "note": "Op Niveau H2 (algemeen). Scheidbaar regelmatig: raapte op, opgeraapt. Iets van de grond oprapen = to pick something up off the ground. Vergelijk: oppakken (pick up generally).",
+    "example": "Iemand moet die troep oprapen.",
+    "tags": [
+      "werkwoord",
+      "scheidbaar",
+      "dagelijks",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -13262,67 +13227,10 @@
     "level": "B1"
   },
   {
-    "nl": "de stoep",
-    "en": "the sidewalk / pavement",
-    "note": "Op Niveau H2 (algemeen). De-woord, mv. stoepen. Op de stoep = on the sidewalk. Fietsen op de stoep is niet toegestaan.",
-    "example": "Sommige fietsers stallen hun fiets op de stoep.",
-    "tags": [
-      "zelfstandig",
-      "de-woord",
-      "verkeer",
-      "stad",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "A2"
-  },
-  {
-    "nl": "vrijliggend",
-    "en": "separated / dedicated (cycle path)",
-    "note": "Op Niveau H2 (algemeen). Bijvoeglijk. Verbogen: vrijliggende. Een vrijliggend fietspad = a dedicated/separated cycle path (apart van de autoweg). Veiliger dan een fietsstrook op de weg.",
-    "example": "Op vrijliggende fietspaden zijn veel minder ongelukken.",
-    "tags": [
-      "bijvoeglijk",
-      "verkeer",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "deftig",
-    "en": "refined / posh / dignified",
-    "note": "Op Niveau H2 (algemeen). Bijvoeglijk. Verbogen: deftige. Comp.: deftiger. Een deftige buurt = a posh neighborhood. Deftig taalgebruik = formal/refined language.",
-    "example": "Hij heeft een deftiger toon dan zijn collega's.",
-    "tags": [
-      "bijvoeglijk",
-      "karakter",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "smal",
-    "en": "narrow",
-    "note": "Op Niveau H2 (algemeen). Bijvoeglijk. Verbogen: smalle. Comp.: smaller. Een smal fietspad = a narrow cycle path. Tegenovergestelde: breed.",
-    "example": "Op smalle fietspaden moet je voorzichtig inhalen.",
-    "tags": [
-      "bijvoeglijk",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "A2"
-  },
-  {
     "nl": "schelden",
-    "en": "to swear / to curse / to insult (schold, gescholden)",
-    "note": "Op Niveau H2 (algemeen). Onregelmatig: schold, gescholden. Schelden op iemand = to curse at someone. Schelden uit = to call names. Sterker dan 'klagen'.",
-    "example": "Sommige automobilisten schelden tegen fietsers.",
+    "en": "to swear at / to curse at / to insult (schold, gescholden)",
+    "note": "Op Niveau H2 (algemeen). Onregelmatig: schold, gescholden. <strong>Schelden op/tegen iemand</strong> = to verbally abuse someone. <em>Iemand uitschelden voor</em> = to call someone names. Verschilt van <em>vloeken</em>: schelden is gericht tegen een persoon, vloeken is meer een uitroep (godverdomme, shit). Een scheldwoord = a term of abuse.",
+    "example": "Sommige automobilisten <strong>schelden tegen fietsers</strong>.<br>Hij schold haar uit voor leugenaar.<br>Schelden lost niks op.<br>Idiom: <em>schelden als een viswijf</em> = to swear like a fishwife.",
     "tags": [
       "werkwoord",
       "onregelmatig",
@@ -13348,15 +13256,13 @@
     "level": "B2"
   },
   {
-    "nl": "opbreken",
-    "en": "to dig up (a road) / to break up (brak op, opgebroken)",
-    "note": "Op Niveau H2 (algemeen). Scheidbaar en onregelmatig: brak op, opgebroken. De straat is opgebroken = the street has been dug up. Een opgebroken straat = a road being worked on.",
-    "example": "De straat werd opgebroken om kabels te leggen.",
+    "nl": "sjouwen",
+    "en": "to haul / to lug (heavy things)",
+    "note": "Op Niveau H2 (algemeen). Regelmatig: sjouwde, gesjouwd. Iets zwaars sjouwen = to haul something heavy. Synoniem: zeulen. Sjouwer = laborer/dock worker.",
+    "example": "We moesten alle dozen drie trappen op sjouwen.",
     "tags": [
       "werkwoord",
-      "scheidbaar",
-      "onregelmatig",
-      "stad",
+      "informeel",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
@@ -13364,13 +13270,135 @@
     "level": "B2"
   },
   {
-    "nl": "laden en lossen",
-    "en": "loading and unloading",
-    "note": "Op Niveau H2 (algemeen). Vaste collocatie. Laden = to load, lossen = to unload. Plaats voor laden en lossen = loading zone. Vaak op verkeersborden.",
-    "example": "Hier mag je alleen stoppen om te laden en te lossen.",
+    "nl": "smal",
+    "en": "narrow",
+    "note": "Op Niveau H2 (algemeen). Bijvoeglijk. Verbogen: smalle. Comp.: smaller. Een smal fietspad = a narrow cycle path. Tegenovergestelde: breed.",
+    "example": "Op smalle fietspaden moet je voorzichtig inhalen.",
     "tags": [
-      "uitdrukking",
+      "bijvoeglijk",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "A2"
+  },
+  {
+    "nl": "stallen",
+    "en": "to park / to store (a bike)",
+    "note": "Op Niveau H2 (algemeen). Regelmatig: stalde, gestald. Specifiek voor fietsen: je fiets stallen = to park your bike. Fietsenstalling = bicycle parking.",
+    "example": "Waar kan ik mijn fiets stallen?",
+    "tags": [
       "werkwoord",
+      "verkeer",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de steden",
+    "en": "the cities",
+    "note": "Op Niveau H2 (algemeen). Meervoud van de stad. Onregelmatig meervoud (niet 'stadden'). Grote steden = big cities. De vier grote steden van Nederland (G4) = Amsterdam, Rotterdam, Den Haag, Utrecht.",
+    "example": "In de Nederlandse steden wonen veel mensen op een fiets.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "meervoud",
+      "onregelmatig",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "A2"
+  },
+  {
+    "nl": "de stoep",
+    "en": "the sidewalk / pavement",
+    "note": "Op Niveau H2 (algemeen). De-woord, mv. stoepen. Op de stoep = on the sidewalk. Fietsen op de stoep is niet toegestaan.",
+    "example": "Sommige fietsers stallen hun fiets op de stoep.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "verkeer",
+      "stad",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "A2"
+  },
+  {
+    "nl": "tegenover",
+    "en": "opposite / facing / towards",
+    "note": "Op Niveau H2 (algemeen). Voorzetsel. Tegenover de winkel = opposite the shop. Ook figuurlijk: tegenover iemand staan = to be opposed to someone. Tegenovergesteld = opposite.",
+    "example": "Hij parkeert zijn fiets altijd tegenover de bibliotheek.",
+    "tags": [
+      "voorzetsel",
+      "plaats",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "A2"
+  },
+  {
+    "nl": "tegenwoordig",
+    "en": "nowadays / currently",
+    "note": "Op Niveau H2 (algemeen). Bijwoord en bijvoeglijk. Bijwoord: tegenwoordig fietst iedereen elektrisch = nowadays everyone cycles electric. Bijvoeglijk: het tegenwoordige / het tegenwoordig deelwoord = the present participle.",
+    "example": "Tegenwoordig hebben veel mensen een elektrische fiets.",
+    "tags": [
+      "bijwoord",
+      "bijvoeglijk",
+      "tijd",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de tochten",
+    "en": "the journeys / trips / outings",
+    "note": "Op Niveau H2 (algemeen). Meervoud van de tocht. Een tocht = a journey/trip, vaak te voet, op de fiets, of per boot. Lang en avontuurlijker dan 'reis'. Elfstedentocht = the famous 11-cities skating tour.",
+    "example": "We hebben mooie tochten gemaakt langs de Vecht.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "meervoud",
+      "verkeer",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de toertochten",
+    "en": "the recreational tours / cycling tours",
+    "note": "Op Niveau H2 (algemeen). Meervoud van de toertocht. Toer (tour) + tocht (journey/trip). Vooral fiets- of motortoertochten. Een fietstoertocht door de polder = a cycling tour through the polder.",
+    "example": "In de zomer organiseren veel verenigingen toertochten.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "meervoud",
+      "verkeer",
+      "samengesteld",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "uitsteken",
+    "en": "to stick out / to extend (stak uit, uitgestoken)",
+    "note": "Op Niveau H2 (algemeen). Scheidbaar en onregelmatig: stak uit, uitgestoken. Je hand uitsteken = to put out your hand (also: to signal as a cyclist). Een uitgestoken hand = an outstretched hand.",
+    "example": "Steek je hand uit voordat je afslaat.",
+    "tags": [
+      "werkwoord",
+      "scheidbaar",
+      "onregelmatig",
       "verkeer",
       "op-niveau",
       "op-niveau-h2",
@@ -13379,19 +13407,155 @@
     "level": "B2"
   },
   {
-    "nl": "het zootje",
-    "en": "the mess / clutter (informal)",
-    "note": "Op Niveau H2 (algemeen). Het-woord, informeel. Wat een zootje! = What a mess! Sterker en negatiever dan 'rommel'. Een zootje ongeregeld = a motley crew/disorderly bunch.",
-    "example": "Het is een zootje in de fietsenstalling.",
+    "nl": "de vastberadenheid",
+    "en": "firmness / determination / resolve",
+    "note": "Op Niveau H2 (algemeen). De-woord, geen meervoud. Van vastberaden = determined/resolute. Met vastberadenheid = with determination. Synoniemen: standvastigheid, doelgerichtheid.",
+    "example": "Met grote vastberadenheid begon ze aan haar nieuwe project.",
     "tags": [
       "zelfstandig",
-      "het-woord",
-      "informeel",
+      "de-woord",
+      "karakter",
+      "formeel",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
     ],
     "level": "B2"
+  },
+  {
+    "nl": "de vensterbank",
+    "en": "the windowsill",
+    "note": "Op Niveau H2 (algemeen). De-woord, mv. vensterbanken. Venster (window) + bank (bench/ledge). Iets op de vensterbank zetten = to put something on the windowsill.",
+    "example": "Bloemen op de vensterbank zijn typisch Nederlands.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "samengesteld",
+      "huis",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de verenigingen",
+    "en": "the associations / clubs",
+    "note": "Op Niveau H2 (algemeen). Meervoud van de vereniging. Van verenigen (to unite). Sportvereniging, studentenvereniging, buurtvereniging. Typisch Nederlands maatschappelijk fenomeen — zie 'het verenigingsleven'.",
+    "example": "Veel Nederlanders zijn lid van een of meer verenigingen.",
+    "tags": [
+      "zelfstandig",
+      "de-woord",
+      "meervoud",
+      "maatschappij",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "verheffen",
+    "en": "to lift up / to raise / to elevate",
+    "note": "Op Niveau H2 (algemeen). Onregelmatig: verhief, verheven. Niet scheidbaar (geen ge- in v.d.). Letterlijk: iets optillen. Figuurlijk: zijn stem verheffen = to raise one's voice. Zich verheven voelen = to feel superior. Verheven (bijv.) = elevated/lofty.",
+    "example": "Hij verhief zijn stem om gehoord te worden boven het lawaai.",
+    "tags": [
+      "werkwoord",
+      "onregelmatig",
+      "formeel",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "het vervoermiddel",
+    "en": "the means of transport / vehicle",
+    "note": "Op Niveau H2 (algemeen). Het-woord, mv. vervoermiddelen. Vervoer (transport) + middel (means). Openbaar vervoermiddel = public transport. De fiets is een populair vervoermiddel in Nederland.",
+    "example": "Welk vervoermiddel gebruik je het meest?",
+    "tags": [
+      "zelfstandig",
+      "het-woord",
+      "verkeer",
+      "samengesteld",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "verwarrend",
+    "en": "confusing",
+    "note": "Op Niveau H2 (algemeen). Tegenwoordig deelwoord van verwarren, gebruikt als bijvoeglijk. Verbogen: verwarrende. Een verwarrend bord = a confusing sign.",
+    "example": "Het verkeersbord was nogal verwarrend voor toeristen.<br>Verwarrende instructies.<br>Ik vind het allemaal nogal verwarrend.",
+    "tags": [
+      "bijvoeglijk",
+      "tegenwoordig-deelwoord",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general",
+      "op-niveau-h2-kern"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "vloeken",
+    "en": "to swear / to curse / to use bad language",
+    "note": "Op Niveau H2 (algemeen). Regelmatig: vloekte, gevloekt. Een uitroep doen met krachttermen (godverdomme, verdomme, shit). Verschilt van [[schelden]]: <strong>vloeken</strong> is een uitroep van frustratie, <strong>schelden</strong> is gericht tegen iemand. Tweede betekenis: niet bij elkaar passen &mdash; <em>die kleuren vloeken</em> = those colours clash.",
+    "example": "Hij <strong>vloekte hardop</strong> toen zijn fietsband leeg was.<br>In de kerk mag je niet vloeken.<br>Een vloek = a curse / swear word.<br>Figuurlijk: <em>Die rode trui vloekt met je oranje broek</em> = that red sweater clashes with your orange trousers.",
+    "tags": [
+      "werkwoord",
+      "communicatie",
+      "emotie",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "voorop",
+    "en": "in front / at the head",
+    "note": "Op Niveau H2 (algemeen). Bijwoord. Voorop fietsen = to cycle at the front. Voorop staan = to take the lead / be at the forefront. Verschilt van vooraan (= at the front of a row).",
+    "example": "Bij de toertocht reed de oudste deelnemer voorop.",
+    "tags": [
+      "bijwoord",
+      "verkeer",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "vrijliggend",
+    "en": "separated / dedicated (cycle path)",
+    "note": "Op Niveau H2 (algemeen). Bijvoeglijk. Verbogen: vrijliggende. Een vrijliggend fietspad = a dedicated/separated cycle path (apart van de autoweg). Veiliger dan een fietsstrook op de weg.",
+    "example": "Op vrijliggende fietspaden zijn veel minder ongelukken.",
+    "tags": [
+      "bijvoeglijk",
+      "verkeer",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "wel eens / weleens",
+    "en": "sometimes / ever (at some point)",
+    "note": "Op Niveau H2 (algemeen). Bijwoord van frequentie. Beide spellingen worden gebruikt. Heb je wel eens...? = Have you ever...? Ik kom er wel eens = I go there sometimes.",
+    "example": "Erger jij je wel eens aan automobilisten?",
+    "tags": [
+      "bijwoord",
+      "frequentie",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B1"
   },
   {
     "nl": "wezenloos",
@@ -13407,6 +13571,36 @@
       "op-niveau-h2-general"
     ],
     "level": "C1"
+  },
+  {
+    "nl": "zeulen",
+    "en": "to lug / to drag along",
+    "note": "Op Niveau H2 (algemeen). Regelmatig: zeulde, gezeuld. Met iets zeulen = to lug something around (informeel, klinkt zwaar/onwillig). Synoniem: sjouwen.",
+    "example": "Ik zeulde de hele dag boodschappen mee op mijn fiets.",
+    "tags": [
+      "werkwoord",
+      "informeel",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "zich misdragen",
+    "en": "to misbehave (misdroeg, heeft zich misdragen)",
+    "note": "Op Niveau H2 (algemeen). Reflexief en onregelmatig (volgt dragen): misdroeg zich, heeft zich misdragen. Niet scheidbaar — geen ge- in v.d. Sterker dan 'zich slecht gedragen'.",
+    "example": "De leerlingen hebben zich tijdens de les misdragen.",
+    "tags": [
+      "werkwoord",
+      "reflexief",
+      "onregelmatig",
+      "karakter",
+      "op-niveau",
+      "op-niveau-h2",
+      "op-niveau-h2-general"
+    ],
+    "level": "B2"
   },
   {
     "nl": "zich uiten",
@@ -13425,88 +13619,14 @@
     "level": "B2"
   },
   {
-    "nl": "verwarrend",
-    "en": "confusing",
-    "note": "Op Niveau H2 (algemeen). Tegenwoordig deelwoord van verwarren, gebruikt als bijvoeglijk. Verbogen: verwarrende. Een verwarrend bord = a confusing sign.",
-    "example": "Het verkeersbord was nogal verwarrend voor toeristen.<br>Verwarrende instructies.<br>Ik vind het allemaal nogal verwarrend.",
+    "nl": "het zootje",
+    "en": "the mess / clutter (informal)",
+    "note": "Op Niveau H2 (algemeen). Het-woord, informeel. Wat een zootje! = What a mess! Sterker en negatiever dan 'rommel'. Een zootje ongeregeld = a motley crew/disorderly bunch.",
+    "example": "Het is een zootje in de fietsenstalling.",
     "tags": [
-      "bijvoeglijk",
-      "tegenwoordig-deelwoord",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general",
-      "op-niveau-h2-kern"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "ene",
-    "en": "the one (in 'de ene... de andere')",
-    "note": "Op Niveau H2 (algemeen). Onbepaald aanwijzend. Vaak in tegenstellingen: de ene week wel, de andere niet = one week yes, the next not. Ook: een zekere — ene meneer Jansen = a certain Mr Jansen.",
-    "example": "De ene fietser parkeert netjes, de andere zet zijn fiets midden op de stoep.",
-    "tags": [
-      "voornaamwoord",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "even",
-    "en": "just / for a moment / equally",
-    "note": "Op Niveau H2 (algemeen). Bijwoord met meerdere betekenissen: (1) briefly: even wachten = wait a moment; (2) equally: even groot = equally big; (3) softener in requests: kun je even helpen? = can you help for a sec?",
-    "example": "Wacht even, ik moet mijn fiets nog op slot zetten.",
-    "tags": [
-      "bijwoord",
-      "beleefdheid",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "A2"
-  },
-  {
-    "nl": "opgesteld",
-    "en": "drawn up / set up / arranged (past part. of opstellen)",
-    "note": "Op Niveau H2 (algemeen). Voltooid deelwoord van opstellen (scheidbaar regelmatig: stelde op, opgesteld). Een plan opstellen = to draw up a plan. Regels worden opgesteld door de gemeente = rules are drawn up by the municipality.",
-    "example": "De regels voor fietsparkeren zijn door de gemeente opgesteld.",
-    "tags": [
-      "werkwoord",
-      "voltooid-deelwoord",
-      "scheidbaar",
-      "formeel",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "aangelegd",
-    "en": "constructed / built / laid out (past part. of aanleggen)",
-    "note": "Op Niveau H2 (algemeen). Voltooid deelwoord van aanleggen (scheidbaar onregelmatig: legde aan, aangelegd). Een fietspad aanleggen = to construct a cycle path. Een tuin aanleggen = to lay out a garden.",
-    "example": "Er zijn nieuwe vrijliggende fietspaden aangelegd.",
-    "tags": [
-      "werkwoord",
-      "voltooid-deelwoord",
-      "scheidbaar",
-      "stad",
-      "op-niveau",
-      "op-niveau-h2",
-      "op-niveau-h2-general"
-    ],
-    "level": "B2"
-  },
-  {
-    "nl": "genegeerd",
-    "en": "ignored (past part. of negeren)",
-    "note": "Op Niveau H2 (algemeen). Voltooid deelwoord van negeren (regelmatig, niet scheidbaar maar krijgt ge- omdat het niet met be-/ver-/ont- begint: negeerde, genegeerd). Iemand negeren = to ignore someone. Verkeersregels negeren = to ignore traffic rules.",
-    "example": "De fietser werd door de automobilist volkomen genegeerd.",
-    "tags": [
-      "werkwoord",
-      "voltooid-deelwoord",
-      "communicatie",
+      "zelfstandig",
+      "het-woord",
+      "informeel",
       "op-niveau",
       "op-niveau-h2",
       "op-niveau-h2-general"
