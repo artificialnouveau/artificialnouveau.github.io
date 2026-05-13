@@ -960,6 +960,15 @@ body {
   margin-top: auto;
 }
 
+.folder .suggested-by {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  color: var(--ink-mute);
+  letter-spacing: 0.04em;
+  padding-top: 8px;
+  font-style: italic;
+}
+
 .folder .meta-row .pill {
   background: rgba(255,255,255,0.55);
   padding: 3px 7px;
@@ -6026,7 +6035,7 @@ code *, pre *, kbd *, samp * {
     </details>
     <details>
       <summary>How often is the list updated?</summary>
-      <p>A scanning bot surfaces fresh candidates from various Slack and Discord channels, Bluesky, RSS sources and grant-maker pages each week, then I curate the strong fits by hand. Closed calls are auto-filed away after their deadline, so the visible list stays current.</p>
+      <p>A human finds candidates by hand from newsletters, Slack and Discord channels, Bluesky, RSS feeds and grant-maker pages, then curates the strong fits. Updates happen periodically rather than on a fixed schedule. Closed calls are auto-filed away after their deadline, so the visible list stays current.</p>
     </details>
     <details>
       <summary>Can I subscribe by RSS or add deadlines to my calendar?</summary>
@@ -6057,7 +6066,7 @@ code *, pre *, kbd *, samp * {
       "name": "How often is the list updated?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A scanning bot surfaces fresh candidates from various Slack and Discord channels, Bluesky, RSS sources and grant-maker pages each week, then strong fits are curated by hand. Closed calls are auto-filed away after their deadline."
+        "text": "A human finds candidates by hand from newsletters, Slack and Discord channels, Bluesky, RSS feeds and grant-maker pages, then curates the strong fits. Updates happen periodically rather than on a fixed schedule. Closed calls are auto-filed away after their deadline."
       }
     },
     {
@@ -6250,6 +6259,10 @@ function renderFolder(grant, category, today) {
   if (grant.duration) meta.push(`<span class="pill">${escapeHtml(grant.duration)}</span>`);
   if (grant.fee === false) meta.push(`<span class="pill">No application fee</span>`);
   parts.push(`<div class="meta-row">${meta.join('')}</div>`);
+
+  if (grant.suggestedBy) {
+    parts.push(`<div class="suggested-by">Suggested by ${escapeHtml(grant.suggestedBy)}</div>`);
+  }
 
   a.innerHTML = parts.join('');
   return a;
