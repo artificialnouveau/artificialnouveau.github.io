@@ -1206,46 +1206,52 @@ body {
   line-height: 1.6;
 }
 
-/* --- Watch for next round (informational, NOT counted in active grants) --- */
-.watchlist {
-  max-width: 920px;
-  margin: 32px auto 0;
-  padding: 0 24px;
+/* --- Watch for next round (collapsible drawer; auto-removes expired entries; NOT counted in active grants) --- */
+#section-watchlist { opacity: 0.92; }
+#section-watchlist .section-title .label { background: var(--paper-2); border-color: var(--line); color: var(--ink-mute); }
+#section-watchlist .section-head { border-bottom-style: solid; border-color: var(--line); }
+#section-watchlist[data-empty="true"] { display: none; }
+
+.watchlist-toggle {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--paper-2);
+  border: 1.5px solid var(--line);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ink);
 }
-.watchlist-inner {
+.watchlist-toggle:hover { background: #fff; }
+
+.watchlist-intro {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.watchlist-list {
+  list-style: none;
+  padding: 6px 22px;
+  margin: 0;
   background: #fff;
   border: 2px solid var(--line);
   border-radius: 6px;
-  padding: 28px 28px 22px;
   box-shadow: 4px 4px 0 var(--line);
 }
-.watchlist-inner h2 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
-.watchlist-intro {
-  color: var(--ink-soft);
-  font-size: 14px;
-  line-height: 1.55;
-  margin-bottom: 18px;
-}
-.watchlist-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
 .watchlist-list li {
-  border-top: 1px solid var(--paper-2);
-  padding: 14px 0;
+  padding: 16px 0;
   color: var(--ink-soft);
   font-size: 14.5px;
   line-height: 1.55;
+  border-top: 1px solid var(--paper-2);
 }
-.watchlist-list li:first-child { border-top: 1px solid var(--line); }
-.watchlist-list li:last-child { border-bottom: 1px solid var(--line); }
+.watchlist-list li:first-child { border-top: none; }
 .watchlist-list a {
   color: var(--ink);
   text-decoration: none;
@@ -1253,6 +1259,9 @@ body {
   font-family: 'Space Grotesk', sans-serif;
 }
 .watchlist-list a:hover { background: var(--sticky-yellow); }
+
+#section-watchlist[data-open="false"] .watchlist-list,
+#section-watchlist[data-open="false"] .watchlist-intro { display: none; }
 
 /* --- Static fallback grant list (visible only without JS or to crawlers via noscript) --- */
 .static-grant-list {
@@ -6152,6 +6161,36 @@ code *, pre *, kbd *, samp * {
     </div>
     <div class="folder-grid" id="grid-archive"></div>
   </section>
+
+  <section class="section" id="section-watchlist" data-open="false">
+    <div class="section-head">
+      <div class="section-title">
+        <span class="label">WATCHLIST</span>
+        <h2>Watch for next round</h2>
+        <span class="meta" id="meta-watchlist"></span>
+      </div>
+      <button class="watchlist-toggle" id="watchlist-toggle" type="button">Open drawer</button>
+    </div>
+    <p class="watchlist-intro">Funders whose current cycle is closed but whose next call is expected. Not counted in the active grants tally. Entries are auto-removed once their expected window has passed; check the funder page directly for confirmed dates.</p>
+    <ul class="watchlist-list" id="watchlist-list">
+      <li data-watchlist-until="2026-12-31">
+        <a href="https://emare.eu/" target="_blank" rel="noopener"><strong>EMAP Residencies 2027</strong></a>
+        . Next call expected autumn 2026. EUR 4,000 artist fee + EUR 2,000 collaborator stipend + EUR 4,000 production budget + accommodation + travel. Two-month production residency at one of thirteen European host organisations for artists working in digital, media, robotic, AI or bio art.
+      </li>
+      <li data-watchlist-until="2027-04-30">
+        <a href="https://www.onassis.org/initiatives/onassis-air" target="_blank" rel="noopener"><strong>Onassis AiR</strong></a>
+        . Next call expected early 2027. Stipend, accommodation, travel and working space for a 10-week residency in Athens; about thirty fellows per cohort across visual arts, performance, sound, art and advanced tech, curatorial and writing.
+      </li>
+      <li data-watchlist-until="2027-01-31">
+        <a href="https://www.tarbellcenter.org/fellowship" target="_blank" rel="noopener"><strong>Tarbell Fellowship 2027 (AI Journalism)</strong></a>
+        . Next call expected late 2026. USD 60,000-80,000 (regular fellows) or USD 90,000-110,000 (senior fellows) for a 12-month placement at major US/UK newsrooms building an AI-coverage beat.
+      </li>
+      <li data-watchlist-until="2027-01-31">
+        <a href="https://www.governance.ai/post/summer-fellowship-2026-research-track" target="_blank" rel="noopener"><strong>GovAI Summer Fellowship 2027</strong></a>
+        . Next call expected late 2026. Three-month AI-governance fellowship with mentors at the Centre for the Governance of AI; tracks include Research (London), Applied (GBP 12,000) and a DC-based track (USD 21,000 plus London travel support).
+      </li>
+    </ul>
+  </section>
 </main>
 
 <!-- BEGIN_NOSCRIPT_GRANTS -->
@@ -6829,31 +6868,6 @@ code *, pre *, kbd *, samp * {
 </noscript>
 <!-- END_NOSCRIPT_GRANTS -->
 
-<section class="watchlist" aria-labelledby="watchlist-heading">
-  <div class="watchlist-inner">
-    <h2 id="watchlist-heading">Watch for next round</h2>
-    <p class="watchlist-intro">Funders whose current 2026 cycle is closed but whose next call is expected. Not counted in the active grants tally; bookmark and check the funder's page as the calls open.</p>
-    <ul class="watchlist-list">
-      <li>
-        <a href="https://emare.eu/" target="_blank" rel="noopener"><strong>EMAP Residencies 2027</strong></a>
-        . Next call expected autumn 2026. EUR 4,000 artist fee + EUR 2,000 collaborator stipend + EUR 4,000 production budget + accommodation + travel. Two-month production residency at one of thirteen European host organisations for artists working in digital, media, robotic, AI or bio art.
-      </li>
-      <li>
-        <a href="https://www.onassis.org/initiatives/onassis-air" target="_blank" rel="noopener"><strong>Onassis AiR</strong></a>
-        . Next call expected early 2027. Stipend, accommodation, travel and working space for a 10-week residency in Athens; about thirty fellows per cohort across visual arts, performance, sound, art and advanced tech, curatorial and writing.
-      </li>
-      <li>
-        <a href="https://www.tarbellcenter.org/fellowship" target="_blank" rel="noopener"><strong>Tarbell Fellowship 2027 (AI Journalism)</strong></a>
-        . Next call expected late 2026. USD 60,000-80,000 (regular fellows) or USD 90,000-110,000 (senior fellows) for a 12-month placement at major US/UK newsrooms building an AI-coverage beat.
-      </li>
-      <li>
-        <a href="https://www.governance.ai/post/summer-fellowship-2026-research-track" target="_blank" rel="noopener"><strong>GovAI Summer Fellowship 2027</strong></a>
-        . Next call expected late 2026. Three-month AI-governance fellowship with mentors at the Centre for the Governance of AI; tracks include Research (London), Applied (GBP 12,000) and a DC-based track (USD 21,000 plus London travel support).
-      </li>
-    </ul>
-  </div>
-</section>
-
 <section class="faq" aria-labelledby="faq-heading">
   <div class="faq-inner">
     <h2 id="faq-heading">Frequently asked questions</h2>
@@ -7242,6 +7256,8 @@ async function load() {
     archiveBtn.textContent = open ? 'Open drawer' : 'Close drawer';
   });
 
+  setupWatchlist();
+
   document.querySelectorAll('.section-collapse').forEach(btn => {
     btn.addEventListener('click', () => {
       const section = btn.closest('.section');
@@ -7253,6 +7269,40 @@ async function load() {
       btn.setAttribute('aria-label', (collapsed ? 'Collapse ' : 'Expand ') + heading);
     });
   });
+}
+
+function setupWatchlist() {
+  const section = document.getElementById('section-watchlist');
+  if (!section) return;
+  const btn = document.getElementById('watchlist-toggle');
+  const meta = document.getElementById('meta-watchlist');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const items = section.querySelectorAll('.watchlist-list li');
+  let visible = 0;
+  items.forEach(li => {
+    const until = li.getAttribute('data-watchlist-until');
+    if (until) {
+      const d = new Date(until + 'T23:59:59');
+      if (!isNaN(d) && d < today) {
+        li.remove();
+        return;
+      }
+    }
+    visible++;
+  });
+  if (visible === 0) {
+    section.setAttribute('data-empty', 'true');
+    return;
+  }
+  if (meta) meta.textContent = visible === 1 ? '1 candidate' : visible + ' candidates';
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const open = section.getAttribute('data-open') === 'true';
+      section.setAttribute('data-open', open ? 'false' : 'true');
+      btn.textContent = open ? 'Open drawer' : 'Close drawer';
+    });
+  }
 }
 
 load();
