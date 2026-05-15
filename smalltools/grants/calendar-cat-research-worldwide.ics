@@ -12,8 +12,35 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:wenner-gren-post-phd-research-grant-2026@artificialnouveau.github.io
+DTSTAMP:20260515T135458Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20261102
+SUMMARY:Deadline: Wenner-Gren Foundation: Post-PhD Research Grant (November
+  2026 cycle)
+DESCRIPTION:Research grants from the Wenner-Gren Foundation for individual 
+ scholars with a PhD or equivalent to support a discrete project of anthrop
+ ological research. The grant supports the project's most substantial cost 
+ (typically fieldwork or core research activity) and may be used for direct
+  research expenses\; not for salary or institutional overhead. Deadlines a
+ re biannual: 1 May and 1 November each year. ELIGIBILITY: scholars who hol
+ d a PhD (or equivalent) in anthropology or a clearly related discipline\; 
+ nationality and country of work are not restricted. Up to USD 25\,000 per 
+ grant. Strictly anthropology focus - the project must be primarily anthrop
+ ological in scope and method (sociocultural\, biological\, archaeological 
+ or linguistic anthropology\, etc.).\n\nOrganisation: Wenner-Gren Foundatio
+ n for Anthropological Research\nLocation: Worldwide (research may take pla
+ ce anywhere\; applicant must hold an anthropology PhD or equivalent)\nAwar
+ d: Up to USD 25\,000 per grant\nDuration: Project-based\, typically up to 
+ 24 months of research activity\n\nMore: https://wennergren.org/program/pos
+ t-phd-research-grant/
+URL:https://wennergren.org/program/post-phd-research-grant/
+LOCATION:Worldwide (research may take place anywhere\; applicant must hold 
+ an anthropology PhD or equivalent)
+END:VEVENT
+BEGIN:VEVENT
 UID:sff-2026-themed-rounds@artificialnouveau.github.io
-DTSTAMP:20260515T094020Z
+DTSTAMP:20260515T135458Z
 DTSTART;VALUE=DATE:20260610
 DTEND;VALUE=DATE:20260611
 SUMMARY:Deadline: Survival and Flourishing Fund (SFF): 2026 Themed Rounds (
@@ -49,7 +76,7 @@ LOCATION:Worldwide (grants typically routed through registered non-profits\
 END:VEVENT
 BEGIN:VEVENT
 UID:templeton-rss-intelligence-2026@artificialnouveau.github.io
-DTSTAMP:20260515T094020Z
+DTSTAMP:20260515T135458Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 SUMMARY:Deadline: Templeton Foundation: Religion\, Science & Society - Inte
@@ -87,7 +114,7 @@ LOCATION:Worldwide (Templeton funds charitable organizations inside and out
 END:VEVENT
 BEGIN:VEVENT
 UID:templeton-rss-meaning-making-2026@artificialnouveau.github.io
-DTSTAMP:20260515T094020Z
+DTSTAMP:20260515T135458Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 SUMMARY:Deadline: Templeton Foundation: Religion\, Science & Society - Mean
@@ -129,7 +156,7 @@ LOCATION:Worldwide (Templeton funds charitable organizations inside and out
 END:VEVENT
 BEGIN:VEVENT
 UID:templeton-rss-imagined-futures-2026@artificialnouveau.github.io
-DTSTAMP:20260515T094020Z
+DTSTAMP:20260515T135458Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 SUMMARY:Deadline: Templeton Foundation: Religion\, Science & Society - Imag
@@ -165,7 +192,7 @@ LOCATION:Worldwide (Templeton funds charitable organizations inside and out
 END:VEVENT
 BEGIN:VEVENT
 UID:ehri-conny-kristel-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260515T094020Z
+DTSTAMP:20260515T135458Z
 DTSTART;VALUE=DATE:20260607
 DTEND;VALUE=DATE:20260608
 SUMMARY:Deadline: EHRI Conny Kristel Fellowship Programme 2026
@@ -190,7 +217,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:natgeo-climate-pledge-illuminating-solutions-2026@artificialnouveau.git
  hub.io
-DTSTAMP:20260515T094020Z
+DTSTAMP:20260515T135458Z
 DTSTART;VALUE=DATE:20260525
 DTEND;VALUE=DATE:20260526
 SUMMARY:Deadline: National Geographic x The Climate Pledge: Illuminating Cl

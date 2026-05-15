@@ -1206,6 +1206,54 @@ body {
   line-height: 1.6;
 }
 
+/* --- Watch for next round (informational, NOT counted in active grants) --- */
+.watchlist {
+  max-width: 920px;
+  margin: 32px auto 0;
+  padding: 0 24px;
+}
+.watchlist-inner {
+  background: #fff;
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  padding: 28px 28px 22px;
+  box-shadow: 4px 4px 0 var(--line);
+}
+.watchlist-inner h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.watchlist-intro {
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 18px;
+}
+.watchlist-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.watchlist-list li {
+  border-top: 1px solid var(--paper-2);
+  padding: 14px 0;
+  color: var(--ink-soft);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.watchlist-list li:first-child { border-top: 1px solid var(--line); }
+.watchlist-list li:last-child { border-bottom: 1px solid var(--line); }
+.watchlist-list a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--ink);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.watchlist-list a:hover { background: var(--sticky-yellow); }
+
 /* --- Static fallback grant list (visible only without JS or to crawlers via noscript) --- */
 .static-grant-list {
   max-width: 920px;
@@ -1478,7 +1526,7 @@ code *, pre *, kbd *, samp * {
   "@type": "ItemList",
   "name": "The Grant Desk",
   "url": "https://www.artificialnouveau.com/smalltools/grants/",
-  "numberOfItems": 130,
+  "numberOfItems": 133,
   "itemListElement": [
     {
       "@type": "ListItem",
@@ -4009,6 +4057,42 @@ code *, pre *, kbd *, samp * {
       "position": 72,
       "item": {
         "@type": "MonetaryGrant",
+        "name": "NEA: Grants for Arts Projects (July 2026 cycle)",
+        "description": "NEA's flagship project grant for arts organisations across all artistic disciplines. The Grants for Arts Projects (GAP) programme supports projects in dance, design, folk and traditional arts, literary arts, local arts agencies, media arts, museums, music, musical theater, opera, presenting and multidisciplinary works, theater, and visual arts. July 2026 cycle: 'Submit to Grants.gov' deadline 9 July 2026; portal application window 14-21 July 2026. ELIGIBILITY: US non-profits with 501(c)(3) status, units of state or local government, or federally-recognised tribal communities; organisations must have a three-year history of programming and meet a minimum operating budget. Project grants typically USD 10,000 to USD 100,000+, with most awards in the USD 10,000-50,000 range; a 1:1 cost-share is required. Natural sibling to the NEH Public Humanities Projects programme on the desk.",
+        "url": "https://www.arts.gov/grants/grants-for-arts-projects",
+        "funder": {
+          "@type": "Organization",
+          "name": "National Endowment for the Arts (NEA)"
+        },
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "USD",
+          "value": "Project grants typically USD 10,000 to USD 100,000+, with most awards in the USD 10,000-50,000 range; minimum 1:1 cost-share required."
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "applicationDeadline",
+            "value": "2026-07-09"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "location",
+            "value": "United States (eligibility for US non-profits with 501(c)(3) status, units of state or local government, or federally-recognised tribal communities)"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "region",
+            "value": "US"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 73,
+      "item": {
+        "@type": "MonetaryGrant",
         "name": "Film Independent: Project Involve 2027",
         "description": "Signature fellowship program offering career opportunities to filmmakers from communities typically underrepresented in film and entertainment. Selected fellows are eligible for a stack of bundled fellowships: Amazon MGM Studios ($10K), Climate Entertainment Commissioning Grant ($25K to write a new climate-focused fiction feature), LAIKA Animation Track (production grant + stipend across 2 years for 5 stop-motion fellows), Panavision Fellowship ($60K camera package for an outstanding cinematographer), Sony Pictures Entertainment ($10K), and University of Arizona TFTV Fellowship ($10K for a TFTV alum). International fellows are also eligible for the Dolby Institute Fellowship ($50K post-production grant utilising Dolby Vision and Atmos). Project Involve alums become eligible to apply to the Amplifier Fellowship for Black filmmakers ($30K unrestricted plus year-long support; six fellows annually). Applications open 18 May 2026; non-member deadline 13 July 2026; Film Independent member extension to 27 July 2026.",
         "url": "https://www.filmindependent.org/programs/applications/",
@@ -4042,7 +4126,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 73,
+      "position": 74,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Templeton Foundation: Religion, Science & Society - Intelligence (2026 cycle)",
@@ -4078,7 +4162,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 74,
+      "position": 75,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Templeton Foundation: Religion, Science & Society - Meaning Making (2026 cycle)",
@@ -4114,7 +4198,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 75,
+      "position": 76,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Templeton Foundation: Religion, Science & Society - Imagined Futures (2026 cycle)",
@@ -4150,7 +4234,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 76,
+      "position": 77,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Awareness of the History of Slavery",
@@ -4182,7 +4266,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 77,
+      "position": 78,
       "item": {
         "@type": "MonetaryGrant",
         "name": "The Kyoto Retreat 2026",
@@ -4218,7 +4302,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 78,
+      "position": 79,
       "item": {
         "@type": "MonetaryGrant",
         "name": "CAIS Research Sabbaticals (Fellowships) 2027-28",
@@ -4254,7 +4338,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 79,
+      "position": 80,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Future of Work Reporting Fellowship 2026 to 2027",
@@ -4290,7 +4374,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 80,
+      "position": 81,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Immerse\\Interact Grant Scheme",
@@ -4326,7 +4410,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 81,
+      "position": 82,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Film Independent: Screenwriting Lab 2027",
@@ -4362,7 +4446,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 82,
+      "position": 83,
       "item": {
         "@type": "MonetaryGrant",
         "name": "The Andy Warhol Foundation for the Visual Arts: General Program Grant (September 2026 round)",
@@ -4398,7 +4482,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 83,
+      "position": 84,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Marie Skłodowska-Curie Postdoctoral Fellowships 2026 (MSCA-PF)",
@@ -4434,7 +4518,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 84,
+      "position": 85,
       "item": {
         "@type": "MonetaryGrant",
         "name": "MacDowell Fellowship",
@@ -4466,7 +4550,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 85,
+      "position": 86,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Fund for Investigative Journalism (FIJ) Grants",
@@ -4502,7 +4586,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 86,
+      "position": 87,
       "item": {
         "@type": "MonetaryGrant",
         "name": "NWO: SSH Open Competition XS 2026 - Round 3",
@@ -4538,7 +4622,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 87,
+      "position": 88,
       "item": {
         "@type": "MonetaryGrant",
         "name": "The Bennett Prize 2026",
@@ -4574,7 +4658,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 88,
+      "position": 89,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Impulse and In-Depth Scheme (I&V) for Rotterdam Visual Artists",
@@ -4610,7 +4694,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 89,
+      "position": 90,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Design Sector Internationalisation Grant Scheme",
@@ -4646,7 +4730,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 90,
+      "position": 91,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Stimuleringsfonds: Festivals Creative Industries 2027",
@@ -4678,7 +4762,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 91,
+      "position": 92,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Film Independent: Episodic Directing Intensive 2027",
@@ -4714,7 +4798,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 92,
+      "position": 93,
       "item": {
         "@type": "MonetaryGrant",
         "name": "NEH: Public Humanities Projects (2026-27 deadlines)",
@@ -4750,7 +4834,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 93,
+      "position": 94,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Art Media Grant (October 2026 round)",
@@ -4786,7 +4870,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 94,
+      "position": 95,
       "item": {
         "@type": "MonetaryGrant",
         "name": "The Lighthouse Works Fellowship",
@@ -4822,7 +4906,43 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 95,
+      "position": 96,
+      "item": {
+        "@type": "MonetaryGrant",
+        "name": "Wenner-Gren Foundation: Post-PhD Research Grant (November 2026 cycle)",
+        "description": "Research grants from the Wenner-Gren Foundation for individual scholars with a PhD or equivalent to support a discrete project of anthropological research. The grant supports the project's most substantial cost (typically fieldwork or core research activity) and may be used for direct research expenses; not for salary or institutional overhead. Deadlines are biannual: 1 May and 1 November each year. ELIGIBILITY: scholars who hold a PhD (or equivalent) in anthropology or a clearly related discipline; nationality and country of work are not restricted. Up to USD 25,000 per grant. Strictly anthropology focus - the project must be primarily anthropological in scope and method (sociocultural, biological, archaeological or linguistic anthropology, etc.).",
+        "url": "https://wennergren.org/program/post-phd-research-grant/",
+        "funder": {
+          "@type": "Organization",
+          "name": "Wenner-Gren Foundation for Anthropological Research"
+        },
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "USD",
+          "value": "Up to USD 25,000 per grant"
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "applicationDeadline",
+            "value": "2026-11-01"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "location",
+            "value": "Worldwide (research may take place anywhere; applicant must hold an anthropology PhD or equivalent)"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "region",
+            "value": "Worldwide"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 97,
       "item": {
         "@type": "MonetaryGrant",
         "name": "NRDC Climate Storytelling Fellowship 2027 (via The Black List)",
@@ -4858,7 +4978,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 96,
+      "position": 98,
       "item": {
         "@type": "MonetaryGrant",
         "name": "CFA Institute x IMGN Grant 2026",
@@ -4894,7 +5014,38 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 97,
+      "position": 99,
+      "item": {
+        "@type": "MonetaryGrant",
+        "name": "IJ4EU: Investigation Support Scheme (2026-27 cycle, next round upcoming)",
+        "description": "Cross-border investigative-journalism grants funding teams of journalists reporting on EU-wide public-interest issues. Two complementary schemes: (1) the Investigation Support Scheme (up to EUR 50,000 per team) for cross-border teams active in two or more Creative Europe Programme countries; (2) the Freelancer Support Scheme (up to EUR 20,000) for solo or small-team freelance journalists working across borders. Total EUR 1.6M available across the 2026-27 cycle. The most recent 2026 round closed 13 April 2026; the next round of the 2026-27 cycle is upcoming - check the IJ4EU site for the confirmed deadline. ELIGIBILITY for Investigation Support Scheme: cross-border journalism teams based in two or more eligible Creative Europe Programme countries. For Freelancer Support: individual freelance journalists. IJ4EU is a distinct consortium from Journalismfund Europe and operates separate schemes.",
+        "url": "https://investigativejournalismforeu.net/grants/investigation-support-scheme/",
+        "funder": {
+          "@type": "Organization",
+          "name": "International Press Institute / European Centre for Press and Media Freedom (IJ4EU consortium)"
+        },
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "EUR",
+          "value": "Up to EUR 50,000 per cross-border team (Investigation Support Scheme); parallel Freelancer Support Scheme up to EUR 20,000. Total EUR 1.6M available across the 2026-27 cycle."
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "location",
+            "value": "EU and Creative Europe-eligible countries"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "region",
+            "value": "EU"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 100,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mozilla Festival (MozFest) 2026: Call for Proposals - Wilding",
@@ -4921,7 +5072,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 98,
+      "position": 101,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Heinrich Boell Foundation: Global Majority AI Fellowship 2026 (UN Global Dialogue on AI Governance)",
@@ -4948,7 +5099,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 99,
+      "position": 102,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Coefficient Giving: Career Development and Transition Funding",
@@ -4975,7 +5126,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 100,
+      "position": 103,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Pop Culture Collaborative Grants",
@@ -5006,7 +5157,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 101,
+      "position": 104,
       "item": {
         "@type": "MonetaryGrant",
         "name": "iii Development Residency (Spring 2027 round)",
@@ -5037,7 +5188,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 102,
+      "position": 105,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Architecture Grant Scheme",
@@ -5068,7 +5219,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 103,
+      "position": 106,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Design Grant Scheme",
@@ -5099,7 +5250,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 104,
+      "position": 107,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Digital Culture Grant Scheme",
@@ -5130,7 +5281,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 105,
+      "position": 108,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Anthropic Fellows Program 2026 (May and July cohorts)",
@@ -5161,7 +5312,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 106,
+      "position": 109,
       "item": {
         "@type": "MonetaryGrant",
         "name": "The Pollination Project: Daily Seed Grants",
@@ -5192,7 +5343,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 107,
+      "position": 110,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Foundation for Contemporary Arts: Emergency Grants",
@@ -5223,7 +5374,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 108,
+      "position": 111,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Kapor Foundation Research Fellowship",
@@ -5250,7 +5401,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 109,
+      "position": 112,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Pulitzer Center: Data Journalism Grants",
@@ -5281,7 +5432,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 110,
+      "position": 113,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Pulitzer Center: AI Reporting Grants",
@@ -5308,7 +5459,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 111,
+      "position": 114,
       "item": {
         "@type": "MonetaryGrant",
         "name": "SEE NL: Travel Grant Scheme",
@@ -5339,7 +5490,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 112,
+      "position": 115,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Filmfonds Onderzoek (Research)",
@@ -5366,7 +5517,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 113,
+      "position": 116,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Stichting Stokroos: Seed Grant",
@@ -5397,7 +5548,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 114,
+      "position": 117,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Critical Playground: Freelance Writer Commissions",
@@ -5424,7 +5575,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 115,
+      "position": 118,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Art Commission",
@@ -5451,7 +5602,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 116,
+      "position": 119,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Artist Basic",
@@ -5478,7 +5629,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 117,
+      "position": 120,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Artist Project",
@@ -5505,7 +5656,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 118,
+      "position": 121,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Artist Start",
@@ -5532,7 +5683,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 119,
+      "position": 122,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Curator Researcher",
@@ -5559,7 +5710,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 120,
+      "position": 123,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Protected Cultural Heritage",
@@ -5586,7 +5737,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 121,
+      "position": 124,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Voucher Artisan",
@@ -5613,7 +5764,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 122,
+      "position": 125,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Voucher Artist with Child",
@@ -5640,7 +5791,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 123,
+      "position": 126,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Voucher Development",
@@ -5667,7 +5818,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 124,
+      "position": 127,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Voucher International",
@@ -5694,7 +5845,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 125,
+      "position": 128,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Karlsruhe UCCoMA: Project Funding Program for Media Art (Annual)",
@@ -5725,7 +5876,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 126,
+      "position": 129,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Karlsruhe UCCoMA: General Project Funding for Media Art",
@@ -5752,7 +5903,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 127,
+      "position": 130,
       "item": {
         "@type": "MonetaryGrant",
         "name": "The Awesome Foundation $1,000 Grant",
@@ -5783,7 +5934,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 128,
+      "position": 131,
       "item": {
         "@type": "MonetaryGrant",
         "name": "OTF Internet Freedom Fund",
@@ -5814,7 +5965,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 129,
+      "position": 132,
       "item": {
         "@type": "MonetaryGrant",
         "name": "The White Pube Creatives Grant",
@@ -5845,7 +5996,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 130,
+      "position": 133,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Working-Class Creative Grant (Karim Boumjimar)",
@@ -6364,6 +6515,11 @@ code *, pre *, kbd *, samp * {
 <p>Talent prize for recently graduated bachelor filmmakers from a Dutch film or art academy (documentary, fiction or animation). Winners receive a small development purse to start a new short film, and a much larger realisation budget once they have a producer attached. Annual round; deadline 7 July 2026 at 17:00.</p>
 </li>
 <li>
+<h3><a href="https://www.arts.gov/grants/grants-for-arts-projects" target="_blank" rel="noopener">NEA: Grants for Arts Projects (July 2026 cycle)</a></h3>
+<p class="meta-line">National Endowment for the Arts (NEA) &middot; United States (eligibility for US non-profits with 501(c)(3) status, units of state or local government, or federally-recognised tribal communities) &middot; Deadline: 09 Jul 2026 &middot; Award: Project grants typically USD 10,000 to USD 100,000+, with most awards in the USD 10,000-50,000 range; minimum 1:1 cost-share required.</p>
+<p>NEA's flagship project grant for arts organisations across all artistic disciplines. The Grants for Arts Projects (GAP) programme supports projects in dance, design, folk and traditional arts, literary arts, local arts agencies, media arts, museums, music, musical theater, opera, presenting and multidisciplinary works, theater, and visual arts. July 2026 cycle: 'Submit to Grants.gov' deadline 9 July 2026; portal application window 14-21 July 2026. ELIGIBILITY: US non-profits with 501(c)(3) status, units of state or local government, or federally-recognised tribal communities; organisations must have a three-year history of programming and meet a minimum operating budget. Project grants typically USD 10,000 to USD 100,000+, with most awards in the USD 10,000-50,000 range; a 1:1 cost-share is required. Natural sibling to the NEH Public Humanities Projects programme on the desk.</p>
+</li>
+<li>
 <h3><a href="https://www.filmindependent.org/programs/applications/" target="_blank" rel="noopener">Film Independent: Project Involve 2027</a></h3>
 <p class="meta-line">Film Independent &middot; Los Angeles, US &middot; Deadline: 13 Jul 2026 &middot; Award: Multiple bundled fellowships for selected fellows: Amazon MGM Studios ($10,000), Climate Entertainment Commissioning Grant ($25,000 for a new climate-focused fiction feature script), LAIKA Animation Track (production grant + cash stipend, 5 fellows over 2 years), Panavision Fellowship ($60,000 camera package), Sony Pictures Entertainment ($10,000), University of Arizona TFTV ($10,000)</p>
 <p>Signature fellowship program offering career opportunities to filmmakers from communities typically underrepresented in film and entertainment. Selected fellows are eligible for a stack of bundled fellowships: Amazon MGM Studios ($10K), Climate Entertainment Commissioning Grant ($25K to write a new climate-focused fiction feature), LAIKA Animation Track (production grant + stipend across 2 years for 5 stop-motion fellows), Panavision Fellowship ($60K camera package for an outstanding cinematographer), Sony Pictures Entertainment ($10K), and University of Arizona TFTV Fellowship ($10K for a TFTV alum). International fellows are also eligible for the Dolby Institute Fellowship ($50K post-production grant utilising Dolby Vision and Atmos). Project Involve alums become eligible to apply to the Amplifier Fellowship for Black filmmakers ($30K unrestricted plus year-long support; six fellows annually). Applications open 18 May 2026; non-member deadline 13 July 2026; Film Independent member extension to 27 July 2026.</p>
@@ -6479,6 +6635,11 @@ code *, pre *, kbd *, samp * {
 <p>Six-week fellowship for cultural producers at any career stage working in the vanguard of their creative fields. Five cycles run March to December. Fellows commit to an Artist Talk and Open Studio bookending the residency. 2026 application window has closed (Sep 15 to Oct 15, 2025); 2027 round expected Sep 15 to Oct 15, 2026 via Slideroom. Selection notifications mid-January.</p>
 </li>
 <li>
+<h3><a href="https://wennergren.org/program/post-phd-research-grant/" target="_blank" rel="noopener">Wenner-Gren Foundation: Post-PhD Research Grant (November 2026 cycle)</a></h3>
+<p class="meta-line">Wenner-Gren Foundation for Anthropological Research &middot; Worldwide (research may take place anywhere; applicant must hold an anthropology PhD or equivalent) &middot; Deadline: 01 Nov 2026 &middot; Award: Up to USD 25,000 per grant</p>
+<p>Research grants from the Wenner-Gren Foundation for individual scholars with a PhD or equivalent to support a discrete project of anthropological research. The grant supports the project's most substantial cost (typically fieldwork or core research activity) and may be used for direct research expenses; not for salary or institutional overhead. Deadlines are biannual: 1 May and 1 November each year. ELIGIBILITY: scholars who hold a PhD (or equivalent) in anthropology or a clearly related discipline; nationality and country of work are not restricted. Up to USD 25,000 per grant. Strictly anthropology focus - the project must be primarily anthropological in scope and method (sociocultural, biological, archaeological or linguistic anthropology, etc.).</p>
+</li>
+<li>
 <h3><a href="https://blcklst.com/programs/2027-nrdc-climate-storytelling-fellowship" target="_blank" rel="noopener">NRDC Climate Storytelling Fellowship 2027 (via The Black List)</a></h3>
 <p class="meta-line">Natural Resources Defense Council (NRDC) in partnership with The Black List &middot; United States (verify international eligibility on Black List program page) &middot; Deadline: 04 Dec 2026 &middot; Award: $20,000 to each of three writers ($60,000 total) to support revision of a feature screenplay or pilot.</p>
 <p>Annual screenwriting fellowship from the Natural Resources Defense Council (NRDC) administered through The Black List, awarding $20,000 each to three writers to revise a feature screenplay or pilot that engages with climate change in a compelling way. Submission and selection happen on The Black List platform; applicants should review program eligibility and any associated hosting/submission fees on blcklst.com before applying. Strong fit for narrative writers using fiction to dramatise climate, ecology, energy, or environmental-justice themes (rather than documentary). Deadline 4 December 2026.</p>
@@ -6487,6 +6648,11 @@ code *, pre *, kbd *, samp * {
 <h3><a href="https://form.jotform.com/CFA_Institute/cfa--imgn-grant-application" target="_blank" rel="noopener">CFA Institute x IMGN Grant 2026</a></h3>
 <p class="meta-line">CFA Institute (in partnership with IMGN) &middot; United States (50 states + DC; applicants must be 18+) &middot; Deadline: 31 Dec 2026 &middot; Award: $4,500 to one filmmaker. If the project is already completed before funds are disbursed, the $4,500 is paid as a reimbursement upon submission of a final cut.</p>
 <p>One-off film grant awarding a single filmmaker $4,500 to support an independent narrative project in 2026. Application is free to submit. Centerpiece of the application is a production book built on the IMGN platform: script breakdown, schedule, coverage, and pre-visualization for the project (tutorials are provided inside the application). Eligibility: US-based filmmakers in the 50 states plus DC, aged 18 and older. If the project is already completed before funds are disbursed, the grant is paid as a reimbursement upon submission of a final cut of the film. Winner announced and funds disbursed by end of January 2027.</p>
+</li>
+<li>
+<h3><a href="https://investigativejournalismforeu.net/grants/investigation-support-scheme/" target="_blank" rel="noopener">IJ4EU: Investigation Support Scheme (2026-27 cycle, next round upcoming)</a></h3>
+<p class="meta-line">International Press Institute / European Centre for Press and Media Freedom (IJ4EU consortium) &middot; EU and Creative Europe-eligible countries &middot; Deadline: Rolling / undated &middot; Award: Up to EUR 50,000 per cross-border team (Investigation Support Scheme); parallel Freelancer Support Scheme up to EUR 20,000. Total EUR 1.6M available across the 2026-27 cycle.</p>
+<p>Cross-border investigative-journalism grants funding teams of journalists reporting on EU-wide public-interest issues. Two complementary schemes: (1) the Investigation Support Scheme (up to EUR 50,000 per team) for cross-border teams active in two or more Creative Europe Programme countries; (2) the Freelancer Support Scheme (up to EUR 20,000) for solo or small-team freelance journalists working across borders. Total EUR 1.6M available across the 2026-27 cycle. The most recent 2026 round closed 13 April 2026; the next round of the 2026-27 cycle is upcoming - check the IJ4EU site for the confirmed deadline. ELIGIBILITY for Investigation Support Scheme: cross-border journalism teams based in two or more eligible Creative Europe Programme countries. For Freelancer Support: individual freelance journalists. IJ4EU is a distinct consortium from Journalismfund Europe and operates separate schemes.</p>
 </li>
 <li>
 <h3><a href="https://www.mozillafoundation.org/en/festival/" target="_blank" rel="noopener">Mozilla Festival (MozFest) 2026: Call for Proposals - Wilding</a></h3>
@@ -6662,6 +6828,31 @@ code *, pre *, kbd *, samp * {
 </section>
 </noscript>
 <!-- END_NOSCRIPT_GRANTS -->
+
+<section class="watchlist" aria-labelledby="watchlist-heading">
+  <div class="watchlist-inner">
+    <h2 id="watchlist-heading">Watch for next round</h2>
+    <p class="watchlist-intro">Funders whose current 2026 cycle is closed but whose next call is expected. Not counted in the active grants tally; bookmark and check the funder's page as the calls open.</p>
+    <ul class="watchlist-list">
+      <li>
+        <a href="https://emare.eu/" target="_blank" rel="noopener"><strong>EMAP Residencies 2027</strong></a>
+        . Next call expected autumn 2026. EUR 4,000 artist fee + EUR 2,000 collaborator stipend + EUR 4,000 production budget + accommodation + travel. Two-month production residency at one of thirteen European host organisations for artists working in digital, media, robotic, AI or bio art.
+      </li>
+      <li>
+        <a href="https://www.onassis.org/initiatives/onassis-air" target="_blank" rel="noopener"><strong>Onassis AiR</strong></a>
+        . Next call expected early 2027. Stipend, accommodation, travel and working space for a 10-week residency in Athens; about thirty fellows per cohort across visual arts, performance, sound, art and advanced tech, curatorial and writing.
+      </li>
+      <li>
+        <a href="https://www.tarbellcenter.org/fellowship" target="_blank" rel="noopener"><strong>Tarbell Fellowship 2027 (AI Journalism)</strong></a>
+        . Next call expected late 2026. USD 60,000-80,000 (regular fellows) or USD 90,000-110,000 (senior fellows) for a 12-month placement at major US/UK newsrooms building an AI-coverage beat.
+      </li>
+      <li>
+        <a href="https://www.governance.ai/post/summer-fellowship-2026-research-track" target="_blank" rel="noopener"><strong>GovAI Summer Fellowship 2027</strong></a>
+        . Next call expected late 2026. Three-month AI-governance fellowship with mentors at the Centre for the Governance of AI; tracks include Research (London), Applied (GBP 12,000) and a DC-based track (USD 21,000 plus London travel support).
+      </li>
+    </ul>
+  </div>
+</section>
 
 <section class="faq" aria-labelledby="faq-heading">
   <div class="faq-inner">
