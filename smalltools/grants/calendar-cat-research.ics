@@ -11,8 +11,101 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:neh-public-humanities-projects-2026@artificialnouveau.github.io
+DTSTAMP:20260515T094020Z
+DTSTART;VALUE=DATE:20261015
+DTEND;VALUE=DATE:20261016
+SUMMARY:Deadline: NEH: Public Humanities Projects (2026-27 deadlines)
+DESCRIPTION:NEH project grants supporting interpretive exhibitions\, histor
+ ic-place programming and discussion programmes that bring humanities schol
+ arship to public audiences. Aimed at strengthening the humanities in publi
+ c life through scholarship-informed public engagement (rather than primary
+  research). Two upcoming application windows: 15 October 2026 and 9 Decemb
+ er 2026. Two scales: Planning grants up to USD 75\,000\, and Implementatio
+ n grants up to USD 1\,000\,000 (most awards substantially smaller than the
+  cap). ELIGIBILITY: US-incorporated non-profits with appropriate IRS statu
+ s\, libraries\, museums\, historical organisations\, or accredited US coll
+ eges and universities\; individual scholars participate as project directo
+ rs on behalf of an eligible institution. Aimed at projects that engage bro
+ ad public audiences with humanities content (history\, culture\, philosoph
+ y\, literature\, etc.).\n\nOrganisation: National Endowment for the Humani
+ ties (NEH)\nLocation: United States (applicants must be eligible US non-pr
+ ofits - museums\, libraries\, historical organisations\, or accredited US 
+ colleges and universities)\nAward: Planning grants up to USD 75\,000\; Imp
+ lementation grants up to USD 1\,000\,000 (most awards substantially smalle
+ r). Two upcoming deadlines: 15 October 2026 and 9 December 2026.\nDuration
+ : Project-based\n\nMore: https://www.neh.gov/grants/public/public-humaniti
+ es-projects
+URL:https://www.neh.gov/grants/public/public-humanities-projects
+LOCATION:United States (applicants must be eligible US non-profits - museum
+ s\, libraries\, historical organisations\, or accredited US colleges and u
+ niversities)
+END:VEVENT
+BEGIN:VEVENT
+UID:nwo-ssh-xs-2026-round-3@artificialnouveau.github.io
+DTSTAMP:20260515T094020Z
+DTSTART;VALUE=DATE:20260915
+DTEND;VALUE=DATE:20260916
+SUMMARY:Deadline: NWO: SSH Open Competition XS 2026 - Round 3
+DESCRIPTION:Small curiosity-driven research grants in the social sciences a
+ nd humanities\, awarded by the Dutch Research Council (NWO). Round 3 of th
+ e 2026 SSH Open Competition XS closes 15 September 2026\, 14:00 CEST. Up t
+ o EUR 50\,000 per project to enable researchers to pursue novel\, explorat
+ ory and high-risk ideas without the constraints of larger themed calls. EL
+ IGIBILITY: academic researchers with an institutional affiliation at a Dut
+ ch university or recognised Dutch knowledge institute. Proposals are asses
+ sed on scientific quality and the potential for renewal of social-sciences
+  and humanities research. Round 3 details and the dedicated application pa
+ ge will be published by NWO closer to the deadline\; the linked page is th
+ e most recent SSH XS round\, which is the same scheme.\n\nOrganisation: Du
+ tch Research Council (NWO)\nLocation: Netherlands (applicants must be acad
+ emic researchers affiliated to a Dutch knowledge institution)\nAward: Up t
+ o EUR 50\,000 per project\nDuration: Project-based\, typically 12-24 month
+ s\n\nMore: https://www.nwo.nl/en/calls/ssh-open-competition-xs-2026-round-
+ 2
+URL:https://www.nwo.nl/en/calls/ssh-open-competition-xs-2026-round-2
+LOCATION:Netherlands (applicants must be academic researchers affiliated to
+  a Dutch knowledge institution)
+END:VEVENT
+BEGIN:VEVENT
+UID:sff-2026-themed-rounds@artificialnouveau.github.io
+DTSTAMP:20260515T094020Z
+DTSTART;VALUE=DATE:20260610
+DTEND;VALUE=DATE:20260611
+SUMMARY:Deadline: Survival and Flourishing Fund (SFF): 2026 Themed Rounds (
+ Climate\, Animal Welfare\, HSEE)
+DESCRIPTION:Recommender-grant rounds (the SFF S-Process) funding work that 
+ improves the long-term trajectory of life on Earth\, backed by Jaan Tallin
+ n and other donors. Funded cause areas span AI safety\, biosecurity\, clim
+ ate\, animal welfare\, and human self-empowerment / existential risk reduc
+ tion (HSEE). The 2026 cycle includes the closed Main Round (deadline 22 Ap
+ ril 2026) plus three themed rounds with paired Theme and Speculation deadl
+ ines: Climate (Theme 10 June\, Speculation 24 June 2026)\; Animal Welfare 
+ (Theme 24 June\, Speculation 8 July 2026)\; HSEE (Theme 8 July\, Speculati
+ on 22 July 2026). The S-Process is recommender-driven: recommenders indepe
+ ndently evaluate applications and the Fund aggregates their recommendation
+ s into grant decisions. ELIGIBILITY: primarily registered non-profit organ
+ isations and fiscally-sponsored projects\; individual researchers can appl
+ y through a fiscal sponsor. Grants typically range from tens of thousands 
+ of USD to low millions. Total programme USD 20-40M across all 2026 rounds.
+ \n\nOrganisation: Survival and Flourishing Fund (SFF)\, backed by Jaan Tal
+ linn\nLocation: Worldwide (grants typically routed through registered non-
+ profits\; individual researchers can apply via a fiscal sponsor)\nAward: T
+ otal USD 20-40M expected across all 2026 SFF rounds. Individual grants typ
+ ically range from tens of thousands of USD to low millions. Remaining 2026
+  themed-round deadlines: Climate Theme 10 June\; Climate Speculation and A
+ nimal Welfare Theme 24 June\; Animal Welfare Speculation and HSEE Theme 8 
+ July\; HSEE Speculation 22 July (HSEE = Human Self-Empowerment and Existen
+ tial Risk).\nDuration: Project-based\; recommended grant lengths vary by r
+ ound and project\n\nMore: https://survivalandflourishing.fund/2026/applica
+ tion
+URL:https://survivalandflourishing.fund/2026/application
+LOCATION:Worldwide (grants typically routed through registered non-profits\
+ ; individual researchers can apply via a fiscal sponsor)
+END:VEVENT
+BEGIN:VEVENT
 UID:templeton-rss-intelligence-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 SUMMARY:Deadline: Templeton Foundation: Religion\, Science & Society - Inte
@@ -50,7 +143,7 @@ LOCATION:Worldwide (Templeton funds charitable organizations inside and out
 END:VEVENT
 BEGIN:VEVENT
 UID:templeton-rss-meaning-making-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 SUMMARY:Deadline: Templeton Foundation: Religion\, Science & Society - Mean
@@ -92,7 +185,7 @@ LOCATION:Worldwide (Templeton funds charitable organizations inside and out
 END:VEVENT
 BEGIN:VEVENT
 UID:templeton-rss-imagined-futures-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 SUMMARY:Deadline: Templeton Foundation: Religion\, Science & Society - Imag
@@ -128,7 +221,7 @@ LOCATION:Worldwide (Templeton funds charitable organizations inside and out
 END:VEVENT
 BEGIN:VEVENT
 UID:whiting-nonfiction-grant-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260531
 DTEND;VALUE=DATE:20260601
 SUMMARY:Deadline: Whiting Foundation: Nonfiction Grant for Works-in-Progres
@@ -164,7 +257,7 @@ LOCATION:Canada\, UK\, or US (project must be under contract with a publish
 END:VEVENT
 BEGIN:VEVENT
 UID:understanding-society-fellowship-may-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260527
 DTEND;VALUE=DATE:20260528
 SUMMARY:Deadline: Understanding Society Data Research Fellowships (May 2026
@@ -210,7 +303,7 @@ LOCATION:United Kingdom (HEI\, research/policy institute\, or third-sector
 END:VEVENT
 BEGIN:VEVENT
 UID:cais-research-sabbaticals-2027-28@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260723
 DTEND;VALUE=DATE:20260724
 SUMMARY:Deadline: CAIS Research Sabbaticals (Fellowships) 2027-28
@@ -255,7 +348,7 @@ LOCATION:Bochum\, Germany (residential at CAIS\; rent-free\, fully furnishe
 END:VEVENT
 BEGIN:VEVENT
 UID:msca-postdoctoral-fellowships-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260909
 DTEND;VALUE=DATE:20260910
 SUMMARY:Deadline: Marie Skłodowska-Curie Postdoctoral Fellowships 2026 (MS
@@ -298,7 +391,7 @@ LOCATION:Europe (host institution in an EU Member State or Horizon Europe A
 END:VEVENT
 BEGIN:VEVENT
 UID:bbq-plus-academic-fellowship-2026-27@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260501
 DTEND;VALUE=DATE:20260502
 SUMMARY:Deadline: BBQ+ Academic Fellowship 2026-27
@@ -333,7 +426,7 @@ LOCATION:Remote (fully virtual organisation\; all fellowship meetings via Z
 END:VEVENT
 BEGIN:VEVENT
 UID:ehri-conny-kristel-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260607
 DTEND;VALUE=DATE:20260608
 SUMMARY:Deadline: EHRI Conny Kristel Fellowship Programme 2026
@@ -357,7 +450,7 @@ LOCATION:Across 25 host institutions in Europe\, Israel and the United Stat
 END:VEVENT
 BEGIN:VEVENT
 UID:future-of-work-reporting-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260724
 DTEND;VALUE=DATE:20260725
 SUMMARY:Deadline: Future of Work Reporting Fellowship 2026 to 2027
@@ -379,7 +472,7 @@ LOCATION:United States (US-based journalists)
 END:VEVENT
 BEGIN:VEVENT
 UID:bilnas-research-grant-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260430
 DTEND;VALUE=DATE:20260501
 SUMMARY:Deadline: BILNAS Research Grant
@@ -402,7 +495,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:natgeo-climate-pledge-illuminating-solutions-2026@artificialnouveau.git
  hub.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260525
 DTEND;VALUE=DATE:20260526
 SUMMARY:Deadline: National Geographic x The Climate Pledge: Illuminating Cl
@@ -448,7 +541,7 @@ LOCATION:Worldwide (storytellers globally\; preference for those with lived
 END:VEVENT
 BEGIN:VEVENT
 UID:einstein-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260515
 DTEND;VALUE=DATE:20260516
 SUMMARY:Deadline: Einstein Fellowship 2026 (Einstein Forum + Wittenstein Fo
@@ -484,7 +577,7 @@ LOCATION:Caputh\, Brandenburg\, Germany (garden cottage at Einstein's summe
 END:VEVENT
 BEGIN:VEVENT
 UID:ssrc-just-tech-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260628
 DTEND;VALUE=DATE:20260629
 SUMMARY:Deadline: SSRC Just Tech Fellowship 2027
@@ -517,7 +610,7 @@ LOCATION:United States (must reside in US during the fellowship year)
 END:VEVENT
 BEGIN:VEVENT
 UID:journalismfund-europe-cross-border-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260521
 DTEND;VALUE=DATE:20260522
 SUMMARY:Deadline: Journalismfund Europe: European Cross-Border Grants
@@ -534,7 +627,7 @@ LOCATION:Europe (cross-border projects)
 END:VEVENT
 BEGIN:VEVENT
 UID:fund-for-investigative-journalism-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260914
 DTEND;VALUE=DATE:20260915
 SUMMARY:Deadline: Fund for Investigative Journalism (FIJ) Grants

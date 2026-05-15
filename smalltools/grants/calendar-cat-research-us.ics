@@ -12,8 +12,39 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:neh-public-humanities-projects-2026@artificialnouveau.github.io
+DTSTAMP:20260515T094020Z
+DTSTART;VALUE=DATE:20261015
+DTEND;VALUE=DATE:20261016
+SUMMARY:Deadline: NEH: Public Humanities Projects (2026-27 deadlines)
+DESCRIPTION:NEH project grants supporting interpretive exhibitions\, histor
+ ic-place programming and discussion programmes that bring humanities schol
+ arship to public audiences. Aimed at strengthening the humanities in publi
+ c life through scholarship-informed public engagement (rather than primary
+  research). Two upcoming application windows: 15 October 2026 and 9 Decemb
+ er 2026. Two scales: Planning grants up to USD 75\,000\, and Implementatio
+ n grants up to USD 1\,000\,000 (most awards substantially smaller than the
+  cap). ELIGIBILITY: US-incorporated non-profits with appropriate IRS statu
+ s\, libraries\, museums\, historical organisations\, or accredited US coll
+ eges and universities\; individual scholars participate as project directo
+ rs on behalf of an eligible institution. Aimed at projects that engage bro
+ ad public audiences with humanities content (history\, culture\, philosoph
+ y\, literature\, etc.).\n\nOrganisation: National Endowment for the Humani
+ ties (NEH)\nLocation: United States (applicants must be eligible US non-pr
+ ofits - museums\, libraries\, historical organisations\, or accredited US 
+ colleges and universities)\nAward: Planning grants up to USD 75\,000\; Imp
+ lementation grants up to USD 1\,000\,000 (most awards substantially smalle
+ r). Two upcoming deadlines: 15 October 2026 and 9 December 2026.\nDuration
+ : Project-based\n\nMore: https://www.neh.gov/grants/public/public-humaniti
+ es-projects
+URL:https://www.neh.gov/grants/public/public-humanities-projects
+LOCATION:United States (applicants must be eligible US non-profits - museum
+ s\, libraries\, historical organisations\, or accredited US colleges and u
+ niversities)
+END:VEVENT
+BEGIN:VEVENT
 UID:whiting-nonfiction-grant-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260531
 DTEND;VALUE=DATE:20260601
 SUMMARY:Deadline: Whiting Foundation: Nonfiction Grant for Works-in-Progres
@@ -49,7 +80,7 @@ LOCATION:Canada\, UK\, or US (project must be under contract with a publish
 END:VEVENT
 BEGIN:VEVENT
 UID:future-of-work-reporting-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260724
 DTEND;VALUE=DATE:20260725
 SUMMARY:Deadline: Future of Work Reporting Fellowship 2026 to 2027
@@ -71,7 +102,7 @@ LOCATION:United States (US-based journalists)
 END:VEVENT
 BEGIN:VEVENT
 UID:ssrc-just-tech-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260628
 DTEND;VALUE=DATE:20260629
 SUMMARY:Deadline: SSRC Just Tech Fellowship 2027
@@ -104,7 +135,7 @@ LOCATION:United States (must reside in US during the fellowship year)
 END:VEVENT
 BEGIN:VEVENT
 UID:fund-for-investigative-journalism-2026@artificialnouveau.github.io
-DTSTAMP:20260515T084956Z
+DTSTAMP:20260515T094020Z
 DTSTART;VALUE=DATE:20260914
 DTEND;VALUE=DATE:20260915
 SUMMARY:Deadline: Fund for Investigative Journalism (FIJ) Grants
