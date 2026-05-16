@@ -12,8 +12,32 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:wikimedia-conference-fund@artificialnouveau.github.io
+DTSTAMP:20260516T161841Z
+DTSTART;VALUE=DATE:20260831
+DTEND;VALUE=DATE:20260901
+SUMMARY:Deadline: Wikimedia Conference Fund
+DESCRIPTION:Wikimedia Foundation grants supporting the organisation of loca
+ l\, regional and thematic conferences that bring Wikimedians together for 
+ knowledge sharing\, skill development and professional networking. Two rou
+ nds per year. Round 1 deadline: 31 August 2026. Round 2 deadline: 1 Februa
+ ry 2027. ELIGIBILITY: groups\, organisations and Wikimedia affiliates\; in
+ dividuals may apply via a fiscal sponsor. SUPPORT: from USD 10\,000 per gr
+ ant\; processing time approximately 3 months from submission to decision\,
+  plus 2-3 weeks for finalisation before fund disbursement. No application 
+ fee. Apply via the page at meta.wikimedia.org/wiki/Grants:Conference.\n\nO
+ rganisation: Wikimedia Foundation\nLocation: Worldwide (subject to legal e
+ ligibility by country)\nAward: From USD 10\,000 per grant (no preset upper
+  cap stated). No application fee.\nDuration: Project-based. Processing app
+ roximately 3 months from submission to decision\, plus 2-3 weeks for final
+ isation before disbursement.\n\nMore: https://meta.wikimedia.org/wiki/Gran
+ ts:Conference
+URL:https://meta.wikimedia.org/wiki/Grants:Conference
+LOCATION:Worldwide (subject to legal eligibility by country)
+END:VEVENT
+BEGIN:VEVENT
 UID:wikimedia-rapid-fund@artificialnouveau.github.io
-DTSTAMP:20260516T120642Z
+DTSTAMP:20260516T161841Z
 DTSTART;VALUE=DATE:20260701
 DTEND;VALUE=DATE:20260702
 SUMMARY:Deadline: Wikimedia Foundation Rapid Fund
@@ -35,13 +59,13 @@ DESCRIPTION:Quick-turnaround grants for individuals\, Wikimedia community m
   of application). Per-applicant cap $10\,000/fiscal year\; individuals may
   not hold multiple open Rapid Funds\, organisations/groups limited to 2 op
  en grants at a time.\nDuration: 1 to 12 months per project\n\nMore: https:
- //meta.wikimedia.org/wiki/Grants:Programs/Rapid_Fund
-URL:https://meta.wikimedia.org/wiki/Grants:Programs/Rapid_Fund
+ //meta.wikimedia.org/wiki/Grants:Project/Rapid
+URL:https://meta.wikimedia.org/wiki/Grants:Project/Rapid
 LOCATION:Worldwide (subject to legal eligibility by country)
 END:VEVENT
 BEGIN:VEVENT
 UID:fab-city-awards-2026@artificialnouveau.github.io
-DTSTAMP:20260516T120642Z
+DTSTAMP:20260516T161841Z
 DTSTART;VALUE=DATE:20260429
 DTEND;VALUE=DATE:20260430
 SUMMARY:Deadline: Fab City Awards 2026
@@ -81,7 +105,7 @@ LOCATION:Anywhere in the world
 END:VEVENT
 BEGIN:VEVENT
 UID:isoc-foundation-research-grant-2026@artificialnouveau.github.io
-DTSTAMP:20260516T120642Z
+DTSTAMP:20260516T161841Z
 DTSTART;VALUE=DATE:20260522
 DTEND;VALUE=DATE:20260523
 SUMMARY:Deadline: Internet Society Foundation: Research Grant Program 2026
