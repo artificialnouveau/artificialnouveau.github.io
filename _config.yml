@@ -104,6 +104,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+      permalink: /gallery/:title/
   -
     scope:
       path: ""
