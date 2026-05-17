@@ -412,12 +412,3 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
 })();
 </script>
 
-## Why a network and not a list
-
-A list flattens. A grid flattens differently. The graph lets the archive show what a taxonomy hides: that the satire room and the awareness room shade into each other, that the resurrection room is a continuous spectrum from estate-sanctioned (Carrie Fisher in Rogue One) to estate-furious (Bourdain in Roadrunner), that the political-disinformation room descends from a small number of toolchains the way malware families descend from one another.
-
-Cluster position encodes intent. Node color encodes consent. Edge type encodes editorial relation: same subject, same toolchain, response to, descended from, legal landmark.
-
-## Status
-
-Built in Vite, React, react-three-fiber, react-force-graph-3d. Working build, May 2026. Separate domain to be announced.
