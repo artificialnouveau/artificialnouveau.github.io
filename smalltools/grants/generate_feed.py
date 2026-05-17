@@ -32,7 +32,7 @@ DESCRIPTION = (
 )
 MAX_ITEMS = 50
 
-REGIONS = ["EU", "US", "UK", "NL", "Canada", "Remote", "Worldwide"]
+REGIONS = ["EU", "US", "UK", "NL", "Asia", "Canada", "Remote", "Worldwide"]
 TIMELINES = ["30d", "90d", "added-30d"]
 CATEGORIES = ["ai", "tech", "research", "film", "arts", "cross"]
 CATEGORY_LABELS = {
@@ -355,6 +355,7 @@ REGION_PHRASE = {
     "US": "the US",
     "UK": "the UK",
     "NL": "the Netherlands",
+    "Asia": "Asia",
     "Canada": "Canada",
     "Remote": "Remote (work-from-anywhere)",
     "Worldwide": "Worldwide",
@@ -365,6 +366,7 @@ REGION_TITLE_TAIL = {
     "US": "in the US",
     "UK": "in the UK",
     "NL": "in the Netherlands",
+    "Asia": "in Asia",
     "Canada": "in Canada",
     "Remote": "(Remote)",
     "Worldwide": "(Worldwide)",

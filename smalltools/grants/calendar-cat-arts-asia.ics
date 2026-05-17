@@ -1,0 +1,32 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Visual & Media Arts\, Asia
+X-WR-CALNAME:The Grant Desk - Visual & Media Arts\, Asia deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Visual & Media Arts\, A
+ sia.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:kyoto-retreat-2026@artificialnouveau.github.io
+DTSTAMP:20260517T143350Z
+DTSTART;VALUE=DATE:20260717
+DTEND;VALUE=DATE:20260718
+SUMMARY:Deadline: The Kyoto Retreat 2026
+DESCRIPTION:Four-week residency in Kyoto for artists\, curators and writers
+  from anywhere in the world\, working in drawing\, painting\, sculpture\, 
+ photography\, film\, video\, new media\, installation\, fiction and nonfic
+ tion writing\, poetry\, interdisciplinary or social practice. Open to all 
+ career stages\, 21 and over. Selected participants notified by 1 September
+  2026.\n\nOrganisation: The Kyoto Retreat (founded by Dexter Wimberly)\nLo
+ cation: Kyoto\, Japan\nAward: Roundtrip flight\, private accommodation and
+  $800 USD stipend\nDuration: 4 weeks (1 to 30 November 2026)\n\nMore: http
+ s://www.kyotoretreat.com
+URL:https://www.kyotoretreat.com
+LOCATION:Kyoto\, Japan
+END:VEVENT
+END:VCALENDAR
