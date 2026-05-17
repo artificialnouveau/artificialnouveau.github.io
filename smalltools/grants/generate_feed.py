@@ -81,30 +81,28 @@ def build_item(grant, today):
 
     deadline = parse_date(grant.get("deadline"))
     label = deadline_label(deadline, today)
-    amount = grant.get("amount")
-    parts = [title]
-    if amount:
-        parts.append(str(amount))
-    if deadline and (deadline - today).days >= 0:
-        parts.append(f"deadline {label}")
-    else:
-        parts.append(label)
-    title_full = " - ".join(parts)
+
+    # Title stays clean - the grant title only. The amount and deadline
+    # appear once in the bullet list below, not duplicated in the title.
+    title_full = title
 
     body = []
+    bullets = []
     org = grant.get("organization")
     if org:
-        body.append(f"<p><strong>{escape(str(org))}</strong></p>")
+        bullets.append(f"<li><strong>Organisation:</strong> {escape(str(org))}</li>")
     location = grant.get("location")
     if location:
-        body.append(f"<p>Location: {escape(str(location))}</p>")
+        bullets.append(f"<li><strong>Location:</strong> {escape(str(location))}</li>")
     amount = grant.get("amount")
     if amount:
-        body.append(f"<p>Award: {escape(str(amount))}</p>")
+        bullets.append(f"<li><strong>Award:</strong> {escape(str(amount))}</li>")
     duration = grant.get("duration")
     if duration:
-        body.append(f"<p>Duration: {escape(str(duration))}</p>")
-    body.append(f"<p>Deadline: {escape(label)}</p>")
+        bullets.append(f"<li><strong>Duration:</strong> {escape(str(duration))}</li>")
+    bullets.append(f"<li><strong>Deadline:</strong> {escape(label)}</li>")
+    body.append("<ul>" + "".join(bullets) + "</ul>")
+
     desc = grant.get("description")
     if desc:
         body.append(f"<p>{escape(str(desc))}</p>")
