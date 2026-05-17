@@ -1,0 +1,36 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Writers\, Worldwide
+X-WR-CALNAME:The Grant Desk - Writers\, Worldwide deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Writers\, Worldwide.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:pen-heim-translation-fund-2026@artificialnouveau.github.io
+DTSTAMP:20260517T144745Z
+DTSTART;VALUE=DATE:20260615
+DTEND;VALUE=DATE:20260616
+SUMMARY:Deadline: PEN America: PEN/Heim Translation Fund Grants 2026
+DESCRIPTION:PEN America's annual grants for in-progress book-length literar
+ y translations from any language into English. Up to 10 grants of USD 4\,0
+ 00 each. Preference for early-career translators and works from underrepre
+ sented languages and regions. Eligible genres include fiction\, creative n
+ onfiction\, poetry and drama. ELIGIBILITY: translators of any nationality\
+ ; the project must be a translation of a book-length work into English\; p
+ revious PEN/Heim recipients are eligible after a waiting period. No applic
+ ation fee. Apply by 15 June 2026 via PEN America's grants portal.\n\nOrgan
+ isation: PEN America\nLocation: Worldwide (translators of any nationality\
+ ; project must translate a book-length work into English)\nAward: USD 4\,0
+ 00 per project (up to 10 awards per year). No application fee.\nDuration: 
+ Project-based (book-length literary translation in progress)\n\nMore: http
+ s://pen.org/literary-grants/pen-heim-grants/
+URL:https://pen.org/literary-grants/pen-heim-grants/
+LOCATION:Worldwide (translators of any nationality\; project must translate
+  a book-length work into English)
+END:VEVENT
+END:VCALENDAR

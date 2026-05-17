@@ -1,0 +1,41 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Writers\, NL
+X-WR-CALNAME:The Grant Desk - Writers\, NL deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Writers\, NL.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:letterenfonds-project-grants-translators@artificialnouveau.github.io
+DTSTAMP:20260517T144745Z
+DTSTART;VALUE=DATE:20260815
+DTEND;VALUE=DATE:20260816
+SUMMARY:Deadline: Nederlands Letterenfonds: Project Grants for Literary Tra
+ nslators (August 2026 round)
+DESCRIPTION:Project subsidies from the Nederlands Letterenfonds for advance
+ d literary translators with a current publishing contract for a translatio
+ n from or into Dutch. The next round closes 15 August 2026\; decisions are
+  made approximately four months after the deadline (December). ELIGIBILITY
+ : literary translators with a substantial published portfolio and a contra
+ cted translation project\; primary income must be below EUR 52\,500. SUPPO
+ RT: project-based subsidy calculated against per-word and per-line minimum
+  rates (EUR 0.0802/word for prose\, EUR 2.92/line for poetry). Apply via t
+ he funder's translator portal on the linked page. No application fee.\n\nO
+ rganisation: Nederlands Letterenfonds (Dutch Foundation for Literature)\nL
+ ocation: Worldwide (literary translators with a contracted translation fro
+ m or into Dutch)\nAward: Project-based subsidy. Income cap EUR 52\,500 for
+  primary income. Standard minimum rates: EUR 0.0802/word for prose\; EUR 2
+ .92/line for poetry. No application fee.\nDuration: Project-based\, scaled
+  to the contracted translation\n\nMore: https://www.letterenfonds.nl/en-ca
+ ribbean/funding/project-grants-for-literary-translators
+URL:https://www.letterenfonds.nl/en-caribbean/funding/project-grants-for-li
+ terary-translators
+LOCATION:Worldwide (literary translators with a contracted translation from
+  or into Dutch)
+END:VEVENT
+END:VCALENDAR

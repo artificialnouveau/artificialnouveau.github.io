@@ -34,11 +34,12 @@ MAX_ITEMS = 50
 
 REGIONS = ["EU", "US", "UK", "NL", "Asia", "Canada", "Remote", "Worldwide"]
 TIMELINES = ["30d", "90d", "added-30d"]
-CATEGORIES = ["ai", "tech", "research", "film", "arts", "cross"]
+CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "cross"]
 CATEGORY_LABELS = {
     "ai": "AI & Safety",
     "tech": "Tech & Infrastructure",
     "research": "Research & Journalism",
+    "writers": "Writers",
     "film": "Film & Video",
     "arts": "Visual & Media Arts",
     "cross": "Cross-disciplinary & Social Impact",
@@ -376,6 +377,7 @@ CATEGORY_TITLE_PHRASE = {
     "ai": "AI and AI Safety",
     "tech": "Tech and Infrastructure",
     "research": "Research and Journalism",
+    "writers": "Writing and Translation",
     "film": "Film and Video",
     "arts": "Visual and Media Arts",
     "cross": "Cross-Disciplinary and Social Impact",

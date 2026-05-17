@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Grant Desk</title>
-<meta name="description" content="A curated database of paid grants, fellowships and residencies for artists, researchers and technologists working in AI, digital and mixed-media arts, film, research, journalism and cross-disciplinary practice. Filter by region (EU, UK, US, NL, Canada, remote, worldwide) and deadline. RSS and calendar feeds.">
+<meta name="description" content="A curated database of paid grants, fellowships and residencies for artists, researchers and technologists working in AI, digital and mixed-media arts, film, research, journalism and cross-disciplinary practice. Filter by region and deadline. RSS and calendar feeds.">
 <link rel="canonical" href="https://www.artificialnouveau.com/smalltools/grants/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
@@ -1510,7 +1510,7 @@ code *, pre *, kbd *, samp * {
     <span class="h1-kicker">Grants, Fellowships and Residencies in AI, Arts, Film, Research and Tech</span>
     <span class="h1-brand">The <span class="underline">Grant</span> Desk</span>
   </h1>
-  <p class="lede"><strong id="active-count">--</strong> active grants on the desk right now. A hand-picked selection of <strong>paid</strong> open calls, fellowships and residencies for artists, researchers and technologists working in AI and AI safety, digital and mixed-media arts, film and video, research and journalism, tech and infrastructure, and cross-disciplinary practice. Every entry here is funded, no unpaid "exposure opportunities". Filter by region (EU, UK, US, Netherlands, Canada, remote, worldwide) and category, sorted by deadline into Hot Grants, You Got Time, Deadlines Beyond 90 Days and Rolling or Continuous Calls, with closed calls auto-filed away.</p>
+  <p class="lede"><strong id="active-count">--</strong> active grants on the desk right now. A hand-picked selection of <strong>paid</strong> open calls, fellowships and residencies for artists, researchers and technologists working in AI and AI safety, digital and mixed-media arts, film and video, research and journalism, tech and infrastructure, and cross-disciplinary practice. Every entry here is funded, no unpaid "exposure opportunities". Star a card to save it to a shortlist you can share as a link or download as an .ics calendar, and use the "Copy info" button on any card to copy the full grant details to your clipboard. The desk also remembers when you last visited (saved in your browser's localStorage only, not on any server) so the "Show only new" filter highlights what has been added since.</p>
   <p class="lede subtle">Subscribe via RSS or add deadlines to your calendar so you do not miss a thing.</p>
 </header>
 
@@ -8010,11 +8010,12 @@ const CATEGORY_LABELS = {
   'ai': 'AI & Safety',
   'tech': 'Tech & Infrastructure',
   'research': 'Research & Journalism',
+  'writers': 'Writers',
   'film': 'Film & Video',
   'arts': 'Visual & Media Arts',
   'cross': 'Cross-disciplinary & Social Impact',
 };
-const CATEGORY_ORDER = ['ai', 'tech', 'research', 'film', 'arts', 'cross'];
+const CATEGORY_ORDER = ['ai', 'tech', 'research', 'writers', 'film', 'arts', 'cross'];
 
 const FILTER_STATE = { category: new Set(), region: new Set(), type: new Set(), applicant: new Set(), amount: new Set(), added: new Set(), search: '' };
 
