@@ -142,11 +142,155 @@ header a:hover { text-decoration: underline; }
 .exam-transcript-side.question { background: #fff; }
 .exam-transcript-side.answer { background: #f0faf4; }
 
+/* Op Niveau practice */
+.on-setup { border: 2px solid var(--mondrian-black); background: var(--mondrian-white); padding: 18px; margin-bottom: 20px; }
+.on-setup h3 { font-family: 'Syne', sans-serif; font-size: 20px; margin-bottom: 16px; }
+.on-row { margin-bottom: 16px; }
+.on-row-label {
+  display: block; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+}
+.on-mode-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+.on-mode-btn {
+  padding: 14px 12px; border: 2px solid var(--mondrian-black); background: var(--mondrian-white);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px;
+  cursor: pointer; text-align: left; transition: all 0.15s;
+}
+.on-mode-btn:hover { background: var(--mondrian-yellow); }
+.on-mode-btn.active { background: var(--mondrian-red); color: #fff; }
+.on-mode-btn .on-mode-sub {
+  display: block; font-weight: 400; font-size: 11px; margin-top: 4px; opacity: 0.8;
+  font-family: 'Inter', sans-serif;
+}
+.on-chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.on-chip {
+  padding: 6px 12px; border: 2px solid var(--mondrian-black); background: var(--mondrian-white);
+  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer;
+  user-select: none;
+}
+.on-chip:hover { background: var(--mondrian-yellow); }
+.on-chip.active { background: var(--mondrian-blue); color: #fff; }
+.on-select {
+  padding: 8px 12px; border: 2px solid var(--mondrian-black); background: var(--mondrian-white);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 13px; cursor: pointer;
+}
+.on-start-btn {
+  padding: 14px 24px; border: 2px solid var(--mondrian-black); background: var(--mondrian-red); color: #fff;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px;
+  cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.on-start-btn:hover { background: var(--mondrian-blue); }
+.on-start-btn:disabled { background: #ccc; color: #666; cursor: not-allowed; }
+
+.on-session { border: 2px solid var(--mondrian-black); background: var(--mondrian-white); padding: 20px; }
+.on-session-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-bottom: 18px; padding-bottom: 12px; border-bottom: 2px solid var(--mondrian-black);
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+}
+.on-session-top .on-progress { color: var(--muted); }
+.on-session-top .on-score { color: var(--mondrian-blue); }
+.on-quit-btn {
+  padding: 6px 12px; border: 2px solid var(--mondrian-black); background: var(--mondrian-white);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 12px; cursor: pointer;
+}
+.on-quit-btn:hover { background: var(--mondrian-yellow); }
+
+.on-prompt-word {
+  font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 700;
+  margin-bottom: 8px; line-height: 1.2;
+}
+.on-prompt-sub {
+  font-family: 'Inter', sans-serif; font-size: 13px; color: var(--muted); margin-bottom: 20px;
+}
+.on-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.on-option-btn {
+  text-align: left; padding: 14px 16px; border: 2px solid var(--mondrian-black);
+  background: var(--mondrian-white); font-family: 'Inter', sans-serif; font-size: 14px;
+  cursor: pointer; transition: background 0.15s;
+}
+.on-option-btn:hover:not(:disabled) { background: var(--mondrian-yellow); }
+.on-option-btn.correct { background: #c8f0d4; border-color: #1e7e34; }
+.on-option-btn.wrong { background: #f5c2c2; border-color: #b02a37; }
+.on-option-btn:disabled { cursor: default; }
+
+.on-cloze-sentence {
+  font-family: 'Inter', sans-serif; font-size: 18px; line-height: 1.6;
+  margin-bottom: 14px; padding: 16px; background: #f5f5f5; border-left: 4px solid var(--mondrian-blue);
+}
+.on-cloze-blank { display: inline-block; min-width: 80px; border-bottom: 2px solid var(--mondrian-black); padding: 0 6px; }
+.on-input {
+  width: 100%; padding: 12px 14px; border: 2px solid var(--mondrian-black);
+  font-family: 'Inter', sans-serif; font-size: 15px; background: var(--mondrian-white);
+}
+.on-input:focus { outline: none; background: #fffdf0; }
+.on-textarea {
+  width: 100%; min-height: 100px; padding: 12px 14px; border: 2px solid var(--mondrian-black);
+  font-family: 'Inter', sans-serif; font-size: 15px; resize: vertical; background: var(--mondrian-white);
+}
+.on-textarea:focus { outline: none; background: #fffdf0; }
+
+.on-action-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.on-action-btn {
+  padding: 10px 18px; border: 2px solid var(--mondrian-black); background: var(--mondrian-white);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 13px; cursor: pointer;
+}
+.on-action-btn:hover { background: var(--mondrian-yellow); }
+.on-action-btn.primary { background: var(--mondrian-red); color: #fff; }
+.on-action-btn.primary:hover { background: var(--mondrian-blue); }
+
+.on-feedback {
+  margin-top: 14px; padding: 12px 16px; border: 2px solid var(--mondrian-black);
+  font-family: 'Inter', sans-serif; font-size: 14px;
+}
+.on-feedback.ok { background: #c8f0d4; border-color: #1e7e34; }
+.on-feedback.no { background: #f5c2c2; border-color: #b02a37; }
+.on-feedback strong { font-family: 'Space Grotesk', sans-serif; }
+.on-feedback .on-example { display: block; margin-top: 8px; font-style: italic; color: #444; }
+
+/* Flashcard */
+.on-flashcard {
+  border: 2px solid var(--mondrian-black); padding: 30px 24px; min-height: 220px;
+  background: var(--mondrian-white); cursor: pointer; display: flex; flex-direction: column;
+  justify-content: center; text-align: center; transition: background 0.15s;
+}
+.on-flashcard:hover { background: #fffdf0; }
+.on-flashcard.flipped { background: #eef4fb; }
+.on-flashcard .on-flash-front {
+  font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 700;
+}
+.on-flashcard .on-flash-tag {
+  font-family: 'Space Grotesk', sans-serif; font-size: 11px; color: var(--muted);
+  text-transform: uppercase; margin-top: 8px; letter-spacing: 0.5px;
+}
+.on-flashcard .on-flash-en {
+  font-family: 'Syne', sans-serif; font-size: 24px; margin-bottom: 14px; color: var(--mondrian-blue);
+}
+.on-flashcard .on-flash-note {
+  font-family: 'Inter', sans-serif; font-size: 13px; color: #444; margin-bottom: 10px;
+}
+.on-flashcard .on-flash-example {
+  font-family: 'Inter', sans-serif; font-size: 14px; font-style: italic; color: #222;
+  padding-top: 10px; border-top: 1px solid #ccc;
+}
+.on-flashcard .on-flash-hint {
+  font-family: 'Space Grotesk', sans-serif; font-size: 11px; color: var(--muted);
+  margin-top: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+.on-results { text-align: center; padding: 30px 20px; }
+.on-results .on-score-big {
+  font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; margin-bottom: 8px;
+}
+.on-results .on-score-label { font-family: 'Space Grotesk', sans-serif; color: var(--muted); margin-bottom: 24px; }
+
 @media (max-width: 600px) {
   .exam-transcript-body.open { flex-direction: column; }
   .exam-transcript-side:first-child { border-right: none; border-bottom: 2px solid var(--mondrian-black); }
   .exam-set-grid { grid-template-columns: repeat(auto-fill, minmax(55px, 1fr)); }
   header h1 { font-size: 18px; }
+  .on-prompt-word { font-size: 28px; }
+  .on-flashcard .on-flash-front { font-size: 30px; }
 }
 </style>
 </head>
@@ -162,6 +306,7 @@ header a:hover { text-decoration: underline; }
   <div class="subtab-bar">
     <button class="subtab-btn active" data-type="spreken" onclick="switchType('spreken')">Spreken</button>
     <button class="subtab-btn" data-type="schrijven" onclick="switchType('schrijven')">Schrijven</button>
+    <button class="subtab-btn" data-type="opniveau" onclick="switchType('opniveau')">Op Niveau</button>
   </div>
 
   <div class="subtab-content active" id="panel-spreken">
@@ -172,6 +317,11 @@ header a:hover { text-decoration: underline; }
   <div class="subtab-content" id="panel-schrijven">
     <div id="examSchrijvenSets"></div>
     <div id="examSchrijvenExercises" style="display:none;"></div>
+  </div>
+
+  <div class="subtab-content" id="panel-opniveau">
+    <div id="onSetup"></div>
+    <div id="onSession" style="display:none;"></div>
   </div>
 </div>
 
@@ -360,15 +510,425 @@ function examPlayYT(anchor, containerId, videoId, startSec, endSec) {
   return false;
 }
 
+// =========================================================================
+// Op Niveau practice modes
+// =========================================================================
+
+const ON_MODES = {
+  mc:    { label: 'Meerkeuze',       sub: 'Woord > betekenis (4 opties)' },
+  cloze: { label: 'Invullen',        sub: 'Vul het woord in de zin in' },
+  flash: { label: 'Flashcards',      sub: 'Klik om om te draaien' },
+  write: { label: 'Schrijfprompts',  sub: 'Schrijf 1-2 zinnen' },
+};
+
+let onVocab = [];
+let onState = {
+  mode: 'mc',
+  levels: new Set(['B1', 'B2']),
+  tag: 'all',
+  count: 15,
+  direction: 'nl2en',
+  queue: [],
+  idx: 0,
+  score: 0,
+  answered: false,
+};
+
+function onShuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function onAllTags() {
+  const tags = new Set();
+  for (const w of onVocab) (w.tags || []).forEach(t => tags.add(t));
+  return [...tags].sort();
+}
+
+function onFilteredPool() {
+  return onVocab.filter(w =>
+    onState.levels.has(w.level) &&
+    (onState.tag === 'all' || (w.tags || []).includes(onState.tag))
+  );
+}
+
+function onRenderSetup() {
+  const setupEl = document.getElementById('onSetup');
+  document.getElementById('onSession').style.display = 'none';
+  setupEl.style.display = 'block';
+
+  const tags = onAllTags();
+  const poolSize = onFilteredPool().length;
+  const maxCount = Math.min(poolSize, 50);
+  const countOptions = [10, 15, 20, 30, 50].filter(n => n <= poolSize);
+  if (poolSize > 0 && !countOptions.includes(poolSize) && poolSize < 10) countOptions.unshift(poolSize);
+
+  setupEl.innerHTML = `
+    <div class="on-setup">
+      <h3>Op Niveau oefenen — kies een modus</h3>
+      <div class="on-row">
+        <span class="on-row-label">Modus</span>
+        <div class="on-mode-grid">
+          ${Object.entries(ON_MODES).map(([k, m]) => `
+            <button class="on-mode-btn ${onState.mode === k ? 'active' : ''}" data-mode="${k}" onclick="onPickMode('${k}')">
+              ${m.label}
+              <span class="on-mode-sub">${m.sub}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="on-row">
+        <span class="on-row-label">Niveau</span>
+        <div class="on-chip-row">
+          ${['A2', 'B1', 'B2', 'C1'].map(lvl => `
+            <button class="on-chip ${onState.levels.has(lvl) ? 'active' : ''}" onclick="onToggleLevel('${lvl}')">${lvl}</button>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="on-row">
+        <span class="on-row-label">Thema (tag)</span>
+        <select class="on-select" onchange="onPickTag(this.value)">
+          <option value="all" ${onState.tag === 'all' ? 'selected' : ''}>Alle thema's</option>
+          ${tags.map(t => `<option value="${t}" ${onState.tag === t ? 'selected' : ''}>${t}</option>`).join('')}
+        </select>
+        <span style="margin-left:12px;font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);">
+          ${poolSize} woorden in pool
+        </span>
+      </div>
+
+      ${onState.mode === 'mc' ? `
+        <div class="on-row">
+          <span class="on-row-label">Richting</span>
+          <div class="on-chip-row">
+            <button class="on-chip ${onState.direction === 'nl2en' ? 'active' : ''}" onclick="onPickDir('nl2en')">NL > EN</button>
+            <button class="on-chip ${onState.direction === 'en2nl' ? 'active' : ''}" onclick="onPickDir('en2nl')">EN > NL</button>
+          </div>
+        </div>
+      ` : ''}
+
+      <div class="on-row">
+        <span class="on-row-label">Aantal vragen</span>
+        <div class="on-chip-row">
+          ${countOptions.map(n => `
+            <button class="on-chip ${onState.count === n ? 'active' : ''}" onclick="onPickCount(${n})">${n}</button>
+          `).join('')}
+        </div>
+      </div>
+
+      <button class="on-start-btn" onclick="onStart()" ${poolSize === 0 ? 'disabled' : ''}>
+        Start oefening &rarr;
+      </button>
+    </div>
+  `;
+}
+
+function onPickMode(m) { onState.mode = m; onRenderSetup(); }
+function onPickTag(t)  { onState.tag = t; onRenderSetup(); }
+function onPickDir(d)  { onState.direction = d; onRenderSetup(); }
+function onPickCount(n) { onState.count = n; onRenderSetup(); }
+function onToggleLevel(lvl) {
+  if (onState.levels.has(lvl)) {
+    if (onState.levels.size > 1) onState.levels.delete(lvl);
+  } else {
+    onState.levels.add(lvl);
+  }
+  onRenderSetup();
+}
+
+function onStart() {
+  const pool = onFilteredPool();
+  if (pool.length === 0) return;
+  const n = Math.min(onState.count, pool.length);
+  onState.queue = onShuffle(pool).slice(0, n);
+  onState.idx = 0;
+  onState.score = 0;
+  onState.answered = false;
+  document.getElementById('onSetup').style.display = 'none';
+  document.getElementById('onSession').style.display = 'block';
+  onRenderSession();
+}
+
+function onQuit() { onRenderSetup(); }
+
+function onRenderSession() {
+  const sessEl = document.getElementById('onSession');
+  if (onState.idx >= onState.queue.length) {
+    onRenderResults();
+    return;
+  }
+  const total = onState.queue.length;
+  const showScore = onState.mode === 'mc' || onState.mode === 'cloze';
+  sessEl.innerHTML = `
+    <div class="on-session">
+      <div class="on-session-top">
+        <span class="on-progress">${onState.idx + 1} / ${total}</span>
+        ${showScore ? `<span class="on-score">Score: ${onState.score} / ${total}</span>` : '<span></span>'}
+        <button class="on-quit-btn" onclick="onQuit()">Stoppen</button>
+      </div>
+      <div id="onSessionBody"></div>
+    </div>
+  `;
+  const body = document.getElementById('onSessionBody');
+  switch (onState.mode) {
+    case 'mc':    onRenderMC(body); break;
+    case 'cloze': onRenderCloze(body); break;
+    case 'flash': onRenderFlash(body); break;
+    case 'write': onRenderWrite(body); break;
+  }
+}
+
+function onNext() {
+  onState.idx++;
+  onState.answered = false;
+  onRenderSession();
+}
+
+function onRenderResults() {
+  const showScore = onState.mode === 'mc' || onState.mode === 'cloze';
+  const total = onState.queue.length;
+  const pct = total > 0 ? Math.round((onState.score / total) * 100) : 0;
+  document.getElementById('onSession').innerHTML = `
+    <div class="on-session">
+      <div class="on-results">
+        ${showScore ? `
+          <div class="on-score-big">${onState.score} / ${total}</div>
+          <div class="on-score-label">${pct}% goed</div>
+        ` : `
+          <div class="on-score-big">Klaar!</div>
+          <div class="on-score-label">${total} woorden geoefend</div>
+        `}
+        <div class="on-action-row" style="justify-content:center;">
+          <button class="on-action-btn primary" onclick="onStart()">Nog een ronde</button>
+          <button class="on-action-btn" onclick="onQuit()">Nieuwe oefening</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ---- Multiple choice ----
+function onRenderMC(body) {
+  const word = onState.queue[onState.idx];
+  const pool = onFilteredPool().filter(w => w.nl !== word.nl);
+  const distractors = onShuffle(pool).slice(0, 3);
+  const fromKey = onState.direction === 'nl2en' ? 'nl' : 'en';
+  const toKey   = onState.direction === 'nl2en' ? 'en' : 'nl';
+  const options = onShuffle([word, ...distractors]);
+  body.innerHTML = `
+    <div class="on-prompt-word">${word[fromKey]}</div>
+    <div class="on-prompt-sub">${onState.direction === 'nl2en' ? 'Wat betekent dit woord?' : 'Welk Nederlands woord betekent dit?'}</div>
+    <div class="on-options">
+      ${options.map((o, i) => `
+        <button class="on-option-btn" data-idx="${i}" onclick="onMCAnswer(this, ${o === word ? 1 : 0})">${o[toKey]}</button>
+      `).join('')}
+    </div>
+    <div id="onMCFeedback"></div>
+  `;
+}
+
+function onMCAnswer(btn, isCorrect) {
+  if (onState.answered) return;
+  onState.answered = true;
+  const word = onState.queue[onState.idx];
+  const fb = document.getElementById('onMCFeedback');
+  const btns = btn.parentElement.querySelectorAll('.on-option-btn');
+  btns.forEach(b => {
+    b.disabled = true;
+    const correctText = onState.direction === 'nl2en' ? word.en : word.nl;
+    if (b.textContent.trim() === correctText) b.classList.add('correct');
+    if (b === btn && !isCorrect) b.classList.add('wrong');
+  });
+  if (isCorrect) onState.score++;
+  fb.innerHTML = `
+    <div class="on-feedback ${isCorrect ? 'ok' : 'no'}">
+      <strong>${isCorrect ? 'Goed!' : 'Helaas'}</strong> &middot; ${word.nl} = ${word.en}
+      ${word.note ? `<span class="on-example">${word.note}</span>` : ''}
+      ${word.example ? `<span class="on-example">"${word.example}"</span>` : ''}
+    </div>
+    <div class="on-action-row">
+      <button class="on-action-btn primary" onclick="onNext()">Volgende &rarr;</button>
+    </div>
+  `;
+}
+
+// ---- Cloze ----
+function onBuildCloze(word) {
+  const ex = word.example || '';
+  const stem = word.nl.length >= 5 ? word.nl.slice(0, Math.max(4, word.nl.length - 3)) : word.nl;
+  const re = new RegExp(`\\b(${stem.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')}\\w*)\\b`, 'i');
+  const m = ex.match(re);
+  if (m) {
+    return {
+      before: ex.slice(0, m.index),
+      hidden: m[0],
+      after: ex.slice(m.index + m[0].length),
+      hasBlank: true,
+    };
+  }
+  return { before: '', hidden: word.nl, after: '', hasBlank: false, fullExample: ex };
+}
+
+function onNormalize(s) {
+  return (s || '').toLowerCase().trim().replace(/[.,!?;:'"()]/g, '');
+}
+
+function onRenderCloze(body) {
+  const word = onState.queue[onState.idx];
+  const cloze = onBuildCloze(word);
+  body.innerHTML = `
+    <div class="on-prompt-sub">Vul het juiste woord in (basisvorm of vervoegd).</div>
+    ${cloze.hasBlank ? `
+      <div class="on-cloze-sentence">
+        ${cloze.before.replace(/</g, '&lt;')}<span class="on-cloze-blank">_____</span>${cloze.after.replace(/</g, '&lt;')}
+      </div>
+      <div class="on-prompt-sub" style="margin-bottom:10px;"><strong>Hint:</strong> ${word.en}</div>
+    ` : `
+      <div class="on-cloze-sentence" style="font-style:italic;">"${(cloze.fullExample || '').replace(/</g, '&lt;')}"</div>
+      <div class="on-prompt-sub" style="margin-bottom:10px;">Welk Nederlands woord betekent: <strong>${word.en}</strong>?</div>
+    `}
+    <input type="text" class="on-input" id="onClozeInput" autocomplete="off" autocapitalize="off" spellcheck="false"
+      placeholder="Typ je antwoord..." onkeydown="if(event.key==='Enter') onClozeCheck()">
+    <div id="onClozeFeedback"></div>
+    <div class="on-action-row">
+      <button class="on-action-btn primary" onclick="onClozeCheck()">Controleren</button>
+      <button class="on-action-btn" onclick="onClozeReveal()">Ik weet het niet</button>
+    </div>
+  `;
+  setTimeout(() => document.getElementById('onClozeInput').focus(), 50);
+}
+
+function onClozeCheck() {
+  if (onState.answered) return;
+  const word = onState.queue[onState.idx];
+  const input = document.getElementById('onClozeInput');
+  const userAns = onNormalize(input.value);
+  if (!userAns) return;
+  const cloze = onBuildCloze(word);
+  const accepted = new Set([onNormalize(word.nl)]);
+  if (cloze.hasBlank) accepted.add(onNormalize(cloze.hidden));
+  const isCorrect = accepted.has(userAns) ||
+    (word.nl.length >= 5 && userAns.startsWith(onNormalize(word.nl.slice(0, word.nl.length - 2))));
+  onState.answered = true;
+  if (isCorrect) onState.score++;
+  input.disabled = true;
+  document.getElementById('onClozeFeedback').innerHTML = `
+    <div class="on-feedback ${isCorrect ? 'ok' : 'no'}">
+      <strong>${isCorrect ? 'Goed!' : 'Niet helemaal'}</strong> &middot;
+      Antwoord: <strong>${cloze.hasBlank ? cloze.hidden : word.nl}</strong> (basisvorm: ${word.nl}) = ${word.en}
+      ${word.note ? `<span class="on-example">${word.note}</span>` : ''}
+    </div>
+    <div class="on-action-row">
+      <button class="on-action-btn primary" onclick="onNext()">Volgende &rarr;</button>
+    </div>
+  `;
+}
+
+function onClozeReveal() {
+  if (onState.answered) return;
+  onState.answered = true;
+  const word = onState.queue[onState.idx];
+  const cloze = onBuildCloze(word);
+  document.getElementById('onClozeInput').disabled = true;
+  document.getElementById('onClozeFeedback').innerHTML = `
+    <div class="on-feedback no">
+      Antwoord: <strong>${cloze.hasBlank ? cloze.hidden : word.nl}</strong> (basisvorm: ${word.nl}) = ${word.en}
+      ${word.note ? `<span class="on-example">${word.note}</span>` : ''}
+    </div>
+    <div class="on-action-row">
+      <button class="on-action-btn primary" onclick="onNext()">Volgende &rarr;</button>
+    </div>
+  `;
+}
+
+// ---- Flashcards ----
+function onRenderFlash(body) {
+  const word = onState.queue[onState.idx];
+  body.innerHTML = `
+    <div class="on-flashcard" id="onFlashCard" onclick="onFlashFlip()">
+      <div id="onFlashContent">
+        <div class="on-flash-front">${word.nl}</div>
+        <div class="on-flash-tag">${word.level || ''} ${(word.tags || []).slice(0, 2).join(' &middot; ')}</div>
+        <div class="on-flash-hint">Klik om om te draaien</div>
+      </div>
+    </div>
+    <div class="on-action-row">
+      <button class="on-action-btn" onclick="onFlashFlip()">Omdraaien</button>
+      <button class="on-action-btn primary" onclick="onNext()">Volgende &rarr;</button>
+    </div>
+  `;
+}
+
+function onFlashFlip() {
+  const card = document.getElementById('onFlashCard');
+  const content = document.getElementById('onFlashContent');
+  const word = onState.queue[onState.idx];
+  if (card.classList.contains('flipped')) {
+    card.classList.remove('flipped');
+    content.innerHTML = `
+      <div class="on-flash-front">${word.nl}</div>
+      <div class="on-flash-tag">${word.level || ''} ${(word.tags || []).slice(0, 2).join(' &middot; ')}</div>
+      <div class="on-flash-hint">Klik om om te draaien</div>
+    `;
+  } else {
+    card.classList.add('flipped');
+    content.innerHTML = `
+      <div class="on-flash-en">${word.en}</div>
+      ${word.note ? `<div class="on-flash-note">${word.note}</div>` : ''}
+      ${word.example ? `<div class="on-flash-example">"${word.example}"</div>` : ''}
+    `;
+  }
+}
+
+// ---- Writing prompts ----
+function onRenderWrite(body) {
+  const word = onState.queue[onState.idx];
+  body.innerHTML = `
+    <div class="on-prompt-word">${word.nl}</div>
+    <div class="on-prompt-sub">
+      <strong>Betekenis:</strong> ${word.en}
+      ${word.note ? ` &middot; <em>${word.note}</em>` : ''}
+    </div>
+    <div class="on-prompt-sub" style="margin-bottom:10px;">
+      Schrijf 1-2 zinnen waarin je dit woord gebruikt.
+    </div>
+    <textarea class="on-textarea" id="onWriteInput" placeholder="Typ hier..."></textarea>
+    <div id="onWriteFeedback"></div>
+    <div class="on-action-row">
+      <button class="on-action-btn primary" onclick="onWriteReveal()">Toon voorbeeld</button>
+      <button class="on-action-btn" onclick="onNext()">Volgende &rarr;</button>
+    </div>
+  `;
+  setTimeout(() => document.getElementById('onWriteInput').focus(), 50);
+}
+
+function onWriteReveal() {
+  const word = onState.queue[onState.idx];
+  document.getElementById('onWriteFeedback').innerHTML = `
+    <div class="on-feedback ok">
+      <strong>Voorbeeldzin:</strong>
+      <span class="on-example">"${(word.example || '').replace(/</g, '&lt;')}"</span>
+    </div>
+  `;
+}
+
 // Init
 Promise.all([
   fetch('exercise_transcripts.json').then(r => r.json()).catch(() => ({})),
   fetch('youtube_timestamps.json').then(r => r.json()).catch(() => ({})),
-]).then(([transcripts, timestamps]) => {
+  fetch('vocabulary.json').then(r => r.json()).catch(() => ([])),
+]).then(([transcripts, timestamps, vocab]) => {
   examTranscripts = transcripts;
   examTimestamps = timestamps;
+  onVocab = Array.isArray(vocab) ? vocab : [];
   renderExamSets('spreken');
   renderExamSets('schrijven');
+  onRenderSetup();
 });
 </script>
 </body>
