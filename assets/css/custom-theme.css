@@ -999,6 +999,7 @@ center {
     box-shadow:
         0 10px 30px rgba(255, 16, 240, 0.4),
         inset 0 0 0 1px rgba(255, 16, 240, 0.3);
+    transform: translateY(-2px);
 }
 
 .gallery-image {
