@@ -240,15 +240,6 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
     <strong>[ PREVIEW ONLY ]</strong> A small public preview of an in-progress project. The working build currently contains 37 artifacts. The full corpus targets several hundred. Curatorial text is locked for a handful of seed nodes (Cruise, Bourdain, Almendralejo); the rest of the editorial pass is in progress.
   </div>
 
-  <div class="dfa-legend">
-    <strong>Border color = consent:</strong>
-    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#00ff9c;"></span>yes</div>
-    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#ff0080;"></span>no</div>
-    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#666666;"></span>unknown</div>
-    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#b366ff;"></span>posthumous, estate</div>
-    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#ff8000;"></span>posthumous, no estate</div>
-  </div>
-
   <div class="dfa-filters" id="dfa-filters"></div>
 
   <div class="dfa-grid" id="dfa-grid"></div>
@@ -339,7 +330,6 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
     }
     grid.innerHTML = filtered.map(n => {
       const hasThumb = n.showable === "host";
-      const borderColor = CONSENT_COLOR[n.consent] || "#3a3a45";
       const year = (n.date || "").slice(0, 4);
       const placeholder = n.showable === "describe-only"
         ? '[ describe only<br>no media exhibited ]'
@@ -348,7 +338,7 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
         ? '<img src="' + thumbUrl(n.id) + '" alt="" loading="lazy">'
         : '<div>' + placeholder + '</div>';
       const cardClass = hasThumb ? "dfa-card" : "dfa-card no-thumb";
-      return '<div class="' + cardClass + '" style="border-color:' + borderColor + ';" data-id="' + n.id + '">' +
+      return '<div class="' + cardClass + '" data-id="' + n.id + '">' +
         inner +
         '<div class="dfa-card-meta">' +
         '<div>' + escapeHtml(n.title) + '</div>' +
@@ -367,7 +357,6 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
     const hasThumb = node.showable === "host";
     const year = (node.date || "").slice(0, 4);
     const room = ROOMS[node.intent_room];
-    const consentDot = '<span class="dfa-legend-dot" style="background:' + (CONSENT_COLOR[node.consent] || "#3a3a45") + ';"></span>';
     const subjects = (node.subjects || []).join(", ");
     const showPanel = PANEL_NODES.has(node.id);
     let html = "";
@@ -378,7 +367,7 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
     html += '<div class="dfa-modal-meta">';
     html += '<span>' + year + '</span>';
     html += '<span>room ' + node.intent_room + ': ' + escapeHtml(room) + '</span>';
-    html += '<span>' + consentDot + 'consent: ' + escapeHtml(node.consent) + '</span>';
+    html += '<span>consent: ' + escapeHtml(node.consent) + '</span>';
     if (subjects) html += '<span>subjects: ' + escapeHtml(subjects) + '</span>';
     html += '</div>';
     if (showPanel && node.curatorial_text) {
