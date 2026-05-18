@@ -86,22 +86,22 @@ def build_item(grant, today):
     # appear once in the bullet list below, not duplicated in the title.
     title_full = title
 
-    body = []
-    bullets = []
+    fields = []
     org = grant.get("organization")
     if org:
-        bullets.append(f"<li><strong>Organisation:</strong> {escape(str(org))}</li>")
+        fields.append(f"<p><strong>Organisation:</strong> {escape(str(org))}</p>")
     location = grant.get("location")
     if location:
-        bullets.append(f"<li><strong>Location:</strong> {escape(str(location))}</li>")
+        fields.append(f"<p><strong>Location:</strong> {escape(str(location))}</p>")
     amount = grant.get("amount")
     if amount:
-        bullets.append(f"<li><strong>Award:</strong> {escape(str(amount))}</li>")
+        fields.append(f"<p><strong>Award:</strong> {escape(str(amount))}</p>")
     duration = grant.get("duration")
     if duration:
-        bullets.append(f"<li><strong>Duration:</strong> {escape(str(duration))}</li>")
-    bullets.append(f"<li><strong>Deadline:</strong> {escape(label)}</li>")
-    body.append("<ul>" + "".join(bullets) + "</ul>")
+        fields.append(f"<p><strong>Duration:</strong> {escape(str(duration))}</p>")
+    fields.append(f"<p><strong>Deadline:</strong> {escape(label)}</p>")
+
+    body = ["\n".join(fields)]
 
     desc = grant.get("description")
     if desc:
@@ -111,7 +111,7 @@ def build_item(grant, today):
         f'<p>Want to see more grants? Visit '
         f'<a href="{escape(PAGE_URL)}">The Grant Desk</a> ({escape(PAGE_URL)}).</p>'
     )
-    body_html = "".join(body)
+    body_html = "\n".join(body)
 
     cats = []
     region = grant.get("region")
