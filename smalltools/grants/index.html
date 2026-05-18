@@ -1360,11 +1360,10 @@ code *, pre *, kbd *, samp * {
           <div class="feed-options">
             <fieldset class="cat-checks" id="feed-categories">
               <legend>Categories</legend>
-              <label><input type="checkbox" value="ai"> AI &amp; Safety</label>
-              <label><input type="checkbox" value="tech"> Tech &amp; Infrastructure</label>
+              <label><input type="checkbox" value="ai,tech"> AI, Tech, Digital Infrastructure</label>
               <label><input type="checkbox" value="research"> Research &amp; Journalism</label>
-              <label><input type="checkbox" value="film"> Film &amp; Video</label>
-              <label><input type="checkbox" value="arts"> Visual &amp; Media Arts</label>
+              <label><input type="checkbox" value="writers"> Writers</label>
+              <label><input type="checkbox" value="film,arts"> Media Arts &amp; Film</label>
               <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
             </fieldset>
             <label>
@@ -1433,11 +1432,10 @@ code *, pre *, kbd *, samp * {
           <div class="feed-options">
             <fieldset class="cat-checks" id="cal-categories">
               <legend>Categories</legend>
-              <label><input type="checkbox" value="ai"> AI &amp; Safety</label>
-              <label><input type="checkbox" value="tech"> Tech &amp; Infrastructure</label>
+              <label><input type="checkbox" value="ai,tech"> AI, Tech, Digital Infrastructure</label>
               <label><input type="checkbox" value="research"> Research &amp; Journalism</label>
-              <label><input type="checkbox" value="film"> Film &amp; Video</label>
-              <label><input type="checkbox" value="arts"> Visual &amp; Media Arts</label>
+              <label><input type="checkbox" value="writers"> Writers</label>
+              <label><input type="checkbox" value="film,arts"> Media Arts &amp; Film</label>
               <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
             </fieldset>
             <label>
@@ -8028,12 +8026,13 @@ function deadlinePill(grant, today) {
   return { text: `${formatted} (${days}d)`, cls: '' };
 }
 
-const TYPE_TAGS = ['residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'job'];
+const TYPE_TAGS = ['residency', 'fellowship', 'prize'];
+const TYPE_LABELS = { residency: 'Residency', fellowship: 'Fellowship', prize: 'Prize', other: 'Other' };
 
 function detectType(grant) {
   const tags = (grant.tags || []).map(t => String(t).toLowerCase());
   for (const t of TYPE_TAGS) {
-    if (tags.includes(t)) return t;
+    if (tags.some(tag => tag === t || tag.includes(t))) return t;
   }
   return 'other';
 }
@@ -8349,7 +8348,8 @@ function setupCopy(buttonId, urlElId, filename) {
 
   const selectedCategories = () =>
     catFieldset
-      ? Array.from(catFieldset.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value)
+      ? Array.from(catFieldset.querySelectorAll('input[type=checkbox]:checked'))
+          .flatMap(c => c.value.split(',').filter(Boolean))
       : [];
 
   const buildName = (cat, region) => {
@@ -8414,7 +8414,8 @@ function setupCopy(buttonId, urlElId, filename) {
 
   const selectedCategories = () =>
     catFieldset
-      ? Array.from(catFieldset.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value)
+      ? Array.from(catFieldset.querySelectorAll('input[type=checkbox]:checked'))
+          .flatMap(c => c.value.split(',').filter(Boolean))
       : [];
 
   const buildName = (cat, region, timeline) => {
@@ -8524,16 +8525,13 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-const CATEGORY_LABELS = {
-  'ai': 'AI & Safety',
-  'tech': 'Tech & Infrastructure',
-  'research': 'Research & Journalism',
-  'writers': 'Writers',
-  'film': 'Film & Video',
-  'arts': 'Visual & Media Arts',
-  'cross': 'Cross-disciplinary & Social Impact',
-};
-const CATEGORY_ORDER = ['ai', 'tech', 'research', 'writers', 'film', 'arts', 'cross'];
+const CATEGORY_GROUPS = [
+  { values: ['ai', 'tech'], label: 'AI, Tech, Digital Infrastructure' },
+  { values: ['research'], label: 'Research & Journalism' },
+  { values: ['writers'], label: 'Writers' },
+  { values: ['film', 'arts'], label: 'Media Arts & Film' },
+  { values: ['cross'], label: 'Cross-disciplinary & Social Impact' },
+];
 
 const FILTER_STATE = { category: new Set(), region: new Set(), type: new Set(), applicant: new Set(), amount: new Set(), added: new Set(), search: '' };
 
@@ -8545,7 +8543,10 @@ function syncChipGroup(group, key) {
     others.forEach(c => c.classList.remove('is-active'));
   } else {
     if (all) all.classList.remove('is-active');
-    others.forEach(c => c.classList.toggle('is-active', FILTER_STATE[key].has(c.dataset.value)));
+    others.forEach(c => {
+      const values = (c.dataset.value || '').split(',').filter(Boolean);
+      c.classList.toggle('is-active', values.length > 0 && values.every(v => FILTER_STATE[key].has(v)));
+    });
   }
 }
 
@@ -8554,13 +8555,17 @@ function bindMultiSelectGroup(group, key) {
   group.addEventListener('click', (e) => {
     const chip = e.target.closest('.chip');
     if (!chip || !group.contains(chip)) return;
-    const value = chip.dataset.value || '';
-    if (value === '') {
+    const raw = chip.dataset.value || '';
+    if (raw === '') {
       FILTER_STATE[key].clear();
-    } else if (FILTER_STATE[key].has(value)) {
-      FILTER_STATE[key].delete(value);
     } else {
-      FILTER_STATE[key].add(value);
+      const values = raw.split(',').filter(Boolean);
+      const allPresent = values.every(v => FILTER_STATE[key].has(v));
+      if (allPresent) {
+        values.forEach(v => FILTER_STATE[key].delete(v));
+      } else {
+        values.forEach(v => FILTER_STATE[key].add(v));
+      }
     }
     syncChipGroup(group, key);
     applyFilters();
@@ -8591,18 +8596,17 @@ function buildFilterChips() {
     return a.localeCompare(b);
   });
 
-  const typeOrder = ['residency', 'fellowship', 'grant', 'prize', 'commission', 'workshop', 'conference', 'job', 'other'];
+  const typeOrder = ['residency', 'fellowship', 'prize', 'other'];
   const sortedTypes = [...types].sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b));
 
-  const sortedCategories = CATEGORY_ORDER.filter(c => categories.has(c));
-
   const categoryGroup = document.getElementById('filter-category');
-  for (const c of sortedCategories) {
+  for (const g of CATEGORY_GROUPS) {
+    if (!g.values.some(v => categories.has(v))) continue;
     const btn = document.createElement('button');
     btn.className = 'chip';
     btn.type = 'button';
-    btn.dataset.value = c;
-    btn.textContent = CATEGORY_LABELS[c] || c;
+    btn.dataset.value = g.values.join(',');
+    btn.textContent = g.label;
     categoryGroup.appendChild(btn);
   }
 
@@ -8622,7 +8626,7 @@ function buildFilterChips() {
     btn.className = 'chip';
     btn.type = 'button';
     btn.dataset.value = t;
-    btn.textContent = t.replace('-', ' ');
+    btn.textContent = TYPE_LABELS[t] || t;
     typeGroup.appendChild(btn);
   }
 
