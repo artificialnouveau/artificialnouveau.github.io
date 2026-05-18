@@ -11,8 +11,41 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:coe-democracy-hackathon-2026@artificialnouveau.github.io
+DTSTAMP:20260518T143042Z
+DTSTART;VALUE=DATE:20260605
+DTEND;VALUE=DATE:20260606
+SUMMARY:Deadline: Council of Europe: New Democratic Pact for Europe Democra
+ cy Hackathon 2026 (Strasbourg)
+DESCRIPTION:Council of Europe civic-tech hackathon to combat online hate sp
+ eech and develop tech solutions for democracy\, run alongside No Hate Spee
+ ch Week and backed by a Microsoft prize pool. Four challenge tracks cover 
+ privacy-preserving hate speech detection\, identifying coordinated inauthe
+ ntic behaviour\, gender-based violence reporting systems\, and innovative 
+ social transformation approaches. ELIGIBILITY: pre-formed multidisciplinar
+ y teams of 3-4 (typically a technologist/developer\, a democracy or policy
+  expert\, and a designer or UX innovator)\; residents of the 46 Council of
+  Europe member states\; coding experience is not required for every team m
+ ember. FORMAT: four online warm-up sessions\, then a three-day in-person f
+ inale at the Palais de l'Europe\, Strasbourg\, 17-19 June 2026. SUPPORT: E
+ UR 50\,000 Microsoft prize pool split across winning teams\, plus travel a
+ nd accommodation covered for the 20 selected finalist teams. Working langu
+ age is English. No application fee. Register by 5 June 2026.\n\nOrganisati
+ on: Council of Europe (under the Monaco Presidency of the Committee of Min
+ isters)\, in partnership with No Hate Speech Week and Microsoft\nLocation:
+  Palais de l'Europe\, Strasbourg\, France (hybrid: four online warm-up ses
+ sions leading to a three-day in-person finale)\nAward: EUR 50\,000 Microso
+ ft-funded prize pool distributed among winning teams. Travel and accommoda
+ tion covered for the 20 selected finalist teams. No application fee.\nDura
+ tion: Online warm-up sessions plus three-day in-person hackathon (17-19 Ju
+ ne 2026)\n\nMore: https://democracyhackathon.coe.int/
+URL:https://democracyhackathon.coe.int/
+LOCATION:Palais de l'Europe\, Strasbourg\, France (hybrid: four online warm
+ -up sessions leading to a three-day in-person finale)
+END:VEVENT
+BEGIN:VEVENT
 UID:wikimedia-conference-fund@artificialnouveau.github.io
-DTSTAMP:20260517T163323Z
+DTSTAMP:20260518T143042Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: Wikimedia Conference Fund
@@ -36,7 +69,7 @@ LOCATION:Worldwide (subject to legal eligibility by country)
 END:VEVENT
 BEGIN:VEVENT
 UID:blue-ridge-labs-founder-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260517T163323Z
+DTSTAMP:20260518T143042Z
 DTSTART;VALUE=DATE:20260503
 DTEND;VALUE=DATE:20260504
 SUMMARY:Deadline: Blue Ridge Labs Founder Fellowship 2026
@@ -69,7 +102,7 @@ LOCATION:United States (Phase 1 virtual\; Phase 2 in-person at BRL Lab in B
 END:VEVENT
 BEGIN:VEVENT
 UID:pace-research-fellowship-summer-2026@artificialnouveau.github.io
-DTSTAMP:20260517T163323Z
+DTSTAMP:20260518T143042Z
 DTSTART;VALUE=DATE:20260516
 DTEND;VALUE=DATE:20260517
 SUMMARY:Deadline: Pace Research Fellowship Summer 2026
@@ -88,7 +121,7 @@ LOCATION:Pace HQ\, New York City\, US
 END:VEVENT
 BEGIN:VEVENT
 UID:wikimedia-rapid-fund@artificialnouveau.github.io
-DTSTAMP:20260517T163323Z
+DTSTAMP:20260518T143042Z
 DTSTART;VALUE=DATE:20260701
 DTEND;VALUE=DATE:20260702
 SUMMARY:Deadline: Wikimedia Foundation Rapid Fund
@@ -116,7 +149,7 @@ LOCATION:Worldwide (subject to legal eligibility by country)
 END:VEVENT
 BEGIN:VEVENT
 UID:ngi-fediversity-11@artificialnouveau.github.io
-DTSTAMP:20260517T163323Z
+DTSTAMP:20260518T143042Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI Fediversity (11th call)
@@ -135,7 +168,7 @@ LOCATION:Worldwide
 END:VEVENT
 BEGIN:VEVENT
 UID:fab-city-awards-2026@artificialnouveau.github.io
-DTSTAMP:20260517T163323Z
+DTSTAMP:20260518T143042Z
 DTSTART;VALUE=DATE:20260429
 DTEND;VALUE=DATE:20260430
 SUMMARY:Deadline: Fab City Awards 2026
@@ -175,7 +208,7 @@ LOCATION:Anywhere in the world
 END:VEVENT
 BEGIN:VEVENT
 UID:isoc-foundation-research-grant-2026@artificialnouveau.github.io
-DTSTAMP:20260517T163323Z
+DTSTAMP:20260518T143042Z
 DTSTART;VALUE=DATE:20260522
 DTEND;VALUE=DATE:20260523
 SUMMARY:Deadline: Internet Society Foundation: Research Grant Program 2026
@@ -197,7 +230,7 @@ LOCATION:Worldwide
 END:VEVENT
 BEGIN:VEVENT
 UID:ngi-fediversity-11@artificialnouveau.github.io
-DTSTAMP:20260517T163323Z
+DTSTAMP:20260518T143042Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI Fediversity (11th call): Hosting Stack of the Future
@@ -217,7 +250,7 @@ LOCATION:Worldwide
 END:VEVENT
 BEGIN:VEVENT
 UID:ngi-taler-13@artificialnouveau.github.io
-DTSTAMP:20260517T163323Z
+DTSTAMP:20260518T143042Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI TALER (13th call): Privacy-Preserving Digital Payment
@@ -238,7 +271,7 @@ LOCATION:Worldwide
 END:VEVENT
 BEGIN:VEVENT
 UID:ngi-zero-commons-fund-13@artificialnouveau.github.io
-DTSTAMP:20260517T163323Z
+DTSTAMP:20260518T143042Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI Zero Commons Fund (13th call)
