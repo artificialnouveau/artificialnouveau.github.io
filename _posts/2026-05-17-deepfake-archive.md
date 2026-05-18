@@ -5,7 +5,7 @@ excerpt: "An online archive of synthetic media artifacts, organized as an intera
 indexing: false
 ---
 
-An online, interactive archive of synthetic media artifacts, organized as a network graph. The editorial spine is intent at creation, not technique. Ten rooms: satire and art, resurrection and memorialization, commercial and endorsement, identity protection and pseudonymity, fan remix and recasting, political disinformation and propaganda, fraud and social engineering, targeted harassment and image-based abuse, awareness and self-reference, and historical antecedents.
+An online, interactive archive of synthetic media artifacts, organized as a network graph. The editorial spine is intent at creation, not technique. Eleven rooms: propaganda, activism?, everyone is catfishing, artworks, Hollywood deepfakes, AI sex workers, scam and fraud and social engineering, identity protection and pseudonymity, image-based abuse and harassment, blackface and whitewashing, awareness and self-reference.
 
 Each artifact carries a curatorial panel that names the toolchain, the consent status, and the concrete consequence to the people involved, in a register that is allergic to both AI-hype credulity and moral-panic credulity. The room that handles image-based abuse exhibits no media; its panels link to journalism and court documents instead.
 
@@ -242,11 +242,11 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
 
   <div class="dfa-legend">
     <strong>Border color = consent:</strong>
-    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#4ade80;"></span>yes</div>
-    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#ff10f0;"></span>no</div>
-    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#6b7280;"></span>unknown</div>
-    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#00f0ff;"></span>posthumous, estate</div>
-    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#a855f7;"></span>posthumous, no estate</div>
+    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#00ff9c;"></span>yes</div>
+    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#ff0080;"></span>no</div>
+    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#666666;"></span>unknown</div>
+    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#b366ff;"></span>posthumous, estate</div>
+    <div class="dfa-legend-item"><span class="dfa-legend-dot" style="background:#ff8000;"></span>posthumous, no estate</div>
   </div>
 
   <div class="dfa-filters" id="dfa-filters"></div>
@@ -265,23 +265,24 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
 <script>
 (function() {
   const ROOMS = {
-    1: "Satire and art",
-    2: "Resurrection and memorialization",
-    3: "Commercial and endorsement",
-    4: "Identity protection and pseudonymity",
-    5: "Fan remix and recasting",
-    6: "Political disinformation and propaganda",
-    7: "Fraud and social engineering",
-    8: "Targeted harassment and image-based abuse",
-    9: "Awareness and self-reference",
-    10: "Historical antecedents"
+    1: "Propaganda",
+    2: "Activism?",
+    3: "Everyone is Catfishing",
+    4: "Artworks",
+    5: "Hollywood deepfakes",
+    6: "AI sex workers",
+    7: "Scam, Fraud, and Social Engineering",
+    8: "Identity protection and pseudonymity",
+    9: "Image-based abuse and harassment",
+    10: "Blackface and Whitewashing",
+    11: "Awareness and Self-Reference"
   };
   const CONSENT_COLOR = {
-    "yes": "#4ade80",
-    "no": "#ff10f0",
-    "unknown": "#6b7280",
-    "posthumous-with-estate": "#00f0ff",
-    "posthumous-without": "#a855f7"
+    "yes": "#00ff9c",
+    "no": "#ff0080",
+    "unknown": "#666666",
+    "posthumous-with-estate": "#b366ff",
+    "posthumous-without": "#ff8000"
   };
   const PANEL_NODES = new Set([
     "deeptomcruise-2021",
@@ -336,12 +337,15 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
       return;
     }
     grid.innerHTML = filtered.map(n => {
-      const hasThumb = n.showable !== "link-out" && n.media_url;
+      const hasThumb = n.showable === "host";
       const borderColor = CONSENT_COLOR[n.consent] || "#3a3a45";
       const year = (n.date || "").slice(0, 4);
+      const placeholder = n.showable === "describe-only"
+        ? '[ describe only<br>no media exhibited ]'
+        : '[ link out<br>not hosted ]';
       const inner = hasThumb
         ? '<img src="' + thumbUrl(n.id) + '" alt="" loading="lazy">'
-        : '<div>[ describe only<br>no media exhibited ]</div>';
+        : '<div>' + placeholder + '</div>';
       const cardClass = hasThumb ? "dfa-card" : "dfa-card no-thumb";
       return '<div class="' + cardClass + '" style="border-color:' + borderColor + ';" data-id="' + n.id + '">' +
         inner +
@@ -359,7 +363,7 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
     const node = allNodes.find(n => n.id === id);
     if (!node) return;
     const body = document.getElementById("dfa-modal-body");
-    const hasThumb = node.showable !== "link-out" && node.media_url;
+    const hasThumb = node.showable === "host";
     const year = (node.date || "").slice(0, 4);
     const room = ROOMS[node.intent_room];
     const consentDot = '<span class="dfa-legend-dot" style="background:' + (CONSENT_COLOR[node.consent] || "#3a3a45") + ';"></span>';
