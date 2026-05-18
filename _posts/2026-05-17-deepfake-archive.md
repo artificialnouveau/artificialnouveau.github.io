@@ -5,7 +5,7 @@ excerpt: "An online archive of synthetic media artifacts, organized as an intera
 indexing: false
 ---
 
-An online, interactive archive of synthetic media artifacts, organized as a network graph. The editorial spine is intent at creation, not technique. Eleven rooms: propaganda, activism?, everyone is catfishing, artworks, Hollywood deepfakes, AI sex workers, scam and fraud and social engineering, identity protection and pseudonymity, image-based abuse and harassment, blackface and whitewashing, awareness and self-reference.
+An online, interactive archive of synthetic media artifacts, organized as a network graph. The editorial spine is intent at creation, not technique. Twelve rooms: propaganda, activism?, everyone is catfishing, entertainment and artworks, Hollywood deepfakes, AI sex workers, scam and fraud and social engineering, identity protection and pseudonymity, image-based abuse and harassment, blackface and whitewashing, awareness and self-reference, everyone is a commercial.
 
 Each artifact carries a curatorial panel that names the toolchain, the consent status, and the concrete consequence to the people involved, in a register that is allergic to both AI-hype credulity and moral-panic credulity. The room that handles image-based abuse exhibits no media; its panels link to journalism and court documents instead.
 
@@ -268,14 +268,15 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
     1: "Propaganda",
     2: "Activism?",
     3: "Everyone is Catfishing",
-    4: "Artworks",
+    4: "Entertainment and Artworks",
     5: "Hollywood deepfakes",
     6: "AI sex workers",
     7: "Scam, Fraud, and Social Engineering",
     8: "Identity protection and pseudonymity",
     9: "Image-based abuse and harassment",
     10: "Blackface and Whitewashing",
-    11: "Awareness and Self-Reference"
+    11: "Awareness and Self-Reference",
+    12: "Everyone is a Commercial"
   };
   const CONSENT_COLOR = {
     "yes": "#00ff9c",
