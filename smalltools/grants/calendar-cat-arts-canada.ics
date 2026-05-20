@@ -12,8 +12,30 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:grantham-foundation-creation-residency-2026@artificialnouveau.github.io
+DTSTAMP:20260520T084755Z
+DTSTART;VALUE=DATE:20260527
+DTEND;VALUE=DATE:20260528
+SUMMARY:Deadline: Grantham Foundation: Creation Residency in Visual Arts 20
+ 26 (Quebec)
+DESCRIPTION:Creation residency from the Grantham Foundation for art and the
+  environment\, pairing a four-week residency with a production grant for w
+ ork engaging environmental subjects or approaches. ELIGIBILITY: establishe
+ d visual artists with at least five years of professional experience\; ope
+ n to artists based in Quebec or abroad\; duos are eligible. Apply via the 
+ foundation's residency page.\n\nOrganisation: Fondation Grantham pour l'ar
+ t et l'environnement\nLocation: Saint-Edmond-de-Grantham\, Quebec\, Canada
+  (4-week on-site residency)\nAward: CAD $5\,000 to $10\,000 grant plus a f
+ our-week residency (accommodation and studio provided). No application fee
+ .\nDuration: Four-week residency\n\nMore: https://www.fondationgrantham.or
+ g/en/creation-residency-in-visual-arts
+URL:https://www.fondationgrantham.org/en/creation-residency-in-visual-arts
+LOCATION:Saint-Edmond-de-Grantham\, Quebec\, Canada (4-week on-site residen
+ cy)
+END:VEVENT
+BEGIN:VEVENT
 UID:bc-arts-council-media-artists-2026@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260624
 DTEND;VALUE=DATE:20260625
 SUMMARY:Deadline: BC Arts Council: Individual Arts Grants - Media Artists 2
@@ -41,7 +63,7 @@ LOCATION:British Columbia\, Canada (provincial council\; BC residency typic
 END:VEVENT
 BEGIN:VEVENT
 UID:banff-future-figurations-2027@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260603
 DTEND;VALUE=DATE:20260604
 SUMMARY:Deadline: Banff Centre: Visual Arts Thematic Residency - Future Fig
