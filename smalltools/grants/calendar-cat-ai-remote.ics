@@ -11,9 +11,28 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:cohere-labs-scholars-program-2026@artificialnouveau.github.io
+DTSTAMP:20260520T084755Z
+DTSTART;VALUE=DATE:20260829
+DTEND;VALUE=DATE:20260830
+SUMMARY:Deadline: Cohere Labs Scholars Program 2026 (2027 cohort)
+DESCRIPTION:Cohere Labs Scholars Program\, a paid full-time research appren
+ ticeship for emerging machine-learning researchers\, explicitly aimed at n
+ on-traditional entrants to the field. ELIGIBILITY: emerging ML researchers
+ \; no PhD or prior publication required\; open worldwide\, remote-first. A
+ pply via the Cohere Labs Scholars Program page.\n\nOrganisation: Cohere La
+ bs (formerly Cohere For AI)\nLocation: Remote-first (worldwide)\nAward: Fu
+ ll-time paid eight-month research apprenticeship with a weekly stipend and
+  health benefits (equivalent roughly $103\,000 to $163\,000/year). No appl
+ ication fee.\nDuration: Eight months full-time (January to August 2027 coh
+ ort)\n\nMore: https://cohere.com/research/scholars-program
+URL:https://cohere.com/research/scholars-program
+LOCATION:Remote-first (worldwide)
+END:VEVENT
+BEGIN:VEVENT
 UID:restless-egg-luxury-technology-accelerator-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
 SUMMARY:Deadline: Restless Egg: Luxury Technology Accelerator 2026
@@ -41,7 +60,7 @@ LOCATION:Remote
 END:VEVENT
 BEGIN:VEVENT
 UID:osv-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260430
 DTEND;VALUE=DATE:20260501
 SUMMARY:Deadline: O'Shaughnessy Fellowships

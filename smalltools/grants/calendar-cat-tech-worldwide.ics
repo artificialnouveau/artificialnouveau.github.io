@@ -12,8 +12,27 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:interledger-fellowship-2026@artificialnouveau.github.io
+DTSTAMP:20260520T084755Z
+DTSTART;VALUE=DATE:20260702
+DTEND;VALUE=DATE:20260703
+SUMMARY:Deadline: Interledger Fellowship 2026
+DESCRIPTION:Interledger Foundation fellowship funding individuals to advanc
+ e open\, interoperable digital payment infrastructure (the Interledger Pro
+ tocol and Open Payments) and broaden digital financial access. ELIGIBILITY
+ : individual researchers\, developers\, open-source contributors\, advocat
+ es\, creators and artists working on digital financial inclusion\; open wo
+ rldwide. Apply via the Interledger fellowship page.\n\nOrganisation: Inter
+ ledger Foundation\nLocation: Remote (worldwide)\nAward: USD 72\,000 person
+ al stipend plus a USD 20\,000 project budget. No application fee.\nDuratio
+ n: Fellowship term (project-based)\n\nMore: https://interledger.org/grant/
+ fellowship
+URL:https://interledger.org/grant/fellowship
+LOCATION:Remote (worldwide)
+END:VEVENT
+BEGIN:VEVENT
 UID:wikimedia-conference-fund@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: Wikimedia Conference Fund
@@ -33,7 +52,7 @@ LOCATION:Worldwide (subject to legal eligibility by country)
 END:VEVENT
 BEGIN:VEVENT
 UID:wikimedia-rapid-fund@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260701
 DTEND;VALUE=DATE:20260702
 SUMMARY:Deadline: Wikimedia Foundation Rapid Fund
@@ -61,7 +80,7 @@ LOCATION:Worldwide (subject to legal eligibility by country)
 END:VEVENT
 BEGIN:VEVENT
 UID:fab-city-awards-2026@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260429
 DTEND;VALUE=DATE:20260430
 SUMMARY:Deadline: Fab City Awards 2026
@@ -101,7 +120,7 @@ LOCATION:Anywhere in the world
 END:VEVENT
 BEGIN:VEVENT
 UID:isoc-foundation-research-grant-2026@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260522
 DTEND;VALUE=DATE:20260523
 SUMMARY:Deadline: Internet Society Foundation: Research Grant Program 2026

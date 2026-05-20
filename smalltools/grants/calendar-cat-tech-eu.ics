@@ -12,8 +12,29 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:prototype-fund-class-03-2026@artificialnouveau.github.io
+DTSTAMP:20260520T084755Z
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Deadline: Prototype Fund Class 03 (Open-Source Software)
+DESCRIPTION:Prototype Fund supports the development of socially relevant op
+ en-source software\, offering low-threshold funding and coaching to indivi
+ dual developers and small teams. ELIGIBILITY: individual developers or tea
+ ms of up to four\; funded members must reside in the EU and the lead entit
+ y must be based in Germany. Application window 1 October to 30 November 20
+ 26. Apply via the Prototype Fund application page.\n\nOrganisation: Protot
+ ype Fund (Open Knowledge Foundation Germany)\nLocation: Germany / EU (lead
+  must be based in Germany\; funded members must reside in the EU)\nAward: 
+ Up to EUR 95\,000 over 6 months\, or up to EUR 158\,000 over 10 months\, p
+ lus coaching. No application fee.\nDuration: 6 or 10 months\n\nMore: https
+ ://www.prototypefund.de/en/application
+URL:https://www.prototypefund.de/en/application
+LOCATION:Germany / EU (lead must be based in Germany\; funded members must 
+ reside in the EU)
+END:VEVENT
+BEGIN:VEVENT
 UID:coe-democracy-hackathon-2026@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260605
 DTEND;VALUE=DATE:20260606
 SUMMARY:Deadline: Council of Europe: New Democratic Pact for Europe Democra
@@ -43,7 +64,7 @@ LOCATION:Palais de l'Europe\, Strasbourg\, France (hybrid: four online warm
 END:VEVENT
 BEGIN:VEVENT
 UID:ngi-fediversity-11@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI Fediversity (11th call)
@@ -61,27 +82,8 @@ URL:https://nlnet.nl/fediversity/
 LOCATION:Worldwide
 END:VEVENT
 BEGIN:VEVENT
-UID:ngi-fediversity-11@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
-DTSTART;VALUE=DATE:20260601
-DTEND;VALUE=DATE:20260602
-SUMMARY:Deadline: NGI Fediversity (11th call): Hosting Stack of the Future
-DESCRIPTION:Small to medium-sized R&D grants for projects that strengthen F
- ediversity\, an effort to bring easy-to-use hosted cloud services with ser
- vice portability and personal freedom at their core to everyone. Built on 
- NixOS for declarative\, reproducible\, reliable deployment of Fediverse se
- rvices (PeerTube\, Mastodon\, Owncast\, Lemmy)\, email\, VPN\, private clo
- ud storage\, wikis and more. Project results released under open source li
- cences.\n\nOrganisation: NLnet / NGI Fediversity (funded by EU Horizon Eur
- ope)\nLocation: Worldwide\nAward: €5\,000 to €50\,000 per project (€
- 450\,000 total budget for open calls)\nDuration: Project-based (programme 
- runs to November 2027)\n\nMore: https://nlnet.nl/fediversity/
-URL:https://nlnet.nl/fediversity/
-LOCATION:Worldwide
-END:VEVENT
-BEGIN:VEVENT
 UID:ngi-taler-13@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI TALER (13th call): Privacy-Preserving Digital Payment
@@ -101,7 +103,7 @@ LOCATION:Worldwide
 END:VEVENT
 BEGIN:VEVENT
 UID:ngi-zero-commons-fund-13@artificialnouveau.github.io
-DTSTAMP:20260520T063702Z
+DTSTAMP:20260520T084755Z
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
 SUMMARY:Deadline: NGI Zero Commons Fund (13th call)
