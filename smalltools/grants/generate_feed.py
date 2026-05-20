@@ -543,11 +543,12 @@ def website_jsonld():
 
 
 def filter_published(grants, today):
-    """Drop grants whose addedDate is in the future. This is the throttle:
+    """Drop grants whose addedDate is in the future. This is the RSS throttle:
     batch-add with staggered addedDates (e.g. 3 per day) and each tranche only
-    becomes visible in feeds, calendars and pages once its date arrives. A daily
+    enters the RSS FEEDS once its date arrives. The website, static SEO pages
+    and calendars are NOT throttled - they show every grant immediately. A daily
     scheduled regenerate (see .github/workflows/publish-grants.yml) re-runs this
-    so queued tranches publish on schedule even without a manual push.
+    so queued tranches reach the feeds on schedule even without a manual push.
     Grants with no addedDate are always treated as published."""
     out = []
     for g in grants:
@@ -876,12 +877,14 @@ def main():
     grants = data.get("grants", []) or []
     today = date.today()
 
-    # Throttle gate: grants with a future addedDate are queued, not yet public.
-    all_count = len(grants)
-    grants = filter_published(grants, today)
-    queued = all_count - len(grants)
+    # RSS throttle: grants with a future addedDate are held out of the FEEDS
+    # only. The website, static SEO pages and calendars below use the full
+    # `grants` list and show every grant immediately - throttling applies to
+    # RSS subscribers, not the page.
+    feed_grants = filter_published(grants, today)
+    queued = len(grants) - len(feed_grants)
     if queued:
-        print(f"Throttle: {queued} grant(s) queued with a future addedDate (not yet published).")
+        print(f"RSS throttle: {queued} grant(s) held out of feeds (future addedDate); shown on the site immediately.")
 
     region_options = [None] + REGIONS
     timeline_options = [None] + TIMELINES
@@ -890,7 +893,7 @@ def main():
     # Region x Timeline matrix (existing)
     for region in region_options:
         for timeline in timeline_options:
-            filtered = filter_grants(grants, region, timeline, today)
+            filtered = filter_grants(feed_grants, region, timeline, today)
             feed = build_feed(filtered, region, timeline, today)
             name = feed_filename(region, timeline)
             (HERE / name).write_text(feed, encoding="utf-8")
@@ -900,7 +903,7 @@ def main():
     for category in CATEGORIES:
         for region in region_options:
             for timeline in timeline_options:
-                filtered = filter_grants(grants, region, timeline, today, category=category)
+                filtered = filter_grants(feed_grants, region, timeline, today, category=category)
                 feed = build_feed(filtered, region, timeline, today, category=category)
                 name = feed_filename(region, timeline, category=category)
                 (HERE / name).write_text(feed, encoding="utf-8")
