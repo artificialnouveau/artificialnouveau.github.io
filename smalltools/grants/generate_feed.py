@@ -542,6 +542,22 @@ def website_jsonld():
     return json.dumps(payload, ensure_ascii=False, indent=2)
 
 
+def filter_published(grants, today):
+    """Drop grants whose addedDate is in the future. This is the throttle:
+    batch-add with staggered addedDates (e.g. 3 per day) and each tranche only
+    becomes visible in feeds, calendars and pages once its date arrives. A daily
+    scheduled regenerate (see .github/workflows/publish-grants.yml) re-runs this
+    so queued tranches publish on schedule even without a manual push.
+    Grants with no addedDate are always treated as published."""
+    out = []
+    for g in grants:
+        added = parse_date(g.get("addedDate"))
+        if added and (added - today).days > 0:
+            continue
+        out.append(g)
+    return out
+
+
 def filter_active(grants, today):
     out = []
     for g in grants:
@@ -859,6 +875,13 @@ def main():
     data = json.loads(src.read_text(encoding="utf-8"))
     grants = data.get("grants", []) or []
     today = date.today()
+
+    # Throttle gate: grants with a future addedDate are queued, not yet public.
+    all_count = len(grants)
+    grants = filter_published(grants, today)
+    queued = all_count - len(grants)
+    if queued:
+        print(f"Throttle: {queued} grant(s) queued with a future addedDate (not yet published).")
 
     region_options = [None] + REGIONS
     timeline_options = [None] + TIMELINES
