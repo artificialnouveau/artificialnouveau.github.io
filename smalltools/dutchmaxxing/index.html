@@ -1885,7 +1885,8 @@ body::before, body::after { display: none; }
 .nt2-scenario-card[data-scenario="netwerken"] .nt2-scenario-header { background: #E65100; }
 
 /* Op Niveau Chapter Tracker */
-.onv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; margin-top: 16px; }
+.onv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 16px; }
+@media (max-width: 700px) { .onv-grid { grid-template-columns: 1fr; } }
 .onv-card { border: 3px solid var(--mondrian-black); background: var(--mondrian-white); overflow: hidden; }
 .onv-card-header {
   padding: 14px 16px; font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700;
@@ -10299,6 +10300,14 @@ const GRAMMAR_RULES = [
       + '<tr><td><strong>Plusquamperf.</strong></td><td>hadden/waren + v.d.<br><em style="font-size:0.85em;color:#666;">hadden gewezen, had gesloten</em></td><td><span style="color:#8B4513;font-weight:700">was</span></td><td><span style="color:#8B4513;font-weight:700">waren</span></td><td>Ze hadden gewezen op... →<br><em style="font-size:0.85em;">Er <strong>was</strong> op... gewezen</em></td></tr>'
       + '<tr><td><strong>Futurum</strong></td><td>zullen + infinitief<br><em style="font-size:0.85em;color:#666;">zullen sluiten, zal praten</em></td><td><span style="color:var(--mondrian-blue);font-weight:700">zal worden</span></td><td><span style="color:var(--mondrian-blue);font-weight:700">zullen worden</span></td><td>Ze zullen informeren →<br><em style="font-size:0.85em;">Er <strong>zal worden</strong> geïnformeerd</em></td></tr></tbody></table>'
       + '<div class="gr-rule" style="margin-top:10px;"><strong>Belangrijke regel:</strong> Perfectum en plusquamperfectum gebruiken altijd <span style="color:var(--mondrian-red);font-weight:700">zijn</span> in het passief, nooit <em>hebben</em>. En bij het onpersoonlijk passief met <span style="color:var(--mondrian-red);font-weight:700">er</span> valt het voltooid deelwoord achteraan.</div>'
+      + '<h4 style="margin:14px 0 6px;">Modaal werkwoord + passief (moeten)</h4>'
+      + '<div class="gr-rule">Bij een modaal werkwoord (<em>moeten, mogen, kunnen</em>) komt het hulpwerkwoord van het passief achteraan. Het modaal staat vooraan en buigt voor de tijd; daarna kies je <span style="color:var(--mondrian-red);font-weight:700">worden</span> (de handeling) of <span style="color:var(--green);font-weight:700">zijn</span> (de toestand). Voorbeeld: <em>uitzetten &rarr; uitgezet</em>.</div>'
+      + '<table><thead><tr><th>Tijd</th><th>Patroon</th><th>Voorbeeld</th></tr></thead><tbody>'
+      + '<tr><td><strong>Presens</strong></td><td><span style="color:var(--mondrian-red);font-weight:700">moet</span> + v.d. + <span style="color:var(--mondrian-red);font-weight:700">worden</span></td><td>De telefoon <strong>moet</strong> uitgezet <strong>worden</strong>.</td></tr>'
+      + '<tr><td><strong>Imperfectum</strong></td><td><span style="color:var(--mondrian-blue);font-weight:700">moest</span> + v.d. + <span style="color:var(--mondrian-red);font-weight:700">worden</span></td><td>De telefoon <strong>moest</strong> uitgezet <strong>worden</strong>.</td></tr>'
+      + '<tr><td><strong>Perfectum</strong></td><td><span style="color:var(--mondrian-red);font-weight:700">moet</span> + v.d. + <span style="color:var(--green);font-weight:700">zijn</span></td><td>De telefoon <strong>moet</strong> uitgezet <strong>zijn</strong>.</td></tr>'
+      + '<tr><td><strong>Plusquamperf.</strong></td><td><span style="color:var(--mondrian-blue);font-weight:700">moest</span> + v.d. + <span style="color:var(--green);font-weight:700">zijn</span></td><td>De telefoon <strong>moest</strong> uitgezet <strong>zijn</strong>.</td></tr></tbody></table>'
+      + '<div class="gr-rule"><strong>worden</strong> legt de nadruk op de <strong>handeling</strong> die nog moet gebeuren (iemand moet de telefoon uitzetten); <strong>zijn</strong> op de <strong>toestand</strong> die er al moet zijn (de telefoon hoort al uit te staan).</div>'
   },
   {
     id: 'passive_tense_table', cat: 'zinsbouw',
@@ -11537,6 +11546,144 @@ tr:nth-child(even) { background: #fafafa; }
   const printBtn = w.document.createElement('button');
   printBtn.textContent = 'Print / Opslaan als PDF';
   printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:#1356A2;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = () => { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
+  w.document.body.prepend(printBtn);
+}
+
+function exportConjunctiesCheatsheet() {
+  const siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Verbindingswoorden — Spiekbriefje (H1)</title>
+<style>
+@page { margin: 8mm 8mm; size: A4 landscape; }
+body { font-family: Inter, Helvetica, sans-serif; font-size: 8.5px; line-height: 1.3; color: #111; margin: 0; padding: 0; }
+h1 { font-family: Syne, sans-serif; font-size: 14px; margin: 0 0 4px; border-bottom: 2.5px solid #000; padding-bottom: 3px; }
+h2 { font-family: Syne, sans-serif; font-size: 10px; margin: 5px 0 2px; color: #D40920; border-bottom: 1px solid #D40920; padding-bottom: 1px; break-after: avoid; -webkit-column-break-after: avoid; }
+h3 { font-size: 9px; font-weight: 700; margin: 3px 0 2px; color: #1356A2; break-after: avoid; -webkit-column-break-after: avoid; }
+table { width: 100%; border-collapse: collapse; margin: 1px 0 4px; font-size: 8px; break-inside: avoid; -webkit-column-break-inside: avoid; }
+th { background: #F7D842; padding: 2px 3px; text-align: left; font-size: 7.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+td { padding: 1.5px 3px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:nth-child(even) { background: #fafafa; }
+.cheat-3col { column-count: 3; column-gap: 8px; column-fill: balance; }
+.cheat-3col h2:first-child { margin-top: 0; }
+.cheat-3col table, .cheat-3col .box, .cheat-3col .rule { break-inside: avoid; -webkit-column-break-inside: avoid; }
+.box { border: 1.5px solid #000; padding: 4px 5px; margin-bottom: 4px; break-inside: avoid; }
+.box-title { font-family: Syne, sans-serif; font-size: 8.5px; font-weight: 700; margin-bottom: 2px; }
+.hl { color: #D40920; font-weight: 700; }
+.bl { color: #1356A2; font-weight: 700; }
+.gr { color: #2d8a56; font-weight: 700; }
+.rule { background: #fffde6; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #D40920; break-inside: avoid; }
+.tip { background: #e8f4fd; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #1356A2; break-inside: avoid; }
+.warn { background: #fff3e0; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #E69100; break-inside: avoid; }
+.footer { font-size: 7px; color: #999; text-align: center; margin-top: 4px; border-top: 1px solid #ddd; padding-top: 2px; }
+.mini-table td, .mini-table th { padding: 1.5px 3px; font-size: 8px; }
+</style></head><body>
+
+<h1>Verbindingswoorden — Spiekbriefje · Op Niveau H1 (Positief)</h1>
+
+<div class="cheat-3col">
+
+<div class="section">
+<h2>De twee soorten + woordvolgorde</h2>
+<div class="box">
+<div class="box-title" style="color:#1356A2;">Onderschikkend (bijzin)</div>
+Werkwoord gaat naar het <span class="bl">einde</span>.<br>
+<em>Ik bleef thuis <strong>omdat</strong> ik ziek <u>was</u>.</em>
+</div>
+<div class="box">
+<div class="box-title" style="color:#2d8a56;">Nevenschikkend (en, maar, of, want, dus)</div>
+Normale woordvolgorde, <span class="gr">geen</span> verandering.<br>
+<em>Ik bleef thuis, <strong>want</strong> ik <u>was</u> ziek.</em>
+</div>
+<div class="box">
+<div class="box-title" style="color:#D40920;">Bijwoord (hoofdzin)</div>
+Staat vooraan &rarr; <span class="hl">inversie</span> (werkwoord op positie 2).<br>
+<em><strong>Daarom</strong> <u>bleef</u> ik thuis.</em>
+</div>
+</div>
+
+<div class="section">
+<h2>Conjunctie &harr; bijwoord (paren)</h2>
+<table class="mini-table">
+<tr><th>Conjunctie (bijzin)</th><th>Bijwoord (hoofdzin)</th><th>Betekenis</th></tr>
+<tr><td><strong>omdat</strong></td><td><strong>daarom</strong></td><td>because / therefore</td></tr>
+<tr><td><strong>doordat</strong></td><td><strong>daardoor</strong></td><td>because of / as a result</td></tr>
+<tr><td><strong>voordat</strong></td><td><strong>daarvoor</strong></td><td>before / before that</td></tr>
+<tr><td><strong>nadat</strong></td><td><strong>daarna</strong></td><td>after / after that</td></tr>
+<tr><td><strong>hoewel</strong></td><td><strong>toch / desondanks</strong></td><td>although / nevertheless</td></tr>
+<tr><td><strong>zodat</strong></td><td><strong>daardoor / daarom</strong></td><td>so that / therefore</td></tr>
+<tr><td><strong>terwijl</strong></td><td><strong>ondertussen</strong></td><td>while / meanwhile</td></tr>
+<tr><td><strong>tenzij</strong></td><td><strong>anders</strong></td><td>unless / otherwise</td></tr>
+<tr><td><strong>zodra</strong></td><td><strong>dan / vervolgens</strong></td><td>as soon as / then</td></tr>
+</table>
+<div class="rule"><strong>Geheugensteun:</strong> <em>...dat</em> kijkt TERUG naar de reden &#8592; · <em>daar...</em> kijkt VOORUIT naar het gevolg &#8594;</div>
+</div>
+
+<div class="section">
+<h2>Omdat vs. doordat</h2>
+<div class="tip"><span class="bl">omdat</span> = persoonlijke/bewuste reden<br><em>Ik ga niet, omdat ik geen zin heb.</em></div>
+<div class="warn"><span style="color:#E69100;font-weight:700;">doordat</span> = externe oorzaak (niemand kiest)<br><em>De brug brak doordat het stormde.</em></div>
+</div>
+
+<div class="section">
+<h2>Tijd</h2>
+<table class="mini-table">
+<tr><th>Woord</th><th>Engels</th><th>Voorbeeld</th></tr>
+<tr><td><strong>voordat</strong></td><td>before <span style="color:#888;">(onderschik.)</span></td><td>Voordat ik vertrok, belde ik haar.</td></tr>
+<tr><td><strong>nadat</strong></td><td>after <span style="color:#888;">(+ vol. verl. tijd)</span></td><td>Nadat we hadden gegeten, gingen we wandelen.</td></tr>
+<tr><td><strong>terwijl</strong></td><td>while / whereas</td><td>Terwijl ik kookte, dekte hij de tafel.</td></tr>
+<tr><td><strong>tijdens</strong></td><td>during <span style="color:#888;">(voorzetsel + zn)</span></td><td>Tijdens de vergadering was het stil.</td></tr>
+<tr><td><strong>zolang</strong></td><td>as long as</td><td>Zolang je je best doet, is het goed.</td></tr>
+<tr><td><strong>zodra</strong></td><td>as soon as</td><td>Zodra hij thuis is, eten we.</td></tr>
+<tr><td><strong>toen</strong></td><td>when (verleden!)</td><td>Toen ik klein was, woonden we in Groningen.</td></tr>
+<tr><td><strong>wanneer</strong></td><td>when(ever)</td><td>Wanneer het regent, blijf ik thuis.</td></tr>
+<tr><td><strong>daarna</strong></td><td>after that <span style="color:#888;">(inversie)</span></td><td>We aten eerst. Daarna gingen we naar huis.</td></tr>
+<tr><td><strong>vervolgens</strong></td><td>subsequently / next</td><td>Meng de bloem. Vervolgens voeg je de eieren toe.</td></tr>
+</table>
+<div class="warn"><strong>&#9888; toen vs. wanneer:</strong> <em>toen</em> = eenmalig in het verleden; <em>wanneer</em> = herhaling / onbekend moment.</div>
+</div>
+
+<div class="section">
+<h2>Opsomming</h2>
+<table class="mini-table">
+<tr><th>Woord</th><th>Engels</th></tr>
+<tr><td><strong>ten eerste / ten tweede</strong></td><td>firstly / secondly</td></tr>
+<tr><td><strong>daarnaast</strong></td><td>besides / in addition <span style="color:#888;">(inversie)</span></td></tr>
+<tr><td><strong>bovendien</strong></td><td>moreover / furthermore <span style="color:#888;">(inversie)</span></td></tr>
+<tr><td><strong>verder</strong></td><td>furthermore <span style="color:#888;">(inversie)</span></td></tr>
+<tr><td><strong>ook</strong></td><td>also <span style="color:#888;">(geen inversie)</span></td></tr>
+<tr><td><strong>ten slotte</strong></td><td>finally / lastly</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>Formele connectoren</h2>
+<table class="mini-table">
+<tr><th>Woord</th><th>Engels / tip</th></tr>
+<tr><td><strong>aangezien</strong></td><td>since / given that <span style="color:#888;">(formeel "omdat", vaak vooraan)</span></td></tr>
+<tr><td><strong>indien</strong></td><td>if <span style="color:#888;">(formeel "als"; brieven, contracten)</span></td></tr>
+<tr><td><strong>mits</strong></td><td>provided that <span style="color:#888;">(positieve voorwaarde)</span></td></tr>
+<tr><td><strong>tenzij</strong></td><td>unless <span style="color:#888;">(negatieve voorwaarde)</span></td></tr>
+<tr><td><strong>ofschoon</strong></td><td>although <span style="color:#888;">(formeel "hoewel")</span></td></tr>
+<tr><td><strong>opdat</strong></td><td>so that <span style="color:#888;">(formeel "zodat")</span></td></tr>
+<tr><td><strong>naarmate</strong></td><td>as / the more... the more <span style="color:#888;">(geleidelijke verandering)</span></td></tr>
+<tr><td><strong>sinds</strong></td><td>since <span style="color:#888;">(vanaf welk moment)</span></td></tr>
+</table>
+<div class="tip"><strong>mits vs. tenzij:</strong> mits = als je dit WEL doet · tenzij = als je dit NIET doet.</div>
+<div class="rule"><strong>Onderschikkend (werkwoord einde):</strong> omdat, doordat, voordat, nadat, hoewel, zodat, terwijl, tenzij, zodra, totdat, mits, naarmate, zolang, aangezien, indien.</div>
+</div>
+
+</div>
+
+<div class="footer">www.${siteUrl} &mdash; gegenereerd ${new Date().toLocaleDateString('nl-NL')}</div>
+
+</body></html>`;
+
+  const w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  const printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF';
+  printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:#D40920;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
   printBtn.onclick = () => { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
   w.document.body.prepend(printBtn);
 }
@@ -15608,8 +15755,15 @@ async function initOpNiveau() {
         html += '</div></div>';
       }
 
-      // Per-chapter PDF button(s)
+      // Per-chapter buttons
       html += '<div style="margin-top:12px;text-align:right;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;">';
+      const oefenCount = (vocabByChapter[c.ch] || []).length;
+      if (oefenCount >= 4) {
+        html += '<button class="mondrian-btn" onclick="startOpNiveauOefenen(' + c.ch + ')" style="font-size:11px;padding:6px 14px;background:var(--mondrian-yellow);color:#000;border:2px solid var(--mondrian-black);cursor:pointer;font-weight:700;">Oefenen (' + oefenCount + ' woorden)</button>';
+      }
+      if (c.ch === 1) {
+        html += '<button class="mondrian-btn" onclick="exportConjunctiesCheatsheet()" style="font-size:11px;padding:6px 14px;background:#D40920;color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Verbindingswoorden — A4 cheatsheet</button>';
+      }
       if (c.ch === 2) {
         html += '<button class="mondrian-btn" onclick="exportPassiefErCheatsheet()" style="font-size:11px;padding:6px 14px;background:#D40920;color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Passief &amp; Er — A4 cheatsheet</button>';
         html += '<button class="mondrian-btn" onclick="exportCollocatiesCheatsheet()" style="font-size:11px;padding:6px 14px;background:#2d8a56;color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Uitdrukkingen &amp; Collocaties — A4</button>';
@@ -15678,6 +15832,102 @@ async function initOpNiveau() {
     });
     generatePDFContent('Op Niveau B1-B2 — Alle Hoofdstukken', rows);
   };
+
+  // ---- Per-chapter randomly-generated practice (multiple choice) ----
+  let onvQuizState = null;
+  function onvShuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  function onvQuizOverlay() {
+    let ov = document.getElementById('onvQuizOverlay');
+    if (ov) return ov;
+    ov = document.createElement('div');
+    ov.id = 'onvQuizOverlay';
+    ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;';
+    ov.addEventListener('click', function(e) { if (e.target === ov) window.closeOnvQuiz(); });
+    const box = document.createElement('div');
+    box.id = 'onvQuizBox';
+    box.style.cssText = 'background:#fff;border:3px solid var(--mondrian-black);max-width:520px;width:100%;max-height:90vh;overflow:auto;';
+    ov.appendChild(box);
+    document.body.appendChild(ov);
+    return ov;
+  }
+
+  window.closeOnvQuiz = function() { const ov = document.getElementById('onvQuizOverlay'); if (ov) ov.remove(); onvQuizState = null; };
+
+  window.startOpNiveauOefenen = function(ch) {
+    const c = OP_NIVEAU_CHAPTERS.find(function(x){ return x.ch === ch; });
+    const pool = (vocabByChapter[ch] || []).filter(function(w){ return w.nl && w.en; });
+    if (pool.length < 4) { alert('Niet genoeg woorden in dit hoofdstuk om te oefenen.'); return; }
+    const n = Math.min(10, pool.length);
+    onvQuizState = { ch: ch, title: c.title, pool: pool, queue: onvShuffle(pool).slice(0, n), idx: 0, score: 0, answered: false };
+    onvRenderQuiz();
+  };
+
+  function onvRenderQuiz() {
+    onvQuizOverlay();
+    const box = document.getElementById('onvQuizBox');
+    const q = onvQuizState;
+    if (q.idx >= q.queue.length) {
+      const pct = Math.round(q.score / q.queue.length * 100);
+      box.innerHTML = '<div style="padding:24px;font-family:Inter,sans-serif;text-align:center;">'
+        + '<h2 style="font-family:Syne,sans-serif;margin:0 0 8px;">Klaar!</h2>'
+        + '<p style="font-size:34px;font-weight:700;color:var(--mondrian-blue);margin:8px 0;">' + q.score + ' / ' + q.queue.length + '</p>'
+        + '<p style="color:#666;margin-bottom:18px;">' + pct + '% goed &mdash; Hoofdstuk ' + q.ch + ': ' + q.title + '</p>'
+        + '<button onclick="startOpNiveauOefenen(' + q.ch + ')" style="padding:9px 18px;margin:0 4px;background:var(--mondrian-yellow);color:#000;border:2px solid var(--mondrian-black);font-family:Inter,sans-serif;font-weight:700;cursor:pointer;">Opnieuw</button>'
+        + '<button onclick="closeOnvQuiz()" style="padding:9px 18px;margin:0 4px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);font-family:Inter,sans-serif;cursor:pointer;">Sluiten</button>'
+        + '</div>';
+      return;
+    }
+    const w = q.queue[q.idx];
+    const nl2en = Math.random() < 0.5;
+    const promptText = nl2en ? w.nl : w.en;
+    const answer = nl2en ? w.en : w.nl;
+    const distractPool = onvShuffle(q.pool.filter(function(x){ return (nl2en ? x.en : x.nl) !== answer; }));
+    const seen = {}; const distract = [];
+    for (let i = 0; i < distractPool.length && distract.length < 3; i++) {
+      const v = nl2en ? distractPool[i].en : distractPool[i].nl;
+      if (!seen[v]) { seen[v] = 1; distract.push(v); }
+    }
+    const options = onvShuffle([answer].concat(distract));
+    let opts = '';
+    options.forEach(function(o) {
+      opts += '<button class="onv-quiz-opt" data-correct="' + (o === answer) + '" onclick="answerOnvQuiz(this)" style="display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border:2px solid var(--mondrian-black);background:#fff;font-family:Inter,sans-serif;font-size:14px;cursor:pointer;">' + o + '</button>';
+    });
+    box.innerHTML = '<div style="padding:20px;font-family:Inter,sans-serif;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12px;color:#666;">'
+      + '<span>Hoofdstuk ' + q.ch + ' &mdash; ' + (q.idx + 1) + ' / ' + q.queue.length + '</span>'
+      + '<span>Score: ' + q.score + '</span>'
+      + '<button onclick="closeOnvQuiz()" style="border:none;background:none;font-size:20px;line-height:1;cursor:pointer;color:#999;">&times;</button>'
+      + '</div>'
+      + '<p style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:1px;margin:0 0 4px;">' + (nl2en ? 'Wat betekent (NL &rarr; EN)' : 'Welk Nederlands woord (EN &rarr; NL)') + '</p>'
+      + '<p style="font-family:Syne,sans-serif;font-size:23px;font-weight:700;margin:0 0 16px;color:var(--mondrian-black);">' + promptText + '</p>'
+      + opts
+      + '<div id="onvQuizFeedback" style="min-height:24px;margin-top:10px;"></div>'
+      + '</div>';
+    q.answered = false;
+  }
+
+  window.answerOnvQuiz = function(btn) {
+    const q = onvQuizState; if (!q || q.answered) return;
+    q.answered = true;
+    const correct = btn.dataset.correct === 'true';
+    const box = document.getElementById('onvQuizBox');
+    const w = q.queue[q.idx];
+    const btns = box.querySelectorAll('.onv-quiz-opt');
+    btns.forEach(function(b) {
+      b.style.cursor = 'default'; b.onclick = null;
+      if (b.dataset.correct === 'true') { b.style.background = '#d7f5dd'; b.style.borderColor = '#2d8a56'; }
+      else if (b === btn) { b.style.background = '#ffe0e0'; b.style.borderColor = 'var(--mondrian-red)'; }
+    });
+    if (correct) q.score++;
+    const last = (q.idx + 1 >= q.queue.length);
+    const fb = document.getElementById('onvQuizFeedback');
+    fb.innerHTML = (correct ? '<span style="color:#2d8a56;font-weight:700;">Goed!</span> ' : '<span style="color:var(--mondrian-red);font-weight:700;">Helaas, het juiste antwoord staat groen.</span>')
+      + (w.example ? '<div style="font-style:italic;color:#1356A2;font-size:13px;margin-top:4px;">' + w.example + '</div>' : '')
+      + '<button onclick="nextOnvQuiz()" style="display:block;margin-top:10px;padding:8px 18px;background:var(--mondrian-blue);color:#fff;border:2px solid var(--mondrian-black);font-family:Inter,sans-serif;cursor:pointer;">' + (last ? 'Resultaat' : 'Volgende') + ' &rarr;</button>';
+  };
+
+  window.nextOnvQuiz = function() { if (!onvQuizState) return; onvQuizState.idx++; onvRenderQuiz(); };
 
   container.innerHTML = renderCards();
 
