@@ -10483,12 +10483,20 @@ function buildFilterChips() {
   }
 
   const regionGroup = document.getElementById('filter-region');
+  const seenRegionChips = new Set();
   for (const r of sortedRegions) {
+    let value = r, label = r;
+    if (r === 'Remote' || r === 'Worldwide') {
+      value = 'Remote,Worldwide';
+      label = 'Remote/Worldwide';
+      if (seenRegionChips.has(value)) continue;
+    }
+    seenRegionChips.add(value);
     const btn = document.createElement('button');
     btn.className = 'chip';
     btn.type = 'button';
-    btn.dataset.value = r;
-    btn.textContent = r;
+    btn.dataset.value = value;
+    btn.textContent = label;
     regionGroup.appendChild(btn);
   }
 
