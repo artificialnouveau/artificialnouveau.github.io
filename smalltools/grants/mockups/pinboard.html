@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup: Pin Board - The Grant Desk</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F4ECDC;
+  --paper-2: #ECE0C2;
+  --ink: #1F1B16;
+  --ink-soft: #4A413A;
+  --ink-mute: #7A6F63;
+  --line: #2A241D;
+  --hot: #D94B3C;
+  --new: #E8B73D;
+  --long: #3E5C7E;
+  --rolling: #2E7D5B;
+  --sticky-yellow: #FFE066;
+  --sticky-pink: #FFB3BA;
+  --sticky-blue: #B5E8FF;
+  --sticky-green: #C8E6A0;
+  --sticky-orange: #FFCC80;
+  --cork: #B08763;
+  --cork-2: #8E6745;
+  --cork-3: #9C7551;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  margin: 0;
+  padding: 0 0 80px;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(255,255,255,0.06), transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(0,0,0,0.08), transparent 60%),
+    repeating-radial-gradient(circle at 30% 40%, var(--cork) 0 1.5px, var(--cork-2) 1.5px 3px),
+    repeating-linear-gradient(45deg, var(--cork) 0 2px, var(--cork-3) 2px 4px);
+}
+
+/* --- Top bar --- */
+.top-bar {
+  background: var(--paper-2);
+  border-bottom: 2px solid var(--line);
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.top-bar h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: -0.01em;
+}
+
+.note {
+  max-width: 1180px;
+  margin: 18px auto 0;
+  padding: 10px 18px;
+  background: var(--paper);
+  border-left: 3px solid var(--hot);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+}
+
+/* --- Filters (lifted from main page) --- */
+.filters {
+  max-width: 1180px;
+  margin: 18px auto 0;
+  padding: 14px 18px;
+  background: rgba(244, 236, 220, 0.92);
+  border: 1.5px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  align-items: center;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+}
+.search-wrap { position: relative; flex: 0 0 100%; max-width: 420px; }
+#filter-region { flex: 0 0 100%; }
+.search-wrap input[type="search"] {
+  width: 100%; font-family: 'DM Mono', monospace; font-size: 12.5px;
+  background: #fff; border: 1.5px solid var(--line); border-radius: 6px;
+  padding: 8px 30px 8px 14px; color: var(--ink); outline: none;
+}
+.search-wrap input[type="search"]::placeholder { color: var(--ink-mute); text-transform: none; letter-spacing: 0; }
+.search-wrap input[type="search"]:focus { background: var(--sticky-yellow); border-color: var(--ink); }
+.search-wrap input[type="search"]::-webkit-search-cancel-button { display: none; }
+.search-wrap #filter-search-clear {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  width: 22px; height: 22px; border: none; background: var(--ink); color: var(--paper);
+  border-radius: 50%; cursor: pointer; font-size: 14px; line-height: 1; font-weight: 700; padding: 0;
+}
+.search-wrap #filter-search-clear[hidden] { display: none; }
+.filter-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filter-group .filter-label {
+  font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--ink-mute); margin-right: 6px;
+}
+.chip {
+  font-family: 'DM Mono', monospace; font-size: 11.5px; text-transform: uppercase;
+  letter-spacing: 0.05em; background: #fff; color: var(--ink);
+  border: 1.5px solid var(--line); padding: 5px 11px; border-radius: 999px;
+  cursor: pointer; font-weight: 500; transition: transform 0.12s, background 0.12s;
+}
+.chip:hover { background: var(--sticky-yellow); }
+.chip.is-active { background: var(--ink); color: var(--paper); }
+
+/* --- Pin board --- */
+.board {
+  max-width: 1280px;
+  margin: 28px auto 0;
+  padding: 30px 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 36px 24px;
+  position: relative;
+}
+
+.note-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--paper);
+  background: rgba(0,0,0,0.3);
+  padding: 30px;
+  border: 1.5px dashed rgba(255,255,255,0.5);
+}
+
+/* --- Sticky note card --- */
+.sticky {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--sticky-yellow);
+  padding: 22px 14px 12px 14px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transform: rotate(var(--rot, 0deg));
+  box-shadow: 4px 5px 8px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,0,0,0.05) inset;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sticky:hover {
+  transform: rotate(0deg) translate(-2px, -4px) scale(1.04);
+  box-shadow: 6px 10px 14px rgba(0,0,0,0.4);
+  z-index: 50;
+}
+.sticky.is-front { z-index: 60; }
+.sticky.filtered-out { display: none; }
+
+/* Vary colors deterministically by data-color (set in JS) */
+.sticky[data-color="0"] { background: var(--sticky-yellow); }
+.sticky[data-color="1"] { background: var(--sticky-pink); }
+.sticky[data-color="2"] { background: var(--sticky-blue); }
+.sticky[data-color="3"] { background: var(--sticky-green); }
+.sticky[data-color="4"] { background: var(--sticky-orange); }
+
+/* Tape strip across the top */
+.sticky::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 60px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+/* Pushpin alternative for some notes */
+.sticky[data-pin="1"]::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle at 35% 35%, #ff7a7a, var(--hot));
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.4);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.5);
+  top: -4px;
+}
+.sticky[data-pin="2"]::before {
+  width: 14px; height: 14px;
+  background: radial-gradient(circle at 35% 35%, #94d3ff, var(--long));
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.4);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.5);
+  top: -5px;
+}
+
+.sticky h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14.5px; line-height: 1.25; font-weight: 700;
+  margin: 0; letter-spacing: -0.01em;
+}
+.sticky .org {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.04em;
+}
+.sticky .meta {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  font-family: 'DM Mono', monospace; font-size: 9.5px;
+  margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(0,0,0,0.2);
+}
+.sticky .pill {
+  background: rgba(255,255,255,0.6);
+  padding: 1px 5px;
+  border: 1px solid rgba(0,0,0,0.25);
+  border-radius: 2px;
+  font-weight: 600;
+}
+.sticky .pill.region { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.sticky .pill.amount { background: rgba(255,255,255,0.85); }
+.sticky .pill.deadline.urgent { background: var(--hot); color: #fff; border-color: var(--hot); }
+
+.sticky .desc-toggle {
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  user-select: none;
+  align-self: flex-start;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: rgba(0,0,0,0.3);
+}
+.sticky .desc-toggle:hover { color: var(--ink); }
+.sticky .desc {
+  font-family: 'Caveat', cursive;
+  font-size: 14.5px;
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 4px 0 0;
+  padding: 6px 0 0;
+  border-top: 1px dashed rgba(0,0,0,0.2);
+}
+.sticky .desc[hidden] { display: none; }
+
+/* Action buttons (top-right) */
+.sticky .actions {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  gap: 3px;
+  z-index: 5;
+}
+.sticky .actions button,
+.sticky .actions span {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(0,0,0,0.3);
+  color: var(--ink);
+  padding: 1px 5px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+  line-height: 1.2;
+}
+.sticky .actions span.pick-btn { font-size: 11px; padding: 0 4px; }
+.sticky .actions span.pick-btn.is-picked { background: var(--ink); color: var(--sticky-yellow); }
+.sticky .actions button.copy-btn:hover { background: var(--sticky-yellow); }
+.sticky .actions button.copy-btn.copied { background: var(--hot); color: #fff; border-color: var(--hot); }
+
+/* Filtered/empty messaging */
+.board:empty::after {
+  content: 'No grants match';
+  font-family: 'DM Mono', monospace;
+  color: var(--paper);
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>The Grant Desk - Pin Board (mockup)</h1>
+  <span><span id="grant-count">--</span> grants on the board</span>
+</div>
+
+<div class="note">
+  Mockup notes: every grant is a sticky note pinned to a cork wall, slightly rotated. Tape strips and red/blue pushpins vary so the wall feels hand-pinned. Hover lifts and unrotates a note. Description hidden by default behind a "Show description" handwritten toggle. Star and copy on every note. Filters apply across the wall and just hide notes (the wall stays the same shape).
+</div>
+
+<section class="filters" id="filters" aria-label="Filter grants">
+  <div class="search-wrap">
+    <input type="search" id="filter-search" placeholder="Search title, org, location, description..." aria-label="Search grants">
+    <button type="button" id="filter-search-clear" aria-label="Clear search" hidden>&times;</button>
+  </div>
+  <div class="filter-group" data-filter="category" id="filter-category">
+    <span class="filter-label">Category</span>
+    <button class="chip is-active" type="button" data-value="">All</button>
+  </div>
+  <div class="filter-group" data-filter="region" id="filter-region">
+    <span class="filter-label">Region</span>
+    <button class="chip is-active" type="button" data-value="">All</button>
+  </div>
+  <div class="filter-group" data-filter="type" id="filter-type">
+    <span class="filter-label">Type</span>
+    <button class="chip is-active" type="button" data-value="">All</button>
+  </div>
+  <div class="filter-group" data-filter="amount" id="filter-amount">
+    <span class="filter-label">Amount</span>
+    <button class="chip is-active" type="button" data-value="">All</button>
+    <button class="chip" type="button" data-value="under-5k">Under $5K</button>
+    <button class="chip" type="button" data-value="5k-25k">$5K to $25K</button>
+    <button class="chip" type="button" data-value="25k-plus">$25K+</button>
+    <button class="chip" type="button" data-value="in-kind">Funded / in-kind</button>
+  </div>
+</section>
+
+<div class="board" id="board"></div>
+
+<script>
+const TODAY = new Date();
+TODAY.setHours(0,0,0,0);
+
+const REGION_LABELS = { EU:'EU', US:'US', UK:'UK', NL:'NL', Remote:'Remote', Worldwide:'WW', Global:'Global', Canada:'Canada' };
+const CATEGORY_LABELS = {
+  'ai': 'AI & Safety', 'tech': 'Tech & Infra', 'research': 'Research & Journalism',
+  'film': 'Film & Video', 'arts': 'Visual & Media Arts', 'cross': 'Cross-disciplinary'
+};
+const CATEGORY_ORDER = ['ai','tech','research','film','arts','cross'];
+const TYPE_TAGS = ['residency','fellowship','grant','prize','commission','workshop','conference','job'];
+const SEED_REGIONS = ['EU','US','UK','NL','Canada','Remote','Worldwide'];
+const EXCLUDE_REGIONS = new Set(['Global']);
+
+function parseDate(iso) {
+  if (!iso) return null;
+  const d = new Date(iso + 'T23:59:59');
+  return isNaN(d.getTime()) ? null : d;
+}
+function daysUntil(date, ref) {
+  if (!date) return null;
+  return Math.ceil((date.getTime() - ref.getTime()) / 86400000);
+}
+function formatDate(d) {
+  if (!d) return null;
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+function deadlinePill(grant) {
+  const deadline = parseDate(grant.deadline);
+  if (!deadline) return { text: 'Rolling', cls: '' };
+  const days = daysUntil(deadline, TODAY);
+  const formatted = formatDate(deadline);
+  if (days < 0) return { text: `Closed ${formatted}`, cls: 'passed' };
+  if (days === 0) return { text: `Due today`, cls: 'urgent' };
+  if (days <= 14) return { text: `${days}d left`, cls: 'urgent' };
+  return { text: `${formatted}`, cls: '' };
+}
+function detectType(grant) {
+  const tags = (grant.tags || []).map(t => String(t).toLowerCase());
+  for (const t of TYPE_TAGS) if (tags.includes(t)) return t;
+  return 'other';
+}
+function parseAmountValue(s) {
+  if (!s) return null;
+  const re = /(\d{1,3}(?:[,.]\d{3})+|\d+(?:[.,]\d+)?)\s*([km])?/gi;
+  let max = 0; let m;
+  while ((m = re.exec(String(s).toLowerCase())) !== null) {
+    let raw = m[1]; let num;
+    if (/[,.]\d{3}/.test(raw)) num = parseFloat(raw.replace(/[,.]/g, ''));
+    else num = parseFloat(raw.replace(',', '.'));
+    const suffix = (m[2] || '').toLowerCase();
+    if (suffix === 'k') num *= 1000;
+    if (suffix === 'm') num *= 1000000;
+    if (!isNaN(num) && num > max) max = num;
+  }
+  return max > 0 ? max : null;
+}
+function detectAmountTier(grant) {
+  const num = parseAmountValue(grant.amount);
+  if (num === null) return 'in-kind';
+  if (num < 5000) return 'under-5k';
+  if (num < 25000) return '5k-25k';
+  return '25k-plus';
+}
+function escapeHtml(str) {
+  if (str == null) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+// Stable hash for deterministic note rotation/color per grant id
+function hashStr(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+function renderSticky(grant) {
+  const a = document.createElement('a');
+  a.className = 'sticky';
+  a.href = grant.url || '#';
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.dataset.grantId = grant.id || '';
+  a.dataset.category = grant.category || '';
+  a.dataset.region = grant.region || '';
+  a.dataset.type = detectType(grant);
+  a.dataset.amount = detectAmountTier(grant);
+  a.dataset.search = [grant.title, grant.organization, grant.location, grant.region,
+    grant.description, grant.amount, (grant.tags || []).join(' ')].filter(Boolean).join(' ').toLowerCase();
+
+  const h = hashStr(grant.id || grant.title);
+  const rot = ((h % 9) - 4) * 0.8; // -3.2 to +3.2 deg
+  const color = h % 5;             // 0-4 (5 sticky colors)
+  const pin = h % 3;               // 0=tape, 1=red pushpin, 2=blue pushpin
+  a.style.setProperty('--rot', rot + 'deg');
+  a.dataset.color = color;
+  a.dataset.pin = pin;
+
+  const dl = deadlinePill(grant);
+  const region = REGION_LABELS[grant.region] || grant.region || '';
+
+  const copyText = `${grant.title}\n${grant.organization || ''}\nDeadline: ${grant.deadline || 'Rolling'}\n${grant.amount || ''}\n${grant.url || ''}`;
+  a.dataset.copyText = copyText;
+
+  a.innerHTML = `
+    <div class="actions">
+      <span class="pick-btn" role="button" tabindex="0" data-pick-id="${escapeHtml(grant.id || '')}" aria-label="Save to shortlist" title="Save to shortlist">&#9733;</span>
+      <button class="copy-btn" type="button" aria-label="Copy grant info">Copy</button>
+    </div>
+    <h3>${escapeHtml(grant.title)}</h3>
+    ${grant.organization ? `<div class="org">${escapeHtml(grant.organization)}</div>` : ''}
+    <div class="meta">
+      ${region ? `<span class="pill region">${escapeHtml(region)}</span>` : ''}
+      ${grant.amount ? `<span class="pill amount">${escapeHtml((grant.amount || '').slice(0, 28))}${grant.amount.length > 28 ? '...' : ''}</span>` : ''}
+      <span class="pill deadline ${dl.cls}">${escapeHtml(dl.text)}</span>
+    </div>
+    ${grant.description ? `<span class="desc-toggle" role="button" tabindex="0" aria-expanded="false">show more &#9662;</span>
+    <p class="desc" hidden>${escapeHtml(grant.description)}</p>` : ''}
+  `;
+
+  return a;
+}
+
+// --- Filter logic ---
+const FILTER_STATE = { category: new Set(), region: new Set(), type: new Set(), amount: new Set(), search: '' };
+function syncChipGroup(group, key) {
+  const all = group.querySelector('.chip[data-value=""]');
+  const others = group.querySelectorAll('.chip:not([data-value=""])');
+  if (FILTER_STATE[key].size === 0) {
+    if (all) all.classList.add('is-active');
+    others.forEach(c => c.classList.remove('is-active'));
+  } else {
+    if (all) all.classList.remove('is-active');
+    others.forEach(c => c.classList.toggle('is-active', FILTER_STATE[key].has(c.dataset.value)));
+  }
+}
+function bindMultiSelectGroup(group, key) {
+  if (!group) return;
+  group.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip || !group.contains(chip)) return;
+    const value = chip.dataset.value || '';
+    if (value === '') FILTER_STATE[key].clear();
+    else if (FILTER_STATE[key].has(value)) FILTER_STATE[key].delete(value);
+    else FILTER_STATE[key].add(value);
+    syncChipGroup(group, key);
+    applyFilters();
+  });
+}
+function buildFilterChips() {
+  const all = document.querySelectorAll('.sticky');
+  const regions = new Set(SEED_REGIONS);
+  const types = new Set();
+  const categories = new Set();
+  for (const f of all) {
+    if (f.dataset.region && !EXCLUDE_REGIONS.has(f.dataset.region)) regions.add(f.dataset.region);
+    if (f.dataset.type) types.add(f.dataset.type);
+    if (f.dataset.category) categories.add(f.dataset.category);
+  }
+  const regionOrder = ['EU','US','UK','NL','Canada','Remote','Worldwide'];
+  const sortedRegions = [...regions].sort((a,b)=>{
+    const ai = regionOrder.indexOf(a), bi = regionOrder.indexOf(b);
+    if (ai >= 0 && bi >= 0) return ai - bi;
+    if (ai >= 0) return -1; if (bi >= 0) return 1;
+    return a.localeCompare(b);
+  });
+  const typeOrder = ['residency','fellowship','grant','prize','commission','workshop','conference','job','other'];
+  const sortedTypes = [...types].sort((a,b)=>typeOrder.indexOf(a)-typeOrder.indexOf(b));
+  const sortedCategories = CATEGORY_ORDER.filter(c => categories.has(c));
+
+  const cg = document.getElementById('filter-category');
+  for (const c of sortedCategories) {
+    const btn = document.createElement('button');
+    btn.className = 'chip'; btn.type = 'button'; btn.dataset.value = c;
+    btn.textContent = CATEGORY_LABELS[c] || c;
+    cg.appendChild(btn);
+  }
+  const rg = document.getElementById('filter-region');
+  for (const r of sortedRegions) {
+    const btn = document.createElement('button');
+    btn.className = 'chip'; btn.type = 'button'; btn.dataset.value = r; btn.textContent = r;
+    rg.appendChild(btn);
+  }
+  const tg = document.getElementById('filter-type');
+  for (const t of sortedTypes) {
+    const btn = document.createElement('button');
+    btn.className = 'chip'; btn.type = 'button'; btn.dataset.value = t;
+    btn.textContent = t.replace('-', ' ');
+    tg.appendChild(btn);
+  }
+  bindMultiSelectGroup(cg, 'category');
+  bindMultiSelectGroup(rg, 'region');
+  bindMultiSelectGroup(tg, 'type');
+  bindMultiSelectGroup(document.getElementById('filter-amount'), 'amount');
+
+  const si = document.getElementById('filter-search');
+  const sc = document.getElementById('filter-search-clear');
+  si.addEventListener('input', () => {
+    FILTER_STATE.search = si.value.trim();
+    sc.hidden = !FILTER_STATE.search;
+    applyFilters();
+  });
+  sc.addEventListener('click', () => {
+    si.value = ''; FILTER_STATE.search = ''; sc.hidden = true;
+    applyFilters(); si.focus();
+  });
+}
+function applyFilters() {
+  const all = document.querySelectorAll('.sticky');
+  const terms = FILTER_STATE.search ? FILTER_STATE.search.toLowerCase().split(/\s+/).filter(Boolean) : [];
+  let visible = 0;
+  all.forEach(f => {
+    let show = true;
+    if (FILTER_STATE.category.size && !FILTER_STATE.category.has(f.dataset.category)) show = false;
+    if (FILTER_STATE.region.size && !FILTER_STATE.region.has(f.dataset.region)) show = false;
+    if (FILTER_STATE.type.size && !FILTER_STATE.type.has(f.dataset.type)) show = false;
+    if (FILTER_STATE.amount.size && !FILTER_STATE.amount.has(f.dataset.amount)) show = false;
+    if (terms.length) {
+      const hay = f.dataset.search || '';
+      if (!terms.every(t => hay.includes(t))) show = false;
+    }
+    f.classList.toggle('filtered-out', !show);
+    if (show) visible++;
+  });
+  document.getElementById('grant-count').textContent = visible;
+}
+
+// --- Shortlist + click handlers (lifted) ---
+const PICKS_KEY = 'grantdesk-picks';
+const PICKS = new Set();
+function loadPicks() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(PICKS_KEY) || '[]');
+    if (Array.isArray(stored)) stored.forEach(id => PICKS.add(id));
+  } catch (_) {}
+}
+function savePicks() {
+  try { localStorage.setItem(PICKS_KEY, JSON.stringify([...PICKS])); } catch (_) {}
+}
+function refreshPickStates() {
+  document.querySelectorAll('.pick-btn').forEach(btn => {
+    const id = btn.dataset.pickId;
+    btn.classList.toggle('is-picked', PICKS.has(id));
+  });
+}
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.pick-btn');
+  if (!btn) return;
+  e.preventDefault(); e.stopPropagation();
+  const id = btn.dataset.pickId;
+  if (!id) return;
+  if (PICKS.has(id)) PICKS.delete(id); else PICKS.add(id);
+  savePicks(); refreshPickStates();
+});
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('.copy-btn');
+  if (!btn) return;
+  e.preventDefault(); e.stopPropagation();
+  const sticky = btn.closest('.sticky');
+  if (!sticky) return;
+  const text = sticky.dataset.copyText || '';
+  try { await navigator.clipboard.writeText(text); btn.textContent = 'Copied'; btn.classList.add('copied'); }
+  catch (err) { window.prompt('Copy this:', text); }
+  setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1400);
+});
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.desc-toggle');
+  if (!btn) return;
+  e.preventDefault(); e.stopPropagation();
+  const sticky = btn.closest('.sticky');
+  const desc = sticky.querySelector('.desc');
+  if (!desc) return;
+  const isHidden = desc.hasAttribute('hidden');
+  if (isHidden) {
+    desc.removeAttribute('hidden');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.innerHTML = 'show less &#9652;';
+  } else {
+    desc.setAttribute('hidden', '');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = 'show more &#9662;';
+  }
+});
+// Click anywhere on the sticky (except buttons) brings it to front
+document.addEventListener('click', (e) => {
+  const sticky = e.target.closest('.sticky');
+  if (!sticky) return;
+  if (e.target.closest('.actions') || e.target.closest('.desc-toggle')) return;
+  document.querySelectorAll('.sticky.is-front').forEach(s => s.classList.remove('is-front'));
+  sticky.classList.add('is-front');
+});
+
+// --- Init ---
+async function init() {
+  loadPicks();
+  const res = await fetch('../grants.json');
+  const data = await res.json();
+  const grants = data.grants;
+
+  // Sort: featured first, then by deadline ascending (rolling at end)
+  grants.sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    const da = a.deadline ? new Date(a.deadline) : new Date('2099-01-01');
+    const db = b.deadline ? new Date(b.deadline) : new Date('2099-01-01');
+    return da - db;
+  });
+
+  const board = document.getElementById('board');
+  for (const g of grants) {
+    board.appendChild(renderSticky(g));
+  }
+
+  document.getElementById('grant-count').textContent = grants.length;
+
+  buildFilterChips();
+  refreshPickStates();
+}
+
+init();
+</script>
+
+</body>
+</html>
