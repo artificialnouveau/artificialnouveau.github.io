@@ -3,6 +3,37 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form.",
   "grants": [
     {
+      "id": "john-hansard-gallery-disabled-artists-2026",
+      "title": "John Hansard Gallery: Open Call for Disabled Artists 2026 (Future Curators)",
+      "organization": "John Hansard Gallery, with the University of Southampton (part of the DASH Future Curators Programme)",
+      "location": "Within 40 miles of John Hansard Gallery, Southampton, UK",
+      "region": "UK",
+      "amount": "GBP 2,000 artist fee (including up to four meetings with students), plus travel expenses, access costs and a materials budget to be defined. No application fee.",
+      "duration": "Project running July 2026 to a February 2027 exhibition",
+      "startDate": "2026-07-01",
+      "deadline": "2026-05-25",
+      "addedDate": "2026-05-21",
+      "category": "arts",
+      "applicant": "individuals",
+      "description": "Open call from John Hansard Gallery for one disabled artist to collaborate with Occupational Therapy and Engineering students at the University of Southampton to make or adapt tools that support their artistic practice. The tools and resulting artwork are displayed in an exhibition at John Hansard Gallery in February 2027, curated by Jess Starns as part of the Future Curators Programme, a disability-justice residency programme for Disabled curators founded by the Disabled artist-led organisation DASH. The work involves collaborating with students in July and August, testing and refining the tools through autumn, and creating artwork for the exhibition. ELIGIBILITY: disabled artists living and working within a 40-mile distance of John Hansard Gallery. Submit an Expression of Interest via the gallery's open-call page; access requirements supported (contact jennifa@jhg.art).",
+      "url": "https://jhg.art/events/open-call-disabled-artists/",
+      "tags": [
+        "uk",
+        "england",
+        "southampton",
+        "john-hansard-gallery",
+        "disabled-artists",
+        "disability-justice",
+        "dash",
+        "future-curators",
+        "exhibition",
+        "accessibility",
+        "university-of-southampton"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "vas-bothy-project-sweeneys-bothy-2026",
       "title": "Visual Arts Scotland x Bothy Project: Sweeney's Bothy Residency 2026 (Isle of Eigg)",
       "organization": "Visual Arts Scotland (VAS), in partnership with Bothy Project",
