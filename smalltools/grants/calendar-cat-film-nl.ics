@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:filmfonds-wildcards-2026@artificialnouveau.github.io
-DTSTAMP:20260521T112023Z
+DTSTAMP:20260521T112934Z
 DTSTART;VALUE=DATE:20260707
 DTEND;VALUE=DATE:20260708
 SUMMARY:Deadline: Filmfonds Wildcards (Documentary\, Fiction\, Animation)
@@ -31,7 +31,7 @@ LOCATION:Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:filmfonds-cypher-cinema-2026@artificialnouveau.github.io
-DTSTAMP:20260521T112023Z
+DTSTAMP:20260521T112934Z
 DTSTART;VALUE=DATE:20260616
 DTEND;VALUE=DATE:20260617
 SUMMARY:Deadline: Filmfonds Cypher Cinema
@@ -46,31 +46,5 @@ DESCRIPTION:Talent-development track for self-taught Dutch-based directors
  filmfonds.nl/subsidies/subsidie/cypher-cinema
 URL:https://www.filmfonds.nl/subsidies/subsidie/cypher-cinema
 LOCATION:Netherlands (Kingdom of the Netherlands)
-END:VEVENT
-BEGIN:VEVENT
-UID:filmfonds-immerse-interact-2026@artificialnouveau.github.io
-DTSTAMP:20260521T112023Z
-DTSTART;VALUE=DATE:20260825
-DTEND;VALUE=DATE:20260826
-SUMMARY:Deadline: Immerse\\Interact Grant Scheme
-DESCRIPTION:Funding for the development\, realisation and distribution of a
- rtistically high-quality\, immersive and/or interactive media productions 
- by both independent and established producers. Collaboration between the C
- reative Industries Fund NL and the Netherlands Film Fund\, with applicatio
- ns submitted to the Stimuleringsfonds. €250\,000 is available per round 
- from each fund\; in round 2\, the Dutch Foundation for Literature provides
-  an additional €100\,000. 2026 grant period: 24 June to 25 August 2026. 
- Applications open at 15:00 CEST on the start date and close at 16:00 CEST 
- on the closing date.\n\nOrganisation: Stimuleringsfonds Creatieve Industri
- e (in collaboration with Nederlands Filmfonds)\nLocation: Netherlands\nAwa
- rd: €250\,000 per round from each fund (Creative Industries Fund NL + Ne
- therlands Film Fund)\; round 2 also receives an additional €100\,000 fro
- m the Dutch Foundation for Literature. Overall 2026 budget €1\,100\,000.
- \nDuration: Per project (development\, realisation or distribution)\n\nMor
- e: https://www.stimuleringsfonds.nl/en/grants/immerse-interact-grant-schem
- e
-URL:https://www.stimuleringsfonds.nl/en/grants/immerse-interact-grant-schem
- e
-LOCATION:Netherlands
 END:VEVENT
 END:VCALENDAR
