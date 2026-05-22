@@ -9157,23 +9157,43 @@ function detectType(grant) {
 
 function parseAmountValue(amountStr) {
   if (!amountStr) return null;
-  const s = String(amountStr).toLowerCase();
-  // Match numbers, optionally with thousand separators and an optional 'k' suffix
-  const re = /(\d{1,3}(?:[,.]\d{3})+|\d+(?:[.,]\d+)?)\s*([km])?/gi;
-  let max = 0;
-  let m;
-  while ((m = re.exec(s)) !== null) {
-    let raw = m[1];
+  const s = String(amountStr);
+  // Only count a number as money if it sits next to a currency marker. This avoids
+  // mis-reading text like "1.5 million photographs" or "10x18m warehouse" as an amount.
+  const CUR = '(?:US\\$|A\\$|C\\$|NZ\\$|HK\\$|S\\$|R\\$|\\$|€|£|¥|₹|USD|EUR|GBP|AUD|CAD|NZD|RMB|CNY|JPY|CHF|SEK|NOK|DKK|ZAR|INR|SGD|HKD|euros?|dollars?|pounds?)';
+  const NUM = '(\\d[\\d.,\\u202f\\u00a0\\s]*\\d|\\d)';
+  // A scale word/letter, but only when it is a standalone token (not the start of
+  // "million photographs", "maximum", "monthly", "metre", etc.).
+  const SCALE = '\\s*((?:million|thousand|billion|mn|bn|k|m)(?![a-z]))?';
+  const reBefore = new RegExp(CUR + '\\s*' + NUM + SCALE, 'gi');
+  const reAfter = new RegExp(NUM + SCALE + '\\s*' + CUR, 'gi');
+
+  function toNum(rawIn, scaleIn) {
+    let raw = String(rawIn).replace(/[  \s]/g, '');
     let num;
-    if (/[,.]\d{3}/.test(raw)) {
-      num = parseFloat(raw.replace(/[,.]/g, ''));
+    if (/^\d{1,3}([,.]\d{3})+$/.test(raw)) {
+      num = parseFloat(raw.replace(/[,.]/g, ''));      // thousand-grouped: 1,000,000 or 1.000.000
+    } else if (/^\d+[,.]\d{1,2}$/.test(raw)) {
+      num = parseFloat(raw.replace(',', '.'));         // decimal: 1.5 or 1,5
     } else {
-      num = parseFloat(raw.replace(',', '.'));
+      num = parseFloat(raw.replace(/,/g, ''));
     }
-    const suffix = (m[2] || '').toLowerCase();
-    if (suffix === 'k') num *= 1000;
-    if (suffix === 'm') num *= 1000000;
-    if (!isNaN(num) && num > max) max = num;
+    const sc = (scaleIn || '').toLowerCase();
+    if (sc === 'k') num *= 1e3;
+    else if (sc === 'thousand') num *= 1e3;
+    else if (sc === 'm' || sc === 'mn' || sc === 'million') num *= 1e6;
+    else if (sc === 'bn' || sc === 'billion') num *= 1e9;
+    return num;
+  }
+
+  let max = 0, m;
+  while ((m = reBefore.exec(s)) !== null) {
+    const n = toNum(m[1], m[2]);
+    if (!isNaN(n) && n > max) max = n;
+  }
+  while ((m = reAfter.exec(s)) !== null) {
+    const n = toNum(m[1], m[2]);
+    if (!isNaN(n) && n > max) max = n;
   }
   return max > 0 ? max : null;
 }
