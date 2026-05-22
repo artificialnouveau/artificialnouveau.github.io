@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:sffilm-documentary-film-fund-2026@artificialnouveau.github.io
-DTSTAMP:20260522T093819Z
+DTSTAMP:20260522T145728Z
 DTSTART;VALUE=DATE:20260707
 DTEND;VALUE=DATE:20260708
 SUMMARY:Deadline: SFFILM Documentary Film Fund 2026
@@ -34,7 +34,7 @@ LOCATION:Remote / worldwide (need not be US-based)
 END:VEVENT
 BEGIN:VEVENT
 UID:flaherty-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260522T093819Z
+DTSTAMP:20260522T145728Z
 DTSTART;VALUE=DATE:20260609
 DTEND;VALUE=DATE:20260610
 SUMMARY:Deadline: The Flaherty: 2026 Fellowship (71st Flaherty Film Seminar
@@ -68,7 +68,7 @@ LOCATION:Vermont\, USA (in-person fellows) OR remote (online fellows)
 END:VEVENT
 BEGIN:VEVENT
 UID:video-pool-vcr-vol4-attrition-2026@artificialnouveau.github.io
-DTSTAMP:20260522T093819Z
+DTSTAMP:20260522T145728Z
 DTSTART;VALUE=DATE:20260614
 DTEND;VALUE=DATE:20260615
 SUMMARY:Deadline: Video Pool: Video Commission Residency 2026 - VCR Vol.4 (
@@ -102,7 +102,7 @@ LOCATION:Remote (no in-person attendance required)\; final showcase at Vide
 END:VEVENT
 BEGIN:VEVENT
 UID:sofia-coppola-short-film-award-2026@artificialnouveau.github.io
-DTSTAMP:20260522T093819Z
+DTSTAMP:20260522T145728Z
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
 SUMMARY:Deadline: Sofia Coppola Short Film Award (Decentralized Pictures)
@@ -132,7 +132,7 @@ LOCATION:Worldwide (online platform\; submit via app.decentralized.pictures
 END:VEVENT
 BEGIN:VEVENT
 UID:sundance-documentary-fund-2026-summer@artificialnouveau.github.io
-DTSTAMP:20260522T093819Z
+DTSTAMP:20260522T145728Z
 DTSTART;VALUE=DATE:20260615
 DTEND;VALUE=DATE:20260616
 SUMMARY:Deadline: Sundance Institute: Documentary Fund (May-June 2026 Cycle
@@ -160,7 +160,7 @@ LOCATION:Worldwide (open to international filmmakers)
 END:VEVENT
 BEGIN:VEVENT
 UID:palestine-film-fund-spring-2026@artificialnouveau.github.io
-DTSTAMP:20260522T093819Z
+DTSTAMP:20260522T145728Z
 DTSTART;VALUE=DATE:20260524
 DTEND;VALUE=DATE:20260525
 SUMMARY:Deadline: Palestine Film Fund (Spring 2026 cycle)
@@ -187,5 +187,34 @@ DESCRIPTION:Fund providing financial and professional support for Palestini
 URL:https://www.palestinefilminstitute.org/en/palestine-film-fund
 LOCATION:Worldwide (Palestinian filmmakers regardless of country of residen
  ce or passport)
+END:VEVENT
+BEGIN:VEVENT
+UID:day-job-short-film-fund-2026@artificialnouveau.github.io
+DTSTAMP:20260522T145728Z
+DTSTART;VALUE=DATE:20260810
+DTEND;VALUE=DATE:20260811
+SUMMARY:Deadline: Day Job: Short Film Fund 2026
+DESCRIPTION:Short film competition from Day Job Films created to give auteu
+ r directors full creative freedom\, awarding a production budget of up to 
+ GBP 7\,000 to make a short film with no producer interference or commercia
+ l agenda. Open to animation\, live-action and documentary projects. Runs i
+ n three rounds: (1) a pitch deck outlining concept\, story\, key character
+ s and visual style\; (2) a full script for those who progress\; and (3) an
+  interview to discuss the vision and execution. A panel of industry profes
+ sionals judges the pitch deck\, script and interview\, with at least one t
+ eam member reading each pitch deck and script in full. The winner receives
+  full creative control over the project. ELIGIBILITY: applicants can be fr
+ om anywhere worldwide\, but all production must take place in the UK\; app
+ licants must have a producer on board who is separate from the director/wr
+ iter. Applicants may optionally include a plan for adapting the script int
+ o a feature-length film (this does not affect the outcome). Submissions op
+ en February 10\, 2026 and close August 10\, 2026. Enquiries: hello@dayjobf
+ ilms.com.\n\nOrganisation: Day Job Films\nLocation: Worldwide applicants\;
+  all production must take place in the UK\nAward: Production budget of up 
+ to GBP 7\,000\, with full creative control and no producer or external int
+ erference. No application fee.\nDuration: Per short film project\n\nMore: 
+ https://www.dayjobfilms.com/short-film-fund
+URL:https://www.dayjobfilms.com/short-film-fund
+LOCATION:Worldwide applicants\; all production must take place in the UK
 END:VEVENT
 END:VCALENDAR
