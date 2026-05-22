@@ -7825,8 +7825,10 @@ code *, pre *, kbd *, samp * {
     <span class="filter-label">Amount</span>
     <button class="chip is-active" type="button" data-value="">All</button>
     <button class="chip" type="button" data-value="under-5k">Under $5K</button>
-    <button class="chip" type="button" data-value="5k-25k">$5K to $25K</button>
-    <button class="chip" type="button" data-value="25k-plus">$25K+</button>
+    <button class="chip" type="button" data-value="5k-10k">$5K to $10K</button>
+    <button class="chip" type="button" data-value="10k-100k">$10K to $100K</button>
+    <button class="chip" type="button" data-value="100k-1m">$100K to $1M</button>
+    <button class="chip" type="button" data-value="1m-plus">$1M+</button>
     <button class="chip" type="button" data-value="in-kind">Funded / in-kind</button>
   </div>
   <div class="filter-group" data-filter="added" id="filter-added">
@@ -9180,8 +9182,10 @@ function detectAmountTier(grant) {
   const num = parseAmountValue(grant.amount);
   if (num === null) return 'in-kind';
   if (num < 5000) return 'under-5k';
-  if (num < 25000) return '5k-25k';
-  return '25k-plus';
+  if (num < 10000) return '5k-10k';
+  if (num < 100000) return '10k-100k';
+  if (num < 1000000) return '100k-1m';
+  return '1m-plus';
 }
 
 function detectApplicant(grant) {
