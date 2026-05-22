@@ -4404,6 +4404,10 @@ body::before, body::after { display: none; }
 
 <div class="tab-content" id="tab-examen">
   <p style="font-family:'Inter',sans-serif;font-size:12px;color:#666;margin-bottom:12px;">Video's afkomstig van <a href="https://www.youtube.com/@AdAppeltaaltrainingen" target="_blank" rel="noopener" style="color:var(--mondrian-blue);">Ad Appel taaltrainingen</a></p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+    <button class="mondrian-btn" onclick="exportB1GrammarCheatsheet()" style="font-size:12px;padding:8px 16px;background:#D40920;color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Grammatica — examen cheatsheet</button>
+    <button class="mondrian-btn" onclick="exportB1PhrasesCheatsheet()" style="font-size:12px;padding:8px 16px;background:#2d8a56;color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Zinnen &amp; woordenschat — examen cheatsheet</button>
+  </div>
   <div class="subtab-bar">
     <button class="subtab-btn active" data-subtab="exam-spreken" data-maintab="examen">Spreken</button>
     <button class="subtab-btn" data-subtab="exam-schrijven" data-maintab="examen">Schrijven</button>
@@ -4426,6 +4430,10 @@ body::before, body::after { display: none; }
 </div><!-- /tab-examen -->
 
 <div class="tab-content" id="tab-examen-b2">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+    <button class="mondrian-btn" onclick="exportB2GrammarCheatsheet()" style="font-size:12px;padding:8px 16px;background:#1356A2;color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Grammatica — examen cheatsheet</button>
+    <button class="mondrian-btn" onclick="exportB2PhrasesCheatsheet()" style="font-size:12px;padding:8px 16px;background:#6A1B9A;color:#fff;border:2px solid var(--mondrian-black);cursor:pointer;">Zinnen &amp; woordenschat — examen cheatsheet</button>
+  </div>
   <div class="subtab-bar">
     <button class="subtab-btn active" data-subtab="exam-b2-woordenschat" data-maintab="examen-b2">Woordenschat</button>
   </div>
@@ -11686,6 +11694,303 @@ Staat vooraan &rarr; <span class="hl">inversie</span> (werkwoord op positie 2).<
   printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:#D40920;color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
   printBtn.onclick = () => { printBtn.style.display='none'; w.print(); printBtn.style.display=''; };
   w.document.body.prepend(printBtn);
+}
+
+// ===== Shared cheatsheet helpers (NT2 exam cheatsheets) =====
+const CHEATSHEET_CSS = `
+@page { margin: 8mm 8mm; size: A4 landscape; }
+body { font-family: Inter, Helvetica, sans-serif; font-size: 8.5px; line-height: 1.3; color: #111; margin: 0; padding: 0; }
+h1 { font-family: Syne, sans-serif; font-size: 14px; margin: 0 0 4px; border-bottom: 2.5px solid #000; padding-bottom: 3px; }
+h2 { font-family: Syne, sans-serif; font-size: 10px; margin: 5px 0 2px; color: #1356A2; border-bottom: 1px solid #1356A2; padding-bottom: 1px; break-after: avoid; -webkit-column-break-after: avoid; }
+h3 { font-size: 9px; font-weight: 700; margin: 3px 0 2px; color: #D40920; break-after: avoid; -webkit-column-break-after: avoid; }
+table { width: 100%; border-collapse: collapse; margin: 1px 0 4px; font-size: 8px; break-inside: avoid; -webkit-column-break-inside: avoid; }
+th { background: #F7D842; padding: 2px 3px; text-align: left; font-size: 7.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+td { padding: 1.5px 3px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:nth-child(even) { background: #fafafa; }
+.cheat-3col { column-count: 3; column-gap: 8px; column-fill: balance; }
+.cheat-3col h2:first-child { margin-top: 0; }
+.cheat-3col table, .cheat-3col .box, .cheat-3col .rule, .cheat-3col .tip, .cheat-3col .warn { break-inside: avoid; -webkit-column-break-inside: avoid; }
+.box { border: 1.5px solid #000; padding: 4px 5px; margin-bottom: 4px; break-inside: avoid; }
+.box-title { font-family: Syne, sans-serif; font-size: 8.5px; font-weight: 700; margin-bottom: 2px; }
+.hl { color: #D40920; font-weight: 700; }
+.bl { color: #1356A2; font-weight: 700; }
+.gr { color: #2d8a56; font-weight: 700; }
+.br { color: #8B4513; font-weight: 700; }
+.rule { background: #fffde6; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #D40920; break-inside: avoid; }
+.tip { background: #e8f4fd; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #1356A2; break-inside: avoid; }
+.warn { background: #fff3e0; padding: 3px 5px; margin: 2px 0 4px; font-size: 8px; border-left: 3px solid #E69100; break-inside: avoid; }
+.footer { font-size: 7px; color: #999; text-align: center; margin-top: 4px; border-top: 1px solid #ddd; padding-top: 2px; }
+.mini-table td, .mini-table th { padding: 1.5px 3px; font-size: 8px; }
+`;
+
+function openCheatsheetWindow(title, bodyHtml, accent) {
+  const siteUrl = 'artificialnouveau.com/smalltools/dutchmaxxing';
+  const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + title + '</title><style>' + CHEATSHEET_CSS + '</style></head><body>'
+    + '<h1>' + title + '</h1>'
+    + '<div class="cheat-3col">' + bodyHtml + '</div>'
+    + '<div class="footer">www.' + siteUrl + ' &mdash; gegenereerd ' + new Date().toLocaleDateString('nl-NL') + '</div>'
+    + '</body></html>';
+  const w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  const printBtn = w.document.createElement('button');
+  printBtn.textContent = 'Print / Opslaan als PDF';
+  printBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:10px 20px;background:' + (accent || '#1356A2') + ';color:#fff;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+  printBtn.onclick = () => { printBtn.style.display = 'none'; w.print(); printBtn.style.display = ''; };
+  w.document.body.prepend(printBtn);
+}
+
+function exportB1GrammarCheatsheet() {
+  const body = ''
+    + '<div class="section">'
+    + '<h2>Woordvolgorde</h2>'
+    + '<table class="mini-table"><tr><th>Type zin</th><th>Structuur</th><th>Voorbeeld</th></tr>'
+    + '<tr><td><strong>Hoofdzin</strong></td><td>onderwerp + <span class="hl">werkwoord (2e)</span> + rest</td><td>Ik <span class="hl">drink</span> elke ochtend koffie.</td></tr>'
+    + '<tr><td><strong>Inversie</strong><br><span style="color:#888;">(iets anders vooraan)</span></td><td>X + <span class="hl">werkwoord (2e)</span> + onderwerp + rest</td><td>Elke ochtend <span class="hl">drink</span> ik koffie.</td></tr>'
+    + '<tr><td><strong>Ja/nee-vraag</strong></td><td><span class="hl">werkwoord (1e)</span> + onderwerp</td><td><span class="hl">Drink</span> jij koffie?</td></tr>'
+    + '<tr><td><strong>Bijzin</strong><br><span style="color:#888;">(omdat, dat, als, toen...)</span></td><td>...voegwoord + onderwerp + ... + <span class="bl">werkwoord (einde)</span></td><td>...omdat ik moe <span class="bl">ben</span>.</td></tr></table>'
+    + '<div class="rule"><strong>Volgorde rest:</strong> <strong>T-M-P</strong> = Tijd &rarr; Manier &rarr; Plaats.<br><em>Ik ga <u>morgen</u> (tijd) <u>met de trein</u> (manier) <u>naar Utrecht</u> (plaats).</em></div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Tegenwoordige tijd</h2>'
+    + '<table class="mini-table"><tr><th>Persoon</th><th>Vorm</th></tr>'
+    + '<tr><td>ik</td><td>stam <span style="color:#888;">(werk)</span></td></tr>'
+    + '<tr><td>jij / u / hij / zij</td><td>stam + <span class="hl">t</span> <span style="color:#888;">(werkt)</span></td></tr>'
+    + '<tr><td>wij / jullie / zij</td><td>infinitief <span style="color:#888;">(werken)</span></td></tr></table>'
+    + '<div class="tip"><strong>jij vooraan?</strong> Geen -t: <em>Werk <u>jij</u>?</em> (niet "werkt jij")</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Perfectum (voltooid)</h2>'
+    + '<div class="rule"><strong>hebben / zijn</strong> + voltooid deelwoord<br><em>Ik <span class="gr">heb</span> gewerkt. · Ik <span class="gr">ben</span> gegaan.</em></div>'
+    + '<table class="mini-table"><tr><th>v.d. bouwen</th><th>Regel</th><th>Voorbeeld</th></tr>'
+    + '<tr><td>Regelmatig</td><td>ge + stam + <strong>t</strong> (na \'t kofschip: t,k,f,s,ch,p)<br>anders <strong>d</strong></td><td>werken &rarr; <strong>gewerkt</strong><br>horen &rarr; <strong>gehoord</strong></td></tr>'
+    + '<tr><td>Scheidbaar</td><td>ge ertussen</td><td>opbellen &rarr; <strong>opgebeld</strong></td></tr>'
+    + '<tr><td>be-/ver-/ont-</td><td><span class="bl">geen ge-</span></td><td>betalen &rarr; <strong>betaald</strong></td></tr></table>'
+    + '<div class="tip"><strong>zijn</strong> bij beweging/verandering: gaan, komen, worden, blijven, beginnen.</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Verleden tijd (imperfectum)</h2>'
+    + '<table class="mini-table"><tr><th>Type</th><th>Uitgang</th><th>Voorbeeld</th></tr>'
+    + '<tr><td>Regelmatig</td><td>stam + <strong>-te(n)</strong> (\'t kofschip)<br>stam + <strong>-de(n)</strong> (anders)</td><td>werken &rarr; <strong>werkte(n)</strong><br>horen &rarr; <strong>hoorde(n)</strong></td></tr>'
+    + '<tr><td>Onregelmatig</td><td>klinkerverandering</td><td>zijn &rarr; was/waren<br>hebben &rarr; had(den)<br>gaan &rarr; ging(en)</td></tr></table>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Modaal & toekomst</h2>'
+    + '<div class="rule"><strong>kunnen, moeten, mogen, willen, zullen</strong> + infinitief aan het <span class="bl">einde</span>.<br><em>Ik <span class="hl">moet</span> morgen werken.</em></div>'
+    + '<div class="tip"><strong>Toekomst:</strong> <em>gaan</em> + inf. (Ik ga koken) of <em>zullen</em> + inf. (Ik zal het doen).</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Voegwoorden</h2>'
+    + '<table class="mini-table"><tr><th>Soort</th><th>Woorden</th><th>Effect</th></tr>'
+    + '<tr><td><span class="gr">Neven</span>schikkend</td><td>en, maar, of, want, dus</td><td>normale volgorde</td></tr>'
+    + '<tr><td><span class="bl">Onder</span>schikkend</td><td>omdat, dat, als, toen, terwijl, hoewel, zodat, voordat, nadat</td><td>werkwoord naar <span class="bl">einde</span></td></tr></table>'
+    + '<div class="warn"><strong>toen vs. als:</strong> <em>toen</em> = eenmalig verleden · <em>als</em> = herhaling/toekomst.</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>De/het + bijvoeglijk nw</h2>'
+    + '<table class="mini-table"><tr><th>Situatie</th><th>Vorm</th><th>Voorbeeld</th></tr>'
+    + '<tr><td>de-woord</td><td>+e</td><td>de <strong>grote</strong> man</td></tr>'
+    + '<tr><td>het-woord + de/het</td><td>+e</td><td>het <strong>grote</strong> huis</td></tr>'
+    + '<tr><td>het-woord + een</td><td><span class="hl">geen e</span></td><td>een <strong>groot</strong> huis</td></tr></table>'
+    + '<div class="rule"><strong>Trappen:</strong> groot &rarr; groter &rarr; grootst · goed &rarr; beter &rarr; best · <em>...er dan...</em> / <em>het ...st(e)</em></div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Ontkenning: niet of geen?</h2>'
+    + '<table class="mini-table"><tr><th>Gebruik</th><th>Wanneer</th><th>Voorbeeld</th></tr>'
+    + '<tr><td><span class="hl">geen</span></td><td>voor zelfstandig nw met <em>een</em> of zonder lidwoord</td><td>Ik heb <strong>geen</strong> auto.</td></tr>'
+    + '<tr><td><span class="bl">niet</span></td><td>alle andere gevallen</td><td>Ik werk <strong>niet</strong>. · De auto is <strong>niet</strong> rood.</td></tr></table>'
+    + '</div>';
+  openCheatsheetWindow('NT2 B1 Grammatica — Examenspiekbriefje', body, '#D40920');
+}
+
+function exportB1PhrasesCheatsheet() {
+  const body = ''
+    + '<div class="section">'
+    + '<h2>Brief & e-mail (Schrijven)</h2>'
+    + '<table class="mini-table"><tr><th>Functie</th><th>Formeel</th><th>Informeel</th></tr>'
+    + '<tr><td>Aanhef</td><td>Geachte heer/mevrouw,<br>Geachte heer De Vries,</td><td>Beste Anna,<br>Hoi Tom,</td></tr>'
+    + '<tr><td>Reden</td><td>Ik schrijf u omdat...<br>Naar aanleiding van...</td><td>Ik schrijf je omdat...</td></tr>'
+    + '<tr><td>Verzoek</td><td>Zou u kunnen...?<br>Ik zou graag... willen</td><td>Kun je...?<br>Ik wil graag...</td></tr>'
+    + '<tr><td>Afsluiting</td><td>Alvast bedankt.<br>Ik hoor graag van u.</td><td>Laat maar weten!</td></tr>'
+    + '<tr><td>Groet</td><td>Met vriendelijke groet,</td><td>Groetjes, / Tot snel,</td></tr></table>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Mening geven</h2>'
+    + '<div class="box"><div class="box-title">Ik vind dat...</div>'
+    + 'Volgens mij... · Ik denk dat... · Ik geloof dat... · Naar mijn mening... · Ik ben het ermee eens · Ik ben het er <span class="hl">niet</span> mee eens · Dat vind ik ook · Daar ben ik het mee eens</div>'
+    + '<div class="tip"><strong>Eens/oneens:</strong> Ik ben het <u>met je</u> eens · Ik ben het <u>daarmee</u> eens (over een idee).</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Tekst structureren</h2>'
+    + '<table class="mini-table"><tr><th>Functie</th><th>Woorden</th></tr>'
+    + '<tr><td>Beginnen</td><td>Ten eerste, ... · Om te beginnen, ... · Allereerst, ...</td></tr>'
+    + '<tr><td>Toevoegen</td><td>Ten tweede, ... · Daarnaast, ... · Bovendien, ... · Ook...</td></tr>'
+    + '<tr><td>Voorbeeld</td><td>Bijvoorbeeld, ... · Zoals...</td></tr>'
+    + '<tr><td>Reden/gevolg</td><td>...omdat... · Daarom... · Daardoor...</td></tr>'
+    + '<tr><td>Tegenstelling</td><td>...maar... · Toch... · Aan de andere kant...</td></tr>'
+    + '<tr><td>Afsluiten</td><td>Ten slotte, ... · Kortom, ...</td></tr></table>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Spreken: vragen & verzoeken</h2>'
+    + '<div class="box"><div class="box-title">Iets vragen</div>'
+    + 'Mag ik...? · Zou je...? · Kunt u mij helpen? · Ik wil graag... · Weet u misschien...? · Mag ik u iets vragen?</div>'
+    + '<div class="box"><div class="box-title">Voorstellen / afspreken</div>'
+    + 'Zullen we...? · Wat vind je van...? · Ik stel voor om... · Hoe laat spreken we af? · Past het je om...?</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Spreken: reageren</h2>'
+    + '<table class="mini-table"><tr><th>Functie</th><th>Zin</th></tr>'
+    + '<tr><td>Akkoord</td><td>Dat is een goed idee. · Dat klopt. · Prima! · Helemaal mee eens.</td></tr>'
+    + '<tr><td>Twijfel</td><td>Ik weet het niet zeker. · Misschien, maar...</td></tr>'
+    + '<tr><td>Afwijzen</td><td>Helaas kan ik niet. · Dat lijkt me geen goed idee.</td></tr>'
+    + '<tr><td>Klacht</td><td>Ik heb een probleem met... · Het werkt niet. · Ik ben niet tevreden over...</td></tr>'
+    + '<tr><td>Begrip tonen</td><td>Wat vervelend! · Dat begrijp ik. · Geen probleem.</td></tr></table>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Handige examenwoorden</h2>'
+    + '<table class="mini-table"><tr><th>Thema</th><th>Woorden</th></tr>'
+    + '<tr><td>Werk</td><td>de afspraak, de collega, de vergadering, het rooster, solliciteren, het salaris</td></tr>'
+    + '<tr><td>Gezondheid</td><td>de afspraak, de huisarts, de klacht, het recept, de apotheek, ziek</td></tr>'
+    + '<tr><td>Wonen</td><td>de huur, de buren, de woning, verhuizen, de huurbaas, het contract</td></tr>'
+    + '<tr><td>Algemeen</td><td>regelen, ophalen, doorgeven, klagen, bedanken, uitleggen</td></tr></table>'
+    + '</div>';
+  openCheatsheetWindow('NT2 B1 Zinnen & Woordenschat — Examenspiekbriefje', body, '#2d8a56');
+}
+
+function exportB2GrammarCheatsheet() {
+  const body = ''
+    + '<div class="section">'
+    + '<h2>Passief</h2>'
+    + '<div class="rule"><strong>worden</strong> = actie · <strong>zijn</strong> = toestand. Hoofdwerkwoord &rarr; voltooid deelwoord.</div>'
+    + '<table class="mini-table"><tr><th>Tijd</th><th>Hulpww.</th><th>Voorbeeld</th></tr>'
+    + '<tr><td>Presens</td><td><span class="hl">wordt/worden</span></td><td>De brief <strong>wordt</strong> geschreven.</td></tr>'
+    + '<tr><td>Imperfectum</td><td><span class="bl">werd/werden</span></td><td>De brief <strong>werd</strong> geschreven.</td></tr>'
+    + '<tr><td>Perfectum</td><td><span class="gr">is/zijn</span> <span style="color:#D40920;">(geen "geworden"!)</span></td><td>De brief <strong>is</strong> geschreven.</td></tr>'
+    + '<tr><td>Plusquamperf.</td><td><span class="br">was/waren</span></td><td>De brief <strong>was</strong> geschreven.</td></tr></table>'
+    + '<div class="tip"><strong>Modaal + passief:</strong> De telefoon <strong>moet</strong> uitgezet <strong>worden</strong>. · Geen object? Onpersoonlijk: <em>Er wordt gedanst.</em></div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Betrekkelijke voornaamwoorden</h2>'
+    + '<table class="mini-table"><tr><th>Vorm</th><th>Wanneer</th><th>Voorbeeld</th></tr>'
+    + '<tr><td><span class="hl">die</span></td><td>de-woord / meervoud</td><td>de man <strong>die</strong> daar staat</td></tr>'
+    + '<tr><td><span class="bl">dat</span></td><td>het-woord</td><td>het huis <strong>dat</strong> ik koop</td></tr>'
+    + '<tr><td><span class="gr">wat</span></td><td>na: iets, niets, alles, het mooiste...</td><td>alles <strong>wat</strong> ik weet</td></tr>'
+    + '<tr><td>prep + <strong>wie</strong></td><td>personen</td><td>de vrouw <strong>met wie</strong> ik praat</td></tr>'
+    + '<tr><td><strong>waar</strong>+prep</td><td>dingen</td><td>de stoel <strong>waarop</strong> ik zit</td></tr></table>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Het woordje "er" (functies)</h2>'
+    + '<table class="mini-table"><tr><th>Functie</th><th>Voorbeeld</th></tr>'
+    + '<tr><td>Plaats</td><td>Ik woon <strong>er</strong> al jaren.</td></tr>'
+    + '<tr><td>Onbepaald onderwerp</td><td><strong>Er</strong> staat een man voor de deur.</td></tr>'
+    + '<tr><td>Met getal</td><td>Ik heb <strong>er</strong> drie.</td></tr>'
+    + '<tr><td>Passief</td><td><strong>Er</strong> wordt gedanst.</td></tr>'
+    + '<tr><td>+ voorzetsel</td><td>Ik denk <strong>er</strong>aan. · Ik kijk <strong>er</strong>naar uit.</td></tr></table>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Voornaamwoordelijke bijwoorden</h2>'
+    + '<div class="rule"><strong>Dingen, geen personen!</strong> prep + het/dat &rarr; <span class="hl">er/daar/hier/waar</span> + prep.<br>van het &rarr; <strong>ervan</strong> · met &rarr; <strong>ermee</strong> · tot &rarr; <strong>ertoe</strong></div>'
+    + '<div class="tip"><strong>Splitsen:</strong> Ik ben het <u>daar</u> niet <u>mee</u> eens. · Ik heb <u>er</u> geen zin <u>in</u>.</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Formele voegwoorden</h2>'
+    + '<table class="mini-table"><tr><th>Woord</th><th>Betekenis</th></tr>'
+    + '<tr><td>hoewel / ofschoon</td><td>although</td></tr>'
+    + '<tr><td>zodat</td><td>so that</td></tr>'
+    + '<tr><td>tenzij</td><td>unless</td></tr>'
+    + '<tr><td>mits</td><td>provided that</td></tr>'
+    + '<tr><td>aangezien</td><td>since (reden, formeel)</td></tr>'
+    + '<tr><td>indien</td><td>if (formeel)</td></tr>'
+    + '<tr><td>naarmate</td><td>as / the more...</td></tr>'
+    + '<tr><td>doordat</td><td>because (oorzaak, geen keuze)</td></tr></table>'
+    + '<div class="warn"><strong>omdat</strong> = reden (keuze) · <strong>doordat</strong> = oorzaak (geen keuze).</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Conditionalis & te + infinitief</h2>'
+    + '<div class="rule"><strong>zou(den)</strong> + infinitief = beleefdheid / hypothese.<br><em>Als ik rijk <u>was</u>, <strong>zou</strong> ik reizen.</em> · <em><strong>Zou</strong> u mij kunnen helpen?</em></div>'
+    + '<div class="tip"><strong>om ... te</strong> + inf. = doel: <em>Ik bel <strong>om</strong> een afspraak <strong>te</strong> maken.</em><br><strong>te</strong> + inf. na o.a. proberen, hopen, beloven, vergeten.</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Deelwoorden als bijvoeglijk nw</h2>'
+    + '<table class="mini-table"><tr><th>Type</th><th>Vorm</th><th>Voorbeeld</th></tr>'
+    + '<tr><td>Voltooid (af)</td><td>v.d. + (e)</td><td>de <strong>gesloten</strong> deur</td></tr>'
+    + '<tr><td>Onvoltooid (bezig)</td><td>inf. + d (+e)</td><td>het <strong>kokende</strong> water</td></tr></table>'
+    + '<div class="warn"><strong>Let op:</strong> Geen "Ik ben schrijvend." Continu = <em>Ik ben aan het schrijven.</em></div>'
+    + '</div>';
+  openCheatsheetWindow('NT2 B2 Grammatica — Examenspiekbriefje', body, '#1356A2');
+}
+
+function exportB2PhrasesCheatsheet() {
+  const body = ''
+    + '<div class="section">'
+    + '<h2>Mening (formeel)</h2>'
+    + '<div class="box"><div class="box-title">Standpunt geven</div>'
+    + 'Ik ben van mening dat... · Naar mijn idee... · Het lijkt mij dat... · Ik ben ervan overtuigd dat... · Wat mij betreft... · Ik sta achter...</div>'
+    + '<div class="tip"><strong>Nuance / deels eens:</strong> Ik ben het deels met je eens, maar... · Daar zit wat in, toch... · Dat is waar, alleen...</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Argumenteren</h2>'
+    + '<table class="mini-table"><tr><th>Functie</th><th>Zin</th></tr>'
+    + '<tr><td>Voor</td><td>Een argument vóór is... · Een voordeel is dat... · Dit pleit voor...</td></tr>'
+    + '<tr><td>Tegen</td><td>Daar staat tegenover dat... · Een nadeel is dat... · Een bezwaar is...</td></tr>'
+    + '<tr><td>Afwegen</td><td>Enerzijds... anderzijds... · Aan de ene/andere kant...</td></tr>'
+    + '<tr><td>Benadrukken</td><td>Ik wil benadrukken dat... · Het is belangrijk om te beseffen dat...</td></tr></table>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Verbindingswoorden (formeel)</h2>'
+    + '<table class="mini-table"><tr><th>Relatie</th><th>Woorden</th></tr>'
+    + '<tr><td>Tegenstelling</td><td>daarentegen, niettemin, desondanks, echter, hoewel</td></tr>'
+    + '<tr><td>Gevolg</td><td>daardoor, bijgevolg, dientengevolge, dus, vandaar dat</td></tr>'
+    + '<tr><td>Toevoeging</td><td>bovendien, daarnaast, tevens, eveneens, voorts</td></tr>'
+    + '<tr><td>Reden</td><td>aangezien, doordat, omdat, vanwege, wegens</td></tr>'
+    + '<tr><td>Voorwaarde</td><td>indien, mits, tenzij, in het geval dat</td></tr></table>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Samenvatten & afsluiten</h2>'
+    + '<div class="box"><div class="box-title">Concluderen</div>'
+    + 'Kortom, ... · Al met al... · Met andere woorden... · Tot slot... · Concluderend kan ik zeggen dat... · Samenvattend...</div>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Brief / betoog opbouwen</h2>'
+    + '<table class="mini-table"><tr><th>Deel</th><th>Zin</th></tr>'
+    + '<tr><td>Inleiding</td><td>In deze brief wil ik ingaan op... · Graag wil ik reageren op...</td></tr>'
+    + '<tr><td>Doel</td><td>Het doel van... is... · Ik schrijf u naar aanleiding van...</td></tr>'
+    + '<tr><td>Verzoek (formeel)</td><td>Ik zou het op prijs stellen als... · Zou u zo vriendelijk willen zijn om...</td></tr>'
+    + '<tr><td>Afsluiting</td><td>Ik zie uw reactie met belangstelling tegemoet. · Bij voorbaat dank.</td></tr></table>'
+    + '</div>'
+
+    + '<div class="section">'
+    + '<h2>Abstracte examenwoordenschat</h2>'
+    + '<table class="mini-table"><tr><th>Thema</th><th>Woorden</th></tr>'
+    + '<tr><td>Maatschappij</td><td>het beleid, de maatregel, de overheid, de regelgeving, de gevolgen</td></tr>'
+    + '<tr><td>Verandering</td><td>de ontwikkeling, de toename, de afname, de trend, de invloed</td></tr>'
+    + '<tr><td>Oorzaak/gevolg</td><td>de oorzaak, het gevolg, het effect, de aanleiding, leiden tot</td></tr>'
+    + '<tr><td>Discussie</td><td>het standpunt, de kwestie, het argument, de stelling, het bezwaar</td></tr>'
+    + '<tr><td>Werkwoorden</td><td>benadrukken, aantonen, beweren, veronderstellen, toenemen, afnemen, beïnvloeden</td></tr></table>'
+    + '</div>';
+  openCheatsheetWindow('NT2 B2 Zinnen & Woordenschat — Examenspiekbriefje', body, '#6A1B9A');
 }
 
 function exportCollocatiesCheatsheet() {
