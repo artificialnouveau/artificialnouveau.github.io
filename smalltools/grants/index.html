@@ -9688,7 +9688,7 @@ function bindMultiSelectGroup(group, key) {
   });
 }
 
-const SEED_REGIONS = ['EU', 'US', 'UK', 'NL', 'Asia', 'Canada', 'Australia', 'Remote', 'Worldwide'];
+const SEED_REGIONS = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Asia', 'Canada', 'Australia'];
 const EXCLUDE_REGIONS = new Set(['Global']);
 
 function buildFilterChips() {
@@ -9702,7 +9702,7 @@ function buildFilterChips() {
     if (f.dataset.category) categories.add(f.dataset.category);
   }
 
-  const regionOrder = ['EU', 'US', 'UK', 'NL', 'Asia', 'Canada', 'Australia', 'Remote', 'Worldwide', 'Global'];
+  const regionOrder = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Asia', 'Canada', 'Australia', 'Global'];
   const sortedRegions = [...regions].sort((a, b) => {
     const ai = regionOrder.indexOf(a);
     const bi = regionOrder.indexOf(b);
