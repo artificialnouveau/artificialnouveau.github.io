@@ -34,3 +34,9 @@ smalltools/dutchmaxxing/exercise_transcripts_backup.json
 # Environment variables
 .env
 .env.*
+
+# Sync-daemon duplicates (iCloud/Drive) e.g. "feed 2.xml"
+* 2.xml
+* 2.ics
+* 2.html
+* 2.json
