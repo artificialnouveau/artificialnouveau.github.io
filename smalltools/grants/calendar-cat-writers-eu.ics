@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:jan-michalski-writers-residency-2027@artificialnouveau.github.io
-DTSTAMP:20260523T082627Z
+DTSTAMP:20260523T214721Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: Fondation Jan Michalski: Writers' Residency 2027
@@ -37,7 +37,7 @@ LOCATION:Montricher\, Switzerland (treehouse-style writers' studios in the
 END:VEVENT
 BEGIN:VEVENT
 UID:translation-house-looren-2027@artificialnouveau.github.io
-DTSTAMP:20260523T082627Z
+DTSTAMP:20260523T214721Z
 DTSTART;VALUE=DATE:20261015
 DTEND;VALUE=DATE:20261016
 SUMMARY:Deadline: Translation House Looren: Translators' Residencies and Pr
@@ -64,8 +64,45 @@ URL:https://looren.net/en/residencies/application-for-a-stay
 LOCATION:Wernetshausen\, Switzerland (Zurich region)
 END:VEVENT
 BEGIN:VEVENT
+UID:jan-michalski-foundation-residency-2027@artificialnouveau.github.io
+DTSTAMP:20260523T214721Z
+DTSTART;VALUE=DATE:20260831
+DTEND;VALUE=DATE:20260901
+SUMMARY:Deadline: Jan Michalski Foundation: Writers Residency 2027
+DESCRIPTION:Residency for writers and translators at the Jan Michalski Foun
+ dation in Montricher\, Switzerland\, set in seven distinctive 'cabin' modu
+ les hanging from an openwork canopy\, offering conditions to start\, conti
+ nue or finish a writing project. Around forty authors from around the worl
+ d (emerging to established) are hosted each year. Open to all kinds of wri
+ ting and all languages\, with priority given to literary writers and trans
+ lators\; other disciplines are welcome as long as literature is at the hea
+ rt of the project. Residencies are for individuals or pairs working on a c
+ ommon project (e.g. a writer and a translator). A percentage of residencie
+ s are dedicated to nature writing. WHAT IS PROVIDED: a private cabin for i
+ ndependent living (a separate cabin per person for pairs\; one accessible 
+ cabin for reduced mobility)\, travel costs to and from home\, a weekly all
+ owance of CHF 400\, breakfast and lunch\, electric bikes\, and daytime lib
+ rary access. ELIGIBILITY: no age or nationality restrictions\; beginners a
+ ccepted\; one application per year\; former residents may not reapply (fam
+ ilies\, children and pets cannot be accommodated). Stays cannot be split i
+ nto multiple periods. Selection is by a panel chaired by Vera Michalski-Ho
+ ffmann\, assessing the literary quality of the project\, the candidate's b
+ ackground\, and whether the stay length matches the project scope. APPLICA
+ TION: online in English or French (work excerpts may be in any language)\;
+  the 2027 form is open 2 June to 31 August 2026\; selected candidates anno
+ unced December 2026.\n\nOrganisation: Jan Michalski Foundation for Writing
+  and Literature\nLocation: Montricher\, Switzerland (Swiss Jura\, near Lau
+ sanne and Geneva)\nAward: Weekly allowance of CHF 400\, plus travel costs 
+ to and from home covered\, accommodation in a private cabin\, and breakfas
+ t and lunch provided. Electric bikes and library access included.\nDuratio
+ n: Two weeks to three months (first 2027 residents arrive mid-January 2027
+ )\n\nMore: https://fondation-janmichalski.com/en/residences
+URL:https://fondation-janmichalski.com/en/residences
+LOCATION:Montricher\, Switzerland (Swiss Jura\, near Lausanne and Geneva)
+END:VEVENT
+BEGIN:VEVENT
 UID:centre-for-text-margins-aalto-2026@artificialnouveau.github.io
-DTSTAMP:20260523T082627Z
+DTSTAMP:20260523T214721Z
 DTSTART;VALUE=DATE:20260506
 DTEND;VALUE=DATE:20260507
 SUMMARY:Deadline: Designer-Writer Residency 2026-2027 (Centre for Text Marg

@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:rowland-fellowship-harvard-2027@artificialnouveau.github.io
-DTSTAMP:20260523T082627Z
+DTSTAMP:20260523T214721Z
 DTSTART;VALUE=DATE:20260801
 DTEND;VALUE=DATE:20260802
 SUMMARY:Deadline: Rowland Fellowship at Harvard (incoming 2027 cohort)
@@ -50,7 +50,7 @@ LOCATION:Cambridge\, Massachusetts\, USA (Harvard main campus)
 END:VEVENT
 BEGIN:VEVENT
 UID:neh-public-humanities-projects-2026@artificialnouveau.github.io
-DTSTAMP:20260523T082627Z
+DTSTAMP:20260523T214721Z
 DTSTART;VALUE=DATE:20261015
 DTEND;VALUE=DATE:20261016
 SUMMARY:Deadline: NEH: Public Humanities Projects (2026-27 deadlines)
@@ -81,7 +81,7 @@ LOCATION:United States (applicants must be eligible US non-profits - museum
 END:VEVENT
 BEGIN:VEVENT
 UID:future-of-work-reporting-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260523T082627Z
+DTSTAMP:20260523T214721Z
 DTSTART;VALUE=DATE:20260724
 DTEND;VALUE=DATE:20260725
 SUMMARY:Deadline: Future of Work Reporting Fellowship 2026 to 2027
@@ -103,7 +103,7 @@ LOCATION:United States (US-based journalists)
 END:VEVENT
 BEGIN:VEVENT
 UID:ssrc-just-tech-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260523T082627Z
+DTSTAMP:20260523T214721Z
 DTSTART;VALUE=DATE:20260628
 DTEND;VALUE=DATE:20260629
 SUMMARY:Deadline: SSRC Just Tech Fellowship 2027
@@ -135,8 +135,41 @@ URL:https://www.ssrc.org/programs/just-tech/just-tech-fellowship/
 LOCATION:United States (must reside in US during the fellowship year)
 END:VEVENT
 BEGIN:VEVENT
+UID:lux-capital-science-fellowship-2026@artificialnouveau.github.io
+DTSTAMP:20260523T214721Z
+DTSTART;VALUE=DATE:20260613
+DTEND;VALUE=DATE:20260614
+SUMMARY:Deadline: Lux Capital Fellowship 2026
+DESCRIPTION:Fellowship from venture-capital firm Lux Capital honouring exce
+ ptional undergraduates at the intersection of science and technology\, pus
+ hing the boundaries of the physical\, computational and life sciences. No 
+ prior experience required\; flexible by design to run alongside other acad
+ emic and professional commitments. FOCUS AREAS: Physical Sciences (next-ge
+ n materials\, defense\, chips\, energy\, space)\; Life Sciences (healthcar
+ e\, computational biology\, new therapeutics)\; and Computational Sciences
+  (AI\, cryptography\, open source\, infrastructure\, dev tools). WHO THEY 
+ SEEK: scrappy\, high-velocity builders who ship fast\; deeply technical en
+ gineering and scientific pioneers (startup designation does not matter)\; 
+ and seekers with something to prove. BENEFITS: a $15\,000 non-dilutive gra
+ nt to offset project costs (no strings attached\, no need to formally inco
+ rporate)\; a personalized mentor from the Lux portfolio and investment tea
+ m\; all-expenses-paid retreats at the start and end of the summer\; and se
+ ssions ranging from fireside chats with portfolio founders to themed discu
+ ssions. ELIGIBILITY: undergraduates (team applications accepted). TIMELINE
+ : applications due June 13\, 2026\; results late June\; fellowship kick-of
+ f late July\; close late August/early September. Contact: flux@luxcapital.
+ com.\n\nOrganisation: Lux Capital\nLocation: United States (in-person retr
+ eats\; remote project work)\nAward: $15\,000 non-dilutive grant (no string
+ s attached\, no need to incorporate a company)\, plus mentorship and all-e
+ xpenses-paid retreats. No application fee.\nDuration: Summer fellowship (k
+ ick-off late July\; closes late August/early September 2026)\n\nMore: http
+ s://www.luxcapital.com/fellowship
+URL:https://www.luxcapital.com/fellowship
+LOCATION:United States (in-person retreats\; remote project work)
+END:VEVENT
+BEGIN:VEVENT
 UID:fund-for-investigative-journalism-2026@artificialnouveau.github.io
-DTSTAMP:20260523T082627Z
+DTSTAMP:20260523T214721Z
 DTSTART;VALUE=DATE:20260914
 DTEND;VALUE=DATE:20260915
 SUMMARY:Deadline: Fund for Investigative Journalism (FIJ) Grants
