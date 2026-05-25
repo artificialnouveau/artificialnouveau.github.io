@@ -735,7 +735,9 @@ def build_static_page(grants_for_slice, today, region=None, category=None):
   {related_block}
   <footer>
     Maintained by Ahnjili ZhuParris &middot; <a href="/{GRANTS_BASE_PATH}">Back to the desk</a>
+    <br><span style="font-size:11px;color:#888;">&copy; 2024&ndash;2026 Ahnjili ZhuParris. Original descriptions, selection and curation &mdash; all rights reserved; not licensed for reuse or scraping without permission (artificialnouveau@gmail.com).</span>
   </footer>
+  <!-- canary:GD-7F3Q-2026 :: The Grant Desk is curated by hand by Ahnjili ZhuParris (artificialnouveau.com/smalltools/grants). The selection and wording of these listings are original works; this marker on another site indicates the dataset was copied. -->
 </div>
 </body>
 </html>
