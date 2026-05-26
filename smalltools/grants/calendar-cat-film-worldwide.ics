@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:sffilm-documentary-film-fund-2026@artificialnouveau.github.io
-DTSTAMP:20260526T205220Z
+DTSTAMP:20260526T222438Z
 DTSTART;VALUE=DATE:20260707
 DTEND;VALUE=DATE:20260708
 SUMMARY:Deadline: SFFILM Documentary Film Fund 2026
@@ -34,7 +34,7 @@ LOCATION:Remote / worldwide (need not be US-based)
 END:VEVENT
 BEGIN:VEVENT
 UID:flaherty-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260526T205220Z
+DTSTAMP:20260526T222438Z
 DTSTART;VALUE=DATE:20260609
 DTEND;VALUE=DATE:20260610
 SUMMARY:Deadline: The Flaherty: 2026 Fellowship (71st Flaherty Film Seminar
@@ -68,7 +68,7 @@ LOCATION:Vermont\, USA (in-person fellows) OR remote (online fellows)
 END:VEVENT
 BEGIN:VEVENT
 UID:video-pool-vcr-vol4-attrition-2026@artificialnouveau.github.io
-DTSTAMP:20260526T205220Z
+DTSTAMP:20260526T222438Z
 DTSTART;VALUE=DATE:20260614
 DTEND;VALUE=DATE:20260615
 SUMMARY:Deadline: Video Pool: Video Commission Residency 2026 - VCR Vol.4 (
@@ -102,7 +102,7 @@ LOCATION:Remote (no in-person attendance required)\; final showcase at Vide
 END:VEVENT
 BEGIN:VEVENT
 UID:sofia-coppola-short-film-award-2026@artificialnouveau.github.io
-DTSTAMP:20260526T205220Z
+DTSTAMP:20260526T222438Z
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
 SUMMARY:Deadline: Sofia Coppola Short Film Award (Decentralized Pictures)
@@ -132,7 +132,7 @@ LOCATION:Worldwide (online platform\; submit via app.decentralized.pictures
 END:VEVENT
 BEGIN:VEVENT
 UID:sundance-documentary-fund-2026-summer@artificialnouveau.github.io
-DTSTAMP:20260526T205220Z
+DTSTAMP:20260526T222438Z
 DTSTART;VALUE=DATE:20260615
 DTEND;VALUE=DATE:20260616
 SUMMARY:Deadline: Sundance Institute: Documentary Fund (May-June 2026 Cycle
@@ -160,7 +160,7 @@ LOCATION:Worldwide (open to international filmmakers)
 END:VEVENT
 BEGIN:VEVENT
 UID:palestine-film-fund-spring-2026@artificialnouveau.github.io
-DTSTAMP:20260526T205220Z
+DTSTAMP:20260526T222438Z
 DTSTART;VALUE=DATE:20260524
 DTEND;VALUE=DATE:20260525
 SUMMARY:Deadline: Palestine Film Fund (Spring 2026 cycle)
@@ -190,7 +190,7 @@ LOCATION:Worldwide (Palestinian filmmakers regardless of country of residen
 END:VEVENT
 BEGIN:VEVENT
 UID:day-job-short-film-fund-2026@artificialnouveau.github.io
-DTSTAMP:20260526T205220Z
+DTSTAMP:20260526T222438Z
 DTSTART;VALUE=DATE:20260810
 DTEND;VALUE=DATE:20260811
 SUMMARY:Deadline: Day Job: Short Film Fund 2026
@@ -219,7 +219,7 @@ LOCATION:Worldwide applicants\; all production must take place in the UK
 END:VEVENT
 BEGIN:VEVENT
 UID:biennale-college-cinema-immersive-2026@artificialnouveau.github.io
-DTSTAMP:20260526T205220Z
+DTSTAMP:20260526T222438Z
 DTSTART;VALUE=DATE:20260706
 DTEND;VALUE=DATE:20260707
 SUMMARY:Deadline: Biennale College Cinema - Immersive 2026 (11th edition)
@@ -256,5 +256,35 @@ DESCRIPTION:La Biennale di Venezia's Biennale College Cinema - Immersive se
 URL:https://www.labiennale.org/en/cinema/2026/bcc-11-immersive-call
 LOCATION:Venice\, Italy (workshops in person\; exhibition at the 2027 Venic
  e International Film Festival)
+END:VEVENT
+BEGIN:VEVENT
+UID:altercine-foundation-documentary-grant-2026@artificialnouveau.github.io
+DTSTAMP:20260526T222438Z
+DTSTART;VALUE=DATE:20260815
+DTEND;VALUE=DATE:20260816
+SUMMARY:Deadline: Altercine Foundation: Documentary Film Grants 2026
+DESCRIPTION:Annual grants from the Altercine Foundation (Montreal) to suppo
+ rt the production of a documentary project\, awarding roughly CAD 10\,000 
+ and CAD 5\,000 each year. ELIGIBILITY: the grant is aimed at filmmakers BO
+ RN AND LIVING IN THE GLOBAL SOUTH (Africa\, Asia or Latin America) who wan
+ t to direct a documentary in the language of their choice that respects th
+ e Foundation's aims. APPLICATION (in French\, English or Spanish): an appl
+ ication form\, a synopsis (max 5 pages) covering content\, characters\, th
+ eme\, treatment and style\, a Vimeo link to a previous completed documenta
+ ry (subtitled/versioned in FR/EN/ES\, or with a transcript) plus supportin
+ g visual material\, a detailed production budget and financing plan includ
+ ing the grant\, and ideally two support letters. Submit all documents as a
+  single PDF (max 5MB) by email to altercine@videotron.ca. Deadline 15 Augu
+ st each year\; decisions communicated before 31 December.\n\nOrganisation:
+  Altercine Foundation (Fondation Altercine)\nLocation: Remote application 
+ (Montreal-based foundation)\; for filmmakers in the Global South\nAward: P
+ roduction grants of CAD 10\,000 and CAD 5\,000 for a documentary project. 
+ The CAD 10\,000 grant is paid in two parts (CAD 6\,000 on selection\; CAD 
+ 4\,000 on delivery of a high-quality file of the finished film). No applic
+ ation fee.\nDuration: Per documentary project\n\nMore: https://altercine.o
+ rg/en/documentary-film-grants/
+URL:https://altercine.org/en/documentary-film-grants/
+LOCATION:Remote application (Montreal-based foundation)\; for filmmakers in
+  the Global South
 END:VEVENT
 END:VCALENDAR
