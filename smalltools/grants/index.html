@@ -9828,16 +9828,6 @@ async function load() {
     return;
   }
 
-  // Honour the same publish throttle as the static feeds (see generate_feed.py
-  // filter_published): grants with a future addedDate are "queued" and should not
-  // appear until they come due. This also stops them showing as permanently NEW.
-  if (data && Array.isArray(data.grants)) {
-    data.grants = data.grants.filter(g => {
-      const a = parseDate(g.addedDate);
-      return !a || a <= today;
-    });
-  }
-
   const buckets = { hot: [], new: [], long: [], rolling: [], archive: [] };
   for (const grant of (data.grants || [])) {
     const cat = categorise(grant, today);
@@ -10369,7 +10359,10 @@ function loadLastSeen() {
 function isNewGrant(grant) {
   if (!LAST_SEEN) return false;
   if (!grant.addedDate) return false;
-  return grant.addedDate > LAST_SEEN;
+  // addedDate doubles as the RSS release date, so a future (queued) date must not
+  // count as new until it actually arrives, otherwise it would show new forever.
+  const todayStr = new Date().toISOString().slice(0, 10);
+  return grant.addedDate > LAST_SEEN && grant.addedDate <= todayStr;
 }
 
 function markFolderNewness(grants) {
