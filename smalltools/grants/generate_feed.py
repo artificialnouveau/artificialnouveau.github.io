@@ -545,17 +545,22 @@ def website_jsonld():
 
 
 def filter_published(grants, today):
-    """Drop grants whose addedDate is in the future. This is the RSS throttle:
-    batch-add with staggered addedDates (e.g. 3 per day) and each tranche only
-    enters the RSS FEEDS once its date arrives. The website, static SEO pages
-    and calendars are NOT throttled - they show every grant immediately. A daily
-    scheduled regenerate (see .github/workflows/publish-grants.yml) re-runs this
-    so queued tranches reach the feeds on schedule even without a manual push.
-    Grants with no addedDate are always treated as published."""
+    """Drop grants whose RSS release date is in the future. This is the RSS throttle:
+    set a staggered future ``feedDate`` on a batch of grants (e.g. 3 per day) and each
+    tranche only enters the RSS FEEDS once its feedDate arrives.
+
+    ``feedDate`` is the RSS-release date ONLY; it is independent of ``addedDate``, which
+    is the true upload date that drives the website's "new since last visit" badge. This
+    keeps the throttle from making grants look perpetually new on the site. A grant with
+    no ``feedDate`` falls back to ``addedDate``; with neither, it is always published.
+
+    The website, static SEO pages and calendars are NOT throttled - they show every grant
+    immediately. A daily scheduled regenerate (see .github/workflows/publish-grants.yml)
+    re-runs this so queued tranches reach the feeds on schedule even without a manual push."""
     out = []
     for g in grants:
-        added = parse_date(g.get("addedDate"))
-        if added and (added - today).days > 0:
+        release = parse_date(g.get("feedDate") or g.get("addedDate"))
+        if release and (release - today).days > 0:
             continue
         out.append(g)
     return out
