@@ -51,6 +51,7 @@ A complete grant entry looks like this:
   "startDate": "2026-09-01",
   "deadline": "2026-08-15",
   "addedDate": "2026-05-17",
+  "feedDate": null,
   "category": "arts",
   "applicant": "individuals",
   "description": "Long-form description: what the call is, eligibility, support, application process. This is the only field that supports multi-sentence prose.",
@@ -66,11 +67,12 @@ A complete grant entry looks like this:
 - **`id`** — Lowercase kebab-case slug, unique. Pick something descriptive (`gasworks-residency-greece-2026`).
 - **`title`** — How the card renders. Convention is `Funder: Programme Name (year/round)`.
 - **`location`** — Where the work happens, plus any geographic eligibility restriction. Free text.
-- **`region`** — Must be exactly one of: `EU`, `US`, `UK`, `NL`, `Asia`, `Canada`, `Remote`, `Worldwide`. Drives the Region filter and the static-page generation. If you need a new region, see "Adding a new region" below.
+- **`region`** — Must be exactly one of: `EU`, `US`, `UK`, `NL`, `Asia`, `Canada`, `Australia`, `Remote`, `Worldwide`. Drives the Region filter and the static-page generation. If you need a new region, see "Adding a new region" below.
 - **`amount`** — Free text. Include currency, range, what's covered. If there's no artist fee/honorarium and only travel is covered, flag that explicitly (e.g., "NO artist fee, stipend or honorarium. Travel and accommodation covered.").
 - **`startDate`** — ISO `YYYY-MM-DD` or `null`.
 - **`deadline`** — ISO `YYYY-MM-DD` for fixed deadlines. `null` for rolling/continuous calls (the card lands in "Rolling or Continuous Calls"). Categorisation into Hot / Soon / Long / Rolling / Filed Away is automatic from this field.
-- **`addedDate`** — ISO `YYYY-MM-DD` for the day you added the entry. Controls RSS ordering and the "NEW" badge.
+- **`addedDate`** — ISO `YYYY-MM-DD`, the true day you added the entry. Drives the website's "NEW since last visit" badge and RSS ordering. Use today's date; do NOT future-date it (that is what `feedDate` is for).
+- **`feedDate`** — Optional ISO `YYYY-MM-DD` or `null`. The RSS-release date, used ONLY to throttle the RSS feeds: batch-add grants and stagger their `feedDate`s into the future (e.g. ~3 per day) so each tranche enters the feeds on its date. It is independent of `addedDate`, so throttling the feeds does NOT make grants look perpetually NEW on the website. If omitted or `null`, the feed falls back to `addedDate`. The website, SEO pages and calendars ignore `feedDate` and show every grant immediately.
 - **`category`** — Must be exactly one of: `ai`, `tech`, `research`, `writers`, `film`, `arts`, `cross`. If you need a new category, see "Adding a new category" below.
 - **`applicant`** — Must be exactly one of: `individuals`, `organizations`, `both`. Drives the "Who can apply" filter. When the user filters to Individuals, cards tagged `individuals` AND `both` show; same logic for Organizations. So default ambiguous cases to `individuals` (this site is individual-focused) or `both` if a grant is genuinely open to either.
 - **`description`** — Long prose. Include eligibility, what's funded, application process, deadline restated, contact email if relevant.
