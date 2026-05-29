@@ -8681,7 +8681,7 @@ code *, pre *, kbd *, samp * {
     <span id="new-status">All caught up. Nothing new since your last visit.</span>
     <button type="button" id="new-toggle" aria-pressed="false">Show only new</button>
     <button type="button" class="dismiss-btn" id="new-dismiss">Mark as seen</button>
-    <small class="banner-help"><strong>Show only new</strong> filters the page to grants added since your last visit. <strong>Mark as seen</strong> resets that baseline to today, clearing the NEW badges. Your history is saved only in this browser on this device, so it will not transfer to other devices or other browsers, and it gets erased if you clear your cookies or site data.</small>
+    <small class="banner-help"><strong>Show only new</strong> filters the page to grants added since your last visit (or, if you were also here in the last 24 hours, to grants added in the last 24 hours). <strong>Mark as seen</strong> clears the NEW badges and banner. Your history is saved only in this browser on this device, so it will not transfer to other devices or other browsers, and it gets erased if you clear your cookies or site data.</small>
   </div>
 </div>
 
@@ -10837,20 +10837,40 @@ function applyFilters() {
 
 // --- "New since last visit" tracking ---
 const SEEN_KEY = 'grantdesk-last-seen';
+const VISIT_TS_KEY = 'grantdesk-last-visit-ts';
+const ACK_KEY = 'grantdesk-ack-date';
 let LAST_SEEN = null;
+let RECENT_VISITOR = false; // true if the previous visit was within the last 24h
 let NEW_ONLY = false;
 
 function loadLastSeen() {
   LAST_SEEN = localStorage.getItem(SEEN_KEY);
+  // Detect whether the previous visit was within the last 24 hours, then refresh
+  // the timestamp so the next page load can do the same check. This lets the
+  // "Show only new" toggle switch into a sliding-24h window for frequent visitors,
+  // instead of relying solely on the calendar-day "last seen" baseline.
+  const prevVisit = parseInt(localStorage.getItem(VISIT_TS_KEY) || '0', 10);
+  const now = Date.now();
+  RECENT_VISITOR = prevVisit > 0 && (now - prevVisit) < 24 * 3600 * 1000;
+  localStorage.setItem(VISIT_TS_KEY, String(now));
 }
 
 function isNewGrant(grant) {
-  if (!LAST_SEEN) return false;
   if (!grant.addedDate) return false;
-  // addedDate doubles as the RSS release date, so a future (queued) date must not
-  // count as new until it actually arrives, otherwise it would show new forever.
   const todayStr = new Date().toISOString().slice(0, 10);
-  return grant.addedDate > LAST_SEEN && grant.addedDate <= todayStr;
+  // A future (queued) addedDate must not count as new until it actually arrives,
+  // otherwise it would show as new forever.
+  if (grant.addedDate > todayStr) return false;
+  if (RECENT_VISITOR) {
+    // Sliding 24-hour window for visitors who were here in the last day.
+    // If they explicitly clicked "Mark as seen" today, the ACK key clears the badges.
+    if (localStorage.getItem(ACK_KEY) === todayStr) return false;
+    const yesterdayStr = new Date(Date.now() - 24 * 3600 * 1000).toISOString().slice(0, 10);
+    return grant.addedDate >= yesterdayStr;
+  }
+  // Otherwise fall back to the calendar-day "last seen" baseline.
+  if (!LAST_SEEN) return false;
+  return grant.addedDate > LAST_SEEN;
 }
 
 function markFolderNewness(grants) {
@@ -10869,14 +10889,15 @@ function refreshNewBanner(grants) {
   if (!status || !toggle || !dismiss) return;
   toggle.disabled = false;
   dismiss.disabled = false;
+  const windowLabel = RECENT_VISITOR ? 'in the last 24 hours' : 'since your last visit';
   if (newCount === 0) {
-    status.textContent = 'All caught up. Nothing new since your last visit.';
-    toggle.title = 'Filter to grants added since your last visit (currently 0).';
-    dismiss.title = 'Set today as your "last seen" baseline. Useful on a first visit to anchor when you started watching the desk.';
+    status.textContent = 'All caught up. Nothing new ' + windowLabel + '.';
+    toggle.title = 'Filter to grants added ' + windowLabel + ' (currently 0).';
+    dismiss.title = 'Mark today’s grants as seen, clearing the NEW badges and banner.';
   } else {
-    status.innerHTML = '<strong>' + newCount + '</strong> new since your last visit';
-    toggle.title = 'Filter the page to only the grants added since your last visit.';
-    dismiss.title = 'Reset the new-since baseline to today, so the NEW badges and banner clear until something else lands.';
+    status.innerHTML = '<strong>' + newCount + '</strong> new ' + windowLabel;
+    toggle.title = 'Filter the page to grants added ' + windowLabel + '.';
+    dismiss.title = 'Mark these as seen, clearing the NEW badges and banner until something else lands.';
   }
 }
 
@@ -10899,8 +10920,11 @@ function setupNewBanner(grants) {
     applyNewFilter();
   });
   dismiss.addEventListener('click', () => {
-    LAST_SEEN = new Date().toISOString().slice(0, 10);
-    localStorage.setItem(SEEN_KEY, LAST_SEEN);
+    const today = new Date().toISOString().slice(0, 10);
+    LAST_SEEN = today;
+    localStorage.setItem(SEEN_KEY, today);
+    // Also acknowledge today in the sliding-24h mode so the badges clear there too.
+    localStorage.setItem(ACK_KEY, today);
     NEW_ONLY = false;
     toggle.classList.remove('is-active');
     toggle.setAttribute('aria-pressed', 'false');
