@@ -10851,7 +10851,13 @@ function loadLastSeen() {
   // instead of relying solely on the calendar-day "last seen" baseline.
   const prevVisit = parseInt(localStorage.getItem(VISIT_TS_KEY) || '0', 10);
   const now = Date.now();
-  RECENT_VISITOR = prevVisit > 0 && (now - prevVisit) < 24 * 3600 * 1000;
+  const todayStr = new Date().toISOString().slice(0, 10);
+  // Treat as a recent visitor if EITHER the previous load was within 24h OR the
+  // baseline date is already today (the leave-handler bumps SEEN_KEY to today on
+  // every page hide/unload, so returning same-day visitors trip this check even
+  // on the first load after this feature shipped).
+  RECENT_VISITOR = (prevVisit > 0 && (now - prevVisit) < 24 * 3600 * 1000)
+                || (LAST_SEEN === todayStr);
   localStorage.setItem(VISIT_TS_KEY, String(now));
 }
 
