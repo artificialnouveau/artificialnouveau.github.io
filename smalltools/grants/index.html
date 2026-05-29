@@ -8681,7 +8681,7 @@ code *, pre *, kbd *, samp * {
     <span id="new-status">All caught up. Nothing new since your last visit.</span>
     <button type="button" id="new-toggle" aria-pressed="false">Show only new</button>
     <button type="button" class="dismiss-btn" id="new-dismiss">Mark as seen</button>
-    <small class="banner-help"><strong>Show only new</strong> filters the page to grants added since your last visit (or, if you were also here in the last 24 hours, to grants added in the last 24 hours). <strong>Mark as seen</strong> clears the NEW badges and banner. Your history is saved only in this browser on this device, so it will not transfer to other devices or other browsers, and it gets erased if you clear your cookies or site data.</small>
+    <small class="banner-help"><strong>Show only new</strong> filters the page to grants added since your last visit. <strong>Mark as seen</strong> clears the NEW badges and banner. Your history is saved only in this browser on this device, so it will not transfer to other devices or other browsers, and it gets erased if you clear your cookies or site data.</small>
   </div>
 </div>
 
@@ -10895,14 +10895,13 @@ function refreshNewBanner(grants) {
   if (!status || !toggle || !dismiss) return;
   toggle.disabled = false;
   dismiss.disabled = false;
-  const windowLabel = RECENT_VISITOR ? 'in the last 24 hours' : 'since your last visit';
   if (newCount === 0) {
-    status.textContent = 'All caught up. Nothing new ' + windowLabel + '.';
-    toggle.title = 'Filter to grants added ' + windowLabel + ' (currently 0).';
-    dismiss.title = 'Mark today’s grants as seen, clearing the NEW badges and banner.';
+    status.textContent = 'All caught up. Nothing new since your last visit.';
+    toggle.title = 'Filter to grants added since your last visit (currently 0).';
+    dismiss.title = 'Mark these as seen, clearing the NEW badges and banner.';
   } else {
-    status.innerHTML = '<strong>' + newCount + '</strong> new ' + windowLabel;
-    toggle.title = 'Filter the page to grants added ' + windowLabel + '.';
+    status.innerHTML = '<strong>' + newCount + '</strong> new since your last visit';
+    toggle.title = 'Filter the page to grants added since your last visit.';
     dismiss.title = 'Mark these as seen, clearing the NEW badges and banner until something else lands.';
   }
 }
