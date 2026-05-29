@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:sffilm-documentary-film-fund-2026@artificialnouveau.github.io
-DTSTAMP:20260528T114836Z
+DTSTAMP:20260529T083055Z
 DTSTART;VALUE=DATE:20260707
 DTEND;VALUE=DATE:20260708
 SUMMARY:Deadline: SFFILM Documentary Film Fund 2026
@@ -34,7 +34,7 @@ LOCATION:Remote / worldwide (need not be US-based)
 END:VEVENT
 BEGIN:VEVENT
 UID:flaherty-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260528T114836Z
+DTSTAMP:20260529T083055Z
 DTSTART;VALUE=DATE:20260609
 DTEND;VALUE=DATE:20260610
 SUMMARY:Deadline: The Flaherty: 2026 Fellowship (71st Flaherty Film Seminar
@@ -68,7 +68,7 @@ LOCATION:Vermont\, USA (in-person fellows) OR remote (online fellows)
 END:VEVENT
 BEGIN:VEVENT
 UID:video-pool-vcr-vol4-attrition-2026@artificialnouveau.github.io
-DTSTAMP:20260528T114836Z
+DTSTAMP:20260529T083055Z
 DTSTART;VALUE=DATE:20260614
 DTEND;VALUE=DATE:20260615
 SUMMARY:Deadline: Video Pool: Video Commission Residency 2026 - VCR Vol.4 (
@@ -102,7 +102,7 @@ LOCATION:Remote (no in-person attendance required)\; final showcase at Vide
 END:VEVENT
 BEGIN:VEVENT
 UID:sofia-coppola-short-film-award-2026@artificialnouveau.github.io
-DTSTAMP:20260528T114836Z
+DTSTAMP:20260529T083055Z
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
 SUMMARY:Deadline: Sofia Coppola Short Film Award (Decentralized Pictures)
@@ -132,7 +132,7 @@ LOCATION:Worldwide (online platform\; submit via app.decentralized.pictures
 END:VEVENT
 BEGIN:VEVENT
 UID:sundance-documentary-fund-2026-summer@artificialnouveau.github.io
-DTSTAMP:20260528T114836Z
+DTSTAMP:20260529T083055Z
 DTSTART;VALUE=DATE:20260615
 DTEND;VALUE=DATE:20260616
 SUMMARY:Deadline: Sundance Institute: Documentary Fund (May-June 2026 Cycle
@@ -160,7 +160,7 @@ LOCATION:Worldwide (open to international filmmakers)
 END:VEVENT
 BEGIN:VEVENT
 UID:palestine-film-fund-spring-2026@artificialnouveau.github.io
-DTSTAMP:20260528T114836Z
+DTSTAMP:20260529T083055Z
 DTSTART;VALUE=DATE:20260524
 DTEND;VALUE=DATE:20260525
 SUMMARY:Deadline: Palestine Film Fund (Spring 2026 cycle)
@@ -190,7 +190,7 @@ LOCATION:Worldwide (Palestinian filmmakers regardless of country of residen
 END:VEVENT
 BEGIN:VEVENT
 UID:day-job-short-film-fund-2026@artificialnouveau.github.io
-DTSTAMP:20260528T114836Z
+DTSTAMP:20260529T083055Z
 DTSTART;VALUE=DATE:20260810
 DTEND;VALUE=DATE:20260811
 SUMMARY:Deadline: Day Job: Short Film Fund 2026
@@ -219,7 +219,7 @@ LOCATION:Worldwide applicants\; all production must take place in the UK
 END:VEVENT
 BEGIN:VEVENT
 UID:biennale-college-cinema-immersive-2026@artificialnouveau.github.io
-DTSTAMP:20260528T114836Z
+DTSTAMP:20260529T083055Z
 DTSTART;VALUE=DATE:20260706
 DTEND;VALUE=DATE:20260707
 SUMMARY:Deadline: Biennale College Cinema - Immersive 2026 (11th edition)
@@ -259,7 +259,7 @@ LOCATION:Venice\, Italy (workshops in person\; exhibition at the 2027 Venic
 END:VEVENT
 BEGIN:VEVENT
 UID:altercine-foundation-documentary-grant-2026@artificialnouveau.github.io
-DTSTAMP:20260528T114836Z
+DTSTAMP:20260529T083055Z
 DTSTART;VALUE=DATE:20260815
 DTEND;VALUE=DATE:20260816
 SUMMARY:Deadline: Altercine Foundation: Documentary Film Grants 2026
@@ -286,5 +286,26 @@ DESCRIPTION:Annual grants from the Altercine Foundation (Montreal) to suppo
 URL:https://altercine.org/en/documentary-film-grants/
 LOCATION:Remote application (Montreal-based foundation)\; for filmmakers in
   the Global South
+END:VEVENT
+BEGIN:VEVENT
+UID:reply-ai-film-festival-2026@artificialnouveau.github.io
+DTSTAMP:20260529T083055Z
+DTSTART;VALUE=DATE:20260601
+DTEND;VALUE=DATE:20260602
+SUMMARY:Deadline: Reply AI Film Festival 2026
+DESCRIPTION:Annual short-film festival from Reply for films generated or en
+ hanced through AI. Finalists are flown to a premiere event in Venice and c
+ ompete for a prize pool of around EUR 30\,000+ (1st EUR 8\,000\, 2nd EUR 5
+ \,000\, 3rd EUR 2\,000\, plus additional category awards). ELIGIBILITY: op
+ en internationally\; submissions must be generated or enhanced through AI.
+  No submission fee. Travel and a 2-night Venice stay covered for selected 
+ finalists. Deadline 1 June 2026.\n\nOrganisation: Reply\nLocation: Online 
+ submissions\; premiere event in Venice\, Italy\nAward: First prize EUR 8\,
+ 000\, second prize EUR 5\,000\, third prize EUR 2\,000 (total prize pool E
+ UR 30\,000+)\, plus travel and 2-night Venice accommodation for finalists.
+  No submission fee.\nDuration: Annual short-film prize\n\nMore: https://ch
+ allenges.reply.com/challenges/creative/aifilmfestival/detail/
+URL:https://challenges.reply.com/challenges/creative/aifilmfestival/detail/
+LOCATION:Online submissions\; premiere event in Venice\, Italy
 END:VEVENT
 END:VCALENDAR
