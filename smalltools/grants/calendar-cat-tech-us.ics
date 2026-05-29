@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:blue-ridge-labs-founder-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260529T100356Z
+DTSTAMP:20260529T131029Z
 DTSTART;VALUE=DATE:20260503
 DTEND;VALUE=DATE:20260504
 SUMMARY:Deadline: Blue Ridge Labs Founder Fellowship 2026
@@ -46,7 +46,7 @@ LOCATION:United States (Phase 1 virtual\; Phase 2 in-person at BRL Lab in B
 END:VEVENT
 BEGIN:VEVENT
 UID:pace-research-fellowship-summer-2026@artificialnouveau.github.io
-DTSTAMP:20260529T100356Z
+DTSTAMP:20260529T131029Z
 DTSTART;VALUE=DATE:20260516
 DTEND;VALUE=DATE:20260517
 SUMMARY:Deadline: Pace Research Fellowship Summer 2026
@@ -62,5 +62,22 @@ DESCRIPTION:Four-week paid summer residency for technologists working at th
  nMore: https://pacefellows.com/
 URL:https://pacefellows.com/
 LOCATION:Pace HQ\, New York City\, US
+END:VEVENT
+BEGIN:VEVENT
+UID:exygy-senior-product-designer-2026@artificialnouveau.github.io
+DTSTAMP:20260529T131029Z
+DTSTART;VALUE=DATE:20260608
+DTEND;VALUE=DATE:20260609
+SUMMARY:Deadline: Exygy: Senior Product Designer (Bloom\, temporary)
+DESCRIPTION:Exygy is hiring a temporary Senior Product Designer (UX/UI) to 
+ work on Bloom\, its affordable-housing platform. Remote within the United 
+ States. Compensation: $97\,750-$132\,250 per year. Engagement runs Q3 2026
+  to Q1 2027. NOTE: this is a job\, not a grant or fellowship. Application 
+ deadline Monday\, 8 June 2026.\n\nOrganisation: Exygy\nLocation: Remote\, 
+ United States\nAward: Paid role: $97\,750-$132\,250 per year for a tempora
+ ry engagement. No application fee.\nDuration: Temporary engagement Q3 2026
+  to Q1 2027\n\nMore: https://exygy.com/careers/
+URL:https://exygy.com/careers/
+LOCATION:Remote\, United States
 END:VEVENT
 END:VCALENDAR
