@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:cais-research-sabbaticals-2027-28@artificialnouveau.github.io
-DTSTAMP:20260601T082221Z
+DTSTAMP:20260601T084516Z
 DTSTART;VALUE=DATE:20260723
 DTEND;VALUE=DATE:20260724
 SUMMARY:Deadline: CAIS Research Sabbaticals (Fellowships) 2027-28
@@ -58,7 +58,7 @@ LOCATION:Bochum\, Germany (residential at CAIS\; rent-free\, fully furnishe
 END:VEVENT
 BEGIN:VEVENT
 UID:msca-postdoctoral-fellowships-2026@artificialnouveau.github.io
-DTSTAMP:20260601T082221Z
+DTSTAMP:20260601T084516Z
 DTSTART;VALUE=DATE:20260909
 DTEND;VALUE=DATE:20260910
 SUMMARY:Deadline: Marie Skłodowska-Curie Postdoctoral Fellowships 2026 (MS
@@ -101,7 +101,7 @@ LOCATION:Europe (host institution in an EU Member State or Horizon Europe A
 END:VEVENT
 BEGIN:VEVENT
 UID:einstein-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260601T082221Z
+DTSTAMP:20260601T084516Z
 DTSTART;VALUE=DATE:20260515
 DTEND;VALUE=DATE:20260516
 SUMMARY:Deadline: Einstein Fellowship 2026 (Einstein Forum + Wittenstein Fo
@@ -137,7 +137,7 @@ LOCATION:Caputh\, Brandenburg\, Germany (garden cottage at Einstein's summe
 END:VEVENT
 BEGIN:VEVENT
 UID:journalismfund-europe-cross-border-2026@artificialnouveau.github.io
-DTSTAMP:20260601T082221Z
+DTSTAMP:20260601T084516Z
 DTSTART;VALUE=DATE:20260730
 DTEND;VALUE=DATE:20260731
 SUMMARY:Deadline: Journalismfund Europe: European Cross-Border Grants
@@ -153,5 +153,39 @@ DESCRIPTION:Supports independent investigative journalism across Europe\, w
  ore: https://www.journalismfund.eu/grants
 URL:https://www.journalismfund.eu/grants
 LOCATION:Europe (cross-border projects)
+END:VEVENT
+BEGIN:VEVENT
+UID:fias-fellowship-programme-2027-2028@artificialnouveau.github.io
+DTSTAMP:20260601T084516Z
+DTSTART;VALUE=DATE:20260625
+DTEND;VALUE=DATE:20260626
+SUMMARY:Deadline: French Institutes for Advanced Study (FIAS) Fellowship Pr
+ ogramme 2027-2028
+DESCRIPTION:FIAS Fellowship Programme offers 10-month fellowships at seven 
+ Institutes for Advanced Study in France\, welcoming high-level internation
+ al scholars and scientists to develop innovative research projects. 29 POS
+ ITIONS for 2027/2028: Aix-Marseille (7)\; Cergy (3)\; Loire Valley/Orleans
+ -Tours (2)\; Lyon (3)\; Montpellier (2)\; Nantes (4)\; Paris (8). DISCIPLI
+ NES: all Social Sciences and Humanities (SSH) plus all other research fiel
+ ds interfacing with the SSH. ELIGIBILITY: outstanding researchers at all c
+ areer levels\, from postdoctoral to senior scientists. Minimum: PhD plus 2
+  years of research experience at the time of application. Researchers from
+  all countries are eligible BUT must have spent no more than 12 months in 
+ France during the three years prior to the application deadline. COMMON ST
+ ANDARDS across all FIAS: living allowance of EUR 2\,200/month\; social sec
+ urity coverage\; accommodation\; research and training budget\; travel exp
+ enses covered. DEADLINE: 25 June 2026. APPLY via the FIAS-FP call for appl
+ ications page.\n\nOrganisation: French Institutes for Advanced Study (FIAS
+ ) network: Aix-Marseille\, Cergy\, Loire Valley (Orleans-Tours)\, Lyon\, M
+ ontpellier\, Nantes\, Paris\nLocation: Seven Institutes for Advanced Study
+  across France (Aix-Marseille\, Cergy\, Loire Valley/Orleans-Tours\, Lyon\
+ , Montpellier\, Nantes\, Paris)\nAward: EUR 2\,200/month living allowance\
+ ; social security coverage\; accommodation\; research and training budget\
+ ; travel expenses covered. No application fee.\nDuration: 10-month fellows
+ hip during the 2027/2028 academic year\n\nMore: https://www.fias-fp.eu/fel
+ lowships/call-applications-20272028
+URL:https://www.fias-fp.eu/fellowships/call-applications-20272028
+LOCATION:Seven Institutes for Advanced Study across France (Aix-Marseille\,
+  Cergy\, Loire Valley/Orleans-Tours\, Lyon\, Montpellier\, Nantes\, Paris)
 END:VEVENT
 END:VCALENDAR
