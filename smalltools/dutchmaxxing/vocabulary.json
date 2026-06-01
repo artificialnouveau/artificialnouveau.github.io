@@ -501,7 +501,9 @@
       "bijvoeglijk",
       "cultuur",
       "geld",
-      "karakter"
+      "karakter",
+      "op-niveau",
+      "op-niveau-h3"
     ],
     "level": "B2"
   },
@@ -2920,13 +2922,16 @@
   {
     "nl": "verstaan",
     "en": "to understand (hearing) / to comprehend",
-    "note": "Ver- + staan. Physical understanding: hearing clearly",
+    "note": "Ver- + staan. Physical understanding: hearing clearly. Onregelmatig: verstond, verstaan.",
     "example": "Sorry, ik kon je niet verstaan. Kun je harder praten?",
     "tags": [
       "werkwoord",
       "staan-familie",
       "communicatie",
-      "dagelijks"
+      "dagelijks",
+      "op-niveau",
+      "op-niveau-h3-onreg",
+      "onregelmatig"
     ],
     "level": "B1"
   },
@@ -3215,7 +3220,9 @@
       "scheidbaar",
       "vangen-familie",
       "dagelijks",
-      "mensen"
+      "mensen",
+      "op-niveau",
+      "op-niveau-h3"
     ],
     "level": "B2"
   },
@@ -5298,7 +5305,9 @@
     "example": "Het kind kroop over de vloer.",
     "tags": [
       "werkwoord",
-      "beweging"
+      "beweging",
+      "op-niveau",
+      "op-niveau-h3"
     ],
     "level": "B2"
   },
@@ -5349,7 +5358,8 @@
       "dagelijks",
       "op-niveau",
       "op-niveau-h2",
-      "op-niveau-h2-general"
+      "op-niveau-h2-general",
+      "op-niveau-h3"
     ],
     "level": "B1"
   },
@@ -5879,7 +5889,8 @@
       "karakter",
       "op-niveau",
       "op-niveau-h1",
-      "op-niveau-h1-personality"
+      "op-niveau-h1-personality",
+      "op-niveau-h3"
     ],
     "level": "B1"
   },
@@ -7500,7 +7511,9 @@
     "tags": [
       "bijwoord",
       "formeel",
-      "wakker-in-paraguay"
+      "wakker-in-paraguay",
+      "op-niveau",
+      "op-niveau-h3"
     ],
     "level": "B1"
   },
@@ -10382,7 +10395,8 @@
       "schrijftaal",
       "op-niveau",
       "op-niveau-h1",
-      "op-niveau-h1-general"
+      "op-niveau-h1-general",
+      "op-niveau-h3"
     ],
     "level": "B1"
   },
@@ -14439,7 +14453,6 @@
     "example": "Je ontkomt niet aan de afwas.",
     "tags": [
       "op-niveau",
-      "op-niveau-h3",
       "werkwoord",
       "voorzetsel",
       "op-niveau-h3-prep"
@@ -14541,16 +14554,16 @@
     "level": "B2"
   },
   {
-    "nl": "ergens van uitgaan",
-    "en": "to assume / take for granted",
+    "nl": "uitgaan van",
+    "en": "to assume / proceed from",
     "note": "Op Niveau H3. Scheidbaar: ging uit, uitgegaan. Vaak met 'er': ze ging ervan uit dat...",
     "example": "Ze ging ervan uit dat hij zou helpen.",
     "tags": [
       "op-niveau",
-      "op-niveau-h3",
       "werkwoord",
       "scheidbaar",
-      "uitdrukking"
+      "uitdrukking",
+      "op-niveau-h3-prep"
     ],
     "level": "B1"
   },
@@ -14920,6 +14933,975 @@
       "op-niveau",
       "op-niveau-h3",
       "bijvoeglijk"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "bijbenen",
+    "en": "to keep up with / keep pace with",
+    "note": "Op Niveau H3 (receptief). Scheidbaar: beende bij, bijgebeend. Vaak met kunnen: het tempo bijbenen.",
+    "example": "Hij kan het hoge werktempo nauwelijks bijbenen.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-receptief",
+      "werkwoord",
+      "scheidbaar",
+      "figuurlijk"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "iemand de deur wijzen",
+    "en": "to show someone the door / send packing",
+    "note": "Op Niveau H3 (receptief). Uitdrukking: iemand wegsturen of ontslaan.",
+    "example": "Na het schandaal werd de directeur de deur gewezen.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-receptief",
+      "uitdrukking",
+      "figuurlijk",
+      "werk"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "geboren en getogen",
+    "en": "born and bred",
+    "note": "Op Niveau H3 (receptief). Vaste combinatie: getogen = opgegroeid (van het oude werkwoord tijgen).",
+    "example": "Ze is geboren en getogen in Rotterdam.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-receptief",
+      "uitdrukking",
+      "mensen"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de hokjesgeest",
+    "en": "pigeonhole mentality / putting people in boxes",
+    "note": "Op Niveau H3 (receptief). Hokje = little box; de neiging om mensen in vaste categorieen te plaatsen.",
+    "example": "De hokjesgeest maakt het lastig om mensen onbevooroordeeld te zien.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-receptief",
+      "zelfstandig",
+      "maatschappij",
+      "figuurlijk"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "lef hebben",
+    "en": "to have guts / nerve",
+    "note": "Op Niveau H3 (receptief). Het lef = durf, moed (informeel).",
+    "example": "Je moet lef hebben om voor jezelf te beginnen.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-receptief",
+      "uitdrukking",
+      "karakter",
+      "informeel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de waan van de dag",
+    "en": "the issue / hype of the moment",
+    "note": "Op Niveau H3 (receptief). De waan = waanbeeld/illusie; leven bij de waan van de dag = je laten leiden door wat nu toevallig speelt.",
+    "example": "Politici laten zich te veel leiden door de waan van de dag.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-receptief",
+      "uitdrukking",
+      "maatschappij",
+      "figuurlijk"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "bezig zijn met",
+    "en": "to be busy with",
+    "note": "Op Niveau H3 (preposities).",
+    "example": "Ik ben de hele dag bezig met het huishouden.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "bijvoeglijk",
+      "voorzetsel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "communiceren met",
+    "en": "to communicate with",
+    "note": "Op Niveau H3 (preposities).",
+    "example": "Scholen communiceren steeds vaker via apps met ouders.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "voorzetsel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "te danken hebben aan",
+    "en": "to owe to / have to thank for",
+    "note": "Op Niveau H3 (preposities). Iets te danken hebben aan iemand/iets.",
+    "example": "Zijn succes heeft hij te danken aan hard werk.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "voorzetsel",
+      "uitdrukking"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "zich onderscheiden van",
+    "en": "to distinguish oneself from / differ from",
+    "note": "Op Niveau H3 (preposities). Wederkerend.",
+    "example": "Dit product onderscheidt zich van de rest door de prijs.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "wederkerend",
+      "voorzetsel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "zich ontwikkelen tot",
+    "en": "to develop into",
+    "note": "Op Niveau H3 (preposities). Wederkerend.",
+    "example": "Ze ontwikkelde zich tot een uitstekende spreker.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "wederkerend",
+      "voorzetsel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "iets opmaken uit",
+    "en": "to deduce / infer from",
+    "note": "Op Niveau H3 (preposities). Scheidbaar: maakte op, opgemaakt. Anders dan 'opmaken' (gebruiken/bed).",
+    "example": "Uit haar reactie maakte ik op dat ze boos was.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "scheidbaar",
+      "voorzetsel"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "overtuigd zijn van",
+    "en": "to be convinced of",
+    "note": "Op Niveau H3 (preposities).",
+    "example": "Ik ben overtuigd van zijn goede bedoelingen.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "bijvoeglijk",
+      "voorzetsel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "problemen hebben met",
+    "en": "to have problems with",
+    "note": "Op Niveau H3 (preposities).",
+    "example": "Veel mensen hebben problemen met de nieuwe regels.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "voorzetsel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de schuld geven aan",
+    "en": "to blame / put the blame on",
+    "note": "Op Niveau H3 (preposities). Iemand de schuld geven van iets.",
+    "example": "Hij gaf zijn collega de schuld van de fout.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "voorzetsel",
+      "uitdrukking"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "zich schuldig maken aan",
+    "en": "to be guilty of / to commit",
+    "note": "Op Niveau H3 (preposities). Wederkerend; vaak juridisch.",
+    "example": "Hij maakte zich schuldig aan fraude.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "wederkerend",
+      "voorzetsel",
+      "formeel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "spijt hebben van",
+    "en": "to regret",
+    "note": "Op Niveau H3 (preposities).",
+    "example": "Ik heb spijt van wat ik gezegd heb.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "voorzetsel",
+      "emotie"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "toekomen aan",
+    "en": "to get around to",
+    "note": "Op Niveau H3 (preposities). Scheidbaar: kwam toe, toegekomen.",
+    "example": "Ik kom niet toe aan het opruimen.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "scheidbaar",
+      "voorzetsel"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "zich verantwoordelijk voelen voor",
+    "en": "to feel responsible for",
+    "note": "Op Niveau H3 (preposities). Wederkerend.",
+    "example": "Zij voelt zich verantwoordelijk voor het hele gezin.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "wederkerend",
+      "voorzetsel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "voorzichtig zijn met",
+    "en": "to be careful with",
+    "note": "Op Niveau H3 (preposities).",
+    "example": "Wees voorzichtig met dat mes.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "bijvoeglijk",
+      "voorzetsel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "wandelen met",
+    "en": "to walk with",
+    "note": "Op Niveau H3 (preposities).",
+    "example": "Ze wandelt elke ochtend met de hond.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "voorzetsel",
+      "dagelijks"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "zorgen voor",
+    "en": "to take care of / to provide for",
+    "note": "Op Niveau H3 (preposities).",
+    "example": "Wie zorgt er voor de kinderen na school?",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-prep",
+      "werkwoord",
+      "voorzetsel",
+      "gezin"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "bewegen",
+    "en": "to move",
+    "note": "Op Niveau H3 (onregelmatig). bewoog, bewogen.",
+    "example": "Hij bewoog zich langzaam door de kamer.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-onreg",
+      "werkwoord",
+      "onregelmatig"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "bewijzen",
+    "en": "to prove",
+    "note": "Op Niveau H3 (onregelmatig). bewees, bewezen.",
+    "example": "Kun je bewijzen dat je gelijk hebt?",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-onreg",
+      "werkwoord",
+      "onregelmatig"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "blazen",
+    "en": "to blow",
+    "note": "Op Niveau H3 (onregelmatig). blies, geblazen.",
+    "example": "De wind blaast vandaag hard.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-onreg",
+      "werkwoord",
+      "onregelmatig"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "knijpen",
+    "en": "to pinch / squeeze",
+    "note": "Op Niveau H3 (onregelmatig). kneep, geknepen.",
+    "example": "Ze kneep even in zijn arm.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-onreg",
+      "werkwoord",
+      "onregelmatig"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "spijten",
+    "en": "to regret (onpersoonlijk)",
+    "note": "Op Niveau H3 (onregelmatig). speet, gespeten. Het spijt me = I am sorry.",
+    "example": "Het speet hem dat hij te laat was.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-onreg",
+      "werkwoord",
+      "onregelmatig"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "verwerpen",
+    "en": "to reject / dismiss",
+    "note": "Op Niveau H3 (onregelmatig). verwierp, verworpen.",
+    "example": "De Tweede Kamer verwierp het voorstel.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-onreg",
+      "werkwoord",
+      "onregelmatig"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "wrijven",
+    "en": "to rub",
+    "note": "Op Niveau H3 (onregelmatig). wreef, gewreven.",
+    "example": "Hij wreef in zijn ogen van vermoeidheid.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-onreg",
+      "werkwoord",
+      "onregelmatig"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "zwerven",
+    "en": "to roam / wander",
+    "note": "Op Niveau H3 (onregelmatig). zwierf, gezworven.",
+    "example": "Hij zwierf jarenlang door Europa.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3-onreg",
+      "werkwoord",
+      "onregelmatig"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "benadrukken",
+    "en": "to emphasise / stress",
+    "note": "Op Niveau H3. benadrukte, benadrukt (niet scheidbaar, be- vast).",
+    "example": "Ze benadrukte het belang van samenwerking.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "werkwoord",
+      "communicatie"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "het jargon",
+    "en": "jargon / specialist language",
+    "note": "Op Niveau H3. Vaktaal van een groep.",
+    "example": "Vermijd te veel jargon in een publiekstekst.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig",
+      "taal"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "het litteken",
+    "en": "scar",
+    "note": "Op Niveau H3. Meervoud: littekens.",
+    "example": "Hij heeft een litteken op zijn arm.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig",
+      "lichaam"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de naald",
+    "en": "needle",
+    "note": "Op Niveau H3. Meervoud: naalden.",
+    "example": "Ze zoekt een naald om de knoop aan te zetten.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "ontroeren",
+    "en": "to move / touch (emotionally)",
+    "note": "Op Niveau H3. ontroerde, ontroerd.",
+    "example": "Het verhaal ontroerde het hele publiek.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "werkwoord",
+      "emotie"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "de ontroering",
+    "en": "emotion / being moved",
+    "note": "Op Niveau H3. Van ontroeren.",
+    "example": "Met ontroering keek ze naar de oude foto's.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig",
+      "emotie"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "opzichtig",
+    "en": "showy / flashy / conspicuous",
+    "note": "Op Niveau H3. Iets dat erg opvalt.",
+    "example": "Ze droeg een opzichtige rode jas.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "overtuigen",
+    "en": "to convince / persuade",
+    "note": "Op Niveau H3. overtuigde, overtuigd. Overtuigd zijn van iets.",
+    "example": "Hij wist iedereen te overtuigen van zijn plan.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "werkwoord",
+      "communicatie"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de overtuiging",
+    "en": "conviction / belief",
+    "note": "Op Niveau H3. Met overtuiging spreken.",
+    "example": "Ze sprak met grote overtuiging.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de rimpel",
+    "en": "wrinkle",
+    "note": "Op Niveau H3. Meervoud: rimpels.",
+    "example": "Ze kreeg rimpels rond haar ogen van het lachen.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig",
+      "lichaam"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "uitbundig",
+    "en": "exuberant / effusive",
+    "note": "Op Niveau H3. Vol uitbundige energie of vreugde.",
+    "example": "Het feest werd uitbundig gevierd.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "emotie"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "verpesten",
+    "en": "to ruin / spoil",
+    "note": "Op Niveau H3. verpestte, verpest (informeel).",
+    "example": "Laat de regen je dag niet verpesten.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "werkwoord",
+      "informeel"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "dikwijls",
+    "en": "often / frequently",
+    "note": "Op Niveau H3. Formeel/schrijftaal-synoniem van vaak.",
+    "example": "Hij komt hier dikwijls langs.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijwoord",
+      "formeel"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "in een adem noemen met",
+    "en": "to mention in the same breath as",
+    "note": "Op Niveau H3. Idioom: twee namen of dingen samen noemen alsof ze gelijkwaardig zijn. Ook geschreven: in een adem.",
+    "example": "Deze naam wordt dikwijls in een adem genoemd met die van de grote meesters.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "uitdrukking",
+      "figuurlijk"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "sober",
+    "en": "sober / frugal / plain",
+    "note": "Op Niveau H3. Zonder luxe of overdaad.",
+    "example": "Ze leven heel sober en geven weinig uit.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "karakter"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "plichtsgetrouw",
+    "en": "dutiful / conscientious",
+    "note": "Op Niveau H3. Trouw aan je plichten.",
+    "example": "Een plichtsgetrouwe werknemer komt altijd op tijd.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "karakter"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "hardwerkend",
+    "en": "hard-working",
+    "note": "Op Niveau H3. Iemand die veel en hard werkt.",
+    "example": "Het zijn hardwerkende mensen met twee banen.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "karakter",
+      "werk"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "principieel",
+    "en": "principled / on principle",
+    "note": "Op Niveau H3. Handelen vanuit vaste principes.",
+    "example": "Ze weigert principieel om vlees te eten.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "karakter"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "armoedig",
+    "en": "poor / shabby / meagre",
+    "note": "Op Niveau H3. Van armoede; er arm of kaal uitziend.",
+    "example": "Ze woonden in een armoedig huisje.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "slaafs",
+    "en": "slavish / servile",
+    "note": "Op Niveau H3. Zonder eigen wil gehoorzamen.",
+    "example": "Hij volgt slaafs elke opdracht van zijn baas.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "karakter"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "nederig",
+    "en": "humble / lowly",
+    "note": "Op Niveau H3. Zich niet boven anderen stellen.",
+    "example": "Ze bedankte iedereen op een nederige manier.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "karakter"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "gierig",
+    "en": "stingy / miserly",
+    "note": "Op Niveau H3. Negatief: te zuinig, niets willen uitgeven.",
+    "example": "Hij is zo gierig dat hij nooit trakteert.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "karakter"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "gereformeerd",
+    "en": "Reformed / Calvinist (Protestant)",
+    "note": "Op Niveau H3. Streng protestants; de gereformeerde kerk.",
+    "example": "Ze groeide op in een gereformeerd gezin.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "religie"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "de opvoeding",
+    "en": "upbringing / parenting",
+    "note": "Op Niveau H3. Van opvoeden.",
+    "example": "Hij kreeg een strenge opvoeding.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig",
+      "gezin"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de uitzondering",
+    "en": "exception",
+    "note": "Op Niveau H3. Een uitzondering op de regel.",
+    "example": "Op die ene uitzondering na klopt het.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de volksaard",
+    "en": "national character / folk character",
+    "note": "Op Niveau H3. Volk + aard; de typische eigenschappen van een volk.",
+    "example": "Zuinigheid wordt vaak de Nederlandse volksaard genoemd.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig",
+      "maatschappij"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "anno nu",
+    "en": "in this day and age / nowadays",
+    "note": "Op Niveau H3. Anno = in het jaar; anno nu = in deze tijd.",
+    "example": "Zoiets kan anno nu echt niet meer.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "uitdrukking",
+      "formeel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "barok",
+    "en": "baroque",
+    "note": "Op Niveau H3. Kunststijl; ook figuurlijk: overdadig.",
+    "example": "Het paleis is in barokke stijl gebouwd.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "kunst"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de stroming",
+    "en": "current / movement / school of thought",
+    "note": "Op Niveau H3. Een richting in kunst, geloof of politiek (mogelijk bedoeld i.p.v. 'storming').",
+    "example": "Het calvinisme is een strenge stroming binnen het protestantisme.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig",
+      "maatschappij"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "de behoefte",
+    "en": "need",
+    "note": "Op Niveau H3. Behoefte hebben aan iets.",
+    "example": "Er is grote behoefte aan betaalbare woningen.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "het lijf",
+    "en": "body (informeel)",
+    "note": "Op Niveau H3. Spreektaal voor lichaam; aan den lijve = personally.",
+    "example": "Ze had de hele dag pijn in haar lijf.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig",
+      "lichaam",
+      "informeel"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "zelfs",
+    "en": "even",
+    "note": "Op Niveau H3. Versterkend bijwoord.",
+    "example": "Zelfs in de zomer kan het hier regenen.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijwoord"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "des duivels zijn",
+    "en": "to be furious / livid",
+    "note": "Op Niveau H3. Idioom: razend boos zijn.",
+    "example": "Toen hij het hoorde, was hij des duivels.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "uitdrukking",
+      "emotie"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "halen",
+    "en": "to fetch / get / reach",
+    "note": "Op Niveau H3. haalde, gehaald. Ook: een doel halen.",
+    "example": "Wil je even brood halen?",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "werkwoord",
+      "dagelijks"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "de omgeving",
+    "en": "surroundings / environment / area",
+    "note": "Op Niveau H3. De buurt of het gebied eromheen.",
+    "example": "In de omgeving van Utrecht is het druk.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "daarbuiten",
+    "en": "outside that / beyond that",
+    "note": "Op Niveau H3. Bijwoord: buiten dat gebied of die groep.",
+    "example": "Binnen het team werkt het goed, daarbuiten niet.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijwoord"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "onder de naald gaan",
+    "en": "to get a tattoo (lit. go under the needle)",
+    "note": "Op Niveau H3. Informeel voor een tatoeage laten zetten.",
+    "example": "Voor haar dertigste wilde ze nog onder de naald.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "uitdrukking",
+      "informeel"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "verzamelen",
+    "en": "to collect / gather",
+    "note": "Op Niveau H3. verzamelde, verzameld.",
+    "example": "Hij verzamelt oude postzegels.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "werkwoord"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "met zich meebrengen",
+    "en": "to entail / bring with it",
+    "note": "Op Niveau H3. Iets heeft gevolgen die er automatisch bij horen.",
+    "example": "Een nieuwe baan brengt veel verantwoordelijkheid met zich mee.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "werkwoord",
+      "uitdrukking"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "het spoor",
+    "en": "trace / track / trail",
+    "note": "Op Niveau H3. Sporen achterlaten = to leave traces. Meervoud: sporen.",
+    "example": "De inbreker liet geen enkel spoor achter.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig"
+    ],
+    "level": "B1"
+  },
+  {
+    "nl": "onomkeerbaar",
+    "en": "irreversible",
+    "note": "Op Niveau H3. Niet meer terug te draaien.",
+    "example": "Een tatoeage is vrijwel onomkeerbaar.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "formeel"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "het preparaat",
+    "en": "preparation / specimen / compound",
+    "note": "Op Niveau H3. Een bewerkt of geprepareerd stof of monster.",
+    "example": "Het preparaat werd onder de microscoop bekeken.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig",
+      "formeel"
+    ],
+    "level": "C1"
+  },
+  {
+    "nl": "het anker",
+    "en": "anchor",
+    "note": "Op Niveau H3. Het anker uitwerpen; figuurlijk: houvast.",
+    "example": "Het schip ligt voor anker in de haven.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "zelfstandig"
+    ],
+    "level": "B2"
+  },
+  {
+    "nl": "ontroerend",
+    "en": "touching / moving",
+    "note": "Op Niveau H3. Bijvoeglijk naamwoord van ontroeren; iets dat je raakt.",
+    "example": "Het was een ontroerend afscheid.",
+    "tags": [
+      "op-niveau",
+      "op-niveau-h3",
+      "bijvoeglijk",
+      "emotie"
     ],
     "level": "B2"
   }
