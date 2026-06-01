@@ -16408,6 +16408,52 @@ async function initOpNiveau() {
     html += '<div id="onv-prep-spiek" style="display:none;margin-top:8px;padding:14px;border:2px solid #000;background:#fff;">' + prepCard + '</div>';
     html += '</div>';
 
+    // ---- General grammar overview card (all chapters, English) ----
+    const gramBlock = function(color, title, sub, items) {
+      let h = '<div style="margin:0 0 12px;border-left:4px solid ' + color + ';padding:2px 0 2px 12px;">';
+      h += '<div style="font-size:14px;font-weight:700;color:' + color + ';">' + title + '</div>';
+      h += '<div style="font-size:11px;color:#888;font-style:italic;margin-bottom:4px;">' + sub + '</div>';
+      h += '<ul style="margin:0;padding-left:18px;line-height:1.7;">' + items + '</ul></div>';
+      return h;
+    };
+    let gramCard = '<div style="font-size:12px;color:#555;line-height:1.6;">';
+    gramCard += '<p style="margin:0 0 12px;">The core grammar rule(s) per chapter, in one place. Open a chapter card below for the full examples.</p>';
+    gramCard += gramBlock('#D40920', 'H1 &mdash; Positief', 'Verbindingswoorden (connectors)',
+      '<li><strong>...dat</strong> (omdat, doordat, voordat, nadat) sends the verb to the END; <strong>daar...</strong> (daarom, daardoor) triggers inversion (verb in 2nd position).</li>'
+      + '<li><strong>omdat</strong> = chosen/personal reason; <strong>doordat</strong> = external cause nobody picked.</li>'
+      + '<li>Nevenschikkend (en, maar, of, want, dus) keeps normal word order.</li>');
+    gramCard += gramBlock('#1356A2', 'H2 &mdash; Stad', 'Passief &amp; er',
+      '<li>Passive = <strong>worden</strong> + voltooid deelwoord (<strong>zijn</strong> + deelwoord in the perfect).</li>'
+      + '<li><strong>er</strong> as dummy subject when there is no agent.</li>');
+    gramCard += gramBlock('#2d8a56', 'H3 &mdash; Progressief', 'Er (the big one) + het',
+      '<li><strong>Gate:</strong> no preposition &rarr; <strong>het</strong>; verb has a preposition &rarr; <strong>er</strong>.</li>'
+      + '<li><strong>The 5 ers:</strong> dummy-subject, place, count, preposition (er+vz), forward (erop dat...).</li>'
+      + '<li>Persons &rarr; <strong>hem/haar/hen/ze</strong> + question word <strong>wie</strong>; never er.</li>'
+      + '<li>er hugs the verb (after pronouns); <strong>daar/hier</strong> = the stressed, frontable version.</li>'
+      + '<li><strong>zou + toch</strong> = reminding of a promise.</li>');
+    gramCard += gramBlock('#e08a00', 'H4 &mdash; Internationaal', 'Past tenses + conditional',
+      '<li><strong>Imperfectum</strong> = story chains + descriptions; <strong>perfectum</strong> = a fact linked to now; <strong>plusquamperfectum</strong> = a flashback to something earlier.</li>'
+      + '<li><strong>toen</strong> &rarr; imperfectum/plusquamperfectum; <strong>nadat</strong> &rarr; push that clause one tense further back.</li>'
+      + '<li><strong>zou + als</strong> = conditional/unreal (zou and imperfectum interchangeable).</li>');
+    gramCard += gramBlock('#6a1b9a', 'H5 &mdash; Creatief', 'Relative pronouns + reported info',
+      '<li><strong>die</strong> (de-word/plural/person) vs <strong>dat</strong> (het-word), no preposition.</li>'
+      + '<li><strong>waar + preposition</strong> (things; met&rarr;mee, tot&rarr;toe); <strong>waar</strong> alone = place; <strong>preposition + wie</strong> = persons.</li>'
+      + '<li><strong>wat</strong> = whole sentence / after a superlative / after alles-iets-niets / unnamed thing.</li>'
+      + '<li>bare <strong>zou</strong> (no als, no moeten) = supposedly / reported.</li>');
+    gramCard += gramBlock('#00897b', 'H6 &mdash; Duurzaam', 'Separable/reflexive verbs + er',
+      '<li><strong>Order:</strong> verb &rarr; reflexive (me/zich) &rarr; <strong>er</strong> &rarr; ... &rarr; <strong>preposition</strong> &rarr; prefix/verb at the end.</li>'
+      + '<li>Separable verbs: the preposition sits before the prefix (er ... op in, er ... van uit).</li>'
+      + '<li>daar/hier for emphasis (frontable, with inversion).</li>'
+      + '<li><strong>zou + moeten</strong> = advice (&ldquo;should&rdquo;).</li>');
+    gramCard += '<div style="background:#fffbe6;border:1px solid #f0d000;padding:8px 10px;font-size:13px;margin-top:6px;">'
+      + '<strong>The 4 jobs of zou(den):</strong> bare zou = supposedly (H5) &middot; zou + als = unreal/if (H4) &middot; zou + toch = promise reminder (H3) &middot; zou + moeten = advice (H6).'
+      + '</div>';
+    gramCard += '</div>';
+    html += '<div style="margin-bottom:16px;">';
+    html += '<span class="onv-grammar-tag" style="cursor:pointer;display:inline-block;background:#000;color:#fff;padding:8px 14px;font-weight:700;" onclick="var el=document.getElementById(\'onv-gram-overview\');el.style.display=el.style.display===\'none\'?\'block\':\'none\';">Grammatica-overzicht: alle hoofdstukken (English) &#9660;</span>';
+    html += '<div id="onv-gram-overview" style="display:none;margin-top:8px;padding:14px;border:2px solid #000;background:#fff;">' + gramCard + '</div>';
+    html += '</div>';
+
     html += '<div class="onv-grid">';
     OP_NIVEAU_CHAPTERS.forEach(c => {
       html += '<div class="onv-card" data-ch="' + c.ch + '" id="onv-card-' + c.ch + '">';
