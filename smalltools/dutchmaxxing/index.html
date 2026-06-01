@@ -16117,6 +16117,42 @@ async function initOpNiveau() {
 
   function renderCards() {
     let html = '<p style="font-family:\'Inter\',sans-serif;font-size:13px;color:#666;margin-bottom:12px;line-height:1.6;">Op Niveau B1-B2. Klik op een hoofdstuk om de woordenschat te bekijken.</p>';
+
+    // ---- General cross-chapter reference card: werkwoord + vast voorzetsel ----
+    const prepGroup = function(color, prep, hook, verbs) {
+      let h = '<div style="margin:0 0 14px;border-left:4px solid ' + color + ';padding:4px 0 4px 12px;">';
+      h += '<div style="font-size:14px;font-weight:700;color:' + color + ';">&rarr; ' + prep + '</div>';
+      h += '<div style="font-size:11px;color:#888;font-style:italic;margin:1px 0 5px;">' + hook + '</div>';
+      h += '<div style="font-size:13px;line-height:1.8;color:#333;">' + verbs + '</div>';
+      return h + '</div>';
+    };
+    let prepCard = '<div style="font-size:12px;color:#555;line-height:1.6;">';
+    prepCard += '<p style="margin:0 0 12px;">Vaste voorzetsels zijn niet logisch, je leert het <strong>paar</strong> uit je hoofd. Maar ze klitten samen per voorzetsel, en elk groepje heeft een &ldquo;mentale haak&rdquo;. Zeg de combinatie altijd hardop in een korte zin (&ldquo;Ik denk <strong>aan</strong> jou&rdquo;).</p>';
+    prepCard += prepGroup('#1a237e', 'AAN', 'mentale gerichtheid op een persoon of een vast doel', '<strong>denken</strong> aan, <strong>herinneren</strong> aan, zich <strong>ergeren</strong> aan, een <strong>hekel hebben</strong> aan, <strong>wennen</strong> aan, <strong>verslaafd zijn</strong> aan, <strong>voorstellen</strong> aan, <strong>meedoen</strong>/deelnemen aan, <strong>toevoegen</strong> aan, <strong>geven</strong> aan, <strong>vertellen</strong> aan, <strong>vragen</strong> aan, <strong>besteden</strong> aan, <strong>leveren</strong> aan, <strong>toegeven</strong> aan, <strong>trekken</strong> aan');
+    prepCard += prepGroup('#D40920', 'OP', 'een doelwit waar je je op richt, op mikt of op reageert', '<strong>wachten</strong> op, <strong>letten</strong> op, <strong>reageren</strong> op, <strong>rekenen</strong> op, <strong>hopen</strong> op, <strong>lijken</strong> op, de <strong>nadruk leggen</strong> op, zich <strong>richten</strong> op, zich <strong>voorbereiden</strong> op, <strong>passen</strong> op, <strong>stemmen</strong> op, <strong>controleren</strong> op, <strong>ingaan</strong> op, <strong>gericht zijn</strong> op, een <strong>effect hebben</strong> op');
+    prepCard += prepGroup('#1356A2', 'OVER', 'een onderwerp waar je &ldquo;omheen&rdquo; denkt of praat', '<strong>nadenken</strong> over, <strong>praten</strong> over, <strong>klagen</strong> over, <strong>beslissen</strong> over, <strong>enthousiast zijn</strong> over, <strong>dromen</strong> over (ook: van)');
+    prepCard += prepGroup('#2d8a56', 'MET', 'samen met, een partner of een instrument', '<strong>oefenen</strong> met, <strong>beginnen</strong> met, <strong>stoppen</strong> met, <strong>doorgaan</strong> met, <strong>helpen</strong> met, <strong>delen</strong> met, <strong>trouwen</strong> met, <strong>vergelijken</strong> met, <strong>rekening houden</strong> met, <strong>doorbrengen</strong> met (tijd)');
+    prepCard += prepGroup('#e08a00', 'NAAR', 'beweging of richting naartoe, ook met ogen en oren', '<strong>kijken</strong> naar, <strong>luisteren</strong> naar, <strong>zoeken</strong> naar, <strong>staren</strong> naar, <strong>wijzen</strong> naar, <strong>gaan</strong> naar, <strong>brengen</strong> naar, <strong>onderzoek doen</strong> naar, <strong>verlangen</strong> naar, <strong>schrijven</strong> naar (ook: aan)');
+    prepCard += prepGroup('#6a1b9a', 'VAN', 'bron, herkomst, of een sterke emotie-prikkel', '<strong>houden</strong> van, <strong>genieten</strong> van, <strong>schrikken</strong> van, <strong>leren</strong> van, <strong>afhankelijk zijn</strong> van, <strong>afstand nemen</strong> van, <strong>opkijken</strong> van, <strong>balen</strong> van, <strong>weten</strong> van');
+    prepCard += prepGroup('#00897b', 'OM', 'de eigenzinnige groep, leer deze los uit je hoofd', '<strong>lachen</strong> om (laugh at), <strong>vragen</strong> om (ask <em>for</em>), <strong>geven</strong> om (care about), <strong>denken</strong> om (watch out for / mind), <strong>huilen</strong> om, <strong>bekendstaan</strong> om (be known for), <strong>het gaat / draait</strong> om (it&rsquo;s about)<br><span style="font-size:11px;color:#888;">Let op: <strong>om ... te</strong> + infinitief = doel (&ldquo;in order to&rdquo;): <em>Ik bel om af te spreken.</em></span>');
+    prepCard += prepGroup('#455a64', 'OVERIGE', 'kleinere groepjes, ook handig om te kennen', '<strong>geloven</strong> in, <strong>zin hebben</strong> in &middot; <strong>bestaan</strong> uit, <strong>blijken</strong> uit, <strong>afleiden</strong> uit &middot; <strong>leiden</strong> tot, <strong>behoren</strong> tot, <strong>beperken</strong> tot &middot; <strong>horen</strong> bij, <strong>passen</strong> bij &middot; <strong>zeggen</strong> tegen, <strong>waarschuwen</strong> tegen &middot; <strong>opkomen</strong> voor, <strong>zorgen</strong> voor');
+    prepCard += '<hr style="border:0;border-top:2px solid #000;margin:14px 0 10px;">';
+    prepCard += '<strong style="font-size:14px;color:#D40920;">7 manieren om ze te onthouden</strong>';
+    prepCard += '<ol style="margin:8px 0 0;padding-left:20px;line-height:1.7;">';
+    prepCard += '<li><strong>Vertaal het Engelse voorzetsel NIET.</strong> Dat is fout nr. 1 voor Engelstaligen. &ldquo;wait <em>for</em>&rdquo; = wachten <strong>op</strong>, &ldquo;look <em>at</em>&rdquo; = kijken <strong>naar</strong>, &ldquo;think <em>about</em>&rdquo; = denken <strong>aan</strong>. Het Nederlandse voorzetsel staat los van het Engelse.</li>';
+    prepCard += '<li><strong>Leer het paar als &eacute;&eacute;n brok</strong>, niet als twee woorden. &ldquo;denkenaan&rdquo;, &ldquo;houdenvan&rdquo;, &ldquo;wachtenop&rdquo;.</li>';
+    prepCard += '<li><strong>Ken je standaard-gok.</strong> Je brein grijpt vanzelf naar <em>aan</em> en <em>van</em>. De fouten zitten meestal in <strong>op / over / met</strong>, dus check die groepen extra.</li>';
+    prepCard += '<li><strong>Betekenis verandert mee.</strong> <em>denken <strong>aan</strong></em> = think of, maar <em>denken <strong>over</strong></em> = consider/ponder. <em>vragen <strong>aan</strong></em> = ask a person, <em>vragen <strong>om</strong></em> = ask for a thing.</li>';
+    prepCard += '<li><strong>Oefen met &ldquo;er-&rdquo;.</strong> In een echte zin smelt het voorzetsel: <em>Ik houd <strong>ervan</strong></em>, <em>denk er niet <strong>aan</strong></em>, <em>ik kijk <strong>ernaar</strong> uit</em>. Wie het paar kent, maakt deze vorm automatisch goed.</li>';
+    prepCard += '<li><strong>Test in de richting EN &rarr; NL</strong>, niet andersom. Herkennen is makkelijk; het voorzetsel zelf produceren is de echte toets.</li>';
+    prepCard += '<li><strong>Bouw een mini-zin per paar.</strong> Een beeld plakt beter dan een lijst: <em>Ik <strong>erger me aan</strong> fietsers op de stoep.</em></li>';
+    prepCard += '</ol>';
+    prepCard += '</div>';
+    html += '<div style="margin-bottom:16px;">';
+    html += '<span class="onv-grammar-tag" style="cursor:pointer;display:inline-block;background:#000;color:#fff;padding:8px 14px;font-weight:700;" onclick="var el=document.getElementById(\'onv-prep-spiek\');el.style.display=el.style.display===\'none\'?\'block\':\'none\';">Spiekbriefje: werkwoord + vast voorzetsel (alle hoofdstukken) &#9660;</span>';
+    html += '<div id="onv-prep-spiek" style="display:none;margin-top:8px;padding:14px;border:2px solid #000;background:#fff;">' + prepCard + '</div>';
+    html += '</div>';
+
     html += '<div class="onv-grid">';
     OP_NIVEAU_CHAPTERS.forEach(c => {
       html += '<div class="onv-card" data-ch="' + c.ch + '" id="onv-card-' + c.ch + '">';
