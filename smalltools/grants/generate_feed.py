@@ -559,6 +559,10 @@ def filter_published(grants, today):
     re-runs this so queued tranches reach the feeds on schedule even without a manual push."""
     out = []
     for g in grants:
+        # Per-grant opt-out: ``"feed": false`` keeps an entry off ALL RSS feeds
+        # while leaving it on the website, static SEO pages and calendars.
+        if g.get("feed") is False:
+            continue
         release = parse_date(g.get("feedDate") or g.get("addedDate"))
         if release and (release - today).days > 0:
             continue
