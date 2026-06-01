@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:nwo-ssh-xs-2026-round-3@artificialnouveau.github.io
-DTSTAMP:20260601T114557Z
+DTSTAMP:20260601T115807Z
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
 SUMMARY:Deadline: NWO: SSH Open Competition XS 2026 - Round 3
@@ -36,5 +36,42 @@ DESCRIPTION:Small curiosity-driven research grants in the social sciences a
 URL:https://www.nwo.nl/en/calls/ssh-open-competition-xs-2026-round-3
 LOCATION:Netherlands (applicants must be academic researchers affiliated to
   a Dutch knowledge institution)
+END:VEVENT
+BEGIN:VEVENT
+UID:jve-food-lab-fellowship-2027@artificialnouveau.github.io
+DTSTAMP:20260601T115807Z
+DTSTART;VALUE=DATE:20260604
+DTEND;VALUE=DATE:20260605
+SUMMARY:Deadline: Jan van Eyck Food Lab Fellowship 2027
+DESCRIPTION:ELIGIBILITY: one Fellow selected. Open to artists\, designers\,
+  researchers\, and interdisciplinary practitioners working in food\, ecolo
+ gy\, agriculture\, and adjacent fields. The Fellow must reside in Maastric
+ ht or within a 10 km radius during the fellowship. APPLY: submit a single 
+ PDF (max 10 MB) via the online registration form containing a motivational
+  letter and project proposal (max 500 words each)\, portfolio documentatio
+ n (max 15 pages\, 1-2 images per page\, work from the past 5 years)\, and 
+ a CV (max 2 pages). All materials in English. Application fee EUR 50 + VAT
+  paid via PayPal at submission\; waived for DAC-list and Palestinian appli
+ cants. TIMELINE: deadline 4 June 2026\; fellowship runs 15 January to 15 D
+ ecember 2027\; results showcased at Jan van Eyck Open Studios in October 2
+ 027 and documented for the Institution(ing)s project. DISCIPLINES: food / 
+ ecology / interdisciplinary research-based practice. NOTE: the Fellow gets
+  a private studio and access to the Academie's Labs\, in-house experts\, a
+ nd guest advisers\, and participates in the Institution(ing)s project alon
+ gside SES researchers and students at Maastricht University. Co-funded by 
+ Maastricht University and Creative Europe.\n\nOrganisation: Jan van Eyck A
+ cademie (with Maastricht University and Creative Europe Institution(ing)s 
+ project)\nLocation: Maastricht\, Netherlands (Fellow must reside within 10
+  km of Maastricht\; fieldwork in Venlo with travel covered up to EUR 750)\
+ nAward: Monthly stipend of EUR 1\,750 (80 percent income-tax exempt)\, ann
+ ual working budget of EUR 2\,250\, plus local transport costs to and from 
+ Venlo up to EUR 750 covered by Maastricht University. EUR 50 + VAT applica
+ tion fee (waived for applicants from DAC list Least Developed / Low-Income
+  / Lower-Middle-Income Countries and for Palestinian artists).\nDuration: 
+ 11 months\, 15 January 2027 to 15 December 2027\n\nMore: https://janvaneyc
+ k.nl/calendar/food-lab-fellowship
+URL:https://janvaneyck.nl/calendar/food-lab-fellowship
+LOCATION:Maastricht\, Netherlands (Fellow must reside within 10 km of Maast
+ richt\; fieldwork in Venlo with travel covered up to EUR 750)
 END:VEVENT
 END:VCALENDAR
