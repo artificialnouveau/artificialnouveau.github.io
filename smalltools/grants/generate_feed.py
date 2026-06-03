@@ -76,8 +76,12 @@ def build_item(grant, today):
     title = grant.get("title", "Untitled")
     link = grant.get("url") or PAGE_URL
     guid = grant.get("id") or link
-    added = parse_date(grant.get("addedDate"))
-    pub = rfc822(added) if added else rfc822(datetime.now(timezone.utc))
+    # pubDate and feed ordering use the RSS-release date (feedDate, falling back to
+    # addedDate). This keeps a staggered grant - released today via a future feedDate
+    # but added earlier - from sorting to the middle of the feed with an old pubDate,
+    # which would stop RSS readers from surfacing it as new.
+    release = parse_date(grant.get("feedDate") or grant.get("addedDate"))
+    pub = rfc822(release) if release else rfc822(datetime.now(timezone.utc))
 
     deadline = parse_date(grant.get("deadline"))
     label = deadline_label(deadline, today)
@@ -201,7 +205,7 @@ def build_feed(grants, region, timeline, today, category=None):
 
     grants_sorted = sorted(
         grants,
-        key=lambda g: parse_date(g.get("addedDate")) or date.min,
+        key=lambda g: parse_date(g.get("feedDate") or g.get("addedDate")) or date.min,
         reverse=True,
     )[:MAX_ITEMS]
 
