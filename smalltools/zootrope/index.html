@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ZOOTROPE — a living collage of borrowed animals</title>
+<meta name="description" content="Pulls in live animal webcams, cuts the moving animals out of their backgrounds in your browser, and stitches them into one drifting ghost-collage.">
+<style>
+  :root{
+    --bg:#0a0a0a; --ink:#ededed; --muted:#8a8a8a; --line:#262626;
+    --accent:#7CF5C8; --warn:#ffb454; --bad:#ff5d5d; --good:#7CF5C8;
+    --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--mono);overflow:hidden}
+  #stage{position:fixed;inset:0;width:100vw;height:100vh;display:block;background:#000}
+  /* hidden processing elements */
+  #pool{position:fixed;left:-99999px;top:0;width:0;height:0;overflow:hidden}
+
+  /* ---------- control panel ---------- */
+  .panel{
+    position:fixed;top:14px;left:14px;z-index:20;
+    width:300px;max-width:calc(100vw - 28px);max-height:calc(100vh - 28px);
+    background:rgba(12,12,12,.82);backdrop-filter:blur(10px);
+    border:1px solid var(--line);border-radius:12px;
+    font-size:12px;line-height:1.45;overflow:auto;
+    box-shadow:0 14px 40px rgba(0,0,0,.5);
+  }
+  .panel.collapsed .panel-body{display:none}
+  .panel-head{display:flex;align-items:center;gap:8px;padding:11px 13px;cursor:pointer;user-select:none;position:sticky;top:0;background:rgba(12,12,12,.92);border-bottom:1px solid var(--line)}
+  .panel-head h1{font-size:13px;margin:0;letter-spacing:.14em;font-weight:700}
+  .panel-head .sub{font-size:10px;color:var(--muted);letter-spacing:.04em}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);flex:0 0 auto}
+  .chev{margin-left:auto;color:var(--muted);transition:transform .2s}
+  .panel.collapsed .chev{transform:rotate(-90deg)}
+  .panel-body{padding:12px 13px 16px}
+  .grp{margin:0 0 15px}
+  .grp>label.h{display:block;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:0 0 7px}
+  .row{display:flex;align-items:center;gap:8px;margin:0 0 8px}
+  .row label{flex:0 0 92px;color:var(--muted)}
+  input[type=range]{flex:1;accent-color:var(--accent);height:3px}
+  .val{flex:0 0 38px;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+  .seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+  .seg button{flex:1;background:transparent;border:0;border-right:1px solid var(--line);color:var(--muted);padding:7px 4px;font-family:var(--mono);font-size:11px;cursor:pointer}
+  .seg button:last-child{border-right:0}
+  .seg button.on{background:var(--accent);color:#062018;font-weight:700}
+  .toggle{display:flex;align-items:center;gap:8px;cursor:pointer;margin:0 0 8px}
+  .toggle input{accent-color:var(--accent)}
+  .btn{display:block;width:100%;text-align:center;background:transparent;border:1px solid var(--line);color:var(--ink);padding:8px;border-radius:7px;font-family:var(--mono);font-size:11px;cursor:pointer;margin-top:6px}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .add{display:flex;gap:6px}
+  .add input{flex:1;min-width:0;background:#000;border:1px solid var(--line);color:var(--ink);padding:7px 8px;border-radius:7px;font-family:var(--mono);font-size:11px}
+  .add button{flex:0 0 auto;background:var(--accent);color:#062018;border:0;border-radius:7px;padding:0 12px;font-weight:700;cursor:pointer}
+
+  /* ---------- feed status list ---------- */
+  .feeds{list-style:none;margin:0;padding:0}
+  .feeds li{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--line)}
+  .feeds li:first-child{border-top:0}
+  .feeds .sw{width:10px;height:10px;border-radius:2px;flex:0 0 auto;border:1px solid rgba(255,255,255,.25)}
+  .feeds .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .feeds .st{font-size:9px;letter-spacing:.08em;padding:2px 5px;border-radius:4px;flex:0 0 auto}
+  .st.live{color:var(--good);border:1px solid rgba(124,245,200,.4)}
+  .st.load{color:var(--warn);border:1px solid rgba(255,180,84,.4)}
+  .st.err{color:var(--bad);border:1px solid rgba(255,93,93,.4)}
+  .feeds .x{cursor:pointer;color:var(--muted);flex:0 0 auto;padding:0 2px}
+  .feeds .x:hover{color:var(--bad)}
+
+  .note{font-size:10px;color:var(--muted);line-height:1.5;margin:10px 0 0}
+  .note a{color:var(--accent)}
+  .credits{position:fixed;bottom:10px;right:12px;z-index:15;font-size:10px;color:var(--muted);text-align:right;max-width:46vw;line-height:1.5;pointer-events:none;text-shadow:0 1px 3px #000}
+  .badge{position:fixed;bottom:10px;left:14px;z-index:15;font-size:10px;letter-spacing:.18em;color:var(--muted);text-shadow:0 1px 3px #000}
+  .hint{position:fixed;top:18px;right:18px;z-index:15;font-size:10px;color:var(--muted);text-align:right;text-shadow:0 1px 3px #000}
+  @media(max-width:560px){.panel{width:calc(100vw - 24px)}.credits{display:none}}
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="pool"></div>
+
+<div class="panel" id="panel">
+  <div class="panel-head" id="phead">
+    <span class="dot"></span>
+    <div>
+      <h1>ZOÖTROPE</h1>
+      <div class="sub">borrowed animals, restitched</div>
+    </div>
+    <span class="chev">▾</span>
+  </div>
+  <div class="panel-body">
+
+    <div class="grp">
+      <label class="h">Composite</label>
+      <div class="seg" id="layoutSeg">
+        <button data-v="drift" class="on">Drift</button>
+        <button data-v="grid">Grid</button>
+        <button data-v="stack">Stack</button>
+      </div>
+      <div class="row" style="margin-top:9px">
+        <label>Blend</label>
+        <div class="seg" id="blendSeg" style="flex:1">
+          <button data-v="lighter" class="on">Add</button>
+          <button data-v="screen">Screen</button>
+          <button data-v="source-over">Flat</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <label class="h">Cutout</label>
+      <div class="row"><label>Sensitivity</label><input type="range" id="thresh" min="6" max="90" value="26"><span class="val" id="threshV">26</span></div>
+      <div class="row"><label>Ghost trail</label><input type="range" id="decay" min="0" max="97" value="55"><span class="val" id="decayV">55</span></div>
+      <div class="row"><label>Adapt bg</label><input type="range" id="adapt" min="0" max="60" value="12"><span class="val" id="adaptV">12</span></div>
+      <div class="row"><label>Feather</label><input type="range" id="feather" min="0" max="100" value="40"><span class="val" id="featherV">40</span></div>
+      <div class="row"><label>Opacity</label><input type="range" id="opacity" min="20" max="100" value="92"><span class="val" id="opacityV">92</span></div>
+      <label class="toggle"><input type="checkbox" id="tint"> <span>Tint each feed its own colour</span></label>
+      <label class="toggle"><input type="checkbox" id="motionOnly"> <span>Motion-only (edges, no bg model)</span></label>
+    </div>
+
+    <div class="grp">
+      <label class="h">Sources</label>
+      <ul class="feeds" id="feedList"></ul>
+      <div class="add" style="margin-top:9px">
+        <input id="addUrl" placeholder="paste .m3u8 stream URL">
+        <button id="addBtn">+</button>
+      </div>
+      <button class="btn" id="camBtn">Add my webcam as a feed</button>
+      <button class="btn" id="demoBtn">Add synthetic demo critter</button>
+      <p class="note">Real cutout needs a stream whose server sends CORS headers. If a feed shows <b style="color:var(--bad)">ERR</b>, the cam refused cross-origin access (most YouTube-based cams do) and can't be processed in-browser. Your webcam always works.</p>
+    </div>
+
+    <div class="grp" style="margin-bottom:0">
+      <label class="toggle"><input type="checkbox" id="showRaw"> <span>Debug: show raw source thumbnails</span></label>
+      <button class="btn" id="snapBtn">Save frame as PNG</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="hint">drag panel header to collapse · press <b>H</b> to hide UI · <b>F</b> fullscreen</div>
+<div class="badge">ZOÖTROPE</div>
+<div class="credits" id="credits"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
+<script>
+"use strict";
+/* ============================================================
+   ZOÖTROPE
+   Pull live animal webcams -> background-subtract the moving
+   animal out of its fixed-camera background -> composite every
+   cutout into one drifting ghost collage on a black void.
+   100% in-browser. No server. No frames ever leave the page.
+   ============================================================ */
+
+/* ---- SOURCE LIST -------------------------------------------------
+   Edit freely. type: 'hls' (an .m3u8 url) | 'webcam' | 'demo'.
+   HLS feeds only work if the stream sends permissive CORS headers;
+   otherwise hls.js cannot fetch the segments and the feed errors.
+   Verified working cams get dropped in here (see research notes). */
+const FEEDS = [
+  // --- live HLS animal cams (filled in once CORS-verified) ---
+  // { name:'Example Bird Feeder', url:'https://.../stream.m3u8', type:'hls', credit:'Example Org', tint:'#7cf5c8' },
+
+  // --- always-available fallbacks so the effect is visible now ---
+  { name:'Synthetic critters', type:'demo', credit:'procedural', tint:'#b78cff' },
+];
+
+/* ---------------- engine ---------------- */
+const PROC_W = 320, PROC_H = 180;           // per-feed processing resolution
+const stage = document.getElementById('stage');
+const sctx = stage.getContext('2d');
+const pool = document.getElementById('pool');
+let DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+function resize(){
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  stage.width = Math.floor(innerWidth * DPR);
+  stage.height = Math.floor(innerHeight * DPR);
+}
+addEventListener('resize', resize); resize();
+
+/* control state */
+const S = {
+  layout:'drift', blend:'lighter',
+  thresh:26, decay:55, adapt:12, feather:40, opacity:92,
+  tint:false, motionOnly:false, showRaw:false,
+};
+
+let feedId = 0;
+const feeds = [];   // active Feed instances
+
+class Feed {
+  constructor(cfg){
+    this.id = ++feedId;
+    this.name = cfg.name || ('feed ' + this.id);
+    this.type = cfg.type || 'hls';
+    this.url = cfg.url || '';
+    this.credit = cfg.credit || '';
+    this.tint = cfg.tint || pickTint(this.id);
+    this.status = 'load';           // load | live | err
+    this.error = '';
+
+    // processing buffers
+    this.work = document.createElement('canvas'); this.work.width=PROC_W; this.work.height=PROC_H;
+    this.wctx = this.work.getContext('2d', {willReadFrequently:true});
+    this.out = document.createElement('canvas'); this.out.width=PROC_W; this.out.height=PROC_H;
+    this.octx = this.out.getContext('2d');
+    this.outImg = this.octx.createImageData(PROC_W, PROC_H);
+    this.bg = null;                 // Float32 background model (rgb)
+    this.heat = new Float32Array(PROC_W*PROC_H); // ghost-trail accumulator
+    this.ready = false;
+    this.tainted = false;
+
+    // drift animation params (deterministic per feed, no Math.random at init)
+    const s = this.id * 1.7;
+    this.dx = Math.sin(s)*0.16; this.dy = Math.cos(s*1.3)*0.13;
+    this.phase = s;
+
+    if (this.type === 'demo') this.initDemo();
+    else if (this.type === 'webcam') this.initWebcam();
+    else this.initHls();
+  }
+
+  setStatus(st, err){ this.status=st; this.error=err||''; renderFeedList(); renderCredits(); }
+
+  /* ---- HLS via hls.js (MSE) so canvas stays untainted ---- */
+  initHls(){
+    const v = document.createElement('video');
+    v.muted=true; v.playsInline=true; v.autoplay=true; v.crossOrigin='anonymous';
+    v.width=PROC_W; v.height=PROC_H;
+    this.video = v; pool.appendChild(v);
+
+    const start = ()=>{ v.play().catch(()=>{}); };
+    if (window.Hls && Hls.isSupported()){
+      const hls = new Hls({ maxBufferLength:8, liveSyncDurationCount:2, enableWorker:true });
+      this.hls = hls;
+      hls.loadSource(this.url);
+      hls.attachMedia(v);
+      hls.on(Hls.Events.MANIFEST_PARSED, ()=>{ start(); });
+      hls.on(Hls.Events.ERROR, (e,d)=>{
+        if (d.fatal){ this.setStatus('err', d.type+'/'+d.details); }
+      });
+    } else if (v.canPlayType('application/vnd.apple.mpegurl')){
+      // Safari native: may taint canvas if no CORS; we detect that below.
+      v.src = this.url; start();
+      v.addEventListener('error', ()=> this.setStatus('err','video error'));
+    } else {
+      this.setStatus('err','HLS unsupported');
+      return;
+    }
+    v.addEventListener('playing', ()=>{ this.ready=true; if(this.status!=='err') this.setStatus('live'); });
+  }
+
+  /* ---- webcam (same-origin, always pixel-accessible) ---- */
+  async initWebcam(){
+    const v = document.createElement('video');
+    v.muted=true; v.playsInline=true; v.autoplay=true;
+    this.video=v; pool.appendChild(v);
+    try{
+      const stream = await navigator.mediaDevices.getUserMedia({video:{width:640,height:360},audio:false});
+      v.srcObject=stream; await v.play();
+      this.ready=true; this.setStatus('live');
+    }catch(err){ this.setStatus('err','camera denied'); }
+  }
+
+  /* ---- synthetic demo: procedural moving blobs on a static field ---- */
+  initDemo(){
+    this.t = 0; this.ready=true; this.setStatus('live');
+    this.demoCv = document.createElement('canvas'); this.demoCv.width=PROC_W; this.demoCv.height=PROC_H;
+    this.demoCx = this.demoCv.getContext('2d');
+  }
+  drawDemo(){
+    const c=this.demoCx; this.t+=0.016;
+    c.fillStyle='#0c1414'; c.fillRect(0,0,PROC_W,PROC_H);          // static "habitat" bg
+    c.fillStyle='#13201d'; for(let i=0;i<6;i++){ const x=(i*61)%PROC_W; c.fillRect(x,120,30,60);} // static rocks
+    // moving "critters"
+    const crit=(cx,cy,r,col)=>{ c.fillStyle=col; c.beginPath(); c.ellipse(cx,cy,r,r*0.7,0,0,7); c.fill(); };
+    crit(PROC_W*0.5+Math.sin(this.t)*120, PROC_H*0.5+Math.cos(this.t*1.4)*40, 22, '#e8c07a');
+    crit(PROC_W*0.5+Math.cos(this.t*0.8)*150, PROC_H*0.45+Math.sin(this.t*1.1)*55, 15, '#d98b6a');
+    crit(PROC_W*0.5+Math.sin(this.t*1.6+2)*90, PROC_H*0.6+Math.cos(this.t*0.7)*30, 10, '#9ad0c0');
+    return this.demoCv;
+  }
+
+  /* ---- per-frame: grab source, cut out the moving silhouette ---- */
+  process(){
+    if (!this.ready) return false;
+    // 1. get current frame into work canvas (downscaled)
+    try{
+      if (this.type==='demo'){ this.wctx.drawImage(this.drawDemo(),0,0,PROC_W,PROC_H); }
+      else {
+        const v=this.video;
+        if (v.readyState < 2 || v.videoWidth===0) return false;
+        this.wctx.drawImage(v,0,0,PROC_W,PROC_H);
+      }
+    }catch(e){ return false; }
+
+    let cur;
+    try{ cur = this.wctx.getImageData(0,0,PROC_W,PROC_H); }
+    catch(e){ // tainted canvas: cross-origin without CORS
+      if(!this.tainted){ this.tainted=true; this.setStatus('err','CORS blocked (no pixel access)'); }
+      return false;
+    }
+    const d = cur.data, N = PROC_W*PROC_H;
+
+    // 2. background model (running average) -> foreground = current minus bg
+    if (!this.bg){ this.bg = new Float32Array(N*3); for(let i=0,j=0;i<N;i++,j+=4){ this.bg[i*3]=d[j];this.bg[i*3+1]=d[j+1];this.bg[i*3+2]=d[j+2]; } }
+    const bg=this.bg, heat=this.heat;
+    const adapt = S.adapt/1000;             // 0..0.06 slow bg learn rate
+    const th = S.thresh;                     // distance threshold
+    const decay = S.decay/100;               // ghost persistence
+    const feather = S.feather/100;
+    const o = this.outImg.data;
+
+    if (S.motionOnly){
+      // frame-diff against previous frame (edges of motion)
+      if(!this.prev){ this.prev=new Uint8ClampedArray(d); }
+      const p=this.prev;
+      for(let i=0,j=0;i<N;i++,j+=4){
+        const dr=d[j]-p[j], dg=d[j+1]-p[j+1], db=d[j+2]-p[j+2];
+        const dist=Math.sqrt(dr*dr+dg*dg+db*db);
+        let m = dist>th ? Math.min(1,(dist-th)/(th*feather+8)) : 0;
+        let h = Math.max(heat[i]*decay, m);
+        heat[i]=h;
+        o[j]=d[j]; o[j+1]=d[j+1]; o[j+2]=d[j+2]; o[j+3]= (h*255)|0;
+      }
+      this.prev.set(d);
+    } else {
+      // background subtraction (full silhouette)
+      for(let i=0,j=0;i<N;i++,j+=4){
+        const k=i*3;
+        const dr=d[j]-bg[k], dg=d[j+1]-bg[k+1], db=d[j+2]-bg[k+2];
+        const dist=Math.sqrt(dr*dr+dg*dg+db*db);
+        let m = dist>th ? Math.min(1,(dist-th)/(th*feather+8)) : 0;
+        // adapt background where there is NO foreground (don't burn the animal in)
+        const a = adapt*(1-m);
+        bg[k]+=(d[j]-bg[k])*a; bg[k+1]+=(d[j+1]-bg[k+1])*a; bg[k+2]+=(d[j+2]-bg[k+2])*a;
+        let h = Math.max(heat[i]*decay, m);
+        heat[i]=h;
+        o[j]=d[j]; o[j+1]=d[j+1]; o[j+2]=d[j+2]; o[j+3]=(h*255)|0;
+      }
+    }
+    this.octx.putImageData(this.outImg,0,0);
+    return true;
+  }
+}
+
+function pickTint(id){
+  const pal=['#7cf5c8','#b78cff','#ff9e7c','#7cc4ff','#ffe27c','#ff7cc4','#9cff7c'];
+  return pal[(id-1)%pal.length];
+}
+
+/* ---------------- compositor ---------------- */
+function frame(){
+  const W=stage.width, H=stage.height;
+  // fade to black for trails between feeds; subtle
+  sctx.globalCompositeOperation='source-over';
+  sctx.fillStyle='#000'; sctx.fillRect(0,0,W,H);
+
+  const live = feeds.filter(f=>f.process());
+  sctx.globalCompositeOperation = S.blend;
+  sctx.globalAlpha = S.opacity/100;
+
+  const t = perfNow()/1000;
+  live.forEach((f,idx)=>{
+    let dw, dh, dx, dy;
+    if (S.layout==='grid'){
+      const cols=Math.ceil(Math.sqrt(live.length));
+      const rows=Math.ceil(live.length/cols);
+      const cw=W/cols, ch=H/rows;
+      const cx=idx%cols, cy=(idx/cols)|0;
+      // contain PROC aspect into cell
+      const s=Math.min(cw/PROC_W, ch/PROC_H);
+      dw=PROC_W*s; dh=PROC_H*s; dx=cx*cw+(cw-dw)/2; dy=cy*ch+(ch-dh)/2;
+    } else if (S.layout==='stack'){
+      const s=Math.min(W/PROC_W, H/PROC_H);
+      dw=PROC_W*s; dh=PROC_H*s; dx=(W-dw)/2; dy=(H-dh)/2;
+    } else { // drift
+      const s=Math.min(W/PROC_W, H/PROC_H)*0.92;
+      dw=PROC_W*s; dh=PROC_H*s;
+      dx=(W-dw)/2 + Math.sin(t*f.dx + f.phase)*W*0.10;
+      dy=(H-dh)/2 + Math.cos(t*f.dy + f.phase*1.3)*H*0.10;
+    }
+
+    sctx.drawImage(S.tint ? tintOf(f) : f.out, dx,dy,dw,dh);
+    if (S.showRaw){
+      sctx.save(); sctx.globalCompositeOperation='source-over'; sctx.globalAlpha=0.85;
+      const tw=150, th=tw*PROC_H/PROC_W;
+      sctx.drawImage(f.work, 10*DPR, (10+idx*(th/DPR+6))*DPR, tw*DPR, th*DPR);
+      sctx.strokeStyle=f.tint; sctx.lineWidth=DPR; sctx.strokeRect(10*DPR,(10+idx*(th/DPR+6))*DPR,tw*DPR,th*DPR);
+      sctx.restore();
+    }
+  });
+
+  sctx.globalAlpha=1; sctx.globalCompositeOperation='source-over';
+  requestAnimationFrame(frame);
+}
+
+// colorize a feed's cutout in its signature tint, preserving the alpha silhouette
+const _tcv=document.createElement('canvas'); _tcv.width=PROC_W; _tcv.height=PROC_H;
+const _tcx=_tcv.getContext('2d');
+function tintOf(f){
+  _tcx.globalCompositeOperation='source-over'; _tcx.clearRect(0,0,PROC_W,PROC_H);
+  _tcx.drawImage(f.out,0,0);                       // real colours + alpha
+  _tcx.globalCompositeOperation='multiply';
+  _tcx.fillStyle=f.tint; _tcx.fillRect(0,0,PROC_W,PROC_H);   // push toward tint
+  _tcx.globalCompositeOperation='destination-in';
+  _tcx.drawImage(f.out,0,0);                       // restore cutout alpha
+  _tcx.globalCompositeOperation='source-over';
+  return _tcv;
+}
+
+let _t0=null;
+function perfNow(){ if(_t0===null) _t0=performance.now(); return performance.now()-_t0; }
+
+/* ---------------- UI wiring ---------------- */
+function addFeed(cfg){ const f=new Feed(cfg); feeds.push(f); renderFeedList(); renderCredits(); return f; }
+function removeFeed(id){
+  const i=feeds.findIndex(f=>f.id===id); if(i<0)return;
+  const f=feeds[i];
+  try{ if(f.hls) f.hls.destroy(); if(f.video&&f.video.srcObject){ f.video.srcObject.getTracks().forEach(t=>t.stop()); } if(f.video) f.video.remove(); }catch(e){}
+  feeds.splice(i,1); renderFeedList(); renderCredits();
+}
+
+function renderFeedList(){
+  const ul=document.getElementById('feedList'); ul.innerHTML='';
+  feeds.forEach(f=>{
+    const li=document.createElement('li');
+    const stc = f.status==='live'?'live':(f.status==='err'?'err':'load');
+    const stt = f.status==='live'?'LIVE':(f.status==='err'?'ERR':'…');
+    li.innerHTML=`<span class="sw" style="background:${f.tint}"></span>
+      <span class="nm" title="${esc(f.error||f.url||f.name)}">${esc(f.name)}</span>
+      <span class="st ${stc}">${stt}</span>
+      <span class="x" data-id="${f.id}">✕</span>`;
+    ul.appendChild(li);
+  });
+  ul.querySelectorAll('.x').forEach(x=>x.onclick=()=>removeFeed(+x.dataset.id));
+}
+function renderCredits(){
+  const live=feeds.filter(f=>f.status==='live'&&f.credit);
+  document.getElementById('credits').innerHTML = live.length
+    ? 'feeds: '+live.map(f=>esc(f.credit)).join(' · ') : '';
+}
+function esc(s){return (s||'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));}
+
+/* sliders */
+function bindRange(id, key, fmt){
+  const el=document.getElementById(id), out=document.getElementById(id+'V');
+  const upd=()=>{ S[key]=+el.value; out.textContent=fmt?fmt(+el.value):el.value; };
+  el.addEventListener('input',upd); upd();
+}
+bindRange('thresh','thresh'); bindRange('decay','decay'); bindRange('adapt','adapt');
+bindRange('feather','feather'); bindRange('opacity','opacity');
+
+/* segmented controls */
+function bindSeg(id, key){
+  const box=document.getElementById(id);
+  box.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+    box.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); S[key]=b.dataset.v;
+  });
+}
+bindSeg('layoutSeg','layout'); bindSeg('blendSeg','blend');
+
+/* checkboxes */
+document.getElementById('tint').onchange=e=>S.tint=e.target.checked;
+document.getElementById('motionOnly').onchange=e=>{ S.motionOnly=e.target.checked; feeds.forEach(f=>{f.bg=null;f.prev=null;f.heat.fill(0);}); };
+document.getElementById('showRaw').onchange=e=>S.showRaw=e.target.checked;
+
+/* add-source controls */
+document.getElementById('addBtn').onclick=()=>{
+  const inp=document.getElementById('addUrl'); const u=inp.value.trim();
+  if(!u) return;
+  addFeed({name:shortName(u), url:u, type:'hls', credit:'custom'}); inp.value='';
+};
+document.getElementById('addUrl').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('addBtn').click(); });
+document.getElementById('camBtn').onclick=()=>{ if(!feeds.some(f=>f.type==='webcam')) addFeed({name:'My webcam', type:'webcam', credit:'you'}); };
+document.getElementById('demoBtn').onclick=()=> addFeed({name:'Synthetic critters', type:'demo', credit:'procedural'});
+function shortName(u){ try{ return new URL(u).hostname.replace(/^www\./,''); }catch(e){ return 'stream'; } }
+
+/* snapshot */
+document.getElementById('snapBtn').onclick=()=>{
+  const a=document.createElement('a'); a.download='zootrope.png'; a.href=stage.toDataURL('image/png'); a.click();
+};
+
+/* panel collapse + keyboard */
+const panel=document.getElementById('panel');
+document.getElementById('phead').onclick=()=>panel.classList.toggle('collapsed');
+addEventListener('keydown',e=>{
+  if(e.key==='h'||e.key==='H'){ document.querySelectorAll('.panel,.hint,.badge,.credits').forEach(x=>x.style.display = x.style.display==='none'?'':'none'); }
+  if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
+});
+
+/* ---------------- boot ---------------- */
+FEEDS.forEach(addFeed);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
