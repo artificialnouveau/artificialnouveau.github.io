@@ -1,0 +1,36 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Writers\, Africa
+X-WR-CALNAME:The Grant Desk - Writers\, Africa deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Writers\, Africa.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:miles-morland-writing-scholarship-2027@artificialnouveau.github.io
+DTSTAMP:20260608T163713Z
+DTSTART;VALUE=DATE:20260922
+DTEND;VALUE=DATE:20260923
+SUMMARY:Deadline: Miles Morland Foundation Writing Scholarship 2027
+DESCRIPTION:Annual writing scholarship from the Miles Morland Foundation fo
+ r African-born writers working in English on a full-length book project (8
+ 0\,000+ words for fiction\; equivalent for nonfiction). One of the largest
+  single-author African writing grants. Application window opens 1 July 202
+ 6 and closes 22 September 2026\; applications outside that window are not 
+ read. ELIGIBILITY: writers born in Africa\, or with both parents born in A
+ frica\, writing in English\; nationality is not the criterion. Existing pu
+ blication record is helpful but not strictly required.\n\nOrganisation: Mi
+ les Morland Foundation\nLocation: Worldwide (writers born in Africa\, or w
+ ith both parents born in Africa\, writing in English)\nAward: GBP 18\,000 
+ paid monthly over 12 months (GBP 1\,500/month) plus mentorship support thr
+ oughout the scholarship year. No application fee.\nDuration: 12 months\n\n
+ More: https://milesmorlandfoundation.com/entry-requirements/
+URL:https://milesmorlandfoundation.com/entry-requirements/
+LOCATION:Worldwide (writers born in Africa\, or with both parents born in A
+ frica\, writing in English)
+END:VEVENT
+END:VCALENDAR
