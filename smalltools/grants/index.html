@@ -11797,16 +11797,43 @@ function shortenForCopy(desc) {
   return text;
 }
 
+// Region codes map to the country/place words a free-text location might already use,
+// so the copy can drop a redundant "US · United States ..." style prefix.
+const REGION_SYNONYMS = {
+  US: ['united states', 'usa', 'america', 'u.s.a', 'us', 'u.s'],
+  UK: ['united kingdom', 'britain', 'england', 'scotland', 'wales', 'northern ireland', 'uk', 'u.k'],
+  EU: ['european union', 'europe', 'european', 'eu'],
+  NL: ['netherlands', 'nederland', 'holland', 'nl'],
+  Canada: ['canada', 'canadian'],
+  Australia: ['australia', 'australian', 'new zealand', 'aotearoa', 'nz'],
+  Asia: ['asia', 'asian'],
+  Remote: ['remote', 'online', 'virtual'],
+  Worldwide: ['worldwide', 'global', 'globally', 'international', 'anywhere']
+};
+function locationImpliesRegion(region, location) {
+  const syns = REGION_SYNONYMS[region] || [region.toLowerCase()];
+  const loc = location.toLowerCase();
+  return syns.some(function (s) {
+    if (s.length <= 3) {
+      return new RegExp('\\b' + s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(loc);
+    }
+    return loc.indexOf(s) !== -1;
+  });
+}
+
 function buildCopyText(grant, dl) {
   const lines = [];
   lines.push(grant.title);
-  if (grant.organization) lines.push(grant.organization);
+  // Skip the organization line when the title already contains the org name (avoids "Lux Capital Fellowship 2026" / "Lux Capital").
+  if (grant.organization && !String(grant.title || '').toLowerCase().includes(String(grant.organization).toLowerCase())) {
+    lines.push(grant.organization);
+  }
   const region = grant.region ? String(grant.region).trim() : '';
   const location = grant.location ? String(grant.location).trim() : '';
   let loc;
   if (region && location) {
-    // Avoid "Worldwide · Worldwide; ..." when the location field already opens with the region.
-    loc = location.toLowerCase().startsWith(region.toLowerCase()) ? location : (region + ' · ' + location);
+    // Drop the region prefix when the location text already implies it (e.g. "US · United States ...").
+    loc = locationImpliesRegion(region, location) ? location : (region + ' · ' + location);
   } else {
     loc = region || location;
   }
