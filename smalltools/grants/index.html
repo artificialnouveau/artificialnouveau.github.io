@@ -11785,11 +11785,31 @@ function renderFolder(grant, category, today) {
   return a;
 }
 
+// For the "Copy info" snippet, trim the full description down to its intro summary:
+// cut at the first ALL-CAPS section label (e.g. "SUPPORT:", "ELIGIBILITY:", "APPLY:")
+// and drop any trailing "Deadline: ..." restatement (the copy already lists the deadline once).
+function shortenForCopy(desc) {
+  if (!desc) return '';
+  let text = String(desc).trim();
+  const label = text.match(/[A-Z][A-Z\/ ]{2,}:/);
+  if (label && label.index >= 60) text = text.slice(0, label.index).trim();
+  text = text.replace(/(^|[.;!?])\s*(Deadlines?|DEADLINES?)\b[^.;!?]*[.;!?]?\s*$/, '$1').trim();
+  return text;
+}
+
 function buildCopyText(grant, dl) {
   const lines = [];
   lines.push(grant.title);
   if (grant.organization) lines.push(grant.organization);
-  const loc = [grant.region, grant.location].filter(Boolean).join(' · ');
+  const region = grant.region ? String(grant.region).trim() : '';
+  const location = grant.location ? String(grant.location).trim() : '';
+  let loc;
+  if (region && location) {
+    // Avoid "Worldwide · Worldwide; ..." when the location field already opens with the region.
+    loc = location.toLowerCase().startsWith(region.toLowerCase()) ? location : (region + ' · ' + location);
+  } else {
+    loc = region || location;
+  }
   if (loc) lines.push(loc);
   const moneyLine = [];
   if (grant.amount) moneyLine.push(grant.amount);
@@ -11802,8 +11822,9 @@ function buildCopyText(grant, dl) {
     lines.push('Deadline: Rolling / undated');
   }
   lines.push('');
-  if (grant.description) {
-    lines.push(grant.description);
+  const shortDesc = shortenForCopy(grant.description);
+  if (shortDesc) {
+    lines.push(shortDesc);
     lines.push('');
   }
   if (grant.url) lines.push('Apply: ' + grant.url);
