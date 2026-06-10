@@ -3,6 +3,34 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "aria-future-proofing-climate-weather-opportunity-seeds-2026",
+      "title": "ARIA: Future Proofing Our Climate and Weather (Opportunity Seeds) 2026",
+      "organization": "ARIA (Advanced Research and Invention Agency)",
+      "location": "UK-based funder (ARIA); proposals welcome across scientific, engineering and social science research.",
+      "region": "UK",
+      "amount": "Opportunity seeds of up to GBP 500,000 for early-stage research. No application fee.",
+      "duration": "Early-stage research projects (project length set by the proposal)",
+      "startDate": null,
+      "deadline": "2026-07-31",
+      "addedDate": "2026-06-10",
+      "feedDate": "2026-06-18",
+      "category": "research",
+      "applicant": "both",
+      "description": "ARIA is seeking proposals for opportunity seeds, funding of up to GBP 500,000 for early-stage research that explores new pathways for climate adaptation and resilience. Decarbonisation is the only sustainable route out of the climate crisis, but environmental changes are outpacing current mitigation efforts, and if an abrupt alteration in a climate system were to unfold we would have no tools to mitigate the effects; scientific, engineering and social science research could provide practical and responsible intervention and adaptation options. WHAT THEY ARE LOOKING FOR: ideas ranging from early-stage, curiosity-driven research through to advanced translational science. Specific areas of interest include, but are not limited to: carbon dioxide removal (novel concepts to accelerate the drawdown of atmospheric carbon); extreme weather forecasting (breakthroughs in predicting extreme weather events to better prepare vulnerable systems); and new ideas related to solar geoengineering, strictly excluding proposals specifically designed to investigate altering the Earth's surface temperature by affecting planetary albedo, incoming solar radiation, or the atmosphere's emissivity (the core focus of the main Exploring Climate Cooling, ECC, programme). OUT OF SCOPE: ideas that squarely fit within the ECC programme; emissions reduction projects and improvements to the energy efficiency of buildings or vehicles; and commercial products or research likely to be funded by traditional venture capital or grants. CONSTRAINTS: any proposal for outdoor experiments must demonstrate conformity to ARIA's governance framework for outdoor experiments, and all successful applicants must sign ARIA's Intellectual Property Pledge to ensure findings are accessible for the public good. Application deadline: 31 July 2026, 14:00 BST.",
+      "url": "https://aria.org.uk/opportunity-spaces/future-proofing-our-climate-and-weather/opportunity-seeds",
+      "tags": [
+        "research",
+        "climate",
+        "carbon-removal",
+        "extreme-weather",
+        "geoengineering",
+        "aria",
+        "uk"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "pulitzer-center-ai-accountability-fellowships-2026-2027",
       "title": "Pulitzer Center: AI Accountability Fellowships 2026-2027",
       "organization": "Pulitzer Center",
