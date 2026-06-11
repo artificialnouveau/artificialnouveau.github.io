@@ -3,6 +3,34 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "gmu-civic-science-fellow-science-policy-collaborative-2026",
+      "title": "Civic Science Postdoctoral Fellow: Science Policy Collaborative (George Mason University) 2026",
+      "organization": "George Mason University (with UC Riverside), via the Science Policy Collaborative and Civic Science Fellows network",
+      "location": "Fairfax, Virginia, USA (hybrid eligible).",
+      "region": "US",
+      "amount": "Salary approximately USD 80,000 per year plus benefits. No application fee.",
+      "duration": "18-month postdoctoral appointment (two contracts: 12 months + 6 months)",
+      "startDate": null,
+      "deadline": "2026-07-05",
+      "addedDate": "2026-06-11",
+      "feedDate": "2026-06-11",
+      "category": "research",
+      "applicant": "individuals",
+      "description": "A grant-funded, full-time Civic Science Postdoctoral Fellowship supporting the Science Policy Collaborative, a national network that strengthens the development, sustainability and evaluation of U.S. science policy programs. The fellow helps shape an emerging field at the heart of a growing community of practice connecting science policy programs across the country. WHAT YOU'LL DO: conduct a national needs assessment of U.S. science policy programs and publish the findings; support the Collaborative's working groups by scoping deliverables and building partnerships to execute them; develop infrastructure for knowledge exchange (tools like logic models and evaluation frameworks); connect programs with national and international experts on the use of research evidence (URE) and evidence-informed policymaking; present at partner meetings and convenings; and receive mentorship from George Mason University, UC Riverside and other leaders of the Collaborative. WHO THEY'RE LOOKING FOR: someone with a doctoral degree, relevant experience, knowledge of science-for-policy programs, and skills in network coordination, needs assessment or program evaluation, and writing for broad audiences (see the posting for exact criteria). Fairfax, VA (hybrid eligible); full-time 18-month postdoctoral appointment issued as two contracts (12 months plus 6 months); salary about USD 80,000/year plus benefits. APPLY with a cover letter, CV, three references and a writing sample written for broad audiences; for full consideration apply by 5 July 2026 (open until filled). Questions to search coordinator Natalie V Lapidot-Croitoru, nlapidot@gmu.edu.",
+      "url": "https://listings.jobs.gmu.edu/jobs/civic-science-fellow-science-policy-collaborative-fairfax-va-virginia-united-states-other",
+      "tags": [
+        "fellowship",
+        "postdoc",
+        "science-policy",
+        "civic-science",
+        "research",
+        "george-mason-university",
+        "us"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "kasteel-wijlre-resonant-garden-residency-2026",
       "title": "Kasteel Wijlre estate: The Resonant Garden Residency 2026",
       "organization": "Kasteel Wijlre estate",
