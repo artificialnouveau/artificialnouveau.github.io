@@ -1,7 +1,36 @@
 {
-  "lastUpdated": "2026-06-10",
+  "lastUpdated": "2026-06-12",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
+    {
+      "id": "tba21-academy-tentacular-fellowship-ocean-space-venice-2026-2027",
+      "title": "TBA21-Academy: Tentacular Fellowship 2026-2027 (Ocean Space, Venice)",
+      "organization": "TBA21-Academy, with NICHE Centre for Environmental Humanities and the UNESCO Chair on Water, Heritage and Sustainable Development at Ca' Foscari University",
+      "location": "Ocean Space and Ca' Foscari University, Venice, Italy; situated work in and with the communities of the Lagoon of Venice.",
+      "region": "EU",
+      "amount": "Total fellowship support EUR 26,000. Phase 1 (incubation): EUR 3,000 grant for independent research and initiative development. Phase 2 (activation): EUR 8,000 grant plus a EUR 15,000 activation budget. No application fee.",
+      "duration": "15 months, September 2026 to November 2027",
+      "startDate": "2026-09-01",
+      "deadline": "2026-07-05",
+      "addedDate": "2026-06-12",
+      "feedDate": "2026-06-18",
+      "category": "cross",
+      "applicant": "both",
+      "description": "TBA21-Academy, in collaboration with NICHE Centre for Environmental Humanities and the UNESCO Chair on Water, Heritage and Sustainable Development at Ca' Foscari University, is launching the first edition of the Tentacular Fellowship, an initiative-building fellowship based at Ocean Space and at Ca' Foscari in Venice. Conceived as a long-term platform for artistic research and ecological engagement, Ocean Space works to develop new forms of action capable of moving beyond awareness-raising to produce real, tangible territorial effects through situated collaboration with the communities, practitioners, researchers and civic actors already working within the Lagoon of Venice. The fellowship invites a practitioner or collective to initiate, consolidate or expand a situated initiative in the Lagoon through the creation of a Tentacular Unit: a collaborative, interdisciplinary platform able to gather artists, students, researchers, institutions, local communities and other actors around a specific socio-environmental challenge. Through situated research, alliance-building and public-facing formats, the fellow helps build the social, institutional and ecological conditions for the initiative to take root and grow over time. STRUCTURE: the two-year fellowship runs in two phases. In Phase 1 (incubation) the fellow is awarded a EUR 3,000 grant to support independent research and initiative development. In Phase 2 (activation) the fellow is awarded a EUR 8,000 grant plus a EUR 15,000 activation budget, for total fellowship support of EUR 26,000. Details on the application process, evaluation criteria and frequently asked questions are in the full open-call document. Application deadline: 5 July 2026, 11:59pm CET. Apply via the online form linked from the open-call page.",
+      "url": "https://tba21.org/oceanspace-research-tentacular-fellowship",
+      "tags": [
+        "fellowship",
+        "artistic-research",
+        "ecology",
+        "environmental-humanities",
+        "community",
+        "venice",
+        "italy",
+        "eu"
+      ],
+      "fee": false,
+      "featured": false
+    },
     {
       "id": "treehouse-ndsm-come-back-nature-culture-2026",
       "title": "Treehouse NDSM: Open Call, Come Back to Your ___ (Nature/Culture) Exhibition 2026",
