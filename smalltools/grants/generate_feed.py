@@ -439,7 +439,7 @@ def static_page_intro(grant_count, region=None, category=None):
         scope = "paid grants, fellowships and residencies in AI, arts, film, research, tech and cross-disciplinary practice"
     return (
         f"Currently <strong>{grant_count}</strong> active {scope}. "
-        "Hand-curated and updated weekly. Every entry is funded, no exposure-only calls. "
+        "Hand-curated and updated weekly. Almost every entry is funded; a few notable unpaid open calls and festival submissions are included as clearly flagged exceptions. "
         "Browse the list below, or use the interactive desk for filtering and shortlisting."
     )
 
@@ -857,7 +857,7 @@ def build_llms_txt():
 
 A curated database of paid grants, fellowships and residencies for artists, researchers and technologists working in AI and AI safety, digital and mixed-media arts, film and video, research and journalism, tech and infrastructure, and cross-disciplinary practice.
 
-Maintained by Ahnjili ZhuParris. Updated weekly. Every entry is funded; exposure-only calls are filtered out.
+Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a few notable unpaid open calls and festival submissions are included as clearly flagged exceptions.
 
 ## Primary
 
