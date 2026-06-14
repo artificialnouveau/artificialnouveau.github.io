@@ -3,33 +3,6 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
-      "id": "aaron-copland-fund-project-support-2026",
-      "title": "Aaron Copland Fund for Music: Project Support Program (Preliminary Round 2026)",
-      "organization": "Aaron Copland Fund for Music",
-      "location": "United States. Organizations only: nonprofit performing ensembles, presenters, music service organizations and record companies (501(c)(3) or fiscally sponsored; record companies may apply with a Federal Tax ID).",
-      "region": "US",
-      "amount": "Grants of USD 2,000 to USD 20,000 (larger grants possible for organizations with exceptional commitment to contemporary American music). No application fee.",
-      "duration": "Project or season support.",
-      "startDate": null,
-      "deadline": "2026-07-30",
-      "addedDate": "2026-06-14",
-      "feedDate": "2026-06-18",
-      "category": "audio",
-      "applicant": "organizations",
-      "description": "The Aaron Copland Fund for Music's Project Support Program assists organizations whose work encourages and improves public knowledge and appreciation of contemporary American concert music and jazz, supporting the performance, recording and presentation of music composed within the last 40 years by US citizens or by non-citizens who have lived and worked significantly in the US or its territories. Grants range from USD 2,000 to USD 20,000, with larger awards possible for larger organizations demonstrating exceptional commitment. ELIGIBILITY: organizations only (individuals cannot apply): nonprofit performing ensembles, presenters, music service organizations and record companies that are 501(c)(3) or hold equivalent foreign status or are fiscally sponsored; record companies may apply with a Federal Tax ID even without nonprofit status. The program does not fund commissioning fees or honoraria. Preliminary round deadline 30 July 2026, 11:59 PM; a main round on 12 November 2026 is by invitation only. No application fee. Apply via the Aaron Copland Fund site. NOTE: research-verified against the funder's page on 2026-06-14; reconfirm figures and dates before applying.",
-      "url": "https://coplandfund.org/programs/project-support-program",
-      "tags": [
-        "grant",
-        "music",
-        "contemporary-music",
-        "jazz",
-        "organizations",
-        "us"
-      ],
-      "fee": false,
-      "featured": false
-    },
-    {
       "id": "musikfonds-stip-6-ai-scholarship-2027",
       "title": "Musikfonds: STIP-6 AI Scholarship Programme 2027 (Germany)",
       "organization": "musikfonds e.V.",
@@ -50,32 +23,6 @@
         "music",
         "ai",
         "composition",
-        "germany",
-        "eu"
-      ],
-      "fee": false,
-      "featured": false
-    },
-    {
-      "id": "initiative-musik-artist-funding-2026",
-      "title": "Initiative Musik: Artist Funding (Kuenstler:innenfoerderung) 2026 (Germany)",
-      "organization": "Initiative Musik gGmbH",
-      "location": "Germany. Germany-based artists building a national and international presence; application in German.",
-      "region": "EU",
-      "amount": "Up to EUR 60,000 per project per year via degressive co-financing (covers 40 to 60 percent of project costs; minimum request EUR 6,000). No application fee.",
-      "duration": "Project-based career development (up to one year).",
-      "startDate": null,
-      "deadline": "2026-07-17",
-      "addedDate": "2026-06-14",
-      "feedDate": "2026-06-15",
-      "category": "audio",
-      "applicant": "both",
-      "description": "Initiative Musik's artist funding (Kuenstler:innenfoerderung) is a career-development project grant for solo artists and bands working in popular genres such as pop, rock, jazz, indie and electronic music, helping them build their presence in Germany and internationally. Funding is up to EUR 60,000 per project per year through degressive co-financing (40 to 60 percent of costs; minimum request EUR 6,000). Applicants must be based in Germany and the application is submitted in German. The 74th round deadline is 17 July 2026 (round opens 26 June 2026); a 75th round runs 11 September to 2 October 2026. NOTE: research-sourced; confirm current figures and round dates on the funder's site before applying.",
-      "url": "https://www.initiative-musik.de/en/artist-grants/",
-      "tags": [
-        "grant",
-        "music",
-        "career-development",
         "germany",
         "eu"
       ],
@@ -104,31 +51,6 @@
         "experimental-music",
         "germany",
         "eu"
-      ],
-      "fee": false,
-      "featured": false
-    },
-    {
-      "id": "prs-open-fund-music-creators-2026",
-      "title": "PRS Foundation: Open Fund for Music Creators (Autumn 2026 Round)",
-      "organization": "PRS Foundation",
-      "location": "United Kingdom. UK-based music creators aged 18 or over with an 18-month track record; not full-time students.",
-      "region": "UK",
-      "amount": "Up to GBP 5,000 for projects involving the creation, performance and promotion of new music. No application fee.",
-      "duration": "Project-based.",
-      "startDate": null,
-      "deadline": "2026-09-07",
-      "addedDate": "2026-06-14",
-      "feedDate": "2026-06-16",
-      "category": "audio",
-      "applicant": "individuals",
-      "description": "The PRS Foundation Open Fund for Music Creators supports songwriters, composers, artists, bands and producers of any genre to create, release and share new music, including recordings, performances, touring and creative development. Grants are up to GBP 5,000. Open to UK-based music creators aged 18 or over with at least an 18-month track record, who are not full-time students. This Autumn round opens 17 August 2026 with a deadline of 7 September 2026. NOTE: research-sourced; confirm current figures and round dates on the PRS Foundation site before applying.",
-      "url": "https://prsfoundation.com/the-open-fund-for-music-creators-guidance-faqs/",
-      "tags": [
-        "grant",
-        "music",
-        "new-music",
-        "uk"
       ],
       "fee": false,
       "featured": false
