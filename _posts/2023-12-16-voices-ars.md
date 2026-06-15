@@ -1,6 +1,7 @@
 ---
 title: "VOICES at Ars Electronica, 2021"
 image: /assets/portfolio/voicesars.jpg
+excerpt: "An interactive installation where participants co-create sound-art using their own voice, revealing the inner workings of machine listening algorithms. Exhibited at Ars Electronica 2023."
 ---
 VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening.
 

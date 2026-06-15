@@ -1,6 +1,7 @@
 ---
 title: "SYNTHETIC BIOLOGY: A NEW CODE FOR LIFE"
 image: /assets/portfolio/fieldtrip.png
+excerpt: "A documentary exploring synthetic biology's first decade, from engineering E. coli to spider silk in goat milk, raising ethical questions about programming life itself."
 ---
 
 This documentary explores the emerging field of synthetic biology, where DNA is treated as programmable code and cells as genetic circuits. The documentary covers ten years of advancements, from engineering E. Coli to smell like fresh rain to goats producing spider silk in their milk, while raising ethical questions about the definition of life and the boundaries of genetic engineering. 
