@@ -16831,25 +16831,32 @@ async function initOpNiveau() {
         return h;
       }
       if (c.vocabSections) {
-        c.vocabSections.forEach((sec, si) => {
-          const secWords = sortAlpha(vnetData.filter(w => w.tags && w.tags.includes(sec.tag)));
-          if (secWords.length > 0) {
-            const vid = 'onv-vocab-' + c.ch + '-' + si;
-            html += '<div class="onv-section" style="margin-bottom:8px;">';
-            html += '<span class="onv-grammar-tag" style="cursor:pointer;" onclick="var el=document.getElementById(\'' + vid + '\');el.style.display=el.style.display===\'none\'?\'block\':\'none\';">' + sec.label + ' (' + secWords.length + ' woorden) &#9660;</span>';
-            html += '<div id="' + vid + '" style="display:none;margin-top:8px;">';
-            html += renderVocabCard(secWords);
-            html += '</div></div>';
-          }
-        });
+        const hasVocab = c.vocabSections.some(sec => vnetData.some(w => w.tags && w.tags.includes(sec.tag)));
+        if (hasVocab) {
+          html += '<div class="onv-section"><div class="onv-section-title">Vocabulaire</div>';
+          c.vocabSections.forEach((sec, si) => {
+            const secWords = sortAlpha(vnetData.filter(w => w.tags && w.tags.includes(sec.tag)));
+            if (secWords.length > 0) {
+              const vid = 'onv-vocab-' + c.ch + '-' + si;
+              html += '<div style="margin-bottom:8px;">';
+              html += '<span class="onv-grammar-tag" style="cursor:pointer;" onclick="var el=document.getElementById(\'' + vid + '\');el.style.display=el.style.display===\'none\'?\'block\':\'none\';">' + sec.label + ' (' + secWords.length + ' woorden) &#9660;</span>';
+              html += '<div id="' + vid + '" style="display:none;margin-top:8px;">';
+              html += renderVocabCard(secWords);
+              html += '</div></div>';
+            }
+          });
+          html += '</div>';
+        }
       } else if (chVocab.length > 0) {
         const sorted = sortAlpha(chVocab);
         const vid = 'onv-vocab-' + c.ch + '-all';
-        html += '<div class="onv-section" style="margin-bottom:8px;">';
+        html += '<div class="onv-section"><div class="onv-section-title">Vocabulaire</div>';
+        html += '<div style="margin-bottom:8px;">';
         html += '<span class="onv-grammar-tag" style="cursor:pointer;" onclick="var el=document.getElementById(\'' + vid + '\');el.style.display=el.style.display===\'none\'?\'block\':\'none\';">Woordenschat (' + sorted.length + ' woorden) &#9660;</span>';
         html += '<div id="' + vid + '" style="display:none;margin-top:8px;">';
         html += renderVocabCard(sorted);
         html += '</div></div>';
+        html += '</div>';
       }
 
       // Per-chapter buttons
