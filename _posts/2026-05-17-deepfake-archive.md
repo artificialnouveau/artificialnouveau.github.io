@@ -335,7 +335,7 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
         ? '[ describe only<br>no media exhibited ]'
         : '[ link out<br>not hosted ]';
       const inner = hasThumb
-        ? '<img src="' + thumbUrl(n.id) + '" alt="" loading="lazy">'
+        ? '<img src="' + thumbUrl(n.id) + '" alt="' + escapeHtml(n.title) + '" loading="lazy">'
         : '<div>' + placeholder + '</div>';
       const cardClass = hasThumb ? "dfa-card" : "dfa-card no-thumb";
       return '<div class="' + cardClass + '" data-id="' + n.id + '">' +
@@ -361,7 +361,7 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
     const showPanel = PANEL_NODES.has(node.id);
     let html = "";
     if (hasThumb) {
-      html += '<img src="' + thumbUrl(node.id) + '" alt="">';
+      html += '<img src="' + thumbUrl(node.id) + '" alt="' + escapeHtml(node.title) + '">';
     }
     html += '<h2>' + escapeHtml(node.title) + '</h2>';
     html += '<div class="dfa-modal-meta">';

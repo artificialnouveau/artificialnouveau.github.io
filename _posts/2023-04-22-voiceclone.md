@@ -1,7 +1,7 @@
 ---
 title: "Beginner's Guide to AI Art Workshop at iii, 2023"
 image: /assets/portfolio/voiceclone.jpg
-
+excerpt: "A hands-on workshop introducing Generative Adversarial Networks for creative AI art: text-to-image, image-to-image, and text-to-text generation. No coding experience required."
 ---
 By pitting two algorithms against another, Generative Adversarial Networks (GANs) have been used to create images and text convincing enough to fool the human eye and mind. GANs have made computer graphics come alive and given artists new tools for experimentation. You may have seen GANs used to generate photographs of human faces,create realistic images of cats based on sketches, or write a new bible.
 
