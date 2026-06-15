@@ -31,6 +31,10 @@ On May 31st 2024, I was invited by the Privacy Salon to present at the [CPDP con
 
 On June 29th 2024, I will also present my Fashion Police Drones at the [New Media Art Conference (2024)](https://cicamuseum.com/new-media-art-2024/) at the CICA Museum in Korea.
 
+The work was also showcased at [AIAIAI.art](https://aiaiai.art/fashion-police), and in May 2024 I was interviewed by dublab about the project: [Artificial Nouveau — Fashion Police Drones](http://dublab.de/broadcasts/artificial-nouveau-fashion-police-drones-may-2024/).
+
+After exhibiting this work for the first time, I came across a BBC report that Iran had deployed real drones to enforce its hijab law on the streets. The piece was made as satire and critique of how surveillance technology amplifies the enforcement of fashion and dress codes. Reading that report made the satire feel very thin. [BBC: Iran using drones to enforce hijab law, says rights group (2024)](https://www.bbc.com/news/articles/c0kg15jkpdeo)
+
 <div class="row justify-content-center">
   <figure class="col-6">
     <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/crossdress.jpg" alt="CICA magazine image 1" style="max-height: 400px; width: auto;">
