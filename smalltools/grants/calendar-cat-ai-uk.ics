@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:caish-hardware-assurance-programme-2026@artificialnouveau.github.io
-DTSTAMP:20260616T112121Z
+DTSTAMP:20260616T130727Z
 DTSTART;VALUE=DATE:20260607
 DTEND;VALUE=DATE:20260608
 SUMMARY:Deadline: Cambridge AI Safety Hub: Hardware Assurance Programme 202
@@ -51,7 +51,7 @@ LOCATION:Cambridge\, UK (in-person\, at Meridian)
 END:VEVENT
 BEGIN:VEVENT
 UID:pivotal-research-fellowship-2026-q3@artificialnouveau.github.io
-DTSTAMP:20260616T112121Z
+DTSTAMP:20260616T130727Z
 DTSTART;VALUE=DATE:20260503
 DTEND;VALUE=DATE:20260504
 SUMMARY:Deadline: Pivotal Research Fellowship (2026 Q3)
@@ -81,7 +81,7 @@ LOCATION:London (London Initiative for Safe AI / LISA)
 END:VEVENT
 BEGIN:VEVENT
 UID:aws-imagine-pathfinder-uk-2026@artificialnouveau.github.io
-DTSTAMP:20260616T112121Z
+DTSTAMP:20260616T130727Z
 DTSTART;VALUE=DATE:20260612
 DTEND;VALUE=DATE:20260613
 SUMMARY:Deadline: AWS Imagine Grant UK & Ireland 2026: Pathfinder Award (Fr
@@ -110,7 +110,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:oxford-accelerator-fellowship-ethics-in-ai-2026-27@artificialnouveau.gi
  thub.io
-DTSTAMP:20260616T112121Z
+DTSTAMP:20260616T130727Z
 DTSTART;VALUE=DATE:20260615
 DTEND;VALUE=DATE:20260616
 SUMMARY:Deadline: Oxford Institute for Ethics in AI: Accelerator Fellowship
@@ -164,5 +164,51 @@ DESCRIPTION:Accelerator Fellowship Programme at the University of Oxford's
 URL:https://afp.oxford-aiethics.ox.ac.uk/join
 LOCATION:Remote with intermittent short visits to Oxford\, OR up to 6 month
  s in-person in Oxford\, UK
+END:VEVENT
+BEGIN:VEVENT
+UID:govai-uk-winter-fellowship-2027-research-track@artificialnouveau.github
+ .io
+DTSTAMP:20260616T130727Z
+DTSTART;VALUE=DATE:20260712
+DTEND;VALUE=DATE:20260713
+SUMMARY:Deadline: GovAI UK Winter Fellowship 2027 - Research Track
+DESCRIPTION:GovAI's UK Winter Fellowship (Research Track) is a three-month 
+ in-person fellowship in London for researchers and policy professionals se
+ eking to enter or advance careers in AI governance and policy. Fellows con
+ duct independent research on a topic of their choice\, paired with a GovAI
+  supervisor from the team or network\; the first two weeks are spent explo
+ ring the AI governance landscape before a research proposal is finalised. 
+ Research outputs may include a report\, white paper\, journal article\, op
+ -ed\, or blog post targeted at an audience relevant to AI governance. Alon
+ gside the project\, fellows attend expert Q&As\, weekly seminars\, skills 
+ workshops\, work-in-progress meetings\, and social events\, and are encour
+ aged to discuss follow-on career opportunities with GovAI's team and netwo
+ rk. GovAI alumni have gone on to roles in US\, UK\, and EU government\; le
+ ading AI companies (Anthropic\, DeepMind\, OpenAI)\; top think tanks (CSET
+ \, RAND)\; and leading universities (Oxford\, Cambridge). AMOUNT: £12\,00
+ 0 salary for three months\, plus travel support to London and weekday lunc
+ h. Visa sponsorship for a 3-month temporary work visa is available\; succe
+ ssful visa applicants must remain in their country of application while th
+ e visa is processed. ELIGIBILITY: open to a wide range of backgrounds (gov
+ ernment\, academia\, industry\, civil society)\; no strict degree requirem
+ ents\; relevant areas include public policy\, political science\, computer
+  science\, economics\, biosecurity\, cybersecurity\, China studies\, and r
+ isk management. Senior candidates who need accommodations should email fel
+ lowships@governance.ai with subject line 'senior candidate winter fellowsh
+ ip 2027' and a CV. SELECTION CRITERIA: quality and clarity of written work
+ \, relevant expertise\, judgement in prioritising research directions\, an
+ d team fit (intellectual honesty\, openness to feedback\, comfort with unc
+ ertainty). APPLICATION PROCESS: (1) written application and automated abst
+ ract reasoning assessment\; (2) paid remote work test (August 2026)\; (3) 
+ remote interview and reference checks (September 2026)\; decisions communi
+ cated October 2026. Deadline: 12 July 2026\, 23:59 BST.\n\nOrganisation: C
+ entre for the Governance of AI (GovAI)\nLocation: London\, UK\; in-person\
+ , full-time.\nAward: £12\,000 salary for the three-month term\, plus trav
+ el support to London and weekday lunch provided. Visa sponsorship (3-month
+  temporary work visa) available. No application fee.\nDuration: 3 months\,
+  18 January to 9 April 2027.\n\nMore: https://www.governance.ai/post/winte
+ r-fellowship-2027-research-track
+URL:https://www.governance.ai/post/winter-fellowship-2027-research-track
+LOCATION:London\, UK\; in-person\, full-time.
 END:VEVENT
 END:VCALENDAR
