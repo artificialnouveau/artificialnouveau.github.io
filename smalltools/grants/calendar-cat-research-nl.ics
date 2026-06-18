@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:nwo-ssh-xs-2026-round-3@artificialnouveau.github.io
-DTSTAMP:20260618T103809Z
+DTSTAMP:20260618T144605Z
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
 SUMMARY:Deadline: NWO: SSH Open Competition XS 2026 - Round 3
@@ -39,7 +39,7 @@ LOCATION:Netherlands (applicants must be academic researchers affiliated to
 END:VEVENT
 BEGIN:VEVENT
 UID:jve-food-lab-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260618T103809Z
+DTSTAMP:20260618T144605Z
 DTSTART;VALUE=DATE:20260604
 DTEND;VALUE=DATE:20260605
 SUMMARY:Deadline: Jan van Eyck Food Lab Fellowship 2027
@@ -73,5 +73,48 @@ DESCRIPTION:ELIGIBILITY: one Fellow selected. Open to artists\, designers\,
 URL:https://janvaneyck.nl/calendar/food-lab-fellowship
 LOCATION:Maastricht\, Netherlands (Fellow must reside within 10 km of Maast
  richt\; fieldwork in Venlo with travel covered up to EUR 750)
+END:VEVENT
+BEGIN:VEVENT
+UID:kb-researcher-in-residence-2027@artificialnouveau.github.io
+DTSTAMP:20260618T144605Z
+DTSTART;VALUE=DATE:20260927
+DTEND;VALUE=DATE:20260928
+SUMMARY:Deadline: KB Researcher-in-Residence (RiR) 2027
+DESCRIPTION:ELIGIBILITY: two Researcher-in-Residence positions in 2027. Ope
+ n to early-career researchers of any discipline (data science\, social sci
+ ence\, computer science\, humanities) who are currently working on a PhD o
+ r within 5 years of their PhD end date. You must have\, or be able to secu
+ re\, an affiliation with a Dutch university or research institute willing 
+ to second you\; external PhD students may use the funding to obtain such a
+  contract. Your project must make use of one or more of the KB digital col
+ lections and you must be able to work with primarily Dutch data. You must 
+ be available at 0.5 FTE over 6 months and able to spend two days a week on
+ -site at the KB in The Hague. COLLECTIONS: over 130 million digitized page
+ s of newspapers\, magazines\, radio bulletins and books from 1470 onward (
+ via Delpher and DBNL)\, a born-digital web collection of more than 23\,000
+  websites\, ground-truth and derived datasets on the KB Lab\, and metadata
+  including Linked Data. APPLY: use the official proposal template and subm
+ it a single PDF by 27 September 2026 to dh@kb.nl\, after reading the call'
+ s terms and conditions\; questions to dh@kb.nl. TIMELINE: deadline 27 Sept
+ ember 2026\; internal eligibility review followed by an external committee
+  review\; outcome notified November 2026\; residencies start Q1 and Q3 202
+ 7. DISCIPLINES: digital humanities / data science / computational research
+  with cultural-heritage collections. NOTE: the output is usually a dataset
+  or tool prototype hosted on the KB Lab\; you agree to share results via b
+ log posts on the KB Lab and to publish resulting tools or data under an op
+ en license within 6 months of the residency. Proposals should align with t
+ he KB Research Agenda or the Cultural AI Lab.\n\nOrganisation: KB\, Nation
+ al Library of the Netherlands\nLocation: The Hague\, Netherlands (two days
+  per week on-site at the KB premises)\nAward: Secondment at 0.5 FTE for 6 
+ months based on your current salary\, up to EUR 5\,590 gross per month for
+  a full-time-equivalent position\, plus travel expenses\, office facilitie
+ s\, and support from a research software engineer\, research advisor\, and
+  collection and data specialists. No application fee.\nDuration: 6 months 
+ at 0.5 FTE (two days per week on-site)\; two positions in 2027\, starting 
+ Q1 and Q3\n\nMore: https://lab.kb.nl/news/call-kb-researcher-residence-rir
+ -2027
+URL:https://lab.kb.nl/news/call-kb-researcher-residence-rir-2027
+LOCATION:The Hague\, Netherlands (two days per week on-site at the KB premi
+ ses)
 END:VEVENT
 END:VCALENDAR
