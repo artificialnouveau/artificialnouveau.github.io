@@ -969,23 +969,24 @@ const MODES = {
   },
   'Focal points': {
     knobs: ['blur', 'saturate', 'points', 'box', 'smooth', 'ink', 'osc', 'bgdrift', 'fps'],
-    hint: "Stream melts into color; labeled boxes track focal points. Blob drift gives the melted field a slow life of its own. Osc blends a generative 'trypophobia' pattern (by Ritchse) on top; it differs every Start.",
+    hint: "Stream melts into color; labeled boxes track focal points. Blob drift gives the melted field a slow life of its own. Osc punches breathing 'trypophobia' holes (after Ritchse) into the stream itself, so they take the video's colors; it differs every Start.",
     async start() {
       await startStreamCapture();
-      // Generative "trypophobia" feedback pattern by Ritchse (instagram.com/ritchse),
-      // licensed CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/).
-      // Rendered by Hydra and blended over the melted stream at the Osc slider's opacity.
-      // The r() params are sampled once per Start, so the pattern differs every run.
+      s0.init({ src: bgEl, dynamic: true });   // feed the captured video into Hydra so the pattern is built FROM it
+      // "Trypophobia" holes adapted from Ritchse (instagram.com/ritchse), licensed
+      // CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/).
+      // `holes` is a white field with dark round holes that breathe via osc.
+      // Instead of laying that flat-white sheet on top, we MULTIPLY it into the captured
+      // stream so the holes are punched INTO the webcam and take its colours (they blend
+      // in instead of reading as pasted white). A scaled/rotated feedback of the previous
+      // frame adds the recursive trypophobia depth. r() is sampled once -> differs per Start.
       const r = (min = 0, max = 1) => Math.random() * (max - min) + min;
-      solid(1, 1, 1)
+      const holes = solid(1, 1, 1)
         .diff(shape([4, 4, 4, 24].smooth().fast(.5), r(0.6, 0.93), .09).repeat(20, 10))
-        .modulateScale(osc(8).rotate(r(-.5, .5)), .52)
-        .add(
-          src(o0).scale(0.965).rotate(.012 * Math.round(r(-2, 1)))
-            .color(r(), r(), r())
-            .modulateRotate(o0, r(0, 0.5))
-            .brightness(.15)
-          , .7)
+        .modulateScale(osc(8).rotate(r(-.5, .5)), .52);
+      src(s0).mult(holes)
+        .add(src(o0).scale(0.965).rotate(.012 * Math.round(r(-2, 1)))
+          .modulateRotate(o0, r(0, 0.5)).brightness(.08), .5)
         .out(o0);
       render(o0);
       focalRunning = true; focalFrame = 0; tracked = [];
@@ -1046,7 +1047,7 @@ const DESC = {
   web: "How many dashed links each box draws to its neighbours (0 = none).",
   smooth: "Idle wander: how much the boxes float on a still image.",
   ink: "Opacity of the boxes, labels and web lines.",
-  osc: "Opacity of the generative 'trypophobia' Hydra pattern blended on top.",
+  osc: "Opacity of the 'trypophobia' holes punched into the stream (they take the video's colors).",
   bgdrift: "Slow looping drift of the whole melted blob field.",
   pcsize: "Size of each ASCII character cell.",
   pcbright: "Brightness of the ASCII glyphs.",
