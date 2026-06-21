@@ -163,7 +163,7 @@ const PARAMS = {
   // face reveal
   facebox: 1.3, reveal: 0.30, hold: 0.7, faceglitch: 0.3, pixelate: 40, brightness: 0, contrast: 1, facewebcam: 0, webmix: 0.5, ocr: 0, facebright: 1.6, tiles: 0, colorcycle: 0,
   // focal points
-  blur: 26, saturate: 2.0, points: 16, box: 1.0, web: 2, smooth: 0.08, ink: 1, osc: 0.5, bgdrift: 0.3,
+  blur: 26, saturate: 2.0, points: 16, box: 1.0, web: 2, smooth: 0.08, ink: 1, boxcolor: 0, osc: 0.5, holes: 20, facesize: 0.8, bgdrift: 0.3,
   // pixelcrash (ASCII over segmented people)
   pcsize: 14, pcbright: 1.1, pcback: 1, pcvary: 0.6, pccalm: 0.7, pcperson: 0.4, pcwebcam: 0,
   // karaoke
@@ -192,7 +192,10 @@ const KNOBS = [
   { key: 'web',        label: 'Web',        min: 0,    max: 4,    step: 1,    fmt: v => v.toFixed(0) },
   { key: 'smooth',     label: 'Drift',      min: 0.02, max: 0.4,  step: 0.01, fmt: v => v.toFixed(2) },
   { key: 'ink',        label: 'Ink',        min: 0,    max: 1,    step: 0.05, fmt: v => v.toFixed(2) },
+  { key: 'boxcolor',   label: 'Box color',  min: 0,    max: 1,    step: 1,    fmt: v => v ? 'white' : 'black' },
   { key: 'osc',        label: 'Osc',        min: 0,    max: 1,    step: 0.05, fmt: v => v.toFixed(2) },
+  { key: 'holes',      label: 'Holes',      min: 4,    max: 40,   step: 1,    fmt: v => v.toFixed(0) },
+  { key: 'facesize',   label: 'Face size',  min: 0.4,  max: 1.4,  step: 0.05, fmt: v => v.toFixed(2) },
   { key: 'bgdrift',    label: 'Blob drift', min: 0,    max: 1,    step: 0.05, fmt: v => v.toFixed(2) },
   { key: 'pcsize',     label: 'Char size',  min: 6,    max: 28,   step: 1,    fmt: v => v.toFixed(0) },
   { key: 'pcbright',   label: 'Bright',     min: 0.5,  max: 2,    step: 0.05, fmt: v => v.toFixed(2) },
@@ -612,12 +615,13 @@ function focalLoop() {
 }
 function drawFocalOverlay() {
   const W = ov.width, H = ov.height; octx.clearRect(0, 0, W, H);
-  const ink = `rgba(20,20,20,${PARAMS.ink})`, boxF = PARAMS.box;
+  const lvl = PARAMS.boxcolor ? 235 : 20;   // Box color: 0 = black, 1 = white
+  const ink = `rgba(${lvl},${lvl},${lvl},${PARAMS.ink})`, boxF = PARAMS.box;
   // idle wander: boxes float even on a still image. Drift sets the amplitude.
   const tt = performance.now() / 1000, amp = PARAMS.smooth * 150;
   for (const t of tracked) { t.sx = t.x + Math.sin(tt * 0.6 + t.phx) * amp; t.sy = t.y + Math.cos(tt * 0.5 + t.phy) * amp; }
   if (PARAMS.web > 0 && tracked.length > 1) {
-    octx.setLineDash([6, 5]); octx.lineWidth = 1.2; octx.strokeStyle = `rgba(25,25,25,${PARAMS.ink})`;
+    octx.setLineDash([6, 5]); octx.lineWidth = 1.2; octx.strokeStyle = ink;
     const drawn = new Set();
     for (let i = 0; i < tracked.length; i++) {
       const order = tracked.map((p, j) => ({ j, d: (p.sx-tracked[i].sx)**2 + (p.sy-tracked[i].sy)**2 })).filter(o => o.j !== i).sort((a, b) => a.d - b.d).slice(0, PARAMS.web);
@@ -991,7 +995,7 @@ const MODES = {
     }
   },
   'Focal points': {
-    knobs: ['blur', 'saturate', 'points', 'box', 'smooth', 'ink', 'osc', 'bgdrift', 'fps'],
+    knobs: ['blur', 'saturate', 'points', 'box', 'smooth', 'ink', 'boxcolor', 'osc', 'holes', 'facesize', 'bgdrift', 'fps'],
     hint: "Stream melts into color; labeled boxes track focal points. Blob drift gives the melted field a slow life of its own. Osc punches breathing 'trypophobia' holes (after Ritchse) into the stream, each filled with a copy of the detected face; it differs every Start.",
     async start() {
       await startStreamCapture();
@@ -1008,14 +1012,19 @@ const MODES = {
       // it is used (a Hydra chain object can't be reused in two places). rad/rot are
       // sampled once -> the pattern differs every Start.
       const r = (min = 0, max = 1) => Math.random() * (max - min) + min;
-      const rad = r(0.6, 0.93), rot = r(-.5, .5);
+      const rot = r(-.5, .5);   // warp direction stays random per Start
+      // Holes = grid density (columns; rows keep the frame's 2:1 aspect). Face size = how
+      // much of each cell the hole/face fills (the shape radius). Both holes() and the face
+      // tiling read the SAME live cols/rows, so a face stays centred in each hole as you
+      // change the density. All three are live () => PARAMS reads -> the sliders act in real time.
+      const cols = () => Math.round(PARAMS.holes), rows = () => Math.max(1, Math.round(PARAMS.holes / 2));
       const holes = () => solid(1, 1, 1)
-        .diff(shape([4, 4, 4, 24].smooth().fast(.5), rad, .09).repeat(20, 10))
+        .diff(shape([4, 4, 4, 24].smooth().fast(.5), () => PARAMS.facesize, .09).repeat(cols, rows))
         .modulateScale(osc(8).rotate(rot), .52);
       // Fill the holes with the detected face instead of darkness: tile the face on the
-      // SAME 20x10 grid and apply the IDENTICAL warp, so one face lands in each hole; mask
-      // it to the holes (holes().invert() = 1 inside the holes). The webcam keeps the rest.
-      const faces = src(s1).repeat(20, 10).modulateScale(osc(8).rotate(rot), .52);
+      // SAME grid and apply the IDENTICAL warp, so one face lands in each hole; mask it to
+      // the holes (holes().invert() = 1 inside the holes). The webcam keeps the rest.
+      const faces = src(s1).repeat(cols, rows).modulateScale(osc(8).rotate(rot), .52);
       src(s0).mult(holes())
         .add(faces.mult(holes().invert()), 1)
         .out(o0);
@@ -1078,7 +1087,10 @@ const DESC = {
   web: "How many dashed links each box draws to its neighbours (0 = none).",
   smooth: "Idle wander: how much the boxes float on a still image.",
   ink: "Opacity of the boxes, labels and web lines.",
+  boxcolor: "Colour of the boxes, labels and web lines: black or white.",
   osc: "Opacity of the 'trypophobia' holes punched into the stream, each filled with a copy of the detected face.",
+  holes: "Number of holes (grid density). Fewer = bigger holes and bigger faces.",
+  facesize: "How much of each hole the face fills. Higher shows more of the face; very high merges holes.",
   bgdrift: "Slow looping drift of the whole melted blob field.",
   pcsize: "Size of each ASCII character cell.",
   pcbright: "Brightness of the ASCII glyphs.",
