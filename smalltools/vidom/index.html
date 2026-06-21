@@ -163,7 +163,7 @@ const PARAMS = {
   // face reveal
   facebox: 1.3, reveal: 0.30, hold: 0.7, faceglitch: 0.3, pixelate: 40, brightness: 0, contrast: 1, facewebcam: 0, webmix: 0.5, ocr: 0, facebright: 1.6, tiles: 0, colorcycle: 0,
   // focal points
-  blur: 26, saturate: 2.0, points: 16, box: 1.0, web: 2, smooth: 0.08, ink: 1, boxcolor: 0, osc: 0.5, holes: 20, facesize: 0.8, bgdrift: 0.3,
+  blur: 26, saturate: 2.0, fbright: 1.0, points: 16, box: 1.0, web: 2, smooth: 0.08, ink: 1, boxcolor: 0, osc: 0.5, holes: 20, facesize: 0.8, bgdrift: 0.3,
   // pixelcrash (ASCII over segmented people)
   pcsize: 14, pcbright: 1.1, pcback: 1, pcvary: 0.6, pccalm: 0.7, pcperson: 0.4, pcwebcam: 0,
   // karaoke
@@ -187,6 +187,7 @@ const KNOBS = [
   { key: 'colorcycle', label: 'Color cycle',min: 0,    max: 1,    step: 0.05, fmt: v => v.toFixed(2) },
   { key: 'blur',       label: 'Blur',       min: 0,    max: 80,   step: 1,    fmt: v => v.toFixed(0) },
   { key: 'saturate',   label: 'Saturate',   min: 1,    max: 4,    step: 0.05, fmt: v => v.toFixed(2) },
+  { key: 'fbright',    label: 'Brightness', min: 1,    max: 3,    step: 0.05, fmt: v => v.toFixed(2) },
   { key: 'points',     label: 'Points',     min: 3,    max: 16,   step: 1,    fmt: v => v.toFixed(0) },
   { key: 'box',        label: 'Box size',   min: 0.5,  max: 2.5,  step: 0.05, fmt: v => v.toFixed(2) },
   { key: 'web',        label: 'Web',        min: 0,    max: 4,    step: 1,    fmt: v => v.toFixed(0) },
@@ -402,6 +403,9 @@ let focalRunning = false, focalFrame = 0, tracked = [];
 // the largest detected face into this square canvas; Hydra source s1 samples it live.
 const focalFaceCanvas = document.createElement('canvas'); focalFaceCanvas.width = focalFaceCanvas.height = 256;
 const focalFctx = focalFaceCanvas.getContext('2d');
+// full-frame canvas used to brighten the detector's input in dim rooms (Brightness knob)
+const focalDetCanvas = document.createElement('canvas');
+const focalDctx = focalDetCanvas.getContext('2d', { willReadFrequently: true });
 let focalFaceDet = null, focalFaceTs = -1;
 
 function sourceIsWebcam() { return sourceSel.value !== 'screen'; }   // any non-screen value is a camera deviceId
@@ -573,7 +577,7 @@ function assignTargets(targets) {
 function focalLoop() {
   if (!focalRunning) return;
   if (dueForUpdate()) {
-  bgEl.style.filter = `blur(${PARAMS.blur}px) saturate(${PARAMS.saturate}) contrast(1.35)`;
+  bgEl.style.filter = `blur(${PARAMS.blur}px) saturate(${PARAMS.saturate}) brightness(${PARAMS.fbright}) contrast(1.35)`;
   // slow drift of the whole melted-blob field (scaled up so no edges show)
   { const t = performance.now() / 1000, amp = PARAMS.bgdrift * 45, sc = 1 + PARAMS.bgdrift * 0.18;
     bgEl.style.transform = `scale(${sc}) translate(${Math.sin(t * 0.13) * amp}px, ${Math.cos(t * 0.1) * amp}px)`; }
@@ -586,7 +590,17 @@ function focalLoop() {
     // read dark, same as before, until someone appears.
     if (focalFaceDet && focalFrame % 3 === 0) {
       let ts = performance.now(); if (ts <= focalFaceTs) ts = focalFaceTs + 1; focalFaceTs = ts;
-      let dets = []; try { dets = focalFaceDet.detectForVideo(bgEl, ts).detections || []; } catch (_) {}
+      // Brightness > 1: detect on a brightened copy so faces still register in dim rooms.
+      let detInput = bgEl;
+      if (PARAMS.fbright > 1.01) {
+        const dw = bgEl.videoWidth, dh = bgEl.videoHeight;
+        if (focalDetCanvas.width !== dw) focalDetCanvas.width = dw;
+        if (focalDetCanvas.height !== dh) focalDetCanvas.height = dh;
+        focalDctx.filter = `brightness(${PARAMS.fbright}) contrast(1.1)`;
+        focalDctx.drawImage(bgEl, 0, 0, dw, dh); focalDctx.filter = 'none';
+        detInput = focalDetCanvas;
+      }
+      let dets = []; try { dets = focalFaceDet.detectForVideo(detInput, ts).detections || []; } catch (_) {}
       if (dets.length) {
         let b = dets[0].boundingBox;
         for (const d of dets) if (d.boundingBox.width * d.boundingBox.height > b.width * b.height) b = d.boundingBox;
@@ -595,7 +609,9 @@ function focalLoop() {
         let sx = b.originX + b.width / 2 - sz / 2, sy = b.originY + b.height / 2 - sz / 2;
         sz = Math.min(sz, vw, vh); sx = Math.max(0, Math.min(vw - sz, sx)); sy = Math.max(0, Math.min(vh - sz, sy));
         focalFctx.clearRect(0, 0, 256, 256);
+        focalFctx.filter = PARAMS.fbright > 1.01 ? `brightness(${PARAMS.fbright})` : 'none';   // brighten the face copy too
         try { focalFctx.drawImage(bgEl, sx, sy, sz, sz, 0, 0, 256, 256); } catch (_) {}
+        focalFctx.filter = 'none';
       }
     }
     const N = Math.round(PARAMS.points);
@@ -995,7 +1011,7 @@ const MODES = {
     }
   },
   'Focal points': {
-    knobs: ['blur', 'saturate', 'points', 'box', 'smooth', 'ink', 'boxcolor', 'osc', 'holes', 'facesize', 'bgdrift', 'fps'],
+    knobs: ['blur', 'saturate', 'fbright', 'points', 'box', 'smooth', 'ink', 'boxcolor', 'osc', 'holes', 'facesize', 'bgdrift', 'fps'],
     hint: "Stream melts into color; labeled boxes track focal points. Blob drift gives the melted field a slow life of its own. Osc punches breathing 'trypophobia' holes (after Ritchse) into the stream, each filled with a copy of the detected face; it differs every Start.",
     async start() {
       await startStreamCapture();
@@ -1025,7 +1041,8 @@ const MODES = {
       // SAME grid and apply the IDENTICAL warp, so one face lands in each hole; mask it to
       // the holes (holes().invert() = 1 inside the holes). The webcam keeps the rest.
       const faces = src(s1).repeat(cols, rows).modulateScale(osc(8).rotate(rot), .52);
-      src(s0).mult(holes())
+      // .color(b,b,b) multiplies the webcam up by the Brightness knob (matches the CSS brighten)
+      src(s0).color(() => PARAMS.fbright, () => PARAMS.fbright, () => PARAMS.fbright).mult(holes())
         .add(faces.mult(holes().invert()), 1)
         .out(o0);
       render(o0);
@@ -1082,6 +1099,7 @@ const DESC = {
   colorcycle: "Slowly rotates the complementary colour palette over time (0 = off, fixed colours).",
   blur: "How much the stream melts into soft colour.",
   saturate: "Colour intensity of the melted field.",
+  fbright: "Brightens a dark webcam, the holes/faces and the face detector's view (helps find faces in dim rooms).",
   points: "How many focal points (boxes) to track.",
   box: "Size of each tracking box.",
   web: "How many dashed links each box draws to its neighbours (0 = none).",
