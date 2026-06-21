@@ -83,8 +83,7 @@
 <div id="panel">
   <div id="bar">
     <select id="mode"></select>
-    <select id="source" title="input source"><option value="screen">Screen tab</option><option value="webcam">Webcam</option></select>
-    <select id="camera" title="which camera"></select>
+    <select id="source" title="input source: a screen/tab, or a camera by name"><option value="screen">Screen tab</option></select>
     <button id="run">Run</button>
     <button id="hide">Hide</button>
     <button id="info" title="What is this? Per-mode help">&#9432;</button>
@@ -123,16 +122,18 @@ const ov     = document.getElementById('ov');
 const octx   = ov.getContext('2d');
 function say(m, err) { hint.textContent = m; hint.classList.toggle('err', !!err); }
 
-// ---- camera picker: list video inputs so you can choose the Logitech etc. ----
-const cameraSel = document.getElementById('camera');
+// ---- input source picker: one dropdown = "Screen tab" + each camera by name
+// (e.g. "FaceTime HD Camera", "Logitech BRIO"). Picking a camera name IS picking
+// the webcam source; there is no separate generic "Webcam" option or camera list. ----
+const sourceSel = document.getElementById('source');
 let videoInputs = [];
 async function refreshCameras() {
   try {
     videoInputs = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'videoinput');
-    const cur = cameraSel.value;
-    cameraSel.innerHTML = '';
-    videoInputs.forEach((d, i) => { const o = document.createElement('option'); o.value = d.deviceId; o.textContent = d.label || ('Camera ' + (i + 1)); cameraSel.appendChild(o); });
-    if (cur && videoInputs.some(d => d.deviceId === cur)) cameraSel.value = cur;
+    const cur = sourceSel.value;
+    sourceSel.innerHTML = '<option value="screen">Screen tab</option>';
+    videoInputs.forEach((d, i) => { const o = document.createElement('option'); o.value = d.deviceId; o.textContent = d.label || ('Camera ' + (i + 1)); sourceSel.appendChild(o); });
+    if (cur && (cur === 'screen' || videoInputs.some(d => d.deviceId === cur))) sourceSel.value = cur;
   } catch (_) {}
 }
 // Open the webcam, FORCING the chosen camera (exact) so the picker actually switches
@@ -140,7 +141,7 @@ async function refreshCameras() {
 // any camera instead of black-screening, and we throw a clear, actionable message when
 // the browser blocks it or it can't be opened.
 async function getCameraStream() {
-  const id = cameraSel.value;
+  const id = sourceSel.value === 'screen' ? '' : sourceSel.value;
   const get = v => navigator.mediaDevices.getUserMedia({ video: v, audio: false });
   try {
     return await get(id ? { deviceId: { exact: id } } : true);
@@ -394,8 +395,13 @@ const GW = 96, GH = 54;
 const sc = document.createElement('canvas'); sc.width = GW; sc.height = GH;
 const sctx = sc.getContext('2d', { willReadFrequently: true });
 let focalRunning = false, focalFrame = 0, tracked = [];
+// face crop that gets tiled into the trypophobia holes (Focal mode). The detector writes
+// the largest detected face into this square canvas; Hydra source s1 samples it live.
+const focalFaceCanvas = document.createElement('canvas'); focalFaceCanvas.width = focalFaceCanvas.height = 256;
+const focalFctx = focalFaceCanvas.getContext('2d');
+let focalFaceDet = null, focalFaceTs = -1;
 
-function sourceIsWebcam() { return document.getElementById('source').value === 'webcam'; }
+function sourceIsWebcam() { return sourceSel.value !== 'screen'; }   // any non-screen value is a camera deviceId
 async function startStreamCapture() {
   let stream;
   if (sourceIsWebcam()) {
@@ -572,6 +578,23 @@ function focalLoop() {
   if (ov.width !== window.innerWidth) ov.width = window.innerWidth;
   if (ov.height !== window.innerHeight) ov.height = window.innerHeight;
   if (bgEl.videoWidth) {
+    // every 3rd frame, crop the largest detected face into focalFaceCanvas (square, padded)
+    // so Hydra (s1) can tile it into the holes. No face yet -> the canvas stays clear -> holes
+    // read dark, same as before, until someone appears.
+    if (focalFaceDet && focalFrame % 3 === 0) {
+      let ts = performance.now(); if (ts <= focalFaceTs) ts = focalFaceTs + 1; focalFaceTs = ts;
+      let dets = []; try { dets = focalFaceDet.detectForVideo(bgEl, ts).detections || []; } catch (_) {}
+      if (dets.length) {
+        let b = dets[0].boundingBox;
+        for (const d of dets) if (d.boundingBox.width * d.boundingBox.height > b.width * b.height) b = d.boundingBox;
+        const vw = bgEl.videoWidth, vh = bgEl.videoHeight, pad = 0.25;
+        let sz = Math.max(b.width, b.height) * (1 + pad * 2);
+        let sx = b.originX + b.width / 2 - sz / 2, sy = b.originY + b.height / 2 - sz / 2;
+        sz = Math.min(sz, vw, vh); sx = Math.max(0, Math.min(vw - sz, sx)); sy = Math.max(0, Math.min(vh - sz, sy));
+        focalFctx.clearRect(0, 0, 256, 256);
+        try { focalFctx.drawImage(bgEl, sx, sy, sz, sz, 0, 0, 256, 256); } catch (_) {}
+      }
+    }
     const N = Math.round(PARAMS.points);
     if (focalFrame % 4 === 0) {
       const targets = detectFocalPoints(N);
@@ -969,29 +992,37 @@ const MODES = {
   },
   'Focal points': {
     knobs: ['blur', 'saturate', 'points', 'box', 'smooth', 'ink', 'osc', 'bgdrift', 'fps'],
-    hint: "Stream melts into color; labeled boxes track focal points. Blob drift gives the melted field a slow life of its own. Osc punches breathing 'trypophobia' holes (after Ritchse) into the stream itself, so they take the video's colors; it differs every Start.",
+    hint: "Stream melts into color; labeled boxes track focal points. Blob drift gives the melted field a slow life of its own. Osc punches breathing 'trypophobia' holes (after Ritchse) into the stream, each filled with a copy of the detected face; it differs every Start.",
     async start() {
       await startStreamCapture();
-      s0.init({ src: bgEl, dynamic: true });   // feed the captured video into Hydra so the pattern is built FROM it
+      s0.init({ src: bgEl, dynamic: true });   // captured video into Hydra source s0
+      say('Loading face model...');
+      focalFaceDet = await loadFaceDetector();
+      focalFaceTs = -1; focalFctx.clearRect(0, 0, 256, 256);
+      s1.init({ src: focalFaceCanvas, dynamic: true });   // the detected face crop, tiled into the holes
+      say('Running.');
       // "Trypophobia" holes adapted from Ritchse (instagram.com/ritchse), licensed
       // CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/).
-      // `holes` is a white field with dark round holes that breathe via osc.
-      // Instead of laying that flat-white sheet on top, we MULTIPLY it into the captured
-      // stream so the holes are punched INTO the webcam and take its colours (they blend
-      // in instead of reading as pasted white). A scaled/rotated feedback of the previous
-      // frame adds the recursive trypophobia depth. r() is sampled once -> differs per Start.
+      // holes() is a white field with dark round holes that breathe via osc (1 outside a
+      // hole, ~0 inside). Built as a function so the chain can be rebuilt fresh wherever
+      // it is used (a Hydra chain object can't be reused in two places). rad/rot are
+      // sampled once -> the pattern differs every Start.
       const r = (min = 0, max = 1) => Math.random() * (max - min) + min;
-      const holes = solid(1, 1, 1)
-        .diff(shape([4, 4, 4, 24].smooth().fast(.5), r(0.6, 0.93), .09).repeat(20, 10))
-        .modulateScale(osc(8).rotate(r(-.5, .5)), .52);
-      src(s0).mult(holes)
-        .add(src(o0).scale(0.965).rotate(.012 * Math.round(r(-2, 1)))
-          .modulateRotate(o0, r(0, 0.5)).brightness(.08), .5)
+      const rad = r(0.6, 0.93), rot = r(-.5, .5);
+      const holes = () => solid(1, 1, 1)
+        .diff(shape([4, 4, 4, 24].smooth().fast(.5), rad, .09).repeat(20, 10))
+        .modulateScale(osc(8).rotate(rot), .52);
+      // Fill the holes with the detected face instead of darkness: tile the face on the
+      // SAME 20x10 grid and apply the IDENTICAL warp, so one face lands in each hole; mask
+      // it to the holes (holes().invert() = 1 inside the holes). The webcam keeps the rest.
+      const faces = src(s1).repeat(20, 10).modulateScale(osc(8).rotate(rot), .52);
+      src(s0).mult(holes())
+        .add(faces.mult(holes().invert()), 1)
         .out(o0);
       render(o0);
       focalRunning = true; focalFrame = 0; tracked = [];
       focalLoop();
-      onCleanup(() => { focalRunning = false; bgEl.style.transform = ''; stopStream(bgEl); });
+      onCleanup(() => { focalRunning = false; bgEl.style.transform = ''; stopStream(bgEl); try { focalFaceDet && focalFaceDet.close(); } catch (_) {} focalFaceDet = null; });
     }
   },
 };
@@ -1047,7 +1078,7 @@ const DESC = {
   web: "How many dashed links each box draws to its neighbours (0 = none).",
   smooth: "Idle wander: how much the boxes float on a still image.",
   ink: "Opacity of the boxes, labels and web lines.",
-  osc: "Opacity of the 'trypophobia' holes punched into the stream (they take the video's colors).",
+  osc: "Opacity of the 'trypophobia' holes punched into the stream, each filled with a copy of the detected face.",
   bgdrift: "Slow looping drift of the whole melted blob field.",
   pcsize: "Size of each ASCII character cell.",
   pcbright: "Brightness of the ASCII glyphs.",
@@ -1174,16 +1205,9 @@ async function runCurrent() {
 
 modeSel.addEventListener('change', () => { stopCurrent(); hint.classList.remove('err'); syncControls(); });
 document.getElementById('run').addEventListener('click', runCurrent);
-// switch cameras live: if the webcam IS the captured source, rebuild the pipeline on the
-// new camera; if it is only an overlay (face/pc/karaoke webcam), hot-swap just that cam.
-cameraSel.addEventListener('change', async () => {
-  if (!currentMode) return;
-  if (sourceIsWebcam()) { stopWebcam(); runCurrent(); }
-  else if (PARAMS.facewebcam || PARAMS.pcwebcam || PARAMS.kawebcam) {
-    stopWebcam();
-    try { await ensureWebcam(); } catch (e) { say('Webcam: ' + e.message, true); }
-  }
-});
+// changing the source (Screen tab <-> a camera, or one camera to another) rebuilds the
+// running pipeline on the new input. Switching to a screen source re-opens the share dialog.
+sourceSel.addEventListener('change', () => { if (currentMode) { stopWebcam(); runCurrent(); } });
 document.getElementById('kafetch').addEventListener('click', () => fetchLyrics(document.getElementById('kasong').value));
 document.getElementById('kastart').addEventListener('click', () => {
   const m = modeSel.value;
