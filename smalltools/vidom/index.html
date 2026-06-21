@@ -135,11 +135,23 @@ async function refreshCameras() {
     if (cur && videoInputs.some(d => d.deviceId === cur)) cameraSel.value = cur;
   } catch (_) {}
 }
-// prefer the chosen camera, but fall back gracefully. `exact` would throw
-// OverconstrainedError (no prompt, black screen) whenever the saved deviceId goes
-// stale - after a browser restart, a permission reset, or a different profile.
-function camConstraint() { const id = cameraSel.value; return id ? { deviceId: { ideal: id } } : true; }
-function selectedCameraIndex() { const i = videoInputs.findIndex(d => d.deviceId === cameraSel.value); return i < 0 ? 0 : i; }   // for Hydra initCam
+// Open the webcam, FORCING the chosen camera (exact) so the picker actually switches
+// cameras. If that deviceId is stale (browser restart / permission reset) we retry with
+// any camera instead of black-screening, and we throw a clear, actionable message when
+// the browser blocks it or it can't be opened.
+async function getCameraStream() {
+  const id = cameraSel.value;
+  const get = v => navigator.mediaDevices.getUserMedia({ video: v, audio: false });
+  try {
+    return await get(id ? { deviceId: { exact: id } } : true);
+  } catch (e) {
+    if (id && e && e.name === 'OverconstrainedError') { try { return await get(true); } catch (e2) { e = e2; } }
+    const blocked = e && (e.name === 'NotAllowedError' || e.name === 'SecurityError');
+    throw new Error(blocked
+      ? 'camera permission is blocked. Click the camera icon in the address bar (or the lock / site-settings menu), set Camera to Allow, then reload and Run again.'
+      : 'camera unavailable (' + ((e && e.name) || e) + '). Check it is plugged in and not in use by another app, then try again.');
+  }
+}
 refreshCameras();
 if (navigator.mediaDevices) navigator.mediaDevices.addEventListener('devicechange', refreshCameras);
 
@@ -148,7 +160,7 @@ if (navigator.mediaDevices) navigator.mediaDevices.addEventListener('devicechang
 // ---------------------------------------------------------------------------
 const PARAMS = {
   // face reveal
-  facebox: 1.3, reveal: 0.30, hold: 0.7, faceglitch: 0.3, facemelt: 1.5, pixelate: 40, brightness: 0, contrast: 1, facewebcam: 0, webmix: 0.5, ocr: 0, facebright: 1.6, tiles: 0, colorcycle: 0,
+  facebox: 1.3, reveal: 0.30, hold: 0.7, faceglitch: 0.3, pixelate: 40, brightness: 0, contrast: 1, facewebcam: 0, webmix: 0.5, ocr: 0, facebright: 1.6, tiles: 0, colorcycle: 0,
   // focal points
   blur: 26, saturate: 2.0, points: 16, box: 1.0, web: 2, smooth: 0.08, ink: 1, osc: 0.5, bgdrift: 0.3,
   // pixelcrash (ASCII over segmented people)
@@ -163,7 +175,6 @@ const KNOBS = [
   { key: 'reveal',     label: 'Reveal',     min: 0.05, max: 0.6,  step: 0.01, fmt: v => v.toFixed(2) },
   { key: 'hold',       label: 'Hold',       min: 0,    max: 1,    step: 0.01, fmt: v => v.toFixed(2) },
   { key: 'faceglitch', label: 'Face glitch',min: 0,    max: 1,    step: 0.01, fmt: v => v.toFixed(2) },
-  { key: 'facemelt',   label: 'Face melt',  min: 0,    max: 2,    step: 0.05, fmt: v => v.toFixed(2) },
   { key: 'pixelate',   label: 'Pixelate',   min: 4,    max: 160,  step: 2,    fmt: v => v.toFixed(0) },
   { key: 'brightness', label: 'Brightness', min: -0.5, max: 0.5,  step: 0.01, fmt: v => v.toFixed(2) },
   { key: 'contrast',   label: 'Contrast',   min: 0.4,  max: 2.5,  step: 0.05, fmt: v => v.toFixed(2) },
@@ -389,7 +400,7 @@ async function startStreamCapture() {
   let stream;
   if (sourceIsWebcam()) {
     say('Allow the camera...');
-    stream = await navigator.mediaDevices.getUserMedia({ video: camConstraint(), audio: false });
+    stream = await getCameraStream();
     refreshCameras();   // labels become available after permission
   } else {
     say('Pick the tab/screen in the share dialog...');
@@ -619,16 +630,7 @@ const camEl = document.getElementById('cam');
 let camStarted = false, camFaces = [];
 async function ensureWebcam() {
   if (camStarted) return;
-  let stream;
-  try { stream = await navigator.mediaDevices.getUserMedia({ video: camConstraint(), audio: false }); }
-  catch (e) {
-    // once a browser remembers "Block" for this site it stops prompting and just
-    // rejects, so spell out how to re-enable it instead of failing silently.
-    const blocked = e && (e.name === 'NotAllowedError' || e.name === 'SecurityError');
-    throw new Error(blocked
-      ? 'camera permission is blocked. Click the camera icon in the address bar (or the lock / site-settings menu), set Camera to Allow, then reload and Run again.'
-      : 'camera unavailable (' + ((e && e.name) || e) + '). Check it is plugged in and not in use by another app, then try again.');
-  }
+  const stream = await getCameraStream();
   camEl.srcObject = stream; await camEl.play(); camStarted = true; refreshCameras();
 }
 function stopWebcam() { try { if (camEl.srcObject) { camEl.srcObject.getTracks().forEach(t => t.stop()); camEl.srcObject = null; } } catch (_) {} camStarted = false; camFaces = []; }
@@ -868,8 +870,8 @@ function kaLoop() {
 // ---------------------------------------------------------------------------
 const MODES = {
   'Melting': {
-    knobs: ['facebox', 'reveal', 'hold', 'faceglitch', 'facemelt', 'pixelate', 'facebright', 'tiles', 'ocr', 'brightness', 'contrast', 'colorcycle', 'fps'],
-    hint: "Heavy glitch; faces melt as distorted ellipses. Face melt controls how much the face warps (lower = stays legible). Det light brightens the detector's view (dim rooms); Tiles=1 finds smaller/farther faces. Text copy=1 floats detected text. Color cycle slowly rotates the complementary palette.",
+    knobs: ['facebox', 'reveal', 'hold', 'faceglitch', 'pixelate', 'facebright', 'tiles', 'ocr', 'brightness', 'contrast', 'colorcycle', 'fps'],
+    hint: "Heavy glitch; faces melt as distorted ellipses. Det light brightens the detector's view (dim rooms); Tiles=1 finds smaller/farther faces (a bit heavier). Text copy=1 floats detected text. Color cycle slowly rotates the complementary palette.",
     async start() {
       meltColorPhase = 0; meltLastPhaseTs = 0;   // restart the hue rotation from the base palette
       // webcam or screen as the source. For webcam we acquire the stream ourselves
@@ -886,13 +888,16 @@ const MODES = {
         .pixelate(() => PARAMS.pixelate, () => PARAMS.pixelate)
         .modulate(noise(2.5), () => 1.5 * Math.sin(0.08 * time))
         .out(o1);
-      // face layer: same melting warp as the background blobs, but scaled by Face melt
-      // so you can keep the face legible while the background stays gooey (lower Face melt
-      // = the face is displaced less and stops smearing out of its mask).
+      // face layer: same palette as the background, but melts LESS and reads brighter so
+      // the face stands out instead of blending into the field. The big warp is scaled
+      // down (0.45 vs the bg's 1.5) so the face holds its shape while everything around it
+      // distorts; saturate()+brightness() lift it off the darker melt. Face glitch still
+      // adds extra warp/finer pixelation on top for users who want it to melt more.
       const faceLayer = base().color(1.04, 0, -1.1).hue(() => meltColorPhase)
-        .modulate(noise(2.5), () => PARAMS.facemelt * Math.sin(0.08 * time))
+        .modulate(noise(2.5), () => (0.45 + PARAMS.faceglitch * 1.1) * Math.sin(0.08 * time))
         .modulate(noise(2, 0.3), () => PARAMS.faceglitch * 0.06)
-        .pixelate(() => 340 - PARAMS.faceglitch * 230, () => 340 - PARAMS.faceglitch * 230);
+        .pixelate(() => 340 - PARAMS.faceglitch * 230, () => 340 - PARAMS.faceglitch * 230)
+        .saturate(1.5).brightness(0.06);
       await startFaceDetection();
       if (PARAMS.ocr) startOCR(() => s0.src).catch(e => say('OCR failed: ' + e.message, true));
       // crossfade face vs background with complementary masks (no dark-ring halo):
@@ -964,11 +969,25 @@ const MODES = {
   },
   'Focal points': {
     knobs: ['blur', 'saturate', 'points', 'box', 'smooth', 'ink', 'osc', 'bgdrift', 'fps'],
-    hint: "Stream melts into color; labeled boxes track focal points. Blob drift gives the melted field a slow life of its own. Osc blends a Hydra pattern on top.",
+    hint: "Stream melts into color; labeled boxes track focal points. Blob drift gives the melted field a slow life of its own. Osc blends a generative 'trypophobia' pattern (by Ritchse) on top; it differs every Start.",
     async start() {
       await startStreamCapture();
-      // osc pattern rendered by Hydra, blended over the melted stream (Osc slider = opacity)
-      osc(5, -0.126, 0.514).rotate(0, 0.1).pixelate(40, 40).out(o0); render(o0);
+      // Generative "trypophobia" feedback pattern by Ritchse (instagram.com/ritchse),
+      // licensed CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/).
+      // Rendered by Hydra and blended over the melted stream at the Osc slider's opacity.
+      // The r() params are sampled once per Start, so the pattern differs every run.
+      const r = (min = 0, max = 1) => Math.random() * (max - min) + min;
+      solid(1, 1, 1)
+        .diff(shape([4, 4, 4, 24].smooth().fast(.5), r(0.6, 0.93), .09).repeat(20, 10))
+        .modulateScale(osc(8).rotate(r(-.5, .5)), .52)
+        .add(
+          src(o0).scale(0.965).rotate(.012 * Math.round(r(-2, 1)))
+            .color(r(), r(), r())
+            .modulateRotate(o0, r(0, 0.5))
+            .brightness(.15)
+          , .7)
+        .out(o0);
+      render(o0);
       focalRunning = true; focalFrame = 0; tracked = [];
       focalLoop();
       onCleanup(() => { focalRunning = false; bgEl.style.transform = ''; stopStream(bgEl); });
@@ -1011,7 +1030,6 @@ const DESC = {
   reveal: "How soft and blurred the face ellipse edge is.",
   hold: "How long old face blobs linger before fading (trails).",
   faceglitch: "Extra warp and distortion applied to the face layer.",
-  facemelt: "How much the face itself melts/warps. Lower keeps the face from smearing out of its mask when the background melt is strong.",
   pixelate: "Block size of the background pixelation.",
   brightness: "Overall image brightness.",
   contrast: "Overall image contrast.",
@@ -1028,7 +1046,7 @@ const DESC = {
   web: "How many dashed links each box draws to its neighbours (0 = none).",
   smooth: "Idle wander: how much the boxes float on a still image.",
   ink: "Opacity of the boxes, labels and web lines.",
-  osc: "Opacity of a Hydra oscillator pattern blended on top.",
+  osc: "Opacity of the generative 'trypophobia' Hydra pattern blended on top.",
   bgdrift: "Slow looping drift of the whole melted blob field.",
   pcsize: "Size of each ASCII character cell.",
   pcbright: "Brightness of the ASCII glyphs.",
@@ -1155,6 +1173,16 @@ async function runCurrent() {
 
 modeSel.addEventListener('change', () => { stopCurrent(); hint.classList.remove('err'); syncControls(); });
 document.getElementById('run').addEventListener('click', runCurrent);
+// switch cameras live: if the webcam IS the captured source, rebuild the pipeline on the
+// new camera; if it is only an overlay (face/pc/karaoke webcam), hot-swap just that cam.
+cameraSel.addEventListener('change', async () => {
+  if (!currentMode) return;
+  if (sourceIsWebcam()) { stopWebcam(); runCurrent(); }
+  else if (PARAMS.facewebcam || PARAMS.pcwebcam || PARAMS.kawebcam) {
+    stopWebcam();
+    try { await ensureWebcam(); } catch (e) { say('Webcam: ' + e.message, true); }
+  }
+});
 document.getElementById('kafetch').addEventListener('click', () => fetchLyrics(document.getElementById('kasong').value));
 document.getElementById('kastart').addEventListener('click', () => {
   const m = modeSel.value;
