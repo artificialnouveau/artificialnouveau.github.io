@@ -12,8 +12,56 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:openai-economic-research-exchange-2026@artificialnouveau.github.io
+DTSTAMP:20260623T214637Z
+DTSTART;VALUE=DATE:20260705
+DTEND;VALUE=DATE:20260706
+SUMMARY:Deadline: OpenAI Economic Research Exchange 2026
+DESCRIPTION:The OpenAI Economic Research Exchange is a new program supporti
+ ng high-impact external research on the economic effects of AI. Through th
+ e Exchange\, selected researchers conduct work via structured\, project-ba
+ sed collaborations with OpenAI Economic Research\, with the goal of produc
+ ing credible\, independent evidence on how AI is affecting workers\, firms
+ \, institutions\, and the broader economy. OpenAI is seeking projects that
+  address important questions about the economic impacts of AI\; proposals 
+ should explain how carefully governed\, privacy-protected use of OpenAI to
+ ols and datasets can help answer these questions\, extending beyond what t
+ raditional datasets alone allow\, while maintaining clear safeguards for u
+ ser privacy and responsible data use. Core questions include labor market 
+ effects (moving beyond AI exposure to measure which occupations are likely
+  to see augmentation\, displacement\, new task creation\, or employment gr
+ owth as model capabilities improve) and measuring economic value (willingn
+ ess to pay\, revealed value\, task-level time savings\, avoided costs\, qu
+ ality-adjusted output\, and durable productivity gains). Selected research
+ ers undertake carefully scoped projects with defined milestones\, data gov
+ ernance\, and review processes. WHO SHOULD APPLY: researchers with strong 
+ empirical skills and relevant expertise in applied causal inference\, meas
+ urement\, labor economics\, productivity\, firms\, education\, entrepreneu
+ rship\, public finance\, regional economics\, development\, inequality\, o
+ r related fields. EVALUATION: proposals are assessed on methodological rig
+ or\, feasibility\, fit with Exchange priorities\, clear milestones\, and t
+ he potential to contribute credible external evidence on AI's economic imp
+ acts. The Exchange builds on OpenAI's broader measurement efforts\, includ
+ ing OpenAI Signals. For more information see the Request for Proposals\, o
+ r contact econresearch@openai.com. Applications close 5 July 2026\; select
+ ed researchers will be notified by 31 July 2026.\n\nOrganisation: OpenAI\n
+ Location: Remote / global. Structured\, project-based research collaborati
+ ons with OpenAI Economic Research. No location restriction stated.\nAward:
+  USD 25\,000 project grant plus a USD 7\,500 monthly stipend per selected 
+ researcher.\nDuration: Carefully scoped projects with defined milestones. 
+ OpenAI supports a portfolio across time horizons: short-term projects (2-6
+  months) using existing approved data\, and medium-term studies (6-12 mont
+ hs) that track outcomes over time or test specific interventions.\n\nMore:
+  https://openai.com/index/economic-research-exchange-request-for-proposals
+ /
+URL:https://openai.com/index/economic-research-exchange-request-for-proposa
+ ls/
+LOCATION:Remote / global. Structured\, project-based research collaboration
+ s with OpenAI Economic Research. No location restriction stated.
+END:VEVENT
+BEGIN:VEVENT
 UID:tech-to-the-rescue-ai-impact-scaling-2026@artificialnouveau.github.io
-DTSTAMP:20260623T095230Z
+DTSTAMP:20260623T214637Z
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
 SUMMARY:Deadline: AI Impact Scaling Program 2026 (Tech To The Rescue)
@@ -53,7 +101,7 @@ LOCATION:NGOs and social impact organizations from around the world. Requir
 END:VEVENT
 BEGIN:VEVENT
 UID:scaling-ai-safety-multi-agent-world-2026@artificialnouveau.github.io
-DTSTAMP:20260623T095230Z
+DTSTAMP:20260623T214637Z
 DTSTART;VALUE=DATE:20260808
 DTEND;VALUE=DATE:20260809
 SUMMARY:Deadline: Scaling AI Safety for a Multi-Agent World (Joint Funding 
@@ -104,7 +152,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:longview-digital-minds-career-development-fellowships-2026@artificialno
  uveau.github.io
-DTSTAMP:20260623T095230Z
+DTSTAMP:20260623T214637Z
 DTSTART;VALUE=DATE:20260710
 DTEND;VALUE=DATE:20260711
 SUMMARY:Deadline: Longview Philanthropy: Digital Minds Career Development F
@@ -136,7 +184,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:heinrich-boll-global-majority-ai-fellowship-2026@artificialnouveau.gith
  ub.io
-DTSTAMP:20260623T095230Z
+DTSTAMP:20260623T214637Z
 DTSTART;VALUE=DATE:20260518
 DTEND;VALUE=DATE:20260519
 SUMMARY:Deadline: Heinrich Boell Foundation: Global Majority AI Fellowship 
@@ -193,7 +241,7 @@ LOCATION:Geneva\, Switzerland (first session)\; applicants must be civil so
 END:VEVENT
 BEGIN:VEVENT
 UID:schmidt-sciences-trustworthy-ai-2026@artificialnouveau.github.io
-DTSTAMP:20260623T095230Z
+DTSTAMP:20260623T214637Z
 DTSTART;VALUE=DATE:20260517
 DTEND;VALUE=DATE:20260518
 SUMMARY:Deadline: Schmidt Sciences: Science of Trustworthy AI RFP 2026
@@ -237,7 +285,7 @@ LOCATION:Worldwide (global call\; individual researchers\, research teams\,
 END:VEVENT
 BEGIN:VEVENT
 UID:ai-futures-challenge-2026@artificialnouveau.github.io
-DTSTAMP:20260623T095230Z
+DTSTAMP:20260623T214637Z
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
 SUMMARY:Deadline: AI Futures Challenge 2026 (Worldbuilding Competition)
@@ -258,7 +306,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:cht-emerging-voices-ai-society-fellowship-2026@artificialnouveau.github
  .io
-DTSTAMP:20260623T095230Z
+DTSTAMP:20260623T214637Z
 DTSTART;VALUE=DATE:20260712
 DTEND;VALUE=DATE:20260713
 SUMMARY:Deadline: Center for Humane Technology: Emerging Voices in AI and S
