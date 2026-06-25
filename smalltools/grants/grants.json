@@ -3,6 +3,35 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "atu-windgate-artist-in-residence-fall-2026",
+      "title": "Windgate Artist-in-Residence Fall 2026 (Arkansas Tech University)",
+      "organization": "Arkansas Tech University (supported by the Windgate Charitable Foundation)",
+      "location": "Russellville, Arkansas, United States (Russellville campus, in the Arkansas River Valley, about one hour from Little Rock). In-person, full-time residency.",
+      "region": "US",
+      "amount": "USD 30,000 stipend (minus fringes) plus USD 18,000 for supplies. Housing provided (a 2-bed, 2-bath campus apartment) and a large, climate-controlled, dedicated off-campus studio space.",
+      "duration": "Five-month residency over the Fall academic term 2026.",
+      "startDate": null,
+      "deadline": "2026-07-03",
+      "addedDate": "2026-06-25",
+      "feedDate": "2026-06-26",
+      "category": "arts",
+      "applicant": "individuals",
+      "description": "The Artist-in-Residence (AIR) program at Arkansas Tech University is an immersive experience within an art and educational community, intended to advance the careers of practicing artists, present residents as role models for the ATU community, and strengthen public awareness of the significance of making art and its effect on the surrounding community. The residency takes place over a five-month period, giving the artist time and space to focus on the creative process. For Fall 2026, the program will select an artist to create a public artwork that enhances the ATU campus; both two-dimensional and three-dimensional proposals will be considered. The program is supported by a generous grant from the Windgate Charitable Foundation. The Department of Art at ATU offers programs in Fine Art, Graphic Design, Game and Interactive Media Design, and Art Education, with a facility in Norman Hall featuring a professional gallery, computer lab, lecture hall, and studios for painting, drawing, printmaking, sculpture, ceramics, and graphic design. RESIDENCY DETAILS & EXPECTATIONS: residents must be artists with significant exhibition records, strong communication skills, sustained studio practice, and a desire to engage with the larger campus community; involvement may include guest lecturing, public talks, mentoring students, open studios, and/or collaborating with faculty and students. The resident sometimes teaches one course in 2D Design, 3D Design, or Introduction to Drawing during their stay when enrollment allows. Artists are expected to commit as a full-time resident for the Fall academic term 2026. BENEFITS: USD 30,000 stipend (minus fringes), USD 18,000 for supplies, a 2-bed/2-bath campus apartment, and a large climate-controlled off-campus studio. Deadline 3 July 2026.",
+      "url": "https://www.atu.edu/academicaffairs/faculty/adjunct/docs/AIR%20AD%20FALL%202026.pdf",
+      "tags": [
+        "arts",
+        "artist-in-residence",
+        "residency",
+        "public-art",
+        "university",
+        "studio-space",
+        "arkansas",
+        "us"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "creative-philadelphia-msb-interpretive-panels-2026",
       "title": "MSB Interpretive Panels: Public Art Commission (Creative Philadelphia)",
       "organization": "Creative Philadelphia (Office of Arts, Culture and the Creative Economy)",
