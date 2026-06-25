@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>NT2 Studieplan — 2 weken naar B1 + B2</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#D40920; --blue:#1356A2; --yellow:#F7D842; --black:#000; --white:#fff;
+  --muted:#666; --green:#0a8754; --bg:#FAFAFA;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:#111;line-height:1.5;}
+
+header{
+  background:var(--white);border-bottom:3px solid var(--black);
+  padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+header h1{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;}
+header .links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap;}
+header a{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;}
+header a:hover{text-decoration:underline;}
+
+.container{max-width:920px;margin:0 auto;padding:24px 16px 80px;}
+
+/* Countdown + progress */
+.dash{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px;
+}
+.stat{border:2px solid var(--black);background:var(--white);padding:16px;}
+.stat .big{font-family:'Syne',sans-serif;font-weight:800;font-size:34px;line-height:1;}
+.stat .lbl{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:6px;}
+.stat.red{background:var(--red);color:#fff;} .stat.red .lbl{color:rgba(255,255,255,.85);}
+.stat.blue{background:var(--blue);color:#fff;} .stat.blue .lbl{color:rgba(255,255,255,.85);}
+.stat.yellow{background:var(--yellow);}
+
+.progress-wrap{border:2px solid var(--black);background:var(--white);height:26px;margin-bottom:6px;position:relative;}
+.progress-bar{height:100%;background:var(--green);width:0;transition:width .4s;}
+.progress-txt{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:24px;}
+
+.exam-set{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px;font-family:'Space Grotesk',sans-serif;font-size:13px;}
+.exam-set input{font-family:inherit;border:2px solid var(--black);padding:6px 8px;font-size:13px;}
+.exam-set button{font-family:inherit;border:2px solid var(--black);background:var(--yellow);font-weight:700;padding:6px 12px;cursor:pointer;}
+.exam-set button:hover{background:var(--black);color:#fff;}
+
+.intro{border-left:6px solid var(--blue);background:var(--white);border:2px solid var(--black);border-left-width:6px;padding:16px 18px;margin-bottom:28px;}
+.intro h2{font-family:'Syne',sans-serif;font-size:17px;margin-bottom:8px;}
+.intro p{font-size:14px;margin-bottom:8px;}
+.intro p:last-child{margin-bottom:0;}
+.intro .pill{display:inline-block;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;padding:2px 8px;border:1.5px solid var(--black);margin-right:4px;}
+
+/* Day cards */
+.day{border:2px solid var(--black);background:var(--white);margin-bottom:18px;}
+.day-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;background:var(--white);border-bottom:2px solid transparent;}
+.day-head:hover{background:#fbfbfb;}
+.day.open .day-head{border-bottom-color:var(--black);}
+.day-num{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;background:var(--black);color:#fff;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.day.b2 .day-num{background:var(--red);}
+.day.mock .day-num{background:var(--blue);}
+.day-title{flex:1;}
+.day-title .t{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;}
+.day-title .s{font-size:12px;color:var(--muted);}
+.day-meta{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap;}
+.chev{transition:transform .2s;font-size:13px;color:var(--muted);}
+.day.open .chev{transform:rotate(90deg);}
+.day-body{display:none;padding:6px 16px 16px;}
+.day.open .day-body{display:block;}
+
+/* Modules */
+.mod{border:1.5px solid #ddd;border-left:5px solid var(--muted);padding:12px 14px;margin-top:12px;display:flex;gap:12px;align-items:flex-start;}
+.mod[data-skill="Spreken"]{border-left-color:var(--red);}
+.mod[data-skill="Schrijven"]{border-left-color:var(--blue);}
+.mod[data-skill="Woordenschat"]{border-left-color:var(--yellow);}
+.mod[data-skill="Grammatica"]{border-left-color:#7a3fb8;}
+.mod[data-skill="Mock"]{border-left-color:var(--black);}
+.mod.done{background:#f1faf4;border-color:#bfe6cf;border-left-color:var(--green);}
+.mod input[type=checkbox]{width:22px;height:22px;flex-shrink:0;margin-top:2px;cursor:pointer;accent-color:var(--green);}
+.mod-body{flex:1;}
+.mod-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px;}
+.mod-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;}
+.mod.done .mod-title{text-decoration:line-through;color:var(--muted);}
+.badge{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;padding:2px 7px;border:1.5px solid var(--black);text-transform:uppercase;letter-spacing:.03em;}
+.badge.spreken{background:var(--red);color:#fff;border-color:var(--red);}
+.badge.schrijven{background:var(--blue);color:#fff;border-color:var(--blue);}
+.badge.woordenschat{background:var(--yellow);}
+.badge.grammatica{background:#7a3fb8;color:#fff;border-color:#7a3fb8;}
+.badge.mock{background:var(--black);color:#fff;}
+.badge.lvl{background:#fff;}
+.badge.min{background:#fff;color:var(--muted);border-color:#ccc;}
+.mod-goal{font-size:13px;color:#333;margin-bottom:8px;}
+.mod-task{font-size:13px;background:#fafafa;border:1px dashed #ccc;padding:10px 12px;margin-bottom:8px;}
+.mod-task ul{margin:6px 0 0 18px;} .mod-task li{margin-bottom:3px;}
+.mod-task .prompt{font-style:italic;color:#222;}
+.mod-tip{font-size:12px;color:var(--muted);}
+.mod-tip b{color:#333;}
+.mod a.go{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;display:inline-block;margin-top:4px;}
+.mod a.go:hover{text-decoration:underline;}
+
+/* Reference section */
+.ref{border:2px solid var(--black);background:var(--white);margin-top:34px;}
+.ref h2{font-family:'Syne',sans-serif;font-size:18px;padding:14px 16px;border-bottom:2px solid var(--black);background:var(--yellow);}
+.ref-body{padding:16px;}
+.ref h3{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin:16px 0 6px;}
+.ref h3:first-child{margin-top:0;}
+.ref .chunks{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px;}
+.ref .chunk{font-size:13px;background:#fafafa;border:1px solid #e5e5e5;padding:7px 9px;}
+.ref .chunk b{color:var(--blue);}
+.ref ul{margin-left:18px;font-size:13.5px;} .ref li{margin-bottom:5px;}
+
+.reset{margin-top:30px;text-align:center;}
+.reset button{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);background:none;border:none;text-decoration:underline;cursor:pointer;}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--black);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:12px 20px;border-radius:2px;transition:transform .35s;z-index:50;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+<header>
+  <h1>NT2 Studieplan</h1>
+  <div class="links">
+    <a href="nt2-oefenen.html">&larr; Oefen-examens (Spreken / Schrijven / Op Niveau)</a>
+    <a href="index.html">Reader</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="dash">
+    <div class="stat yellow"><div class="big" id="doneCount">0</div><div class="lbl">modules af</div></div>
+    <div class="stat"><div class="big" id="pct">0%</div><div class="lbl">van het plan</div></div>
+  </div>
+
+  <div class="progress-wrap"><div class="progress-bar" id="bar"></div></div>
+  <div class="progress-txt" id="barTxt">Begin met dag 1. Eén module is al winst.</div>
+
+  <div class="intro">
+    <h2>Hoe dit werkt</h2>
+    <p>Elke module duurt <b>20-30 minuten</b> en staat op zichzelf. Heb je maar 20 minuten? Doe één module. Heb je twee uur? Stapel er vier. <b>Minimaal één module per dag</b> houdt je reeks (streak) in leven. Vink af wat je doet; je voortgang wordt lokaal in je browser bewaard.</p>
+    <p>De opbouw: <span class="pill" style="border-color:var(--black);">Dag 1-5 B1</span> <span class="pill" style="border-color:var(--red);color:var(--red);">Dag 6-10 B2</span> <span class="pill" style="border-color:var(--blue);color:var(--blue);">Dag 11-13 mock-examens</span> <span class="pill">Dag 14 rust + check</span>. B1 eerst om het format en je vertrouwen op te bouwen, daarna B2 om te stretchen, dan oefenen onder tijdsdruk.</p>
+    <p>De echte examensets (Spreken + Schrijven) staan in <a href="nt2-oefenen.html">het oefen-examen</a>. Onderaan deze pagina vind je <a href="#ref">kernzinnen en examentips</a> die je in elke spreek- of schrijftaak kunt hergebruiken.</p>
+  </div>
+
+  <div id="plan"></div>
+
+  <div class="ref" id="ref">
+    <h2>Kernzinnen &amp; examentips</h2>
+    <div class="ref-body" id="refBody"></div>
+  </div>
+
+  <div class="reset"><button onclick="resetAll()">Voortgang wissen</button></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ---------- PLAN DATA ----------
+// skill: Spreken | Schrijven | Woordenschat | Grammatica | Mock
+const PLAN = [
+  { day:1, type:"b1", theme:"B1-start: het format leren kennen", sub:"Spreken + schrijven in NT2-vorm",
+    modules:[
+      {skill:"Spreken",lvl:"B1",min:25,title:"Reageren op alledaagse situaties",
+       goal:"Korte voorbereidingstijd, dan 30-45 seconden spreken. Train snel beginnen zonder lange stilte.",
+       task:{intro:"Spreek hardop een reactie in (telefoon-opname). 20 sec nadenken, daarna spreken.",items:[
+         "Een collega vraagt of je dit weekend kunt invallen. Je kunt niet. Reageer vriendelijk en leg uit waarom.",
+         "Je buurman klaagt dat jouw fiets in de weg staat. Reageer en bied een oplossing.",
+         "Een vriend vraagt hoe je vakantie was. Vertel in het kort (waar, met wie, wat je deed)."]},
+       tip:"Begin meteen met een startzin: <i>'Dat is een goede vraag...'</i> of <i>'Wat vervelend, maar...'</i>. Stilte kost punten.",
+       link:"nt2-oefenen.html"},
+      {skill:"Schrijven",lvl:"B1",min:30,title:"Korte e-mail: afzeggen / vragen",
+       goal:"Schrijf een informele e-mail van 80-120 woorden met aanhef, kern en afsluiting.",
+       task:{intro:"Schrijf de e-mail. Zet een timer op 20 minuten, daarna 5 min nakijken.",items:[
+         "Je hebt een cursus geboekt maar kunt niet komen. Mail de organisatie: zeg af, leg uit waarom, vraag of je geld terugkrijgt."]},
+       tip:"Vaste structuur: <b>Beste / Hallo ...</b> &rarr; reden &rarr; concreet verzoek &rarr; <b>Met vriendelijke groet</b>. Tel je woorden.",
+       link:"nt2-oefenen.html"},
+      {skill:"Woordenschat",lvl:"B1",min:20,title:"Op Niveau: 15 woorden EN→NL",
+       goal:"Activeer woordenschat actief (productief, niet alleen herkennen).",
+       task:{intro:"Open de Op Niveau-tab, kies EN→NL, 15 kaarten. Schrijf de Nederlandse woorden zelf.",items:[]},
+       tip:"Focus op woorden die je <i>actief</i> in spreken/schrijven kunt gebruiken, niet op zeldzame woorden.",
+       link:"nt2-oefenen.html"}
+    ]},
+  { day:2, type:"b1", theme:"B1: meningen en voorstellen", sub:"Mening geven + reageren op een voorstel",
+    modules:[
+      {skill:"Spreken",lvl:"B1",min:25,title:"Je mening geven",
+       goal:"Een standpunt geven met één reden en één voorbeeld. 45 sec.",
+       task:{intro:"Neem op. Gebruik: <i>'Ik vind dat... omdat... Bijvoorbeeld...'</i>",items:[
+         "Moeten kinderen een mobiel mee naar school mogen nemen? Wat vind jij?",
+         "Wat is beter: in de stad of op het platteland wonen?",
+         "Is het goed dat winkels op zondag open zijn?"]},
+       tip:"Eén duidelijke mening + één reden + één voorbeeld is genoeg voor B1. Niet te veel willen zeggen.",
+       link:"nt2-oefenen.html"},
+      {skill:"Schrijven",lvl:"B1",min:30,title:"Bericht op een prikbord / forum",
+       goal:"Reageer op een advertentie of oproep in 90-120 woorden.",
+       task:{intro:"Schrijf een reactie van 90-120 woorden.",items:[
+         "Op een buurtforum zoekt iemand mensen voor een gezamenlijke moestuin. Reageer: stel jezelf voor, zeg waarom je meedoet, stel een vraag over hoe het werkt."]},
+       tip:"Sluit altijd af met een vraag of voorstel. Dat laat zien dat je de communicatie gaande houdt.",
+       link:"nt2-oefenen.html"},
+      {skill:"Grammatica",lvl:"B1",min:20,title:"Woordvolgorde: hoofdzin + bijzin",
+       goal:"De werkwoordpositie automatiseren (V2 in hoofdzin, werkwoord achteraan in bijzin).",
+       task:{intro:"Maak deze zinnen af; spreek ze daarna hardop uit. Controleer de werkwoordpositie.",items:[
+         "Ik kom niet, omdat ik ... (ziek zijn).",
+         "Hij zei dat hij morgen ... (komen).",
+         "Toen ik klein was, ... ik elke dag (fietsen).",
+         "Als het regent, ... wij thuis (blijven)."]},
+       tip:"In de bijzin (omdat, dat, toen, als, terwijl...) gaat het werkwoord naar het eind. Dit is dé B1-valkuil.",
+       link:""}
+    ]},
+  { day:3, type:"b1", theme:"B1: vertellen en samenvatten", sub:"Een ervaring navertellen",
+    modules:[
+      {skill:"Spreken",lvl:"B1",min:25,title:"Iets navertellen in het verleden",
+       goal:"Een gebeurtenis chronologisch vertellen met verleden tijd (perfectum + imperfectum).",
+       task:{intro:"Vertel 60 sec. Gebruik signaalwoorden: eerst, daarna, toen, uiteindelijk.",items:[
+         "Vertel over een keer dat er iets misging op reis.",
+         "Vertel over een mooie dag die je laatst had.",
+         "Vertel over een keer dat je iemand hielp."]},
+       tip:"<b>Heb je / ben je</b>-keuze: beweging en verandering &rarr; <i>zijn</i> (ik ben gegaan), de rest &rarr; <i>hebben</i>.",
+       link:"nt2-oefenen.html"},
+      {skill:"Schrijven",lvl:"B1",min:30,title:"Klachtenmail (informeel-formeel)",
+       goal:"Een klacht beschrijven en een oplossing vragen, 100-130 woorden.",
+       task:{intro:"Schrijf de mail. Blijf beleefd maar duidelijk.",items:[
+         "Je hebt online een product gekocht dat beschadigd aankwam. Mail de webshop: beschrijf het probleem, zeg wat je wilt (geld terug of nieuw product), noem je bestelnummer."]},
+       tip:"Klacht-formule: <i>'Helaas ... / Tot mijn verbazing ... Ik wil u vragen om ... Ik hoop op een snelle reactie.'</i>",
+       link:"nt2-oefenen.html"},
+      {skill:"Spreken",lvl:"B1",min:20,title:"Echt examen: 1 Spreken-set",
+       goal:"Doe één volledige Spreken-set onder examenomstandigheden.",
+       task:{intro:"Open de Spreken-tab, kies set 1. Neem je antwoorden op je telefoon op. Luister daarna één keer terug: waar viel je stil?",items:[]},
+       tip:"Niet onderbreken om te herstellen. In het echt kun je ook niet opnieuw. Doorpraten.",
+       link:"nt2-oefenen.html"}
+    ]},
+  { day:4, type:"b1", theme:"B1: adviseren en uitleggen", sub:"Advies geven, iets uitleggen",
+    modules:[
+      {skill:"Spreken",lvl:"B1",min:25,title:"Advies geven",
+       goal:"Iemand adviseren met 'je zou kunnen / het beste is om'. 45 sec.",
+       task:{intro:"Neem op.",items:[
+         "Een vriend wil Nederlands leren. Welk advies geef je?",
+         "Iemand komt net in Nederland wonen. Wat raad je aan?",
+         "Een collega is altijd moe. Geef advies."]},
+       tip:"Adviestaal: <i>'Je zou ... kunnen', 'Het beste is om te ...', 'Misschien is het handig als ...', 'Ik zou ...'</i>",
+       link:"nt2-oefenen.html"},
+      {skill:"Schrijven",lvl:"B1",min:30,title:"Echt examen: 1 Schrijven-set",
+       goal:"Doe één volledige Schrijven-set met de klok mee.",
+       task:{intro:"Open de Schrijven-tab, kies een set. Houd de tijd bij die het examen geeft. Schrijf alle onderdelen.",items:[]},
+       tip:"Lees per opdracht: <b>wie</b> schrijf je, <b>waarom</b>, en <b>welke punten móéten erin</b>? Mis je een punt, dan kost dat direct punten.",
+       link:"nt2-oefenen.html"},
+      {skill:"Woordenschat",lvl:"B1",min:20,title:"Op Niveau: vaste voorzetsels",
+       goal:"Vaste voorzetsels oefenen (denken aan, wachten op, tevreden over...).",
+       task:{intro:"Open Op Niveau en kies de voorzetsel-set / spiekbriefje. Test jezelf EN→NL.",items:[]},
+       tip:"Leer voorzetsels altijd als <i>chunk</i> met het werkwoord, nooit los: 'wachten <b>op</b>', 'tevreden <b>over</b>'.",
+       link:"nt2-oefenen.html"}
+    ]},
+  { day:5, type:"b1", theme:"B1-mock: halve generale", sub:"Spreken + schrijven achter elkaar",
+    modules:[
+      {skill:"Mock",lvl:"B1",min:30,title:"Mini-mock Spreken (B1)",
+       goal:"Eén Spreken-set helemaal, opnemen, zelf scoren.",
+       task:{intro:"Doe een nieuwe Spreken-set. Beoordeel jezelf op: 1) begon ik snel? 2) klopte de werkwoordvolgorde? 3) gaf ik genoeg inhoud?",items:[]},
+       tip:"Schrijf je 3 zwakke punten op een briefje. Dat wordt je focuslijst voor de B2-week.",
+       link:"nt2-oefenen.html"},
+      {skill:"Mock",lvl:"B1",min:30,title:"Mini-mock Schrijven (B1)",
+       goal:"Eén Schrijven-set met tijdslimiet, daarna nakijken met checklist.",
+       task:{intro:"Schrijf de set. Nakijk-checklist: woordenaantal gehaald? alle gevraagde punten erin? aanhef + afsluiting? werkwoordtijden consistent?",items:[]},
+       tip:"Reserveer altijd 3-5 minuten aan het eind om na te lezen. De helft van je fouten zie je dan zelf.",
+       link:"nt2-oefenen.html"},
+      {skill:"Woordenschat",lvl:"B1",min:20,title:"Herhaal je foute woorden",
+       goal:"Spaced repetition: precies de woorden die je deze week miste.",
+       task:{intro:"Ga in Op Niveau door de woorden die je eerder fout had. Maak met 5 ervan een zin.",items:[]},
+       tip:"Een woord ken je pas als je er een eigen zin mee kunt maken. Herkennen is niet kennen.",
+       link:"nt2-oefenen.html"}
+    ]},
+  { day:6, type:"b2", theme:"B2-start: argumenteren", sub:"Standpunt + meerdere argumenten",
+    modules:[
+      {skill:"Spreken",lvl:"B2",min:25,title:"Standpunt onderbouwen (B2)",
+       goal:"Een mening geven met 2 argumenten en een tegenargument weerleggen. 60-90 sec.",
+       task:{intro:"Neem op. Structuur: standpunt &rarr; arg 1 &rarr; arg 2 &rarr; 'sommigen zeggen X, maar...' &rarr; conclusie.",items:[
+         "Zouden grote steden auto's uit het centrum moeten weren?",
+         "Is thuiswerken op lange termijn goed voor werknemers?",
+         "Moet de overheid gezond eten goedkoper maken dan ongezond eten?"]},
+       tip:"B2 verwacht <b>nuance</b>: benoem de andere kant ('Aan de ene kant... aan de andere kant...') en kies dan.",
+       link:"nt2-oefenen.html"},
+      {skill:"Schrijven",lvl:"B2",min:30,title:"Formele e-mail / brief (B2)",
+       goal:"Een formele brief van 180-220 woorden met heldere alinea-indeling.",
+       task:{intro:"Schrijf de brief. Gebruik formeel register (u-vorm, geen spreektaal).",items:[
+         "Je gemeente wil een park veranderen in een parkeerplaats. Schrijf een formele brief aan de gemeente: leg uit waarom je het er niet mee eens bent, geef 2 argumenten, en stel een alternatief voor."]},
+       tip:"Alinea's: 1) reden van schrijven, 2) argument 1, 3) argument 2 + alternatief, 4) afsluiting/verzoek. Eén alinea = één gedachte.",
+       link:"nt2-oefenen.html"},
+      {skill:"Grammatica",lvl:"B2",min:20,title:"Verbindingswoorden (signaalwoorden)",
+       goal:"Vloeiend tekst verbinden: niet alleen 'en/maar/want'.",
+       task:{intro:"Herschrijf deze losse zinnen tot één vloeiende alinea met verbindingswoorden (zie kernzinnen onderaan).",items:[
+         "De stad wil meer parkeerplaatsen. Veel bewoners willen meer groen. Een park is goed voor de gezondheid. Een park trekt meer bezoekers dan een parkeerplaats."]},
+       tip:"B2-niveau laat je zien met woorden als: <i>hoewel, daarentegen, bovendien, namelijk, vandaar dat, mits</i>.",
+       link:""}
+    ]},
+  { day:7, type:"b2", theme:"B2: samenvatten en informeren", sub:"Een tekst/idee helder doorgeven",
+    modules:[
+      {skill:"Spreken",lvl:"B2",min:25,title:"Samenvatten en uitleggen (B2)",
+       goal:"Een complexer idee in eigen woorden helder uitleggen. 60-90 sec.",
+       task:{intro:"Lees een kort nieuwsartikel (of gebruik de Reader). Vat het in 60 sec samen en geef je reactie.",items:[
+         "Vat een artikel samen dat je vandaag las en zeg waarom het belangrijk is.",
+         "Leg aan iemand uit hoe het Nederlandse zorgstelsel of OV-systeem werkt.",
+         "Beschrijf een maatschappelijk probleem en een mogelijke oplossing."]},
+       tip:"Begin met de kern in één zin ('Het artikel gaat over...'), pas daarna details. Niet alles willen navertellen.",
+       link:"index.html"},
+      {skill:"Schrijven",lvl:"B2",min:30,title:"Echt examen: Schrijven-set (B2-blik)",
+       goal:"Een Schrijven-set doen, maar bewust uitgebreider en formeler schrijven.",
+       task:{intro:"Doe een Schrijven-set. Schrijf langere, complexere zinnen dan strikt nodig en gebruik minstens 4 verbindingswoorden.",items:[]},
+       tip:"Wissel korte en lange zinnen af. Alleen lange zinnen = onleesbaar; alleen korte = klinkt als B1.",
+       link:"nt2-oefenen.html"},
+      {skill:"Woordenschat",lvl:"B2",min:20,title:"Op Niveau: B2-woorden",
+       goal:"Abstractere, formelere woordenschat activeren.",
+       task:{intro:"Open Op Niveau, filter op B2-woorden, 15 kaarten. Maak met 5 een zin in een formele context.",items:[]},
+       tip:"Formele synoniemen lonen op B2: <i>krijgen&rarr;ontvangen, beginnen&rarr;aanvangen, genoeg&rarr;voldoende, over&rarr;betreffende</i>.",
+       link:"nt2-oefenen.html"}
+    ]},
+  { day:8, type:"b2", theme:"B2: overtuigen en onderhandelen", sub:"Klacht, verzoek, voorstel op niveau",
+    modules:[
+      {skill:"Spreken",lvl:"B2",min:25,title:"Formeel klagen / iets gedaan krijgen (B2)",
+       goal:"Beleefd maar krachtig een probleem aankaarten en een oplossing eisen. 60 sec.",
+       task:{intro:"Neem op. Toon: beleefd, zakelijk, beslist.",items:[
+         "Je hebt al drie keer gebeld over een kapotte verwarming en er gebeurt niets. Bel de verhuurder.",
+         "Een aankoop voldoet niet aan de afspraak. Leg het probleem uit aan de manager en zeg wat je verwacht.",
+         "Je wilt een terugbetaling voor een geannuleerde cursus. Overtuig de medewerker."]},
+       tip:"Indirecte, beleefde verzoeken klinken sterker: <i>'Ik zou het zeer op prijs stellen als u...'</i>, <i>'Zou het mogelijk zijn om...'</i>",
+       link:"nt2-oefenen.html"},
+      {skill:"Schrijven",lvl:"B2",min:30,title:"Opiniestuk / reactie (B2)",
+       goal:"Een betogende tekst van 200-250 woorden met duidelijke stellingname.",
+       task:{intro:"Schrijf het stuk met inleiding, kern (2-3 argumenten), en conclusie.",items:[
+         "Een krant vraagt lezers: 'Moet het openbaar vervoer gratis worden?' Schrijf je reactie: neem een duidelijk standpunt in, geef argumenten, en weerleg minstens één tegenargument."]},
+       tip:"Sterke inleiding = een prikkelende vraag of feit. Sterke conclusie = herhaal je standpunt in andere woorden + een oproep.",
+       link:"nt2-oefenen.html"},
+      {skill:"Grammatica",lvl:"B2",min:20,title:"Passief & 'om te' / 'door te'",
+       goal:"Formelere constructies die je betoog volwassener maken.",
+       task:{intro:"Herschrijf naar de passieve vorm of een om-te/door-te-constructie.",items:[
+         "Men moet deze beslissing opnieuw bekijken. (passief)",
+         "De gemeente investeert in groen. Zo wordt de stad gezonder. (door te / zodat)",
+         "Je moet sparen. Dan kun je het huis kopen. (om te)"]},
+       tip:"Passief (<i>'er wordt besloten dat...'</i>) klinkt formeel en objectief, perfect voor B2-betogen.",
+       link:""}
+    ]},
+  { day:9, type:"b2", theme:"B2: afronden en finetunen", sub:"Echt examen onder B2-druk",
+    modules:[
+      {skill:"Spreken",lvl:"B2",min:25,title:"Echt examen: Spreken-set (vol tempo)",
+       goal:"Een Spreken-set zonder pauzeren, alle items achter elkaar.",
+       task:{intro:"Doe een nieuwe Spreken-set volledig op tempo. Opnemen. Let op vloeiendheid, niet op perfectie.",items:[]},
+       tip:"Vloeiend met een paar foutjes scoort beter dan foutloos met lange stiltes. Praat door.",
+       link:"nt2-oefenen.html"},
+      {skill:"Schrijven",lvl:"B2",min:35,title:"Echt examen: Schrijven-set (vol)",
+       goal:"Een volledige Schrijven-set met strakke tijd en formeel register.",
+       task:{intro:"Doe de set met de klok. Daarna nalezen op: register (u/je consistent?), verbindingswoorden, woordenaantal, spelling.",items:[]},
+       tip:"Veelgemaakte spelfout-checks: dt-werkwoorden, 'hun/hen', los/aaneen ('te veel', 'misschien'), hoofdletters.",
+       link:"nt2-oefenen.html"},
+      {skill:"Woordenschat",lvl:"B2",min:20,title:"Bouw je eigen kernzinnen-lijst",
+       goal:"Maak je persoonlijke set vaste zinnen die je altijd kunt inzetten.",
+       task:{intro:"Kies uit de kernzinnen onderaan 10 zinnen die jou makkelijk afgaan. Leer ze uit je hoofd. Dit zijn je 'reddingsboeien' in het examen.",items:[]},
+       tip:"Onder stress val je terug op wat je geautomatiseerd hebt. 10 vaste zinnen = 10 momenten zonder paniek.",
+       link:"#ref"}
+    ]},
+  { day:10, type:"b2", theme:"B2-mock: hele generale", sub:"Spreken + schrijven, beide op B2",
+    modules:[
+      {skill:"Mock",lvl:"B2",min:30,title:"Generale Spreken (B2)",
+       goal:"Volledige Spreken-set onder examenomstandigheden, zelf scoren.",
+       task:{intro:"Doe de set in één keer. Score jezelf 1-5 op: inhoud, vloeiendheid, woordenschat, grammatica.",items:[]},
+       tip:"Vergelijk met je briefje van dag 5: welke zwakke punten zijn al beter?",
+       link:"nt2-oefenen.html"},
+      {skill:"Mock",lvl:"B2",min:35,title:"Generale Schrijven (B2)",
+       goal:"Volledige Schrijven-set, strak getimed, volledig nagekeken.",
+       task:{intro:"Schrijf de set. Laat hem daarna even rusten en lees met frisse blik na.",items:[]},
+       tip:"Als je twijfelt over een moeilijke zin: schrijf hem simpeler. Een correcte simpele zin verslaat een foute mooie zin.",
+       link:"nt2-oefenen.html"},
+      {skill:"Spreken",lvl:"B2",min:20,title:"Spreek-warmup: improvisatie",
+       goal:"Spontaan 60 sec praten over een willekeurig onderwerp zonder voorbereiding.",
+       task:{intro:"Trek een willekeurig onderwerp en praat 60 sec zonder te stoppen.",items:[
+         "Sociale media","Het weer in Nederland","Een goede gewoonte","Reizen met de trein","Wat je morgen gaat doen"]},
+       tip:"Doel is niet perfectie maar dóórpraten. Train je brein om niet te bevriezen.",
+       link:""}
+    ]},
+  { day:11, type:"mock", theme:"Mock-dag: examensimulatie 1", sub:"Behandel het als de echte dag",
+    modules:[
+      {skill:"Mock",lvl:"B1",min:30,title:"Simulatie Spreken B1",
+       goal:"Nieuwe set, echte timing, geen herkansingen.",
+       task:{intro:"Doe één B1 Spreken-set precies als op het examen. Telefoon op stil, geen pauzes.",items:[]},
+       tip:"Ga naar het toilet vóóraf, zet water klaar. Train ook de randvoorwaarden.",
+       link:"nt2-oefenen.html"},
+      {skill:"Mock",lvl:"B2",min:35,title:"Simulatie Schrijven B2",
+       goal:"Nieuwe set, strakke tijd, formeel.",
+       task:{intro:"Doe een B2-gerichte Schrijven-set onder tijd. Schrijf in één keer door, corrigeer pas op het eind.",items:[]},
+       tip:"Verdeel je tijd vooraf: 5 min lezen+plannen, 70% schrijven, 15% nalezen.",
+       link:"nt2-oefenen.html"},
+      {skill:"Woordenschat",lvl:"B2",min:20,title:"Snelle kernzinnen-drill",
+       goal:"Je 10 vaste zinnen vlot kunnen oproepen.",
+       task:{intro:"Laat iemand je de Engelse betekenis noemen; jij zegt de Nederlandse kernzin. Of test jezelf in Op Niveau.",items:[]},
+       tip:"Reactietijd telt. Als de zin er binnen 2 sec uitkomt, zit hij goed.",
+       link:"nt2-oefenen.html"}
+    ]},
+  { day:12, type:"mock", theme:"Mock-dag: examensimulatie 2", sub:"Andere combinatie, zelfde discipline",
+    modules:[
+      {skill:"Mock",lvl:"B2",min:30,title:"Simulatie Spreken B2",
+       goal:"B2 Spreken-set, vol tempo, zelf scoren.",
+       task:{intro:"Nieuwe set. Neem op, scoor jezelf, noteer 1 ding om morgen op te letten.",items:[]},
+       tip:"Eén verbeterpunt per dag is genoeg. Te veel tegelijk = niets blijft hangen.",
+       link:"nt2-oefenen.html"},
+      {skill:"Mock",lvl:"B1",min:30,title:"Simulatie Schrijven B1",
+       goal:"B1 Schrijven-set onder tijd, volledig nagekeken.",
+       task:{intro:"Doe een B1-set. Nakijk-checklist toepassen.",items:[]},
+       tip:"Op B1 word je vooral afgerekend op: alle gevraagde punten erin + correcte basisgrammatica. Houd het netjes en compleet.",
+       link:"nt2-oefenen.html"},
+      {skill:"Grammatica",lvl:"B2",min:20,title:"Foutenlogboek doornemen",
+       goal:"De fouten die steeds terugkomen, één keer goed fixen.",
+       task:{intro:"Verzamel de 5 fouten die je deze weken het vaakst maakte. Schrijf de juiste versie 3x op en spreek ze uit.",items:[]},
+       tip:"Terugkerende fouten zijn 'fossiel' geworden. Bewust 3x correct herhalen breekt het patroon.",
+       link:""}
+    ]},
+  { day:13, type:"mock", theme:"Laatste mock + lichte review", sub:"Vertrouwen opbouwen, niet uitputten",
+    modules:[
+      {skill:"Mock",lvl:"B2",min:30,title:"Laatste volledige mock (kies je zwakste vorm)",
+       goal:"Eén laatste echte simulatie van de vaardigheid die jij het spannendst vindt.",
+       task:{intro:"Doe één set Spreken óf Schrijven, op het niveau dat jou het meest stress geeft. Daarna: niet meer streng beoordelen.",items:[]},
+       tip:"Dit is je laatste zware sessie. Morgen rust je je brein uit. Niet meer stampen vlak voor het examen.",
+       link:"nt2-oefenen.html"},
+      {skill:"Spreken",lvl:"B1",min:20,title:"Vertrouwensronde: makkelijke onderwerpen",
+       goal:"Eindig met succes-ervaringen, niet met moeilijke dingen.",
+       task:{intro:"Praat 60 sec over 3 onderwerpen die je makkelijk afgaan (je werk, je hobby, je dag).",items:[
+         "Vertel over je werk of studie.","Vertel over je favoriete eten.","Vertel over je plannen voor na het examen."]},
+       tip:"Eindig op een goed gevoel. Je brein onthoudt het laatste gevoel het sterkst.",
+       link:"nt2-oefenen.html"},
+      {skill:"Woordenschat",lvl:"B2",min:15,title:"Kernzinnen één keer rustig doorlezen",
+       goal:"Activeren zonder stress, geen toets.",
+       task:{intro:"Lees je 10 kernzinnen en de tips onderaan rustig door. Niet testen, alleen herlezen.",items:[]},
+       tip:"Passief herlezen de avond ervoor helpt het geheugen zonder dat je moe wordt.",
+       link:"#ref"}
+    ]},
+  { day:14, type:"mock", theme:"Examendag-modus: rust + check", sub:"Klaar zijn, kalm blijven",
+    modules:[
+      {skill:"Spreken",lvl:"B1",min:15,title:"Korte warming-up (ochtend)",
+       goal:"Je mond en brein op Nederlands zetten, 10-15 min, licht.",
+       task:{intro:"Praat 5 min hardop in het Nederlands over wat je vandaag gaat doen. Lees daarna 5 kernzinnen voor.",items:[]},
+       tip:"Een warming-up vóór het examen verlaagt de drempel om te beginnen. Net als bij sport.",
+       link:""},
+      {skill:"Mock",lvl:"B2",min:15,title:"Examencheck: logistiek",
+       goal:"Praktische dingen op orde zodat stress laag blijft.",
+       task:{intro:"Checklist: ID mee? locatie + reistijd bekend? op tijd vertrekken? eten/water? Examenstrategie nog één keer doornemen (zie tips).",items:[]},
+       tip:"Tijdens het examen: lees elke opdracht twee keer, begin snel, praat/schrijf door, en bewaar tijd om na te lezen. Je bent voorbereid.",
+       link:"#ref"}
+    ]}
+];
+
+// ---------- REFERENCE CONTENT ----------
+const REF = `
+<h3>Spreken: startzinnen (begin nooit met stilte)</h3>
+<div class="chunks">
+<div class="chunk"><b>Dat is een goede vraag,</b> ...</div>
+<div class="chunk"><b>Nou,</b> ik denk dat ...</div>
+<div class="chunk"><b>Wat mij betreft,</b> ...</div>
+<div class="chunk"><b>Eerlijk gezegd</b> vind ik ...</div>
+<div class="chunk"><b>Even kijken,</b> ...</div>
+<div class="chunk"><b>Wat vervelend, maar</b> ...</div>
+</div>
+
+<h3>Mening &amp; argumenten</h3>
+<div class="chunks">
+<div class="chunk">Ik vind dat ... <b>omdat</b> ...</div>
+<div class="chunk"><b>Aan de ene kant</b> ... <b>aan de andere kant</b> ...</div>
+<div class="chunk"><b>Een belangrijk argument is dat</b> ...</div>
+<div class="chunk"><b>Sommigen zeggen</b> X, <b>maar ik denk</b> ...</div>
+<div class="chunk"><b>Bijvoorbeeld,</b> ...</div>
+<div class="chunk"><b>Daarom</b> vind ik / <b>vandaar dat</b> ...</div>
+</div>
+
+<h3>Verbindingswoorden (vooral voor B2)</h3>
+<div class="chunks">
+<div class="chunk"><b>Bovendien</b> / Daarnaast (toevoegen)</div>
+<div class="chunk"><b>Hoewel</b> / Ondanks dat (tegenstelling)</div>
+<div class="chunk"><b>Daarentegen</b> (tegenover)</div>
+<div class="chunk"><b>Namelijk</b> / immers (uitleg)</div>
+<div class="chunk"><b>Toch</b> / desondanks</div>
+<div class="chunk"><b>Mits</b> / tenzij (voorwaarde)</div>
+<div class="chunk"><b>Vandaar dat</b> / daardoor (gevolg)</div>
+<div class="chunk"><b>Kortom</b> / al met al (samenvatten)</div>
+<div class="chunk"><b>Ten eerste ... ten tweede ... tot slot</b></div>
+</div>
+
+<h3>Schrijven: aanhef &amp; afsluiting</h3>
+<div class="chunks">
+<div class="chunk"><b>Informeel:</b> Hallo Anna, ... Groetjes, ...</div>
+<div class="chunk"><b>Formeel:</b> Geachte heer/mevrouw, ... Met vriendelijke groet, ...</div>
+<div class="chunk"><b>Reden:</b> Ik schrijf u/je naar aanleiding van ...</div>
+<div class="chunk"><b>Verzoek:</b> Zou u/je kunnen ...? Ik zou graag ...</div>
+<div class="chunk"><b>Klacht:</b> Tot mijn spijt moet ik melden dat ...</div>
+<div class="chunk"><b>Afsluiten:</b> Ik hoor graag van u/je. Alvast bedankt.</div>
+</div>
+
+<h3>Examenstrategie</h3>
+<ul>
+<li><b>Spreken:</b> begin binnen 2 seconden, ook al is het met een startzin. Praat door bij een foutje, niet herstellen. Vul de hele spreektijd.</li>
+<li><b>Schrijven:</b> markeer eerst álle gevraagde punten in de opdracht, en vink ze af terwijl je schrijft. Een vergeten punt kost het meest.</li>
+<li><b>Tijd:</b> 5 min lezen + plannen, dan schrijven, en altijd 3-5 min nalezen aan het eind.</li>
+<li><b>Register:</b> kies bewust u of je en blijf consequent. Formele opdracht = u, geen spreektaal ('hartstikke', 'ff').</li>
+<li><b>Twijfel?</b> Schrijf/zeg het simpeler. Correct en eenvoudig wint van fout en ingewikkeld.</li>
+</ul>
+
+<h3>Snelle foutencheck (schrijven)</h3>
+<ul>
+<li><b>dt-regel:</b> hij word<b>t</b>, ik antwoord, jij vindt. Stam + t bij hij/zij/het.</li>
+<li><b>hen/hun:</b> 'hun' alleen als bezit (hun huis) of meewerkend zonder 'aan' lukt; bij twijfel herschrijf.</li>
+<li><b>los of aan elkaar:</b> te veel, met elkaar, zo'n, opdracht.</li>
+<li><b>woordvolgorde bijzin:</b> werkwoord(en) achteraan: '...omdat ik het niet <b>begrijp</b>.'</li>
+</ul>
+`;
+
+// ---------- STATE ----------
+const KEY="nt2plan_v1";
+const EXAMKEY="nt2plan_examdate";
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function modId(d,i){return "d"+d+"-m"+i;}
+function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+
+let totalModules=0;
+PLAN.forEach(d=>totalModules+=d.modules.length);
+
+function renderPlan(){
+  const root=document.getElementById('plan');
+  root.innerHTML='';
+  PLAN.forEach(day=>{
+    const doneInDay=day.modules.filter((_,i)=>state[modId(day.day,i)]).length;
+    const allDone=doneInDay===day.modules.length;
+    const totalMin=day.modules.reduce((a,m)=>a+m.min,0);
+    const dayEl=document.createElement('div');
+    dayEl.className='day '+day.type+(allDone?' done':'');
+    if(day.day===currentDay()) dayEl.classList.add('open');
+    dayEl.innerHTML=`
+      <div class="day-head" onclick="this.parentNode.classList.toggle('open')">
+        <div class="day-num">${day.day}</div>
+        <div class="day-title"><div class="t">${day.theme}</div><div class="s">${day.sub}</div></div>
+        <div class="day-meta">${doneInDay}/${day.modules.length} &middot; ~${totalMin} min</div>
+        <div class="chev">&#9656;</div>
+      </div>
+      <div class="day-body">${day.modules.map((m,i)=>modHtml(day.day,i,m)).join('')}</div>`;
+    root.appendChild(dayEl);
+  });
+  bindChecks();
+  updateStats();
+}
+
+function modHtml(day,i,m){
+  const id=modId(day,i);
+  const done=!!state[id];
+  const skillClass=m.skill.toLowerCase();
+  let taskHtml='';
+  if(m.task){
+    taskHtml='<div class="mod-task">'+(m.task.intro?('<div class="prompt">'+m.task.intro+'</div>'):'');
+    if(m.task.items&&m.task.items.length){
+      taskHtml+='<ul>'+m.task.items.map(it=>'<li>'+it+'</li>').join('')+'</ul>';
+    }
+    taskHtml+='</div>';
+  }
+  const linkHtml=m.link?`<a class="go" href="${m.link}">Open oefenmateriaal &rarr;</a>`:'';
+  return `<div class="mod ${done?'done':''}" data-skill="${m.skill}">
+    <input type="checkbox" data-id="${id}" ${done?'checked':''}>
+    <div class="mod-body">
+      <div class="mod-top">
+        <span class="mod-title">${m.title}</span>
+        <span class="badge ${skillClass}">${m.skill}</span>
+        <span class="badge lvl">${m.lvl}</span>
+        <span class="badge min">${m.min} min</span>
+      </div>
+      <div class="mod-goal">${m.goal}</div>
+      ${taskHtml}
+      <div class="mod-tip"><b>Tip:</b> ${m.tip}</div>
+      ${linkHtml}
+    </div>
+  </div>`;
+}
+
+function bindChecks(){
+  document.querySelectorAll('.mod input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      const id=cb.dataset.id;
+      if(cb.checked){state[id]=Date.now();} else {delete state[id];}
+      save();
+      cb.closest('.mod').classList.toggle('done',cb.checked);
+      // update the day meta + done class without full re-render
+      const dayEl=cb.closest('.day');
+      updateDayMeta(dayEl);
+      updateStats();
+      if(cb.checked) celebrate();
+    });
+  });
+}
+
+function updateDayMeta(dayEl){
+  const cbs=dayEl.querySelectorAll('.mod input[type=checkbox]');
+  const done=[...cbs].filter(c=>c.checked).length;
+  const meta=dayEl.querySelector('.day-meta');
+  const totalMin=meta.textContent.split('~')[1];
+  meta.innerHTML=`${done}/${cbs.length} &middot; ~${totalMin}`;
+  dayEl.classList.toggle('done',done===cbs.length);
+}
+
+function updateStats(){
+  const done=Object.keys(state).length;
+  document.getElementById('doneCount').textContent=done;
+  const pct=Math.round(done/totalModules*100);
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('bar').style.width=pct+'%';
+  let msg;
+  if(pct===0) msg="Begin met dag 1. Eén module is al winst.";
+  else if(pct<25) msg="Goed begin! Consistentie verslaat intensiteit.";
+  else if(pct<50) msg="Je bent op dreef. Blijf elke dag minstens één module doen.";
+  else if(pct<75) msg="Ruim over de helft. Je voelt het verschil al.";
+  else if(pct<100) msg="Bijna klaar met het plan. Sterk bezig!";
+  else msg="Plan compleet. Je bent er klaar voor. Succes!";
+  document.getElementById('barTxt').textContent=msg;
+}
+
+function currentDay(){ return 1; }
+
+function resetAll(){
+  if(confirm("Alle voortgang wissen?")){ state={}; save(); renderPlan(); showToast("Voortgang gewist"); }
+}
+
+let toastTimer;
+function showToast(t){
+  const el=document.getElementById('toast');
+  el.textContent=t; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2200);
+}
+const CHEERS=["Goed bezig!","Module af!","Lekker doorgaan!","Weer een stap dichterbij.","Knap werk!","Volhouden loont."];
+function celebrate(){ showToast(CHEERS[Object.keys(state).length % CHEERS.length]); }
+
+// init
+document.getElementById('refBody').innerHTML=REF;
+renderPlan();
+</script>
+</body>
+</html>
