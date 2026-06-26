@@ -109,6 +109,26 @@ header a:hover{text-decoration:underline;}
 .qfb.wrong{color:var(--red);}
 .qfb .ex{color:var(--muted);}
 .quiz-empty{font-size:12.5px;color:var(--muted);}
+.qctx{font-size:12.5px;background:#f3f6fb;border-left:3px solid var(--blue);padding:7px 10px;margin-bottom:7px;color:#333;}
+.hint{color:#888;font-size:12px;}
+.qcard.prod{background:#fffdf5;}
+.qwrite{width:100%;min-height:90px;font-family:'Inter',sans-serif;font-size:13px;border:1.5px solid #aaa;padding:7px;margin:6px 0;resize:vertical;}
+.rev-btn{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;border:1.5px solid var(--black);background:#fff;cursor:pointer;padding:5px 10px;}
+.rev-btn:hover{background:var(--yellow);}
+.qmodel{display:none;font-size:13px;margin-top:7px;background:#f1faf4;border:1px solid #bfe6cf;padding:9px 11px;}
+.qmodel.show{display:block;}
+
+/* Exercise hub */
+.ex-hub{margin-top:8px;margin-bottom:28px;background:var(--white);border:2px solid var(--black);border-left-width:6px;border-left-color:var(--red);padding:16px 18px;}
+.ex-hub h2{font-family:'Syne',sans-serif;font-size:20px;margin-bottom:6px;}
+.ex-sub{font-size:13px;color:#444;margin-bottom:12px;}
+.ex-levels{display:flex;gap:8px;margin-bottom:10px;}
+.ex-levels button{flex:1;max-width:120px;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;border:2px solid var(--black);background:#fff;cursor:pointer;padding:8px 0;}
+.ex-levels button.active{background:var(--black);color:#fff;}
+.ex-cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.ex-cats button{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;border:2px solid var(--black);background:#fff;cursor:pointer;padding:6px 12px;}
+.ex-cats button:hover{background:var(--yellow);}
+.ex-cats button.active{background:var(--red);color:#fff;border-color:var(--red);}
 
 /* Common mistakes */
 .mist-intro{margin-top:34px;background:var(--white);border:2px solid var(--black);border-left-width:6px;border-left-color:var(--yellow);padding:14px 16px;}
@@ -212,6 +232,24 @@ header a:hover{text-decoration:underline;}
     <p>Elke module duurt <b>20-30 minuten</b> en staat op zichzelf. Heb je maar 20 minuten? Doe één module. Heb je twee uur? Stapel er vier. <b>Minimaal één module per dag.</b> Vink af wat je doet; je voortgang wordt lokaal in je browser bewaard.</p>
     <p>Bij elke oefening staat <b>welke woorden</b> en <b>welke grammaticaregels</b> je moet gebruiken. Dwing jezelf om die er bewust in te verwerken, dat is precies wat de examinator beloont.</p>
     <p>De opbouw: <span class="pill" style="border-color:var(--black);">Dag 1-5 B1</span> <span class="pill" style="border-color:var(--red);color:var(--red);">Dag 6-10 B2</span> <span class="pill" style="border-color:var(--blue);color:var(--blue);">Dag 11-13 mock-examens</span> <span class="pill">Dag 14 rust + check</span>. De echte examensets staan in <a href="nt2-oefenen.html">het oefen-examen</a>; onderaan vind je <a href="#ref">kernzinnen en examentips</a>.</p>
+  </div>
+
+  <div class="ex-hub" id="oefeningen">
+    <h2>Oefeningen</h2>
+    <p class="ex-sub">Twee hoofdoefeningen (B1 en B2). Kies je niveau, dan een onderdeel. Traint lezen, spreken en schrijven, plus woordenschat en grammatica, met materiaal uit echte examens.</p>
+    <div class="ex-levels">
+      <button data-l="B1" onclick="exLevel('B1')">B1</button>
+      <button data-l="B2" onclick="exLevel('B2')">B2</button>
+    </div>
+    <div class="ex-cats">
+      <button data-c="gemengd" onclick="exCat('gemengd')">Gemengd</button>
+      <button data-c="lezen" onclick="exCat('lezen')">Lezen</button>
+      <button data-c="spreken" onclick="exCat('spreken')">Spreken</button>
+      <button data-c="schrijven" onclick="exCat('schrijven')">Schrijven</button>
+      <button data-c="woord" onclick="exCat('woord')">Woordenschat</button>
+      <button data-c="grammatica" onclick="exCat('grammatica')">Grammatica</button>
+    </div>
+    <div id="ex-area"></div>
   </div>
 
   <div id="plan"></div>
@@ -854,10 +892,29 @@ const EXBANK={
  ]
 };
 
+// B2 productive tasks (transcripts are B1 only); authored model answers
+const B2TASKS={
+ spreken:[
+  {task:"Op je werk wil de directie flexibele werktijden invoeren. Geef in een korte monoloog je mening: voor of tegen? Geef twee argumenten en weerleg een tegenargument.",model:"Ik ben voorstander van flexibele werktijden. Ten eerste kunnen mensen werken wanneer ze het productiefst zijn. Ten tweede is werk en prive makkelijker te combineren. Sommigen vrezen dat de samenwerking eronder lijdt, maar met vaste overlapuren is dat goed op te lossen."},
+  {task:"Een vriend twijfelt of hij in de stad of op het platteland gaat wonen. Adviseer hem en onderbouw je advies.",model:"Het hangt af van wat je belangrijk vindt. Wil je rust en ruimte, dan is het platteland ideaal. Geef je de voorkeur aan voorzieningen en kort reizen, dan zou ik de stad aanraden, omdat je daar makkelijker werk en sociale contacten vindt."},
+  {task:"De gemeente wil bezuinigen op de bibliotheek. Reageer: leg uit waarom de bibliotheek belangrijk is en stel een alternatief voor.",model:"Ik vind het een slecht idee. De bibliotheek is niet alleen een plek voor boeken, maar ook voor ontmoeting, studie en taalcursussen. In plaats van sluiten zou de gemeente kunnen samenwerken met scholen om de kosten te delen."},
+  {task:"Beschrijf een maatschappelijk probleem in Nederland en geef een mogelijke oplossing.",model:"Een groot probleem is het woningtekort, vooral voor starters. Door jarenlang te weinig te bouwen zijn de prijzen sterk gestegen. Een oplossing is sneller vergunningen verlenen en meer betaalbare huurwoningen bouwen."},
+  {task:"Je collega is het niet eens met jouw aanpak van een project. Overtuig hem van jouw plan.",model:"Ik begrijp je twijfels, maar mijn aanpak levert op de lange termijn meer op. We investeren nu wat meer tijd in de voorbereiding, waardoor we later minder fouten hoeven te herstellen. Zullen we het twee weken proberen en daarna evalueren?"},
+  {task:"Moet de overheid gezond eten goedkoper maken? Geef je mening met argumenten.",model:"Ik vind van wel. Als gezonde producten goedkoper zijn dan ongezonde, kiezen mensen eerder voor groente en fruit, wat de zorgkosten verlaagt. Critici zeggen dat de overheid zich er niet mee moet bemoeien, maar de samenleving betaalt nu al mee aan de gevolgen."}
+ ],
+ schrijven:[
+  {task:"Schrijf een formele brief (200-250 woorden) aan je gemeente: maak bezwaar tegen het plan om een park te vervangen door een parkeerplaats. Geef twee argumenten en stel een alternatief voor.",model:"Geachte heer/mevrouw,\n\nNaar aanleiding van uw plan om het buurtpark te vervangen door een parkeerplaats wil ik bezwaar maken.\n\nTen eerste is het park belangrijk voor de leefbaarheid en gezondheid van de buurt. Ten tweede is er al weinig groen in de wijk.\n\nIn plaats daarvan stel ik voor een parkeergarage aan de rand van de wijk te bouwen.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Schrijf een formele klachtenmail over een online aankoop die beschadigd aankwam.",model:"Geachte heer/mevrouw,\n\nOp 3 juni heb ik bij uw webshop een wasmachine besteld (bestelnummer 12345). Helaas kwam het product beschadigd aan.\n\nIk verzoek u vriendelijk om een vervangend exemplaar of een volledige restitutie. Ik hoor graag van u.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Schrijf een opiniestuk (200 woorden): 'Moet het openbaar vervoer gratis worden?' Neem een standpunt in en weerleg een tegenargument.",model:"Gratis openbaar vervoer is wat mij betreft een goed idee. Ten eerste vermindert het de files en de uitstoot. Ten tweede wordt reizen toegankelijker voor mensen met een laag inkomen. Tegenstanders wijzen op de hoge kosten, maar die wegen op tegen de winst voor milieu en bereikbaarheid. Kortom, de voordelen overtreffen de nadelen."},
+  {task:"Schrijf een formele e-mail aan een opleidingsinstituut: vraag informatie over een cursus en schrijf je in.",model:"Geachte heer/mevrouw,\n\nGraag zou ik meer informatie ontvangen over de cursus Nederlands B2. Kunt u mij laten weten wanneer de cursus start, wat de kosten zijn en welk niveau vereist is?\n\nAlvast bedankt voor uw reactie.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Schrijf een brief aan je werkgever waarin je vraagt om gedeeltelijk thuis te mogen werken; geef argumenten.",model:"Geachte heer/mevrouw,\n\nGraag wil ik bespreken of ik twee dagen per week thuis kan werken. Thuis kan ik me beter concentreren op taken die rust vereisen, en ik bespaar reistijd die ik aan het werk kan besteden. Uiteraard blijf ik goed bereikbaar.\n\nMet vriendelijke groet,\n[naam]"}
+ ]
+};
+
 let VOCAB=null, EXDATA=null;
 function loadExData(){
-  fetch('vocabulary.json').then(r=>r.json()).then(v=>{VOCAB=v;}).catch(()=>{});
-  fetch('nt2_exercises.json').then(r=>r.json()).then(v=>{EXDATA=v;}).catch(()=>{});
+  fetch('vocabulary.json').then(r=>r.json()).then(v=>{VOCAB=v; exBuild();}).catch(()=>{});
+  fetch('nt2_exercises.json').then(r=>r.json()).then(v=>{EXDATA=v; exBuild();}).catch(()=>{});
 }
 
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
@@ -872,91 +929,105 @@ function vocabAnswers(nl){
   s.add(b.replace(/\s*\([^)]*\)/g,'').trim());
   return [...s].filter(Boolean);
 }
-function findMod(id){
-  const m=id.match(/^d(\d+)-m(\d+)$/); if(!m) return null;
-  const day=PLAN.find(d=>d.day==+m[1]); if(!day) return null;
-  return {day, m:day.modules[+m[2]]};
+function vptype(w){
+  const T=['werkwoord','zelfstandig','bijvoeglijk','bijwoord','voorzetsel','uitdrukking','voornaamwoord'];
+  for(const t of T) if((w.tags||[]).includes(t)) return t;
+  return null;
 }
-function deriveSets(m,dayType){
-  const t=(m.title+' '+m.goal).toLowerCase(); const s=[];
-  if(/voorzetsel|prepos/.test(t)) s.push('prep');
-  if(/woordvolgorde|volgorde/.test(t)) s.push('wordorder');
-  if(/verleden|perfectum|navertellen|verleden tijd/.test(t)) s.push('perfectum');
-  if(/verbindingswoord|argument|betoog|samenvat|standpunt|opinie/.test(t)) s.push('connectors');
-  if(/passief|om te|door te/.test(t)) s.push('passive');
-  if(/formele|formeel|register|b2-woord|opiniestuk|brief/.test(t)) s.push('register');
-  if(m.skill==='Schrijven'&&!s.includes('email')) s.push('email');
-  if(m.skill==='Spreken') s.push('scenario');
-  if(m.skill==='Mock'){ s.push(m.lvl==='B2'?'register':'scenario'); s.push(dayType==='b2'?'connectors':'perfectum'); }
-  if(!s.length) s.push(dayType==='b2'?'connectors':'wordorder');
-  return [...new Set(s)];
-}
-function buildQuestions(id){
-  const f=findMod(id); if(!f) return [];
-  const m=f.m, lvl=m.lvl, dayType=f.day.type;
-  let Q=[];
-  // 1) module's own target vocab (active recall EN->NL)
-  (m.vocab? shuffle(m.vocab).slice(0,4):[]).forEach(v=>{
-    Q.push({t:'fill',q:`Hoe zeg je in het Nederlands: <b>${v.en}</b>?`,a:vocabAnswers(v.nl),tag:'woord'});
-  });
-  // 2) global vocab at this level -> MCQ meaning
-  if(VOCAB){
-    const pool=VOCAB.filter(w=>w.level===lvl && w.en && w.nl);
-    sample(pool,3).forEach(w=>{
-      const distract=sample(pool.filter(x=>x.en!==w.en),3).map(x=>x.en);
-      Q.push({t:'mcq',q:`Wat betekent <b>${w.nl}</b>?`,options:shuffle([w.en,...distract]),a:w.en,tag:'woord'});
-    });
-  }
-  // 3) example cloze (sentence gap-fill from vocab examples)
-  if(EXDATA&&EXDATA.examplecloze&&EXDATA.examplecloze[lvl]){
-    sample(EXDATA.examplecloze[lvl],5).forEach(c=>{
-      Q.push({t:'fill',q:`Vul het juiste woord in:<br>"${c.q}"<br><span style="color:#888">hint: ${c.en}</span>`,a:vocabAnswers(c.a),tag:'zin'});
-    });
-  }
-  // 4) grammar / skill sets
-  deriveSets(m,dayType).forEach(k=>{ if(EXBANK[k]) sample(EXBANK[k],3).forEach(q=>Q.push({...q,tag:'grammatica'})); });
-  // 5) transcript cloze (real exam sentences) by skill
-  if(EXDATA&&EXDATA.transcript){
-    const cat=(m.skill==='Schrijven')?'schrijven':'spreken';
-    let pool=(EXDATA.transcript[cat]||[]);
-    const lvlPool=pool.filter(c=>c.level===lvl); if(lvlPool.length>=4) pool=lvlPool;
-    sample(pool,5).forEach(c=>{
-      Q.push({t:'fill',q:`Uit een echt examen (${cat}). Vul in:<br>"${c.q}"<br><span style="color:#888">hint: ${c.en}</span>`,a:vocabAnswers(c.a),tag:'examen'});
-    });
-  }
-  return shuffle(Q).slice(0,20);
-}
+function shortEn(en){ return en? en.split('/')[0].split(';')[0].split('(')[0].trim():en; }
 
+// ===== 2 hoofdoefeningen: B1 / B2, elk met subcategorieen =====
+let EXLEVEL='B1', EXCAT='gemengd';
+const HUBSEEN=new Set(), HUBSEENQ=new Set();
 const QBUILT={};
-function toggleQuiz(id){
-  const box=document.getElementById('quiz-'+id);
-  if(box.classList.contains('open')){ box.classList.remove('open'); return; }
-  if(!QBUILT[id]){ QBUILT[id]=buildQuestions(id); renderQuiz(id); }
-  box.classList.add('open');
+
+function buildExercise(level,cat,fresh){
+  if(fresh){ HUBSEEN.clear(); HUBSEENQ.clear(); }
+  const Q=[];
+  const add=(q)=>{ if(!q) return; const k=norm(ansArr(q.a)[0]); const qk=norm((q.q||'').replace(/<[^>]+>/g,' '));
+    if(!k||HUBSEEN.has(k)||HUBSEENQ.has(qk)) return; HUBSEEN.add(k); HUBSEENQ.add(qk); Q.push(q); };
+  const addP=(q)=>{ if(!q) return; const qk=norm((q.ctx||'')+'|'+(q.model||'').slice(0,40)); if(HUBSEENQ.has(qk)) return; HUBSEENQ.add(qk); Q.push(q); };
+  const vpool=(VOCAB||[]).filter(w=>w.level===level && w.en && w.nl);
+  const epool=(EXDATA&&EXDATA.examplecloze&&EXDATA.examplecloze[level])||[];
+  const tpool=((EXDATA&&EXDATA.transcript)?[...(EXDATA.transcript.spreken||[]),...(EXDATA.transcript.schrijven||[])]:[]).filter(c=>c.level===level);
+  const spk = level==='B2'?B2TASKS.spreken:((EXDATA&&EXDATA.tasks&&EXDATA.tasks.spreken)||[]);
+  const wrt = level==='B2'?B2TASKS.schrijven:((EXDATA&&EXDATA.tasks&&EXDATA.tasks.schrijven)||[]);
+  const vfill=(w)=>({t:'fill',q:`Hoe zeg je in het Nederlands: <b>${shortEn(w.en)}</b>?`,a:vocabAnswers(w.nl),tag:'woord'});
+  const vmcq=(w)=>{ const tp=vptype(w); let dp=vpool.filter(x=>x.nl!==w.nl && shortEn(x.en)!==shortEn(w.en) && (tp?vptype(x)===tp:true));
+    if(dp.length<3) dp=vpool.filter(x=>x.nl!==w.nl && shortEn(x.en)!==shortEn(w.en));
+    const opts=shuffle([shortEn(w.en),...sample(dp,3).map(x=>shortEn(x.en))]);
+    return {t:'mcq',q:`Wat betekent <b>${w.nl}</b>?`,options:opts,a:shortEn(w.en),tag:'woord'}; };
+  const ecloze=(c)=>({t:'fill',q:`Vul het juiste woord in:<br>"${c.q}"<br><span class="hint">hint: ${shortEn(c.en)}</span>`,a:vocabAnswers(c.a),tag:'zin'});
+  const tcloze=(c)=>({t:'fill',ctx:c.ctx?('Lees &middot; '+c.ctx):null,q:`Vul het ontbrekende woord in:<br>"${c.q}"<br><span class="hint">hint: ${shortEn(c.en)}</span>`,a:vocabAnswers(c.a),tag:'lezen'});
+  const speakItem=(o)=>({t:'speak',ctx:o.task,q:'Bereid je antwoord voor (±20 sec) en spreek het hardop in (±45 sec). Klik daarna voor een voorbeeldantwoord.',model:o.model,tag:'spreken'});
+  const writeItem=(o)=>({t:'write',ctx:o.task,q:'Schrijf je antwoord en verwerk alle gevraagde punten. Klik daarna voor een voorbeeldantwoord.',model:o.model,tag:'schrijven'});
+  const gram=(keys,n)=>keys.forEach(k=>{ if(EXBANK[k]) sample(EXBANK[k],n).forEach(q=>add({...q,tag:'grammatica'})); });
+  const GK = level==='B2'?['connectors','passive','wordorder','prep']:['prep','wordorder','perfectum','connectors'];
+  if(cat==='woord'){
+    sample(vpool,9).forEach(w=>add(vfill(w)));
+    sample(vpool,6).forEach(w=>add(vmcq(w)));
+    sample(epool,6).forEach(c=>add(ecloze(c)));
+  } else if(cat==='grammatica'){
+    gram(GK,5);
+  } else if(cat==='lezen'){            // reading: read scenario/sentence, fill the gap
+    sample(tpool,9).forEach(c=>add(tcloze(c)));
+    sample(epool,7).forEach(c=>add(ecloze(c)));
+  } else if(cat==='spreken'){          // speaking: real scenario + model answer
+    sample(spk,6).forEach(o=>addP(speakItem(o)));
+    sample(EXBANK.scenario,3).forEach(q=>add({...q,tag:'spreken'}));
+  } else if(cat==='schrijven'){        // writing: real task + model answer + supporting chunks
+    sample(wrt,4).forEach(o=>addP(writeItem(o)));
+    sample(EXBANK.email,3).forEach(q=>add({...q,tag:'schrijven'}));
+    if(level==='B2') sample(EXBANK.register,2).forEach(q=>add({...q,tag:'schrijven'}));
+  } else {                             // gemengd: all skills
+    sample(vpool,3).forEach(w=>add(vfill(w)));
+    sample(vpool,2).forEach(w=>add(vmcq(w)));
+    sample(epool,2).forEach(c=>add(ecloze(c)));
+    gram(GK,2);
+    sample(tpool,3).forEach(c=>add(tcloze(c)));
+    sample(spk,1).forEach(o=>addP(speakItem(o)));
+    sample(wrt,1).forEach(o=>addP(writeItem(o)));
+  }
+  const cap={spreken:9,schrijven:8,lezen:16,woord:18,grammatica:16,gemengd:18}[cat]||16;
+  return shuffle(Q).slice(0,cap);
+}
+function exBuild(){ QBUILT['hub']=buildExercise(EXLEVEL,EXCAT,true); renderArea(); updateExActive(); }
+function exMore(){ const start=(QBUILT['hub']||[]).length; const more=buildExercise(EXLEVEL,EXCAT,false);
+  if(!more.length) return; QBUILT['hub']=QBUILT['hub'].concat(more);
+  document.getElementById('qcards-hub').insertAdjacentHTML('beforeend', more.map((q,k)=>cardHtml('hub',start+k,q)).join('')); updateScore('hub'); }
+function exLevel(l){ EXLEVEL=l; exBuild(); }
+function exCat(c){ EXCAT=c; exBuild(); }
+function gotoOefen(level,cat){ EXLEVEL=level; EXCAT=cat||'gemengd'; exBuild();
+  const el=document.getElementById('oefeningen'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
+function catFor(m){ return m.skill==='Grammatica'?'grammatica': m.skill==='Woordenschat'?'woord': (m.skill==='Spreken'||m.skill==='Schrijven')?'zinnen':'gemengd'; }
+function catLabel(c){ return ({gemengd:'Gemengd',grammatica:'Grammatica',zinnen:'Zinnen',woord:'Woordenschat'})[c]||c; }
+function updateExActive(){
+  document.querySelectorAll('#oefeningen .ex-levels button').forEach(b=>b.classList.toggle('active',b.dataset.l===EXLEVEL));
+  document.querySelectorAll('#oefeningen .ex-cats button').forEach(b=>b.classList.toggle('active',b.dataset.c===EXCAT));
+}
+function renderArea(){
+  const qs=QBUILT['hub']||[], area=document.getElementById('ex-area'); if(!area) return;
+  if(!qs.length){ area.innerHTML='<div class="quiz-empty">De oefeningen laden zodra de woordenlijst binnen is. Open de pagina online (niet als lokaal bestand) voor de volledige set met examenzinnen.</div>'; return; }
+  area.innerHTML=`<div class="quiz-head"><span class="quiz-score" id="score-hub">0/${qs.length} goed</span><button onclick="exMore()">+ meer vragen</button><button onclick="exBuild()">opnieuw</button></div><div id="qcards-hub">${qs.map((q,i)=>cardHtml('hub',i,q)).join('')}</div>`;
 }
 function cardHtml(id,i,q){
+  const ctx=q.ctx?`<div class="qctx">${q.ctx}</div>`:'';
+  if(q.t==='speak'||q.t==='write'){
+    const area=q.t==='write'?`<textarea class="qwrite" placeholder="Schrijf hier je antwoord..."></textarea>`:'';
+    return `<div class="qcard prod">${ctx}<div class="qq"><span class="tag">${q.tag||''}</span>${q.q}</div>${area}<button class="rev-btn" onclick="revealModel('${id}',${i})">Toon voorbeeldantwoord</button><div class="qmodel" id="mdl-${id}-${i}"></div></div>`;
+  }
   let body;
   if(q.t==='mcq'){
     body=`<div class="qopts" id="opts-${id}-${i}">`+q.options.map((o,oi)=>`<button onclick="checkMcq('${id}',${i},${oi})">${o}</button>`).join('')+`</div>`;
   } else {
     body=`<div class="qfill"><input id="fi-${id}-${i}" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkFill('${id}',${i})"><button onclick="checkFill('${id}',${i})">Check</button></div>`;
   }
-  return `<div class="qcard"><div class="qq"><span class="tag">${q.tag||''}</span>${q.q}</div>${body}<div class="qfb" id="fb-${id}-${i}"></div></div>`;
+  return `<div class="qcard">${ctx}<div class="qq"><span class="tag">${q.tag||''}</span>${q.q}</div>${body}<div class="qfb" id="fb-${id}-${i}"></div></div>`;
 }
-function renderQuiz(id){
-  const box=document.getElementById('quiz-'+id), qs=QBUILT[id];
-  if(!qs.length){ box.innerHTML='<div class="quiz-empty">Geen vragen beschikbaar voor deze module.</div>'; return; }
-  const cards=qs.map((q,i)=>cardHtml(id,i,q)).join('');
-  box.innerHTML=`<div class="quiz-head"><span>Actieve oefening</span><span class="quiz-score" id="score-${id}">0/${qs.length} goed</span><button onclick="moreQuiz('${id}')">+ meer vragen</button><button onclick="resetQuiz('${id}')">opnieuw</button></div><div id="qcards-${id}">${cards}</div>`;
-}
-function moreQuiz(id){
-  const start=QBUILT[id].length;
-  const more=buildQuestions(id);
-  if(!more.length) return;
-  QBUILT[id]=QBUILT[id].concat(more);
-  const wrap=document.getElementById('qcards-'+id);
-  wrap.insertAdjacentHTML('beforeend', QBUILT[id].slice(start).map((q,k)=>cardHtml(id,start+k,q)).join(''));
-  updateScore(id);
+function revealModel(id,i){
+  const q=QBUILT[id][i], el=document.getElementById(`mdl-${id}-${i}`);
+  el.className='qmodel show';
+  el.innerHTML='<b>Voorbeeldantwoord</b><br>'+(q.model||'').replace(/\n/g,'<br>');
 }
 function showFb(id,i,ok,q){
   const fb=document.getElementById(`fb-${id}-${i}`);
@@ -982,11 +1053,11 @@ function checkMcq(id,i,oi){
   showFb(id,i,ok,q);
 }
 function updateScore(id){
-  const fbs=document.querySelectorAll(`#quiz-${id} .qfb`);
-  let done=0,ok=0; fbs.forEach(f=>{ if(f.dataset.done){done++; if(f.dataset.ok==='1')ok++;} });
-  const s=document.getElementById('score-'+id); if(s) s.textContent=`${ok}/${QBUILT[id].length} goed`;
+  const fbs=document.querySelectorAll(`#qcards-${id} .qfb`);
+  let ok=0; fbs.forEach(f=>{ if(f.dataset.done&&f.dataset.ok==='1')ok++; });
+  const denom=(QBUILT[id]||[]).filter(q=>q.t==='fill'||q.t==='mcq').length;
+  const s=document.getElementById('score-'+id); if(s) s.textContent=`${ok}/${denom} goed`;
 }
-function resetQuiz(id){ QBUILT[id]=buildQuestions(id); renderQuiz(id); }
 
 // ---------- STATE ----------
 const KEY="nt2plan_v1";
@@ -1046,7 +1117,7 @@ function modHtml(day,i,m){
     gramHtml='<div class="mod-block gram"><div class="hdr">Grammatica om toe te passen</div><ul class="gram-list">'+
       m.grammar.map(g=>'<li>'+g+'</li>').join('')+'</ul></div>';
   }
-  const quizHtml=`<button class="quiz-btn" onclick="toggleQuiz('${id}')">&#9654; Oefen actief (vragen)</button><div class="quiz" id="quiz-${id}"></div>`;
+  const quizHtml=`<button class="quiz-btn" onclick="gotoOefen('${m.lvl}','${catFor(m)}')">&#9654; Oefen actief: ${m.lvl} &middot; ${catLabel(catFor(m))}</button>`;
   return `<div class="mod ${done?'done':''}" data-skill="${m.skill}">
     <input type="checkbox" data-id="${id}" ${done?'checked':''}>
     <div class="mod-body">
@@ -1123,6 +1194,7 @@ function celebrate(){ showToast(CHEERS[Object.keys(state).length % CHEERS.length
 document.getElementById('refBody').innerHTML=REF;
 renderScenarios();
 renderMistakes();
+exBuild();
 loadExData();
 renderPlan();
 </script>
