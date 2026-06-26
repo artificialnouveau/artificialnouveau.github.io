@@ -80,6 +80,55 @@ header a:hover{text-decoration:underline;}
 .scenario .pts{font-size:12.5px;color:var(--muted);margin-top:4px;}
 .scenario .pts b{color:#333;}
 
+/* Active quiz */
+.quiz-btn{margin-top:8px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;
+  border:2px solid var(--black);background:var(--yellow);padding:6px 12px;cursor:pointer;}
+.quiz-btn:hover{background:var(--black);color:#fff;}
+.quiz{display:none;margin-top:10px;border:1.5px solid var(--black);background:#fff;padding:10px 12px;}
+.quiz.open{display:block;}
+.quiz-head{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;margin-bottom:8px;}
+.quiz-score{color:var(--green);}
+.quiz-head button{margin-left:auto;font-family:inherit;font-size:11px;border:1px solid #ccc;background:#fafafa;cursor:pointer;padding:3px 8px;}
+.qcard{border-top:1px dashed #ddd;padding:9px 0;}
+.qcard:first-of-type{border-top:none;}
+.qq{font-size:13.5px;margin-bottom:6px;}
+.qq .tag{font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;border:1px solid #bbb;color:#777;padding:1px 5px;margin-right:6px;text-transform:uppercase;vertical-align:middle;}
+.qfill{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.qfill input{font-family:'Inter',sans-serif;font-size:13px;border:1.5px solid #aaa;padding:5px 8px;min-width:160px;}
+.qfill input.ok{border-color:var(--green);background:#f1faf4;}
+.qfill input.bad{border-color:var(--red);background:#fdf1f2;}
+.qfill button,.qopts button{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;border:1.5px solid var(--black);background:#fff;cursor:pointer;padding:5px 10px;}
+.qfill button:hover,.qopts button:hover{background:var(--yellow);}
+.qopts{display:flex;flex-direction:column;gap:5px;}
+.qopts button{text-align:left;}
+.qopts button.right{background:#e7f7ee;border-color:var(--green);}
+.qopts button.wrong-sel{background:#fdeaec;border-color:var(--red);}
+.qfb{font-size:12.5px;margin-top:5px;display:none;}
+.qfb.show{display:block;}
+.qfb.correct{color:var(--green);}
+.qfb.wrong{color:var(--red);}
+.qfb .ex{color:var(--muted);}
+.quiz-empty{font-size:12.5px;color:var(--muted);}
+
+/* Common mistakes */
+.mist-intro{margin-top:34px;background:var(--white);border:2px solid var(--black);border-left-width:6px;border-left-color:var(--yellow);padding:14px 16px;}
+.mist-intro h2{font-family:'Syne',sans-serif;font-size:18px;margin-bottom:8px;}
+.mist-intro p{font-size:13.5px;}
+.mist{border:2px solid var(--black);border-top:none;background:#fff;}
+.mist:first-child{border-top:2px solid var(--black);}
+.mist-head{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;}
+.mist-head:hover{background:#fbfbfb;}
+.mist.open .mist-head{border-bottom:2px solid var(--black);}
+.mist-title{flex:1;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;}
+.mist.open .chev{transform:rotate(90deg);}
+.mist-body{display:none;padding:4px 16px 14px;}
+.mist.open .mist-body{display:block;}
+.tip{border-left:4px solid #ddd;padding:8px 0 8px 12px;margin-top:11px;}
+.tip .rule{font-size:13.5px;margin-bottom:5px;}
+.tip .ex{font-size:13px;}
+.tip .x{color:var(--red);} .tip .v{color:var(--green);}
+.tip .x b,.tip .v b{font-weight:600;}
+
 .mod{border:1.5px solid #ddd;border-left:5px solid var(--muted);padding:12px 14px;margin-top:12px;display:flex;gap:12px;align-items:flex-start;}
 .mod[data-skill="Spreken"]{border-left-color:var(--red);}
 .mod[data-skill="Schrijven"]{border-left-color:var(--blue);}
@@ -172,6 +221,12 @@ header a:hover{text-decoration:underline;}
     <p>Echte NT2 B1-taken draaien om alledaagse situaties. Hieronder per thema voorbeeldopdrachten zoals op het examen: <span class="badge spreken">Spreken</span> = neem je antwoord op (20 sec nadenken, dan ~45 sec spreken); <span class="badge schrijven">Schrijven</span> = schrijf 80-130 woorden en <b>verwerk alle gevraagde punten</b>. Gebruik ze als losse oefenmodules tussendoor.</p>
   </div>
   <div id="scenarios"></div>
+
+  <div class="mist-intro">
+    <h2>Veelgemaakte fouten (en hoe je ze vermijdt)</h2>
+    <p>De fouten die NT2-kandidaten op B1/B2 het vaakst maken, geordend per thema. <span class="x">&#10007;</span> = fout, <span class="v">&#10003;</span> = goed. Lees er elke dag een paar; herkennen is de eerste stap naar afleren.</p>
+  </div>
+  <div id="mistakes"></div>
 
   <div class="ref" id="ref">
     <h2>Kernzinnen &amp; examentips</h2>
@@ -689,6 +744,240 @@ function renderScenarios(){
   }).join('');
 }
 
+// ---------- COMMON MISTAKES ----------
+const MISTAKES=[
+ {cat:"Zelfstandige naamwoorden & meervoud", tips:[
+   {rule:"Na een telwoord blijven maat-/eenheidswoorden (jaar, uur, keer, euro, kilo, man) <b>enkelvoud</b>. Meervoud alleen los of met lidwoord/bijvoeglijk naamwoord.",x:"Ik woon hier al drie jaren.",v:"Ik woon hier al drie <b>jaar</b>. (maar: in de afgelopen <b>jaren</b>)"},
+   {rule:"Leer elk zelfstandig naamwoord met zijn lidwoord. 'het'-woorden zijn de minderheid, dus markeer ze.",x:"de meisje, de huis",v:"<b>het</b> meisje, <b>het</b> huis"},
+   {rule:"Verkleinwoorden zijn altijd 'het'-woorden.",x:"de meisje, de kopje",v:"<b>het</b> meisje, <b>het</b> kopje"}
+ ]},
+ {cat:"Woordvolgorde", tips:[
+   {rule:"Na omdat/dat/als/terwijl/hoewel (bijzin) gaat het werkwoord helemaal naar het <b>eind</b>.",x:"Ik blijf thuis omdat ik ben ziek.",v:"Ik blijf thuis omdat ik ziek <b>ben</b>."},
+   {rule:"Begint de zin niet met het onderwerp? Dan <b>inversie</b>: werkwoord vóór het onderwerp.",x:"Morgen ik ga werken.",v:"Morgen <b>ga ik</b> werken."},
+   {rule:"Volgorde van bepalingen: <b>Tijd - Manier - Plaats</b>.",x:"Ik ga met de bus morgen naar school.",v:"Ik ga <b>morgen</b> (T) <b>met de bus</b> (M) <b>naar school</b> (P)."},
+   {rule:"'want' = hoofdzin (gewone volgorde); 'omdat' = bijzin (werkwoord achteraan).",x:"Ik kom niet omdat ik heb geen tijd.",v:"Ik kom niet <b>omdat ik geen tijd heb</b>. / ...<b>want ik heb</b> geen tijd."}
+ ]},
+ {cat:"Werkwoorden", tips:[
+   {rule:"Perfectum: beweging/verandering &rarr; <b>zijn</b>; de rest &rarr; <b>hebben</b>.",x:"Ik heb naar huis gegaan.",v:"Ik <b>ben</b> naar huis gegaan."},
+   {rule:"dt-regel: ik &rarr; stam; hij/zij/het &rarr; stam + <b>t</b>. Twijfel je bij het deelwoord? Kijk naar het kofschip ('t kofschip &rarr; -t).",x:"Hij word boos, ik antwoordt.",v:"Hij <b>wordt</b> boos, ik <b>antwoord</b>."},
+   {rule:"Scheidbare werkwoorden: in de hoofdzin <b>splitsen</b>; in de infinitief/bijzin blijven ze bij elkaar.",x:"Ik opbel je morgen.",v:"Ik bel je morgen <b>op</b>. (maar: ...omdat ik je <b>opbel</b>)"},
+   {rule:"kennen = bekend zijn met (mensen/feiten); kunnen = in staat zijn.",x:"Ik ken zwemmen.",v:"Ik <b>kan</b> zwemmen. / Ik <b>ken</b> hem."},
+   {rule:"liggen/zitten/staan = positie (geen lijdend voorwerp); leggen/zetten = iets neerzetten (met lijdend voorwerp).",x:"Ik leg op de bank.",v:"Ik <b>lig</b> op de bank. / Ik <b>leg</b> het boek op tafel."}
+ ]},
+ {cat:"Kleine woorden die punten kosten", tips:[
+   {rule:"Vergelijking: groter <b>dan</b> (niet 'als'). 'als' gebruik je bij gelijkheid (net zo groot als).",x:"Hij is groter als ik.",v:"Hij is groter <b>dan</b> ik."},
+   {rule:"'hun' = bezit (hun huis); onderwerp = <b>zij/ze</b>; na voorzetsel of als lijdend voorwerp = <b>hen</b>.",x:"Hun hebben gewonnen.",v:"<b>Zij</b> hebben gewonnen. (van <b>hen</b> / <b>hun</b> auto)"},
+   {rule:"'geen' bij een zelfstandig naamwoord zonder lidwoord; 'niet' in de rest.",x:"Ik heb niet een auto.",v:"Ik heb <b>geen</b> auto."},
+   {rule:"Bijvoeglijk naamwoord krijgt -e, behalve bij een 'het'-woord met 'een'.",x:"een mooi auto",v:"een <b>mooie</b> auto (maar: een mooi <b>huis</b>)"}
+ ]},
+ {cat:"Spelling & losse woorden", tips:[
+   {rule:"Schrijf los wat los hoort: te veel, met elkaar, nog steeds, zo'n.",x:"Ik heb teveel gegeten.",v:"Ik heb <b>te veel</b> gegeten."},
+   {rule:"Talen en bijvoeglijke naamwoorden van landen krijgen een <b>hoofdletter</b>.",x:"Ik leer nederlands en hou van italiaans eten.",v:"Ik leer <b>Nederlands</b> en hou van <b>Italiaans</b> eten."},
+   {rule:"'s ochtends/'s avonds: met apostrof-s en kleine letter.",x:"Sochtends drink ik koffie.",v:"<b>'s ochtends</b> drink ik koffie."}
+ ]}
+];
+function renderMistakes(){
+  const root=document.getElementById('mistakes'); if(!root) return;
+  root.innerHTML=MISTAKES.map(c=>{
+    const tips=c.tips.map(t=>`<div class="tip"><div class="rule">${t.rule}</div>
+      <div class="ex x">&#10007; ${t.x}</div><div class="ex v">&#10003; ${t.v}</div></div>`).join('');
+    return `<div class="mist"><div class="mist-head" onclick="this.parentNode.classList.toggle('open')">
+      <span class="mist-title">${c.cat}</span>
+      <span class="day-meta">${c.tips.length} tips</span><span class="chev">&#9656;</span></div>
+      <div class="mist-body">${tips}</div></div>`;
+  }).join('');
+}
+
+// ---------- ACTIVE EXERCISE ENGINE ----------
+const EXBANK={
+ prep:[
+  {t:'fill',q:"Ik wacht al een uur ___ de bus.",a:["op"],exp:"wachten op"},
+  {t:'fill',q:"Zij is bang ___ honden.",a:["voor"],exp:"bang voor"},
+  {t:'fill',q:"Wij denken vaak ___ vroeger.",a:["aan"],exp:"denken aan"},
+  {t:'fill',q:"Hij is erg tevreden ___ zijn nieuwe baan.",a:["over"],exp:"tevreden over"},
+  {t:'fill',q:"Ben jij geïnteresseerd ___ kunst?",a:["in"],exp:"geïnteresseerd in"},
+  {t:'fill',q:"Veel mensen klagen ___ de drukte.",a:["over"],exp:"klagen over"},
+  {t:'fill',q:"Dat hangt ___ het weer af.",a:["van"],exp:"afhangen van"},
+  {t:'fill',q:"We moeten ons aanpassen ___ de nieuwe regels.",a:["aan"],exp:"zich aanpassen aan"}
+ ],
+ wordorder:[
+  {t:'mcq',q:"Welke zin is correct?",options:["Ik weet dat hij morgen komt.","Ik weet dat hij komt morgen.","Ik weet dat morgen hij komt."],a:"Ik weet dat hij morgen komt.",exp:"Bijzin met 'dat': werkwoord helemaal achteraan."},
+  {t:'mcq',q:"Welke zin is correct?",options:["Omdat het regende, bleven we thuis.","Omdat het regende, we bleven thuis."],a:"Omdat het regende, bleven we thuis.",exp:"Bijzin vooraan &rarr; inversie in de hoofdzin."},
+  {t:'mcq',q:"Welke zin is correct?",options:["Hij heeft gisteren een brief geschreven.","Hij heeft geschreven gisteren een brief."],a:"Hij heeft gisteren een brief geschreven.",exp:"Voltooid deelwoord aan het eind."},
+  {t:'mcq',q:"Tijd-Manier-Plaats: welke is correct?",options:["Ik ga morgen met de trein naar Den Haag.","Ik ga met de trein morgen naar Den Haag.","Ik ga naar Den Haag morgen met de trein."],a:"Ik ga morgen met de trein naar Den Haag.",exp:"Volgorde: Tijd - Manier - Plaats."},
+  {t:'fill',q:"Vul het werkwoord in: 'Morgen ___ ik naar Amsterdam.' (gaan)",a:["ga"],exp:"Tijdsbepaling vooraan &rarr; inversie: werkwoord op plaats 2 ('ga ik')."}
+ ],
+ perfectum:[
+  {t:'fill',q:"heb of ben? 'Ik ___ gisteren naar de dokter geweest.'",a:["ben"],exp:"geweest hoort bij ZIJN."},
+  {t:'fill',q:"heb of ben? 'Ik ___ een nieuwe fiets gekocht.'",a:["heb"],exp:"kopen &rarr; hebben."},
+  {t:'fill',q:"heb of ben? 'Ik ___ om 8 uur vertrokken.'",a:["ben"],exp:"vertrekken (beweging/verandering) &rarr; zijn."},
+  {t:'fill',q:"heb of ben? 'Hoe laat ___ je opgestaan?'",a:["ben"],exp:"opstaan &rarr; zijn."},
+  {t:'fill',q:"Vul het voltooid deelwoord in: 'Heb je je huiswerk ___? (maken)'",a:["gemaakt"],exp:"maken &rarr; gemaakt."},
+  {t:'fill',q:"Vul het voltooid deelwoord in: 'De trein is te laat ___. (aankomen)'",a:["aangekomen"],exp:"aankomen &rarr; aangekomen."},
+  {t:'fill',q:"Vul het voltooid deelwoord in: 'We zijn naar Parijs ___. (reizen)'",a:["gereisd"],exp:"reizen &rarr; gereisd (met zijn)."}
+ ],
+ connectors:[
+  {t:'mcq',q:"'Ik kom niet, ___ ik geen tijd heb.'",options:["omdat","want","daarom"],a:"omdat",exp:"De bijzin heeft het werkwoord achteraan ('heb') &rarr; omdat."},
+  {t:'mcq',q:"'___ het slechte weer gingen we toch wandelen.'",options:["Ondanks","Hoewel","Omdat"],a:"Ondanks",exp:"Ondanks + zelfstandig naamwoord (geen hele zin)."},
+  {t:'mcq',q:"'___ het slecht weer was, gingen we wandelen.'",options:["Hoewel","Ondanks","Dankzij"],a:"Hoewel",exp:"Hoewel + hele zin (bijzin)."},
+  {t:'mcq',q:"Toevoegen: 'Hij sport veel. ___ eet hij gezond.'",options:["Bovendien","Hoewel","Toch"],a:"Bovendien",exp:"Bovendien = extra informatie."},
+  {t:'mcq',q:"Voorwaarde: 'Je mag mee, ___ je op tijd bent.'",options:["mits","tenzij","hoewel"],a:"mits",exp:"mits = op voorwaarde dat."},
+  {t:'mcq',q:"Tegenstelling (formeel): 'Het plan is goed. ___ kost het veel geld.'",options:["Echter,","Daarom,","Namelijk,"],a:"Echter,",exp:"Echter = maar (formeel)."}
+ ],
+ passive:[
+  {t:'mcq',q:"Maak passief: 'Men bekijkt de beslissing opnieuw.'",options:["De beslissing wordt opnieuw bekeken.","De beslissing is opnieuw bekijken.","De beslissing bekeken wordt opnieuw."],a:"De beslissing wordt opnieuw bekeken.",exp:"worden + voltooid deelwoord."},
+  {t:'mcq',q:"Doel: 'Hij spaart ___ een huis te kopen.'",options:["om","door","met"],a:"om",exp:"om te + infinitief = doel."},
+  {t:'mcq',q:"Middel: '___ te investeren in groen wordt de stad gezonder.'",options:["Door","Om","Voor"],a:"Door",exp:"door te + infinitief = middel/manier."},
+  {t:'mcq',q:"Welke is correct (passief, verleden)?",options:["De brief werd gisteren verstuurd.","De brief werd gisteren versturen.","De brief is gisteren versturen."],a:"De brief werd gisteren verstuurd.",exp:"werd + voltooid deelwoord."}
+ ],
+ register:[
+  {t:'mcq',q:"Formeler voor 'krijgen':",options:["ontvangen","pakken","halen"],a:"ontvangen"},
+  {t:'mcq',q:"Formeler voor 'beginnen':",options:["aanvangen","starten","opgaan"],a:"aanvangen"},
+  {t:'mcq',q:"Formeler voor 'genoeg':",options:["voldoende","zat","wel veel"],a:"voldoende"},
+  {t:'mcq',q:"Formeler voor 'moeten' (verplichting):",options:["dienen te","horen te","willen"],a:"dienen te"},
+  {t:'mcq',q:"Formeler voor 'over' (een onderwerp):",options:["betreffende","boven","achter"],a:"betreffende"},
+  {t:'mcq',q:"Formeel verzoek:",options:["Ik verzoek u vriendelijk...","Ik wil dat je...","Doe even..."],a:"Ik verzoek u vriendelijk..."}
+ ],
+ email:[
+  {t:'fill',q:"Formele aanhef (naam onbekend): 'Geachte heer/___,'",a:["mevrouw"],exp:"Geachte heer/mevrouw,"},
+  {t:'fill',q:"Formele afsluiting: 'Met vriendelijke ___'",a:["groet","groeten"],exp:"Met vriendelijke groet,"},
+  {t:'fill',q:"Reden van schrijven: 'Ik schrijf u naar ___ van uw advertentie.'",a:["aanleiding"],exp:"naar aanleiding van"},
+  {t:'fill',q:"Beleefd verzoek: 'Zou u mij meer informatie kunnen ___?'",a:["sturen","toesturen","geven"],exp:"Zou u ... kunnen sturen?"},
+  {t:'fill',q:"Afsluiten: 'Ik hoor graag van ___.'",a:["u"],exp:"Ik hoor graag van u."},
+  {t:'fill',q:"Bedanken vooraf: 'Alvast ___ voor uw reactie.'",a:["bedankt","dank"],exp:"Alvast bedankt."}
+ ],
+ scenario:[
+  {t:'mcq',q:"Collega vraagt of je kunt invallen, maar je kunt niet. Beste reactie:",options:["Wat vervelend, maar het lukt me helaas niet; ik heb al een afspraak.","Nee.","Ik heb geen zin."],a:"Wat vervelend, maar het lukt me helaas niet; ik heb al een afspraak.",exp:"Beleefd + korte reden."},
+  {t:'mcq',q:"Je wilt beleefd om herhaling vragen:",options:["Zou u dat nog een keer kunnen uitleggen?","Leg uit.","Slechte uitleg, ik snap niks."],a:"Zou u dat nog een keer kunnen uitleggen?"},
+  {t:'mcq',q:"Een afspraak afzeggen bij de tandarts:",options:["Ik moet mijn afspraak van morgen helaas afzeggen. Kan het op een andere dag?","Ik kom niet.","Laat maar."],a:"Ik moet mijn afspraak van morgen helaas afzeggen. Kan het op een andere dag?"},
+  {t:'mcq',q:"Formele reactie op een klacht van een klant:",options:["Wat vervelend dat het is misgegaan. Ik zoek het meteen voor u uit.","Dat is niet mijn probleem.","Pech gehad."],a:"Wat vervelend dat het is misgegaan. Ik zoek het meteen voor u uit."}
+ ]
+};
+
+let VOCAB=null, EXDATA=null;
+function loadExData(){
+  fetch('vocabulary.json').then(r=>r.json()).then(v=>{VOCAB=v;}).catch(()=>{});
+  fetch('nt2_exercises.json').then(r=>r.json()).then(v=>{EXDATA=v;}).catch(()=>{});
+}
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function sample(a,n){return shuffle(a).slice(0,n);}
+function norm(s){return (s||'').toLowerCase().trim().replace(/[.!?,;:]+$/,'').replace(/\s+/g,' ');}
+function ansArr(a){return Array.isArray(a)?a:[a];}
+function vocabAnswers(nl){
+  const b=nl.trim(); const s=new Set([b]);
+  s.add(b.replace(/^(de|het|een)\s+/i,''));
+  s.add(b.replace(/\bzich\s+/i,'').trim());
+  s.add(b.replace(/[()]/g,'').replace(/\s+/g,' ').trim());
+  s.add(b.replace(/\s*\([^)]*\)/g,'').trim());
+  return [...s].filter(Boolean);
+}
+function findMod(id){
+  const m=id.match(/^d(\d+)-m(\d+)$/); if(!m) return null;
+  const day=PLAN.find(d=>d.day==+m[1]); if(!day) return null;
+  return {day, m:day.modules[+m[2]]};
+}
+function deriveSets(m,dayType){
+  const t=(m.title+' '+m.goal).toLowerCase(); const s=[];
+  if(/voorzetsel|prepos/.test(t)) s.push('prep');
+  if(/woordvolgorde|volgorde/.test(t)) s.push('wordorder');
+  if(/verleden|perfectum|navertellen|verleden tijd/.test(t)) s.push('perfectum');
+  if(/verbindingswoord|argument|betoog|samenvat|standpunt|opinie/.test(t)) s.push('connectors');
+  if(/passief|om te|door te/.test(t)) s.push('passive');
+  if(/formele|formeel|register|b2-woord|opiniestuk|brief/.test(t)) s.push('register');
+  if(m.skill==='Schrijven'&&!s.includes('email')) s.push('email');
+  if(m.skill==='Spreken') s.push('scenario');
+  if(m.skill==='Mock'){ s.push(m.lvl==='B2'?'register':'scenario'); s.push(dayType==='b2'?'connectors':'perfectum'); }
+  if(!s.length) s.push(dayType==='b2'?'connectors':'wordorder');
+  return [...new Set(s)];
+}
+function buildQuestions(id){
+  const f=findMod(id); if(!f) return [];
+  const m=f.m, lvl=m.lvl, dayType=f.day.type;
+  let Q=[];
+  // 1) module's own target vocab (active recall EN->NL)
+  (m.vocab? shuffle(m.vocab).slice(0,4):[]).forEach(v=>{
+    Q.push({t:'fill',q:`Hoe zeg je in het Nederlands: <b>${v.en}</b>?`,a:vocabAnswers(v.nl),exp:`(${v.nl})`,tag:'woord'});
+  });
+  // 2) global vocab at this level -> MCQ meaning
+  if(VOCAB){
+    const pool=VOCAB.filter(w=>w.level===lvl && w.en && w.nl);
+    sample(pool,2).forEach(w=>{
+      const distract=sample(pool.filter(x=>x.en!==w.en),3).map(x=>x.en);
+      Q.push({t:'mcq',q:`Wat betekent <b>${w.nl}</b>?`,options:shuffle([w.en,...distract]),a:w.en,tag:'woord'});
+    });
+  }
+  // 3) example cloze from vocab
+  if(EXDATA&&EXDATA.examplecloze&&EXDATA.examplecloze[lvl]){
+    sample(EXDATA.examplecloze[lvl],2).forEach(c=>{
+      Q.push({t:'fill',q:`Vul het juiste woord in:<br>"${c.q}"<br><span style="color:#888">hint: ${c.en}</span>`,a:vocabAnswers(c.a),exp:`(${c.a})`,tag:'cloze'});
+    });
+  }
+  // 4) grammar / skill sets
+  deriveSets(m,dayType).forEach(k=>{ if(EXBANK[k]) sample(EXBANK[k],2).forEach(q=>Q.push({...q,tag:'grammatica'})); });
+  // 5) transcript cloze (real exam) by skill
+  if(EXDATA&&EXDATA.transcript){
+    const cat=(m.skill==='Schrijven')?'schrijven':'spreken';
+    let pool=(EXDATA.transcript[cat]||[]);
+    const lvlPool=pool.filter(c=>c.level===lvl); if(lvlPool.length>=2) pool=lvlPool;
+    sample(pool,2).forEach(c=>{
+      Q.push({t:'fill',q:`Uit een echt examen (${cat}). Vul in:<br>"${c.q}"<br><span style="color:#888">hint: ${c.en}</span>`,a:vocabAnswers(c.a),exp:`(${c.a})`,tag:'examen'});
+    });
+  }
+  return shuffle(Q).slice(0,12);
+}
+
+const QBUILT={};
+function toggleQuiz(id){
+  const box=document.getElementById('quiz-'+id);
+  if(box.classList.contains('open')){ box.classList.remove('open'); return; }
+  if(!QBUILT[id]){ QBUILT[id]=buildQuestions(id); renderQuiz(id); }
+  box.classList.add('open');
+}
+function renderQuiz(id){
+  const box=document.getElementById('quiz-'+id), qs=QBUILT[id];
+  if(!qs.length){ box.innerHTML='<div class="quiz-empty">Geen vragen beschikbaar voor deze module.</div>'; return; }
+  const cards=qs.map((q,i)=>{
+    let body;
+    if(q.t==='mcq'){
+      body=`<div class="qopts" id="opts-${id}-${i}">`+q.options.map((o,oi)=>`<button onclick="checkMcq('${id}',${i},${oi})">${o}</button>`).join('')+`</div>`;
+    } else {
+      body=`<div class="qfill"><input id="fi-${id}-${i}" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkFill('${id}',${i})"><button onclick="checkFill('${id}',${i})">Check</button></div>`;
+    }
+    return `<div class="qcard"><div class="qq"><span class="tag">${q.tag||''}</span>${q.q}</div>${body}<div class="qfb" id="fb-${id}-${i}"></div></div>`;
+  }).join('');
+  box.innerHTML=`<div class="quiz-head"><span>Actieve oefening</span><span class="quiz-score" id="score-${id}">0/${qs.length} goed</span><button onclick="resetQuiz('${id}')">opnieuw</button></div>${cards}`;
+}
+function showFb(id,i,ok,q){
+  const fb=document.getElementById(`fb-${id}-${i}`);
+  fb.className='qfb show '+(ok?'correct':'wrong');
+  fb.innerHTML=(ok?'&#10003; Goed!':('&#10007; Antwoord: <b>'+ansArr(q.a)[0]+'</b>'))+(q.exp?` <span class="ex">${q.exp}</span>`:'');
+  fb.dataset.ok=ok?'1':'0'; fb.dataset.done='1';
+  updateScore(id);
+}
+function checkFill(id,i){
+  const q=QBUILT[id][i], inp=document.getElementById(`fi-${id}-${i}`);
+  const val=norm(inp.value); if(!val) return;
+  const ok=ansArr(q.a).map(norm).includes(val);
+  inp.classList.toggle('ok',ok); inp.classList.toggle('bad',!ok);
+  showFb(id,i,ok,q);
+}
+function checkMcq(id,i,oi){
+  const q=QBUILT[id][i];
+  const btns=document.querySelectorAll(`#opts-${id}-${i} button`);
+  const ok=norm(q.options[oi])===norm(ansArr(q.a)[0]);
+  btns.forEach((b,bi)=>{ b.classList.remove('right','wrong-sel');
+    if(norm(q.options[bi])===norm(ansArr(q.a)[0])) b.classList.add('right'); });
+  if(!ok) btns[oi].classList.add('wrong-sel');
+  showFb(id,i,ok,q);
+}
+function updateScore(id){
+  const fbs=document.querySelectorAll(`#quiz-${id} .qfb`);
+  let done=0,ok=0; fbs.forEach(f=>{ if(f.dataset.done){done++; if(f.dataset.ok==='1')ok++;} });
+  const s=document.getElementById('score-'+id); if(s) s.textContent=`${ok}/${QBUILT[id].length} goed`;
+}
+function resetQuiz(id){ QBUILT[id]=buildQuestions(id); renderQuiz(id); }
+
 // ---------- STATE ----------
 const KEY="nt2plan_v1";
 let state = JSON.parse(localStorage.getItem(KEY) || "{}");
@@ -747,7 +1036,7 @@ function modHtml(day,i,m){
     gramHtml='<div class="mod-block gram"><div class="hdr">Grammatica om toe te passen</div><ul class="gram-list">'+
       m.grammar.map(g=>'<li>'+g+'</li>').join('')+'</ul></div>';
   }
-  const linkHtml=m.link?`<a class="go" href="${m.link}">Open oefenmateriaal &rarr;</a>`:'';
+  const quizHtml=`<button class="quiz-btn" onclick="toggleQuiz('${id}')">&#9654; Oefen actief (vragen)</button><div class="quiz" id="quiz-${id}"></div>`;
   return `<div class="mod ${done?'done':''}" data-skill="${m.skill}">
     <input type="checkbox" data-id="${id}" ${done?'checked':''}>
     <div class="mod-body">
@@ -762,7 +1051,7 @@ function modHtml(day,i,m){
       ${vocabHtml}
       ${gramHtml}
       <div class="mod-tip"><b>Tip:</b> ${m.tip}</div>
-      ${linkHtml}
+      ${quizHtml}
     </div>
   </div>`;
 }
@@ -823,6 +1112,8 @@ function celebrate(){ showToast(CHEERS[Object.keys(state).length % CHEERS.length
 // init
 document.getElementById('refBody').innerHTML=REF;
 renderScenarios();
+renderMistakes();
+loadExData();
 renderPlan();
 </script>
 </body>
