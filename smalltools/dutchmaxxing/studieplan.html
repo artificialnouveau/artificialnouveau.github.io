@@ -57,6 +57,29 @@ header a:hover{text-decoration:underline;}
 .day-body{display:none;padding:6px 16px 16px;}
 .day.open .day-body{display:block;}
 
+.scen-intro{margin-top:34px;background:var(--white);border:2px solid var(--black);border-left-width:6px;border-left-color:var(--red);padding:14px 16px;}
+.scen-intro h2{font-family:'Syne',sans-serif;font-size:18px;margin-bottom:8px;}
+.scen-intro p{font-size:13.5px;}
+.scen-intro .badge{vertical-align:middle;}
+.scen{border:2px solid var(--black);border-top:none;background:var(--white);}
+.scen:first-child{border-top:2px solid var(--black);}
+.scen-head{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;}
+.scen-head:hover{background:#fbfbfb;}
+.scen.open .scen-head{border-bottom:2px solid var(--black);}
+.scen-ico{font-size:20px;flex-shrink:0;width:26px;text-align:center;}
+.scen-title{flex:1;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;}
+.scen-meta{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--muted);}
+.scen.open .chev{transform:rotate(90deg);}
+.scen-body{display:none;padding:6px 16px 14px;}
+.scen.open .scen-body{display:block;}
+.scenario{border:1.5px solid #ddd;border-left:5px solid var(--muted);padding:10px 13px;margin-top:10px;font-size:13.5px;}
+.scenario[data-skill="Spreken"]{border-left-color:var(--red);}
+.scenario[data-skill="Schrijven"]{border-left-color:var(--blue);}
+.scenario .badge{margin-right:6px;}
+.scenario .sit{margin:5px 0 4px;}
+.scenario .pts{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.scenario .pts b{color:#333;}
+
 .mod{border:1.5px solid #ddd;border-left:5px solid var(--muted);padding:12px 14px;margin-top:12px;display:flex;gap:12px;align-items:flex-start;}
 .mod[data-skill="Spreken"]{border-left-color:var(--red);}
 .mod[data-skill="Schrijven"]{border-left-color:var(--blue);}
@@ -143,6 +166,12 @@ header a:hover{text-decoration:underline;}
   </div>
 
   <div id="plan"></div>
+
+  <div class="scen-intro">
+    <h2>B1 examenscenario's per thema</h2>
+    <p>Echte NT2 B1-taken draaien om alledaagse situaties. Hieronder per thema voorbeeldopdrachten zoals op het examen: <span class="badge spreken">Spreken</span> = neem je antwoord op (20 sec nadenken, dan ~45 sec spreken); <span class="badge schrijven">Schrijven</span> = schrijf 80-130 woorden en <b>verwerk alle gevraagde punten</b>. Gebruik ze als losse oefenmodules tussendoor.</p>
+  </div>
+  <div id="scenarios"></div>
 
   <div class="ref" id="ref">
     <h2>Kernzinnen &amp; examentips</h2>
@@ -589,6 +618,77 @@ const REF = `
 </ul>
 `;
 
+// ---------- B1 SCENARIO BANK ----------
+// skill: Spreken | Schrijven ; pts = verplichte punten (vooral schrijven)
+const SCENARIOS = [
+  { theme:"Vervoer & reizen", ico:"\u{1F686}", items:[
+    {skill:"Spreken", sit:"Je trein is uitgevallen en je komt te laat op een afspraak. Bel de persoon, leg de situatie uit en vraag of de afspraak kan worden verzet."},
+    {skill:"Spreken", sit:"Je hebt bij de automaat een verkeerd treinkaartje gekocht. Leg bij de balie uit wat er mis is en vraag om hulp."},
+    {skill:"Schrijven", sit:"Je hebt je OV-chipkaart in de bus laten liggen. Mail de afdeling gevonden voorwerpen.", pts:["beschrijf de kaart","zeg wanneer en in welke bus","vraag hoe je hem terugkrijgt"]},
+    {skill:"Spreken", sit:"Een toerist vraagt jou de weg van het centrum naar het station. Leg de route stap voor stap uit."}
+  ]},
+  { theme:"Werk & sollicitatie", ico:"\u{1F4BC}", items:[
+    {skill:"Schrijven", sit:"Je bent ziek en kunt niet werken. Mail je leidinggevende.", pts:["meld je ziek","zeg hoelang je waarschijnlijk weg bent","zeg wat er met je afspraken van vandaag moet gebeuren"]},
+    {skill:"Spreken", sit:"Een collega vraagt of je zijn dienst kunt overnemen. Je kunt niet. Reageer vriendelijk en stel een alternatief voor."},
+    {skill:"Schrijven", sit:"Je solliciteert op een bijbaan in een café. Schrijf een korte motivatiemail.", pts:["stel jezelf voor","zeg waarom je de baan wilt","noem je beschikbaarheid en vraag om een gesprek"]},
+    {skill:"Spreken", sit:"Je wilt een dag vrij vragen voor een belangrijke afspraak. Leg aan je baas uit waarom en wanneer."}
+  ]},
+  { theme:"Wonen & buren", ico:"\u{1F3E0}", items:[
+    {skill:"Spreken", sit:"Je buren maken 's avonds laat veel lawaai. Spreek hen vriendelijk aan en vraag of ze rekening willen houden."},
+    {skill:"Schrijven", sit:"Er is een lekkage in je huurwoning. Mail de verhuurder.", pts:["beschrijf het probleem en waar het zit","zeg hoelang het al speelt","vraag om snel iemand te sturen"]},
+    {skill:"Schrijven", sit:"Je zoekt een kamer en reageert op een advertentie.", pts:["stel jezelf voor","zeg wat je zoekt en je budget","stel een vraag over de kamer"]}
+  ]},
+  { theme:"Gezondheid & afspraken", ico:"\u{1FA7A}", items:[
+    {skill:"Spreken", sit:"Je belt de huisarts voor een afspraak. Leg je klachten kort uit en zeg wanneer je kunt komen."},
+    {skill:"Spreken", sit:"Je moet je afspraak bij de tandarts afzeggen. Bel, leg uit waarom en vraag om een nieuwe datum."},
+    {skill:"Schrijven", sit:"Je kunt niet naar je afspraak in het ziekenhuis komen. Schrijf een bericht.", pts:["zeg welke afspraak het is (datum/tijd)","leg uit waarom je niet kunt","vraag om een nieuwe afspraak"]}
+  ]},
+  { theme:"Winkelen & diensten", ico:"\u{1F6D2}", items:[
+    {skill:"Spreken", sit:"Je hebt een apparaat gekocht dat kapot is. Ga terug naar de winkel, leg uit wat er mis is en zeg wat je wilt (ruilen of geld terug)."},
+    {skill:"Schrijven", sit:"Je hebt online iets besteld dat niet is aangekomen. Mail de webshop.", pts:["noem je bestelnummer en wat je bestelde","zeg wanneer het geleverd had moeten zijn","vraag waar je pakket is en wat ze gaan doen"]},
+    {skill:"Spreken", sit:"Je internet werkt al een paar dagen niet. Bel de provider en leg het probleem uit; vraag om een oplossing."}
+  ]},
+  { theme:"Onderwijs & cursus", ico:"\u{1F4DA}", items:[
+    {skill:"Schrijven", sit:"Je wilt je inschrijven voor een taalcursus. Mail de organisatie.", pts:["zeg welke cursus je zoekt en je niveau","vraag naar de tijden en de prijs","vraag hoe je je kunt inschrijven"]},
+    {skill:"Spreken", sit:"Je begrijpt de uitleg in de les niet goed. Vraag je docent beleefd om het nog een keer of anders uit te leggen."},
+    {skill:"Schrijven", sit:"Je kunt volgende week een les niet bijwonen. Mail je docent.", pts:["meld je af voor de les","leg kort uit waarom","vraag wat je moet inhalen"]}
+  ]},
+  { theme:"Vrije tijd & sociaal", ico:"\u{1F389}", items:[
+    {skill:"Spreken", sit:"Een vriend nodigt je uit voor een feest, maar je kunt niet komen. Reageer en leg uit waarom."},
+    {skill:"Schrijven", sit:"Je wilt met vrienden een weekendje weg. Schrijf een berichtje met een voorstel.", pts:["stel voor waar en wanneer","zeg wat jullie daar kunnen doen","vraag wie er meegaat"]},
+    {skill:"Spreken", sit:"Je vertelt een vriend over een leuke film of activiteit en raadt het aan. Zeg waarom het de moeite waard is."}
+  ]},
+  { theme:"Geld & administratie", ico:"\u{1F4EE}", items:[
+    {skill:"Schrijven", sit:"Je hebt een rekening gekregen die niet klopt. Schrijf een mail.", pts:["leg uit wat er fout is","noem het juiste bedrag of de details","vraag om een correctie"]},
+    {skill:"Spreken", sit:"Je gaat naar de gemeente om je in te schrijven. Leg aan de medewerker uit waarvoor je komt en welke gegevens je bij je hebt."},
+    {skill:"Schrijven", sit:"Je wilt een abonnement (sportschool of tijdschrift) opzeggen. Schrijf een korte, formele opzegmail.", pts:["zeg dat je wilt opzeggen en per wanneer","noem je klant- of lidnummer","vraag om een bevestiging"]}
+  ]}
+];
+
+function renderScenarios(){
+  const root=document.getElementById('scenarios');
+  if(!root) return;
+  root.innerHTML=SCENARIOS.map(t=>{
+    const n=t.items.length;
+    const sp=t.items.filter(i=>i.skill==='Spreken').length;
+    const items=t.items.map(it=>{
+      const pts=it.pts?('<div class="pts"><b>Verwerk:</b> '+it.pts.join('; ')+'.</div>'):'';
+      return `<div class="scenario" data-skill="${it.skill}">
+        <span class="badge ${it.skill.toLowerCase()}">${it.skill}</span>
+        <span class="sit">${it.sit}</span>${pts}</div>`;
+    }).join('');
+    return `<div class="scen">
+      <div class="scen-head" onclick="this.parentNode.classList.toggle('open')">
+        <span class="scen-ico">${t.ico}</span>
+        <span class="scen-title">${t.theme}</span>
+        <span class="scen-meta">${n} taken &middot; ${sp} spreken / ${n-sp} schrijven</span>
+        <span class="chev">&#9656;</span>
+      </div>
+      <div class="scen-body">${items}</div>
+    </div>`;
+  }).join('');
+}
+
 // ---------- STATE ----------
 const KEY="nt2plan_v1";
 let state = JSON.parse(localStorage.getItem(KEY) || "{}");
@@ -722,6 +822,7 @@ function celebrate(){ showToast(CHEERS[Object.keys(state).length % CHEERS.length
 
 // init
 document.getElementById('refBody').innerHTML=REF;
+renderScenarios();
 renderPlan();
 </script>
 </body>
