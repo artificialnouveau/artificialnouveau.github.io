@@ -897,34 +897,34 @@ function buildQuestions(id){
   let Q=[];
   // 1) module's own target vocab (active recall EN->NL)
   (m.vocab? shuffle(m.vocab).slice(0,4):[]).forEach(v=>{
-    Q.push({t:'fill',q:`Hoe zeg je in het Nederlands: <b>${v.en}</b>?`,a:vocabAnswers(v.nl),exp:`(${v.nl})`,tag:'woord'});
+    Q.push({t:'fill',q:`Hoe zeg je in het Nederlands: <b>${v.en}</b>?`,a:vocabAnswers(v.nl),tag:'woord'});
   });
   // 2) global vocab at this level -> MCQ meaning
   if(VOCAB){
     const pool=VOCAB.filter(w=>w.level===lvl && w.en && w.nl);
-    sample(pool,2).forEach(w=>{
+    sample(pool,3).forEach(w=>{
       const distract=sample(pool.filter(x=>x.en!==w.en),3).map(x=>x.en);
       Q.push({t:'mcq',q:`Wat betekent <b>${w.nl}</b>?`,options:shuffle([w.en,...distract]),a:w.en,tag:'woord'});
     });
   }
-  // 3) example cloze from vocab
+  // 3) example cloze (sentence gap-fill from vocab examples)
   if(EXDATA&&EXDATA.examplecloze&&EXDATA.examplecloze[lvl]){
-    sample(EXDATA.examplecloze[lvl],2).forEach(c=>{
-      Q.push({t:'fill',q:`Vul het juiste woord in:<br>"${c.q}"<br><span style="color:#888">hint: ${c.en}</span>`,a:vocabAnswers(c.a),exp:`(${c.a})`,tag:'cloze'});
+    sample(EXDATA.examplecloze[lvl],5).forEach(c=>{
+      Q.push({t:'fill',q:`Vul het juiste woord in:<br>"${c.q}"<br><span style="color:#888">hint: ${c.en}</span>`,a:vocabAnswers(c.a),tag:'zin'});
     });
   }
   // 4) grammar / skill sets
-  deriveSets(m,dayType).forEach(k=>{ if(EXBANK[k]) sample(EXBANK[k],2).forEach(q=>Q.push({...q,tag:'grammatica'})); });
-  // 5) transcript cloze (real exam) by skill
+  deriveSets(m,dayType).forEach(k=>{ if(EXBANK[k]) sample(EXBANK[k],3).forEach(q=>Q.push({...q,tag:'grammatica'})); });
+  // 5) transcript cloze (real exam sentences) by skill
   if(EXDATA&&EXDATA.transcript){
     const cat=(m.skill==='Schrijven')?'schrijven':'spreken';
     let pool=(EXDATA.transcript[cat]||[]);
-    const lvlPool=pool.filter(c=>c.level===lvl); if(lvlPool.length>=2) pool=lvlPool;
-    sample(pool,2).forEach(c=>{
-      Q.push({t:'fill',q:`Uit een echt examen (${cat}). Vul in:<br>"${c.q}"<br><span style="color:#888">hint: ${c.en}</span>`,a:vocabAnswers(c.a),exp:`(${c.a})`,tag:'examen'});
+    const lvlPool=pool.filter(c=>c.level===lvl); if(lvlPool.length>=4) pool=lvlPool;
+    sample(pool,5).forEach(c=>{
+      Q.push({t:'fill',q:`Uit een echt examen (${cat}). Vul in:<br>"${c.q}"<br><span style="color:#888">hint: ${c.en}</span>`,a:vocabAnswers(c.a),tag:'examen'});
     });
   }
-  return shuffle(Q).slice(0,12);
+  return shuffle(Q).slice(0,20);
 }
 
 const QBUILT={};
@@ -934,19 +934,29 @@ function toggleQuiz(id){
   if(!QBUILT[id]){ QBUILT[id]=buildQuestions(id); renderQuiz(id); }
   box.classList.add('open');
 }
+function cardHtml(id,i,q){
+  let body;
+  if(q.t==='mcq'){
+    body=`<div class="qopts" id="opts-${id}-${i}">`+q.options.map((o,oi)=>`<button onclick="checkMcq('${id}',${i},${oi})">${o}</button>`).join('')+`</div>`;
+  } else {
+    body=`<div class="qfill"><input id="fi-${id}-${i}" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkFill('${id}',${i})"><button onclick="checkFill('${id}',${i})">Check</button></div>`;
+  }
+  return `<div class="qcard"><div class="qq"><span class="tag">${q.tag||''}</span>${q.q}</div>${body}<div class="qfb" id="fb-${id}-${i}"></div></div>`;
+}
 function renderQuiz(id){
   const box=document.getElementById('quiz-'+id), qs=QBUILT[id];
   if(!qs.length){ box.innerHTML='<div class="quiz-empty">Geen vragen beschikbaar voor deze module.</div>'; return; }
-  const cards=qs.map((q,i)=>{
-    let body;
-    if(q.t==='mcq'){
-      body=`<div class="qopts" id="opts-${id}-${i}">`+q.options.map((o,oi)=>`<button onclick="checkMcq('${id}',${i},${oi})">${o}</button>`).join('')+`</div>`;
-    } else {
-      body=`<div class="qfill"><input id="fi-${id}-${i}" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkFill('${id}',${i})"><button onclick="checkFill('${id}',${i})">Check</button></div>`;
-    }
-    return `<div class="qcard"><div class="qq"><span class="tag">${q.tag||''}</span>${q.q}</div>${body}<div class="qfb" id="fb-${id}-${i}"></div></div>`;
-  }).join('');
-  box.innerHTML=`<div class="quiz-head"><span>Actieve oefening</span><span class="quiz-score" id="score-${id}">0/${qs.length} goed</span><button onclick="resetQuiz('${id}')">opnieuw</button></div>${cards}`;
+  const cards=qs.map((q,i)=>cardHtml(id,i,q)).join('');
+  box.innerHTML=`<div class="quiz-head"><span>Actieve oefening</span><span class="quiz-score" id="score-${id}">0/${qs.length} goed</span><button onclick="moreQuiz('${id}')">+ meer vragen</button><button onclick="resetQuiz('${id}')">opnieuw</button></div><div id="qcards-${id}">${cards}</div>`;
+}
+function moreQuiz(id){
+  const start=QBUILT[id].length;
+  const more=buildQuestions(id);
+  if(!more.length) return;
+  QBUILT[id]=QBUILT[id].concat(more);
+  const wrap=document.getElementById('qcards-'+id);
+  wrap.insertAdjacentHTML('beforeend', QBUILT[id].slice(start).map((q,k)=>cardHtml(id,start+k,q)).join(''));
+  updateScore(id);
 }
 function showFb(id,i,ok,q){
   const fb=document.getElementById(`fb-${id}-${i}`);
