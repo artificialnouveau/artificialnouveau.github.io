@@ -4325,6 +4325,7 @@ body::before, body::after { display: none; }
     <button class="subtab-btn" data-subtab="vocab-woordboom" data-maintab="vocab">Woordboom</button>
     <button class="subtab-btn" data-subtab="vocab-flashcards" data-maintab="vocab">Flashcards</button>
     <button class="subtab-btn" data-subtab="vocab-prefixdrills" data-maintab="vocab">Prefix Drills</button>
+    <button class="subtab-btn" data-subtab="vocab-themas" data-maintab="vocab">Op niveau &amp; thema</button>
   </div>
 
   <div class="subtab-content active" id="sub-vocab-matrix">
@@ -4399,6 +4400,51 @@ body::before, body::after { display: none; }
       </div>
     </div>
   </div><!-- /sub-vocab-prefixdrills -->
+
+  <div class="subtab-content" id="sub-vocab-themas">
+    <style>
+    .vt-intro{font-family:'Inter',sans-serif;font-size:13.5px;color:#333;margin-bottom:12px;}
+    .vt-controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff;border:2px solid #000;padding:10px 12px;margin-bottom:12px;}
+    .vt-controls label{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px;cursor:pointer;}
+    .vt-controls input[type=search]{font-family:'Inter',sans-serif;font-size:13px;border:1.5px solid #aaa;padding:6px 9px;min-width:150px;flex:1;max-width:260px;}
+    .vt-reset{font-family:'Space Grotesk',sans-serif;font-size:12px;color:#666;background:none;border:none;text-decoration:underline;cursor:pointer;margin-left:auto;}
+    .vt-pbar-wrap{border:2px solid #000;background:#fff;height:22px;margin-bottom:4px;}
+    .vt-pbar{height:100%;background:#0a8754;width:0;transition:width .4s;}
+    .vt-pbar-txt{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:#666;margin-bottom:16px;}
+    .vt-lvl-head{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;margin:16px 0 9px;padding-bottom:4px;border-bottom:3px solid #000;}
+    .vt-theme{border:2px solid #000;background:#fff;margin-bottom:9px;}
+    .vt-theme.done{background:#f1faf4;border-color:#bfe6cf;}
+    .vt-thead{display:flex;align-items:center;gap:10px;padding:10px 13px;cursor:pointer;}
+    .vt-thead:hover{background:#fbfbfb;}
+    .vt-chk{width:21px;height:21px;flex-shrink:0;cursor:pointer;accent-color:#0a8754;}
+    .vt-ttl{flex:1;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;}
+    .vt-theme.done .vt-ttl{color:#3a8a63;}
+    .vt-meta{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:#666;white-space:nowrap;}
+    .vt-chev{transition:transform .2s;font-size:13px;color:#666;}
+    .vt-theme.open .vt-chev{transform:rotate(90deg);}
+    .vt-body{display:none;padding:4px 13px 13px;}
+    .vt-theme.open .vt-body{display:block;}
+    .vt-words{columns:3;column-gap:20px;}
+    .vt-w{font-family:'Inter',sans-serif;font-size:13px;line-height:1.55;break-inside:avoid;}
+    .vt-w.hit{background:#F7D842;}
+    .vt-w b{color:#000;} .vt-w .en{color:#555;} .vt-w .fm{color:#999;font-size:10px;}
+    .vt-empty{font-family:'Inter',sans-serif;font-size:13px;color:#666;padding:10px 0;}
+    @media(max-width:640px){.vt-words{columns:2;}}
+    @media(max-width:430px){.vt-words{columns:1;}}
+    </style>
+    <p class="vt-intro">Je woordenschat per <b>niveau</b> en <b>thema</b>: de receptieve lijst (woorden om te herkennen, dat omvat ook wat je actief gebruikt). Vink een thema af als je het kent; je voortgang wordt lokaal in je browser bewaard.</p>
+    <div class="vt-controls">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;color:#444;">Niveaus:</span>
+      <label><input type="checkbox" id="vtLvB1" checked onchange="vtRender()"> B1</label>
+      <label><input type="checkbox" id="vtLvB2" checked onchange="vtRender()"> B2</label>
+      <label><input type="checkbox" id="vtLvC1" checked onchange="vtRender()"> C1</label>
+      <input type="search" id="vtSearch" placeholder="Zoek een woord..." oninput="vtRender()">
+      <button class="vt-reset" onclick="vtResetDone()">Voortgang wissen</button>
+    </div>
+    <div class="vt-pbar-wrap"><div class="vt-pbar" id="vtBar"></div></div>
+    <div class="vt-pbar-txt" id="vtBarTxt">Vink thema's af die je kent.</div>
+    <div id="vtArea"><div class="vt-empty">Woordenlijst laden...</div></div>
+  </div><!-- /sub-vocab-themas -->
 
 </div>
 
@@ -8251,6 +8297,7 @@ const SUBTAB_INIT = {
   'vocab-woordboom': initWoordboom,
   'vocab-flashcards': initSRS,
   'vocab-prefixdrills': initPrefixDrills,
+  'vocab-themas': initVocabThemas,
   'exam-spreken': initExamen,
   'exam-schrijven': initExamen,
   'news-nos': initNews,
@@ -8308,6 +8355,98 @@ document.querySelectorAll('.subtab-btn').forEach(btn => {
     switchSubtab(btn.dataset.maintab, btn.dataset.subtab);
   });
 });
+
+// ===== Vocabulaire: woordenschat per niveau & thema (met afvink-voortgang) =====
+let VT_VOCAB = null, VT_LOADED = false;
+const VT_KEY = 'nt2vocabthemas_v1';
+let VT_DONE = vtLoad();
+const VT_OPEN = new Set();
+const VT_THEMES = [
+  {tags:['gevoel','emotie'],             label:'Gevoel & emotie'},
+  {tags:['karakter'],                    label:'Karakter & persoonlijkheid'},
+  {tags:['communicatie','taal'],         label:'Communicatie & taal'},
+  {tags:['werk','onderwijs'],            label:'Werk & onderwijs'},
+  {tags:['geld'],                        label:'Geld'},
+  {tags:['politiek','samenleving','maatschappij'], label:'Politiek & samenleving'},
+  {tags:['cultuur'],                     label:'Cultuur'},
+  {tags:['gezondheid','lichaam'],        label:'Gezondheid & lichaam'},
+  {tags:['verkeer','reizen','beweging'], label:'Verkeer, reizen & beweging'},
+  {tags:['mensen'],                      label:'Mensen & relaties'},
+  {tags:['verandering','doel'],          label:'Verandering & doel'},
+  {tags:['beeldspraak','idioom'],        label:'Beeldspraak & idioom'},
+  {tags:['dagelijks'],                   label:'Dagelijks leven'}
+];
+const VT_OVERIG = 'Algemeen';
+const VT_ORDER = VT_THEMES.map(t => t.label).concat(VT_OVERIG);
+const VT_LVLS = ['B1','B2','C1'];
+function vtLoad(){ try { return JSON.parse(localStorage.getItem(VT_KEY) || '{}'); } catch(e){ return {}; } }
+function vtSave(){ try { localStorage.setItem(VT_KEY, JSON.stringify(VT_DONE)); } catch(e){} }
+function vtDkey(l,t){ return l + '|' + t; }
+function vtEsc(s){ return String(s).replace(/'/g, "\\'"); }
+function vtShortEn(en){ return en ? en.split('/')[0].split(';')[0].split('(')[0].trim() : en; }
+function vtThemeOf(w){ const t = w.tags || []; for (const th of VT_THEMES){ if (th.tags.some(x => t.includes(x))) return th.label; } return VT_OVERIG; }
+function vtLevels(){ return VT_LVLS.filter(l => { const el = document.getElementById('vtLv'+l); return el && el.checked; }); }
+function initVocabThemas(){
+  if (VT_LOADED){ vtRender(); return; }
+  const area = document.getElementById('vtArea');
+  if (area) area.innerHTML = '<div class="vt-empty">Woordenlijst laden...</div>';
+  fetch('vocabulary.json').then(r => r.json()).then(v => { VT_VOCAB = v; VT_LOADED = true; vtRender(); })
+    .catch(() => { if (area) area.innerHTML = '<div class="vt-empty">Kon de woordenlijst niet laden.</div>'; });
+}
+function vtRender(){
+  if (!VT_VOCAB) return;
+  const area = document.getElementById('vtArea'); if (!area) return;
+  const levels = vtLevels();
+  const qEl = document.getElementById('vtSearch');
+  const q = (qEl ? qEl.value : '').toLowerCase().trim();
+  if (!levels.length){ area.innerHTML = '<div class="vt-empty">Kies minstens één niveau.</div>'; vtUpdateProgress([]); return; }
+  let html = ''; const keys = [];
+  levels.forEach(lvl => {
+    let words = VT_VOCAB.filter(w => w.level === lvl && w.nl && w.en);
+    const seen = new Set();
+    words = words.filter(w => { const k = w.nl.trim().toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; });
+    const groups = {};
+    words.forEach(w => { const th = vtThemeOf(w); (groups[th] = groups[th] || []).push(w); });
+    const themes = VT_ORDER.filter(t => groups[t] && groups[t].length);
+    if (!themes.length) return;
+    html += '<div class="vt-lvl-head">' + lvl + '</div>';
+    themes.forEach(th => {
+      const k = vtDkey(lvl, th); keys.push(k);
+      const isDone = !!VT_DONE[k];
+      const arr = groups[th].slice().sort((a,b) => a.nl.localeCompare(b.nl, 'nl'));
+      let hits = 0;
+      const rows = arr.map(w => {
+        const match = q && (w.nl.toLowerCase().includes(q) || (w.en||'').toLowerCase().includes(q));
+        if (match) hits++;
+        const fm = (w.tags||[]).includes('formeel') ? ' <span class="fm">(formeel)</span>' : '';
+        return '<div class="vt-w' + (match?' hit':'') + '"><b>' + w.nl + '</b> &ndash; <span class="en">' + vtShortEn(w.en) + '</span>' + fm + '</div>';
+      }).join('');
+      if (q && !hits) return;
+      const open = VT_OPEN.has(k) || (q && hits);
+      const lbl = vtEsc(th);
+      html += '<div class="vt-theme' + (isDone?' done':'') + (open?' open':'') + '">'
+        + '<div class="vt-thead">'
+        + '<input type="checkbox" class="vt-chk" ' + (isDone?'checked':'') + ' onclick="event.stopPropagation()" onchange="vtToggleDone(\'' + lvl + '\',\'' + lbl + '\')">'
+        + '<span class="vt-ttl" onclick="vtToggleOpen(\'' + lvl + '\',\'' + lbl + '\')">' + th + '</span>'
+        + '<span class="vt-meta">' + arr.length + ' woorden' + ((q&&hits) ? (' &middot; ' + hits + ' match') : '') + '</span>'
+        + '<span class="vt-chev" onclick="vtToggleOpen(\'' + lvl + '\',\'' + lbl + '\')">&#9656;</span>'
+        + '</div>'
+        + '<div class="vt-body"><div class="vt-words">' + rows + '</div></div>'
+        + '</div>';
+    });
+  });
+  area.innerHTML = html || '<div class="vt-empty">Geen woorden gevonden.</div>';
+  vtUpdateProgress(keys);
+}
+function vtUpdateProgress(keys){
+  const total = keys.length, d = keys.filter(k => VT_DONE[k]).length, pct = total ? Math.round(d/total*100) : 0;
+  const bar = document.getElementById('vtBar'); if (bar) bar.style.width = pct + '%';
+  const txt = document.getElementById('vtBarTxt');
+  if (txt) txt.textContent = total ? (d + " van de " + total + " thema's afgevinkt (" + pct + "%)") : "Vink thema's af die je kent.";
+}
+function vtToggleDone(l,t){ const k = vtDkey(l,t); if (VT_DONE[k]) delete VT_DONE[k]; else { VT_DONE[k] = 1; VT_OPEN.delete(k); } vtSave(); vtRender(); }
+function vtToggleOpen(l,t){ const k = vtDkey(l,t); if (VT_OPEN.has(k)) VT_OPEN.delete(k); else VT_OPEN.add(k); vtRender(); }
+function vtResetDone(){ if (confirm("Alle afgevinkte thema's wissen?")){ VT_DONE = {}; vtSave(); vtRender(); } }
 
 // Visual tile navigation for spiekbriefjes
 function switchSpiekNav(subtabId) {
