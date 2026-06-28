@@ -4419,6 +4419,7 @@ body::before, body::after { display: none; }
     .vt-chk{width:21px;height:21px;flex-shrink:0;cursor:pointer;accent-color:#0a8754;}
     .vt-ttl{flex:1;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;}
     .vt-theme.done .vt-ttl{color:#3a8a63;}
+    .vt-part{font-weight:600;font-size:12px;color:#c0392b;margin-left:4px;}
     .vt-meta{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:#666;white-space:nowrap;}
     .vt-chev{transition:transform .2s;font-size:13px;color:#666;}
     .vt-theme.open .vt-chev{transform:rotate(90deg);}
@@ -8379,6 +8380,7 @@ const VT_THEMES = [
 const VT_OVERIG = 'Algemeen';
 const VT_ORDER = VT_THEMES.map(t => t.label).concat(VT_OVERIG);
 const VT_LVLS = ['B1','B2','C1'];
+const VT_CHUNK = 20;
 function vtLoad(){ try { return JSON.parse(localStorage.getItem(VT_KEY) || '{}'); } catch(e){ return {}; } }
 function vtSave(){ try { localStorage.setItem(VT_KEY, JSON.stringify(VT_DONE)); } catch(e){} }
 function vtDkey(l,t){ return l + '|' + t; }
@@ -8412,28 +8414,35 @@ function vtRender(){
     totalWords += words.length;
     html += '<div class="vt-lvl-head">' + lvl + ' <span style="font-family:\'Inter\',sans-serif;font-weight:400;font-size:14px;color:#666;">&middot; ' + words.length + ' woorden</span></div>';
     themes.forEach(th => {
-      const k = vtDkey(lvl, th); keys.push(k);
-      const isDone = !!VT_DONE[k];
-      const arr = groups[th].slice().sort((a,b) => a.nl.localeCompare(b.nl, 'nl'));
-      let hits = 0;
-      const rows = arr.map(w => {
-        const match = q && (w.nl.toLowerCase().includes(q) || (w.en||'').toLowerCase().includes(q));
-        if (match) hits++;
-        const fm = (w.tags||[]).includes('formeel') ? ' <span class="fm">(formeel)</span>' : '';
-        return '<div class="vt-w' + (match?' hit':'') + '"><b>' + w.nl + '</b> &ndash; <span class="en">' + vtShortEn(w.en) + '</span>' + fm + '</div>';
-      }).join('');
-      if (q && !hits) return;
-      const open = VT_OPEN.has(k) || (q && hits);
-      const lbl = vtEsc(th);
-      html += '<div class="vt-theme' + (isDone?' done':'') + (open?' open':'') + '">'
-        + '<div class="vt-thead">'
-        + '<input type="checkbox" class="vt-chk" ' + (isDone?'checked':'') + ' onclick="event.stopPropagation()" onchange="vtToggleDone(\'' + lvl + '\',\'' + lbl + '\')">'
-        + '<span class="vt-ttl" onclick="vtToggleOpen(\'' + lvl + '\',\'' + lbl + '\')">' + th + '</span>'
-        + '<span class="vt-meta">' + arr.length + ' woorden' + ((q&&hits) ? (' &middot; ' + hits + ' match') : '') + '</span>'
-        + '<span class="vt-chev" onclick="vtToggleOpen(\'' + lvl + '\',\'' + lbl + '\')">&#9656;</span>'
-        + '</div>'
-        + '<div class="vt-body"><div class="vt-words">' + rows + '</div></div>'
-        + '</div>';
+      const all = groups[th].slice().sort((a,b) => a.nl.localeCompare(b.nl, 'nl'));
+      const chunks = [];
+      for (let i = 0; i < all.length; i += VT_CHUNK) chunks.push(all.slice(i, i + VT_CHUNK));
+      const multi = chunks.length > 1;
+      chunks.forEach((arr, ci) => {
+        const tid = multi ? (th + ' #' + (ci + 1)) : th;
+        const k = vtDkey(lvl, tid); keys.push(k);
+        const isDone = !!VT_DONE[k];
+        let hits = 0;
+        const rows = arr.map(w => {
+          const match = q && (w.nl.toLowerCase().includes(q) || (w.en||'').toLowerCase().includes(q));
+          if (match) hits++;
+          const fm = (w.tags||[]).includes('formeel') ? ' <span class="fm">(formeel)</span>' : '';
+          return '<div class="vt-w' + (match?' hit':'') + '"><b>' + w.nl + '</b> &ndash; <span class="en">' + vtShortEn(w.en) + '</span>' + fm + '</div>';
+        }).join('');
+        if (q && !hits) return;
+        const open = VT_OPEN.has(k) || (q && hits);
+        const lbl = vtEsc(tid);
+        const part = multi ? ' <span class="vt-part">deel ' + (ci + 1) + '/' + chunks.length + '</span>' : '';
+        html += '<div class="vt-theme' + (isDone?' done':'') + (open?' open':'') + '">'
+          + '<div class="vt-thead">'
+          + '<input type="checkbox" class="vt-chk" ' + (isDone?'checked':'') + ' onclick="event.stopPropagation()" onchange="vtToggleDone(\'' + lvl + '\',\'' + lbl + '\')">'
+          + '<span class="vt-ttl" onclick="vtToggleOpen(\'' + lvl + '\',\'' + lbl + '\')">' + th + part + '</span>'
+          + '<span class="vt-meta">' + arr.length + ' woorden' + ((q&&hits) ? (' &middot; ' + hits + ' match') : '') + '</span>'
+          + '<span class="vt-chev" onclick="vtToggleOpen(\'' + lvl + '\',\'' + lbl + '\')">&#9656;</span>'
+          + '</div>'
+          + '<div class="vt-body"><div class="vt-words">' + rows + '</div></div>'
+          + '</div>';
+      });
     });
   });
   area.innerHTML = html || '<div class="vt-empty">Geen woorden gevonden.</div>';
