@@ -244,26 +244,17 @@ header a:hover{text-decoration:underline;}
 
 <div class="container">
 
-  <div class="dash">
-    <div class="stat yellow"><div class="big" id="doneCount">0/12</div><div class="lbl">vandaag gedaan</div></div>
-    <div class="stat"><div class="big" id="pct">0%</div><div class="lbl">van je ronde</div></div>
+  <div class="intro">
+    <h2>Wat dit is</h2>
+    <p>Alle B1- en B2-onderdelen uit eerdere NT2-examens, plus extra vragen die op die stof voortbouwen. Daaronder de <b>woorden en zinnen</b> om in te zetten en de <b>fouten</b> om te vermijden.</p>
+    <p>Doe elke dag de oefenronde hieronder: elke oefening één keer, op B1 én B2. Vink af wat je deed. De lijst reset elke nieuwe dag; je antwoorden blijven bewaard bij een refresh.</p>
   </div>
-
-  <div class="progress-wrap"><div class="progress-bar" id="bar"></div></div>
-  <div class="progress-txt" id="barTxt">Begin je ronde. Eén oefening is al winst.</div>
 
   <div class="round" id="round"></div>
 
-  <div class="intro">
-    <h2>Hoe dit werkt</h2>
-    <p>Doe elke dag de <b>dagelijkse oefenronde</b>: elke oefening één keer, op <b>B1 én B2</b>. Klik een onderdeel om er meteen heen te gaan en vink het af als je klaar bent. De lijst reset automatisch elke nieuwe dag.</p>
-    <p>Elke oefening heeft een vaste lengte: <b>12 vragen</b> (of 6 taken bij spreken en schrijven). Je antwoorden blijven bewaard als je de pagina ververst, dus je verliest je werk niet.</p>
-    <p>Onderaan staat <b>naslag</b>: examenscenario's, veelgemaakte fouten en kernzinnen. De echte examensets vind je in <a href="nt2-oefenen.html">het oefen-examen</a>.</p>
-  </div>
-
   <div class="ex-hub" id="oefeningen">
-    <h2>Oefeningen</h2>
-    <p class="ex-sub">Twee hoofdoefeningen (B1 en B2). Kies je niveau, dan een onderdeel. Traint lezen, spreken en schrijven, plus woordenschat en grammatica, met materiaal uit echte examens.</p>
+    <h2>1. Oefeningen</h2>
+    <p class="ex-sub">Kies een niveau en een onderdeel. Lezen, spreken, schrijven, woordenschat en grammatica, met materiaal uit echte B1- en B2-examens plus extra vragen. Elke oefening is 12 vragen (6 taken bij spreken en schrijven).</p>
     <div class="ex-levels">
       <button data-l="B1" onclick="exLevel('B1')">B1</button>
       <button data-l="B2" onclick="exLevel('B2')">B2</button>
@@ -279,33 +270,18 @@ header a:hover{text-decoration:underline;}
     <div id="ex-area"></div>
   </div>
 
-  <div class="extras-toggle" id="extrasToggle" onclick="toggleExtras()">
-    <span class="chev">&#9656;</span>
-    <span>Naslag &amp; extra oefening</span>
-    <span class="sub">examenscenario's &middot; veelgemaakte fouten &middot; kernzinnen</span>
-  </div>
-  <div class="extras collapsed" id="extras">
-
-  <div class="scen-intro">
-    <h2>B1 examenscenario's per thema</h2>
-    <p>Echte NT2 B1-taken draaien om alledaagse situaties. Hieronder per thema voorbeeldopdrachten zoals op het examen: <span class="badge spreken">Spreken</span> = neem je antwoord op (20 sec nadenken, dan ~45 sec spreken); <span class="badge schrijven">Schrijven</span> = schrijf 80-130 woorden en <b>verwerk alle gevraagde punten</b>. Gebruik ze als losse oefenmodules tussendoor.</p>
-  </div>
-  <div id="scenarios"></div>
-
-  <div class="mist-intro">
-    <h2>Veelgemaakte fouten (en hoe je ze vermijdt)</h2>
-    <p>De fouten die NT2-kandidaten op B1/B2 het vaakst maken, geordend per thema. <span class="x">&#10007;</span> = fout, <span class="v">&#10003;</span> = goed. Lees er elke dag een paar; herkennen is de eerste stap naar afleren.</p>
-  </div>
-  <div id="mistakes"></div>
-
   <div class="ref" id="ref">
-    <h2>Kernzinnen &amp; examentips</h2>
+    <h2>2. Woorden &amp; zinnen om te gebruiken</h2>
     <div class="ref-body" id="refBody"></div>
   </div>
 
-  </div><!-- /#extras -->
+  <div class="mist-intro">
+    <h2>3. Veelgemaakte fouten om te vermijden</h2>
+    <p>De fouten die NT2-kandidaten op B1/B2 het vaakst maken. <span class="x">&#10007;</span> = fout, <span class="v">&#10003;</span> = goed. Lees er elke dag een paar; herkennen is de eerste stap naar afleren.</p>
+  </div>
+  <div id="mistakes"></div>
 
-  <div class="reset"><button onclick="resetAll()">Voortgang wissen</button></div>
+  <div class="reset"><button onclick="resetAll()">Voortgang van vandaag wissen</button></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -373,77 +349,6 @@ const REF = `
 <li><b>woordvolgorde bijzin:</b> werkwoord(en) achteraan: '...omdat ik het niet <b>begrijp</b>.'</li>
 </ul>
 `;
-
-// ---------- B1 SCENARIO BANK ----------
-// skill: Spreken | Schrijven ; pts = verplichte punten (vooral schrijven)
-const SCENARIOS = [
-  { theme:"Vervoer & reizen", ico:"\u{1F686}", items:[
-    {skill:"Spreken", sit:"Je trein is uitgevallen en je komt te laat op een afspraak. Bel de persoon, leg de situatie uit en vraag of de afspraak kan worden verzet."},
-    {skill:"Spreken", sit:"Je hebt bij de automaat een verkeerd treinkaartje gekocht. Leg bij de balie uit wat er mis is en vraag om hulp."},
-    {skill:"Schrijven", sit:"Je hebt je OV-chipkaart in de bus laten liggen. Mail de afdeling gevonden voorwerpen.", pts:["beschrijf de kaart","zeg wanneer en in welke bus","vraag hoe je hem terugkrijgt"]},
-    {skill:"Spreken", sit:"Een toerist vraagt jou de weg van het centrum naar het station. Leg de route stap voor stap uit."}
-  ]},
-  { theme:"Werk & sollicitatie", ico:"\u{1F4BC}", items:[
-    {skill:"Schrijven", sit:"Je bent ziek en kunt niet werken. Mail je leidinggevende.", pts:["meld je ziek","zeg hoelang je waarschijnlijk weg bent","zeg wat er met je afspraken van vandaag moet gebeuren"]},
-    {skill:"Spreken", sit:"Een collega vraagt of je zijn dienst kunt overnemen. Je kunt niet. Reageer vriendelijk en stel een alternatief voor."},
-    {skill:"Schrijven", sit:"Je solliciteert op een bijbaan in een café. Schrijf een korte motivatiemail.", pts:["stel jezelf voor","zeg waarom je de baan wilt","noem je beschikbaarheid en vraag om een gesprek"]},
-    {skill:"Spreken", sit:"Je wilt een dag vrij vragen voor een belangrijke afspraak. Leg aan je baas uit waarom en wanneer."}
-  ]},
-  { theme:"Wonen & buren", ico:"\u{1F3E0}", items:[
-    {skill:"Spreken", sit:"Je buren maken 's avonds laat veel lawaai. Spreek hen vriendelijk aan en vraag of ze rekening willen houden."},
-    {skill:"Schrijven", sit:"Er is een lekkage in je huurwoning. Mail de verhuurder.", pts:["beschrijf het probleem en waar het zit","zeg hoelang het al speelt","vraag om snel iemand te sturen"]},
-    {skill:"Schrijven", sit:"Je zoekt een kamer en reageert op een advertentie.", pts:["stel jezelf voor","zeg wat je zoekt en je budget","stel een vraag over de kamer"]}
-  ]},
-  { theme:"Gezondheid & afspraken", ico:"\u{1FA7A}", items:[
-    {skill:"Spreken", sit:"Je belt de huisarts voor een afspraak. Leg je klachten kort uit en zeg wanneer je kunt komen."},
-    {skill:"Spreken", sit:"Je moet je afspraak bij de tandarts afzeggen. Bel, leg uit waarom en vraag om een nieuwe datum."},
-    {skill:"Schrijven", sit:"Je kunt niet naar je afspraak in het ziekenhuis komen. Schrijf een bericht.", pts:["zeg welke afspraak het is (datum/tijd)","leg uit waarom je niet kunt","vraag om een nieuwe afspraak"]}
-  ]},
-  { theme:"Winkelen & diensten", ico:"\u{1F6D2}", items:[
-    {skill:"Spreken", sit:"Je hebt een apparaat gekocht dat kapot is. Ga terug naar de winkel, leg uit wat er mis is en zeg wat je wilt (ruilen of geld terug)."},
-    {skill:"Schrijven", sit:"Je hebt online iets besteld dat niet is aangekomen. Mail de webshop.", pts:["noem je bestelnummer en wat je bestelde","zeg wanneer het geleverd had moeten zijn","vraag waar je pakket is en wat ze gaan doen"]},
-    {skill:"Spreken", sit:"Je internet werkt al een paar dagen niet. Bel de provider en leg het probleem uit; vraag om een oplossing."}
-  ]},
-  { theme:"Onderwijs & cursus", ico:"\u{1F4DA}", items:[
-    {skill:"Schrijven", sit:"Je wilt je inschrijven voor een taalcursus. Mail de organisatie.", pts:["zeg welke cursus je zoekt en je niveau","vraag naar de tijden en de prijs","vraag hoe je je kunt inschrijven"]},
-    {skill:"Spreken", sit:"Je begrijpt de uitleg in de les niet goed. Vraag je docent beleefd om het nog een keer of anders uit te leggen."},
-    {skill:"Schrijven", sit:"Je kunt volgende week een les niet bijwonen. Mail je docent.", pts:["meld je af voor de les","leg kort uit waarom","vraag wat je moet inhalen"]}
-  ]},
-  { theme:"Vrije tijd & sociaal", ico:"\u{1F389}", items:[
-    {skill:"Spreken", sit:"Een vriend nodigt je uit voor een feest, maar je kunt niet komen. Reageer en leg uit waarom."},
-    {skill:"Schrijven", sit:"Je wilt met vrienden een weekendje weg. Schrijf een berichtje met een voorstel.", pts:["stel voor waar en wanneer","zeg wat jullie daar kunnen doen","vraag wie er meegaat"]},
-    {skill:"Spreken", sit:"Je vertelt een vriend over een leuke film of activiteit en raadt het aan. Zeg waarom het de moeite waard is."}
-  ]},
-  { theme:"Geld & administratie", ico:"\u{1F4EE}", items:[
-    {skill:"Schrijven", sit:"Je hebt een rekening gekregen die niet klopt. Schrijf een mail.", pts:["leg uit wat er fout is","noem het juiste bedrag of de details","vraag om een correctie"]},
-    {skill:"Spreken", sit:"Je gaat naar de gemeente om je in te schrijven. Leg aan de medewerker uit waarvoor je komt en welke gegevens je bij je hebt."},
-    {skill:"Schrijven", sit:"Je wilt een abonnement (sportschool of tijdschrift) opzeggen. Schrijf een korte, formele opzegmail.", pts:["zeg dat je wilt opzeggen en per wanneer","noem je klant- of lidnummer","vraag om een bevestiging"]}
-  ]}
-];
-
-function renderScenarios(){
-  const root=document.getElementById('scenarios');
-  if(!root) return;
-  root.innerHTML=SCENARIOS.map(t=>{
-    const n=t.items.length;
-    const sp=t.items.filter(i=>i.skill==='Spreken').length;
-    const items=t.items.map(it=>{
-      const pts=it.pts?('<div class="pts"><b>Verwerk:</b> '+it.pts.join('; ')+'.</div>'):'';
-      return `<div class="scenario" data-skill="${it.skill}">
-        <span class="badge ${it.skill.toLowerCase()}">${it.skill}</span>
-        <span class="sit">${it.sit}</span>${pts}</div>`;
-    }).join('');
-    return `<div class="scen">
-      <div class="scen-head" onclick="this.parentNode.classList.toggle('open')">
-        <span class="scen-ico">${t.ico}</span>
-        <span class="scen-title">${t.theme}</span>
-        <span class="scen-meta">${n} taken &middot; ${sp} spreken / ${n-sp} schrijven</span>
-        <span class="chev">&#9656;</span>
-      </div>
-      <div class="scen-body">${items}</div>
-    </div>`;
-  }).join('');
-}
 
 // ---------- COMMON MISTAKES ----------
 const MISTAKES=[
@@ -841,27 +746,12 @@ function renderRound(){
     return `<div class="rgroup"><div class="rgl">${lvl}</div><div class="ritems">${items}</div></div>`;
   }).join('');
   const streak=round.streak?` &middot; reeks ${round.streak} ${round.streak===1?'dag':'dagen'}`:'';
+  const pct=Math.round(done/total*100);
   el.innerHTML=`<div class="round-head"><h2>Dagelijkse oefenronde</h2>
       <span class="round-count">Vandaag: <b>${done}/${total}</b> gedaan${streak}</span></div>
-    <p class="round-sub">Doe elke oefening één keer, op B1 én B2. Klik een onderdeel om er meteen heen te gaan; vink af als je klaar bent. De lijst reset automatisch elke nieuwe dag.</p>
+    <div class="progress-wrap" style="margin:8px 0 10px;"><div class="progress-bar" style="width:${pct}%"></div></div>
+    <p class="round-sub">Elke oefening één keer, op B1 én B2. Klik een onderdeel om er heen te gaan; vink af als je klaar bent. Reset elke nieuwe dag.</p>
     ${groups}`;
-  updateRoundStats();
-}
-function updateRoundStats(){
-  const done=roundDone(), total=roundTotal(), pct=Math.round(done/total*100);
-  document.getElementById('doneCount').textContent=done+'/'+total;
-  document.getElementById('pct').textContent=pct+'%';
-  document.getElementById('bar').style.width=pct+'%';
-  let msg;
-  if(done===0) msg="Begin je ronde. Eén oefening is al winst.";
-  else if(done<total) msg=`${done} van de ${total} oefeningen vandaag gedaan. Doorgaan!`;
-  else msg="Ronde compleet! Alle oefeningen vandaag gedaan. Sterk bezig.";
-  document.getElementById('barTxt').textContent=msg;
-}
-function toggleExtras(){
-  const t=document.getElementById('extrasToggle'), e=document.getElementById('extras');
-  const open=e.classList.toggle('collapsed')===false;
-  t.classList.toggle('open',open);
 }
 
 function resetAll(){
@@ -882,7 +772,6 @@ function celebrate(){ showToast(CHEERS[roundDone() % CHEERS.length]); }
 
 // init
 document.getElementById('refBody').innerHTML=REF;
-renderScenarios();
 renderMistakes();
 (function initQuiz(){
   const saved=loadQuiz();
