@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>NT2 Spiekbriefje — grammatica, zinnen &amp; kernwoorden (printbaar)</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{ --red:#D40920; --blue:#1356A2; --green:#0a8754; --black:#000; --muted:#666; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;color:#111;line-height:1.45;background:#f4f4f4;}
+
+.toolbar{
+  position:sticky;top:0;z-index:10;background:#fff;border-bottom:2px solid #000;
+  padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.toolbar h1{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;}
+.toolbar .sp{flex:1;}
+.toolbar a{font-size:12px;color:var(--blue);text-decoration:none;font-weight:600;}
+.toolbar label{font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;cursor:pointer;}
+.btn{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;border:2px solid #000;background:#F7D842;padding:7px 14px;cursor:pointer;}
+.btn:hover{background:#000;color:#fff;}
+
+.sheet{max-width:900px;margin:18px auto;background:#fff;padding:26px 30px;border:1px solid #ddd;}
+.sheet h2{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin:22px 0 8px;
+  padding-bottom:4px;border-bottom:2px solid #000;}
+.sheet h2:first-child{margin-top:0;}
+.sheet h3{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;margin:12px 0 4px;color:#222;
+  text-transform:uppercase;letter-spacing:.03em;}
+.intro{font-size:12.5px;color:#444;margin-bottom:6px;}
+
+.rules{columns:2;column-gap:26px;}
+.rule{break-inside:avoid;margin-bottom:7px;font-size:12.5px;}
+.rule b{color:#000;}
+.rule .ex{color:#444;}
+.rule .x{color:var(--red);} .rule .v{color:var(--green);}
+code{background:#f2f2f2;padding:0 3px;border-radius:2px;font-size:12px;font-family:'Space Grotesk',monospace;}
+
+.phrase-group{break-inside:avoid;margin-bottom:10px;}
+.phrase-list{font-size:12.5px;}
+.phrase-list span{display:inline-block;}
+.phrase-list .p{margin-bottom:2px;}
+.phrase-list .p b{color:var(--blue);}
+
+.vocab-cols{columns:3;column-gap:22px;}
+.vgroup{break-inside:avoid;margin-bottom:10px;}
+.vgroup h4{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--red);border-bottom:1px solid #ccc;margin-bottom:3px;}
+.vrow{font-size:12px;line-height:1.5;break-inside:avoid;}
+.vrow b{color:#000;}
+.vrow .en{color:#555;}
+.vrow .fm{color:#999;font-size:10px;}
+.loading{font-size:13px;color:var(--muted);padding:8px 0;}
+.lvl-head{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin:6px 0 4px;color:var(--blue);}
+
+@media print{
+  body{background:#fff;}
+  .toolbar{display:none;}
+  .sheet{max-width:none;margin:0;padding:0;border:none;}
+  .sheet h2{font-size:14pt;page-break-after:avoid;}
+  .sheet h3{page-break-after:avoid;}
+  .rules{columns:2;}
+  .vocab-cols{columns:3;font-size:9pt;}
+  .vrow{font-size:9pt;}
+  .rule,.phrase-list{font-size:9.5pt;}
+  .page-break{page-break-before:always;}
+  a[href]:after{content:"";}
+  @page{margin:12mm;}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h1>NT2 Spiekbriefje</h1>
+  <button class="btn" onclick="window.print()">Print / Sla op als PDF</button>
+  <label><input type="checkbox" id="lvB1" onchange="renderVocab()"> B1</label>
+  <label><input type="checkbox" id="lvB2" checked onchange="renderVocab()"> B2 (kern)</label>
+  <label><input type="checkbox" id="lvC1" checked onchange="renderVocab()"> C1 (gevorderd)</label>
+  <span class="sp"></span>
+  <a href="studieplan.html">&larr; Studieplan</a>
+</div>
+
+<div class="sheet">
+
+  <p class="intro">Grammaticaregels, vaste zinnen en kernwoordenschat voor het NT2-examen (B1/B2). Gemaakt om te printen en mee te nemen. Vink hierboven aan welke niveaus je in de woordenlijst wilt; klik dan op printen.</p>
+
+  <h2>1. Grammaticaregels</h2>
+
+  <h3>Woordvolgorde</h3>
+  <div class="rules">
+    <div class="rule"><b>Hoofdzin (V2):</b> persoonsvorm op plaats 2. <code>Ik ga morgen naar huis.</code></div>
+    <div class="rule"><b>Inversie:</b> begin je niet met het onderwerp, dan werkwoord vóór onderwerp. <code>Morgen ga ik...</code></div>
+    <div class="rule"><b>Bijzin</b> (omdat, dat, als, terwijl, hoewel, toen, zodat): werkwoord(en) helemaal achteraan. <code>...omdat ik moe ben.</code></div>
+    <div class="rule"><b>want vs omdat:</b> <code>want</code> = hoofdzin (gewone volgorde), <code>omdat</code> = bijzin (ww achteraan).</div>
+    <div class="rule"><b>Volgorde bepalingen:</b> Tijd &ndash; Manier &ndash; Plaats. <code>Ik ga morgen met de trein naar Den Haag.</code></div>
+    <div class="rule"><b>Vraag:</b> ja/nee-vraag = ww vooraan (<code>Kom je mee?</code>); anders vraagwoord + ww (<code>Waarom kom je?</code>).</div>
+  </div>
+
+  <h3>Werkwoorden</h3>
+  <div class="rules">
+    <div class="rule"><b>Perfectum:</b> <code>hebben/zijn</code> + voltooid deelwoord. Beweging/verandering &rarr; <b>zijn</b> (<code>ik ben gegaan</code>); de rest &rarr; <b>hebben</b> (<code>ik heb gewerkt</code>).</div>
+    <div class="rule"><b>Imperfectum</b> voor achtergrond/gewoonte: <code>het regende</code>, <code>ik woonde daar</code>.</div>
+    <div class="rule"><b>dt-regel:</b> ik &rarr; stam; jij/hij/zij/het &rarr; stam + <b>t</b>. <span class="v">hij wordt, jij vindt</span>. Deelwoord: 't kofschip &rarr; -t.</div>
+    <div class="rule"><b>Scheidbare ww:</b> splitsen in de hoofdzin (<code>ik bel je op</code>), bij elkaar in bijzin/infinitief (<code>...omdat ik je opbel</code>; <code>ik wil je opbellen</code>).</div>
+    <div class="rule"><b>Modaal ww</b> (kunnen, moeten, willen, mogen) + infinitief achteraan: <code>Ik kan morgen komen.</code></div>
+    <div class="rule"><b>Passief:</b> <code>worden</code> + voltooid deelwoord (<code>de brief wordt verstuurd</code>); verleden <code>werd</code>; voltooid <code>is ... verstuurd</code>.</div>
+    <div class="rule"><b>om te</b> + infinitief = doel; <b>door te</b> + infinitief = middel. <code>om geld te sparen</code> / <code>door te sparen</code>.</div>
+    <div class="rule"><b>dienen te</b> + infinitief = formeel voor <i>moeten</i>: <code>U dient zich te melden.</code></div>
+  </div>
+
+  <h3>Naamwoorden &amp; bijvoeglijke naamwoorden</h3>
+  <div class="rules">
+    <div class="rule"><b>de/het:</b> leer per woord; verkleinwoorden zijn altijd <code>het</code> (<code>het kopje</code>).</div>
+    <div class="rule"><b>Meervoud na telwoord:</b> maat-/eenheidswoorden enkelvoud. <span class="v">drie jaar, twee keer, vijf euro, tien kilo</span>.</div>
+    <div class="rule"><b>Bijvoeglijk nw + e</b>, behalve een het-woord met <code>een</code>: <span class="v">een mooie auto</span>, maar <span class="v">een mooi huis</span> / <span class="v">het mooie huis</span>.</div>
+  </div>
+
+  <h3>Kleine woorden die punten kosten</h3>
+  <div class="rules">
+    <div class="rule"><b>Vergelijking:</b> groter <b>dan</b> (niet 'als'); gelijkheid: <code>net zo groot als</code>.</div>
+    <div class="rule"><b>hun / zij / hen:</b> <code>hun</code> = bezit (hun huis); onderwerp = <b>zij/ze</b>; na voorzetsel of lijdend voorwerp = <b>hen</b>.</div>
+    <div class="rule"><b>geen / niet:</b> <code>geen</code> bij zn zonder lidwoord (<code>ik heb geen auto</code>); <code>niet</code> in de rest.</div>
+    <div class="rule"><b>er + voorzetsel:</b> <code>Ik wacht erop.</code> / <code>Waar wacht je op?</code></div>
+    <div class="rule"><b>Spelling los:</b> te veel, met elkaar, nog steeds, zo'n.</div>
+    <div class="rule"><b>Hoofdletters:</b> talen en landadjectieven: <span class="v">Nederlands, Italiaans</span>. En: <code>'s ochtends</code>, <code>'s avonds</code>.</div>
+  </div>
+
+  <h2 class="page-break">2. Vaste zinnen &amp; uitdrukkingen</h2>
+
+  <div class="phrase-group">
+    <h3>Mening geven &amp; (on)eens zijn</h3>
+    <div class="phrase-list">
+      <div class="p"><b>Ik vind dat...</b> / <b>Naar mijn mening...</b> / <b>Ik ben van mening dat...</b></div>
+      <div class="p"><b>Ik ben het ermee eens.</b> / <b>Ik ben het er niet mee eens.</b></div>
+      <div class="p"><b>Daar ben ik het (niet) mee eens, omdat...</b></div>
+      <div class="p"><b>Aan de ene kant...</b> aan de andere kant...</div>
+      <div class="p"><b>Dat klopt, maar...</b> / <b>Dat is waar, toch denk ik...</b></div>
+      <div class="p"><b>Sommigen zeggen X, maar in werkelijkheid...</b></div>
+    </div>
+  </div>
+
+  <div class="phrase-group">
+    <h3>Aanraden &amp; adviseren</h3>
+    <div class="phrase-list">
+      <div class="p"><b>Ik raad je aan om</b> ... te + infinitief.</div>
+      <div class="p"><b>Het beste is om</b> ... te + infinitief.</div>
+      <div class="p"><b>Je zou</b> ... <b>kunnen</b> + infinitief.</div>
+      <div class="p"><b>Ik zou</b> ... (als ik jou was).</div>
+      <div class="p"><b>Misschien is het handig om</b> ... te + infinitief.</div>
+      <div class="p"><b>Probeer eens</b> ... / <b>Wat dacht je van</b> ...?</div>
+    </div>
+  </div>
+
+  <div class="phrase-group">
+    <h3>Argumenteren &amp; verbinden (signaalwoorden)</h3>
+    <div class="phrase-list">
+      <div class="p"><b>Ten eerste</b> ... <b>ten tweede</b> ... <b>tot slot</b> ...</div>
+      <div class="p"><b>Bovendien</b> / <b>Daarnaast</b> (toevoegen)</div>
+      <div class="p"><b>Hoewel</b> ... toch ... / <b>Ondanks dat</b> ... (tegenstelling)</div>
+      <div class="p"><b>Daarentegen</b> / <b>Echter,</b> (formele tegenstelling)</div>
+      <div class="p"><b>Namelijk</b> / <b>immers</b> (uitleg)</div>
+      <div class="p"><b>Daarom</b> / <b>Vandaar dat</b> / <b>Dus</b> (gevolg)</div>
+      <div class="p"><b>Mits</b> (op voorwaarde dat) / <b>Tenzij</b> (behalve als)</div>
+      <div class="p"><b>Kortom</b> / <b>Al met al</b> (samenvatten)</div>
+    </div>
+  </div>
+
+  <div class="phrase-group">
+    <h3>Spreken: begin nooit met stilte</h3>
+    <div class="phrase-list">
+      <div class="p"><b>Dat is een goede vraag,</b> ... / <b>Nou,</b> ik denk dat ... / <b>Even kijken,</b> ...</div>
+      <div class="p"><b>Eerlijk gezegd</b> vind ik ... / <b>Wat mij betreft,</b> ... / <b>Wat ik bedoel is</b> ...</div>
+    </div>
+  </div>
+
+  <div class="phrase-group">
+    <h3>Schrijven: aanhef, verzoek &amp; afsluiting</h3>
+    <div class="phrase-list">
+      <div class="p"><b>Aanhef formeel:</b> Geachte heer/mevrouw, &nbsp; <b>informeel:</b> Hallo Anna,</div>
+      <div class="p"><b>Reden:</b> Ik schrijf u naar aanleiding van ...</div>
+      <div class="p"><b>Verzoek:</b> Zou u kunnen ...? / Ik zou graag ... / Ik verzoek u vriendelijk om ...</div>
+      <div class="p"><b>Klacht:</b> Tot mijn spijt moet ik melden dat ... / Helaas ...</div>
+      <div class="p"><b>Afsluiting formeel:</b> Met vriendelijke groet / Hoogachtend &nbsp; <b>informeel:</b> Groetjes</div>
+      <div class="p"><b>Bedanken:</b> Alvast bedankt. Ik hoor graag van u.</div>
+    </div>
+  </div>
+
+  <h2 class="page-break">3. Kernwoordenschat</h2>
+  <p class="intro">De nuttige, niet-makkelijke woorden uit je woordenlijst, gegroepeerd per woordsoort. <span class="fm" style="color:#999">(formeel)</span> = vooral voor schrijven/B2.</p>
+  <div id="vocab"><div class="loading">Woordenlijst laden...</div></div>
+
+</div>
+
+<script>
+let VOCAB=null;
+fetch('vocabulary.json').then(r=>r.json()).then(v=>{VOCAB=v; renderVocab();})
+  .catch(()=>{document.getElementById('vocab').innerHTML='<div class="loading">Kon de woordenlijst niet laden. Open deze pagina online (niet als lokaal bestand).</div>';});
+
+function shortEn(en){ return en? en.split('/')[0].split(';')[0].split('(')[0].trim() : en; }
+function wtype(w){
+  const t=w.tags||[];
+  if(t.includes('connector')) return 'Verbindingswoorden';
+  if(t.includes('werkwoord')) return 'Werkwoorden';
+  if(t.includes('zelfstandig')) return 'Zelfstandige naamwoorden';
+  if(t.includes('bijvoeglijk')) return 'Bijvoeglijke naamwoorden';
+  if(t.includes('bijwoord')) return 'Bijwoorden';
+  if(t.includes('voorzetsel')) return 'Voorzetsels';
+  if(t.includes('uitdrukking')) return 'Uitdrukkingen';
+  return 'Overig';
+}
+const TYPE_ORDER=['Werkwoorden','Zelfstandige naamwoorden','Bijvoeglijke naamwoorden','Bijwoorden','Verbindingswoorden','Voorzetsels','Uitdrukkingen','Overig'];
+const LVL_LABEL={B1:'B1 (basis)',B2:'B2 (kern)',C1:'C1 (gevorderd)'};
+
+function renderVocab(){
+  const root=document.getElementById('vocab'); if(!VOCAB) return;
+  const levels=['B1','B2','C1'].filter(l=>document.getElementById('lv'+l).checked);
+  if(!levels.length){ root.innerHTML='<div class="loading">Kies minstens één niveau hierboven.</div>'; return; }
+  let html='';
+  levels.forEach((lvl,li)=>{
+    const words=VOCAB.filter(w=>w.level===lvl && w.nl && w.en);
+    // dedup op nl
+    const seen=new Set(), uniq=[];
+    words.forEach(w=>{ const k=w.nl.trim().toLowerCase(); if(!seen.has(k)){ seen.add(k); uniq.push(w); } });
+    // groepeer per woordsoort
+    const groups={};
+    uniq.forEach(w=>{ const g=wtype(w); (groups[g]=groups[g]||[]).push(w); });
+    const pb = li>0 ? ' page-break' : '';
+    html+=`<div class="lvl-head${pb}">${LVL_LABEL[lvl]} &middot; ${uniq.length} woorden</div><div class="vocab-cols">`;
+    TYPE_ORDER.forEach(g=>{
+      const arr=(groups[g]||[]).sort((a,b)=>a.nl.localeCompare(b.nl,'nl'));
+      if(!arr.length) return;
+      html+=`<div class="vgroup"><h4>${g} (${arr.length})</h4>`;
+      arr.forEach(w=>{
+        const fm=(w.tags||[]).includes('formeel')?' <span class="fm">(formeel)</span>':'';
+        html+=`<div class="vrow"><b>${w.nl}</b> &ndash; <span class="en">${shortEn(w.en)}</span>${fm}</div>`;
+      });
+      html+='</div>';
+    });
+    html+='</div>';
+  });
+  root.innerHTML=html;
+}
+</script>
+</body>
+</html>
