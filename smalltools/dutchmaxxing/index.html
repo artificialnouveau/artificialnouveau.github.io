@@ -8475,7 +8475,8 @@ function vtPrint(){
     const themes = VT_ORDER.filter(t => groups[t] && groups[t].length);
     if (!themes.length) return;
     grand += words.length;
-    body += '<h2 class="lvl">' + lvl + ' <span class="cnt">' + words.length + ' woorden</span></h2>';
+    const firstLvl = body === '';
+    body += '<h2 class="lvl' + (firstLvl ? ' first' : '') + '">' + lvl + ' <span class="cnt">' + words.length + ' woorden</span></h2>';
     themes.forEach(th => {
       const all = groups[th].slice().sort((a,b) => a.nl.localeCompare(b.nl, 'nl'));
       const chunks = [];
@@ -8497,7 +8498,8 @@ function vtPrint(){
     + '<title>Woordenschat per niveau & thema</title><style>'
     + '*{box-sizing:border-box;} body{font-family:Georgia,serif;color:#111;margin:24px;line-height:1.35;}'
     + 'h1{font-family:Arial,sans-serif;font-size:20px;margin:0 0 4px;} .sub{font-family:Arial,sans-serif;font-size:12px;color:#555;margin:0 0 16px;}'
-    + 'h2.lvl{font-family:Arial,sans-serif;font-size:16px;border-bottom:2px solid #000;padding-bottom:3px;margin:20px 0 10px;break-after:avoid;}'
+    + 'h2.lvl{font-family:Arial,sans-serif;font-size:16px;border-bottom:2px solid #000;padding-bottom:3px;margin:20px 0 10px;break-after:avoid;break-before:page;}'
+    + 'h2.lvl.first{break-before:auto;}'
     + '.blk{break-inside:avoid;margin-bottom:10px;} h3{font-family:Arial,sans-serif;font-size:12.5px;margin:0 0 4px;border-bottom:1px solid #999;padding-bottom:2px;}'
     + '.cnt{font-weight:400;font-size:11px;color:#777;} .part{font-size:11px;color:#c0392b;font-weight:700;}'
     + 'ul{columns:3;column-gap:18px;list-style:none;margin:0;padding:0;font-size:11.5px;}'
