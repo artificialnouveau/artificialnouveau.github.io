@@ -54,6 +54,16 @@ code{background:#f2f2f2;padding:0 3px;border-radius:2px;font-size:12px;font-fami
 .loading{font-size:13px;color:var(--muted);padding:8px 0;}
 .lvl-head{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin:6px 0 4px;color:var(--blue);}
 
+.verbtab{width:100%;border-collapse:collapse;font-size:12px;margin:4px 0 14px;}
+.verbtab th,.verbtab td{border:1px solid #ccc;padding:3px 7px;text-align:left;vertical-align:top;}
+.verbtab th{background:#f2f2f2;font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;}
+.verbtab td.pat{font-weight:700;text-align:center;background:#fafafa;}
+.verbtab td.kw{background:#fafafa;color:#333;white-space:nowrap;}
+.verbtab .inf{font-weight:600;color:var(--blue);}
+.verbtab tr{break-inside:avoid;}
+.verbtab.narrow{max-width:430px;}
+.verbnote{font-size:12px;color:#444;margin:2px 0 6px;}
+
 @media print{
   body{background:#fff;}
   .toolbar{display:none;}
@@ -64,6 +74,8 @@ code{background:#f2f2f2;padding:0 3px;border-radius:2px;font-size:12px;font-fami
   .vocab-cols{columns:3;font-size:9pt;}
   .vrow{font-size:9pt;}
   .rule,.phrase-list{font-size:9.5pt;}
+  .verbtab{font-size:9pt;}
+  .verbtab th,.verbtab td{padding:2px 5px;}
   .page-break{page-break-before:always;}
   a[href]:after{content:"";}
   @page{margin:12mm;}
@@ -127,7 +139,64 @@ code{background:#f2f2f2;padding:0 3px;border-radius:2px;font-size:12px;font-fami
     <div class="rule"><b>Hoofdletters:</b> talen en landadjectieven: <span class="v">Nederlands, Italiaans</span>. En: <code>'s ochtends</code>, <code>'s avonds</code>.</div>
   </div>
 
-  <h2 class="page-break">2. Vaste zinnen &amp; uitdrukkingen</h2>
+  <h2 class="page-break">2. Onregelmatige (sterke) werkwoorden</h2>
+  <p class="verbnote">De klinker verandert in een vast patroon. Leer per groep het ritme <b>infinitief &rarr; imperfectum &rarr; voltooid deelwoord</b>.</p>
+  <table class="verbtab">
+    <thead><tr><th>#</th><th>Klinkerwissel</th><th>Infinitief</th><th>Imperfectum</th><th>Voltooid deelwoord</th></tr></thead>
+    <tbody>
+      <tr><td class="pat" rowspan="4">1</td><td class="kw" rowspan="4">ij &rarr; ee &rarr; e</td><td class="inf">schrijven</td><td>schreef</td><td>geschreven</td></tr>
+      <tr><td class="inf">blijven</td><td>bleef</td><td>gebleven</td></tr>
+      <tr><td class="inf">kijken</td><td>keek</td><td>gekeken</td></tr>
+      <tr><td class="inf">rijden</td><td>reed</td><td>gereden</td></tr>
+      <tr><td class="pat" rowspan="4">2</td><td class="kw" rowspan="4">ie/ui &rarr; oo &rarr; o</td><td class="inf">vliegen</td><td>vloog</td><td>gevlogen</td></tr>
+      <tr><td class="inf">verliezen</td><td>verloor</td><td>verloren</td></tr>
+      <tr><td class="inf">sluiten</td><td>sloot</td><td>gesloten</td></tr>
+      <tr><td class="inf">schieten</td><td>schoot</td><td>geschoten</td></tr>
+      <tr><td class="pat" rowspan="4">3</td><td class="kw" rowspan="4">i &rarr; o &rarr; o</td><td class="inf">drinken</td><td>dronk</td><td>gedronken</td></tr>
+      <tr><td class="inf">beginnen</td><td>begon</td><td>begonnen</td></tr>
+      <tr><td class="inf">vinden</td><td>vond</td><td>gevonden</td></tr>
+      <tr><td class="inf">zingen</td><td>zong</td><td>gezongen</td></tr>
+      <tr><td class="pat" rowspan="4">4</td><td class="kw" rowspan="4">e &rarr; a &rarr; o</td><td class="inf">nemen</td><td>nam</td><td>genomen</td></tr>
+      <tr><td class="inf">spreken</td><td>sprak</td><td>gesproken</td></tr>
+      <tr><td class="inf">breken</td><td>brak</td><td>gebroken</td></tr>
+      <tr><td class="inf">stelen</td><td>stal</td><td>gestolen</td></tr>
+      <tr><td class="pat" rowspan="4">5</td><td class="kw" rowspan="4">e &rarr; a &rarr; e</td><td class="inf">geven</td><td>gaf</td><td>gegeven</td></tr>
+      <tr><td class="inf">eten</td><td>at</td><td>gegeten</td></tr>
+      <tr><td class="inf">lezen</td><td>las</td><td>gelezen</td></tr>
+      <tr><td class="inf">zien</td><td>zag</td><td>gezien</td></tr>
+      <tr><td class="pat" rowspan="2">6</td><td class="kw" rowspan="2">a &rarr; oe &rarr; a</td><td class="inf">dragen</td><td>droeg</td><td>gedragen</td></tr>
+      <tr><td class="inf">varen</td><td>voer</td><td>gevaren</td></tr>
+      <tr><td class="pat" rowspan="4">7</td><td class="kw" rowspan="4">o/a &rarr; ie &rarr; o/a</td><td class="inf">lopen</td><td>liep</td><td>gelopen</td></tr>
+      <tr><td class="inf">vallen</td><td>viel</td><td>gevallen</td></tr>
+      <tr><td class="inf">houden</td><td>hield</td><td>gehouden</td></tr>
+      <tr><td class="inf">roepen</td><td>riep</td><td>geroepen</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Gemengde groep (klinkerwissel, maar deelwoord op -t/-d zoals een zwak werkwoord)</h3>
+  <table class="verbtab narrow">
+    <thead><tr><th>Infinitief</th><th>Imperfectum</th><th>Voltooid deelwoord</th></tr></thead>
+    <tbody>
+      <tr><td class="inf">brengen</td><td>bracht</td><td>gebracht</td></tr>
+      <tr><td class="inf">denken</td><td>dacht</td><td>gedacht</td></tr>
+      <tr><td class="inf">kopen</td><td>kocht</td><td>gekocht</td></tr>
+      <tr><td class="inf">zoeken</td><td>zocht</td><td>gezocht</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Meest onregelmatig (uit het hoofd leren)</h3>
+  <table class="verbtab narrow">
+    <thead><tr><th>Infinitief</th><th>Imperfectum</th><th>Voltooid deelwoord</th></tr></thead>
+    <tbody>
+      <tr><td class="inf">zijn</td><td>was / waren</td><td>geweest</td></tr>
+      <tr><td class="inf">hebben</td><td>had / hadden</td><td>gehad</td></tr>
+      <tr><td class="inf">gaan</td><td>ging / gingen</td><td>gegaan</td></tr>
+      <tr><td class="inf">staan</td><td>stond / stonden</td><td>gestaan</td></tr>
+      <tr><td class="inf">doen</td><td>deed / deden</td><td>gedaan</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="page-break">3. Vaste zinnen &amp; uitdrukkingen</h2>
 
   <div class="phrase-group">
     <h3>Mening geven &amp; (on)eens zijn</h3>
@@ -187,7 +256,7 @@ code{background:#f2f2f2;padding:0 3px;border-radius:2px;font-size:12px;font-fami
     </div>
   </div>
 
-  <h2 class="page-break">3. Kernwoordenschat</h2>
+  <h2 class="page-break">4. Kernwoordenschat</h2>
   <p class="intro">De nuttige, niet-makkelijke woorden uit je woordenlijst, gegroepeerd per woordsoort. <span class="fm" style="color:#999">(formeel)</span> = vooral voor schrijven/B2.</p>
   <div id="vocab"><div class="loading">Woordenlijst laden...</div></div>
 
