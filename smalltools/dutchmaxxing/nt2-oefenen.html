@@ -141,6 +141,10 @@ header a:hover { text-decoration: underline; }
 }
 .exam-transcript-side.question { background: #fff; }
 .exam-transcript-side.answer { background: #f0faf4; }
+.exam-pic-note {
+  font-size: 12.5px; background: var(--mondrian-yellow); border: 1px solid var(--mondrian-black);
+  padding: 6px 9px; margin-bottom: 8px;
+}
 
 /* Op Niveau practice */
 .on-setup { border: 2px solid var(--mondrian-black); background: var(--mondrian-white); padding: 18px; margin-bottom: 20px; }
@@ -440,6 +444,7 @@ function showExamSet(type, setNum) {
         const question = (ex.question || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
         const answer   = (ex.answer || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
         const has = question || answer;
+        const needsPics = /plaatje|kijk naar de|gebruik hierbij alle|hieronder ziet u|op de (foto|afbeelding)/i.test(ex.question || '');
         return `
         <div class="exam-exercise-card" id="exam-${type}-${setNum}-${n}" data-category="${cat || 'none'}">
           <div class="exam-exercise-header">
@@ -466,6 +471,7 @@ function showExamSet(type, setNum) {
           <div class="exam-transcript-body">
             <div class="exam-transcript-side question">
               <h5>Vraag</h5>
+              ${needsPics ? '<p class="exam-pic-note">Bij deze opdracht horen plaatjes. Die zie je in de video hierboven; in het transcript staan ze niet.</p>' : ''}
               ${question || '<em style="color:#999">Geen transcript</em>'}
             </div>
             <div class="exam-transcript-side answer">
