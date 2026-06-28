@@ -8400,7 +8400,7 @@ function vtRender(){
   const qEl = document.getElementById('vtSearch');
   const q = (qEl ? qEl.value : '').toLowerCase().trim();
   if (!levels.length){ area.innerHTML = '<div class="vt-empty">Kies minstens één niveau.</div>'; vtUpdateProgress([]); return; }
-  let html = ''; const keys = [];
+  let html = ''; const keys = []; let totalWords = 0;
   levels.forEach(lvl => {
     let words = VT_VOCAB.filter(w => w.level === lvl && w.nl && w.en);
     const seen = new Set();
@@ -8409,7 +8409,8 @@ function vtRender(){
     words.forEach(w => { const th = vtThemeOf(w); (groups[th] = groups[th] || []).push(w); });
     const themes = VT_ORDER.filter(t => groups[t] && groups[t].length);
     if (!themes.length) return;
-    html += '<div class="vt-lvl-head">' + lvl + '</div>';
+    totalWords += words.length;
+    html += '<div class="vt-lvl-head">' + lvl + ' <span style="font-family:\'Inter\',sans-serif;font-weight:400;font-size:14px;color:#666;">&middot; ' + words.length + ' woorden</span></div>';
     themes.forEach(th => {
       const k = vtDkey(lvl, th); keys.push(k);
       const isDone = !!VT_DONE[k];
@@ -8436,13 +8437,14 @@ function vtRender(){
     });
   });
   area.innerHTML = html || '<div class="vt-empty">Geen woorden gevonden.</div>';
-  vtUpdateProgress(keys);
+  vtUpdateProgress(keys, totalWords);
 }
-function vtUpdateProgress(keys){
+function vtUpdateProgress(keys, totalWords){
   const total = keys.length, d = keys.filter(k => VT_DONE[k]).length, pct = total ? Math.round(d/total*100) : 0;
   const bar = document.getElementById('vtBar'); if (bar) bar.style.width = pct + '%';
   const txt = document.getElementById('vtBarTxt');
-  if (txt) txt.textContent = total ? (d + " van de " + total + " thema's afgevinkt (" + pct + "%)") : "Vink thema's af die je kent.";
+  const wc = totalWords ? (" · " + totalWords + " woorden in totaal") : "";
+  if (txt) txt.textContent = (total ? (d + " van de " + total + " thema's afgevinkt (" + pct + "%)") : "Vink thema's af die je kent.") + wc;
 }
 function vtToggleDone(l,t){ const k = vtDkey(l,t); if (VT_DONE[k]) delete VT_DONE[k]; else { VT_DONE[k] = 1; VT_OPEN.delete(k); } vtSave(); vtRender(); }
 function vtToggleOpen(l,t){ const k = vtDkey(l,t); if (VT_OPEN.has(k)) VT_OPEN.delete(k); else VT_OPEN.add(k); vtRender(); }
