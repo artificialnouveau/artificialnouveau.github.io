@@ -4440,6 +4440,7 @@ body::before, body::after { display: none; }
       <label><input type="checkbox" id="vtLvB2" checked onchange="vtRender()"> B2</label>
       <label><input type="checkbox" id="vtLvC1" checked onchange="vtRender()"> C1</label>
       <input type="search" id="vtSearch" placeholder="Zoek een woord..." oninput="vtRender()">
+      <button class="vt-reset" onclick="vtPrint()">Print / opslaan als PDF</button>
       <button class="vt-reset" onclick="vtResetDone()">Voortgang wissen</button>
     </div>
     <div class="vt-pbar-wrap"><div class="vt-pbar" id="vtBar"></div></div>
@@ -8458,6 +8459,60 @@ function vtUpdateProgress(keys, totalWords){
 function vtToggleDone(l,t){ const k = vtDkey(l,t); if (VT_DONE[k]) delete VT_DONE[k]; else { VT_DONE[k] = 1; VT_OPEN.delete(k); } vtSave(); vtRender(); }
 function vtToggleOpen(l,t){ const k = vtDkey(l,t); if (VT_OPEN.has(k)) VT_OPEN.delete(k); else VT_OPEN.add(k); vtRender(); }
 function vtResetDone(){ if (confirm("Alle afgevinkte thema's wissen?")){ VT_DONE = {}; vtSave(); vtRender(); } }
+function vtPrint(){
+  if (!VT_VOCAB){ alert('Woordenlijst is nog niet geladen.'); return; }
+  const levels = vtLevels();
+  if (!levels.length){ alert('Kies minstens één niveau om te printen.'); return; }
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  let body = '';
+  let grand = 0;
+  levels.forEach(lvl => {
+    let words = VT_VOCAB.filter(w => w.level === lvl && w.nl && w.en);
+    const seen = new Set();
+    words = words.filter(w => { const k = w.nl.trim().toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; });
+    const groups = {};
+    words.forEach(w => { const th = vtThemeOf(w); (groups[th] = groups[th] || []).push(w); });
+    const themes = VT_ORDER.filter(t => groups[t] && groups[t].length);
+    if (!themes.length) return;
+    grand += words.length;
+    body += '<h2 class="lvl">' + lvl + ' <span class="cnt">' + words.length + ' woorden</span></h2>';
+    themes.forEach(th => {
+      const all = groups[th].slice().sort((a,b) => a.nl.localeCompare(b.nl, 'nl'));
+      const chunks = [];
+      for (let i = 0; i < all.length; i += VT_CHUNK) chunks.push(all.slice(i, i + VT_CHUNK));
+      const multi = chunks.length > 1;
+      chunks.forEach((arr, ci) => {
+        const part = multi ? ' <span class="part">deel ' + (ci+1) + '/' + chunks.length + '</span>' : '';
+        body += '<div class="blk"><h3>' + esc(th) + part + ' <span class="cnt">' + arr.length + '</span></h3><ul>';
+        arr.forEach(w => {
+          const fm = (w.tags||[]).includes('formeel') ? ' <i>(formeel)</i>' : '';
+          body += '<li><b>' + esc(w.nl) + '</b> &ndash; ' + esc(vtShortEn(w.en)) + fm + '</li>';
+        });
+        body += '</ul></div>';
+      });
+    });
+  });
+  const doc = '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8">'
+    + '<meta name="robots" content="noindex, nofollow">'
+    + '<title>Woordenschat per niveau & thema</title><style>'
+    + '*{box-sizing:border-box;} body{font-family:Georgia,serif;color:#111;margin:24px;line-height:1.35;}'
+    + 'h1{font-family:Arial,sans-serif;font-size:20px;margin:0 0 4px;} .sub{font-family:Arial,sans-serif;font-size:12px;color:#555;margin:0 0 16px;}'
+    + 'h2.lvl{font-family:Arial,sans-serif;font-size:16px;border-bottom:2px solid #000;padding-bottom:3px;margin:20px 0 10px;break-after:avoid;}'
+    + '.blk{break-inside:avoid;margin-bottom:10px;} h3{font-family:Arial,sans-serif;font-size:12.5px;margin:0 0 4px;border-bottom:1px solid #999;padding-bottom:2px;}'
+    + '.cnt{font-weight:400;font-size:11px;color:#777;} .part{font-size:11px;color:#c0392b;font-weight:700;}'
+    + 'ul{columns:3;column-gap:18px;list-style:none;margin:0;padding:0;font-size:11.5px;}'
+    + 'li{break-inside:avoid;padding:1px 0;border-bottom:1px dotted #ddd;} li i{color:#777;font-size:10px;}'
+    + '.toolbar{font-family:Arial,sans-serif;margin-bottom:14px;} .toolbar button{font-size:13px;padding:7px 14px;cursor:pointer;}'
+    + '@media print{.toolbar{display:none;} body{margin:0;} ul{columns:3;}} @media(max-width:700px){ul{columns:2;}}'
+    + '</style></head><body>'
+    + '<div class="toolbar"><button onclick="window.print()">Print / opslaan als PDF</button></div>'
+    + '<h1>Woordenschat per niveau &amp; thema</h1>'
+    + '<p class="sub">Niveaus: ' + levels.join(', ') + ' &middot; ' + grand + ' woorden in totaal</p>'
+    + body + '</body></html>';
+  const w = window.open('', '_blank');
+  if (!w){ alert('Sta pop-ups toe om te printen.'); return; }
+  w.document.open(); w.document.write(doc); w.document.close();
+}
 
 // Visual tile navigation for spiekbriefjes
 function switchSpiekNav(subtabId) {
