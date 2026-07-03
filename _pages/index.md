@@ -6,9 +6,9 @@ layout: page
 
 ## ABOUT
 
-Ahnjili ZhuParris, PhD (NL/USA), is a published scientist, media researcher, computer vision AI engineer, and computational artist. She builds interactive tools and installations that make AI ethics tangible for non-experts, turning opaque algorithms into experiences people can see, hear, and question. Her work spans predictive-policing visualizations, voice-cloning installations, and browser-based tools for digital rights.
+Ahnjili ZhuParris, PhD (NL/USA), is an AI engineer, media researcher, and computational artist. Ahnjili's doctoral research in medicine used machine learning to predict diagnoses and prognoses from smartphone and wearable data. As an AI engineer, she specializes in computer vision and visual retrieval-augmented generation (RAG). Her media research examines internet discourses around specific topics, a practice of story science that traces how narratives form and circulate online. Her current computational art comprises research-based moving-image and installation works exploring how bodies are measured, optimized, and represented by AI systems.
 
-Ahnjili holds a PhD in Medicine from Leiden University, Master's in Cognitive Neuroscience from Radboud University and a Bachelor's in Neuroscience from the University of Edinburgh. She is a recipient of the Mozilla Creative Media Award, a Processing Foundation Fellow and a Public AI Creative Fellow. Ahnjili's work has garnered support from the Mozilla Foundation (US), IMPAKT(NL), and Constant (BE) and has showcased her work at Ars Electronica (AU), Identity2.0 (UK), and the CICA Museum (KR).
+Ahnjili holds a PhD in Medicine from Leiden University, a Master's in Cognitive Neuroscience from Radboud University, and a Bachelor's in Neuroscience from the University of Edinburgh. She is a Mozilla Creative Media Award recipient, Processing Foundation Fellow, and Public AI Creative Fellow. Her work has been supported by the Mozilla Foundation (US), IMPAKT (NL), and Constant (BE), and exhibited at Ars Electronica (AT), Articulating Data (UK), and the CICA Museum (KR).
 
 <br>
 
