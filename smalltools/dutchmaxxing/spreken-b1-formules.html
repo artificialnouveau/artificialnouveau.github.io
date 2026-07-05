@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>NT2 B1 Speaking - Detailed Cheat Sheet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+  :root {
+    --ink: #17233a;
+    --delft: #1c4f8f;
+    --delft-soft: #e8eff8;
+    --line: #c3d4e8;
+    --muted: #5a6b82;
+    --amber: #b5651d;
+    --amber-soft: #f6ecdf;
+    --paper: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #d9dee6;
+    font-family: 'Source Sans 3', sans-serif;
+    color: var(--ink);
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 12px auto;
+    background: var(--paper);
+    padding: 11mm 11mm 9mm;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  }
+
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--delft);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--delft);
+  }
+  header .tag {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .golden {
+    background: var(--delft-soft);
+    border-left: 3px solid var(--delft);
+    padding: 6px 10px;
+    margin-bottom: 9px;
+    font-size: 11px;
+  }
+  .golden b { color: var(--delft); }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--delft);
+    margin: 9px 0 5px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; }
+  .cols3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px 14px; }
+  .cols4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px 12px; }
+
+  .box {
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 6px 8px 7px;
+    break-inside: avoid;
+  }
+  .box h3 {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .box p { font-size: 10px; line-height: 1.5; }
+  .nl { color: var(--delft); font-weight: 600; }
+
+  .formula {
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 6px 8px 7px;
+    break-inside: avoid;
+  }
+  .formula .num {
+    font-family: 'Fraunces', serif;
+    font-size: 11px; font-weight: 600;
+    color: var(--delft); background: var(--delft-soft);
+    width: 17px; height: 17px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%; margin-right: 5px; vertical-align: middle;
+  }
+  .formula h4 { display: inline; font-size: 11.5px; font-weight: 700; }
+  .formula .struct { font-size: 9.5px; color: var(--delft); font-weight: 600; margin: 3px 0 2px; line-height: 1.3; }
+  .formula .ex { font-size: 9.5px; font-style: italic; line-height: 1.35; }
+
+  .grammar {
+    background: var(--amber-soft);
+    border: 1px solid #e3cbaa;
+    border-radius: 3px;
+    padding: 7px 10px;
+    margin-top: 5px;
+  }
+  .grammar h3 { color: var(--amber); font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; margin-bottom: 4px; }
+  .grammar p { font-size: 10px; line-height: 1.55; margin-bottom: 2px; }
+  .grammar .k { color: var(--amber); font-weight: 700; }
+
+  .vocab .box p { line-height: 1.55; }
+  .vocab .en { color: var(--muted); }
+
+  .pagebreak { page-break-before: always; }
+
+  @media print {
+    html, body { background: #fff; }
+    .page { margin: 0; box-shadow: none; width: auto; min-height: auto; padding: 9mm; }
+    @page { size: A4; margin: 8mm; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <header>
+    <h1>NT2 B1 Spreken - Toolkit</h1>
+    <span class="tag">Formules &middot; Connectoren &middot; Woordenschat</span>
+  </header>
+
+  <div class="golden">
+    Golden rule: never answer with one word. Every answer is <b>mening + reden + voorbeeld</b> (opinion, reason, example). Aim for three to five sentences. Under time pressure, keep the verb in second position and let it fall to the end after <i>dat, omdat, als, zodat</i>.
+  </div>
+
+  <div class="section-title">Answer formulas</div>
+  <div class="cols2">
+    <div class="formula"><span class="num">1</span><h4>Opinion, reason, example</h4>
+      <div class="struct">Ik vind dat... want/omdat... bijvoorbeeld...</div>
+      <div class="ex">Ik vind dat kinderen niet te veel moeten gamen, want het is slecht voor hun ogen. Bijvoorbeeld: mijn neefje speelt de hele dag.</div></div>
+    <div class="formula"><span class="num">2</span><h4>Two sides, then choose</h4>
+      <div class="struct">Aan de ene kant... Aan de andere kant... Maar ik kies voor... omdat...</div>
+      <div class="ex">Aan de ene kant is de auto sneller. Aan de andere kant is de fiets goedkoper. Maar ik kies voor de fiets, omdat ik niet in de file wil staan.</div></div>
+    <div class="formula"><span class="num">3</span><h4>Problem and solution</h4>
+      <div class="struct">Het probleem is dat... Daarom denk ik dat... Zo...</div>
+      <div class="ex">Het probleem is dat de buurt vies is. Daarom denk ik dat we samen moeten opruimen. Zo wordt de straat weer schoon.</div></div>
+    <div class="formula"><span class="num">4</span><h4>Advice to someone</h4>
+      <div class="struct">Ik zou... aanraden. Als ik jou was, zou ik... Het is beter om...</div>
+      <div class="ex">Ik zou een cursus aanraden. Als ik jou was, zou ik elke dag oefenen. Het is beter om klein te beginnen.</div></div>
+    <div class="formula"><span class="num">5</span><h4>Past experience story</h4>
+      <div class="struct">Een keer... Toen... Uiteindelijk...</div>
+      <div class="ex">Een keer was ik mijn sleutels kwijt. Toen moest ik bij de buren wachten. Uiteindelijk vond mijn vrouw ze in de auto.</div></div>
+    <div class="formula"><span class="num">6</span><h4>Now versus before</h4>
+      <div class="struct">Vroeger... maar tegenwoordig... Daardoor...</div>
+      <div class="ex">Vroeger belde ik mijn familie elke week. Maar tegenwoordig gebruik ik videobellen. Daardoor voelt de afstand kleiner.</div></div>
+    <div class="formula"><span class="num">7</span><h4>Agree, then add a condition</h4>
+      <div class="struct">Je hebt gelijk, maar... Het hangt ervan af...</div>
+      <div class="ex">Je hebt gelijk dat sporten belangrijk is. Maar het hangt ervan af hoeveel tijd je hebt.</div></div>
+    <div class="formula"><span class="num">8</span><h4>Wish or plan</h4>
+      <div class="struct">Ik ben van plan om... Ik hoop dat... Zodra...</div>
+      <div class="ex">Ik ben van plan om te verhuizen. Ik hoop dat ik een grotere woning vind. Zodra ik werk heb, ga ik zoeken.</div></div>
+  </div>
+
+  <div class="section-title">Useful phrases by function</div>
+  <div class="cols3">
+    <div class="box"><h3>Opinion openers</h3><p>
+      <span class="nl">Ik vind dat</span> <span class="en">I think that</span><br>
+      <span class="nl">Volgens mij</span> <span class="en">in my opinion</span><br>
+      <span class="nl">Ik denk dat</span> <span class="en">I think that</span><br>
+      <span class="nl">Naar mijn mening</span> <span class="en">in my view</span><br>
+      <span class="nl">Wat mij betreft</span> <span class="en">as far as I'm concerned</span><br>
+      <span class="nl">Het lijkt me</span> <span class="en">it seems to me</span><br>
+      <span class="nl">Ik ben ervan overtuigd dat</span> <span class="en">I'm convinced that</span></p></div>
+    <div class="box"><h3>Agree / disagree</h3><p>
+      <span class="nl">Je hebt gelijk</span> <span class="en">you're right</span><br>
+      <span class="nl">Dat klopt</span> <span class="en">that's correct</span><br>
+      <span class="nl">Precies / inderdaad</span> <span class="en">exactly</span><br>
+      <span class="nl">Dat ben ik met je eens</span> <span class="en">I agree</span><br>
+      <span class="nl">Dat ben ik niet met je eens</span> <span class="en">I disagree</span><br>
+      <span class="nl">Dat is waar, maar...</span> <span class="en">true, but</span><br>
+      <span class="nl">Ja, maar...</span> <span class="en">soft pushback</span></p></div>
+    <div class="box"><h3>Buying thinking time</h3><p>
+      <span class="nl">Nou...</span> <span class="en">well...</span><br>
+      <span class="nl">Even denken</span> <span class="en">let me think</span><br>
+      <span class="nl">Even kijken</span> <span class="en">let me see</span><br>
+      <span class="nl">Hoe zal ik het zeggen</span> <span class="en">how shall I put it</span><br>
+      <span class="nl">Dat is een goede vraag</span> <span class="en">good question</span><br>
+      <span class="nl">Eerlijk gezegd</span> <span class="en">honestly</span></p></div>
+    <div class="box"><h3>Sequencing</h3><p>
+      <span class="nl">Ten eerste / ten tweede</span> <span class="en">first / second</span><br>
+      <span class="nl">Om te beginnen</span> <span class="en">to begin with</span><br>
+      <span class="nl">Daarna / vervolgens</span> <span class="en">then / next</span><br>
+      <span class="nl">Ten slotte / tot slot</span> <span class="en">finally</span></p></div>
+    <div class="box"><h3>Adding / examples</h3><p>
+      <span class="nl">ook</span> <span class="en">also</span><br>
+      <span class="nl">bovendien / daarnaast</span> <span class="en">moreover</span><br>
+      <span class="nl">bijvoorbeeld</span> <span class="en">for example</span><br>
+      <span class="nl">zoals</span> <span class="en">such as</span></p></div>
+    <div class="box"><h3>Compare / prefer</h3><p>
+      <span class="nl">liever / het liefst</span> <span class="en">rather / most</span><br>
+      <span class="nl">beter dan</span> <span class="en">better than</span><br>
+      <span class="nl">net zo... als</span> <span class="en">just as... as</span><br>
+      <span class="nl">hetzelfde als</span> <span class="en">the same as</span></p></div>
+  </div>
+
+  <div class="section-title">Connectors and what they do to the verb</div>
+  <div class="grammar">
+    <p><span class="k">Verb stays in second position (normal):</span> <span class="nl">want</span> because, <span class="nl">en</span> and, <span class="nl">maar</span> but, <span class="nl">dus</span> so, <span class="nl">of</span> or. Example: <i>Ik blijf thuis, want ik ben ziek.</i></p>
+    <p><span class="k">Verb jumps in FRONT of subject (inversion) when the sentence starts with them:</span> <span class="nl">daarom</span> that's why, <span class="nl">daardoor</span> as a result, <span class="nl">dus</span> so, <span class="nl">toch</span> still, <span class="nl">echter</span> however, <span class="nl">niettemin</span> nevertheless. Example: <i>Ik ben ziek, daarom blijf ik thuis.</i></p>
+    <p><span class="k">Verb goes to the END of the clause:</span> <span class="nl">omdat</span> because, <span class="nl">dat</span> that, <span class="nl">als</span> if/when, <span class="nl">zodat</span> so that, <span class="nl">hoewel</span> although, <span class="nl">terwijl</span> while, <span class="nl">voordat</span> before, <span class="nl">nadat</span> after. Example: <i>Ik blijf thuis omdat ik ziek ben.</i></p>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page pagebreak">
+  <header>
+    <h1>NT2 B1 - Grammar checks &amp; themed vocab</h1>
+    <span class="tag">Woordvolgorde &middot; Thema-woordenschat</span>
+  </header>
+
+  <div class="section-title">Word-order self-checks while speaking</div>
+  <div class="grammar">
+    <p><span class="k">te or no te?</span> No <i>te</i> after <span class="nl">gaan, kunnen, moeten, mogen, willen, zullen</span> (<i>ik ga zoeken, je kunt spreken</i>). Yes <i>te</i> after <span class="nl">om, door, proberen, hopen, besluiten, vergeten, beginnen</span> (<i>om werk te vinden, door te oefenen</i>). Never <i>te</i> after <span class="nl">zodat</span>.</p>
+    <p><span class="k">Separable verbs split around te:</span> opstaan &rarr; <i>om vroeg <b>op te staan</b></i>; meenemen &rarr; <i>om je telefoon <b>mee te nemen</b></i>; opruimen &rarr; <i>om <b>op te ruimen</b></i>.</p>
+    <p><span class="k">Inversion trigger:</span> the moment a sentence does NOT start with the subject, the verb comes next. <i>Volgens mij <b>is</b> het beter. Gisteren <b>ging</b> ik. Dus <b>moet</b> ik.</i></p>
+    <p><span class="k">hopen: two structures, never mix:</span> <i>Ik hoop <b>te</b> slagen</i> (no dat) OR <i>Ik hoop <b>dat</b> ik slaag</i> (with dat, verb near the end).</p>
+    <p><span class="k">Watch under speed:</span> <span class="nl">en</span> (and) vs <span class="nl">een</span> (a) &middot; <span class="nl">ik</span> vs <span class="nl">je</span> when talking about yourself &middot; false friends: <i>moeilijker</i> not "harder", <i>redden</i> rescue not <i>rijden</i> drive, <i>nemen</i> take not <i>noemen</i> name.</p>
+  </div>
+
+  <div class="section-title">Positie- en plaatsingswerkwoorden</div>
+  <div class="grammar" style="background:var(--delft-soft); border-color:var(--line);">
+    <p style="margin-bottom:4px;"><span class="k" style="color:var(--delft);">English uses "to be" or "to put"; Dutch picks the verb by the object's posture, and in a subordinate clause it lands at the very end:</span> <i>Ik weet dat mijn sleutels op tafel <b>liggen</b>.</i></p>
+  </div>
+  <div class="cols3" style="margin-top:5px;">
+    <div class="box"><h3>Positie (it is there)</h3><p>
+      <span class="nl">staan</span> upright: bottle, cup, building, text<br>
+      <span class="nl">liggen</span> flat: book, keys, a city's location<br>
+      <span class="nl">zitten</span> contained: money on account, milk in carton<br>
+      <span class="nl">hangen</span> hanging: coat, painting, laundry</p></div>
+    <div class="box"><h3>Plaatsing (you put it, action + object)</h3><p>
+      <span class="nl">zetten</span> put upright: <i>Ik zet het glas op tafel.</i><br>
+      <span class="nl">leggen</span> put flat: <i>Ik leg het boek op de plank.</i><br>
+      <span class="nl">hangen</span> hang up: <i>Ik hang de jas op.</i><br>
+      Pairs: staan/zetten &middot; liggen/leggen</p></div>
+    <div class="box"><h3>In a subordinate clause</h3><p>
+      Verb goes to the END, do not drop it:<br>
+      <i>...dat er geen geld op mijn rekening <span class="nl">zit</span>.</i><br>
+      <i>...dat de flessen in de koelkast <span class="nl">staan</span>.</i><br>
+      <i>...dat mijn telefoon op de bank <span class="nl">ligt</span>.</i></p></div>
+  </div>
+
+  <div class="section-title">Themed vocabulary</div>
+  <div class="cols2 vocab">
+    <div class="box"><h3>Openbaar vervoer / transport</h3><p>
+      <span class="nl">de halte</span> <span class="en">stop</span> &middot; <span class="nl">het perron</span> <span class="en">platform</span> &middot; <span class="nl">het spoor</span> <span class="en">track</span><br>
+      <span class="nl">instappen / uitstappen</span> <span class="en">board / get off</span><br>
+      <span class="nl">overstappen</span> <span class="en">to change / transfer</span><br>
+      <span class="nl">inchecken / uitchecken</span> <span class="en">tap in / out</span><br>
+      <span class="nl">de OV-chipkaart opladen</span> <span class="en">top up</span><br>
+      <span class="nl">een dagkaart</span> <span class="en">day ticket</span><br>
+      <span class="nl">de trein heeft vertraging</span> <span class="en">is delayed</span><br>
+      <span class="nl">de trein is uitgevallen</span> <span class="en">is cancelled</span><br>
+      <span class="nl">door een storing</span> <span class="en">due to a fault</span><br>
+      <span class="nl">vervangend vervoer</span> <span class="en">replacement bus</span><br>
+      <span class="nl">vertrekken / aankomen</span> <span class="en">depart / arrive</span><br>
+      <span class="nl">je trein missen</span> <span class="en">miss your train</span></p></div>
+
+    <div class="box"><h3>Boodschappen / supermarket</h3><p>
+      <span class="nl">boodschappen doen</span> <span class="en">to do groceries</span><br>
+      <span class="nl">het winkelwagentje / mandje</span> <span class="en">cart / basket</span><br>
+      <span class="nl">de kassa</span> <span class="en">checkout</span> &middot; <span class="nl">afrekenen</span> <span class="en">to pay</span><br>
+      <span class="nl">pinnen / contant</span> <span class="en">card / cash</span><br>
+      <span class="nl">de aanbieding</span> <span class="en">special offer</span><br>
+      <span class="nl">in de aanbieding</span> <span class="en">on offer</span><br>
+      <span class="nl">de korting</span> <span class="en">discount</span><br>
+      <span class="nl">het schap</span> <span class="en">shelf</span> &middot; <span class="nl">de afdeling</span> <span class="en">section</span><br>
+      <span class="nl">de houdbaarheidsdatum</span> <span class="en">expiry date</span><br>
+      <span class="nl">vers</span> <span class="en">fresh</span> &middot; <span class="nl">op</span> <span class="en">sold out</span><br>
+      <span class="nl">de kassabon</span> <span class="en">receipt</span><br>
+      <span class="nl">een pak / een fles / een zak</span> <span class="en">pack / bottle / bag</span></p></div>
+
+    <div class="box"><h3>Huis / home &amp; chores</h3><p>
+      <span class="nl">opruimen</span> <span class="en">tidy up</span> &middot; <span class="nl">schoonmaken</span> <span class="en">clean</span><br>
+      <span class="nl">de afwas doen</span> <span class="en">do the dishes</span><br>
+      <span class="nl">stofzuigen</span> <span class="en">vacuum</span> &middot; <span class="nl">de was doen</span> <span class="en">laundry</span><br>
+      <span class="nl">verhuizen</span> <span class="en">move house</span><br>
+      <span class="nl">de huur</span> <span class="en">rent</span> &middot; <span class="nl">de buur</span> <span class="en">neighbor</span><br>
+      <span class="nl">de woonkamer / keuken</span> <span class="en">living room / kitchen</span><br>
+      <span class="nl">repareren</span> <span class="en">to repair</span></p></div>
+
+    <div class="box"><h3>Gezondheid / health</h3><p>
+      <span class="nl">de huisarts</span> <span class="en">GP</span> &middot; <span class="nl">de afspraak</span> <span class="en">appointment</span><br>
+      <span class="nl">de apotheek</span> <span class="en">pharmacy</span> &middot; <span class="nl">het recept</span> <span class="en">prescription</span><br>
+      <span class="nl">ziek</span> <span class="en">sick</span> &middot; <span class="nl">de koorts</span> <span class="en">fever</span><br>
+      <span class="nl">gewond</span> <span class="en">injured</span> &middot; <span class="nl">de wond</span> <span class="en">wound</span><br>
+      <span class="nl">beter worden</span> <span class="en">to recover</span><br>
+      <span class="nl">de gezondheid</span> <span class="en">health</span> &middot; <span class="nl">het advies</span> <span class="en">advice</span></p></div>
+
+    <div class="box"><h3>Werk / work &amp; study</h3><p>
+      <span class="nl">de vergadering</span> <span class="en">meeting</span> &middot; <span class="nl">de collega</span> <span class="en">colleague</span><br>
+      <span class="nl">solliciteren</span> <span class="en">to apply</span> &middot; <span class="nl">de sollicitatie</span> <span class="en">application</span><br>
+      <span class="nl">het salaris</span> <span class="en">salary</span> &middot; <span class="nl">de baan</span> <span class="en">job</span><br>
+      <span class="nl">de werkgever</span> <span class="en">employer</span><br>
+      <span class="nl">fulltime / parttime</span> <span class="en">full / part time</span><br>
+      <span class="nl">verantwoordelijk</span> <span class="en">responsible</span><br>
+      <span class="nl">de ervaring</span> <span class="en">experience</span></p></div>
+
+    <div class="box"><h3>Gevoelens / feelings &amp; opinions</h3><p>
+      <span class="nl">tevreden</span> <span class="en">satisfied</span> &middot; <span class="nl">blij</span> <span class="en">happy</span><br>
+      <span class="nl">teleurgesteld</span> <span class="en">disappointed</span><br>
+      <span class="nl">verbaasd</span> <span class="en">surprised</span> &middot; <span class="nl">boos</span> <span class="en">angry</span><br>
+      <span class="nl">zich zorgen maken</span> <span class="en">to worry</span><br>
+      <span class="nl">het lukt (niet)</span> <span class="en">it works (doesn't)</span><br>
+      <span class="nl">het hangt ervan af</span> <span class="en">it depends</span></p></div>
+  </div>
+
+  <div class="golden" style="margin-top:9px;">
+    Practice loop: do one full timed task on <b>oefenexamensnt2.nl</b> with no pause, write down only the practical problems (time, structure, a slip), then drill one problem for a few days before trying again.
+  </div>
+</div>
+
+</body>
+</html>

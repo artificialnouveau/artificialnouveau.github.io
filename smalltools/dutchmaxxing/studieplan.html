@@ -200,6 +200,11 @@ header a:hover{text-decoration:underline;}
 .ref .chunk{font-size:13px;background:#fafafa;border:1px solid #e5e5e5;padding:7px 9px;}
 .ref .chunk b{color:var(--blue);}
 .ref ul{margin-left:18px;font-size:13.5px;} .ref li{margin-bottom:5px;}
+.ref .verbtab{border-collapse:collapse;width:100%;font-size:13px;margin:2px 0 8px;}
+.ref .verbtab th{text-align:left;background:#f0f0f0;border:1px solid #e5e5e5;padding:5px 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;}
+.ref .verbtab td{border:1px solid #e5e5e5;padding:4px 8px;}
+.ref .verbtab td:first-child{color:var(--blue);}
+.ref .verbtab tbody tr:nth-child(odd){background:#fafafa;}
 
 .reset{margin-top:30px;text-align:center;}
 .reset button{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);background:none;border:none;text-decoration:underline;cursor:pointer;}
@@ -239,6 +244,8 @@ header a:hover{text-decoration:underline;}
   <div class="links">
     <a href="nt2-oefenen.html">&larr; Oefen-examens (Spreken / Schrijven / Op Niveau)</a>
     <a href="studieplan-print.html">Printbaar spiekbriefje</a>
+    <a href="spreken-b1-formules.html">Spreken B1 formules</a>
+    <a href="spreken-b2-formules.html">Spreken B2 formules</a>
     <a href="index.html">Reader</a>
   </div>
 </header>
@@ -349,6 +356,59 @@ const REF = `
 <li><b>los of aan elkaar:</b> te veel, met elkaar, zo'n, opdracht.</li>
 <li><b>woordvolgorde bijzin:</b> werkwoord(en) achteraan: '...omdat ik het niet <b>begrijp</b>.'</li>
 </ul>
+
+<h3>Onregelmatige werkwoorden: klinkerpatronen</h3>
+<p style="margin:.2em 0 .6em;font-size:.9em;color:#555">Verandert de klinker in de verleden tijd? Dan is het werkwoord <b>onregelmatig</b> en eindigt het deelwoord op <b>-en</b>. Blijft de klinker gelijk? Dan regelmatig: deelwoord op <b>-t/-d</b> ('t kofschip).</p>
+<table class="verbtab">
+<thead><tr><th>Patroon</th><th>Infinitief</th><th>Imperfectum</th><th>Voltooid deelwoord</th></tr></thead>
+<tbody>
+<tr><td><b>ij &rarr; ee &rarr; e</b></td><td>schrijven</td><td>schreef</td><td>geschreven</td></tr>
+<tr><td></td><td>blijven</td><td>bleef</td><td>gebleven</td></tr>
+<tr><td></td><td>kijken</td><td>keek</td><td>gekeken</td></tr>
+<tr><td></td><td>rijden</td><td>reed</td><td>gereden</td></tr>
+<tr><td><b>ie/ui &rarr; oo &rarr; o</b></td><td>vliegen</td><td>vloog</td><td>gevlogen</td></tr>
+<tr><td></td><td>verliezen</td><td>verloor</td><td>verloren</td></tr>
+<tr><td></td><td>sluiten</td><td>sloot</td><td>gesloten</td></tr>
+<tr><td></td><td>schieten</td><td>schoot</td><td>geschoten</td></tr>
+<tr><td><b>i &rarr; o &rarr; o</b></td><td>drinken</td><td>dronk</td><td>gedronken</td></tr>
+<tr><td></td><td>beginnen</td><td>begon</td><td>begonnen</td></tr>
+<tr><td></td><td>vinden</td><td>vond</td><td>gevonden</td></tr>
+<tr><td></td><td>zingen</td><td>zong</td><td>gezongen</td></tr>
+<tr><td><b>e &rarr; a &rarr; o</b></td><td>nemen</td><td>nam</td><td>genomen</td></tr>
+<tr><td></td><td>spreken</td><td>sprak</td><td>gesproken</td></tr>
+<tr><td></td><td>breken</td><td>brak</td><td>gebroken</td></tr>
+<tr><td></td><td>stelen</td><td>stal</td><td>gestolen</td></tr>
+<tr><td><b>e &rarr; a &rarr; e</b></td><td>geven</td><td>gaf</td><td>gegeven</td></tr>
+<tr><td></td><td>eten</td><td>at</td><td>gegeten</td></tr>
+<tr><td></td><td>lezen</td><td>las</td><td>gelezen</td></tr>
+<tr><td></td><td>zien</td><td>zag</td><td>gezien</td></tr>
+<tr><td><b>a &rarr; oe &rarr; a</b></td><td>dragen</td><td>droeg</td><td>gedragen</td></tr>
+<tr><td></td><td>varen</td><td>voer</td><td>gevaren</td></tr>
+<tr><td><b>o/a &rarr; ie &rarr; o/a</b></td><td>lopen</td><td>liep</td><td>gelopen</td></tr>
+<tr><td></td><td>vallen</td><td>viel</td><td>gevallen</td></tr>
+<tr><td></td><td>houden</td><td>hield</td><td>gehouden</td></tr>
+<tr><td></td><td>roepen</td><td>riep</td><td>geroepen</td></tr>
+</tbody>
+</table>
+<p style="margin:.6em 0 .3em;font-size:.9em;color:#555"><b>Gemengd</b> (klinker verandert, maar deelwoord op -t/-d):</p>
+<table class="verbtab">
+<tbody>
+<tr><td>brengen</td><td>bracht</td><td>gebracht</td></tr>
+<tr><td>denken</td><td>dacht</td><td>gedacht</td></tr>
+<tr><td>kopen</td><td>kocht</td><td>gekocht</td></tr>
+<tr><td>zoeken</td><td>zocht</td><td>gezocht</td></tr>
+</tbody>
+</table>
+<p style="margin:.6em 0 .3em;font-size:.9em;color:#555"><b>Heel onregelmatig</b> (uit het hoofd leren):</p>
+<table class="verbtab">
+<tbody>
+<tr><td>zijn</td><td>was / waren</td><td>geweest</td></tr>
+<tr><td>hebben</td><td>had / hadden</td><td>gehad</td></tr>
+<tr><td>gaan</td><td>ging / gingen</td><td>gegaan</td></tr>
+<tr><td>staan</td><td>stond / stonden</td><td>gestaan</td></tr>
+<tr><td>doen</td><td>deed / deden</td><td>gedaan</td></tr>
+</tbody>
+</table>
 `;
 
 // ---------- COMMON MISTAKES ----------
