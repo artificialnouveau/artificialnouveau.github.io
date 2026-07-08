@@ -21,11 +21,29 @@ from __future__ import annotations
 import json
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from xml.sax.saxutils import escape
 
 HERE = Path(__file__).parent
 PAGE_URL = "https://www.artificialnouveau.com/smalltools/grants/"
 TITLE = "The Grant Desk"
+
+# Attribution appended to outbound grant links so funders can see referral traffic came
+# from The Grant Desk. Applied to clickable/actionable links only, not to GUIDs or
+# JSON-LD structured-data URLs (those stay canonical).
+def with_utm(url):
+    """Return an http(s) URL tagged with our UTM attribution only. Any pre-existing utm_*
+    params on the URL are stripped first so only ours shows. Existing non-utm query params
+    and #fragments are preserved. Falsy/non-http values are returned unchanged."""
+    if not url or not (url.startswith("http://") or url.startswith("https://")):
+        return url
+    parts = urlsplit(url)
+    kept = [(k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
+            if not k.lower().startswith("utm_")]
+    kept.extend([("utm_source", "artificialnouveaugrantdesk"), ("utm_medium", "referral")])
+    query = urlencode(kept)
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, query, parts.fragment))
+
 DESCRIPTION = (
     "Paid open calls, fellowships and residencies in AI, tech, research, and digital and mixed-media arts, "
     "sorted into the right pile. Updated as new calls land on the desk."
@@ -79,6 +97,7 @@ def build_item(grant, today):
     title = grant.get("title", "Untitled")
     link = grant.get("url") or PAGE_URL
     guid = grant.get("id") or link
+    apply_link = with_utm(grant.get("url")) or PAGE_URL
     # pubDate and feed ordering use the RSS-release date (feedDate, falling back to
     # addedDate). This keeps a staggered grant - released today via a future feedDate
     # but added earlier - from sorting to the middle of the feed with an old pubDate,
@@ -113,7 +132,7 @@ def build_item(grant, today):
     desc = grant.get("description")
     if desc:
         body.append(f"<p>{escape(str(desc))}</p>")
-    body.append(f'<p><a href="{escape(link)}">Open call details</a></p>')
+    body.append(f'<p><a href="{escape(apply_link)}">Open call details</a></p>')
     body.append(
         f'<p>Want to see more grants? Visit '
         f'<a href="{escape(PAGE_URL)}">The Grant Desk</a> ({escape(PAGE_URL)}).</p>'
@@ -130,7 +149,7 @@ def build_item(grant, today):
     return (
         "  <item>\n"
         f"    <title>{escape(title_full)}</title>\n"
-        f"    <link>{escape(link)}</link>\n"
+        f"    <link>{escape(apply_link)}</link>\n"
         f'    <guid isPermaLink="false">{escape(str(guid))}</guid>\n'
         f"    <pubDate>{pub}</pubDate>\n"
         + "".join(cats)
@@ -309,6 +328,7 @@ def build_calendar(grants, today, region=None, category=None):
         url = grant.get("url") or ""
         guid = grant.get("id") or url or title
         uid = f"{guid}@artificialnouveau.github.io"
+        apply_url = with_utm(url)
 
         org = grant.get("organization", "")
         location = grant.get("location", "")
@@ -330,7 +350,7 @@ def build_calendar(grants, today, region=None, category=None):
         if meta_bits:
             desc_parts.append("\n".join(meta_bits))
         if url:
-            desc_parts.append(f"More: {url}")
+            desc_parts.append(f"More: {apply_url}")
         desc = "\n\n".join(desc_parts)
 
         event = [
@@ -343,7 +363,7 @@ def build_calendar(grants, today, region=None, category=None):
             f"DESCRIPTION:{ics_escape(desc)}",
         ]
         if url:
-            event.append(f"URL:{url}")
+            event.append(f"URL:{apply_url}")
         if location:
             event.append(f"LOCATION:{ics_escape(location)}")
         event.append("END:VEVENT")
@@ -617,7 +637,7 @@ def render_grant_list_html(grants, today):
     parts = ["<ol>"]
     for g in grants:
         title = html_escape(g.get("title", "Untitled"))
-        url = html_escape(g.get("url") or PAGE_URL)
+        url = html_escape(with_utm(g.get("url")) or PAGE_URL)
         org = html_escape(g.get("organization", ""))
         location = html_escape(g.get("location", ""))
         amount = html_escape(g.get("amount", ""))
