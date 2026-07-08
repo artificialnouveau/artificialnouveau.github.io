@@ -15345,6 +15345,28 @@ setupShortlistBar();
 })();
 </script>
 
+<script>
+// Exclude your own devices from analytics without a console.
+// Visit …/smalltools/grants/#skipgc to stop counting this browser,
+// or …/#trackgc to start counting it again. GoatCounter's count.js
+// checks the 'skipgc' localStorage flag and skips this browser when set.
+// Runs before the tag below so the current pageview is also skipped.
+(function () {
+  try {
+    var h = (location.hash || '').toLowerCase();
+    if (h === '#skipgc') {
+      localStorage.setItem('skipgc', 't');
+      history.replaceState(null, '', location.pathname + location.search);
+      alert('This browser is now EXCLUDED from Grant Desk analytics.');
+    } else if (h === '#trackgc') {
+      localStorage.removeItem('skipgc');
+      history.replaceState(null, '', location.pathname + location.search);
+      alert('This browser is now INCLUDED in Grant Desk analytics again.');
+    }
+  } catch (e) {}
+})();
+</script>
+
 <script data-goatcounter="https://artnou.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 
