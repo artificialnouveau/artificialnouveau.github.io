@@ -3,6 +3,37 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "serpentine-live-programmes-curator-2026",
+      "title": "Serpentine Galleries: Live Programmes Curator",
+      "organization": "Serpentine Galleries",
+      "location": "London, United Kingdom; hybrid working (3 days in office, 2 remote).",
+      "region": "UK",
+      "amount": "GBP 45,000 per year. Permanent role (3-month probation). No application fee.",
+      "duration": "Permanent appointment; hybrid, 3 days office / 2 remote. 25 days annual leave rising to 30 after 5 years, plus 8 bank holidays.",
+      "startDate": null,
+      "deadline": "2026-07-10",
+      "addedDate": "2026-07-08",
+      "feedDate": "2026-07-08",
+      "category": "curator",
+      "applicant": "individuals",
+      "description": "Serpentine Galleries seeks an experienced interdisciplinary Live Programmes Curator to initiate, develop, and produce a year-round live programme that extends and activates the gallery's exhibitions and curatorial vision through talks, performances, participatory experiences, and cross-disciplinary live formats. Building on Serpentine's flagship strands (the annual Marathons, Park Nights, Serpentine Cinema, and Study Days), the curator will run a live programme alongside and through onsite exhibitions, working closely with the Programmes, Production, and Audience teams. RESPONSIBILITIES: conceive, curate, and deliver live events (talks, performances, workshops, screenings, new formats); develop formats that bring visual artists into dialogue with dance, music, film, literature, technology, design, and social practice; lead planning and delivery on time and on budget; and develop programming that attracts new, diverse, and multi-generational audiences onsite and online. REQUIREMENTS: significant experience curating and/or producing live programmes in a gallery, museum, festival, performance, or cultural context; a strong interdisciplinary curatorial approach across multiple artistic forms; excellent project management, budgeting, and scheduling; strong communication and collaboration; and deep knowledge of contemporary art and current cultural discourse. TERMS: permanent role (3-month probationary period); hybrid working (3 days office, 2 remote); 25 days annual leave rising to 30 after 5 years plus 8 bank holidays; auto-enrolment pension, season-ticket loan, and Cycle2Work scheme. SALARY: GBP 45,000 per annum. TO APPLY: submit a CV and cover letter addressing how your skills fit the role, examples of relevant experience, and what attracts you to Serpentine. DEADLINE: midnight, 10 July 2026; first-stage interviews w/c 20 July 2026, second-stage w/c 27 July 2026.",
+      "url": "https://serpentinegallery.careers.hibob.com/jobs/89899306-2f4d-41b1-b6c9-af85294de402",
+      "tags": [
+        "uk",
+        "london",
+        "job",
+        "curator",
+        "live-programmes",
+        "performance",
+        "contemporary-art",
+        "gallery",
+        "permanent",
+        "serpentine"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "queer-art-design-grant-2026",
       "title": "Queer|Art Design Grant 2026 (Inaugural)",
       "organization": "Queer|Art (in partnership with UGG)",
@@ -1774,7 +1805,7 @@
       "deadline": "2026-07-13",
       "addedDate": "2026-06-25",
       "feedDate": "2026-07-06",
-      "category": "arts",
+      "category": "curator",
       "applicant": "individuals",
       "description": "Upe Foundation is launching the Upe Foundation Curatorial Fellowship at Camden Art Centre as part of its Fall 2026 Curatorial Fellowship Programme. The opportunity invites Baltic early-career curators to apply for a full-time curatorial role at Camden Art Centre, an institution internationally acclaimed for its rigorous exhibitions, residencies, events and learning programmes. The fellowship is a full-time, 12-month position starting Autumn 2026, with the possibility of a further 6-month extension (18 months total) upon review and mutual decision; relocation to London is required. ROLE: embedded within Camden Art Centre's Exhibitions Department, the Fellow works as Assistant Curator, supporting the development, coordination and delivery of the exhibitions programme and related projects and events, with practical experience across exhibition research, production, interpretation, publications, public programmes, loans, installation and documentation, and liaising with artists, galleries, lenders, partner organisations, writers and designers. The Fellow also shares research connected to Baltic and broader Central Eastern European artistic contexts. ELIGIBILITY: a demonstrated connection to or sustained engagement with the Baltic region (Lithuania, Latvia, Estonia, or their diasporas), which may include lived experience, heritage, working knowledge of a Baltic language, relevant research, or curatorial work with Baltic artists/institutions/contexts; early-career curatorial experience (freelance, self-organised, project-based or institutional); and a higher education qualification (BA, MA or equivalent) in curating, art history, visual culture or related disciplines. Desirable: working knowledge of Lithuanian, Latvian or Estonian; fluency in a second language; experience with Articheck and with CRM systems (particularly Salesforce). Applicants must hold the right to work in the UK (via the under-26 'new entrant' Skilled Worker route, the Creative Worker visa route, or existing right to work such as British citizenship or settled/pre-settled status). OFFER: GBP 30,960 salary, structured professional development within the Exhibitions team, and opportunities to build professional networks in London and internationally. Applications reviewed jointly by Upe Foundation and Camden Art Centre, with first-round online interviews and a second interview for finalists. The organizers strongly encourage applicants to write materials in their own words and avoid generic or AI-generated responses. TIMELINE: application deadline 12:00 noon UK time, Monday 13 July 2026; interviews 6 August 2026; final decision mid-August 2026; start Autumn 2026. Questions: recruitment@camdenartcentre.org.",
       "url": "https://upefoundation.org/news/open-call-upe-foundation-curatorial-fellowship-at-camden-art-centre",
@@ -5350,7 +5381,7 @@
       "startDate": null,
       "deadline": "2026-07-07",
       "addedDate": "2026-06-03",
-      "category": "arts",
+      "category": "curator",
       "applicant": "individuals",
       "description": "The fourth edition of IMPAKT's Full Spectrum Curatorship Programme invites emerging and aspiring curators interested in media art, digital culture, and the intersection of technology and society to develop their own curatorial project proposal under expert guidance. Taking place in Utrecht from September to December 2026, it combines collective sessions, personal mentorship, guest contributions, and peer exchange, drawing on IMPAKT's archive and critical programming. Participants are paired with curator mentors to develop and position a curatorial proposal. The training covers the history, theory, contextualisation, organisation and execution of media-art programmes, including curatorial concept development, critical and societal contextualisation, artwork selection, budgets and funding, audience reception, and presentation formats, with a focus on time-based media and multi-channel/interactive formats. Confirmed mentors include Annet Dekker, Ine Gevers, Paulien Dresscher, Doreen A. Rios (online) and Eva Fischer (online). ELIGIBILITY: recent graduates and early- and mid-career curators; participants must attend all sessions and commit a minimum of 8 hours per week (preparation, research, independent work). All sessions are in English. COST AND SUPPORT: there is a EUR 400 participation fee, and participants receive an EUR 800 stipend in the final phase toward their project proposal. By the end, participants have a solid curatorial proposal to support future exhibitions and funding applications. Apply via the online form by 23:59 CET, 7 July 2026 (deadline extended from 1 July).",
       "url": "https://impakt.nl/news/2026/open-call-full-spectrum-curatorship-programme-2026/",
@@ -12861,7 +12892,7 @@
       ],
       "fee": false,
       "featured": false,
-      "category": "arts",
+      "category": "curator",
       "applicant": "individuals"
     },
     {
@@ -13168,7 +13199,7 @@
       ],
       "fee": false,
       "featured": true,
-      "category": "arts",
+      "category": "curator",
       "applicant": "individuals"
     },
     {
@@ -15551,7 +15582,7 @@
       "startDate": "2027-01-11",
       "deadline": "2026-06-30",
       "addedDate": "2026-06-01",
-      "category": "research",
+      "category": "curator",
       "applicant": "individuals",
       "description": "The Centre for Curatorial Leadership (CCL) offers leadership training for art museum curators across all art-historical specialties. The core Fellowship provides experienced curators with instruction from Columbia Business School faculty and exposure to real-world challenges faced by cultural institutions today. Mentoring is a key element: directors and trustees from major museums across the world host Fellows for a weeklong residency. PROGRAMME STRUCTURE: (1) a two-week intensive in New York City (11-22 January 2027) with Columbia Business School faculty teaching plus practical exposure and assignments; (2) a five-day individual residency in February-April with a museum director from an institution other than the Fellow's home institution; (3) a concluding week in May or June crafted to the particular needs of the class. ELIGIBILITY: full-time senior and/or established curators working in art museums in North America and abroad; up to 12 applicants accepted each year. DEADLINE: 30 June 2026.",
       "url": "https://on-the-move.org/news/centre-curatorial-leadership-fellowship-2027-art-museum-curators-usa",
@@ -15776,7 +15807,7 @@
       ],
       "fee": false,
       "featured": false,
-      "category": "research",
+      "category": "curator",
       "applicant": "individuals",
       "feedDate": "2026-06-01"
     },
