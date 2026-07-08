@@ -491,21 +491,26 @@ body {
   margin: 28px auto 0;
   padding: 0 24px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 18px 22px;
-  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
 }
 
 .search-wrap {
   position: relative;
-  flex: 0 0 100%;
   max-width: 420px;
 }
 
-#filter-region,
-#filter-amount,
-#filter-added {
-  flex: 0 0 100%;
+/* Each cluster of related filters sits in its own subtle card. */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 30px;
+  padding: 11px 16px;
+  background: var(--paper-2);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
 }
 .search-wrap input[type="search"] {
   width: 100%;
@@ -12115,47 +12120,53 @@ code *, pre *, kbd *, samp * {
     <input type="search" id="filter-search" placeholder="Search title, org, location, description..." aria-label="Search grants">
     <button type="button" id="filter-search-clear" aria-label="Clear search" hidden>&times;</button>
   </div>
-  <div class="filter-group" data-filter="category" id="filter-category">
-    <span class="filter-label">Category</span>
-    <button class="chip is-active" type="button" data-value="">All</button>
+  <div class="filter-row">
+    <div class="filter-group" data-filter="category" id="filter-category">
+      <span class="filter-label">Category</span>
+      <button class="chip is-active" type="button" data-value="">All</button>
+    </div>
+    <div class="filter-group" data-filter="type" id="filter-type">
+      <span class="filter-label">Type</span>
+      <button class="chip is-active" type="button" data-value="">All</button>
+    </div>
   </div>
-  <div class="filter-group" data-filter="region" id="filter-region">
-    <span class="filter-label">Region</span>
-    <button class="chip is-active" type="button" data-value="">All</button>
+  <div class="filter-row">
+    <div class="filter-group" data-filter="region" id="filter-region">
+      <span class="filter-label">Region</span>
+      <button class="chip is-active" type="button" data-value="">All</button>
+    </div>
+    <div class="filter-group" data-filter="applicant" id="filter-applicant">
+      <span class="filter-label">Who can apply</span>
+      <button class="chip is-active" type="button" data-value="">All</button>
+      <button class="chip" type="button" data-value="individuals">Individuals</button>
+      <button class="chip" type="button" data-value="organizations">Organizations</button>
+    </div>
+    <div class="filter-group" data-filter="amount" id="filter-amount">
+      <span class="filter-label">Amount</span>
+      <button class="chip is-active" type="button" data-value="">All</button>
+      <button class="chip" type="button" data-value="under-5k">Under $5K</button>
+      <button class="chip" type="button" data-value="5k-25k">$5K to $25K</button>
+      <button class="chip" type="button" data-value="25k-100k">$25K to $100K</button>
+      <button class="chip" type="button" data-value="100k-1m">$100K to $1M</button>
+      <button class="chip" type="button" data-value="1m-plus">$1M+</button>
+      <button class="chip" type="button" data-value="in-kind">Funded / in-kind</button>
+    </div>
   </div>
-  <div class="filter-group" data-filter="type" id="filter-type">
-    <span class="filter-label">Type</span>
-    <button class="chip is-active" type="button" data-value="">All</button>
-  </div>
-  <div class="filter-group" data-filter="deadline" id="filter-deadline">
-    <span class="filter-label">Time to apply</span>
-    <button class="chip is-active" type="button" data-value="">All</button>
-    <button class="chip" type="button" data-value="1">Not closing today</button>
-    <button class="chip" type="button" data-value="3">3+ days left</button>
-    <button class="chip" type="button" data-value="7">1+ week left</button>
-  </div>
-  <div class="filter-group" data-filter="applicant" id="filter-applicant">
-    <span class="filter-label">Who can apply</span>
-    <button class="chip is-active" type="button" data-value="">All</button>
-    <button class="chip" type="button" data-value="individuals">Individuals</button>
-    <button class="chip" type="button" data-value="organizations">Organizations</button>
-  </div>
-  <div class="filter-group" data-filter="amount" id="filter-amount">
-    <span class="filter-label">Amount</span>
-    <button class="chip is-active" type="button" data-value="">All</button>
-    <button class="chip" type="button" data-value="under-5k">Under $5K</button>
-    <button class="chip" type="button" data-value="5k-25k">$5K to $25K</button>
-    <button class="chip" type="button" data-value="25k-100k">$25K to $100K</button>
-    <button class="chip" type="button" data-value="100k-1m">$100K to $1M</button>
-    <button class="chip" type="button" data-value="1m-plus">$1M+</button>
-    <button class="chip" type="button" data-value="in-kind">Funded / in-kind</button>
-  </div>
-  <div class="filter-group" data-filter="added" id="filter-added">
-    <span class="filter-label">Added</span>
-    <button class="chip is-active" type="button" data-value="">All time</button>
-    <button class="chip" type="button" data-value="24h">Last 24h</button>
-    <button class="chip" type="button" data-value="7d">This week</button>
-    <button class="chip" type="button" data-value="30d">This month</button>
+  <div class="filter-row">
+    <div class="filter-group" data-filter="deadline" id="filter-deadline">
+      <span class="filter-label">Time to apply</span>
+      <button class="chip is-active" type="button" data-value="">All</button>
+      <button class="chip" type="button" data-value="1">Not closing today</button>
+      <button class="chip" type="button" data-value="3">3+ days left</button>
+      <button class="chip" type="button" data-value="7">1+ week left</button>
+    </div>
+    <div class="filter-group" data-filter="added" id="filter-added">
+      <span class="filter-label">Added</span>
+      <button class="chip is-active" type="button" data-value="">All time</button>
+      <button class="chip" type="button" data-value="24h">Last 24h</button>
+      <button class="chip" type="button" data-value="7d">This week</button>
+      <button class="chip" type="button" data-value="30d">This month</button>
+    </div>
   </div>
 </section>
 
