@@ -14232,6 +14232,8 @@ function renderFolder(grant, category, today) {
   a.dataset.applicant = detectApplicant(grant);
   a.dataset.addedDate = grant.addedDate || '';
   a.dataset.fee = grant.fee === false ? 'false' : (grant.fee === true ? 'true' : 'unknown');
+  a.dataset.grantId = grant.id || '';
+  a.dataset.grantTitle = grant.title || '';
   a.dataset.search = [
     grant.title, grant.organization, grant.location, grant.region,
     grant.description, grant.amount,
@@ -15334,6 +15336,25 @@ setupShortlistBar();
 
 <script data-goatcounter="https://artnou.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+
+<script>
+// Track outbound grant-card clicks as GoatCounter events so we can see
+// which grants get clicked (pageview counting is handled by the tag above).
+(function () {
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a.folder') : null;
+    if (!a || !a.href || a.getAttribute('href') === '#') return;
+    if (!window.goatcounter || typeof window.goatcounter.count !== 'function') return;
+    var title = a.dataset.grantTitle || a.href;
+    var id = a.dataset.grantId || title;
+    window.goatcounter.count({
+      path: 'grant-click/' + id,
+      title: 'Grant click: ' + title,
+      event: true,
+    });
+  }, true);
+})();
+</script>
 
 </body>
 </html>
