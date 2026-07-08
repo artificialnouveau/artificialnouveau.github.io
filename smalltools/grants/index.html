@@ -778,6 +778,13 @@ body {
   gap: 14px;
 }
 
+/* Header rows that carry a collapse arrow are clickable to toggle. */
+.section-title:has(.section-collapse) {
+  cursor: pointer;
+  user-select: none;
+}
+.section-title:has(.section-collapse) h2 { cursor: pointer; }
+
 .section-title .label {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
@@ -12163,52 +12170,52 @@ code *, pre *, kbd *, samp * {
 </div>
 
 <main class="sections" id="sections">
-  <section class="section" id="section-hot">
+  <section class="section" id="section-hot" data-collapsed="true">
     <div class="section-head">
       <div class="section-title">
         <span class="label">HOT</span>
         <h2>Hot Grants</h2>
         <span class="meta" id="meta-hot"></span>
-        <button class="section-collapse" type="button" aria-expanded="true" aria-controls="grid-hot" aria-label="Collapse Hot Grants">&#9662;</button>
+        <button class="section-collapse" type="button" aria-expanded="false" aria-controls="grid-hot" aria-label="Expand Hot Grants">&#9662;</button>
       </div>
       <span class="section-help">Closing within 30 days.</span>
     </div>
     <div class="folder-grid" id="grid-hot"></div>
   </section>
 
-  <section class="section" id="section-new">
+  <section class="section" id="section-new" data-collapsed="true">
     <div class="section-head">
       <div class="section-title">
         <span class="label">OPEN</span>
         <h2>You Got Time</h2>
         <span class="meta" id="meta-new"></span>
-        <button class="section-collapse" type="button" aria-expanded="true" aria-controls="grid-new" aria-label="Collapse You Got Time">&#9662;</button>
+        <button class="section-collapse" type="button" aria-expanded="false" aria-controls="grid-new" aria-label="Expand You Got Time">&#9662;</button>
       </div>
       <span class="section-help">Deadlines 30 to 90 days out.</span>
     </div>
     <div class="folder-grid" id="grid-new"></div>
   </section>
 
-  <section class="section" id="section-long">
+  <section class="section" id="section-long" data-collapsed="true">
     <div class="section-head">
       <div class="section-title">
         <span class="label">LONG</span>
         <h2>Deadlines Beyond 90 Days</h2>
         <span class="meta" id="meta-long"></span>
-        <button class="section-collapse" type="button" aria-expanded="true" aria-controls="grid-long" aria-label="Collapse Deadlines Beyond 90 Days">&#9662;</button>
+        <button class="section-collapse" type="button" aria-expanded="false" aria-controls="grid-long" aria-label="Expand Deadlines Beyond 90 Days">&#9662;</button>
       </div>
       <span class="section-help">Plenty of time.</span>
     </div>
     <div class="folder-grid" id="grid-long"></div>
   </section>
 
-  <section class="section" id="section-rolling">
+  <section class="section" id="section-rolling" data-collapsed="true">
     <div class="section-head">
       <div class="section-title">
         <span class="label">ROLLING</span>
         <h2>Rolling or Continuous Calls</h2>
         <span class="meta" id="meta-rolling"></span>
-        <button class="section-collapse" type="button" aria-expanded="true" aria-controls="grid-rolling" aria-label="Collapse Rolling or Continuous Calls">&#9662;</button>
+        <button class="section-collapse" type="button" aria-expanded="false" aria-controls="grid-rolling" aria-label="Expand Rolling or Continuous Calls">&#9662;</button>
       </div>
       <span class="section-help">No fixed deadline. Apply whenever you are ready.</span>
     </div>
@@ -14482,9 +14489,13 @@ async function load() {
   setupWatchlist();
 
   document.querySelectorAll('.section-collapse').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const section = btn.closest('.section');
-      if (!section) return;
+    const section = btn.closest('.section');
+    if (!section) return;
+    // Clicking anywhere on the header row (label, title, meta, or the arrow)
+    // toggles the section. The arrow's own click bubbles here, so it is not
+    // bound separately (that would double-toggle and cancel out).
+    const header = section.querySelector('.section-title') || btn;
+    header.addEventListener('click', () => {
       const collapsed = section.getAttribute('data-collapsed') === 'true';
       section.setAttribute('data-collapsed', collapsed ? 'false' : 'true');
       btn.setAttribute('aria-expanded', collapsed ? 'true' : 'false');
