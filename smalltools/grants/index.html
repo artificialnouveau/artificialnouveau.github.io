@@ -12127,6 +12127,13 @@ code *, pre *, kbd *, samp * {
     <span class="filter-label">Type</span>
     <button class="chip is-active" type="button" data-value="">All</button>
   </div>
+  <div class="filter-group" data-filter="deadline" id="filter-deadline">
+    <span class="filter-label">Time to apply</span>
+    <button class="chip is-active" type="button" data-value="">All</button>
+    <button class="chip" type="button" data-value="1">Not closing today</button>
+    <button class="chip" type="button" data-value="3">3+ days left</button>
+    <button class="chip" type="button" data-value="7">1+ week left</button>
+  </div>
   <div class="filter-group" data-filter="applicant" id="filter-applicant">
     <span class="filter-label">Who can apply</span>
     <button class="chip is-active" type="button" data-value="">All</button>
@@ -14241,6 +14248,8 @@ function renderFolder(grant, category, today) {
   a.dataset.fee = grant.fee === false ? 'false' : (grant.fee === true ? 'true' : 'unknown');
   a.dataset.grantId = grant.id || '';
   a.dataset.grantTitle = grant.title || '';
+  const _deadline = parseDate(grant.deadline);
+  a.dataset.daysLeft = _deadline ? String(daysUntil(_deadline, today)) : '';
   a.dataset.search = [
     grant.title, grant.organization, grant.location, grant.region,
     grant.description, grant.amount,
@@ -14772,7 +14781,7 @@ const CATEGORY_GROUPS = [
   { values: ['cross'], label: 'Cross-disciplinary & Social Impact' },
 ];
 
-const FILTER_STATE = { category: new Set(), region: new Set(), type: new Set(), applicant: new Set(), amount: new Set(), added: new Set(), search: '' };
+const FILTER_STATE = { category: new Set(), region: new Set(), type: new Set(), applicant: new Set(), amount: new Set(), added: new Set(), deadline: '', search: '' };
 
 function syncChipGroup(group, key) {
   const all = group.querySelector('.chip[data-value=""]');
@@ -14807,6 +14816,21 @@ function bindMultiSelectGroup(group, key) {
       }
     }
     syncChipGroup(group, key);
+    applyFilters();
+  });
+}
+
+// Single-select chip group (one value at a time, or All). Used by the
+// "Time to apply" deadline filter, where overlapping thresholds would be
+// ambiguous as a multi-select.
+function bindSingleSelectGroup(group, key) {
+  if (!group) return;
+  group.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip || !group.contains(chip)) return;
+    FILTER_STATE[key] = chip.dataset.value || '';
+    group.querySelectorAll('.chip').forEach(c =>
+      c.classList.toggle('is-active', (c.dataset.value || '') === FILTER_STATE[key]));
     applyFilters();
   });
 }
@@ -14890,6 +14914,9 @@ function buildFilterChips() {
   const addedGroup = document.getElementById('filter-added');
   bindMultiSelectGroup(addedGroup, 'added');
 
+  const deadlineGroup = document.getElementById('filter-deadline');
+  bindSingleSelectGroup(deadlineGroup, 'deadline');
+
   const searchInput = document.getElementById('filter-search');
   const searchClear = document.getElementById('filter-search-clear');
   if (searchInput && searchClear) {
@@ -14935,6 +14962,17 @@ function applyFilters() {
         if (FILTER_STATE.added.has('7d') && daysSinceAdded <= 7) matches = true;
         if (FILTER_STATE.added.has('30d') && daysSinceAdded <= 30) matches = true;
         if (!matches) show = false;
+      }
+    }
+    if (FILTER_STATE.deadline) {
+      // Hide grants with fewer than N days left so short-fuse deadlines do not
+      // clutter the view. Rolling/undated grants (empty daysLeft) are always
+      // open, so they always pass.
+      const threshold = parseInt(FILTER_STATE.deadline, 10);
+      const dl = f.dataset.daysLeft;
+      if (dl !== '') {
+        const days = parseInt(dl, 10);
+        if (isNaN(days) || days < threshold) show = false;
       }
     }
     if (searchTerms.length) {
