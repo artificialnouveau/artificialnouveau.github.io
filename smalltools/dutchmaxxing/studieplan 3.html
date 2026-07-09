@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>NT2 Studieplan — 2 weken naar B1 + B2</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#D40920; --blue:#1356A2; --yellow:#F7D842; --black:#000; --white:#fff;
+  --muted:#666; --green:#0a8754; --bg:#FAFAFA;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:#111;line-height:1.5;}
+
+header{
+  background:var(--white);border-bottom:3px solid var(--black);
+  padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+header h1{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;}
+header .links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap;}
+header a{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;}
+header a:hover{text-decoration:underline;}
+
+.container{max-width:920px;margin:0 auto;padding:24px 16px 80px;}
+
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px;}
+.stat{border:2px solid var(--black);background:var(--white);padding:16px;}
+.stat .big{font-family:'Syne',sans-serif;font-weight:800;font-size:34px;line-height:1;}
+.stat .lbl{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:6px;}
+.stat.yellow{background:var(--yellow);}
+
+.progress-wrap{border:2px solid var(--black);background:var(--white);height:26px;margin-bottom:6px;position:relative;}
+.progress-bar{height:100%;background:var(--green);width:0;transition:width .4s;}
+.progress-txt{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:24px;}
+
+.intro{background:var(--white);border:2px solid var(--black);border-left-width:6px;border-left-color:var(--blue);padding:16px 18px;margin-bottom:28px;}
+.intro h2{font-family:'Syne',sans-serif;font-size:17px;margin-bottom:8px;}
+.intro p{font-size:14px;margin-bottom:8px;}
+.intro p:last-child{margin-bottom:0;}
+.intro .pill{display:inline-block;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;padding:2px 8px;border:1.5px solid var(--black);margin-right:4px;}
+
+.day{border:2px solid var(--black);background:var(--white);margin-bottom:18px;}
+.day-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;background:var(--white);border-bottom:2px solid transparent;}
+.day-head:hover{background:#fbfbfb;}
+.day.open .day-head{border-bottom-color:var(--black);}
+.day-num{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;background:var(--black);color:#fff;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.day.b2 .day-num{background:var(--red);}
+.day.mock .day-num{background:var(--blue);}
+.day-title{flex:1;}
+.day-title .t{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;}
+.day-title .s{font-size:12px;color:var(--muted);}
+.day-meta{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap;}
+.chev{transition:transform .2s;font-size:13px;color:var(--muted);}
+.day.open .chev{transform:rotate(90deg);}
+.day-body{display:none;padding:6px 16px 16px;}
+.day.open .day-body{display:block;}
+
+.scen-intro{margin-top:34px;background:var(--white);border:2px solid var(--black);border-left-width:6px;border-left-color:var(--red);padding:14px 16px;}
+.scen-intro h2{font-family:'Syne',sans-serif;font-size:18px;margin-bottom:8px;}
+.scen-intro p{font-size:13.5px;}
+.scen-intro .badge{vertical-align:middle;}
+.scen{border:2px solid var(--black);border-top:none;background:var(--white);}
+.scen:first-child{border-top:2px solid var(--black);}
+.scen-head{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;}
+.scen-head:hover{background:#fbfbfb;}
+.scen.open .scen-head{border-bottom:2px solid var(--black);}
+.scen-ico{font-size:20px;flex-shrink:0;width:26px;text-align:center;}
+.scen-title{flex:1;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;}
+.scen-meta{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--muted);}
+.scen.open .chev{transform:rotate(90deg);}
+.scen-body{display:none;padding:6px 16px 14px;}
+.scen.open .scen-body{display:block;}
+.scenario{border:1.5px solid #ddd;border-left:5px solid var(--muted);padding:10px 13px;margin-top:10px;font-size:13.5px;}
+.scenario[data-skill="Spreken"]{border-left-color:var(--red);}
+.scenario[data-skill="Schrijven"]{border-left-color:var(--blue);}
+.scenario .badge{margin-right:6px;}
+.scenario .sit{margin:5px 0 4px;}
+.scenario .pts{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.scenario .pts b{color:#333;}
+
+/* Active quiz */
+.quiz-btn{margin-top:8px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;
+  border:2px solid var(--black);background:var(--yellow);padding:6px 12px;cursor:pointer;}
+.quiz-btn:hover{background:var(--black);color:#fff;}
+.quiz{display:none;margin-top:10px;border:1.5px solid var(--black);background:#fff;padding:10px 12px;}
+.quiz.open{display:block;}
+.quiz-head{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;margin-bottom:8px;}
+.quiz-score{color:var(--green);}
+.quiz-head button{margin-left:auto;font-family:inherit;font-size:11px;border:1px solid #ccc;background:#fafafa;cursor:pointer;padding:3px 8px;}
+.qcard{border-top:1px dashed #ddd;padding:9px 0;}
+.qcard:first-of-type{border-top:none;}
+.qq{font-size:13.5px;margin-bottom:6px;}
+.qq .tag{font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;border:1px solid #bbb;color:#777;padding:1px 5px;margin-right:6px;text-transform:uppercase;vertical-align:middle;}
+.qfill{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.qfill input{font-family:'Inter',sans-serif;font-size:13px;border:1.5px solid #aaa;padding:5px 8px;min-width:160px;}
+.qfill input.ok{border-color:var(--green);background:#f1faf4;}
+.qfill input.bad{border-color:var(--red);background:#fdf1f2;}
+.qfill button,.qopts button{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;border:1.5px solid var(--black);background:#fff;cursor:pointer;padding:5px 10px;}
+.qfill button:hover,.qopts button:hover{background:var(--yellow);}
+.qopts{display:flex;flex-direction:column;gap:5px;}
+.qopts button{text-align:left;}
+.qopts button.right{background:#e7f7ee;border-color:var(--green);}
+.qopts button.wrong-sel{background:#fdeaec;border-color:var(--red);}
+.qfb{font-size:12.5px;margin-top:5px;display:none;}
+.qfb.show{display:block;}
+.qfb.correct{color:var(--green);}
+.qfb.wrong{color:var(--red);}
+.qfb .ex{color:var(--muted);}
+.quiz-empty{font-size:12.5px;color:var(--muted);}
+.qctx{font-size:12.5px;background:#f3f6fb;border-left:3px solid var(--blue);padding:7px 10px;margin-bottom:7px;color:#333;}
+.hint{color:#888;font-size:12px;}
+.qcard.prod{background:#fffdf5;}
+.qwrite{width:100%;min-height:90px;font-family:'Inter',sans-serif;font-size:13px;border:1.5px solid #aaa;padding:7px;margin:6px 0;resize:vertical;}
+.rev-btn{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;border:1.5px solid var(--black);background:#fff;cursor:pointer;padding:5px 10px;}
+.rev-btn:hover{background:var(--yellow);}
+.qmodel{display:none;font-size:13px;margin-top:7px;background:#f1faf4;border:1px solid #bfe6cf;padding:9px 11px;}
+.qmodel.show{display:block;}
+
+/* Exercise hub */
+.ex-hub{margin-top:8px;margin-bottom:28px;background:var(--white);border:2px solid var(--black);border-left-width:6px;border-left-color:var(--red);padding:16px 18px;}
+.ex-hub h2{font-family:'Syne',sans-serif;font-size:20px;margin-bottom:6px;}
+.ex-sub{font-size:13px;color:#444;margin-bottom:12px;}
+.ex-levels{display:flex;gap:8px;margin-bottom:10px;}
+.ex-levels button{flex:1;max-width:120px;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;border:2px solid var(--black);background:#fff;cursor:pointer;padding:8px 0;}
+.ex-levels button.active{background:var(--black);color:#fff;}
+.ex-cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.ex-cats button{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;border:2px solid var(--black);background:#fff;cursor:pointer;padding:6px 12px;}
+.ex-cats button:hover{background:var(--yellow);}
+.ex-cats button.active{background:var(--red);color:#fff;border-color:var(--red);}
+
+/* Common mistakes */
+.mist-intro{margin-top:34px;background:var(--white);border:2px solid var(--black);border-left-width:6px;border-left-color:var(--yellow);padding:14px 16px;}
+.mist-intro h2{font-family:'Syne',sans-serif;font-size:18px;margin-bottom:8px;}
+.mist-intro p{font-size:13.5px;}
+.mist{border:2px solid var(--black);border-top:none;background:#fff;}
+.mist:first-child{border-top:2px solid var(--black);}
+.mist-head{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;}
+.mist-head:hover{background:#fbfbfb;}
+.mist.open .mist-head{border-bottom:2px solid var(--black);}
+.mist-title{flex:1;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;}
+.mist.open .chev{transform:rotate(90deg);}
+.mist-body{display:none;padding:4px 16px 14px;}
+.mist.open .mist-body{display:block;}
+.tip{border-left:4px solid #ddd;padding:8px 0 8px 12px;margin-top:11px;}
+.tip .rule{font-size:13.5px;margin-bottom:5px;}
+.tip .ex{font-size:13px;}
+.tip .x{color:var(--red);} .tip .v{color:var(--green);}
+.tip .x b,.tip .v b{font-weight:600;}
+
+.mod{border:1.5px solid #ddd;border-left:5px solid var(--muted);padding:12px 14px;margin-top:12px;display:flex;gap:12px;align-items:flex-start;}
+.mod[data-skill="Spreken"]{border-left-color:var(--red);}
+.mod[data-skill="Schrijven"]{border-left-color:var(--blue);}
+.mod[data-skill="Woordenschat"]{border-left-color:var(--yellow);}
+.mod[data-skill="Grammatica"]{border-left-color:#7a3fb8;}
+.mod[data-skill="Mock"]{border-left-color:var(--black);}
+.mod.done{background:#f1faf4;border-color:#bfe6cf;border-left-color:var(--green);}
+.mod input[type=checkbox]{width:22px;height:22px;flex-shrink:0;margin-top:2px;cursor:pointer;accent-color:var(--green);}
+.mod-body{flex:1;}
+.mod-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px;}
+.mod-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;}
+.mod.done .mod-title{text-decoration:line-through;color:var(--muted);}
+.badge{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;padding:2px 7px;border:1.5px solid var(--black);text-transform:uppercase;letter-spacing:.03em;}
+.badge.spreken{background:var(--red);color:#fff;border-color:var(--red);}
+.badge.schrijven{background:var(--blue);color:#fff;border-color:var(--blue);}
+.badge.woordenschat{background:var(--yellow);}
+.badge.grammatica{background:#7a3fb8;color:#fff;border-color:#7a3fb8;}
+.badge.mock{background:var(--black);color:#fff;}
+.badge.lvl{background:#fff;}
+.badge.min{background:#fff;color:var(--muted);border-color:#ccc;}
+.mod-goal{font-size:13px;color:#333;margin-bottom:8px;}
+.mod-task{font-size:13px;background:#fafafa;border:1px dashed #ccc;padding:10px 12px;margin-bottom:8px;}
+.mod-task ul{margin:6px 0 0 18px;} .mod-task li{margin-bottom:3px;}
+.mod-task .prompt{font-style:italic;color:#222;}
+
+.mod-block{margin-bottom:8px;}
+.mod-block .hdr{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;}
+.mod-block.vocab .hdr{color:#b8860b;}
+.mod-block.gram .hdr{color:#7a3fb8;}
+.vchips{display:flex;flex-wrap:wrap;gap:5px;}
+.vchip{font-size:12px;background:#fffdf2;border:1px solid #e7d98a;padding:3px 8px;}
+.vchip b{color:#111;}
+.vchip span{color:var(--muted);}
+.gram-list{margin:0 0 0 16px;font-size:12.5px;}
+.gram-list li{margin-bottom:3px;}
+.gram-list code{background:#f3eefa;padding:1px 4px;border-radius:2px;font-size:12px;}
+
+.mod-tip{font-size:12px;color:var(--muted);}
+.mod-tip b{color:#333;}
+.mod a.go{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;display:inline-block;margin-top:4px;}
+.mod a.go:hover{text-decoration:underline;}
+
+.ref{border:2px solid var(--black);background:var(--white);margin-top:34px;}
+.ref h2{font-family:'Syne',sans-serif;font-size:18px;padding:14px 16px;border-bottom:2px solid var(--black);background:var(--yellow);}
+.ref-body{padding:16px;}
+.ref h3{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin:16px 0 6px;}
+.ref h3:first-child{margin-top:0;}
+.ref .chunks{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px;}
+.ref .chunk{font-size:13px;background:#fafafa;border:1px solid #e5e5e5;padding:7px 9px;}
+.ref .chunk b{color:var(--blue);}
+.ref ul{margin-left:18px;font-size:13.5px;} .ref li{margin-bottom:5px;}
+.ref .verbtab{border-collapse:collapse;width:100%;font-size:13px;margin:2px 0 8px;}
+.ref .verbtab th{text-align:left;background:#f0f0f0;border:1px solid #e5e5e5;padding:5px 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;}
+.ref .verbtab td{border:1px solid #e5e5e5;padding:4px 8px;}
+.ref .verbtab td:first-child{color:var(--blue);}
+.ref .verbtab tbody tr:nth-child(odd){background:#fafafa;}
+
+.reset{margin-top:30px;text-align:center;}
+.reset button{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);background:none;border:none;text-decoration:underline;cursor:pointer;}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--black);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:12px 20px;border-radius:2px;transition:transform .35s;z-index:50;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* Collapsible extras */
+.extras-toggle{display:flex;align-items:center;gap:10px;margin-top:34px;cursor:pointer;border:2px solid var(--black);background:var(--white);padding:14px 16px;font-family:'Syne',sans-serif;font-weight:700;font-size:16px;}
+.extras-toggle:hover{background:#fbfbfb;}
+.extras-toggle .chev{transition:transform .2s;font-size:13px;color:var(--muted);}
+.extras-toggle.open .chev{transform:rotate(90deg);}
+.extras-toggle .sub{font-family:'Inter',sans-serif;font-weight:400;font-size:12px;color:var(--muted);margin-left:auto;text-align:right;}
+.extras.collapsed{display:none;}
+
+/* Dagelijkse oefenronde */
+.round{border:2px solid var(--black);background:var(--white);border-left-width:6px;border-left-color:var(--green);padding:16px 18px;margin-bottom:26px;}
+.round-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+.round-head h2{font-family:'Syne',sans-serif;font-size:20px;}
+.round-count{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--muted);margin-left:auto;}
+.round-count b{color:#111;}
+.round-sub{font-size:13px;color:#444;margin:6px 0 12px;}
+.rgroup{margin-top:10px;}
+.rgl{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px;}
+.ritems{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;}
+.ritem{display:flex;align-items:center;gap:8px;border:1.5px solid #ddd;padding:7px 10px;}
+.ritem.done{background:#f1faf4;border-color:#bfe6cf;}
+.ritem input[type=checkbox]{width:20px;height:20px;flex-shrink:0;cursor:pointer;accent-color:var(--green);}
+.ritem .rlabel{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--blue);}
+.ritem .rlabel:hover{text-decoration:underline;}
+.ritem.done .rlabel{color:#3a8a63;}
+</style>
+</head>
+<body>
+<header>
+  <h1>NT2 Studieplan</h1>
+  <div class="links">
+    <a href="nt2-oefenen.html">&larr; Oefen-examens (Spreken / Schrijven / Op Niveau)</a>
+    <a href="studieplan-print.html">Printbaar spiekbriefje</a>
+    <a href="index.html">Reader</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="intro">
+    <h2>Wat dit is</h2>
+    <p>Alle B1- en B2-onderdelen uit eerdere NT2-examens, plus extra vragen die op die stof voortbouwen. Daaronder de <b>woorden en zinnen</b> om in te zetten en de <b>fouten</b> om te vermijden.</p>
+    <p>Doe elke dag de oefenronde hieronder: elke oefening één keer, op B1 én B2. Vink af wat je deed. De lijst reset elke nieuwe dag; je antwoorden blijven bewaard bij een refresh.</p>
+  </div>
+
+  <div class="round" id="round"></div>
+
+  <div class="ex-hub" id="oefeningen">
+    <h2>1. Oefeningen</h2>
+    <p class="ex-sub">Kies een niveau en een onderdeel. Lezen, spreken, schrijven, woordenschat en grammatica, met materiaal uit echte B1- en B2-examens plus extra vragen. Elke oefening is 12 vragen (6 taken bij spreken en schrijven).</p>
+    <div class="ex-levels">
+      <button data-l="B1" onclick="exLevel('B1')">B1</button>
+      <button data-l="B2" onclick="exLevel('B2')">B2</button>
+    </div>
+    <div class="ex-cats">
+      <button data-c="gemengd" onclick="exCat('gemengd')">Gemengd</button>
+      <button data-c="lezen" onclick="exCat('lezen')">Lezen</button>
+      <button data-c="spreken" onclick="exCat('spreken')">Spreken</button>
+      <button data-c="schrijven" onclick="exCat('schrijven')">Schrijven</button>
+      <button data-c="woord" onclick="exCat('woord')">Woordenschat</button>
+      <button data-c="grammatica" onclick="exCat('grammatica')">Grammatica</button>
+    </div>
+    <div id="ex-area"></div>
+  </div>
+
+  <div class="ref" id="ref">
+    <h2>2. Woorden &amp; zinnen om te gebruiken</h2>
+    <div class="ref-body" id="refBody"></div>
+  </div>
+
+  <div class="mist-intro">
+    <h2>3. Veelgemaakte fouten om te vermijden</h2>
+    <p>De fouten die NT2-kandidaten op B1/B2 het vaakst maken. <span class="x">&#10007;</span> = fout, <span class="v">&#10003;</span> = goed. Lees er elke dag een paar; herkennen is de eerste stap naar afleren.</p>
+  </div>
+  <div id="mistakes"></div>
+
+  <div class="reset"><button onclick="resetAll()">Voortgang van vandaag wissen</button></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ---------- REFERENCE CONTENT ----------
+const REF = `
+<h3>Spreken: startzinnen (begin nooit met stilte)</h3>
+<div class="chunks">
+<div class="chunk"><b>Dat is een goede vraag,</b> ...</div>
+<div class="chunk"><b>Nou,</b> ik denk dat ...</div>
+<div class="chunk"><b>Wat mij betreft,</b> ...</div>
+<div class="chunk"><b>Eerlijk gezegd</b> vind ik ...</div>
+<div class="chunk"><b>Even kijken,</b> ...</div>
+<div class="chunk"><b>Wat vervelend, maar</b> ...</div>
+</div>
+
+<h3>Mening &amp; argumenten</h3>
+<div class="chunks">
+<div class="chunk">Ik vind dat ... <b>omdat</b> ...</div>
+<div class="chunk"><b>Aan de ene kant</b> ... <b>aan de andere kant</b> ...</div>
+<div class="chunk"><b>Een belangrijk argument is dat</b> ...</div>
+<div class="chunk"><b>Sommigen zeggen</b> X, <b>maar ik denk</b> ...</div>
+<div class="chunk"><b>Bijvoorbeeld,</b> ...</div>
+<div class="chunk"><b>Daarom</b> vind ik / <b>vandaar dat</b> ...</div>
+</div>
+
+<h3>Verbindingswoorden (vooral voor B2)</h3>
+<div class="chunks">
+<div class="chunk"><b>Bovendien</b> / Daarnaast (toevoegen)</div>
+<div class="chunk"><b>Hoewel</b> / Ondanks dat (tegenstelling)</div>
+<div class="chunk"><b>Daarentegen</b> (tegenover)</div>
+<div class="chunk"><b>Namelijk</b> / immers (uitleg)</div>
+<div class="chunk"><b>Toch</b> / desondanks</div>
+<div class="chunk"><b>Mits</b> / tenzij (voorwaarde)</div>
+<div class="chunk"><b>Vandaar dat</b> / daardoor (gevolg)</div>
+<div class="chunk"><b>Kortom</b> / al met al (samenvatten)</div>
+<div class="chunk"><b>Ten eerste ... ten tweede ... tot slot</b></div>
+</div>
+
+<h3>Schrijven: aanhef &amp; afsluiting</h3>
+<div class="chunks">
+<div class="chunk"><b>Informeel:</b> Hallo Anna, ... Groetjes, ...</div>
+<div class="chunk"><b>Formeel:</b> Geachte heer/mevrouw, ... Met vriendelijke groet, ...</div>
+<div class="chunk"><b>Reden:</b> Ik schrijf u/je naar aanleiding van ...</div>
+<div class="chunk"><b>Verzoek:</b> Zou u/je kunnen ...? Ik zou graag ...</div>
+<div class="chunk"><b>Klacht:</b> Tot mijn spijt moet ik melden dat ...</div>
+<div class="chunk"><b>Afsluiten:</b> Ik hoor graag van u/je. Alvast bedankt.</div>
+</div>
+
+<h3>Examenstrategie</h3>
+<ul>
+<li><b>Spreken:</b> begin binnen 2 seconden, ook al is het met een startzin. Praat door bij een foutje. Vul de hele spreektijd.</li>
+<li><b>Schrijven:</b> markeer eerst álle gevraagde punten en vink ze af terwijl je schrijft. Een vergeten punt kost het meest.</li>
+<li><b>Tijd:</b> 5 min lezen + plannen, dan schrijven, en altijd 3-5 min nalezen.</li>
+<li><b>Register:</b> kies bewust u of je en blijf consequent. Formele opdracht = u, geen spreektaal.</li>
+<li><b>Twijfel?</b> Schrijf/zeg het simpeler. Correct en eenvoudig wint van fout en ingewikkeld.</li>
+</ul>
+
+<h3>Snelle foutencheck (schrijven)</h3>
+<ul>
+<li><b>dt-regel:</b> hij word<b>t</b>, ik antwoord, jij vindt. Stam + t bij hij/zij/het.</li>
+<li><b>hen/hun:</b> 'hun' alleen als bezit (hun huis); bij twijfel herschrijf.</li>
+<li><b>los of aan elkaar:</b> te veel, met elkaar, zo'n, opdracht.</li>
+<li><b>woordvolgorde bijzin:</b> werkwoord(en) achteraan: '...omdat ik het niet <b>begrijp</b>.'</li>
+</ul>
+
+<h3>Onregelmatige werkwoorden: klinkerpatronen</h3>
+<p style="margin:.2em 0 .6em;font-size:.9em;color:#555">Verandert de klinker in de verleden tijd? Dan is het werkwoord <b>onregelmatig</b> en eindigt het deelwoord op <b>-en</b>. Blijft de klinker gelijk? Dan regelmatig: deelwoord op <b>-t/-d</b> ('t kofschip).</p>
+<table class="verbtab">
+<thead><tr><th>Patroon</th><th>Infinitief</th><th>Imperfectum</th><th>Voltooid deelwoord</th></tr></thead>
+<tbody>
+<tr><td><b>ij &rarr; ee &rarr; e</b></td><td>schrijven</td><td>schreef</td><td>geschreven</td></tr>
+<tr><td></td><td>blijven</td><td>bleef</td><td>gebleven</td></tr>
+<tr><td></td><td>kijken</td><td>keek</td><td>gekeken</td></tr>
+<tr><td></td><td>rijden</td><td>reed</td><td>gereden</td></tr>
+<tr><td><b>ie/ui &rarr; oo &rarr; o</b></td><td>vliegen</td><td>vloog</td><td>gevlogen</td></tr>
+<tr><td></td><td>verliezen</td><td>verloor</td><td>verloren</td></tr>
+<tr><td></td><td>sluiten</td><td>sloot</td><td>gesloten</td></tr>
+<tr><td></td><td>schieten</td><td>schoot</td><td>geschoten</td></tr>
+<tr><td><b>i &rarr; o &rarr; o</b></td><td>drinken</td><td>dronk</td><td>gedronken</td></tr>
+<tr><td></td><td>beginnen</td><td>begon</td><td>begonnen</td></tr>
+<tr><td></td><td>vinden</td><td>vond</td><td>gevonden</td></tr>
+<tr><td></td><td>zingen</td><td>zong</td><td>gezongen</td></tr>
+<tr><td><b>e &rarr; a &rarr; o</b></td><td>nemen</td><td>nam</td><td>genomen</td></tr>
+<tr><td></td><td>spreken</td><td>sprak</td><td>gesproken</td></tr>
+<tr><td></td><td>breken</td><td>brak</td><td>gebroken</td></tr>
+<tr><td></td><td>stelen</td><td>stal</td><td>gestolen</td></tr>
+<tr><td><b>e &rarr; a &rarr; e</b></td><td>geven</td><td>gaf</td><td>gegeven</td></tr>
+<tr><td></td><td>eten</td><td>at</td><td>gegeten</td></tr>
+<tr><td></td><td>lezen</td><td>las</td><td>gelezen</td></tr>
+<tr><td></td><td>zien</td><td>zag</td><td>gezien</td></tr>
+<tr><td><b>a &rarr; oe &rarr; a</b></td><td>dragen</td><td>droeg</td><td>gedragen</td></tr>
+<tr><td></td><td>varen</td><td>voer</td><td>gevaren</td></tr>
+<tr><td><b>o/a &rarr; ie &rarr; o/a</b></td><td>lopen</td><td>liep</td><td>gelopen</td></tr>
+<tr><td></td><td>vallen</td><td>viel</td><td>gevallen</td></tr>
+<tr><td></td><td>houden</td><td>hield</td><td>gehouden</td></tr>
+<tr><td></td><td>roepen</td><td>riep</td><td>geroepen</td></tr>
+</tbody>
+</table>
+<p style="margin:.6em 0 .3em;font-size:.9em;color:#555"><b>Gemengd</b> (klinker verandert, maar deelwoord op -t/-d):</p>
+<table class="verbtab">
+<tbody>
+<tr><td>brengen</td><td>bracht</td><td>gebracht</td></tr>
+<tr><td>denken</td><td>dacht</td><td>gedacht</td></tr>
+<tr><td>kopen</td><td>kocht</td><td>gekocht</td></tr>
+<tr><td>zoeken</td><td>zocht</td><td>gezocht</td></tr>
+</tbody>
+</table>
+<p style="margin:.6em 0 .3em;font-size:.9em;color:#555"><b>Heel onregelmatig</b> (uit het hoofd leren):</p>
+<table class="verbtab">
+<tbody>
+<tr><td>zijn</td><td>was / waren</td><td>geweest</td></tr>
+<tr><td>hebben</td><td>had / hadden</td><td>gehad</td></tr>
+<tr><td>gaan</td><td>ging / gingen</td><td>gegaan</td></tr>
+<tr><td>staan</td><td>stond / stonden</td><td>gestaan</td></tr>
+<tr><td>doen</td><td>deed / deden</td><td>gedaan</td></tr>
+</tbody>
+</table>
+`;
+
+// ---------- COMMON MISTAKES ----------
+const MISTAKES=[
+ {cat:"Zelfstandige naamwoorden & meervoud", tips:[
+   {rule:"Na een telwoord blijven maat-/eenheidswoorden (jaar, uur, keer, euro, kilo, man) <b>enkelvoud</b>. Meervoud alleen los of met lidwoord/bijvoeglijk naamwoord.",x:"Ik woon hier al drie jaren.",v:"Ik woon hier al drie <b>jaar</b>. (maar: in de afgelopen <b>jaren</b>)"},
+   {rule:"Leer elk zelfstandig naamwoord met zijn lidwoord. 'het'-woorden zijn de minderheid, dus markeer ze.",x:"de meisje, de huis",v:"<b>het</b> meisje, <b>het</b> huis"},
+   {rule:"Verkleinwoorden zijn altijd 'het'-woorden.",x:"de meisje, de kopje",v:"<b>het</b> meisje, <b>het</b> kopje"}
+ ]},
+ {cat:"Woordvolgorde", tips:[
+   {rule:"Na omdat/dat/als/terwijl/hoewel (bijzin) gaat het werkwoord helemaal naar het <b>eind</b>.",x:"Ik blijf thuis omdat ik ben ziek.",v:"Ik blijf thuis omdat ik ziek <b>ben</b>."},
+   {rule:"Begint de zin niet met het onderwerp? Dan <b>inversie</b>: werkwoord vóór het onderwerp.",x:"Morgen ik ga werken.",v:"Morgen <b>ga ik</b> werken."},
+   {rule:"Volgorde van bepalingen: <b>Tijd - Manier - Plaats</b>.",x:"Ik ga met de bus morgen naar school.",v:"Ik ga <b>morgen</b> (T) <b>met de bus</b> (M) <b>naar school</b> (P)."},
+   {rule:"'want' = hoofdzin (gewone volgorde); 'omdat' = bijzin (werkwoord achteraan).",x:"Ik kom niet omdat ik heb geen tijd.",v:"Ik kom niet <b>omdat ik geen tijd heb</b>. / ...<b>want ik heb</b> geen tijd."}
+ ]},
+ {cat:"Werkwoorden", tips:[
+   {rule:"Perfectum: beweging/verandering &rarr; <b>zijn</b>; de rest &rarr; <b>hebben</b>.",x:"Ik heb naar huis gegaan.",v:"Ik <b>ben</b> naar huis gegaan."},
+   {rule:"dt-regel: ik &rarr; stam; hij/zij/het &rarr; stam + <b>t</b>. Twijfel je bij het deelwoord? Kijk naar het kofschip ('t kofschip &rarr; -t).",x:"Hij word boos, ik antwoordt.",v:"Hij <b>wordt</b> boos, ik <b>antwoord</b>."},
+   {rule:"Scheidbare werkwoorden: in de hoofdzin <b>splitsen</b>; in de infinitief/bijzin blijven ze bij elkaar.",x:"Ik opbel je morgen.",v:"Ik bel je morgen <b>op</b>. (maar: ...omdat ik je <b>opbel</b>)"},
+   {rule:"kennen = bekend zijn met (mensen/feiten); kunnen = in staat zijn.",x:"Ik ken zwemmen.",v:"Ik <b>kan</b> zwemmen. / Ik <b>ken</b> hem."},
+   {rule:"liggen/zitten/staan = positie (geen lijdend voorwerp); leggen/zetten = iets neerzetten (met lijdend voorwerp).",x:"Ik leg op de bank.",v:"Ik <b>lig</b> op de bank. / Ik <b>leg</b> het boek op tafel."}
+ ]},
+ {cat:"Kleine woorden die punten kosten", tips:[
+   {rule:"Vergelijking: groter <b>dan</b> (niet 'als'). 'als' gebruik je bij gelijkheid (net zo groot als).",x:"Hij is groter als ik.",v:"Hij is groter <b>dan</b> ik."},
+   {rule:"'hun' = bezit (hun huis); onderwerp = <b>zij/ze</b>; na voorzetsel of als lijdend voorwerp = <b>hen</b>.",x:"Hun hebben gewonnen.",v:"<b>Zij</b> hebben gewonnen. (van <b>hen</b> / <b>hun</b> auto)"},
+   {rule:"'geen' bij een zelfstandig naamwoord zonder lidwoord; 'niet' in de rest.",x:"Ik heb niet een auto.",v:"Ik heb <b>geen</b> auto."},
+   {rule:"Bijvoeglijk naamwoord krijgt -e, behalve bij een 'het'-woord met 'een'.",x:"een mooi auto",v:"een <b>mooie</b> auto (maar: een mooi <b>huis</b>)"}
+ ]},
+ {cat:"Spelling & losse woorden", tips:[
+   {rule:"Schrijf los wat los hoort: te veel, met elkaar, nog steeds, zo'n.",x:"Ik heb teveel gegeten.",v:"Ik heb <b>te veel</b> gegeten."},
+   {rule:"Talen en bijvoeglijke naamwoorden van landen krijgen een <b>hoofdletter</b>.",x:"Ik leer nederlands en hou van italiaans eten.",v:"Ik leer <b>Nederlands</b> en hou van <b>Italiaans</b> eten."},
+   {rule:"'s ochtends/'s avonds: met apostrof-s en kleine letter.",x:"Sochtends drink ik koffie.",v:"<b>'s ochtends</b> drink ik koffie."}
+ ]}
+];
+function renderMistakes(){
+  const root=document.getElementById('mistakes'); if(!root) return;
+  root.innerHTML=MISTAKES.map(c=>{
+    const tips=c.tips.map(t=>`<div class="tip"><div class="rule">${t.rule}</div>
+      <div class="ex x">&#10007; ${t.x}</div><div class="ex v">&#10003; ${t.v}</div></div>`).join('');
+    return `<div class="mist"><div class="mist-head" onclick="this.parentNode.classList.toggle('open')">
+      <span class="mist-title">${c.cat}</span>
+      <span class="day-meta">${c.tips.length} tips</span><span class="chev">&#9656;</span></div>
+      <div class="mist-body">${tips}</div></div>`;
+  }).join('');
+}
+
+// ---------- ACTIVE EXERCISE ENGINE ----------
+const EXBANK={
+ prep:[
+  {t:'fill',q:"Ik wacht al een uur ___ de bus.",a:["op"],exp:"wachten op"},
+  {t:'fill',q:"Zij is bang ___ honden.",a:["voor"],exp:"bang voor"},
+  {t:'fill',q:"Wij denken vaak ___ vroeger.",a:["aan"],exp:"denken aan"},
+  {t:'fill',q:"Hij is erg tevreden ___ zijn nieuwe baan.",a:["over"],exp:"tevreden over"},
+  {t:'fill',q:"Ben jij geïnteresseerd ___ kunst?",a:["in"],exp:"geïnteresseerd in"},
+  {t:'fill',q:"Veel mensen klagen ___ de drukte.",a:["over"],exp:"klagen over"},
+  {t:'fill',q:"Dat hangt ___ het weer af.",a:["van"],exp:"afhangen van"},
+  {t:'fill',q:"We moeten ons aanpassen ___ de nieuwe regels.",a:["aan"],exp:"zich aanpassen aan"}
+ ],
+ wordorder:[
+  {t:'mcq',q:"Welke zin is correct?",options:["Ik weet dat hij morgen komt.","Ik weet dat hij komt morgen.","Ik weet dat morgen hij komt."],a:"Ik weet dat hij morgen komt.",exp:"Bijzin met 'dat': werkwoord helemaal achteraan."},
+  {t:'mcq',q:"Welke zin is correct?",options:["Omdat het regende, bleven we thuis.","Omdat het regende, we bleven thuis."],a:"Omdat het regende, bleven we thuis.",exp:"Bijzin vooraan &rarr; inversie in de hoofdzin."},
+  {t:'mcq',q:"Welke zin is correct?",options:["Hij heeft gisteren een brief geschreven.","Hij heeft geschreven gisteren een brief."],a:"Hij heeft gisteren een brief geschreven.",exp:"Voltooid deelwoord aan het eind."},
+  {t:'mcq',q:"Tijd-Manier-Plaats: welke is correct?",options:["Ik ga morgen met de trein naar Den Haag.","Ik ga met de trein morgen naar Den Haag.","Ik ga naar Den Haag morgen met de trein."],a:"Ik ga morgen met de trein naar Den Haag.",exp:"Volgorde: Tijd - Manier - Plaats."},
+  {t:'fill',q:"Vul het werkwoord in: 'Morgen ___ ik naar Amsterdam.' (gaan)",a:["ga"],exp:"Tijdsbepaling vooraan &rarr; inversie: werkwoord op plaats 2 ('ga ik')."}
+ ],
+ perfectum:[
+  {t:'fill',q:"heb of ben? 'Ik ___ gisteren naar de dokter geweest.'",a:["ben"],exp:"geweest hoort bij ZIJN."},
+  {t:'fill',q:"heb of ben? 'Ik ___ een nieuwe fiets gekocht.'",a:["heb"],exp:"kopen &rarr; hebben."},
+  {t:'fill',q:"heb of ben? 'Ik ___ om 8 uur vertrokken.'",a:["ben"],exp:"vertrekken (beweging/verandering) &rarr; zijn."},
+  {t:'fill',q:"heb of ben? 'Hoe laat ___ je opgestaan?'",a:["ben"],exp:"opstaan &rarr; zijn."},
+  {t:'fill',q:"Vul het voltooid deelwoord in: 'Heb je je huiswerk ___? (maken)'",a:["gemaakt"],exp:"maken &rarr; gemaakt."},
+  {t:'fill',q:"Vul het voltooid deelwoord in: 'De trein is te laat ___. (aankomen)'",a:["aangekomen"],exp:"aankomen &rarr; aangekomen."},
+  {t:'fill',q:"Vul het voltooid deelwoord in: 'We zijn naar Parijs ___. (reizen)'",a:["gereisd"],exp:"reizen &rarr; gereisd (met zijn)."}
+ ],
+ connectors:[
+  {t:'mcq',q:"'Ik kom niet, ___ ik geen tijd heb.'",options:["omdat","want","daarom"],a:"omdat",exp:"De bijzin heeft het werkwoord achteraan ('heb') &rarr; omdat."},
+  {t:'mcq',q:"'___ het slechte weer gingen we toch wandelen.'",options:["Ondanks","Hoewel","Omdat"],a:"Ondanks",exp:"Ondanks + zelfstandig naamwoord (geen hele zin)."},
+  {t:'mcq',q:"'___ het slecht weer was, gingen we wandelen.'",options:["Hoewel","Ondanks","Dankzij"],a:"Hoewel",exp:"Hoewel + hele zin (bijzin)."},
+  {t:'mcq',q:"Toevoegen: 'Hij sport veel. ___ eet hij gezond.'",options:["Bovendien","Hoewel","Toch"],a:"Bovendien",exp:"Bovendien = extra informatie."},
+  {t:'mcq',q:"Voorwaarde: 'Je mag mee, ___ je op tijd bent.'",options:["mits","tenzij","hoewel"],a:"mits",exp:"mits = op voorwaarde dat."},
+  {t:'mcq',q:"Tegenstelling (formeel): 'Het plan is goed. ___ kost het veel geld.'",options:["Echter,","Daarom,","Namelijk,"],a:"Echter,",exp:"Echter = maar (formeel)."}
+ ],
+ passive:[
+  {t:'mcq',q:"Maak passief: 'Men bekijkt de beslissing opnieuw.'",options:["De beslissing wordt opnieuw bekeken.","De beslissing is opnieuw bekijken.","De beslissing bekeken wordt opnieuw."],a:"De beslissing wordt opnieuw bekeken.",exp:"worden + voltooid deelwoord."},
+  {t:'mcq',q:"Doel: 'Hij spaart ___ een huis te kopen.'",options:["om","door","met"],a:"om",exp:"om te + infinitief = doel."},
+  {t:'mcq',q:"Middel: '___ te investeren in groen wordt de stad gezonder.'",options:["Door","Om","Voor"],a:"Door",exp:"door te + infinitief = middel/manier."},
+  {t:'mcq',q:"Welke is correct (passief, verleden)?",options:["De brief werd gisteren verstuurd.","De brief werd gisteren versturen.","De brief is gisteren versturen."],a:"De brief werd gisteren verstuurd.",exp:"werd + voltooid deelwoord."}
+ ],
+ register:[
+  {t:'mcq',q:"Formeler voor 'krijgen':",options:["ontvangen","pakken","halen"],a:"ontvangen"},
+  {t:'mcq',q:"Formeler voor 'beginnen':",options:["aanvangen","starten","opgaan"],a:"aanvangen"},
+  {t:'mcq',q:"Formeler voor 'genoeg':",options:["voldoende","zat","wel veel"],a:"voldoende"},
+  {t:'mcq',q:"Formeler voor 'moeten' (verplichting):",options:["dienen te","horen te","willen"],a:"dienen te"},
+  {t:'mcq',q:"Formeler voor 'over' (een onderwerp):",options:["betreffende","boven","achter"],a:"betreffende"},
+  {t:'mcq',q:"Formeel verzoek:",options:["Ik verzoek u vriendelijk...","Ik wil dat je...","Doe even..."],a:"Ik verzoek u vriendelijk..."}
+ ],
+ email:[
+  {t:'fill',q:"Formele aanhef (naam onbekend): 'Geachte heer/___,'",a:["mevrouw"],exp:"Geachte heer/mevrouw,"},
+  {t:'fill',q:"Formele afsluiting: 'Met vriendelijke ___'",a:["groet","groeten"],exp:"Met vriendelijke groet,"},
+  {t:'fill',q:"Reden van schrijven: 'Ik schrijf u naar ___ van uw advertentie.'",a:["aanleiding"],exp:"naar aanleiding van"},
+  {t:'fill',q:"Beleefd verzoek: 'Zou u mij meer informatie kunnen ___?'",a:["sturen","toesturen","geven"],exp:"Zou u ... kunnen sturen?"},
+  {t:'fill',q:"Afsluiten: 'Ik hoor graag van ___.'",a:["u"],exp:"Ik hoor graag van u."},
+  {t:'fill',q:"Bedanken vooraf: 'Alvast ___ voor uw reactie.'",a:["bedankt","dank"],exp:"Alvast bedankt."}
+ ],
+ scenario:[
+  {t:'mcq',q:"Collega vraagt of je kunt invallen, maar je kunt niet. Beste reactie:",options:["Wat vervelend, maar het lukt me helaas niet; ik heb al een afspraak.","Nee.","Ik heb geen zin."],a:"Wat vervelend, maar het lukt me helaas niet; ik heb al een afspraak.",exp:"Beleefd + korte reden."},
+  {t:'mcq',q:"Je wilt beleefd om herhaling vragen:",options:["Zou u dat nog een keer kunnen uitleggen?","Leg uit.","Slechte uitleg, ik snap niks."],a:"Zou u dat nog een keer kunnen uitleggen?"},
+  {t:'mcq',q:"Een afspraak afzeggen bij de tandarts:",options:["Ik moet mijn afspraak van morgen helaas afzeggen. Kan het op een andere dag?","Ik kom niet.","Laat maar."],a:"Ik moet mijn afspraak van morgen helaas afzeggen. Kan het op een andere dag?"},
+  {t:'mcq',q:"Formele reactie op een klacht van een klant:",options:["Wat vervelend dat het is misgegaan. Ik zoek het meteen voor u uit.","Dat is niet mijn probleem.","Pech gehad."],a:"Wat vervelend dat het is misgegaan. Ik zoek het meteen voor u uit."}
+ ]
+};
+
+// B2 productive tasks (transcripts are B1 only); authored model answers
+const B2TASKS={
+ spreken:[
+  {task:"Op je werk wil de directie flexibele werktijden invoeren. Geef in een korte monoloog je mening: voor of tegen? Geef twee argumenten en weerleg een tegenargument.",model:"Ik ben voorstander van flexibele werktijden. Ten eerste kunnen mensen werken wanneer ze het productiefst zijn. Ten tweede is werk en prive makkelijker te combineren. Sommigen vrezen dat de samenwerking eronder lijdt, maar met vaste overlapuren is dat goed op te lossen."},
+  {task:"Een vriend twijfelt of hij in de stad of op het platteland gaat wonen. Adviseer hem en onderbouw je advies.",model:"Het hangt af van wat je belangrijk vindt. Wil je rust en ruimte, dan is het platteland ideaal. Geef je de voorkeur aan voorzieningen en kort reizen, dan zou ik de stad aanraden, omdat je daar makkelijker werk en sociale contacten vindt."},
+  {task:"De gemeente wil bezuinigen op de bibliotheek. Reageer: leg uit waarom de bibliotheek belangrijk is en stel een alternatief voor.",model:"Ik vind het een slecht idee. De bibliotheek is niet alleen een plek voor boeken, maar ook voor ontmoeting, studie en taalcursussen. In plaats van sluiten zou de gemeente kunnen samenwerken met scholen om de kosten te delen."},
+  {task:"Beschrijf een maatschappelijk probleem in Nederland en geef een mogelijke oplossing.",model:"Een groot probleem is het woningtekort, vooral voor starters. Door jarenlang te weinig te bouwen zijn de prijzen sterk gestegen. Een oplossing is sneller vergunningen verlenen en meer betaalbare huurwoningen bouwen."},
+  {task:"Je collega is het niet eens met jouw aanpak van een project. Overtuig hem van jouw plan.",model:"Ik begrijp je twijfels, maar mijn aanpak levert op de lange termijn meer op. We investeren nu wat meer tijd in de voorbereiding, waardoor we later minder fouten hoeven te herstellen. Zullen we het twee weken proberen en daarna evalueren?"},
+  {task:"Moet de overheid gezond eten goedkoper maken? Geef je mening met argumenten.",model:"Ik vind van wel. Als gezonde producten goedkoper zijn dan ongezonde, kiezen mensen eerder voor groente en fruit, wat de zorgkosten verlaagt. Critici zeggen dat de overheid zich er niet mee moet bemoeien, maar de samenleving betaalt nu al mee aan de gevolgen."}
+ ],
+ schrijven:[
+  {task:"Schrijf een formele brief (200-250 woorden) aan je gemeente: maak bezwaar tegen het plan om een park te vervangen door een parkeerplaats. Geef twee argumenten en stel een alternatief voor.",model:"Geachte heer/mevrouw,\n\nNaar aanleiding van uw plan om het buurtpark te vervangen door een parkeerplaats wil ik bezwaar maken.\n\nTen eerste is het park belangrijk voor de leefbaarheid en gezondheid van de buurt. Ten tweede is er al weinig groen in de wijk.\n\nIn plaats daarvan stel ik voor een parkeergarage aan de rand van de wijk te bouwen.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Schrijf een formele klachtenmail over een online aankoop die beschadigd aankwam.",model:"Geachte heer/mevrouw,\n\nOp 3 juni heb ik bij uw webshop een wasmachine besteld (bestelnummer 12345). Helaas kwam het product beschadigd aan.\n\nIk verzoek u vriendelijk om een vervangend exemplaar of een volledige restitutie. Ik hoor graag van u.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Schrijf een opiniestuk (200 woorden): 'Moet het openbaar vervoer gratis worden?' Neem een standpunt in en weerleg een tegenargument.",model:"Gratis openbaar vervoer is wat mij betreft een goed idee. Ten eerste vermindert het de files en de uitstoot. Ten tweede wordt reizen toegankelijker voor mensen met een laag inkomen. Tegenstanders wijzen op de hoge kosten, maar die wegen op tegen de winst voor milieu en bereikbaarheid. Kortom, de voordelen overtreffen de nadelen."},
+  {task:"Schrijf een formele e-mail aan een opleidingsinstituut: vraag informatie over een cursus en schrijf je in.",model:"Geachte heer/mevrouw,\n\nGraag zou ik meer informatie ontvangen over de cursus Nederlands B2. Kunt u mij laten weten wanneer de cursus start, wat de kosten zijn en welk niveau vereist is?\n\nAlvast bedankt voor uw reactie.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Schrijf een brief aan je werkgever waarin je vraagt om gedeeltelijk thuis te mogen werken; geef argumenten.",model:"Geachte heer/mevrouw,\n\nGraag wil ik bespreken of ik twee dagen per week thuis kan werken. Thuis kan ik me beter concentreren op taken die rust vereisen, en ik bespaar reistijd die ik aan het werk kan besteden. Uiteraard blijf ik goed bereikbaar.\n\nMet vriendelijke groet,\n[naam]"}
+ ]
+};
+
+// B1 productieve taken: zelf geschreven, zelfstandig leesbaar (geen plaatjes nodig),
+// met schone voorbeeldantwoorden op B1-niveau.
+const B1TASKS={
+ spreken:[
+  {task:"Een collega vraagt of je dit weekend kunt invallen. Je kunt niet, want je hebt al een afspraak. Reageer vriendelijk en leg uit waarom.",model:"Wat vervelend, maar het lukt me dit weekend helaas niet. Ik heb al een afspraak met mijn familie. Misschien kan ik volgende week wel invallen, als dat helpt."},
+  {task:"Je buurman zegt dat jouw fiets steeds in de weg staat in het halletje. Reageer en bied een oplossing aan.",model:"Sorry, dat wist ik niet. U heeft gelijk, hij staat inderdaad in de weg. Ik zal mijn fiets vanaf nu in de schuur zetten, dan heeft u meer ruimte."},
+  {task:"Een vriend vraagt hoe je vakantie was. Vertel kort waar je was, met wie en wat je hebt gedaan.",model:"Mijn vakantie was heel leuk. Ik ben met een vriendin naar Spanje geweest. We hebben veel gewandeld en op het strand gelegen. Het weer was mooi en het eten was lekker."},
+  {task:"Op het werk wil de leiding dat iedereen voortaan een half uur eerder begint. Jij vindt dat geen goed idee. Geef je mening met een reden.",model:"Ik vind het geen goed idee om eerder te beginnen. Ik breng 's ochtends namelijk eerst mijn kinderen naar school. Als ik eerder moet starten, wordt dat heel moeilijk voor mij."},
+  {task:"Een vriend wil Nederlands leren maar weet niet hoe hij moet beginnen. Geef hem advies.",model:"Je zou een cursus kunnen volgen, dat helpt echt. En het is handig om elke dag een beetje te oefenen. Probeer ook Nederlandse televisie te kijken met ondertiteling, zo leer je veel nieuwe woorden."},
+  {task:"Je moet je afspraak bij de tandarts van morgen afzeggen, want je moet werken. Bel de tandarts en vraag om een nieuwe afspraak.",model:"Goedemiddag, ik bel om mijn afspraak van morgen af te zeggen. Het spijt me, maar ik moet die dag werken. Zou ik een nieuwe afspraak kunnen maken, het liefst volgende week?"},
+  {task:"Je internet werkt al twee dagen niet. Bel de provider, leg het probleem uit en vraag om een oplossing.",model:"Goedemiddag, ik bel omdat mijn internet al twee dagen niet werkt. Ik heb de router al opnieuw opgestart, maar het helpt niet. Kunt u kijken wat er aan de hand is en het snel oplossen?"},
+  {task:"Vertel over een keer dat er iets misging tijdens een reis. Wat gebeurde er en hoe liep het af?",model:"Vorig jaar miste ik mijn trein naar Utrecht. Eerst raakte ik in paniek, want ik had een afspraak. Daarna heb ik de volgende trein genomen en de afspraak gebeld. Uiteindelijk kwam ik maar een kwartier te laat."}
+ ],
+ schrijven:[
+  {task:"Je hebt een cursus geboekt maar je kunt niet komen. Mail de organisatie: zeg af, leg uit waarom, en vraag of je je geld terugkrijgt. (80-120 woorden)",model:"Beste organisatie,\n\nIk heb mij ingeschreven voor de kookcursus van volgende maand. Helaas kan ik niet meer komen, omdat ik die periode moet werken.\n\nDaarom wil ik de cursus afzeggen. Zou ik mijn geld terug kunnen krijgen? Ik hoor graag van u of dat mogelijk is.\n\nAlvast bedankt voor uw reactie.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Op een buurtforum zoekt iemand mensen voor een gezamenlijke moestuin. Reageer: stel jezelf voor, zeg waarom je meedoet en stel een vraag over hoe het werkt. (90-120 woorden)",model:"Hallo,\n\nIk las jullie bericht over de gezamenlijke moestuin en ik wil graag meedoen. Ik heet Sara en ik woon sinds kort in deze buurt. Ik vind het leuk om buiten bezig te zijn en ik wil graag nieuwe mensen leren kennen.\n\nIk heb nog wel een vraag: hoe vaak komen jullie samen in de tuin? En moet ik zelf gereedschap meenemen?\n\nIk ben benieuwd. Tot snel!\n\nGroetjes, Sara"},
+  {task:"Je hebt online een product gekocht dat beschadigd aankwam. Mail de webshop: beschrijf het probleem, zeg wat je wilt en noem je bestelnummer. (100-130 woorden)",model:"Geachte heer/mevrouw,\n\nVorige week heb ik bij uw webshop een lamp besteld (bestelnummer 4582). Helaas kwam het pakket beschadigd aan: het glas van de lamp is gebroken.\n\nIk wil u daarom vragen om een nieuwe lamp te sturen, of mijn geld terug te geven. Ik heb een foto van de schade gemaakt en kan die opsturen.\n\nIk hoop op een snelle reactie.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Je bent ziek en kunt vandaag niet werken. Mail je leidinggevende: meld je ziek, zeg hoelang je waarschijnlijk weg bent en wat er met je afspraken moet gebeuren. (80-110 woorden)",model:"Beste [naam],\n\nIk voel me vanochtend niet goed en ben ziek. Daarom kan ik vandaag niet werken.\n\nIk denk dat ik morgen ook nog thuis moet blijven, maar ik hoop dat ik er overmorgen weer ben. Mijn afspraak van vanmiddag met de klant kan mijn collega misschien overnemen.\n\nIk hoor het graag als er nog iets is.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Je zoekt een kamer en reageert op een advertentie. Stel jezelf voor, zeg wat je zoekt en je budget, en stel een vraag over de kamer. (90-120 woorden)",model:"Beste,\n\nIk reageer op uw advertentie voor de kamer in het centrum. Mijn naam is Tom en ik ga in september beginnen met mijn studie. Ik zoek een rustige kamer voor ongeveer 500 euro per maand.\n\nDe kamer ziet er mooi uit op de foto's. Mag ik vragen of er internet en gas en licht bij de prijs zitten? En is de kamer per direct beschikbaar?\n\nIk hoor graag van u.\n\nMet vriendelijke groet, Tom"},
+  {task:"Je kunt niet naar je afspraak in het ziekenhuis komen. Schrijf een bericht: zeg welke afspraak het is, leg uit waarom je niet kunt en vraag om een nieuwe afspraak. (80-110 woorden)",model:"Geachte heer/mevrouw,\n\nIk heb volgende week dinsdag om 10.00 uur een afspraak op de afdeling fysiotherapie. Helaas kan ik dan niet komen, omdat ik die dag voor mijn werk naar het buitenland moet.\n\nDaarom wil ik mijn afspraak verzetten. Zou er later die week nog plek zijn, bijvoorbeeld op donderdag of vrijdag?\n\nAlvast bedankt.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Je wilt je abonnement bij de sportschool opzeggen. Schrijf een korte, formele opzegmail: zeg dat je opzegt en per wanneer, noem je lidnummer en vraag om een bevestiging. (80-110 woorden)",model:"Geachte heer/mevrouw,\n\nHierbij wil ik mijn abonnement bij uw sportschool opzeggen (lidnummer 1203). Ik wil het abonnement graag beëindigen per 1 volgende maand.\n\nDe reden is dat ik ga verhuizen naar een andere stad. Zou u mij een bevestiging van de opzegging kunnen sturen?\n\nAlvast bedankt voor uw hulp.\n\nMet vriendelijke groet,\n[naam]"},
+  {task:"Een vriend heeft je uitgenodigd voor zijn verjaardagsfeest, maar je kunt niet komen. Schrijf hem een berichtje: bedank voor de uitnodiging, zeg dat je niet kunt en leg uit waarom. (80-100 woorden)",model:"Hoi Daan,\n\nBedankt voor de uitnodiging voor je verjaardag, wat leuk dat je een feest geeft!\n\nHelaas kan ik er niet bij zijn. Dat weekend ben ik namelijk al weg met mijn familie; we hebben een huisje geboekt. Ik vind het echt jammer dat ik je feest mis.\n\nZullen we snel een keer samen iets afspreken? Dan geef ik je je cadeau persoonlijk.\n\nVeel plezier en tot snel!\n\nGroetjes, [naam]"}
+ ]
+};
+
+let VOCAB=null, EXDATA=null;
+function loadExData(){
+  fetch('vocabulary.json').then(r=>r.json()).then(v=>{VOCAB=v; dataArrived();}).catch(()=>{});
+  fetch('nt2_exercises.json').then(r=>r.json()).then(v=>{EXDATA=v; dataArrived();}).catch(()=>{});
+}
+function dataArrived(){
+  if(!VOCAB||!EXDATA) return;            // wacht tot beide bestanden binnen zijn
+  if(pendingBuild){ exBuild(); return; } // gebruiker klikte al voor de data er was
+  if(quizRestored) return;               // bewaarde oefening blijft staan
+  if(QBUILT['hub']&&QBUILT['hub'].length) return;
+  exBuild();
+}
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function sample(a,n){return shuffle(a).slice(0,n);}
+function norm(s){return (s||'').toLowerCase().trim().replace(/[.!?,;:]+$/,'').replace(/\s+/g,' ');}
+function ansArr(a){return Array.isArray(a)?a:[a];}
+function vocabAnswers(nl){
+  const b=nl.trim(); const s=new Set([b]);
+  s.add(b.replace(/^(de|het|een)\s+/i,''));
+  s.add(b.replace(/\bzich\s+/i,'').trim());
+  s.add(b.replace(/[()]/g,'').replace(/\s+/g,' ').trim());
+  s.add(b.replace(/\s*\([^)]*\)/g,'').trim());
+  return [...s].filter(Boolean);
+}
+function vptype(w){
+  const T=['werkwoord','zelfstandig','bijvoeglijk','bijwoord','voorzetsel','uitdrukking','voornaamwoord'];
+  for(const t of T) if((w.tags||[]).includes(t)) return t;
+  return null;
+}
+function shortEn(en){ return en? en.split('/')[0].split(';')[0].split('(')[0].trim():en; }
+
+// ===== 2 hoofdoefeningen: B1 / B2, elk met subcategorieen =====
+let EXLEVEL='B1', EXCAT='gemengd';
+const HUBSEEN=new Set(), HUBSEENQ=new Set();
+const QBUILT={};
+
+function buildExercise(level,cat,fresh){
+  if(fresh){ HUBSEEN.clear(); HUBSEENQ.clear(); }
+  const Q=[];
+  const add=(q)=>{ if(!q) return; const k=norm(ansArr(q.a)[0]); const qk=norm((q.q||'').replace(/<[^>]+>/g,' '));
+    if(!k||HUBSEEN.has(k)||HUBSEENQ.has(qk)) return; HUBSEEN.add(k); HUBSEENQ.add(qk); Q.push(q); };
+  const addP=(q)=>{ if(!q) return; const qk=norm((q.ctx||'')+'|'+(q.model||'').slice(0,40)); if(HUBSEENQ.has(qk)) return; HUBSEENQ.add(qk); Q.push(q); };
+  const vpool=(VOCAB||[]).filter(w=>w.level===level && w.en && w.nl);
+  const epool=(EXDATA&&EXDATA.examplecloze&&EXDATA.examplecloze[level])||[];
+  // weg met opdrachten die naar plaatjes verwijzen (die kun je zonder afbeelding niet maken)
+  const PICRE=/plaatje|kijk naar de|gebruik hierbij alle|hieronder ziet u|op de (foto|afbeelding)/i;
+  const tpool=((EXDATA&&EXDATA.transcript)?[...(EXDATA.transcript.spreken||[]),...(EXDATA.transcript.schrijven||[])]:[])
+    .filter(c=>c.level===level && !PICRE.test((c.q||'')+' '+(c.ctx||'')));
+  const spk = level==='B2'?B2TASKS.spreken:B1TASKS.spreken;
+  const wrt = level==='B2'?B2TASKS.schrijven:B1TASKS.schrijven;
+  const vfill=(w)=>({t:'fill',q:`Hoe zeg je in het Nederlands: <b>${shortEn(w.en)}</b>?`,a:vocabAnswers(w.nl),tag:'woord'});
+  const vmcq=(w)=>{ const tp=vptype(w); let dp=vpool.filter(x=>x.nl!==w.nl && shortEn(x.en)!==shortEn(w.en) && (tp?vptype(x)===tp:true));
+    if(dp.length<3) dp=vpool.filter(x=>x.nl!==w.nl && shortEn(x.en)!==shortEn(w.en));
+    const opts=shuffle([shortEn(w.en),...sample(dp,3).map(x=>shortEn(x.en))]);
+    return {t:'mcq',q:`Wat betekent <b>${w.nl}</b>?`,options:opts,a:shortEn(w.en),tag:'woord'}; };
+  const ecloze=(c)=>({t:'fill',q:`Vul het juiste woord in:<br>"${c.q}"<br><span class="hint">hint: ${shortEn(c.en)}</span>`,a:vocabAnswers(c.a),tag:'zin'});
+  const tcloze=(c)=>({t:'fill',ctx:c.ctx?('Lees &middot; '+c.ctx):null,q:`Vul het ontbrekende woord in:<br>"${c.q}"<br><span class="hint">hint: ${shortEn(c.en)}</span>`,a:vocabAnswers(c.a),tag:'lezen'});
+  const speakItem=(o)=>({t:'speak',ctx:o.task,q:'Bereid je antwoord voor (±20 sec) en spreek het hardop in (±45 sec). Klik daarna voor een voorbeeldantwoord.',model:o.model,tag:'spreken'});
+  const writeItem=(o)=>({t:'write',ctx:o.task,q:'Schrijf je antwoord en verwerk alle gevraagde punten. Klik daarna voor een voorbeeldantwoord.',model:o.model,tag:'schrijven'});
+  const gram=(keys,n)=>keys.forEach(k=>{ if(EXBANK[k]) sample(EXBANK[k],n).forEach(q=>add({...q,tag:'grammatica'})); });
+  const GK = level==='B2'?['connectors','passive','wordorder','prep']:['prep','wordorder','perfectum','connectors'];
+  if(cat==='woord'){
+    sample(vpool,9).forEach(w=>add(vfill(w)));
+    sample(vpool,6).forEach(w=>add(vmcq(w)));
+    sample(epool,6).forEach(c=>add(ecloze(c)));
+  } else if(cat==='grammatica'){
+    gram(GK,5);
+  } else if(cat==='lezen'){            // reading: read scenario/sentence, fill the gap
+    sample(tpool,9).forEach(c=>add(tcloze(c)));
+    sample(epool,7).forEach(c=>add(ecloze(c)));
+  } else if(cat==='spreken'){          // speaking: real scenario + model answer
+    sample(spk,6).forEach(o=>addP(speakItem(o)));
+    sample(EXBANK.scenario,3).forEach(q=>add({...q,tag:'spreken'}));
+  } else if(cat==='schrijven'){        // writing: real task + model answer + supporting chunks
+    sample(wrt,4).forEach(o=>addP(writeItem(o)));
+    sample(EXBANK.email,3).forEach(q=>add({...q,tag:'schrijven'}));
+    if(level==='B2') sample(EXBANK.register,2).forEach(q=>add({...q,tag:'schrijven'}));
+  } else {                             // gemengd: all skills
+    sample(vpool,4).forEach(w=>add(vfill(w)));
+    sample(vpool,2).forEach(w=>add(vmcq(w)));
+    sample(epool,2).forEach(c=>add(ecloze(c)));
+    gram(GK,3);
+    sample(tpool,3).forEach(c=>add(tcloze(c)));
+    sample(spk,1).forEach(o=>addP(speakItem(o)));
+    sample(wrt,1).forEach(o=>addP(writeItem(o)));
+  }
+  // standaard lengte: 12 vragen per kennisquiz, 6 per productieve oefening (spreken/schrijven)
+  const cap={spreken:6,schrijven:6,lezen:12,woord:12,grammatica:12,gemengd:12}[cat]||12;
+  return shuffle(Q).slice(0,cap);
+}
+// ---------- QUIZ STATE PERSISTENCE ----------
+// Bewaart de gegenereerde vragen EN je antwoorden, zodat een refresh je
+// oefening niet wist. Een nieuwe set komt alleen bij 'opnieuw' / '+ meer'
+// of als je van niveau/onderdeel wisselt.
+const QKEY="nt2quiz_v1";
+let ANS={}, quizRestored=false, pendingBuild=false;
+function saveQuiz(){
+  try{ localStorage.setItem(QKEY,JSON.stringify({level:EXLEVEL,cat:EXCAT,qs:QBUILT['hub']||[],ans:ANS})); }catch(e){}
+}
+function loadQuiz(){ try{ return JSON.parse(localStorage.getItem(QKEY)||"null"); }catch(e){ return null; } }
+function applyAns(i){
+  const a=ANS[i]; if(!a) return; const q=(QBUILT['hub']||[])[i]; if(!q) return;
+  if(q.t==='fill'){
+    const inp=document.getElementById('fi-hub-'+i); if(!inp) return;
+    if(a.val!=null) inp.value=a.val;
+    inp.classList.toggle('ok',!!a.ok); inp.classList.toggle('bad',!a.ok);
+    showFb('hub',i,a.ok,q);
+  } else if(q.t==='mcq'){
+    const btns=document.querySelectorAll('#opts-hub-'+i+' button');
+    btns.forEach((b,bi)=>{ if(norm(q.options[bi])===norm(ansArr(q.a)[0])) b.classList.add('right'); });
+    if(!a.ok && a.sel!=null && btns[a.sel]) btns[a.sel].classList.add('wrong-sel');
+    showFb('hub',i,a.ok,q);
+  } else if((q.t==='speak'||q.t==='write') && a.revealed){
+    toggleModel('hub',i);
+  }
+}
+function restoreAnswers(){ Object.keys(ANS).forEach(k=>applyAns(+k)); updateScore('hub'); }
+
+function exBuild(){
+  if(!VOCAB||!EXDATA){ pendingBuild=true; updateExActive(); return; }
+  quizRestored=false; pendingBuild=false; ANS={};
+  QBUILT['hub']=buildExercise(EXLEVEL,EXCAT,true);
+  renderArea(); updateExActive(); saveQuiz();
+}
+function exMore(){ const start=(QBUILT['hub']||[]).length; const more=buildExercise(EXLEVEL,EXCAT,false);
+  if(!more.length) return; QBUILT['hub']=QBUILT['hub'].concat(more);
+  document.getElementById('qcards-hub').insertAdjacentHTML('beforeend', more.map((q,k)=>cardHtml('hub',start+k,q)).join('')); updateScore('hub'); saveQuiz(); }
+function exLevel(l){ EXLEVEL=l; exBuild(); }
+function exCat(c){ EXCAT=c; exBuild(); }
+function gotoOefen(level,cat){ EXLEVEL=level; EXCAT=cat||'gemengd'; exBuild();
+  const el=document.getElementById('oefeningen'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
+function updateExActive(){
+  document.querySelectorAll('#oefeningen .ex-levels button').forEach(b=>b.classList.toggle('active',b.dataset.l===EXLEVEL));
+  document.querySelectorAll('#oefeningen .ex-cats button').forEach(b=>b.classList.toggle('active',b.dataset.c===EXCAT));
+}
+function renderArea(){
+  const qs=QBUILT['hub']||[], area=document.getElementById('ex-area'); if(!area) return;
+  if(!qs.length){ area.innerHTML='<div class="quiz-empty">De oefeningen laden zodra de woordenlijst binnen is. Open de pagina online (niet als lokaal bestand) voor de volledige set met examenzinnen.</div>'; return; }
+  area.innerHTML=`<div class="quiz-head"><span class="quiz-score" id="score-hub">0/${qs.length} goed</span><button onclick="exMore()">+ meer vragen</button><button onclick="exBuild()">opnieuw</button></div><div id="qcards-hub">${qs.map((q,i)=>cardHtml('hub',i,q)).join('')}</div>`;
+}
+function cardHtml(id,i,q){
+  const ctx=q.ctx?`<div class="qctx">${q.ctx}</div>`:'';
+  if(q.t==='speak'||q.t==='write'){
+    const area=q.t==='write'?`<textarea class="qwrite" placeholder="Schrijf hier je antwoord..."></textarea>`:'';
+    return `<div class="qcard prod">${ctx}<div class="qq"><span class="tag">${q.tag||''}</span>${q.q}</div>${area}<button class="rev-btn" id="mb-${id}-${i}" onclick="toggleModel('${id}',${i})">Toon voorbeeldantwoord</button><div class="qmodel" id="mdl-${id}-${i}"></div></div>`;
+  }
+  let body;
+  if(q.t==='mcq'){
+    body=`<div class="qopts" id="opts-${id}-${i}">`+q.options.map((o,oi)=>`<button onclick="checkMcq('${id}',${i},${oi})">${o}</button>`).join('')+`</div>`;
+  } else {
+    body=`<div class="qfill"><input id="fi-${id}-${i}" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkFill('${id}',${i})"><button onclick="checkFill('${id}',${i})">Check</button></div>`;
+  }
+  return `<div class="qcard">${ctx}<div class="qq"><span class="tag">${q.tag||''}</span>${q.q}</div>${body}<div class="qfb" id="fb-${id}-${i}"></div></div>`;
+}
+function toggleModel(id,i){
+  const q=QBUILT[id][i], el=document.getElementById(`mdl-${id}-${i}`), btn=document.getElementById(`mb-${id}-${i}`);
+  const show=!el.classList.contains('show');
+  if(show){ el.className='qmodel show'; el.innerHTML='<b>Voorbeeldantwoord</b><br>'+(q.model||'').replace(/\n/g,'<br>'); }
+  else { el.className='qmodel'; el.innerHTML=''; }
+  if(btn) btn.textContent=show?'Verberg voorbeeldantwoord':'Toon voorbeeldantwoord';
+  if(id==='hub'){ ANS[i]=Object.assign({},ANS[i],{revealed:show}); saveQuiz(); }
+}
+function showFb(id,i,ok,q){
+  const fb=document.getElementById(`fb-${id}-${i}`);
+  fb.className='qfb show '+(ok?'correct':'wrong');
+  fb.innerHTML=(ok?'&#10003; Goed!':('&#10007; Antwoord: <b>'+ansArr(q.a)[0]+'</b>'))+(q.exp?` <span class="ex">${q.exp}</span>`:'');
+  fb.dataset.ok=ok?'1':'0'; fb.dataset.done='1';
+  updateScore(id);
+}
+function checkFill(id,i){
+  const q=QBUILT[id][i], inp=document.getElementById(`fi-${id}-${i}`);
+  const val=norm(inp.value); if(!val) return;
+  const ok=ansArr(q.a).map(norm).includes(val);
+  inp.classList.toggle('ok',ok); inp.classList.toggle('bad',!ok);
+  showFb(id,i,ok,q);
+  if(id==='hub'){ ANS[i]={done:1,ok,val:inp.value}; saveQuiz(); }
+}
+function checkMcq(id,i,oi){
+  const q=QBUILT[id][i];
+  const btns=document.querySelectorAll(`#opts-${id}-${i} button`);
+  const ok=norm(q.options[oi])===norm(ansArr(q.a)[0]);
+  btns.forEach((b,bi)=>{ b.classList.remove('right','wrong-sel');
+    if(norm(q.options[bi])===norm(ansArr(q.a)[0])) b.classList.add('right'); });
+  if(!ok) btns[oi].classList.add('wrong-sel');
+  showFb(id,i,ok,q);
+  if(id==='hub'){ ANS[i]={done:1,ok,sel:oi}; saveQuiz(); }
+}
+function updateScore(id){
+  const fbs=document.querySelectorAll(`#qcards-${id} .qfb`);
+  let ok=0; fbs.forEach(f=>{ if(f.dataset.done&&f.dataset.ok==='1')ok++; });
+  const denom=(QBUILT[id]||[]).filter(q=>q.t==='fill'||q.t==='mcq').length;
+  const s=document.getElementById('score-'+id); if(s) s.textContent=`${ok}/${denom} goed`;
+}
+
+// ---------- DAGELIJKSE OEFENRONDE ----------
+const ROUNDKEY="nt2round_v1";
+const ROUND_CATS=[
+  {c:'gemengd',label:'Gemengd'},{c:'lezen',label:'Lezen'},{c:'spreken',label:'Spreken'},
+  {c:'schrijven',label:'Schrijven'},{c:'woord',label:'Woordenschat'},{c:'grammatica',label:'Grammatica'}
+];
+const ROUND_LEVELS=['B1','B2'];
+function dstr(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function todayStr(){ return dstr(new Date()); }
+function yesterdayStr(){ const d=new Date(); d.setDate(d.getDate()-1); return dstr(d); }
+let round=loadRound();
+function loadRound(){
+  let r; try{ r=JSON.parse(localStorage.getItem(ROUNDKEY)||"null"); }catch(e){ r=null; }
+  if(!r||typeof r!=='object') r={date:'',done:{},streak:0,lastFull:''};
+  if(r.date!==todayStr()){ r.done={}; r.date=todayStr(); }   // nieuwe dag -> afvinkjes resetten
+  return r;
+}
+function saveRound(){ try{ localStorage.setItem(ROUNDKEY,JSON.stringify(round)); }catch(e){} }
+function rKey(lvl,cat){ return lvl+'|'+cat; }
+function roundTotal(){ return ROUND_LEVELS.length*ROUND_CATS.length; }
+function roundDone(){ return Object.keys(round.done).filter(k=>round.done[k]).length; }
+function maybeStreak(){
+  if(roundDone()<roundTotal()) return;
+  if(round.lastFull===todayStr()) return;
+  round.streak=(round.lastFull===yesterdayStr())?(round.streak||0)+1:1;
+  round.lastFull=todayStr();
+}
+function toggleRound(lvl,cat){
+  const k=rKey(lvl,cat); round.done[k]=!round.done[k];
+  if(round.done[k]) maybeStreak();
+  saveRound(); renderRound();
+  if(round.done[k]){ roundDone()>=roundTotal()?showToast("Ronde compleet! Sterk bezig."):celebrate(); }
+}
+function renderRound(){
+  const el=document.getElementById('round'); if(!el) return;
+  const done=roundDone(), total=roundTotal();
+  const groups=ROUND_LEVELS.map(lvl=>{
+    const items=ROUND_CATS.map(rc=>{
+      const k=rKey(lvl,rc.c), d=!!round.done[k];
+      return `<div class="ritem${d?' done':''}">
+        <input type="checkbox" ${d?'checked':''} onchange="toggleRound('${lvl}','${rc.c}')">
+        <span class="rlabel" onclick="gotoOefen('${lvl}','${rc.c}')">${rc.label}</span>
+      </div>`;
+    }).join('');
+    return `<div class="rgroup"><div class="rgl">${lvl}</div><div class="ritems">${items}</div></div>`;
+  }).join('');
+  const streak=round.streak?` &middot; reeks ${round.streak} ${round.streak===1?'dag':'dagen'}`:'';
+  const pct=Math.round(done/total*100);
+  el.innerHTML=`<div class="round-head"><h2>Dagelijkse oefenronde</h2>
+      <span class="round-count">Vandaag: <b>${done}/${total}</b> gedaan${streak}</span></div>
+    <div class="progress-wrap" style="margin:8px 0 10px;"><div class="progress-bar" style="width:${pct}%"></div></div>
+    <p class="round-sub">Elke oefening één keer, op B1 én B2. Klik een onderdeel om er heen te gaan; vink af als je klaar bent. Reset elke nieuwe dag.</p>
+    ${groups}`;
+}
+
+function resetAll(){
+  if(confirm("Vandaag opnieuw beginnen? De afvinkjes van vandaag worden gewist.")){
+    round.done={}; saveRound(); renderRound(); showToast("Ronde gereset");
+  }
+}
+
+let toastTimer;
+function showToast(t){
+  const el=document.getElementById('toast');
+  el.textContent=t; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2200);
+}
+const CHEERS=["Goed bezig!","Oefening gedaan!","Lekker doorgaan!","Weer een stap dichterbij.","Knap werk!","Volhouden loont."];
+function celebrate(){ showToast(CHEERS[roundDone() % CHEERS.length]); }
+
+// init
+document.getElementById('refBody').innerHTML=REF;
+renderMistakes();
+(function initQuiz(){
+  const saved=loadQuiz();
+  if(saved&&saved.qs&&saved.qs.length){
+    EXLEVEL=saved.level||'B1'; EXCAT=saved.cat||'gemengd';
+    QBUILT['hub']=saved.qs; ANS=saved.ans||{}; quizRestored=true;
+    renderArea(); restoreAnswers(); updateExActive();
+  } else {
+    renderArea(); updateExActive();   // toont laad-melding tot data binnen is
+  }
+})();
+loadExData();
+renderRound();
+</script>
+</body>
+</html>
