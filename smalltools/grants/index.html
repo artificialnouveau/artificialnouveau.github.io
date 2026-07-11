@@ -14771,13 +14771,24 @@ function deadlinePill(grant, today) {
   return { text: `${formatted} (${days}d)`, cls: '' };
 }
 
-const TYPE_TAGS = ['residency', 'fellowship', 'prize', 'job', 'grant'];
-const TYPE_LABELS = { residency: 'Residency', fellowship: 'Fellowship', prize: 'Prize', grant: 'Grant', job: 'Jobs', other: 'Other' };
+const TYPE_LABELS = { residency: 'Residency', fellowship: 'Fellowship', prize: 'Prize', grant: 'Grant', festival: 'Festivals & Conferences', job: 'Jobs', other: 'Other' };
+const FESTIVAL_TAG_RE = /festival|conference|summit|symposium/;
+// Biennale counts only in the title (a call from the biennale itself); as a tag
+// it is usually just context, e.g. a prize whose winners show at a biennale.
+const FESTIVAL_TITLE_RE = /festival|conference|summit|symposium|biennale|biennial/;
 
 function detectType(grant) {
   const tags = (grant.tags || []).map(t => String(t).toLowerCase());
-  for (const t of TYPE_TAGS) {
-    if (tags.some(tag => tag === t || tag.includes(t))) return t;
+  // Residency/fellowship tags win over a festival mention (e.g. a residency
+  // hosted by a festival), but festival/conference calls beat prize/grant tags
+  // so a festival's competition still files under Festivals & Conferences.
+  for (const t of ['residency', 'fellowship']) {
+    if (tags.some(tag => tag.includes(t))) return t;
+  }
+  const title = String(grant.title || '').toLowerCase();
+  if (tags.some(tag => FESTIVAL_TAG_RE.test(tag)) || FESTIVAL_TITLE_RE.test(title)) return 'festival';
+  for (const t of ['prize', 'job', 'grant']) {
+    if (tags.some(tag => tag.includes(t))) return t;
   }
   return 'other';
 }
@@ -15510,7 +15521,7 @@ function buildFilterChips() {
     return a.localeCompare(b);
   });
 
-  const typeOrder = ['residency', 'fellowship', 'prize', 'grant', 'job', 'other'];
+  const typeOrder = ['residency', 'fellowship', 'prize', 'grant', 'festival', 'job', 'other'];
   const sortedTypes = [...types].sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b));
 
   const categoryGroup = document.getElementById('filter-category');
