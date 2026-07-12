@@ -84,7 +84,7 @@ OTHERWISE return JSON matching this schema strictly:
   "title": "string (the grant name, no extra commentary)",
   "organization": "string",
   "location": "string",
-  "region": "EU"|"US"|"UK"|"NL"|"Canada"|"Remote"|"Worldwide",
+  "region": "EU"|"US"|"UK"|"NL"|"Canada"|"Asia"|"Africa"|"Australia"|"LatAm"|"Remote"|"Worldwide",
   "category": "ai"|"tech"|"research"|"film"|"arts"|"cross",
   "amount": "string (include currency symbol)",
   "deadline": "YYYY-MM-DD",

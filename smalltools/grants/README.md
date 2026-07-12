@@ -82,6 +82,19 @@ A complete grant entry looks like this:
 - **`featured`** — Boolean. Currently unused for visual emphasis; safe to leave `false`.
 - **`suggestedBy`** — *Optional.* String like `@handle` or `Jane Doe`. Renders a small "Suggested by ..." credit line on the card. Only set this if the submitter explicitly opted in via the Suggest a grant form.
 
+### Selection criteria
+
+What qualifies for the desk, and what gets rejected, regardless of how prestigious the host is:
+
+- **Relevance bar.** Only opportunities that are genuinely tech or art related. Paid civic/ops fellowships (the FUSE Corps type) do not qualify.
+- **No self-funded or pay-to-attend programs.** If the artist pays program, tuition or participation fees, it is out, unless the program is also funded (a stipend or award on top of the fee).
+- **Free housing alone is not enough.** Do not add residencies that offer only free lodging and nothing else (no stipend, no board, no production support). Existing free-housing-only entries are grandfathered in and should not be removed. Full hosting (room + board + studio) or housing plus a real professional program does qualify.
+- **Festival and prize submission fees are acceptable** but must be flagged with `"fee": true` and stated in the `amount` field.
+- **No generic photography award contests** (pay-per-image photo prizes), even if they have an aerial category. Drone/aerial-centric calls are the exception.
+- **Audio category** is tech-x-music and experimental/sound-art only, not pure/popular/classical music showcases.
+- **Dedupe before adding.** Grep `grants.json` by organization and title first; the bot auto-adds, so duplicates are common. When researching new opportunities, skip organizations already tracked.
+- **Watch-list entries** (calls not yet open) are allowed: set `deadline: null`, say "CALL NOT YET OPEN" with the expected timing in the description, and tag them `watch-list`.
+
 ### Conventions worth following
 
 - Spell out currency: `USD 5,000`, `EUR 3,500`, `GBP 20,000`, `CAD 12,000`, `CHF 4,000` rather than just `$` (US visitors will assume USD; everyone else won't).
