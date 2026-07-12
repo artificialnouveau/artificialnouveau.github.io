@@ -58,7 +58,9 @@ jobs:
             echo "State unchanged."
           else
             git commit -m "Recheck bot: update state ($(date -u +%Y-%m-%d))"
-            git pull --rebase origin master
+            # --autostash: grants.json/index.html may carry uncommitted proposal
+            # edits at this point; a plain pull --rebase refuses to run then.
+            git pull --rebase --autostash origin master
             git push origin HEAD:master
           fi
 

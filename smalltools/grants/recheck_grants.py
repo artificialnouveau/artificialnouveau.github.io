@@ -148,9 +148,17 @@ def pick_candidates(grants: list, state: dict, today: date) -> list:
     return out[:MAX_CHECKS_PER_RUN]
 
 
+def safe_confidence(value) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def next_year_id(old_id: str, deadline: str) -> str:
     year = deadline[:4]
-    stripped = re.sub(r"(-\d{4})?(-\d{4})?$", "", old_id)
+    # strip trailing year or year-range segments: -2026, -2026-27, -2026-2027
+    stripped = re.sub(r"(-\d{4})(-\d{2}|-\d{4})?$", "", old_id)
     return f"{stripped}-{year}"
 
 
@@ -275,10 +283,15 @@ def main() -> int:
         )
         ex = call_claude_json(client, WATCHLIST_PROMPT.format(today=today.isoformat()), user_content)
         key = f"watchlist:{it['url']}"
+        if ex is None:
+            # API/parse failure: record nothing so the item retries next run
+            # instead of being deferred RETRY_DAYS.
+            print(f"[recheck] watchlist {it['title']}: skipped (no model reply)")
+            continue
         result = "no_new"
-        if ex and ex.get("open"):
+        if ex.get("open"):
             dl = parse_iso_date(ex.get("deadline"))
-            conf = float(ex.get("confidence") or 0)
+            conf = safe_confidence(ex.get("confidence"))
             if dl and dl > today and conf >= MIN_CONFIDENCE:
                 entry = build_watchlist_entry(it, ex, today)
                 if entry["id"] not in existing_ids:
@@ -304,10 +317,13 @@ def main() -> int:
             + (f"SITE ROOT CONTENT (truncated):\n{root}" if root else "")
         )
         ex = call_claude_json(client, RECHECK_PROMPT.format(today=today.isoformat()), user_content)
+        if ex is None:
+            print(f"[recheck] {g['id']}: skipped (no model reply)")
+            continue
         result = "no_new"
-        if ex and ex.get("new_cycle"):
+        if ex.get("new_cycle"):
             dl = parse_iso_date(ex.get("deadline"))
-            conf = float(ex.get("confidence") or 0)
+            conf = safe_confidence(ex.get("confidence"))
             if dl and dl > today and conf >= MIN_CONFIDENCE:
                 entry = build_entry(g, ex, today)
                 if entry["id"] not in existing_ids:
