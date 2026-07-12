@@ -23,7 +23,6 @@ from __future__ import annotations
 import json
 import os
 import re
-import sys
 from datetime import date, timedelta
 from pathlib import Path
 from urllib.parse import urlparse

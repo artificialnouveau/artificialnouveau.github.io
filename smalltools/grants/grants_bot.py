@@ -374,6 +374,8 @@ def build_candidate(
         "startDate": None,
         "deadline": deadline_str,
         "addedDate": today.isoformat(),
+        "category": extracted.get("category") or "cross",
+        "applicant": "individuals",
         "description": extracted.get("description") or "",
         "url": grant_url,
         "tags": category_to_tags(extracted.get("category") or "cross"),
