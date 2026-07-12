@@ -93,7 +93,7 @@ What qualifies for the desk, and what gets rejected, regardless of how prestigio
 - **No generic photography award contests** (pay-per-image photo prizes), even if they have an aerial category. Drone/aerial-centric calls are the exception.
 - **Audio category** is tech-x-music and experimental/sound-art only, not pure/popular/classical music showcases.
 - **Dedupe before adding.** Grep `grants.json` by organization and title first; the bot auto-adds, so duplicates are common. When researching new opportunities, skip organizations already tracked.
-- **Watch-list entries** (calls not yet open) are allowed: set `deadline: null`, say "CALL NOT YET OPEN" with the expected timing in the description, and tag them `watch-list`.
+- **Watch-list entries** (calls not yet open) do NOT go in `grants.json`; they belong in the "Watch for next round" drawer in `index.html` (see the drawer section below). Grants.json is for calls that are open now (fixed deadline or genuinely rolling).
 
 ### Conventions worth following
 
