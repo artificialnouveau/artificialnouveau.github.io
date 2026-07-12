@@ -16747,6 +16747,13 @@ function applyFilters() {
     f.classList.toggle('filtered-out', !show);
   });
 
+  updateSectionCounts();
+}
+
+// Section header counts. A card can be hidden by the regular filters
+// (.filtered-out) or by the "Show only new" toggle (.not-new); the headers
+// must reflect both, so this runs after either changes.
+function updateSectionCounts() {
   const sectionMap = {
     'section-hot': 'meta-hot',
     'section-new': 'meta-new',
@@ -16758,7 +16765,7 @@ function applyFilters() {
     const section = document.getElementById(secId);
     if (!section) continue;
     const total = section.querySelectorAll('.folder').length;
-    const visible = section.querySelectorAll('.folder:not(.filtered-out)').length;
+    const visible = section.querySelectorAll('.folder:not(.filtered-out):not(.not-new)').length;
     const meta = document.getElementById(metaId);
     if (!meta) continue;
     if (total === visible) {
@@ -16854,6 +16861,7 @@ function applyNewFilter() {
     if (!NEW_ONLY) f.classList.remove('not-new');
     else f.classList.toggle('not-new', !f.classList.contains('is-new'));
   });
+  updateSectionCounts();
 }
 
 function setupNewBanner(grants) {
