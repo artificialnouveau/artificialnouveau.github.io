@@ -1,0 +1,94 @@
+name: Recheck Grants
+
+# Rechecks grants whose deadline passed 6-9 months ago for a new cycle.
+# High-confidence hits become a draft PR, mirroring grants-bot.yml.
+# The state file is committed to master even when nothing is found, so
+# the same entries are not rechecked every run.
+
+on:
+  schedule:
+    # Mondays at 08:30 UTC
+    - cron: '30 8 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install --quiet 'anthropic>=0.40' 'requests>=2.31' 'feedparser>=6.0'
+
+      - name: Detect GH_PAT presence
+        id: pat
+        env:
+          PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -n "$PAT" ]; then
+            echo "set=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "set=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run recheck bot
+        id: recheck
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 smalltools/grants/recheck_grants.py
+
+      - name: Commit state to master
+        run: |
+          set -euo pipefail
+          git config user.name "recheck-bot"
+          git config user.email "recheck-bot@users.noreply.github.com"
+          git add smalltools/grants/.recheck_state.json
+          if git diff --cached --quiet; then
+            echo "State unchanged."
+          else
+            git commit -m "Recheck bot: update state ($(date -u +%Y-%m-%d))"
+            git pull --rebase origin master
+            git push origin HEAD:master
+          fi
+
+      - name: Regenerate feeds
+        if: steps.recheck.outputs.has_candidates == 'true'
+        run: python3 smalltools/grants/generate_feed.py
+
+      - name: Open draft PR
+        if: ${{ steps.recheck.outputs.has_candidates == 'true' && steps.pat.outputs.set == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          set -euo pipefail
+          DATE=$(date -u +%Y-%m-%d)
+          BRANCH="recheck-grants/${DATE}"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "Recheck bot: ${{ steps.recheck.outputs.count }} likely new cycle(s) (${DATE})"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --draft \
+            --title "Recheck bot: ${{ steps.recheck.outputs.count }} likely new cycle(s) (${DATE})" \
+            --body-file /tmp/recheck_pr_body.md
+
+      - name: No candidates
+        if: steps.recheck.outputs.has_candidates != 'true'
+        run: echo "No new cycles found this run; skipping PR."
+
+      - name: PAT missing (candidates found but cannot open PR)
+        if: ${{ steps.recheck.outputs.has_candidates == 'true' && steps.pat.outputs.set == 'false' }}
+        run: |
+          echo "::warning::Found candidates but GH_PAT secret is not set."
+          echo "The candidates are listed above (search for 'PR BODY' in this log)."
