@@ -195,19 +195,13 @@ def fetch_page_text(url: str) -> str:
 # --- Claude --------------------------------------------------------------- #
 
 
-def call_claude(
-    client: Anthropic,
-    post_text: str,
-    link_url: str,
-    page_text: str,
-    category_hint: str,
-) -> dict | None:
-    user_content = (
-        f"BLUESKY POST TEXT:\n{post_text}\n\n"
-        f"LINKED URL: {link_url}\n\n"
-        f"CATEGORY HINT: {category_hint}\n\n"
-        f"LINKED PAGE CONTENT (truncated):\n{page_text}"
-    )
+def call_claude_json(client: Anthropic, system_prompt: str, user_content: str) -> dict | None:
+    """Generic single-turn call that expects a JSON object back.
+
+    The system prompt is cached (ephemeral) so repeated calls in one run reuse
+    the prefix. Returns the parsed dict, or None on API error / non-JSON reply.
+    Also used by recheck_grants.py.
+    """
     try:
         response = client.messages.create(
             model=MODEL,
@@ -215,7 +209,7 @@ def call_claude(
             system=[
                 {
                     "type": "text",
-                    "text": EXTRACTION_PROMPT,
+                    "text": system_prompt,
                     "cache_control": {"type": "ephemeral"},
                 }
             ],
@@ -240,6 +234,22 @@ def call_claude(
         return json.loads(m.group(0))
     except json.JSONDecodeError:
         return None
+
+
+def call_claude(
+    client: Anthropic,
+    post_text: str,
+    link_url: str,
+    page_text: str,
+    category_hint: str,
+) -> dict | None:
+    user_content = (
+        f"BLUESKY POST TEXT:\n{post_text}\n\n"
+        f"LINKED URL: {link_url}\n\n"
+        f"CATEGORY HINT: {category_hint}\n\n"
+        f"LINKED PAGE CONTENT (truncated):\n{page_text}"
+    )
+    return call_claude_json(client, EXTRACTION_PROMPT, user_content)
 
 
 # --- Helpers -------------------------------------------------------------- #
