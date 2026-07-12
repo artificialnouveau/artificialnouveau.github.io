@@ -1397,6 +1397,7 @@ code *, pre *, kbd *, samp * {
                 <option value="africa">Africa</option>
                 <option value="canada">Canada</option>
                 <option value="australia">Australia</option>
+                <option value="latam">Latin America</option>
                 <option value="remote">Remote</option>
                 <option value="worldwide">Worldwide</option>
               </select>
@@ -1476,6 +1477,7 @@ code *, pre *, kbd *, samp * {
                 <option value="africa">Africa</option>
                 <option value="canada">Canada</option>
                 <option value="australia">Australia</option>
+                <option value="latam">Latin America</option>
                 <option value="remote">Remote</option>
                 <option value="worldwide">Worldwide</option>
               </select>
@@ -15797,7 +15799,7 @@ code *, pre *, kbd *, samp * {
 <script>
 const REGION_LABELS = {
   EU: 'EU', US: 'US', UK: 'UK', NL: 'NL', Asia: 'Asia', Africa: 'Africa', Canada: 'Canada', Australia: 'Australia',
-  LatAm: 'Latin America', Remote: 'Remote', Worldwide: 'Worldwide', Global: 'Global'
+  LatAm: 'Latin America', Remote: 'Remote', Worldwide: 'Worldwide'
 };
 
 function parseDate(iso) {
@@ -15874,7 +15876,7 @@ function parseAmountValue(amountStr) {
   // Only count a number as money if it sits next to a currency marker. This avoids
   // mis-reading text like "1.5 million photographs" or "10x18m warehouse" as an amount.
   const CUR = '(?:US\\$|A\\$|C\\$|NZ\\$|HK\\$|S\\$|R\\$|\\$|€|£|¥|₹|USD|EUR|GBP|AUD|CAD|NZD|RMB|CNY|JPY|CHF|SEK|NOK|DKK|ZAR|INR|SGD|HKD|euros?|dollars?|pounds?)';
-  const NUM = '(\\d[\\d.,\\u202f\\u00a0\\s]*\\d|\\d)';
+  const NUM = '(\\d[\\d.,\\u202f\\u00a0]*\\d|\\d)';
   // A scale word/letter, but only when it is a standalone token (not the start of
   // "million photographs", "maximum", "monthly", "metre", etc.).
   const SCALE = '\\s*((?:million|thousand|billion|mn|bn|k|m)(?![a-z]))?';
@@ -15999,7 +16001,6 @@ function renderFolder(grant, category, today) {
 
   const copyText = buildCopyText(grant, dl);
   a.dataset.copyText = copyText;
-  a.dataset.grantId = grant.id || '';
 
   const gcalUrl = buildGcalUrl(grant);
   if (gcalUrl) a.dataset.gcal = gcalUrl;
@@ -16288,28 +16289,6 @@ function setupWatchlist() {
 
 load();
 
-function setupCopy(buttonId, urlElId, filename) {
-  const btn = document.getElementById(buttonId);
-  const urlEl = document.getElementById(urlElId);
-  if (!btn || !urlEl) return;
-  const absoluteUrl = new URL(filename, window.location.href).toString();
-  urlEl.textContent = absoluteUrl;
-  urlEl.setAttribute('href', absoluteUrl);
-  btn.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(absoluteUrl);
-      const original = btn.textContent;
-      btn.textContent = 'Copied';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = original;
-        btn.classList.remove('copied');
-      }, 1600);
-    } catch (err) {
-      window.prompt('Copy this URL:', absoluteUrl);
-    }
-  });
-}
 (function setupCalendarSelector() {
   const regionSel = document.getElementById('cal-region');
   const catFieldset = document.getElementById('cal-categories');
@@ -16574,7 +16553,6 @@ function bindSingleSelectGroup(group, key) {
 }
 
 const SEED_REGIONS = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Asia', 'Africa', 'Canada', 'Australia', 'LatAm'];
-const EXCLUDE_REGIONS = new Set(['Global']);
 
 function buildFilterChips() {
   const folders = Array.from(document.querySelectorAll('.folder'));
@@ -16582,12 +16560,12 @@ function buildFilterChips() {
   const types = new Set();
   const categories = new Set();
   for (const f of folders) {
-    if (f.dataset.region && !EXCLUDE_REGIONS.has(f.dataset.region)) regions.add(f.dataset.region);
+    if (f.dataset.region) regions.add(f.dataset.region);
     if (f.dataset.type) types.add(f.dataset.type);
     if (f.dataset.category) categories.add(f.dataset.category);
   }
 
-  const regionOrder = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Asia', 'Africa', 'Canada', 'Australia', 'LatAm', 'Global'];
+  const regionOrder = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Asia', 'Africa', 'Canada', 'Australia', 'LatAm'];
   const sortedRegions = [...regions].sort((a, b) => {
     const ai = regionOrder.indexOf(a);
     const bi = regionOrder.indexOf(b);
@@ -16697,7 +16675,7 @@ function applyFilters() {
       } else {
         const daysSinceAdded = -daysUntil(addedDate, now);
         let matches = false;
-        if (FILTER_STATE.added.has('24h') && daysSinceAdded <= 1) matches = true;
+        if (FILTER_STATE.added.has('24h') && daysSinceAdded < 1) matches = true;
         if (FILTER_STATE.added.has('7d') && daysSinceAdded <= 7) matches = true;
         if (FILTER_STATE.added.has('30d') && daysSinceAdded <= 30) matches = true;
         if (!matches) show = false;
@@ -16739,7 +16717,7 @@ function updateSectionCounts() {
     const section = document.getElementById(secId);
     if (!section) continue;
     const total = section.querySelectorAll('.folder').length;
-    const visible = section.querySelectorAll('.folder:not(.filtered-out):not(.not-new)').length;
+    const visible = section.querySelectorAll('.folder:not(.filtered-out):not(.not-new):not(.not-shortlisted)').length;
     const meta = document.getElementById(metaId);
     if (!meta) continue;
     if (total === visible) {
@@ -16755,9 +16733,16 @@ const SEEN_KEY = 'grantdesk-last-seen';
 const VISIT_TS_KEY = 'grantdesk-last-visit-ts';
 const ACK_KEY = 'grantdesk-ack-date';
 let LAST_SEEN = null;
-let RECENT_VISITOR = false; // true if the previous visit was within the last 24h
 let PREV_VISIT_DATE = null; // calendar date (YYYY-MM-DD) of the previous visit
 let NEW_ONLY = false;
+
+// Local calendar day (YYYY-MM-DD). toISOString() would give the UTC day, which
+// misclassifies today's additions as "future queued" for visitors east of UTC
+// (e.g. NL between midnight and 1-2am).
+function localDayStr(d) {
+  const dt = d || new Date();
+  return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0');
+}
 
 function loadLastSeen() {
   LAST_SEEN = localStorage.getItem(SEEN_KEY);
@@ -16767,25 +16752,18 @@ function loadLastSeen() {
   // instead of relying solely on the calendar-day "last seen" baseline.
   const prevVisit = parseInt(localStorage.getItem(VISIT_TS_KEY) || '0', 10);
   const now = Date.now();
-  const todayStr = new Date().toISOString().slice(0, 10);
-  // Treat as a recent visitor if EITHER the previous load was within 24h OR the
-  // baseline date is already today (the leave-handler bumps SEEN_KEY to today on
-  // every page hide/unload, so returning same-day visitors trip this check even
-  // on the first load after this feature shipped).
-  RECENT_VISITOR = (prevVisit > 0 && (now - prevVisit) < 24 * 3600 * 1000)
-                || (LAST_SEEN === todayStr);
   // Calendar date of the previous visit, used to bound the "new since last visit"
   // window precisely instead of a fixed now-minus-24h span (which let yesterday's
   // additions linger as "new" for up to ~48h for same-day return visitors).
   PREV_VISIT_DATE = prevVisit > 0
-    ? new Date(prevVisit).toISOString().slice(0, 10)
+    ? localDayStr(new Date(prevVisit))
     : null;
   localStorage.setItem(VISIT_TS_KEY, String(now));
 }
 
 function isNewGrant(grant) {
   if (!grant.addedDate) return false;
-  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayStr = localDayStr();
   // A future (queued) addedDate must not count as new until it actually arrives,
   // otherwise it would show as new forever.
   if (grant.addedDate > todayStr) return false;
@@ -16850,7 +16828,7 @@ function setupNewBanner(grants) {
     applyNewFilter();
   });
   dismiss.addEventListener('click', () => {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDayStr();
     LAST_SEEN = today;
     localStorage.setItem(SEEN_KEY, today);
     // Also acknowledge today in the sliding-24h mode so the badges clear there too.
@@ -16868,7 +16846,7 @@ function setupNewBanner(grants) {
   const updateSeen = () => {
     if (scheduled) return;
     scheduled = true;
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDayStr();
     localStorage.setItem(SEEN_KEY, today);
   };
   document.addEventListener('visibilitychange', () => {
@@ -16877,7 +16855,7 @@ function setupNewBanner(grants) {
   window.addEventListener('beforeunload', updateSeen);
   // First-time visitor: silently set today's date so they don't see "everything is new"
   if (!LAST_SEEN) {
-    LAST_SEEN = new Date().toISOString().slice(0, 10);
+    LAST_SEEN = localDayStr();
     localStorage.setItem(SEEN_KEY, LAST_SEEN);
   }
 }
@@ -16888,17 +16866,19 @@ const PICKS = new Set();
 let SHORTLIST_ONLY = false;
 
 function loadPicks() {
+  // Always load the visitor's own stored shortlist first; a shared #picks=
+  // link merges into it rather than replacing it, so opening someone else's
+  // link never wipes your own picks.
+  try {
+    const stored = JSON.parse(localStorage.getItem(PICKS_KEY) || '[]');
+    if (Array.isArray(stored)) stored.forEach(id => PICKS.add(id));
+  } catch (_) {}
   const m = window.location.hash.match(/picks=([^&]*)/);
   if (m && m[1]) {
     const ids = decodeURIComponent(m[1]).split(',').filter(Boolean);
     ids.forEach(id => PICKS.add(id));
     try { localStorage.setItem(PICKS_KEY, JSON.stringify([...PICKS])); } catch (_) {}
-    return;
   }
-  try {
-    const stored = JSON.parse(localStorage.getItem(PICKS_KEY) || '[]');
-    if (Array.isArray(stored)) stored.forEach(id => PICKS.add(id));
-  } catch (_) {}
 }
 
 function savePicks() {
@@ -16945,6 +16925,7 @@ function applyShortlistFilter() {
       f.classList.toggle('not-shortlisted', !PICKS.has(f.dataset.grantId));
     }
   });
+  updateSectionCounts();
 }
 
 document.addEventListener('click', (e) => {
@@ -16999,7 +16980,7 @@ function setupShortlistBar() {
       const data = await res.json();
       const today = new Date(); today.setHours(0,0,0,0);
       const picked = (data.grants || []).filter(g => PICKS.has(g.id));
-      const blob = new Blob([buildShortlistICS(picked, today)], { type: 'text/calendar;charset=utf-8' });
+      const blob = new Blob([buildShortlistICS(picked)], { type: 'text/calendar;charset=utf-8' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = 'grant-desk-shortlist.ics';

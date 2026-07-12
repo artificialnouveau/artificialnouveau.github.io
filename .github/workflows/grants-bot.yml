@@ -47,6 +47,24 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python3 smalltools/grants/grants_bot.py
 
+      # State must reach master even when no PR is opened (or a PR is closed
+      # unmerged); otherwise rejected posts are re-fetched and re-extracted
+      # every run and old candidates resurface as duplicates.
+      - name: Commit state to master
+        run: |
+          set -euo pipefail
+          git config user.name "grants-bot"
+          git config user.email "grants-bot@users.noreply.github.com"
+          git add smalltools/grants/.bot_state.json
+          if git diff --cached --quiet; then
+            echo "State unchanged."
+          else
+            git commit -m "Grants bot: update state ($(date -u +%Y-%m-%d))"
+            # --autostash: grants.json may carry uncommitted candidate edits.
+            git pull --rebase --autostash origin master
+            git push origin HEAD:master
+          fi
+
       - name: Regenerate feeds
         if: steps.bot.outputs.has_candidates == 'true'
         run: python3 smalltools/grants/generate_feed.py
@@ -58,14 +76,13 @@ jobs:
         run: |
           set -euo pipefail
           DATE=$(date -u +%Y-%m-%d)
-          BRANCH="grants-bot/${DATE}"
-          git config user.name "grants-bot"
-          git config user.email "grants-bot@users.noreply.github.com"
+          # Run id suffix avoids branch collisions on same-day reruns.
+          BRANCH="grants-bot/${DATE}-${GITHUB_RUN_ID}"
           git checkout -b "$BRANCH"
-          git add smalltools/grants/grants.json \
-                  smalltools/grants/feed*.xml \
-                  smalltools/grants/calendar*.ics \
-                  smalltools/grants/.bot_state.json
+          # -A: generate_feed.py also rewrites index.html (JSON-LD), static
+          # SEO pages, sitemap.xml, robots.txt and llms.txt; committing only
+          # the feeds would leave those stale on merge.
+          git add -A
           git commit -m "Grants bot: ${{ steps.bot.outputs.count }} Bluesky candidate(s) (${DATE})"
           git push -u origin "$BRANCH"
           gh pr create \

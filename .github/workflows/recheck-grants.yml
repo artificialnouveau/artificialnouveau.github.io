@@ -75,7 +75,7 @@ jobs:
         run: |
           set -euo pipefail
           DATE=$(date -u +%Y-%m-%d)
-          BRANCH="recheck-grants/${DATE}"
+          BRANCH="recheck-grants/${DATE}-${GITHUB_RUN_ID}"
           git checkout -b "$BRANCH"
           git add -A
           git commit -m "Recheck bot: ${{ steps.recheck.outputs.count }} likely new cycle(s) (${DATE})"

@@ -490,7 +490,7 @@ def amount_value_currency(amount_str):
     return s, currency
 
 
-def grant_jsonld(grant, today):
+def grant_jsonld(grant):
     name = grant.get("title", "Untitled")
     url = grant.get("url") or PAGE_URL
     description = grant.get("description") or ""
@@ -541,13 +541,19 @@ def grant_jsonld(grant, today):
     return item
 
 
-def itemlist_jsonld(grants, today, page_url, page_name):
+def jsonld_dumps(payload):
+    """json.dumps for inline <script> embedding: '</' would end the script
+    block early if a description ever contained '</script>'."""
+    return json.dumps(payload, ensure_ascii=False, indent=2).replace("</", "<\\/")
+
+
+def itemlist_jsonld(grants, page_url, page_name):
     items = []
     for idx, g in enumerate(grants, start=1):
         items.append({
             "@type": "ListItem",
             "position": idx,
-            "item": grant_jsonld(g, today),
+            "item": grant_jsonld(g),
         })
     payload = {
         "@context": "https://schema.org",
@@ -557,7 +563,7 @@ def itemlist_jsonld(grants, today, page_url, page_name):
         "numberOfItems": len(grants),
         "itemListElement": items,
     }
-    return json.dumps(payload, ensure_ascii=False, indent=2)
+    return jsonld_dumps(payload)
 
 
 def website_jsonld():
@@ -577,7 +583,7 @@ def website_jsonld():
             "url": SITE_ROOT_URL,
         },
     }
-    return json.dumps(payload, ensure_ascii=False, indent=2)
+    return jsonld_dumps(payload)
 
 
 def filter_published(grants, today):
@@ -726,7 +732,7 @@ def build_static_page(grants_for_slice, today, region=None, category=None):
     intro = static_page_intro(len(sorted_grants), region=region, category=category)
     grant_html = render_grant_list_html(sorted_grants, today)
     related = related_links_html(region, category)
-    itemlist = itemlist_jsonld(sorted_grants, today, page_url, h1)
+    itemlist = itemlist_jsonld(sorted_grants, page_url, h1)
     description = (
         f"{len(sorted_grants)} active paid grants, fellowships and residencies. "
         "Curated weekly. RSS and calendar feeds available."
@@ -796,7 +802,7 @@ def inject_into_main_index(grants, today):
     active = sort_by_deadline(filter_active(grants, today))
     grant_list_html = render_grant_list_html(active, today)
     page_url = SITE_ROOT_URL + GRANTS_BASE_PATH
-    itemlist = itemlist_jsonld(active, today, page_url, "The Grant Desk")
+    itemlist = itemlist_jsonld(active, page_url, "The Grant Desk")
     website = website_jsonld()
 
     jsonld_block = (
@@ -900,8 +906,13 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 - [AI and AI safety]({base}ai/)
 - [Tech and infrastructure]({base}tech/)
 - [Research and journalism]({base}research/)
+- [Writing and literature]({base}writers/)
 - [Film and video]({base}film/)
 - [Visual and media arts]({base}arts/)
+- [Games and interactive]({base}game/)
+- [Design]({base}design/)
+- [Curatorial]({base}curator/)
+- [Audio and sound art]({base}audio/)
 - [Cross-disciplinary and social impact]({base}cross/)
 
 ## By region
@@ -910,7 +921,11 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 - [UK]({base}uk/)
 - [US]({base}us/)
 - [Netherlands]({base}nl/)
+- [Asia]({base}asia/)
+- [Africa]({base}africa/)
 - [Canada]({base}canada/)
+- [Australia]({base}australia/)
+- [Latin America]({base}latam/)
 - [Remote (work-from-anywhere)]({base}remote/)
 - [Worldwide]({base}worldwide/)
 

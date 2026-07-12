@@ -27,7 +27,12 @@ jobs:
 
       - name: Commit changes (if any)
         run: |
-          if [[ -z "$(git status --porcelain)" ]]; then
+          # Every regen rewrites run timestamps (RSS lastBuildDate, ICS
+          # DTSTAMP), so a plain status check always sees changes. Ignore
+          # those lines; only commit when something real changed (or a new
+          # untracked file appeared).
+          if git diff -I'<lastBuildDate>' -I'^DTSTAMP:' --quiet \
+             && [[ -z "$(git ls-files --others --exclude-standard)" ]]; then
             echo "No grants came due today. Exiting clean."
             exit 0
           fi
@@ -35,4 +40,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add smalltools/grants/ sitemap.xml robots.txt llms.txt
           git commit -m "Auto-publish: release grants whose addedDate came due"
-          git push
+          # Retry around pushes racing the local bot / other workflows.
+          for i in 1 2 3; do
+            git push && break
+            git pull --rebase origin master
+          done
