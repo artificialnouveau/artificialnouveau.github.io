@@ -16494,6 +16494,9 @@ function deadlinePill(grant, today) {
 }
 
 const TYPE_LABELS = { residency: 'Residency', fellowship: 'Fellowship', prize: 'Prize', grant: 'Grant', festival: 'Festivals & Conferences', job: 'Jobs', other: 'Other' };
+// Card tab labels, keyed by detectType(). Short forms of TYPE_LABELS; 'other'
+// reads as OPEN CALL because an "OTHER" tab tells the reader nothing.
+const TAB_TYPE_LABELS = { residency: 'RESIDENCY', fellowship: 'FELLOWSHIP', prize: 'PRIZE', grant: 'GRANT', festival: 'FESTIVAL', job: 'JOB', other: 'OPEN CALL' };
 const FESTIVAL_TAG_RE = /festival|conference|summit|symposium/;
 // Biennale counts only in the title (a call from the biennale itself); as a tag
 // it is usually just context, e.g. a prize whose winners show at a biennale.
@@ -16641,7 +16644,9 @@ function renderFolder(grant, category, today) {
     (grant.tags || []).join(' ')
   ].filter(Boolean).join(' ').toLowerCase();
 
-  const tabLabel = (grant.tags && grant.tags[0]) ? grant.tags[0].toUpperCase() : (grant.region || '').toUpperCase();
+  // Tab always shows the opportunity type - first tags vary too much (region,
+  // topic, medium) to be a stable label. Region has its own span below.
+  const tabLabel = TAB_TYPE_LABELS[grantType] || 'OPEN CALL';
   const region = REGION_LABELS[grant.region] || grant.region || 'Open';
   const dl = deadlinePill(grant, today);
 
