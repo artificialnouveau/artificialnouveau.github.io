@@ -202,12 +202,22 @@ def feed_title_desc(region, timeline, category=None):
     return TITLE, DESCRIPTION
 
 
+def region_matches(grant, region):
+    """True when a grant belongs to a region view. Switzerland is a tag-driven
+    sub-region: Swiss grants keep ``region: "EU"`` (so they stay in the EU feeds,
+    pages and filter) and additionally populate the Switzerland views via their
+    ``switzerland`` tag."""
+    if grant.get("region") == region:
+        return True
+    return region == "Switzerland" and "switzerland" in (grant.get("tags") or [])
+
+
 def filter_grants(grants, region, timeline, today, category=None):
     out = []
     for g in grants:
         if category and g.get("category") != category:
             continue
-        if region and g.get("region") != region:
+        if region and not region_matches(g, region):
             continue
         if timeline and timeline.startswith("added-"):
             window_days = int(timeline.split("-")[1].rstrip("d"))
@@ -328,7 +338,7 @@ def build_calendar(grants, today, region=None, category=None):
     if category:
         grants = [g for g in grants if g.get("category") == category]
     if region:
-        grants = [g for g in grants if g.get("region") == region]
+        grants = [g for g in grants if region_matches(g, region)]
     for grant in grants:
         deadline = parse_date(grant.get("deadline"))
         if not deadline:
@@ -1068,7 +1078,7 @@ def main():
 
     # Single-axis: region only
     for region in REGIONS:
-        slice_grants = [g for g in grants if g.get("region") == region]
+        slice_grants = [g for g in grants if region_matches(g, region)]
         active_count = len(filter_active(slice_grants, today))
         if active_count < MIN_GRANTS_FOR_PAGE:
             continue
@@ -1097,7 +1107,7 @@ def main():
         for region in REGIONS:
             slice_grants = [
                 g for g in grants
-                if g.get("category") == category and g.get("region") == region
+                if g.get("category") == category and region_matches(g, region)
             ]
             active_count = len(filter_active(slice_grants, today))
             if active_count < MIN_GRANTS_FOR_CROSS:
