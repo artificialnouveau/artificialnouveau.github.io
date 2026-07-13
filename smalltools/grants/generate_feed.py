@@ -50,6 +50,16 @@ DESCRIPTION = (
 )
 MAX_ITEMS = 50
 
+# Hard cap on how many grants may enter the RSS feeds on any single day. Manual
+# feedDate staggering, bot additions and auto-published tranches all funnel through
+# this: overflow spills to the next day with a free slot (soonest deadlines first).
+# Releases dated before FEED_CAP_START are grandfathered untouched: the cap must not
+# rewrite feed history, and anchoring at a FIXED date (rather than the run day) keeps
+# the schedule identical across daily regenerates so deferred grants cannot leak back
+# in early. Do not move FEED_CAP_START backwards.
+FEED_MAX_PER_DAY = 5
+FEED_CAP_START = date(2026, 7, 14)
+
 REGIONS = ["EU", "US", "UK", "NL", "Asia", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"]
 TIMELINES = ["30d", "90d", "added-30d"]
 CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"]
@@ -99,11 +109,12 @@ def build_item(grant, today):
     link = grant.get("url") or PAGE_URL
     guid = grant.get("id") or link
     apply_link = with_utm(grant.get("url")) or PAGE_URL
-    # pubDate and feed ordering use the RSS-release date (feedDate, falling back to
-    # addedDate). This keeps a staggered grant - released today via a future feedDate
-    # but added earlier - from sorting to the middle of the feed with an old pubDate,
-    # which would stop RSS readers from surfacing it as new.
-    release = parse_date(grant.get("feedDate") or grant.get("addedDate"))
+    # pubDate and feed ordering use the RSS-release date (the capped schedule from
+    # apply_release_schedule, falling back to feedDate then addedDate). This keeps a
+    # staggered grant - released today via a future feedDate but added earlier - from
+    # sorting to the middle of the feed with an old pubDate, which would stop RSS
+    # readers from surfacing it as new.
+    release = feed_release(grant)
     pub = rfc822(release) if release else rfc822(datetime.now(timezone.utc))
 
     deadline = parse_date(grant.get("deadline"))
@@ -228,7 +239,7 @@ def build_feed(grants, region, timeline, today, category=None):
 
     grants_sorted = sorted(
         grants,
-        key=lambda g: parse_date(g.get("feedDate") or g.get("addedDate")) or date.min,
+        key=lambda g: feed_release(g) or date.min,
         reverse=True,
     )[:MAX_ITEMS]
 
@@ -586,10 +597,64 @@ def website_jsonld():
     return jsonld_dumps(payload)
 
 
+def feed_release(grant):
+    """Effective RSS-release date for a grant: the capped schedule computed by
+    apply_release_schedule when available, else feedDate, else addedDate."""
+    return parse_date(grant.get("_feedRelease") or grant.get("feedDate") or grant.get("addedDate"))
+
+
+def apply_release_schedule(grants, cap=FEED_MAX_PER_DAY):
+    """Enforce a hard cap of ``cap`` feed releases per day, in memory only.
+
+    Each grant's nominal release date is feedDate (falling back to addedDate). When a
+    day holds more than ``cap`` nominal releases - manual staggering, bot additions and
+    auto-published tranches can all collide on one day - the overflow spills forward to
+    the next day with a free slot. The result is stored on the grant as ``_feedRelease``
+    (ISO string), which feed_release() prefers; grants.json on disk is never modified.
+
+    Releases nominally dated before FEED_CAP_START keep their date and consume no
+    slots: they are feed history, and rescheduling them would cascade the whole backlog
+    forward and pull long-published grants back out of the feeds. From FEED_CAP_START
+    onward the schedule is a pure function of grants.json (no dependence on today's
+    date), so the daily scheduled regenerate recomputes the identical schedule and
+    queued grants drip out at most ``cap`` per day. Slot order within a day is
+    soonest-deadline-first, then id, so time-critical calls are never the ones
+    deferred. A grant is never pushed past its own deadline: rather than miss the feed
+    entirely, it releases on its deadline day even if that day is full.
+
+    Returns the number of grants deferred beyond their nominal date."""
+    def nominal(g):
+        return parse_date(g.get("feedDate") or g.get("addedDate"))
+
+    eligible = [g for g in grants if g.get("feed") is not False and nominal(g)]
+    eligible.sort(key=lambda g: (
+        nominal(g),
+        parse_date(g.get("deadline")) or date.max,
+        str(g.get("id") or ""),
+    ))
+
+    counts = {}
+    deferred = 0
+    for g in eligible:
+        day = nominal(g)
+        if day < FEED_CAP_START:
+            g["_feedRelease"] = day.isoformat()
+            continue
+        deadline = parse_date(g.get("deadline"))
+        while counts.get(day, 0) >= cap and not (deadline and day >= deadline):
+            day += timedelta(days=1)
+        counts[day] = counts.get(day, 0) + 1
+        if day != nominal(g):
+            deferred += 1
+        g["_feedRelease"] = day.isoformat()
+    return deferred
+
+
 def filter_published(grants, today):
     """Drop grants whose RSS release date is in the future. This is the RSS throttle:
-    set a staggered future ``feedDate`` on a batch of grants (e.g. 3 per day) and each
-    tranche only enters the RSS FEEDS once its feedDate arrives.
+    set a staggered future ``feedDate`` on a batch of grants and each tranche only
+    enters the RSS FEEDS once its feedDate arrives. apply_release_schedule() additionally
+    caps releases at FEED_MAX_PER_DAY per day, spilling overflow to later days.
 
     ``feedDate`` is the RSS-release date ONLY; it is independent of ``addedDate``, which
     is the true upload date that drives the website's "new since last visit" badge. This
@@ -605,7 +670,7 @@ def filter_published(grants, today):
         # while leaving it on the website, static SEO pages and calendars.
         if g.get("feed") is False:
             continue
-        release = parse_date(g.get("feedDate") or g.get("addedDate"))
+        release = feed_release(g)
         if release and (release - today).days > 0:
             continue
         out.append(g)
@@ -941,14 +1006,17 @@ def main():
     grants = data.get("grants", []) or []
     today = date.today()
 
-    # RSS throttle: grants with a future addedDate are held out of the FEEDS
+    # RSS throttle: grants with a future release date are held out of the FEEDS
     # only. The website, static SEO pages and calendars below use the full
     # `grants` list and show every grant immediately - throttling applies to
     # RSS subscribers, not the page.
+    deferred = apply_release_schedule(grants)
+    if deferred:
+        print(f"Feed cap: {deferred} grant(s) deferred past their nominal date to keep releases at <= {FEED_MAX_PER_DAY}/day.")
     feed_grants = filter_published(grants, today)
     queued = len(grants) - len(feed_grants)
     if queued:
-        print(f"RSS throttle: {queued} grant(s) held out of feeds (future addedDate); shown on the site immediately.")
+        print(f"RSS throttle: {queued} grant(s) held out of feeds (future release date); shown on the site immediately.")
 
     region_options = [None] + REGIONS
     timeline_options = [None] + TIMELINES
