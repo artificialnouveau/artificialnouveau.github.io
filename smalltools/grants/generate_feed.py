@@ -60,7 +60,7 @@ MAX_ITEMS = 50
 FEED_MAX_PER_DAY = 5
 FEED_CAP_START = date(2026, 7, 14)
 
-REGIONS = ["EU", "US", "UK", "NL", "Asia", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"]
+REGIONS = ["EU", "US", "UK", "NL", "Switzerland", "Asia", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"]
 TIMELINES = ["30d", "90d", "added-30d"]
 CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"]
 CATEGORY_LABELS = {
@@ -393,6 +393,7 @@ REGION_PHRASE = {
     "US": "the US",
     "UK": "the UK",
     "NL": "the Netherlands",
+    "Switzerland": "Switzerland",
     "Asia": "Asia",
     "Africa": "Africa",
     "Canada": "Canada",
@@ -407,6 +408,7 @@ REGION_TITLE_TAIL = {
     "US": "in the US",
     "UK": "in the UK",
     "NL": "in the Netherlands",
+    "Switzerland": "in Switzerland",
     "Asia": "in Asia",
     "Africa": "in Africa",
     "Canada": "in Canada",
