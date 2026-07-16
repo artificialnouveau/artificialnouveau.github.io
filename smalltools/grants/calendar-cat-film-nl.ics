@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:filmfonds-wildcards-2026@artificialnouveau.github.io
-DTSTAMP:20260716T082150Z
+DTSTAMP:20260716T121807Z
 DTSTART;VALUE=DATE:20260707
 DTEND;VALUE=DATE:20260708
 SUMMARY:Deadline: Filmfonds Wildcards (Documentary\, Fiction\, Animation)
@@ -30,5 +30,34 @@ URL:https://www.filmfonds.nl/subsidies/subsidie/filmfonds-wildcards-documen
  taire-fictie-en-animatie?utm_source=artificialnouveaugrantdesk&utm_medium=
  referral
 LOCATION:Netherlands
+END:VEVENT
+BEGIN:VEVENT
+UID:rtm-pitch-iffr-2026@artificialnouveau.github.io
+DTSTAMP:20260716T121807Z
+DTSTART;VALUE=DATE:20260830
+DTEND;VALUE=DATE:20260831
+SUMMARY:Deadline: RTM Pitch 2026 (IFFR)
+DESCRIPTION:Eighth edition of RTM Pitch\, IFFR's open call for Rotterdam fi
+ lm talent. Submit a plan for a film between 5 and 20 minutes long\; a jury
+  of film experts and IFFR programmers selects one filmmaker to receive EUR
+  25\,000 to realise the film (with coaching and an IFFR 2028 premiere) and
+  a runner-up to receive a EUR 5\,000 development budget co-funded by QISSA
+ . All filmmakers are welcome\; this edition especially encourages genre fi
+ lms (horror\, science fiction\, thriller\, fantasy) that use genre convent
+ ions for a distinctive personal vision. Submit a written film plan (story\
+ , setting\, team\, budget and financing\, cinematography vision\, with opt
+ ional supporting material) or a video pitch of no more than three minutes 
+ (Vimeo or YouTube link) via the application form. Deadline: Sunday 30 Augu
+ st 2026\, 23:59 CEST.\n\nOrganisation: International Film Festival Rotterd
+ am (IFFR)\nLocation: Rotterdam\, Netherlands\nAward: EUR 25\,000 for the w
+ inner (EUR 20\,000 from the City of Rotterdam\, EUR 5\,000 from VEVAM Fond
+ s) to realise the film\, plus tailored coaching and an IFFR premiere\; a r
+ unner-up receives a EUR 5\,000 development budget co-funded by QISSA. No a
+ pplication fee.\nDuration: Short film of 5 to 20 minutes\; winning film pr
+ emieres during RTM Day at IFFR 2028\n\nMore: https://iffr.com/en/blog-rtm-
+ pitch?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://iffr.com/en/blog-rtm-pitch?utm_source=artificialnouveaugrantdes
+ k&utm_medium=referral
+LOCATION:Rotterdam\, Netherlands
 END:VEVENT
 END:VCALENDAR
