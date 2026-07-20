@@ -3,6 +3,36 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "antikythera-agentworld-journal-cfp-2026",
+      "title": "Antikythera Journal: Agentworld Special Issue, Call for Papers",
+      "organization": "Antikythera (Antikythera: Journal for the Philosophy of Planetary Computation, published with MIT Press)",
+      "location": "Remote (online submission; the journal is web-first and design-forward)",
+      "region": "Worldwide",
+      "amount": "Unpaid. No honorarium or fee is offered for accepted contributions; the return is peer-reviewed publication in the MIT Press-published Antikythera Journal. No submission fee.",
+      "duration": "Single publication; first selection of articles published Fall 2026",
+      "startDate": null,
+      "deadline": "2026-08-20",
+      "addedDate": "2026-07-20",
+      "feedDate": "2026-07-20",
+      "category": "research",
+      "applicant": "individuals",
+      "description": "Antikythera, a research programme on planetary computation and the evolution of intelligence, invites contributions to Agentworld, a special issue of its peer-reviewed MIT Press journal launching Fall 2026. THEME: Agentworld is a research initiative on the medium-term future of hybrid human-AI societies, framed not around tools for agentic task completion but around what the brief calls 'the human perplexity of deep agentic diffusion'. It treats human societies as the evolutionary niches into which new artificial species must adapt, where the constraints of agentic integration are qualitative and open-ended (psychological, philosophical, linguistic, symbolic, existential) rather than utility functions to be solved. The framing describes a 'parasociety' of densely reticulated social graphs in which agent-to-agent communication constitutes most socially significant interaction, humans and agents anthropomorphise each other by inheritance rather than necessity, and the two overlapping societies act as mutual evolutionary niches. The disciplinary posture proposed is 'a preemptive anthropology of open-world centaur societies': building the vocabulary, scenarios and conceptual armature for an emergent sociality while it is still forming, rather than describing it after the fact. WHAT THEY WANT: theoretical essays and technical papers that engage the Agentworld themes directly and explain how the contribution adds to the special issue's core questions. Philosophical, theoretical, technical, design-led and product-oriented research are all in scope. The call explicitly favours work that exceeds conventional academic journal formats, including contributions combining philosophical argument, technical analysis, design research, diagrams, software, infrastructure proposals, visual media or web-native formats. Contributors may optionally propose still images, diagrams, video, web-based or interactive components, and should say whether they have the design, development or production capacity to realise them; these elements are not required. SUBMIT: an abstract or proposal of up to 500 words; author name(s), affiliation(s), contact details, biography(ies) and CV(s); a designated lead author or contact person for collaborative submissions; and a portfolio with at least one relevant work sample such as a preprint, published article or paper. Full paper drafts are encouraged where available but not required at the initial stage. Submissions may be individual or collaborative. TIMING: the review window opened 25 June 2026. NOTE: no closing date is published on the call page; the deadline shown here is a placeholder set roughly a month out, so check the site or submit early.",
+      "url": "https://agentworld.antikythera.org/#call-for-papers",
+      "tags": [
+        "call-for-papers",
+        "publication",
+        "journal",
+        "ai",
+        "philosophy-of-technology",
+        "research",
+        "agents",
+        "unpaid",
+        "remote"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "european-ai-society-fund-building-narrative-power-2026",
       "title": "Building Narrative Power: EUR 2m funding and learning programme",
       "organization": "European AI & Society Fund",
