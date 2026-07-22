@@ -209,9 +209,22 @@ def region_matches(grant, region):
     ``switzerland`` tag.
 
     A grant may also carry an optional ``regions`` list to appear in several
-    views at once (a Dutch fund is both NL and EU). The singular ``region``
-    remains the canonical primary and is what the card chip and feed category
-    show; ``regions`` only widens which views the grant is surfaced in."""
+    views at once. The singular ``region`` remains the canonical primary and is
+    what the card chip and feed category show; ``regions`` only widens which
+    views the grant is surfaced in.
+
+    A region label can be earned three different ways, and all three are valid:
+      1. HOST      - where the funding organisation sits (Stimuleringsfonds: NL)
+      2. ELIGIBILITY - where applicants may be based (Stimuleringsfonds: NL too,
+         since it requires establishment in the Kingdom of the Netherlands and a
+         KvK registration; verified against the scheme pages, July 2026)
+      3. CONTAINMENT - the primary sits inside a wider view (NL is in the EU)
+
+    Do NOT award ``Worldwide`` for international ACTIVITY. A call whose funded
+    work happens abroad but whose applicants must be local (Creative Australia's
+    International Engagement Fund, Canada Council's Arts Across Canada and
+    Abroad) is not open worldwide, and tagging it so makes the Worldwide view
+    return calls the applicant is ineligible for."""
     if grant.get("region") == region:
         return True
     if region in (grant.get("regions") or []):
