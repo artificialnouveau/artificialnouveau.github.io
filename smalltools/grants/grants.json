@@ -3,6 +3,37 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "gallery-1957-yaa-asantewaa-art-prize-2026",
+      "title": "Gallery 1957: Yaa Asantewaa Art Prize 2026",
+      "organization": "Gallery 1957",
+      "region": "Africa",
+      "location": "Accra, Ghana and Saint-Louis / Dakar, Senegal. Open to female citizens of Ghana or Senegal residing in either country or in the diaspora.",
+      "amount": "USD 5,000 cash per winner, two winners (one Ghanaian, one Senegalese), plus a fully covered three-month residency exchange: flights, transportation of artworks, accommodation and materials. No application fee.",
+      "duration": "Three-month residency exchange. The Ghanaian winner spends one month in Saint-Louis and two months in Dakar; the Senegalese winner spends three months in Accra.",
+      "deadline": "2026-09-30",
+      "feedDate": "2026-07-22",
+      "category": "arts",
+      "applicant": "individuals",
+      "description": "Annual prize from Gallery 1957 in Accra for women artists connected to Ghana and to Senegal, which joins the prize for the first time in 2026. Two winners are selected, one from each country, and each receives USD 5,000 in cash, a three-month residency exchange in the partner country with flights, artwork transport, accommodation and materials covered, and a resulting exhibition with the gallery. ELIGIBILITY IS GEOGRAPHICALLY RESTRICTED: applicants must be female citizens of Ghana or Senegal, aged 18 or over, living in Ghana, Senegal or the diaspora, and must present a valid national ID or passport. Not open to international applicants without that citizenship. Apply by email to applications@gallery1957.com with an artist bio or statement of no more than 200 words and a portfolio of up to six high-resolution images or videos with captions, both as PDFs. Questions go to awo@gallery1957.com. Deadline 30 September 2026.",
+      "url": "https://www.gallery1957.com/the-yaa-asantewaa-art-prize/",
+      "tags": [
+        "prize",
+        "residency",
+        "ghana",
+        "senegal",
+        "west-africa",
+        "women",
+        "visual-arts",
+        "fully-funded",
+        "exhibition",
+        "diaspora-eligible"
+      ],
+      "startDate": null,
+      "addedDate": "2026-07-22",
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "ace-pice-movilidad-2026-fase3",
       "title": "Accion Cultural Espanola: PICE Movilidad 2026 (Phase 3)",
       "organization": "Accion Cultural Espanola (AC/E)",
