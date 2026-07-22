@@ -206,8 +206,15 @@ def region_matches(grant, region):
     """True when a grant belongs to a region view. Switzerland is a tag-driven
     sub-region: Swiss grants keep ``region: "EU"`` (so they stay in the EU feeds,
     pages and filter) and additionally populate the Switzerland views via their
-    ``switzerland`` tag."""
+    ``switzerland`` tag.
+
+    A grant may also carry an optional ``regions`` list to appear in several
+    views at once (a Dutch fund is both NL and EU). The singular ``region``
+    remains the canonical primary and is what the card chip and feed category
+    show; ``regions`` only widens which views the grant is surfaced in."""
     if grant.get("region") == region:
+        return True
+    if region in (grant.get("regions") or []):
         return True
     return region == "Switzerland" and "switzerland" in (grant.get("tags") or [])
 
