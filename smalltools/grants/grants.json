@@ -3,6 +3,33 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "fucina-futura-residency-2027",
+      "title": "Fucina Futura 2027 Residency (Marostica, Italy)",
+      "organization": "Futura Association (Fucina Futura), supported by Culture Moves Europe",
+      "location": "Marostica, Italy (one hour from Venice). Open to artists resident in a Creative Europe country except Italy.",
+      "region": "EU",
+      "amount": "Fully funded: daily fee to cover living expenses, travel costs covered, and shared house accommodation provided (supported by Culture Moves Europe). No application fee.",
+      "duration": "One month, 12 April to 12 May 2027; three residents hosted together",
+      "startDate": "2027-04-12",
+      "deadline": "2026-08-20",
+      "addedDate": "2026-07-24",
+      "feedDate": "2026-08-12",
+      "category": "arts",
+      "applicant": "individuals",
+      "description": "Fucina Futura is an artist residency in Marostica, a small town about an hour from Venice, offering a peaceful setting to develop research in close contact with nature and the local community. The project spans two locations: the home designed by internationally renowned illustrator Elena Xausa near the historic centre, and the atelier Fucina Ai Gorghi by beloved local painter Daniele Marcon, ideal for large-scale installations. Led by visual artist Lavinia and curator Sofia (Futura Association), the program invites residents to develop projects that engage with the community and the working location, and encourages artists of any discipline to make full use of the large atelier. The central goal is the 'restitution' to citizens, fostering cultural exchange and community inclusion: this final phase is tailored to each artist and can take the form of an exhibition, performance, workshop, screening, talk or informal sharing session, prioritising direct dialogue with the public and the contemporary renewal of local tradition. THREE residents are hosted together from 12 April to 12 May 2027 and share a spacious house; they receive a daily fee to cover living expenses, and travel expenses are also covered. Made possible by Culture Moves Europe. ELIGIBILITY: only artists residing in one of the Creative Europe countries EXCEPT ITALY may apply. Creative Europe covers the 27 EU member states (other than Italy), plus Albania, Armenia, Bosnia and Herzegovina, Georgia, Iceland, Kosovo, Liechtenstein, Moldova, Montenegro, North Macedonia, Norway, Serbia, Tunisia and Ukraine, and includes the EU's Overseas Countries and Territories and Outermost Regions (Greenland; French Guiana, French Polynesia, French Southern and Antarctic Territories, Guadeloupe, Martinique, Mayotte, New Caledonia, Reunion, Saint Barthelemy, Saint-Martin, St. Pierre and Miquelon, Wallis and Futuna; Azores, Madeira; Canary Islands; Aruba, Bonaire, Curacao, Saba, Sint Maarten, Sint Eustatius). TIMELINE: apply via the Google Form by 20 August 2026; selected artists informed by 30 August and must confirm participation by 8 September 2026.",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLScwEmQ2EFrMoukgNorlOLE5kGvGriMX0IdMBObmhfgRlSW-jQ/viewform",
+      "tags": [
+        "residency",
+        "art",
+        "italy",
+        "culture-moves-europe",
+        "creative-europe",
+        "fully-funded"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "zmina-resilience-showcasing-2026",
       "title": "ZMINA Resilience: Support for International Showcasing of Co-Creation Projects",
       "organization": "IZOLYATSIA Foundation (UA), Malý Berlín (SK), Trans Europe Halles (SE)",
