@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data, Embed and Reuse | The Grant Desk</title>
+<meta name="description" content="Reuse, embed and cite The Grant Desk. A free JSON endpoint and drop-in widget of open grants, fellowships and residencies in AI, arts, film, research and tech, plus RSS and calendar feeds. Facts-only data is free to reuse with attribution.">
+<link rel="canonical" href="https://www.artificialnouveau.com/smalltools/grants/data/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Data, Embed and Reuse | The Grant Desk">
+<meta property="og:description" content="Embed and cite The Grant Desk. Free facts-only JSON endpoint, a drop-in widget, and RSS and calendar feeds of open grants, fellowships and residencies.">
+<meta property="og:url" content="https://www.artificialnouveau.com/smalltools/grants/data/">
+<meta property="og:image" content="https://www.artificialnouveau.com/smalltools/grants/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Data, Embed and Reuse | The Grant Desk">
+<meta name="twitter:description" content="Embed and cite The Grant Desk. Free facts-only JSON endpoint, a drop-in widget, and RSS and calendar feeds.">
+<meta name="twitter:image" content="https://www.artificialnouveau.com/smalltools/grants/og-image.png">
+<link rel="alternate" type="application/rss+xml" title="The Grant Desk RSS" href="../feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "The Grant Desk",
+  "description": "A curated, machine-readable database of paid grants, fellowships and residencies for artists, researchers and technologists in AI, arts, film, research, tech and cross-disciplinary practice. Updated weekly.",
+  "url": "https://www.artificialnouveau.com/smalltools/grants/data/",
+  "keywords": ["grants", "fellowships", "residencies", "open calls", "art funding", "AI grants", "artist opportunities"],
+  "creator": {
+    "@type": "Person",
+    "name": "Ahnjili ZhuParris",
+    "url": "https://www.artificialnouveau.com/"
+  },
+  "isAccessibleForFree": true,
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "name": "grants.json (full)",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://www.artificialnouveau.com/smalltools/grants/grants.json"
+    },
+    {
+      "@type": "DataDownload",
+      "name": "embed.json (facts-only, latest open calls)",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://www.artificialnouveau.com/smalltools/grants/embed.json"
+    },
+    {
+      "@type": "DataDownload",
+      "name": "RSS feed",
+      "encodingFormat": "application/rss+xml",
+      "contentUrl": "https://www.artificialnouveau.com/smalltools/grants/feed.xml"
+    },
+    {
+      "@type": "DataDownload",
+      "name": "Calendar (iCalendar)",
+      "encodingFormat": "text/calendar",
+      "contentUrl": "https://www.artificialnouveau.com/smalltools/grants/calendar.ics"
+    }
+  ]
+}
+</script>
+<style>
+:root {
+  --paper: #F4ECDC;
+  --paper-2: #ECE0C2;
+  --ink: #1F1B16;
+  --ink-soft: #4A413A;
+  --ink-mute: #7A6F63;
+  --line: #2A241D;
+  --accent: #D94B3C;
+  --card: #FBF6EA;
+  --sticky-yellow: #FFE066;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 780px; margin: 0 auto; padding: 32px 20px 80px; }
+a { color: var(--ink); }
+.crumb { font-size: 13px; color: var(--ink-mute); margin-bottom: 22px; letter-spacing: .02em; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--ink-mute); }
+.crumb a:hover { background: var(--sticky-yellow); }
+h1 { font-size: 30px; line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.01em; }
+h2 { font-size: 20px; margin: 40px 0 12px; padding-top: 18px; border-top: 2px solid var(--line); letter-spacing: -0.01em; }
+h3 { font-size: 15px; margin: 22px 0 8px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+p { margin-bottom: 12px; }
+ul { margin: 0 0 12px 20px; }
+li { margin-bottom: 6px; }
+.lede { font-size: 17px; color: var(--ink-soft); margin-bottom: 8px; }
+code { font-family: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+pre { background: #241f19; color: #f0e9db; padding: 14px 16px; border-radius: 8px; overflow-x: auto; margin: 10px 0 16px; font-size: 12.5px; line-height: 1.5; }
+pre code { background: none; color: inherit; padding: 0; font-size: 12.5px; }
+.copybtn { display: inline-block; font: inherit; font-size: 12px; cursor: pointer; background: var(--ink); color: var(--paper); border: none; border-radius: 6px; padding: 6px 12px; margin: 0 0 10px; letter-spacing: .03em; }
+.copybtn:hover { background: var(--accent); }
+table { border-collapse: collapse; width: 100%; margin: 6px 0 18px; font-size: 13.5px; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid #d9c9a2; vertical-align: top; }
+th { background: var(--paper-2); font-weight: 600; }
+td code { font-size: 12.5px; }
+.card { background: var(--card); border: 1px solid #d9c9a2; border-radius: 10px; padding: 18px 20px; margin: 16px 0; }
+.terms { border-left: 4px solid var(--accent); }
+.ok::before { content: "\2713  "; color: #2E7D5B; font-weight: 700; }
+.no::before { content: "\2717  "; color: var(--accent); font-weight: 700; }
+.scroll { overflow-x: auto; }
+footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid #d9c9a2; font-size: 12.5px; color: var(--ink-mute); }
+footer a { color: var(--ink-soft); }
+.demo-note { font-size: 12.5px; color: var(--ink-mute); margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="crumb"><a href="../">&larr; The Grant Desk</a></div>
+
+  <h1>Data, embed and reuse</h1>
+  <p class="lede">The Grant Desk is a curated, hand-maintained database of paid grants, fellowships and residencies in AI, arts, film, research and tech. This page is for anyone who wants to <strong>embed it, pull the data, or cite it</strong> in a newsletter, Notion board, Discord bot or website.</p>
+  <p>Everything here is free. In exchange, the one ask is simple: <strong>credit The Grant Desk with a link back</strong>.</p>
+
+  <h2 id="terms">Reuse terms in plain English</h2>
+  <div class="card terms">
+    <p><strong>Free to use, with attribution:</strong></p>
+    <ul>
+      <li class="ok">Embed the widget below on any site or newsletter (it links back automatically).</li>
+      <li class="ok">Reuse the <strong>factual fields</strong> (title, organisation, deadline, region, category, amount, application URL) in your own roundup, board or bot.</li>
+      <li class="ok">Subscribe to and republish the <strong>RSS feeds</strong> and <strong>calendars</strong>.</li>
+      <li class="ok">Quote a description with a clear credit and a link.</li>
+    </ul>
+    <p style="margin-top:10px"><strong>Please do not:</strong></p>
+    <ul>
+      <li class="no">Bulk-copy the original written descriptions, which are researched and written by hand and remain all rights reserved.</li>
+      <li class="no">Scrape the site to rebuild the full list elsewhere without permission.</li>
+    </ul>
+    <p style="margin-top:10px;margin-bottom:0">Attribution means the words <strong>The Grant Desk</strong> linking to <code>https://www.artificialnouveau.com/smalltools/grants/</code>. Questions or a custom arrangement: <a href="mailto:artificialnouveau@gmail.com">artificialnouveau@gmail.com</a>.</p>
+  </div>
+
+  <h2 id="embed">Embed the widget (30 seconds)</h2>
+  <p>Paste this where you want the list to appear. No build step, no dependencies. It renders the latest open calls and links back to The Grant Desk.</p>
+  <button class="copybtn" data-copy="snippet-basic">Copy snippet</button>
+  <pre><code id="snippet-basic">&lt;div id="grant-desk-embed"&gt;&lt;/div&gt;
+&lt;script src="https://www.artificialnouveau.com/smalltools/grants/embed.js" async&gt;&lt;/script&gt;</code></pre>
+
+  <h3>Options</h3>
+  <p>Add <code>data-*</code> attributes to the script tag to filter and size the list:</p>
+  <div class="scroll">
+  <table>
+    <tr><th>Attribute</th><th>What it does</th><th>Default</th></tr>
+    <tr><td><code>data-count</code></td><td>How many grants to show (1 to 25)</td><td><code>6</code></td></tr>
+    <tr><td><code>data-category</code></td><td>Filter to one category slug: <code>ai</code>, <code>tech</code>, <code>research</code>, <code>writers</code>, <code>film</code>, <code>arts</code>, <code>game</code>, <code>design</code>, <code>curator</code>, <code>audio</code>, <code>cross</code></td><td>all</td></tr>
+    <tr><td><code>data-region</code></td><td>Filter to one region slug: <code>eu</code>, <code>us</code>, <code>uk</code>, <code>nl</code>, <code>asia</code>, <code>africa</code>, <code>canada</code>, <code>australia</code>, <code>latam</code>, <code>remote</code>, <code>worldwide</code></td><td>all</td></tr>
+    <tr><td><code>data-theme</code></td><td><code>light</code> or <code>dark</code></td><td><code>light</code></td></tr>
+    <tr><td><code>data-target</code></td><td>id of the container element to render into</td><td><code>grant-desk-embed</code></td></tr>
+  </table>
+  </div>
+  <button class="copybtn" data-copy="snippet-adv">Copy snippet</button>
+  <pre><code id="snippet-adv">&lt;div id="grant-desk-embed"&gt;&lt;/div&gt;
+&lt;script src="https://www.artificialnouveau.com/smalltools/grants/embed.js"
+        data-count="5" data-category="ai" data-region="eu" data-theme="light" async&gt;&lt;/script&gt;</code></pre>
+
+  <h3>Live preview</h3>
+  <div id="grant-desk-embed"></div>
+  <p class="demo-note">This is the widget running live, showing the latest open calls.</p>
+
+  <h2 id="endpoints">Endpoints</h2>
+  <div class="scroll">
+  <table>
+    <tr><th>URL</th><th>Format</th><th>What it is</th></tr>
+    <tr><td><code>grants.json</code></td><td>JSON</td><td>Full source of truth, every entry and all fields.</td></tr>
+    <tr><td><code>embed.json</code></td><td>JSON</td><td>Lightweight, facts-only, latest open calls. Powers the widget. Descriptions withheld.</td></tr>
+    <tr><td><code>feed.xml</code></td><td>RSS</td><td>All entries, newest first.</td></tr>
+    <tr><td><code>calendar.ics</code></td><td>iCalendar</td><td>All upcoming deadlines, subscribe once and stay in sync.</td></tr>
+    <tr><td><code>llms.txt</code></td><td>Text</td><td>Machine summary for AI tools and crawlers.</td></tr>
+  </table>
+  </div>
+
+  <h3>Filtered feeds and calendars</h3>
+  <p>Every feed and calendar comes in category, region and timeline variants, following a predictable naming pattern:</p>
+  <ul>
+    <li>By category: <code>feed-cat-<em>&lt;category&gt;</em>.xml</code> and <code>calendar-cat-<em>&lt;category&gt;</em>.ics</code> (e.g. <code>feed-cat-ai.xml</code>)</li>
+    <li>By region: <code>feed-<em>&lt;region&gt;</em>.xml</code> and <code>calendar-<em>&lt;region&gt;</em>.ics</code> (e.g. <code>feed-eu.xml</code>)</li>
+    <li>Category and region: <code>feed-cat-<em>&lt;category&gt;</em>-<em>&lt;region&gt;</em>.xml</code> (e.g. <code>feed-cat-ai-eu.xml</code>)</li>
+    <li>Timeline variants: append <code>-30d</code> (next 30 days), <code>-90d</code> (next 90 days) or <code>-added-30d</code> (added in the last 30 days), e.g. <code>feed-cat-ai-eu-30d.xml</code></li>
+  </ul>
+  <p>Region slugs are lowercase (<code>eu</code>, <code>us</code>, <code>uk</code>, <code>nl</code>, <code>asia</code>, <code>africa</code>, <code>canada</code>, <code>australia</code>, <code>latam</code>, <code>remote</code>, <code>worldwide</code>). Category slugs are listed in the options table above. There is also a browsable HTML page per category and region at <code>/<em>&lt;category&gt;</em>/</code>, <code>/<em>&lt;region&gt;</em>/</code> and <code>/<em>&lt;category&gt;</em>-<em>&lt;region&gt;</em>/</code>.</p>
+
+  <h2 id="schema">Field reference (grants.json)</h2>
+  <p><code>grants.json</code> is an object with <code>lastUpdated</code>, <code>note</code> and a <code>grants</code> array. Each grant object has these fields:</p>
+  <div class="scroll">
+  <table>
+    <tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+    <tr><td><code>id</code></td><td>string</td><td>Stable unique slug for the entry.</td></tr>
+    <tr><td><code>title</code></td><td>string</td><td>Name of the grant, fellowship or residency.</td></tr>
+    <tr><td><code>organization</code></td><td>string</td><td>Funder or host organisation.</td></tr>
+    <tr><td><code>location</code></td><td>string</td><td>Where it takes place or who is eligible geographically.</td></tr>
+    <tr><td><code>region</code></td><td>string</td><td>Canonical region bucket (EU, US, UK, NL, Asia, Africa, Canada, Australia, LatAm, Remote, Worldwide).</td></tr>
+    <tr><td><code>regions</code></td><td>array (optional)</td><td>Extra regions when a call fits several views.</td></tr>
+    <tr><td><code>amount</code></td><td>string</td><td>Award, stipend or support described in words.</td></tr>
+    <tr><td><code>duration</code></td><td>string</td><td>Length of the programme, if applicable.</td></tr>
+    <tr><td><code>startDate</code></td><td>date (optional)</td><td>Programme start, ISO <code>YYYY-MM-DD</code>.</td></tr>
+    <tr><td><code>deadline</code></td><td>date or null</td><td>Application deadline, ISO <code>YYYY-MM-DD</code>. <code>null</code> means rolling or undated.</td></tr>
+    <tr><td><code>addedDate</code></td><td>date</td><td>When it was added to the desk.</td></tr>
+    <tr><td><code>category</code></td><td>string</td><td>Primary category slug.</td></tr>
+    <tr><td><code>categories</code></td><td>array (optional)</td><td>Additional category slugs.</td></tr>
+    <tr><td><code>applicant</code></td><td>string</td><td>Who can apply: <code>individuals</code>, <code>organizations</code> or <code>both</code>.</td></tr>
+    <tr><td><code>description</code></td><td>string</td><td>Original written summary. <strong>All rights reserved</strong>, not in <code>embed.json</code>.</td></tr>
+    <tr><td><code>url</code></td><td>string</td><td>Official application or open-call link.</td></tr>
+    <tr><td><code>tags</code></td><td>array</td><td>Free-form tags (e.g. <code>open-call</code>, <code>residency</code>).</td></tr>
+    <tr><td><code>fee</code></td><td>string (optional)</td><td>Application fee, if any.</td></tr>
+    <tr><td><code>featured</code></td><td>boolean (optional)</td><td>Editor's pick flag.</td></tr>
+  </table>
+  </div>
+
+  <h2 id="cite">How to cite</h2>
+  <p>A plain-text credit:</p>
+  <button class="copybtn" data-copy="cite-text">Copy</button>
+  <pre><code id="cite-text">Curated by The Grant Desk, https://www.artificialnouveau.com/smalltools/grants/</code></pre>
+  <p>An HTML credit:</p>
+  <button class="copybtn" data-copy="cite-html">Copy</button>
+  <pre><code id="cite-html">Source: &lt;a href="https://www.artificialnouveau.com/smalltools/grants/"&gt;The Grant Desk&lt;/a&gt;</code></pre>
+
+  <footer>
+    <p>Maintained by Ahnjili ZhuParris. Original descriptions, selection and curation &copy; 2024&ndash;2026, all rights reserved. Factual data and the embed widget are free to reuse with attribution as described above. Contact: <a href="mailto:artificialnouveau@gmail.com">artificialnouveau@gmail.com</a>.</p>
+  </footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.copybtn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var el = document.getElementById(btn.getAttribute('data-copy'));
+    if (!el) return;
+    var text = el.textContent;
+    navigator.clipboard.writeText(text).then(function () {
+      var old = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(function () { btn.textContent = old; }, 1400);
+    });
+  });
+});
+</script>
+<script src="../embed.js" data-count="5" async></script>
+</body>
+</html>
