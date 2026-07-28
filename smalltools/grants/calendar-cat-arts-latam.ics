@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:instituto-sacatar-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260728T130749Z
+DTSTAMP:20260728T131145Z
 DTSTART;VALUE=DATE:20260828
 DTEND;VALUE=DATE:20260829
 SUMMARY:Deadline: Instituto Sacatar: Sacatar Fellowship 2027 (Bahia\, Brazi
@@ -46,7 +46,7 @@ LOCATION:Itaparica island\, Bahia\, Brazil. Open to all nationalities.
 END:VEVENT
 BEGIN:VEVENT
 UID:premio-klemm-artes-visuales-2026@artificialnouveau.github.io
-DTSTAMP:20260728T130749Z
+DTSTAMP:20260728T131145Z
 DTSTART;VALUE=DATE:20260904
 DTEND;VALUE=DATE:20260905
 SUMMARY:Deadline: Fundacion Klemm: 29th Premio Klemm a las Artes Visuales 2
@@ -79,7 +79,7 @@ LOCATION:Buenos Aires\, Argentina. Open to Argentine nationals and to forei
 END:VEVENT
 BEGIN:VEVENT
 UID:fundacion-ama-amoedo-grants-2026@artificialnouveau.github.io
-DTSTAMP:20260728T130749Z
+DTSTAMP:20260728T131145Z
 DTSTART;VALUE=DATE:20260909
 DTEND;VALUE=DATE:20260910
 SUMMARY:Deadline: Fundacion Ama Amoedo Grants 2026 (4th edition)
@@ -111,5 +111,41 @@ URL:https://www.fundacionamaamoedo.org/programas/becas?utm_source=artificia
 LOCATION:Open to applicants with a significant connection to Latin America\
  , through nationality\, cultural heritage\, and/or the location where the 
  project takes place.
+END:VEVENT
+BEGIN:VEVENT
+UID:ambulante-gira-documentales-2027@artificialnouveau.github.io
+DTSTAMP:20260728T131145Z
+DTSTART;VALUE=DATE:20260803
+DTEND;VALUE=DATE:20260804
+SUMMARY:Deadline: Ambulante Gira de Documentales 2027: Call for Documentari
+ es
+DESCRIPTION:Ambulante's open call for its 2027 travelling documentary festi
+ val\, which tours screenings across Mexico. Documentaries produced in 2025
+  or 2026 are eligible\, and films may be finished or still in development:
+  work-in-progress submissions are accepted provided the film is completed 
+ by 19 November 2026 and provisional viewing access is given in the registr
+ ation form. Previous Mexican release does not disqualify a film\, though u
+ npremiered work is prioritised. SECTIONS: Pulsos\, for Mexican documentari
+ es over 60 minutes\; and Coordenadas\, for local productions from the part
+ icipating regions (Mexico City\, Queretaro\, Michoacan\, Morelos\, Baja Ca
+ lifornia and northwest Mexico) in feature\, medium and short formats. Sele
+ cted filmmakers must supply ProRes 422HQ or 4444 files at 1920x1080 or bet
+ ter\, WAV audio\, and SRT subtitles (Spanish subtitles are required for no
+ n-Spanish-language films\; English subtitles are optional for Spanish-lang
+ uage films)\, plus director contact details and a press kit\; DCP is optio
+ nal for Pulsos. Submit through the online Airtable form\; finished films n
+ eed viewing links with passwords active through November 2026. Entry is co
+ mpletely free. Closes Monday 3 August 2026.\n\nOrganisation: Ambulante\nLo
+ cation: Touring documentary festival across Mexico (Mexico City\, Queretar
+ o\, Michoacan\, Morelos\, Baja California and northwest Mexico)\nAward: Se
+ lection for the touring programme. Free to submit\, no entry fee.\nDuratio
+ n: Festival tour in 2027\; work-in-progress selections must be completed b
+ y 19 November 2026\n\nMore: https://ambulante.org/blog/convocatoria-ambula
+ nte-gira-de-documentales-2027?utm_source=artificialnouveaugrantdesk&utm_me
+ dium=referral
+URL:https://ambulante.org/blog/convocatoria-ambulante-gira-de-documentales-
+ 2027?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Touring documentary festival across Mexico (Mexico City\, Queretar
+ o\, Michoacan\, Morelos\, Baja California and northwest Mexico)
 END:VEVENT
 END:VCALENDAR
