@@ -1105,6 +1105,7 @@ body {
   border-color: var(--hot);
   color: #fff;
 }
+.shortlist-bar.export-bar { margin-top: 8px; }
 
 /* --- Export panel --- */
 .export-panel {
@@ -17640,6 +17641,10 @@ code *, pre *, kbd *, samp * {
   <button type="button" id="sl-share" disabled>Share picks</button>
   <button type="button" id="sl-ics" disabled>Download .ics</button>
   <button type="button" id="sl-clear" disabled>Clear</button>
+</section>
+
+<section class="shortlist-bar export-bar" aria-label="Export for LLM">
+  <span class="sl-label">Export:</span>
   <button type="button" id="sl-export" aria-expanded="false" aria-controls="export-panel">Export for LLM</button>
 </section>
 
