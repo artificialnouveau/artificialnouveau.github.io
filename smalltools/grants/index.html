@@ -1106,6 +1106,76 @@ body {
   color: #fff;
 }
 
+/* --- Export panel --- */
+.export-panel {
+  max-width: 1180px;
+  margin: 10px auto 0;
+  padding: 14px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.55);
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+}
+@media (max-width: 700px) {
+  .export-panel { margin: 10px 16px 0; }
+}
+.export-panel[hidden] { display: none; }
+.export-panel .ex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.export-panel .ex-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+  min-width: 62px;
+}
+.export-panel .ex-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.export-panel button {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #fff;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  padding: 5px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.export-panel button:hover { background: var(--sticky-yellow); }
+.export-panel button.is-active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.export-panel button:disabled { opacity: 0.4; cursor: not-allowed; }
+.export-panel button:disabled:hover { background: #fff; }
+.export-panel button.copied {
+  background: var(--hot);
+  border-color: var(--hot);
+  color: #fff;
+}
+.export-panel .ex-actions { margin-top: 12px; margin-bottom: 4px; }
+.export-panel .ex-size { color: var(--ink-mute); }
+.export-panel .ex-help {
+  margin: 6px 0 0;
+  color: var(--ink-soft);
+  font-size: 11px;
+  line-height: 1.6;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 /* --- Empty state --- */
 .empty-state {
   font-family: 'DM Mono', monospace;
@@ -17570,6 +17640,39 @@ code *, pre *, kbd *, samp * {
   <button type="button" id="sl-share" disabled>Share picks</button>
   <button type="button" id="sl-ics" disabled>Download .ics</button>
   <button type="button" id="sl-clear" disabled>Clear</button>
+  <button type="button" id="sl-export" aria-expanded="false" aria-controls="export-panel">Export for LLM</button>
+</section>
+
+<section class="export-panel" id="export-panel" hidden aria-label="Export grants">
+  <div class="ex-row">
+    <span class="ex-label">Export</span>
+    <div class="ex-group" id="ex-scope" role="group" aria-label="What to export">
+      <button type="button" class="is-active" data-value="visible">Filtered view (<span id="ex-count-visible">0</span>)</button>
+      <button type="button" data-value="picks">My shortlist (<span id="ex-count-picks">0</span>)</button>
+    </div>
+  </div>
+  <div class="ex-row">
+    <span class="ex-label">Format</span>
+    <div class="ex-group" id="ex-format" role="group" aria-label="Export format">
+      <button type="button" class="is-active" data-value="md">Markdown</button>
+      <button type="button" data-value="json">JSON</button>
+      <button type="button" data-value="csv">CSV</button>
+    </div>
+  </div>
+  <div class="ex-row">
+    <span class="ex-label">Detail</span>
+    <div class="ex-group" id="ex-detail" role="group" aria-label="Level of detail">
+      <button type="button" class="is-active" data-value="full">Full descriptions</button>
+      <button type="button" data-value="short">Summary only</button>
+    </div>
+  </div>
+  <div class="ex-row ex-actions">
+    <button type="button" id="ex-copy">Copy to clipboard</button>
+    <button type="button" id="ex-download">Download file</button>
+    <button type="button" id="ex-close">Close</button>
+    <span class="ex-size" id="ex-size"></span>
+  </div>
+  <p class="ex-help"><strong>Markdown</strong> is the best default for pasting into an LLM: one heading per opportunity, labelled fields, and a header noting which filters were applied. Use <strong>JSON</strong> if you want the model to sort, score or re-rank entries programmatically, and <strong>CSV</strong> for a spreadsheet. <strong>Summary only</strong> trims each description to its opening paragraph, which keeps a large export inside a smaller context window. Everything is generated in your browser; nothing is uploaded.</p>
 </section>
 
 <div class="new-banner" id="new-banner">
@@ -20365,6 +20468,10 @@ code *, pre *, kbd *, samp * {
       <p>Yes. There is an RSS feed and an ICS calendar feed for every region and category combination. Subscribe in your reader (Feedly, NetNewsWire, etc.) or add the calendar to Google Calendar, Apple Calendar or Outlook so deadlines reach you wherever you already read.</p>
     </details>
     <details>
+      <summary>Can I export grants to feed into an LLM?</summary>
+      <p>Yes. The "Export for LLM" button in the shortlist bar exports either your shortlist or whatever the current filters are showing. Markdown is the recommended format for pasting into a chat: one heading per opportunity with labelled fields, plus a header line recording which filters were applied. JSON is there for sorting or scoring entries programmatically, and CSV for spreadsheets. "Summary only" trims each description to its opening paragraph if the full export is too large for the context window. The file is generated in your browser, so nothing is uploaded anywhere.</p>
+    </details>
+    <details>
       <summary>Who runs The Grant Desk, and how can I suggest a grant?</summary>
       <p>The Grant Desk is maintained by Artificial Nouveau Studio. To suggest a grant, use the "Suggest a grant" form in the top strip; if it is paid and a strong fit, it lands on the desk.</p>
     </details>
@@ -20406,6 +20513,14 @@ code *, pre *, kbd *, samp * {
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Yes. There is an RSS feed and an ICS calendar feed for every region and category combination, suitable for Feedly, NetNewsWire, Google Calendar, Apple Calendar and Outlook."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I export grants to feed into an LLM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The Export for LLM button exports either your shortlist or the current filtered view as Markdown, JSON or CSV. Markdown is the recommended format for pasting into a chat; a summary-only option trims descriptions for smaller context windows. The file is generated in the browser and nothing is uploaded."
       }
     },
     {
@@ -20897,6 +21012,10 @@ function sortArchive(a, b) {
   return 0;
 }
 
+// Full grant records keyed by id, so the export can rebuild rich text from the
+// source data instead of scraping it back out of the rendered cards.
+const GRANT_INDEX = new Map();
+
 async function load() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -20918,6 +21037,7 @@ async function load() {
   for (const grant of (data.grants || [])) {
     const cat = categorise(grant, today);
     if (!cat) continue; // closed > 365 days ago, hide from page
+    if (grant.id) GRANT_INDEX.set(grant.id, grant);
     buckets[cat].push(grant);
   }
 
@@ -20948,6 +21068,7 @@ async function load() {
 
   buildFilterChips();
   refreshPickStates();
+  refreshExportCounts();
   loadLastSeen();
   setupNewBanner(data.grants || []);
   markFolderNewness(data.grants || []);
@@ -21471,6 +21592,7 @@ function updateSectionCounts() {
       meta.textContent = `${visible} of ${total} shown`;
     }
   }
+  refreshExportCounts();
 }
 
 // --- "New since last visit" tracking ---
@@ -21660,6 +21782,7 @@ function refreshPickStates() {
     if (t) { t.classList.remove('is-active'); t.setAttribute('aria-pressed', 'false'); }
     applyShortlistFilter();
   }
+  refreshExportCounts();
 }
 
 function applyShortlistFilter() {
@@ -21796,6 +21919,353 @@ function buildShortlistICS(grants) {
 
 loadPicks();
 setupShortlistBar();
+
+// --- Export (shortlist or current filtered view) ---
+// Everything is built client-side from the already-loaded grants.json records,
+// so an export is exactly what the visitor is looking at, filters and all.
+const EXPORT_STATE = { scope: 'visible', format: 'md', detail: 'full' };
+
+const CATEGORY_LABELS = {};
+CATEGORY_GROUPS.forEach(g => g.values.forEach(v => { CATEGORY_LABELS[v] = g.label; }));
+
+const EXPORT_MIME = { md: 'text/markdown', json: 'application/json', csv: 'text/csv' };
+
+// The archive drawer holds expired calls. They are only worth exporting if the
+// visitor has deliberately opened the drawer.
+function exportVisibleFolders() {
+  const archiveOpen = document.getElementById('section-archive')?.getAttribute('data-open') === 'true';
+  return Array.from(document.querySelectorAll('.folder:not(.filtered-out):not(.not-new):not(.not-shortlisted)'))
+    .filter(f => archiveOpen || !f.classList.contains('is-archive'));
+}
+
+// DOM order for both scopes, so an export reads in the same priority order as
+// the page (hot first, then new, long, rolling).
+function exportSelection() {
+  const folders = EXPORT_STATE.scope === 'picks'
+    ? Array.from(document.querySelectorAll('.folder')).filter(f => PICKS.has(f.dataset.grantId))
+    : exportVisibleFolders();
+  const seen = new Set();
+  const out = [];
+  for (const f of folders) {
+    const g = GRANT_INDEX.get(f.dataset.grantId);
+    if (!g || seen.has(g.id)) continue;
+    seen.add(g.id);
+    out.push(g);
+  }
+  return out;
+}
+
+function activeFilterSummary() {
+  const parts = [];
+  const groups = [
+    ['category', 'Category', v => CATEGORY_LABELS[v] || v],
+    ['region', 'Region', v => REGION_LABELS[v] || v],
+    ['type', 'Type', v => TYPE_LABELS[v] || v],
+    ['applicant', 'Applicant', v => v],
+    ['amount', 'Award size', v => v],
+    ['added', 'Added', v => ({ '24h': 'last 24h', '7d': 'this week', '30d': 'this month' }[v] || v)],
+  ];
+  for (const [key, label, fmt] of groups) {
+    const set = FILTER_STATE[key];
+    if (set && set.size) parts.push(label + ': ' + [...new Set([...set].map(fmt))].join(', '));
+  }
+  if (FILTER_STATE.deadline) parts.push('Time to apply: at least ' + FILTER_STATE.deadline + ' days left');
+  if (FILTER_STATE.search) parts.push('Search: "' + FILTER_STATE.search + '"');
+  if (NEW_ONLY) parts.push('Only grants new since the last visit');
+  return parts.length ? parts.join('; ') : 'none (all active grants)';
+}
+
+function exportDeadlineText(grant, today) {
+  const d = parseDate(grant.deadline);
+  if (!d) return 'Rolling / no fixed deadline';
+  const days = daysUntil(d, today);
+  if (days < 0) return formatDate(d) + ' (closed ' + Math.abs(days) + ' days ago)';
+  if (days === 0) return formatDate(d) + ' (closes today)';
+  return formatDate(d) + ' (' + days + (days === 1 ? ' day left)' : ' days left)');
+}
+
+function exportFeeText(grant) {
+  if (grant.fee === false) return 'No application fee';
+  if (grant.fee === true) return 'Has an application fee';
+  return 'Not stated';
+}
+
+function exportApplicantText(grant) {
+  const v = detectApplicant(grant);
+  if (v === 'individuals') return 'Individuals';
+  if (v === 'organizations') return 'Organizations';
+  return 'Individuals or organizations';
+}
+
+function exportDescription(grant) {
+  if (!grant.description) return '';
+  return EXPORT_STATE.detail === 'full' ? String(grant.description) : shortenForCopy(grant.description);
+}
+
+function exportPageUrl() {
+  return new URL('.', window.location.href).toString();
+}
+
+function exportHeaderLines(grants, today) {
+  return [
+    ['Source', 'The Grant Desk, ' + exportPageUrl()],
+    ['Exported', formatDate(today)],
+    ['Selection', EXPORT_STATE.scope === 'picks' ? 'my shortlist' : 'the current filtered view'],
+    ['Filters applied', EXPORT_STATE.scope === 'picks' ? 'n/a (shortlist is an explicit set of picks)' : activeFilterSummary()],
+    ['Entries', String(grants.length)],
+    ['Descriptions', EXPORT_STATE.detail === 'full' ? 'full text as listed on the desk' : 'trimmed to the opening summary'],
+  ];
+}
+
+function buildExportMarkdown(grants, today) {
+  const lines = ['# The Grant Desk export', ''];
+  exportHeaderLines(grants, today).forEach(([k, v]) => lines.push('- ' + k + ': ' + v));
+  lines.push('');
+  lines.push('Each entry below is one funding opportunity. "Days left" is counted from the export date, so re-check the deadline on the application page before relying on it.');
+  grants.forEach((grant, i) => {
+    lines.push('', '---', '', '## ' + (i + 1) + '. ' + (grant.title || 'Untitled'), '');
+    const fields = [];
+    if (grant.organization) fields.push(['Organisation', grant.organization]);
+    fields.push(['Type', detectTypes(grant).map(t => TYPE_LABELS[t] || t).join(', ')]);
+    const cats = [...new Set(grantCategories(grant).map(c => CATEGORY_LABELS[c] || c))];
+    if (cats.length) fields.push(['Field', cats.join(', ')]);
+    const regions = grantRegions(grant).map(r => REGION_LABELS[r] || r);
+    if (regions.length) fields.push(['Region', regions.join(', ')]);
+    if (grant.location) fields.push(['Location', grant.location]);
+    if (grant.amount) fields.push(['Award', grant.amount]);
+    if (grant.duration) fields.push(['Duration', grant.duration]);
+    fields.push(['Deadline', exportDeadlineText(grant, today)]);
+    if (grant.startDate) fields.push(['Starts', grant.startDate]);
+    fields.push(['Open to', exportApplicantText(grant)]);
+    fields.push(['Application fee', exportFeeText(grant)]);
+    if (grant.addedDate) fields.push(['Added to the desk', grant.addedDate]);
+    if (grant.url) fields.push(['Apply', withUtm(grant.url)]);
+    fields.forEach(([k, v]) => lines.push('- **' + k + ':** ' + v));
+    const desc = exportDescription(grant);
+    if (desc) lines.push('', desc);
+  });
+  return lines.join('\n') + '\n';
+}
+
+function buildExportJSON(grants, today) {
+  const meta = {};
+  exportHeaderLines(grants, today).forEach(([k, v]) => {
+    meta[k.toLowerCase().replace(/ /g, '_')] = v;
+  });
+  const rows = grants.map(grant => {
+    const d = parseDate(grant.deadline);
+    return {
+      id: grant.id || null,
+      title: grant.title || null,
+      organization: grant.organization || null,
+      types: detectTypes(grant).map(t => TYPE_LABELS[t] || t),
+      fields: [...new Set(grantCategories(grant).map(c => CATEGORY_LABELS[c] || c))],
+      regions: grantRegions(grant).map(r => REGION_LABELS[r] || r),
+      location: grant.location || null,
+      amount: grant.amount || null,
+      duration: grant.duration || null,
+      deadline: grant.deadline || null,
+      deadlineIsRolling: !d,
+      daysLeft: d ? daysUntil(d, today) : null,
+      startDate: grant.startDate || null,
+      openTo: exportApplicantText(grant),
+      applicationFee: exportFeeText(grant),
+      addedDate: grant.addedDate || null,
+      tags: grant.tags || [],
+      url: grant.url ? withUtm(grant.url) : null,
+      description: exportDescription(grant) || null,
+    };
+  });
+  return JSON.stringify({ export: meta, grants: rows }, null, 2) + '\n';
+}
+
+function csvCell(value) {
+  const s = value == null ? '' : String(value);
+  return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+function buildExportCSV(grants, today) {
+  const header = ['title', 'organization', 'type', 'field', 'region', 'location', 'amount', 'duration',
+    'deadline', 'days_left', 'start_date', 'open_to', 'application_fee', 'added_date', 'url', 'description'];
+  const rows = [header.join(',')];
+  for (const grant of grants) {
+    const d = parseDate(grant.deadline);
+    rows.push([
+      grant.title,
+      grant.organization,
+      detectTypes(grant).map(t => TYPE_LABELS[t] || t).join('; '),
+      [...new Set(grantCategories(grant).map(c => CATEGORY_LABELS[c] || c))].join('; '),
+      grantRegions(grant).map(r => REGION_LABELS[r] || r).join('; '),
+      grant.location,
+      grant.amount,
+      grant.duration,
+      d ? grant.deadline : 'rolling',
+      d ? daysUntil(d, today) : '',
+      grant.startDate,
+      exportApplicantText(grant),
+      exportFeeText(grant),
+      grant.addedDate,
+      grant.url ? withUtm(grant.url) : '',
+      exportDescription(grant),
+    ].map(csvCell).join(','));
+  }
+  return rows.join('\r\n') + '\r\n';
+}
+
+function buildExportText() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const grants = exportSelection();
+  if (EXPORT_STATE.format === 'json') return { text: buildExportJSON(grants, today), count: grants.length };
+  if (EXPORT_STATE.format === 'csv') return { text: buildExportCSV(grants, today), count: grants.length };
+  return { text: buildExportMarkdown(grants, today), count: grants.length };
+}
+
+function exportFileName() {
+  const scope = EXPORT_STATE.scope === 'picks' ? 'shortlist' : 'filtered';
+  return 'grant-desk-' + scope + '-' + localDayStr() + '.' + EXPORT_STATE.format;
+}
+
+function refreshExportCounts() {
+  const visibleEl = document.getElementById('ex-count-visible');
+  const picksEl = document.getElementById('ex-count-picks');
+  if (visibleEl) visibleEl.textContent = exportVisibleFolders().length;
+  if (picksEl) picksEl.textContent = PICKS.size;
+  refreshExportSize();
+}
+
+// Building the text costs a few MB of string work on a wide selection, and the
+// search box calls this on every keystroke, so the size readout is debounced.
+let exportSizeTimer = null;
+function refreshExportSize() {
+  const panel = document.getElementById('export-panel');
+  if (!panel || panel.hidden) return;
+  const sizeEl = document.getElementById('ex-size');
+  if (sizeEl && !sizeEl.textContent) sizeEl.textContent = 'Measuring...';
+  clearTimeout(exportSizeTimer);
+  exportSizeTimer = setTimeout(computeExportSize, 150);
+}
+
+// Rough size readout so a 400-grant full-text export is not a surprise when it
+// lands in a chat window. ~4 characters per token is the usual ballpark.
+function computeExportSize() {
+  const sizeEl = document.getElementById('ex-size');
+  const panel = document.getElementById('export-panel');
+  if (!sizeEl || !panel || panel.hidden) return;
+  let text = '';
+  let count = 0;
+  try {
+    const built = buildExportText();
+    text = built.text;
+    count = built.count;
+  } catch (_) {
+    sizeEl.textContent = '';
+    return;
+  }
+  const kb = Math.max(1, Math.round(text.length / 1024));
+  const tokens = Math.round(text.length / 4);
+  const tokenText = tokens >= 1000 ? Math.round(tokens / 1000) + 'k' : String(tokens);
+  sizeEl.textContent = count === 0
+    ? 'Nothing selected'
+    : count + (count === 1 ? ' entry' : ' entries') + ' · ~' + kb + ' KB · ~' + tokenText + ' tokens';
+  ['ex-copy', 'ex-download'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) b.disabled = count === 0;
+  });
+}
+
+function bindExportGroup(id, key) {
+  const group = document.getElementById(id);
+  if (!group) return;
+  group.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn || !group.contains(btn)) return;
+    EXPORT_STATE[key] = btn.dataset.value;
+    group.querySelectorAll('button').forEach(b => b.classList.toggle('is-active', b === btn));
+    refreshExportSize();
+  });
+}
+
+function flashButton(btn, label) {
+  const original = btn.textContent;
+  btn.textContent = label;
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1600);
+}
+
+// navigator.clipboard needs a secure context and can reject on very large
+// payloads, so fall back to the old textarea trick before giving up.
+async function copyExportText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (_) {}
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (_) {
+    return false;
+  }
+}
+
+function setupExportPanel() {
+  const openBtn = document.getElementById('sl-export');
+  const panel = document.getElementById('export-panel');
+  if (!openBtn || !panel) return;
+
+  const setOpen = (open) => {
+    panel.hidden = !open;
+    openBtn.classList.toggle('is-active', open);
+    openBtn.setAttribute('aria-expanded', String(open));
+    if (open) refreshExportCounts();
+  };
+  openBtn.addEventListener('click', () => setOpen(panel.hidden));
+  document.getElementById('ex-close').addEventListener('click', () => {
+    setOpen(false);
+    openBtn.focus();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !panel.hidden) setOpen(false);
+  });
+
+  bindExportGroup('ex-scope', 'scope');
+  bindExportGroup('ex-format', 'format');
+  bindExportGroup('ex-detail', 'detail');
+
+  document.getElementById('ex-copy').addEventListener('click', async (e) => {
+    const btn = e.currentTarget;
+    const { text, count } = buildExportText();
+    if (!count) return;
+    const ok = await copyExportText(text);
+    if (ok) flashButton(btn, 'Copied');
+    else alert('Could not copy automatically. Use "Download file" instead.');
+  });
+
+  document.getElementById('ex-download').addEventListener('click', (e) => {
+    const btn = e.currentTarget;
+    const { text, count } = buildExportText();
+    if (!count) return;
+    const blob = new Blob([text], { type: (EXPORT_MIME[EXPORT_STATE.format] || 'text/plain') + ';charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = exportFileName();
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+    flashButton(btn, 'Downloaded');
+  });
+}
+
+setupExportPanel();
 
 (function setupShareLink() {
   const SHARE_URL = 'https://tinyurl.com/artnougrants';
