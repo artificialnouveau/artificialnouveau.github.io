@@ -19,6 +19,7 @@ Pages deploy. No external dependencies, only stdlib.
 from __future__ import annotations
 
 import json
+import re
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
@@ -946,14 +947,114 @@ def inject_into_main_index(grants, today):
     index_path.write_text(text, encoding="utf-8")
 
 
+# Root-level directories that are never their own indexable page: build output,
+# asset stores, source trees, and the grants tree (enumerated separately below).
+SITEMAP_SKIP_DIRS = {
+    "_site",
+    "_includes",
+    "_layouts",
+    "_posts",
+    "assets",
+    "demo",
+    "smalltools",
+    "workshops",
+    "artnoudrones",
+    "voice_mixer",
+}
+
+_HEAD_RE = re.compile(r"<head\b.*?</head>", re.S | re.I)
+_ROBOTS_NOINDEX_RE = re.compile(r"<meta[^>]+name=[\"']robots[\"'][^>]*noindex", re.I)
+_META_REFRESH_RE = re.compile(r"<meta[^>]+http-equiv=[\"']refresh[\"']", re.I)
+_FRONTMATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
+
+
+def is_indexable_page(path):
+    """True if the file at `path` should appear in sitemap.xml.
+
+    Excludes pages that opt out of indexing (a robots noindex meta tag, or Jekyll
+    `indexing: false` frontmatter, which _includes/head.html renders as noindex)
+    and redirect stubs (meta http-equiv=refresh), which have no content of their
+    own and only exist to forward to their target.
+
+    The noindex/refresh checks are scoped to <head> on purpose: some pages carry
+    those strings inside inline JavaScript that writes markup for a different
+    document, and a whole-file match would wrongly drop them.
+    """
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return False
+
+    fm = _FRONTMATTER_RE.match(text)
+    if fm and re.search(r"^\s*indexing:\s*false\s*$", fm.group(1), re.M | re.I):
+        return False
+
+    head_match = _HEAD_RE.search(text)
+    head = head_match.group(0) if head_match else text[:4000]
+    if _ROBOTS_NOINDEX_RE.search(head) or _META_REFRESH_RE.search(head):
+        return False
+    return True
+
+
+def _index_file(directory):
+    for name in ("index.html", "index.md"):
+        candidate = directory / name
+        if candidate.exists():
+            return candidate
+    return None
+
+
 def discover_smalltools_pages(repo_root):
     smalltools = repo_root / "smalltools"
     found = []
     if not smalltools.exists():
         return found
     for child in sorted(smalltools.iterdir()):
-        if child.is_dir() and (child / "index.html").exists():
+        if not child.is_dir() or child.name == "grants":
+            continue
+        index = _index_file(child)
+        if index and is_indexable_page(index):
             found.append(f"smalltools/{child.name}/")
+    return found
+
+
+def discover_site_pages(repo_root):
+    """Top-level section pages (/gallery/, /press/, /talks/, ...).
+
+    Discovered rather than hardcoded so a new section directory lands in the
+    sitemap without anyone remembering to edit this list.
+    """
+    found = []
+    for child in sorted(repo_root.iterdir()):
+        if not child.is_dir() or child.name.startswith("."):
+            continue
+        if child.name in SITEMAP_SKIP_DIRS:
+            continue
+        index = _index_file(child)
+        if index and is_indexable_page(index):
+            found.append(f"{child.name}/")
+    return found
+
+
+def discover_post_pages(repo_root):
+    """Gallery entries built from _posts.
+
+    _config.yml gives posts the permalink /gallery/:title/, where :title is the
+    post filename with its leading date stripped.
+    """
+    posts_dir = repo_root / "_posts"
+    found = []
+    if not posts_dir.exists():
+        return found
+    for post in sorted(posts_dir.iterdir()):
+        if post.suffix.lower() not in (".md", ".markdown", ".html"):
+            continue
+        match = re.match(r"^\d{4}-\d{2}-\d{2}-(.+)$", post.stem)
+        if not match:
+            continue
+        if not is_indexable_page(post):
+            continue
+        found.append(f"gallery/{match.group(1)}/")
     return found
 
 
@@ -961,6 +1062,11 @@ def build_sitemap(static_paths, today, repo_root):
     lastmod = today.isoformat()
     urls = []
     urls.append(SITE_ROOT_URL)
+    for path in discover_site_pages(repo_root):
+        urls.append(SITE_ROOT_URL + path)
+    for path in discover_post_pages(repo_root):
+        urls.append(SITE_ROOT_URL + path)
+    urls.append(SITE_ROOT_URL + "smalltools/")
     for path in discover_smalltools_pages(repo_root):
         urls.append(SITE_ROOT_URL + path)
     urls.append(SITE_ROOT_URL + GRANTS_BASE_PATH)
