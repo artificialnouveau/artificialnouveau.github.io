@@ -15,13 +15,13 @@ Close Enough will be presented at [GOGBOT Festival](https://gogbot.nl/) in Ensch
 
 ## Feed excerpts
 
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.5rem 0; align-items:start;">
-  <img src="/assets/portfolio/closeenough/video1_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%;">
-  <img src="/assets/portfolio/closeenough/close-enough-thumb.png" alt="Close Enough feed still captioned: playing. possibly a child" style="width:100%;">
-</div>
-
-<div style="display:grid; grid-template-columns:1fr; gap:1rem; margin:1.5rem 0;">
+<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin:1.5rem 0; align-items:start;">
   <img src="/assets/portfolio/closeenough/video2_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%;">
   <img src="/assets/portfolio/closeenough/video3_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%;">
   <img src="/assets/portfolio/closeenough/video5_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%;">
+</div>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.5rem 0; align-items:start; justify-items:center;">
+  <img src="/assets/portfolio/closeenough/video1_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%; max-width:320px;">
+  <img src="/assets/portfolio/closeenough/close-enough-thumb.png" alt="Close Enough feed still captioned: playing. possibly a child" style="width:100%;">
 </div>
