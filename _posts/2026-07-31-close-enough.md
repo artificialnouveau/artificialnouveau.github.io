@@ -13,8 +13,6 @@ Drawing on pattern-of-life analysis, The Drone Papers, and the Living Under Dron
 
 Close Enough will be presented at [GOGBOT Festival](https://gogbot.nl/) in Enschede in September 2026.
 
-## Feed excerpts
-
 <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin:1.5rem 0; align-items:start;">
   <img src="/assets/portfolio/closeenough/video2_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%;">
   <img src="/assets/portfolio/closeenough/video3_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%;">
