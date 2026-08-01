@@ -180,20 +180,6 @@
             position: relative;
         }
 
-        details::before {
-            content: '────────────────────────────────────────────────────────────────────────';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            color: var(--color-accent-cyan);
-            opacity: 0.4;
-            overflow: hidden;
-            white-space: nowrap;
-            letter-spacing: -2px;
-        }
 
         details summary {
             cursor: pointer;
@@ -244,21 +230,6 @@
             position: relative;
         }
 
-        .publications-link-section::before {
-            content: '────────────────────────────────────────────────────────────────────────';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            color: var(--color-accent-cyan);
-            opacity: 0.4;
-            overflow: hidden;
-            white-space: nowrap;
-            letter-spacing: -2px;
-        }
-
         .publications-link-section a {
             text-decoration: none;
             display: flex;
@@ -300,23 +271,6 @@
             justify-content: center;
             position: relative;
             padding: 4rem 2rem 2rem;
-        }
-
-        /* Terminal ASCII border pattern (matches section::before) */
-        header::after {
-            content: '────────────────────────────────────────────────────────────────────────';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            color: var(--color-accent-cyan);
-            opacity: 0.4;
-            overflow: hidden;
-            white-space: nowrap;
-            letter-spacing: -2px;
-            pointer-events: none;
         }
 
         .hero-content {
@@ -427,26 +381,6 @@
         section {
             padding: 4rem 2rem;
             position: relative;
-        }
-
-        section::before {
-            content: '────────────────────────────────────────────────────────────────────────';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            color: var(--color-accent-cyan);
-            opacity: 0.4;
-            overflow: hidden;
-            white-space: nowrap;
-            letter-spacing: -2px;
-        }
-
-        /* Suppress duplicate divider on sections nested inside details */
-        details section::before {
-            display: none;
         }
 
         /* Terminal tables */
@@ -625,10 +559,6 @@
             header {
                 min-height: auto;
                 padding: 4rem 1rem 2rem;
-            }
-
-            header::after {
-                height: 120px;
             }
 
             h1 {

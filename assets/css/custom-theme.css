@@ -158,40 +158,6 @@ body::after {
     text-rendering: optimizeLegibility;
 }
 
-/* Terminal ASCII border pattern */
-.header::after,
-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--color-accent-cyan);
-    box-shadow: 0 0 10px var(--color-accent-cyan);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.header::before,
-header::before {
-    content: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓';
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    width: 100%;
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    color: var(--color-accent-cyan);
-    opacity: 0.3;
-    overflow: hidden;
-    white-space: nowrap;
-    text-align: center;
-    letter-spacing: -2px;
-    pointer-events: none;
-    z-index: 1;
-}
-
 /* Terminal typography */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display) !important;
@@ -210,8 +176,6 @@ h1 {
     text-shadow:
         2px 2px 0 rgba(0, 240, 255, 0.5),
         0 0 20px rgba(255, 16, 240, 0.4);
-    border-bottom: 2px solid var(--color-accent-cyan);
-    padding-bottom: 0.5rem;
     display: inline-block;
 }
 
@@ -484,23 +448,7 @@ table a:hover {
 /* Terminal window sections */
 section {
     padding: 8rem 0;
-    border-bottom: 1px solid var(--color-border);
     position: relative;
-}
-
-section::before {
-    content: '────────────────────────────────────────────────────────────────────────';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    font-family: var(--font-mono);
-    font-size: 0.5rem;
-    color: var(--color-accent-cyan);
-    opacity: 0.4;
-    overflow: hidden;
-    white-space: nowrap;
-    letter-spacing: -2px;
 }
 
 /* Terminal horizontal rules */
@@ -510,19 +458,6 @@ hr {
     background: var(--color-accent-cyan) !important;
     opacity: 0.5;
     position: relative;
-}
-
-hr::before {
-    content: '────────────────────────────────────────────────────────────────────────────────────────────────────────────────';
-    position: absolute;
-    top: -8px;
-    left: 0;
-    color: var(--color-accent-cyan);
-    font-family: var(--font-mono);
-    font-size: 0.5rem;
-    opacity: 0.5;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 /* Terminal code blocks */
@@ -728,26 +663,10 @@ blockquote::before {
 /* Terminal footer */
 footer {
     background: var(--color-card-bg) !important;
-    border-top: 1px solid var(--color-accent-cyan);
     color: var(--color-muted) !important;
     padding: 4rem 0;
     position: relative;
     font-family: var(--font-mono);
-}
-
-footer::before {
-    content: '════════════════════════════════════════════════════════════════════════';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    font-family: var(--font-mono);
-    font-size: 0.5rem;
-    color: var(--color-accent-cyan);
-    opacity: 0.4;
-    overflow: hidden;
-    white-space: nowrap;
-    letter-spacing: -2px;
 }
 
 /* Terminal forms */
@@ -921,24 +840,8 @@ center {
 .gallery-header {
     padding: 3rem 0;
     text-align: center;
-    border-bottom: 1px solid var(--color-accent-cyan);
     margin-bottom: 3rem;
     position: relative;
-}
-
-.gallery-header::after {
-    content: '════════════════════════════════════════════════════════════════════════';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    font-family: var(--font-mono);
-    font-size: 0.5rem;
-    color: var(--color-accent-cyan);
-    opacity: 0.4;
-    overflow: hidden;
-    white-space: nowrap;
-    letter-spacing: -2px;
 }
 
 .gallery-header h1 {
@@ -1068,7 +971,6 @@ center {
 .project-post-header {
     padding: 3rem 0;
     text-align: center;
-    border-bottom: 1px solid var(--color-accent-cyan);
     margin-bottom: 3rem;
     position: relative;
 }
@@ -1079,21 +981,6 @@ center {
     left: 0.75rem;
     margin-bottom: 0;
     z-index: 1;
-}
-
-.project-post-header::after {
-    content: '════════════════════════════════════════════════════════════════════════';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    font-family: var(--font-mono);
-    font-size: 0.5rem;
-    color: var(--color-accent-cyan);
-    opacity: 0.4;
-    overflow: hidden;
-    white-space: nowrap;
-    letter-spacing: -2px;
 }
 
 .back-link {
@@ -1127,8 +1014,6 @@ center {
     letter-spacing: 0.1em;
     margin-bottom: 1rem;
     color: var(--color-accent-cyan);
-    border-bottom: 2px solid var(--color-accent);
-    padding-bottom: 1rem;
 }
 
 .project-post-header .year-badge {
