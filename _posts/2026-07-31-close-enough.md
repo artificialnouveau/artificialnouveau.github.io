@@ -13,13 +13,46 @@ Close Enough will be presented at [GOGBOT Festival](https://gogbot.nl/) in Ensch
 
 <p class="text-muted"><em>In development. Early captures from the drone feed below; full documentation to follow.</em></p>
 
-<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin:1.5rem 0; align-items:start;">
-  <img src="/assets/portfolio/closeenough/video2_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%;">
-  <img src="/assets/portfolio/closeenough/video3_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%;">
-  <img src="/assets/portfolio/closeenough/video5_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%;">
-</div>
+<style>
+.ce-wall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  background: #0a0a0a;
+  padding: 6px;
+  margin: 2rem 0;
+}
+.project-content .ce-wall img {
+  border: none;
+  margin: 0;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.ce-wall .ce-tall {
+  grid-row: 1 / 3;
+  position: relative;
+}
+.project-content .ce-wall .ce-tall img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  aspect-ratio: auto;
+}
+@media (max-width: 600px) {
+  .ce-wall {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
 
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.5rem 0; align-items:start; justify-items:center;">
-  <img src="/assets/portfolio/closeenough/video1_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage" style="width:100%; max-width:320px;">
-  <img src="/assets/portfolio/closeenough/close-enough-thumb.png" alt="Close Enough feed still captioned: playing. possibly a child" style="width:100%;">
+<div class="ce-wall">
+  <div class="ce-tall">
+    <img src="/assets/portfolio/closeenough/video1_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage">
+  </div>
+  <img src="/assets/portfolio/closeenough/video2_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage">
+  <img src="/assets/portfolio/closeenough/video3_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage">
+  <img src="/assets/portfolio/closeenough/video5_closeenough_feed.gif" alt="Close Enough drone feed excerpt: annotated overhead surveillance footage">
+  <img src="/assets/portfolio/closeenough/close-enough-thumb.png" alt="Close Enough feed still captioned: playing. possibly a child">
 </div>
