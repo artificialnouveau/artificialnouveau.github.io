@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0014">
     <title>Research Terminal — Publications & Interviews — Ahnjili ZhuParris</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
+        @font-face {
+            font-family: 'Young Serif';
+            src: url('/assets/fonts/YoungSerif-Regular.woff2') format('woff2'),
+                 url('/assets/fonts/YoungSerif-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
             --color-bg: #0a0014;
             --color-text: #00f0ff;
@@ -19,6 +29,8 @@
             --color-border: #00f0ff;
             --color-card-bg: #000000;
             --font-display: 'JetBrains Mono', monospace;
+            --fs-heading: 1.05rem;
+            --fs-body: 0.85rem;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,7 +71,7 @@
             color: var(--color-accent);
             text-decoration: none;
             font-family: var(--font-display);
-            font-size: 0.85rem;
+            font-size: var(--fs-body);
             opacity: 0.7;
             transition: opacity 0.3s;
         }
@@ -74,7 +86,7 @@
 
         /* Boot sequence */
         .boot-line {
-            font-size: 0.85rem;
+            font-size: var(--fs-body);
             color: var(--color-muted);
             opacity: 0;
             margin-bottom: 4px;
@@ -104,7 +116,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 12px;
-            font-size: 0.9rem;
+            font-size: var(--fs-body);
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -120,7 +132,7 @@
             border-bottom: 1px solid var(--color-accent-cyan);
             color: var(--color-accent-cyan);
             font-family: var(--font-display);
-            font-size: 0.9rem;
+            font-size: var(--fs-body);
             outline: none;
             flex: 1;
             padding: 4px 0;
@@ -145,7 +157,7 @@
             border: 1px solid var(--color-muted);
             color: var(--color-muted);
             font-family: var(--font-display);
-            font-size: 0.7rem;
+            font-size: var(--fs-body);
             padding: 3px 10px;
             cursor: pointer;
             transition: all 0.2s;
@@ -165,6 +177,27 @@
         /* Paper list */
         #paper-list {
             list-style: none;
+        }
+
+        .paper-group-heading {
+            font-family: var(--font-display);
+            color: var(--color-accent);
+            font-size: var(--fs-heading);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin: 28px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+        }
+
+        .paper-group-heading::before {
+            content: '$ ';
+            color: var(--color-accent-cyan);
+        }
+
+        #paper-list .paper-group-heading:first-child {
+            margin-top: 8px;
         }
 
         /* Paper entry */
@@ -195,7 +228,7 @@
             flex-wrap: wrap;
             align-items: baseline;
             gap: 6px;
-            font-size: 0.82rem;
+            font-size: var(--fs-body);
             line-height: 1.5;
         }
 
@@ -228,14 +261,14 @@
         .paper-citations {
             color: var(--color-accent);
             white-space: nowrap;
-            font-size: 0.75rem;
+            font-size: var(--fs-body);
         }
 
         /* Abstract area */
         .paper-abstract {
             display: none;
             padding: 12px 0 8px 20px;
-            font-size: 0.78rem;
+            font-size: var(--fs-body);
             line-height: 1.7;
             color: rgba(184, 168, 216, 0.85);
             border-top: 1px solid rgba(255, 16, 240, 0.1);
@@ -246,24 +279,11 @@
         }
         .paper-abstract .abstract-text {
             margin-bottom: 10px;
+            font-family: 'Young Serif', Georgia, serif;
         }
-        .paper-abstract .cursor-blink {
-            display: inline-block;
-            width: 8px;
-            height: 14px;
-            background: var(--color-accent);
-            animation: blink 1s step-end infinite;
-            vertical-align: middle;
-            margin-left: 2px;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
         .paper-abstract .paper-authors {
             color: rgba(184, 168, 216, 0.5);
-            font-size: 0.72rem;
+            font-size: var(--fs-body);
             margin-bottom: 6px;
         }
 
@@ -272,7 +292,7 @@
             margin-top: 6px;
             color: var(--color-accent-cyan);
             text-decoration: none;
-            font-size: 0.72rem;
+            font-size: var(--fs-body);
             opacity: 0.7;
             transition: opacity 0.2s;
         }
@@ -288,7 +308,7 @@
             margin-top: 8px;
         }
         .paper-tags span {
-            font-size: 0.6rem;
+            font-size: var(--fs-body);
             padding: 1px 6px;
             border: 1px solid rgba(176, 16, 255, 0.3);
             color: var(--color-accent-purple);
@@ -299,7 +319,7 @@
         /* No results */
         .no-results {
             color: var(--color-accent);
-            font-size: 0.85rem;
+            font-size: var(--fs-body);
             padding: 20px 12px;
             opacity: 0.7;
             display: none;
@@ -307,11 +327,9 @@
 
         /* Responsive */
         @media (max-width: 600px) {
+            :root { --fs-heading: 0.95rem; --fs-body: 0.78rem; }
             .terminal { padding: 50px 12px 30px; }
-            .paper-header { font-size: 0.75rem; }
             .paper-entry { padding: 6px 8px; }
-            .back-btn { font-size: 0.75rem; }
-            .boot-line { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -734,7 +752,6 @@ const filterCategories = ["WEARABLES", "PEDIATRICS", "CNS", "DRUG SURVEY", "ML",
 document.getElementById('total-count').textContent = papers.length;
 
 let activeTag = null;
-let typingTimer = null;
 
 // Boot sequence
 function runBootSequence() {
@@ -774,11 +791,35 @@ function runBootSequence() {
     }, 2000);
 }
 
+function groupOf(paper) {
+    if (paper.tags.includes('INTERVIEW')) return 'INTERVIEWS & PODCASTS';
+    if (paper.tags.includes('PRESS')) return 'PRESS & MENTIONS';
+    return 'PUBLICATIONS';
+}
+
+const GROUP_ORDER = ['PUBLICATIONS', 'INTERVIEWS & PODCASTS', 'PRESS & MENTIONS'];
+
 function renderPapers(list) {
     const ul = document.getElementById('paper-list');
     ul.innerHTML = '';
+    let idx = 0;
 
-    list.forEach((paper, i) => {
+    GROUP_ORDER.forEach(group => {
+        const items = list.filter(p => groupOf(p) === group).slice().sort((a, b) => b.year - a.year);
+        if (items.length === 0) return;
+
+        const heading = document.createElement('li');
+        heading.className = 'paper-group-heading';
+        heading.textContent = group;
+        ul.appendChild(heading);
+
+        items.forEach(paper => renderEntry(ul, paper, idx++));
+    });
+
+    document.getElementById('no-results').style.display = list.length === 0 ? 'block' : 'none';
+}
+
+function renderEntry(ul, paper, i) {
         const li = document.createElement('li');
         li.className = 'paper-entry';
         li.dataset.index = i;
@@ -804,9 +845,6 @@ function renderPapers(list) {
 
         li.addEventListener('click', () => toggleAbstract(li, paper, i));
         ul.appendChild(li);
-    });
-
-    document.getElementById('no-results').style.display = list.length === 0 ? 'block' : 'none';
 }
 
 function revealPapers() {
@@ -829,36 +867,11 @@ function toggleAbstract(li, paper, index) {
         el.querySelector('.abstract-text').innerHTML = '';
     });
 
-    if (typingTimer) {
-        clearInterval(typingTimer);
-        typingTimer = null;
-    }
-
     if (!isOpen) {
         li.classList.add('expanded');
         absDiv.classList.add('open');
-        typeText(absDiv.querySelector('.abstract-text'), paper.abstract);
+        absDiv.querySelector('.abstract-text').textContent = paper.abstract;
     }
-}
-
-function typeText(el, text) {
-    el.innerHTML = '';
-    let i = 0;
-    const cursor = document.createElement('span');
-    cursor.className = 'cursor-blink';
-
-    typingTimer = setInterval(() => {
-        if (i < text.length) {
-            // Add characters in small chunks for speed
-            const chunk = text.substring(i, Math.min(i + 3, text.length));
-            el.innerHTML = escapeHtml(text.substring(0, i + chunk.length)) + cursor.outerHTML;
-            i += chunk.length;
-        } else {
-            el.innerHTML = escapeHtml(text) + cursor.outerHTML;
-            clearInterval(typingTimer);
-            typingTimer = null;
-        }
-    }, 15);
 }
 
 function escapeHtml(str) {
@@ -902,12 +915,6 @@ function filterPapers() {
 
         return matchesSearch && matchesTag;
     });
-
-    // Close any open abstracts
-    if (typingTimer) {
-        clearInterval(typingTimer);
-        typingTimer = null;
-    }
 
     renderPapers(filtered);
     // Reveal immediately when filtering
