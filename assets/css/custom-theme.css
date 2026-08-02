@@ -8,9 +8,15 @@
     font-display: swap;
 }
 
-/* Site-wide font override: use Young Serif as the default body face */
-html, body, h1, h2, h3, h4, h5, h6, p, a, li, span, div, button, input, textarea, select, label, blockquote, figcaption {
+/* Site-wide type pairing: Young Serif for headings and prose;
+   terminal chrome (buttons, form controls, tables, badges) stays JetBrains Mono */
+html, body, h1, h2, h3, h4, h5, h6, p, li, blockquote, figcaption, dt, dd {
     font-family: 'Young Serif', Georgia, 'Times New Roman', serif;
+}
+
+button, input, textarea, select, label,
+table, th, td {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
 }
 
 /* Accessibility: Skip Link */
@@ -871,14 +877,12 @@ center {
 
 .gallery-card {
     background: var(--color-card-bg);
-    border: 1px solid var(--color-accent-cyan);
+    border: 1px solid var(--color-window-chrome);
     border-top: 25px solid var(--color-window-chrome);
     border-radius: 0;
     overflow: visible;
     transition: all 0.2s ease;
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.5),
-        inset 0 0 0 1px rgba(0, 240, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     text-decoration: none;
     display: block;
     color: var(--color-text);
@@ -908,10 +912,10 @@ center {
 .gallery-image {
     width: 100%;
     height: 280px;
-    object-fit: cover;
-    object-position: top;
+    object-fit: contain;
+    object-position: center;
+    background: var(--color-card-bg);
     display: block;
-    border-bottom: 1px solid var(--color-accent-cyan);
     filter: contrast(1.1) brightness(0.9);
     transition: all 0.2s ease;
 }
@@ -1065,21 +1069,21 @@ center {
 .project-content img {
     max-width: 100%;
     height: auto;
-    border: 2px solid var(--color-accent-cyan);
+    border: 1px solid rgba(0, 240, 255, 0.25);
     border-radius: 0;
     margin: 2rem 0;
     filter: contrast(1.1);
 }
 
 .project-content img:hover {
-    border-color: var(--color-accent);
+    border-color: rgba(255, 16, 240, 0.5);
     filter: contrast(1.2);
 }
 
 .project-content video {
     width: 100%;
     max-width: 800px;
-    border: 2px solid var(--color-accent-cyan);
+    border: 1px solid rgba(0, 240, 255, 0.25);
     border-radius: 0;
     margin: 2rem auto;
     display: block;

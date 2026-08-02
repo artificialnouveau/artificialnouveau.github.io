@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0014">
     <title>Ahnjili ZhuParris, PhD: AI Artist, Engineer, Researcher</title>
     <meta name="description" content="AI artist Ahnjili ZhuParris, PhD: voice cloning, machine listening, deepfake art, critical AI and AI satire installations. Available for exhibitions, talks, workshops and residencies.">
     <meta name="keywords" content="AI artist, AI art, voice cloning artist, machine listening art, critical AI art, generative voice, deepfake art, AI satire art, AI installation art, generative art, sound art, computational art">
@@ -315,7 +316,6 @@
             font-size: clamp(1.1rem, 2.5vw, 1.5rem);
             font-weight: 300;
             color: var(--color-muted);
-            max-width: 800px;
             margin-bottom: 3rem;
         }
 
@@ -358,15 +358,10 @@
             line-height: 1.8;
             margin-bottom: 1.5rem;
             font-family: var(--font-mono);
-            max-width: 72ch;
         }
 
         li {
             color: #d0c4e8;
-        }
-
-        .site-copyright p {
-            max-width: none;
         }
 
         a {
@@ -433,45 +428,6 @@
 
         .content-block h3 {
             margin-top: 0;
-        }
-
-        .content-block.has-thumb {
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-        }
-
-        .block-thumb {
-            width: 220px;
-            flex-shrink: 0;
-            display: block;
-            border: 1px solid rgba(0, 240, 255, 0.4);
-        }
-
-        .block-thumb:hover {
-            padding: 0;
-            background: none;
-            border-color: var(--color-accent);
-        }
-
-        .block-thumb img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .block-body {
-            flex: 1;
-            min-width: 0;
-        }
-
-        @media (max-width: 768px) {
-            .content-block.has-thumb {
-                flex-direction: column;
-            }
-            .block-thumb {
-                width: 100%;
-            }
         }
 
         .year-label {
@@ -664,7 +620,6 @@ code *, pre *, kbd *, samp * {
         <div class="container hero-content">
             <div class="hero-eyebrow">AI Artist, Engineer &amp; Researcher</div>
             <h1>Ahnjili ZhuParris, PhD</h1>
-            <p class="hero-subtitle">Voice cloning, machine listening, deepfake art and AI satire. Installations, video essays and interactive tools about how AI systems measure, optimize and represent bodies.</p>
             <div class="nav-sections">
                 <div class="nav-group">
                     <div class="nav-group-label">Resume</div>
@@ -699,31 +654,22 @@ code *, pre *, kbd *, samp * {
         <div class="container">
             <h2>FEATURED PROJECTS</h2>
 
-            <div class="content-block has-thumb">
-                <a class="block-thumb" href="/gallery/deepfake/" aria-hidden="true" tabindex="-1"><img src="/assets/portfolio/DEEPFAKE_video_essay_biden.png" alt="" loading="lazy"></a>
-                <div class="block-body">
-                    <h3><span class="year-label">2025</span> <a href="/gallery/deepfake/" style="color: inherit; text-decoration: none;">DEEPFAKE: A Video Essay</a></h3>
-                    <p>A critical video essay exploring the implications and technology behind deepfake media, examining the ethical considerations and societal impacts of synthetic media generation.</p>
-                    <p><a href="/gallery/deepfake/">View project</a></p>
-                </div>
+            <div class="content-block">
+                <h3><span class="year-label">2025</span> <a href="/gallery/deepfake/" style="color: inherit; text-decoration: none;">DEEPFAKE: A Video Essay</a></h3>
+                <p>A critical video essay exploring the implications and technology behind deepfake media, examining the ethical considerations and societal impacts of synthetic media generation.</p>
+                <p><a href="/gallery/deepfake/">View project</a></p>
             </div>
 
-            <div class="content-block has-thumb">
-                <a class="block-thumb" href="/gallery/fashion_police_drones/" aria-hidden="true" tabindex="-1"><img src="/assets/portfolio/drone_1.jpeg" alt="" loading="lazy"></a>
-                <div class="block-body">
-                    <h3><span class="year-label">2024</span> <a href="/gallery/fashion_police_drones/" style="color: inherit; text-decoration: none;">Fashion Police Drones</a></h3>
-                    <p>Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. This installation highlights the whimsical aspects of fashion norms while prompting serious reflection on discrimination and privacy.</p>
-                    <p><a href="/gallery/fashion_police_drones/">View project</a></p>
-                </div>
+            <div class="content-block">
+                <h3><span class="year-label">2024</span> <a href="/gallery/fashion_police_drones/" style="color: inherit; text-decoration: none;">Fashion Police Drones</a></h3>
+                <p>Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. This installation highlights the whimsical aspects of fashion norms while prompting serious reflection on discrimination and privacy.</p>
+                <p><a href="/gallery/fashion_police_drones/">View project</a></p>
             </div>
 
-            <div class="content-block has-thumb">
-                <a class="block-thumb" href="/gallery/screen-to-soundscape/" aria-hidden="true" tabindex="-1"><img src="/assets/portfolio/sts_main.png" alt="" loading="lazy"></a>
-                <div class="block-body">
-                    <h3><span class="year-label">2024</span> <a href="/gallery/screen-to-soundscape/" style="color: inherit; text-decoration: none;">Screen-to-Soundscape</a></h3>
-                    <p>An experimental approach to re-imagining screen readers, developing a free and open-source explorative tool that transforms a screen into an immersive soundscape with spatial audio and rich descriptive alt-text for blind and visually impaired users.</p>
-                    <p><a href="/gallery/screen-to-soundscape/">View project</a></p>
-                </div>
+            <div class="content-block">
+                <h3><span class="year-label">2024</span> <a href="/gallery/screen-to-soundscape/" style="color: inherit; text-decoration: none;">Screen-to-Soundscape</a></h3>
+                <p>An experimental approach to re-imagining screen readers, developing a free and open-source explorative tool that transforms a screen into an immersive soundscape with spatial audio and rich descriptive alt-text for blind and visually impaired users.</p>
+                <p><a href="/gallery/screen-to-soundscape/">View project</a></p>
             </div>
         </div>
     </section>
