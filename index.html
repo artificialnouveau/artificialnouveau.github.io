@@ -28,7 +28,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
         /* Accessibility: Skip Link */
@@ -354,10 +354,19 @@
         }
 
         p {
-            color: var(--color-text);
+            color: #d0c4e8;
             line-height: 1.8;
             margin-bottom: 1.5rem;
             font-family: var(--font-mono);
+            max-width: 72ch;
+        }
+
+        li {
+            color: #d0c4e8;
+        }
+
+        .site-copyright p {
+            max-width: none;
         }
 
         a {
@@ -424,6 +433,45 @@
 
         .content-block h3 {
             margin-top: 0;
+        }
+
+        .content-block.has-thumb {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .block-thumb {
+            width: 220px;
+            flex-shrink: 0;
+            display: block;
+            border: 1px solid rgba(0, 240, 255, 0.4);
+        }
+
+        .block-thumb:hover {
+            padding: 0;
+            background: none;
+            border-color: var(--color-accent);
+        }
+
+        .block-thumb img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .block-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        @media (max-width: 768px) {
+            .content-block.has-thumb {
+                flex-direction: column;
+            }
+            .block-thumb {
+                width: 100%;
+            }
         }
 
         .year-label {
@@ -593,9 +641,16 @@
   font-style: normal;
   font-display: swap;
 }
-html, body, h1, h2, h3, h4, h5, h6, p, a, li, span, div, section, article, header, footer, main, aside, nav, button, input, textarea, select, label, blockquote, figcaption, summary, details, dl, dt, dd, table, th, td {
+/* Intentional pairing: Young Serif for headings and prose,
+   JetBrains Mono for terminal chrome (buttons, labels, prompts, tables) */
+h1, h2, h3, h4, h5, h6, p, li, blockquote, figcaption, dt, dd,
+.summary-heading, footer {
   font-family: 'Young Serif', Georgia, 'Times New Roman', serif !important;
 }
+.btn, .nav-group-label, .hero-eyebrow, .year-label, .location,
+h1::before, h2::before, h3::before, .summary-heading::before,
+details summary::after, .publications-link-section a::after,
+table, th, td,
 code, pre, kbd, samp, tt, var,
 .mono, [class*="mono"], [class*="-mono"],
 code *, pre *, kbd *, samp * {
@@ -609,6 +664,7 @@ code *, pre *, kbd *, samp * {
         <div class="container hero-content">
             <div class="hero-eyebrow">AI Artist, Engineer &amp; Researcher</div>
             <h1>Ahnjili ZhuParris, PhD</h1>
+            <p class="hero-subtitle">Voice cloning, machine listening, deepfake art and AI satire. Installations, video essays and interactive tools about how AI systems measure, optimize and represent bodies.</p>
             <div class="nav-sections">
                 <div class="nav-group">
                     <div class="nav-group-label">Resume</div>
@@ -643,19 +699,31 @@ code *, pre *, kbd *, samp * {
         <div class="container">
             <h2>FEATURED PROJECTS</h2>
 
-            <div class="content-block">
-                <h3><span class="year-label">2025</span> <a href="/gallery/deepfake/" style="color: inherit; text-decoration: none;">DEEPFAKE: A Video Essay</a></h3>
-                <p>A critical video essay exploring the implications and technology behind deepfake media, examining the ethical considerations and societal impacts of synthetic media generation.</p>
+            <div class="content-block has-thumb">
+                <a class="block-thumb" href="/gallery/deepfake/" aria-hidden="true" tabindex="-1"><img src="/assets/portfolio/DEEPFAKE_video_essay_biden.png" alt="" loading="lazy"></a>
+                <div class="block-body">
+                    <h3><span class="year-label">2025</span> <a href="/gallery/deepfake/" style="color: inherit; text-decoration: none;">DEEPFAKE: A Video Essay</a></h3>
+                    <p>A critical video essay exploring the implications and technology behind deepfake media, examining the ethical considerations and societal impacts of synthetic media generation.</p>
+                    <p><a href="/gallery/deepfake/">View project</a></p>
+                </div>
             </div>
 
-            <div class="content-block">
-                <h3><span class="year-label">2024</span> <a href="/gallery/fashion_police_drones/" style="color: inherit; text-decoration: none;">Fashion Police Drones</a></h3>
-                <p>Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. This installation highlights the whimsical aspects of fashion norms while prompting serious reflection on discrimination and privacy.</p>
+            <div class="content-block has-thumb">
+                <a class="block-thumb" href="/gallery/fashion_police_drones/" aria-hidden="true" tabindex="-1"><img src="/assets/portfolio/drone_1.jpeg" alt="" loading="lazy"></a>
+                <div class="block-body">
+                    <h3><span class="year-label">2024</span> <a href="/gallery/fashion_police_drones/" style="color: inherit; text-decoration: none;">Fashion Police Drones</a></h3>
+                    <p>Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. This installation highlights the whimsical aspects of fashion norms while prompting serious reflection on discrimination and privacy.</p>
+                    <p><a href="/gallery/fashion_police_drones/">View project</a></p>
+                </div>
             </div>
 
-            <div class="content-block">
-                <h3><span class="year-label">2024</span> <a href="/gallery/screen-to-soundscape/" style="color: inherit; text-decoration: none;">Screen-to-Soundscape</a></h3>
-                <p>An experimental approach to re-imaging screen readers, developing a free and open-source explorative tool that transforms a screen into an immersive soundscape with spatial audio and rich descriptive alt-text for blind and visually impaired users.</p>
+            <div class="content-block has-thumb">
+                <a class="block-thumb" href="/gallery/screen-to-soundscape/" aria-hidden="true" tabindex="-1"><img src="/assets/portfolio/sts_main.png" alt="" loading="lazy"></a>
+                <div class="block-body">
+                    <h3><span class="year-label">2024</span> <a href="/gallery/screen-to-soundscape/" style="color: inherit; text-decoration: none;">Screen-to-Soundscape</a></h3>
+                    <p>An experimental approach to re-imagining screen readers, developing a free and open-source explorative tool that transforms a screen into an immersive soundscape with spatial audio and rich descriptive alt-text for blind and visually impaired users.</p>
+                    <p><a href="/gallery/screen-to-soundscape/">View project</a></p>
+                </div>
             </div>
         </div>
     </section>
@@ -687,38 +755,38 @@ code *, pre *, kbd *, samp * {
             <div class="content-block">
                 <h3><span class="year-label">2025</span> Public AI</h3>
                 <p class="location">Public AI Creative Fellowship, MetaGov • USA</p>
-                <p>The Public AI Creative Fellowship is a six-month initiative by MetaGov that brings together creative professionals to develop cultural narratives around public AI — systems that are open, democratically governed, and accountable to the communities they affect. As the Creative Technologist fellow, I developed interactive digital experiences exploring AI as public infrastructure.</p>
+                <p>The Public AI Creative Fellowship is a six-month initiative by MetaGov developing cultural narratives around public AI: systems that are open, democratically governed, and accountable to the communities they affect. As the Creative Technologist fellow, I built interactive digital experiences exploring AI as public infrastructure.</p>
                 <p><a href="/public-ai/">View Public AI projects</a></p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2024</span> Digitale Cultuur</h3>
                 <p class="location">Stimuleringsfonds Creatieve Industrie • Netherlands • €7,500</p>
-                <p>Artificial Nouveau Studio ontwikkelt Deepfake: a visual essay and interactive installation, een project dat de impact van deepfake-technologie onderzoekt en bijdraagt aan publieke bewustwording over de ethische en maatschappelijke uitdagingen ervan. Onder leiding van AI-engineer Ahnjili ZhuParris combineert het project een visueel essay met een interactieve installatie, waarin gezichts- en stemgegevens van deelnemers worden geïntegreerd in een gepersonaliseerd verhaal. Het project wordt in 2025 gepresenteerd op Noorderlicht (NL) en Identity 2.0 (VK) en nodigt het publiek uit om kritisch na te denken over de rol van digitale tweelingen in een steeds complexere digitale wereld.</p>
+                <p>Artificial Nouveau Studio ontwikkelt Deepfake: a visual essay and interactive installation, een project over de impact van deepfake-technologie en de ethische en maatschappelijke uitdagingen ervan. Gezichts- en stemgegevens van deelnemers worden geïntegreerd in een gepersonaliseerd verhaal; het project wordt in 2025 gepresenteerd op Noorderlicht (NL) en Identity 2.0 (VK).</p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2024</span> Fresh Perspective</h3>
                 <p class="location">Stimuleringsfonds Creatieve Industrie • Netherlands</p>
-                <p>Our project 'Screen-to-Soundscape', received the 2024 Fresh Perspective grant from the StimuleringsFonds. This project focuses on cross-sector collaborative projects that offer new perspectives on current crises including the climate crisis, discrimination, migration and asylum crisis, social and opportunity inequality or the housing crisis.</p>
+                <p>Screen-to-Soundscape received the 2024 Fresh Perspective grant from the Stimuleringsfonds, which supports cross-sector collaborations offering new perspectives on current crises, from discrimination to social and opportunity inequality.</p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2024</span> Processing Foundation Fellowship</h3>
                 <p class="location">Processing Foundation • USA</p>
-                <p>Our project 'Screen-to-Soundscape', received the 2024 Processing Foundation Fellowship. Fellowships are an essential element of the Processing foundation's work in developing tools of community power, connection, stewardship and in nurturing the aims/needs of the people and communities who use our software.</p>
+                <p>Screen-to-Soundscape also received a 2024 Processing Foundation Fellowship, part of the foundation's work in developing tools of community power, connection, and stewardship.</p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2023</span> European Festivals Fund for Emerging Artists</h3>
                 <p class="location">European Festivals Fund for Emerging Artists • Netherlands</p>
-                <p>VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted "the European Festivals Fund for Emerging Artists". This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.</p>
+                <p>VOICES invites participants to record a secret and follow their voice through processing, analysis, and cloning by machine listening algorithms. In return they hear a sound-art composition in which their voice narrates the secrets of others. The grant, with support from IMPAKT, brought the installation to Ars Electronica 2023.</p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2021</span> Mozilla Creative Media Awards</h3>
                 <p class="location">Mozilla Foundation • United States</p>
-                <p>MOZILLA CREATIVE MEDIA AWARDS: Future Wake <a href="http://www.futurewake.com">www.futurewake.com</a> is an interactive art project turns the practice of predictive policing upside down, instead, it allows citizens to predict police brutality. We used to machine learning to predict who, when and how the next victim would die. Further, we used deepfake algorithms to generate the faces of the next victims.</p>
+                <p><a href="http://www.futurewake.com">Future Wake</a> turns predictive policing upside down: instead of predicting crime, it uses machine learning on historical data to predict who, when, and how the next victim of fatal police violence might die, and deepfake algorithms to give those predicted victims faces and stories.</p>
             </div>
         </div>
     </details>
@@ -730,39 +798,42 @@ code *, pre *, kbd *, samp * {
             <div class="content-block">
                 <h3><span class="year-label">2026</span> <a href="/gallery/close-enough/" style="color: inherit; text-decoration: none;">Close Enough</a></h3>
                 <p class="location">GOGBOT Festival, Enschede, Netherlands</p>
-                <p>Close Enough is a performative installation about the intimacy of drone surveillance, built around the central contradiction of drone warfare: the operator is close enough to see a target's face and learn their daily habits, but far enough away to kill without physical consequence. Using autonomous drones, computer vision, and the visual language of military intelligence, the work recreates the logic of pattern-of-life analysis and places an audience inside it, watching the surveillance unfold and gradually recognising themselves within it. To be presented at GOGBOT Festival in September 2026.</p>
+                <p>Close Enough is a performative installation about the intimacy of drone surveillance: the operator is close enough to see a target's face and learn their daily habits, but far enough away to kill without physical consequence. Autonomous drones, computer vision, and the visual language of military intelligence place the audience inside the logic of pattern-of-life analysis.</p>
+                <p><a href="/gallery/close-enough/">View project</a></p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2024</span> New Media Art Conference</h3>
                 <p class="location">CICA Museum, Seoul, Republic of Korea</p>
-                <p>Fashion Police Drones In June 2024 at the CICA Museum, the Fashion Police Drone installation will be presented at the New Media Arts Conference in Korea. The Fashion Police Drones, armed with custom fashion recognition algorithms, will track individuals based on audience-defined criteria for "fashion crimes". Through this interactive experience, the exhibition challenges conventional perspectives about drone and AI applications, sparking discussions about the evolving landscape of surveillance and the ethical use of AI-driven technologies in our contemporary world. I aim to trigger the audience's curiosity about the boundaries of surveillance, the potential consequences of automation in military application and law enforcement, and the societal implications of cultural profiling.</p>
+                <p>Fashion Police Drones was presented at the CICA Museum's New Media Art Conference in June 2024. Armed with custom fashion recognition algorithms, the drones track visitors against audience-defined criteria for "fashion crimes", raising questions about surveillance, automation in law enforcement, and cultural profiling.</p>
+                <p><a href="/gallery/fashion_police_drones/">View project</a></p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2024</span> Screen-to-Soundscape/Techno Disobedience</h3>
                 <p class="location">Constant, The Processing Foundation, The Simulerings Fonds • Belgium, USA, Netherlands</p>
-                <p>Screen-to-Soundscape adopts a creative and experimental approach to reimagining screen reader voices. The project aims to develop a speculative design prototype that transforms a browser or screen into an immersive soundscape. This prototype will feature multiple layered voices reading all readable text in unison with spatial audio enabling users to discern the text's location within the browser. The motivation behind this initiative is to overcome the inherent limitations of traditional screen readers by offering users with visual impairments a more intuitive and immersive way to navigate digital content. This not only benefits users with visual impairments but also provides a richer, more engaging web experience for all users. This project was supported by Constant, the Processing Foundation, and the Stimulerings Fonds.</p>
+                <p>Screen-to-Soundscape reimagines the screen reader as an immersive soundscape: layered voices read on-screen text in unison, with spatial audio revealing where each text sits in the browser. The free and open-source prototype offers blind and visually impaired users a more intuitive way to navigate digital content. Supported by Constant, the Processing Foundation, and the Stimuleringsfonds.</p>
+                <p><a href="/gallery/screen-to-soundscape/">View project</a></p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2023</span> VOICES</h3>
                 <p class="location">IMPAKT festival, Utrecht, Netherlands</p>
-                <p>VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted "the European Festivals Fund for Emerging Artists". This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.</p>
+                <p>VOICES invites participants to record a secret and follow their voice through processing, analysis, and cloning by machine listening algorithms. In return they hear a sound-art composition in which their voice narrates the secrets of others, making the opaque inner workings of machine listening audible.</p>
                 <p><a href="http://impakt.nl/events/2023/exhibition/code-ars-electronica-2023/">More info on the IMPAKT website</a></p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2023</span> VOICES</h3>
                 <p class="location">Ars Electronica, Linz, Austria</p>
-                <p>VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted "the European Festivals Fund for Emerging Artists". This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.</p>
+                <p>VOICES invites participants to record a secret and follow their voice through processing, analysis, and cloning by machine listening algorithms. In return they hear a sound-art composition in which their voice narrates the secrets of others, making the opaque inner workings of machine listening audible.</p>
                 <p><a href="http://www.impakt.nl/events/2023/exhibition/code-ars-electronica-2023/">More info from the IMPAKT website</a></p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2023</span> Digital Pioneers: A Visionary Prelude</h3>
                 <p class="location">Stichting Impakt • Utrecht, Netherlands</p>
-                <p>"Digital Pioneers: A Visionary Prelude" is a digital artwork that blends technology and art, creating a cheeky introduction to the IMPAKT festival 2023. This piece features deepfake representations of three prominent tech CEOs, not as mere figures of authority, but as digital orators guiding the audience through the evolving landscape of technology and art. Each CEO's deepfake delivers a segment of the festival's introduction, focusing on themes closely aligned with their real-world contributions and visions. The first segment delves into the transformative power of technology in art, emphasizing innovation and the breaking of traditional boundaries. The second part addresses the ethical considerations and societal impacts of tech advancements, encouraging viewers to ponder the responsibilities that come with innovation. The final segment looks to the future, inspiring a dialogue about the potential of technology in shaping new forms of artistic expression. The artwork is not just a visual spectacle but an auditory experience as well. The deepfakes' voices have been modulated to create a harmonious symphony, symbolizing the unity and collaborative potential within the tech and art communities. "Digital Pioneers" does more than just introduce a festival; it stands as a testament to the ever-blurring lines between human creativity and technological prowess, inviting viewers to explore the endless possibilities at the intersection of art and technology.</p>
+                <p>"Digital Pioneers: A Visionary Prelude" is a cheeky deepfake introduction to IMPAKT festival 2023, recasting three prominent tech CEOs as digital orators who deliver the festival's opening remarks. Their modulated voices blend into a single harmonious symphony, blurring the line between human creativity and technological prowess.</p>
             </div>
 
             <div class="content-block">
@@ -795,16 +866,14 @@ code *, pre *, kbd *, samp * {
             <div class="content-block">
                 <h3><span class="year-label">2023</span> Deepest Darkest Unknown</h3>
                 <p class="location">Kurina Sohn • Netherlands</p>
-                <p>Deepest Unknown v.1 is an artistic collaboration with AI, generating speculative stories and images that illuminate the mysteries and potential losses of remote underwater environments. The project envision life beyond our limitations while exploring our connection with water and the ecological consequences of human actions. Through digital tools and mechanical techniques, the project transports viewers into alternative realities, expanding our comprehension of deep ocean ecologies.</p>
-                <p>Deepest Unknown installation v.1 engaged the audience through a mix of graphic videos and deep-sea soundscapes. The video featured a creature created using customized StabelDiffusion AI, incorporating a deep-sea dataset and marine debris images. The storytelling aspect involved a dialogue with GPT-2, where human prompts were displayed in italics and the AI-generated script in bold.</p>
-                <p>Deepest Unknown is realised by collaboration with Ahnjili Zhuparris (Customising StableDiffusion AI), Colette Aliman (Deep-sea soundscape design), Tiiu Meiner (Co-writing GPT-2 video script), Tivon Rice ('models for environmental literacy' GPT-2 dataset), Taegwon Bae(Film Art Directing , 3D Art), Changju Yoon(UnrealEngine engineering), Seungmin Lee(film editing, VFX post processing), YoungJae Nah(animator), and Marsha van Leersum(Assistant).</p>
+                <p>Deepest Unknown v.1, led by Kurina Sohn, generates speculative stories and images of remote deep-sea environments, exploring our connection with water and the ecological consequences of human actions. I contributed the customized Stable Diffusion pipeline, trained on deep-sea and marine debris imagery, that generated the film's creatures alongside a GPT-2 co-written script.</p>
                 <p><a href="https://kurinasohn.com/deepest-unknown-v1.html">Kurina Sohn's website</a></p>
             </div>
 
             <div class="content-block">
                 <h3><span class="year-label">2023</span> IMPAKT</h3>
                 <p class="location">CODE: Reclaiming Digital Rights, Netherlands</p>
-                <p>VOICES, an interactive installation, invites participants to co-create a sound-art composition with their voice. Participants are asked to record a secret. In return, they can be visually guided through the processing, analysis, and cloning of their voice recordings by various Machine Listening algorithms, and can experience a sound-art composition in which their voice narrates the secrets of others. This immersive experience aims to shed light on the otherwise opaque inner workings of machine listening. VOICES COLLECTIVE has been granted "the European Festivals Fund for Emerging Artists". This grant, coupled with the support from IMPAKT, has enabled to bring the VOICES installation to life with an exhibition at ARS ELECTRONICA 2023.</p>
+                <p>VOICES invites participants to record a secret and follow their voice through processing, analysis, and cloning by machine listening algorithms. In return they hear a sound-art composition in which their voice narrates the secrets of others, making the opaque inner workings of machine listening audible.</p>
                 <p><a href="http://www.impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/">More information on the IMPAKT website</a></p>
             </div>
 
@@ -1003,7 +1072,7 @@ code *, pre *, kbd *, samp * {
             initDrones();
         }
     </script>
-<footer class="site-copyright" style="text-align:center; padding:24px 16px; font-size:12px; color:#888;">
+<footer class="site-copyright" style="text-align:center; padding:24px 16px; font-size:12px; color:var(--color-muted); opacity:0.75; border-top:1px solid rgba(0,240,255,0.15);">
     <p>&copy; 2024&ndash;2026 Ahnjili ZhuParris. All rights reserved. Content is not licensed for reuse, redistribution or scraping without written permission.</p>
 </footer>
 <!-- canary:AN-9X4K-2026 :: original content and curation by Ahnjili ZhuParris (artificialnouveau.com). Presence of this marker on another site indicates unauthorized copying. -->
