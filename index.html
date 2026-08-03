@@ -81,12 +81,6 @@
             margin-right: 0.5rem;
         }
 
-        /* Accessibility: Improved muted text contrast */
-        .hero-subtitle,
-        .location {
-            color: #d0c4e8;
-        }
-
         /* Accessibility: Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -310,13 +304,6 @@
         @keyframes titlePulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.95; }
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-            font-weight: 300;
-            color: var(--color-muted);
-            margin-bottom: 3rem;
         }
 
         h2 {
