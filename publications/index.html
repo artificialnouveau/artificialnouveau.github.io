@@ -287,9 +287,15 @@
         .paper-abstract.open {
             display: block;
         }
+        /* Reading text matches the site-wide body setting: Young Serif at 1rem,
+           line-height 1.8, full-strength text colour. The surrounding list rows
+           stay mono at --fs-body so the terminal index still reads as an index. */
         .paper-abstract .abstract-text {
             margin-bottom: 10px;
-            font-family: 'Young Serif', Georgia, serif;
+            font-family: 'Young Serif', Georgia, 'Times New Roman', serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--color-text);
         }
         .paper-abstract .paper-authors {
             color: rgba(184, 168, 216, 0.5);

@@ -8,17 +8,6 @@
     font-display: swap;
 }
 
-/* Site-wide type pairing: Young Serif for headings and prose;
-   terminal chrome (buttons, form controls, tables, badges) stays JetBrains Mono */
-html, body, h1, h2, h3, h4, h5, h6, p, li, blockquote, figcaption, dt, dd {
-    font-family: 'Young Serif', Georgia, 'Times New Roman', serif;
-}
-
-button, input, textarea, select, label,
-table, th, td {
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
-}
-
 /* Accessibility: Skip Link */
 .skip-link {
     position: absolute;
@@ -109,7 +98,6 @@ summary:focus-visible,
 }
 
 body {
-    font-family: var(--font-display) !important;
     background-color: var(--color-bg) !important;
     color: var(--color-text) !important;
     line-height: 1.6;
@@ -166,7 +154,6 @@ body::after {
 
 /* Terminal typography */
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display) !important;
     color: var(--color-accent-cyan) !important;
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -233,7 +220,6 @@ p {
     color: var(--color-text);
     line-height: 1.8;
     margin-bottom: 1rem;
-    font-family: var(--font-mono);
 }
 
 /* Terminal cursor blink effect */
@@ -337,7 +323,6 @@ a:hover {
 .bio {
     color: var(--color-muted) !important;
     font-size: 0.9rem;
-    font-family: var(--font-mono);
 }
 
 /* Terminal-style buttons */
@@ -565,14 +550,12 @@ pre code {
 .card-title {
     color: var(--color-accent-cyan) !important;
     font-weight: 700;
-    font-family: var(--font-mono);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .card-text {
     color: var(--color-text) !important;
-    font-family: var(--font-mono);
     font-size: 0.9rem;
 }
 
@@ -628,7 +611,6 @@ pre code {
 /* Terminal lists */
 ul, ol {
     color: var(--color-text);
-    font-family: var(--font-mono);
 }
 
 li {
@@ -653,7 +635,6 @@ blockquote {
     margin: 2rem 0;
     color: var(--color-text);
     font-style: normal;
-    font-family: var(--font-mono);
     background: rgba(0, 240, 255, 0.05);
     padding: 1rem 1.5rem;
     position: relative;
@@ -672,7 +653,6 @@ footer {
     color: var(--color-muted) !important;
     padding: 4rem 0;
     position: relative;
-    font-family: var(--font-mono);
 }
 
 /* Terminal forms */
@@ -934,7 +914,6 @@ center {
     margin-bottom: 1rem;
     line-height: 1.2;
     color: var(--color-accent-cyan);
-    font-family: var(--font-mono);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -943,7 +922,6 @@ center {
     color: var(--color-text);
     line-height: 1.7;
     font-size: 0.9rem;
-    font-family: var(--font-mono);
 }
 
 .year-badge {
@@ -1055,7 +1033,6 @@ center {
     font-size: 1rem;
     line-height: 1.8;
     color: var(--color-text);
-    font-family: var(--font-mono);
 }
 
 .project-content a {
@@ -1092,7 +1069,6 @@ center {
 .project-content ul {
     margin-bottom: 1.5rem;
     margin-left: 2rem;
-    font-family: var(--font-mono);
 }
 
 .project-content li {
@@ -1134,4 +1110,34 @@ center {
     .project-content ul {
         margin-left: 1rem;
     }
+}
+
+/* ---------------------------------------------------------------------------
+   Site-wide type pairing, authoritative pass.
+
+   The pairing used to be declared near the top of this file, where it lost to
+   everything below it: `body` and `h1..h6` set var(--font-display) with
+   !important, and the `p`, `ul, ol`, `blockquote` and `.project-content` rules
+   reset prose to var(--font-mono). The net effect was that every page except
+   the homepage rendered entirely in JetBrains Mono. Declaring it last instead,
+   with !important, makes it win, so all pages match the homepage: Young Serif
+   for prose and headings, JetBrains Mono for terminal chrome (buttons, badges,
+   nav, tables, code, form controls). Keep this block at the end of the file.
+   --------------------------------------------------------------------------- */
+
+html, body, h1, h2, h3, h4, h5, h6, p, a, li, span, div, section, article,
+header, footer, main, aside, nav, blockquote, figcaption, dl, dt, dd {
+    font-family: 'Young Serif', Georgia, 'Times New Roman', serif !important;
+}
+
+.btn, .btn-primary, .back-link, .skip-link,
+.year-badge, .meta-label, .badge, .location,
+.nav-link, .navbar-nav .nav-link, .blog-nav .nav-link,
+.card::after, .project-card::after,
+table, th, td,
+button, input, textarea, select, label,
+code, pre, kbd, samp, tt, var,
+.mono, [class*="mono"], [class*="-mono"],
+code *, pre *, kbd *, samp * {
+    font-family: 'JetBrains Mono', 'Courier New', Courier, monospace !important;
 }
