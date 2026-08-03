@@ -354,14 +354,14 @@
         }
 
         p {
-            color: #d0c4e8;
+            color: var(--color-text);
             line-height: 1.8;
             margin-bottom: 1.5rem;
             font-family: var(--font-mono);
         }
 
         li {
-            color: #d0c4e8;
+            color: var(--color-text);
         }
 
         a {
@@ -675,8 +675,9 @@
 }
 /* Intentional pairing: Young Serif for headings and prose,
    JetBrains Mono for terminal chrome (buttons, labels, prompts, tables) */
-h1, h2, h3, h4, h5, h6, p, li, blockquote, figcaption, dt, dd,
-.summary-heading, footer {
+html, body, h1, h2, h3, h4, h5, h6, p, a, li, span, div, section, article,
+header, footer, main, aside, nav, blockquote, figcaption, dl, dt, dd,
+.summary-heading {
   font-family: 'Young Serif', Georgia, 'Times New Roman', serif !important;
 }
 .btn, .nav-group-label, .hero-eyebrow, .year-label, .location,
