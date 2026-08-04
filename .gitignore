@@ -48,9 +48,8 @@ smalltools/dutchmaxxing/exercise_transcripts_backup.json
 application-tracker.txt
 job-search.txt
 
-# AI design tooling, machine-local (gstack is 1.1 GB with its own git repo)
+# AI design tooling, machine-local (gstack is 1.1 GB with its own git repo).
+# impeccable itself is installed globally in ~/.claude; the .github/ copies
+# below are versioned so the Copilot-side rules travel with the repo.
 .claude/
 .gstack/
-.github/agents/
-.github/hooks/
-.github/skills/
