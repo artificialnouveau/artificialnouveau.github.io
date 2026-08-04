@@ -90,7 +90,7 @@
         h1 {
             font-size: clamp(1.4rem, 4vw, 2.5rem);
             color: var(--color-accent);
-            text-shadow: 2px 2px 0 rgba(0,240,255,0.5), 0 0 20px rgba(255,16,240,0.4);
+            text-shadow: 2px 2px 0 rgba(20, 16, 12, 0.5), 0 0 20px rgba(192, 51, 15, 0.4);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 0.5rem;
@@ -103,7 +103,7 @@
             text-transform: uppercase;
             letter-spacing: 0.08em;
             margin-bottom: 1rem;
-            border-bottom: 1px solid rgba(255,16,240,0.3);
+            border-bottom: 1px solid rgba(192, 51, 15, 0.3);
             padding-bottom: 0.5rem;
         }
 
@@ -132,7 +132,7 @@
         /* Terminal output */
         #scan-output {
             background: var(--color-card-bg);
-            border: 1px solid rgba(0,240,255,0.3);
+            border: 1px solid rgba(20, 16, 12, 0.3);
             padding: 1.5rem;
             font-size: 0.85rem;
             line-height: 1.8;
@@ -148,7 +148,7 @@
             background: var(--color-card-bg);
         }
         #scan-output::-webkit-scrollbar-thumb {
-            background: rgba(0,240,255,0.3);
+            background: rgba(20, 16, 12, 0.3);
         }
 
         .scan-line {
@@ -179,7 +179,7 @@
             letter-spacing: 0.1em;
             margin-top: 0.8rem;
             padding-top: 0.5rem;
-            border-top: 1px solid rgba(255,16,240,0.15);
+            border-top: 1px solid rgba(192, 51, 15, 0.15);
             font-size: 0.75rem;
             opacity: 0;
             animation: fadeInUp 0.3s ease forwards;
@@ -225,7 +225,7 @@
         #shader-canvas {
             width: 100%;
             height: 280px;
-            border: 1px solid rgba(0,240,255,0.2);
+            border: 1px solid rgba(20, 16, 12, 0.2);
             margin: 1rem 0;
             display: block;
             border-radius: 2px;
@@ -242,7 +242,7 @@
         /* Live tracking */
         #tracking-section {
             background: var(--color-card-bg);
-            border: 1px solid rgba(0,240,255,0.3);
+            border: 1px solid rgba(20, 16, 12, 0.3);
             padding: 1.5rem;
         }
 
@@ -289,7 +289,7 @@
         #typing-input {
             width: 100%;
             background: var(--color-card-bg);
-            border: 1px solid rgba(0,240,255,0.3);
+            border: 1px solid rgba(20, 16, 12, 0.3);
             color: var(--color-text);
             font-family: var(--font-display);
             font-size: 0.9rem;
@@ -306,13 +306,13 @@
         }
 
         #typing-input::placeholder {
-            color: rgba(184,168,216,0.3);
+            color: rgb(74, 66, 56);
         }
 
         #type-sparkline-container {
             margin-top: 1.5rem;
             background: var(--color-card-bg);
-            border: 1px solid rgba(0,240,255,0.2);
+            border: 1px solid rgba(20, 16, 12, 0.2);
             padding: 1rem;
         }
 
@@ -342,7 +342,7 @@
             opacity: 0;
             transition: opacity 0.6s ease;
             background: rgba(10, 0, 20, 0.5);
-            border-left: 1px solid rgba(0,240,255,0.1);
+            border-left: 1px solid rgba(20, 16, 12, 0.1);
         }
 
         #scroll-timeline.visible {
@@ -362,7 +362,7 @@
             transform: translateY(-50%);
             font-family: var(--font-display);
             font-size: 0.55rem;
-            color: rgba(0,240,255,0.3);
+            color: rgba(20, 16, 12, 0.3);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             writing-mode: vertical-rl;
@@ -386,7 +386,7 @@
             width: 100%;
             height: 400px;
             display: block;
-            border: 1px solid rgba(0,240,255,0.2);
+            border: 1px solid rgba(20, 16, 12, 0.2);
             cursor: grab;
         }
 
@@ -422,20 +422,20 @@
             display: block;
             margin-top: 0.3rem;
             font-size: 0.75rem;
-            color: rgba(184,168,216,0.5);
+            color: rgb(74, 66, 56);
             font-style: italic;
         }
 
         /* Live assumptions that appear during browsing */
         .assumption.live {
             border-left-color: var(--color-accent);
-            background: rgba(255,16,240,0.05);
+            background: rgba(192, 51, 15, 0.05);
         }
 
         /* The Point */
         .the-point {
             background: var(--color-card-bg);
-            border: 1px solid rgba(255,16,240,0.4);
+            border: 1px solid rgba(192, 51, 15, 0.4);
             padding: 2rem;
             text-align: center;
         }
@@ -480,7 +480,7 @@
         .privacy-tips li {
             padding: 0.4rem 0;
             color: var(--color-muted);
-            border-bottom: 1px solid rgba(0,240,255,0.1);
+            border-bottom: 1px solid rgba(20, 16, 12, 0.1);
         }
 
         .privacy-tips li::before {
@@ -491,7 +491,7 @@
         .privacy-tips a {
             color: var(--color-accent-cyan);
             text-decoration: underline;
-            text-decoration-color: rgba(0,240,255,0.3);
+            text-decoration-color: rgba(20, 16, 12, 0.3);
         }
 
         .privacy-tips a:hover {
@@ -500,7 +500,7 @@
 
         .touch-notice {
             background: rgba(0,0,0,0.5);
-            border: 1px dashed rgba(0,240,255,0.3);
+            border: 1px dashed rgba(20, 16, 12, 0.3);
             padding: 1rem;
             text-align: center;
             color: var(--color-muted);
@@ -575,6 +575,8 @@ code *, pre *, kbd *, samp * {
   font-family: 'DM Mono', 'JetBrains Mono', 'Courier New', Courier, monospace !important;
 }
 </style>
+<!-- PROTOTYPE: print-object theme -->
+<link rel="stylesheet" href="/assets/css/print-object.css">
 </head>
 <body>
     <div id="scroll-timeline"><canvas id="scroll-timeline-canvas"></canvas></div>
@@ -2497,7 +2499,7 @@ code *, pre *, kbd *, samp * {
             // Draw average line
             const avg = data.reduce((a,b) => a+b, 0) / data.length;
             const avgY = h - ((avg - min) / range) * (h - 10) - 5;
-            ctx.strokeStyle = 'rgba(176,16,255,0.3)';
+            ctx.strokeStyle = 'rgba(192, 51, 15, 0.3)';
             ctx.lineWidth = 1;
             ctx.setLineDash([4, 4]);
             ctx.beginPath();
@@ -2800,7 +2802,7 @@ code *, pre *, kbd *, samp * {
                 const timeSpan = endT - startT || 1;
 
                 // Draw faint position scale markers
-                ctx.strokeStyle = 'rgba(0,240,255,0.06)';
+                ctx.strokeStyle = 'rgba(20, 16, 12, 0.06)';
                 ctx.lineWidth = 1;
                 for (let p = 0; p <= 1; p += 0.25) {
                     const x = pad + p * drawW;
@@ -2811,7 +2813,7 @@ code *, pre *, kbd *, samp * {
                 }
 
                 // Draw scroll path — glow layer
-                ctx.strokeStyle = 'rgba(0,240,255,0.15)';
+                ctx.strokeStyle = 'rgba(20, 16, 12, 0.15)';
                 ctx.lineWidth = 6;
                 ctx.lineJoin = 'round';
                 ctx.lineCap = 'round';
@@ -2826,7 +2828,7 @@ code *, pre *, kbd *, samp * {
                 ctx.stroke();
 
                 // Draw scroll path — main line
-                ctx.strokeStyle = 'rgba(0,240,255,0.7)';
+                ctx.strokeStyle = 'rgba(20, 16, 12, 0.7)';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 for (let i = 0; i < scrollHistory.length; i++) {
@@ -2844,12 +2846,12 @@ code *, pre *, kbd *, samp * {
                         const ty = ((scrollHistory[i].t - startT) / timeSpan) * h;
                         const tx = pad + scrollHistory[i].y * drawW;
                         // Glow
-                        ctx.fillStyle = 'rgba(255,16,240,0.2)';
+                        ctx.fillStyle = 'rgba(192, 51, 15, 0.2)';
                         ctx.beginPath();
                         ctx.arc(tx, ty, 6, 0, Math.PI * 2);
                         ctx.fill();
                         // Dot
-                        ctx.fillStyle = 'rgba(255,16,240,0.9)';
+                        ctx.fillStyle = 'rgba(192, 51, 15, 0.9)';
                         ctx.beginPath();
                         ctx.arc(tx, ty, 3, 0, Math.PI * 2);
                         ctx.fill();
