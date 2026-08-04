@@ -3,51 +3,6 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
-      "id": "ai-societal-impact-lab-fellowship-autumn-2026",
-      "title": "AI Societal Impact Lab: Autumn 2026 Fellowship",
-      "organization": "AI Societal Impact Lab",
-      "location": "Fully remote. No location restriction is stated.",
-      "region": "Remote",
-      "regions": [
-        "Remote",
-        "Worldwide"
-      ],
-      "amount": "No stipend or compensation is mentioned anywhere in the call; treat this as an unpaid fellowship unless the lab says otherwise. Stated benefits are mentorship from a Lab fellow, work on a group project, publication of your own analytical piece on the Lab's website, and dedicated workshops and seminars. No application fee.",
-      "duration": "Approximately 8 to 10 weeks, starting mid to late September 2026, at about four hours per week: one hour on a weekly call and three hours of individual work. Concrete dates and programme details are shared with shortlisted candidates.",
-      "startDate": null,
-      "deadline": "2026-09-04",
-      "addedDate": "2026-08-04",
-      "feedDate": "2026-08-16",
-      "category": "ai",
-      "categories": [
-        "ai",
-        "research"
-      ],
-      "applicant": "individuals",
-      "description": "The AI Societal Impact Lab's inaugural Autumn 2026 Fellowship is a short, remote, part-time programme intended to foster public discussion around AI's impact on human societies and to bring out emerging voices working on the socio-political implications of emerging AI technology. The Lab's own work spans open-source intelligence, digital authoritarianism and Russian AI policy. NOTE ON PAY: the call lists benefits but no stipend, salary or honorarium, so unless the Lab confirms otherwise this appears to be unpaid. FORMAT: roughly 8 to 10 weeks starting mid to late September 2026, run remotely, with an expected four hours per week made up of a one-hour weekly call plus three hours of individual work. ELIGIBILITY: the programme targets recent graduates in the social sciences and humanities as well as early-career researchers, but the Lab encourages diversity of thought and representation and welcomes applications from other backgrounds including STEM and the arts. Previous experience on the subject of AI is welcome but NOT required. BENEFITS: mentorship from one of the Lab's fellows, work on a group project, an individual analytical piece published on the Lab's website, and dedicated workshops and seminars. APPLY via the Tally form linked from the fellowship page. Applications are reviewed on a rolling basis until the programme is filled or 4 September 2026, whichever comes first, and places are strictly limited, so the effective deadline may be earlier. Contact: info@aisocietalimpactlab.com.",
-      "url": "https://www.aisocietalimpactlab.com/fellowship-autumn-2026",
-      "tags": [
-        "remote",
-        "worldwide",
-        "ai-societal-impact-lab",
-        "fellowship",
-        "ai",
-        "ai-policy",
-        "ai-ethics",
-        "society",
-        "digital-authoritarianism",
-        "open-source-intelligence",
-        "research",
-        "early-career",
-        "part-time",
-        "unpaid",
-        "rolling",
-        "no-fee"
-      ],
-      "fee": false,
-      "featured": false
-    },
-    {
       "id": "american-sunlight-project-free-expression-fellow-2026",
       "title": "American Sunlight Project: Free Expression Fellow",
       "organization": "American Sunlight Project",
