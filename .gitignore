@@ -47,3 +47,10 @@ smalltools/dutchmaxxing/exercise_transcripts_backup.json
 # Personal application tracker / job search (local only, do not upload)
 application-tracker.txt
 job-search.txt
+
+# AI design tooling, machine-local (gstack is 1.1 GB with its own git repo)
+.claude/
+.gstack/
+.github/agents/
+.github/hooks/
+.github/skills/
