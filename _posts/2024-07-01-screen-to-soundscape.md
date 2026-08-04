@@ -15,7 +15,7 @@ Read more about Screen-to-Soundscape on [www.screentosoundscape.com](https://www
 
 ---
 
-<div id="hear-this-page" style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,240,255,0.03); border: 1px solid rgba(0,240,255,0.2);">
+<div id="hear-this-page" style="margin-top: 2rem; padding: 1.5rem; background: rgba(20, 16, 12, 0.03); border: 1px solid rgba(20, 16, 12, 0.2);">
 
 <h2 style="text-align:center; margin-top:0;">Try It: Hear This Page</h2>
 
@@ -24,35 +24,35 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
 </p>
 
 <div style="text-align:center; margin: 1rem 0;">
-  <button id="spatial-toggle" style="background:#000; border:2px solid #00f0ff; color:#00f0ff; font-family:'JetBrains Mono',monospace; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.6rem 1.2rem; cursor:pointer;">[ Enable Spatial Audio ]</button>
+  <button id="spatial-toggle" style="background:var(--color-card-bg); border:2px solid var(--color-accent-cyan); color:var(--color-accent-cyan); font-family:'JetBrains Mono',monospace; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.6rem 1.2rem; cursor:pointer;">[ Enable Spatial Audio ]</button>
 </div>
 
 <div id="spatial-status" style="text-align:center; font-size:0.65rem; color:#b8a8d8; margin-bottom:1.5rem;"></div>
 
 <div id="soundscape-demo" style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; opacity: 0.5; pointer-events: none;">
 
-  <div class="spatial-block" data-freq="330" style="grid-column: 1; padding:1rem; border:1px solid rgba(0,240,255,0.15); background:rgba(0,0,0,0.3); cursor:pointer; transition: all 0.2s;">
-    <div style="font-size:0.6rem; color:#ff10f0; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem;">Top Left</div>
+  <div class="spatial-block" data-freq="330" style="grid-column: 1; padding:1rem; border:1px solid rgba(20, 16, 12, 0.15); background:rgba(0,0,0,0.3); cursor:pointer; transition: all 0.2s;">
+    <div style="font-size:0.6rem; color:var(--color-accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem;">Top Left</div>
     <p style="font-size:0.75rem; margin:0;" data-speak="Screen readers often skip images, videos, and maps, leaving blind users with an incomplete picture of digital content.">Screen readers often skip images, videos, and maps, leaving blind users with an incomplete picture of digital content.</p>
   </div>
 
-  <div class="spatial-block" data-freq="392" style="grid-column: 2; padding:1rem; border:1px solid rgba(0,240,255,0.15); background:rgba(0,0,0,0.3); cursor:pointer; transition: all 0.2s;">
-    <div style="font-size:0.6rem; color:#ff10f0; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem;">Top Right</div>
+  <div class="spatial-block" data-freq="392" style="grid-column: 2; padding:1rem; border:1px solid rgba(20, 16, 12, 0.15); background:rgba(0,0,0,0.3); cursor:pointer; transition: all 0.2s;">
+    <div style="font-size:0.6rem; color:var(--color-accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem;">Top Right</div>
     <p style="font-size:0.75rem; margin:0;" data-speak="Our tool uses computer vision to generate rich, descriptive alt-text for images, making visual content accessible through sound.">Our tool uses computer vision to generate rich, descriptive alt-text for images, making visual content accessible through sound.</p>
   </div>
 
-  <div class="spatial-block" data-freq="262" style="grid-column: 1 / -1; padding:1rem; border:1px solid rgba(0,240,255,0.15); background:rgba(0,0,0,0.3); cursor:pointer; transition: all 0.2s;">
-    <div style="font-size:0.6rem; color:#ff10f0; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem;">Center</div>
+  <div class="spatial-block" data-freq="262" style="grid-column: 1 / -1; padding:1rem; border:1px solid rgba(20, 16, 12, 0.15); background:rgba(0,0,0,0.3); cursor:pointer; transition: all 0.2s;">
+    <div style="font-size:0.6rem; color:var(--color-accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem;">Center</div>
     <p style="font-size:0.75rem; margin:0;" data-speak="Spatial audio uses multiple layered voices positioned in three-dimensional space, so content on the left of the screen sounds like it comes from your left ear.">Spatial audio uses multiple layered voices positioned in 3D space, so content on the left of the screen sounds like it comes from your left ear.</p>
   </div>
 
-  <div class="spatial-block" data-freq="440" style="grid-column: 1; padding:1rem; border:1px solid rgba(0,240,255,0.15); background:rgba(0,0,0,0.3); cursor:pointer; transition: all 0.2s;">
-    <div style="font-size:0.6rem; color:#ff10f0; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem;">Bottom Left</div>
+  <div class="spatial-block" data-freq="440" style="grid-column: 1; padding:1rem; border:1px solid rgba(20, 16, 12, 0.15); background:rgba(0,0,0,0.3); cursor:pointer; transition: all 0.2s;">
+    <div style="font-size:0.6rem; color:var(--color-accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem;">Bottom Left</div>
     <p style="font-size:0.75rem; margin:0;" data-speak="Traditional screen readers offer a single monotone voice. We provide diverse voice options and customizable narration styles.">Traditional screen readers offer a single monotone voice. We provide diverse voice options and customizable narration styles.</p>
   </div>
 
-  <div class="spatial-block" data-freq="523" style="grid-column: 2; padding:1rem; border:1px solid rgba(0,240,255,0.15); background:rgba(0,0,0,0.3); cursor:pointer; transition: all 0.2s;">
-    <div style="font-size:0.6rem; color:#ff10f0; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem;">Bottom Right</div>
+  <div class="spatial-block" data-freq="523" style="grid-column: 2; padding:1rem; border:1px solid rgba(20, 16, 12, 0.15); background:rgba(0,0,0,0.3); cursor:pointer; transition: all 0.2s;">
+    <div style="font-size:0.6rem; color:var(--color-accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem;">Bottom Right</div>
     <p style="font-size:0.75rem; margin:0;" data-speak="Screen-to-Soundscape is free and open-source, supported by Constant, The Processing Foundation, and the Stimuleringsfonds.">Screen-to-Soundscape is free and open-source, supported by Constant, The Processing Foundation, and the Stimuleringsfonds.</p>
   </div>
 
@@ -79,19 +79,19 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       spatialEnabled = true;
       toggle.textContent = '[ Disable Spatial Audio ]';
-      toggle.style.borderColor = '#ff10f0';
-      toggle.style.color = '#ff10f0';
+      toggle.style.borderColor = 'var(--color-accent)';
+      toggle.style.color = 'var(--color-accent)';
       demo.style.opacity = '1';
       demo.style.pointerEvents = 'auto';
       status.textContent = '> SPATIAL AUDIO ACTIVE — Hover over text blocks to hear them';
-      status.style.color = '#00f0ff';
+      status.style.color = 'var(--color-accent-cyan)';
     } else {
       spatialEnabled = false;
       stopSpatialAudio();
       speechSynthesis.cancel();
       toggle.textContent = '[ Enable Spatial Audio ]';
-      toggle.style.borderColor = '#00f0ff';
-      toggle.style.color = '#00f0ff';
+      toggle.style.borderColor = 'var(--color-accent-cyan)';
+      toggle.style.color = 'var(--color-accent-cyan)';
       demo.style.opacity = '0.5';
       demo.style.pointerEvents = 'none';
       status.textContent = '';
@@ -102,7 +102,7 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
     stopSpatialAudio();
     speechSynthesis.cancel();
     blocks.forEach(function(b) {
-      b.style.borderColor = 'rgba(0,240,255,0.15)';
+      b.style.borderColor = 'rgba(20, 16, 12, 0.15)';
       b.style.boxShadow = 'none';
       b.style.background = 'rgba(0,0,0,0.3)';
     });
@@ -239,9 +239,9 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
       var text = textEl.getAttribute('data-speak');
 
       // Visual feedback
-      block.style.borderColor = '#ff10f0';
-      block.style.boxShadow = '0 0 15px rgba(255,16,240,0.3)';
-      block.style.background = 'rgba(255,16,240,0.05)';
+      block.style.borderColor = 'var(--color-accent)';
+      block.style.boxShadow = '0 0 15px rgba(192, 51, 15, 0.3)';
+      block.style.background = 'rgba(192, 51, 15, 0.05)';
 
       // Play spatialized tone from block position
       var pos = playSpatialTone(block);
@@ -279,7 +279,7 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
         try { activeOscillator._osc2.stop(); } catch(e) {}
       }
 
-      block.style.borderColor = 'rgba(0,240,255,0.15)';
+      block.style.borderColor = 'rgba(20, 16, 12, 0.15)';
       block.style.boxShadow = 'none';
       block.style.background = 'rgba(0,0,0,0.3)';
       status.textContent = '> SPATIAL AUDIO ACTIVE — Hover over text blocks to hear them';
@@ -290,7 +290,7 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
 
 ---
 
-<div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,240,255,0.03); border: 1px solid rgba(0,240,255,0.2);">
+<div style="margin-top: 2rem; padding: 1.5rem; background: rgba(20, 16, 12, 0.03); border: 1px solid rgba(20, 16, 12, 0.2);">
 
 <h2 style="text-align:center; margin-top:0;">Phase 1B Prototype: Wikipedia Soundscape Generator</h2>
 
@@ -300,7 +300,7 @@ Enter a Wikipedia article to explore it as a 3D soundscape. Walk through section
 
 <div id="proto-wrapper" style="position:relative;">
 <iframe id="proto-iframe" src="https://www.screentosoundscape.com/scripts/phase1bprototype.html"
-  style="width:100%; height:600px; border:1px solid rgba(0,240,255,0.2); border-radius:6px; background:#1a1a2e;"
+  style="width:100%; height:600px; border:1px solid rgba(20, 16, 12, 0.2); border-radius:6px; background:#1a1a2e;"
   allow="autoplay; microphone"
   loading="lazy"
   title="Screen-to-Soundscape Phase 1B Prototype">
@@ -308,7 +308,7 @@ Enter a Wikipedia article to explore it as a 3D soundscape. Walk through section
 </div>
 
 <p style="text-align:center; font-size:0.6rem; color:#b8a8d8; opacity:0.6; margin-top:0.5rem;">
-<a href="https://www.screentosoundscape.com/scripts/phase1bprototype.html" target="_blank" style="color:#00f0ff;">Open full-screen</a> for the best experience.
+<a href="https://www.screentosoundscape.com/scripts/phase1bprototype.html" target="_blank" style="color:var(--color-accent-cyan);">Open full-screen</a> for the best experience.
 </p>
 
 </div>

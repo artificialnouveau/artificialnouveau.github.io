@@ -140,7 +140,7 @@
                 border-top: 1px solid rgba(0, 240, 255, 0.15);
                 font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
                 font-size: 11px;
-                color: rgba(184, 168, 216, 0.7);
+                color: rgb(74, 66, 56);
                 z-index: 10000;
                 transform: translateY(100%);
                 transition: transform 0.5s ease;
@@ -186,7 +186,7 @@
             .sv-close {
                 background: none;
                 border: none;
-                color: rgba(184, 168, 216, 0.4);
+                color: rgb(74, 66, 56);
                 font-size: 14px;
                 cursor: pointer;
                 padding: 2px 4px;
@@ -213,7 +213,7 @@
                 font-size: 10px;
                 line-height: 1.7;
             }
-            .sv-details .sv-dl { color: rgba(184, 168, 216, 0.45); }
+            .sv-details .sv-dl { color: rgb(74, 66, 56); }
             .sv-details .sv-dv { color: #00f0ff; }
             .sv-details .sv-dw { color: #ffaa00; }
             .sv-details .sv-section {

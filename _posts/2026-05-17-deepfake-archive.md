@@ -35,15 +35,15 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
     margin-bottom: 1.25rem;
   }
   .dfa-notice {
-    border: 1px solid #ff10f0;
-    background: rgba(255, 16, 240, 0.06);
+    border: 1px solid var(--color-accent);
+    background: rgba(192, 51, 15, 0.06);
     color: #f0e8d4;
     padding: 0.85rem 1rem;
     font-size: 0.78rem;
     margin-bottom: 1.5rem;
     line-height: 1.5;
   }
-  .dfa-notice strong { color: #ff10f0; }
+  .dfa-notice strong { color: var(--color-accent); }
   .dfa-filters {
     display: flex;
     flex-wrap: wrap;
@@ -214,14 +214,14 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
   }
   .dfa-modal-link {
     display: inline-block;
-    color: #00f0ff;
+    color: var(--color-accent-cyan);
     text-decoration: none;
     font-size: 0.75rem;
-    border-bottom: 1px solid #00f0ff;
+    border-bottom: 1px solid var(--color-accent-cyan);
     padding-bottom: 1px;
     word-break: break-all;
   }
-  .dfa-modal-link:hover { color: #ff10f0; border-bottom-color: #ff10f0; }
+  .dfa-modal-link:hover { color: var(--color-accent); border-bottom-color: var(--color-accent); }
   .dfa-empty {
     grid-column: 1 / -1;
     text-align: center;
