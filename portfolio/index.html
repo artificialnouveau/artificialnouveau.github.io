@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#efe9dc">
+<title>Portfolio &mdash; Artificial Nouveau &mdash; Ahnjili ZhuParris, PhD</title>
+<meta name="description" content="Selected works 2014-2026 by Ahnjili ZhuParris, PhD, of Artificial Nouveau Studio: Close Enough, Deepfake Archive, DEEPFAKE video essay, Fashion Police Drones, BabbleOn, Future Wake and Synthetic Biology. Readable online and downloadable as a print-ready PDF.">
+<link rel="canonical" href="https://www.artificialnouveau.com/portfolio/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ahnjili ZhuParris">
+<meta property="og:title" content="Portfolio &mdash; Artificial Nouveau &mdash; Ahnjili ZhuParris, PhD">
+<meta property="og:description" content="Selected works 2014-2026: drone surveillance, synthetic media, machine listening and predictive policing. Print-ready portfolio.">
+<meta property="og:url" content="https://www.artificialnouveau.com/portfolio/">
+<meta property="og:image" content="https://www.artificialnouveau.com/assets/portfolio/print/portfolio-og.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+@font-face {
+  font-family: 'Young Serif';
+  src: url('../assets/fonts/YoungSerif-Regular.woff2') format('woff2'),
+       url('../assets/fonts/YoungSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --paper: #efe9dc;
+  --ink: #14100c;
+  --ink-soft: #4a4238;
+  --spot: #c0330f;
+  --rule: 2px solid var(--ink);
+  --rule-hair: 1px solid var(--ink);
+
+  --grotesk: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --serif: "Young Serif", Georgia, serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #c9c2b3;
+  color: var(--ink);
+  font-family: var(--grotesk);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ---------- Sheet ---------- */
+.deck { padding: 96px 16px 64px; }
+
+.sheet {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto 28px;
+  padding: 14mm 15mm 20mm;
+  background: var(--paper);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,0.018) 0 1px, transparent 1px),
+    radial-gradient(circle at 70% 65%, rgba(0,0,0,0.015) 0 1px, transparent 1px);
+  background-size: 7px 7px, 11px 11px;
+}
+
+.sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 7pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 3mm;
+  border-bottom: var(--rule-hair);
+  flex: none;
+}
+
+.sheet-foot {
+  position: absolute;
+  left: 15mm;
+  right: 15mm;
+  bottom: 8mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 6.5pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-top: 2.5mm;
+  border-top: var(--rule-hair);
+}
+.sheet-foot .pg { color: var(--ink); font-weight: 700; }
+
+/* ---------- Cover ---------- */
+.cover { padding: 0; justify-content: flex-start; }
+
+.cover-band {
+  height: 150mm;
+  width: 100%;
+  flex: none;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+.cover-band > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Contact sheet of the BabbleOn talking head: the source is a 256px video, so
+   it holds up as a wall of small tiles where a single blown-up frame would not. */
+.wall {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 2mm;
+  padding: 2mm;
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+}
+.wall .cell { position: relative; overflow: hidden; background: #000; }
+/* a few stills are mirrored or turned, so the wall reads as a crowd rather than a repeat */
+.wall .cell.flip > img { transform: scaleX(-1); }
+.wall .cell.turn > img { transform: rotate(180deg); }
+.wall .cell.turn-flip > img { transform: rotate(180deg) scaleX(-1); }
+.wall .cell > img,
+.wall .cell > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cover-body {
+  flex: 1;
+  padding: 10mm 15mm 13mm;
+  display: flex;
+  flex-direction: column;
+}
+
+.cover-eyebrow {
+  font-family: var(--mono);
+  font-size: 8pt;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--spot);
+  margin: 0 0 7mm;
+}
+
+.cover h1 .line { display: block; overflow: hidden; }
+.cover h1 .line > span { display: block; }
+
+.cover h1 {
+  font-size: 47pt;
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.cover-rule {
+  height: 6px;
+  background: var(--ink);
+  margin: 7mm 0 6mm;
+}
+
+.cover-sub {
+  font-family: var(--serif);
+  font-size: 13pt;
+  line-height: 1.35;
+  margin: 0;
+  max-width: 120mm;
+}
+
+.cover-meta {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10mm;
+  font-family: var(--mono);
+  font-size: 7.5pt;
+  letter-spacing: 0.1em;
+  line-height: 1.9;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+.cover-meta strong {
+  display: block;
+  color: var(--ink);
+  font-size: 8.5pt;
+  letter-spacing: 0.12em;
+}
+
+/* ---------- Headings ---------- */
+.page-title {
+  font-size: 26pt;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 7mm 0 0;
+}
+
+.title-row {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8mm;
+  padding-bottom: 4mm;
+  flex: none;
+}
+.title-row::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 6px;
+  background: var(--ink);
+  transform-origin: left center;
+}
+.title-row .yr {
+  font-family: var(--mono);
+  font-size: 12pt;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--spot);
+  padding-top: 8mm;
+  flex: none;
+}
+
+.medium {
+  font-family: var(--mono);
+  font-size: 7.5pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 4mm 0 0;
+  flex: none;
+}
+
+/* ---------- Media ---------- */
+.slot {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #0a0a0a;
+  flex: none;
+}
+.slot > img,
+.slot > video,
+.slot > iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  display: block;
+}
+.slot.contain > img { object-fit: contain; background: #0a0a0a; }
+.m-print { display: none; }
+
+.hero { margin: 6mm 0 0; height: 74mm; }
+.hero.big { height: 98mm; }
+.strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3mm;
+  margin-top: 3mm;
+  flex: none;
+}
+.strip .slot { height: 36mm; }
+.strip.tall { margin-top: 6mm; }
+.strip.tall .slot { height: 76mm; }
+.strip.three { grid-template-columns: repeat(3, 1fr); }
+.strip.one { grid-template-columns: 1fr; }
+.strip.one .slot { height: 52mm; }
+
+/* Drones page: portrait verdict panel, documentation photo, infraction list */
+.fpd-row { display: grid; grid-template-columns: 50mm 1fr 58mm; gap: 3mm; margin-top: 6mm; flex: none; }
+.fpd-row .slot { height: 88mm; }
+
+/* A typographic panel that sits in an image slot, for works where a second
+   photograph would say less than a line of text. */
+.slot.panel { background: var(--paper); }
+.note {
+  position: absolute;
+  inset: 0;
+  padding: 5mm;
+  border: var(--rule-hair);
+  font-family: var(--mono);
+  font-size: 7pt;
+  line-height: 1.7;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.note b {
+  display: block;
+  color: var(--spot);
+  font-weight: 400;
+  margin-bottom: 3mm;
+}
+
+.caption {
+  font-family: var(--mono);
+  font-size: 6.5pt;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 2mm 0 0;
+  flex: none;
+}
+
+/* ---------- Body columns ---------- */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 52mm;
+  gap: 9mm;
+  margin-top: 6mm;
+  flex: 1;
+  min-height: 0;
+}
+
+.prose {
+  font-family: var(--serif);
+  font-size: 9.6pt;
+  line-height: 1.52;
+  margin: 0;
+}
+.prose p { margin: 0 0 3.4mm; }
+.prose p:last-child { margin-bottom: 0; }
+.prose a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--spot); }
+
+.meta { border-top: var(--rule); padding-top: 3mm; }
+.meta dl { margin: 0; }
+.meta dt {
+  font-family: var(--mono);
+  font-size: 6.5pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--spot);
+  margin-top: 4mm;
+}
+.meta dt:first-of-type { margin-top: 0; }
+.meta dd {
+  margin: 1mm 0 0;
+  font-size: 8.2pt;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.meta dd a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--spot); word-break: break-word; }
+.meta ul { margin: 1mm 0 0; padding-left: 3.4mm; font-size: 8.2pt; line-height: 1.45; }
+.meta li { margin-bottom: 1mm; }
+
+
+/* ---------- Bio page ---------- */
+.bio-grid {
+  display: grid;
+  grid-template-columns: 1fr 62mm;
+  gap: 10mm;
+  margin-top: 7mm;
+  flex: 1;
+  min-height: 0;
+}
+.bio-prose { font-family: var(--serif); font-size: 9.4pt; line-height: 1.55; }
+.bio-prose p { margin: 0 0 3.2mm; }
+
+.list-head {
+  font-family: var(--grotesk);
+  font-weight: 700;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  border-bottom: var(--rule);
+  padding-bottom: 1.6mm;
+  margin: 6mm 0 2.5mm;
+}
+.list-head:first-child { margin-top: 0; }
+
+.entries { list-style: none; margin: 0; padding: 0; }
+.entries li {
+  display: grid;
+  grid-template-columns: 19mm 1fr;
+  gap: 2mm;
+  padding: 1.4mm 0;
+  border-bottom: 1px solid rgba(20,16,12,0.14);
+  font-size: 7.8pt;
+  line-height: 1.35;
+}
+.entries .e-yr {
+  font-family: var(--mono);
+  font-size: 6.6pt;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  padding-top: 0.4mm;
+}
+.entries .e-t { font-weight: 700; display: block; }
+.entries .e-loc { color: var(--ink-soft); display: block; font-size: 7.2pt; }
+
+.contents { border-top: var(--rule); margin-top: 5mm; padding-top: 3mm; flex: none; }
+.contents ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: 10mm;
+}
+.contents li {
+  display: flex;
+  justify-content: space-between;
+  gap: 4mm;
+  font-family: var(--mono);
+  font-size: 7.2pt;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1.1mm 0;
+  border-bottom: 1px solid rgba(20,16,12,0.14);
+  break-inside: avoid;
+}
+.contents li .pgn { color: var(--spot); font-weight: 700; }
+
+/* ---------- Archive contact sheet, after the live preview ---------- */
+.dfa { background: var(--ink); padding: 4mm; margin-top: 6mm; flex: none; }
+.dfa-chips { display: flex; flex-wrap: wrap; gap: 1.4mm; margin-bottom: 3.4mm; }
+.dfa-chips span {
+  font-family: var(--mono);
+  font-size: 5.6pt;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #b0a998;
+  border: 1px solid #3a352c;
+  padding: 0.9mm 1.8mm;
+}
+.dfa-chips span.on { color: var(--paper); border-color: #7a7264; }
+.dfa-sheet img { width: 100%; display: block; }
+
+/* ---------- Motion (screen only) ---------- */
+@media screen {
+  .anim .sheet {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s cubic-bezier(0.22, 0.7, 0.2, 1),
+                transform 0.7s cubic-bezier(0.22, 0.7, 0.2, 1);
+  }
+  .anim .sheet.in { opacity: 1; transform: none; }
+
+  /* the 6px rule under each title draws itself in */
+  .anim .title-row::after {
+    transform: scaleX(0);
+    transition: transform 0.85s cubic-bezier(0.22, 0.7, 0.2, 1) 0.12s;
+  }
+  .anim .sheet.in .title-row::after { transform: scaleX(1); }
+
+  /* hero media settles out of a slow push-in */
+  .anim .slot > img,
+  .anim .slot > video,
+  .anim .slot > iframe {
+    transform: scale(1.05);
+    transition: transform 1.4s cubic-bezier(0.22, 0.7, 0.2, 1) 0.05s;
+  }
+  .anim .sheet.in .slot > img,
+  .anim .sheet.in .slot > video,
+  .anim .sheet.in .slot > iframe { transform: scale(1); }
+
+  /* title, medium line and side column arrive a beat after the sheet */
+  .anim .page-title,
+  .anim .title-row .yr,
+  .anim .medium,
+  .anim .cols > *,
+  .anim .bio-grid > *,
+  .anim .contents {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 0.7, 0.2, 1);
+  }
+  .anim .sheet.in .page-title,
+  .anim .sheet.in .title-row .yr,
+  .anim .sheet.in .medium,
+  .anim .sheet.in .cols > *,
+  .anim .sheet.in .bio-grid > *,
+  .anim .sheet.in .contents { opacity: 1; transform: none; }
+
+  .anim .sheet.in .page-title { transition-delay: 0.08s; }
+  .anim .sheet.in .title-row .yr { transition-delay: 0.20s; }
+  .anim .sheet.in .medium { transition-delay: 0.26s; }
+  .anim .sheet.in .cols > *:first-child,
+  .anim .sheet.in .bio-grid > *:first-child { transition-delay: 0.32s; }
+  .anim .sheet.in .cols > *:last-child,
+  .anim .sheet.in .bio-grid > *:last-child { transition-delay: 0.40s; }
+  .anim .sheet.in .contents { transition-delay: 0.46s; }
+
+  /* cover: each word rises out of its own mask */
+  .anim .cover h1 .line > span {
+    transform: translateY(105%);
+    transition: transform 0.9s cubic-bezier(0.22, 0.75, 0.15, 1);
+  }
+  .anim .cover.in h1 .line > span { transform: none; }
+  .anim .cover.in h1 .line:nth-child(2) > span { transition-delay: 0.1s; }
+
+  .anim .cover-rule { transform: scaleX(0); transform-origin: left center; transition: transform 0.9s cubic-bezier(0.22, 0.7, 0.2, 1) 0.3s; }
+  .anim .cover.in .cover-rule { transform: none; }
+
+  .anim .cover-eyebrow,
+  .anim .cover-sub,
+  .anim .cover-meta { opacity: 0; transition: opacity 0.8s ease 0.35s; }
+  .anim .cover.in .cover-eyebrow,
+  .anim .cover.in .cover-sub,
+  .anim .cover.in .cover-meta { opacity: 1; }
+  .anim .cover.in .cover-sub { transition-delay: 0.45s; }
+  .anim .cover.in .cover-meta { transition-delay: 0.6s; }
+
+
+  .bar-progress {
+    position: absolute;
+    left: 0; bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: var(--spot);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim .sheet,
+  .anim .sheet *,
+  .anim .cover h1 .line > span,
+  .anim .title-row::after,
+  .anim .cover-rule { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .bar-progress { display: none; }
+}
+
+/* ---------- Toolbar (screen only) ---------- */
+.bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  isolation: isolate;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.bar a, .bar button {
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--paper);
+  background: transparent;
+  border: 1px solid var(--paper);
+  padding: 8px 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.bar a:hover, .bar button:hover { background: var(--paper); color: var(--ink); }
+.bar .bar-actions { display: flex; gap: 10px; align-items: center; }
+.bar .bar-home { border: none; padding: 8px 0; border-bottom: 1px solid transparent; }
+.bar .bar-home:hover { background: transparent; color: var(--paper); border-bottom-color: var(--paper); }
+
+/* Screen-scoped: an A4 print page is only ~794px wide, so an unscoped
+   max-width query would hand the printer the phone layout. */
+@media screen and (max-width: 900px) {
+  .deck { padding: 88px 0 40px; }
+  .sheet {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    margin-bottom: 14px;
+    padding: 24px 20px 34px;
+  }
+  .cover { padding: 0; }
+  .cover-band { height: 200px; }
+  .cover-body { padding: 24px 20px 30px; }
+  .cover h1 { font-size: 34pt; }
+  .cover-sub { max-width: 100%; font-size: 11pt; }
+  .cover-meta { flex-wrap: wrap; gap: 18px; line-height: 1.7; }
+  .sheet-foot { position: static; left: auto; right: auto; bottom: auto; margin-top: 18px; }
+  .cols, .bio-grid { grid-template-columns: 1fr; gap: 6mm; }
+  .hero, .hero.big { height: 200px; }
+  .strip { grid-template-columns: 1fr; gap: 8px; }
+  .fpd-row { grid-template-columns: 1fr; gap: 8px; }
+  .fpd-row .slot { height: 260px; }
+  .strip .slot, .strip.tall .slot { height: 190px; }
+  .slot.panel { height: auto; }
+  .note { position: static; padding: 16px; font-size: 11px; }
+  .graph { height: 240px; }
+  .contents ol { columns: 1; }
+  /* the toolbar is fixed, so an unwrapped row would widen the whole document */
+  .bar { font-size: 9px; padding: 10px 12px; gap: 8px; }
+  .bar .bar-actions > span { display: none; }
+  .bar a, .bar button { padding: 8px 10px; }
+}
+
+@media print {
+  html, body { background: var(--paper); }
+  .deck { padding: 0; }
+  .bar { display: none !important; }
+  .sheet {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    box-shadow: none;
+    break-after: page;
+    page-break-after: always;
+  }
+  .sheet:last-child { break-after: auto; page-break-after: auto; }
+  .m-screen { display: none !important; }
+  .m-print { display: block !important; }
+}
+
+@page { size: A4 portrait; margin: 0; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="bar-home" href="/">&larr; Artificialnouveau.com</a>
+  <div class="bar-actions">
+    <span>Portfolio &mdash; 9 pages &mdash; A4</span>
+    <a href="/assets/ahnjili-zhuparris-portfolio.pdf" download>Download PDF</a>
+    <button type="button" onclick="window.print()">Print</button>
+  </div>
+  <div class="bar-progress" id="bar-progress" aria-hidden="true"></div>
+</div>
+
+<div class="deck">
+
+<!-- ============ 01 COVER ============ -->
+<section class="sheet cover">
+  <div class="cover-band">
+    <div class="wall" role="img" aria-label="A contact sheet of the same synthesised face repeating across eight frames, from the installation BabbleOn">
+      <div class="cell"><img src="../assets/portfolio/print/babble-1.jpg" alt=""></div>
+      <div class="cell">
+        <img class="m-print" src="../assets/portfolio/print/babble-2.jpg" alt="">
+        <video class="m-screen" src="../assets/portfolio/print/babble-loop-a.mp4" autoplay muted loop playsinline></video>
+      </div>
+      <div class="cell flip"><img src="../assets/portfolio/print/babble-3.jpg" alt=""></div>
+      <div class="cell turn"><img src="../assets/portfolio/print/babble-4.jpg" alt=""></div>
+      <div class="cell flip"><img src="../assets/portfolio/print/babble-5.jpg" alt=""></div>
+      <div class="cell">
+        <img class="m-print" src="../assets/portfolio/print/babble-6.jpg" alt="">
+        <video class="m-screen" src="../assets/portfolio/print/babble-loop-c.mp4" autoplay muted loop playsinline></video>
+      </div>
+      <div class="cell turn-flip"><img src="../assets/portfolio/print/babble-7.jpg" alt=""></div>
+      <div class="cell"><img src="../assets/portfolio/print/babble-8.jpg" alt=""></div>
+    </div>
+  </div>
+  <div class="cover-body">
+    <p class="cover-eyebrow">Artificial Nouveau Studio</p>
+    <h1><span class="line"><span>Artificial</span></span><span class="line"><span>Nouveau</span></span></h1>
+    <div class="cover-rule"></div>
+    <p class="cover-sub">Selected works, 2014&ndash;2026. Installations, moving image and interactive systems on how bodies are measured, optimised and represented by machines.</p>
+    <div class="cover-meta">
+      <div>
+        <strong>Ahnjili ZhuParris, PhD</strong>
+        AI engineer &middot; media researcher &middot; computational artist<br>
+        Netherlands / USA
+      </div>
+      <div>
+        <strong>Contact</strong>
+        artificialnouveau@gmail.com<br>
+        artificialnouveau.com
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 BIO ============ -->
+<section class="sheet">
+  <header class="sheet-head"><span>Artificial Nouveau</span><span>Biography</span></header>
+
+  <div class="title-row">
+    <h2 class="page-title">Ahnjili<br>ZhuParris, PhD</h2>
+    <div class="yr">Bio</div>
+  </div>
+  <p class="medium">AI engineer &middot; media researcher &middot; computational artist</p>
+
+  <div class="bio-grid">
+    <div class="bio-prose">
+      <p>Ahnjili ZhuParris, PhD (NL/USA), is an AI engineer, media researcher and computational artist. Her doctoral research in medicine used machine learning to predict diagnoses and prognoses from smartphone and wearable data. As an AI engineer she specialises in computer vision and visual retrieval-augmented generation (RAG). Her media research examines internet discourses around specific topics, tracing how narratives form and circulate online.</p>
+      <p>Her current computational art comprises research-based moving-image, drone and installation works exploring how bodies are measured, optimised and represented by AI systems. The works in this portfolio move between surveillance apparatus and synthetic media: drones that judge and follow, archives of manipulated likenesses, tools that let a voice defend itself.</p>
+      <p>She holds a PhD in Medicine from Leiden University, an MSc in Cognitive Neuroscience from Radboud University and a BSc from the University of Edinburgh. She is a Mozilla Creative Media Award recipient, a Processing Foundation Fellow and a Public AI Creative Fellow. Her work has been supported by the Mozilla Foundation (US), IMPAKT (NL) and Constant (BE), and exhibited at Ars Electronica (AT), Articulating Data (UK) and the CICA Museum (KR).</p>
+      <p>Alongside her practice she gives talks and runs hands-on workshops on AI, surveillance, deepfakes and creative technology for festivals, universities and museums, and takes on bespoke commissions.</p>
+    </div>
+
+    <div>
+      <div class="list-head">Education</div>
+      <ul class="entries">
+        <li><span class="e-yr">2020&ndash;2024</span><span><span class="e-t">PhD in Medicine</span><span class="e-loc">Leiden University</span></span></li>
+        <li><span class="e-yr">2016&ndash;2018</span><span><span class="e-t">MSc Cognitive Neuroscience</span><span class="e-loc">Radboud Universiteit</span></span></li>
+        <li><span class="e-yr">2012&ndash;2016</span><span><span class="e-t">BSc Biomedical Sciences</span><span class="e-loc">University of Edinburgh, with Honours</span></span></li>
+      </ul>
+
+      <div class="list-head">Awards &amp; Fellowships</div>
+      <ul class="entries">
+        <li><span class="e-yr">2025</span><span><span class="e-t">Public AI Creative Fellowship</span><span class="e-loc">MetaGov &middot; USA</span></span></li>
+        <li><span class="e-yr">2024</span><span><span class="e-t">Processing Foundation Fellowship</span><span class="e-loc">Processing Foundation &middot; USA</span></span></li>
+        <li><span class="e-yr">2024</span><span><span class="e-t">Digitale Cultuur &amp; Fresh Perspective</span><span class="e-loc">Stimuleringsfonds Creatieve Industrie &middot; NL</span></span></li>
+        <li><span class="e-yr">2024</span><span><span class="e-t">Screen-to-Soundscape</span><span class="e-loc">SIDN fonds &middot; NL</span></span></li>
+        <li><span class="e-yr">2021</span><span><span class="e-t">Creative Media Award</span><span class="e-loc">Mozilla Foundation &middot; USA</span></span></li>
+      </ul>
+
+      <div class="list-head">Selected Exhibitions</div>
+      <ul class="entries">
+        <li><span class="e-yr">2026</span><span><span class="e-t">Close Enough</span><span class="e-loc">GOGBOT Festival, Enschede &middot; NL</span></span></li>
+        <li><span class="e-yr">2024&ndash;2026</span><span><span class="e-t">Fashion Police Drones</span><span class="e-loc">Peckham Digital Festival, UK &middot; New Media Art Conference, CICA Museum, Seoul, KR</span></span></li>
+        <li><span class="e-yr">2023</span><span><span class="e-t">VOICES</span><span class="e-loc">IMPAKT, Utrecht &middot; Ars Electronica, Linz</span></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="contents">
+    <ol>
+      <li><span>Close Enough</span><span class="pgn">03</span></li>
+      <li><span>Deepfake Archive</span><span class="pgn">04</span></li>
+      <li><span>DEEPFAKE: A Video Essay</span><span class="pgn">05</span></li>
+      <li><span>Fashion Police Drones</span><span class="pgn">06</span></li>
+      <li><span>BabbleOn</span><span class="pgn">07</span></li>
+      <li><span>Future Wake</span><span class="pgn">08</span></li>
+      <li><span>Synthetic Biology</span><span class="pgn">09</span></li>
+    </ol>
+  </div>
+
+  <div class="sheet-foot"><span>Artificial Nouveau &middot; Ahnjili ZhuParris</span><span class="pg">02</span></div>
+</section>
+
+<!-- ============ 03 CLOSE ENOUGH ============ -->
+<section class="sheet">
+  <header class="sheet-head"><span>Selected Work</span><span>01 / 07</span></header>
+
+  <div class="title-row">
+    <h2 class="page-title">Close<br>Enough</h2>
+    <div class="yr">2026</div>
+  </div>
+  <p class="medium">Performative installation &middot; autonomous drones, computer vision, annotated live feed</p>
+
+  <div class="slot hero">
+    <img class="m-print" src="../assets/portfolio/print/closeenough-3.jpg" alt="Annotated drone feed tracking multiple figures">
+    <img class="m-screen" src="../assets/portfolio/closeenough/video2_closeenough_feed.gif" alt="Animated excerpt of the Close Enough drone feed">
+  </div>
+  <div class="strip">
+    <div class="slot"><img src="../assets/portfolio/print/closeenough-1.jpg" alt="Feed still captioned: playing, possibly a child"></div>
+    <div class="slot"><img src="../assets/portfolio/print/closeenough-2.jpg" alt="Overhead thermal drone capture with tracking annotations"></div>
+  </div>
+  <p class="caption">Early captures from the drone feed. Full documentation to follow.</p>
+
+  <div class="cols">
+    <div class="prose">
+      <p>Close Enough is a performative installation about the intimacy of drone surveillance, built around the central contradiction of drone warfare: the operator is close enough to see a target's face, to watch them eat breakfast and play with their children, to learn their routines and small daily habits, but far enough away to kill without physical consequence. Operators have described this in testimony as a form of stalking, weeks spent coming to know someone intimately before ending their life.</p>
+      <p>Drawing on pattern-of-life analysis, The Drone Papers and the Living Under Drones report, the work turns its attention to the watching itself: the sustained, one-sided accumulation of knowledge about a life, gathered from a distance and without consent, spreading outward from one person to everyone they know. Using autonomous drones, computer vision and the visual language of military intelligence, Close Enough places an audience inside that logic, on both sides of the apparatus at once, having been known long before they noticed anything looking.</p>
+    </div>
+    <aside class="meta">
+      <dl>
+        <dt>Medium</dt>
+        <dd>Performative installation. Autonomous drones, computer vision, annotated live feed.</dd>
+        <dt>Presented</dt>
+        <dd>GOGBOT Festival, Enschede, Netherlands, September 2026</dd>
+        <dt>Status</dt>
+        <dd>In development</dd>
+        <dt>Sources</dt>
+        <dd>Pattern-of-life analysis &middot; The Drone Papers &middot; Living Under Drones</dd>
+        <dt>Online</dt>
+        <dd><a href="https://www.artificialnouveau.com/gallery/close-enough/">artificialnouveau.com/gallery/close-enough</a></dd>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="sheet-foot"><span>Close Enough &middot; 2026</span><span class="pg">03</span></div>
+</section>
+
+<!-- ============ 04 DEEPFAKE ARCHIVE ============ -->
+<section class="sheet">
+  <header class="sheet-head"><span>Selected Work</span><span>02 / 07</span></header>
+
+  <div class="title-row">
+    <h2 class="page-title">Deepfake<br>Archive</h2>
+    <div class="yr">2026</div>
+  </div>
+  <p class="medium">Online archive &middot; interactive network graph &middot; curatorial panels</p>
+
+  <div class="dfa">
+    <div class="dfa-chips">
+      <span class="on">All (37)</span>
+      <span>01 Propaganda (13)</span>
+      <span>02 Activism? (2)</span>
+      <span>03 Everyone is catfishing (6)</span>
+      <span>04 Entertainment and artworks (2)</span>
+      <span>05 Hollywood deepfakes (3)</span>
+      <span>06 AI sex workers (5)</span>
+      <span>07 Scam and fraud</span>
+      <span>08 Identity protection</span>
+      <span>09 Image-based abuse (1)</span>
+      <span>10 Blackface and whitewashing (2)</span>
+      <span>11 Awareness and self-reference (1)</span>
+      <span>12 Everyone is a commercial (2)</span>
+    </div>
+    <div class="dfa-sheet">
+      <img src="../assets/portfolio/print/deepfake-archive.jpg" alt="Contact sheet of twenty-four artifacts from the Deepfake Archive working build">
+    </div>
+  </div>
+  <p class="caption">Working build, May 2026: 37 artifacts across twelve rooms, sorted by intent at creation rather than by technique.</p>
+
+  <div class="cols">
+    <div class="prose">
+      <p>An online, interactive archive of synthetic media artifacts, organised as a network graph. The editorial spine is intent at creation, not technique: propaganda, activism, catfishing, entertainment and artworks, Hollywood deepfakes, AI sex workers, scam and fraud, identity protection and pseudonymity, image-based abuse and harassment, blackface and whitewashing, awareness and self-reference, and everyone is a commercial.</p>
+      <p>Each artifact carries a curatorial panel that names the toolchain, the consent status and the concrete consequence to the people involved, in a register that is allergic to both AI-hype credulity and moral-panic credulity. The room that handles image-based abuse exhibits no media at all; its panels link to journalism and court documents instead.</p>
+    </div>
+    <aside class="meta">
+      <dl>
+        <dt>Medium</dt>
+        <dd>Online archive. Interactive network graph, curatorial panels, structured metadata.</dd>
+        <dt>Structure</dt>
+        <dd>Twelve rooms, one artifact per node, edges by shared intent and toolchain.</dd>
+        <dt>Status</dt>
+        <dd>Preview live. Full corpus targets several hundred artifacts.</dd>
+        <dt>Online</dt>
+        <dd><a href="https://www.artificialnouveau.com/gallery/deepfake-archive/">artificialnouveau.com/gallery/deepfake-archive</a></dd>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="sheet-foot"><span>Deepfake Archive &middot; 2026</span><span class="pg">04</span></div>
+</section>
+
+<!-- ============ 05 DEEPFAKE VIDEO ESSAY ============ -->
+<section class="sheet">
+  <header class="sheet-head"><span>Selected Work</span><span>03 / 07</span></header>
+
+  <div class="title-row">
+    <h2 class="page-title">Deepfake:<br>A Video Essay</h2>
+    <div class="yr">2025</div>
+  </div>
+  <p class="medium">Video essay &middot; live installation with real-time face replacement</p>
+
+  <div class="slot hero big contain">
+    <img class="m-print" src="../assets/portfolio/print/deepfake-essay.jpg" alt="Still from the DEEPFAKE video essay showing a synthesised political figure">
+    <iframe class="m-screen" src="https://player.vimeo.com/video/1082448682" title="DEEPFAKE: A Video Essay" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+  </div>
+  <p class="caption">Watch the full essay at vimeo.com/1082448682</p>
+
+  <div class="cols">
+    <div class="prose">
+      <p>DEEPFAKE examines the cultural and emotional impact of synthetic media. From AI-powered memorials to non-consensual pornography, it unpacks a digital frontier where likenesses are stolen, realities are rewritten and consent is often an afterthought. The essay confronts a future already in motion, one in which our bodies are no longer private, but programmable.</p>
+      <p>The work is presented alongside a live installation running real-time deepfake technology, inviting viewers to witness their own digital identity manipulated in front of them. What reads as an argument on screen becomes a physical experience in the room: the audience is handed the same tool the essay is describing, and has to decide what to do with it.</p>
+    </div>
+    <aside class="meta">
+      <dl>
+        <dt>Medium</dt>
+        <dd>Video essay with live real-time deepfake installation.</dd>
+        <dt>Videography</dt>
+        <dd>Flora Reznik</dd>
+        <dt>Presented</dt>
+        <dd>Peckham Digital, London, United Kingdom, 2025</dd>
+        <dt>Watch</dt>
+        <dd><a href="https://vimeo.com/1082448682">vimeo.com/1082448682</a></dd>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="sheet-foot"><span>DEEPFAKE: A Video Essay &middot; 2025</span><span class="pg">05</span></div>
+</section>
+
+<!-- ============ 06 FASHION POLICE DRONES ============ -->
+<section class="sheet">
+  <header class="sheet-head"><span>Selected Work</span><span>04 / 07</span></header>
+
+  <div class="title-row">
+    <h2 class="page-title">Fashion<br>Police Drones</h2>
+    <div class="yr">2024</div>
+  </div>
+  <p class="medium">Interactive installation &middot; drones, computer vision, audience-defined rule set &middot; 6 &times; 6 m</p>
+
+  <div class="fpd-row">
+    <div class="slot">
+      <img class="m-print" src="../assets/portfolio/print/fpd-panel.jpg" alt="A verdict panel: an outfit annotated garment by garment and marked fashion criminal">
+      <video class="m-screen" src="../assets/portfolio/fpd/prada-panel.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <div class="slot"><img src="../assets/portfolio/print/fpd-2.jpg" alt="The artist seated between two drones in a pink tactical vest and helmet"></div>
+    <div class="slot">
+      <img class="m-print" src="../assets/portfolio/print/fpd-daywear.jpg" alt="A street crowd annotated garment by garment, each figure marked under review">
+      <video class="m-screen" src="../assets/portfolio/fpd/daywear-street.mp4" autoplay muted loop playsinline></video>
+    </div>
+  </div>
+  <p class="caption">Panels from the drone feed: every garment itemised, every passer-by under review.</p>
+
+  <div class="cols">
+    <div class="prose">
+      <p>Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. In a space of over six by six metres, a primary drone publicly judges outfits while stalker drones quietly scan for style infractions, and participants experience surveillance and societal judgement from inside the system that produces them.</p>
+      <p>The infractions fall into three categories: corporate fashion crimes, targeting fast-fashion giants such as Zara and H&amp;M for their environmental and labour abuses; the artist's own pet peeves, enforced with unapologetic flair; and country-specific crimes, where the drones emulate government-enforced dress codes and spotlight fashion as an instrument of political control. The whimsy of fashion norms is held against the real machinery of discrimination and privacy.</p>
+    </div>
+    <aside class="meta">
+      <dl>
+        <dt>Medium</dt>
+        <dd>Interactive installation. Drones, computer vision, audience-defined rule set.</dd>
+        <dt>Presented</dt>
+        <dd>
+          Peckham Digital Festival, United Kingdom, 2026<br>
+          New Media Art Conference, CICA Museum, Seoul, Republic of Korea, 2024<br>
+          CPDP Conference, invited by Privacy Salon, Brussels, Belgium, 2024
+        </dd>
+        <dt>Online</dt>
+        <dd><a href="https://www.artificialnouveau.com/gallery/fashion_police_drones/">artificialnouveau.com/gallery/fashion_police_drones</a></dd>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="sheet-foot"><span>Fashion Police Drones &middot; 2024</span><span class="pg">06</span></div>
+</section>
+
+<!-- ============ 07 BABBLEON ============ -->
+<section class="sheet">
+  <header class="sheet-head"><span>Selected Work</span><span>05 / 07</span></header>
+
+  <div class="title-row">
+    <h2 class="page-title">Babble<br>On</h2>
+    <div class="yr">2023</div>
+  </div>
+  <p class="medium">Interactive web installation &middot; browser-based audio, voice masking</p>
+
+  <div class="strip three tall">
+    <div class="slot"><img src="../assets/portfolio/print/babble-3.jpg" alt="Frame of the synthesised speaker from BabbleOn"></div>
+    <div class="slot">
+      <img class="m-print" src="../assets/portfolio/print/babble-5.jpg" alt="Frame of the synthesised speaker from BabbleOn">
+      <video class="m-screen" src="../assets/portfolio/print/babble-loop-b.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <div class="slot"><img src="../assets/portfolio/print/babble-7.jpg" alt="Frame of the synthesised speaker from BabbleOn"></div>
+  </div>
+  <p class="caption">Participants record a few sentences; the browser returns a babble tape in their own voice.</p>
+
+  <div class="cols">
+    <div class="prose">
+      <p>BabbleOn is an interactive web installation that lets users craft their own babble tapes: digital audio designed to thwart audio surveillance. Blending indistinct human speech, the tapes mask conversations by mimicking their acoustic qualities, so that a recording device captures a room that sounds full of talk but yields no usable speech.</p>
+      <p>Against increasingly capable multi-speaker identification systems, the work offers a personal countermeasure. Participants record one or two sentences, which are chopped, layered and remixed into a customised babble tape infused with the distinct properties of their own voice, like a restaurant where everyone sounds like you. The tape can be downloaded and kept. All processing happens in the browser; nothing is uploaded or stored.</p>
+    </div>
+    <aside class="meta">
+      <dl>
+        <dt>Medium</dt>
+        <dd>Interactive web installation. Browser-based audio capture and processing.</dd>
+        <dt>Method</dt>
+        <dd>Record, chop, layer at random offsets, speeds and volumes, download.</dd>
+        <dt>Privacy</dt>
+        <dd>Processed entirely in the browser. No upload, no storage.</dd>
+        <dt>Online</dt>
+        <dd><a href="https://www.artificialnouveau.com/gallery/babble/">artificialnouveau.com/gallery/babble</a></dd>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="sheet-foot"><span>BabbleOn &middot; 2023</span><span class="pg">07</span></div>
+</section>
+
+<!-- ============ 08 FUTURE WAKE ============ -->
+<section class="sheet">
+  <header class="sheet-head"><span>Selected Work</span><span>06 / 07</span></header>
+
+  <div class="title-row">
+    <h2 class="page-title">Future<br>Wake</h2>
+    <div class="yr">2021</div>
+  </div>
+  <p class="medium">Interactive website &middot; machine learning, generated avatars, synthetic voice</p>
+
+  <div class="slot hero">
+    <img src="../assets/portfolio/print/futurewake-1.jpg" alt="A generated composite victim narrating a forecast police encounter, over a street view">
+  </div>
+  <div class="strip one">
+    <div class="slot"><img src="../assets/portfolio/print/futurewake-pair.jpg" alt="Two generated composite victims, each placed on the street where the forecast encounter would happen"></div>
+  </div>
+  <p class="caption">Composite victims, generated from US fatal-police-encounter data and placed where the forecast puts them.</p>
+
+  <div class="cols">
+    <div class="prose">
+      <p>Future Wake is an interactive website that scrutinises the present state of predictive policing, with a specific focus on forecasting police brutality. Awarded the Mozilla 2021 Creative Media Award, the project uses artificial intelligence to examine data on fatal police encounters in the United States in order to foresee future incidents, generating computer-simulated avatars that represent composite victims and narrating each of their stories.</p>
+      <p>By presenting potential future victims to its audience rather than potential future offenders, and by working through visual and affective means rather than expert knowledge and statistics, Future Wake provokes critical thought about the efficacy and ethics of predictive policing. It challenges viewers to consider what societal safety actually means, how it is defined, and who is marginalised or overlooked within these systems.</p>
+    </div>
+    <aside class="meta">
+      <dl>
+        <dt>Medium</dt>
+        <dd>Interactive website. Machine learning, generated avatars, synthetic voice.</dd>
+        <dt>With</dt>
+        <dd>Tim van Ommeren</dd>
+        <dt>Award</dt>
+        <dd>Mozilla Creative Media Award, Mozilla Foundation, 2021</dd>
+        <dt>Press</dt>
+        <dd>It's Nice That &middot; Coda Story &middot; Embodying Data, Shifting Perspective (book chapter)</dd>
+        <dt>Site</dt>
+        <dd><a href="http://www.futurewake.com">futurewake.com</a></dd>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="sheet-foot"><span>Future Wake &middot; 2021</span><span class="pg">08</span></div>
+</section>
+
+<!-- ============ 09 SYNTHETIC BIOLOGY ============ -->
+<section class="sheet">
+  <header class="sheet-head"><span>Selected Work</span><span>07 / 07</span></header>
+
+  <div class="title-row">
+    <h2 class="page-title">Synthetic Biology:<br>A New Code for Life</h2>
+    <div class="yr">2014</div>
+  </div>
+  <p class="medium">Documentary &middot; ten years of synthetic biology, from engineered bacteria to spider silk</p>
+
+  <div class="slot hero big contain">
+    <img class="m-print" src="../assets/portfolio/print/syntheticbio.jpg" alt="Still from the documentary Synthetic Biology: A New Code for Life">
+    <iframe class="m-screen" src="https://player.vimeo.com/video/22153761?app_id=122963" title="Synthetic Biology: A New Code for Life, trailer" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+  </div>
+  <p class="caption">Trailer at vimeo.com/22153761</p>
+
+  <div class="cols">
+    <div class="prose">
+      <p>This documentary explores the emerging field of synthetic biology, where DNA is treated as programmable code and cells as genetic circuits. It covers ten years of advances, from engineering E. coli to smell like fresh rain to goats producing spider silk in their milk, and asks what happens to a discipline once its material becomes something to be written rather than only read.</p>
+      <p>The film sets those advances against the ethical questions they raise: how life is defined, where the boundaries of genetic engineering should sit, and who gets to draw them. It is the earliest work in this portfolio and the first statement of a question the later works keep asking in other materials, about bodies rendered as data and rewritten by the systems that read them.</p>
+    </div>
+    <aside class="meta">
+      <dl>
+        <dt>Medium</dt>
+        <dd>Documentary film</dd>
+        <dt>Subject</dt>
+        <dd>Synthetic biology's first decade: engineered E. coli, spider silk in goat milk, genetic circuits.</dd>
+        <dt>Trailer</dt>
+        <dd><a href="https://vimeo.com/22153761">vimeo.com/22153761</a></dd>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="sheet-foot"><span>Synthetic Biology: A New Code for Life &middot; 2014</span><span class="pg">09</span></div>
+</section>
+
+</div>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sheets = Array.prototype.slice.call(document.querySelectorAll('.sheet'));
+
+  // Only arm the animations if the browser can observe scroll position and the
+  // reader has not asked for less motion. Printing never sees any of this.
+  if (!reduced && 'IntersectionObserver' in window) {
+    document.body.classList.add('anim');
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+
+    sheets.forEach(function (sheet) { io.observe(sheet); });
+  }
+
+  // Everything is revealed before the print dialog opens, so a reader who hits
+  // Cmd+P halfway down the page still gets all nine pages.
+  function revealAll() { sheets.forEach(function (s) { s.classList.add('in'); }); }
+  window.addEventListener('beforeprint', revealAll);
+  window.matchMedia('print').addListener && window.matchMedia('print').addListener(revealAll);
+
+  var progress = document.getElementById('bar-progress');
+  if (progress && !reduced) {
+    var ticking = false;
+    var update = function () {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      progress.style.transform = 'scaleX(' + pct + ')';
+      ticking = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+})();
+</script>
+</body>
+</html>
