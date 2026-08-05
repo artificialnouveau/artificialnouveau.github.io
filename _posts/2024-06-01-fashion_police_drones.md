@@ -9,11 +9,18 @@ excerpt: "Fashion Police Drones transforms drones into arbiters of fashion, invi
 .fpd-content { flex: 1; min-width: 0; }
 .fpd-sidebar { flex: 0 0 380px; position: sticky; top: 2rem; }
 
-/* The three infraction categories, each a YouTube short (9:16) */
+/* The three infraction categories, self-hosted so no player branding shows */
 .fpd-videos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
 .fpd-videos figure { margin: 0; }
-.fpd-embed { position: relative; aspect-ratio: 9 / 16; background: #000; }
-.fpd-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.project-content .fpd-videos img {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background: #000;
+  display: block;
+  margin: 0;
+  border: none;
+}
 
 /* Verdict panel from the drone feed, portrait */
 .fpd-panel { max-width: 320px; margin: 2rem 0; }
@@ -57,29 +64,23 @@ Fashion Police Drones transforms drones into arbiters of fashion, inviting the a
 
 In a space over 6 x 6 meters, a primary drone publicly judges outfits, while "stalker" drones quietly scan for style infractions. But these are no ordinary fashion faux pas—infractions fall into three categories:
 
-- [Corporate Fashion Crimes](https://youtube.com/shorts/QwhF7XVgr5Q), targeting fast fashion giants like Zara and H&M for their environmental and labor abuses;
+- **Corporate fashion crimes**, targeting fast fashion giants like Zara and H&M for their environmental and labor abuses;
 
-- [Ahnjili's Crimes](https://youtube.com/shorts/_TywTP3kjwc), enforcing the artist's own pet peeves with unapologetic flair;
+- **Ahnjili's crimes**, enforcing the artist's own pet peeves with unapologetic flair;
 
-- [Country-Specific Crimes](https://youtube.com/shorts/FmHWW-h6G5E), where drones emulate government-enforced dress codes, spotlighting fashion as a tool of political control.
+- **Country-specific crimes**, where drones emulate government-enforced dress codes, spotlighting fashion as a tool of political control.
 
 <div class="fpd-videos">
   <figure>
-    <div class="fpd-embed">
-      <iframe src="https://www.youtube-nocookie.com/embed/QwhF7XVgr5Q" title="Fashion Police Drones: corporate fashion crimes" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-    </div>
+    <img src="/assets/portfolio/fpd/short-corporate.gif" alt="Corporate fashion crimes: the drone scanning an outfit, staged as a social feed" loading="lazy">
     <figcaption>Corporate fashion crimes</figcaption>
   </figure>
   <figure>
-    <div class="fpd-embed">
-      <iframe src="https://www.youtube-nocookie.com/embed/_TywTP3kjwc" title="Fashion Police Drones: Ahnjili's crimes" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-    </div>
+    <img src="/assets/portfolio/fpd/short-ahnjili.gif" alt="Ahnjili's crimes: the drone scanning an outfit, staged as a social feed" loading="lazy">
     <figcaption>Ahnjili's crimes</figcaption>
   </figure>
   <figure>
-    <div class="fpd-embed">
-      <iframe src="https://www.youtube-nocookie.com/embed/FmHWW-h6G5E" title="Fashion Police Drones: country-specific crimes" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-    </div>
+    <img src="/assets/portfolio/fpd/short-country.gif" alt="Country-specific crimes: the drone scanning an outfit, staged as a social feed" loading="lazy">
     <figcaption>Country-specific crimes</figcaption>
   </figure>
 </div>
