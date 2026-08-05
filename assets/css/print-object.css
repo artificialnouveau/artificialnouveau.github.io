@@ -142,31 +142,48 @@ h2:not(.gallery-title):not(.card-title),
 .back-link::before, .back-link::after { content: none !important; }
 
 /* ---------- Buttons ---------- */
+/* Letterpress: solid ink block, label knocked out in paper, with a hairline
+   highlight along the top edge and a shadow along the bottom so it reads as
+   pressed into the stock rather than floating above it. */
 .btn, .btn-primary, .back-link {
-    background: var(--po-paper) !important;
-    border: 2px solid var(--po-ink) !important;
-    color: var(--po-ink) !important;
+    background: var(--po-ink) !important;
+    border: none !important;
+    color: var(--po-paper) !important;
     font-family: var(--po-grotesk) !important;
     font-weight: 700 !important;
     text-transform: none !important;
-    letter-spacing: 0 !important;
+    letter-spacing: 0.01em !important;
     border-radius: 0 !important;
-    box-shadow: 3px 3px 0 var(--po-ink) !important;
-    padding: 11px 18px !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.5) !important;
+    padding: 12px 20px !important;
     min-height: 46px;
     display: inline-flex !important;
     align-items: center;
     gap: 10px;
     text-decoration: none !important;
-    transition: background-color 0.12s ease, color 0.12s ease,
-                box-shadow 0.12s ease, transform 0.12s ease !important;
+    transition: background-color 0.12s ease, box-shadow 0.12s ease !important;
 }
 .btn::before, .btn::after { content: none !important; }
-.btn:hover, .btn-primary:hover, .back-link:hover {
+.btn:hover, .btn-primary:hover, .back-link:hover,
+.btn:focus-visible, .btn-primary:focus-visible, .back-link:focus-visible {
+    background: var(--po-spot) !important;
+    color: var(--po-paper) !important;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.45),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Secondary controls inside the tools follow the same press */
+button:not(.btn) {
     background: var(--po-ink) !important;
     color: var(--po-paper) !important;
-    box-shadow: 0 0 0 var(--po-ink) !important;
-    transform: translate(3px, 3px);
+    border: none !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.5) !important;
+}
+button:not(.btn):hover {
+    background: var(--po-spot) !important;
+    color: var(--po-paper) !important;
 }
 
 /* ---------- Cards ---------- */
@@ -255,17 +272,10 @@ input, select, textarea {
     min-height: 38px;
 }
 button:not(.btn) {
-    background: var(--po-paper) !important;
-    color: var(--po-ink) !important;
-    border: 2px solid var(--po-ink) !important;
     border-radius: 0 !important;
     font-weight: 700 !important;
     min-height: 38px;
-    padding: 6px 12px !important;
-}
-button:not(.btn):hover {
-    background: var(--po-ink) !important;
-    color: var(--po-paper) !important;
+    padding: 8px 14px !important;
 }
 
 /* ---------- Cursor ----------
@@ -374,6 +384,26 @@ textarea {
 [style*="opacity:0.4"], [style*="opacity: 0.4"],
 [style*="opacity:0.3"], [style*="opacity: 0.3"] {
     opacity: 0.95 !important;
+}
+
+/* ---------- Skip link ----------
+   Off-screen until focused, so keyboard users can jump the nav. */
+.skip-link {
+    position: absolute !important;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    background: var(--po-ink) !important;
+    color: var(--po-paper) !important;
+    padding: 12px 18px;
+    font-weight: 700;
+    text-decoration: none !important;
+}
+.skip-link:focus {
+    left: 8px;
+    top: 8px;
+    outline: 3px solid var(--po-spot) !important;
+    outline-offset: 2px;
 }
 
 /* ---------- Focus ---------- */

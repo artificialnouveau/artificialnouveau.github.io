@@ -353,9 +353,10 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <a href="/" class="back-btn">&lt; BACK</a>
 
-<div class="terminal">
+<main id="main-content"><div class="terminal">
 
     <div id="boot-sequence">
         <div class="boot-line" data-delay="0">&gt; LOADING <span class="highlight" id="total-count">0</span> ENTRIES...</div>
@@ -866,6 +867,7 @@ function renderEntry(ul, paper, i) {
                 <div class="paper-tags">${paper.tags.map(t => `<span>${t}</span>`).join('')}</div>
                 ${paper.url ? `<a class="paper-link" href="${paper.url}" target="_blank" rel="noopener">&gt; ${paper.url.includes('doi.org') || paper.url.includes('hdl.handle.net') ? 'READ THE PAPER' : paper.url.includes('scholar.google') ? 'VIEW ON SCHOLAR' : paper.url.includes('podcasts.apple') ? 'LISTEN ON APPLE PODCASTS' : 'READ FULL ARTICLE'}</a>` : ''}
             </div>
+</main>
         `;
 
         li.addEventListener('click', () => toggleAbstract(li, paper, i));
