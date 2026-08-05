@@ -389,8 +389,8 @@ html, body {
   text-transform: uppercase;
   letter-spacing: -0.01em;
   border-bottom: var(--rule);
-  padding-bottom: 1.6mm;
-  margin: 6mm 0 2.5mm;
+  padding-bottom: 1.4mm;
+  margin: 4.6mm 0 2mm;
 }
 .list-head:first-child { margin-top: 0; }
 
@@ -399,10 +399,10 @@ html, body {
   display: grid;
   grid-template-columns: 19mm 1fr;
   gap: 2mm;
-  padding: 1.4mm 0;
+  padding: 1.05mm 0;
   border-bottom: 1px solid rgba(20,16,12,0.14);
-  font-size: 7.8pt;
-  line-height: 1.35;
+  font-size: 7.4pt;
+  line-height: 1.3;
 }
 .entries .e-yr {
   font-family: var(--mono);
@@ -412,9 +412,9 @@ html, body {
   padding-top: 0.4mm;
 }
 .entries .e-t { font-weight: 700; display: block; }
-.entries .e-loc { color: var(--ink-soft); display: block; font-size: 7.2pt; }
+.entries .e-loc { color: var(--ink-soft); display: block; font-size: 6.9pt; }
 
-.contents { border-top: var(--rule); margin-top: 5mm; padding-top: 3mm; flex: none; }
+.contents { border-top: var(--rule); margin-top: 4mm; padding-top: 2.6mm; flex: none; }
 .contents ol {
   list-style: none;
   margin: 0;
@@ -436,20 +436,9 @@ html, body {
 }
 .contents li .pgn { color: var(--spot); font-weight: 700; }
 
-/* ---------- Archive contact sheet, after the live preview ---------- */
-.dfa { background: var(--ink); padding: 4mm; margin-top: 6mm; flex: none; }
-.dfa-chips { display: flex; flex-wrap: wrap; gap: 1.4mm; margin-bottom: 3.4mm; }
-.dfa-chips span {
-  font-family: var(--mono);
-  font-size: 5.6pt;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #b0a998;
-  border: 1px solid #3a352c;
-  padding: 0.9mm 1.8mm;
-}
-.dfa-chips span.on { color: var(--paper); border-color: #7a7264; }
-.dfa-sheet img { width: 100%; display: block; }
+/* ---------- Archive page: graph and one curatorial panel ---------- */
+.strip.dfa-pair { grid-template-columns: 1fr 55mm; }
+.strip.dfa-pair .slot { height: 76mm; }
 
 /* ---------- Motion (screen only) ---------- */
 @media screen {
@@ -729,7 +718,9 @@ html, body {
       <ul class="entries">
         <li><span class="e-yr">2026</span><span><span class="e-t">Close Enough</span><span class="e-loc">GOGBOT Festival, Enschede &middot; NL</span></span></li>
         <li><span class="e-yr">2024&ndash;2026</span><span><span class="e-t">Fashion Police Drones</span><span class="e-loc">Peckham Digital Festival, UK &middot; New Media Art Conference, CICA Museum, Seoul, KR</span></span></li>
+        <li><span class="e-yr">2024</span><span><span class="e-t">Screen-to-Soundscape / Techno Disobedience</span><span class="e-loc">Constant, Brussels &middot; BE</span></span></li>
         <li><span class="e-yr">2023</span><span><span class="e-t">VOICES</span><span class="e-loc">IMPAKT, Utrecht &middot; Ars Electronica, Linz</span></span></li>
+        <li><span class="e-yr">2023</span><span><span class="e-t">Articulating Data</span><span class="e-loc">Edinburgh &middot; UK</span></span></li>
       </ul>
     </div>
   </div>
@@ -803,31 +794,15 @@ html, body {
   </div>
   <p class="medium">Online archive &middot; interactive network graph &middot; curatorial panels</p>
 
-  <div class="dfa">
-    <div class="dfa-chips">
-      <span class="on">All (37)</span>
-      <span>01 Propaganda (13)</span>
-      <span>02 Activism? (2)</span>
-      <span>03 Everyone is catfishing (6)</span>
-      <span>04 Entertainment and artworks (2)</span>
-      <span>05 Hollywood deepfakes (3)</span>
-      <span>06 AI sex workers (5)</span>
-      <span>07 Scam and fraud</span>
-      <span>08 Identity protection</span>
-      <span>09 Image-based abuse (1)</span>
-      <span>10 Blackface and whitewashing (2)</span>
-      <span>11 Awareness and self-reference (1)</span>
-      <span>12 Everyone is a commercial (2)</span>
-    </div>
-    <div class="dfa-sheet">
-      <img src="../assets/portfolio/print/deepfake-archive.jpg" alt="Contact sheet of twenty-four artifacts from the Deepfake Archive working build">
-    </div>
+  <div class="strip dfa-pair">
+    <div class="slot"><img src="../assets/deepfake-archive-preview/archive-graph.jpg" alt="The archive drawn as a network graph of artifacts over an aerial view of a data centre, with sixteen labelled rooms"></div>
+    <div class="slot"><img src="../assets/portfolio/print/dfa-panel.jpg" alt="A curatorial panel from the racism room, naming the source, the trope and what was generated"></div>
   </div>
-  <p class="caption">Working build, May 2026: 37 artifacts across twelve rooms, sorted by intent at creation rather than by technique.</p>
+  <p class="caption">Working build: 106 artifacts across sixteen rooms, 332 of 9,651 connections drawn. Every node opens a curatorial panel.</p>
 
   <div class="cols">
     <div class="prose">
-      <p>An online, interactive archive of synthetic media artifacts, organised as a network graph. The editorial spine is intent at creation, not technique: propaganda, activism, catfishing, entertainment and artworks, Hollywood deepfakes, AI sex workers, scam and fraud, identity protection and pseudonymity, image-based abuse and harassment, blackface and whitewashing, awareness and self-reference, and everyone is a commercial.</p>
+      <p>An online, interactive archive of synthetic media artifacts, organised as a network graph. The editorial spine is intent at creation, not technique. Sixteen rooms run from propaganda, activism and catfishing through Hollywood deepfakes, AI companions and AI prostitution to scam and fraud, abuse and harassment, blackface and whitewashing, racism, memorial and the slop economy.</p>
       <p>Each artifact carries a curatorial panel that names the toolchain, the consent status and the concrete consequence to the people involved, in a register that is allergic to both AI-hype credulity and moral-panic credulity. The room that handles image-based abuse exhibits no media at all; its panels link to journalism and court documents instead.</p>
     </div>
     <aside class="meta">
@@ -835,9 +810,9 @@ html, body {
         <dt>Medium</dt>
         <dd>Online archive. Interactive network graph, curatorial panels, structured metadata.</dd>
         <dt>Structure</dt>
-        <dd>Twelve rooms, one artifact per node, edges by shared intent and toolchain.</dd>
+        <dd>Sixteen rooms, one artifact per node, edges by shared intent and toolchain.</dd>
         <dt>Status</dt>
-        <dd>Preview live. Full corpus targets several hundred artifacts.</dd>
+        <dd>Working build: 106 artifacts, 9,651 connections. Corpus still growing.</dd>
         <dt>Online</dt>
         <dd><a href="https://www.artificialnouveau.com/gallery/deepfake-archive/">artificialnouveau.com/gallery/deepfake-archive</a></dd>
       </dl>

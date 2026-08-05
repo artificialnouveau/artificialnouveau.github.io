@@ -231,6 +231,36 @@ Each artifact carries a curatorial panel that names the toolchain, the consent s
   }
 </style>
 
+<style>
+  .dfa-shots { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin: 2rem 0; }
+  .dfa-shots figure { margin: 0; }
+  .project-content .dfa-shots img { width: 100%; height: auto; margin: 0; border: none; display: block; }
+  .dfa-shots figcaption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+    margin-top: 0.5rem;
+  }
+  @media (min-width: 900px) { .dfa-shots { grid-template-columns: 1.6fr 1fr; align-items: start; } .dfa-shots .dfa-wide { grid-column: 1 / -1; } }
+</style>
+
+<div class="dfa-shots">
+  <figure>
+    <img src="/assets/deepfake-archive-preview/archive-graph.jpg" alt="The archive drawn as a network graph of artifacts over an aerial view of a data centre, with sixteen labelled rooms" loading="lazy">
+    <figcaption>The archive as a graph. Working build: 106 artifacts across sixteen rooms, 332 of 9,651 connections drawn. Background: the xAI Memphis facility, photo Steve Jones / Southwings for SELC.</figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/deepfake-archive-preview/archive-panel.jpg" alt="A curatorial panel from the racism room, naming the source, the trope and what was generated" loading="lazy">
+    <figcaption>Every node opens a curatorial panel: what was generated, by whom, with what tool, and what it did to the people in it.</figcaption>
+  </figure>
+  <figure class="dfa-wide">
+    <img src="/assets/deepfake-archive-preview/archive-legend.jpg" alt="The archive graph with its legend open: node colour encodes consent, and each connection type can be toggled" loading="lazy">
+    <figcaption>Node colour encodes consent: consented, no consent, unknown, posthumous with estate approval, posthumous without. Connection types (same year, technique, toolchain, subject, creator, intent drift, response to, descended from, legal landmark) toggle on and off.</figcaption>
+  </figure>
+</div>
+
 <div class="dfa-preview">
 
   <h3>Interactive Preview</h3>
