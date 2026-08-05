@@ -203,7 +203,13 @@ h2 {
   padding: 18px 0 6px;
 }
 
-.pub-item { padding: 13px 0; border-bottom: var(--rule-hair); }
+.pub-item {
+  padding: 13px 0;
+  border-bottom: var(--rule-hair);
+  /* 118px year gutter + 20px gap, matching .entries li, so publication
+     titles sit in the same text column as the other entry lists */
+  padding-left: 138px;
+}
 
 .pub-t {
   font-family: var(--serif);
@@ -428,6 +434,8 @@ a:focus-visible, .tag:focus-visible { outline: 3px solid var(--spot); outline-of
   .tag:last-child { border-bottom: none; }
   .grid { border-left: none; }
   .entries li { grid-template-columns: 1fr; gap: 4px; }
+  /* the year gutter collapses here, so publications lose their indent too */
+  .pub-item { padding-left: 0; }
 }
 </style>
 </head>
