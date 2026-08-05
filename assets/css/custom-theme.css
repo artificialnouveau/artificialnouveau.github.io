@@ -994,18 +994,30 @@ center {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin: 0 0 1.1rem;
+    margin: 0;
+    padding-bottom: 0.85rem;
+    border-bottom: 3px solid currentColor;
     color: var(--color-accent-cyan);
 }
 
-/* the year sits under the title, on its own line */
+/* the year sits under the rule, same face as the title, smaller, no box */
 .project-post-header .year-badge {
     display: block;
-    width: fit-content;
-    margin: 0 auto;
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
+    width: auto;
+    margin: 0.8rem 0 0;
+    padding: 0;
+    border: none !important;
+    background: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: inherit;
 }
+
+.project-post-header .year-badge::before,
+.project-post-header .year-badge::after { content: none !important; }
 
 /* No window chrome here: the writing sits straight on the page. */
 .project-content {
@@ -1017,16 +1029,6 @@ center {
     max-width: 68rem;
     box-shadow: none;
     position: relative;
-}
-
-/* keep running text to a readable measure without constraining page layouts */
-.project-content > p,
-.project-content > ul,
-.project-content > ol,
-.project-content > h2,
-.project-content > h3,
-.project-content > h4 {
-    max-width: 46rem;
 }
 
 .project-content p {

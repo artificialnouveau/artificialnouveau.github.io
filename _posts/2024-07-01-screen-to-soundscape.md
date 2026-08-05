@@ -20,11 +20,13 @@ Read more about Screen-to-Soundscape on [www.screentosoundscape.com](https://www
 <h2 style="text-align:center; margin-top:0;">Try It: Hear This Page</h2>
 
 <p style="text-align:center; color: #b8a8d8; font-size: 0.8rem;">
-Enable spatial audio, then hover over any text block below. You'll hear a spatialized tone from the block's position in 3D space, followed by the text being read aloud. Left blocks sound from your left ear, right from your right. Top blocks are farther away, bottom blocks are closer.
+Enable spatial audio, then hover over any text block below. You'll hear a tone placed at the block's position in 3D space, followed by the text read aloud. Left blocks sound from your left ear, right from your right; top blocks are farther away, bottom blocks are closer. Pick any voice your system has installed. The browser's speech engine plays straight to the output and cannot be routed through the 3D panner, so the voice carries distance as volume while the tone carries the direction. The prototype further down does spatialise the speech itself, by synthesising it as audio data first.
 </p>
 
 <div style="text-align:center; margin: 1rem 0;">
   <button id="spatial-toggle" style="background:var(--color-card-bg); border:2px solid var(--color-accent-cyan); color:var(--color-accent-cyan); font-family:'JetBrains Mono',monospace; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.6rem 1.2rem; cursor:pointer;">[ Enable Spatial Audio ]</button>
+  <label for="voice-pick" style="display:inline-block; margin-left:1rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:#b8a8d8;">Voice</label>
+  <select id="voice-pick" style="margin-left:0.4rem; background:var(--color-card-bg); border:1px solid rgba(20,16,12,0.3); color:inherit; font-family:'JetBrains Mono',monospace; font-size:0.7rem; padding:0.35rem 0.5rem; max-width:16rem;"></select>
 </div>
 
 <div id="spatial-status" style="text-align:center; font-size:0.65rem; color:#b8a8d8; margin-bottom:1.5rem;"></div>
@@ -58,7 +60,7 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
 
 </div>
 
-<p style="text-align:center; font-size:0.6rem; color:#b8a8d8; opacity:0.6; margin-top:1rem;">Best experienced with headphones for full spatial effect. Each block has a unique tone positioned in 3D space.</p>
+<p style="text-align:center; font-size:0.6rem; color:#b8a8d8; opacity:0.6; margin-top:1rem;">Best experienced with headphones. Each block has its own tone, positioned in 3D; the voice follows with the block's distance as volume.</p>
 
 </div>
 
@@ -70,6 +72,29 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
   var activeGain = null;
 
   var toggle = document.getElementById('spatial-toggle');
+  var voicePick = document.getElementById('voice-pick');
+  var voices = [];
+
+  function loadVoices() {
+    voices = speechSynthesis.getVoices();
+    if (!voices.length) return;
+    var preferred = localStorage.getItem('s2s-voice');
+    voicePick.innerHTML = '';
+    voices.forEach(function (v, i) {
+      var opt = document.createElement('option');
+      opt.value = String(i);
+      opt.textContent = v.name + ' (' + v.lang + ')' + (v.default ? ' - default' : '');
+      if (preferred === v.name) opt.selected = true;
+      voicePick.appendChild(opt);
+    });
+  }
+  loadVoices();
+  speechSynthesis.addEventListener('voiceschanged', loadVoices);
+  voicePick.addEventListener('change', function () {
+    var v = voices[parseInt(voicePick.value, 10)];
+    if (v) localStorage.setItem('s2s-voice', v.name);
+    speechSynthesis.cancel();
+  });
   var status = document.getElementById('spatial-status');
   var demo = document.getElementById('soundscape-demo');
   var blocks = document.querySelectorAll('.spatial-block');
@@ -246,10 +271,14 @@ Enable spatial audio, then hover over any text block below. You'll hear a spatia
       // Play spatialized tone from block position
       var pos = playSpatialTone(block);
 
-      // Also speak the text (non-spatialized, but the tone gives directional cue)
+      // Speak the text: the voice takes the block's distance as volume
       var utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 0.9;
-      utterance.volume = 0.8;
+      // the panner cannot touch this voice, so distance becomes loudness:
+      // a block at the front of the scene reads louder than one at the back
+      utterance.volume = Math.max(0.35, Math.min(1, 1 + (pos.posZ + 1) * 0.09));
+      var picked = voices[parseInt(voicePick.value, 10)];
+      if (picked) utterance.voice = picked;
 
       utterance.onend = function() {
         // Fade out tone when speech ends

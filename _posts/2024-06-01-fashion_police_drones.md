@@ -1,6 +1,6 @@
 ---
 title: "Fashion Police Drones"
-image: /assets/portfolio/drone_1.jpeg
+image: /assets/portfolio/fpd/prada-panel.gif
 excerpt: "Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform."
 ---
 
@@ -22,8 +22,40 @@ excerpt: "Fashion Police Drones transforms drones into arbiters of fashion, invi
   border: none;
 }
 
+/* Booking sticker */
+.fpd-sticker {
+  display: block;
+  transform: rotate(-2.5deg);
+  border: 2px solid var(--color-accent);
+  background: rgba(192, 51, 15, 0.07);
+  padding: 1rem 1.1rem 0.9rem;
+  margin: 0 0 1.75rem;
+  text-decoration: none !important;
+  color: var(--color-text);
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+.fpd-sticker:hover, .fpd-sticker:focus-visible { transform: rotate(0deg); background: rgba(192, 51, 15, 0.14); }
+.fpd-sticker .s-top {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.fpd-sticker strong { display: block; font-size: 0.98rem; line-height: 1.35; margin: 0.45rem 0 0.6rem; }
+.fpd-sticker .s-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.fpd-sticker .s-cta::after { content: ' \2192'; }
+
 /* Verdict panel from the drone feed, portrait */
 .fpd-panel { max-width: 320px; margin: 2rem 0; }
+.fpd-sidebar .fpd-panel { max-width: none; margin: 1.25rem 0 0; }
 .project-content .fpd-panel video { width: 100%; max-width: none; display: block; margin: 0; border: none; }
 
 /* Documentation and illustrations, as a grid rather than a stack */
@@ -32,8 +64,6 @@ excerpt: "Fashion Police Drones transforms drones into arbiters of fashion, invi
 .project-content .fpd-grid img { width: 100%; height: auto; margin: 0; border: none; display: block; }
 /* uniform tiles so the rows line up: illustrations are shown whole, photos are cropped */
 .project-content .fpd-grid.art img { aspect-ratio: 3 / 4; object-fit: contain; background: rgba(20, 16, 12, 0.04); }
-.project-content .fpd-grid.docs img { aspect-ratio: 4 / 3; object-fit: cover; }
-.project-content .fpd-grid.docs img.whole { object-fit: contain; background: rgba(20, 16, 12, 0.04); }
 .fpd-videos figcaption,
 .fpd-grid figcaption {
   font-family: 'JetBrains Mono', monospace;
@@ -56,13 +86,6 @@ excerpt: "Fashion Police Drones transforms drones into arbiters of fashion, invi
 <div class="fpd-content" markdown="1">
 
 Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. As these drones patrol the gallery, they actively scan for and monitor attendees whose attire matches the audience-defined standards of fashion faux pas, ranging from light-hearted to culturally contentious. This setup provides a unique opportunity for participants to engage directly with the technology, experiencing the implications of surveillance and societal judgment firsthand. The installation not only highlights the whimsical aspects of fashion norms but also prompts serious reflection on the societal and cultural impacts of fashion choices, mirroring real-world issues of discrimination and privacy.
-
-<figure class="fpd-panel">
-  <video src="/assets/portfolio/fpd/prada-panel.mp4" poster="/assets/portfolio/print/fpd-panel.jpg" autoplay muted loop playsinline preload="metadata"></video>
-  <figcaption>A verdict panel from the drone feed: the outfit is itemised garment by garment, then sentenced.</figcaption>
-</figure>
-
-In a space over 6 x 6 meters, a primary drone publicly judges outfits, while "stalker" drones quietly scan for style infractions. But these are no ordinary fashion faux pas—infractions fall into three categories:
 
 - **Corporate fashion crimes**, targeting fast fashion giants like Zara and H&M for their environmental and labor abuses;
 
@@ -112,24 +135,15 @@ After exhibiting this work for the first time, I came across a BBC report that I
   </figure>
 </div>
 
-<div class="fpd-grid docs">
-  <figure>
-    <img src="../../../assets/portfolio/drone_1.jpeg" alt="The artist in a pink tactical vest with patrol drones on the floor" loading="lazy">
-    <figcaption>Fashion Police Drones at CPDP, Brussels</figcaption>
-  </figure>
-  <figure>
-    <img src="../../../assets/portfolio/drone_2.jpeg" alt="The artist flying a patrol drone through the room" loading="lazy">
-    <figcaption>Fashion Police Drones at CPDP, Brussels</figcaption>
-  </figure>
-  <figure>
-    <img class="whole" src="../../../assets/portfolio/drone_5.png" alt="Write-up mentioning the fashion police drones scanning the CPDP crowd" loading="lazy">
-    <figcaption>The squad of drones, in the CPDP conference write-up</figcaption>
-  </figure>
-</div>
-
 </div><!-- end fpd-content -->
 
 <div class="fpd-sidebar">
+<a class="fpd-sticker" href="mailto:artificialnouveau@gmail.com?subject=Fashion%20Police%20Drones%20booking">
+  <span class="s-top">Available for booking</span>
+  <strong>Bring the Fashion Police Drones to a venue near you</strong>
+  <span class="s-cta">Get in touch</span>
+</a>
+
 <div id="try-me-section" style="padding: 1.5rem; background: rgba(20, 16, 12, 0.03); border: 1px solid rgba(20, 16, 12, 0.2);">
 
 <h3 style="text-align:center; font-size: 1.1rem; margin-top:0;">TRY ME: Are You a Fashion Criminal?</h3>
@@ -231,6 +245,11 @@ After exhibiting this work for the first time, I came across a BBC report that I
 </div>
 
 </div><!-- end try-me-section -->
+
+<figure class="fpd-panel">
+  <video src="/assets/portfolio/fpd/prada-panel.mp4" poster="/assets/portfolio/print/fpd-panel.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  <figcaption>A verdict panel from the drone feed: the outfit is itemised garment by garment, then sentenced.</figcaption>
+</figure>
 </div><!-- end fpd-sidebar -->
 </div><!-- end fpd-layout -->
 
