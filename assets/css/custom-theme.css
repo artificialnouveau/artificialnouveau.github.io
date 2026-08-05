@@ -994,38 +994,39 @@ center {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-bottom: 1rem;
+    margin: 0 0 1.1rem;
     color: var(--color-accent-cyan);
 }
 
+/* the year sits under the title, on its own line */
 .project-post-header .year-badge {
-    font-size: 0.85rem;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 0.8rem;
     letter-spacing: 0.15em;
-    margin-bottom: 1rem;
 }
 
+/* No window chrome here: the writing sits straight on the page. */
 .project-content {
-    background: var(--color-card-bg);
-    border: 1px solid var(--color-accent-cyan);
-    border-top: 25px solid var(--color-window-chrome);
+    background: transparent;
+    border: none;
     border-radius: 0;
-    padding: 3rem;
-    margin-bottom: 2rem;
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.5),
-        inset 0 0 0 1px rgba(0, 240, 255, 0.2);
+    padding: 0;
+    margin: 0 auto 2rem;
+    max-width: 68rem;
+    box-shadow: none;
     position: relative;
 }
 
-.project-content::before {
-    content: '⬤ ⬤ ⬤';
-    position: absolute;
-    top: -18px;
-    left: 10px;
-    color: var(--color-accent-cyan);
-    font-size: 0.6rem;
-    letter-spacing: 0.5rem;
-    z-index: 10;
+/* keep running text to a readable measure without constraining page layouts */
+.project-content > p,
+.project-content > ul,
+.project-content > ol,
+.project-content > h2,
+.project-content > h3,
+.project-content > h4 {
+    max-width: 46rem;
 }
 
 .project-content p {
@@ -1104,7 +1105,7 @@ center {
     }
 
     .project-content {
-        padding: 1.25rem;
+        padding: 0;
     }
 
     .project-content ul {

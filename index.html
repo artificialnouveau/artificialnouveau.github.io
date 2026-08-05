@@ -94,7 +94,9 @@ h1 {
 /* ---------- Nav ---------- */
 .shelf {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(165px, 100%), 1fr));
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--ink);   /* the gap is the hairline between cells */
   border-top: var(--rule);
   border-bottom: var(--rule);
   margin-top: 32px;
@@ -107,10 +109,11 @@ h1 {
   padding: 18px 18px 16px;
   text-decoration: none;
   color: var(--ink);
-  border-right: var(--rule-hair);
+  background: var(--paper);
   transition: background-color 0.12s ease, color 0.12s ease;
 }
-.tag:last-child { border-right: none; }
+/* seven tags into four columns: the last one takes the leftover cell */
+.tag:last-child { grid-column: span 2; }
 .tag:hover, .tag:focus-visible { background: var(--ink); color: var(--paper); }
 .tag:hover .tag-sku, .tag:focus-visible .tag-sku { color: var(--paper); }
 
@@ -436,12 +439,14 @@ a:focus-visible, .tag:focus-visible { outline: 3px solid var(--spot); outline-of
   .btn:hover { transform: none; }
 }
 
+@media (max-width: 900px) {
+  .shelf { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 640px) {
   .masthead { padding-top: 30px; }
   section { padding-top: 38px; }
   .item { padding: 18px 16px; }
-  .tag { border-right: none; border-bottom: var(--rule-hair); }
-  .tag:last-child { border-bottom: none; }
   .grid { border-left: none; }
   .entries li { grid-template-columns: 1fr; gap: 4px; }
   /* the year gutter collapses here, so publications lose their indent too */
@@ -465,8 +470,8 @@ a:focus-visible, .tag:focus-visible { outline: 3px solid var(--spot); outline-of
     <a class="tag" href="/assets/resume/creative.pdf"><span class="tag-sku">Resume</span><span class="tag-name">Creative Resume</span></a>
     <a class="tag" href="/portfolio/"><span class="tag-sku">Studio</span><span class="tag-name">Portfolio</span></a>
     <a class="tag" href="/gallery/"><span class="tag-sku">Projects</span><span class="tag-name">Gallery</span></a>
-    <a class="tag" href="/talks/"><span class="tag-sku">Projects</span><span class="tag-name">Talks &amp; Workshops</span></a>
     <a class="tag" href="/smalltools/"><span class="tag-sku">Demos</span><span class="tag-name">Small Tools</span></a>
+    <a class="tag" href="/talks/"><span class="tag-sku">Projects</span><span class="tag-name">Talks &amp; Workshops</span></a>
     <a class="tag" href="/smalltools/be-me/"><span class="tag-sku">Demos</span><span class="tag-name">Be Me</span></a>
   </nav>
 
