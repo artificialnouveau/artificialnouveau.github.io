@@ -142,6 +142,26 @@ h2 {
   letter-spacing: -0.025em;
   margin: 0;
 }
+/* Collapsible section */
+.sec-fold > summary { cursor: pointer; list-style: none; }
+.sec-fold > summary::-webkit-details-marker { display: none; }
+.fold-i {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--spot);
+  white-space: nowrap;   /* was breaking to "[ +" / "]" on narrow screens */
+  flex: none;
+  align-self: center;
+}
+.sec-fold[open] > summary .fold-i::after { content: ''; }
+.sec-fold[open] > summary .fold-i { font-size: 0; }
+.sec-fold[open] > summary .fold-i::before {
+  content: '[ - ]';
+  font-size: 12px;
+  letter-spacing: 0.14em;
+}
+
 /* ---------- Publications ---------- */
 .pub-sec {
   font-weight: 700;
@@ -338,9 +358,10 @@ h2 {
 .outbound:hover .ob-name, .outbound:focus-visible .ob-name { color: var(--spot); }
 .ob-name {
   font-weight: 700;
-  font-size: clamp(1.2rem, 3vw, 1.9rem);
+  /* matches h2 so every section heading is one size */
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 .ob-n {
   font-family: var(--mono);
@@ -459,6 +480,7 @@ a:focus-visible, .tag:focus-visible { outline: 3px solid var(--spot); outline-of
     <div class="sec-head"><h2>Awards, Fellowships &amp; Grants</h2></div>
     <ul class="entries">
       <li><span class="e-yr">2025</span><span><span class="e-t"><a href="/public-ai/">Public AI</a></span><span class="e-loc">Public AI Creative Fellowship, MetaGov &bull; USA</span></span></li>
+      <li><span class="e-yr">2024</span><span><span class="e-t"><a href="https://www.sidnfonds.nl/projecten/project-screen-to-soundscape">Screen-to-Soundscape</a></span><span class="e-loc">SIDN fonds &bull; Netherlands</span></span></li>
       <li><span class="e-yr">2024</span><span><span class="e-t">Digitale Cultuur</span><span class="e-loc">Stimuleringsfonds Creatieve Industrie &bull; Netherlands</span></span></li>
       <li><span class="e-yr">2024</span><span><span class="e-t">Fresh Perspective</span><span class="e-loc">Stimuleringsfonds Creatieve Industrie &bull; Netherlands</span></span></li>
       <li><span class="e-yr">2024</span><span><span class="e-t">Processing Foundation Fellowship</span><span class="e-loc">Processing Foundation &bull; USA</span></span></li>

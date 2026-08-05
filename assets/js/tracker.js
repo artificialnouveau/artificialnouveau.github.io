@@ -28,9 +28,15 @@
 
     // Quick browser detect
     const ua = navigator.userAgent;
-    if (ua.includes('Firefox/')) visit.browser = 'Firefox';
-    else if (ua.includes('Edg/')) visit.browser = 'Edge';
-    else if (ua.includes('Chrome/') && ua.includes('Safari/')) visit.browser = 'Chrome';
+    // On iOS every browser is WebKit and reports "Safari/" in the UA, so the
+    // iOS-specific tokens (FxiOS, CriOS, EdgiOS, OPiOS) must be checked before
+    // the generic Safari test or Firefox on iPhone is reported as Safari.
+    if (ua.includes('Firefox/') || ua.includes('FxiOS/')) visit.browser = 'Firefox';
+    else if (ua.includes('Edg/') || ua.includes('EdgiOS/') || ua.includes('EdgA/')) visit.browser = 'Edge';
+    else if (ua.includes('OPR/') || ua.includes('OPiOS/') || ua.includes('Opera')) visit.browser = 'Opera';
+    else if (ua.includes('SamsungBrowser/')) visit.browser = 'Samsung Internet';
+    else if (ua.includes('DuckDuckGo/')) visit.browser = 'DuckDuckGo';
+    else if (ua.includes('CriOS/') || (ua.includes('Chrome/') && ua.includes('Safari/'))) visit.browser = 'Chrome';
     else if (ua.includes('Safari/') && !ua.includes('Chrome')) visit.browser = 'Safari';
     else visit.browser = 'Other';
 
