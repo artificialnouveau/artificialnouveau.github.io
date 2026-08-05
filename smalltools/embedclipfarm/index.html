@@ -7,50 +7,50 @@
   <title>EmbedClipFarm — YouTube Semantic Search</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--color-bg); color: var(--color-text); min-height: 100vh; }
     .container { max-width: 960px; margin: 0 auto; padding: 2rem 1rem; }
-    h1 { font-size: 1.8rem; margin-bottom: 0.3rem; color: #fff; }
-    .subtitle { color: #888; margin-bottom: 1.2rem; font-size: 0.95rem; }
+    h1 { font-size: 1.8rem; margin-bottom: 0.3rem; color: var(--color-text); }
+    .subtitle { color: var(--color-muted); margin-bottom: 1.2rem; font-size: 0.95rem; }
 
     /* Index stats */
-    .index-stats { background: #1a1a1a; border: 1px solid #282828; border-radius: 8px; padding: 10px 16px; margin-bottom: 16px; font-size: 0.85rem; display: none; }
-    .index-stats .tag { display: inline-block; background: #282828; color: #e040fb; padding: 2px 8px; border-radius: 4px; margin-right: 8px; font-family: monospace; }
+    .index-stats { background: var(--color-card-bg); border: 1px solid #282828; border-radius: 8px; padding: 10px 16px; margin-bottom: 16px; font-size: 0.85rem; display: none; }
+    .index-stats .tag { display: inline-block; background: var(--color-card-bg); color: #e040fb; padding: 2px 8px; border-radius: 4px; margin-right: 8px; font-family: monospace; }
     .model-status { font-size: 0.8rem; color: #555; margin-bottom: 12px; }
     .model-status .loaded { color: #4caf50; }
     .model-status .loading { color: #ff9800; }
 
     /* Load section */
-    .load-section { background: #1a1a1a; border: 2px dashed #333; border-radius: 8px; padding: 32px; text-align: center; margin-bottom: 20px; cursor: pointer; transition: border-color 0.2s; }
+    .load-section { background: var(--color-card-bg); border: 2px dashed #333; border-radius: 8px; padding: 32px; text-align: center; margin-bottom: 20px; cursor: pointer; transition: border-color 0.2s; }
     .load-section:hover { border-color: #e040fb; }
     .load-section input { display: none; }
 
     /* Search */
     .search-wrap { display: flex; gap: 10px; margin-bottom: 8px; }
-    .search-input { flex: 1; padding: 12px 16px; font-size: 1rem; background: #1a1a1a; color: #e0e0e0; border: 1px solid #333; border-radius: 8px; outline: none; }
+    .search-input { flex: 1; padding: 12px 16px; font-size: 1rem; background: var(--color-card-bg); color: var(--color-text); border: 1px solid #333; border-radius: 8px; outline: none; }
     .search-input:focus { border-color: #e040fb; }
     .search-input::placeholder { color: #555; }
-    .search-btn { padding: 12px 24px; font-size: 1rem; font-weight: 600; background: #e040fb; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    .search-btn { padding: 12px 24px; font-size: 1rem; font-weight: 600; background: #e040fb; color: var(--color-text); border: none; border-radius: 8px; cursor: pointer; }
     .search-btn:hover { opacity: 0.85; }
     .search-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .search-options { display: flex; gap: 16px; align-items: center; font-size: 0.85rem; color: #888; margin-bottom: 20px; flex-wrap: wrap; }
-    .search-options select, .search-options input[type="number"] { background: #1a1a1a; color: #e0e0e0; border: 1px solid #333; border-radius: 4px; padding: 4px 8px; font-size: 0.85rem; }
-    .status { margin-top: 12px; font-size: 0.9rem; color: #888; min-height: 1.2em; }
+    .search-options { display: flex; gap: 16px; align-items: center; font-size: 0.85rem; color: var(--color-muted); margin-bottom: 20px; flex-wrap: wrap; }
+    .search-options select, .search-options input[type="number"] { background: var(--color-card-bg); color: var(--color-text); border: 1px solid #333; border-radius: 4px; padding: 4px 8px; font-size: 0.85rem; }
+    .status { margin-top: 12px; font-size: 0.9rem; color: var(--color-muted); min-height: 1.2em; }
     button { padding: 10px 20px; font-size: 0.95rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: opacity 0.2s; }
     button:hover { opacity: 0.85; }
     button:disabled { opacity: 0.4; cursor: not-allowed; }
 
     /* Results */
-    .result-card { display: flex; gap: 16px; padding: 16px; background: #1a1a1a; border: 1px solid #282828; border-radius: 8px; margin-bottom: 12px; transition: border-color 0.15s; }
+    .result-card { display: flex; gap: 16px; padding: 16px; background: var(--color-card-bg); border: 1px solid #282828; border-radius: 8px; margin-bottom: 12px; transition: border-color 0.15s; }
     .result-card:hover { border-color: #e040fb; }
-    .result-thumb { width: 200px; height: 112px; flex-shrink: 0; border-radius: 6px; overflow: hidden; background: #222; position: relative; cursor: pointer; }
+    .result-thumb { width: 200px; height: 112px; flex-shrink: 0; border-radius: 6px; overflow: hidden; background: var(--color-window-chrome); position: relative; cursor: pointer; }
     .result-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .result-thumb .time-badge { position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.8); color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 0.7rem; font-family: monospace; }
+    .result-thumb .time-badge { position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.8); color: var(--color-text); padding: 2px 6px; border-radius: 3px; font-size: 0.7rem; font-family: monospace; }
     .result-body { flex: 1; min-width: 0; }
-    .result-title { font-weight: 600; color: #fff; font-size: 0.95rem; margin-bottom: 4px; }
+    .result-title { font-weight: 600; color: var(--color-text); font-size: 0.95rem; margin-bottom: 4px; }
     .result-title a { color: inherit; text-decoration: none; }
-    .result-channel { font-size: 0.8rem; color: #888; margin-bottom: 6px; }
+    .result-channel { font-size: 0.8rem; color: var(--color-muted); margin-bottom: 6px; }
     .result-text { font-size: 0.85rem; color: #bbb; line-height: 1.5; max-height: 4.5em; overflow: hidden; }
-    .result-text mark { background: rgba(224,64,251,0.3); color: #fff; border-radius: 2px; padding: 0 2px; }
+    .result-text mark { background: rgba(224,64,251,0.3); color: var(--color-text); border-radius: 2px; padding: 0 2px; }
     .result-score { font-family: monospace; font-size: 0.75rem; color: #e040fb; margin-top: 6px; }
     .no-results { text-align: center; color: #555; padding: 40px; font-size: 0.95rem; }
 
@@ -96,89 +96,89 @@ code *, pre *, kbd *, samp * {
 
     <!-- About section -->
     <div id="about-section" style="margin-bottom:20px;">
-      <div style="background:#1a1a1a;border:1px solid #282828;border-radius:8px;padding:20px;margin-bottom:16px;line-height:1.7;">
-        <p style="color:#e0e0e0;font-size:0.9rem;margin-bottom:12px;">
+      <div style="background:var(--color-card-bg);border:1px solid #282828;border-radius:8px;padding:20px;margin-bottom:16px;line-height:1.7;">
+        <p style="color:var(--color-text);font-size:0.9rem;margin-bottom:12px;">
           EmbedClipFarm lets you search YouTube videos by <strong style="color:#e040fb;">meaning</strong>, not just keywords.
           It uses AI to understand what's being said in videos, so searching "economic anxiety" finds relevant
           moments even if those exact words are never spoken.
         </p>
-        <p style="color:#aaa;font-size:0.85rem;margin-bottom:12px;">
-          <strong style="color:#fff;">What gets analyzed:</strong>
+        <p style="color:var(--color-muted);font-size:0.85rem;margin-bottom:12px;">
+          <strong style="color:var(--color-text);">What gets analyzed:</strong>
           The primary analysis is on <strong style="color:#e040fb;">speech transcripts</strong> — auto-generated captions pulled from YouTube via yt-dlp,
           or transcribed locally using <strong style="color:#e040fb;">Whisper AI</strong> for videos without captions.
           Optionally, a <strong style="color:#e040fb;">vision API</strong> can annotate keyframes with rich text descriptions for visual search
-          (e.g. "person at a podium") — use <code style="background:#282828;color:#4caf50;padding:1px 4px;border-radius:2px;">--vision gemini</code> or
-          <code style="background:#282828;color:#4caf50;padding:1px 4px;border-radius:2px;">--vision claude</code> during indexing.
-          Or use <strong style="color:#e040fb;">CLIP embeddings</strong> with <code style="background:#282828;color:#4caf50;padding:1px 4px;border-radius:2px;">--clip</code> for a fully local alternative (no API key needed).
-          For videos without captions, add <code style="background:#282828;color:#4caf50;padding:1px 4px;border-radius:2px;">--whisper</code> to transcribe audio locally using Whisper AI.
+          (e.g. "person at a podium") — use <code style="background:var(--color-card-bg);color:#4caf50;padding:1px 4px;border-radius:2px;">--vision gemini</code> or
+          <code style="background:var(--color-card-bg);color:#4caf50;padding:1px 4px;border-radius:2px;">--vision claude</code> during indexing.
+          Or use <strong style="color:#e040fb;">CLIP embeddings</strong> with <code style="background:var(--color-card-bg);color:#4caf50;padding:1px 4px;border-radius:2px;">--clip</code> for a fully local alternative (no API key needed).
+          For videos without captions, add <code style="background:var(--color-card-bg);color:#4caf50;padding:1px 4px;border-radius:2px;">--whisper</code> to transcribe audio locally using Whisper AI.
           <strong style="color:#e040fb;">Scene detection</strong> uses frame-by-frame analysis to identify visual cut points
           in the video, splitting it into distinct scenes that can be individually searched and downloaded as clips.
         </p>
-        <p style="color:#aaa;font-size:0.85rem;margin-bottom:12px;">
-          <strong style="color:#fff;">How it works:</strong> Transcripts are split into ~30-second chunks, and each chunk is converted into
+        <p style="color:var(--color-muted);font-size:0.85rem;margin-bottom:12px;">
+          <strong style="color:var(--color-text);">How it works:</strong> Transcripts are split into ~30-second chunks, and each chunk is converted into
           a 384-dimensional vector embedding (using all-MiniLM-L6-v2) that captures its semantic meaning.
           When you search, your query is embedded the same way and results are ranked by
           <strong style="color:#e040fb;">cosine similarity</strong> — how close your query's meaning is to each chunk's meaning.
         </p>
-        <p style="color:#aaa;font-size:0.85rem;margin-bottom:12px;">
-          <strong style="color:#fff;">Scores:</strong>
+        <p style="color:var(--color-muted);font-size:0.85rem;margin-bottom:12px;">
+          <strong style="color:var(--color-text);">Scores:</strong>
           <span style="color:#4caf50;font-weight:600;">strong</span> (>= 0.3) — high confidence match,
           <span style="color:#ff9800;font-weight:600;">related</span> (0.15–0.3) — topically related,
           below 0.15 is filtered out as noise.
         </p>
-        <p style="color:#aaa;font-size:0.85rem;margin-bottom:0;">
-          <strong style="color:#fff;">Before using this page:</strong> Run the CLI to index a YouTube channel or videos.
-          This creates an <code style="background:#282828;color:#e040fb;padding:1px 4px;border-radius:2px;">index.json</code> file
+        <p style="color:var(--color-muted);font-size:0.85rem;margin-bottom:0;">
+          <strong style="color:var(--color-text);">Before using this page:</strong> Run the CLI to index a YouTube channel or videos.
+          This creates an <code style="background:var(--color-card-bg);color:#e040fb;padding:1px 4px;border-radius:2px;">index.json</code> file
           that you load below. Each result embeds the YouTube player at the matching timestamp and gives you
           a command to download the specific clip.
         </p>
       </div>
 
-      <div style="background:#1a1a1a;border:1px solid #282828;border-radius:8px;padding:16px;font-size:0.8rem;color:#888;line-height:1.9;">
-        <strong style="color:#fff;">1. Install &amp; index:</strong><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">pip install youtube-transcript-api chromadb sentence-transformers numpy python-dotenv yt-dlp</code><br><br>
-        <span style="color:#aaa;">Index a single video:</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "https://youtube.com/watch?v=VIDEO_ID"</code><br>
-        <span style="color:#aaa;">Index multiple videos:</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "URL1" "URL2" "URL3"</code><br>
-        <span style="color:#aaa;">Index a channel:</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "@channelname" --max-videos 20</code><br>
-        <span style="color:#aaa;">Index a playlist:</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "https://youtube.com/playlist?list=PLxxxxx"</code><br>
-        <span style="color:#aaa;">Index from a file of URLs:</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index urls.txt</code><br><br>
-        <span style="color:#aaa;">Each creates a folder (named after the source) containing <code style="background:#282828;color:#e040fb;padding:1px 4px;border-radius:2px;">index.json</code> + transcripts. Check the CLI output for the exact folder path, then load the index.json below.</span>
+      <div style="background:var(--color-card-bg);border:1px solid #282828;border-radius:8px;padding:16px;font-size:0.8rem;color:var(--color-muted);line-height:1.9;">
+        <strong style="color:var(--color-text);">1. Install &amp; index:</strong><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">pip install youtube-transcript-api chromadb sentence-transformers numpy python-dotenv yt-dlp</code><br><br>
+        <span style="color:var(--color-muted);">Index a single video:</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "https://youtube.com/watch?v=VIDEO_ID"</code><br>
+        <span style="color:var(--color-muted);">Index multiple videos:</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "URL1" "URL2" "URL3"</code><br>
+        <span style="color:var(--color-muted);">Index a channel:</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "@channelname" --max-videos 20</code><br>
+        <span style="color:var(--color-muted);">Index a playlist:</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "https://youtube.com/playlist?list=PLxxxxx"</code><br>
+        <span style="color:var(--color-muted);">Index from a file of URLs:</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index urls.txt</code><br><br>
+        <span style="color:var(--color-muted);">Each creates a folder (named after the source) containing <code style="background:var(--color-card-bg);color:#e040fb;padding:1px 4px;border-radius:2px;">index.json</code> + transcripts. Check the CLI output for the exact folder path, then load the index.json below.</span>
       </div>
 
-      <div style="background:#1a1a1a;border:1px solid #282828;border-radius:8px;padding:16px;font-size:0.8rem;color:#888;line-height:1.9;margin-top:12px;">
-        <strong style="color:#fff;">Optional: add visual scene annotation or speech features</strong><br>
-        <span style="color:#aaa;">Add any of these flags to the index command above:</span><br><br>
-        <span style="color:#aaa;">Annotate keyframes with <strong style="color:#4a9eff;">Gemini</strong> vision</span> <span style="color:#555;">(set <code style="background:#282828;color:#e040fb;padding:1px 4px;border-radius:2px;">GEMINI_API_KEY</code> in .env)</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--vision gemini</code><br>
-        <span style="color:#aaa;">Annotate keyframes with <strong style="color:#cc785c;">Claude</strong> vision</span> <span style="color:#555;">(set <code style="background:#282828;color:#e040fb;padding:1px 4px;border-radius:2px;">ANTHROPIC_API_KEY</code> in .env)</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--vision claude</code><br>
-        <span style="color:#aaa;">Local <strong style="color:#e040fb;">CLIP</strong> visual embeddings</span> <span style="color:#555;">(no API key needed)</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--clip</code><br>
-        <span style="color:#aaa;"><strong style="color:#ff9800;">Whisper</strong> transcription for videos without captions:</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--whisper</code><br>
-        <span style="color:#aaa;"><strong style="color:#ff9800;">Speaker ID</strong> to tag who's talking</span> <span style="color:#555;">(requires <code style="background:#282828;color:#e040fb;padding:1px 4px;border-radius:2px;">pip install pyannote-audio</code> + <code style="background:#282828;color:#e040fb;padding:1px 4px;border-radius:2px;">HF_TOKEN</code> in .env)</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--whisper --speaker-id</code><br><br>
-        <span style="color:#aaa;">Custom prompt for vision annotation:</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--vision-prompt "Describe the fashion and clothing visible in this frame"</code><br>
+      <div style="background:var(--color-card-bg);border:1px solid #282828;border-radius:8px;padding:16px;font-size:0.8rem;color:var(--color-muted);line-height:1.9;margin-top:12px;">
+        <strong style="color:var(--color-text);">Optional: add visual scene annotation or speech features</strong><br>
+        <span style="color:var(--color-muted);">Add any of these flags to the index command above:</span><br><br>
+        <span style="color:var(--color-muted);">Annotate keyframes with <strong style="color:#4a9eff;">Gemini</strong> vision</span> <span style="color:#555;">(set <code style="background:var(--color-card-bg);color:#e040fb;padding:1px 4px;border-radius:2px;">GEMINI_API_KEY</code> in .env)</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">--vision gemini</code><br>
+        <span style="color:var(--color-muted);">Annotate keyframes with <strong style="color:#cc785c;">Claude</strong> vision</span> <span style="color:#555;">(set <code style="background:var(--color-card-bg);color:#e040fb;padding:1px 4px;border-radius:2px;">ANTHROPIC_API_KEY</code> in .env)</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">--vision claude</code><br>
+        <span style="color:var(--color-muted);">Local <strong style="color:#e040fb;">CLIP</strong> visual embeddings</span> <span style="color:#555;">(no API key needed)</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">--clip</code><br>
+        <span style="color:var(--color-muted);"><strong style="color:#ff9800;">Whisper</strong> transcription for videos without captions:</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">--whisper</code><br>
+        <span style="color:var(--color-muted);"><strong style="color:#ff9800;">Speaker ID</strong> to tag who's talking</span> <span style="color:#555;">(requires <code style="background:var(--color-card-bg);color:#e040fb;padding:1px 4px;border-radius:2px;">pip install pyannote-audio</code> + <code style="background:var(--color-card-bg);color:#e040fb;padding:1px 4px;border-radius:2px;">HF_TOKEN</code> in .env)</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">--whisper --speaker-id</code><br><br>
+        <span style="color:var(--color-muted);">Custom prompt for vision annotation:</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">--vision-prompt "Describe the fashion and clothing visible in this frame"</code><br>
         <span style="color:#555;">Default prompt describes the scene in detail for search. Custom prompts let you focus on specific aspects (fashion, text on screen, emotions, etc.)</span><br><br>
-        <span style="color:#aaa;">Punctuation is added to transcripts by default. Disable with:</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">--no-punctuate</code><br><br>
-        <span style="color:#aaa;">Example with everything:</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "@channel" --vision gemini --whisper --speaker-id --max-videos 20</code>
+        <span style="color:var(--color-muted);">Punctuation is added to transcripts by default. Disable with:</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">--no-punctuate</code><br><br>
+        <span style="color:var(--color-muted);">Example with everything:</span><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py index "@channel" --vision gemini --whisper --speaker-id --max-videos 20</code>
       </div>
 
-      <div style="background:#1a1a1a;border:1px solid #282828;border-radius:8px;padding:16px;font-size:0.8rem;color:#888;line-height:1.9;margin-top:12px;">
-        <strong style="color:#fff;">3. Download clips:</strong><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py clip VIDEO_ID --start 10 --end 41</code>
+      <div style="background:var(--color-card-bg);border:1px solid #282828;border-radius:8px;padding:16px;font-size:0.8rem;color:var(--color-muted);line-height:1.9;margin-top:12px;">
+        <strong style="color:var(--color-text);">3. Download clips:</strong><br>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py clip VIDEO_ID --start 10 --end 41</code>
         <span style="color:#555;margin-left:6px;">Download a specific segment</span><br>
-        <code style="background:#282828;color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py search "query" --download ./clips</code>
+        <code style="background:var(--color-card-bg);color:#4caf50;padding:2px 6px;border-radius:3px;">python embedclipfarm.py search "query" --download ./clips</code>
         <span style="color:#555;margin-left:6px;">Search and download all matching clips</span><br>
-        <span style="color:#aaa;">Each search result below includes a <strong style="color:#e040fb;">Copy clip command</strong> button — paste it into your terminal to download that exact segment.</span>
+        <span style="color:var(--color-muted);">Each search result below includes a <strong style="color:#e040fb;">Copy clip command</strong> button — paste it into your terminal to download that exact segment.</span>
       </div>
 
       <p style="font-size:0.8rem;color:#555;margin-top:12px;">
@@ -188,8 +188,8 @@ code *, pre *, kbd *, samp * {
 
     <!-- Load index -->
     <div class="load-section" id="load-section" onclick="document.getElementById('index-file').click()">
-      <p style="font-size:1.1rem;color:#fff;margin-bottom:6px;">Load index.json</p>
-      <p style="color:#888;font-size:0.9rem;">Drop your index.json file here, or click to browse</p>
+      <p style="font-size:1.1rem;color:var(--color-text);margin-bottom:6px;">Load index.json</p>
+      <p style="color:var(--color-muted);font-size:0.9rem;">Drop your index.json file here, or click to browse</p>
       <input type="file" id="index-file" accept=".json">
     </div>
 
@@ -201,7 +201,7 @@ code *, pre *, kbd *, samp * {
           <strong style="color:#4caf50;font-size:0.95rem;" id="loaded-title">Index loaded!</strong>
           <span id="loaded-detail" style="color:#8bc38b;font-size:0.85rem;margin-left:8px;"></span>
         </div>
-        <button onclick="loadAnother()" style="margin-left:auto;padding:5px 12px;font-size:0.78rem;background:#282828;color:#ccc;border:1px solid #444;border-radius:4px;cursor:pointer;">Load different index</button>
+        <button onclick="loadAnother()" style="margin-left:auto;padding:5px 12px;font-size:0.78rem;background:var(--color-card-bg);color:var(--color-muted);border:1px solid #444;border-radius:4px;cursor:pointer;">Load different index</button>
       </div>
     </div>
 
@@ -217,8 +217,8 @@ code *, pre *, kbd *, samp * {
       </div>
       <p class="status" id="search-status"></p>
       <div id="search-actions" style="display:none;margin-bottom:12px;">
-        <button id="copy-all-clips-btn" onclick="copyAllClipCmds()" style="padding:8px 16px;font-size:0.85rem;background:#282828;color:#e040fb;border:1px solid #444;border-radius:6px;cursor:pointer;font-weight:600;">Copy all clip commands</button>
-        <button id="copy-download-cmd-btn" onclick="copyDownloadCmd()" style="padding:8px 16px;font-size:0.85rem;background:#282828;color:#ccc;border:1px solid #444;border-radius:6px;cursor:pointer;margin-left:6px;">Copy batch download command</button>
+        <button id="copy-all-clips-btn" onclick="copyAllClipCmds()" style="padding:8px 16px;font-size:0.85rem;background:var(--color-card-bg);color:#e040fb;border:1px solid #444;border-radius:6px;cursor:pointer;font-weight:600;">Copy all clip commands</button>
+        <button id="copy-download-cmd-btn" onclick="copyDownloadCmd()" style="padding:8px 16px;font-size:0.85rem;background:var(--color-card-bg);color:var(--color-muted);border:1px solid #444;border-radius:6px;cursor:pointer;margin-left:6px;">Copy batch download command</button>
       </div>
       <div id="search-results"></div>
     </div>
@@ -408,7 +408,7 @@ code *, pre *, kbd *, samp * {
         lastClipCmds.push(clipCmd);
         var copyBtn = document.createElement("button");
         copyBtn.textContent = "Copy clip cmd";
-        copyBtn.style.cssText = "padding:4px 10px;font-size:0.75rem;background:#282828;color:#e040fb;border:1px solid #444;border-radius:4px;cursor:pointer;";
+        copyBtn.style.cssText = "padding:4px 10px;font-size:0.75rem;background:var(--color-card-bg);color:#e040fb;border:1px solid #444;border-radius:4px;cursor:pointer;";
         copyBtn.onclick = (function (cmd, btn) {
           return function () {
             navigator.clipboard.writeText(cmd);
@@ -420,7 +420,7 @@ code *, pre *, kbd *, samp * {
 
         var openBtn = document.createElement("button");
         openBtn.textContent = "YouTube";
-        openBtn.style.cssText = "padding:4px 10px;font-size:0.75rem;background:#282828;color:#ccc;border:1px solid #444;border-radius:4px;cursor:pointer;";
+        openBtn.style.cssText = "padding:4px 10px;font-size:0.75rem;background:var(--color-card-bg);color:var(--color-muted);border:1px solid #444;border-radius:4px;cursor:pointer;";
         openBtn.onclick = function () { window.open(link, "_blank"); };
         actions.appendChild(openBtn);
 
@@ -435,7 +435,7 @@ code *, pre *, kbd *, samp * {
         moreWrap.style.cssText = "text-align:center;margin:20px 0;";
         var moreBtn = document.createElement("button");
         moreBtn.textContent = "Show more (" + (totalCount - results.length) + " remaining)";
-        moreBtn.style.cssText = "padding:10px 24px;font-size:0.9rem;background:#282828;color:#e040fb;border:1px solid #444;border-radius:6px;cursor:pointer;font-weight:600;";
+        moreBtn.style.cssText = "padding:10px 24px;font-size:0.9rem;background:var(--color-card-bg);color:#e040fb;border:1px solid #444;border-radius:6px;cursor:pointer;font-weight:600;";
         moreBtn.onclick = function () {
           var currentCount = container.querySelectorAll(".result-card").length;
           var nextBatch = lastScoredResults.slice(currentCount, currentCount + 10);

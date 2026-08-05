@@ -504,7 +504,7 @@ body {
     content: "Generated from artificialnouveau.com/smalltools/nicotineanalysis";
     display: block;
     font-size: 9pt;
-    color: #888;
+    color: var(--color-muted);
     text-align: center;
     padding: 20px 0;
     margin-top: 20px;
@@ -1114,7 +1114,7 @@ function renderOutcomeBars() {
         const pct = ((d[o] || 0) / coded * 100).toFixed(1);
         const showLabel = pct >= 8; // only show % label if segment is wide enough
         return `<div class="outcome-bar-seg" style="width:${pct}%;background:${outColors[o]}"
-                     data-tooltip="${o}: ${d[o]} (${pct}%)">${showLabel ? `<span style="font-size:11px;color:#fff;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,0.6);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">${pct}%</span>` : ''}</div>`;
+                     data-tooltip="${o}: ${d[o]} (${pct}%)">${showLabel ? `<span style="font-size:11px;color:var(--color-text);font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,0.6);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">${pct}%</span>` : ''}</div>`;
       }).join('')}
     </div>`;
     container.appendChild(row);
