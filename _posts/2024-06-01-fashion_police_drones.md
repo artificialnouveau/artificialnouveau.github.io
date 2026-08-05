@@ -8,9 +8,40 @@ excerpt: "Fashion Police Drones transforms drones into arbiters of fashion, invi
 .fpd-layout { display: flex; gap: 2rem; align-items: flex-start; }
 .fpd-content { flex: 1; min-width: 0; }
 .fpd-sidebar { flex: 0 0 380px; position: sticky; top: 2rem; }
+
+/* The three infraction categories, each a YouTube short (9:16) */
+.fpd-videos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
+.fpd-videos figure { margin: 0; }
+.fpd-embed { position: relative; aspect-ratio: 9 / 16; background: #000; }
+.fpd-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* Verdict panel from the drone feed, portrait */
+.fpd-panel { max-width: 320px; margin: 2rem 0; }
+.project-content .fpd-panel video { width: 100%; max-width: none; display: block; margin: 0; border: none; }
+
+/* Documentation and illustrations, as a grid rather than a stack */
+.fpd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 2rem 0; align-items: start; }
+.fpd-grid figure { margin: 0; }
+.project-content .fpd-grid img { width: 100%; height: auto; margin: 0; border: none; display: block; }
+/* uniform tiles so the rows line up: illustrations are shown whole, photos are cropped */
+.project-content .fpd-grid.art img { aspect-ratio: 3 / 4; object-fit: contain; background: rgba(20, 16, 12, 0.04); }
+.project-content .fpd-grid.docs img { aspect-ratio: 4 / 3; object-fit: cover; }
+.project-content .fpd-grid.docs img.whole { object-fit: contain; background: rgba(20, 16, 12, 0.04); }
+.fpd-videos figcaption,
+.fpd-grid figcaption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
 @media (max-width: 900px) {
   .fpd-layout { flex-direction: column; }
   .fpd-sidebar { flex: none; width: 100%; position: static; }
+  .fpd-videos { grid-template-columns: 1fr; max-width: 320px; }
 }
 </style>
 
@@ -18,6 +49,11 @@ excerpt: "Fashion Police Drones transforms drones into arbiters of fashion, invi
 <div class="fpd-content" markdown="1">
 
 Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. As these drones patrol the gallery, they actively scan for and monitor attendees whose attire matches the audience-defined standards of fashion faux pas, ranging from light-hearted to culturally contentious. This setup provides a unique opportunity for participants to engage directly with the technology, experiencing the implications of surveillance and societal judgment firsthand. The installation not only highlights the whimsical aspects of fashion norms but also prompts serious reflection on the societal and cultural impacts of fashion choices, mirroring real-world issues of discrimination and privacy.
+
+<figure class="fpd-panel">
+  <video src="/assets/portfolio/fpd/prada-panel.mp4" poster="/assets/portfolio/print/fpd-panel.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  <figcaption>A verdict panel from the drone feed: the outfit is itemised garment by garment, then sentenced.</figcaption>
+</figure>
 
 In a space over 6 x 6 meters, a primary drone publicly judges outfits, while "stalker" drones quietly scan for style infractions. But these are no ordinary fashion faux pas—infractions fall into three categories:
 
@@ -27,6 +63,27 @@ In a space over 6 x 6 meters, a primary drone publicly judges outfits, while "st
 
 - [Country-Specific Crimes](https://youtube.com/shorts/FmHWW-h6G5E), where drones emulate government-enforced dress codes, spotlighting fashion as a tool of political control.
 
+<div class="fpd-videos">
+  <figure>
+    <div class="fpd-embed">
+      <iframe src="https://www.youtube-nocookie.com/embed/QwhF7XVgr5Q" title="Fashion Police Drones: corporate fashion crimes" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <figcaption>Corporate fashion crimes</figcaption>
+  </figure>
+  <figure>
+    <div class="fpd-embed">
+      <iframe src="https://www.youtube-nocookie.com/embed/_TywTP3kjwc" title="Fashion Police Drones: Ahnjili's crimes" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <figcaption>Ahnjili's crimes</figcaption>
+  </figure>
+  <figure>
+    <div class="fpd-embed">
+      <iframe src="https://www.youtube-nocookie.com/embed/FmHWW-h6G5E" title="Fashion Police Drones: country-specific crimes" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <figcaption>Country-specific crimes</figcaption>
+  </figure>
+</div>
+
 On May 31st 2024, I was invited by the Privacy Salon to present at the [CPDP conference](https://www.cpdpconferences.org/archive) in Brussels.
 
 On June 29th 2024, I will also present my Fashion Police Drones at the [New Media Art Conference (2024)](https://cicamuseum.com/new-media-art-2024/) at the CICA Museum in Korea.
@@ -35,52 +92,37 @@ The work was also showcased at [AIAIAI.art](https://aiaiai.art/fashion-police), 
 
 After exhibiting this work for the first time, I came across a BBC report that Iran had deployed real drones to enforce its hijab law on the streets. The piece was made as satire and critique of how surveillance technology amplifies the enforcement of fashion and dress codes. Reading that report made the satire feel very thin. [BBC: Iran using drones to enforce hijab law, says rights group (2024)](https://www.bbc.com/news/articles/c0kg15jkpdeo)
 
-<div class="row justify-content-center">
-  <figure class="col-6">
-    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/crossdress.jpg" alt="CICA magazine image 1" style="max-height: 400px; width: auto;">
-    <figcaption class="mt-2 text-center image-caption">CICA magazine image 1. Illustration done by Peter van Dijk (www.petervandijkcomics.com)</figcaption>
+<div class="fpd-grid art">
+  <figure>
+    <img src="../../../assets/portfolio/crossdress.jpg" alt="Illustration of a drone citing a person for cross-dressing" loading="lazy">
+    <figcaption>CICA magazine, 1. Illustration by Peter van Dijk (petervandijkcomics.com)</figcaption>
+  </figure>
+  <figure>
+    <img src="../../../assets/portfolio/hijab.jpg" alt="Illustration of a drone enforcing a hijab law" loading="lazy">
+    <figcaption>CICA magazine, 2. Illustration by Peter van Dijk (petervandijkcomics.com)</figcaption>
+  </figure>
+  <figure>
+    <img src="../../../assets/portfolio/burka.jpg" alt="Illustration of a drone enforcing a burka ban" loading="lazy">
+    <figcaption>CICA magazine, 3. Illustration by Peter van Dijk (petervandijkcomics.com)</figcaption>
+  </figure>
+  <figure>
+    <img src="../../../assets/portfolio/socksnsandals.jpg" alt="Illustration of a drone citing socks worn with sandals" loading="lazy">
+    <figcaption>CICA magazine, 4. Illustration by Peter van Dijk (petervandijkcomics.com)</figcaption>
   </figure>
 </div>
 
-<div class="row justify-content-center">
-  <figure class="col-6">
-    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/hijab.jpg" alt="CICA magazine image 2" style="max-height: 400px; width: auto;">
-    <figcaption class="mt-2 text-center image-caption">CICA magazine image 2. Illustration done by Peter van Dijk (www.petervandijkcomics.com)</figcaption>
+<div class="fpd-grid docs">
+  <figure>
+    <img src="../../../assets/portfolio/drone_1.jpeg" alt="The artist in a pink tactical vest with patrol drones on the floor" loading="lazy">
+    <figcaption>Fashion Police Drones at CPDP, Brussels</figcaption>
   </figure>
-</div>
-
-<div class="row justify-content-center">
-  <figure class="col-6">
-    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/burka.jpg" alt="CICA magazine image 3" style="max-height: 400px; width: auto;">
-    <figcaption class="mt-2 text-center image-caption">CICA magazine image 3. Illustration done by Peter van Dijk (www.petervandijkcomics.com)</figcaption>
+  <figure>
+    <img src="../../../assets/portfolio/drone_2.jpeg" alt="The artist flying a patrol drone through the room" loading="lazy">
+    <figcaption>Fashion Police Drones at CPDP, Brussels</figcaption>
   </figure>
-</div>
-
-<div class="row justify-content-center">
-  <figure class="col-6">
-    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/socksnsandals.jpg" alt="CICA magazine image 4" style="max-height: 400px; width: auto;">
-    <figcaption class="mt-2 text-center image-caption">CICA magazine image 4. Illustration done by Peter van Dijk (www.petervandijkcomics.com)</figcaption>
-  </figure>
-</div>
-
-<div class="row justify-content-center">
-  <figure class="col-6">
-    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/drone_5.png" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
-    <figcaption class="mt-2 text-center image-caption">Fashion Police Drones at CPDP</figcaption>
-  </figure>
-</div>
-
-<div class="row justify-content-center">
-  <figure class="col-6">
-    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/drone_1.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
-    <figcaption class="mt-2 text-center image-caption">Fashion Police Drones at CPDP</figcaption>
-  </figure>
-</div>
-
-<div class="row justify-content-center">
-  <figure class="col-6">
-    <img class="img-fluid rounded-left rounded-right shadow-sm mx-auto d-block" src="../../../assets/portfolio/drone_2.jpeg" alt="Fashion Police Drones at CPDP" style="max-height: 400px; width: auto;">
-    <figcaption class="mt-2 text-center image-caption">Fashion Police Drones at CPDP</figcaption>
+  <figure>
+    <img class="whole" src="../../../assets/portfolio/drone_5.png" alt="Write-up mentioning the fashion police drones scanning the CPDP crowd" loading="lazy">
+    <figcaption>The squad of drones, in the CPDP conference write-up</figcaption>
   </figure>
 </div>
 
