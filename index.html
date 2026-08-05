@@ -73,6 +73,15 @@ body {
 /* ---------- Masthead ---------- */
 .masthead { padding: 44px 0 0; }
 
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+
 h1 {
   font-weight: 700;
   font-size: clamp(2.6rem, 8.5vw, 6rem);
@@ -378,8 +387,9 @@ h2 {
   justify-content: space-between;
   gap: 20px;
   border-top: var(--rule);
-  border-bottom: var(--rule);
-  padding: 22px 0;
+  /* 6px underline so it matches the rule under every section heading */
+  border-bottom: 6px solid var(--ink);
+  padding: 22px 0 16px;
   text-decoration: none;
   color: var(--ink);
   min-height: 64px;
@@ -444,6 +454,7 @@ a:focus-visible, .tag:focus-visible { outline: 3px solid var(--spot); outline-of
 <div class="wrap">
 
   <header class="masthead">
+    <p class="eyebrow">Artificial Nouveau Studio</p>
     <h1>Ahnjili<br>ZhuParris,<br>PhD</h1>
   </header>
 
