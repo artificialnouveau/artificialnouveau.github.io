@@ -12,8 +12,81 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:iclc-2027-antwerp-call-for-participation@artificialnouveau.github.io
+DTSTAMP:20260805T132059Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Deadline: ICLC 2027: International Conference on Live Coding\, Call
+  for Participation (Dialogues)
+DESCRIPTION:The International Conference on Live Coding is dedicated to pra
+ ctices and research focused on technologies and philosophies that interpre
+ t the use of computer code and the public writing of algorithms as perform
+ ative gestures. The 10th edition runs 9 to 13 March 2027 in Antwerp\, host
+ ed by Lambdasonic (TOPLAP Belgium) with the Royal Conservatoire of Antwerp
+  and De Singel. THEME: 'Dialogues'\, framing live coding as continuous imp
+ rovisational exchange between coder\, machine and audience\, and across di
+ sciplines. Suggested topics include dialogues between live coding and acou
+ stic musicians\, dancers\, theatre\, classically trained musicians reading
+  live-coded (or graphical) scores\, band and jazz-combo settings\, live-co
+ der ensembles\, ten-minute live-coded mini-operas\, DMX lighting systems\,
+  graphics and shader live coding\, robotics (pen plotters\, textile-weavin
+ g robots)\, design-as-performance\, community building\, diversity/equity/
+ inclusion\, accessibility of live coding languages and interfaces\, educat
+ ion\, and algorave. The venues will facilitate collaborations with residen
+ t dancers\, a jazz combo (back-line provided: drums\, guitar amp\, bass am
+ p\, piano)\, a string quartet reading scores a prima vista\, visual artist
+ s\, students and researchers where possible. FORMATS: short papers (2-4 pa
+ ges) and long papers (5-12 pages) using the provided template\; live perfo
+ rmances (800-word abstract\, max 150-word programme note\, technical rider
+ )\; workshops (short 2h or long 4h\, max 700-word abstract\, held in Engli
+ sh or Dutch)\; installations (max 700-word abstract\, technical questionna
+ ire plus a measured plan or sketch\, with the interactive aspect clearly d
+ efined)\; and satellite events. All contributors submit a max 150-word bio
+ graphy. Peer review is single-blind with at least two reviewers per submis
+ sion. LANGUAGE: submissions must be in English\, except that live performa
+ nce\, installation and workshop proposals may also be submitted in another
+  language (workshops: English\, Dutch or French) with a machine-translated
+  English version\, stated as such. Substantial use of generative AI in wri
+ ting papers and performance abstracts must be disclosed\; proofreading and
+  translation are exempt. In-person presentation is encouraged\, with remot
+ e proposals considered and sessions live-streamed where possible\; the org
+ anisers ask attendees to minimise travel impact and to link up with nearby
+  satellite events to turn a long trip into a mini-tour. The call notes att
+ ention to access needs\, care responsibilities and other barriers to parti
+ cipation. SATELLITE EVENTS: live coding nodes\, art schools and other orga
+ nisations worldwide are invited to host their own events before or after I
+ CLC 2027\; submit a declaration of interest via Fourwaves before 1 Februar
+ y 2027 with a principal contact\, city and any confirmed details\, and joi
+ n #iclc-satellite-events on the TOPLAP Discord. Hosts are asked to seek lo
+ cal funding for accommodation\, travel and artist fees\; the committee can
+ not fund or organise these but will coordinate dates and publish your even
+ t. TO APPLY: submit via Fourwaves at https://event.fourwaves.com/iclc2027/
+ pages using the templates at https://codeberg.org/iclc/iclc-templates (rea
+ d the README for full proposal instructions). Submission deadline extended
+  to 1 September 2026\; acceptance notification 1 November 2026. CALL FOR R
+ EVIEWERS: anyone active in a live-coding-related field can volunteer by em
+ ailing a short description and keywords of their expertise to iclc@lambdas
+ onic.be\, the same address for general questions.\n\nOrganisation: Lambdas
+ onic (TOPLAP Belgium)\, Royal Conservatoire of Antwerp and De Singel\nLoca
+ tion: Royal Conservatoire of Antwerp and De Singel International Arts Cent
+ er\, Antwerp\, Belgium. Open to anyone engaged with live coding\; remote p
+ articipation considered.\nAward: NO submission fee. The call does not stat
+ e artist fees\, travel support or accommodation for accepted contributors\
+ , so budget for self-funded attendance unless the organisers announce othe
+ rwise. Proceedings are published with a DOI per article. Satellite-event h
+ osts can request a Letter of Intent to support their own local funding app
+ lications.\nDuration: Five-day conference\, 9 to 13 March 2027. Workshops 
+ are 2 hours (short) or 4 hours (long).\n\nMore: https://iclc.toplap.org/20
+ 27/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://iclc.toplap.org/2027/?utm_source=artificialnouveaugrantdesk&utm
+ _medium=referral
+LOCATION:Royal Conservatoire of Antwerp and De Singel International Arts Ce
+ nter\, Antwerp\, Belgium. Open to anyone engaged with live coding\; remote
+  participation considered.
+END:VEVENT
+BEGIN:VEVENT
 UID:mondriaan-heritage-innovation-2026@artificialnouveau.github.io
-DTSTAMP:20260805T084302Z
+DTSTAMP:20260805T132059Z
 DTSTART;VALUE=DATE:20260917
 DTEND;VALUE=DATE:20260918
 SUMMARY:Deadline: Mondriaan Fund: Heritage Innovation (September 2026 round
@@ -53,7 +126,7 @@ LOCATION:Museums and collection-holding heritage institutions in the Nether
 END:VEVENT
 BEGIN:VEVENT
 UID:knowcase-sonar-cotec-open-call-2027@artificialnouveau.github.io
-DTSTAMP:20260805T084302Z
+DTSTAMP:20260805T132059Z
 DTSTART;VALUE=DATE:20260907
 DTEND;VALUE=DATE:20260908
 SUMMARY:Deadline: KNOWCASE Open Call 2027: permanent digital-culture instal
@@ -105,7 +178,7 @@ LOCATION:Installation at the KNOWCASE storefront of Fundacion Cotec's headq
 END:VEVENT
 BEGIN:VEVENT
 UID:privacy-camp-2026-call-for-sessions@artificialnouveau.github.io
-DTSTAMP:20260805T084302Z
+DTSTAMP:20260805T132059Z
 DTSTART;VALUE=DATE:20260810
 DTEND;VALUE=DATE:20260811
 SUMMARY:Deadline: Privacy Camp 2026 (EDRi): Call for Sessions\, The Origins
@@ -198,7 +271,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:cultuurloket-digitall-implementatiebijdrage-2026@artificialnouveau.gith
  ub.io
-DTSTAMP:20260805T084302Z
+DTSTAMP:20260805T132059Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Cultuurloket DigitALL: Implementation Contribution (Imple
@@ -232,7 +305,7 @@ LOCATION:Netherlands and the Caribbean parts of the Kingdom. No city or reg
 END:VEVENT
 BEGIN:VEVENT
 UID:eic-accelerator-2026@artificialnouveau.github.io
-DTSTAMP:20260805T084302Z
+DTSTAMP:20260805T132059Z
 DTSTART;VALUE=DATE:20260708
 DTEND;VALUE=DATE:20260709
 SUMMARY:Deadline: EIC Accelerator 2026 (European Innovation Council)
@@ -267,7 +340,7 @@ LOCATION:EU Member States and Horizon Europe Associated Countries. Single-c
 END:VEVENT
 BEGIN:VEVENT
 UID:stimuleringsfonds-digital-culture-2026@artificialnouveau.github.io
-DTSTAMP:20260805T084302Z
+DTSTAMP:20260805T132059Z
 DTSTART;VALUE=DATE:20260819
 DTEND;VALUE=DATE:20260820
 SUMMARY:Deadline: Stimuleringsfonds: Digital Culture Grant Scheme 2026 (fin
@@ -297,7 +370,7 @@ LOCATION:Netherlands. Requires Dutch Chamber of Commerce (KvK) registration
 END:VEVENT
 BEGIN:VEVENT
 UID:eurostars-call-11-2026@artificialnouveau.github.io
-DTSTAMP:20260805T084302Z
+DTSTAMP:20260805T132059Z
 DTSTART;VALUE=DATE:20260910
 DTEND;VALUE=DATE:20260911
 SUMMARY:Deadline: Eurostars Call 11 2026 (Eureka / Eurostars-3)
@@ -330,7 +403,7 @@ LOCATION:International consortia from at least two Eurostars countries\, le
 END:VEVENT
 BEGIN:VEVENT
 UID:mit-rd-samenwerking-2026@artificialnouveau.github.io
-DTSTAMP:20260805T084302Z
+DTSTAMP:20260805T132059Z
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
 SUMMARY:Deadline: MIT R&D Collaboration Projects 2026 (MKB Innovatiestimule
@@ -360,7 +433,7 @@ LOCATION:Netherlands. SME consortia (minimum two collaborating SMEs).
 END:VEVENT
 BEGIN:VEVENT
 UID:prototype-fund-class-03-2026@artificialnouveau.github.io
-DTSTAMP:20260805T084302Z
+DTSTAMP:20260805T132059Z
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
 SUMMARY:Deadline: Prototype Fund Class 03 (Open-Source Software)
@@ -384,7 +457,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:transmediale-pro-helvetia-digital-art-residency-2027@artificialnouveau.
  github.io
-DTSTAMP:20260805T084302Z
+DTSTAMP:20260805T132059Z
 DTSTART;VALUE=DATE:20260828
 DTEND;VALUE=DATE:20260829
 SUMMARY:Deadline: transmediale x Pro Helvetia Digital Art Residency 2027
