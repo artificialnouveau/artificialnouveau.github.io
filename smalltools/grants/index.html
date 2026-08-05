@@ -1407,6 +1407,11 @@ body {
   .sections { padding: 8px 16px 60px; }
   .folder-grid { grid-template-columns: 1fr; gap: 18px; }
 }
+
+/* Skip link: off-screen until focused */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:#1f1b16;color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip-link:focus{left:8px;top:8px;outline:3px solid #D94B3C;outline-offset:2px}
 </style>
 <!-- Young Serif site-wide (self-hosted, SIL OFL 1.1) -->
 <style id="young-serif-override">
@@ -1430,6 +1435,7 @@ code *, pre *, kbd *, samp * {
 </head>
 <body>
 
+<a class="skip-link" href="#sections">Skip to main content</a>
 <div class="top-strip">
   <div>the grant desk</div>
   <div class="strip-meta">
@@ -1611,7 +1617,7 @@ code *, pre *, kbd *, samp * {
     <span class="h1-kicker">Grants, Fellowships and Residencies in AI, Arts, Film, Research and Tech</span>
     <span class="h1-brand">The <span class="underline">Grant</span> Desk</span>
   </h1>
-  <p class="lede"><strong id="active-count">--</strong> active grants on the desk right now. <strong>The Grant Desk is a free tool. No account, paywall or subscription required.</strong> The site consists of a hand-picked selection of <strong>paid</strong> open calls, fellowships and residencies for artists, journalists, writers, researchers and technologists working in the realm of digital media, AI, and technology and society, with a few notable unpaid open calls and festival submissions included as clearly flagged exceptions. Star a card to save it to a shortlist you can share as a link or download as an .ics calendar, and use the "Copy info" button on any card to copy the full grant details to your clipboard. The desk also remembers when you last visited (saved in your browser's localStorage only, not on any server) so the "Show only new" filter highlights what has been added since.</p>
+  <p class="lede"><strong id="active-count" role="status" aria-live="polite" aria-atomic="true">--</strong> active grants on the desk right now. <strong>The Grant Desk is a free tool. No account, paywall or subscription required.</strong> The site consists of a hand-picked selection of <strong>paid</strong> open calls, fellowships and residencies for artists, journalists, writers, researchers and technologists working in the realm of digital media, AI, and technology and society, with a few notable unpaid open calls and festival submissions included as clearly flagged exceptions. Star a card to save it to a shortlist you can share as a link or download as an .ics calendar, and use the "Copy info" button on any card to copy the full grant details to your clipboard. The desk also remembers when you last visited (saved in your browser's localStorage only, not on any server) so the "Show only new" filter highlights what has been added since.</p>
   <p class="lede subtle">Subscribe via RSS or add deadlines to your calendar so you do not miss a thing.</p>
 </header>
 
