@@ -12,8 +12,51 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:iac-bc-ai-builders-fellowship-2026@artificialnouveau.github.io
+DTSTAMP:20260806T115900Z
+DTSTART;VALUE=DATE:20260821
+DTEND;VALUE=DATE:20260822
+SUMMARY:Deadline: AI Builders Fellowship 2026 (Internet Archive Canada x BC
+  + AI)
+DESCRIPTION:A $5\,000 fellowship to spend six weeks turning a very large Ca
+ nadian public archive into something new. THE MATERIAL: Internet Archive C
+ anada's Government Publications collection\, part of the Democracy's Libra
+ ry project\, holding over 104\,000 text items\, roughly 22.1 million scann
+ ed pages and about 48.25 TB of Canadian public-record material\, browsable
+  at archive.org/details/governmentpublications. WHAT TO BUILD: deliberatel
+ y open-ended. The call names a search tool that answers a real question wi
+ th page-level citations\, a timeline tracing one policy across decades of 
+ government language\, and a sonic or visual piece built from archival mate
+ rial\, but explicitly invites work nobody has thought of yet. The requirem
+ ents are that it is useful\, that it is imaginative\, and that the code is
+  open source when it is done. ORIGIN: the fellowship came out of conversat
+ ions between BC + AI's Kris Kruger and IAC executive director Andrea Mills
+  about treating a public archive as material for new work rather than only
+  something to preserve. IAC brings the archive\, BC + AI brings a communit
+ y of builders used to working in public. ELIGIBILITY: anyone\, anywhere in
+  the world\; one builder is selected. APPLICATION: a specific project desc
+ ription grounded in the collection\, a phase-by-phase work plan for the si
+ x weeks\, and a success metric\, submitted at bc-ai.ca/fellowship/apply. K
+ EY DATES: applications close 21 August 2026 at 11:59pm Pacific\; fellow se
+ lected by 31 August\; build runs 1 September to mid-October\; showcase at 
+ Futureproof Festival in Vancouver on 28 October 2026 if the project is rea
+ dy.\n\nOrganisation: Internet Archive Canada (IAC) in partnership with BC 
+ + AI\nLocation: Remote\, open to builders anywhere in the world. Optional 
+ in-person showcase at Futureproof Festival in Vancouver\, Canada on 28 Oct
+ ober 2026 if the project is ready.\nAward: $5\,000 award for one selected 
+ builder. No application fee.\nDuration: Six-week build\, 1 September to mi
+ d-October 2026\, remote\, with support from BC + AI throughout\n\nMore: ht
+ tps://bc-ai.ca/fellowship?utm_source=artificialnouveaugrantdesk&utm_medium
+ =referral
+URL:https://bc-ai.ca/fellowship?utm_source=artificialnouveaugrantdesk&utm_m
+ edium=referral
+LOCATION:Remote\, open to builders anywhere in the world. Optional in-perso
+ n showcase at Futureproof Festival in Vancouver\, Canada on 28 October 202
+ 6 if the project is ready.
+END:VEVENT
+BEGIN:VEVENT
 UID:inato-gallery-touch-some-grass-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: Inato Gallery: Touch Some Grass (open-call poster exhibit
@@ -56,7 +99,7 @@ LOCATION:Submissions are digital (A3 portrait PDF) and no residency or trav
 END:VEVENT
 BEGIN:VEVENT
 UID:tech4dev-ai-cohort-program-3-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260810
 DTEND;VALUE=DATE:20260811
 SUMMARY:Deadline: Project Tech4Dev: AI Cohort Program 3.0 (NGOs building AI
@@ -109,7 +152,7 @@ LOCATION:Remote cohort programme. No geographic restriction is stated in th
 END:VEVENT
 BEGIN:VEVENT
 UID:antikythera-agentworld-journal-cfp-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260820
 DTEND;VALUE=DATE:20260821
 SUMMARY:Deadline: Antikythera Journal: Agentworld Special Issue\, Call for 
@@ -167,7 +210,7 @@ LOCATION:Remote (online submission\; the journal is web-first and design-fo
 END:VEVENT
 BEGIN:VEVENT
 UID:govai-research-fellow-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260816
 DTEND;VALUE=DATE:20260817
 SUMMARY:Deadline: GovAI Research Fellows and Research Scholars (AI Governan
@@ -224,7 +267,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:aixdesign-grain-cookbook-critical-ai-literacy-2026@artificialnouveau.gi
  thub.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: AIxDESIGN: Grain\, Open Call for Critical AI Literacy Rec
@@ -302,7 +345,7 @@ LOCATION:Remote/online\; open to educators and practitioners based anywhere
 END:VEVENT
 BEGIN:VEVENT
 UID:openai-economic-research-exchange-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260705
 DTEND;VALUE=DATE:20260706
 SUMMARY:Deadline: OpenAI Economic Research Exchange 2026
@@ -350,7 +393,7 @@ LOCATION:Remote / global. Structured\, project-based research collaboration
 END:VEVENT
 BEGIN:VEVENT
 UID:tech-to-the-rescue-ai-impact-scaling-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
 SUMMARY:Deadline: AI Impact Scaling Program 2026 (Tech To The Rescue)
@@ -392,7 +435,7 @@ LOCATION:NGOs and social impact organizations from around the world. Requir
 END:VEVENT
 BEGIN:VEVENT
 UID:scaling-ai-safety-multi-agent-world-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260808
 DTEND;VALUE=DATE:20260809
 SUMMARY:Deadline: Scaling AI Safety for a Multi-Agent World (Joint Funding 
@@ -443,7 +486,7 @@ LOCATION:Global\; open worldwide\, with collaborations across geographic bo
 END:VEVENT
 BEGIN:VEVENT
 UID:biswas-family-foundation-fast-grants-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260615
 DTEND;VALUE=DATE:20260616
 SUMMARY:Deadline: Biswas Family Foundation: Fast Grants Program 2026 (Sprin
@@ -483,7 +526,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:longview-digital-minds-career-development-fellowships-2026@artificialno
  uveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260710
 DTEND;VALUE=DATE:20260711
 SUMMARY:Deadline: Longview Philanthropy: Digital Minds Career Development F
@@ -516,7 +559,7 @@ LOCATION:Worldwide / remote
 END:VEVENT
 BEGIN:VEVENT
 UID:lego-foundation-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260731
 DTEND;VALUE=DATE:20260801
 SUMMARY:Deadline: The LEGO Foundation Fellowship
@@ -552,7 +595,7 @@ LOCATION:Global (host university or research institute)
 END:VEVENT
 BEGIN:VEVENT
 UID:berggruen-prize-essay-competition-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260817
 DTEND;VALUE=DATE:20260818
 SUMMARY:Deadline: Berggruen Prize Essay Competition 2026: A New Axial Age?
@@ -605,7 +648,7 @@ LOCATION:Remote/online\; open to the public worldwide (English and Chinese
 END:VEVENT
 BEGIN:VEVENT
 UID:sff-2026-themed-rounds@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260610
 DTEND;VALUE=DATE:20260611
 SUMMARY:Deadline: Survival and Flourishing Fund (SFF): 2026 Themed Rounds (
@@ -642,7 +685,7 @@ LOCATION:Worldwide (grants typically routed through registered non-profits\
 END:VEVENT
 BEGIN:VEVENT
 UID:ai-futures-challenge-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
 SUMMARY:Deadline: AI Futures Challenge 2026 (Worldbuilding Competition)
@@ -665,7 +708,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:longview-digital-minds-grants-applied-work-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260710
 DTEND;VALUE=DATE:20260711
 SUMMARY:Deadline: Longview Philanthropy: Digital Minds Grants for Applied W
@@ -706,7 +749,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:longview-digital-minds-research-fellowships-2026@artificialnouveau.gith
  ub.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260710
 DTEND;VALUE=DATE:20260711
 SUMMARY:Deadline: Longview Philanthropy: Digital Minds Research Fellowships
@@ -753,7 +796,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:cht-emerging-voices-ai-society-fellowship-2026@artificialnouveau.github
  .io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260712
 DTEND;VALUE=DATE:20260713
 SUMMARY:Deadline: Center for Humane Technology: Emerging Voices in AI and S
@@ -794,7 +837,7 @@ LOCATION:Remote\, 10 hours/week overlapping with EST required.
 END:VEVENT
 BEGIN:VEVENT
 UID:omidyar-network-tech-journalism-fund-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20261231
 DTEND;VALUE=DATE:20270101
 SUMMARY:Deadline: Omidyar Network: Tech Journalism Fund
@@ -816,7 +859,7 @@ LOCATION:Open to journalists and media organizations worldwide.
 END:VEVENT
 BEGIN:VEVENT
 UID:new-media-film-festival-2027@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20270406
 DTEND;VALUE=DATE:20270407
 SUMMARY:Deadline: New Media Film Festival 2027 (AR / MR / AI / TECH categor
@@ -840,7 +883,7 @@ LOCATION:Los Angeles\, California\, United States (2 June 2027 online\, 3 J
 END:VEVENT
 BEGIN:VEVENT
 UID:hiding-in-plain-site-festival-2026@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260910
 DTEND;VALUE=DATE:20260911
 SUMMARY:Deadline: Hiding in Plain Site: International Public Art Short Film
@@ -864,7 +907,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ai-alignment-foundation-aiaf-fellowship-2026@artificialnouveau.github.i
  o
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260817
 DTEND;VALUE=DATE:20260818
 SUMMARY:Deadline: AIAF Fellowship\, Autumn 2026
@@ -903,7 +946,7 @@ LOCATION:Fully remote for the 8-week research period\; hybrid Demo Day in L
 END:VEVENT
 BEGIN:VEVENT
 UID:wilson-center-research-fellowship-2027-2028@artificialnouveau.github.io
-DTSTAMP:20260806T084456Z
+DTSTAMP:20260806T115900Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Deadline: Wilson Center Research Fellowship\, 2027-2028 Class
