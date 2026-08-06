@@ -380,6 +380,12 @@ h2 {
 
 /* Entry lists */
 .entries { margin: 0; padding: 0; list-style: none; border-top: var(--rule); }
+/* Grouped by year, same as publications: the year sits in the gutter beside
+   the first entry it covers instead of repeating on every row. */
+.entries-groups { border-top: var(--rule); }
+.entries-groups .entries { border-top: none; }
+.entries-groups .pub-year { padding-top: 15px; white-space: nowrap; }
+.entries-groups .entries li { grid-template-columns: 1fr; gap: 0; }
 .entries li {
   display: grid;
   grid-template-columns: 118px 1fr;
@@ -486,6 +492,7 @@ a:focus-visible, .tag:focus-visible { outline: 3px solid var(--spot); outline-of
   /* the year gutter collapses here, so the year goes back above its group */
   .pub-group { grid-template-columns: 1fr; gap: 0; }
   .pub-year { position: static; padding: 16px 0 2px; }
+  .entries-groups .pub-year { padding: 16px 0 2px; }
   .pub-item { margin-left: 0; padding-left: 0; }
   .pub-item:hover { background: none; box-shadow: none; }
 }
@@ -567,40 +574,100 @@ a:focus-visible, .tag:focus-visible { outline: 3px solid var(--spot); outline-of
 
   <section id="awards" aria-label="Awards, fellowships and grants">
     <div class="sec-head"><h2>Awards, Fellowships &amp; Grants</h2></div>
-    <ul class="entries">
-      <li><span class="e-yr">2025</span><span><span class="e-t"><a href="/public-ai/">Public AI</a></span><span class="e-loc">Public AI Creative Fellowship, MetaGov &bull; USA</span></span></li>
-      <li><span class="e-yr">2024</span><span><span class="e-t"><a href="https://www.sidnfonds.nl/projecten/project-screen-to-soundscape">Screen-to-Soundscape</a></span><span class="e-loc">SIDN fonds &bull; Netherlands</span></span></li>
-      <li><span class="e-yr">2024</span><span><span class="e-t"><a href="https://www.stimuleringsfonds.nl/toegekende-subsidies/digitale-cultuur-34-projecten-geselecteerd">Digitale Cultuur</a></span><span class="e-loc">Stimuleringsfonds Creatieve Industrie &bull; Netherlands</span></span></li>
-      <li><span class="e-yr">2024</span><span><span class="e-t"><a href="https://www.stimuleringsfonds.nl/en/awarded-grants/fresh-perspectives-10-projects-selected-2">Fresh Perspective</a></span><span class="e-loc">Stimuleringsfonds Creatieve Industrie &bull; Netherlands</span></span></li>
-      <li><span class="e-yr">2024</span><span><span class="e-t"><a href="https://processingfoundation.org/fellowships/fellowships-2024">Processing Foundation Fellowship</a></span><span class="e-loc">Processing Foundation &bull; USA</span></span></li>
-      <li><span class="e-yr">2023</span><span><span class="e-t"><a href="https://www.effea.eu/news/item/2024/08/02/effea-story-voices-collective?originNode=628">European Festivals Fund for Emerging Artists</a></span><span class="e-loc">European Festivals Fund for Emerging Artists &bull; Netherlands</span></span></li>
-      <li><span class="e-yr">2021</span><span><span class="e-t"><a href="http://www.futurewake.com">Mozilla Creative Media Awards</a></span><span class="e-loc">Mozilla Foundation &bull; United States</span></span></li>
-    </ul>
+    <div class="entries-groups">
+      <div class="pub-group">
+      <div class="pub-year">2025</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="/public-ai/">Public AI</a></span><span class="e-loc">Public AI Creative Fellowship, MetaGov &bull; USA</span></span></li>
+      </ul>
+      </div>
+      <div class="pub-group">
+      <div class="pub-year">2024</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="https://www.sidnfonds.nl/projecten/project-screen-to-soundscape">Screen-to-Soundscape</a></span><span class="e-loc">SIDN fonds &bull; Netherlands</span></span></li>
+        <li><span><span class="e-t"><a href="https://www.stimuleringsfonds.nl/toegekende-subsidies/digitale-cultuur-34-projecten-geselecteerd">Digitale Cultuur</a></span><span class="e-loc">Stimuleringsfonds Creatieve Industrie &bull; Netherlands</span></span></li>
+        <li><span><span class="e-t"><a href="https://www.stimuleringsfonds.nl/en/awarded-grants/fresh-perspectives-10-projects-selected-2">Fresh Perspective</a></span><span class="e-loc">Stimuleringsfonds Creatieve Industrie &bull; Netherlands</span></span></li>
+        <li><span><span class="e-t"><a href="https://processingfoundation.org/fellowships/fellowships-2024">Processing Foundation Fellowship</a></span><span class="e-loc">Processing Foundation &bull; USA</span></span></li>
+      </ul>
+      </div>
+      <div class="pub-group">
+      <div class="pub-year">2023</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="https://www.effea.eu/news/item/2024/08/02/effea-story-voices-collective?originNode=628">European Festivals Fund for Emerging Artists</a></span><span class="e-loc">European Festivals Fund for Emerging Artists &bull; Netherlands</span></span></li>
+      </ul>
+      </div>
+      <div class="pub-group">
+      <div class="pub-year">2021</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="http://www.futurewake.com">Mozilla Creative Media Awards</a></span><span class="e-loc">Mozilla Foundation &bull; United States</span></span></li>
+      </ul>
+      </div>
+    </div>
   </section>
 
   <section id="exhibitions" aria-label="Exhibitions and commissions">
     <div class="sec-head"><h2>Exhibitions &amp; Commissions</h2></div>
-    <ul class="entries">
-      <li><span class="e-yr">2026</span><span><span class="e-t"><a href="/gallery/deepfake-archive/">Believe the Feed</a></span><span class="e-loc">Mozilla Festival, Barcelona, Spain</span></span></li>
-      <li><span class="e-yr">2026</span><span><span class="e-t"><a href="/gallery/fashion_police_drones/">Fashion Police Drones</a></span><span class="e-loc">Peckham Digital Festival, London, United Kingdom</span></span></li>
-      <li><span class="e-yr">2026</span><span><span class="e-t"><a href="/gallery/close-enough/">Close Enough</a></span><span class="e-loc">GOGBOT Festival, Enschede, Netherlands</span></span></li>
-      <li><span class="e-yr">2024</span><span><span class="e-t"><a href="/gallery/fashion_police_drones/">New Media Art Conference</a></span><span class="e-loc">CICA Museum, Seoul, Republic of Korea</span></span></li>
-      <li><span class="e-yr">2024</span><span><span class="e-t"><a href="/gallery/screen-to-soundscape/">Screen-to-Soundscape/Techno Disobedience</a></span><span class="e-loc">Constant, The Processing Foundation, Stimulerings Fonds Creatieve Industrie, SIDN &bull; Belgium, USA, Netherlands</span></span></li>
-      <li><span class="e-yr">2023</span><span><span class="e-t"><a href="/gallery/voices-ars/">VOICES</a></span><span class="e-loc">IMPAKT festival, Utrecht, Netherlands &bull; Ars Electronica, Linz, Austria</span></span></li>
-      <li><span class="e-yr">2023</span><span><span class="e-t"><a href="http://articulatingdata.com/">Articulating Data</a></span><span class="e-loc">Edinburgh, United Kingdom</span></span></li>
-      <li><span class="e-yr">2021</span><span><span class="e-t"><a href="http://www.identity20.org/thismachineisblack/">This Machine Is Black</a></span><span class="e-loc">Identity 2.0, London, United Kingdom</span></span></li>
-    </ul>
+    <div class="entries-groups">
+      <div class="pub-group">
+      <div class="pub-year">2026</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="/gallery/deepfake-archive/">Believe the Feed</a></span><span class="e-loc">Mozilla Festival, Barcelona, Spain</span></span></li>
+        <li><span><span class="e-t"><a href="/gallery/fashion_police_drones/">Fashion Police Drones</a></span><span class="e-loc">Peckham Digital Festival, London, United Kingdom</span></span></li>
+        <li><span><span class="e-t"><a href="/gallery/close-enough/">Close Enough</a></span><span class="e-loc">GOGBOT Festival, Enschede, Netherlands</span></span></li>
+      </ul>
+      </div>
+      <div class="pub-group">
+      <div class="pub-year">2024</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="/gallery/fashion_police_drones/">New Media Art Conference</a></span><span class="e-loc">CICA Museum, Seoul, Republic of Korea</span></span></li>
+        <li><span><span class="e-t"><a href="/gallery/screen-to-soundscape/">Screen-to-Soundscape/Techno Disobedience</a></span><span class="e-loc">Constant, The Processing Foundation, Stimulerings Fonds Creatieve Industrie, SIDN &bull; Belgium, USA, Netherlands</span></span></li>
+      </ul>
+      </div>
+      <div class="pub-group">
+      <div class="pub-year">2023</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="/gallery/voices-ars/">VOICES</a></span><span class="e-loc">IMPAKT festival, Utrecht, Netherlands &bull; Ars Electronica, Linz, Austria</span></span></li>
+        <li><span><span class="e-t"><a href="http://articulatingdata.com/">Articulating Data</a></span><span class="e-loc">Edinburgh, United Kingdom</span></span></li>
+      </ul>
+      </div>
+      <div class="pub-group">
+      <div class="pub-year">2021</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="http://www.identity20.org/thismachineisblack/">This Machine Is Black</a></span><span class="e-loc">Identity 2.0, London, United Kingdom</span></span></li>
+      </ul>
+      </div>
+    </div>
   </section>
 
   <section id="residencies" aria-label="Residencies and collaborations">
     <div class="sec-head"><h2>Residencies &amp; Collaborations</h2></div>
-    <ul class="entries">
-      <li><span class="e-yr">2024 &ndash; Current</span><span><span class="e-t">Mentor for CODE: Reclaiming Digital Rights</span><span class="e-loc">IMPAKT &bull; Netherlands</span></span></li>
-      <li><span class="e-yr">2022 &ndash; 2024</span><span><span class="e-t"><a href="https://effiandamir.net/index.php?id=538">Shibboleth: Creation of a Hybrid Voice</a></span><span class="e-loc">Effi &amp; Amir &bull; Brussels, Belgium</span></span></li>
-      <li><span class="e-yr">2023</span><span><span class="e-t"><a href="https://kurinasohn.com/deepest-unknown-v1.html">Deepest Darkest Unknown</a></span><span class="e-loc">Kurina Sohn &bull; Netherlands</span></span></li>
-      <li><span class="e-yr">2023</span><span><span class="e-t"><a href="http://www.impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/">CODE: Reclaiming Digital Rights</a></span><span class="e-loc">IMPAKT &bull; Netherlands</span></span></li>
-      <li><span class="e-yr">2022</span><span><span class="e-t"><a href="http://www.algoliterarypublishing.net/">Ana&iuml;s Berck</a></span><span class="e-loc">Ana&iuml;s Berck: An Algoliterary Publishing House, Belgium</span></span></li>
-    </ul>
+    <div class="entries-groups">
+      <div class="pub-group">
+      <div class="pub-year">2024 &ndash; Current</div>
+      <ul class="entries">
+        <li><span><span class="e-t">Mentor for CODE: Reclaiming Digital Rights</span><span class="e-loc">IMPAKT &bull; Netherlands</span></span></li>
+      </ul>
+      </div>
+      <div class="pub-group">
+      <div class="pub-year">2022 &ndash; 2024</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="https://effiandamir.net/index.php?id=538">Shibboleth: Creation of a Hybrid Voice</a></span><span class="e-loc">Effi &amp; Amir &bull; Brussels, Belgium</span></span></li>
+      </ul>
+      </div>
+      <div class="pub-group">
+      <div class="pub-year">2023</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="https://kurinasohn.com/deepest-unknown-v1.html">Deepest Darkest Unknown</a></span><span class="e-loc">Kurina Sohn &bull; Netherlands</span></span></li>
+        <li><span><span class="e-t"><a href="http://www.impakt.nl/nl/residencies-projects/2023/code-programme-2023-41799/">CODE: Reclaiming Digital Rights</a></span><span class="e-loc">IMPAKT &bull; Netherlands</span></span></li>
+      </ul>
+      </div>
+      <div class="pub-group">
+      <div class="pub-year">2022</div>
+      <ul class="entries">
+        <li><span><span class="e-t"><a href="http://www.algoliterarypublishing.net/">Ana&iuml;s Berck</a></span><span class="e-loc">Ana&iuml;s Berck: An Algoliterary Publishing House, Belgium</span></span></li>
+      </ul>
+      </div>
+    </div>
   </section>
 
   <section id="publications" aria-label="Publications and interviews">
