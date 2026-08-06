@@ -5,6 +5,59 @@ excerpt: "An interactive AI installation scrutinizing predictive policing, gener
 ---
 "Future Wake" (www.futurewake.com) is an interactive website that scrutinizes the present state of predictive policing with a specific focus on forecasting police brutality. Awarded the Mozilla 2021 Creative Media Award, the project leverages Artificial Intelligence to scrutinize data regarding fatal police encounters in the U.S., aiming to foresee future incidents. It generates computer-simulated avatars that represent composite victims, narrating each of their stories. By presenting potential future victims to its audience, "Future Wake" provokes critical thought about the efficacy and ethics of predictive policing. It challenges viewers to ponder the true meaning of societal safety, how it is defined, and importantly, who is marginalized or overlooked within these systems.
 
+<style>
+/* The avatars are cut out with an alpha channel, so they sit straight on the
+   page rather than in a card. */
+.fw-logo-row { display: flex; align-items: center; gap: 1rem; margin: 2rem 0 1.25rem; }
+.fw-logo-row img { width: 68px; height: 68px; flex: none; }
+.fw-logo-row p { margin: 0; font-size: 0.9rem; }
+.fw-grid {
+  display: grid;
+  /* six across so twelve avatars land as two even rows */
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
+}
+@media (max-width: 900px) { .fw-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 560px) { .fw-grid { grid-template-columns: repeat(3, 1fr); } }
+/* the cut-outs carry their own edge, so no frame and no contrast push */
+.project-content .fw-grid img,
+.project-content .fw-logo-row img {
+  height: auto;
+  display: block;
+  border: none;
+  margin: 0;
+  filter: none;
+}
+.project-content .fw-grid img { width: 100%; }
+.project-content .fw-logo-row img { width: 68px; flex: none; }
+.project-content .fw-grid img:hover,
+.project-content .fw-logo-row img:hover { border: none; filter: none; }
+.fw-cap { font-size: 0.85rem; opacity: 0.75; margin-bottom: 2rem; }
+</style>
+
+<div class="fw-logo-row">
+  <img src="/assets/portfolio/futurewake/futurewake-logo.svg" alt="Future Wake logo">
+  <p>Twelve of the composite victims the model generated, each looping a fragment of the encounter it forecast for them.</p>
+</div>
+
+<div class="fw-grid">
+  <img src="/assets/portfolio/futurewake/CHBF314.gif" alt="Generated composite victim CHBF314" loading="lazy">
+  <img src="/assets/portfolio/futurewake/CHBM317.gif" alt="Generated composite victim CHBM317" loading="lazy">
+  <img src="/assets/portfolio/futurewake/CHBM318.gif" alt="Generated composite victim CHBM318" loading="lazy">
+  <img src="/assets/portfolio/futurewake/CHUM315.gif" alt="Generated composite victim CHUM315" loading="lazy">
+  <img src="/assets/portfolio/futurewake/HTHM315.gif" alt="Generated composite victim HTHM315" loading="lazy">
+  <img src="/assets/portfolio/futurewake/LABM315.gif" alt="Generated composite victim LABM315" loading="lazy">
+  <img src="/assets/portfolio/futurewake/LAHM316.gif" alt="Generated composite victim LAHM316" loading="lazy">
+  <img src="/assets/portfolio/futurewake/LAUM314.gif" alt="Generated composite victim LAUM314" loading="lazy">
+  <img src="/assets/portfolio/futurewake/NYBM316.gif" alt="Generated composite victim NYBM316" loading="lazy">
+  <img src="/assets/portfolio/futurewake/NYUM314.gif" alt="Generated composite victim NYUM314" loading="lazy">
+  <img src="/assets/portfolio/futurewake/PXHM315.gif" alt="Generated composite victim PXHM315" loading="lazy">
+  <img src="/assets/portfolio/futurewake/PXWM314.gif" alt="Generated composite victim PXWM314" loading="lazy">
+</div>
+
+<p class="fw-cap">Each identifier encodes the city, demographic and case the forecast drew from.</p>
+
 <figure>
   <img class="img-fluid rounded-left rounded-right shadow-sm" src="../../../assets/portfolio/deepfake1.jpg" alt="Future Wake Face 1" style="max-height: 400px; width: 100%;">
   <figcaption class="mt-2 text-center image-caption">Image: Future Wake Face 1</figcaption>

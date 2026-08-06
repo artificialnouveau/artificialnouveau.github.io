@@ -439,6 +439,21 @@ html, body {
 .contents li .pgn { color: var(--spot); font-weight: 700; }
 
 /* ---------- Archive page: graph and one curatorial panel ---------- */
+/* Future Wake: the avatars are cut out with alpha, so they sit straight on
+   the paper instead of inside a black slot. */
+.fw-wall {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2mm;
+  margin-top: 4mm;
+  flex: none;
+}
+.fw-wall img { width: 100%; height: auto; display: block; }
+.fw-sheet { height: 34mm; margin-top: 4mm; background: var(--paper); }
+.fw-sheet > img { object-fit: contain; }
+.fw-yr { display: flex; flex-direction: column; align-items: flex-end; gap: 3mm; }
+.fw-logo { width: 13mm; height: 13mm; display: block; }
+
 .strip.dfa-pair { grid-template-columns: 1fr 55mm; }
 .strip.dfa-pair .slot { height: 76mm; }
 
@@ -687,7 +702,6 @@ html, body {
 
   <div class="title-row">
     <h2 class="page-title">Ahnjili<br>ZhuParris, PhD</h2>
-    <div class="yr">Bio</div>
   </div>
   <p class="medium">AI engineer &middot; media researcher &middot; computational artist</p>
 
@@ -956,17 +970,23 @@ html, body {
 
   <div class="title-row">
     <h2 class="page-title">Future<br>Wake</h2>
-    <div class="yr">2021</div>
+    <div class="yr fw-yr"><img class="fw-logo" src="../assets/portfolio/futurewake/futurewake-logo.svg" alt="Future Wake logo">2021</div>
   </div>
   <p class="medium">Interactive website &middot; AI, deepfakes, synthetic media, statistics &middot; generated avatars, synthetic voice</p>
 
   <div class="slot hero">
     <img src="../assets/portfolio/print/futurewake-1.jpg" alt="A generated composite victim narrating a forecast police encounter, over a street view">
   </div>
-  <div class="strip one">
-    <div class="slot"><img src="../assets/portfolio/print/futurewake-pair.jpg" alt="Two generated composite victims, each placed on the street where the forecast encounter would happen"></div>
+  <div class="fw-wall m-screen">
+    <img src="../assets/portfolio/futurewake/CHBF314.gif" alt="A generated composite victim, looping">
+    <img src="../assets/portfolio/futurewake/CHBM317.gif" alt="A generated composite victim, looping">
+    <img src="../assets/portfolio/futurewake/HTHM315.gif" alt="A generated composite victim, looping">
+    <img src="../assets/portfolio/futurewake/LABM315.gif" alt="A generated composite victim, looping">
+    <img src="../assets/portfolio/futurewake/NYBM316.gif" alt="A generated composite victim, looping">
+    <img src="../assets/portfolio/futurewake/PXWM314.gif" alt="A generated composite victim, looping">
   </div>
-  <p class="caption">Composite victims, generated from US fatal-police-encounter data and placed where the forecast puts them.</p>
+  <div class="slot fw-sheet m-print"><img src="../assets/portfolio/print/futurewake-avatars.jpg" alt="Twelve generated composite victims"></div>
+  <p class="caption">Composite victims, generated from US fatal-police-encounter data, each narrating the encounter the model puts them in.</p>
 
   <div class="cols">
     <div class="prose">
