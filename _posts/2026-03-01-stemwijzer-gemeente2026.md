@@ -1,6 +1,6 @@
 ---
 title: "StemWijzer Gemeente 2026"
-image: /assets/portfolio/stemwijzer_gemeente2026.png
+thumbnail: /assets/portfolio/stemwijzer_gemeente2026.png
 excerpt: "An isometric pixel-art quiz game for the 2026 Dutch municipal elections. Walk through themed city zones, talk to NPCs, and discover which political party matches your views."
 hidden_from_gallery: true
 ---

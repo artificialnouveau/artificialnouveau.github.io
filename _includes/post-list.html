@@ -3,7 +3,8 @@
     {% if post.archived %}{% continue %}{% endif %}
     {% if post.hidden_from_gallery %}{% continue %}{% endif %}
     <a href="{{ site.baseurl }}{{ post.url }}" class="gallery-card">
-      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="gallery-image">
+      <!-- thumbnail, not image: `image` would override the site-wide og:image -->
+      <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" class="gallery-image">
       <div class="gallery-content">
         <span class="year-badge">{{ post.date | date: "%Y" }}</span>
         <h2 class="gallery-title">{{ post.title }}</h2>

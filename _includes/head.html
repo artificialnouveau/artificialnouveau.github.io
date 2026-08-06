@@ -12,21 +12,9 @@
 <meta name="robots" content="noindex">
 {% endif %}
 
-{% if page.collectionpage %}
-{% seo title=false %}
-
-{% assign collectiondata = site.collections | where: "label", page.collectionpage | first %}
-<!-- Title -->
-<title>{{ collectiondata.title }} | {{ site.title }}</title>
-<meta property="og:title" content="{{ collectiondata.title }}">
-<meta name="description" content="{{ collectiondata.description }}">
-<meta property="og:description" content="{{ collectiondata.description }}">
-{% else %}
 {% seo %}
-{% endif %}
 
 <!-- FontAwesome JS-->
-<!-- {% include site-fonts.html %} -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.js" integrity="sha512-HAXr8ULpyrhyIF0miP+mFTwOagNI+UVA38US1XdtBbkU7mse59ar0ck4KBil/jyzkTO37DWLfRQvEeUWgwHu0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 {% if site.css_inline == true %}
