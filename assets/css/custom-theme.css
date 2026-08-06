@@ -1046,24 +1046,24 @@ center {
     color: var(--color-accent);
 }
 
+/* No frame around the work: the images carry their own edge. */
 .project-content img {
     max-width: 100%;
     height: auto;
-    border: 1px solid rgba(0, 240, 255, 0.25);
+    border: none;
     border-radius: 0;
     margin: 2rem 0;
     filter: contrast(1.1);
 }
 
 .project-content img:hover {
-    border-color: rgba(255, 16, 240, 0.5);
     filter: contrast(1.2);
 }
 
 .project-content video {
     width: 100%;
     max-width: 800px;
-    border: 1px solid rgba(0, 240, 255, 0.25);
+    border: none;
     border-radius: 0;
     margin: 2rem auto;
     display: block;
