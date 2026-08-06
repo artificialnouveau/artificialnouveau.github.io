@@ -1,6 +1,6 @@
 ---
 title: "Close Enough"
-image: /assets/portfolio/closeenough/close-enough-thumb.png
+thumbnail: /assets/portfolio/closeenough/close-enough-thumb.png
 excerpt: "A performative installation about the intimacy of drone surveillance, using autonomous drones, computer vision, and the visual language of military intelligence. To be presented at GOGBOT Festival 2026."
 indexing: false
 ---

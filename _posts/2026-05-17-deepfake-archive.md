@@ -1,6 +1,6 @@
 ---
 title: "Deepfake Archive"
-image: /assets/deepfake-archive-preview/thumbnails/video-by-realdonaldtrump-2026.jpg
+thumbnail: /assets/deepfake-archive-preview/thumbnails/video-by-realdonaldtrump-2026.jpg
 excerpt: "An online archive of synthetic media artifacts, organized as an interactive network graph by intent at creation. Preview only, the full corpus targets several hundred artifacts."
 indexing: false
 ---

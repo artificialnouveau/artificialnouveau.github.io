@@ -1,6 +1,6 @@
 ---
 title: "MORE AI! I NEED IT! PLEASE!"
-image: /assets/portfolio/moreai.jpg
+thumbnail: /assets/portfolio/moreai.jpg
 archived: true
 indexing: false
 ---
