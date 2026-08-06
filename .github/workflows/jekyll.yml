@@ -64,8 +64,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          # The site artifact is ~194 MB, and Pages has been taking longer than
-          # the action's 10-minute default to finish publishing it, so every
-          # deploy aborted while still in_progress. 30 minutes to ride that out.
-          timeout: 1800000
