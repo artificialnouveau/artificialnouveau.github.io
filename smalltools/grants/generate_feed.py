@@ -518,9 +518,9 @@ def static_page_intro(grant_count, region=None, category=None):
     elif cat_phrase:
         scope = f"paid {cat_phrase} grants, fellowships and residencies"
     elif region_phrase:
-        scope = f"paid grants, fellowships and residencies open to applicants in {region_phrase}, across AI, arts, film, research, tech and cross-disciplinary practice"
+        scope = f"paid grants, fellowships and residencies open to applicants in {region_phrase}, across AI, arts, film, journalism, research, tech and cross-disciplinary practice"
     else:
-        scope = "paid grants, fellowships and residencies in AI, arts, film, research, tech and cross-disciplinary practice"
+        scope = "paid grants, fellowships and residencies in AI, arts, film, journalism, research, tech and cross-disciplinary practice"
     return (
         f"Currently <strong>{grant_count}</strong> active {scope}. "
         "Hand-curated and updated weekly. Almost every entry is funded; a few notable unpaid open calls and festival submissions are included as clearly flagged exceptions. "
@@ -628,8 +628,8 @@ def website_jsonld():
         "url": SITE_ROOT_URL + GRANTS_BASE_PATH,
         "description": (
             "A curated database of paid grants, fellowships and residencies for "
-            "artists, researchers and technologists in AI, arts, film, research, "
-            "tech and cross-disciplinary practice."
+            "artists, researchers and technologists in AI, arts, film, journalism, "
+            "research, tech and cross-disciplinary practice."
         ),
         "publisher": {
             "@type": "Person",
