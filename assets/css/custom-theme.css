@@ -489,7 +489,6 @@ pre code {
 }
 
 /* Gallery Grid */
-.gallery-grid,
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -848,100 +847,312 @@ center {
     min-height: 100vh;
 }
 
+/* ---------------------------------------------------------------------------
+   Bento gallery
+   Rounded modular blocks on a 6-column dense grid. Neutral surface palette
+   layered over the site background, subtle depth rather than neon glow,
+   an icon + category label per block, and hover-only micro-animations.
+   Tile width comes from the --wide / --feature / --hero modifiers.
+--------------------------------------------------------------------------- */
+
 .gallery-grid {
+    /* Neutral scale, scoped to the bento so the rest of the theme is untouched */
+    --bento-surface: var(--color-card-bg);
+    --bento-surface-hi: var(--color-card-bg);
+    --bento-border: rgba(255, 255, 255, 0.09);
+    --bento-border-hi: rgba(255, 255, 255, 0.22);
+    --bento-title: var(--color-text);
+    --bento-body: var(--color-muted);
+    --bento-label: var(--color-muted);
+    --bento-radius: 16px;
+    --bento-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-flow: dense;
+    /* Blocks end where their content ends rather than stretching to the
+       tallest in the row, which otherwise leaves a dead tail on short ones */
+    align-items: start;
+    gap: 1.25rem;
     margin-bottom: 3rem;
 }
 
 .gallery-card {
-    background: var(--color-card-bg);
-    border: 1px solid var(--color-window-chrome);
-    border-top: 25px solid var(--color-window-chrome);
-    border-radius: 0;
-    overflow: visible;
-    transition: all 0.2s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    display: block;
-    color: var(--color-text);
+    grid-column: span 2;
     position: relative;
-}
-
-.gallery-card::before {
-    content: '⬤ ⬤ ⬤';
-    position: absolute;
-    top: -18px;
-    left: 10px;
-    color: var(--color-accent-cyan);
-    font-size: 0.6rem;
-    letter-spacing: 0.5rem;
-    z-index: 10;
-}
-
-.gallery-card:hover {
-    border-color: var(--color-accent);
-    border-top-color: var(--color-window-chrome);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--bento-surface);
+    border: 1px solid var(--bento-border);
+    border-radius: var(--bento-radius);
     box-shadow:
-        0 10px 30px rgba(255, 16, 240, 0.4),
-        inset 0 0 0 1px rgba(255, 16, 240, 0.3);
-    transform: translateY(-2px);
+        0 1px 2px rgba(0, 0, 0, 0.28),
+        0 8px 24px rgba(0, 0, 0, 0.22);
+    /* Cards are <a>, so neutralise the global link treatment */
+    text-decoration: none;
+    text-shadow: none;
+    padding: 0;
+    color: var(--bento-body);
+    transition:
+        transform 0.28s var(--bento-ease),
+        border-color 0.28s var(--bento-ease),
+        background-color 0.28s var(--bento-ease),
+        box-shadow 0.28s var(--bento-ease);
 }
+
+.gallery-card--wide { grid-column: span 3; }
+.gallery-card--feature { grid-column: span 4; }
+.gallery-card--hero { grid-column: span 6; }
+
+/* Auto-generated lists (the portfolio loop) have no hand-set sizes, so
+   give them a repeating 3,3,2,2,2 rhythm that tiles into whole rows. */
+.gallery-grid--auto > .gallery-card:nth-child(5n+1),
+.gallery-grid--auto > .gallery-card:nth-child(5n+2) {
+    grid-column: span 3;
+}
+
+/* Micro-animation: lift and lighten, no colour shift.
+   padding is restated to beat the global `a:hover { padding: 0 2px }`. */
+.gallery-card:hover {
+    padding: 0;
+    text-decoration: none;
+    transform: translateY(-4px);
+    background: var(--bento-surface-hi);
+    border-color: var(--bento-border-hi);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        0 18px 40px rgba(0, 0, 0, 0.42);
+}
+
+.gallery-card:active { transform: translateY(-1px); }
+
+/* The old terminal chrome is gone; neutralise its leftovers */
+.gallery-card::before { content: none; }
+
+/* --- Media ------------------------------------------------------------- */
 
 .gallery-image {
     width: 100%;
-    height: 280px;
+    aspect-ratio: 16 / 10;
+    height: auto;
     object-fit: contain;
     object-position: center;
     background: var(--color-card-bg);
     display: block;
-    filter: contrast(1.1) brightness(0.9);
-    transition: all 0.2s ease;
+    border-bottom: 1px solid var(--bento-border);
+    transition: transform 0.4s var(--bento-ease), opacity 0.28s var(--bento-ease);
+    opacity: 0.92;
 }
 
 .gallery-card:hover .gallery-image {
-    filter: contrast(1.2) brightness(1);
+    transform: scale(1.03);
+    opacity: 1;
 }
+
+/* --- Content ----------------------------------------------------------- */
 
 .gallery-content {
-    padding: 2rem;
+    padding: 1.25rem 1.35rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.55rem;
 }
 
-.gallery-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-    color: var(--color-accent-cyan);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.gallery-excerpt {
-    color: var(--color-text);
-    line-height: 1.7;
-    font-size: 0.9rem;
-}
-
-.year-badge {
+/* Icon + category label */
+.gallery-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-accent);
+    font-size: 0.68rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 0.5rem;
+    color: var(--bento-label);
+    transition: color 0.28s var(--bento-ease);
+}
+
+.gallery-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--bento-border);
+    color: var(--bento-body);
+    transition:
+        background-color 0.28s var(--bento-ease),
+        color 0.28s var(--bento-ease),
+        transform 0.28s var(--bento-ease);
+}
+
+.gallery-card__icon svg {
+    width: 15px;
+    height: 15px;
+    display: block;
+}
+
+.gallery-card:hover .gallery-card__icon {
+    background: rgba(255, 255, 255, 0.11);
+    color: var(--bento-title);
+    transform: translateY(-1px);
+}
+
+.gallery-card:hover .gallery-card__meta { color: var(--bento-body); }
+
+/* Titles are <h2>, so the global terminal heading rules have to be undone:
+   the forced cyan, the uppercase, the "$ " prefix and the pink left rule. */
+.gallery-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: var(--bento-title) !important;
+    border-left: none;
+    padding-left: 0;
+    text-shadow: none;
+}
+
+.gallery-title::before { content: none; }
+
+.gallery-excerpt {
+    color: var(--bento-body);
+    line-height: 1.6;
+    font-size: 0.845rem;
+    margin: 0;
+}
+
+/* Year sits quietly at the foot of the block */
+.year-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--bento-label);
+    border: none;
+    padding: 0;
+    margin: 0;
+    margin-top: auto;
+    padding-top: 0.85rem;
     display: inline-block;
-    border: 1px solid var(--color-accent);
-    padding: 0.2rem 0.5rem;
+    text-transform: none;
 }
 
-.year-badge::before {
-    content: '[ ';
+.year-badge::before,
+.year-badge::after { content: none; }
+
+/* Larger blocks get proportionally larger type, so a wide card reads as
+   more important rather than as a stretched small one. */
+.gallery-card--wide .gallery-content,
+.gallery-card--feature .gallery-content { padding: 1.5rem 1.6rem 1.65rem; }
+.gallery-card--wide .gallery-title,
+.gallery-card--feature .gallery-title { font-size: 1.25rem; }
+.gallery-card--wide .gallery-excerpt,
+.gallery-card--feature .gallery-excerpt { font-size: 0.885rem; }
+
+.gallery-grid--auto > .gallery-card:nth-child(5n+1) .gallery-title,
+.gallery-grid--auto > .gallery-card:nth-child(5n+2) .gallery-title { font-size: 1.25rem; }
+
+/* --- Hero block --------------------------------------------------------- */
+
+.gallery-card--hero { flex-direction: row; align-items: stretch; }
+
+.gallery-card--hero .gallery-image {
+    width: 46%;
+    flex-shrink: 0;
+    aspect-ratio: auto;
+    height: auto;
+    align-self: stretch;
+    object-fit: cover;
+    border-bottom: none;
+    border-right: 1px solid var(--bento-border);
 }
 
-.year-badge::after {
-    content: ' ]';
+.gallery-card--hero .gallery-content {
+    padding: 2rem 2.25rem;
+    justify-content: center;
+    gap: 0.7rem;
+}
+
+.gallery-card--hero .gallery-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+}
+
+.gallery-card--hero .gallery-excerpt {
+    font-size: 0.95rem;
+    max-width: 52ch;
+}
+
+.gallery-card--hero .year-badge { margin-top: 0.35rem; padding-top: 0; }
+
+/* Status line, e.g. "live, updates daily" */
+.gallery-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7fd6a8;
+    background: rgba(127, 214, 168, 0.09);
+    border: 1px solid rgba(127, 214, 168, 0.22);
+    border-radius: 999px;
+    padding: 0.28rem 0.7rem 0.28rem 0.55rem;
+}
+
+.gallery-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+    animation: bento-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes bento-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.82); }
+}
+
+/* --- Focus ------------------------------------------------------------- */
+
+.gallery-card:focus-visible {
+    outline: 2px solid var(--bento-title);
+    outline-offset: 3px;
+}
+
+/* --- Responsive --------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+    .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+    .gallery-card,
+    .gallery-card--wide,
+    .gallery-grid--auto > .gallery-card:nth-child(5n+1),
+    .gallery-grid--auto > .gallery-card:nth-child(5n+2) { grid-column: span 2; }
+    .gallery-card--feature,
+    .gallery-card--hero { grid-column: span 4; }
+}
+
+/* --- Reduced motion ----------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .gallery-card,
+    .gallery-image,
+    .gallery-card__icon,
+    .gallery-card__meta { transition: none; }
+    .gallery-card:hover { transform: none; }
+    .gallery-card:hover .gallery-image { transform: none; }
+    .gallery-card:hover .gallery-card__icon { transform: none; }
+    .gallery-status::before { animation: none; }
 }
 
 /* Project Post Styles */
@@ -1089,6 +1300,30 @@ center {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
+
+    /* Every bento size collapses to a single column */
+    .gallery-card,
+    .gallery-card--wide,
+    .gallery-card--feature,
+    .gallery-card--hero,
+    .gallery-grid--auto > .gallery-card:nth-child(5n+1),
+    .gallery-grid--auto > .gallery-card:nth-child(5n+2) {
+        grid-column: span 1;
+    }
+
+    .gallery-card--hero { flex-direction: column; }
+
+    .gallery-card--hero .gallery-image {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: contain;
+    }
+
+    .gallery-card--hero .gallery-content { padding: 1.5rem; }
+    .gallery-card--hero .gallery-title { font-size: 1.4rem; }
+    .gallery-card--hero .gallery-excerpt { font-size: 0.9rem; }
+
+    .gallery-card__slug { display: none; }
 
     .gallery-section {
         padding: 2rem 0.75rem;
