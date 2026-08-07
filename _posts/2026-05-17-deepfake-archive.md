@@ -3,6 +3,7 @@ title: "Deepfake Archive"
 thumbnail: /assets/deepfake-archive-preview/thumbnails/video-by-realdonaldtrump-2026.jpg
 excerpt: "An online archive of synthetic media artifacts, organized as an interactive network graph by intent at creation. Preview only, the full corpus targets several hundred artifacts."
 indexing: false
+category: "Archive"
 ---
 
 An online, interactive archive of synthetic media artifacts, organized as a network graph. The editorial spine is intent at creation, not technique. Twelve rooms: propaganda, activism?, everyone is catfishing, entertainment and artworks, Hollywood deepfakes, AI sex workers, scam and fraud and social engineering, identity protection and pseudonymity, image-based abuse and harassment, blackface and whitewashing, awareness and self-reference, everyone is a commercial.

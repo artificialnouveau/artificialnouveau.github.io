@@ -3,6 +3,7 @@ title: "MORE AI! I NEED IT! PLEASE!"
 thumbnail: /assets/portfolio/moreai.jpg
 archived: true
 indexing: false
+category: "Video essay"
 ---
 
 [![MORE AI! I NEED IT! PLEASE!](/assets/portfolio/moreai.jpg)](https://www.artificialnouveau.com/publicai/moreaiineedit/index.html)
