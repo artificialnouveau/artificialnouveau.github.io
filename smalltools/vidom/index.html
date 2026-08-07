@@ -14,7 +14,10 @@
   #c  { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; }
   #bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: fill; z-index: 1; display: none; background: #fff; }
   #px { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; display: none; }
-  #ov { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 5; pointer-events: none; }
+  /* The annotation layer sits on top of the output, so it has to stay see-through.
+     print-object.css paints every canvas #0b0b0b !important to keep media surfaces
+     dark, which turns this one into an opaque sheet over the whole tool. */
+  #ov { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 5; pointer-events: none; background: transparent !important; }
   #panel {
     position: fixed; top: 12px; left: 12px; z-index: 10;
     display: flex; flex-direction: column; gap: 8px;
@@ -68,6 +71,22 @@
   #infobody li { margin: 0 0 5px; }
   #infobody b { color: #eee; }
   #infobody .k { color: #ffe24d; font-weight: 600; }
+
+  /* Idle demo: the page opens on a black canvas until a source is running,
+     so show a clip of the thing instead of nothing. Goes away on first Run. */
+  #demo {
+    position: fixed; z-index: 6; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: min(560px, calc(100vw - 32px)); pointer-events: none; text-align: center;
+  }
+  #demo img {
+    width: 100%; display: block; border-radius: 8px; border: 1px solid #333;
+    background: #111;
+  }
+  #demo figcaption {
+    margin: 10px 0 0; color: #9a9aa2; font-size: 13px; line-height: 1.45;
+  }
+  #demo .k { color: #ffe24d; font-weight: 600; }
+  #demo.hidden { display: none; }
 </style>
 <!-- PROTOTYPE: print-object theme -->
 <link rel="stylesheet" href="/assets/css/print-object.css">
@@ -81,6 +100,13 @@
 <canvas id="maskcanvas" style="display:none"></canvas>    <!-- ellipse mask -> Hydra s3 -->
 <canvas id="ov"></canvas>                                 <!-- shared overlay: boxes/lines/labels -->
 <button id="toggle" title="Show controls">&#8801;</button>
+
+<figure id="demo">
+  <!-- The still loads first so the idle screen paints immediately; the 2.4MB
+       gif swaps itself in once it has decoded. -->
+  <img id="demoimg" src="/assets/portfolio/tools/vidom.png" alt="vidom running: a person in an office spelled out in the words hair, cloth and body, while the room behind them stays untouched">
+  <figcaption>PixelCrash glitch, running on a screen capture. Pick a mode and press <span class="k">Run</span> to point it at your own.</figcaption>
+</figure>
 
 <div id="infobox" class="hidden">
   <div id="infohead"><span id="infotitle">vidom</span><button id="infoclose" title="Close">&times;</button></div>
@@ -1231,13 +1257,26 @@ function syncControls() {
   if (!infobox.classList.contains('hidden')) buildInfo();   // keep open help in sync with the mode
 }
 
+// Idle demo clip. Upgrade the still to the gif once it has loaded, and retire
+// the whole thing the moment a real source takes over the screen.
+const demo = document.getElementById('demo');
+(function loadDemoClip() {
+  const gif = new Image();
+  gif.onload = () => { document.getElementById('demoimg').src = gif.src; };
+  gif.src = '/assets/portfolio/tools/vidom.gif';
+})();
+
 async function runCurrent() {
   if (modeSel.value === 'Melting' && !hydra) { say('Synth not ready.', true); return; }
+  demo.classList.add('hidden');
   stopCurrent();
   setVisibility(modeSel.value);
   currentMode = modeSel.value;
   hint.classList.remove('err');
-  try { await MODES[currentMode].start(); } catch (e) { say('Error: ' + e.message, true); console.error(e); }
+  // Put the demo back if the mode never started, e.g. the share dialog was
+  // cancelled, rather than leaving an empty black screen behind.
+  try { await MODES[currentMode].start(); }
+  catch (e) { demo.classList.remove('hidden'); say('Error: ' + e.message, true); console.error(e); }
 }
 
 modeSel.addEventListener('change', () => { stopCurrent(); hint.classList.remove('err'); syncControls(); });
