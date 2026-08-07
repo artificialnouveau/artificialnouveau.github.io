@@ -3,6 +3,7 @@ title: "Close Enough"
 thumbnail: /assets/portfolio/closeenough/close-enough-thumb.png
 excerpt: "A performative installation about the intimacy of drone surveillance, using autonomous drones, computer vision, and the visual language of military intelligence. To be presented at GOGBOT Festival 2026."
 indexing: false
+category: "Installation"
 ---
 
 Close Enough is a performative installation about the intimacy of drone surveillance, built around the central contradiction of drone warfare: the operator is close enough to see a target's face, to watch them eat breakfast and play with their children, to learn their routines and relationships and small daily habits, but far enough away to kill without physical consequence. Operators have described this in testimony as a form of stalking, weeks spent coming to know someone intimately before ending their life.

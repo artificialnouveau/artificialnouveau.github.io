@@ -2,6 +2,7 @@
 title: "SHIBBOLETH: CREATION OF A HYBRID VOICE"
 thumbnail: /assets/portfolio/the8th_04.jpg
 excerpt: "A hybrid voice algorithm that fluidly transforms between two speakers, created with Effi and Amir and Jonathan Reus for the theater performance The 8th Letter (2022)."
+category: "Voice synthesis"
 ---
 
 SHIBBOLETH: CREATION OF A HYBRID VOICE 
