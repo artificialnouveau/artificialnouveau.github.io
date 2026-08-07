@@ -1,6 +1,6 @@
 ---
 title: "Fashion Police Drones"
-thumbnail: /assets/portfolio/fpd/prada-panel.gif
+thumbnail: /assets/portfolio/fpd/prada-panel.png
 excerpt: "Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform."
 category: "Installation"
 ---

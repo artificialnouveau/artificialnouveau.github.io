@@ -850,9 +850,9 @@ center {
 /* ---------------------------------------------------------------------------
    Bento gallery
    Rounded modular blocks on a 6-column dense grid. Neutral surface palette
-   layered over the site background, subtle depth rather than neon glow,
-   an icon + category label per block, and hover-only micro-animations.
-   Tile width comes from the --wide / --feature / --hero modifiers.
+   layered over the site background, subtle depth rather than neon glow, and
+   hover-only micro-animations. Every block is image, title, blurb, year.
+   Tile width comes from the --wide / --feature modifiers.
 --------------------------------------------------------------------------- */
 
 .gallery-grid {
@@ -903,7 +903,6 @@ center {
 
 .gallery-card--wide { grid-column: span 3; }
 .gallery-card--feature { grid-column: span 4; }
-.gallery-card--hero { grid-column: span 6; }
 
 /* Auto-generated lists (the portfolio loop) have no hand-set sizes, so
    give them a repeating 3,3,2,2,2 rhythm that tiles into whole rows. */
@@ -960,50 +959,6 @@ center {
     gap: 0.55rem;
 }
 
-/* Icon + category label */
-.gallery-card__meta {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--bento-label);
-    transition: color 0.28s var(--bento-ease);
-}
-
-.gallery-card__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    flex-shrink: 0;
-    border-radius: 9px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--bento-border);
-    color: var(--bento-body);
-    transition:
-        background-color 0.28s var(--bento-ease),
-        color 0.28s var(--bento-ease),
-        transform 0.28s var(--bento-ease);
-}
-
-.gallery-card__icon svg {
-    width: 15px;
-    height: 15px;
-    display: block;
-}
-
-.gallery-card:hover .gallery-card__icon {
-    background: rgba(255, 255, 255, 0.11);
-    color: var(--bento-title);
-    transform: translateY(-1px);
-}
-
-.gallery-card:hover .gallery-card__meta { color: var(--bento-body); }
-
 /* Titles are <h2>, so the global terminal heading rules have to be undone:
    the forced cyan, the uppercase, the "$ " prefix and the pink left rule. */
 .gallery-title {
@@ -1058,70 +1013,9 @@ center {
 .gallery-grid--auto > .gallery-card:nth-child(5n+1) .gallery-title,
 .gallery-grid--auto > .gallery-card:nth-child(5n+2) .gallery-title { font-size: 1.25rem; }
 
-/* --- Hero block --------------------------------------------------------- */
-
-.gallery-card--hero { flex-direction: row; align-items: stretch; }
-
-.gallery-card--hero .gallery-image {
-    width: 46%;
-    flex-shrink: 0;
-    aspect-ratio: auto;
-    height: auto;
-    align-self: stretch;
-    object-fit: cover;
-    border-bottom: none;
-    border-right: 1px solid var(--bento-border);
-}
-
-.gallery-card--hero .gallery-content {
-    padding: 2rem 2.25rem;
-    justify-content: center;
-    gap: 0.7rem;
-}
-
-.gallery-card--hero .gallery-title {
-    font-size: 1.75rem;
-    line-height: 1.2;
-}
-
-.gallery-card--hero .gallery-excerpt {
-    font-size: 0.95rem;
-    max-width: 52ch;
-}
-
-.gallery-card--hero .year-badge { margin-top: 0.35rem; padding-top: 0; }
-
-/* Status line, e.g. "live, updates daily" */
-.gallery-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    align-self: flex-start;
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #7fd6a8;
-    background: rgba(127, 214, 168, 0.09);
-    border: 1px solid rgba(127, 214, 168, 0.22);
-    border-radius: 999px;
-    padding: 0.28rem 0.7rem 0.28rem 0.55rem;
-}
-
-.gallery-status::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    flex-shrink: 0;
-    animation: bento-pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes bento-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.45; transform: scale(0.82); }
-}
+/* The widest tiles carry banner-shaped artwork, so their frame is wider too.
+   Everything still uses object-fit: contain, so nothing is ever cropped. */
+.gallery-card--feature .gallery-image { aspect-ratio: 16 / 9; }
 
 /* --- Focus ------------------------------------------------------------- */
 
@@ -1138,21 +1032,16 @@ center {
     .gallery-card--wide,
     .gallery-grid--auto > .gallery-card:nth-child(5n+1),
     .gallery-grid--auto > .gallery-card:nth-child(5n+2) { grid-column: span 2; }
-    .gallery-card--feature,
-    .gallery-card--hero { grid-column: span 4; }
+    .gallery-card--feature { grid-column: span 4; }
 }
 
 /* --- Reduced motion ----------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
     .gallery-card,
-    .gallery-image,
-    .gallery-card__icon,
-    .gallery-card__meta { transition: none; }
+    .gallery-image { transition: none; }
     .gallery-card:hover { transform: none; }
     .gallery-card:hover .gallery-image { transform: none; }
-    .gallery-card:hover .gallery-card__icon { transform: none; }
-    .gallery-status::before { animation: none; }
 }
 
 /* Project Post Styles */
@@ -1305,23 +1194,10 @@ center {
     .gallery-card,
     .gallery-card--wide,
     .gallery-card--feature,
-    .gallery-card--hero,
     .gallery-grid--auto > .gallery-card:nth-child(5n+1),
     .gallery-grid--auto > .gallery-card:nth-child(5n+2) {
         grid-column: span 1;
     }
-
-    .gallery-card--hero { flex-direction: column; }
-
-    .gallery-card--hero .gallery-image {
-        width: 100%;
-        aspect-ratio: 16 / 10;
-        object-fit: contain;
-    }
-
-    .gallery-card--hero .gallery-content { padding: 1.5rem; }
-    .gallery-card--hero .gallery-title { font-size: 1.4rem; }
-    .gallery-card--hero .gallery-excerpt { font-size: 0.9rem; }
 
     .gallery-card__slug { display: none; }
 
