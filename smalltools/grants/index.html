@@ -17879,7 +17879,7 @@ code *, pre *, kbd *, samp * {
     <div class="filter-group" data-filter="added" id="filter-added">
       <span class="filter-label">Added</span>
       <button class="chip is-active" type="button" data-value="">All time</button>
-      <button class="chip" type="button" data-value="24h">Last 24h</button>
+      <button class="chip" type="button" data-value="48h">Last 48h</button>
       <button class="chip" type="button" data-value="7d">This week</button>
       <button class="chip" type="button" data-value="30d">This month</button>
     </div>
@@ -21842,7 +21842,7 @@ function applyFilters() {
       } else {
         const daysSinceAdded = -daysUntil(addedDate, now);
         let matches = false;
-        if (FILTER_STATE.added.has('24h') && daysSinceAdded < 1) matches = true;
+        if (FILTER_STATE.added.has('48h') && daysSinceAdded < 2) matches = true;
         if (FILTER_STATE.added.has('7d') && daysSinceAdded <= 7) matches = true;
         if (FILTER_STATE.added.has('30d') && daysSinceAdded <= 30) matches = true;
         if (!matches) show = false;
@@ -22264,7 +22264,7 @@ function activeFilterSummary() {
     ['type', 'Type', v => TYPE_LABELS[v] || v],
     ['applicant', 'Applicant', v => v],
     ['amount', 'Award size', v => v],
-    ['added', 'Added', v => ({ '24h': 'last 24h', '7d': 'this week', '30d': 'this month' }[v] || v)],
+    ['added', 'Added', v => ({ '48h': 'last 48h', '7d': 'this week', '30d': 'this month' }[v] || v)],
   ];
   for (const [key, label, fmt] of groups) {
     const set = FILTER_STATE[key];
