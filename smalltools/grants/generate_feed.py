@@ -473,9 +473,110 @@ CATEGORY_TITLE_PHRASE = {
     "cross": "Cross-Disciplinary and Social Impact",
 }
 
+# --- Opportunity-type axis ---------------------------------------------------
+# A third landing-page axis alongside region and category. Discipline ("arts")
+# and place ("eu") together still miss how people actually search: "artist
+# residencies in europe" and "art fellowships" are much higher-volume queries
+# than either axis expresses. Matching is precision-first - an explicit tag, or
+# the word in the title. Nothing is inferred from descriptions, because a
+# description that merely mentions a residency does not make the entry one.
+OPPORTUNITY_TYPES = ["residencies", "fellowships", "prizes", "open-calls"]
 
-def static_slug(region=None, category=None):
+OPPORTUNITY_TYPE_TAGS = {
+    "residencies": {"residency", "residencies", "artist-in-residence"},
+    "fellowships": {"fellowship", "fellowships"},
+    "prizes": {"prize", "award", "competition"},
+    "open-calls": {"open-call", "exhibition", "festival"},
+}
+
+OPPORTUNITY_TYPE_TITLE_KEYS = {
+    "residencies": ["residency", "residencies", "artist in residence", "artist-in-residence"],
+    "fellowships": ["fellowship"],
+    "prizes": ["prize", "award"],
+    "open-calls": ["open call", "submissions"],
+}
+
+OPPORTUNITY_TYPE_TITLE_PHRASE = {
+    "residencies": "Artist Residencies",
+    "fellowships": "Fellowships",
+    "prizes": "Prizes and Awards",
+    "open-calls": "Open Calls",
+}
+
+OPPORTUNITY_TYPE_PHRASE = {
+    "residencies": "funded artist residencies",
+    "fellowships": "fellowships",
+    "prizes": "prizes and awards",
+    "open-calls": "open calls",
+}
+
+# --- Country axis ------------------------------------------------------------
+# Country pages catch the highest-volume long-tail query shape in this space
+# ("artist residencies in germany"), which the coarse EU/Asia/Africa regions
+# cannot serve. Matched on the `location` field ONLY - that field says where the
+# opportunity happens, which is exactly what those searches mean - and gated on
+# the parent region (or Worldwide) so that "Athens, Georgia" and "New Mexico"
+# cannot land on the Greece and Mexico pages. Keys are matched on word
+# boundaries. A country only gets a page once it clears MIN_GRANTS_FOR_COUNTRY
+# active entries, so thin pages are never emitted.
+COUNTRIES = {
+    "germany": ("Germany", "EU", ["germany", "berlin", "munich", "hamburg", "cologne",
+                                  "leipzig", "frankfurt", "karlsruhe", "stuttgart", "dresden"]),
+    "france": ("France", "EU", ["france", "paris", "marseille", "lyon", "nantes", "bordeaux"]),
+    "spain": ("Spain", "EU", ["spain", "madrid", "barcelona", "valencia", "bilbao"]),
+    "belgium": ("Belgium", "EU", ["belgium", "brussels", "ghent", "antwerp", "liege"]),
+    "italy": ("Italy", "EU", ["italy", "rome", "milan", "venice", "florence", "turin",
+                              "bologna", "naples"]),
+    "austria": ("Austria", "EU", ["austria", "vienna", "linz", "graz", "salzburg"]),
+    "greece": ("Greece", "EU", ["greece", "athens", "thessaloniki"]),
+    "norway": ("Norway", "EU", ["norway", "oslo", "bergen", "tromso"]),
+    "denmark": ("Denmark", "EU", ["denmark", "copenhagen", "aarhus"]),
+    "sweden": ("Sweden", "EU", ["sweden", "stockholm", "malmo", "gothenburg"]),
+    "finland": ("Finland", "EU", ["finland", "helsinki", "turku", "tampere"]),
+    "poland": ("Poland", "EU", ["poland", "warsaw", "krakow", "poznan", "wroclaw", "lodz"]),
+    "portugal": ("Portugal", "EU", ["portugal", "lisbon", "porto"]),
+    "ireland": ("Ireland", "EU", ["ireland", "dublin", "cork", "galway"]),
+    "japan": ("Japan", "Asia", ["japan", "tokyo", "kyoto", "osaka", "fukuoka", "yokohama"]),
+    "india": ("India", "Asia", ["india", "new delhi", "mumbai", "bengaluru", "bangalore",
+                                "kolkata", "chennai"]),
+    "china": ("China", "Asia", ["china", "beijing", "shanghai", "nanjing", "chengdu",
+                                "guangzhou", "hong kong"]),
+    "south-korea": ("South Korea", "Asia", ["south korea", "seoul", "gwangju", "busan"]),
+    "kenya": ("Kenya", "Africa", ["kenya", "nairobi"]),
+    "turkey": ("Turkey", "EU", ["turkey", "turkiye", "istanbul", "ankara"]),
+}
+
+_COUNTRY_PATTERNS = {
+    slug: re.compile(r"\b(" + "|".join(re.escape(k) for k in keys) + r")\b")
+    for slug, (_, _, keys) in COUNTRIES.items()
+}
+
+
+def type_matches(grant, opp_type):
+    if not opp_type:
+        return True
+    tags = {str(t).lower() for t in (grant.get("tags") or [])}
+    if tags & OPPORTUNITY_TYPE_TAGS[opp_type]:
+        return True
+    title = str(grant.get("title") or "").lower()
+    return any(k in title for k in OPPORTUNITY_TYPE_TITLE_KEYS[opp_type])
+
+
+def country_matches(grant, country):
+    if not country:
+        return True
+    _, parent_region, _ = COUNTRIES[country]
+    if not (region_matches(grant, parent_region) or region_matches(grant, "Worldwide")):
+        return False
+    return bool(_COUNTRY_PATTERNS[country].search(str(grant.get("location") or "").lower()))
+
+
+def static_slug(region=None, category=None, opp_type=None, country=None):
+    if country:
+        return country
     parts = []
+    if opp_type:
+        parts.append(opp_type)
     if category:
         parts.append(category)
     if region:
@@ -483,14 +584,20 @@ def static_slug(region=None, category=None):
     return "-".join(parts) if parts else ""
 
 
-def static_page_url(region=None, category=None):
-    slug = static_slug(region=region, category=category)
+def static_page_url(region=None, category=None, opp_type=None, country=None):
+    slug = static_slug(region=region, category=category, opp_type=opp_type, country=country)
     if not slug:
         return SITE_ROOT_URL + GRANTS_BASE_PATH
     return f"{SITE_ROOT_URL}{GRANTS_BASE_PATH}{slug}/"
 
 
-def static_page_title(region=None, category=None):
+def static_page_title(region=None, category=None, opp_type=None, country=None):
+    if country:
+        return f"Grants, Fellowships and Residencies in {COUNTRIES[country][0]} | The Grant Desk"
+    if opp_type and region:
+        return f"Funded {OPPORTUNITY_TYPE_TITLE_PHRASE[opp_type]} {REGION_TITLE_TAIL[region]} | The Grant Desk"
+    if opp_type:
+        return f"Funded {OPPORTUNITY_TYPE_TITLE_PHRASE[opp_type]}, Open for Applications | The Grant Desk"
     if category and region:
         return f"{CATEGORY_TITLE_PHRASE[category]} Grants {REGION_TITLE_TAIL[region]} | The Grant Desk"
     if category:
@@ -500,7 +607,13 @@ def static_page_title(region=None, category=None):
     return "AI, Arts & Tech Grants, Fellowships and Residencies | The Grant Desk"
 
 
-def static_page_h1(region=None, category=None):
+def static_page_h1(region=None, category=None, opp_type=None, country=None):
+    if country:
+        return f"Grants, Fellowships and Residencies in {COUNTRIES[country][0]}"
+    if opp_type and region:
+        return f"Funded {OPPORTUNITY_TYPE_TITLE_PHRASE[opp_type]} {REGION_TITLE_TAIL[region]}"
+    if opp_type:
+        return f"Funded {OPPORTUNITY_TYPE_TITLE_PHRASE[opp_type]}, Open for Applications"
     if category and region:
         return f"{CATEGORY_TITLE_PHRASE[category]} Grants {REGION_TITLE_TAIL[region]}"
     if category:
@@ -510,7 +623,27 @@ def static_page_h1(region=None, category=None):
     return "AI, Arts and Tech Grants, Fellowships and Residencies"
 
 
-def static_page_intro(grant_count, region=None, category=None):
+def static_page_intro(grant_count, region=None, category=None, opp_type=None, country=None):
+    if country:
+        label = COUNTRIES[country][0]
+        return (
+            f"Currently <strong>{grant_count}</strong> active paid grants, fellowships and residencies "
+            f"taking place in {label}, across AI, arts, film, journalism, research, tech and "
+            "cross-disciplinary practice. Many are open to applicants of any nationality; check each "
+            "entry for residency and citizenship requirements. "
+            "Hand-curated and updated weekly. "
+            "Browse the list below, or use the interactive desk for filtering and shortlisting."
+        )
+    if opp_type:
+        type_phrase = OPPORTUNITY_TYPE_PHRASE[opp_type]
+        where = f" open to applicants in {REGION_PHRASE[region]}" if region else ""
+        return (
+            f"Currently <strong>{grant_count}</strong> active {type_phrase}{where}, across AI, arts, "
+            "film, journalism, research, tech and cross-disciplinary practice. "
+            "Hand-curated and updated weekly. Almost every entry is funded; a few notable unpaid open calls "
+            "and festival submissions are included as clearly flagged exceptions. "
+            "Browse the list below, or use the interactive desk for filtering and shortlisting."
+        )
     cat_phrase = CATEGORY_TITLE_PHRASE[category].lower() if category else None
     region_phrase = REGION_PHRASE[region] if region else None
     if cat_phrase and region_phrase:
@@ -781,28 +914,78 @@ def render_grant_list_html(grants, today):
     return "\n".join(parts)
 
 
-def related_links_html(current_region, current_category):
+def related_links_html(current_region, current_category, current_type=None,
+                       current_country=None, available=None):
+    """Internal cross-links for a static landing page.
+
+    Every href is filtered through `available` - the set of slugs actually being
+    written this run - so the grid never links to a slice that fell below its
+    density threshold and was skipped. Passing available=None disables the check
+    (useful in isolation, not in a real run).
+    """
+    def link(slug, label):
+        if available is not None and slug not in available:
+            return None
+        return f'<li><a href="/{GRANTS_BASE_PATH}{slug}/">{html_escape(label)}</a></li>'
+
     items = []
+
+    # Country pages are a leaf: they link up to the parent region and sideways to
+    # sibling countries, and skip the category grid entirely.
+    if current_country:
+        parent = COUNTRIES[current_country][1]
+        items.append(link(static_slug(region=parent), f"All of {REGION_PHRASE[parent]}"))
+        for slug in sorted(COUNTRIES):
+            if slug != current_country:
+                items.append(link(slug, f"Grants in {COUNTRIES[slug][0]}"))
+        items = [i for i in items if i]
+        return "<ul class='related-links'>" + "".join(items) + "</ul>" if items else ""
+
+    # Opportunity-type pages link down into their per-region slices, or back up.
+    if current_type:
+        if current_region:
+            items.append(link(static_slug(opp_type=current_type),
+                              f"All {OPPORTUNITY_TYPE_PHRASE[current_type]}"))
+        for region in REGIONS:
+            if region == current_region:
+                continue
+            items.append(link(static_slug(region=region, opp_type=current_type),
+                              f"{OPPORTUNITY_TYPE_TITLE_PHRASE[current_type]} in {REGION_PHRASE[region]}"))
+        items = [i for i in items if i]
+        return "<ul class='related-links'>" + "".join(items) + "</ul>" if items else ""
+
+    # Region and category pages surface the opportunity-type axis first, then the
+    # existing category/region grid.
+    for opp_type in OPPORTUNITY_TYPES:
+        label = OPPORTUNITY_TYPE_TITLE_PHRASE[opp_type]
+        if current_region:
+            items.append(link(static_slug(opp_type=opp_type, region=current_region),
+                              f"{label} in {REGION_PHRASE[current_region]}"))
+        else:
+            items.append(link(static_slug(opp_type=opp_type), label))
+
+    # On a bare region page, list the countries that sit inside it.
+    if current_region and not current_category:
+        for slug in sorted(COUNTRIES):
+            if COUNTRIES[slug][1] == current_region:
+                items.append(link(slug, f"Grants in {COUNTRIES[slug][0]}"))
+
     if not current_category:
         for cat in CATEGORIES:
-            label = CATEGORY_TITLE_PHRASE[cat]
-            href = f"/{GRANTS_BASE_PATH}{static_slug(category=cat)}/"
-            items.append(f'<li><a href="{href}">{html_escape(label)} grants</a></li>')
+            items.append(link(static_slug(category=cat), f"{CATEGORY_TITLE_PHRASE[cat]} grants"))
     if not current_region:
         for region in REGIONS:
-            label = REGION_PHRASE[region]
-            href = f"/{GRANTS_BASE_PATH}{static_slug(region=region)}/"
-            items.append(f'<li><a href="{href}">Grants in {html_escape(label)}</a></li>')
+            items.append(link(static_slug(region=region), f"Grants in {REGION_PHRASE[region]}"))
     if current_category and not current_region:
         for region in REGIONS:
-            label = REGION_PHRASE[region]
-            href = f"/{GRANTS_BASE_PATH}{static_slug(region=region, category=current_category)}/"
-            items.append(f'<li><a href="{href}">{html_escape(CATEGORY_TITLE_PHRASE[current_category])} in {html_escape(label)}</a></li>')
+            items.append(link(static_slug(region=region, category=current_category),
+                              f"{CATEGORY_TITLE_PHRASE[current_category]} in {REGION_PHRASE[region]}"))
     if current_region and not current_category:
         for cat in CATEGORIES:
-            label = CATEGORY_TITLE_PHRASE[cat]
-            href = f"/{GRANTS_BASE_PATH}{static_slug(region=current_region, category=cat)}/"
-            items.append(f'<li><a href="{href}">{html_escape(label)} in {html_escape(REGION_PHRASE[current_region])}</a></li>')
+            items.append(link(static_slug(region=current_region, category=cat),
+                              f"{CATEGORY_TITLE_PHRASE[cat]} in {REGION_PHRASE[current_region]}"))
+
+    items = [i for i in items if i]
     if not items:
         return ""
     return "<ul class='related-links'>" + "".join(items) + "</ul>"
@@ -831,23 +1014,32 @@ footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #7A6F63; fon
 """
 
 
-def build_static_page(grants_for_slice, today, region=None, category=None):
-    title = static_page_title(region=region, category=category)
-    h1 = static_page_h1(region=region, category=category)
-    page_url = static_page_url(region=region, category=category)
+def build_static_page(grants_for_slice, today, region=None, category=None,
+                      opp_type=None, country=None, available=None):
+    title = static_page_title(region=region, category=category, opp_type=opp_type, country=country)
+    h1 = static_page_h1(region=region, category=category, opp_type=opp_type, country=country)
+    page_url = static_page_url(region=region, category=category, opp_type=opp_type, country=country)
     active = filter_active(grants_for_slice, today)
     sorted_grants = sort_by_deadline(active)
-    intro = static_page_intro(len(sorted_grants), region=region, category=category)
+    intro = static_page_intro(len(sorted_grants), region=region, category=category,
+                              opp_type=opp_type, country=country)
     grant_html = render_grant_list_html(sorted_grants, today)
-    related = related_links_html(region, category)
+    related = related_links_html(region, category, current_type=opp_type,
+                                 current_country=country, available=available)
     itemlist = itemlist_jsonld(sorted_grants, page_url, h1)
     description = (
         f"{len(sorted_grants)} active paid grants, fellowships and residencies. "
         "Curated weekly. RSS and calendar feeds available."
     )
 
-    feed_url = SITE_ROOT_URL + GRANTS_BASE_PATH + feed_filename(region, None, category=category)
-    cal_url = SITE_ROOT_URL + GRANTS_BASE_PATH + calendar_filename(region, category=category)
+    # The opportunity-type and country axes have no feeds of their own, so they
+    # point at the closest existing one: the parent region's, or the full feed.
+    feed_region = region
+    if country:
+        feed_region = COUNTRIES[country][1]
+    feed_category = None if (opp_type or country) else category
+    feed_url = SITE_ROOT_URL + GRANTS_BASE_PATH + feed_filename(feed_region, None, category=feed_category)
+    cal_url = SITE_ROOT_URL + GRANTS_BASE_PATH + calendar_filename(feed_region, category=feed_category)
 
     related_block = ""
     if related:
@@ -1100,6 +1292,48 @@ def build_robots_txt():
     )
 
 
+EMBED_COUNT = 30
+EMBED_LICENSE = (
+    "Factual fields (title, organization, deadline, region, category, apply URL) are free to reuse "
+    "and embed with attribution and a link back to The Grant Desk. Original written descriptions are "
+    "not included here and remain all rights reserved. Terms: "
+    "https://www.artificialnouveau.com/smalltools/grants/data/"
+)
+
+
+def build_embed_json(grants, today):
+    """Data source for embed.js, the drop-in widget other sites can install.
+
+    Regenerated on every run for the same reason the feeds are: a widget sitting on
+    somebody else's page is the one surface we cannot fix after the fact, so it must
+    never serve a closed call. Only active entries, soonest deadline first, and only
+    the factual fields the embed licence covers - descriptions stay out.
+    """
+    active = sort_by_deadline(filter_active(grants, today))[:EMBED_COUNT]
+    payload = {
+        "source": TITLE,
+        "url": PAGE_URL,
+        "generated": today.isoformat(),
+        "license": EMBED_LICENSE,
+        "attribution": f"Curated by {TITLE} ({PAGE_URL})",
+        "count": len(active),
+        "grants": [
+            {
+                "id": g.get("id"),
+                "title": g.get("title"),
+                "organization": g.get("organization"),
+                "region": g.get("region"),
+                "category": g.get("category"),
+                "deadline": g.get("deadline"),
+                "applyUrl": with_utm(g.get("url")) or PAGE_URL,
+                "grantDeskUrl": PAGE_URL + "?utm_source=grantdeskembed&utm_medium=referral",
+            }
+            for g in active
+        ],
+    }
+    return json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
+
+
 def build_llms_txt():
     base = SITE_ROOT_URL + GRANTS_BASE_PATH
     return f"""# The Grant Desk
@@ -1142,8 +1376,22 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 - [Remote (work-from-anywhere)]({base}remote/)
 - [Worldwide]({base}worldwide/)
 
+## By opportunity type
+
+- [Artist residencies]({base}residencies/)
+- [Fellowships]({base}fellowships/)
+- [Prizes and awards]({base}prizes/)
+- [Open calls]({base}open-calls/)
+
+## By country
+
+Country pages are emitted only where enough active entries exist, so this list changes over time. Check the sitemap for the current set.
+
+- [Germany]({base}germany/) - [France]({base}france/) - [Spain]({base}spain/) - [Belgium]({base}belgium/) - [Italy]({base}italy/) - [Austria]({base}austria/) - [Greece]({base}greece/) - [Norway]({base}norway/) - [Denmark]({base}denmark/) - [Japan]({base}japan/) - [India]({base}india/) - [China]({base}china/)
+
 ## Data
 
+- [embed.json]({base}embed.json): The 30 soonest-closing active entries, factual fields only, powering the embeddable widget at {base}embed.js.
 - [grants.json]({base}grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, amount, duration, deadline, addedDate, category, description, url, tags, fee, featured.
 """
 
@@ -1207,55 +1455,69 @@ def main():
         print(f"  {name}: {count} items")
     print(f"Wrote {len(cals_written)} calendars: {', '.join(cals_written)}")
 
-    # --- Static SEO landing pages (per region, per category, and cross-product when dense) ---
-    static_paths_written = []
+    # --- Static SEO landing pages ---
+    # Four axes: region, category, opportunity type (residencies/fellowships/
+    # prizes/open calls) and country. Built in two passes: pass one decides which
+    # slices clear their density threshold, pass two renders them. The two passes
+    # exist so build_static_page can be handed the full set of slugs and filter
+    # its cross-links against it - otherwise the related-links grid would point at
+    # slices that were skipped for thinness, and every one of those is a 404.
     MIN_GRANTS_FOR_PAGE = 1  # always emit single-axis pages
     MIN_GRANTS_FOR_CROSS = 3  # avoid thin content
+    MIN_GRANTS_FOR_COUNTRY = 5  # countries need more before a page earns its place
 
-    # Single-axis: region only
+    planned = []  # (slug, kwargs, slice_grants)
+
+    def plan(slug, slice_grants, minimum, **kwargs):
+        if len(filter_active(slice_grants, today)) < minimum:
+            return
+        planned.append((slug, kwargs, slice_grants))
+
     for region in REGIONS:
-        slice_grants = [g for g in grants if region_matches(g, region)]
-        active_count = len(filter_active(slice_grants, today))
-        if active_count < MIN_GRANTS_FOR_PAGE:
-            continue
-        slug = static_slug(region=region)
-        out_dir = HERE / slug
-        out_dir.mkdir(exist_ok=True)
-        html = build_static_page(slice_grants, today, region=region)
-        (out_dir / "index.html").write_text(html, encoding="utf-8")
-        static_paths_written.append(slug)
+        plan(static_slug(region=region),
+             [g for g in grants if region_matches(g, region)],
+             MIN_GRANTS_FOR_PAGE, region=region)
 
-    # Single-axis: category only
     for category in CATEGORIES:
-        slice_grants = [g for g in grants if category_matches(g, category)]
-        active_count = len(filter_active(slice_grants, today))
-        if active_count < MIN_GRANTS_FOR_PAGE:
-            continue
-        slug = static_slug(category=category)
-        out_dir = HERE / slug
-        out_dir.mkdir(exist_ok=True)
-        html = build_static_page(slice_grants, today, category=category)
-        (out_dir / "index.html").write_text(html, encoding="utf-8")
-        static_paths_written.append(slug)
+        plan(static_slug(category=category),
+             [g for g in grants if category_matches(g, category)],
+             MIN_GRANTS_FOR_PAGE, category=category)
 
-    # Cross-product: category x region (only when dense enough to avoid thin-content pages)
     for category in CATEGORIES:
         for region in REGIONS:
-            slice_grants = [
-                g for g in grants
-                if category_matches(g, category) and region_matches(g, region)
-            ]
-            active_count = len(filter_active(slice_grants, today))
-            if active_count < MIN_GRANTS_FOR_CROSS:
-                continue
-            slug = static_slug(region=region, category=category)
-            out_dir = HERE / slug
-            out_dir.mkdir(exist_ok=True)
-            html = build_static_page(slice_grants, today, region=region, category=category)
-            (out_dir / "index.html").write_text(html, encoding="utf-8")
-            static_paths_written.append(slug)
+            plan(static_slug(region=region, category=category),
+                 [g for g in grants if category_matches(g, category) and region_matches(g, region)],
+                 MIN_GRANTS_FOR_CROSS, region=region, category=category)
+
+    for opp_type in OPPORTUNITY_TYPES:
+        plan(static_slug(opp_type=opp_type),
+             [g for g in grants if type_matches(g, opp_type)],
+             MIN_GRANTS_FOR_PAGE, opp_type=opp_type)
+        for region in REGIONS:
+            plan(static_slug(opp_type=opp_type, region=region),
+                 [g for g in grants if type_matches(g, opp_type) and region_matches(g, region)],
+                 MIN_GRANTS_FOR_CROSS, opp_type=opp_type, region=region)
+
+    for country in COUNTRIES:
+        plan(static_slug(country=country),
+             [g for g in grants if country_matches(g, country)],
+             MIN_GRANTS_FOR_COUNTRY, country=country)
+
+    available_slugs = {slug for slug, _, _ in planned}
+    static_paths_written = []
+    for slug, kwargs, slice_grants in planned:
+        out_dir = HERE / slug
+        out_dir.mkdir(exist_ok=True)
+        html = build_static_page(slice_grants, today, available=available_slugs, **kwargs)
+        (out_dir / "index.html").write_text(html, encoding="utf-8")
+        static_paths_written.append(slug)
 
     print(f"Wrote {len(static_paths_written)} static SEO pages: {', '.join(static_paths_written)}")
+
+    # --- embed.json (data source for the embed.js widget) ---
+    embed_path = HERE / "embed.json"
+    embed_path.write_text(build_embed_json(grants, today), encoding="utf-8")
+    print(f"Wrote embed.json ({embed_path})")
 
     # --- Inject JSON-LD + noscript fallback into main index.html ---
     inject_into_main_index(grants, today)

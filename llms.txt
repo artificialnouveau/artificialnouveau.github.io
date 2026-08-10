@@ -38,6 +38,20 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 - [Remote (work-from-anywhere)](https://www.artificialnouveau.com/smalltools/grants/remote/)
 - [Worldwide](https://www.artificialnouveau.com/smalltools/grants/worldwide/)
 
+## By opportunity type
+
+- [Artist residencies](https://www.artificialnouveau.com/smalltools/grants/residencies/)
+- [Fellowships](https://www.artificialnouveau.com/smalltools/grants/fellowships/)
+- [Prizes and awards](https://www.artificialnouveau.com/smalltools/grants/prizes/)
+- [Open calls](https://www.artificialnouveau.com/smalltools/grants/open-calls/)
+
+## By country
+
+Country pages are emitted only where enough active entries exist, so this list changes over time. Check the sitemap for the current set.
+
+- [Germany](https://www.artificialnouveau.com/smalltools/grants/germany/) - [France](https://www.artificialnouveau.com/smalltools/grants/france/) - [Spain](https://www.artificialnouveau.com/smalltools/grants/spain/) - [Belgium](https://www.artificialnouveau.com/smalltools/grants/belgium/) - [Italy](https://www.artificialnouveau.com/smalltools/grants/italy/) - [Austria](https://www.artificialnouveau.com/smalltools/grants/austria/) - [Greece](https://www.artificialnouveau.com/smalltools/grants/greece/) - [Norway](https://www.artificialnouveau.com/smalltools/grants/norway/) - [Denmark](https://www.artificialnouveau.com/smalltools/grants/denmark/) - [Japan](https://www.artificialnouveau.com/smalltools/grants/japan/) - [India](https://www.artificialnouveau.com/smalltools/grants/india/) - [China](https://www.artificialnouveau.com/smalltools/grants/china/)
+
 ## Data
 
+- [embed.json](https://www.artificialnouveau.com/smalltools/grants/embed.json): The 30 soonest-closing active entries, factual fields only, powering the embeddable widget at https://www.artificialnouveau.com/smalltools/grants/embed.js.
 - [grants.json](https://www.artificialnouveau.com/smalltools/grants/grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, amount, duration, deadline, addedDate, category, description, url, tags, fee, featured.
