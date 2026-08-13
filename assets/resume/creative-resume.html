@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Creative CV: Ahnjili ZhuParris, PhD</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+@font-face {
+  font-family: 'Young Serif';
+  src: url('../fonts/YoungSerif-Regular.woff2') format('woff2'),
+       url('../fonts/YoungSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --paper: #efe9dc;
+  --ink: #14100c;
+  --ink-soft: #4a4238;
+  --hair: rgba(20,16,12,0.16);
+  --spot: #c0330f;
+
+  --grotesk: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --serif: "Young Serif", Georgia, serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #c9c2b3;
+  color: var(--ink);
+  font-family: var(--grotesk);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.deck { padding: 48px 16px; }
+
+.sheet {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto;
+  padding: 13mm 15mm 16mm;
+  background: var(--paper);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,0.018) 0 1px, transparent 1px),
+    radial-gradient(circle at 70% 65%, rgba(0,0,0,0.015) 0 1px, transparent 1px);
+  background-size: 7px 7px, 11px 11px;
+}
+
+/* ---------- Head / foot ---------- */
+.sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 7pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 3mm;
+  border-bottom: 1px solid var(--ink);
+  flex: none;
+}
+
+.sheet-foot {
+  position: absolute;
+  left: 15mm;
+  right: 15mm;
+  bottom: 8mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 6.5pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-top: 2.5mm;
+  border-top: 1px solid var(--ink);
+}
+
+/* ---------- Masthead ---------- */
+.masthead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10mm;
+  margin-top: 5mm;
+  flex: none;
+}
+
+.masthead h1 {
+  font-size: 34pt;
+  font-weight: 700;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.role {
+  font-family: var(--mono);
+  font-size: 7.4pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--spot);
+  margin: 3.6mm 0 0;
+}
+
+.contact {
+  font-family: var(--mono);
+  font-size: 7pt;
+  letter-spacing: 0.08em;
+  line-height: 1.85;
+  text-align: right;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  flex: none;
+  padding-bottom: 1mm;
+}
+.contact strong { display: block; color: var(--ink); font-weight: 700; letter-spacing: 0.1em; }
+
+.rule { height: 5px; background: var(--ink); margin: 4.5mm 0 0; flex: none; }
+
+.standfirst {
+  font-family: var(--serif);
+  font-size: 9.8pt;
+  line-height: 1.38;
+  margin: 4mm 0 0;
+  flex: none;
+}
+
+/* ---------- Body ---------- */
+.body-grid {
+  display: grid;
+  grid-template-columns: 1fr 62mm;
+  gap: 8mm;
+  margin-top: 5mm;
+  flex: 1;
+  min-height: 0;
+}
+
+.col-rule { border-left: 1px solid var(--hair); padding-left: 6mm; margin-left: -3mm; }
+
+.list-head {
+  font-family: var(--grotesk);
+  font-weight: 700;
+  font-size: 8.6pt;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1.1mm;
+  margin: 3.4mm 0 1.5mm;
+}
+.list-head:first-child { margin-top: 0; }
+
+/* Selected works, left column */
+.work {
+  display: grid;
+  grid-template-columns: 13mm 1fr;
+  gap: 2.5mm;
+  padding: 1.2mm 0;
+  border-bottom: 1px solid var(--hair);
+}
+.work:last-child { border-bottom: 0; }
+.work .yr {
+  font-family: var(--mono);
+  font-size: 6.8pt;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--spot);
+  padding-top: 0.7mm;
+}
+.work h3 {
+  font-size: 8.7pt;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.work p {
+  font-family: var(--serif);
+  font-size: 7.5pt;
+  line-height: 1.3;
+  margin: 0.7mm 0 0;
+}
+.work .venue {
+  font-family: var(--mono);
+  font-size: 6pt;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0.8mm 0 0;
+}
+
+/* Entry lists, right column */
+.entries { list-style: none; margin: 0; padding: 0; }
+.entries li {
+  display: grid;
+  grid-template-columns: 16mm 1fr;
+  gap: 1.6mm;
+  padding: 0.7mm 0;
+  border-bottom: 1px solid var(--hair);
+  font-size: 7.1pt;
+  line-height: 1.28;
+}
+.entries li:last-child { border-bottom: 0; }
+.entries .e-yr {
+  font-family: var(--mono);
+  font-size: 6.2pt;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  padding-top: 0.5mm;
+}
+.entries .e-t { font-weight: 700; display: block; }
+.entries .e-loc { color: var(--ink-soft); display: block; font-size: 6.6pt; }
+
+.block {
+  font-size: 7.1pt;
+  line-height: 1.38;
+  color: var(--ink);
+}
+.block .lede {
+  font-family: var(--mono);
+  font-size: 6.4pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--spot);
+  display: block;
+  margin-bottom: 1.2mm;
+}
+.block p { margin: 0 0 1.8mm; }
+.block p:last-child { margin-bottom: 0; }
+.block .cite { font-family: var(--serif); font-size: 7pt; line-height: 1.35; }
+
+.coda {
+  display: grid;
+  grid-template-columns: 24mm 1fr;
+  gap: 3mm;
+  align-items: baseline;
+  border-top: 2px solid var(--ink);
+  padding-top: 2.2mm;
+  margin-top: 3mm;
+  flex: none;
+}
+.coda-label {
+  font-family: var(--mono);
+  font-size: 6.4pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--spot);
+}
+.coda p {
+  font-family: var(--serif);
+  font-size: 7pt;
+  line-height: 1.35;
+  margin: 0;
+}
+
+@page { size: A4; margin: 0; }
+
+@media print {
+  html, body { background: #fff; }
+  .deck { padding: 0; }
+  .sheet { margin: 0; box-shadow: none; page-break-after: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<section class="sheet">
+
+  <div class="sheet-head">
+    <span>Ahnjili ZhuParris, PhD</span>
+    <span>Creative CV</span>
+    <span>Artificial Nouveau Studio</span>
+  </div>
+
+  <div class="masthead">
+    <div>
+      <h1>Ahnjili<br>ZhuParris</h1>
+      <p class="role">Computational artist · AI engineer · Media researcher</p>
+    </div>
+    <div class="contact">
+      <strong>New York &amp; Netherlands</strong>
+      +31 6 5041 5612<br>
+      artificialnouveau@gmail.com<br>
+      artificialnouveau.com
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <p class="standfirst">AI engineer, artist, and science communicator exploring data, AI, and surveillance technologies to push boundaries and provoke discussion on predictive policing, voice and identity, digital surveillance, and Afrofuturism.</p>
+
+  <div class="body-grid">
+
+    <div>
+      <div class="list-head">Selected Works, Exhibitions &amp; Commissions</div>
+
+      <div class="work">
+        <div class="yr">2026</div>
+        <div>
+          <h3>Close Enough</h3>
+          <p>Performative installation on the intimacy of drone surveillance: autonomous drones, computer vision and an annotated live feed put the audience on both sides of the apparatus.</p>
+          <p class="venue">GOGBOT Festival, Enschede, NL</p>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="yr">2026</div>
+        <div>
+          <h3>Deepfake Archive / Believe the Feed</h3>
+          <p>An online archive of synthetic media as a network graph, indexed by intent at creation rather than technique, with panels naming toolchain, consent and consequence.</p>
+          <p class="venue">Mozilla Festival, Barcelona, ES</p>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="yr">2025</div>
+        <div>
+          <h3>DEEPFAKE: A Video Essay</h3>
+          <p>A video essay on synthetic media, from AI memorials to non-consensual pornography, shown with a live installation that replaces the viewer's face in real time. Supported by the Stimuleringsfonds.</p>
+          <p class="venue">Peckham Digital, London, UK</p>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="yr">2024&ndash;26</div>
+        <div>
+          <h3>Fashion Police Drones</h3>
+          <p>Drones become arbiters of fashion, judging outfits against audience-set criteria: corporate fashion crimes, pet peeves and state-enforced dress codes.</p>
+          <p class="venue">Peckham Digital, UK · CICA Museum, Seoul, KR</p>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="yr">2024</div>
+        <div>
+          <h3>Screen-to-Soundscape</h3>
+          <p>An open-source prototype that reimagines the screen reader, turning a browser into a spatial-audio soundscape with rich alt-text for blind and visually impaired users.</p>
+          <p class="venue">Constant, BE · Processing Foundation, US · Stimuleringsfonds &amp; SIDN, NL</p>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="yr">2023</div>
+        <div>
+          <h3>VOICES</h3>
+          <p>Participants record a secret, follow it through the machine-listening pipeline that clones their voice, then hear themselves narrate the secrets of others.</p>
+          <p class="venue">Ars Electronica, Linz, AT · IMPAKT Festival, Utrecht, NL</p>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="yr">2023</div>
+        <div>
+          <h3>Babble-on</h3>
+          <p>A web installation that slices a visitor's recorded voice into a personal babble tape, used to disguise conversation from audio surveillance.</p>
+          <p class="venue">Articulating Data, Edinburgh, UK</p>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="yr">2021</div>
+        <div>
+          <h3>Future Wake</h3>
+          <p>Predictive policing inverted: machine learning predicts who, when and how the next victim of police violence dies, and deepfakes give them a face.</p>
+          <p class="venue">Mozilla Creative Media Award · futurewake.com</p>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="yr">2014</div>
+        <div>
+          <h3>Synthetic Biology: A New Code for Life</h3>
+          <p>Documentary on synthetic biology's first decade, where DNA is treated as programmable code and cells as genetic circuits.</p>
+          <p class="venue">Editor · Documentary · vimeo.com/22153761</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-rule">
+
+      <div class="list-head">Education</div>
+      <ul class="entries">
+        <li><span class="e-yr">2020&ndash;2024</span><span><span class="e-t">PhD in Medicine</span><span class="e-loc">Applied AI · Leiden University, NL</span></span></li>
+        <li><span class="e-yr">2016&ndash;2018</span><span><span class="e-t">MSc Cognitive Neuroscience</span><span class="e-loc">Radboud Universiteit, NL</span></span></li>
+        <li><span class="e-yr">2012&ndash;2016</span><span><span class="e-t">BSc Biomedical Sciences</span><span class="e-loc">With Honours · Univ. of Edinburgh, UK</span></span></li>
+      </ul>
+
+      <div class="list-head">Awards, Grants &amp; Fellowships</div>
+      <ul class="entries">
+        <li><span class="e-yr">2025</span><span><span class="e-t">Public AI Creative Fellowship</span><span class="e-loc">MetaGov · USA</span></span></li>
+        <li><span class="e-yr">2024</span><span><span class="e-t">Digital Culture &amp; Fresh Perspective</span><span class="e-loc">Stimuleringsfonds · NL</span></span></li>
+        <li><span class="e-yr">2024</span><span><span class="e-t">Processing Foundation Fellowship</span><span class="e-loc">Processing Foundation · USA</span></span></li>
+        <li><span class="e-yr">2024</span><span><span class="e-t">Screen-to-Soundscape</span><span class="e-loc">SIDN fonds · NL</span></span></li>
+        <li><span class="e-yr">2023</span><span><span class="e-t">VOICES Collective</span><span class="e-loc">European Festivals Fund (EFFEA) · Europe</span></span></li>
+        <li><span class="e-yr">2021</span><span><span class="e-t">Creative Media Award</span><span class="e-loc">Mozilla Foundation · USA</span></span></li>
+      </ul>
+
+      <div class="list-head">Residencies &amp; Collaborations</div>
+      <ul class="entries">
+        <li><span class="e-yr">2022&ndash;2024</span><span><span class="e-t">Shibboleth: A Hybrid Voice</span><span class="e-loc">With Effi &amp; Amir · Brussels, BE</span></span></li>
+        <li><span class="e-yr">2023</span><span><span class="e-t">CODE Residency</span><span class="e-loc">IMPAKT · Utrecht, NL</span></span></li>
+        <li><span class="e-yr">2023</span><span><span class="e-t">Deepest Darkest Unknown</span><span class="e-loc">With Kurina Sohn · NL</span></span></li>
+        <li><span class="e-yr">2022</span><span><span class="e-t">Ana&iuml;s Berck</span><span class="e-loc">Algoliterary publishing · Brussels, BE</span></span></li>
+      </ul>
+
+      <div class="list-head">Teaching &amp; Workshops</div>
+      <div class="block">
+        <p><span class="lede">2022 &ndash; Present</span>Deepfakes: technology, culture &amp; ethics · Generative AI and creative coding · Computer-vision surveillance · AI and accessibility.</p>
+        <p>HKU, ArtEZ, UAL, Piet Zwart Institute, iii, IMPAKT, Peckham Digital.</p>
+      </div>
+
+      <div class="list-head">Skills</div>
+      <div class="block">
+        <p>Python, R, JavaScript · Computer vision, generative AI, voice cloning · Drones, spatial audio.</p>
+        <p>English, Mandarin (B1), Dutch (B1).</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="coda">
+    <span class="coda-label">Publication</span>
+    <p>Wevers, R. (2024) Embodying Data, Shifting Perspective: a conversation with Ahnjili Zhuparris on Future Wake. In: <em>Doing Digital Migration Studies</em>, Amsterdam University Press.</p>
+  </div>
+
+  <div class="sheet-foot">
+    <span>Artificial Nouveau · Ahnjili ZhuParris, PhD</span>
+    <span>artificialnouveau.com</span>
+  </div>
+
+</section>
+</div>
+</body>
+</html>
