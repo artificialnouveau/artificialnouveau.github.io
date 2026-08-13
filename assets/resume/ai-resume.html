@@ -1,501 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahnjili ZhuParris, PhD - AI Resume</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>AI Resume: Ahnjili ZhuParris, PhD</title>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Inter', sans-serif;
-            color: #2d2d2d;
-            font-size: 9.5pt;
-            line-height: 1.35;
-            max-width: 21cm;
-            margin: 0 auto;
-            padding: 0.8cm 1.5cm;
-            background: white;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
+<style>
+@font-face {
+  font-family: 'Young Serif';
+  src: url('../fonts/YoungSerif-Regular.woff2') format('woff2'),
+       url('../fonts/YoungSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
 
-        @media print {
-            body {
-                padding: 0;
-                max-width: 100%;
-            }
-            a { text-decoration: none; }
-            h2, .job, .award {
-                page-break-inside: avoid;
-            }
-            .page-break-before {
-                page-break-before: always;
-            }
-        }
+:root {
+  --paper: #ffffff;
+  --ink: #14100c;
+  --ink-soft: #4a4238;
+  --hair: rgba(20,16,12,0.16);
+  --spot: #c0330f;
 
-        @page {
-            size: A4 portrait;
-            margin: 0.8cm 1.2cm;
-            /* Hide browser headers and footers */
-            @top-left { content: none; }
-            @top-center { content: none; }
-            @top-right { content: none; }
-            @bottom-left { content: none; }
-            @bottom-center { content: none; }
-            @bottom-right { content: none; }
-        }
+  --grotesk: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --serif: "Young Serif", Georgia, serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
 
-        @media screen {
-            body {
-                box-shadow: 0 0 15px rgba(0,0,0,0.1);
-                margin: 2rem auto;
-            }
-        }
+* { box-sizing: border-box; }
 
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 0.6rem;
-        }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #c9c2b3;
+  color: var(--ink);
+  font-family: var(--grotesk);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
 
-        h1 {
-            font-size: 20pt;
-            font-weight: 700;
-            color: #4a3080;
-            letter-spacing: 0.02em;
-            margin-bottom: 0.2rem;
-        }
+.deck { padding: 48px 16px; }
 
-        .contact-line {
-            font-size: 8.5pt;
-            color: #555;
-        }
+.sheet {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto 28px;
+  padding: 13mm 15mm 14mm;
+  background: var(--paper);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+}
+.sheet:last-child { margin-bottom: 0; }
 
-        .contact-line a {
-            color: #555;
-            text-decoration: none;
-        }
+/* ---------- Masthead ---------- */
+.masthead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10mm;
+  flex: none;
+}
 
-        .summary {
-            font-size: 9pt;
-            color: #444;
-            text-align: left;
-            margin: 0.3rem 0 0.3rem;
-            line-height: 1.4;
-            border-top: 2.5px solid #6b4c9a;
-            padding-top: 0.3rem;
-        }
+.masthead h1 {
+  font-size: 30pt;
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  margin: 0;
+}
 
-        /* Section headers */
-        h2 {
-            font-size: 9pt;
-            font-weight: 700;
-            color: white;
-            background: #6b4c9a;
-            padding: 0.15rem 0.5rem;
-            margin: 0.4rem 0 0.2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+.role {
+  font-family: var(--mono);
+  font-size: 7.2pt;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--spot);
+  margin: 3.4mm 0 0;
+}
 
-        /* Skills table */
-        .skills-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 0.3rem;
-        }
+.contact {
+  font-family: var(--mono);
+  font-size: 6.8pt;
+  letter-spacing: 0.06em;
+  line-height: 1.8;
+  text-align: right;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  flex: none;
+  padding-bottom: 1mm;
+}
+.contact strong { display: block; color: var(--ink); font-weight: 700; letter-spacing: 0.09em; }
 
-        .skills-table td {
-            padding: 0.05rem 0.4rem;
-            vertical-align: top;
-            font-size: 9pt;
-        }
+.rule { height: 5px; background: var(--ink); margin: 4.5mm 0 0; flex: none; }
 
-        .skills-table td:first-child {
-            font-weight: 600;
-            color: #2d2d2d;
-            width: 120px;
-            white-space: nowrap;
-        }
+.standfirst {
+  font-family: var(--serif);
+  font-size: 9pt;
+  line-height: 1.4;
+  margin: 4mm 0 0;
+  flex: none;
+}
 
-        /* Job entries */
-        .job {
-            margin-bottom: 0.25rem;
-            margin-top: 0.35rem;
-        }
+/* ---------- Sections ---------- */
+.list-head {
+  font-family: var(--grotesk);
+  font-weight: 700;
+  font-size: 8.6pt;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1.2mm;
+  margin: 3.2mm 0 1.8mm;
+  flex: none;
+}
 
-        .job-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            border-left: 3px solid #6b4c9a;
-            padding-left: 0.5rem;
-            margin-bottom: 0.1rem;
-        }
+/* ---------- Label / value rows (skills, bullets) ---------- */
+.rows { display: grid; grid-template-columns: 34mm 1fr; gap: 1.5mm 4mm; }
+.rows dt {
+  font-family: var(--mono);
+  font-size: 6.6pt;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--spot);
+  padding-top: 0.5mm;
+}
+.rows dd { margin: 0; font-size: 8.2pt; line-height: 1.4; }
 
-        .job-company {
-            font-weight: 700;
-            font-size: 10pt;
-            color: #2d2d2d;
-        }
+/* ---------- Work experience ---------- */
+.job { padding: 2mm 0; border-bottom: 1px solid var(--hair); }
+.job:last-of-type { border-bottom: 0; }
+.job-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6mm;
+  margin-bottom: 1.6mm;
+}
+.job-head h3 { font-size: 9.4pt; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+.job-head .org {
+  font-family: var(--serif);
+  font-size: 8.4pt;
+  color: var(--ink-soft);
+  display: block;
+  margin-top: 0.6mm;
+}
+.job-head .dates {
+  font-family: var(--mono);
+  font-size: 6.6pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--spot);
+  flex: none;
+  text-align: right;
+}
 
-        .job-dates {
-            font-size: 9pt;
-            color: #555;
-            white-space: nowrap;
-        }
+/* ---------- Entry lists ---------- */
+.entries { list-style: none; margin: 0; padding: 0; }
+.entries li {
+  display: grid;
+  grid-template-columns: 26mm 1fr;
+  gap: 4mm;
+  padding: 1.1mm 0;
+  border-bottom: 1px solid var(--hair);
+  font-size: 8.2pt;
+  line-height: 1.32;
+}
+.entries li:last-child { border-bottom: 0; }
+.entries .e-yr {
+  font-family: var(--mono);
+  font-size: 6.6pt;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  padding-top: 0.6mm;
+}
+.entries .e-t { font-weight: 700; display: block; }
+.entries .e-loc { color: var(--ink-soft); display: block; font-size: 7.8pt; }
+.entries .e-note { font-family: var(--serif); font-size: 7.8pt; line-height: 1.35; display: block; margin-top: 0.6mm; }
 
-        .job-title {
-            font-style: italic;
-            font-size: 9pt;
-            color: #555;
-            padding-left: 0.5rem;
-            margin-bottom: 0.1rem;
-        }
+/* ---------- Publications ---------- */
+.pubs { list-style: none; margin: 0; padding: 0; font-family: var(--serif); }
+.pubs li {
+  display: grid;
+  grid-template-columns: 26mm 1fr;
+  gap: 4mm;
+  padding: 1.1mm 0;
+  border-bottom: 1px solid var(--hair);
+  font-size: 7.4pt;
+  line-height: 1.32;
+}
+.pubs li:last-child { border-bottom: 0; }
+.pubs .p-yr {
+  font-family: var(--mono);
+  font-size: 6.6pt;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  padding-top: 0.8mm;
+}
+.pubs em { color: var(--ink-soft); }
 
-        .job-bullets {
-            padding-left: 0.5rem;
-            overflow: hidden;
-        }
+/* ---------- Referees ---------- */
+.refs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; }
+.refs .ref { font-size: 8pt; line-height: 1.35; }
+.refs .ref strong { display: block; }
+.refs .ref span { color: var(--ink-soft); font-size: 7.6pt; display: block; }
+.refs .ref .mail { font-family: var(--mono); font-size: 6.4pt; letter-spacing: 0.04em; margin-top: 0.6mm; }
 
-        .job-bullet {
-            display: flex;
-            gap: 0.4rem;
-            margin-bottom: 0.25rem;
-            font-size: 9pt;
-            line-height: 1.35;
-            max-width: 100%;
-        }
+.foot-note {
+  font-family: var(--mono);
+  font-size: 6.4pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-top: 2px solid var(--ink);
+  padding-top: 2.2mm;
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  flex: none;
+}
 
-        .bullet-label {
-            color: #6b4c9a;
-            font-weight: 600;
-            min-width: 130px;
-            max-width: 130px;
-            flex-shrink: 0;
-            font-size: 8.5pt;
-        }
+@page { size: A4; margin: 0; }
 
-        .bullet-text {
-            color: #333;
-            flex: 1;
-            min-width: 0;
-            overflow-wrap: break-word;
-        }
-
-        /* Education */
-        .edu-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.15rem;
-        }
-
-        .edu-degree {
-            font-weight: 600;
-            font-size: 9.5pt;
-        }
-
-        .edu-school {
-            font-style: italic;
-            font-size: 9pt;
-            color: #555;
-        }
-
-        .edu-dates {
-            font-size: 9pt;
-            color: #555;
-            white-space: nowrap;
-        }
-
-        .edu-detail {
-            font-size: 8.5pt;
-            color: #666;
-            font-style: italic;
-            margin-bottom: 0.2rem;
-        }
-
-        /* Awards */
-        .award {
-            margin-bottom: 0.3rem;
-        }
-
-        .award-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-
-        .award-name {
-            font-weight: 700;
-            font-size: 9.5pt;
-        }
-
-        .award-date {
-            font-size: 9pt;
-            color: #555;
-        }
-
-        .award-desc {
-            font-size: 8.5pt;
-            color: #555;
-            font-style: italic;
-        }
-
-        /* Publications */
-        .publication {
-            font-size: 8.5pt;
-            margin-bottom: 0.15rem;
-            line-height: 1.35;
-        }
-
-        /* References */
-        .references {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .ref {
-            font-size: 8.5pt;
-        }
-
-        .ref-name {
-            font-weight: 600;
-        }
-
-        .ref-affil {
-            color: #555;
-            font-style: italic;
-        }
-
-        .ref-email a {
-            color: #6b4c9a;
-            text-decoration: none;
-        }
-    </style>
+@media print {
+  html, body { background: #fff; }
+  .deck { padding: 0; }
+  .sheet { margin: 0; box-shadow: none; }
+}
+</style>
 </head>
 <body>
-    <div class="header">
-        <h1>AHNJILI ZHUPARRIS, PHD</h1>
-        <div class="contact-line">
-            New York &amp; Netherlands &nbsp;|&nbsp; +31650415612 &nbsp;|&nbsp;
-            <a href="mailto:ahnjili@gmail.com">ahnjili@gmail.com</a> &nbsp;|&nbsp;
-            <a href="https://www.artificialnouveau.com">www.artificialnouveau.com</a> &nbsp;|&nbsp;
-            <a href="https://github.com/artificialnouveau">github.com/artificialnouveau</a> &nbsp;|&nbsp;
-            <a href="https://orcid.org/0000-0002-1413-1648">ORCID: 0000-0002-1413-1648</a>
-        </div>
-    </div>
+<div class="deck">
 
-    <div class="summary">
-        Senior research scientist, AI engineer, and computational artist with end-to-end experience developing and deploying NLP, computer vision, and generative AI systems in production. Specializing in AI-enabled research on media narratives, cultural consumption, and large-scale behavioral data, while examining the societal impacts of automated decision-making.
-    </div>
+<!-- ============ PAGE 1 ============ -->
+<section class="sheet">
 
-    <h2>Skills &amp; Qualifications</h2>
-    <table class="skills-table">
-        <tr>
-            <td>Programming:</td>
-            <td>Python, R, PySpark, SQL, Javascript, C++, Web Scraping</td>
-        </tr>
-        <tr>
-            <td>ML &amp; Analytics:</td>
-            <td>PyTorch, TensorFlow, Sklearn, OpenCV, Computer Vision, Data Mining, Speech Synthesis</td>
-        </tr>
-        <tr>
-            <td>NLP:</td>
-            <td>HuggingFace Transformers, Retrieval Augmented Generation (RAG), Embeddings, Topic Modeling, Sentiment Analysis</td>
-        </tr>
-        <tr>
-            <td>Generative AI:</td>
-            <td>Latent Diffusion (U-Net, VAE, Cross-Attention, CLIP), GANs, LLMs, RVC, Speech Synthesis, ElevenLabs, Stable Diffusion, YOLO</td>
-        </tr>
-        <tr>
-            <td>Cloud:</td>
-            <td>Amazon Web Services (AWS), Azure, Google Cloud Platform (GCP), Heroku</td>
-        </tr>
-        <tr>
-            <td>Languages:</td>
-            <td>English (Native), Mandarin (B1), Dutch (B1)</td>
-        </tr>
-    </table>
-
-    <h2>Work Experience</h2>
-
-    <div class="job">
-        <div class="job-header">
-            <span class="job-company">Harmony Labs</span>
-            <span class="job-dates">Feb 2025 - Present</span>
-        </div>
-        <div class="job-title">Senior Research Scientist</div>
-        <div class="job-bullets">
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; NLP &amp; Media Research:</span>
-                <span class="bullet-text">Lead statistically rigorous research on media narratives, cultural consumption, and audience segmentation at scale, applying NLP methods (embedding-based clustering, topic detection, network analysis) and statistical modeling to extract actionable insights from large, complex datasets and build data-driven audience personas.</span>
-            </div>
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Stakeholder Communication:</span>
-                <span class="bullet-text">Translate complex analyses into clear narratives, briefs, and presentations for partners and decision-makers.</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="job">
-        <div class="job-header">
-            <span class="job-company">RealFaceValue</span>
-            <span class="job-dates">Sep 2023 - Feb 2025</span>
-        </div>
-        <div class="job-title">AI Engineer</div>
-        <div class="job-bullets">
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Diffusion Models:</span>
-                <span class="bullet-text">Built and fine-tuned latent diffusion models (U-Net backbone, VAE encoder/decoder, CLIP-conditioned cross-attention) and GANs on AWS for automated image generation and visual content pipelines. Designed custom training loops and loss functions for domain-specific generation.</span>
-            </div>
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Production Deployment:</span>
-                <span class="bullet-text">Deployed generative AI models to production serving web and mobile applications, including inference optimization and API integration with backend and frontend teams.</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="job">
-        <div class="job-header">
-            <span class="job-company">Artificial Nouveau Studio</span>
-            <span class="job-dates">Jan 2018 - Present</span>
-        </div>
-        <div class="job-title">Freelance AI Engineer, Data Scientist &amp; Science Communicator</div>
-        <div class="job-bullets">
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Software Development:</span>
-                <span class="bullet-text">Built voice cloning pipelines (RVC, speech synthesis), GAN and diffusion-based image generation systems, real-time browser-based computer vision tools (face detection, object tracking), and deepfake detection algorithms.</span>
-            </div>
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Audio &amp; Voice AI:</span>
-                <span class="bullet-text">Built multimodal systems including frameworks that generate spatial audio from visual content (TTS, spatial positioning, real-time analysis) and real-time voice cloning and synthesis pipelines using machine listening algorithms. Exhibited at Ars Electronica and IMPAKT Festival. Funded by Processing Foundation and Stimuleringsfonds.</span>
-            </div>
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Survey Analytics &amp; App Dev:</span>
-                <span class="bullet-text">Developed citizen science mobile applications for Quantified Citizen. Conducted large-scale survey data analysis for the Global Drug Survey on drug use patterns and pharmacological effects, and created interactive visualizations of psychoactive substance experiences.</span>
-            </div>
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Workshops &amp; Advocacy:</span>
-                <span class="bullet-text">Designed and delivered workshops on generative AI, computer vision, and ML at universities and cultural institutions across Europe. Presented on ML ethics as panelist and juror.</span>
-            </div>
-        </div>
-    </div>
-
-    <h2 class="page-break-before">Work Experience (cont.)</h2>
-
-    <div class="job">
-        <div class="job-header">
-            <span class="job-company">Centre for Human Drug Research</span>
-            <span class="job-dates">Sep 2019 - Sep 2023</span>
-        </div>
-        <div class="job-title">Lead Data Scientist</div>
-        <div class="job-bullets">
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Clinical Trial Analytics:</span>
-                <span class="bullet-text">Led end-to-end data science for multiple clinical trials, from statistical analysis planning and study design through to data collection, analysis, and reporting. Authored complete research packages including protocols, SAPs, and final study reports.</span>
-            </div>
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Digital Biomarker Dev:</span>
-                <span class="bullet-text">Built classification and severity estimation models using smartphone sensor data (text, audio, voice, location), wearables, and electronic Patient Reported Outcomes for decentralized trial-at-home studies.</span>
-            </div>
-            <div class="job-bullet">
-                <span class="bullet-label">&gt; Literature Reviews:</span>
-                <span class="bullet-text">Conducted systematic literature reviews on digital health technologies and disease classification to inform research direction.</span>
-            </div>
-        </div>
-    </div>
-
-    <h2>Education</h2>
-
+  <div class="masthead">
     <div>
-        <div class="edu-row">
-            <span><span class="edu-degree">PhD</span> <span class="edu-school">Leiden University, Netherlands</span></span>
-            <span class="edu-dates">2020 - 2024</span>
-        </div>
-        <div class="edu-detail">Doctor of Philosophy in Medicine (focusing on AI for health)</div>
+      <h1>Ahnjili<br>ZhuParris, PhD</h1>
+      <p class="role">Media researcher · AI engineer · Computational artist</p>
     </div>
-
-    <div>
-        <div class="edu-row">
-            <span><span class="edu-degree">MSc</span> <span class="edu-school">Radboud University Nijmegen, Netherlands</span></span>
-            <span class="edu-dates">2015 - 2017</span>
-        </div>
-        <div class="edu-detail">Research Master's Degree in Cognitive Neuroscience</div>
+    <div class="contact">
+      <strong>New York &amp; Netherlands</strong>
+      +31 6 5041 5612<br>
+      ahnjili@gmail.com<br>
+      artificialnouveau.com<br>
+      github.com/artificialnouveau<br>
+      ORCID 0000-0002-1413-1648
     </div>
+  </div>
 
-    <div>
-        <div class="edu-row">
-            <span><span class="edu-degree">BSc</span> <span class="edu-school">University of Edinburgh, United Kingdom</span></span>
-            <span class="edu-dates">2011 - 2015</span>
-        </div>
-        <div class="edu-detail">Biomedical Bachelor's Degree with Honours in Neuroscience</div>
+  <div class="rule"></div>
+
+  <p class="standfirst">Senior research scientist and AI engineer with a PhD in Medicine from Leiden University and end-to-end experience building and deploying NLP, computer vision and generative AI systems in production. I lead research on media narratives, cultural consumption and audience segmentation at Harmony Labs, and previously built machine-learning biomarkers from smartphone and wearable data for decentralised clinical trials. My work on surveillance and synthetic media has been funded by Mozilla and the Processing Foundation and exhibited at Ars Electronica.</p>
+
+  <div class="list-head">Education</div>
+  <ul class="entries">
+    <li><span class="e-yr">2020&ndash;2024</span><span><span class="e-t">PhD in Medicine</span><span class="e-loc">Leiden University, Netherlands</span></span></li>
+    <li><span class="e-yr">2016&ndash;2018</span><span><span class="e-t">MSc Cognitive Neuroscience (Research)</span><span class="e-loc">Radboud Universiteit Nijmegen, Netherlands</span></span></li>
+    <li><span class="e-yr">2012&ndash;2016</span><span><span class="e-t">BSc Biomedical Sciences, Neuroscience, with Honours</span><span class="e-loc">University of Edinburgh, United Kingdom</span></span></li>
+  </ul>
+
+  <div class="list-head">Skills &amp; Qualifications</div>
+  <dl class="rows">
+    <dt>Programming</dt>
+    <dd>Python, R, PySpark, SQL, JavaScript, web scraping</dd>
+    <dt>ML &amp; Analytics</dt>
+    <dd>PyTorch, TensorFlow, scikit-learn, OpenCV, computer vision, data mining, statistical modelling</dd>
+    <dt>NLP</dt>
+    <dd>HuggingFace Transformers, retrieval-augmented generation (RAG), embeddings, topic modelling, sentiment analysis, network analysis</dd>
+    <dt>Generative AI</dt>
+    <dd>Latent diffusion (U-Net, VAE, cross-attention, CLIP), GANs, LLMs, Stable Diffusion, YOLO, RVC and speech synthesis, ElevenLabs</dd>
+    <dt>Cloud</dt>
+    <dd>AWS, Azure, Google Cloud Platform, Heroku</dd>
+    <dt>Languages</dt>
+    <dd>English (native), Mandarin (B1), Dutch (B1)</dd>
+  </dl>
+
+  <div class="list-head">Work Experience</div>
+
+  <div class="job">
+    <div class="job-head">
+      <div>
+        <h3>Senior Research Scientist</h3>
+        <span class="org">Harmony Labs</span>
+      </div>
+      <div class="dates">Feb 2025 &ndash; Present</div>
     </div>
+    <dl class="rows">
+      <dt>NLP &amp; media research</dt>
+      <dd>Lead statistically rigorous research on media narratives, cultural consumption and audience segmentation at scale, applying embedding-based clustering, topic detection and network analysis to extract actionable insight from large, messy datasets and build data-driven audience personas.</dd>
+      <dt>Communication</dt>
+      <dd>Translate complex analyses into clear narratives, briefs and presentations for partners and decision-makers.</dd>
+    </dl>
+  </div>
 
-    <h2>Awards &amp; Fellowships</h2>
-
-    <div class="award">
-        <div class="award-header">
-            <span class="award-name">Public AI Creative Fellowship</span>
-            <span class="award-date">Nov 2025 - June 2026</span>
-        </div>
-        <div class="award-desc">Creative technologist fellow developing narratives and tools around public AI governance.</div>
+  <div class="job">
+    <div class="job-head">
+      <div>
+        <h3>AI Engineer</h3>
+        <span class="org">RealFaceValue</span>
+      </div>
+      <div class="dates">Sep 2023 &ndash; Feb 2025</div>
     </div>
+    <dl class="rows">
+      <dt>Diffusion models</dt>
+      <dd>Built and fine-tuned latent diffusion models (U-Net backbone, VAE encoder/decoder, CLIP-conditioned cross-attention) and GANs on AWS for automated image generation, with custom training loops and domain-specific loss functions.</dd>
+      <dt>Production</dt>
+      <dd>Deployed generative models to production behind web and mobile applications, including inference optimisation and API integration with backend and frontend teams.</dd>
+    </dl>
+  </div>
 
-    <div class="award">
-        <div class="award-header">
-            <span class="award-name">Processing Foundation Fellowship</span>
-            <span class="award-date">June 2024</span>
-        </div>
-        <div class="award-desc">Screen-to-Soundscape: an open-source framework reimagining screen readers as immersive soundscapes.</div>
+  <div class="foot-note">
+    <span>Ahnjili ZhuParris, PhD</span>
+    <span>Page 1 of 2</span>
+  </div>
+
+</section>
+
+<!-- ============ PAGE 2 ============ -->
+<section class="sheet">
+
+  <div class="list-head" style="margin-top: 0;">Work Experience (continued)</div>
+
+  <div class="job">
+    <div class="job-head">
+      <div>
+        <h3>Lead Data Scientist</h3>
+        <span class="org">Centre for Human Drug Research</span>
+      </div>
+      <div class="dates">Sep 2019 &ndash; Sep 2023</div>
     </div>
+    <dl class="rows">
+      <dt>Trial analytics</dt>
+      <dd>Led end-to-end data science for multiple clinical trials, from statistical analysis planning and study design through collection, analysis and reporting. Authored full research packages including protocols, SAPs and final study reports.</dd>
+      <dt>Digital biomarkers</dt>
+      <dd>Built classification and severity-estimation models on smartphone sensor data (text, audio, voice, location), wearables and electronic patient-reported outcomes for decentralised trial-at-home studies.</dd>
+      <dt>Reviews</dt>
+      <dd>Conducted systematic literature reviews on digital health technologies and disease classification to set research direction.</dd>
+    </dl>
+  </div>
 
-    <div class="award">
-        <div class="award-header">
-            <span class="award-name">Mozilla Creative Media Awards</span>
-            <span class="award-date">Dec 2020</span>
-        </div>
-        <div class="award-desc">Future Wake: an interactive website using AI to analyze fatal police encounter data in the U.S. and predict future incidents.</div>
+  <div class="job">
+    <div class="job-head">
+      <div>
+        <h3>Freelance AI Engineer, Data Scientist &amp; Science Communicator</h3>
+        <span class="org">Artificial Nouveau Studio</span>
+      </div>
+      <div class="dates">Jan 2018 &ndash; Present</div>
     </div>
+    <dl class="rows">
+      <dt>Software</dt>
+      <dd>Built voice-cloning pipelines (RVC, speech synthesis), GAN and diffusion-based image generation systems, real-time browser-based computer vision tools (face detection, object tracking) and deepfake detection algorithms.</dd>
+      <dt>Audio &amp; voice AI</dt>
+      <dd>Built multimodal systems including a framework that generates spatial audio from visual content (TTS, spatial positioning, real-time analysis) and real-time voice cloning driven by machine-listening algorithms. Exhibited at Ars Electronica and IMPAKT. Funded by the Processing Foundation and the Stimuleringsfonds.</dd>
+      <dt>Survey analytics</dt>
+      <dd>Built citizen-science mobile applications for Quantified Citizen and analysed large-scale Global Drug Survey data on drug use patterns and pharmacological effects.</dd>
+      <dt>Teaching</dt>
+      <dd>Designed and delivered workshops on generative AI, computer vision and machine learning at universities across Europe, including HKU, ArtEZ, UAL and the Piet Zwart Institute. Panelist and juror on machine-learning ethics.</dd>
+    </dl>
+  </div>
 
-    <h2>Selected Publications</h2>
 
-    <div class="publication">
-        <strong>Doctorate Thesis:</strong> Zhuparris, A. (2024). Development of machine learning-derived mHealth composite biomarkers for trial@home clinical trials.
+  <div class="list-head">Awards &amp; Fellowships</div>
+  <ul class="entries">
+    <li><span class="e-yr">2025&ndash;2026</span><span><span class="e-t">Public AI Creative Fellowship</span><span class="e-loc">MetaGov · USA</span><span class="e-note">Creative technologist fellow building narratives and tools around public AI governance.</span></span></li>
+    <li><span class="e-yr">2024</span><span><span class="e-t">Processing Foundation Fellowship</span><span class="e-loc">Processing Foundation · USA</span><span class="e-note">Screen-to-Soundscape, an open-source framework reimagining screen readers as immersive soundscapes.</span></span></li>
+    <li><span class="e-yr">2024</span><span><span class="e-t">Digital Culture &amp; Fresh Perspective</span><span class="e-loc">Stimuleringsfonds Creatieve Industrie · NL</span></span></li>
+    <li><span class="e-yr">2020</span><span><span class="e-t">Mozilla Creative Media Award</span><span class="e-loc">Mozilla Foundation · USA</span><span class="e-note">Future Wake, using AI on fatal police encounter data in the US to predict future incidents.</span></span></li>
+  </ul>
+
+  <div class="list-head">Selected Publications</div>
+  <ul class="pubs">
+    <li><span class="p-yr">2024</span><span>ZhuParris, A. <em>Development of machine learning-derived mHealth composite biomarkers for trial@home clinical trials.</em> PhD thesis, Leiden University.</span></li>
+    <li><span class="p-yr">2024</span><span>Wevers, R. Embodying data, shifting perspective: a conversation with Ahnjili ZhuParris on Future Wake. In: <em>Doing Digital Migration Studies</em>, Amsterdam University Press.</span></li>
+    <li><span class="p-yr">2023</span><span>ZhuParris, A. et al. A smartphone- and wearable-based biomarker for the estimation of unipolar depression severity. <em>Scientific Reports</em>.</span></li>
+    <li><span class="p-yr">2023</span><span>ZhuParris, A. et al. Treatment detection and MDS-UPDRS Part III estimation using finger tapping tasks. <em>Movement Disorders</em>.</span></li>
+    <li><span class="p-yr">2023</span><span>ZhuParris, A. et al. Machine learning techniques for developing remotely monitored central nervous system biomarkers using wearable sensors: a narrative literature review. <em>Sensors</em> 23, 5243.</span></li>
+  </ul>
+
+  <div class="list-head">Referees</div>
+  <div class="refs">
+    <div class="ref">
+      <strong>Prof. Dr. Wessel Kraaij</strong>
+      <span>Leiden University (LIACS)</span>
+      <span class="mail">w.kraaij@liacs.leidenuniv.nl</span>
     </div>
-
-    <div class="publication">
-        Zhuparris et al., Machine Learning Techniques for Developing Remotely Monitored Central Nervous System Biomarkers Using Wearable Sensors: A Narrative Literature Review. Sensors 2023, 23, 5243.
+    <div class="ref">
+      <strong>Dr. Robert-Jan Doll</strong>
+      <span>Centre for Human Drug Research</span>
+      <span class="mail">rjdoll@chdr.nl</span>
     </div>
-
-    <h2>References</h2>
-
-    <div class="references">
-        <div class="ref">
-            <div class="ref-name">Prof. Dr. Wessel Kraaij</div>
-            <div class="ref-affil">Leiden Institute for Advanced Computer Science</div>
-            <div class="ref-email"><a href="mailto:w.kraaij@liacs.leidenuniv.nl">w.kraaij@liacs.leidenuniv.nl</a></div>
-        </div>
-        <div class="ref">
-            <div class="ref-name">Dr. Robert-Jan Doll</div>
-            <div class="ref-affil">Centre for Human Drug Research (CHDR)</div>
-            <div class="ref-email"><a href="mailto:rjdoll@chdr.nl">rjdoll@chdr.nl</a></div>
-        </div>
-        <div class="ref">
-            <div class="ref-name">Prof. Dr. Adam Winstock</div>
-            <div class="ref-affil">Global Drug Survey, UK</div>
-            <div class="ref-email"><a href="mailto:adam@globaldrugsurvey.com">adam@globaldrugsurvey.com</a></div>
-        </div>
+    <div class="ref">
+      <strong>Prof. Dr. Adam Winstock</strong>
+      <span>Global Drug Survey, United Kingdom</span>
+      <span class="mail">adam@globaldrugsurvey.com</span>
     </div>
+  </div>
+
+  <div class="foot-note">
+    <span>Full publication list · artificialnouveau.com/publications</span>
+    <span>Page 2 of 2</span>
+  </div>
+
+</section>
+
+</div>
 </body>
 </html>
