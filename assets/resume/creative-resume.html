@@ -50,7 +50,7 @@ html, body {
   width: 210mm;
   height: 297mm;
   margin: 0 auto;
-  padding: 13mm 15mm 16mm;
+  padding: 13mm 15mm 14mm;
   background: var(--paper);
   overflow: hidden;
   display: flex;
@@ -62,7 +62,7 @@ html, body {
   background-size: 7px 7px, 11px 11px;
 }
 
-/* ---------- Head / foot ---------- */
+/* ---------- Sheet head ---------- */
 .sheet-head {
   display: flex;
   justify-content: space-between;
@@ -75,23 +75,6 @@ html, body {
   padding-bottom: 3mm;
   border-bottom: 1px solid var(--ink);
   flex: none;
-}
-
-.sheet-foot {
-  position: absolute;
-  left: 15mm;
-  right: 15mm;
-  bottom: 8mm;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-family: var(--mono);
-  font-size: 6.5pt;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  padding-top: 2.5mm;
-  border-top: 1px solid var(--ink);
 }
 
 /* ---------- Masthead ---------- */
@@ -285,14 +268,13 @@ html, body {
 <section class="sheet">
 
   <div class="sheet-head">
-    <span>Ahnjili ZhuParris, PhD</span>
     <span>Creative CV</span>
     <span>Artificial Nouveau Studio</span>
   </div>
 
   <div class="masthead">
     <div>
-      <h1>Ahnjili<br>ZhuParris</h1>
+      <h1>Ahnjili<br>ZhuParris, PhD</h1>
       <p class="role">Computational artist · AI engineer · Media researcher</p>
     </div>
     <div class="contact">
@@ -440,11 +422,6 @@ html, body {
   <div class="coda">
     <span class="coda-label">Publication</span>
     <p>Wevers, R. (2024) Embodying Data, Shifting Perspective: a conversation with Ahnjili Zhuparris on Future Wake. In: <em>Doing Digital Migration Studies</em>, Amsterdam University Press.</p>
-  </div>
-
-  <div class="sheet-foot">
-    <span>Artificial Nouveau · Ahnjili ZhuParris, PhD</span>
-    <span>artificialnouveau.com</span>
   </div>
 
 </section>
