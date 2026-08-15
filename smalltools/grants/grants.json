@@ -30392,6 +30392,49 @@
       ],
       "fee": false,
       "featured": false
+    },
+    {
+      "id": "normsy-social-media-measurement-methods-incubator-2026",
+      "title": "Normsy: Social Media Measurement Methods Incubator RFP",
+      "organization": "Normsy (a project of Civic Health Project)",
+      "location": "Remote. Open to individuals and teams from academic, academic-adjacent and industry backgrounds; no stated country restriction. Research context is X/Twitter (proposals may be multi-platform but must include X).",
+      "region": "Worldwide",
+      "amount": "USD 1,000 awarded to each of the top 5 proposals, plus up to USD 20,000 to fund R&D and/or testing with one selected partner individual or team. Preference for budgets where at least 50 percent goes to research costs (survey respondents, LLM or X API credits). No application fee.",
+      "duration": "Proposals must set out concrete deliverables within 6 months of starting; the partnership is framed as the start of a potentially longer-term collaboration",
+      "startDate": null,
+      "deadline": "2026-09-15",
+      "addedDate": "2026-08-15",
+      "feedDate": "2026-08-19",
+      "category": "research",
+      "categories": [
+        "research",
+        "ai",
+        "tech"
+      ],
+      "applicant": "both",
+      "description": "Normsy, a project of Civic Health Project, runs a small methods incubator for new strategies to measure or estimate the impact of prosocial social-media interventions. Normsy identifies toxic posts (typically content attacking or violating civic norms) and offers real users a set of AI-generated prosocial comments to choose from and post; the open question is how to estimate the effect of those comments on content producers, other commenters and bystanders who consume content without interacting measurably. The current approach combines survey experiments (how active X users respond emotionally to threads with and without the intervention, and how it shifts agreement with and support for the original post) with paid X API platform data (classifying comments before and after an intervention, plus coarse engagement metrics that cost money each time they are recollected). WHAT THEY WANT: a systematic way to leverage available platform data and maximise the utility of the survey experiments. Example proposals include a strategy for measuring toxicity/prosociality and reach/visibility of a thread over time with a randomisation design generating a control group of threads, or an approach to benchmarking the prosocial potential of AI-generated comments through an iterative arena with human judges or a theory-backed LLM validation approach with human validation. The brief is explicit that methodological innovation, causal identification, scalable measurement frameworks and novel observational approaches matter far more than proposing new intervention types; proposals need not study Normsy exclusively but must explain how the evaluation design transfers to it. Ethics and IRB considerations are central and Normsy will collaborate with selected researchers on ethics review and implementation planning. Researchers retain publication independence and IP; the partnership is expected to produce data for an academic paper. SUBMIT: one zipped folder through the linked Google Form containing a 3-page proposal (design, work already done, work still needed to scale and implement), a budget document for the USD 20,000, a timeline with concrete deliverables inside 6 months, and short bios for all team members. Award notifications mid-October 2026. Questions to kylan@civichealthproject.org; informal and exploratory conversations welcome.",
+      "url": "https://normsy.ai/labs/openrfp",
+      "tags": [
+        "research",
+        "worldwide",
+        "remote",
+        "computational-social-science",
+        "social-media",
+        "measurement",
+        "methodology",
+        "causal-inference",
+        "online-experiments",
+        "survey-experiments",
+        "ai",
+        "llm",
+        "content-moderation",
+        "civic-tech",
+        "open-call",
+        "rfp",
+        "no-fee"
+      ],
+      "fee": false,
+      "featured": false
     }
   ]
 }
