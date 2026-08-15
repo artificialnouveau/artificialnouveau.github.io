@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:iac-bc-ai-builders-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260821
 DTEND;VALUE=DATE:20260822
 SUMMARY:Deadline: AI Builders Fellowship 2026 (Internet Archive Canada x BC
@@ -56,7 +56,7 @@ LOCATION:Remote\, open to builders anywhere in the world. Optional in-perso
 END:VEVENT
 BEGIN:VEVENT
 UID:knowcase-sonar-cotec-open-call-2027@artificialnouveau.github.io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260907
 DTEND;VALUE=DATE:20260908
 SUMMARY:Deadline: KNOWCASE Open Call 2027: permanent digital-culture instal
@@ -108,7 +108,7 @@ LOCATION:Installation at the KNOWCASE storefront of Fundacion Cotec's headq
 END:VEVENT
 BEGIN:VEVENT
 UID:tech4dev-ai-cohort-program-3-2026@artificialnouveau.github.io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260810
 DTEND;VALUE=DATE:20260811
 SUMMARY:Deadline: Project Tech4Dev: AI Cohort Program 3.0 (NGOs building AI
@@ -161,7 +161,7 @@ LOCATION:Remote cohort programme. No geographic restriction is stated in th
 END:VEVENT
 BEGIN:VEVENT
 UID:project-liberty-co-lab-fund-round-2-2026@artificialnouveau.github.io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260729
 DTEND;VALUE=DATE:20260730
 SUMMARY:Deadline: Project Liberty: Co-Lab Fund Micro-Grants (Round 2\, 2026
@@ -207,7 +207,7 @@ LOCATION:Members of the Project Liberty coalition (Alliance). Projects led
 END:VEVENT
 BEGIN:VEVENT
 UID:project-liberty-co-lab-fund-2026@artificialnouveau.github.io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260621
 DTEND;VALUE=DATE:20260622
 SUMMARY:Deadline: Project Liberty: Co-Lab Fund Member Collaboration Grants 
@@ -256,7 +256,7 @@ LOCATION:Members of the Project Liberty coalition (Alliance). Projects led
 END:VEVENT
 BEGIN:VEVENT
 UID:interledger-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260702
 DTEND;VALUE=DATE:20260703
 SUMMARY:Deadline: Interledger Fellowship 2026
@@ -276,7 +276,7 @@ LOCATION:Remote (worldwide)
 END:VEVENT
 BEGIN:VEVENT
 UID:wikimedia-conference-fund@artificialnouveau.github.io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: Wikimedia Conference Fund
@@ -298,7 +298,7 @@ LOCATION:Worldwide (subject to legal eligibility by country)
 END:VEVENT
 BEGIN:VEVENT
 UID:wikimedia-rapid-fund@artificialnouveau.github.io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260701
 DTEND;VALUE=DATE:20260702
 SUMMARY:Deadline: Wikimedia Foundation Rapid Fund
@@ -329,7 +329,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:kennan-institute-digital-fellowship-2026-2027@artificialnouveau.github.
  io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260814
 DTEND;VALUE=DATE:20260815
 SUMMARY:Deadline: Kennan Institute Digital Fellowship 2026-2027
@@ -374,7 +374,7 @@ LOCATION:Fully virtual. No travel is funded and no travel is required.
 END:VEVENT
 BEGIN:VEVENT
 UID:wilson-center-research-fellowship-2027-2028@artificialnouveau.github.io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Deadline: Wilson Center Research Fellowship\, 2027-2028 Class
@@ -421,7 +421,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:paul-mellon-centre-digitisation-grants-autumn-2026@artificialnouveau.gi
  thub.io
-DTSTAMP:20260815T064544Z
+DTSTAMP:20260815T183952Z
 DTSTART;VALUE=DATE:20260914
 DTEND;VALUE=DATE:20260915
 SUMMARY:Deadline: Paul Mellon Centre: Digitisation Grants (Autumn 2026 roun
@@ -458,5 +458,62 @@ URL:https://www.paul-mellon-centre.ac.uk/about/news/autumn-round-of-funding
 LOCATION:London-based funder. Applications open internationally\; the resea
  rch must concern British art\, visual culture and/or architectural history
  .
+END:VEVENT
+BEGIN:VEVENT
+UID:normsy-social-media-measurement-methods-incubator-2026@artificialnouvea
+ u.github.io
+DTSTAMP:20260815T183952Z
+DTSTART;VALUE=DATE:20260915
+DTEND;VALUE=DATE:20260916
+SUMMARY:Deadline: Normsy: Social Media Measurement Methods Incubator RFP
+DESCRIPTION:Normsy\, a project of Civic Health Project\, runs a small metho
+ ds incubator for new strategies to measure or estimate the impact of proso
+ cial social-media interventions. Normsy identifies toxic posts (typically 
+ content attacking or violating civic norms) and offers real users a set of
+  AI-generated prosocial comments to choose from and post\; the open questi
+ on is how to estimate the effect of those comments on content producers\, 
+ other commenters and bystanders who consume content without interacting me
+ asurably. The current approach combines survey experiments (how active X u
+ sers respond emotionally to threads with and without the intervention\, an
+ d how it shifts agreement with and support for the original post) with pai
+ d X API platform data (classifying comments before and after an interventi
+ on\, plus coarse engagement metrics that cost money each time they are rec
+ ollected). WHAT THEY WANT: a systematic way to leverage available platform
+  data and maximise the utility of the survey experiments. Example proposal
+ s include a strategy for measuring toxicity/prosociality and reach/visibil
+ ity of a thread over time with a randomisation design generating a control
+  group of threads\, or an approach to benchmarking the prosocial potential
+  of AI-generated comments through an iterative arena with human judges or 
+ a theory-backed LLM validation approach with human validation. The brief i
+ s explicit that methodological innovation\, causal identification\, scalab
+ le measurement frameworks and novel observational approaches matter far mo
+ re than proposing new intervention types\; proposals need not study Normsy
+  exclusively but must explain how the evaluation design transfers to it. E
+ thics and IRB considerations are central and Normsy will collaborate with 
+ selected researchers on ethics review and implementation planning. Researc
+ hers retain publication independence and IP\; the partnership is expected 
+ to produce data for an academic paper. SUBMIT: one zipped folder through t
+ he linked Google Form containing a 3-page proposal (design\, work already 
+ done\, work still needed to scale and implement)\, a budget document for t
+ he USD 20\,000\, a timeline with concrete deliverables inside 6 months\, a
+ nd short bios for all team members. Award notifications mid-October 2026. 
+ Questions to kylan@civichealthproject.org\; informal and exploratory conve
+ rsations welcome.\n\nOrganisation: Normsy (a project of Civic Health Proje
+ ct)\nLocation: Remote. Open to individuals and teams from academic\, acade
+ mic-adjacent and industry backgrounds\; no stated country restriction. Res
+ earch context is X/Twitter (proposals may be multi-platform but must inclu
+ de X).\nAward: USD 1\,000 awarded to each of the top 5 proposals\, plus up
+  to USD 20\,000 to fund R&D and/or testing with one selected partner indiv
+ idual or team. Preference for budgets where at least 50 percent goes to re
+ search costs (survey respondents\, LLM or X API credits). No application f
+ ee.\nDuration: Proposals must set out concrete deliverables within 6 month
+ s of starting\; the partnership is framed as the start of a potentially lo
+ nger-term collaboration\n\nMore: https://normsy.ai/labs/openrfp?utm_source
+ =artificialnouveaugrantdesk&utm_medium=referral
+URL:https://normsy.ai/labs/openrfp?utm_source=artificialnouveaugrantdesk&ut
+ m_medium=referral
+LOCATION:Remote. Open to individuals and teams from academic\, academic-adj
+ acent and industry backgrounds\; no stated country restriction. Research c
+ ontext is X/Twitter (proposals may be multi-platform but must include X).
 END:VEVENT
 END:VCALENDAR
