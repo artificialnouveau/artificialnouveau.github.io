@@ -46,6 +46,7 @@ category: "Installation"
 }
 .fpd-sticker strong { display: block; font-size: 0.98rem; line-height: 1.35; margin: 0.45rem 0 0.6rem; }
 .fpd-sticker .s-cta {
+  display: block;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.6rem;
   letter-spacing: 0.14em;
@@ -153,7 +154,7 @@ After exhibiting this work for the first time, I came across a BBC report that I
 </div>
 
 <div class="fpd-sticker-wrap">
-  <a class="fpd-sticker" href="mailto:artificialnouveau@gmail.com?subject=Fashion%20Police%20Drones%20booking">
+  <a class="fpd-sticker" href="/talks/#contact">
     <span class="s-top">Available for booking</span>
     <strong>Bring the Fashion Police Drones to a venue near you</strong>
     <span class="s-cta">Get in touch</span>
