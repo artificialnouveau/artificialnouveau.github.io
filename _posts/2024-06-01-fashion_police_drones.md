@@ -30,7 +30,7 @@ category: "Installation"
   border: 2px solid var(--color-accent);
   background: rgba(192, 51, 15, 0.07);
   padding: 1rem 1.1rem 0.9rem;
-  margin: 3rem 0 2.5rem;
+  margin: 3rem auto 2.5rem;
   text-decoration: none !important;
   color: var(--color-text);
   transition: transform 0.18s ease, background 0.18s ease;
@@ -79,7 +79,7 @@ category: "Installation"
 /* TRY ME, at the foot of the page */
 .fpd-tryme {
   max-width: 44rem;
-  margin: 3rem 0 0;
+  margin: 3rem auto 0;
   padding: 1.75rem;
   background: rgba(20, 16, 12, 0.03);
   border: 1px solid rgba(20, 16, 12, 0.2);
