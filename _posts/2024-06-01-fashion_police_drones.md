@@ -6,12 +6,11 @@ category: "Installation"
 ---
 
 <style>
-.fpd-layout { display: flex; gap: 2rem; align-items: flex-start; }
-.fpd-content { flex: 1; min-width: 0; }
-.fpd-sidebar { flex: 0 0 380px; position: sticky; top: 2rem; }
+/* Single column: everything runs down the full width of the page. */
+.fpd-layout { display: block; }
 
 /* The three infraction categories, self-hosted so no player branding shows */
-.fpd-videos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
+.fpd-videos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin: 2.5rem 0; }
 .fpd-videos figure { margin: 0; }
 .project-content .fpd-videos img {
   width: 100%;
@@ -26,11 +25,12 @@ category: "Installation"
 /* Booking sticker */
 .fpd-sticker {
   display: block;
+  max-width: 30rem;
   transform: rotate(-2.5deg);
   border: 2px solid var(--color-accent);
   background: rgba(192, 51, 15, 0.07);
   padding: 1rem 1.1rem 0.9rem;
-  margin: 0 0 1.75rem;
+  margin: 3rem 0 2.5rem;
   text-decoration: none !important;
   color: var(--color-text);
   transition: transform 0.18s ease, background 0.18s ease;
@@ -54,17 +54,17 @@ category: "Installation"
 }
 .fpd-sticker .s-cta::after { content: ' \2192'; }
 
-/* Verdict panel from the drone feed, portrait */
-.fpd-panel { max-width: 320px; margin: 2rem 0; }
-.fpd-sidebar .fpd-panel { max-width: none; margin: 1.25rem 0 0; }
+/* Verdict panel from the drone feed, portrait, near the top of the page */
+.fpd-panel { max-width: 400px; margin: 2.5rem auto; }
 .project-content .fpd-panel video { width: 100%; max-width: none; display: block; margin: 0; border: none; }
 
 /* Documentation and illustrations, as a grid rather than a stack */
-.fpd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 2rem 0; align-items: start; }
+.fpd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.25rem; margin: 2.5rem 0; align-items: start; }
 .fpd-grid figure { margin: 0; }
 .project-content .fpd-grid img { width: 100%; height: auto; margin: 0; border: none; display: block; }
 /* uniform tiles so the rows line up: illustrations are shown whole, photos are cropped */
 .project-content .fpd-grid.art img { aspect-ratio: 3 / 4; object-fit: contain; background: rgba(20, 16, 12, 0.04); }
+.fpd-panel figcaption,
 .fpd-videos figcaption,
 .fpd-grid figcaption {
   font-family: 'JetBrains Mono', monospace;
@@ -76,10 +76,21 @@ category: "Installation"
   text-align: left;
 }
 
-@media (max-width: 900px) {
-  .fpd-layout { flex-direction: column; }
-  .fpd-sidebar { flex: none; width: 100%; position: static; }
+/* TRY ME, at the foot of the page */
+.fpd-tryme {
+  max-width: 44rem;
+  margin: 3rem 0 0;
+  padding: 1.75rem;
+  background: rgba(20, 16, 12, 0.03);
+  border: 1px solid rgba(20, 16, 12, 0.2);
+}
+.fpd-tryme h3 { text-align: center; font-size: 1.15rem; margin-top: 0; }
+.fpd-suspects { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
+
+@media (max-width: 700px) {
   .fpd-videos { grid-template-columns: 1fr; max-width: 320px; }
+  .fpd-suspects { grid-template-columns: repeat(3, 1fr); }
+  .fpd-tryme { padding: 1.25rem; }
 }
 </style>
 
@@ -87,6 +98,11 @@ category: "Installation"
 <div class="fpd-content" markdown="1">
 
 Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. As these drones patrol the gallery, they actively scan for and monitor attendees whose attire matches the audience-defined standards of fashion faux pas, ranging from light-hearted to culturally contentious. This setup provides a unique opportunity for participants to engage directly with the technology, experiencing the implications of surveillance and societal judgment firsthand. The installation not only highlights the whimsical aspects of fashion norms but also prompts serious reflection on the societal and cultural impacts of fashion choices, mirroring real-world issues of discrimination and privacy.
+
+<figure class="fpd-panel">
+  <video src="/assets/portfolio/fpd/prada-panel.mp4" poster="/assets/portfolio/print/fpd-panel.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  <figcaption>A verdict panel from the drone feed: the outfit is itemised garment by garment, then sentenced.</figcaption>
+</figure>
 
 - **Corporate fashion crimes**, targeting fast fashion giants like Zara and H&M for their environmental and labor abuses;
 
@@ -136,18 +152,17 @@ After exhibiting this work for the first time, I came across a BBC report that I
   </figure>
 </div>
 
-</div><!-- end fpd-content -->
+<div class="fpd-sticker-wrap">
+  <a class="fpd-sticker" href="mailto:artificialnouveau@gmail.com?subject=Fashion%20Police%20Drones%20booking">
+    <span class="s-top">Available for booking</span>
+    <strong>Bring the Fashion Police Drones to a venue near you</strong>
+    <span class="s-cta">Get in touch</span>
+  </a>
+</div>
 
-<div class="fpd-sidebar">
-<a class="fpd-sticker" href="mailto:artificialnouveau@gmail.com?subject=Fashion%20Police%20Drones%20booking">
-  <span class="s-top">Available for booking</span>
-  <strong>Bring the Fashion Police Drones to a venue near you</strong>
-  <span class="s-cta">Get in touch</span>
-</a>
+<div id="try-me-section" class="fpd-tryme">
 
-<div id="try-me-section" style="padding: 1.5rem; background: rgba(20, 16, 12, 0.03); border: 1px solid rgba(20, 16, 12, 0.2);">
-
-<h3 style="text-align:center; font-size: 1.1rem; margin-top:0;">TRY ME: Are You a Fashion Criminal?</h3>
+<h3>TRY ME: Are You a Fashion Criminal?</h3>
 
 <p style="text-align:center; color: #b8a8d8; font-size: 0.75rem;">Upload a photo of yourself (make sure your face is visible — it's important for the scan).<br><span style="font-size: 0.65rem; opacity: 0.7;">Don't worry — your images won't be saved or held as evidence.</span></p>
 
@@ -174,7 +189,7 @@ After exhibiting this work for the first time, I came across a BBC report that I
     <!-- Face comparison grid -->
     <div id="comparison-grid" style="margin-top: 1rem;">
       <p style="font-size: 0.6rem; color: #b8a8d8; text-transform: uppercase; letter-spacing:0.1em; margin-bottom: 0.75rem; text-align:center;">Cross-referencing against known fashion criminals...</p>
-      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:0.5rem;">
+      <div class="fpd-suspects">
         <div style="text-align:center;">
           <img src="/fashionpolluters/shein.jpeg" style="width:100%; aspect-ratio:1; object-fit:cover; border:2px solid var(--color-accent); filter: contrast(1.2);">
           <div style="font-size:0.55rem; color:var(--color-accent); margin-top:0.2rem;">SHEIN</div>
@@ -247,11 +262,7 @@ After exhibiting this work for the first time, I came across a BBC report that I
 
 </div><!-- end try-me-section -->
 
-<figure class="fpd-panel">
-  <video src="/assets/portfolio/fpd/prada-panel.mp4" poster="/assets/portfolio/print/fpd-panel.jpg" autoplay muted loop playsinline preload="metadata"></video>
-  <figcaption>A verdict panel from the drone feed: the outfit is itemised garment by garment, then sentenced.</figcaption>
-</figure>
-</div><!-- end fpd-sidebar -->
+</div><!-- end fpd-content -->
 </div><!-- end fpd-layout -->
 
 <script>
