@@ -1,10 +1,10 @@
 ---
 title: "Future Wake"
 thumbnail: /assets/portfolio/deepfake1.jpg
-excerpt: "An interactive AI installation scrutinizing predictive policing, generating simulated avatars of potential future victims of police brutality. Mozilla 2021 Creative Media Award winner."
+excerpt: "An interactive website that forecasts police brutality instead of crime, returning each prediction as a simulated avatar of a composite victim. Mozilla 2021 Creative Media Award winner."
 category: "Installation"
 ---
-"Future Wake" ([www.futurewake.com](https://www.futurewake.com)) is an interactive website that scrutinizes the present state of predictive policing with a specific focus on forecasting police brutality. Awarded the Mozilla 2021 Creative Media Award, the project leverages Artificial Intelligence to scrutinize data regarding fatal police encounters in the U.S., aiming to foresee future incidents. It generates computer-simulated avatars that represent composite victims, narrating each of their stories. By presenting potential future victims to its audience, "Future Wake" provokes critical thought about the efficacy and ethics of predictive policing. It challenges viewers to ponder the true meaning of societal safety, how it is defined, and importantly, who is marginalized or overlooked within these systems.
+"Future Wake" ([www.futurewake.com](https://www.futurewake.com)) is an interactive website about predictive policing, focused on forecasting police brutality. It uses data on fatal police encounters in the U.S. to predict future incidents, and returns each one as a computer-simulated avatar of a composite victim who narrates their own story. Predicting victims instead of criminals puts the question back the other way: what these systems call safety, and who they leave out. The project won the Mozilla 2021 Creative Media Award.
 
 <style>
 /* The avatars are cut out with an alpha channel, so they sit straight on the
@@ -158,7 +158,7 @@ Enter your zip code and demographics below. The system will estimate your likeli
 
   <!-- Data credit -->
   <div style="margin-top:2rem; padding:1rem; border:1px solid rgba(20, 16, 12, 0.15); background:rgba(0,0,0,0.3);">
-    <p style="font-size:0.7rem; color:#b8a8d8; margin:0;">This prediction is based on data from <a href="https://mappingpoliceviolence.org/" target="_blank" style="color:var(--color-accent-cyan);">Mapping Police Violence</a> covering <strong style="color:var(--color-accent-cyan);">January 1, 2013</strong> to <strong style="color:var(--color-accent-cyan);">September 9, 2025</strong> — a total of <strong style="color:var(--color-accent);">15,419</strong> documented fatal police encounters in the United States.</p>
+    <p style="font-size:0.7rem; color:#b8a8d8; margin:0;">This prediction is based on data from <a href="https://mappingpoliceviolence.org/" target="_blank" style="color:var(--color-accent-cyan);">Mapping Police Violence</a> covering <strong style="color:var(--color-accent-cyan);">January 1, 2013</strong> to <strong style="color:var(--color-accent-cyan);">September 9, 2025</strong>, a total of <strong style="color:var(--color-accent);">15,419</strong> documented fatal police encounters in the United States.</p>
     <p style="font-size:0.6rem; color:#b8a8d8; margin-top:0.5rem; opacity:0.7;">Risk estimates are statistical projections based on historical data aggregated by demographic group and geography. They do not predict individual outcomes. This tool is intended to illustrate systemic patterns in policing, not to assess personal danger.</p>
   </div>
 
@@ -276,7 +276,7 @@ Enter your zip code and demographics below. The system will estimate your likeli
     log('Loading Mapping Police Violence dataset...', '#b8a8d8');
     await delay(600);
     log('Dataset: ' + stats.total.toLocaleString() + ' fatal police encounters', '#b8a8d8');
-    log('Period: January 1, 2013 — September 9, 2025', '#b8a8d8');
+    log('Period: January 1, 2013 to September 9, 2025', '#b8a8d8');
     await delay(500);
 
     log('', '#000');
@@ -288,13 +288,13 @@ Enter your zip code and demographics below. The system will estimate your likeli
     var genderRate = stats.gender_rates[gender] || 0;
     var ageRate = stats.age_rates[ageBracket] || 0;
 
-    log('State: ' + state + ' — ' + stateRate.toFixed(2) + ' per million per year', '#b8a8d8');
+    log('State: ' + state + ': ' + stateRate.toFixed(2) + ' per million per year', '#b8a8d8');
     await delay(300);
-    log('Race: ' + race + ' — ' + raceRate.toFixed(2) + ' per million per year', '#b8a8d8');
+    log('Race: ' + race + ': ' + raceRate.toFixed(2) + ' per million per year', '#b8a8d8');
     await delay(300);
-    log('Gender: ' + gender + ' — ' + genderRate.toFixed(2) + ' per million per year', '#b8a8d8');
+    log('Gender: ' + gender + ': ' + genderRate.toFixed(2) + ' per million per year', '#b8a8d8');
     await delay(300);
-    log('Age bracket: ' + ageBracket + ' — ' + ageRate.toFixed(2) + ' per million per year', '#b8a8d8');
+    log('Age bracket: ' + ageBracket + ': ' + ageRate.toFixed(2) + ' per million per year', '#b8a8d8');
     await delay(400);
 
     // Check zip code
@@ -372,10 +372,10 @@ Enter your zip code and demographics below. The system will estimate your likeli
     var bd = document.getElementById('fw-breakdown');
     bd.innerHTML = '<h4 style="color:var(--color-accent-cyan); font-size:0.8rem; margin-top:0; margin-bottom:0.75rem;">Risk Factor Breakdown</h4>' +
       '<div style="font-size:0.7rem; color:#b8a8d8; line-height:2;">' +
-      '<div><span style="color:var(--color-accent-cyan);">State (' + state + '):</span> ' + stateRate.toFixed(2) + ' per million/yr — <span style="color:' + (stateMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + stateMultiplier.toFixed(2) + 'x national avg</span></div>' +
-      '<div><span style="color:var(--color-accent-cyan);">Race (' + race + '):</span> ' + raceRate.toFixed(2) + ' per million/yr — <span style="color:' + (raceMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + raceMultiplier.toFixed(2) + 'x national avg</span></div>' +
-      '<div><span style="color:var(--color-accent-cyan);">Gender (' + gender + '):</span> ' + genderRate.toFixed(2) + ' per million/yr — <span style="color:' + (genderMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + genderMultiplier.toFixed(2) + 'x national avg</span></div>' +
-      '<div><span style="color:var(--color-accent-cyan);">Age (' + ageBracket + '):</span> ' + ageRate.toFixed(2) + ' per million/yr — <span style="color:' + (ageMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + ageMultiplier.toFixed(2) + 'x national avg</span></div>' +
+      '<div><span style="color:var(--color-accent-cyan);">State (' + state + '):</span> ' + stateRate.toFixed(2) + ' per million/yr, <span style="color:' + (stateMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + stateMultiplier.toFixed(2) + 'x national avg</span></div>' +
+      '<div><span style="color:var(--color-accent-cyan);">Race (' + race + '):</span> ' + raceRate.toFixed(2) + ' per million/yr, <span style="color:' + (raceMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + raceMultiplier.toFixed(2) + 'x national avg</span></div>' +
+      '<div><span style="color:var(--color-accent-cyan);">Gender (' + gender + '):</span> ' + genderRate.toFixed(2) + ' per million/yr, <span style="color:' + (genderMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + genderMultiplier.toFixed(2) + 'x national avg</span></div>' +
+      '<div><span style="color:var(--color-accent-cyan);">Age (' + ageBracket + '):</span> ' + ageRate.toFixed(2) + ' per million/yr, <span style="color:' + (ageMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + ageMultiplier.toFixed(2) + 'x national avg</span></div>' +
       (zip && zipIncidents > 0 ? '<div><span style="color:var(--color-accent-cyan);">Zip (' + zip + '):</span> ' + zipIncidents + ' incidents recorded</div>' : '') +
       '</div>';
 
