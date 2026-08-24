@@ -17639,8 +17639,8 @@ code *, pre *, kbd *, samp * {
     <div class="filter-group" data-filter="applicant" id="filter-applicant">
       <span class="filter-label">Who can apply</span>
       <button class="chip is-active" type="button" data-value="">All</button>
-      <button class="chip" type="button" data-value="individuals">Individuals</button>
-      <button class="chip" type="button" data-value="organizations">Organizations</button>
+      <button class="chip" type="button" data-value="individuals" title="Individual artists, plus collectives, duos and unincorporated groups applying under their own names">Individuals or collectives</button>
+      <button class="chip" type="button" data-value="organizations" title="Registered legal entities only: incorporated non-profits, companies, charities, foundations, institutions">Organizations (legal entities)</button>
     </div>
     <div class="filter-group" data-filter="amount" id="filter-amount">
       <span class="filter-label">Amount</span>
@@ -20747,6 +20747,10 @@ function deadlinePill(grant, today) {
   return { text: `${formatted} (${days}d)`, cls: '' };
 }
 
+// 'individuals' covers anyone applying as themselves rather than through a registered
+// legal entity, which includes collectives, duos and other unincorporated groups.
+// 'organizations' is strictly for calls that require a registered legal entity.
+const APPLICANT_LABELS = { individuals: 'Individuals or collectives', organizations: 'Organizations (legal entities)', both: 'Both' };
 const TYPE_LABELS = { residency: 'Residency', fellowship: 'Fellowship', prize: 'Prize', grant: 'Grant', festival: 'Festivals & Conferences', job: 'Jobs', other: 'Other' };
 // Card tab labels, keyed by detectType(). Short forms of TYPE_LABELS; 'other'
 // reads as OPEN CALL because an "OTHER" tab tells the reader nothing.
@@ -22079,7 +22083,7 @@ function activeFilterSummary() {
     ['category', 'Category', v => CATEGORY_LABELS[v] || v],
     ['region', 'Region', v => REGION_LABELS[v] || v],
     ['type', 'Type', v => TYPE_LABELS[v] || v],
-    ['applicant', 'Applicant', v => v],
+    ['applicant', 'Who can apply', v => APPLICANT_LABELS[v] || v],
     ['amount', 'Award size', v => v],
     ['added', 'Added', v => ({ '48h': 'last 48h', '7d': 'this week', '30d': 'this month' }[v] || v)],
   ];
