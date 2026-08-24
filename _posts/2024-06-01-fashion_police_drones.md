@@ -98,9 +98,9 @@ category: "Installation"
 <div class="fpd-layout">
 <div class="fpd-content" markdown="1">
 
-Fashion Police Drones transforms drones into arbiters of fashion. They patrol the gallery, scan what people are wearing and announce the verdict out loud. Uncovered hair is a hijab violation, exposed shoulders are indecent exposure, a Zara label is an environmental crime, socks with sandals are socks with sandals. The charges run from the light-hearted to the culturally contentious.
+Fashion Police Drones transforms drones into arbiters of fashion. They patrol the gallery, scan what people are wearing and announce the verdict out loud. Uncovered hair is a hijab violation, an exposed belly button is indecent exposure, a Zara label is an environmental crime, socks with sandals are socks with sandals. The charges run from the light-hearted to the culturally contentious.
 
-Being scanned and sentenced in front of a room is the point: attendees feel the surveillance and the public judgment instead of reading about it. The charges are borrowed rather than invented. The hijab check works like the dress codes Iran's morality police enforce, and the indecency check is the same nudity detection that content moderation already runs on our photos. It is a joke about fashion, built with the tools used for real discrimination and real surveillance.
+Being scanned and sentenced in front of a room is the point. Attendees feel the surveillance and the public judgment instead of reading about it. The charges are borrowed rather than invented. The hijab check works like the dress codes Iran's morality police enforce, and the indecency check is the same nudity detection that content moderation already runs on our photos. It is a joke about fashion, built with the tools used for real discrimination and real surveillance.
 
 <figure class="fpd-panel">
   <video src="/assets/portfolio/fpd/prada-panel.mp4" poster="/assets/portfolio/print/fpd-panel.jpg" autoplay muted loop playsinline preload="metadata"></video>
@@ -113,7 +113,7 @@ The list of crimes changes with each exhibition. So far there have been three se
 
 - **Ahnjili's crimes**, my own pet peeves enforced with unapologetic flair. Socks with sandals is the standing offence, and the rest are just as arbitrary.
 
-- **Country-specific crimes**, where the drones emulate government-enforced dress codes: uncovered hair, a face veil under a burqa ban, cross-dressing where it is criminalised, exposed shoulders under public indecency rules. Here dress is a tool of political control.
+- **Country-specific crimes**, where the drones emulate government-enforced dress codes: uncovered hair, a face veil under a burqa ban, cross-dressing where it is criminalised, an exposed belly button under public indecency rules. Here dress is a tool of political control.
 
 <div class="fpd-videos">
   <figure>
