@@ -1,7 +1,7 @@
 ---
 title: "Fashion Police Drones"
 thumbnail: /assets/portfolio/fpd/prada-panel.gif
-excerpt: "Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform."
+excerpt: "Fashion Police Drones transforms drones into arbiters of fashion, patrolling the gallery and citing attendees for fashion faux pas from socks with sandals to hijab violations."
 category: "Installation"
 ---
 
@@ -98,18 +98,22 @@ category: "Installation"
 <div class="fpd-layout">
 <div class="fpd-content" markdown="1">
 
-Fashion Police Drones transforms drones into arbiters of fashion, inviting the audience to set the criteria for fashion norms through an interactive platform. As these drones patrol the gallery, they actively scan for and monitor attendees whose attire matches the audience-defined standards of fashion faux pas, ranging from light-hearted to culturally contentious. This setup provides a unique opportunity for participants to engage directly with the technology, experiencing the implications of surveillance and societal judgment firsthand. The installation not only highlights the whimsical aspects of fashion norms but also prompts serious reflection on the societal and cultural impacts of fashion choices, mirroring real-world issues of discrimination and privacy.
+Fashion Police Drones transforms drones into arbiters of fashion. As they patrol the gallery, they scan attendees and cite them for fashion faux pas ranging from the light-hearted to the culturally contentious: an uncovered head logged as a hijab violation, bare skin as indecent exposure, a Zara label as an environmental crime, socks worn with sandals as exactly that. The verdict arrives on the drone feed with the charge, the evidence and the sentence spelled out, so whoever is being judged watches the reasoning happen in public.
+
+This gives participants a chance to engage directly with the technology and to experience the implications of surveillance and societal judgment firsthand, from inside the system rather than at a description of it. The charges are borrowed rather than invented: the hijab check follows the logic of state-enforced dress codes of the kind Iran's morality police apply, and the indecency check runs the same nudity detection that content moderation systems already apply to our photographs. What plays as whimsy about fashion norms is running the machinery that produces real discrimination and real privacy loss.
 
 <figure class="fpd-panel">
   <video src="/assets/portfolio/fpd/prada-panel.mp4" poster="/assets/portfolio/print/fpd-panel.jpg" autoplay muted loop playsinline preload="metadata"></video>
   <figcaption>A verdict panel from the drone feed: the outfit is itemised garment by garment, then sentenced.</figcaption>
 </figure>
 
-- **Corporate fashion crimes**, targeting fast fashion giants like Zara and H&M for their environmental and labor abuses;
+Which crimes are on the books changes with every exhibition, since the charge sheet is rewritten for the venue and its audience. So far the drones have patrolled under three:
 
-- **Ahnjili's crimes**, enforcing the artist's own pet peeves with unapologetic flair;
+- **Corporate fashion crimes**, targeting fast fashion giants like Zara, H&M and Shein for their environmental and labour abuses. A visible logo, a polyester blend or a garment traced back to a known polluter is enough for a conviction, and the sentence is served by the brand rather than the wearer.
 
-- **Country-specific crimes**, where drones emulate government-enforced dress codes, spotlighting fashion as a tool of political control.
+- **Ahnjili's crimes**, a charge sheet of pet peeves enforced with unapologetic flair. Socks worn with sandals is the standing offence; the rest are as arbitrary as any dress code, which is the point.
+
+- **Country-specific crimes**, where the drones emulate government-enforced dress codes: uncovered hair, a face veil under a burqa ban, cross-dressing where it is criminalised, exposed skin under public indecency rules. Here the same detection that flags a logo flags a person, and fashion becomes an instrument of political control.
 
 <div class="fpd-videos">
   <figure>
@@ -126,11 +130,15 @@ Fashion Police Drones transforms drones into arbiters of fashion, inviting the a
   </figure>
 </div>
 
+## Previous exhibitions and press
+
 On May 31st 2024, I was invited by the Privacy Salon to present at the [CPDP conference](https://www.cpdpconferences.org/archive) in Brussels.
 
-On June 29th 2024, I will also present my Fashion Police Drones at the [New Media Art Conference (2024)](https://cicamuseum.com/new-media-art-2024/) at the CICA Museum in Korea.
+On June 29th 2024, I presented the Fashion Police Drones at the [New Media Art Conference (2024)](https://cicamuseum.com/new-media-art-2024/) at the CICA Museum in Korea.
 
 The work was also showcased at [AIAIAI.art](https://aiaiai.art/fashion-police), and in May 2024 I was interviewed by dublab about the project: [Artificial Nouveau — Fashion Police Drones](http://dublab.de/broadcasts/artificial-nouveau-fashion-police-drones-may-2024/).
+
+## Postscript
 
 After exhibiting this work for the first time, I came across a BBC report that Iran had deployed real drones to enforce its hijab law on the streets. The piece was made as satire and critique of how surveillance technology amplifies the enforcement of fashion and dress codes. Reading that report made the satire feel very thin. [BBC: Iran using drones to enforce hijab law, says rights group (2024)](https://www.bbc.com/news/articles/c0kg15jkpdeo)
 
