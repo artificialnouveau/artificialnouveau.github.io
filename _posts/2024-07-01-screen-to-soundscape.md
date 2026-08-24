@@ -4,9 +4,9 @@ thumbnail: /assets/portfolio/STS_D1.jpg
 excerpt: "An open-source tool transforming screens into immersive soundscapes for blind and visually impaired users, using computer vision for rich alt-text generation and spatial audio navigation."
 category: "Accessibility tool"
 ---
-Screen-to-Soundscape adopts an experimental approach to re-imaging screen readers, by addressing the current limitations for blind and visually impaired users. Our goal is to develop a free and open-source explorative tool that transforms a screen into an immersive soundscape, with a strong focus on providing rich, descriptive alt-text for images and maps. Using open-source computer vision algorithms, our system will analyze visual elements to generate detailed and customizable alt-text tailored to user preferences, offering a more comprehensive understanding of visual content. Additionally, the prototype will feature spatial audio, using multiple layered voices to read out the content, which ideally would enhance the users' navigation and interaction with digital content.
+Screen-to-Soundscape turns a screen into a soundscape, for blind and visually impaired users. Traditional screen readers skip images, videos and maps, and offer few voices to choose from. This tool uses open-source computer vision to write detailed alt-text for images and maps, and spatial audio with layered voices, so the position of content on the page is audible and readers can pick the voice they want.
 
-Our motivation is to provide a more intuitive and engaging navigation experience. Traditional screen readers often skip images, videos, and maps, and offer limited customization, especially in voice diversity. By incorporating spatial audio, novel computer vision algorithms, diverse voice options, and a customizable alt-text tool, our tool ensures all content is accessible and allows users to personalize their auditory experience, making digital navigation more natural and comprehensive.
+The tool is free and open source. Everything is customisable: how much detail the alt-text carries, which voice reads it, and how the layers sit in space.
 
 Screen-to-Soundscape is supported by the Constant Foundation, The Processing Foundation, and the Stimuleringsfonds.
 
@@ -109,7 +109,7 @@ Enable spatial audio, then hover over any text block below. You'll hear a tone p
       toggle.style.color = 'var(--color-accent)';
       demo.style.opacity = '1';
       demo.style.pointerEvents = 'auto';
-      status.textContent = '> SPATIAL AUDIO ACTIVE — Hover over text blocks to hear them';
+      status.textContent = '> SPATIAL AUDIO ACTIVE. Hover over text blocks to hear them';
       status.style.color = 'var(--color-accent-cyan)';
     } else {
       spatialEnabled = false;
@@ -291,7 +291,7 @@ Enable spatial audio, then hover over any text block below. You'll hear a tone p
       // Status
       var side = pos.posX < -1.5 ? 'FAR LEFT' : pos.posX < -0.5 ? 'LEFT' : pos.posX > 1.5 ? 'FAR RIGHT' : pos.posX > 0.5 ? 'RIGHT' : 'CENTER';
       var depth = pos.posZ > -3 ? 'NEAR' : pos.posZ > -5 ? 'MID' : 'FAR';
-      status.textContent = '> READING: Position [' + side + ' / ' + depth + '] — 3D: (' + pos.posX.toFixed(1) + ', 0, ' + pos.posZ.toFixed(1) + ')';
+      status.textContent = '> READING: Position [' + side + ' / ' + depth + ']. 3D: (' + pos.posX.toFixed(1) + ', 0, ' + pos.posZ.toFixed(1) + ')';
 
       // Small delay so tone is heard first
       setTimeout(function() {
@@ -312,7 +312,7 @@ Enable spatial audio, then hover over any text block below. You'll hear a tone p
       block.style.borderColor = 'rgba(20, 16, 12, 0.15)';
       block.style.boxShadow = 'none';
       block.style.background = 'rgba(0,0,0,0.3)';
-      status.textContent = '> SPATIAL AUDIO ACTIVE — Hover over text blocks to hear them';
+      status.textContent = '> SPATIAL AUDIO ACTIVE. Hover over text blocks to hear them';
     });
   });
 })();

@@ -136,7 +136,7 @@ On May 31st 2024, I was invited by the Privacy Salon to present at the [CPDP con
 
 On June 29th 2024, I presented the Fashion Police Drones at the [New Media Art Conference (2024)](https://cicamuseum.com/new-media-art-2024/) at the CICA Museum in Korea.
 
-The work was also showcased at [AIAIAI.art](https://aiaiai.art/fashion-police), and in May 2024 I was interviewed by dublab about the project: [Artificial Nouveau — Fashion Police Drones](http://dublab.de/broadcasts/artificial-nouveau-fashion-police-drones-may-2024/).
+The work was also showcased at [AIAIAI.art](https://aiaiai.art/fashion-police), and in May 2024 I was interviewed by dublab about the project: [Artificial Nouveau: Fashion Police Drones](http://dublab.de/broadcasts/artificial-nouveau-fashion-police-drones-may-2024/).
 
 ## Postscript
 
@@ -173,7 +173,7 @@ After exhibiting this work for the first time, I came across a BBC report that I
 
 <h3>TRY ME: Are You a Fashion Criminal?</h3>
 
-<p style="text-align:center; color: #b8a8d8; font-size: 0.75rem;">Upload a photo of yourself (make sure your face is visible — it's important for the scan).<br><span style="font-size: 0.65rem; opacity: 0.7;">Don't worry — your images won't be saved or held as evidence.</span></p>
+<p style="text-align:center; color: #b8a8d8; font-size: 0.75rem;">Upload a photo of yourself (make sure your face is visible, it's important for the scan).<br><span style="font-size: 0.65rem; opacity: 0.7;">Don't worry, your images won't be saved or held as evidence.</span></p>
 
 <div style="text-align:center; margin: 1rem 0;">
   <label for="suspect-upload" style="display:inline-block; background:var(--color-card-bg); border:2px solid var(--color-accent-cyan); color:var(--color-accent-cyan); font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.6rem 1rem; cursor:pointer;">[ Upload Suspect Photo ]</label>
@@ -258,12 +258,12 @@ After exhibiting this work for the first time, I came across a BBC report that I
 
       <h5 style="color: var(--color-accent-cyan); font-size: 0.75rem; margin-top: 1rem;">References</h5>
       <ul style="font-size: 0.55rem; color: #b8a8d8; line-height: 1.8; word-break: break-all; padding-left: 1.2rem;">
-        <li><a href="https://grist.org/technology/as-fast-fashion-giant-shein-embraces-ai-its-emissions-are-soaring/">Grist — As fast fashion giant Shein embraces AI, its emissions are soaring</a></li>
-        <li><a href="https://yaleclimateconnections.org/2024/09/shein-is-officially-the-biggest-polluter-in-fast-fashion-ai-is-making-things-worse/">Yale Climate Connections — Shein is officially the biggest polluter in fast fashion</a></li>
-        <li><a href="https://davidsuzuki.org/living-green/the-environmental-cost-of-fast-fashion/">David Suzuki Foundation — The environmental cost of fast fashion</a></li>
-        <li><a href="https://www.visualcapitalist.com/cp/carbon-emissions-of-the-worlds-biggest-fashion-brands/">Visual Capitalist — Carbon emissions of the world's biggest fashion brands</a></li>
-        <li><a href="https://www.sustainyourstyle.org/en/whats-wrong-with-the-fashion-industry">Sustain Your Style — What's wrong with the fashion industry</a></li>
-        <li><a href="https://news.un.org/en/story/2025/03/1161636">UN News — Fast fashion's environmental toll</a></li>
+        <li><a href="https://grist.org/technology/as-fast-fashion-giant-shein-embraces-ai-its-emissions-are-soaring/">Grist: As fast fashion giant Shein embraces AI, its emissions are soaring</a></li>
+        <li><a href="https://yaleclimateconnections.org/2024/09/shein-is-officially-the-biggest-polluter-in-fast-fashion-ai-is-making-things-worse/">Yale Climate Connections: Shein is officially the biggest polluter in fast fashion</a></li>
+        <li><a href="https://davidsuzuki.org/living-green/the-environmental-cost-of-fast-fashion/">David Suzuki Foundation: The environmental cost of fast fashion</a></li>
+        <li><a href="https://www.visualcapitalist.com/cp/carbon-emissions-of-the-worlds-biggest-fashion-brands/">Visual Capitalist: Carbon emissions of the world's biggest fashion brands</a></li>
+        <li><a href="https://www.sustainyourstyle.org/en/whats-wrong-with-the-fashion-industry">Sustain Your Style: What's wrong with the fashion industry</a></li>
+        <li><a href="https://news.un.org/en/story/2025/03/1161636">UN News: Fast fashion's environmental toll</a></li>
       </ul>
     </div>
   </div>
@@ -389,7 +389,7 @@ After exhibiting this work for the first time, I came across a BBC report that I
       log('Comparing against ' + criminal + '...', '#b8a8d8');
       await delay(600 + Math.random() * 500);
       const similarity = (Math.random() * 12 + 1).toFixed(1);
-      log('  Similarity: ' + similarity + '% — NO MATCH', 'var(--color-accent-cyan)');
+      log('  Similarity: ' + similarity + '%, NO MATCH', 'var(--color-accent-cyan)');
       await delay(300);
     }
 
@@ -397,7 +397,7 @@ After exhibiting this work for the first time, I came across a BBC report that I
     log('', '#000');
     log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'var(--color-accent-cyan)');
     log('SCAN COMPLETE', 'var(--color-accent-cyan)');
-    log('VERDICT: INNOCENT — No match found in Fashion Criminal Database', 'var(--color-accent-cyan)');
+    log('VERDICT: INNOCENT. No match found in Fashion Criminal Database', 'var(--color-accent-cyan)');
     log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'var(--color-accent-cyan)');
 
     await delay(500);

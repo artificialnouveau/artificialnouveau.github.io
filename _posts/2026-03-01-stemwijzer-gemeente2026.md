@@ -6,7 +6,7 @@ hidden_from_gallery: true
 category: "Civic tool"
 ---
 
-StemWijzer Gemeente 2026 is an interactive isometric quiz game inspired by the Dutch StemWijzer voting guide, built for the 2026 municipal elections (Gemeenteraadsverkiezingen). Instead of a standard questionnaire, players explore a stylized city — rendered in a Patrick Caulfield-inspired flat pop-art aesthetic — walking between themed zones and interacting with NPCs to answer policy statements.
+StemWijzer Gemeente 2026 is an interactive isometric quiz game inspired by the Dutch StemWijzer voting guide, built for the 2026 municipal elections (Gemeenteraadsverkiezingen). Instead of a standard questionnaire, players explore a stylized city, rendered in a Patrick Caulfield-inspired flat pop-art aesthetic, walking between themed zones and interacting with NPCs to answer policy statements.
 
 ## How It Works
 
@@ -14,7 +14,7 @@ StemWijzer Gemeente 2026 is an interactive isometric quiz game inspired by the D
 - **Walk and talk**: Use WASD or click to move through the isometric city, approach NPCs and press I or click to start answering statements
 - **30 policy statements** covering real local political topics (housing, climate, safety, economy, education, etc.)
 - **21 Rotterdam parties** with illustrative positions on each statement
-- **Party followers**: Political party mascots follow you around — if your answers diverge too much from a party's positions, they walk away
+- **Party followers**: Political party mascots follow you around. If your answers diverge too much from a party's positions, they walk away
 - **Three quiz modes**: Snel (10), Normaal (20), Volledig (30) statements
 - **Results screen**: See your match percentage with all parties, with links to their websites
 
@@ -35,4 +35,4 @@ Currently available for Rotterdam and Den Haag, with Amsterdam, Utrecht, and Ein
 
 **Try it**: [www.artificialnouveau.com/smalltools/stemwijzer_gemeente2026](https://www.artificialnouveau.com/smalltools/stemwijzer_gemeente2026/)
 
-Note: Stellingen en partijposities zijn illustratief — niet officieel StemWijzer-materiaal.
+Note: Stellingen en partijposities zijn illustratief, niet officieel StemWijzer-materiaal.
