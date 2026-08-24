@@ -168,11 +168,17 @@
             .sv-info { flex: 1; min-width: 0; }
             .sv-link {
                 color: rgba(0, 240, 255, 0.7);
+                border: 1px solid rgba(0, 240, 255, 0.3);
+                font-size: 9px;
                 text-decoration: none;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                padding: 3px 8px;
+                line-height: 1;
                 white-space: nowrap;
                 flex-shrink: 0;
             }
-            .sv-link:hover { color: #00f0ff; text-decoration: underline; }
+            .sv-link:hover { color: #00f0ff; border-color: rgba(0, 240, 255, 0.6); text-decoration: none; }
             .sv-toggle {
                 background: none;
                 border: 1px solid rgba(0, 240, 255, 0.3);
@@ -192,10 +198,12 @@
             .sv-close {
                 background: none;
                 border: none;
+                border-left: 1px solid rgba(0, 240, 255, 0.15);
                 color: rgb(74, 66, 56);
                 font-size: 14px;
                 cursor: pointer;
-                padding: 2px 4px;
+                padding: 2px 4px 2px 10px;
+                margin-left: 6px;
                 line-height: 1;
                 flex-shrink: 0;
             }
