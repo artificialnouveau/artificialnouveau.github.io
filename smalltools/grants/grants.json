@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23",
+  "lastUpdated": "2026-08-24",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
@@ -31690,6 +31690,121 @@
         "producers",
         "organizations",
         "no-fee"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "epic-megagrants-cycle-2-2026",
+      "title": "Epic MegaGrants 2026 (Cycle 2)",
+      "organization": "Epic Games",
+      "location": "Open worldwide. Epic states that if it can legally make payment to you, you are eligible.",
+      "region": "Worldwide",
+      "amount": "Typical grants range from USD 5,000 to USD 75,000, with some exceptional projects receiving up to USD 150,000. Epic states that recipients continue to own their IP and may publish it however they wish, so this is a grant rather than an investment or equity deal. Grants up to and including USD 25,000 may be paid in a single instalment; larger grants are paid across several instalments tied to continued progress. Funds are for project and team expenses such as development and hiring; hardware purchases or rentals are approved only occasionally, case by case. No application fee.",
+      "duration": "Cycle 2 of 2026 runs 29 June to 11 December 2026. Submission window 29 June to 4 September 2026 (closes 23:59 ET), review 5 September to 4 December 2026, notices 7 to 11 December 2026. Cycle 1 ran 12 January to 19 June 2026.",
+      "startDate": "2026-06-29",
+      "deadline": "2026-09-04",
+      "addedDate": "2026-08-24",
+      "feedDate": "2026-08-28",
+      "category": "game",
+      "categories": [
+        "tech",
+        "film",
+        "design"
+      ],
+      "applicant": "both",
+      "url": "https://www.unrealengine.com/megagrants",
+      "description": "Epic MegaGrants are financial grants from Epic Games for creative, noteworthy and innovative projects built in and around Unreal Engine, or projects that enhance the open source 3D graphics ecosystem. Over 2,000 grants have been awarded to date. The programme is explicitly aimed at smaller teams, solo developers and individuals as well as studios: Epic states that individuals and small teams are eligible and encouraged, and that it treats every project equally regardless of who you are. WHAT IS FUNDED: (1) INDIE GAMES, small or solo teams working in Unreal Engine, submitted past the idea and design phase with at least some working prototype, ideally with a video link; (2) UEFN EXPERIENCES, Fortnite Creative islands and interactive experiences built in Unreal Editor for Fortnite; (3) ENGINE MIGRATION, a proportion of MegaGrants is reserved for teams moving a partially developed project from another engine to Unreal; (4) FILM, TV AND LIVE EVENTS, including live-action and animated films and shows, broadcast, live and location-based events; (5) OTHER NON-GAMES VERTICALS such as architecture, automotive, manufacturing, simulation, product design, advertising and VR/AR, where more detailed project plans and prototypes are expected; (6) EDUCATION, including research, curricula and course development and university programmes, though for institutions Epic accepts submissions only from degree-granting schools and educators at such schools; (7) TOOLS AND OPEN SOURCE, creating open source tools or enhancing open source software using Unreal Engine. NON-UNREAL PROJECTS ARE ELIGIBLE if you want to move them to Unreal Engine, or if the project enhances open source 3D content creation whether or not it relates to Unreal Engine. EVALUATION rests on three things: quality and unique appeal (high-quality demos or builds, well-documented descriptions, technical ambition); community benefit (how you will give back, for example open-sourcing the project, releasing assets through a marketplace, sharing learnings, or shipping an SDK, tool or plug-in); and viability (a clear budget with major spend areas and a project plan with milestones, deliverables and timeline). NOTE ON DEADLINES: the FAQ still describes MegaGrants as an ongoing programme with no specific deadline, but the timeline published on the same page now runs in fixed cycles, and the Cycle 2 submission window closes 4 September 2026 at 23:59 ET. Treat the cycle date as the operative deadline. You may apply for more than one project, and may reapply for the same project after a decision if you have made updates. Epic is not offering sponsorships and cannot give feedback on applications. Apply at megagrants.unrealengine.com.",
+      "tags": [
+        "worldwide",
+        "unreal-engine",
+        "game-development",
+        "3d",
+        "real-time",
+        "open-source",
+        "vr",
+        "ar",
+        "animation",
+        "virtual-production",
+        "epic-games",
+        "no-fee",
+        "rolling-cycles"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "africa-no-filter-voices-for-climate-justice-2026",
+      "title": "Africa No Filter: Voices for Climate Justice 2026",
+      "organization": "Africa No Filter, in partnership with Comic Relief",
+      "location": "Applicants must be based in Mozambique, Uganda, Nigeria, Angola, Chad, the Republic of Congo, Tanzania, South Sudan, Malawi or Zambia.",
+      "region": "Africa",
+      "amount": "Grants of up to USD 4,000 (the call states a range of USD 0 to 4,000), alongside training, mentorship and content amplification. Between 15 and 20 storytellers will be supported. No application fee.",
+      "duration": "12-month programme. Applications opened 11 August 2026 and are reviewed on a rolling basis; deadline 25 September 2026 at 18:00 GMT. Screening 5 October, interviews 9 October, outcomes communicated in the first week of October and grantees announced 15 October 2026.",
+      "startDate": "2026-08-11",
+      "deadline": "2026-09-25",
+      "addedDate": "2026-08-24",
+      "feedDate": "2026-08-29",
+      "category": "writers",
+      "categories": [
+        "arts",
+        "design"
+      ],
+      "applicant": "individuals",
+      "url": "https://africanofilter.org/what-we-do/community/voices-for-climate-justice/",
+      "description": "Voices for Climate Justice supports African storytellers making work about how climate finance reaches the continent as debt rather than as grants. The framing of the call: African nations are being pushed further into debt through loans despite the continent's minimal contribution to the crisis, with many governments spending more on debt repayment than on health and climate adaptation combined. WHO IT IS FOR: journalists, content creators, podcasters, vloggers, muralists and data visualizers. WHAT YOU GET: a 12-month programme delivered with Comic Relief giving 15 to 20 storytellers training in climate justice, data storytelling and narrative framing, then mentorship and work with researchers and partners to develop accurate, research-based stories, plus content amplification and grants of up to USD 4,000. ELIGIBILITY: aged 18 or over; based in one of the ten listed countries; an active and highly engaged platform (podcast, YouTube channel, TikTok, Facebook, Instagram, publication or data visualization portfolio) running for more than a year; a combined audience of 5,000 or more followers across Instagram, TikTok, Facebook, Twitter/X and Snapchat for content creators and data visualizers, while journalists may instead demonstrate reach through publication circulation; content creators must be unsigned and not represented by an agent, though journalists may be affiliated with a publication provided the submitted work and content rights remain their own; a commitment to publishing at least four pieces on gender, debt and fossil fuels over at least six months; and individual applicants only, no organisations or agencies. Proposals must focus on the campaign's core themes of climate justice, gender, debt and fossil fuels in Africa. NOT CONSIDERED: incomplete applications, postal or email submissions, hacked material, vulgar, racist, sexist or homophobic material, work reinforcing stereotypes of Africa as poor, corrupt, diseased, conflict-ridden or lacking agency, and accounts or posts boosted by paid engagement. HOW TO APPLY: prepare a pitch deck of no more than 5 slides or a video of no more than 60 seconds connecting gender, debt and fossil fuels in Africa, then submit through the ANF application portal with links to your platforms and a short description of the audience you plan to reach. Content may be delivered in English or French. Selection weighs originality of the idea, relevance to ANF's mission of storytelling beyond stereotypes, relevance to the gender-debt-fossil fuel focus, and reach or standing on your platform or in your community. Only shortlisted candidates are notified.",
+      "tags": [
+        "africa",
+        "climate-justice",
+        "journalism",
+        "storytelling",
+        "podcast",
+        "data-visualization",
+        "mural",
+        "gender",
+        "debt",
+        "fossil-fuels",
+        "comic-relief",
+        "micro-grant",
+        "no-fee"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
+      "id": "africa-no-filter-kekere-storytellers-fund-2026",
+      "title": "Africa No Filter: Kekere Storytellers Fund 2026",
+      "organization": "Africa No Filter",
+      "location": "Africans based anywhere in Africa or the diaspora.",
+      "region": "Africa",
+      "amount": "Micro-grants of USD 500 to USD 3,000. Between 12 and 14 storytellers will be selected. No application fee.",
+      "duration": "Rolling. Applications stay open until the end of the year or until 12 to 14 storytellers have been selected, whichever comes first, so apply early rather than close to the nominal end date.",
+      "startDate": null,
+      "deadline": "2026-12-31",
+      "addedDate": "2026-08-24",
+      "feedDate": "2026-08-30",
+      "category": "writers",
+      "categories": [
+        "arts"
+      ],
+      "applicant": "individuals",
+      "url": "https://africanofilter.org/what-we-do/community/kekere-storytellers-fund/",
+      "description": "The Kekere Storytellers Fund pays micro-grants to emerging African storytellers who are already creating and publishing work that offers fresh and alternative perspectives on the continent, showing an Africa that is innovative, evolving and creative rather than defined by poverty, conflict, disease, poor leadership and corruption. Africa No Filter describes the fund as its way of getting funding, which is limited and rarely accessed by up-and-coming storytellers, to artists, journalists and content creators. PREREQUISITE: applicants must first be members of Africa No Filter's African Narrative Collective, so join that before applying. ELIGIBILITY: African, based anywhere in Africa or the diaspora; under 35; able to work in English or French; a track record of ground-breaking work that challenges stereotypical narratives about your community, country or the continent; at least two years of related work experience; a minimum of 5,000 followers across Twitter, Facebook, TikTok, Instagram and YouTube; and falling into at least one of two categories, MEDIA AND CONTENT CREATORS (journalist, blogger, vlogger, podcaster, fiction and non-fiction writer, photographer) or ARTISTS (poet, musician, spoken word poet, dancer, painter, sculptor, illustrator, animator). NOT ELIGIBLE: filmmakers, who are directed to ANF's Last Mile Film Fund instead; storytellers without evidence of narrative-shifting work; requests to buy equipment such as cameras or laptops; and requests to host or attend events such as workshops, festivals or conferences. WHAT ANF IS LOOKING FOR: an interesting, unique story about Africa that amplifies unheard voices, challenges global perspectives and introduces contemporary narratives, with a clear sense of what you want the reader or viewer to take away and the impact you want to create locally and globally.",
+      "tags": [
+        "africa",
+        "diaspora",
+        "storytelling",
+        "journalism",
+        "micro-grant",
+        "emerging-artists",
+        "under-35",
+        "illustration",
+        "animation",
+        "poetry",
+        "photography",
+        "narrative-change",
+        "no-fee",
+        "rolling"
       ],
       "fee": false,
       "featured": false
