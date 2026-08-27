@@ -358,7 +358,7 @@ def week_start(d):
     return d - timedelta(days=d.weekday())
 
 
-def build_weekly_item(monday, grants_in_week, today):
+def build_weekly_item(monday, grants_in_week, today, slug):
     """One digest <item> covering a single week's releases.
 
     The per-grant feeds emit one item per grant; at the 5/day release cap that is
@@ -406,7 +406,11 @@ def build_weekly_item(monday, grants_in_week, today):
         f"({escape(PAGE_URL)}).</p>"
     )
 
-    guid = f"{PAGE_URL}#week-{monday.isoformat()}"
+    # The guid MUST include the feed's own filename. Every weekly feed emits an
+    # item per calendar week, so a guid keyed on the week alone would collide
+    # across feeds: a reader subscribed to two weekly digests would treat two
+    # DIFFERENT roundups as the same item and silently drop one of them.
+    guid = f"{PAGE_URL}{slug}#week-{monday.isoformat()}"
     return (
         "  <item>\n"
         f"    <title>{escape(title)}</title>\n"
@@ -432,7 +436,7 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
         buckets.setdefault(week_start(release), []).append(g)
 
     weeks = sorted(buckets.keys(), reverse=True)[:MAX_WEEKS]
-    items = "".join(build_weekly_item(w, buckets[w], today) for w in weeks)
+    items = "".join(build_weekly_item(w, buckets[w], today, filename) for w in weeks)
     build_date = rfc822(datetime.now(timezone.utc))
 
     return (
