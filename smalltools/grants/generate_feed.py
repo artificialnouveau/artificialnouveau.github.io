@@ -1379,8 +1379,15 @@ def build_overlap_note(grants):
             f'<p class="overlap-axis">{escape(axis_titles[axis])}</p><ul>{items}</ul>'
         )
 
+    # The star data ships INLINE, in the same injected block as the prose. It used
+    # to be fetched from feeds-manifest.json, which meant the HTML and the JSON
+    # cached independently: a browser could hold fresh markup saying "some filters
+    # are marked *" next to a stale manifest that produced no stars at all. Same
+    # payload, same response, so they cannot disagree.
+    payload = json.dumps(rows, separators=(",", ":"))
     return (
         "<!-- BEGIN_OVERLAP_NOTE -->\n"
+        f'<script type="application/json" id="overlap-data">{payload}</script>\n'
         '<details class="overlap-note">\n'
         "<summary>Why some filters are marked *</summary>\n"
         "<p>A single grant can sit in more than one region, category or type, so two "
