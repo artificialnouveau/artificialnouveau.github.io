@@ -1521,15 +1521,11 @@ code *, pre *, kbd *, samp * {
             <fieldset class="cat-checks" id="feed-categories">
               <legend>Categories</legend>
               <div class="check-list">
-                <label><input type="checkbox" value="ai-tech"> AI, Tech, Digital Infrastructure</label>
-                <label><input type="checkbox" value="research"> Research &amp; Journalism</label>
-                <label><input type="checkbox" value="writers"> Writers</label>
-                <label><input type="checkbox" value="film-arts"> Media Arts &amp; Film</label>
-                <label><input type="checkbox" value="game"> Game Design</label>
-                <label><input type="checkbox" value="design"> Design</label>
-                <label><input type="checkbox" value="curator"> Curator</label>
-                <label><input type="checkbox" value="audio"> Audio, Sound &amp; Music</label>
+                <label><input type="checkbox" value="media-arts"> Media Arts, Film &amp; Sound</label>
+                <label><input type="checkbox" value="ai-tech-research"> AI, Tech &amp; Research</label>
                 <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
+                <label><input type="checkbox" value="design-games-curatorial"> Design, Games &amp; Curatorial</label>
+                <label><input type="checkbox" value="writers"> Writers</label>
               </div>
             </fieldset>
             <fieldset class="cat-checks" id="feed-regions">
@@ -1552,10 +1548,11 @@ code *, pre *, kbd *, samp * {
             <fieldset class="cat-checks" id="feed-types">
               <legend>Types</legend>
               <div class="check-list check-list--grid">
+                <label><input type="checkbox" value="" checked data-all="1"> All types</label>
+                <label><input type="checkbox" value="grants"> Grants</label>
                 <label><input type="checkbox" value="residencies"> Residencies</label>
                 <label><input type="checkbox" value="fellowships"> Fellowships</label>
                 <label><input type="checkbox" value="prizes"> Prizes &amp; awards</label>
-                <label><input type="checkbox" value="open-calls"> Open calls</label>
               </div>
             </fieldset>
             <label>
@@ -1585,8 +1582,8 @@ code *, pre *, kbd *, samp * {
 <p>A single grant can sit in more than one region, category or type: a Dutch call is also a European one, and a residency advertised as an open call matches both. So <strong>subscribing to two feeds can show you the same grant twice</strong>, and a count in one feed is not a count you can add to another.</p>
 <p>The biggest current overlaps, measured from the live data:</p>
 <p class="overlap-axis">Regions</p><ul><li><strong>EU</strong> and <strong>Switzerland</strong> &mdash; 35 shared</li><li><strong>EU</strong> and <strong>NL</strong> &mdash; 96 shared</li><li><strong>Remote</strong> and <strong>Worldwide</strong> &mdash; 12 shared</li><li><strong>US</strong> and <strong>Remote</strong> &mdash; 7 shared</li></ul>
-<p class="overlap-axis">Categories</p><ul><li><strong>Curator</strong> and <strong>Media Arts &amp; Film</strong> &mdash; 19 shared</li><li><strong>Design</strong> and <strong>Media Arts &amp; Film</strong> &mdash; 25 shared</li><li><strong>Research &amp; Journalism</strong> and <strong>AI, Tech &amp; Digital Infrastructure</strong> &mdash; 50 shared</li><li><strong>Audio, Sound &amp; Music</strong> and <strong>Media Arts &amp; Film</strong> &mdash; 13 shared</li></ul>
-<p class="overlap-axis">Types</p><ul><li><strong>Artist Residencies</strong> and <strong>Open Calls</strong> &mdash; 54 shared</li><li><strong>Artist Residencies</strong> and <strong>Fellowships</strong> &mdash; 30 shared</li></ul>
+<p class="overlap-axis">Categories</p><ul><li><strong>Media Arts, Film &amp; Sound</strong> and <strong>Design, Games &amp; Curatorial</strong> &mdash; 44 shared</li><li><strong>Cross-disciplinary &amp; Social Impact</strong> and <strong>Media Arts, Film &amp; Sound</strong> &mdash; 46 shared</li><li><strong>AI, Tech &amp; Research</strong> and <strong>Design, Games &amp; Curatorial</strong> &mdash; 21 shared</li><li><strong>Media Arts, Film &amp; Sound</strong> and <strong>AI, Tech &amp; Research</strong> &mdash; 61 shared</li></ul>
+<p class="overlap-axis">Types</p><ul><li><strong>Grants</strong> and <strong>Prizes and Awards</strong> &mdash; 16 shared</li><li><strong>Artist Residencies</strong> and <strong>Fellowships</strong> &mdash; 30 shared</li></ul>
 <p>Region note: NL and Switzerland grants deliberately stay inside EU as well, so those two pairs are near-total containment rather than a coincidence. UK sits outside EU, so those two barely overlap.</p>
 </details>
 <!-- END_OVERLAP_NOTE -->
@@ -1637,15 +1634,11 @@ code *, pre *, kbd *, samp * {
             <fieldset class="cat-checks" id="cal-categories">
               <legend>Categories</legend>
               <div class="check-list">
-                <label><input type="checkbox" value="ai-tech"> AI, Tech, Digital Infrastructure</label>
-                <label><input type="checkbox" value="research"> Research &amp; Journalism</label>
-                <label><input type="checkbox" value="writers"> Writers</label>
-                <label><input type="checkbox" value="film-arts"> Media Arts &amp; Film</label>
-                <label><input type="checkbox" value="game"> Game Design</label>
-                <label><input type="checkbox" value="design"> Design</label>
-                <label><input type="checkbox" value="curator"> Curator</label>
-                <label><input type="checkbox" value="audio"> Audio, Sound &amp; Music</label>
+                <label><input type="checkbox" value="media-arts"> Media Arts, Film &amp; Sound</label>
+                <label><input type="checkbox" value="ai-tech-research"> AI, Tech &amp; Research</label>
                 <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
+                <label><input type="checkbox" value="design-games-curatorial"> Design, Games &amp; Curatorial</label>
+                <label><input type="checkbox" value="writers"> Writers</label>
               </div>
             </fieldset>
             <label>
@@ -21461,8 +21454,25 @@ load();
     .catch(() => {});
 
   const ticked = (fs) => fs
-    ? Array.from(fs.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value)
+    ? Array.from(fs.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value).filter(Boolean)
     : [];
+
+  // The Types group carries an explicit "All types" box that is on by default and
+  // is mutually exclusive with the specific types: an empty type is what "all"
+  // means to the filename builder, so the two states must never both be set.
+  const allTypeBox = typeFieldset ? typeFieldset.querySelector('input[data-all]') : null;
+  const normaliseTypes = (clicked) => {
+    if (!typeFieldset || !allTypeBox) return;
+    const specific = Array.from(typeFieldset.querySelectorAll('input[type=checkbox]'))
+      .filter(c => c !== allTypeBox);
+    if (clicked === allTypeBox) {
+      if (allTypeBox.checked) specific.forEach(c => { c.checked = false; });
+      else if (!specific.some(c => c.checked)) allTypeBox.checked = true;  // never leave nothing on
+      return;
+    }
+    const anySpecific = specific.some(c => c.checked);
+    allTypeBox.checked = !anySpecific;
+  };
   const labelFor = (fs, value) => {
     if (!fs) return value;
     const el = fs.querySelector(`input[value="${value}"]`);
@@ -21499,6 +21509,7 @@ load();
     });
     timelineSel.disabled = othersActive;
 
+    if (allTypeBox) allTypeBox.checked = !ticked(typeFieldset).length;
     const cats = timelineActive ? [] : ticked(catFieldset);
     const regions = timelineActive ? [] : ticked(regionFieldset);
     const types = timelineActive ? [] : ticked(typeFieldset);
@@ -21572,7 +21583,10 @@ load();
   };
 
   [catFieldset, regionFieldset, typeFieldset].forEach((fs) => {
-    if (fs) fs.addEventListener('change', update);
+    if (fs) fs.addEventListener('change', (e) => {
+      if (fs === typeFieldset) normaliseTypes(e.target);
+      update();
+    });
   });
   timelineSel.addEventListener('change', update);
   if (cadenceSel) cadenceSel.addEventListener('change', update);

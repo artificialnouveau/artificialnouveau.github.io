@@ -72,8 +72,9 @@ CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "desi
 # file. They are syndication-only: static SEO pages stay on the canonical
 # single categories so the group slugs never become indexable duplicate pages.
 CATEGORY_GROUPS = {
-    "ai-tech": ["ai", "tech"],
-    "film-arts": ["film", "arts"],
+    "media-arts": ["film", "arts", "audio"],
+    "ai-tech-research": ["ai", "tech", "research"],
+    "design-games-curatorial": ["design", "game", "curator"],
 }
 SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
 
@@ -95,8 +96,9 @@ CATEGORY_LABELS = {
     "curator": "Curator",
     "audio": "Audio, Sound & Music",
     "cross": "Cross-disciplinary & Social Impact",
-    "ai-tech": "AI, Tech & Digital Infrastructure",
-    "film-arts": "Media Arts & Film",
+    "media-arts": "Media Arts, Film & Sound",
+    "ai-tech-research": "AI, Tech & Research",
+    "design-games-curatorial": "Design, Games & Curatorial",
 }
 
 
@@ -637,7 +639,20 @@ CATEGORY_TITLE_PHRASE = {
 # description that merely mentions a residency does not make the entry one.
 OPPORTUNITY_TYPES = ["residencies", "fellowships", "prizes", "open-calls"]
 
+# What the subscribe picker offers and what type-sliced feeds are built for.
+# Deliberately NOT the same list as OPPORTUNITY_TYPES: "grants" is a feed/picker
+# type only, and "open-calls" stays a static SEO page but is dropped from the
+# picker, because as a type it mostly restated categories people already filter.
+FEED_TYPES = ["grants", "residencies", "fellowships", "prizes"]
+
+# A "grants" type earns its place: 38% of the desk (project subsidies, funds,
+# commissions) matched none of the four original types and so was unreachable
+# from the type filter entirely. This catches ~70% of that gap; what remains is
+# mostly jobs and calls for papers, which genuinely are not any of these types.
 OPPORTUNITY_TYPE_TAGS = {
+    "grants": {"grant", "grants", "funding", "fund", "project-grant", "bursary",
+               "subsidy", "production-grant", "travel-grant", "mobility",
+               "commission", "microgrant", "micro-grant"},
     "residencies": {"residency", "residencies", "artist-in-residence"},
     "fellowships": {"fellowship", "fellowships"},
     "prizes": {"prize", "award", "competition"},
@@ -645,6 +660,7 @@ OPPORTUNITY_TYPE_TAGS = {
 }
 
 OPPORTUNITY_TYPE_TITLE_KEYS = {
+    "grants": ["grant", "fund", "bursary", "subsidy", "stipend", "support scheme", "scholarship"],
     "residencies": ["residency", "residencies", "artist in residence", "artist-in-residence"],
     "fellowships": ["fellowship"],
     "prizes": ["prize", "award"],
@@ -652,6 +668,7 @@ OPPORTUNITY_TYPE_TITLE_KEYS = {
 }
 
 OPPORTUNITY_TYPE_TITLE_PHRASE = {
+    "grants": "Grants",
     "residencies": "Artist Residencies",
     "fellowships": "Fellowships",
     "prizes": "Prizes and Awards",
@@ -659,6 +676,7 @@ OPPORTUNITY_TYPE_TITLE_PHRASE = {
 }
 
 OPPORTUNITY_TYPE_PHRASE = {
+    "grants": "grants and funds",
     "residencies": "funded artist residencies",
     "fellowships": "fellowships",
     "prizes": "prizes and awards",
@@ -1280,13 +1298,13 @@ def _overlap_rows(grants, keys, matcher, labels):
 def build_overlap_note(grants):
     region_labels = {r: r for r in REGIONS}
     cat_labels = {c: CATEGORY_LABELS.get(c, c) for c in PICKER_CATEGORIES}
-    type_labels = {t: OPPORTUNITY_TYPE_TITLE_PHRASE.get(t, t) for t in OPPORTUNITY_TYPES}
+    type_labels = {t: OPPORTUNITY_TYPE_TITLE_PHRASE.get(t, t) for t in FEED_TYPES}
 
     blocks = []
     for title, rows in (
         ("Regions", _overlap_rows(grants, REGIONS, region_matches, region_labels)),
         ("Categories", _overlap_rows(grants, PICKER_CATEGORIES, category_matches, cat_labels)),
-        ("Types", _overlap_rows(grants, OPPORTUNITY_TYPES, type_matches, type_labels)),
+        ("Types", _overlap_rows(grants, FEED_TYPES, type_matches, type_labels)),
     ):
         if not rows:
             continue
@@ -1679,7 +1697,7 @@ def main():
         if opp_type:
             typed_manifest.append(name)
 
-    type_options = [None] + OPPORTUNITY_TYPES
+    type_options = [None] + FEED_TYPES
 
     # Category x Region x Type cross-product. TIMELINE IS DELIBERATELY NOT PART
     # OF THIS CROSS: it multiplied every slice by four for the least benefit, and
