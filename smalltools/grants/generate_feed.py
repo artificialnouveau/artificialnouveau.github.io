@@ -62,6 +62,15 @@ FEED_MAX_PER_DAY = 5
 FEED_CAP_START = date(2026, 7, 14)
 
 REGIONS = ["EU", "US", "UK", "NL", "Switzerland", "Asia", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"]
+
+# Regions the RSS subscribe picker does not offer, because they sit almost
+# entirely inside EU (NL 91%, Switzerland 95%) and mostly gave subscribers the
+# same grants twice. This is a SYNDICATION decision only: the website's region
+# filter, the static SEO pages and the calendars all still carry them in full.
+# Their bare feeds stay as compatibility aliases; permutations are not built.
+FEED_REGIONS_EXCLUDED = {"NL", "Switzerland"}
+PICKER_REGIONS = [r for r in REGIONS if r not in FEED_REGIONS_EXCLUDED]
+LEGACY_BARE_REGIONS = [r for r in REGIONS if r in FEED_REGIONS_EXCLUDED]
 TIMELINES = ["30d", "90d", "added-30d"]
 CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"]
 
@@ -94,13 +103,16 @@ _GROUPED_MEMBERS = {m for ms in CATEGORY_GROUPS.values() for m in ms}
 # Categories the picker deliberately does not offer despite being ungrouped.
 # Being ungrouped is not the same as being offered; without this the derivation
 # below hands every loose single a checkbox automatically.
-#   curator - 73% of curatorial calls already surface under another category,
-#             so it earned its own checkbox mostly by duplicating them.
-PICKER_EXCLUDED = {"curator"}
+#   curator      - 73% of curatorial calls already surface under another category.
+#   design-games - 40% of it sits inside the media group; too thin to earn a row.
+# Group slugs are filtered here too, not just loose singles.
+PICKER_EXCLUDED = {"curator", "design-games"}
+_ALL_SYNDICATED = CATEGORIES + list(CATEGORY_GROUPS)
 PICKER_CATEGORIES = [
-    c for c in CATEGORIES if c not in _GROUPED_MEMBERS and c not in PICKER_EXCLUDED
-] + list(CATEGORY_GROUPS)
-LEGACY_BARE_CATEGORIES = [c for c in CATEGORIES if c not in PICKER_CATEGORIES]
+    c for c in _ALL_SYNDICATED
+    if c not in _GROUPED_MEMBERS and c not in PICKER_EXCLUDED
+]
+LEGACY_BARE_CATEGORIES = [c for c in _ALL_SYNDICATED if c not in PICKER_CATEGORIES]
 CATEGORY_LABELS = {
     "ai": "AI & Safety",
     "tech": "Tech & Infrastructure",
@@ -1324,7 +1336,7 @@ def heavy_overlap_pairs(grants):
     checkboxes involved without duplicating any of this logic client-side."""
     import itertools
     axes = [
-        ("regions", REGIONS, region_matches, {r: r for r in REGIONS}, True),
+        ("regions", PICKER_REGIONS, region_matches, {r: r for r in PICKER_REGIONS}, True),
         ("categories", PICKER_CATEGORIES, category_matches,
          {c: CATEGORY_LABELS.get(c, c) for c in PICKER_CATEGORIES}, False),
         ("types", FEED_TYPES, type_matches,
@@ -1355,13 +1367,13 @@ def heavy_overlap_pairs(grants):
 
 
 def build_overlap_note(grants):
-    region_labels = {r: r for r in REGIONS}
+    region_labels = {r: r for r in PICKER_REGIONS}
     cat_labels = {c: CATEGORY_LABELS.get(c, c) for c in PICKER_CATEGORIES}
     type_labels = {t: OPPORTUNITY_TYPE_TITLE_PHRASE.get(t, t) for t in FEED_TYPES}
 
     blocks = []
     for title, rows in (
-        ("Regions", _overlap_rows(grants, REGIONS, region_matches, region_labels)),
+        ("Regions", _overlap_rows(grants, PICKER_REGIONS, region_matches, region_labels)),
         ("Categories", _overlap_rows(grants, PICKER_CATEGORIES, category_matches, cat_labels)),
         ("Types", _overlap_rows(grants, FEED_TYPES, type_matches, type_labels)),
     ):
@@ -1718,7 +1730,7 @@ def main():
     if queued:
         print(f"RSS throttle: {queued} grant(s) held out of feeds (future release date); shown on the site immediately.")
 
-    region_options = [None] + REGIONS
+    region_options = [None] + PICKER_REGIONS
     timeline_options = [None] + TIMELINES
 
     written = []
@@ -1768,10 +1780,12 @@ def main():
             for region in region_options:
                 emit(region, None, category=category, opp_type=opp_type)
 
-    # Compatibility aliases: bare feeds for the pre-merge single categories, with
-    # no region or type permutations.
+    # Compatibility aliases: bare feeds for the pre-merge single categories and
+    # for regions the picker no longer offers, with no permutations.
     for category in LEGACY_BARE_CATEGORIES:
         emit(None, None, category=category)
+    for region in LEGACY_BARE_REGIONS:
+        emit(region, None)
 
     # Standalone timeline feeds, uncrossed.
     for timeline in TIMELINES:
