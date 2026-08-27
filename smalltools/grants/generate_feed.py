@@ -171,7 +171,7 @@ def build_item(grant, today):
     )
 
 
-def feed_filename(region, timeline, category=None):
+def feed_filename(region, timeline, category=None, weekly=False):
     parts = ["feed"]
     if category:
         parts.append("cat")
@@ -180,10 +180,12 @@ def feed_filename(region, timeline, category=None):
         parts.append(region.lower())
     if timeline:
         parts.append(timeline)
+    if weekly:
+        parts.append("weekly")
     return "-".join(parts) + ".xml"
 
 
-def feed_title_desc(region, timeline, category=None):
+def feed_title_desc(region, timeline, category=None, weekly=False):
     suffix = []
     if category:
         suffix.append(CATEGORY_LABELS.get(category, category))
@@ -195,12 +197,19 @@ def feed_title_desc(region, timeline, category=None):
         suffix.append("next 90 days")
     elif timeline == "added-30d":
         suffix.append("added in last 30 days")
+    if weekly:
+        suffix.append("weekly digest")
     if suffix:
-        return (
-            f"{TITLE} - {', '.join(suffix)}",
-            f"{DESCRIPTION} Filtered to: {', '.join(suffix)}.",
+        title = f"{TITLE} - {', '.join(suffix)}"
+        desc = f"{DESCRIPTION} Filtered to: {', '.join(suffix)}."
+    else:
+        title, desc = TITLE, DESCRIPTION
+    if weekly:
+        desc += (
+            " One entry per week rounding up everything released that week, "
+            "instead of one entry per grant."
         )
-    return TITLE, DESCRIPTION
+    return title, desc
 
 
 def region_matches(grant, region):
@@ -296,6 +305,113 @@ def build_feed(grants, region, timeline, today, category=None):
         f"  <description>{escape(desc)}</description>\n"
         "  <language>en</language>\n"
         "  <ttl>360</ttl>\n"
+        f"  <lastBuildDate>{build_date}</lastBuildDate>\n"
+        f'  <atom:link href="{escape(feed_url)}" rel="self" type="application/rss+xml"/>\n'
+        + items
+        + "</channel>\n"
+        "</rss>\n"
+    )
+
+
+# How many past weeks a digest feed carries. 26 keeps roughly six months of
+# history in a file that stays small, since each item is a whole week.
+MAX_WEEKS = 26
+
+
+def week_start(d):
+    """Monday of the ISO week containing ``d``."""
+    return d - timedelta(days=d.weekday())
+
+
+def build_weekly_item(monday, grants_in_week, today):
+    """One digest <item> covering a single week's releases.
+
+    The per-grant feeds emit one item per grant; at the 5/day release cap that is
+    ~35 items a week. This collapses the same content into a single item so a
+    subscriber gets one entry (and, via an RSS-to-email bridge, one email) a week
+    regardless of how often their reader polls.
+    """
+    sunday = monday + timedelta(days=6)
+    count = len(grants_in_week)
+    noun = "grant" if count == 1 else "grants"
+    label = monday.strftime("%d %b %Y")
+    title = f"{count} new {noun} - week of {label}"
+
+    # pubDate must not sit in the future or readers may hide the item: for the
+    # current, still-running week stamp it today rather than at Sunday.
+    stamp = sunday if sunday <= today else today
+
+    rows = []
+    for g in sorted(grants_in_week, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
+        gtitle = escape(str(g.get("title", "Untitled")))
+        gurl = escape(with_utm(g.get("url")) or PAGE_URL)
+        org = g.get("organization")
+        deadline = deadline_label(parse_date(g.get("deadline")), today)
+        bits = []
+        if org:
+            bits.append(escape(str(org)))
+        bits.append(f"deadline {escape(deadline)}")
+        amount = g.get("amount")
+        if amount:
+            short = str(amount)
+            if len(short) > 160:
+                short = short[:157].rstrip() + "..."
+            bits.append(escape(short))
+        rows.append(
+            f'<li><a href="{gurl}"><strong>{gtitle}</strong></a><br>'
+            f'{" &middot; ".join(bits)}</li>'
+        )
+
+    body = (
+        f"<p>{count} new {noun} landed on The Grant Desk in the week of "
+        f"{escape(label)} ({escape(monday.strftime('%d %b'))} to "
+        f"{escape(sunday.strftime('%d %b %Y'))}).</p>\n"
+        f"<ul>\n" + "\n".join(rows) + "\n</ul>\n"
+        f'<p>Full listing with filters: <a href="{escape(PAGE_URL)}">The Grant Desk</a> '
+        f"({escape(PAGE_URL)}).</p>"
+    )
+
+    guid = f"{PAGE_URL}#week-{monday.isoformat()}"
+    return (
+        "  <item>\n"
+        f"    <title>{escape(title)}</title>\n"
+        f"    <link>{escape(PAGE_URL)}</link>\n"
+        f'    <guid isPermaLink="false">{escape(guid)}</guid>\n'
+        f"    <pubDate>{rfc822(stamp)}</pubDate>\n"
+        f"    <description><![CDATA[{body}]]></description>\n"
+        "  </item>\n"
+    )
+
+
+def build_weekly_feed(grants, region, timeline, today, category=None):
+    """Digest twin of build_feed: same grant slice, grouped into one item per week."""
+    title, desc = feed_title_desc(region, timeline, category, weekly=True)
+    filename = feed_filename(region, timeline, category=category, weekly=True)
+    feed_url = PAGE_URL + filename
+
+    buckets = {}
+    for g in grants:
+        release = feed_release(g)
+        if not release:
+            continue
+        buckets.setdefault(week_start(release), []).append(g)
+
+    weeks = sorted(buckets.keys(), reverse=True)[:MAX_WEEKS]
+    items = "".join(build_weekly_item(w, buckets[w], today) for w in weeks)
+    build_date = rfc822(datetime.now(timezone.utc))
+
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" '
+        'xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">\n'
+        "<channel>\n"
+        f"  <title>{escape(title)}</title>\n"
+        f"  <link>{escape(PAGE_URL)}</link>\n"
+        f"  <description>{escape(desc)}</description>\n"
+        "  <language>en</language>\n"
+        "  <ttl>1440</ttl>\n"
+        "  <sy:updatePeriod>weekly</sy:updatePeriod>\n"
+        "  <sy:updateFrequency>1</sy:updateFrequency>\n"
         f"  <lastBuildDate>{build_date}</lastBuildDate>\n"
         f'  <atom:link href="{escape(feed_url)}" rel="self" type="application/rss+xml"/>\n'
         + items
@@ -1418,24 +1534,35 @@ def main():
     timeline_options = [None] + TIMELINES
 
     written = []
+    weekly_written = []
+
+    def emit(region, timeline, category=None):
+        """Write the per-grant feed and its weekly-digest twin for one slice."""
+        filtered = filter_grants(feed_grants, region, timeline, today, category=category)
+        name = feed_filename(region, timeline, category=category)
+        (HERE / name).write_text(
+            build_feed(filtered, region, timeline, today, category=category),
+            encoding="utf-8",
+        )
+        written.append((name, len(filtered)))
+
+        wname = feed_filename(region, timeline, category=category, weekly=True)
+        (HERE / wname).write_text(
+            build_weekly_feed(filtered, region, timeline, today, category=category),
+            encoding="utf-8",
+        )
+        weekly_written.append(wname)
+
     # Region x Timeline matrix (existing)
     for region in region_options:
         for timeline in timeline_options:
-            filtered = filter_grants(feed_grants, region, timeline, today)
-            feed = build_feed(filtered, region, timeline, today)
-            name = feed_filename(region, timeline)
-            (HERE / name).write_text(feed, encoding="utf-8")
-            written.append((name, len(filtered)))
+            emit(region, timeline)
 
     # Category x Region x Timeline cross-product
     for category in CATEGORIES:
         for region in region_options:
             for timeline in timeline_options:
-                filtered = filter_grants(feed_grants, region, timeline, today, category=category)
-                feed = build_feed(filtered, region, timeline, today, category=category)
-                name = feed_filename(region, timeline, category=category)
-                (HERE / name).write_text(feed, encoding="utf-8")
-                written.append((name, len(filtered)))
+                emit(region, timeline, category=category)
 
     cals_written = []
     for region in [None] + REGIONS:
@@ -1453,6 +1580,7 @@ def main():
     print(f"Wrote {len(written)} RSS feeds:")
     for name, count in written:
         print(f"  {name}: {count} items")
+    print(f"Wrote {len(weekly_written)} weekly-digest RSS feeds (one item per week).")
     print(f"Wrote {len(cals_written)} calendars: {', '.join(cals_written)}")
 
     # --- Static SEO landing pages ---
