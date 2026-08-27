@@ -414,6 +414,19 @@ body {
 .sub-note .check-list--grid label { flex: 1 1 calc(50% - 12px); min-width: 104px; }
 .sub-note .check-list label input { margin: 0; cursor: pointer; }
 .sub-note .check-list input:disabled { opacity: 0.45; }
+.sub-note .overlap-star {
+  color: var(--hot);
+  font-weight: 700;
+  margin-left: 1px;
+  cursor: help;
+}
+.sub-note .check-foot {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  line-height: 1.45;
+  color: var(--ink-mute);
+  margin: 3px 0 0;
+}
 .sub-note .overlap-note {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
@@ -21452,8 +21465,53 @@ load();
   let typedFeeds = null;
   fetch('feeds-manifest.json')
     .then(r => r.ok ? r.json() : null)
-    .then(j => { if (j && j.typedFeeds) { typedFeeds = new Set(j.typedFeeds); update(); } })
+    .then(j => {
+      if (!j) return;
+      if (j.typedFeeds) { typedFeeds = new Set(j.typedFeeds); update(); }
+      if (j.heavyOverlaps) markHeavyOverlaps(j.heavyOverlaps);
+    })
     .catch(() => {});
+
+  // Star the individual checkboxes that largely duplicate another one, and add a
+  // short footnote per group naming the pairs. Driven entirely by the generated
+  // manifest so the markers track the live data instead of a hardcoded list.
+  const AXIS_FIELDSETS = {
+    categories: catFieldset,
+    regions: regionFieldset,
+    types: typeFieldset,
+  };
+  function markHeavyOverlaps(pairs) {
+    const byAxis = {};
+    pairs.forEach((p) => { (byAxis[p.axis] = byAxis[p.axis] || []).push(p); });
+    Object.keys(byAxis).forEach((axis) => {
+      const fs = AXIS_FIELDSETS[axis];
+      if (!fs) return;
+      const rows = byAxis[axis];
+      const partners = {};
+      rows.forEach((p) => {
+        (partners[p.a] = partners[p.a] || []).push(p.bLabel);
+        (partners[p.b] = partners[p.b] || []).push(p.aLabel);
+      });
+      Object.keys(partners).forEach((value) => {
+        const input = fs.querySelector(`input[value="${value}"]`);
+        if (!input || !input.parentElement) return;
+        if (input.parentElement.querySelector('.overlap-star')) return;
+        const star = document.createElement('span');
+        star.className = 'overlap-star';
+        star.textContent = '*';
+        star.title = 'Overlaps heavily with ' + partners[value].join(' and ');
+        input.parentElement.appendChild(star);
+      });
+      const list = fs.querySelector('.check-list');
+      if (!list || fs.querySelector('.check-foot')) return;
+      const foot = document.createElement('p');
+      foot.className = 'check-foot';
+      foot.innerHTML = '* ' + rows
+        .map(p => `${p.aLabel} and ${p.bLabel} share ${p.shared} grants`)
+        .join('; ') + '. Ticking both shows those twice.';
+      list.insertAdjacentElement('afterend', foot);
+    });
+  }
 
   const ticked = (fs) => fs
     ? Array.from(fs.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value).filter(Boolean)

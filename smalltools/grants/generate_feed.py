@@ -1286,6 +1286,10 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
 # from what the feeds actually contain.
 OVERLAP_MIN_SHARE = 0.15   # report a pair once it covers this much of the smaller side
 OVERLAP_MAX_ROWS = 4       # keep the note readable; it is a hint, not a report
+# Separate, much higher bar for the inline asterisk on a checkbox. The note can
+# afford to list mild overlaps; a marker on the control itself must only fire
+# where picking both really does mean reading the same grant twice.
+HEAVY_OVERLAP_SHARE = 0.40
 
 
 def _overlap_rows(grants, keys, matcher, labels):
@@ -1302,6 +1306,44 @@ def _overlap_rows(grants, keys, matcher, labels):
             rows.append((share, shared, labels.get(a, a), labels.get(b, b)))
     rows.sort(reverse=True)
     return rows[:OVERLAP_MAX_ROWS]
+
+
+def heavy_overlap_pairs(grants):
+    """Pairs where the smaller filter is largely swallowed by the larger one.
+
+    Returned per axis with the picker's own values (lowercased for regions, which
+    the markup writes in lowercase) so the subscribe picker can mark the exact
+    checkboxes involved without duplicating any of this logic client-side."""
+    import itertools
+    axes = [
+        ("regions", REGIONS, region_matches, {r: r for r in REGIONS}, True),
+        ("categories", PICKER_CATEGORIES, category_matches,
+         {c: CATEGORY_LABELS.get(c, c) for c in PICKER_CATEGORIES}, False),
+        ("types", FEED_TYPES, type_matches,
+         {t: OPPORTUNITY_TYPE_TITLE_PHRASE.get(t, t) for t in FEED_TYPES}, False),
+    ]
+    out = []
+    for axis, keys, matcher, labels, lower in axes:
+        sets = {k: {g.get("id") for g in grants if matcher(g, k)} for k in keys}
+        for a, b in itertools.combinations(keys, 2):
+            shared = len(sets[a] & sets[b])
+            if not shared:
+                continue
+            small, big = (a, b) if len(sets[a]) <= len(sets[b]) else (b, a)
+            share = shared / len(sets[small])
+            if share < HEAVY_OVERLAP_SHARE:
+                continue
+            out.append({
+                "axis": axis,
+                "a": small.lower() if lower else small,
+                "b": big.lower() if lower else big,
+                "aLabel": labels[small],
+                "bLabel": labels[big],
+                "shared": shared,
+                "share": round(share, 3),
+            })
+    out.sort(key=lambda r: -r["share"])
+    return out
 
 
 def build_overlap_note(grants):
@@ -1725,7 +1767,10 @@ def main():
     # out combinations that produced no grants. Weekly twins are omitted: a
     # weekly file exists exactly when its per-grant sibling does.
     (HERE / "feeds-manifest.json").write_text(
-        json.dumps({"typedFeeds": sorted(typed_manifest)}, separators=(",", ":")),
+        json.dumps({
+            "typedFeeds": sorted(typed_manifest),
+            "heavyOverlaps": heavy_overlap_pairs(grants),
+        }, separators=(",", ":")),
         encoding="utf-8",
     )
 
