@@ -3,18 +3,56 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - Media Arts\, Film & Sound\, Switzerland
-X-WR-CALNAME:The Grant Desk - Media Arts\, Film & Sound\, Switzerland deadl
- ines
+NAME:The Grant Desk - Media Arts\, Film\, Sound\, Design & Games\, Switzerl
+ and
+X-WR-CALNAME:The Grant Desk - Media Arts\, Film\, Sound\, Design & Games\, 
+ Switzerland deadlines
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Media Arts\, Film & Sou
- nd\, Switzerland.
+ pdated as new calls land on the desk. Filtered to: Media Arts\, Film\, Sou
+ nd\, Design & Games\, Switzerland.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:tada-residency-2027@artificialnouveau.github.io
+DTSTAMP:20260827T203516Z
+DTSTART;VALUE=DATE:20260812
+DTEND;VALUE=DATE:20260813
+SUMMARY:Deadline: TaDA Textile and Design Alliance: Artist in Residence Pro
+ gramme 2027 (Switzerland)
+DESCRIPTION:TaDA (Textile and Design Alliance) invites artists\, designers\
+ , architects\, writers\, performers and interdisciplinary practitioners to
+  a three-month residency in Arbon\, Eastern Switzerland\, developing new w
+ ork through direct collaboration with regional textile companies and resea
+ rch institutions. Applicants do not need to identify as textile artists\; 
+ the programme welcomes practitioners from multiple disciplines who want to
+  work with textile technology\, materials and know-how. Six residents are 
+ selected annually by jury for one of two 2027 periods (April-June or Septe
+ mber-November). Residents develop a new project in cooperation with local 
+ textile companies\, present their work publicly and organise workshops. SU
+ PPORT: accommodation\, travel expenses\, contribution to living costs\, wo
+ rkspace at the Kreativzentrum ZIK\, and access to the expertise and infras
+ tructure of 13 partner companies. Applicants should identify specific TaDA
+  partners whose expertise contributes directly to the proposal. Apply via 
+ the online form. DEADLINE: 12 August 2026\, 23:59 CEST\; selection results
+  announced early November 2026.\n\nOrganisation: TaDA Textile and Design A
+ lliance\nLocation: Arbon\, Eastern Switzerland (Lake Constance). Open to S
+ wiss and international practitioners.\nAward: Funded residency: accommodat
+ ion in Arbon a few minutes' walk from the workplace and the Bodensee\, tra
+ vel expenses\, and a contribution to living costs\, plus workspace at the 
+ Kreativzentrum ZIK (a former textile factory) and technology\, knowledge a
+ nd infrastructure support from 13 partner textile companies and research i
+ nstitutions. No application fee.\nDuration: Three months: April to June 20
+ 27 or September to November 2027\n\nMore: https://tada-residency.ch/en/res
+ idence?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://tada-residency.ch/en/residence?utm_source=artificialnouveaugran
+ tdesk&utm_medium=referral
+LOCATION:Arbon\, Eastern Switzerland (Lake Constance). Open to Swiss and in
+ ternational practitioners.
+END:VEVENT
+BEGIN:VEVENT
 UID:icst-artists-in-residence-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: ICST: Artists in Residence 2027 Open Call (ZHdK\, Zurich)
@@ -65,7 +103,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:stichting-stokroos-residency-fundaziun-nairs-2026@artificialnouveau.git
  hub.io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260911
 DTEND;VALUE=DATE:20260912
 SUMMARY:Deadline: Stichting Stokroos: Residency at Fundaziun Nairs 2026
@@ -111,8 +149,274 @@ LOCATION:Residency in Scuol\, Switzerland (Fundaziun Nairs). Applicants mus
   particularly encouraged.
 END:VEVENT
 BEGIN:VEVENT
+UID:prohelvetia-emerging-talents-concept-grant-2026@artificialnouveau.githu
+ b.io
+DTSTAMP:20260827T203516Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Deadline: Emerging Talents: Concept Grant (Design)
+DESCRIPTION:Pro Helvetia's Emerging Talents concept grant supports the earl
+ y-stage concept development of design projects before a prototype is creat
+ ed. Emerging Talents are professional designers whose design-relevant trai
+ ning or business registration (self-employed\, sole proprietorship\, or co
+ mpany) dates back less than seven years. ELIGIBILITY: requires a connectio
+ n to Switzerland (Swiss citizenship\, or permanent residency with regular 
+ artistic activity in Switzerland)\; not open to practitioners without a Sw
+ iss connection. At least 50 percent of participants must be Swiss citizens
+  or permanent residents whose place of work is in Switzerland. AMOUNT: up 
+ to CHF 10\,000\, plus possible individual coaching. Deadlines twice a year
+ : 1 March (23:59 CET) and 1 September (23:59 CEST). Apply via the Pro Helv
+ etia portal.\n\nOrganisation: Pro Helvetia (Swiss Arts Council)\nLocation:
+  Switzerland-based emerging designers.\nAward: Up to CHF 10\,000\, plus po
+ ssible individual coaching. No application fee.\nDuration: Concept-develop
+ ment phase\; deadlines twice yearly (1 March and 1 September).\n\nMore: ht
+ tps://prohelvetia.ch/en/find-support/emerging-talents-concept-grant?utm_so
+ urce=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://prohelvetia.ch/en/find-support/emerging-talents-concept-grant?u
+ tm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Switzerland-based emerging designers.
+END:VEVENT
+BEGIN:VEVENT
+UID:prohelvetia-emerging-talents-prototype-development-2026@artificialnouve
+ au.github.io
+DTSTAMP:20260827T203516Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Deadline: Emerging Talents: Prototype Development (Design)
+DESCRIPTION:Pro Helvetia's Emerging Talents prototype development grant sup
+ ports the creation of prototypes\, pilot production runs\, or sample colle
+ ctions for marketable design projects. Emerging Talents are professional d
+ esigners whose training or business registration dates back less than seve
+ n years. ELIGIBILITY: requires a connection to Switzerland (Swiss citizens
+ hip\, or permanent residency with regular artistic activity in Switzerland
+ )\; not open to practitioners without a Swiss connection. At least 50 perc
+ ent of participants must be Swiss citizens or permanent residents whose pl
+ ace of work is in Switzerland. AMOUNT: up to CHF 20\,000\, plus possible i
+ ndividual coaching. Deadlines twice a year: 1 March (23:59 CET) and 1 Sept
+ ember (23:59 CEST). Apply via the Pro Helvetia portal.\n\nOrganisation: Pr
+ o Helvetia (Swiss Arts Council)\nLocation: Switzerland-based emerging desi
+ gners.\nAward: Up to CHF 20\,000\, plus possible individual coaching. No a
+ pplication fee.\nDuration: Prototype/pilot-production phase\; deadlines tw
+ ice yearly (1 March and 1 September).\n\nMore: https://prohelvetia.ch/en/f
+ ind-support/emerging-talents-prototype-development?utm_source=artificialno
+ uveaugrantdesk&utm_medium=referral
+URL:https://prohelvetia.ch/en/find-support/emerging-talents-prototype-devel
+ opment?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Switzerland-based emerging designers.
+END:VEVENT
+BEGIN:VEVENT
+UID:prohelvetia-emerging-talents-production-grant-2026@artificialnouveau.gi
+ thub.io
+DTSTAMP:20260827T203516Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Deadline: Emerging Talents: Production Grant (Design)
+DESCRIPTION:Pro Helvetia's Emerging Talents production grant supports the p
+ roduction of design projects based on completed prototypes or sample colle
+ ctions. Emerging Talents are professional designers whose training or busi
+ ness registration dates back less than seven years. ELIGIBILITY: requires 
+ a connection to Switzerland (Swiss citizenship\, or permanent residency wi
+ th regular artistic activity in Switzerland)\; not open to practitioners w
+ ithout a Swiss connection. At least 50 percent of participants must be Swi
+ ss citizens or permanent residents whose place of work is in Switzerland. 
+ AMOUNT: up to CHF 50\,000\, on condition that own or third-party funding i
+ s available. Deadlines twice a year: 1 March (23:59 CET) and 1 September (
+ 23:59 CEST). Apply via the Pro Helvetia portal.\n\nOrganisation: Pro Helve
+ tia (Swiss Arts Council)\nLocation: Switzerland-based emerging designers.\
+ nAward: Up to CHF 50\,000\, conditional on own or third-party matching fun
+ ding. No application fee.\nDuration: Production phase\; deadlines twice ye
+ arly (1 March and 1 September).\n\nMore: https://prohelvetia.ch/en/find-su
+ pport/emerging-talents-production-grant?utm_source=artificialnouveaugrantd
+ esk&utm_medium=referral
+URL:https://prohelvetia.ch/en/find-support/emerging-talents-production-gran
+ t?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Switzerland-based emerging designers.
+END:VEVENT
+BEGIN:VEVENT
+UID:prohelvetia-emerging-talents-project-extension-2026@artificialnouveau.g
+ ithub.io
+DTSTAMP:20260827T203516Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Deadline: Emerging Talents: Project Extension (Design)
+DESCRIPTION:Pro Helvetia's Emerging Talents project extension grant support
+ s extending advanced-stage design projects toward market success\, for exa
+ mple through marketing\, digital presence\, and distribution. Emerging Tal
+ ents are professional designers whose training or business registration da
+ tes back less than seven years. ELIGIBILITY: requires a connection to Swit
+ zerland (Swiss citizenship\, or permanent residency with regular artistic 
+ activity in Switzerland)\; not open to practitioners without a Swiss conne
+ ction. At least 50 percent of participants must be Swiss citizens or perma
+ nent residents whose place of work is in Switzerland. AMOUNT: up to CHF 20
+ \,000\, plus possible individual coaching. Deadlines twice a year: 1 March
+  (23:59 CET) and 1 September (23:59 CEST). Apply via the Pro Helvetia port
+ al.\n\nOrganisation: Pro Helvetia (Swiss Arts Council)\nLocation: Switzerl
+ and-based emerging designers.\nAward: Up to CHF 20\,000\, plus possible in
+ dividual coaching. No application fee.\nDuration: Advanced-stage market-de
+ velopment phase\; deadlines twice yearly (1 March and 1 September).\n\nMor
+ e: https://prohelvetia.ch/en/find-support/emerging-talents-project-extensi
+ on?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://prohelvetia.ch/en/find-support/emerging-talents-project-extensi
+ on?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Switzerland-based emerging designers.
+END:VEVENT
+BEGIN:VEVENT
+UID:prohelvetia-emerging-talents-matchmaking-event-2026@artificialnouveau.g
+ ithub.io
+DTSTAMP:20260827T203516Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Deadline: Emerging Talents: Matchmaking Event in Switzerland (Desig
+ n)
+DESCRIPTION:Pro Helvetia's Emerging Talents matchmaking event is a one-day 
+ event in Switzerland where emerging designers network with industry profes
+ sionals\, receive feedback\, and take part in exclusive online pitch train
+ ing. Emerging Talents are professional designers whose training or busines
+ s registration dates back less than seven years. ELIGIBILITY: requires a c
+ onnection to Switzerland (Swiss citizenship\, or permanent residency with 
+ regular artistic activity in Switzerland)\; not open to practitioners with
+ out a Swiss connection. Open to Swiss citizens\, permanent residents\, or 
+ people working for Switzerland-based institutions. This is not a cash gran
+ t. Deadlines twice a year: 1 March (23:59 CET) and 1 September (23:59 CEST
+ ). Apply via the Pro Helvetia portal.\n\nOrganisation: Pro Helvetia (Swiss
+  Arts Council)\nLocation: One-day matchmaking event in Switzerland for Swi
+ tzerland-based emerging designers.\nAward: Not a cash grant: participation
+  in a one-day matchmaking event (keynote\, lunch\, matchmaking\, networkin
+ g) plus exclusive online pitch training. No application fee.\nDuration: On
+ e-day event plus online pitch training\; deadlines twice yearly (1 March a
+ nd 1 September).\n\nMore: https://prohelvetia.ch/en/find-support/emerging-
+ talents-matchmaking-event-in-switzerland?utm_source=artificialnouveaugrant
+ desk&utm_medium=referral
+URL:https://prohelvetia.ch/en/find-support/emerging-talents-matchmaking-eve
+ nt-in-switzerland?utm_source=artificialnouveaugrantdesk&utm_medium=referra
+ l
+LOCATION:One-day matchmaking event in Switzerland for Switzerland-based eme
+ rging designers.
+END:VEVENT
+BEGIN:VEVENT
+UID:prohelvetia-game-design-pre-production-2026@artificialnouveau.github.io
+DTSTAMP:20260827T203516Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Deadline: Game Design Emerging Talents: Pre-Production
+DESCRIPTION:Pro Helvetia's Game Design Emerging Talents pre-production gran
+ t supports early-career game designers in developing playable prototypes f
+ or digital games. Emerging Talents are game developers or studios whose ga
+ me-design education or company foundation dates back less than seven years
+ . ELIGIBILITY: requires a connection to Switzerland (Swiss citizenship\, o
+ r permanent residency with regular artistic activity in Switzerland)\; not
+  open to practitioners without a Swiss connection. At least 50 percent of 
+ participants must be Swiss citizens or permanent residents whose place of 
+ work is in Switzerland. AMOUNT: up to CHF 20\,000\, plus possible addition
+ al coaching. Deadlines twice a year: 1 March (23:59 CET) and 1 September (
+ 23:59 CEST). Apply via the Pro Helvetia portal.\n\nOrganisation: Pro Helve
+ tia (Swiss Arts Council)\nLocation: Switzerland-based emerging game design
+ ers and studios.\nAward: Up to CHF 20\,000\, plus possible additional coac
+ hing. No application fee.\nDuration: Pre-production / prototype phase\; de
+ adlines twice yearly (1 March and 1 September).\n\nMore: https://prohelvet
+ ia.ch/en/find-support/game-design-emerging-talents-pre-production?utm_sour
+ ce=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://prohelvetia.ch/en/find-support/game-design-emerging-talents-pre
+ -production?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Switzerland-based emerging game designers and studios.
+END:VEVENT
+BEGIN:VEVENT
+UID:prohelvetia-game-design-production-2026@artificialnouveau.github.io
+DTSTAMP:20260827T203516Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Deadline: Game Design Emerging Talents: Production
+DESCRIPTION:Pro Helvetia's Game Design Emerging Talents production grant fu
+ nds the production of digital games based on advanced prototypes or vertic
+ al slices. Emerging Talents are studios whose game-design education or com
+ pany foundation dates back less than seven years. Applicants must be legal
+  entities (sole proprietorships accepted if willing to convert). ELIGIBILI
+ TY: requires a connection to Switzerland (Swiss citizenship\, or permanent
+  residency with regular artistic activity in Switzerland)\; not open to pr
+ actitioners without a Swiss connection. At least 50 percent of participant
+ s must be Swiss citizens or permanent residents whose place of work is in 
+ Switzerland. AMOUNT: up to CHF 50\,000\, requiring a matching grant of equ
+ al value from own or third-party funding. Deadlines twice a year: 1 March 
+ (23:59 CET) and 1 September (23:59 CEST). Apply via the Pro Helvetia porta
+ l.\n\nOrganisation: Pro Helvetia (Swiss Arts Council)\nLocation: Switzerla
+ nd-based emerging game studios.\nAward: Up to CHF 50\,000\, requiring a ma
+ tching grant of equal value from own or third-party funding. No applicatio
+ n fee.\nDuration: Production phase\; deadlines twice yearly (1 March and 1
+  September).\n\nMore: https://prohelvetia.ch/en/find-support/game-design-e
+ merging-talents-production?utm_source=artificialnouveaugrantdesk&utm_mediu
+ m=referral
+URL:https://prohelvetia.ch/en/find-support/game-design-emerging-talents-pro
+ duction?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Switzerland-based emerging game studios.
+END:VEVENT
+BEGIN:VEVENT
+UID:prohelvetia-game-design-post-production-2026@artificialnouveau.github.i
+ o
+DTSTAMP:20260827T203516Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Deadline: Game Design Emerging Talents: Post-Production
+DESCRIPTION:Pro Helvetia's Game Design Emerging Talents post-production gra
+ nt funds the dissemination and marketing of advanced game-design projects.
+  Emerging Talents are studios whose game-design education or company found
+ ation dates back less than seven years. Applicants must be legal entities 
+ (sole proprietorships accepted if willing to convert). ELIGIBILITY: requir
+ es a connection to Switzerland (Swiss citizenship\, or permanent residency
+  with regular artistic activity in Switzerland)\; not open to practitioner
+ s without a Swiss connection. At least 50 percent of participants must be 
+ Swiss citizens or permanent residents whose place of work is in Switzerlan
+ d. AMOUNT: up to CHF 20\,000\, plus potential individual coaching. Deadlin
+ es twice a year: 1 March (23:59 CET) and 1 September (23:59 CEST). Apply v
+ ia the Pro Helvetia portal.\n\nOrganisation: Pro Helvetia (Swiss Arts Coun
+ cil)\nLocation: Switzerland-based emerging game studios.\nAward: Up to CHF
+  20\,000\, plus potential individual coaching. No application fee.\nDurati
+ on: Post-production\, dissemination and marketing phase\; deadlines twice 
+ yearly (1 March and 1 September).\n\nMore: https://prohelvetia.ch/en/find-
+ support/game-design-emerging-talents-post-production?utm_source=artificial
+ nouveaugrantdesk&utm_medium=referral
+URL:https://prohelvetia.ch/en/find-support/game-design-emerging-talents-pos
+ t-production?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Switzerland-based emerging game studios.
+END:VEVENT
+BEGIN:VEVENT
+UID:prohelvetia-she-got-game-switzerland-2026@artificialnouveau.github.io
+DTSTAMP:20260827T203516Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Deadline: Game Design Emerging Talents: She Got Game (Switzerland)
+DESCRIPTION:She Got Game is a Pro Helvetia mentoring programme promoting eq
+ ual opportunities for women in the Swiss and international game industry\,
+  supporting the representation of women in management positions through di
+ alogue with experienced international experts. This is the variant for pro
+ fessional game designers FROM Switzerland who identify as women (a separat
+ e variant exists for practitioners in the liaison-office regions). Emergin
+ g Talents are developers or studios whose relevant training or registratio
+ n dates back less than seven years. ELIGIBILITY: requires a connection to 
+ Switzerland (Swiss citizenship\, or permanent residency with regular artis
+ tic activity in Switzerland)\; not open to practitioners without a Swiss c
+ onnection. WHAT IS OFFERED: individual coaching on project development\, b
+ usiness strategy\, finances\, marketing\, PR\, and pitch training\; a grow
+ ing community of female game developers\; potential access to internationa
+ l trade fairs\; CHF 3\,000 toward a prototype or demo\; and up to CHF 250 
+ per week toward childcare or children's travel when attending trade fairs.
+  Roughly 30 hours over six months. Submission deadline 1 September 2026 (2
+ 3:59 CEST)\; notification November 2026. Apply via the Pro Helvetia portal
+ .\n\nOrganisation: Pro Helvetia (Swiss Arts Council)\nLocation: Profession
+ al game designers from Switzerland who identify as women.\nAward: CHF 3\,0
+ 00 toward prototype/demo production\, plus mentoring\, community access\, 
+ and potential trade-fair access\; up to CHF 250 per week childcare support
+  for international events. No application fee.\nDuration: Six-month mentor
+ ing programme (approximately 30 hours total)\; notification November 2026.
+ \n\nMore: https://prohelvetia.ch/en/find-support/game-design-emerging-tale
+ nts-she-got-game?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://prohelvetia.ch/en/find-support/game-design-emerging-talents-she
+ -got-game?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Professional game designers from Switzerland who identify as women
+ .
+END:VEVENT
+BEGIN:VEVENT
 UID:prohelvetia-fast-forward-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: Fast Forward (Music)
@@ -139,7 +443,7 @@ LOCATION:Mid-career musicians established in Switzerland's music scene.
 END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-feat-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: Feat. (Hip-Hop and Clubbing)
@@ -165,7 +469,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-creation-production-pop-jazz-global-2026@artificialnouveau.
  github.io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: Creation and Production: Pop\, Jazz\, Global (Music)
@@ -193,7 +497,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-creation-production-contemporary-music-2026@artificialnouve
  au.github.io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: Creation and Production: Contemporary Music
@@ -225,7 +529,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-new-production-performing-arts-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: New Production (Performing Arts)
@@ -253,7 +557,7 @@ LOCATION:Switzerland-based independent performing arts companies and artist
 END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-focus-photo-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: Focus Photo (Visual Arts)
@@ -299,7 +603,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-production-grant-visual-arts-2026@artificialnouveau.github.
  io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: Production Grant (Visual Arts)
@@ -324,7 +628,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-grant-production-with-presentation-2026@artificialnouveau.g
  ithub.io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: Grant for Production with Presentation (Visual Arts)
@@ -351,7 +655,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:transmediale-pro-helvetia-digital-art-residency-2027@artificialnouveau.
  github.io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260828
 DTEND;VALUE=DATE:20260829
 SUMMARY:Deadline: transmediale x Pro Helvetia Digital Art Residency 2027
@@ -408,7 +712,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:foodculture-days-kitchen-central-location-2027@artificialnouveau.github
  .io
-DTSTAMP:20260827T203245Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: The Kitchen / Central Location Open Call (foodculture day
