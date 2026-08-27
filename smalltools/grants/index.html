@@ -1599,6 +1599,7 @@ code *, pre *, kbd *, samp * {
           </div>
           <p class="feed-note" id="feed-note" hidden></p>
 <!-- BEGIN_OVERLAP_NOTE -->
+<script type="application/json" id="overlap-data">[{"axis":"regions","a":"remote","b":"worldwide","aLabel":"Remote","bLabel":"Worldwide","shared":12,"share":0.293},{"axis":"categories","a":"cross","b":"media-arts","aLabel":"Cross-disciplinary & Social Impact","bLabel":"Media Arts, Film & Sound","shared":46,"share":0.261}]</script>
 <details class="overlap-note">
 <summary>Why some filters are marked *</summary>
 <p>A single grant can sit in more than one region, category or type, so two filters can hand you the same call twice. The pairs below overlap enough to be worth flagging, and every filter involved carries an asterisk above.</p>
@@ -21412,11 +21413,7 @@ load();
   let typedFeeds = null;
   fetch('feeds-manifest.json')
     .then(r => r.ok ? r.json() : null)
-    .then(j => {
-      if (!j) return;
-      if (j.typedFeeds) { typedFeeds = new Set(j.typedFeeds); update(); }
-      if (j.heavyOverlaps) markHeavyOverlaps(j.heavyOverlaps);
-    })
+    .then(j => { if (j && j.typedFeeds) { typedFeeds = new Set(j.typedFeeds); update(); } })
     .catch(() => {});
 
   // Star the individual checkboxes that largely duplicate another one, and add a
@@ -21459,6 +21456,17 @@ load();
       list.insertAdjacentElement('afterend', foot);
     });
   }
+
+  // Read the star data from the inline payload injected next to the note, NOT
+  // from a fetch: a separate request caches independently of this page, which
+  // let the note and the asterisks it explains fall out of step. Runs here, after
+  // AXIS_FIELDSETS is initialised, since the const would otherwise be in its TDZ.
+  try {
+    const overlapEl = document.getElementById('overlap-data');
+    if (overlapEl && overlapEl.textContent.trim()) {
+      markHeavyOverlaps(JSON.parse(overlapEl.textContent));
+    }
+  } catch (_) {}
 
   const ticked = (fs) => fs
     ? Array.from(fs.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value).filter(Boolean)
