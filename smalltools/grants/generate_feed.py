@@ -86,10 +86,11 @@ SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
 # can ever tick (ai-tech always contains all of ai).
 _GROUPED_MEMBERS = {m for ms in CATEGORY_GROUPS.values() for m in ms}
 # Categories the picker deliberately does not offer despite being ungrouped.
-# Empty right now (design and game moved into their own group), but the hook
-# stays: being ungrouped is not the same as being offered, and without this the
-# derivation below hands every loose single a checkbox automatically.
-PICKER_EXCLUDED: set[str] = set()
+# Being ungrouped is not the same as being offered; without this the derivation
+# below hands every loose single a checkbox automatically.
+#   curator - 73% of curatorial calls already surface under another category,
+#             so it earned its own checkbox mostly by duplicating them.
+PICKER_EXCLUDED = {"curator"}
 PICKER_CATEGORIES = [
     c for c in CATEGORIES if c not in _GROUPED_MEMBERS and c not in PICKER_EXCLUDED
 ] + list(CATEGORY_GROUPS)
