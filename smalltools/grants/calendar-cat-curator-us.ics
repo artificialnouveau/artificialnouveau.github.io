@@ -3,16 +3,16 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - Curator\, US
-X-WR-CALNAME:The Grant Desk - Curator\, US deadlines
+NAME:The Grant Desk - Curatorial\, US
+X-WR-CALNAME:The Grant Desk - Curatorial\, US deadlines
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Curator\, US.
+ pdated as new calls land on the desk. Filtered to: Curatorial\, US.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:dedalus-foundation-senior-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203244Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
 SUMMARY:Deadline: Dedalus Foundation Senior Fellowship 2027
@@ -37,7 +37,7 @@ LOCATION:United States (remote\, project-based)
 END:VEVENT
 BEGIN:VEVENT
 UID:ccl-curatorial-leadership-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203244Z
+DTSTAMP:20260827T203516Z
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
 SUMMARY:Deadline: Centre for Curatorial Leadership: Fellowship 2027 for Art

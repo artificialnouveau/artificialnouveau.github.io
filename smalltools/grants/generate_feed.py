@@ -72,9 +72,8 @@ CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "desi
 # file. They are syndication-only: static SEO pages stay on the canonical
 # single categories so the group slugs never become indexable duplicate pages.
 CATEGORY_GROUPS = {
-    "media-arts": ["film", "arts", "audio"],
+    "media-arts": ["film", "arts", "audio", "design", "game"],
     "ai-tech-research": ["ai", "tech", "research"],
-    "design-games-curatorial": ["design", "game", "curator"],
 }
 SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
 
@@ -93,12 +92,11 @@ CATEGORY_LABELS = {
     "arts": "Visual & Media Arts",
     "game": "Game Design",
     "design": "Design",
-    "curator": "Curator",
+    "curator": "Curatorial",
     "audio": "Audio, Sound & Music",
     "cross": "Cross-disciplinary & Social Impact",
-    "media-arts": "Media Arts, Film & Sound",
+    "media-arts": "Media Arts, Film, Sound, Design & Games",
     "ai-tech-research": "AI, Tech & Research",
-    "design-games-curatorial": "Design, Games & Curatorial",
 }
 
 
