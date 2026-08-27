@@ -519,21 +519,26 @@ def fold_line(line):
     return "\r\n".join(out)
 
 
-def calendar_filename(region, category=None):
+def calendar_filename(region, category=None, opp_type=None):
+    """Same slot order as feed_filename: calendar [cat-<category>] [region] [type]."""
     parts = ["calendar"]
     if category:
         parts.append("cat")
         parts.append(category)
     if region:
         parts.append(region.lower())
+    if opp_type:
+        parts.append(opp_type)
     if len(parts) == 1:
         return "calendar.ics"
     return "-".join(parts) + ".ics"
 
 
-def build_calendar(grants, today, region=None, category=None):
+def build_calendar(grants, today, region=None, category=None, opp_type=None):
     now_stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     suffix_parts = []
+    if opp_type:
+        suffix_parts.append(OPPORTUNITY_TYPE_TITLE_PHRASE.get(opp_type, opp_type))
     if category:
         suffix_parts.append(CATEGORY_LABELS.get(category, category))
     if region:
@@ -552,6 +557,8 @@ def build_calendar(grants, today, region=None, category=None):
         "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
         "X-PUBLISHED-TTL:PT12H",
     ]
+    if opp_type:
+        grants = [g for g in grants if type_matches(g, opp_type)]
     if category:
         grants = [g for g in grants if category_matches(g, category)]
     if region:
@@ -1304,28 +1311,11 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
 # same grant twice. Rather than hand-maintain a list of "watch out for EU and
 # NL", the note is COMPUTED from the live data each build, so it can never drift
 # from what the feeds actually contain.
-OVERLAP_MIN_SHARE = 0.15   # report a pair once it covers this much of the smaller side
-OVERLAP_MAX_ROWS = 4       # keep the note readable; it is a hint, not a report
-# Separate, much higher bar for the inline asterisk on a checkbox. The note can
-# afford to list mild overlaps; a marker on the control itself must only fire
-# where picking both really does mean reading the same grant twice.
-HEAVY_OVERLAP_SHARE = 0.40
-
-
-def _overlap_rows(grants, keys, matcher, labels):
-    import itertools
-    sets = {k: {g.get("id") for g in grants if matcher(g, k)} for k in keys}
-    rows = []
-    for a, b in itertools.combinations(keys, 2):
-        shared = len(sets[a] & sets[b])
-        smaller = min(len(sets[a]), len(sets[b]))
-        if not shared or not smaller:
-            continue
-        share = shared / smaller
-        if share >= OVERLAP_MIN_SHARE:
-            rows.append((share, shared, labels.get(a, a), labels.get(b, b)))
-    rows.sort(reverse=True)
-    return rows[:OVERLAP_MAX_ROWS]
+# ONE threshold for both the asterisks on the checkboxes and the explanatory
+# note, so the two can never disagree. Running two different bars meant the note
+# listed pairs that carried no star, which just read as a bug to anyone looking
+# at the panel. A pair qualifies when it covers this much of the smaller side.
+OVERLAP_SHARE = 0.25
 
 
 def heavy_overlap_pairs(grants):
@@ -1351,7 +1341,7 @@ def heavy_overlap_pairs(grants):
                 continue
             small, big = (a, b) if len(sets[a]) <= len(sets[b]) else (b, a)
             share = shared / len(sets[small])
-            if share < HEAVY_OVERLAP_SHARE:
+            if share < OVERLAP_SHARE:
                 continue
             out.append({
                 "axis": axis,
@@ -1367,39 +1357,37 @@ def heavy_overlap_pairs(grants):
 
 
 def build_overlap_note(grants):
-    region_labels = {r: r for r in PICKER_REGIONS}
-    cat_labels = {c: CATEGORY_LABELS.get(c, c) for c in PICKER_CATEGORIES}
-    type_labels = {t: OPPORTUNITY_TYPE_TITLE_PHRASE.get(t, t) for t in FEED_TYPES}
+    """Explain the asterisks. Renders exactly the pairs heavy_overlap_pairs()
+    marks, so the prose and the checkbox markers are the same list by
+    construction. Emits nothing at all when no pair qualifies."""
+    rows = heavy_overlap_pairs(grants)
+    if not rows:
+        return "<!-- BEGIN_OVERLAP_NOTE --><!-- END_OVERLAP_NOTE -->"
 
+    axis_titles = {"regions": "Regions", "categories": "Categories", "types": "Types"}
     blocks = []
-    for title, rows in (
-        ("Regions", _overlap_rows(grants, PICKER_REGIONS, region_matches, region_labels)),
-        ("Categories", _overlap_rows(grants, PICKER_CATEGORIES, category_matches, cat_labels)),
-        ("Types", _overlap_rows(grants, FEED_TYPES, type_matches, type_labels)),
-    ):
-        if not rows:
+    for axis in ("regions", "categories", "types"):
+        in_axis = [r for r in rows if r["axis"] == axis]
+        if not in_axis:
             continue
         items = "".join(
-            f"<li><strong>{escape(a)}</strong> and <strong>{escape(b)}</strong>"
-            f" &mdash; {shared} shared</li>"
-            for _share, shared, a, b in rows
+            f"<li><strong>{escape(r['aLabel'])}</strong> and "
+            f"<strong>{escape(r['bLabel'])}</strong> &mdash; {r['shared']} shared</li>"
+            for r in in_axis
         )
-        blocks.append(f"<p class=\"overlap-axis\">{escape(title)}</p><ul>{items}</ul>")
+        blocks.append(
+            f'<p class="overlap-axis">{escape(axis_titles[axis])}</p><ul>{items}</ul>'
+        )
 
     return (
         "<!-- BEGIN_OVERLAP_NOTE -->\n"
-        "<details class=\"overlap-note\">\n"
-        "<summary>Some filters overlap &mdash; what that means</summary>\n"
-        "<p>A single grant can sit in more than one region, category or type: a Dutch "
-        "call is also a European one, and a residency advertised as an open call matches "
-        "both. So <strong>subscribing to two feeds can show you the same grant twice</strong>, "
-        "and a count in one feed is not a count you can add to another.</p>\n"
-        "<p>The biggest current overlaps, measured from the live data:</p>\n"
+        '<details class="overlap-note">\n'
+        "<summary>Why some filters are marked *</summary>\n"
+        "<p>A single grant can sit in more than one region, category or type, so two "
+        "filters can hand you the same call twice. The pairs below overlap enough to "
+        "be worth flagging, and every filter involved carries an asterisk above.</p>\n"
         + "\n".join(blocks)
-        + "\n<p>Region note: NL and Switzerland grants deliberately stay inside EU as well, "
-        "so those two pairs are near-total containment rather than a coincidence. "
-        "UK sits outside EU, so those two barely overlap.</p>\n"
-        "</details>\n"
+        + "\n</details>\n"
         "<!-- END_OVERLAP_NOTE -->"
     )
 
@@ -1794,14 +1782,6 @@ def main():
     # Manifest of the pruned, type-bearing feeds. The picker fetches this to grey
     # out combinations that produced no grants. Weekly twins are omitted: a
     # weekly file exists exactly when its per-grant sibling does.
-    (HERE / "feeds-manifest.json").write_text(
-        json.dumps({
-            "typedFeeds": sorted(typed_manifest),
-            "heavyOverlaps": heavy_overlap_pairs(grants),
-        }, separators=(",", ":")),
-        encoding="utf-8",
-    )
-
     # Orphan sweep. Narrowing the axes (or pruning an empty type slice) leaves
     # files on disk that nothing generates any more; without this they linger
     # forever, get served as stale feeds and bloat the repo.
@@ -1815,17 +1795,64 @@ def main():
         print(f"Removed {len(orphans)} stale feed file(s) no longer generated.")
 
     cals_written = []
-    for region in [None] + REGIONS:
-        ics_text = build_calendar(grants, today, region=region)
-        name = calendar_filename(region)
-        (HERE / name).write_text(ics_text, encoding="utf-8")
+    typed_cal_manifest = []
+
+    def emit_cal(region, category=None, opp_type=None):
+        """Mirrors emit() for feeds: type-bearing calendars are pruned when empty
+        and recorded in the manifest so the calendar picker never offers a dead
+        link. Untyped calendars are always written."""
+        sliced = [g for g in grants if type_matches(g, opp_type)] if opp_type else grants
+        if category:
+            sliced = [g for g in sliced if category_matches(g, category)]
+        if region:
+            sliced = [g for g in sliced if region_matches(g, region)]
+        # An .ics only carries dated, not-long-expired calls, so judge emptiness
+        # on that same basis rather than on the raw slice.
+        if opp_type and not any(
+            parse_date(g.get("deadline")) and (today - parse_date(g["deadline"])).days <= 60
+            for g in sliced
+        ):
+            return
+        name = calendar_filename(region, category=category, opp_type=opp_type)
+        (HERE / name).write_text(
+            build_calendar(grants, today, region=region, category=category, opp_type=opp_type),
+            encoding="utf-8",
+        )
         cals_written.append(name)
-    for category in SYNDICATION_CATEGORIES:
-        for region in [None] + REGIONS:
-            ics_text = build_calendar(grants, today, region=region, category=category)
-            name = calendar_filename(region, category=category)
-            (HERE / name).write_text(ics_text, encoding="utf-8")
-            cals_written.append(name)
+        if opp_type:
+            typed_cal_manifest.append(name)
+
+    # Calendars span every REGION, not PICKER_REGIONS. Dropping NL and
+    # Switzerland was a SYNDICATION decision: the calendar picker still offers
+    # NL, so narrowing this loop would 404 every NL-plus-category calendar.
+    for opp_type in [None] + FEED_TYPES:
+        for category in [None] + PICKER_CATEGORIES:
+            for region in [None] + REGIONS:
+                emit_cal(region, category=category, opp_type=opp_type)
+
+    # Compatibility aliases: bare calendars for categories the picker dropped.
+    for category in LEGACY_BARE_CATEGORIES:
+        emit_cal(None, category=category)
+
+    # Written here, after BOTH the feed and calendar loops, so the manifest can
+    # record the pruned type slices for each. The pickers read it to avoid
+    # offering a combination that produced no file.
+    (HERE / "feeds-manifest.json").write_text(
+        json.dumps({
+            "typedFeeds": sorted(typed_manifest),
+            "typedCalendars": sorted(typed_cal_manifest),
+            "heavyOverlaps": heavy_overlap_pairs(grants),
+        }, separators=(",", ":")),
+        encoding="utf-8",
+    )
+
+    stale_cals = sorted(
+        f.name for f in HERE.glob("calendar*.ics") if f.name not in set(cals_written)
+    )
+    for nm in stale_cals:
+        (HERE / nm).unlink()
+    if stale_cals:
+        print(f"Removed {len(stale_cals)} stale calendar file(s) no longer generated.")
 
     print(f"Wrote {len(written)} RSS feeds:")
     for name, count in written:
