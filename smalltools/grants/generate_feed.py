@@ -76,6 +76,13 @@ CATEGORY_GROUPS = {
     "film-arts": ["film", "arts"],
 }
 SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
+
+# What the subscribe picker actually offers as tickboxes: the grouped slugs plus
+# the singles no group absorbed. Overlap reporting must use THIS list, not
+# SYNDICATION_CATEGORIES, or it reports group-vs-member containment that no user
+# can ever tick (ai-tech always contains all of ai).
+_GROUPED_MEMBERS = {m for ms in CATEGORY_GROUPS.values() for m in ms}
+PICKER_CATEGORIES = [c for c in CATEGORIES if c not in _GROUPED_MEMBERS] + list(CATEGORY_GROUPS)
 CATEGORY_LABELS = {
     "ai": "AI & Safety",
     "tech": "Tech & Infrastructure",
@@ -1239,6 +1246,71 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
 """
 
 
+# Overlap note ---------------------------------------------------------------
+# A grant can legitimately sit in several regions (the optional `regions` array),
+# several categories (the optional `categories` array), and match several types
+# (type matching is tag- and title-driven). So ticking two boxes can surface the
+# same grant twice. Rather than hand-maintain a list of "watch out for EU and
+# NL", the note is COMPUTED from the live data each build, so it can never drift
+# from what the feeds actually contain.
+OVERLAP_MIN_SHARE = 0.15   # report a pair once it covers this much of the smaller side
+OVERLAP_MAX_ROWS = 4       # keep the note readable; it is a hint, not a report
+
+
+def _overlap_rows(grants, keys, matcher, labels):
+    import itertools
+    sets = {k: {g.get("id") for g in grants if matcher(g, k)} for k in keys}
+    rows = []
+    for a, b in itertools.combinations(keys, 2):
+        shared = len(sets[a] & sets[b])
+        smaller = min(len(sets[a]), len(sets[b]))
+        if not shared or not smaller:
+            continue
+        share = shared / smaller
+        if share >= OVERLAP_MIN_SHARE:
+            rows.append((share, shared, labels.get(a, a), labels.get(b, b)))
+    rows.sort(reverse=True)
+    return rows[:OVERLAP_MAX_ROWS]
+
+
+def build_overlap_note(grants):
+    region_labels = {r: r for r in REGIONS}
+    cat_labels = {c: CATEGORY_LABELS.get(c, c) for c in PICKER_CATEGORIES}
+    type_labels = {t: OPPORTUNITY_TYPE_TITLE_PHRASE.get(t, t) for t in OPPORTUNITY_TYPES}
+
+    blocks = []
+    for title, rows in (
+        ("Regions", _overlap_rows(grants, REGIONS, region_matches, region_labels)),
+        ("Categories", _overlap_rows(grants, PICKER_CATEGORIES, category_matches, cat_labels)),
+        ("Types", _overlap_rows(grants, OPPORTUNITY_TYPES, type_matches, type_labels)),
+    ):
+        if not rows:
+            continue
+        items = "".join(
+            f"<li><strong>{escape(a)}</strong> and <strong>{escape(b)}</strong>"
+            f" &mdash; {shared} shared</li>"
+            for _share, shared, a, b in rows
+        )
+        blocks.append(f"<p class=\"overlap-axis\">{escape(title)}</p><ul>{items}</ul>")
+
+    return (
+        "<!-- BEGIN_OVERLAP_NOTE -->\n"
+        "<details class=\"overlap-note\">\n"
+        "<summary>Some filters overlap &mdash; what that means</summary>\n"
+        "<p>A single grant can sit in more than one region, category or type: a Dutch "
+        "call is also a European one, and a residency advertised as an open call matches "
+        "both. So <strong>subscribing to two feeds can show you the same grant twice</strong>, "
+        "and a count in one feed is not a count you can add to another.</p>\n"
+        "<p>The biggest current overlaps, measured from the live data:</p>\n"
+        + "\n".join(blocks)
+        + "\n<p>Region note: NL and Switzerland grants deliberately stay inside EU as well, "
+        "so those two pairs are near-total containment rather than a coincidence. "
+        "UK sits outside EU, so those two barely overlap.</p>\n"
+        "</details>\n"
+        "<!-- END_OVERLAP_NOTE -->"
+    )
+
+
 def inject_into_main_index(grants, today):
     index_path = HERE / "index.html"
     text = index_path.read_text(encoding="utf-8")
@@ -1276,6 +1348,13 @@ def inject_into_main_index(grants, today):
     text = re.sub(
         r"<!-- BEGIN_NOSCRIPT_GRANTS -->.*?<!-- END_NOSCRIPT_GRANTS -->",
         lambda m: noscript_block,
+        text,
+        flags=re.DOTALL,
+    )
+    overlap_block = build_overlap_note(grants)
+    text = re.sub(
+        r"<!-- BEGIN_OVERLAP_NOTE -->.*?<!-- END_OVERLAP_NOTE -->",
+        lambda m: overlap_block,
         text,
         flags=re.DOTALL,
     )
