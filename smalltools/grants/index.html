@@ -374,7 +374,15 @@ body {
   margin: 0;
 }
 .sub-note .cat-checks legend {
-  display: none;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-mute);
 }
 .sub-note .cat-checks label {
   flex: 0 0 auto;
@@ -389,6 +397,10 @@ body {
   cursor: pointer;
 }
 .sub-note .cat-checks label input { margin: 0; cursor: pointer; }
+/* Regions and Types have short labels, so they read fine two-up and roughly
+   halve the height of the popover. Categories keep one column: labels are long. */
+.cat-checks--grid { flex-direction: row; flex-wrap: wrap; gap: 5px 10px; }
+.cat-checks--grid label { flex: 1 1 calc(50% - 10px); min-width: 110px; }
 .sub-note .feed-url-list {
   display: flex;
   flex-direction: column;
@@ -1481,7 +1493,7 @@ code *, pre *, kbd *, samp * {
               <label><input type="checkbox" value="audio"> Audio, Sound &amp; Music</label>
               <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
             </fieldset>
-            <fieldset class="cat-checks" id="feed-regions">
+            <fieldset class="cat-checks cat-checks--grid" id="feed-regions">
               <legend>Regions</legend>
               <label><input type="checkbox" value="eu"> EU</label>
               <label><input type="checkbox" value="us"> US</label>
@@ -1496,7 +1508,7 @@ code *, pre *, kbd *, samp * {
               <label><input type="checkbox" value="remote"> Remote</label>
               <label><input type="checkbox" value="worldwide"> Worldwide</label>
             </fieldset>
-            <fieldset class="cat-checks" id="feed-types">
+            <fieldset class="cat-checks cat-checks--grid" id="feed-types">
               <legend>Types</legend>
               <label><input type="checkbox" value="residencies"> Residencies</label>
               <label><input type="checkbox" value="fellowships"> Fellowships</label>
@@ -1527,14 +1539,13 @@ code *, pre *, kbd *, samp * {
           <div class="row">
             <button type="button" id="copy-feed">Copy URL</button>
             <a class="btn" id="feed-open-btn" href="feed.xml" target="_blank" rel="noopener">Open feed</a>
-            <button type="button" id="feed-opml">Download .opml</button>
           </div>
           <details>
             <summary>How to subscribe (RSS reader or email)</summary>
             <ol>
               <li>Optionally tick one or more Categories and pick a Region, Type and Cadence to narrow the feed.</li>
-              <li><strong>Want a union &mdash; Design <em>and</em> Game Design, or EU <em>and</em> UK? Tick both, then hit Download .opml.</strong> OPML is the standard subscription-list format and every major reader imports it as a folder, which reads as one merged stream. That is your union, with no server and nothing to sign up for. Ticking across axes works too: two categories and three regions gives six feeds, all bundled into the one file.</li>
-              <li>Why not a single URL for a union? Each feed here is a pre-built file, and one file per possible combination of ticks would run to tens of thousands. The OPML folder gets you the same reading experience without that. One caveat: if a grant matches two of your feeds, some readers show it twice in the folder.</li>
+              <li><strong>Ticking several options gives you one feed URL each.</strong> Design plus Game Design is two URLs; two categories across three regions is six. Copy URL grabs them all at once. Subscribe to the lot and put them in one folder in your reader &mdash; Feedly, Inoreader and NetNewsWire all show a folder as a single merged stream.</li>
+              <li>Why not one URL for a union? Every feed here is a pre-built file, and one file per possible combination of ticks would run to tens of thousands. One caveat when you combine feeds: if a grant matches two of them, some readers will show it twice.</li>
               <li><strong>Timeline stands on its own.</strong> The deadline windows cover every region, category and type, so picking one clears the others. Combining them was dropped: it quadrupled the number of feeds, and "closing in the next 30 days" is a question this website answers better than a feed reader can.</li>
               <li>Some Type combinations have no grants yet (there may be no curator prizes in LatAm this month). Those feeds are not generated, and the picker tells you rather than handing you a dead link.</li>
               <li>Copy the feed URL above (or click Open feed to preview it).</li>
@@ -21381,7 +21392,6 @@ load();
   const urlList = document.getElementById('feed-url-list');
   const openBtn = document.getElementById('feed-open-btn');
   const copyBtn = document.getElementById('copy-feed');
-  const opmlBtn = document.getElementById('feed-opml');
   if (!timelineSel || !urlList || !copyBtn) return;
 
   // Type-filtered feeds are pruned to combinations that actually contain grants,
@@ -21480,7 +21490,7 @@ load();
     if (feeds.length > SHOWN) {
       const more = document.createElement('p');
       more.className = 'feed-url';
-      more.textContent = `+ ${feeds.length - SHOWN} more (all ${feeds.length} are in the .opml)`;
+      more.textContent = `+ ${feeds.length - SHOWN} more (Copy URL takes all ${feeds.length})`;
       urlList.appendChild(more);
     }
 
@@ -21488,7 +21498,7 @@ load();
     if (!feeds.length) {
       notes.push('No grants match that combination yet, so there is no feed for it. Untick something to widen it.');
     } else if (feeds.length > 1) {
-      notes.push(`<strong>${feeds.length} feeds.</strong> Ticking several options gives one feed each. For a single merged stream, hit <strong>Download .opml</strong> and import it into your reader &mdash; it arrives as one folder that reads as one combined feed.`);
+      notes.push(`<strong>${feeds.length} feeds.</strong> Ticking several options gives one feed each; Copy URL takes all of them. Put them in one folder in your reader to read them as a single stream.`);
     }
     if (pruned) notes.push(`${pruned} combination${pruned > 1 ? 's have' : ' has'} no grants yet and ${pruned > 1 ? 'were' : 'was'} left out.`);
     if (timelineActive) notes.push('Timeline feeds cover every region, category and type. Clear it to combine the other filters.');
@@ -21502,46 +21512,7 @@ load();
     copyBtn.disabled = !feeds.length;
     copyBtn.dataset.url = feeds.map(f => f.url).join('\n');
     copyBtn.textContent = feeds.length > 1 ? `Copy ${feeds.length} URLs` : 'Copy URL';
-    if (opmlBtn) {
-      opmlBtn.disabled = feeds.length < 2;
-      opmlBtn.title = feeds.length < 2
-        ? 'Tick more than one option to bundle them into a single folder'
-        : `Bundle these ${feeds.length} feeds into one folder`;
-    }
   };
-
-  const xmlAttr = (v) => String(v)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-
-  // OPML is the standard subscription-list format: every major reader imports it
-  // as a FOLDER, and a folder reads as one merged stream. That is the union of
-  // the ticked options, with no server and nothing to sign up for.
-  const buildOpml = (feeds) => {
-    const site = new URL('.', window.location.href).toString();
-    const outlines = feeds.map(f =>
-      `      <outline type="rss" text="${xmlAttr(f.title)}" title="${xmlAttr(f.title)}"`
-      + ` xmlUrl="${xmlAttr(f.url)}" htmlUrl="${xmlAttr(site)}"/>`
-    ).join('\n');
-    return '<?xml version="1.0" encoding="UTF-8"?>\n'
-      + '<opml version="2.0">\n  <head>\n    <title>The Grant Desk</title>\n  </head>\n  <body>\n'
-      + '    <outline text="The Grant Desk" title="The Grant Desk">\n'
-      + outlines + '\n    </outline>\n  </body>\n</opml>\n';
-  };
-
-  if (opmlBtn) {
-    opmlBtn.addEventListener('click', () => {
-      if (currentFeeds.length < 2) return;
-      const blob = new Blob([buildOpml(currentFeeds)], { type: 'text/x-opml' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'grant-desk.opml';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-    });
-  }
 
   [catFieldset, regionFieldset, typeFieldset].forEach((fs) => {
     if (fs) fs.addEventListener('change', update);
