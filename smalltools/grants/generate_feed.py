@@ -1328,57 +1328,6 @@ def _overlap_rows(grants, keys, matcher, labels):
     return rows[:OVERLAP_MAX_ROWS]
 
 
-def build_coverage_note(grants):
-    """Say plainly how much each filtered axis leaves out.
-
-    The subscribe picker deliberately offers fewer options than the data carries
-    (regions and categories were merged or dropped, and a call can match no type
-    at all), so a filtered feed is narrower than the desk. Only the unfiltered
-    feed is complete. Counts are computed per build so the claim stays true."""
-    total = len(grants)
-    if not total:
-        return "<!-- BEGIN_COVERAGE_NOTE --><!-- END_COVERAGE_NOTE -->"
-
-    def uncovered(keys, matcher):
-        return sum(1 for g in grants if not any(matcher(g, k) for k in keys))
-
-    no_cat = uncovered(PICKER_CATEGORIES, category_matches)
-    no_region = uncovered(PICKER_REGIONS, region_matches)
-    no_type = uncovered(FEED_TYPES, type_matches)
-    missing_ids = set()
-    for keys, matcher in ((PICKER_CATEGORIES, category_matches),
-                          (PICKER_REGIONS, region_matches),
-                          (FEED_TYPES, type_matches)):
-        for g in grants:
-            if not any(matcher(g, k) for k in keys):
-                missing_ids.add(g.get("id"))
-    any_gap = len(missing_ids)
-
-    def pct(n):
-        return f"{n / total * 100:.0f}%"
-
-    bits = []
-    if no_type:
-        bits.append(f"{no_type} ({pct(no_type)}) match no type")
-    if no_cat:
-        bits.append(f"{no_cat} ({pct(no_cat)}) match no category")
-    if no_region:
-        bits.append(f"{no_region} ({pct(no_region)}) match no region")
-
-    return (
-        "<!-- BEGIN_COVERAGE_NOTE -->\n"
-        '<p class="coverage-note">'
-        "<strong>Filtered feeds do not carry everything.</strong> The picker offers "
-        "fewer options than the desk actually tracks, so some calls fall outside "
-        "every option on an axis: " + "; ".join(bits) + ". In total "
-        f"<strong>{any_gap} of {total} calls ({pct(any_gap)})</strong> are absent from at "
-        "least one filtered view. Leave the filters alone to get the unfiltered "
-        "feed, which is the only one that carries every call."
-        "</p>\n"
-        "<!-- END_COVERAGE_NOTE -->"
-    )
-
-
 def heavy_overlap_pairs(grants):
     """Pairs where the smaller filter is largely swallowed by the larger one.
 
@@ -1492,13 +1441,6 @@ def inject_into_main_index(grants, today):
     text = re.sub(
         r"<!-- BEGIN_NOSCRIPT_GRANTS -->.*?<!-- END_NOSCRIPT_GRANTS -->",
         lambda m: noscript_block,
-        text,
-        flags=re.DOTALL,
-    )
-    coverage_block = build_coverage_note(grants)
-    text = re.sub(
-        r"<!-- BEGIN_COVERAGE_NOTE -->.*?<!-- END_COVERAGE_NOTE -->",
-        lambda m: coverage_block,
         text,
         flags=re.DOTALL,
     )
