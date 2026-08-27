@@ -72,7 +72,12 @@ CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "desi
 # file. They are syndication-only: static SEO pages stay on the canonical
 # single categories so the group slugs never become indexable duplicate pages.
 CATEGORY_GROUPS = {
-    "media-arts": ["film", "arts", "audio", "design", "game"],
+    # Design and Game Design are deliberately NOT offered in the picker and are
+    # not folded in here either: they were too small to earn their own filter and
+    # too weakly related to the rest of the media group to belong inside it. Their
+    # feeds are still generated under the single-category slugs so any existing
+    # subscription keeps resolving; nothing in the UI points at them.
+    "media-arts": ["film", "arts", "audio"],
     "ai-tech-research": ["ai", "tech", "research"],
 }
 SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
@@ -82,7 +87,14 @@ SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
 # SYNDICATION_CATEGORIES, or it reports group-vs-member containment that no user
 # can ever tick (ai-tech always contains all of ai).
 _GROUPED_MEMBERS = {m for ms in CATEGORY_GROUPS.values() for m in ms}
-PICKER_CATEGORIES = [c for c in CATEGORIES if c not in _GROUPED_MEMBERS] + list(CATEGORY_GROUPS)
+# Categories the picker deliberately does not offer. Being ungrouped is not the
+# same as being offered: design and game are too small to earn a filter and are
+# not folded into the media group either, so they must be named here or the
+# derivation below would quietly hand them back a checkbox.
+PICKER_EXCLUDED = {"design", "game"}
+PICKER_CATEGORIES = [
+    c for c in CATEGORIES if c not in _GROUPED_MEMBERS and c not in PICKER_EXCLUDED
+] + list(CATEGORY_GROUPS)
 CATEGORY_LABELS = {
     "ai": "AI & Safety",
     "tech": "Tech & Infrastructure",
@@ -95,7 +107,7 @@ CATEGORY_LABELS = {
     "curator": "Curatorial",
     "audio": "Audio, Sound & Music",
     "cross": "Cross-disciplinary & Social Impact",
-    "media-arts": "Media Arts, Film, Sound, Design & Games",
+    "media-arts": "Media Arts, Film & Sound",
     "ai-tech-research": "AI, Tech & Research",
 }
 
