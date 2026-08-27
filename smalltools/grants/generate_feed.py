@@ -72,13 +72,11 @@ CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "desi
 # file. They are syndication-only: static SEO pages stay on the canonical
 # single categories so the group slugs never become indexable duplicate pages.
 CATEGORY_GROUPS = {
-    # Design and Game Design are deliberately NOT offered in the picker and are
-    # not folded in here either: they were too small to earn their own filter and
-    # too weakly related to the rest of the media group to belong inside it. Their
-    # feeds are still generated under the single-category slugs so any existing
-    # subscription keeps resolving; nothing in the UI points at them.
     "media-arts": ["film", "arts", "audio"],
     "ai-tech-research": ["ai", "tech", "research"],
+    # Design and Game Design are too small to stand alone (57 and 14) but pair
+    # naturally, and together they clear the bar for their own stream.
+    "design-games": ["design", "game"],
 }
 SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
 
@@ -87,11 +85,11 @@ SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
 # SYNDICATION_CATEGORIES, or it reports group-vs-member containment that no user
 # can ever tick (ai-tech always contains all of ai).
 _GROUPED_MEMBERS = {m for ms in CATEGORY_GROUPS.values() for m in ms}
-# Categories the picker deliberately does not offer. Being ungrouped is not the
-# same as being offered: design and game are too small to earn a filter and are
-# not folded into the media group either, so they must be named here or the
-# derivation below would quietly hand them back a checkbox.
-PICKER_EXCLUDED = {"design", "game"}
+# Categories the picker deliberately does not offer despite being ungrouped.
+# Empty right now (design and game moved into their own group), but the hook
+# stays: being ungrouped is not the same as being offered, and without this the
+# derivation below hands every loose single a checkbox automatically.
+PICKER_EXCLUDED: set[str] = set()
 PICKER_CATEGORIES = [
     c for c in CATEGORIES if c not in _GROUPED_MEMBERS and c not in PICKER_EXCLUDED
 ] + list(CATEGORY_GROUPS)
@@ -109,6 +107,7 @@ CATEGORY_LABELS = {
     "cross": "Cross-disciplinary & Social Impact",
     "media-arts": "Media Arts, Film & Sound",
     "ai-tech-research": "AI, Tech & Research",
+    "design-games": "Design & Games",
 }
 
 
