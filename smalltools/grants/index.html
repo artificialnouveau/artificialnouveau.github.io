@@ -1500,6 +1500,13 @@ code *, pre *, kbd *, samp * {
                 <option value="added-30d">Added in last 30 days</option>
               </select>
             </label>
+            <label>
+              <span>Cadence</span>
+              <select id="feed-cadence">
+                <option value="">One entry per grant (daily trickle)</option>
+                <option value="weekly">Weekly digest (one entry per week)</option>
+              </select>
+            </label>
           </div>
           <div class="feed-url-list" id="feed-url-list">
             <a class="feed-url" id="feed-url-text" href="feed.xml">feed.xml</a>
@@ -1525,6 +1532,7 @@ code *, pre *, kbd *, samp * {
                   </li>
                 </ul>
               </li>
+              <li><strong>Cadence</strong> changes how much lands in your reader, not how often it checks (RSS readers poll on their own schedule, which the site cannot set). <em>One entry per grant</em> is the original feed: new calls arrive in a steady trickle, roughly five a day. <em>Weekly digest</em> collapses the same grants into a single entry per week listing everything released that week, so you get one item instead of about thirty-five. Pair the digest with an RSS-to-email bridge below and it becomes one email a week.</li>
               <li>Deadline-filtered feeds (Next 30 / 90 days) only include grants with a fixed deadline in that window. Rolling/undated grants are excluded from those.</li>
               <li>"Added in last 30 days" includes everything added recently regardless of deadline (great for a "what's new" feed and the closest match to a newsletter when paired with a weekly email digest).</li>
             </ol>
@@ -21349,6 +21357,7 @@ load();
   const regionSel = document.getElementById('feed-region');
   const catFieldset = document.getElementById('feed-categories');
   const timelineSel = document.getElementById('feed-timeline');
+  const cadenceSel = document.getElementById('feed-cadence');
   const urlList = document.getElementById('feed-url-list');
   const openBtn = document.getElementById('feed-open-btn');
   const copyBtn = document.getElementById('copy-feed');
@@ -21360,11 +21369,12 @@ load();
           .flatMap(c => c.value.split(',').filter(Boolean))
       : [];
 
-  const buildName = (cat, region, timeline) => {
+  const buildName = (cat, region, timeline, cadence) => {
     const parts = ['feed'];
     if (cat) { parts.push('cat'); parts.push(cat); }
     if (region) parts.push(region);
     if (timeline) parts.push(timeline);
+    if (cadence) parts.push(cadence);
     return parts.join('-') + '.xml';
   };
 
@@ -21372,9 +21382,10 @@ load();
     const cats = selectedCategories();
     const region = regionSel.value;
     const timeline = timelineSel.value;
+    const cadence = cadenceSel ? cadenceSel.value : '';
     const names = cats.length
-      ? cats.map(c => buildName(c, region, timeline))
-      : [buildName(null, region, timeline)];
+      ? cats.map(c => buildName(c, region, timeline, cadence))
+      : [buildName(null, region, timeline, cadence)];
 
     urlList.innerHTML = '';
     const absUrls = [];
@@ -21399,6 +21410,7 @@ load();
   regionSel.addEventListener('change', update);
   if (catFieldset) catFieldset.addEventListener('change', update);
   timelineSel.addEventListener('change', update);
+  if (cadenceSel) cadenceSel.addEventListener('change', update);
 
   copyBtn.addEventListener('click', async () => {
     const url = copyBtn.dataset.url;
