@@ -185,13 +185,20 @@ def build_item(grant, today):
     )
 
 
-def feed_filename(region, timeline, category=None, weekly=False):
+def feed_filename(region, timeline, category=None, weekly=False, opp_type=None):
+    """Fixed slot order: feed [cat-<category>] [region] [type] [timeline] [weekly].
+
+    The order is a contract with the subscribe picker's JS, which assembles the
+    same slots client-side. No type slug collides with a region or timeline slug,
+    so the flat name stays unambiguous."""
     parts = ["feed"]
     if category:
         parts.append("cat")
         parts.append(category)
     if region:
         parts.append(region.lower())
+    if opp_type:
+        parts.append(opp_type)
     if timeline:
         parts.append(timeline)
     if weekly:
@@ -199,8 +206,10 @@ def feed_filename(region, timeline, category=None, weekly=False):
     return "-".join(parts) + ".xml"
 
 
-def feed_title_desc(region, timeline, category=None, weekly=False):
+def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None):
     suffix = []
+    if opp_type:
+        suffix.append(OPPORTUNITY_TYPE_TITLE_PHRASE.get(opp_type, opp_type))
     if category:
         suffix.append(CATEGORY_LABELS.get(category, category))
     if region:
@@ -269,9 +278,11 @@ def category_matches(grant, category):
     return category in (grant.get("categories") or [])
 
 
-def filter_grants(grants, region, timeline, today, category=None):
+def filter_grants(grants, region, timeline, today, category=None, opp_type=None):
     out = []
     for g in grants:
+        if opp_type and not type_matches(g, opp_type):
+            continue
         if category and not category_matches(g, category):
             continue
         if region and not region_matches(g, region):
@@ -299,9 +310,9 @@ def filter_grants(grants, region, timeline, today, category=None):
     return out
 
 
-def build_feed(grants, region, timeline, today, category=None):
-    title, desc = feed_title_desc(region, timeline, category)
-    filename = feed_filename(region, timeline, category)
+def build_feed(grants, region, timeline, today, category=None, opp_type=None):
+    title, desc = feed_title_desc(region, timeline, category, opp_type=opp_type)
+    filename = feed_filename(region, timeline, category, opp_type=opp_type)
     feed_url = PAGE_URL + filename
 
     grants_sorted = sorted(
@@ -400,10 +411,10 @@ def build_weekly_item(monday, grants_in_week, today):
     )
 
 
-def build_weekly_feed(grants, region, timeline, today, category=None):
+def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=None):
     """Digest twin of build_feed: same grant slice, grouped into one item per week."""
-    title, desc = feed_title_desc(region, timeline, category, weekly=True)
-    filename = feed_filename(region, timeline, category=category, weekly=True)
+    title, desc = feed_title_desc(region, timeline, category, weekly=True, opp_type=opp_type)
+    filename = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
     feed_url = PAGE_URL + filename
 
     buckets = {}
@@ -1552,34 +1563,73 @@ def main():
 
     written = []
     weekly_written = []
+    typed_manifest = []
 
-    def emit(region, timeline, category=None):
-        """Write the per-grant feed and its weekly-digest twin for one slice."""
-        filtered = filter_grants(feed_grants, region, timeline, today, category=category)
-        name = feed_filename(region, timeline, category=category)
+    def emit(region, timeline, category=None, opp_type=None):
+        """Write the per-grant feed and its weekly-digest twin for one slice.
+
+        Type-bearing slices are PRUNED: a combination with no matching grants is
+        not written at all, because the full type cross-product is mostly empty
+        (5,824 permutations, roughly a third of them populated). The names that
+        do get written are recorded in feeds-manifest.json so the subscribe
+        picker can avoid offering a combination that would 404. Untyped slices
+        are always written, empty or not, so the picker's default paths and any
+        existing subscriptions can never break.
+        """
+        filtered = filter_grants(feed_grants, region, timeline, today,
+                                 category=category, opp_type=opp_type)
+        if opp_type and not filtered:
+            return
+        name = feed_filename(region, timeline, category=category, opp_type=opp_type)
         (HERE / name).write_text(
-            build_feed(filtered, region, timeline, today, category=category),
+            build_feed(filtered, region, timeline, today, category=category, opp_type=opp_type),
             encoding="utf-8",
         )
         written.append((name, len(filtered)))
 
-        wname = feed_filename(region, timeline, category=category, weekly=True)
+        wname = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
         (HERE / wname).write_text(
-            build_weekly_feed(filtered, region, timeline, today, category=category),
+            build_weekly_feed(filtered, region, timeline, today, category=category, opp_type=opp_type),
             encoding="utf-8",
         )
         weekly_written.append(wname)
+        if opp_type:
+            typed_manifest.append(name)
 
-    # Region x Timeline matrix (existing)
-    for region in region_options:
-        for timeline in timeline_options:
-            emit(region, timeline)
+    type_options = [None] + OPPORTUNITY_TYPES
 
-    # Category x Region x Timeline cross-product
-    for category in SYNDICATION_CATEGORIES:
-        for region in region_options:
-            for timeline in timeline_options:
-                emit(region, timeline, category=category)
+    # Category x Region x Type cross-product. TIMELINE IS DELIBERATELY NOT PART
+    # OF THIS CROSS: it multiplied every slice by four for the least benefit, and
+    # "closing in the next 30 days" is a question the website answers better than
+    # a feed reader can. Timeline survives below as a standalone filter.
+    for opp_type in type_options:
+        for category in [None] + SYNDICATION_CATEGORIES:
+            for region in region_options:
+                emit(region, None, category=category, opp_type=opp_type)
+
+    # Standalone timeline feeds, uncrossed.
+    for timeline in TIMELINES:
+        emit(None, timeline)
+
+    # Manifest of the pruned, type-bearing feeds. The picker fetches this to grey
+    # out combinations that produced no grants. Weekly twins are omitted: a
+    # weekly file exists exactly when its per-grant sibling does.
+    (HERE / "feeds-manifest.json").write_text(
+        json.dumps({"typedFeeds": sorted(typed_manifest)}, separators=(",", ":")),
+        encoding="utf-8",
+    )
+
+    # Orphan sweep. Narrowing the axes (or pruning an empty type slice) leaves
+    # files on disk that nothing generates any more; without this they linger
+    # forever, get served as stale feeds and bloat the repo.
+    current = {n for n, _ in written} | set(weekly_written)
+    orphans = sorted(
+        f.name for f in HERE.glob("feed*.xml") if f.name not in current
+    )
+    for name in orphans:
+        (HERE / name).unlink()
+    if orphans:
+        print(f"Removed {len(orphans)} stale feed file(s) no longer generated.")
 
     cals_written = []
     for region in [None] + REGIONS:
@@ -1598,6 +1648,8 @@ def main():
     for name, count in written:
         print(f"  {name}: {count} items")
     print(f"Wrote {len(weekly_written)} weekly-digest RSS feeds (one item per week).")
+    print(f"Wrote feeds-manifest.json listing {len(typed_manifest)} type-filtered feeds "
+          f"(empty type combinations pruned).")
     print(f"Wrote {len(cals_written)} calendars: {', '.join(cals_written)}")
 
     # --- Static SEO landing pages ---
