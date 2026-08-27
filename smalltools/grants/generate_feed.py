@@ -64,6 +64,18 @@ FEED_CAP_START = date(2026, 7, 14)
 REGIONS = ["EU", "US", "UK", "NL", "Switzerland", "Asia", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"]
 TIMELINES = ["30d", "90d", "added-30d"]
 CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"]
+
+# Two of the subscribe-picker checkboxes bundle a pair of categories under one
+# label. Without a real combined slice, one ticked box produced TWO feed URLs
+# (one per member), which is not what "one option, one feed" should mean. These
+# groups get their own feeds and calendars so each checkbox maps to exactly one
+# file. They are syndication-only: static SEO pages stay on the canonical
+# single categories so the group slugs never become indexable duplicate pages.
+CATEGORY_GROUPS = {
+    "ai-tech": ["ai", "tech"],
+    "film-arts": ["film", "arts"],
+}
+SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
 CATEGORY_LABELS = {
     "ai": "AI & Safety",
     "tech": "Tech & Infrastructure",
@@ -76,6 +88,8 @@ CATEGORY_LABELS = {
     "curator": "Curator",
     "audio": "Audio, Sound & Music",
     "cross": "Cross-disciplinary & Social Impact",
+    "ai-tech": "AI, Tech & Digital Infrastructure",
+    "film-arts": "Media Arts & Film",
 }
 
 
@@ -247,6 +261,9 @@ def category_matches(grant, category):
     the singular ``category`` is canonical (it drives the feed ``<category>`` and
     the card chip) and an optional ``categories`` list only widens which views
     surface the grant, for calls that genuinely sit in two disciplines."""
+    members = CATEGORY_GROUPS.get(category)
+    if members:
+        return any(category_matches(grant, m) for m in members)
     if grant.get("category") == category:
         return True
     return category in (grant.get("categories") or [])
@@ -1559,7 +1576,7 @@ def main():
             emit(region, timeline)
 
     # Category x Region x Timeline cross-product
-    for category in CATEGORIES:
+    for category in SYNDICATION_CATEGORIES:
         for region in region_options:
             for timeline in timeline_options:
                 emit(region, timeline, category=category)
@@ -1570,7 +1587,7 @@ def main():
         name = calendar_filename(region)
         (HERE / name).write_text(ics_text, encoding="utf-8")
         cals_written.append(name)
-    for category in CATEGORIES:
+    for category in SYNDICATION_CATEGORIES:
         for region in [None] + REGIONS:
             ics_text = build_calendar(grants, today, region=region, category=category)
             name = calendar_filename(region, category=category)
