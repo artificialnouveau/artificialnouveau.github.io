@@ -80,6 +80,12 @@ CATEGORY_GROUPS = {
 }
 SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
 
+# Single categories the picker no longer offers because they were merged into a
+# group (or excluded). Their BARE feed is still built as a compatibility alias so
+# anyone who subscribed before the merge keeps receiving items, but none of their
+# region/type permutations are: nothing can reach those, and they were half the
+# feed directory. Populated after PICKER_CATEGORIES is derived, below.
+
 # What the subscribe picker actually offers as tickboxes: the grouped slugs plus
 # the singles no group absorbed. Overlap reporting must use THIS list, not
 # SYNDICATION_CATEGORIES, or it reports group-vs-member containment that no user
@@ -94,6 +100,7 @@ PICKER_EXCLUDED = {"curator"}
 PICKER_CATEGORIES = [
     c for c in CATEGORIES if c not in _GROUPED_MEMBERS and c not in PICKER_EXCLUDED
 ] + list(CATEGORY_GROUPS)
+LEGACY_BARE_CATEGORIES = [c for c in CATEGORIES if c not in PICKER_CATEGORIES]
 CATEGORY_LABELS = {
     "ai": "AI & Safety",
     "tech": "Tech & Infrastructure",
@@ -1751,14 +1758,20 @@ def main():
 
     type_options = [None] + FEED_TYPES
 
-    # Category x Region x Type cross-product. TIMELINE IS DELIBERATELY NOT PART
-    # OF THIS CROSS: it multiplied every slice by four for the least benefit, and
-    # "closing in the next 30 days" is a question the website answers better than
-    # a feed reader can. Timeline survives below as a standalone filter.
+    # Category x Region x Type cross-product, over the categories the PICKER can
+    # actually offer. TIMELINE IS DELIBERATELY NOT PART OF THIS CROSS: it
+    # multiplied every slice by four for the least benefit, and "closing in the
+    # next 30 days" is a question the website answers better than a feed reader
+    # can. Timeline survives below as a standalone filter.
     for opp_type in type_options:
-        for category in [None] + SYNDICATION_CATEGORIES:
+        for category in [None] + PICKER_CATEGORIES:
             for region in region_options:
                 emit(region, None, category=category, opp_type=opp_type)
+
+    # Compatibility aliases: bare feeds for the pre-merge single categories, with
+    # no region or type permutations.
+    for category in LEGACY_BARE_CATEGORIES:
+        emit(None, None, category=category)
 
     # Standalone timeline feeds, uncrossed.
     for timeline in TIMELINES:
