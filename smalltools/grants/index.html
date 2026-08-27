@@ -1481,33 +1481,28 @@ code *, pre *, kbd *, samp * {
               <label><input type="checkbox" value="audio"> Audio, Sound &amp; Music</label>
               <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
             </fieldset>
-            <label>
-              <span>Region</span>
-              <select id="feed-region">
-                <option value="">All regions</option>
-                <option value="eu">EU</option>
-                <option value="us">US</option>
-                <option value="uk">UK</option>
-                <option value="nl">NL</option>
-                <option value="asia">Asia</option>
-                <option value="africa">Africa</option>
-                <option value="canada">Canada</option>
-                <option value="australia">Australia</option>
-                <option value="latam">Latin America</option>
-                <option value="remote">Remote</option>
-                <option value="worldwide">Worldwide</option>
-              </select>
-            </label>
-            <label>
-              <span>Type</span>
-              <select id="feed-type">
-                <option value="">All types</option>
-                <option value="residencies">Residencies</option>
-                <option value="fellowships">Fellowships</option>
-                <option value="prizes">Prizes &amp; awards</option>
-                <option value="open-calls">Open calls</option>
-              </select>
-            </label>
+            <fieldset class="cat-checks" id="feed-regions">
+              <legend>Regions</legend>
+              <label><input type="checkbox" value="eu"> EU</label>
+              <label><input type="checkbox" value="us"> US</label>
+              <label><input type="checkbox" value="uk"> UK</label>
+              <label><input type="checkbox" value="nl"> NL</label>
+              <label><input type="checkbox" value="switzerland"> Switzerland</label>
+              <label><input type="checkbox" value="asia"> Asia</label>
+              <label><input type="checkbox" value="africa"> Africa</label>
+              <label><input type="checkbox" value="canada"> Canada</label>
+              <label><input type="checkbox" value="australia"> Australia</label>
+              <label><input type="checkbox" value="latam"> Latin America</label>
+              <label><input type="checkbox" value="remote"> Remote</label>
+              <label><input type="checkbox" value="worldwide"> Worldwide</label>
+            </fieldset>
+            <fieldset class="cat-checks" id="feed-types">
+              <legend>Types</legend>
+              <label><input type="checkbox" value="residencies"> Residencies</label>
+              <label><input type="checkbox" value="fellowships"> Fellowships</label>
+              <label><input type="checkbox" value="prizes"> Prizes &amp; awards</label>
+              <label><input type="checkbox" value="open-calls"> Open calls</label>
+            </fieldset>
             <label>
               <span>Timeline</span>
               <select id="feed-timeline">
@@ -1532,12 +1527,14 @@ code *, pre *, kbd *, samp * {
           <div class="row">
             <button type="button" id="copy-feed">Copy URL</button>
             <a class="btn" id="feed-open-btn" href="feed.xml" target="_blank" rel="noopener">Open feed</a>
+            <button type="button" id="feed-opml">Download .opml</button>
           </div>
           <details>
             <summary>How to subscribe (RSS reader or email)</summary>
             <ol>
               <li>Optionally tick one or more Categories and pick a Region, Type and Cadence to narrow the feed.</li>
-              <li><strong>Ticking several categories gives you one URL each, and that is the efficient way round.</strong> Subscribe to all of them and drop them in a single folder in your reader &mdash; Feedly, Inoreader and NetNewsWire all show a folder as one merged stream, which is exactly what "AI and Film" means. Pre-building a separate file for every possible combination of ticks would mean tens of thousands of feeds, so the reader does that job instead, for free.</li>
+              <li><strong>Want a union &mdash; Design <em>and</em> Game Design, or EU <em>and</em> UK? Tick both, then hit Download .opml.</strong> OPML is the standard subscription-list format and every major reader imports it as a folder, which reads as one merged stream. That is your union, with no server and nothing to sign up for. Ticking across axes works too: two categories and three regions gives six feeds, all bundled into the one file.</li>
+              <li>Why not a single URL for a union? Each feed here is a pre-built file, and one file per possible combination of ticks would run to tens of thousands. The OPML folder gets you the same reading experience without that. One caveat: if a grant matches two of your feeds, some readers show it twice in the folder.</li>
               <li><strong>Timeline stands on its own.</strong> The deadline windows cover every region, category and type, so picking one clears the others. Combining them was dropped: it quadrupled the number of feeds, and "closing in the next 30 days" is a question this website answers better than a feed reader can.</li>
               <li>Some Type combinations have no grants yet (there may be no curator prizes in LatAm this month). Those feeds are not generated, and the picker tells you rather than handing you a dead link.</li>
               <li>Copy the feed URL above (or click Open feed to preview it).</li>
@@ -21375,31 +21372,35 @@ load();
 })();
 
 (function setupRssFeedSelector() {
-  const regionSel = document.getElementById('feed-region');
   const catFieldset = document.getElementById('feed-categories');
+  const regionFieldset = document.getElementById('feed-regions');
+  const typeFieldset = document.getElementById('feed-types');
   const timelineSel = document.getElementById('feed-timeline');
   const cadenceSel = document.getElementById('feed-cadence');
-  const typeSel = document.getElementById('feed-type');
   const noteEl = document.getElementById('feed-note');
   const urlList = document.getElementById('feed-url-list');
   const openBtn = document.getElementById('feed-open-btn');
   const copyBtn = document.getElementById('copy-feed');
-  if (!regionSel || !timelineSel || !urlList || !copyBtn) return;
+  const opmlBtn = document.getElementById('feed-opml');
+  if (!timelineSel || !urlList || !copyBtn) return;
 
-  // Type-filtered feeds are pruned to the combinations that actually contain
-  // grants, so the picker checks this manifest before offering one. If the fetch
-  // fails we simply stop checking rather than blocking every choice.
+  // Type-filtered feeds are pruned to combinations that actually contain grants,
+  // so the picker checks this manifest before offering one. If the fetch fails we
+  // stop checking rather than blocking every choice.
   let typedFeeds = null;
   fetch('feeds-manifest.json')
     .then(r => r.ok ? r.json() : null)
     .then(j => { if (j && j.typedFeeds) { typedFeeds = new Set(j.typedFeeds); update(); } })
     .catch(() => {});
 
-  const selectedCategories = () =>
-    catFieldset
-      ? Array.from(catFieldset.querySelectorAll('input[type=checkbox]:checked'))
-          .flatMap(c => c.value.split(',').filter(Boolean))
-      : [];
+  const ticked = (fs) => fs
+    ? Array.from(fs.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value)
+    : [];
+  const labelFor = (fs, value) => {
+    if (!fs) return value;
+    const el = fs.querySelector(`input[value="${value}"]`);
+    return el && el.parentElement ? el.parentElement.textContent.trim() : value;
+  };
 
   // Slot order mirrors feed_filename() in generate_feed.py exactly:
   // feed [cat-<category>] [region] [type] [timeline] [weekly]
@@ -21415,77 +21416,138 @@ load();
 
   const setNote = (msg) => {
     if (!noteEl) return;
-    noteEl.textContent = msg || '';
+    noteEl.innerHTML = msg || '';
     noteEl.hidden = !msg;
   };
 
+  let currentFeeds = [];
+
   const update = () => {
-    // Timeline no longer crosses with the other axes: those combinations were
-    // dropped because they multiplied the feed count fourfold for the least
-    // benefit. Enforce the exclusivity in the UI so no dead URL is offered.
+    // Timeline does not cross with the other axes (those combinations were
+    // dropped for quadrupling the feed count), so it is mutually exclusive.
     const timelineActive = !!timelineSel.value;
-    const othersActive = !!(regionSel.value || (typeSel && typeSel.value) || selectedCategories().length);
-    regionSel.disabled = timelineActive;
-    if (typeSel) typeSel.disabled = timelineActive;
-    if (catFieldset) catFieldset.querySelectorAll('input[type=checkbox]')
-      .forEach(cb => { cb.disabled = timelineActive; });
+    const othersActive = !!(ticked(catFieldset).length + ticked(regionFieldset).length + ticked(typeFieldset).length);
+    [catFieldset, regionFieldset, typeFieldset].forEach((fs) => {
+      if (fs) fs.querySelectorAll('input[type=checkbox]').forEach(cb => { cb.disabled = timelineActive; });
+    });
     timelineSel.disabled = othersActive;
 
-    const cats = timelineActive ? [] : selectedCategories();
-    const region = timelineActive ? '' : regionSel.value;
-    const type = (timelineActive || !typeSel) ? '' : typeSel.value;
+    const cats = timelineActive ? [] : ticked(catFieldset);
+    const regions = timelineActive ? [] : ticked(regionFieldset);
+    const types = timelineActive ? [] : ticked(typeFieldset);
     const timeline = othersActive ? '' : timelineSel.value;
     const cadence = cadenceSel ? cadenceSel.value : '';
 
-    const names = cats.length
-      ? cats.map(c => buildName(c, region, type, timeline, cadence))
-      : [buildName(null, region, type, timeline, cadence)];
+    // A union across ticked values is the CROSS-PRODUCT of the axes: ticking
+    // Design + Game Design yields one feed each, and both together are the union
+    // once the reader merges them. Empty axis => a single null so the axis is
+    // simply not constrained.
+    const axis = (arr) => arr.length ? arr : [null];
+    const combos = [];
+    axis(cats).forEach(c => axis(regions).forEach(r => axis(types).forEach(t => {
+      combos.push({ cat: c, region: r, type: t });
+    })));
 
-    // A pruned type combination has no file. Check the un-suffixed sibling,
-    // since a weekly twin exists exactly when its per-grant feed does.
-    const missing = !type || !typedFeeds ? [] : names.filter((n) => {
-      const base = n.replace(/-weekly\.xml$/, '.xml');
-      return !typedFeeds.has(base);
+    const feeds = [];
+    let pruned = 0;
+    combos.forEach(({ cat, region, type }) => {
+      const filename = buildName(cat, region, type, timeline, cadence);
+      const base = filename.replace(/-weekly\.xml$/, '.xml');
+      if (type && typedFeeds && !typedFeeds.has(base)) { pruned++; return; }
+      const bits = [];
+      if (cat) bits.push(labelFor(catFieldset, cat));
+      if (region) bits.push(labelFor(regionFieldset, region));
+      if (type) bits.push(labelFor(typeFieldset, type));
+      if (timeline) bits.push(timelineSel.options[timelineSel.selectedIndex].text);
+      feeds.push({
+        filename,
+        url: new URL(filename, window.location.href).toString(),
+        title: 'The Grant Desk' + (bits.length ? ' — ' + bits.join(', ') : '')
+          + (cadence ? ' (weekly)' : ''),
+      });
     });
-    const usable = names.filter(n => !missing.includes(n));
+    currentFeeds = feeds;
 
     urlList.innerHTML = '';
-    const absUrls = [];
-    usable.forEach((filename) => {
-      const absUrl = new URL(filename, window.location.href).toString();
-      absUrls.push(absUrl);
+    const SHOWN = 12;
+    feeds.slice(0, SHOWN).forEach(({ filename, url }) => {
       const a = document.createElement('a');
       a.className = 'feed-url';
       a.href = filename;
-      a.textContent = absUrl;
+      a.textContent = url;
       urlList.appendChild(a);
     });
-
-    if (missing.length && !usable.length) {
-      setNote('No grants match that combination yet, so there is no feed for it. Widen the region or category, or drop the type filter.');
-    } else if (missing.length) {
-      setNote(`${missing.length} of those combinations have no grants yet and were left out.`);
-    } else if (timelineActive) {
-      setNote('Timeline feeds cover every region, category and type. Clear it to combine the other filters.');
-    } else {
-      setNote('');
+    if (feeds.length > SHOWN) {
+      const more = document.createElement('p');
+      more.className = 'feed-url';
+      more.textContent = `+ ${feeds.length - SHOWN} more (all ${feeds.length} are in the .opml)`;
+      urlList.appendChild(more);
     }
+
+    const notes = [];
+    if (!feeds.length) {
+      notes.push('No grants match that combination yet, so there is no feed for it. Untick something to widen it.');
+    } else if (feeds.length > 1) {
+      notes.push(`<strong>${feeds.length} feeds.</strong> Ticking several options gives one feed each. For a single merged stream, hit <strong>Download .opml</strong> and import it into your reader &mdash; it arrives as one folder that reads as one combined feed.`);
+    }
+    if (pruned) notes.push(`${pruned} combination${pruned > 1 ? 's have' : ' has'} no grants yet and ${pruned > 1 ? 'were' : 'was'} left out.`);
+    if (timelineActive) notes.push('Timeline feeds cover every region, category and type. Clear it to combine the other filters.');
+    setNote(notes.join(' '));
 
     if (openBtn) {
-      openBtn.setAttribute('href', usable[0] || '#');
-      openBtn.textContent = usable.length > 1 ? 'Open first' : 'Open feed';
-      openBtn.classList.toggle('is-disabled', !usable.length);
+      openBtn.setAttribute('href', feeds.length ? feeds[0].filename : '#');
+      openBtn.textContent = feeds.length > 1 ? 'Open first' : 'Open feed';
+      openBtn.classList.toggle('is-disabled', !feeds.length);
     }
-    copyBtn.disabled = !usable.length;
-    copyBtn.dataset.url = absUrls.join('\n');
-    copyBtn.textContent = absUrls.length > 1 ? `Copy ${absUrls.length} URLs` : 'Copy URL';
+    copyBtn.disabled = !feeds.length;
+    copyBtn.dataset.url = feeds.map(f => f.url).join('\n');
+    copyBtn.textContent = feeds.length > 1 ? `Copy ${feeds.length} URLs` : 'Copy URL';
+    if (opmlBtn) {
+      opmlBtn.disabled = feeds.length < 2;
+      opmlBtn.title = feeds.length < 2
+        ? 'Tick more than one option to bundle them into a single folder'
+        : `Bundle these ${feeds.length} feeds into one folder`;
+    }
   };
 
-  regionSel.addEventListener('change', update);
-  if (catFieldset) catFieldset.addEventListener('change', update);
+  const xmlAttr = (v) => String(v)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  // OPML is the standard subscription-list format: every major reader imports it
+  // as a FOLDER, and a folder reads as one merged stream. That is the union of
+  // the ticked options, with no server and nothing to sign up for.
+  const buildOpml = (feeds) => {
+    const site = new URL('.', window.location.href).toString();
+    const outlines = feeds.map(f =>
+      `      <outline type="rss" text="${xmlAttr(f.title)}" title="${xmlAttr(f.title)}"`
+      + ` xmlUrl="${xmlAttr(f.url)}" htmlUrl="${xmlAttr(site)}"/>`
+    ).join('\n');
+    return '<?xml version="1.0" encoding="UTF-8"?>\n'
+      + '<opml version="2.0">\n  <head>\n    <title>The Grant Desk</title>\n  </head>\n  <body>\n'
+      + '    <outline text="The Grant Desk" title="The Grant Desk">\n'
+      + outlines + '\n    </outline>\n  </body>\n</opml>\n';
+  };
+
+  if (opmlBtn) {
+    opmlBtn.addEventListener('click', () => {
+      if (currentFeeds.length < 2) return;
+      const blob = new Blob([buildOpml(currentFeeds)], { type: 'text/x-opml' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'grant-desk.opml';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    });
+  }
+
+  [catFieldset, regionFieldset, typeFieldset].forEach((fs) => {
+    if (fs) fs.addEventListener('change', update);
+  });
   timelineSel.addEventListener('change', update);
   if (cadenceSel) cadenceSel.addEventListener('change', update);
-  if (typeSel) typeSel.addEventListener('change', update);
 
   copyBtn.addEventListener('click', async () => {
     const url = copyBtn.dataset.url;
