@@ -3,19 +3,18 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - Media Arts\, Film\, Sound\, Design & Games\, NL
-X-WR-CALNAME:The Grant Desk - Media Arts\, Film\, Sound\, Design & Games\, 
- NL deadlines
+NAME:The Grant Desk - Media Arts\, Film & Sound\, NL
+X-WR-CALNAME:The Grant Desk - Media Arts\, Film & Sound\, NL deadlines
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Media Arts\, Film\, Sou
- nd\, Design & Games\, NL.
+ pdated as new calls land on the desk. Filtered to: Media Arts\, Film & Sou
+ nd\, NL.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:mondriaan-voucher-art-event-mexico-art-week-2027@artificialnouveau.gith
  ub.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260910
 DTEND;VALUE=DATE:20260911
 SUMMARY:Deadline: Mondriaan Fund: Voucher Art Event\, Mexico Art Week 2027
@@ -56,7 +55,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-international-collaborative-projects-heritage-institutes-2026
  @artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260910
 DTEND;VALUE=DATE:20260911
 SUMMARY:Deadline: Mondriaan Fund: International Collaborative Projects with
@@ -97,7 +96,7 @@ LOCATION:Applicant institutions must be based in the Netherlands or the Car
 END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-heritage-innovation-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260917
 DTEND;VALUE=DATE:20260918
 SUMMARY:Deadline: Mondriaan Fund: Heritage Innovation (September 2026 round
@@ -138,7 +137,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:jugaad-absolute-improvisation-sac-mama-magnet-2026@artificialnouveau.gi
  thub.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260905
 DTEND;VALUE=DATE:20260906
 SUMMARY:Deadline: JUGAAD: Absolute Improvisation\, open call for printed ma
@@ -186,7 +185,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:gemeente-rotterdam-projectsubsidie-cultuur-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: Gemeente Rotterdam: Project Subsidy Culture (Projectsubsi
@@ -231,7 +230,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:kunstraad-groningen-tweejarige-programmaregeling-2027@artificialnouveau
  .github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: Kunstraad Groningen: Two-Year Programme Scheme (Tweejarig
@@ -273,7 +272,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:fondspodiumkunsten-buitenlandse-voorstellingen-2026@artificialnouveau.g
  ithub.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260923
 DTEND;VALUE=DATE:20260924
 SUMMARY:Deadline: Fonds Podiumkunsten: Foreign Performances or Concerts in 
@@ -319,7 +318,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:gemeente-utrecht-projectsubsidie-cultuur-2026@artificialnouveau.github.
  io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260925
 DTEND;VALUE=DATE:20260926
 SUMMARY:Deadline: Gemeente Utrecht: Project Subsidy Culture (Projectsubsidi
@@ -362,7 +361,7 @@ LOCATION:Activity must have a presentation moment in Utrecht and benefit re
 END:VEVENT
 BEGIN:VEVENT
 UID:bng-cultuurfonds-projectsubsidies-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260927
 DTEND;VALUE=DATE:20260928
 SUMMARY:Deadline: BNG Cultuurfonds: Project Grants (round closing September
@@ -406,7 +405,7 @@ LOCATION:Project must take place in Dutch municipalities\; projects largely
 END:VEVENT
 BEGIN:VEVENT
 UID:cultuur-eindhoven-projecten-2027-r1@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Deadline: Stichting Cultuur Eindhoven: Project Subsidy (Projecten\,
@@ -445,7 +444,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:gemeente-den-haag-kunst-cultuurprojecten-b-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20261015
 DTEND;VALUE=DATE:20261016
 SUMMARY:Deadline: Gemeente Den Haag: Arts and Culture Projects Category B (
@@ -486,7 +485,7 @@ LOCATION:The Hague. Applicant must be active in Den Haag and the project mu
 END:VEVENT
 BEGIN:VEVENT
 UID:norma-fonds-projectbijdrage-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20261030
 DTEND;VALUE=DATE:20261031
 SUMMARY:Deadline: Stichting NORMA: NORMA Fonds Project Grant (round 4\, 202
@@ -531,7 +530,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-fund-delfina-foundation-residency-2027@artificialnouveau.gith
  ub.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260827
 DTEND;VALUE=DATE:20260828
 SUMMARY:Deadline: Mondriaan Fund: Delfina Foundation Residency 2027 (London
@@ -576,7 +575,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-fund-inside-out-art-museum-residency-2027@artificialnouveau.g
  ithub.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260827
 DTEND;VALUE=DATE:20260828
 SUMMARY:Deadline: Mondriaan Fund: Inside-Out Art Museum Residency 2027 (Bei
@@ -627,7 +626,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:treehouse-ndsm-come-back-nature-culture-2026@artificialnouveau.github.i
  o
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260628
 DTEND;VALUE=DATE:20260629
 SUMMARY:Deadline: Treehouse NDSM: Open Call\, Come Back to Your ___ (Nature
@@ -672,7 +671,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:sandberg-temporary-department-archive-2027-2029@artificialnouveau.githu
  b.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260705
 DTEND;VALUE=DATE:20260706
 SUMMARY:Deadline: Sandberg Instituut: Call for Proposals\, Temporary Depart
@@ -742,7 +741,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:kasteel-wijlre-resonant-garden-residency-2026@artificialnouveau.github.
  io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260628
 DTEND;VALUE=DATE:20260629
 SUMMARY:Deadline: Kasteel Wijlre estate: The Resonant Garden Residency 2026
@@ -794,7 +793,7 @@ LOCATION:Kasteel Wijlre estate\, Wijlre\, South Limburg\, the Netherlands\;
 END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-art-media-october-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20261015
 DTEND;VALUE=DATE:20261016
 SUMMARY:Deadline: Mondriaan Fund: Art Media Grant (October 2026 round)
@@ -831,96 +830,8 @@ LOCATION:Netherlands (applicants must be part of the professional visual ar
  t field in the Netherlands or the Caribbean part of the Kingdom)
 END:VEVENT
 BEGIN:VEVENT
-UID:stimuleringsfonds-festivals-creative-industries-2027@artificialnouveau.
- github.io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20260923
-DTEND;VALUE=DATE:20260924
-SUMMARY:Deadline: Stimuleringsfonds: Festivals Creative Industries 2027
-DESCRIPTION:Annual scheme funding festival organisations in the creative in
- dustries (design\, architecture\, digital culture\, fashion\, e-culture\, 
- etc.) presenting a 2027 edition. Application window opens 25 August 2026 a
- t 15:00 CEST and closes 23 September 2026 at 16:00 CEST. Supports both con
- tent programming and the organisational/curatorial running of a festival\;
-  applicants must be organisations rather than individuals\, but the scheme
-  is the natural home for any artist-led collective or platform that runs a
-  critical-AI / digital-culture / surveillance-focused festival event. Note
-  the wider 2026 context: Stimuleringsfonds is restructuring its grant offe
- ring for 2027\, and several individual schemes (Design\, Digital Culture) 
- have been reduced to two rounds in 2026. The Festivals scheme is a separat
- e annual track and one of the cleaner ways to access SCI funding for an ev
- ent-format project.\n\nOrganisation: Stimuleringsfonds Creatieve Industrie
- \nLocation: Netherlands\nAward: Maximum EUR 85\,000 per festival\; scheme 
- ceiling EUR 1\,350\,000. Minimum 20 percent co-financing required. No appl
- ication fee.\nDuration: Festival edition in 2027\n\nMore: https://www.stim
- uleringsfonds.nl/en/grants/creative-industries-festivals-grant-scheme-2025
- -2028?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.stimuleringsfonds.nl/en/grants/creative-industries-festival
- s-grant-scheme-2025-2028?utm_source=artificialnouveaugrantdesk&utm_medium=
- referral
-LOCATION:Netherlands
-END:VEVENT
-BEGIN:VEVENT
-UID:stimuleringsfonds-international-vouchers-2026@artificialnouveau.github.
- io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20261027
-DTEND;VALUE=DATE:20261028
-SUMMARY:Deadline: International Vouchers
-DESCRIPTION:Travel voucher for Dutch-based professionals in design\, archit
- ecture and/or digital culture who have been invited by a foreign party to 
- give a presentation\, lecture or workshop. To apply you must have submitte
- d an application to the Fund in the past five years that was positively as
- sessed (previous International Vouchers do not count). The inviting foreig
- n party must cover a proportionate share of the costs. Covers hourly fees\
- , travel and accommodation directly related to the activity. IMPORTANT TIM
- ING RULE: applications are accepted from 5 months to a minimum of 7 weeks 
- before the activity begins\, and processing takes about 6 weeks. This lead
-  time can rule out activities that fall shortly after a round opens. Round
-  2 (4 May to 22 June 2026) has closed. Round 3 runs 8 September 2026 15:00
-  CEST to 27 October 2026 16:00 CEST\, with a budget of EUR 33\,000\; given
-  the 7-week rule it effectively serves activities starting from late Octob
- er 2026 onwards. IMPORTANT PREREQUISITE: you must already have had an appl
- ication to the Fund positively assessed within the past five years\, and a
-  previous voucher does not satisfy this\, so this is not a viable first ap
- proach to the Fund. The window runs 8 September 2026\, 15:00 CEST to 27 Oc
- tober 2026\, but closes early once 20 complete applications are received. 
- Maximum one voucher per applicant per calendar year.\n\nOrganisation: Stim
- uleringsfonds Creatieve Industrie (Creative Industries Fund NL)\nLocation:
-  Netherlands (for international travel)\nAward: Up to €1\,500 within Eur
- ope (zone 1) / up to €2\,500 outside Europe (zone 2)\nDuration: Per trip
- \n\nMore: https://www.stimuleringsfonds.nl/en/grants/international-voucher
- s?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.stimuleringsfonds.nl/en/grants/international-vouchers?utm_s
- ource=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Netherlands (for international travel)
-END:VEVENT
-BEGIN:VEVENT
-UID:stimuleringsfonds-architecture-kick-start-2026@artificialnouveau.github
- .io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20261007
-DTEND;VALUE=DATE:20261008
-SUMMARY:Deadline: Architecture Kick Start Grant Scheme
-DESCRIPTION:Kick-start grant for architecture practitioners to develop earl
- y-stage projects. The grant period opens 6 May 2026 15:00 CEST and closes 
- 13 May 2026 16:00 CEST. A maximum of 35 applications are considered per pe
- riod\; once the window closes all applications are ranked in random order 
- via a draw system before processing begins. Round budget €167\,000\; max
- imum grant request €10\,000.\n\nOrganisation: Stimuleringsfonds Creatiev
- e Industrie (Creative Industries Fund NL)\nLocation: Netherlands\nAward: M
- aximum EUR 10\,000 total project budget including co-financing. Round budg
- et EUR 167\,000. Maximum 35 applications per period\, ordered by random dr
- aw. No application fee.\nDuration: Per project\n\nMore: https://www.stimul
- eringsfonds.nl/en/grants/architecture-kick-start-grant-scheme?utm_source=a
- rtificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.stimuleringsfonds.nl/en/grants/architecture-kick-start-gran
- t-scheme?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Netherlands
-END:VEVENT
-BEGIN:VEVENT
 UID:filmfonds-wildcards-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260707
 DTEND;VALUE=DATE:20260708
 SUMMARY:Deadline: Filmfonds Wildcards (Documentary\, Fiction\, Animation)
@@ -941,7 +852,7 @@ LOCATION:Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:stichting-stokroos-maker-initiatives-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260731
 DTEND;VALUE=DATE:20260801
 SUMMARY:Deadline: Stichting Stokroos: Maker Initiatives Grant 2026
@@ -990,7 +901,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:stichting-stokroos-residency-fundaziun-nairs-2026@artificialnouveau.git
  hub.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260911
 DTEND;VALUE=DATE:20260912
 SUMMARY:Deadline: Stichting Stokroos: Residency at Fundaziun Nairs 2026
@@ -1037,7 +948,7 @@ LOCATION:Residency in Scuol\, Switzerland (Fundaziun Nairs). Applicants mus
 END:VEVENT
 BEGIN:VEVENT
 UID:stichting-stokroos-seed-grant-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: Stichting Stokroos: Seed Grant 2026
@@ -1083,7 +994,7 @@ LOCATION:Kingdom of the Netherlands (including its Caribbean parts) or Suri
 END:VEVENT
 BEGIN:VEVENT
 UID:art-office-iv-rotterdam-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260921
 DTEND;VALUE=DATE:20260922
 SUMMARY:Deadline: Impulse and In-Depth Scheme (I&V) for Rotterdam Visual Ar
@@ -1106,7 +1017,7 @@ LOCATION:Rotterdam\, Netherlands (Rotterdam-based artists only)
 END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-awareness-history-of-slavery@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260716
 DTEND;VALUE=DATE:20260717
 SUMMARY:Deadline: Mondriaan Fund: Awareness of the History of Slavery
@@ -1123,7 +1034,7 @@ LOCATION:Netherlands
 END:VEVENT
 BEGIN:VEVENT
 UID:pee-workshop-matter-out-of-place-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260810
 DTEND;VALUE=DATE:20260811
 SUMMARY:Deadline: Open Call: Pee Workshop (Matter Out of Place)
@@ -1162,7 +1073,7 @@ LOCATION:The Dirty Art Foundation (Amsterdam\, Netherlands)
 END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-publication-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260730
 DTEND;VALUE=DATE:20260731
 SUMMARY:Deadline: Mondriaan Fund: Publication
@@ -1193,7 +1104,7 @@ LOCATION:Netherlands. Featured artist(s) must be professional visual artist
 END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-residency-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260827
 DTEND;VALUE=DATE:20260828
 SUMMARY:Deadline: Mondriaan Fund: Residency
@@ -1227,7 +1138,7 @@ LOCATION:Netherlands. Applicants must be based in the Netherlands or the Ca
 END:VEVENT
 BEGIN:VEVENT
 UID:rtm-pitch-iffr-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260830
 DTEND;VALUE=DATE:20260831
 SUMMARY:Deadline: RTM Pitch 2026 (IFFR)
@@ -1255,161 +1166,8 @@ URL:https://iffr.com/en/blog-rtm-pitch?utm_source=artificialnouveaugrantdes
 LOCATION:Rotterdam\, Netherlands
 END:VEVENT
 BEGIN:VEVENT
-UID:stimuleringsfonds-design-grant-scheme-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20260819
-DTEND;VALUE=DATE:20260820
-SUMMARY:Deadline: Stimuleringsfonds: Design Grant Scheme 2026 (final round)
-DESCRIPTION:The Stimuleringsfonds Design Grant Scheme (Deelregeling Vormgev
- ing) supports projects by designers\, design agencies\, observers and cult
- ural institutions working across product\, graphic\, spatial\, fashion\, t
- extile and social design. Solo projects receive EUR 10\,000-25\,000\; proj
- ects with partners up to EUR 50\,000\, with at least 20 percent co-financi
- ng. From 2026 the scheme runs two rounds per year rather than three\, and 
- this round opens 12 August 2026 at 15:00 CEST and closes 19 August 2026 at
-  16:00 CEST. The procedure is two-phase and applications are ordered by lo
- ttery draw rather than by submission time\, so submitting early confers no
-  advantage. Applicants must be registered with the Dutch Chamber of Commer
- ce (KvK).\n\nOrganisation: Stimuleringsfonds Creatieve Industrie (Creative
-  Industries Fund NL)\nLocation: Netherlands. Requires establishment in the
-  Kingdom of the Netherlands and Dutch Chamber of Commerce (KvK) registrati
- on.\nAward: EUR 10\,000-25\,000 for a single executing party\; EUR 10\,000
- -50\,000 for projects with project partners. Minimum 20 percent co-financi
- ng required. Round budget EUR 650\,000 (2026 total EUR 1\,580\,000). No ap
- plication fee.\nDuration: Project-based.\n\nMore: https://www.stimulerings
- fonds.nl/en/grants/design-grant-scheme?utm_source=artificialnouveaugrantde
- sk&utm_medium=referral
-URL:https://www.stimuleringsfonds.nl/en/grants/design-grant-scheme?utm_sour
- ce=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Netherlands. Requires establishment in the Kingdom of the Netherla
- nds and Dutch Chamber of Commerce (KvK) registration.
-END:VEVENT
-BEGIN:VEVENT
-UID:stimuleringsfonds-architecture-grant-scheme-2026@artificialnouveau.gith
- ub.io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20260819
-DTEND;VALUE=DATE:20260820
-SUMMARY:Deadline: Stimuleringsfonds: Architecture Grant Scheme 2026
-DESCRIPTION:The Stimuleringsfonds Architecture Grant Scheme supports archit
- ects\, observers\, design agencies and cultural institutions on projects a
- cross the broad field of architecture\, including design research\, reflec
- tion and public debate as well as built work. Solo projects receive EUR 10
- \,000-25\,000\, projects with partners up to EUR 50\,000\, with at least 2
- 0 percent co-financing. This round opens 13 August 2026 at 15:00 CEST and 
- closes 19 August 2026 at 16:00 CEST. From 2026 the scheme allocates places
-  by notary-supervised lottery draw rather than by order of submission. App
- licants must be registered with the Dutch Chamber of Commerce (KvK).\n\nOr
- ganisation: Stimuleringsfonds Creatieve Industrie (Creative Industries Fun
- d NL)\nLocation: Netherlands. Requires establishment in the Kingdom of the
-  Netherlands and Dutch Chamber of Commerce (KvK) registration.\nAward: EUR
-  10\,000-25\,000 for a single executing party\; EUR 10\,000-50\,000 with p
- roject partners. Minimum 20 percent co-financing. Round budget EUR 587\,94
- 6 (2026 total EUR 1\,155\,000). No application fee.\nDuration: Project-bas
- ed.\n\nMore: https://www.stimuleringsfonds.nl/en/grants/architecture-grant
- -scheme?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.stimuleringsfonds.nl/en/grants/architecture-grant-scheme?ut
- m_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Netherlands. Requires establishment in the Kingdom of the Netherla
- nds and Dutch Chamber of Commerce (KvK) registration.
-END:VEVENT
-BEGIN:VEVENT
-UID:stimuleringsfonds-professionalisation-practice-development-2026@artific
- ialnouveau.github.io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20260917
-DTEND;VALUE=DATE:20260918
-SUMMARY:Deadline: Stimuleringsfonds: Open Call Professionalisation and Prac
- tice Development 2026
-DESCRIPTION:Open call from the Creative Industries Fund NL supporting desig
- ners in deepening and professionalising their own practice rather than del
- ivering an external client project. It funds practice development across d
- esign\, architecture\, digital culture and the crossovers between them\, a
- nd the Fund explicitly names digital storytellers and sound designers amon
- g eligible practitioners\, which makes it one of the more accessible route
- s for a maker working between technology and art. ELIGIBILITY: designers w
- ith an independent practice of at least four years\, established in the Ne
- therlands or the Caribbean part of the Kingdom. Temporary collectives may 
- apply with one lead applicant. Grants run from EUR 8\,250 to EUR 28\,250. 
- The window runs 19 August 2026\, 15:00 CEST to 17 September 2026\, 16:00 C
- EST.\n\nOrganisation: Stimuleringsfonds Creatieve Industrie (Creative Indu
- stries Fund NL)\nLocation: Netherlands or the Caribbean part of the Kingdo
- m. Requires an independent design practice of at least four years.\nAward:
-  EUR 8\,250 to EUR 28\,250 per applicant. Total budget EUR 300\,000\, incr
- eased for 2026. No application fee.\nDuration: Project-based.\n\nMore: htt
- ps://www.stimuleringsfonds.nl/en/grants/open-call-professionalisation-and-
- practice-development?utm_source=artificialnouveaugrantdesk&utm_medium=refe
- rral
-URL:https://www.stimuleringsfonds.nl/en/grants/open-call-professionalisatio
- n-and-practice-development?utm_source=artificialnouveaugrantdesk&utm_mediu
- m=referral
-LOCATION:Netherlands or the Caribbean part of the Kingdom. Requires an inde
- pendent design practice of at least four years.
-END:VEVENT
-BEGIN:VEVENT
-UID:stimuleringsfonds-design-sector-internationalisation-2026@artificialnou
- veau.github.io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20260922
-DTEND;VALUE=DATE:20260923
-SUMMARY:Deadline: Stimuleringsfonds: Design Sector Internationalisation Gra
- nt Scheme 2026
-DESCRIPTION:This scheme funds international activity by the Dutch design\, 
- architecture and digital culture sectors\, covering projects that take pla
- ce mainly abroad and require at least one international partner. Open to p
- rofessional makers\, observers\, design agencies and cultural institutions
- . Grants run EUR 10\,000 to EUR 50\,000 with at least 20 percent co-financ
- ing. The round runs 25 August 2026\, 15:00 CEST to 22 September 2026\, 16:
- 00 CEST. From 2026 places are allocated by lottery draw rather than order 
- of submission. Activities in countries under a code-red travel advisory or
-  subject to sanctions are excluded. Applicants must be registered with the
-  Dutch Chamber of Commerce (KvK).\n\nOrganisation: Stimuleringsfonds Creat
- ieve Industrie (Creative Industries Fund NL)\nLocation: Netherlands-based 
- applicants\; funded activity takes place mainly abroad. At least one inter
- national partner required.\nAward: EUR 10\,000 to EUR 50\,000. Minimum 20 
- percent co-financing. Round budget EUR 300\,000 (2026 total EUR 600\,000).
-  No application fee.\nDuration: Project-based\; activities take place main
- ly abroad.\n\nMore: https://www.stimuleringsfonds.nl/en/grants/design-sect
- or-internationalisation-grant-scheme?utm_source=artificialnouveaugrantdesk
- &utm_medium=referral
-URL:https://www.stimuleringsfonds.nl/en/grants/design-sector-internationali
- sation-grant-scheme?utm_source=artificialnouveaugrantdesk&utm_medium=refer
- ral
-LOCATION:Netherlands-based applicants\; funded activity takes place mainly 
- abroad. At least one international partner required.
-END:VEVENT
-BEGIN:VEVENT
-UID:stimuleringsfonds-platforms-design-based-learning-2026@artificialnouvea
- u.github.io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20260923
-DTEND;VALUE=DATE:20260924
-SUMMARY:Deadline: Stimuleringsfonds: Open Call Platforms for Design-based L
- earning 2026
-DESCRIPTION:Joint open call from the Creative Industries Fund NL and the Cu
- ltural Participation Fund supporting platforms that develop design-based l
- earning\, covering product design\, textile and fashion\, spatial design a
- nd creative coding. Maximum EUR 75\,000 per application from a EUR 720\,00
- 0 pool\, with regional quotas including the Caribbean part of the Kingdom.
-  ELIGIBILITY IS NARROW: only foundations (stichtingen) may apply. Educatio
- nal institutions and organisations already receiving four-year BIS funding
-  are excluded\, and individuals cannot apply. Deadline 23 September 2026\,
-  16:00 CEST.\n\nOrganisation: Stimuleringsfonds Creatieve Industrie (Creat
- ive Industries Fund NL)\nLocation: Netherlands including the Caribbean par
- t of the Kingdom. Foundations (stichtingen) only.\nAward: Maximum EUR 75\,
- 000 per application\, from a total budget of EUR 720\,000. No application 
- fee.\nDuration: Project-based.\n\nMore: https://www.stimuleringsfonds.nl/e
- n/grants/open-call-platforms-for-design-based-learning?utm_source=artifici
- alnouveaugrantdesk&utm_medium=referral
-URL:https://www.stimuleringsfonds.nl/en/grants/open-call-platforms-for-desi
- gn-based-learning?utm_source=artificialnouveaugrantdesk&utm_medium=referra
- l
-LOCATION:Netherlands including the Caribbean part of the Kingdom. Foundatio
- ns (stichtingen) only.
-END:VEVENT
-BEGIN:VEVENT
 UID:waag-trust-me-im-an-airtist-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Deadline: Trust me\, I'm an AI/rtist: Open Call for Creative Interv
@@ -1482,46 +1240,8 @@ LOCATION:Europe. Engaging with a specific AI Enabler includes an on-site vi
  ia). Final presentations September 2027.
 END:VEVENT
 BEGIN:VEVENT
-UID:hva-digital-life-researcher-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20260730
-DTEND;VALUE=DATE:20260731
-SUMMARY:Deadline: Amsterdam University of Applied Sciences: Digital Life Re
- searcher (Embodied AI Rehabilitation Agents)
-DESCRIPTION:A junior researcher post in the Digital Life research group at 
- the Amsterdam University of Applied Sciences\, working on embodied AI reha
- bilitation agents that support patients during rehabilitation and recovery
-  in everyday life. The programme sits at the intersection of human-centred
-  AI\, digital health and rehabilitation technology\, and the role is unusu
- ally hands-on for a research job: co-designing rehabilitation technologies
-  with patients and healthcare professionals\, building interactive prototy
- pes with sensing technologies and embodied interaction\, running user-cent
- red evaluations in real-world living lab settings\, and contributing to sc
- ientific reports and presentations. REQUIREMENTS: a master's degree in hum
- an-computer interaction\, industrial design\, computer science\, software 
- engineering\, AI or a related field\; demonstrated research experience inc
- luding co-design and evaluation with diverse stakeholders\; experience des
- igning interactive prototypes with sensing or embodied systems\; sensor da
- ta collection\, processing and analysis skills\; and programming in Python
- \, JavaScript or comparable languages. Excellent written and spoken Englis
- h is required and Dutch proficiency is preferred. Apply with a CV and moti
- vation letter through the application portal. Contact: Bin Yu (b.yu@hva.nl
- \, 0638347028) or vacatures@hva.nl. Closes 30 July 2026.\n\nOrganisation: 
- Amsterdam University of Applied Sciences (Hogeschool van Amsterdam)\nLocat
- ion: Amsterdam\, Netherlands (Weesperzijde campus)\, on site\nAward: EUR 3
- \,064.08 to 4\,084.93 gross per month for 40 hours per week\, plus an 8.3 
- percent year-end bonus and 8 percent holiday allowance.\nDuration: Full-ti
- me\, 40 hours per week\n\nMore: https://www.academictransfer.com/en/jobs/3
- 62580/digital-life-onderzoeksmedewerker-researcher/?utm_source=artificialn
- ouveaugrantdesk&utm_medium=referral
-URL:https://www.academictransfer.com/en/jobs/362580/digital-life-onderzoeks
- medewerker-researcher/?utm_source=artificialnouveaugrantdesk&utm_medium=re
- ferral
-LOCATION:Amsterdam\, Netherlands (Weesperzijde campus)\, on site
-END:VEVENT
-BEGIN:VEVENT
 UID:rug-lecturer-arts-culture-media-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260815
 DTEND;VALUE=DATE:20260816
 SUMMARY:Deadline: University of Groningen: Lecturer 4\, Arts\, Culture and 
@@ -1553,7 +1273,7 @@ LOCATION:Groningen\, Netherlands (Broerstraat 5)
 END:VEVENT
 BEGIN:VEVENT
 UID:uva-phd-sound-of-disagreement-nordics-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260820
 DTEND;VALUE=DATE:20260821
 SUMMARY:Deadline: University of Amsterdam: PhD\, Protest and Political Spee
@@ -1589,7 +1309,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:glina3-open-call-type-language-visual-systems-2026@artificialnouveau.gi
  thub.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260812
 DTEND;VALUE=DATE:20260813
 SUMMARY:Deadline: GLINA3: Open Call for a Collaborator Working with Type\, 
@@ -1625,7 +1345,7 @@ LOCATION:Amsterdam\, Netherlands (studio is Amsterdam-based\; collaboration
 END:VEVENT
 BEGIN:VEVENT
 UID:nordic-currents-2027-2028@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Nordic Currents 2027-2028 Open Call (Nordic Council of Mi
@@ -1695,7 +1415,7 @@ LOCATION:Projects take place primarily in the applicant organisation's home
 END:VEVENT
 BEGIN:VEVENT
 UID:iffr-darkroom-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20261001
 DTEND;VALUE=DATE:20261002
 SUMMARY:Deadline: Darkroom 2027: Work-in-Progress Showcase (IFFR Pro)
@@ -1748,7 +1468,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:filmfonds-netherlands-film-production-incentive-2026@artificialnouveau.
  github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20261026
 DTEND;VALUE=DATE:20261027
 SUMMARY:Deadline: Netherlands Film Production Incentive (October 2026 round
@@ -1789,7 +1509,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:filmfonds-production-incentive-high-end-series-2026@artificialnouveau.g
  ithub.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20261026
 DTEND;VALUE=DATE:20261027
 SUMMARY:Deadline: Netherlands Film Production Incentive: High-End Series (O
@@ -1831,7 +1551,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:futures-of-listening-earth-immersion-trembling-planet-2027@artificialno
  uveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260913
 DTEND;VALUE=DATE:20260914
 SUMMARY:Deadline: Futures of Listening x KNMI: Earth Immersion\, Trembling 
@@ -1887,7 +1607,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:futures-of-listening-architecture-on-sound-2027@artificialnouveau.githu
  b.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260913
 DTEND;VALUE=DATE:20260914
 SUMMARY:Deadline: Futures of Listening: Architecture on Sound Residency
@@ -1939,7 +1659,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:futures-of-listening-worlding-narratives-roaming-sound-space-2027@artif
  icialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260913
 DTEND;VALUE=DATE:20260914
 SUMMARY:Deadline: Futures of Listening: Worlding Narratives\, Roaming Sound

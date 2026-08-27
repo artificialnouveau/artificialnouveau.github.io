@@ -3,18 +3,17 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - Media Arts\, Film\, Sound\, Design & Games\, Asia
-X-WR-CALNAME:The Grant Desk - Media Arts\, Film\, Sound\, Design & Games\, 
- Asia deadlines
+NAME:The Grant Desk - Media Arts\, Film & Sound\, Asia
+X-WR-CALNAME:The Grant Desk - Media Arts\, Film & Sound\, Asia deadlines
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Media Arts\, Film\, Sou
- nd\, Design & Games\, Asia.
+ pdated as new calls land on the desk. Filtered to: Media Arts\, Film & Sou
+ nd\, Asia.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:tokyo-biennale-2027-social-dive@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Deadline: Tokyo Biennale 2027: SOCIAL DIVE open call for artists an
@@ -69,7 +68,7 @@ LOCATION:Tokyo\, Japan. Selected participants carry out residency-based pro
 END:VEVENT
 BEGIN:VEVENT
 UID:inato-gallery-touch-some-grass-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: Inato Gallery: Touch Some Grass (open-call poster exhibit
@@ -113,7 +112,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ctm-resynthesising-traditional-fragmented-distance-2026@artificialnouve
  au.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260808
 DTEND;VALUE=DATE:20260809
 SUMMARY:Deadline: Resynthesising the Traditional: Fragmented Distance (CTM 
@@ -172,64 +171,8 @@ LOCATION:Yerevan / Armenia. Preference to artists who reside in or have a d
  lian region\, the Caspian Sea\, the Levant\, and the Northern Caucasus.
 END:VEVENT
 BEGIN:VEVENT
-UID:design-trust-seed-feature-impact-grants-2026@artificialnouveau.github.i
- o
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20261020
-DTEND;VALUE=DATE:20261021
-SUMMARY:Deadline: Design Trust Seed\, Feature & Impact Grants (Hong Kong / 
- Greater Bay Area)
-DESCRIPTION:Design Trust offers grants to individual designers\, curators\,
-  collectives\, and non-profit organisations for projects and activities re
- levant to various design disciplines\, supporting work relevant to the con
- text and content of Hong Kong and the Greater Bay Area (the Special Admini
- strative Regions of Hong Kong and Macao and the nine Guangdong municipalit
- ies of Guangzhou\, Shenzhen\, Zhuhai\, Foshan\, Huizhou\, Dongguan\, Zhong
- shan\, Jiangmen\, and Zhaoqing). It supports innovative\, thought-provokin
- g investigations across design disciplines from graphics\, media\, and wea
- rables to architecture and the built environment\, including exhibitions\,
-  research projects\, and creative installations that advocate the positive
-  role of design in the region. THREE GRANTS: (1) SEED GRANT (HKD 50\,000) 
- fosters experimentation\, testing\, and sharing\, awarded to individuals k
- ick-starting a meaningful project with social\, educational\, economical\,
-  or environmental impact\; supports emerging designers\, young scholars\, 
- and projects in the pipeline needing additional resources\, including rese
- arch and prototypes focused on Hong Kong and Greater Bay Area issues to be
-  showcased at international venues\, symposia\, or biennales. (2) FEATURE 
- GRANT (capped at HKD 300\,000\, awarded annually upon special consideratio
- n) fosters cross-disciplinary projects on the Greater Bay Area with wide-r
- eaching audiences\, often sited at an exhibition or biennale of internatio
- nal standing\, supporting exchange between a Hong Kong/China-based collect
- ive and an internationally renowned cultural institution. (3) IMPACT GRANT
-  supports public-facing\, community-based projects led by former Design Tr
- ust grant recipients\, fellows\, and mentees with a proven track record\; 
- considered case-by-case (contact grantapplication@designtrust.hk). ELIGIBI
- LITY: individuals\, collectives\, and certified non-profit organisations e
- ither based in the Greater Bay Area or seeking support for design projects
-  related to the region. Individuals or collectives who have completed two 
- Feature Grants or three Seed Grants should apply for the Impact Grant inst
- ead. APPLICATION: two cycles annually\, deadlines 20 April and 20 October 
- (late submissions roll to the next cycle)\; apply at least 3 to 6 months b
- efore the project's commencement. Design Trust may provide full or partial
-  funding on a case-by-case basis.\n\nOrganisation: Design Trust\nLocation:
-  Hong Kong and the Greater Bay Area. Open to applicants based in the regio
- n or seeking support for design projects related to it\, including interna
- tional applicants.\nAward: Seed Grant: HKD 50\,000. Feature Grant: capped 
- at HKD 300\,000\, awarded annually upon special consideration. Impact Gran
- t: case-by-case\, for former grantees. Full or partial funding on a case-b
- y-case basis. Free to apply.\nDuration: Two grant cycles annually (deadlin
- es 20 April and 20 October)\; apply 3 to 6 months before project commencem
- ent\n\nMore: https://designtrust.hk/grants/dtgrants/?utm_source=artificial
- nouveaugrantdesk&utm_medium=referral
-URL:https://designtrust.hk/grants/dtgrants/?utm_source=artificialnouveaugra
- ntdesk&utm_medium=referral
-LOCATION:Hong Kong and the Greater Bay Area. Open to applicants based in th
- e region or seeking support for design projects related to it\, including 
- international applicants.
-END:VEVENT
-BEGIN:VEVENT
 UID:gmap-digital-art-culture-lab-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260809
 DTEND;VALUE=DATE:20260810
 SUMMARY:Deadline: G.MAP Digital Art Culture Lab 2026: Project Lab (Gwangju\
@@ -271,7 +214,7 @@ LOCATION:Jeonnam-Gwangju\, South Korea. International applicants welcome (T
 END:VEVENT
 BEGIN:VEVENT
 UID:sixi-air-residency-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
 SUMMARY:Deadline: Sixi International Artist-in-Residence Project 2027 (Nanj
@@ -307,7 +250,7 @@ LOCATION:Nanjing\, China
 END:VEVENT
 BEGIN:VEVENT
 UID:inlaks-fine-art-award-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260815
 DTEND;VALUE=DATE:20260816
 SUMMARY:Deadline: Inlaks Shivdasani Foundation: Inlaks Fine Art Award 2027
@@ -337,7 +280,7 @@ LOCATION:India. Open to Indian citizens currently living in India.
 END:VEVENT
 BEGIN:VEVENT
 UID:inlaks-theatre-award-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260815
 DTEND;VALUE=DATE:20260816
 SUMMARY:Deadline: Inlaks Shivdasani Foundation: Inlaks Theatre Art Award 20
@@ -365,7 +308,7 @@ LOCATION:India. Open to Indian citizens.
 END:VEVENT
 BEGIN:VEVENT
 UID:arm-holding-commission-h-residence-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260725
 DTEND;VALUE=DATE:20260726
 SUMMARY:Deadline: A.R.M. Holding / Art Dubai Projects: H Residence Sculptur
@@ -412,7 +355,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:mondriaan-fund-inside-out-art-museum-residency-2027@artificialnouveau.g
  ithub.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260827
 DTEND;VALUE=DATE:20260828
 SUMMARY:Deadline: Mondriaan Fund: Inside-Out Art Museum Residency 2027 (Bei
@@ -462,7 +405,7 @@ LOCATION:Beijing\, China. For visual artists\, curators and critics based i
 END:VEVENT
 BEGIN:VEVENT
 UID:hayama-artist-residency-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Deadline: Hayama Artist Residency
@@ -491,7 +434,7 @@ LOCATION:Hayama\, Kanagawa Prefecture\, Japan
 END:VEVENT
 BEGIN:VEVENT
 UID:grandtek-core-echo-residency-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 SUMMARY:Deadline: Core Echo 2027: International Open Call & 3-Week Residenc
@@ -528,7 +471,7 @@ LOCATION:On-site residency\, likely in China (organizer uses WeChat\, stipe
 END:VEVENT
 BEGIN:VEVENT
 UID:air-taipei-international-residency-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
 SUMMARY:Deadline: AIR Taipei: International Artist Residency 2027 (Taipei A
@@ -571,7 +514,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:seoul-mediacity-biennale-14-artistic-director-2027@artificialnouveau.gi
  thub.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 SUMMARY:Deadline: Seoul Museum of Art: Artistic Director\, 14th Seoul Media
@@ -617,7 +560,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:icci-art-valley-international-visiting-art-scholars-2026@artificialnouv
  eau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260714
 DTEND;VALUE=DATE:20260715
 SUMMARY:Deadline: ICCI ART VALLEY: International Visiting Art Scholars 2026
@@ -656,81 +599,8 @@ URL:https://icci.sjtu.edu.cn/en/event/view/90?utm_source=artificialnouveaug
 LOCATION:Shanghai\, China
 END:VEVENT
 BEGIN:VEVENT
-UID:a4-residency-chengdu-autumn-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20260630
-DTEND;VALUE=DATE:20260701
-SUMMARY:Deadline: A4 Residency Art Center: International Residency Programm
- e Autumn 2027 (Chengdu)
-DESCRIPTION:Multidisciplinary international residency at the A4 Residency A
- rt Center in Chengdu\, China\, a global exchange platform integrating crea
- tion\, networking and resources\, dedicated to fostering cross-cultural cr
- eative collisions and innovation through residency programmes while promot
- ing deep integration of creative culture with commerce and communities. Re
- sidents initiate one to two participatory local activities to facilitate c
- ommunication with the city and community\; A4 also organises group activit
- ies\, intimate sharing and exhibition opportunities to foster understandin
- g among creators and connect them with local resources. ELIGIBILITY: inter
- national applicants from any field\; A4 welcomes applications from multidi
- sciplinary artists (visual\, performing\, music\, film\, sound\, architect
- ure)\, curators\, designers (product\, fashion\, spatial\, interactive)\, 
- and interdisciplinary creatives. PROGRAMME SUPPORT: studio and accommodati
- on\; round-trip economy airfare or 2nd-class train within a set budget\; R
- MB 10\,000 production grant per person/team (excluding living expenses). D
- EADLINE: 30 June 2026 (Autumn 2027 cycle). APPLY via the A4 Residency Art 
- Center latest-recruitment page.\n\nOrganisation: A4 Residency Art Center (
- A4 Art Museum)\nLocation: Chengdu\, China\nAward: Studio and accommodation
-  provided\; round-trip economy airfare or second-class train ticket within
-  a set budget\; production grant of RMB 10\,000 per person/team for creati
- ve production and material costs (excluding living expenses). No applicati
- on fee.\nDuration: No less than 8 weeks during Autumn 2027 (July - October
-  2027)\n\nMore: https://www.a4artmuseum.com/en/a4-residencyartcenter/resid
- ing/latest-recruitment/?utm_source=artificialnouveaugrantdesk&utm_medium=r
- eferral
-URL:https://www.a4artmuseum.com/en/a4-residencyartcenter/residing/latest-re
- cruitment/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Chengdu\, China
-END:VEVENT
-BEGIN:VEVENT
-UID:a4-residency-chengdu-2028@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
-DTSTART;VALUE=DATE:20261231
-DTEND;VALUE=DATE:20270101
-SUMMARY:Deadline: A4 Residency Art Center: International Residency Programm
- e 2028 (Chengdu)
-DESCRIPTION:Multidisciplinary international residency at the A4 Residency A
- rt Center in Chengdu\, China\, a global exchange platform integrating crea
- tion\, networking and resources\, dedicated to fostering cross-cultural cr
- eative collisions and innovation through residency programmes while promot
- ing deep integration of creative culture with commerce and communities. Re
- sidents initiate one to two participatory local activities to facilitate c
- ommunication with the city and community\; A4 also organises group activit
- ies\, intimate sharing and exhibition opportunities to foster understandin
- g among creators and connect them with local resources. AVAILABLE DATES: S
- pring 2028 (April - June) or Autumn 2028 (July - October). ELIGIBILITY: in
- ternational applicants from any field\; A4 welcomes applications from mult
- idisciplinary artists (visual\, performing\, music\, film\, sound\, archit
- ecture)\, curators\, designers (product\, fashion\, spatial\, interactive)
- \, and interdisciplinary creatives. PROGRAMME SUPPORT: studio and accommod
- ation\; round-trip economy airfare or 2nd-class train within a set budget\
- ; RMB 10\,000 production grant per person/team (excluding living expenses)
- . DEADLINE: 31 December 2026 (2028 cycles). APPLY via the A4 Residency Art
-  Center latest-recruitment page.\n\nOrganisation: A4 Residency Art Center 
- (A4 Art Museum)\nLocation: Chengdu\, China\nAward: Studio and accommodatio
- n provided\; round-trip economy airfare or second-class train ticket withi
- n a set budget\; production grant of RMB 10\,000 per person/team for creat
- ive production and material costs (excluding living expenses). No applicat
- ion fee.\nDuration: No less than 8 weeks during one of two 2028 cycles: Sp
- ring 2028 (April - June) or Autumn 2028 (July - October)\n\nMore: https://
- www.a4artmuseum.com/en/a4-residencyartcenter/residing/latest-recruitment/?
- utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.a4artmuseum.com/en/a4-residencyartcenter/residing/latest-re
- cruitment/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Chengdu\, China
-END:VEVENT
-BEGIN:VEVENT
 UID:vh-award-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260721
 DTEND;VALUE=DATE:20260722
 SUMMARY:Deadline: VH AWARD 2026 (Hyundai Motor Group)
@@ -768,7 +638,7 @@ LOCATION:Online residency (global exhibitions)\; for artists engaging with
 END:VEVENT
 BEGIN:VEVENT
 UID:kyoto-retreat-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260717
 DTEND;VALUE=DATE:20260718
 SUMMARY:Deadline: The Kyoto Retreat 2026
@@ -788,7 +658,7 @@ LOCATION:Kyoto\, Japan
 END:VEVENT
 BEGIN:VEVENT
 UID:nakanojo-biennale-2027-open-call@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260712
 DTEND;VALUE=DATE:20260713
 SUMMARY:Deadline: Nakanojo Biennale 2027: International Artist Open Call (G
@@ -824,7 +694,7 @@ LOCATION:Nakanojo Town\, Gunma Prefecture\, Japan
 END:VEVENT
 BEGIN:VEVENT
 UID:unruly-mirrors-open-call-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 SUMMARY:Deadline: Unruly Mirrors Open Call 2026 (East and Central Asia\, Fe
@@ -849,7 +719,7 @@ LOCATION:East and Central Asia (Kazakhstan\, Japan\, South Korea\, Mainland
 END:VEVENT
 BEGIN:VEVENT
 UID:transmediale-arko-residency-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260828
 DTEND;VALUE=DATE:20260829
 SUMMARY:Deadline: transmediale x ARKO Residency 2027
@@ -882,7 +752,7 @@ LOCATION:Berlin\, Germany (two-month residency around the transmediale fest
 END:VEVENT
 BEGIN:VEVENT
 UID:dot-line-space-water-bodies-ecology-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260830
 DTEND;VALUE=DATE:20260831
 SUMMARY:Deadline: Dot Line Space Art Foundation: Water Bodies & Ecology 202
@@ -922,7 +792,7 @@ LOCATION:Mumbai\, India. Presented across two venues\; the foundation opera
 END:VEVENT
 BEGIN:VEVENT
 UID:impart-nalli-fellowships-2027-28@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: The Impart & Nalli Fellowships 2027-28
@@ -998,7 +868,7 @@ LOCATION:Remote and self-directed\; applicants may reside anywhere in the w
 END:VEVENT
 BEGIN:VEVENT
 UID:dp-curator-support-open-call-2027@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Deadline: 2027 d/p Curator Support Open Call (Seoul)
@@ -1051,7 +921,7 @@ LOCATION:d/p\, 417 Nakwon Arcade\, 428 Samil-daero\, Jongno-gu\, Seoul\, So
 END:VEVENT
 BEGIN:VEVENT
 UID:next-art-ai-award-2026@artificialnouveau.github.io
-DTSTAMP:20260827T203516Z
+DTSTAMP:20260827T203645Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Deadline: AI ART AWARD: NEXT ART AI 2026
