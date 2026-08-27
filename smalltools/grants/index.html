@@ -362,30 +362,43 @@ body {
   color: var(--ink);
   cursor: pointer;
 }
+/* Each checkbox group reads exactly like the TIMELINE / CADENCE controls: a
+   small uppercase caption ABOVE a white box. The fieldset itself carries no
+   border, so the legend never gets notched into one; the border lives on the
+   inner .check-list instead. */
 .sub-note .cat-checks {
   flex: 1 1 100%;
-  border: 1.5px solid var(--line);
-  border-radius: 3px;
-  padding: 6px 8px;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  border: 0;
+  padding: 0;
   margin: 0;
+  min-inline-size: 0;
+  display: block;
 }
 .sub-note .cat-checks legend {
   display: block;
+  float: left;
   width: 100%;
   padding: 0;
-  margin: 0 0 5px;
+  margin: 0 0 3px;
   font-family: 'DM Mono', monospace;
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--ink-mute);
 }
-.sub-note .cat-checks label {
-  flex: 0 0 auto;
+.sub-note .check-list {
+  clear: both;
+  border: 1.5px solid var(--line);
+  border-radius: 3px;
+  padding: 7px 9px;
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+}
+.sub-note .check-list label {
+  flex: 0 0 100%;
+  display: flex;
   flex-direction: row;
   align-items: center;
   gap: 6px;
@@ -396,11 +409,11 @@ body {
   color: var(--ink);
   cursor: pointer;
 }
-.sub-note .cat-checks label input { margin: 0; cursor: pointer; }
 /* Regions and Types have short labels, so they read fine two-up and roughly
    halve the height of the popover. Categories keep one column: labels are long. */
-.cat-checks--grid { flex-direction: row; flex-wrap: wrap; gap: 5px 10px; }
-.cat-checks--grid label { flex: 1 1 calc(50% - 10px); min-width: 110px; }
+.sub-note .check-list--grid label { flex: 1 1 calc(50% - 12px); min-width: 104px; }
+.sub-note .check-list label input { margin: 0; cursor: pointer; }
+.sub-note .check-list input:disabled { opacity: 0.45; }
 .sub-note .feed-url-list {
   display: flex;
   flex-direction: column;
@@ -1483,37 +1496,43 @@ code *, pre *, kbd *, samp * {
           <div class="feed-options">
             <fieldset class="cat-checks" id="feed-categories">
               <legend>Categories</legend>
-              <label><input type="checkbox" value="ai-tech"> AI, Tech, Digital Infrastructure</label>
-              <label><input type="checkbox" value="research"> Research &amp; Journalism</label>
-              <label><input type="checkbox" value="writers"> Writers</label>
-              <label><input type="checkbox" value="film-arts"> Media Arts &amp; Film</label>
-              <label><input type="checkbox" value="game"> Game Design</label>
-              <label><input type="checkbox" value="design"> Design</label>
-              <label><input type="checkbox" value="curator"> Curator</label>
-              <label><input type="checkbox" value="audio"> Audio, Sound &amp; Music</label>
-              <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
+              <div class="check-list">
+                <label><input type="checkbox" value="ai-tech"> AI, Tech, Digital Infrastructure</label>
+                <label><input type="checkbox" value="research"> Research &amp; Journalism</label>
+                <label><input type="checkbox" value="writers"> Writers</label>
+                <label><input type="checkbox" value="film-arts"> Media Arts &amp; Film</label>
+                <label><input type="checkbox" value="game"> Game Design</label>
+                <label><input type="checkbox" value="design"> Design</label>
+                <label><input type="checkbox" value="curator"> Curator</label>
+                <label><input type="checkbox" value="audio"> Audio, Sound &amp; Music</label>
+                <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
+              </div>
             </fieldset>
-            <fieldset class="cat-checks cat-checks--grid" id="feed-regions">
+            <fieldset class="cat-checks" id="feed-regions">
               <legend>Regions</legend>
-              <label><input type="checkbox" value="eu"> EU</label>
-              <label><input type="checkbox" value="us"> US</label>
-              <label><input type="checkbox" value="uk"> UK</label>
-              <label><input type="checkbox" value="nl"> NL</label>
-              <label><input type="checkbox" value="switzerland"> Switzerland</label>
-              <label><input type="checkbox" value="asia"> Asia</label>
-              <label><input type="checkbox" value="africa"> Africa</label>
-              <label><input type="checkbox" value="canada"> Canada</label>
-              <label><input type="checkbox" value="australia"> Australia</label>
-              <label><input type="checkbox" value="latam"> Latin America</label>
-              <label><input type="checkbox" value="remote"> Remote</label>
-              <label><input type="checkbox" value="worldwide"> Worldwide</label>
+              <div class="check-list check-list--grid">
+                <label><input type="checkbox" value="eu"> EU</label>
+                <label><input type="checkbox" value="us"> US</label>
+                <label><input type="checkbox" value="uk"> UK</label>
+                <label><input type="checkbox" value="nl"> NL</label>
+                <label><input type="checkbox" value="switzerland"> Switzerland</label>
+                <label><input type="checkbox" value="asia"> Asia</label>
+                <label><input type="checkbox" value="africa"> Africa</label>
+                <label><input type="checkbox" value="canada"> Canada</label>
+                <label><input type="checkbox" value="australia"> Australia</label>
+                <label><input type="checkbox" value="latam"> Latin America</label>
+                <label><input type="checkbox" value="remote"> Remote</label>
+                <label><input type="checkbox" value="worldwide"> Worldwide</label>
+              </div>
             </fieldset>
-            <fieldset class="cat-checks cat-checks--grid" id="feed-types">
+            <fieldset class="cat-checks" id="feed-types">
               <legend>Types</legend>
-              <label><input type="checkbox" value="residencies"> Residencies</label>
-              <label><input type="checkbox" value="fellowships"> Fellowships</label>
-              <label><input type="checkbox" value="prizes"> Prizes &amp; awards</label>
-              <label><input type="checkbox" value="open-calls"> Open calls</label>
+              <div class="check-list check-list--grid">
+                <label><input type="checkbox" value="residencies"> Residencies</label>
+                <label><input type="checkbox" value="fellowships"> Fellowships</label>
+                <label><input type="checkbox" value="prizes"> Prizes &amp; awards</label>
+                <label><input type="checkbox" value="open-calls"> Open calls</label>
+              </div>
             </fieldset>
             <label>
               <span>Timeline</span>
@@ -1581,15 +1600,17 @@ code *, pre *, kbd *, samp * {
           <div class="feed-options">
             <fieldset class="cat-checks" id="cal-categories">
               <legend>Categories</legend>
-              <label><input type="checkbox" value="ai-tech"> AI, Tech, Digital Infrastructure</label>
-              <label><input type="checkbox" value="research"> Research &amp; Journalism</label>
-              <label><input type="checkbox" value="writers"> Writers</label>
-              <label><input type="checkbox" value="film-arts"> Media Arts &amp; Film</label>
-              <label><input type="checkbox" value="game"> Game Design</label>
-              <label><input type="checkbox" value="design"> Design</label>
-              <label><input type="checkbox" value="curator"> Curator</label>
-              <label><input type="checkbox" value="audio"> Audio, Sound &amp; Music</label>
-              <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
+              <div class="check-list">
+                <label><input type="checkbox" value="ai-tech"> AI, Tech, Digital Infrastructure</label>
+                <label><input type="checkbox" value="research"> Research &amp; Journalism</label>
+                <label><input type="checkbox" value="writers"> Writers</label>
+                <label><input type="checkbox" value="film-arts"> Media Arts &amp; Film</label>
+                <label><input type="checkbox" value="game"> Game Design</label>
+                <label><input type="checkbox" value="design"> Design</label>
+                <label><input type="checkbox" value="curator"> Curator</label>
+                <label><input type="checkbox" value="audio"> Audio, Sound &amp; Music</label>
+                <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
+              </div>
             </fieldset>
             <label>
               <span>Region</span>
