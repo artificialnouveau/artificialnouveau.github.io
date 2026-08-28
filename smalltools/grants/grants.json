@@ -1,7 +1,46 @@
 {
-  "lastUpdated": "2026-08-27",
+  "lastUpdated": "2026-08-28",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
+    {
+      "id": "sat-research-creation-residency-arts-technologies-2026-28",
+      "title": "SAT: Research-Creation Residency Program in Arts and Technologies 2026-28 (Montreal)",
+      "organization": "Societe des arts technologiques (SAT)",
+      "location": "Societe des arts technologiques, 1201 Boulevard Saint-Laurent, Montreal, QC, Canada. Open to professional artists and collectives from anywhere in the world; no nationality restriction stated.",
+      "region": "Canada",
+      "amount": "CAD 10,000 grant per selected project, for individual artists and collectives alike. Also included: access to SAT workspaces during the residency periods, access to equipment and software resources subject to availability, mentoring and training activities (on site and remote), creative and technical support from the SAT teams, and documentation and archiving of the work. Travel, meals and accommodation beyond the grant are NOT covered. No application fee.",
+      "duration": "Two months, extendable up to three months depending on the project; residencies run across the 2026-28 program.",
+      "startDate": null,
+      "deadline": "2026-10-18",
+      "addedDate": "2026-08-28",
+      "feedDate": "2026-09-03",
+      "category": "arts",
+      "categories": [
+        "cross",
+        "tech"
+      ],
+      "applicant": "both",
+      "description": "The Societe des arts technologiques (SAT) in Montreal runs a research-creation residency program in arts and technologies for artists and collectives working in the performing arts and/or media arts. The residency funds a research-creation stage of a project in technological arts rather than the finalisation of a finished work, so the call weighs the exploration process and the innovation in it above a polished outcome. Each selected project receives a CAD 10,000 grant, whether the applicant is an individual artist or a collective, plus access to SAT spaces and equipment, technical and creative support from the SAT teams, mentoring and training activities, and documentation and archiving. Access to spaces and equipment is assessed against the project's needs and granted subject to availability. Travel, meal and accommodation costs beyond the grant are not covered. Open to professional artists and artistic collectives worldwide, at any level of experience and from any primary discipline, provided the profile and project suit immersive technologies; collectives must submit a joint portfolio showing they can carry out the project independently, particularly the visual and sound creation inside a dome. Each application must include a form and supporting documents setting out the concept, the technical solutions considered, and what will be explored during the residency. One application per project and per person; incomplete applications are not evaluated; use permanent, downloadable links rather than WeTransfer or similar temporary services. Accommodations and alternative support documents (large print and so on) are available on request at residences@sat.qc.ca. Deadline 18 October 2026. Apply through the Google Form linked from the SAT open-call page.",
+      "url": "https://sat.qc.ca/en/calls/research-creation-residency-program-in-arts-technologies-2026-28",
+      "tags": [
+        "residency",
+        "research-creation",
+        "immersive",
+        "dome",
+        "fulldome",
+        "media-arts",
+        "performing-arts",
+        "installation",
+        "digital-art",
+        "technology",
+        "montreal",
+        "canada",
+        "international",
+        "no-fee"
+      ],
+      "fee": false,
+      "featured": false
+    },
     {
       "id": "tech-policy-press-fellowship-2027",
       "title": "Tech Policy Press Fellowship Program 2027",
