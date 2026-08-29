@@ -196,6 +196,16 @@ If you need a new region (say, "Africa"), update **both** the JavaScript filter 
 4. Run `python3 generate_feed.py` to generate the new `africa/` SEO page and per-region feeds/calendars.
 5. Commit and push.
 
+### Regions the subscribe picker offers
+
+`REGIONS` is the full set. What the RSS and calendar pickers offer is narrower, and lives in three constants at the top of `generate_feed.py`:
+
+- `FEED_REGIONS_EXCLUDED` drops NL and Switzerland from the RSS picker (they sit almost entirely inside EU).
+- `REGION_GROUPS` merges regions that overlap heavily into a single option with a single real feed, the same way `CATEGORY_GROUPS` does for categories. `remote-worldwide` is the one group: Remote and Worldwide shared 29 percent of their calls and read as the same promise, so one tick now gives one URL covering both.
+- `PICKER_REGIONS` is what falls out of those two, and is what the pickers in `index.html` must mirror. A checkbox value there is used verbatim as the filename slug, so `remote-worldwide` in the HTML has to match the `REGION_GROUPS` key exactly.
+
+Members of a group keep their bare `feed-remote.xml` and `calendar-remote.ics` as compatibility aliases for anyone who subscribed before the merge, but get no category or type permutations. The website's region filter, the static SEO pages and the per-region calendars still carry every region separately: merging is a syndication decision only.
+
 ---
 
 ## Adding a new category

@@ -1561,10 +1561,9 @@ code *, pre *, kbd *, samp * {
                 <label><input type="checkbox" value="canada"> Canada</label>
                 <label><input type="checkbox" value="eu"> EU</label>
                 <label><input type="checkbox" value="latam"> Latin America</label>
-                <label><input type="checkbox" value="remote"> Remote</label>
+                <label><input type="checkbox" value="remote-worldwide"> Remote &amp; Worldwide</label>
                 <label><input type="checkbox" value="uk"> UK</label>
                 <label><input type="checkbox" value="us"> US</label>
-                <label><input type="checkbox" value="worldwide"> Worldwide</label>
               </div>
             </fieldset>
             <fieldset class="cat-checks" id="feed-types">
@@ -1599,11 +1598,10 @@ code *, pre *, kbd *, samp * {
           </div>
           <p class="feed-note" id="feed-note" hidden></p>
 <!-- BEGIN_OVERLAP_NOTE -->
-<script type="application/json" id="overlap-data">[{"axis":"regions","a":"remote","b":"worldwide","aLabel":"Remote","bLabel":"Worldwide","shared":12,"share":0.293},{"axis":"categories","a":"cross","b":"media-arts","aLabel":"Cross-disciplinary & Social Impact","bLabel":"Media Arts, Film & Sound","shared":47,"share":0.266}]</script>
+<script type="application/json" id="overlap-data">[{"axis":"categories","a":"cross","b":"media-arts","aLabel":"Cross-disciplinary & Social Impact","bLabel":"Media Arts, Film & Sound","shared":47,"share":0.266}]</script>
 <details class="overlap-note">
 <summary>Why some filters are marked *</summary>
 <p>A single grant can sit in more than one region, category or type, so two filters can hand you the same call twice. The pairs below overlap enough to be worth flagging, and every filter involved carries an asterisk above.</p>
-<p class="overlap-axis">Regions</p><ul><li><strong>Remote</strong> and <strong>Worldwide</strong> &mdash; 12 shared</li></ul>
 <p class="overlap-axis">Categories</p><ul><li><strong>Cross-disciplinary &amp; Social Impact</strong> and <strong>Media Arts, Film &amp; Sound</strong> &mdash; 47 shared</li></ul>
 </details>
 <!-- END_OVERLAP_NOTE -->
@@ -1655,9 +1653,9 @@ code *, pre *, kbd *, samp * {
             <fieldset class="cat-checks" id="cal-categories">
               <legend>Categories</legend>
               <div class="check-list">
-                <label><input type="checkbox" value="media-arts"> Media Arts, Film &amp; Sound</label>
                 <label><input type="checkbox" value="ai-tech-research"> AI, Tech &amp; Research</label>
                 <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
+                <label><input type="checkbox" value="media-arts"> Media Arts, Film &amp; Sound</label>
                 <label><input type="checkbox" value="writers"> Writers</label>
               </div>
             </fieldset>
@@ -1665,27 +1663,26 @@ code *, pre *, kbd *, samp * {
               <span>Region</span>
               <select id="cal-region">
                 <option value="">All regions</option>
-                <option value="eu">EU</option>
-                <option value="us">US</option>
-                <option value="uk">UK</option>
-                <option value="nl">NL</option>
-                <option value="asia">Asia</option>
                 <option value="africa">Africa</option>
-                <option value="canada">Canada</option>
+                <option value="asia">Asia</option>
                 <option value="australia">Australia</option>
+                <option value="canada">Canada</option>
+                <option value="eu">EU</option>
                 <option value="latam">Latin America</option>
-                <option value="remote">Remote</option>
-                <option value="worldwide">Worldwide</option>
+                <option value="nl">NL</option>
+                <option value="remote-worldwide">Remote &amp; Worldwide</option>
+                <option value="uk">UK</option>
+                <option value="us">US</option>
               </select>
             </label>
             <fieldset class="cat-checks" id="cal-types">
               <legend>Types</legend>
               <div class="check-list check-list--grid">
                 <label><input type="checkbox" value="" checked data-all="1"> All types</label>
-                <label><input type="checkbox" value="grants"> Grants</label>
-                <label><input type="checkbox" value="residencies"> Residencies</label>
                 <label><input type="checkbox" value="fellowships"> Fellowships</label>
+                <label><input type="checkbox" value="grants"> Grants</label>
                 <label><input type="checkbox" value="prizes"> Prizes &amp; awards</label>
+                <label><input type="checkbox" value="residencies"> Residencies</label>
               </div>
             </fieldset>
           </div>

@@ -4,7 +4,8 @@ from grants.json for The Grant Desk.
 
 Outputs:
 - feed.xml                  (all grants)
-- feed-{region}.xml         (one per region: eu/us/uk/nl/remote/worldwide)
+- feed-{region}.xml         (one per region: eu/us/uk/nl/remote/worldwide,
+                             plus the merged remote-worldwide slice)
 - feed-30d.xml              (deadlines in next 30 days)
 - feed-90d.xml              (deadlines in next 90 days)
 - feed-{region}-{30d|90d}.xml  (cross product)
@@ -69,8 +70,24 @@ REGIONS = ["EU", "US", "UK", "NL", "Switzerland", "Asia", "Africa", "Canada", "A
 # filter, the static SEO pages and the calendars all still carry them in full.
 # Their bare feeds stay as compatibility aliases; permutations are not built.
 FEED_REGIONS_EXCLUDED = {"NL", "Switzerland"}
-PICKER_REGIONS = [r for r in REGIONS if r not in FEED_REGIONS_EXCLUDED]
-LEGACY_BARE_REGIONS = [r for r in REGIONS if r in FEED_REGIONS_EXCLUDED]
+
+# Remote and Worldwide overlapped by 29 percent (12 shared calls) and read as the
+# same promise to a subscriber, so the pickers offer them as ONE box backed by one
+# real combined slice, exactly like CATEGORY_GROUPS below. Syndication only: the
+# website's region filter and the static SEO pages still carry each region on its
+# own, and both members keep their bare feed and their own calendars as
+# compatibility aliases for anyone who subscribed before the merge.
+REGION_GROUPS = {
+    "remote-worldwide": ["Remote", "Worldwide"],
+}
+REGION_LABELS = {"remote-worldwide": "Remote & Worldwide"}
+_GROUPED_REGION_MEMBERS = {m for ms in REGION_GROUPS.values() for m in ms}
+SYNDICATION_REGIONS = REGIONS + list(REGION_GROUPS)
+PICKER_REGIONS = [
+    r for r in SYNDICATION_REGIONS
+    if r not in FEED_REGIONS_EXCLUDED and r not in _GROUPED_REGION_MEMBERS
+]
+LEGACY_BARE_REGIONS = [r for r in REGIONS if r not in PICKER_REGIONS]
 TIMELINES = ["30d", "90d", "added-30d"]
 CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"]
 
@@ -251,7 +268,7 @@ def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None
     if category:
         suffix.append(CATEGORY_LABELS.get(category, category))
     if region:
-        suffix.append(region)
+        suffix.append(REGION_LABELS.get(region, region))
     if timeline == "30d":
         suffix.append("next 30 days")
     elif timeline == "90d":
@@ -284,6 +301,10 @@ def region_matches(grant, region):
     what the card chip and feed category show; ``regions`` only widens which
     views the grant is surfaced in.
 
+    ``region`` may also be a REGION_GROUPS slug (``remote-worldwide``), which
+    matches when the grant belongs to any member. Groups exist for syndication
+    only; nothing in grants.json ever carries a group slug.
+
     A region label can be earned three different ways, and all three are valid:
       1. HOST      - where the funding organisation sits (Stimuleringsfonds: NL)
       2. ELIGIBILITY - where applicants may be based (Stimuleringsfonds: NL too,
@@ -296,6 +317,9 @@ def region_matches(grant, region):
     International Engagement Fund, Canada Council's Arts Across Canada and
     Abroad) is not open worldwide, and tagging it so makes the Worldwide view
     return calls the applicant is ineligible for."""
+    members = REGION_GROUPS.get(region)
+    if members:
+        return any(region_matches(grant, m) for m in members)
     if grant.get("region") == region:
         return True
     if region in (grant.get("regions") or []):
@@ -542,7 +566,7 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
     if category:
         suffix_parts.append(CATEGORY_LABELS.get(category, category))
     if region:
-        suffix_parts.append(region)
+        suffix_parts.append(REGION_LABELS.get(region, region))
     name_suffix = f" - {', '.join(suffix_parts)}" if suffix_parts else ""
     desc_suffix = f" Filtered to: {', '.join(suffix_parts)}." if suffix_parts else ""
     lines = [
@@ -1247,8 +1271,17 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     if country:
         feed_region = COUNTRIES[country][1]
     feed_category = None if (opp_type or country) else category
+    # Only the picker's own slugs get permutations built. A category that was
+    # merged into a group (arts, ai) or a region the picker no longer offers
+    # (NL, Remote) keeps a BARE alias file and nothing else, so pairing the two
+    # here would link a name that is never generated. Drop the narrower axis
+    # instead and point at the slice that does exist.
+    cal_category = feed_category if feed_category in PICKER_CATEGORIES else None
+    if feed_category and (feed_category not in PICKER_CATEGORIES
+                          or feed_region not in PICKER_REGIONS):
+        feed_category = None
     feed_url = SITE_ROOT_URL + GRANTS_BASE_PATH + feed_filename(feed_region, None, category=feed_category)
-    cal_url = SITE_ROOT_URL + GRANTS_BASE_PATH + calendar_filename(feed_region, category=feed_category)
+    cal_url = SITE_ROOT_URL + GRANTS_BASE_PATH + calendar_filename(feed_region, category=cal_category)
 
     related_block = ""
     if related:
@@ -1326,7 +1359,8 @@ def heavy_overlap_pairs(grants):
     checkboxes involved without duplicating any of this logic client-side."""
     import itertools
     axes = [
-        ("regions", PICKER_REGIONS, region_matches, {r: r for r in PICKER_REGIONS}, True),
+        ("regions", PICKER_REGIONS, region_matches,
+         {r: REGION_LABELS.get(r, r) for r in PICKER_REGIONS}, True),
         ("categories", PICKER_CATEGORIES, category_matches,
          {c: CATEGORY_LABELS.get(c, c) for c in PICKER_CATEGORIES}, False),
         ("types", FEED_TYPES, type_matches,
@@ -1834,7 +1868,7 @@ def main():
     # NL, so narrowing this loop would 404 every NL-plus-category calendar.
     for opp_type in [None] + FEED_TYPES:
         for category in [None] + PICKER_CATEGORIES:
-            for region in [None] + REGIONS:
+            for region in [None] + REGIONS + list(REGION_GROUPS):
                 emit_cal(region, category=category, opp_type=opp_type)
 
     # Compatibility aliases: bare calendars for categories the picker dropped.
