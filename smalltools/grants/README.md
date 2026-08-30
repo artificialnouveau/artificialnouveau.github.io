@@ -11,7 +11,8 @@ Everything is plain HTML, JSON and Python. No build tool, no framework. You can 
 | `grants.json` | The source of truth. Every grant is one object in the `grants` array. Edit this file to add, change or remove a grant. |
 | `index.html` | The single-page app. Loads `grants.json` and renders the cards. Also holds the FAQ, the Watch for next round drawer, and the filter UI. |
 | `generate_feed.py` | Reads `grants.json` and writes the RSS feeds, ICS calendars, static SEO pages, JSON-LD inside `index.html`, and the root `sitemap.xml`. Run it after any change to `grants.json` or to the static-page region/category lists. |
-| `prune_grants.py` | Optional cleanup helper. |
+| `prune_grants.py` | Optional cleanup helper. Drops entries whose deadline is over a year past. Never touches rolling entries. |
+| `check_rolling.py` | Rechecks the rolling/undated entries, which nothing else revisits. Fetches each stored URL and reports dead pages and closed calls. |
 | `feed-*.xml`, `calendar-*.ics` | Generated. Do not edit by hand. |
 | `<region>/index.html`, `<category>/index.html`, `<category>-<region>/index.html` | Generated SEO landing pages. Do not edit by hand. |
 | `mockups/` | Local-only sketches. Not deployed. |
@@ -127,6 +128,30 @@ The Watchlist is a small block in `index.html` directly (not in `grants.json`) s
 5. Commit and push.
 
 When all watchlist entries expire, the section auto-hides. The "Open drawer" button lets visitors toggle it.
+
+---
+
+## Checking the rolling entries
+
+Rolling entries (`deadline: null`) are the one blind spot in the pipeline: `prune_grants.py` only drops entries whose deadline is over a year past, and `recheck_grants.py` only revisits entries whose deadline fell 180 to 270 days ago. Both are deadline-driven, so an undated entry is never looked at again after it is added, and a filled job or a discontinued fund can sit on the desk indefinitely.
+
+```bash
+cd smalltools/grants
+python3 check_rolling.py                # report only, changes nothing
+python3 check_rolling.py --json r.json  # same, plus machine-readable output
+python3 check_rolling.py --apply        # remove the DEAD ones, asks to confirm
+python3 check_rolling.py --apply --auto # no prompt, for CI
+```
+
+It fetches every rolling entry's `url` and sorts the results into three piles:
+
+- **DEAD** — the page 404s, or its text matches a closure phrase ("this position has been filled", "applications are now closed"). Only these are removable with `--apply`.
+- **CHECK** — needs a human: a 403 (routine on FilmFreeway and other Cloudflare hosts, and not evidence of anything), a connection or TLS failure, a 5xx, or an entry whose every explicit date has already passed. Never auto-removed, because a past date is usually a launch or results date rather than a closure.
+- **OK** — reachable, no closure wording.
+
+A markdown report lands at `/tmp/rolling_report.md`, and `dead_count`, `check_count` and `has_dead` are written to `GITHUB_OUTPUT` so a scheduled workflow can open a PR the way `recheck_grants.py` does. Stdlib only, no dependencies. After `--apply`, run `generate_feed.py` and commit, exactly as for `prune_grants.py`.
+
+The closure phrases are deliberately narrow. A bare "closed" matches navigation menus ("Closed calls"), cookie banners and archive links on a large fraction of funder sites, so widening the list trades false negatives for false positives, and a false positive here deletes a live opportunity. Prefer adding a specific phrase you have actually seen over a general one.
 
 ---
 
