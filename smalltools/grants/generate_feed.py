@@ -284,8 +284,9 @@ def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None
         title, desc = TITLE, DESCRIPTION
     if weekly:
         desc += (
-            " One entry per week rounding up everything released that week, "
-            "instead of one entry per grant."
+            " Released weekly: the week's new grants arrive together on Sunday, "
+            "one entry per grant plus a short roundup header, instead of "
+            "trickling out daily."
         )
     return title, desc
 
@@ -425,6 +426,98 @@ WEEKLY_NOUNS = {
 }
 
 
+# Weeks ending on or after this date are released as a "Sunday drop": one item
+# per grant, all published together when the week completes. Earlier weeks keep
+# the single digest item so existing subscribers' guids stay stable and readers
+# are not flooded with months of new-looking items at the switch.
+WEEKLY_DROP_SINCE = date(2026, 9, 6)
+
+
+def weekly_grant_parts(g, today):
+    """(escaped title, escaped UTM href, escaped bare url, detail bits) for one
+    grant's line in a weekly feed."""
+    gtitle = escape(str(g.get("title", "Untitled")))
+    gurl = escape(with_utm(g.get("url")) or PAGE_URL)
+    plain_url = escape(g.get("url") or PAGE_URL)
+    bits = []
+    org = g.get("organization")
+    if org:
+        bits.append(escape(str(org)))
+    bits.append(f"deadline {escape(deadline_label(parse_date(g.get('deadline')), today))}")
+    amount = g.get("amount")
+    if amount:
+        bits.append(escape(str(amount)))
+    return gtitle, gurl, plain_url, bits
+
+
+def weekly_count_phrase(count, category, opp_type):
+    """'2 new AI, Tech & Research grants' style phrase naming the feed's slice."""
+    singular, plural = WEEKLY_NOUNS.get(opp_type, ("grant", "grants"))
+    noun = singular if count == 1 else plural
+    return f"{CATEGORY_LABELS.get(category, category)} {noun}" if category else noun
+
+
+def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, opp_type=None):
+    """One week as a Sunday drop: a short header item plus one item per grant.
+
+    Plain-text renderers such as Slack's RSS app truncate every item at a fixed
+    length, so a single digest item only ever shows its first entry or two
+    there. Splitting the week into per-grant items keeps the weekly cadence
+    (nothing is emitted until the week has ended) while every grant arrives
+    complete: title, link, organization, deadline and full amount.
+    """
+    sunday = monday + timedelta(days=6)
+    if sunday > today:
+        # The week is still running; hold it back so subscribers get one
+        # Sunday batch instead of a daily trickle.
+        return ""
+    label = monday.strftime("%d %b %Y")
+    open_at_stamp = [
+        g for g in grants_in_week
+        if (lambda d: d is None or d >= sunday)(parse_date(g.get("deadline")))
+    ]
+    if not open_at_stamp:
+        return ""
+    count = len(open_at_stamp)
+    what = weekly_count_phrase(count, category, opp_type)
+    pub = rfc822(sunday)
+
+    header_body = (
+        f"<p>{count} new {escape(what)} landed on The Grant Desk in the week of "
+        f"{escape(label)}; each follows as its own entry.</p>\n"
+        f'<p>Full listing with filters: <a href="{escape(PAGE_URL)}">The Grant Desk</a> '
+        f"({escape(PAGE_URL)}).</p>"
+    )
+    # Same guid scheme as the digest era so a reader that saw a week as a
+    # digest never sees its header twice.
+    items = [
+        "  <item>\n"
+        f"    <title>{escape(f'{count} new {what} - week of {label}')}</title>\n"
+        f"    <link>{escape(PAGE_URL)}</link>\n"
+        f'    <guid isPermaLink="false">{escape(f"{PAGE_URL}{slug}#week-{monday.isoformat()}")}</guid>\n'
+        f"    <pubDate>{pub}</pubDate>\n"
+        f"    <description><![CDATA[{header_body}]]></description>\n"
+        "  </item>\n"
+    ]
+    for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
+        gtitle, gurl, plain_url, bits = weekly_grant_parts(g, today)
+        guid = f"{PAGE_URL}{slug}#week-{monday.isoformat()}-{g.get('id') or g.get('url') or gtitle}"
+        body = (
+            f'<p><a href="{gurl}">{plain_url}</a></p>\n'
+            f"<p>{' &middot; '.join(bits)}</p>"
+        )
+        items.append(
+            "  <item>\n"
+            f"    <title>{gtitle}</title>\n"
+            f"    <link>{gurl}</link>\n"
+            f'    <guid isPermaLink="false">{escape(guid)}</guid>\n'
+            f"    <pubDate>{pub}</pubDate>\n"
+            f"    <description><![CDATA[{body}]]></description>\n"
+            "  </item>\n"
+        )
+    return "".join(items)
+
+
 def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_type=None):
     """One digest <item> covering a single week's releases.
 
@@ -434,6 +527,10 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
     regardless of how often their reader polls.
     """
     sunday = monday + timedelta(days=6)
+    if sunday >= WEEKLY_DROP_SINCE:
+        return build_weekly_drop_items(
+            monday, grants_in_week, today, slug, category=category, opp_type=opp_type
+        )
     label = monday.strftime("%d %b %Y")
 
     # pubDate must not sit in the future or readers may hide the item: for the
@@ -450,33 +547,16 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
     if not open_at_stamp:
         return ""
     count = len(open_at_stamp)
-    singular, plural = WEEKLY_NOUNS.get(opp_type, ("grant", "grants"))
-    noun = singular if count == 1 else plural
     # Name the slice in the count phrase ("2 new AI, Tech & Research grants")
     # so a digest forwarded out of context still says what it covers.
-    what = f"{CATEGORY_LABELS.get(category, category)} {noun}" if category else noun
+    what = weekly_count_phrase(count, category, opp_type)
     title = f"{count} new {what} - week of {label}"
 
     rows = []
     for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
-        gtitle = escape(str(g.get("title", "Untitled")))
-        gurl = escape(with_utm(g.get("url")) or PAGE_URL)
-        org = g.get("organization")
-        deadline = deadline_label(parse_date(g.get("deadline")), today)
-        bits = []
-        if org:
-            bits.append(escape(str(org)))
-        bits.append(f"deadline {escape(deadline)}")
-        amount = g.get("amount")
-        if amount:
-            bits.append(escape(str(amount)))
-        # A visible URL line, not just the anchor on the title: plain-text
-        # renderers (Slack's RSS app, RSS-to-email bridges) strip tags, and
-        # without this the digest carries no per-grant link at all there. It
-        # sits directly under the title, ahead of the amount prose, so it
-        # survives Slack's description truncation. The link text is the bare
-        # URL; the href keeps the UTM tag.
-        plain_url = escape(g.get("url") or PAGE_URL)
+        # The bare-URL line under the title serves plain-text renderers that
+        # strip anchor tags; the href keeps the UTM tag.
+        gtitle, gurl, plain_url, bits = weekly_grant_parts(g, today)
         rows.append(
             f'<li><a href="{gurl}"><strong>{gtitle}</strong></a><br>'
             f'<a href="{gurl}">{plain_url}</a><br>'
