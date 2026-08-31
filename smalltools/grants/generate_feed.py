@@ -422,17 +422,27 @@ def build_weekly_item(monday, grants_in_week, today, slug):
     regardless of how often their reader polls.
     """
     sunday = monday + timedelta(days=6)
-    count = len(grants_in_week)
-    noun = "grant" if count == 1 else "grants"
     label = monday.strftime("%d %b %Y")
-    title = f"{count} new {noun} - week of {label}"
 
     # pubDate must not sit in the future or readers may hide the item: for the
     # current, still-running week stamp it today rather than at Sunday.
     stamp = sunday if sunday <= today else today
 
+    # Skip grants already closed when this digest publishes. Filter against the
+    # item's own stamp, not today: past weeks regenerate daily, and a today-based
+    # filter would slowly empty archived items as their deadlines pass.
+    open_at_stamp = [
+        g for g in grants_in_week
+        if (lambda d: d is None or d >= stamp)(parse_date(g.get("deadline")))
+    ]
+    if not open_at_stamp:
+        return ""
+    count = len(open_at_stamp)
+    noun = "grant" if count == 1 else "grants"
+    title = f"{count} new {noun} - week of {label}"
+
     rows = []
-    for g in sorted(grants_in_week, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
+    for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
         gtitle = escape(str(g.get("title", "Untitled")))
         gurl = escape(with_utm(g.get("url")) or PAGE_URL)
         org = g.get("organization")
@@ -444,8 +454,8 @@ def build_weekly_item(monday, grants_in_week, today, slug):
         amount = g.get("amount")
         if amount:
             short = str(amount)
-            if len(short) > 160:
-                short = short[:157].rstrip() + "..."
+            if len(short) > 60:
+                short = short[:57].rstrip(" ,.;:") + "..."
             bits.append(escape(short))
         rows.append(
             f'<li><a href="{gurl}"><strong>{gtitle}</strong></a><br>'
