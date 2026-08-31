@@ -453,17 +453,16 @@ def build_weekly_item(monday, grants_in_week, today, slug):
         bits.append(f"deadline {escape(deadline)}")
         amount = g.get("amount")
         if amount:
-            short = str(amount)
-            if len(short) > 60:
-                # cut at a word boundary so the trim reads as deliberate
-                cut = short[:58]
-                if " " in cut:
-                    cut = cut.rsplit(" ", 1)[0]
-                short = cut.rstrip(" ,.;:") + "..."
-            bits.append(escape(short))
+            bits.append(escape(str(amount)))
+        # A visible URL line, not just the anchor on the title: plain-text
+        # renderers (Slack's RSS app, RSS-to-email bridges) strip tags, and
+        # without this the digest carries no per-grant link at all there. The
+        # link text is the bare URL; the href keeps the UTM tag.
+        plain_url = escape(g.get("url") or PAGE_URL)
         rows.append(
             f'<li><a href="{gurl}"><strong>{gtitle}</strong></a><br>'
-            f'{" &middot; ".join(bits)}</li>'
+            f'{" &middot; ".join(bits)}<br>'
+            f'<a href="{gurl}">{plain_url}</a></li>'
         )
 
     body = (
