@@ -500,12 +500,12 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, 
         "  </item>\n"
     ]
     for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
+        # No visible URL line here: unlike the digest era, the grant's link is
+        # the item's own <link>, which every renderer (Slack included) puts on
+        # the title.
         gtitle, gurl, plain_url, bits = weekly_grant_parts(g, today)
         guid = f"{PAGE_URL}{slug}#week-{monday.isoformat()}-{g.get('id') or g.get('url') or gtitle}"
-        body = (
-            f'<p><a href="{gurl}">{plain_url}</a></p>\n'
-            f"<p>{' &middot; '.join(bits)}</p>"
-        )
+        body = f"<p>{' &middot; '.join(bits)}</p>"
         items.append(
             "  <item>\n"
             f"    <title>{gtitle}</title>\n"
