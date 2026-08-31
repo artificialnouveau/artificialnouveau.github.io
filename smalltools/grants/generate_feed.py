@@ -472,13 +472,15 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
             bits.append(escape(str(amount)))
         # A visible URL line, not just the anchor on the title: plain-text
         # renderers (Slack's RSS app, RSS-to-email bridges) strip tags, and
-        # without this the digest carries no per-grant link at all there. The
-        # link text is the bare URL; the href keeps the UTM tag.
+        # without this the digest carries no per-grant link at all there. It
+        # sits directly under the title, ahead of the amount prose, so it
+        # survives Slack's description truncation. The link text is the bare
+        # URL; the href keeps the UTM tag.
         plain_url = escape(g.get("url") or PAGE_URL)
         rows.append(
             f'<li><a href="{gurl}"><strong>{gtitle}</strong></a><br>'
-            f'{" &middot; ".join(bits)}<br>'
-            f'<a href="{gurl}">{plain_url}</a></li>'
+            f'<a href="{gurl}">{plain_url}</a><br>'
+            f'{" &middot; ".join(bits)}</li>'
         )
 
     body = (
