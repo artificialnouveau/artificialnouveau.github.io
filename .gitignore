@@ -53,3 +53,7 @@ job-search.txt
 # below are versioned so the Copilot-side rules travel with the repo.
 .claude/
 .gstack/
+
+# Private business letter (the HTML source carries the street address and
+# VAT/KvK numbers too, so the whole folder stays out of the public repo)
+cv/dji-letter/
