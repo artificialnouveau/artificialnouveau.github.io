@@ -413,7 +413,19 @@ def week_start(d):
     return d - timedelta(days=d.weekday())
 
 
-def build_weekly_item(monday, grants_in_week, today, slug):
+# Singular/plural nouns for the weekly digest count phrase, keyed by the feed's
+# opportunity type. The default covers the untyped feeds.
+WEEKLY_NOUNS = {
+    None: ("grant", "grants"),
+    "grants": ("grant", "grants"),
+    "residencies": ("residency", "residencies"),
+    "fellowships": ("fellowship", "fellowships"),
+    "prizes": ("prize", "prizes"),
+    "open-calls": ("open call", "open calls"),
+}
+
+
+def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_type=None):
     """One digest <item> covering a single week's releases.
 
     The per-grant feeds emit one item per grant; at the 5/day release cap that is
@@ -438,8 +450,12 @@ def build_weekly_item(monday, grants_in_week, today, slug):
     if not open_at_stamp:
         return ""
     count = len(open_at_stamp)
-    noun = "grant" if count == 1 else "grants"
-    title = f"{count} new {noun} - week of {label}"
+    singular, plural = WEEKLY_NOUNS.get(opp_type, ("grant", "grants"))
+    noun = singular if count == 1 else plural
+    # Name the slice in the count phrase ("2 new AI, Tech & Research grants")
+    # so a digest forwarded out of context still says what it covers.
+    what = f"{CATEGORY_LABELS.get(category, category)} {noun}" if category else noun
+    title = f"{count} new {what} - week of {label}"
 
     rows = []
     for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
@@ -466,7 +482,7 @@ def build_weekly_item(monday, grants_in_week, today, slug):
         )
 
     body = (
-        f"<p>{count} new {noun} landed on The Grant Desk in the week of "
+        f"<p>{count} new {escape(what)} landed on The Grant Desk in the week of "
         f"{escape(label)} ({escape(monday.strftime('%d %b'))} to "
         f"{escape(sunday.strftime('%d %b %Y'))}).</p>\n"
         f"<ul>\n" + "\n".join(rows) + "\n</ul>\n"
@@ -504,7 +520,10 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
         buckets.setdefault(week_start(release), []).append(g)
 
     weeks = sorted(buckets.keys(), reverse=True)[:MAX_WEEKS]
-    items = "".join(build_weekly_item(w, buckets[w], today, filename) for w in weeks)
+    items = "".join(
+        build_weekly_item(w, buckets[w], today, filename, category=category, opp_type=opp_type)
+        for w in weeks
+    )
     build_date = rfc822(datetime.now(timezone.utc))
 
     return (
@@ -1293,7 +1312,11 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     if feed_category and (feed_category not in PICKER_CATEGORIES
                           or feed_region not in PICKER_REGIONS):
         feed_category = None
-    feed_url = SITE_ROOT_URL + GRANTS_BASE_PATH + feed_filename(feed_region, None, category=feed_category)
+    # SEO pages advertise the weekly digest; per-grant feeds still exist but are
+    # no longer offered anywhere on the site.
+    feed_url = SITE_ROOT_URL + GRANTS_BASE_PATH + feed_filename(
+        feed_region, None, category=feed_category, weekly=True
+    )
     cal_url = SITE_ROOT_URL + GRANTS_BASE_PATH + calendar_filename(feed_region, category=cal_category)
 
     related_block = ""
@@ -1703,7 +1726,7 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 ## Primary
 
 - [The Grant Desk (interactive)]({base}): Filterable list of all active grants, fellowships and residencies.
-- [All grants RSS feed]({base}feed.xml): Full RSS feed of all entries, sorted by date added.
+- [All grants RSS feed]({base}feed-weekly.xml): Weekly digest RSS feed of all entries, one item per week.
 - [All grants calendar (.ics)]({base}calendar.ics): ICS calendar of all upcoming deadlines.
 
 ## By category
