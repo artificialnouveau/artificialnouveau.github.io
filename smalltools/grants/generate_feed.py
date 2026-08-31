@@ -455,7 +455,11 @@ def build_weekly_item(monday, grants_in_week, today, slug):
         if amount:
             short = str(amount)
             if len(short) > 60:
-                short = short[:57].rstrip(" ,.;:") + "..."
+                # cut at a word boundary so the trim reads as deliberate
+                cut = short[:58]
+                if " " in cut:
+                    cut = cut.rsplit(" ", 1)[0]
+                short = cut.rstrip(" ,.;:") + "..."
             bits.append(escape(short))
         rows.append(
             f'<li><a href="{gurl}"><strong>{gtitle}</strong></a><br>'
