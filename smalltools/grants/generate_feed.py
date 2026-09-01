@@ -398,14 +398,18 @@ def build_feed(grants, region, timeline, today, category=None, opp_type=None):
         key=lambda g: feed_release(g) or date.min,
         reverse=True,
     )[:MAX_ITEMS]
-    grants_sorted = sorted(
-        selected,
-        key=lambda g: (
-            parse_date(g.get("deadline")) or date.max,
-            -(feed_release(g) or date.min).toordinal(),
-            str(g.get("id") or ""),
-        ),
-    )
+    def file_order(g):
+        deadline = parse_date(g.get("deadline"))
+        release = feed_release(g) or date.min
+        if deadline is None:
+            band, when = 1, date.max            # rolling: after dated open calls
+        elif deadline < today:
+            band, when = 2, date.max - (deadline - date.min)  # expired history last, newest first
+        else:
+            band, when = 0, deadline            # open: soonest deadline first
+        return (band, when, -release.toordinal(), str(g.get("id") or ""))
+
+    grants_sorted = sorted(selected, key=file_order)
 
     build_date = rfc822(datetime.now(timezone.utc))
     items = "".join(build_item(g, today) for g in grants_sorted)
