@@ -14,7 +14,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:american-academy-berlin-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20260901T205350Z
+DTSTAMP:20260901T205603Z
 DTSTART;VALUE=DATE:20260925
 DTEND;VALUE=DATE:20260926
 SUMMARY:Deadline: American Academy in Berlin: Berlin Prize Fellowship 2027-
@@ -73,7 +73,7 @@ LOCATION:Berlin\, Germany\, at the Hans Arnhold Center. RESTRICTED: fellows
 END:VEVENT
 BEGIN:VEVENT
 UID:latitude-air-2027@artificialnouveau.github.io
-DTSTAMP:20260901T205350Z
+DTSTAMP:20260901T205603Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: LATITUDE Artist in Residence 2027 (Chicago)
@@ -116,7 +116,7 @@ LOCATION:Chicago\, Illinois\, USA. No housing stipend offered.
 END:VEVENT
 BEGIN:VEVENT
 UID:kluge-fellowships-library-of-congress-2027@artificialnouveau.github.io
-DTSTAMP:20260901T205350Z
+DTSTAMP:20260901T205603Z
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
 SUMMARY:Deadline: Kluge Fellowships at the Library of Congress 2027
@@ -168,7 +168,7 @@ LOCATION:Washington\, DC\, United States (in residence at the Thomas Jeffer
 END:VEVENT
 BEGIN:VEVENT
 UID:new-public-entrepreneur-in-residence-2026@artificialnouveau.github.io
-DTSTAMP:20260901T205350Z
+DTSTAMP:20260901T205603Z
 DTSTART;VALUE=DATE:20260909
 DTEND;VALUE=DATE:20260910
 SUMMARY:Deadline: New_ Public Entrepreneur in Residence\, Pilot Cohort
@@ -228,5 +228,42 @@ URL:https://newpublic.org/EIR?utm_source=artificialnouveaugrantdesk&utm_med
 LOCATION:Remote\, with an in-person kickoff retreat in Philadelphia\, USA (
  19 to 22 October 2026). Open to applicants based in the United States or C
  anada.
+END:VEVENT
+BEGIN:VEVENT
+UID:mats-residency-program-2026@artificialnouveau.github.io
+DTSTAMP:20260901T205603Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:Deadline: MATS Residency Program: 6-24 Month Funded AI Safety Resea
+ rch (Winter 2027 intake)
+DESCRIPTION:The MATS Residency\, announced in August 2026 as a new track al
+ ongside the seasonal MATS fellowship\, funds 6 to 24 months of high-indepe
+ ndence AI safety research for experienced researchers\, whether already in
+  AI safety or moving in from adjacent fields. COMPENSATION: USD 155\,000 t
+ o 285\,000 per year gross depending on location\, seniority and experience
+ \, plus insurance\, retirement plan\, PTO (17 days US / 20 days UK)\, conf
+ erence funding\, catered meals\, and up to USD 25\,000 in relocation suppo
+ rt. ELIGIBILITY: at least one substantial piece of research-caliber work\;
+  credentials are not required. Full-time (part-time case by case for acade
+ mics on sabbatical)\, in person at MATS offices in Berkeley\, London\, or 
+ Washington DC\, with visa support where required. TIMELINE: the Winter 202
+ 7 intake window runs 25 August to 31 October 2026 (AoE)\, with decisions b
+ y end of November and interviews plus a paid work test in the first week o
+ f December\; three intake windows per year.\n\nOrganisation: MATS (ML Alig
+ nment and Theory Scholars)\nLocation: In-person at MATS offices in Berkele
+ y\, London\, or Washington DC\; visa support provided where required. For 
+ experienced researchers with at least one substantial piece of research-ca
+ liber work.\nAward: USD 155\,000 to 285\,000 per year gross (set by locati
+ on\, seniority\, and experience)\, plus medical/dental/vision/life insuran
+ ce\, retirement plan\, paid time off\, conference funding\, catered meals\
+ , and up to USD 25\,000 relocation support. No application fee.\nDuration:
+  6 to 24 months with rolling start dates\; three intake windows per year.\
+ n\nMore: https://www.matsprogram.org/residency?utm_source=artificialnouvea
+ ugrantdesk&utm_medium=referral
+URL:https://www.matsprogram.org/residency?utm_source=artificialnouveaugrant
+ desk&utm_medium=referral
+LOCATION:In-person at MATS offices in Berkeley\, London\, or Washington DC\
+ ; visa support provided where required. For experienced researchers with a
+ t least one substantial piece of research-caliber work.
 END:VEVENT
 END:VCALENDAR
