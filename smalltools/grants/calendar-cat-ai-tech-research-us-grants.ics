@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:fund-for-investigative-journalism-2026@artificialnouveau.github.io
-DTSTAMP:20260901T205350Z
+DTSTAMP:20260901T205603Z
 DTSTART;VALUE=DATE:20260914
 DTEND;VALUE=DATE:20260915
 SUMMARY:Deadline: Fund for Investigative Journalism (FIJ) Grants
@@ -36,7 +36,7 @@ LOCATION:USA-primary (foreign-based stories require strong U.S. angle)
 END:VEVENT
 BEGIN:VEVENT
 UID:alicia-patterson-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260901T205350Z
+DTSTAMP:20260901T205603Z
 DTSTART;VALUE=DATE:20261001
 DTEND;VALUE=DATE:20261002
 SUMMARY:Deadline: Alicia Patterson Fellowship 2027 (Fund for Investigative 
@@ -64,7 +64,7 @@ LOCATION:Remote\; fellows may live anywhere\, but projects must be U.S.-foc
 END:VEVENT
 BEGIN:VEVENT
 UID:acls-digital-justice-grants-2026-27@artificialnouveau.github.io
-DTSTAMP:20260901T205350Z
+DTSTAMP:20260901T205603Z
 DTSTART;VALUE=DATE:20261103
 DTEND;VALUE=DATE:20261104
 SUMMARY:Deadline: ACLS Digital Justice Grants 2026-27 (Seed and Development
@@ -112,7 +112,7 @@ LOCATION:Grant funds must be administered by a US institution of higher edu
 END:VEVENT
 BEGIN:VEVENT
 UID:asf-fellowships-americans-nordic-2027-28@artificialnouveau.github.io
-DTSTAMP:20260901T205350Z
+DTSTAMP:20260901T205603Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: American-Scandinavian Foundation: Fellowships for America
@@ -152,5 +152,42 @@ LOCATION:Nordic region (Denmark\, Faroe Islands\, Greenland\, Iceland\, Fin
  land\, Norway\, Sweden\, and Sapmi). For American graduate students\, acad
  emic professionals\, and creative artists\; project must take place in the
   Nordic countries.
+END:VEVENT
+BEGIN:VEVENT
+UID:mats-residency-program-2026@artificialnouveau.github.io
+DTSTAMP:20260901T205603Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:Deadline: MATS Residency Program: 6-24 Month Funded AI Safety Resea
+ rch (Winter 2027 intake)
+DESCRIPTION:The MATS Residency\, announced in August 2026 as a new track al
+ ongside the seasonal MATS fellowship\, funds 6 to 24 months of high-indepe
+ ndence AI safety research for experienced researchers\, whether already in
+  AI safety or moving in from adjacent fields. COMPENSATION: USD 155\,000 t
+ o 285\,000 per year gross depending on location\, seniority and experience
+ \, plus insurance\, retirement plan\, PTO (17 days US / 20 days UK)\, conf
+ erence funding\, catered meals\, and up to USD 25\,000 in relocation suppo
+ rt. ELIGIBILITY: at least one substantial piece of research-caliber work\;
+  credentials are not required. Full-time (part-time case by case for acade
+ mics on sabbatical)\, in person at MATS offices in Berkeley\, London\, or 
+ Washington DC\, with visa support where required. TIMELINE: the Winter 202
+ 7 intake window runs 25 August to 31 October 2026 (AoE)\, with decisions b
+ y end of November and interviews plus a paid work test in the first week o
+ f December\; three intake windows per year.\n\nOrganisation: MATS (ML Alig
+ nment and Theory Scholars)\nLocation: In-person at MATS offices in Berkele
+ y\, London\, or Washington DC\; visa support provided where required. For 
+ experienced researchers with at least one substantial piece of research-ca
+ liber work.\nAward: USD 155\,000 to 285\,000 per year gross (set by locati
+ on\, seniority\, and experience)\, plus medical/dental/vision/life insuran
+ ce\, retirement plan\, paid time off\, conference funding\, catered meals\
+ , and up to USD 25\,000 relocation support. No application fee.\nDuration:
+  6 to 24 months with rolling start dates\; three intake windows per year.\
+ n\nMore: https://www.matsprogram.org/residency?utm_source=artificialnouvea
+ ugrantdesk&utm_medium=referral
+URL:https://www.matsprogram.org/residency?utm_source=artificialnouveaugrant
+ desk&utm_medium=referral
+LOCATION:In-person at MATS offices in Berkeley\, London\, or Washington DC\
+ ; visa support provided where required. For experienced researchers with a
+ t least one substantial piece of research-caliber work.
 END:VEVENT
 END:VCALENDAR
