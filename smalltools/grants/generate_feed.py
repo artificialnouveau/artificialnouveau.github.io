@@ -482,13 +482,9 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, 
     what = weekly_count_phrase(count, category, opp_type)
     pub = rfc822(sunday)
 
-    # The title already carries the count and week; don't repeat them here or
-    # renderers that show title plus a truncated description say it twice.
-    header_body = (
-        f"<p>Each grant follows as its own entry.</p>\n"
-        f'<p>Full listing with filters: <a href="{escape(PAGE_URL)}">The Grant Desk</a> '
-        f"({escape(PAGE_URL)}).</p>"
-    )
+    # The title carries the whole message (count and week); the description
+    # stays empty so renderers show the header as a single line. The item's
+    # own <link> still points at the Grant Desk.
     # Same guid scheme as the digest era so a reader that saw a week as a
     # digest never sees its header twice.
     items = [
@@ -497,7 +493,7 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, 
         f"    <link>{escape(PAGE_URL)}</link>\n"
         f'    <guid isPermaLink="false">{escape(f"{PAGE_URL}{slug}#week-{monday.isoformat()}")}</guid>\n'
         f"    <pubDate>{pub}</pubDate>\n"
-        f"    <description><![CDATA[{header_body}]]></description>\n"
+        "    <description><![CDATA[]]></description>\n"
         "  </item>\n"
     ]
     for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
