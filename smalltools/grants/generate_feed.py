@@ -482,9 +482,10 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, 
     what = weekly_count_phrase(count, category, opp_type)
     pub = rfc822(sunday)
 
+    # The title already carries the count and week; don't repeat them here or
+    # renderers that show title plus a truncated description say it twice.
     header_body = (
-        f"<p>{count} new {escape(what)} landed on The Grant Desk in the week of "
-        f"{escape(label)}; each follows as its own entry.</p>\n"
+        f"<p>Each grant follows as its own entry.</p>\n"
         f'<p>Full listing with filters: <a href="{escape(PAGE_URL)}">The Grant Desk</a> '
         f"({escape(PAGE_URL)}).</p>"
     )
@@ -563,10 +564,9 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
             f'{" &middot; ".join(bits)}</li>'
         )
 
+    # The title already says "N new X - week of ...": start straight with the
+    # listing so truncating renderers (Slack) spend their budget on grants.
     body = (
-        f"<p>{count} new {escape(what)} landed on The Grant Desk in the week of "
-        f"{escape(label)} ({escape(monday.strftime('%d %b'))} to "
-        f"{escape(sunday.strftime('%d %b %Y'))}).</p>\n"
         f"<ul>\n" + "\n".join(rows) + "\n</ul>\n"
         f'<p>Full listing with filters: <a href="{escape(PAGE_URL)}">The Grant Desk</a> '
         f"({escape(PAGE_URL)}).</p>"
