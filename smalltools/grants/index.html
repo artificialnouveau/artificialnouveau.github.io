@@ -1591,11 +1591,11 @@ code *, pre *, kbd *, samp * {
           </div>
           <p class="feed-note" id="feed-note" hidden></p>
 <!-- BEGIN_OVERLAP_NOTE -->
-<script type="application/json" id="overlap-data">[{"axis":"categories","a":"cross","b":"media-arts","aLabel":"Cross-disciplinary & Social Impact","bLabel":"Media Arts, Film & Sound","shared":52,"share":0.286}]</script>
+<script type="application/json" id="overlap-data">[{"axis":"categories","a":"cross","b":"media-arts","aLabel":"Cross-disciplinary & Social Impact","bLabel":"Media Arts, Film & Sound","shared":53,"share":0.29}]</script>
 <details class="overlap-note">
 <summary>Why some filters are marked *</summary>
 <p>A single grant can sit in more than one region, category or type, so two filters can hand you the same call twice. The pairs below overlap enough to be worth flagging, and every filter involved carries an asterisk above.</p>
-<p class="overlap-axis">Categories</p><ul><li><strong>Cross-disciplinary &amp; Social Impact</strong> and <strong>Media Arts, Film &amp; Sound</strong> &mdash; 52 shared</li></ul>
+<p class="overlap-axis">Categories</p><ul><li><strong>Cross-disciplinary &amp; Social Impact</strong> and <strong>Media Arts, Film &amp; Sound</strong> &mdash; 53 shared</li></ul>
 </details>
 <!-- END_OVERLAP_NOTE -->
           <div class="row">
@@ -1761,7 +1761,7 @@ code *, pre *, kbd *, samp * {
   "@type": "ItemList",
   "name": "The Grant Desk",
   "url": "https://www.artificialnouveau.com/smalltools/grants/",
-  "numberOfItems": 430,
+  "numberOfItems": 432,
   "itemListElement": [
     {
       "@type": "ListItem",
@@ -14837,18 +14837,22 @@ code *, pre *, kbd *, samp * {
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Artist Project",
-        "description": "Funding for concrete artistic plans, research projects, or working periods in the Netherlands or abroad. Continuous deadline.",
+        "description": "Rolling project funding from the Mondriaan Fund for visual artists who want to carry out a concrete artistic plan, research project or working period in the Netherlands or abroad. The fund's definition of visual art is broad and explicitly includes installation art, conceptual art, performance, artistic research, photography, audiovisual, digital, sound and (new) media art, and art in public space. AMOUNTS: a fixed contribution of EUR 2,785 per month for up to 6 months, or a flexible contribution for up to 12 months sized to the project budget; hired expertise, materials and equipment can be part of the budget. The fixed contribution cannot be awarded within 1 year of receiving an Artist Start grant. ELIGIBILITY: visual artists from the Netherlands or the Caribbean part of the Kingdom, professionally active for at least 1 year. CONDITIONS: applicants must contribute at least 10 percent of the sum requested; this own contribution may be personal investment, third-party support, an interest-free loan from Fonds Kwadraat or crowdfunding. APPLY at any time through the Mondriaan Fund online application system; allow around 3 months processing once the application is complete.",
         "url": "https://www.mondriaanfonds.nl/en/apply-for-a-grant/grants/artist-project/",
         "funder": {
           "@type": "Organization",
           "name": "Mondriaan Fund"
         },
-        "amount": "Funded (see grant page)",
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "EUR",
+          "value": "Fixed contribution of EUR 2,785 per month for a working period of up to 6 months, or a flexible contribution for up to 12 months with the amount based on the project plan and budget. At least 10 percent of the requested sum must come from the applicant, via personal investment, third-party contributions, a Fonds Kwadraat interest-free loan or crowdfunding. No application fee."
+        },
         "additionalProperty": [
           {
             "@type": "PropertyValue",
             "name": "location",
-            "value": "Netherlands or abroad"
+            "value": "Netherlands or abroad; applicants must be based in the Netherlands or the Caribbean part of the Kingdom."
           },
           {
             "@type": "PropertyValue",
@@ -16239,6 +16243,68 @@ code *, pre *, kbd *, samp * {
             "@type": "PropertyValue",
             "name": "region",
             "value": "US"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 431,
+      "item": {
+        "@type": "MonetaryGrant",
+        "name": "Amarte Fonds: Project and Development Contributions for Visual Artists",
+        "description": "Private Dutch fund set up by individuals and families who support the arts, focused on talent development across theatre, film, music, visual arts and literature. Visual artists and independent curators can apply continuously for two kinds of support: a development contribution of up to EUR 2,750 to deepen your practice (research, working out an idea, writing, composing), or a project contribution of up to EUR 5,500 when the plan is already concrete. Beyond money, Amarte can add professional guidance, knowledge and network from an expert. APPLY via the online application portal at aanvragenamarte.nl: register with your email address, then submit the plan with required attachments. Applications are handled on a rolling basis.",
+        "url": "https://www.amarte.nl/nl/kunst",
+        "funder": {
+          "@type": "Organization",
+          "name": "Amarte Fonds"
+        },
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "EUR",
+          "value": "Project contribution of up to EUR 5,500 or development contribution of up to EUR 2,750, plus optional professional guidance from an expert in the fund's network. No application fee."
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "location",
+            "value": "Netherlands. For visual artists and independent curators working in the Dutch art field."
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "region",
+            "value": "NL"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 432,
+      "item": {
+        "@type": "MonetaryGrant",
+        "name": "SIDN fonds: Pioneer Projects (rolling open applications)",
+        "description": "SIDN fonds, the independent foundation funded by the Dutch .nl domain registry, runs a continuously open call for pioneer projects: up to EUR 10,000 to work an idea into a demo, pilot or experimental design with a strong team. For 2026 pioneer applications must contribute to the theme 'Sterk internet' (a strong internet). ELIGIBILITY: both natural persons and legal entities can apply, so individual makers, artists and researchers qualify alongside organisations. CONDITIONS: the project must serve the public interest rather than an individual company or person, must be a new idea, an existing idea in a new context or a new application of digital technology, and results and knowledge must be actively shared. Critical, artistic and design-led takes on internet technology and digital society fit the fund's track record. APPLY at any time via the online application form on sidnfonds.nl.",
+        "url": "https://www.sidnfonds.nl/aanvragen",
+        "funder": {
+          "@type": "Organization",
+          "name": "SIDN fonds"
+        },
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "EUR",
+          "value": "Up to EUR 10,000 per pioneer project to develop an idea into a demo, pilot or experimental design. No application fee."
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "location",
+            "value": "Netherlands. SIDN fonds is the foundation of the .nl domain registry and funds projects serving the public interest online."
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "region",
+            "value": "NL"
           }
         ]
       }
@@ -18728,8 +18794,8 @@ code *, pre *, kbd *, samp * {
 </li>
 <li>
 <h3><a href="https://www.mondriaanfonds.nl/en/apply-for-a-grant/grants/artist-project/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral" target="_blank" rel="noopener">Mondriaan Fund: Artist Project</a></h3>
-<p class="meta-line">Mondriaan Fund &middot; Netherlands or abroad &middot; Deadline: Rolling / undated &middot; Award: Funded (see grant page)</p>
-<p>Funding for concrete artistic plans, research projects, or working periods in the Netherlands or abroad. Continuous deadline.</p>
+<p class="meta-line">Mondriaan Fund &middot; Netherlands or abroad; applicants must be based in the Netherlands or the Caribbean part of the Kingdom. &middot; Deadline: Rolling / undated &middot; Award: Fixed contribution of EUR 2,785 per month for a working period of up to 6 months, or a flexible contribution for up to 12 months with the amount based on the project plan and budget. At least 10 percent of the requested sum must come from the applicant, via personal investment, third-party contributions, a Fonds Kwadraat interest-free loan or crowdfunding. No application fee.</p>
+<p>Rolling project funding from the Mondriaan Fund for visual artists who want to carry out a concrete artistic plan, research project or working period in the Netherlands or abroad. The fund's definition of visual art is broad and explicitly includes installation art, conceptual art, performance, artistic research, photography, audiovisual, digital, sound and (new) media art, and art in public space. AMOUNTS: a fixed contribution of EUR 2,785 per month for up to 6 months, or a flexible contribution for up to 12 months sized to the project budget; hired expertise, materials and equipment can be part of the budget. The fixed contribution cannot be awarded within 1 year of receiving an Artist Start grant. ELIGIBILITY: visual artists from the Netherlands or the Caribbean part of the Kingdom, professionally active for at least 1 year. CONDITIONS: applicants must contribute at least 10 percent of the sum requested; this own contribution may be personal investment, third-party support, an interest-free loan from Fonds Kwadraat or crowdfunding. APPLY at any time through the Mondriaan Fund online application system; allow around 3 months processing once the application is complete.</p>
 </li>
 <li>
 <h3><a href="https://www.mondriaanfonds.nl/en/apply-for-a-grant/grants/artist-start/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral" target="_blank" rel="noopener">Mondriaan Fund: Artist Start</a></h3>
@@ -18965,6 +19031,16 @@ code *, pre *, kbd *, samp * {
 <h3><a href="https://www.southarts.org/grants-opportunities/professional-development-grants-arts-organizations?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral" target="_blank" rel="noopener">Professional Development Grants for Arts Organizations</a></h3>
 <p class="meta-line">South Arts &middot; USA, nine-state South Arts region: Alabama, Florida, Georgia, Kentucky, Louisiana, Mississippi, North Carolina, South Carolina and Tennessee. &middot; Deadline: Rolling / undated &middot; Award: Up to USD 1,000 per organization, capped at 50 percent of project expenses, against a dollar-for-dollar cash match. Covers travel expenses such as lodging and air or ground transportation, admission and registration fees, and other related expenses. No application fee.</p>
 <p>South Arts funds professional development for arts administrators and board members, covering conferences, workshops, training events and organization-wide staff learning. Awards are up to USD 1,000 and capped at 50 percent of project expenses, against a dollar-for-dollar cash match. Eligible costs are travel expenses such as lodging and air or ground transportation, admission and registration fees, and other related expenses. ELIGIBILITY: nonprofit arts organizations with 501(c)(3) status, official units of local, county or state government, and federally recognised tribal communities, in the nine-state South Arts region (Alabama, Florida, Georgia, Kentucky, Louisiana, Mississippi, North Carolina, South Carolina and Tennessee), with an operating budget of USD 500,000 or less and a Unique Entity Identifier (UEI). For-profit organizations, individual artists, fiscally sponsored organizations and non-arts organizations are not eligible. ROLLING: applications opened 15 April 2026 and are accepted on a rolling basis, but must be submitted at least 60 days before the professional development activity begins. NOTE: this is a small capacity-building grant for organizations, not artist project funding.</p>
+</li>
+<li>
+<h3><a href="https://www.amarte.nl/nl/kunst?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral" target="_blank" rel="noopener">Amarte Fonds: Project and Development Contributions for Visual Artists</a></h3>
+<p class="meta-line">Amarte Fonds &middot; Netherlands. For visual artists and independent curators working in the Dutch art field. &middot; Deadline: Rolling / undated &middot; Award: Project contribution of up to EUR 5,500 or development contribution of up to EUR 2,750, plus optional professional guidance from an expert in the fund's network. No application fee.</p>
+<p>Private Dutch fund set up by individuals and families who support the arts, focused on talent development across theatre, film, music, visual arts and literature. Visual artists and independent curators can apply continuously for two kinds of support: a development contribution of up to EUR 2,750 to deepen your practice (research, working out an idea, writing, composing), or a project contribution of up to EUR 5,500 when the plan is already concrete. Beyond money, Amarte can add professional guidance, knowledge and network from an expert. APPLY via the online application portal at aanvragenamarte.nl: register with your email address, then submit the plan with required attachments. Applications are handled on a rolling basis.</p>
+</li>
+<li>
+<h3><a href="https://www.sidnfonds.nl/aanvragen?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral" target="_blank" rel="noopener">SIDN fonds: Pioneer Projects (rolling open applications)</a></h3>
+<p class="meta-line">SIDN fonds &middot; Netherlands. SIDN fonds is the foundation of the .nl domain registry and funds projects serving the public interest online. &middot; Deadline: Rolling / undated &middot; Award: Up to EUR 10,000 per pioneer project to develop an idea into a demo, pilot or experimental design. No application fee.</p>
+<p>SIDN fonds, the independent foundation funded by the Dutch .nl domain registry, runs a continuously open call for pioneer projects: up to EUR 10,000 to work an idea into a demo, pilot or experimental design with a strong team. For 2026 pioneer applications must contribute to the theme 'Sterk internet' (a strong internet). ELIGIBILITY: both natural persons and legal entities can apply, so individual makers, artists and researchers qualify alongside organisations. CONDITIONS: the project must serve the public interest rather than an individual company or person, must be a new idea, an existing idea in a new context or a new application of digital technology, and results and knowledge must be actively shared. Critical, artistic and design-led takes on internet technology and digital society fit the fund's track record. APPLY at any time via the online application form on sidnfonds.nl.</p>
 </li>
 </ol>
 </section>
