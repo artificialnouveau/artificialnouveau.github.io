@@ -380,8 +380,17 @@ def build_feed(grants, region, timeline, today, category=None, opp_type=None):
     filename = feed_filename(region, timeline, category, opp_type=opp_type)
     feed_url = PAGE_URL + filename
 
+    # Never publish an item that was already expired on its release date (a late
+    # addition or mis-staggered feedDate can land on/after the deadline). Items
+    # that expired AFTER their release stay: they are feed history, and pulling
+    # them would churn readers' archives.
+    def open_at_release(g):
+        deadline = parse_date(g.get("deadline"))
+        release = feed_release(g)
+        return deadline is None or release is None or release <= deadline
+
     grants_sorted = sorted(
-        grants,
+        (g for g in grants if open_at_release(g)),
         key=lambda g: feed_release(g) or date.min,
         reverse=True,
     )[:MAX_ITEMS]
