@@ -389,11 +389,23 @@ def build_feed(grants, region, timeline, today, category=None, opp_type=None):
         release = feed_release(g)
         return deadline is None or release is None or release <= deadline
 
-    grants_sorted = sorted(
+    # Which grants are in the feed: the MAX_ITEMS most recent releases (so the
+    # feed stays a stream of what's new). How they are ordered in the file:
+    # closest deadline first, rolling/no-deadline entries last, so renderers
+    # that keep file order surface the most urgent calls at the top.
+    selected = sorted(
         (g for g in grants if open_at_release(g)),
         key=lambda g: feed_release(g) or date.min,
         reverse=True,
     )[:MAX_ITEMS]
+    grants_sorted = sorted(
+        selected,
+        key=lambda g: (
+            parse_date(g.get("deadline")) or date.max,
+            -(feed_release(g) or date.min).toordinal(),
+            str(g.get("id") or ""),
+        ),
+    )
 
     build_date = rfc822(datetime.now(timezone.utc))
     items = "".join(build_item(g, today) for g in grants_sorted)
