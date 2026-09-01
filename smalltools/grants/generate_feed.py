@@ -225,7 +225,9 @@ def build_item(grant, today):
     region = grant.get("region")
     if region:
         cats.append(f"    <category>{escape(str(region))}</category>\n")
-    for tag in grant.get("tags", []) or []:
+    # Untagged grants (the bot adds these) fall back to a single "other" tag so
+    # no item ever ships without a category chip.
+    for tag in grant.get("tags") or ["other"]:
         cats.append(f"    <category>{escape(str(tag))}</category>\n")
 
     return (
