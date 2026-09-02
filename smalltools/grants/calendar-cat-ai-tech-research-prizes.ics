@@ -14,7 +14,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:american-academy-berlin-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20260902T111319Z
+DTSTAMP:20260902T121748Z
 DTSTART;VALUE=DATE:20260925
 DTEND;VALUE=DATE:20260926
 SUMMARY:Deadline: American Academy in Berlin: Berlin Prize Fellowship 2027-
@@ -73,7 +73,7 @@ LOCATION:Berlin\, Germany\, at the Hans Arnhold Center. RESTRICTED: fellows
 END:VEVENT
 BEGIN:VEVENT
 UID:berggruen-prize-essay-competition-2026@artificialnouveau.github.io
-DTSTAMP:20260902T111319Z
+DTSTAMP:20260902T121748Z
 DTSTART;VALUE=DATE:20260817
 DTEND;VALUE=DATE:20260818
 SUMMARY:Deadline: Berggruen Prize Essay Competition 2026: A New Axial Age?
@@ -126,7 +126,7 @@ LOCATION:Remote/online\; open to the public worldwide (English and Chinese
 END:VEVENT
 BEGIN:VEVENT
 UID:amr-paper-of-the-future-prize-2026@artificialnouveau.github.io
-DTSTAMP:20260902T111319Z
+DTSTAMP:20260902T121748Z
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
 SUMMARY:Deadline: AMR: 2026 Paper of the Future Prize
@@ -166,7 +166,7 @@ LOCATION:Worldwide (digital submission)
 END:VEVENT
 BEGIN:VEVENT
 UID:we-are-human-festival-call-for-films-2026@artificialnouveau.github.io
-DTSTAMP:20260902T111319Z
+DTSTAMP:20260902T121748Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Deadline: We Are Human Festival 2026: Call for Films (Paris)
@@ -190,7 +190,7 @@ LOCATION:Paris\, France (Forum des images screening 24 November 2026)
 END:VEVENT
 BEGIN:VEVENT
 UID:next-art-ai-award-2026@artificialnouveau.github.io
-DTSTAMP:20260902T111319Z
+DTSTAMP:20260902T121748Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Deadline: AI ART AWARD: NEXT ART AI 2026
@@ -250,7 +250,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:zindi-bias-bounty-mapping-equity-challenge-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20260902T111319Z
+DTSTAMP:20260902T121748Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: Zindi: Bias Bounty Mapping Equity Challenge (USD 10\,000 
@@ -279,5 +279,32 @@ DESCRIPTION:A bias bounty from Zindi\, Humane Intelligence\, Radiant Earth\
 URL:https://zindi.world/competitions/bias-bounty-mapping-equity-challenge?u
  tm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Online\, open to all worldwide\; teams of up to 4.
+END:VEVENT
+BEGIN:VEVENT
+UID:arc-prize-2026@artificialnouveau.github.io
+DTSTAMP:20260902T121748Z
+DTSTART;VALUE=DATE:20261102
+DTEND;VALUE=DATE:20261103
+SUMMARY:Deadline: ARC Prize 2026
+DESCRIPTION:The ARC Prize Foundation runs its 2026 competition for progress
+  toward artificial general intelligence\, with a USD 2\,000\,000 total pri
+ ze pool across three tracks: the main Kaggle competition on the ARC-AGI-2 
+ static reasoning benchmark\, a track on ARC-AGI-3 interactive agent reason
+ ing (second milestone 30 September 2026)\, and a paper prize for research 
+ that advances understanding of ARC-AGI performance. Milestone prizes run U
+ SD 25\,000 / 10\,000 / 2\,500. Open to individuals and teams worldwide\, e
+ ntirely online via Kaggle. Winning entries must be open-sourced under perm
+ issive licenses to collect prizes. Main submission deadline 2 November 202
+ 6\, paper track 8 November 2026\; results announced 4 December 2026.\n\nOr
+ ganisation: ARC Prize Foundation\nLocation: Online (Kaggle)\, worldwide\nA
+ ward: USD 2\,000\,000 total prize pool across three tracks (ARC-AGI-2\, AR
+ C-AGI-3 agents\, and a paper prize)\; milestone prizes include USD 25\,000
+  / 10\,000 / 2\,500\nDuration: Competition runs through 2 November 2026 (p
+ aper track 8 November)\; results announced 4 December 2026\n\nMore: https:
+ //arcprize.org/competitions/2026?utm_source=artificialnouveaugrantdesk&utm
+ _medium=referral
+URL:https://arcprize.org/competitions/2026?utm_source=artificialnouveaugran
+ tdesk&utm_medium=referral
+LOCATION:Online (Kaggle)\, worldwide
 END:VEVENT
 END:VCALENDAR
