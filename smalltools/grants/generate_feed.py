@@ -19,6 +19,7 @@ Pages deploy. No external dependencies, only stdlib.
 """
 from __future__ import annotations
 
+import bisect
 import json
 import re
 from datetime import date, datetime, timedelta, timezone
@@ -288,7 +289,8 @@ def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None
         desc += (
             " Released weekly: the week's new grants arrive together on Sunday, "
             "one entry per grant plus a short roundup header, instead of "
-            "trickling out daily."
+            "trickling out daily. Each drop carries at most 10 grants, closest "
+            "deadlines first; the rest follow the next Sunday."
         )
     return title, desc
 
@@ -459,6 +461,14 @@ WEEKLY_NOUNS = {
 # are not flooded with months of new-looking items at the switch.
 WEEKLY_DROP_SINCE = date(2026, 9, 6)
 
+# Cap on how many grants a single Sunday drop may carry. The 10 with the
+# nearest deadlines publish; the rest roll into the following week's drop.
+# A grant is never deferred past its own deadline: anything that would expire
+# before the NEXT Sunday publishes now, even when that pushes a drop over the
+# cap. Rolling (no-deadline) grants sort last, so in a busy stretch they wait
+# for a quieter week.
+WEEKLY_DROP_MAX = 10
+
 
 def weekly_grant_parts(g, today):
     """(escaped title, escaped UTM href, escaped bare url, detail bits) for one
@@ -623,6 +633,44 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
         if not release:
             continue
         buckets.setdefault(week_start(release), []).append(g)
+
+    # Enforce WEEKLY_DROP_MAX per Sunday drop, chronologically so overflow
+    # cascades week to week. Only drop-era weeks are capped: digest-era items
+    # are frozen history. The choice of which grants stay is deterministic
+    # (deadline, then id), so daily regenerates reproduce the same drops.
+    # Expired-at-stamp grants stay in their bucket (the drop builder already
+    # skips them) and do not count against the cap.
+    mondays = sorted(buckets)
+    i = 0
+    while i < len(mondays):
+        monday = mondays[i]
+        i += 1
+        sunday = monday + timedelta(days=6)
+        if sunday < WEEKLY_DROP_SINCE:
+            continue
+        deadline_of = lambda g: parse_date(g.get("deadline")) or date.max
+        openable = sorted(
+            (g for g in buckets[monday] if deadline_of(g) >= sunday),
+            key=lambda g: (deadline_of(g), str(g.get("id") or "")),
+        )
+        if len(openable) <= WEEKLY_DROP_MAX:
+            continue
+        next_sunday = sunday + timedelta(days=7)
+        keep_ids, deferred = set(), []
+        for g in openable:
+            if deadline_of(g) < next_sunday or len(keep_ids) < WEEKLY_DROP_MAX:
+                keep_ids.add(id(g))
+            else:
+                deferred.append(g)
+        if not deferred:
+            continue
+        deferred_ids = {id(g) for g in deferred}
+        buckets[monday] = [g for g in buckets[monday] if id(g) not in deferred_ids]
+        nxt = monday + timedelta(days=7)
+        if nxt not in buckets:
+            buckets[nxt] = []
+            bisect.insort(mondays, nxt)
+        buckets[nxt].extend(deferred)
 
     weeks = sorted(buckets.keys(), reverse=True)[:MAX_WEEKS]
     items = "".join(
