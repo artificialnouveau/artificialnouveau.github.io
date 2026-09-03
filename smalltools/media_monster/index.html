@@ -1477,47 +1477,67 @@ Paste artist page URLs, one per line"></textarea>
     }
 
     function logoUrl(domain) {
-      // Clearbit gives high-quality company logos
-      return "https://logo.clearbit.com/" + domain;
+      // unavatar.io serves site logos with CORS headers, so the same image
+      // can be drawn on the download canvas without a proxy
+      return "https://unavatar.io/" + domain;
     }
     function logoUrlFallback(domain) {
-      return "https://icons.duckduckgo.com/ip3/" + domain + ".ico";
-    }
-    function logoUrlFallback2(domain) {
       return "https://www.google.com/s2/favicons?domain=" + domain + "&sz=128";
     }
+    function logoUrlFallback2(domain) {
+      return "https://icons.duckduckgo.com/ip3/" + domain + ".ico";
+    }
 
-    // Try multiple CORS proxies in order
-    var corsProxies = [
-      function (u) { return "https://api.allorigins.win/raw?url=" + encodeURIComponent(u); },
-      function (u) { return "https://corsproxy.io/?" + encodeURIComponent(u); },
-      function (u) { return "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u); }
+    // Headline fetchers, tried in order. Each must be reachable from the
+    // browser with CORS headers. Jina Reader returns a "Title:" line;
+    // the others return the raw HTML of the page.
+    var headlineFetchers = [
+      { url: function (u) { return "https://r.jina.ai/" + u; }, kind: "jina" },
+      { url: function (u) { return "https://allorigins.hexlet.app/raw?url=" + encodeURIComponent(u); }, kind: "html" },
+      { url: function (u) { return "https://api.allorigins.win/raw?url=" + encodeURIComponent(u); }, kind: "html" }
     ];
+
+    // General-purpose CORS proxies (used by the Brand Logos tab and for
+    // drawing cross-origin images on a canvas)
+    var corsProxies = [
+      function (u) { return "https://allorigins.hexlet.app/raw?url=" + encodeURIComponent(u); },
+      function (u) { return "https://api.allorigins.win/raw?url=" + encodeURIComponent(u); }
+    ];
+    function imageProxyUrl(u) { return corsProxies[0](u); }
+
+    function headlineFromHtml(html) {
+      var ogMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
+                 || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+      if (ogMatch) return decodeHtmlEntities(ogMatch[1]);
+      var titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+      if (titleMatch) return decodeHtmlEntities(titleMatch[1]);
+      return null;
+    }
 
     async function fetchHeadline(url) {
       var lastErr = null;
-      for (var p = 0; p < corsProxies.length; p++) {
+      for (var p = 0; p < headlineFetchers.length; p++) {
+        var f = headlineFetchers[p];
         try {
-          var proxyUrl = corsProxies[p](url);
-          var resp = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+          var opts = { signal: AbortSignal.timeout(12000) };
+          if (f.kind === "jina") opts.headers = { "Accept": "text/plain", "X-Return-Format": "markdown" };
+          var resp = await fetch(f.url(url), opts);
           if (!resp.ok) throw new Error("HTTP " + resp.status);
-          var html = await resp.text();
-
-          // Try og:title first
-          var ogMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
-                     || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
-          if (ogMatch) return decodeHtmlEntities(ogMatch[1]);
-
-          // Fallback to <title>
-          var titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
-          if (titleMatch) return decodeHtmlEntities(titleMatch[1]);
-
-          throw new Error("No headline found in HTML");
+          var text = await resp.text();
+          var headline = null;
+          if (f.kind === "jina") {
+            var m = text.match(/^Title:\s*(.+)$/m);
+            if (m) headline = m[1].trim();
+          } else {
+            headline = headlineFromHtml(text);
+          }
+          if (headline) return headline;
+          throw new Error("No headline found");
         } catch (err) {
           lastErr = err;
         }
       }
-      throw lastErr || new Error("All proxies failed");
+      throw lastErr || new Error("All headline fetchers failed");
     }
 
     function decodeHtmlEntities(str) {
@@ -1577,7 +1597,7 @@ Paste artist page URLs, one per line"></textarea>
           loaded++;
         } catch (err) {
           // Show card with manual edit option
-          newsStates[cardId] = { headline: "(Could not fetch headline — click to edit)", domain: domain, url: url };
+          newsStates[cardId] = { headline: "(Could not fetch headline, click to edit)", domain: domain, url: url };
           createNewsCard(cardId, results);
           failed++;
         }
@@ -1602,9 +1622,9 @@ Paste artist page URLs, one per line"></textarea>
       var logoImg = document.createElement("img");
       logoImg.alt = state.domain + " logo";
       logoImg.onerror = function () {
-        if (logoImg.src.indexOf("clearbit") !== -1) {
+        if (logoImg.src.indexOf("unavatar") !== -1) {
           logoImg.src = logoUrlFallback(state.domain);
-        } else if (logoImg.src.indexOf("duckduckgo") !== -1) {
+        } else if (logoImg.src.indexOf("google.com") !== -1) {
           logoImg.src = logoUrlFallback2(state.domain);
         }
         // If all fail, browser shows broken image — acceptable
@@ -1673,12 +1693,9 @@ Paste artist page URLs, one per line"></textarea>
       ctx.fillStyle = "#f0f0f0";
       ctx.fillRect(0, 0, 80, cardH);
 
-      // Try drawing logo via CORS proxy, with fallbacks, then text initials
-      var logoSources = [
-        "https://corsproxy.io/?" + encodeURIComponent(logoUrl(state.domain)),
-        "https://corsproxy.io/?" + encodeURIComponent(logoUrlFallback(state.domain)),
-        "https://corsproxy.io/?" + encodeURIComponent(logoUrlFallback2(state.domain))
-      ];
+      // unavatar.io sends CORS headers, so the logo can be drawn directly.
+      // If it fails, fall back to text initials.
+      var logoSources = [logoUrl(state.domain)];
       var logoAttempt = 0;
       var logoImg = new Image();
       logoImg.crossOrigin = "anonymous";
@@ -2004,7 +2021,7 @@ Paste artist page URLs, one per line"></textarea>
         alert("Could not load avatar image for download.");
       };
 
-      img.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+      img.src = imageProxyUrl(state.imageUrl);
     }
 
     function avatarDownloadAll() {
@@ -2051,13 +2068,13 @@ Paste artist page URLs, one per line"></textarea>
     }
 
     function brandLogoUrl(domain) {
-      return "https://logo.clearbit.com/" + domain;
+      return "https://unavatar.io/" + domain;
     }
 
     async function fetchBrandLogoImage(domain) {
-      // Strategy 1: Try Clearbit logo (often wide/landscape)
-      var clearbitWorks = await testImageLoads(brandLogoUrl(domain));
-      if (clearbitWorks) return { imageUrl: brandLogoUrl(domain), source: "clearbit" };
+      // Strategy 1: unavatar.io logo (CORS enabled)
+      var logoWorks = await testImageLoads(brandLogoUrl(domain));
+      if (logoWorks) return { imageUrl: brandLogoUrl(domain), source: "unavatar" };
 
       // Strategy 2: Fetch the website via CORS proxy, extract og:image
       for (var p = 0; p < corsProxies.length; p++) {
@@ -2209,7 +2226,7 @@ Paste artist page URLs, one per line"></textarea>
           var tempImg2 = new Image();
           tempImg2.crossOrigin = "anonymous";
           tempImg2.onload = function () { tempImg.onload.call({ naturalWidth: tempImg2.naturalWidth, naturalHeight: tempImg2.naturalHeight }); };
-          tempImg2.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+          tempImg2.src = imageProxyUrl(state.imageUrl);
         };
         tempImg.src = state.imageUrl;
       } else {
@@ -2384,7 +2401,7 @@ Paste artist page URLs, one per line"></textarea>
         }
       };
       img.onerror = function () { window.open(state.imageUrl, "_blank"); };
-      img.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+      img.src = imageProxyUrl(state.imageUrl);
     }
 
     function brandDownloadAll() {
@@ -2578,7 +2595,7 @@ Paste artist page URLs, one per line"></textarea>
         img2.onerror = function () {
           alert("Could not download image due to CORS restrictions. Try right-clicking the image above and saving manually.");
         };
-        img2.src = "https://corsproxy.io/?" + encodeURIComponent(state.imageUrl);
+        img2.src = imageProxyUrl(state.imageUrl);
       };
       img.src = state.imageUrl;
 
