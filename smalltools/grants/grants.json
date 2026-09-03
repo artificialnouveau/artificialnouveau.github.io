@@ -1,7 +1,44 @@
 {
-  "lastUpdated": "2026-08-30",
+  "lastUpdated": "2026-09-03",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
+    {
+      "id": "cdt-nonresident-fellows-2027-2028",
+      "title": "Center for Democracy & Technology: Non-Resident Fellows Program (2027-2028)",
+      "organization": "Center for Democracy & Technology (CDT)",
+      "location": "Non-resident and remote; CDT is based in Washington, DC and Brussels. Open to researchers holding a full-time position at an academic institution anywhere, with particular interest in those working on US and EU developments.",
+      "region": "Remote",
+      "regions": [
+        "US",
+        "EU"
+      ],
+      "amount": "NO stipend, honorarium or funding amount is published; this is an unpaid two-year affiliation. What fellows get is a platform and access: publishing through CDT's platforms and blog, participation in CDT working groups, direct engagement with CDT's research and policy teams and with policymakers, collaboration on mutually agreed research projects, and guest attendance at select CDT events and webinars.",
+      "duration": "Two years, 2027-2028 cohort",
+      "startDate": null,
+      "deadline": "2026-09-18",
+      "addedDate": "2026-09-03",
+      "feedDate": "2026-09-04",
+      "category": "research",
+      "categories": [
+        "tech"
+      ],
+      "applicant": "individuals",
+      "url": "https://cdt.org/careers/#op-704482-nonresident-fellows-program",
+      "description": "The Center for Democracy & Technology, a Washington DC and Brussels nonprofit working on global digital rights and internet policy, is recruiting its 2027-2028 cohort of Non-Resident Fellows. The two-year program brings researchers from diverse disciplines and backgrounds into CDT's policy advocacy: fellows contribute to CDT policy positions, research, white papers and other publications, join relevant CDT working groups, engage directly with the research and policy teams and with policymakers, publish through CDT's platforms and write for the CDT blog, collaborate on mutually agreed research projects, attend select CDT events and webinars as guests, and provide expert feedback on emerging technology and internet policy issues. ELIGIBILITY: candidates must hold a full-time position at an academic institution, have published impactful peer-reviewed work, and have experience on technology policy issues relevant to CDT's areas of work; CDT is particularly interested in researchers working on US and EU developments. Ideally candidates hold a terminal degree (PhD, JD or similar) or equivalent experience. NOT open to current students or postdoctoral researchers. NOTE: no stipend or compensation is published; treat this as an unpaid affiliation. APPLY with a cover letter describing your areas of interest and alignment with CDT's work, a resume, and one relevant previously published writing sample. Questions to research@cdt.org. Deadline: Friday 18 September 2026.",
+      "tags": [
+        "fellowship",
+        "remote",
+        "tech-policy",
+        "digital-rights",
+        "internet-policy",
+        "research",
+        "academic",
+        "us",
+        "eu"
+      ],
+      "fee": false,
+      "featured": false
+    },
     {
       "id": "khoj-mozilla-counterstructures-residency-2026",
       "title": "Khoj x Mozilla Foundation: Counterstructures Residency 2026 (Delhi)",
