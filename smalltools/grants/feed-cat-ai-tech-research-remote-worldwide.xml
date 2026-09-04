@@ -6,7 +6,7 @@
   <description>Paid open calls, fellowships and residencies in AI, tech, research, and digital and mixed-media arts, sorted into the right pile. Updated as new calls land on the desk. Filtered to: AI, Tech &amp; Research, Remote &amp; Worldwide.</description>
   <language>en</language>
   <ttl>360</ttl>
-  <lastBuildDate>Fri, 04 Sep 2026 12:35:32 +0000</lastBuildDate>
+  <lastBuildDate>Fri, 04 Sep 2026 21:04:24 +0000</lastBuildDate>
   <atom:link href="https://www.artificialnouveau.com/smalltools/grants/feed-cat-ai-tech-research-remote-worldwide.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>Epic MegaGrants 2026 (Cycle 2)</title>
@@ -63,34 +63,42 @@
 <p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
   </item>
   <item>
-    <title>Paul Mellon Centre: Research Project Grants (Autumn 2026 round)</title>
-    <link>https://www.paul-mellon-centre.ac.uk/about/news/autumn-round-of-funding-opportunities-open?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
-    <guid isPermaLink="false">paul-mellon-centre-research-project-grants-autumn-2026</guid>
+    <title>Normsy: Social Media Measurement Methods Incubator RFP</title>
+    <link>https://normsy.ai/labs/openrfp?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
+    <guid isPermaLink="false">normsy-social-media-measurement-methods-incubator-2026</guid>
     <pubDate>Fri, 04 Sep 2026 00:00:00 +0000</pubDate>
     <category>Worldwide</category>
-    <category>uk</category>
-    <category>british-art</category>
-    <category>art-history</category>
     <category>research</category>
-    <category>paul-mellon-centre</category>
+    <category>worldwide</category>
+    <category>remote</category>
+    <category>computational-social-science</category>
+    <category>social-media</category>
+    <category>measurement</category>
+    <category>methodology</category>
+    <category>causal-inference</category>
+    <category>online-experiments</category>
+    <category>survey-experiments</category>
+    <category>ai</category>
+    <category>llm</category>
+    <category>content-moderation</category>
+    <category>civic-tech</category>
+    <category>open-call</category>
+    <category>rfp</category>
     <category>no-fee</category>
-    <category>project-grant</category>
-    <category>curatorial</category>
-    <category>staff-costs</category>
-    <description><![CDATA[<p><strong>Organisation:</strong> Paul Mellon Centre for Studies in British Art</p>
-<p><strong>Location:</strong> London-based funder. Applications open internationally; the research must concern British art, visual culture and/or architectural history.</p>
-<p><strong>Award:</strong> Up to GBP 40,000. No application fee.</p>
-<p><strong>Duration:</strong> Autumn 2026 round; applications close Monday 14 September 2026 at 23:59 BST</p>
-<p><strong>Deadline:</strong> 14 Sep 2026</p>
-<p>The Paul Mellon Centre funds scholarship and dissemination in British art, visual culture and architectural history, from the medieval period to the present and across the relevant geographical and cultural contexts. This is the Autumn 2026 round, the first under the Centre's restructured funding scheme announced earlier in 2026, and all grants in the round close together on Monday 14 September 2026 at 23:59 BST. ELIGIBILITY: the Centre's funding is open to INTERNATIONAL applicants, not just UK-based ones (the exceptions are the MA/MPhil Studentship and Doctoral Scholarship, which are not part of this round). Every applicant must show how the award advances their research on British art, visual culture and/or architecture. SUPPORT: general application guidance, an updated FAQ and the Our Funding Focus page set out what the Centre looks for, and there are writeups of previously successful projects. The grants team will take specific questions or arrange a call at grants@paul-mellon-centre.ac.uk. No application fee. THIS GRANT: a new award of up to GBP 40,000 for organisations undertaking ambitious and sustained research, consolidating elements of three previous schemes (the Curatorial Research, Collaborative and Digital Project grants). It is designed PRIMARILY to cover STAFF COSTS towards facilitating a research project with public-facing outcomes and/or a legacy. The form the outcome takes is deliberately open: an exhibition, a digital project, a catalogue or another means of dissemination all qualify.</p>
-<p><a href="https://www.paul-mellon-centre.ac.uk/about/news/autumn-round-of-funding-opportunities-open?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
+    <description><![CDATA[<p><strong>Organisation:</strong> Normsy (a project of Civic Health Project)</p>
+<p><strong>Location:</strong> Remote. Open to individuals and teams from academic, academic-adjacent and industry backgrounds; no stated country restriction. Research context is X/Twitter (proposals may be multi-platform but must include X).</p>
+<p><strong>Award:</strong> USD 1,000 awarded to each of the top 5 proposals, plus up to USD 20,000 to fund R&amp;D and/or testing with one selected partner individual or team. Preference for budgets where at least 50 percent goes to research costs (survey respondents, LLM or X API credits). No application fee.</p>
+<p><strong>Duration:</strong> Proposals must set out concrete deliverables within 6 months of starting; the partnership is framed as the start of a potentially longer-term collaboration</p>
+<p><strong>Deadline:</strong> 15 Sep 2026</p>
+<p>Normsy, a project of Civic Health Project, runs a small methods incubator for new strategies to measure or estimate the impact of prosocial social-media interventions. Normsy identifies toxic posts (typically content attacking or violating civic norms) and offers real users a set of AI-generated prosocial comments to choose from and post; the open question is how to estimate the effect of those comments on content producers, other commenters and bystanders who consume content without interacting measurably. The current approach combines survey experiments (how active X users respond emotionally to threads with and without the intervention, and how it shifts agreement with and support for the original post) with paid X API platform data (classifying comments before and after an intervention, plus coarse engagement metrics that cost money each time they are recollected). WHAT THEY WANT: a systematic way to leverage available platform data and maximise the utility of the survey experiments. Example proposals include a strategy for measuring toxicity/prosociality and reach/visibility of a thread over time with a randomisation design generating a control group of threads, or an approach to benchmarking the prosocial potential of AI-generated comments through an iterative arena with human judges or a theory-backed LLM validation approach with human validation. The brief is explicit that methodological innovation, causal identification, scalable measurement frameworks and novel observational approaches matter far more than proposing new intervention types; proposals need not study Normsy exclusively but must explain how the evaluation design transfers to it. Ethics and IRB considerations are central and Normsy will collaborate with selected researchers on ethics review and implementation planning. Researchers retain publication independence and IP; the partnership is expected to produce data for an academic paper. SUBMIT: one zipped folder through the linked Google Form containing a 3-page proposal (design, work already done, work still needed to scale and implement), a budget document for the USD 20,000, a timeline with concrete deliverables inside 6 months, and short bios for all team members. Award notifications mid-October 2026. Questions to kylan@civichealthproject.org; informal and exploratory conversations welcome.</p>
+<p><a href="https://normsy.ai/labs/openrfp?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
 <p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
   </item>
   <item>
     <title>Ars Biologica ArtXScience Residency 2027-2028 (Ars Electronica x Ceske Budejovice ECoC 2028)</title>
     <link>https://ars.electronica.art/export/en/ecoc2028-ars-biologica-art-science-residency/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">ars-biologica-artxscience-residency-2027-2028</guid>
-    <pubDate>Tue, 25 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0000</pubDate>
     <category>EU</category>
     <category>open-call</category>
     <category>residency</category>
@@ -117,7 +125,7 @@
     <title>Wilson Center Research Fellowship, 2027-2028 Class</title>
     <link>https://www.wilsoncenter.org/research-fellowship?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">wilson-center-research-fellowship-2027-2028</guid>
-    <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
     <category>Remote</category>
     <category>fellowship</category>
     <category>research</category>
@@ -143,7 +151,7 @@
     <title>Art Explora x Cite internationale des arts Residency Programme, 2027 Sessions</title>
     <link>https://www.citeinternationaledesarts.fr/en/programme-de-residence/art-explora-x-cite-internationale-des-arts/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">art-explora-cite-internationale-des-arts-2027</guid>
-    <pubDate>Thu, 06 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Wed, 05 Aug 2026 00:00:00 +0000</pubDate>
     <category>EU</category>
     <category>residency</category>
     <category>arts</category>
@@ -209,10 +217,43 @@
 <p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
   </item>
   <item>
+    <title>American Sunlight Project: Free Expression Fellow</title>
+    <link>https://www.americansunlight.org/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
+    <guid isPermaLink="false">american-sunlight-project-free-expression-fellow-2026</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 +0000</pubDate>
+    <category>US</category>
+    <category>us</category>
+    <category>remote</category>
+    <category>american-sunlight-project</category>
+    <category>fellowship</category>
+    <category>writers</category>
+    <category>journalism</category>
+    <category>newsletter</category>
+    <category>censorship</category>
+    <category>free-expression</category>
+    <category>platform-governance</category>
+    <category>tech-policy</category>
+    <category>disinformation</category>
+    <category>democracy</category>
+    <category>research</category>
+    <category>part-time</category>
+    <category>honorarium</category>
+    <category>rolling</category>
+    <category>no-fee</category>
+    <description><![CDATA[<p><strong>Organisation:</strong> American Sunlight Project</p>
+<p><strong>Location:</strong> Fully remote with flexible scheduling. Applicants must hold U.S. citizenship or legal residency.</p>
+<p><strong>Award:</strong> USD 2,500 honorarium for the engagement. No application fee.</p>
+<p><strong>Duration:</strong> Part-time, about 5 to 8 hours per week. Start date ASAP through December 2026, with possible extension pending funding.</p>
+<p><strong>Deadline:</strong> Rolling / undated</p>
+<p>The American Sunlight Project works to ensure that citizens have access to trustworthy sources to inform the choices they make in their daily lives. It is looking for a Free Expression Fellow to produce its regular newsletter on censorship, helping readers stay informed on a rapidly evolving US political landscape. RESPONSIBILITIES: compile and write 'Last Week in Censorship', a clear and engaging newsletter-style roundup of platform policy changes, censorship news and regulatory developments that erode American democracy; and, in support of the organisation's censorship tracker, compile instances from the weekly briefing into a database. IDEAL CANDIDATE: motivated to document instances of democratic backsliding in the United States and happy to take on a part-time nonprofit commitment in service of that goal. The posting explicitly welcomes students, retirees and people looking to moonlight for a good cause. REQUIRED: U.S. citizenship or legal residency; exceptional writing skills with a strong command of tone, clarity and synthesis; and knowledge of U.S. politics and social media. DESIRABLE: experience in research, journalism, public policy or a related field. STRONG PLUS: familiarity with tech policy, internet culture, free expression issues and/or platform governance. Familiarity with Substack is a plus but not required. TERMS: roughly 5 to 8 hours per week, fully remote with flexible scheduling, starting as soon as possible and running through December 2026 with possible extension pending funding, for a USD 2,500 honorarium. APPLY by emailing your CV, a short cover note of a couple of paragraphs explaining your interest, and a writing sample (preferably on a tech or policy topic) to benjamin@americansunlight.org with 'Fellow Application' in the subject line. No closing date is stated.</p>
+<p><a href="https://www.americansunlight.org/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
+<p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
+  </item>
+  <item>
     <title>AIXI Labs: Research Fellowship (rolling, quarterly rounds)</title>
     <link>https://www.aixi.uk/team/opportunities/aixi-labs-fellowship/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">aixi-labs-research-fellowship</guid>
-    <pubDate>Mon, 31 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Sun, 30 Aug 2026 00:00:00 +0000</pubDate>
     <category>Remote</category>
     <category>remote</category>
     <category>worldwide</category>
@@ -240,40 +281,10 @@
 <p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
   </item>
   <item>
-    <title>Augur: Researcher (Contractor, remote, part-time)</title>
-    <link>https://jobs.ashbyhq.com/augurai/f0adbe08-75cb-4c04-905b-203ebea57708?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
-    <guid isPermaLink="false">augur-researcher-contractor-2026</guid>
-    <pubDate>Mon, 31 Aug 2026 00:00:00 +0000</pubDate>
-    <category>Remote</category>
-    <category>job</category>
-    <category>contract</category>
-    <category>part-time</category>
-    <category>ai</category>
-    <category>research</category>
-    <category>supply-chain</category>
-    <category>semiconductors</category>
-    <category>tech-policy</category>
-    <category>remote</category>
-    <category>paid</category>
-    <category>us</category>
-    <category>uk</category>
-    <category>rolling</category>
-    <category>no-fee</category>
-    <category>individuals</category>
-    <description><![CDATA[<p><strong>Organisation:</strong> Augur</p>
-<p><strong>Location:</strong> Remote, part-time. The Ashby posting lists the location as United States; the newsletter listing that circulated this role says remote in the US or the UK, so confirm with Augur if you are UK-based.</p>
-<p><strong>Award:</strong> USD 50 per hour for 8 to 16 hours per week, with scope for expanded hours and responsibility for strong contributors. Initial 3-month contract with opportunity for renewal. Contractor, so no benefits. No application fee.</p>
-<p><strong>Duration:</strong> Part-time contract, 8 to 16 hours per week, initial 3 months with room to grow</p>
-<p><strong>Deadline:</strong> Rolling / undated</p>
-<p>A part-time remote contractor research role mapping the supply chains behind frontier AI and writing strategic proposals for government and industry decision-makers. RESPONSIBILITIES: map segments of frontier AI and adjacent technology supply chains, with possible focus on specific country ecosystems or on actors across segments such as capital allocation, raw materials, mineral processing, chip design, fabrication, advanced packaging, datasets, datacentres and frontier labs; analyse how ownership stakes, trade relationships and control are likely to evolve under different technological, commercial and geopolitical scenarios; and develop strategic proposals for stakeholders across government and industry. QUALIFICATIONS: strong research and analytical skills with familiarity in one or more of semiconductors, compute infrastructure, capital markets, critical minerals, trade policy or AI governance; clear concise writing for senior policymaker or business-executive audiences; sound strategic judgment and comfort with ambiguity and evolving scope. The posting explicitly asks for people 'adept at using AI models and tools as part of research process' who know when to use them to augment critical thinking and strategic taste rather than replace it. Self-direction and responsive communication matter because the arrangement is part-time and remote; experience in government, policy research, investment analysis or supply chain intelligence is a plus. GOOD FIT IF: you want paid, low-hours, high-leverage research work alongside other projects rather than a full-time post. DEADLINE: none published; applications appear to be rolling.</p>
-<p><a href="https://jobs.ashbyhq.com/augurai/f0adbe08-75cb-4c04-905b-203ebea57708?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
-<p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
-  </item>
-  <item>
     <title>Luminos.AI Legal Engineering Fellowship (Fall 2026)</title>
     <link>https://www.luminos.ai/jobs/luminos-ai-fellowship-program-fall-2026?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">luminos-ai-legal-eng-fellowship-fall-2026</guid>
-    <pubDate>Sun, 30 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Fri, 28 Aug 2026 00:00:00 +0000</pubDate>
     <category>Remote</category>
     <category>fellowship</category>
     <category>ai</category>
@@ -298,7 +309,7 @@
     <title>Physical AI Safety Institute: Research Fellowship (expression of interest)</title>
     <link>https://airtable.com/appYKevtFovAswTXz/pagtcy2ye0OeFf04d/form?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">paisi-research-fellowship-eoi</guid>
-    <pubDate>Sun, 30 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Fri, 28 Aug 2026 00:00:00 +0000</pubDate>
     <category>US</category>
     <category>us</category>
     <category>worldwide</category>
@@ -332,35 +343,10 @@
 <p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
   </item>
   <item>
-    <title>IIE Scholar Rescue Fund (IIE-SRF) Fellowship for Threatened and Displaced Scholars</title>
-    <link>https://www.iie.org/programs/scholar-rescue-fund/for-scholars/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
-    <guid isPermaLink="false">iie-scholar-rescue-fund-fellowship</guid>
-    <pubDate>Fri, 28 Aug 2026 00:00:00 +0000</pubDate>
-    <category>Worldwide</category>
-    <category>worldwide</category>
-    <category>research</category>
-    <category>academic</category>
-    <category>at-risk</category>
-    <category>conflict</category>
-    <category>exile</category>
-    <category>displaced-scholars</category>
-    <category>fellowship</category>
-    <category>rolling</category>
-    <category>no-fee</category>
-    <description><![CDATA[<p><strong>Organisation:</strong> Institute of International Education (IIE), Scholar Rescue Fund</p>
-<p><strong>Location:</strong> Remote application; placements at host universities and research institutions worldwide</p>
-<p><strong>Award:</strong> Fellowship of up to USD 30,000 for one year, paid towards a temporary academic position at a host institution; in most cases renewable for a second and final year. No application fee.</p>
-<p><strong>Duration:</strong> One year, renewable once; applications are accepted on a rolling basis and reviewed by the selection committee roughly quarterly</p>
-<p><strong>Deadline:</strong> Rolling / undated</p>
-<p>IIE-SRF arranges and funds temporary academic placements for professors, researchers and public intellectuals who face serious threats to their lives, liberty or academic careers, so they can continue research and teaching in safety. Since 2002 it has supported more than 1,000 scholars from 62 countries at over 500 host institutions. ELIGIBILITY: scholars from any country and any academic discipline who hold or held a professorship, research or public-intellectual position and face persecution, conflict or targeted threats. The fund does not support people continuing their own studies, including PhD candidates and others in academic training. Applicants do not need to have a host institution lined up: IIE-SRF works to identify placements, and scholars already outside their home country may still apply. Applications are rolling and reviewed quarterly, so a passed cycle deadline is not a closed door (the July 2026 cut-off fed the September 2026 committee). Programme materials are available in Arabic, Persian, French, Spanish and Turkish. Apply via scholarrescuefund.org.</p>
-<p><a href="https://www.iie.org/programs/scholar-rescue-fund/for-scholars/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
-<p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
-  </item>
-  <item>
     <title>Digital Defenders Partnership: Incident Response Fund</title>
     <link>https://www.digitaldefenders.org/funds/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">ddp-incident-response-fund</guid>
-    <pubDate>Thu, 27 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
     <category>Worldwide</category>
     <category>worldwide</category>
     <category>digital-security</category>
@@ -385,7 +371,7 @@
     <title>ESA Open Space Innovation Platform (OSIP): rolling open call for ideas</title>
     <link>https://www.esa.int/Enabling_Support/Preparing_for_the_Future/Discovery_and_Preparation/The_Open_Space_Innovation_Platform_OSIP?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">esa-osip-open-channels-rolling</guid>
-    <pubDate>Thu, 27 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
     <category>EU</category>
     <category>open-call</category>
     <category>rolling</category>
@@ -405,86 +391,6 @@
 <p><strong>Deadline:</strong> Rolling / undated</p>
 <p>OSIP is the European Space Agency's standing front door for unsolicited novel ideas, launched in 2019 and now the main entry point for new concepts into ESA, both in response to specific problems and through open calls. HOW IT WORKS: ideas are submitted through two mechanisms. Campaigns are targeted calls responding to specific questions with defined timelines (recent examples include Future Navigation Demonstrators and elements for the EOCognitiveLab mission); Channels are permanently open, open-ended calls on broader topics with no deadline. Submissions can go through an optional community discussion phase, with voting and comments, before expert evaluation by ESA. WHO CAN SUBMIT: individuals, businesses, universities and organisations anywhere in the world. The catch for funding: to implement a funded idea yourself, you must be eligible to do business with ESA under Article 18 of its procurement regulations, which in practice means affiliation with an entity in an ESA member state. WHAT FUNDING LOOKS LIKE: successful ideas are typically supported as co-funded PhD or postdoctoral research (ESA plus a university), early technology development activities, or system studies; amounts vary by route and campaign. WHY IT IS ON THE DESK: this is the one genuinely public, always-open route into ESA for independent researchers, technologists and artists working with space data or space technology concepts; new campaigns appear regularly, so checking the platform periodically is worthwhile. Submit via ideas.esa.int.</p>
 <p><a href="https://www.esa.int/Enabling_Support/Preparing_for_the_Future/Discovery_and_Preparation/The_Open_Space_Innovation_Platform_OSIP?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
-<p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
-  </item>
-  <item>
-    <title>Rory Peck Trust: Crisis Fund for Freelance Journalists</title>
-    <link>https://rorypecktrust.org/get-help/crisis/crisis-fund/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
-    <guid isPermaLink="false">rory-peck-trust-crisis-fund</guid>
-    <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
-    <category>Worldwide</category>
-    <category>worldwide</category>
-    <category>journalism</category>
-    <category>freelance</category>
-    <category>emergency</category>
-    <category>conflict</category>
-    <category>safety</category>
-    <category>press-freedom</category>
-    <category>rolling</category>
-    <category>rory-peck-trust</category>
-    <category>no-fee</category>
-    <description><![CDATA[<p><strong>Organisation:</strong> Rory Peck Trust</p>
-<p><strong>Location:</strong> Remote (worldwide); London-based organisation supporting freelancers anywhere</p>
-<p><strong>Award:</strong> Individual emergency grants; amounts are set case by case from an assessment of circumstances and need. No application fee.</p>
-<p><strong>Duration:</strong> One-off emergency assistance; assessment takes roughly one to three weeks</p>
-<p><strong>Deadline:</strong> Rolling / undated</p>
-<p>The Rory Peck Trust's Crisis Fund gives direct financial assistance to freelance news journalists whose work has put them in crisis: physical attack, urgent medical costs, replacement of confiscated or destroyed equipment, forced relocation, or support for the family of a journalist who has been injured, imprisoned, kidnapped or killed. This is one of the few funds built specifically for freelancers working in conflict and high-risk environments, who are usually outside any staff safety net. ELIGIBILITY: professional freelance journalists in news and current affairs whose sole income comes from journalism, who have been working freelance for at least the last 12 months and can provide reference letters from editors, who have no access to other financial or government support and no contractual benefits such as sick pay or social security. The crisis must have happened within the last six months and must be evidenced (invoices, bank statements). Anyone who received Rory Peck Trust support in the last three years is ineligible. The Trust also runs a separate Therapy Fund and a HEFAT safety-training fund. Applications are rolling, in English, French, Arabic, Spanish, Ukrainian or Russian. Contact assistance@rorypecktrust.org or info@rorypecktrust.org.</p>
-<p><a href="https://rorypecktrust.org/get-help/crisis/crisis-fund/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
-<p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
-  </item>
-  <item>
-    <title>Playlab: Senior Product Designer (remote)</title>
-    <link>https://jobs.ashbyhq.com/Playlab/6b03ad9f-204d-4f88-ad4b-e5e791e67e58?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
-    <guid isPermaLink="false">playlab-senior-product-designer-2026</guid>
-    <pubDate>Sun, 23 Aug 2026 00:00:00 +0000</pubDate>
-    <category>Remote</category>
-    <category>job</category>
-    <category>design</category>
-    <category>product-design</category>
-    <category>interaction-design</category>
-    <category>prototyping</category>
-    <category>ai</category>
-    <category>edtech</category>
-    <category>education</category>
-    <category>nonprofit</category>
-    <category>remote</category>
-    <category>playlab</category>
-    <category>no-fee</category>
-    <description><![CDATA[<p><strong>Organisation:</strong> Playlab (nonprofit)</p>
-<p><strong>Location:</strong> Remote, full time. Salary quoted in USD; the posting does not state a geographic restriction.</p>
-<p><strong>Award:</strong> USD 120,000 to 150,000 base salary. Full-time.</p>
-<p><strong>Duration:</strong> Full-time, permanent</p>
-<p><strong>Deadline:</strong> Rolling / undated</p>
-<p>Playlab is a nonprofit building public infrastructure for educational AI, with more than 60,000 educators publishing apps on its platform. Designers there are responsible first for researching, prototyping and implementing interaction patterns that let educators be makers of technology rather than recipients of someone else's system, then for shaping how educators learn about AI and gain confidence to tinker with it, and finally for the storytelling that carries the work into the world. The two standing questions the role works on: how to expand and deepen what educators can create with AI, and how to lower the floor for who can create and how easily AI systems can be meaningfully deployed in real educational contexts. THE ROLE: as Senior Product Designer you own the design of Playlab's surfaces from prototype through shipped product. WHAT THEY LOOK FOR: craft that is production-grade with a clear point of view, and instincts for when to ship fast versus slow down; product sense grounded in staying close to the problems Playlab is solving, with the ability to hold unresolved questions and keep moving; initiative on fuzzy goals, defining the design space, gathering context and driving through prototyping to a shipped solution while bringing leadership along; technical fluency, building with and on AI, judging what is worth building, and curating custom tooling; and taste across visual, interaction and communication design. FIT: at least 5 years as a strong design generalist with a home base in product design and a track record in another design discipline; able to lead design on owned projects while collaborating across the team; broad knowledge of creative and AI-leveraged tools; interest in learning environments and the people who create them; and comfort getting technical with engineers, possibly pushing code. BONUS: education or edtech experience, designing creative tech, and a love of creative side quests. The posting explicitly encourages applications from people who do not meet every listed qualification. The organisation describes itself as sitting between a startup and an R&amp;D lab, with nonprofit governance keeping incentives aligned to teaching and learning rather than growth.</p>
-<p><a href="https://jobs.ashbyhq.com/Playlab/6b03ad9f-204d-4f88-ad4b-e5e791e67e58?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
-<p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
-  </item>
-  <item>
-    <title>Playlab: Senior Visual Communication Designer (remote)</title>
-    <link>https://jobs.ashbyhq.com/Playlab/d4162f06-9026-4fd6-9a09-cb8f7123e88d?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
-    <guid isPermaLink="false">playlab-senior-visual-communication-designer-2026</guid>
-    <pubDate>Sun, 23 Aug 2026 00:00:00 +0000</pubDate>
-    <category>Remote</category>
-    <category>job</category>
-    <category>design</category>
-    <category>visual-communication</category>
-    <category>brand</category>
-    <category>motion</category>
-    <category>editorial</category>
-    <category>ai</category>
-    <category>edtech</category>
-    <category>education</category>
-    <category>nonprofit</category>
-    <category>remote</category>
-    <category>playlab</category>
-    <category>no-fee</category>
-    <description><![CDATA[<p><strong>Organisation:</strong> Playlab (nonprofit)</p>
-<p><strong>Location:</strong> Remote, full time. Salary quoted in USD; the posting does not state a geographic restriction.</p>
-<p><strong>Award:</strong> USD 120,000 to 150,000 base salary. Full-time.</p>
-<p><strong>Duration:</strong> Full-time, permanent</p>
-<p><strong>Deadline:</strong> Rolling / undated</p>
-<p>Playlab is a nonprofit building public infrastructure for educational AI, equipping communities to create AI tools that reflect their own needs and values; more than 60,000 educators have published apps on the platform. Its premise is that AI is a new design material that should be shaped by many, and that educators should be designers of AI systems rather than end users of someone else's. THE ROLE: visual communication designers own the brand and the surfaces where people encounter and build with it, shaping how educators learn about AI and gain the confidence to tinker with it, and making sophisticated ideas legible without flattening them. Work spans brand expression, storytelling, data and information design, motion, interface and print, taken from concept through produced work and shipped as reusable systems. The job includes getting close to the people using Playlab and the contexts they work in, and helping collect and share their stories. WHAT THEY LOOK FOR: craft that is production-grade with a clear point of view and good judgement about when to ship fast versus slow down; narrative sense, meaning well-reasoned positions on how Playlab tells its story and the ability to turn complex systems into intuitive visuals that stay true to their depth; initiative on fuzzy problems, from defining the space to shipped work, thinking ahead to dependencies and second-order questions; technical fluency across print, web and motion, building with and on AI as a creative material and curating tooling and workflows; and taste, a distinct visual voice with the restraint to leave a rough edge when it serves the work. FIT: at least 5 years' experience with a strong graphic design foundation, a home base in visual communication (brand, editorial, campaign, web) and a track record in at least one other design discipline; able to lead design on owned projects while collaborating across the team; broad knowledge of creative tools and workflows including AI-leveraged ones; genuine interest in learning environments and the people in them; and strength as a producer comfortable owning the last mile to production. BONUS: education or edtech experience, designing creative tech, and a love of creative side quests. The posting explicitly encourages applications from people who do not meet every listed qualification. Culturally the organisation describes itself as sitting between a startup and an R&amp;D lab, with nonprofit governance intended to keep incentives tied to teaching and learning rather than growth.</p>
-<p><a href="https://jobs.ashbyhq.com/Playlab/d4162f06-9026-4fd6-9a09-cb8f7123e88d?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
 <p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
   </item>
   <item>
@@ -592,7 +498,7 @@
     <title>Inato Gallery: Touch Some Grass (open-call poster exhibition)</title>
     <link>https://www.inatogallery.com/open-call?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">inato-gallery-touch-some-grass-2026</guid>
-    <pubDate>Tue, 25 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0000</pubDate>
     <category>Worldwide</category>
     <category>worldwide</category>
     <category>asia</category>
@@ -735,7 +641,7 @@
     <title>AIAF Fellowship, Autumn 2026</title>
     <link>https://www.aialignmentfoundation.org/fellowship?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">ai-alignment-foundation-aiaf-fellowship-2026</guid>
-    <pubDate>Fri, 07 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Thu, 06 Aug 2026 00:00:00 +0000</pubDate>
     <category>Remote</category>
     <category>fellowship</category>
     <category>ai</category>
@@ -861,7 +767,7 @@
     <title>Kennan Institute Digital Fellowship 2026-2027</title>
     <link>https://www.kennaninstitute.org/digital-fellowship?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">kennan-institute-digital-fellowship-2026-2027</guid>
-    <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
+    <pubDate>Sat, 08 Aug 2026 00:00:00 +0000</pubDate>
     <category>Remote</category>
     <category>fellowship</category>
     <category>research</category>
@@ -1038,6 +944,38 @@
 <p><strong>Deadline:</strong> Closed 31 Jul 2026</p>
 <p>The Institute for Law &amp; AI (LawAI), an independent think tank researching and advising on the legal challenges posed by artificial intelligence, is running its inaugural Law &amp; AI Academic Fellowship for aspiring legal scholars who intend to go on the US legal academic job market. The fellowship is designed as an alternative to university-sponsored Visiting Assistant Professor or law fellow positions: fellows spend the majority of their time researching and writing articles for publication in law journals on the law of transformative AI, and are prepared for the academic job market as part of a larger application package. Teaching is not required, which LawAI frames as a benefit over most university-affiliated positions, though fellows who want teaching experience are encouraged to seek it and LawAI and its affiliates may be able to help secure positions. Each fellow is paired with an academic mentor from LawAI's network of affiliated academics for ongoing support, with more intensive help in the final stages of the job application process including moot interviews and detailed feedback. Fellows may also inquire about spending time in residence at academic institutions of interest. Candidates are selected in part on how well their research interests align with LawAI's: the institute expects AI to reshape culture, the economy, public policy, public administration, politics, military affairs and geostrategy at least as profoundly as the Industrial Revolution, and asks whether a candidate's research is well-scoped to changes of that magnitude. Areas of particular interest include risk regulation of transformative AI, liability for AI harms, AI and biosecurity, AI and cybersecurity, executive branch use of transformative AI, national security law, law and AI infrastructure, administrative law, constitutional law, international regulation, AI in the judiciary, and industrial policy. Full-time two-year role at USD 130,000 per year, based in Washington DC, Cambridge UK, or remote. Applications close 31 July 2026.</p>
 <p><a href="https://law-ai.org/career/academic-fellowship/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
+<p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
+  </item>
+  <item>
+    <title>MUUS Collection: Research Fellowship 2026-2027 (Remote, USA)</title>
+    <link>https://on-the-move.org/news/muus-collection-research-fellowship-2026-2027-remote-usa?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
+    <guid isPermaLink="false">muus-collection-research-fellowship-2026-2027</guid>
+    <pubDate>Mon, 01 Jun 2026 00:00:00 +0000</pubDate>
+    <category>Worldwide</category>
+    <category>worldwide</category>
+    <category>us</category>
+    <category>new-jersey</category>
+    <category>tenafly</category>
+    <category>remote</category>
+    <category>hybrid</category>
+    <category>muus-collection</category>
+    <category>muuseum</category>
+    <category>fellowship</category>
+    <category>research</category>
+    <category>photography</category>
+    <category>curators</category>
+    <category>archives</category>
+    <category>20th-century</category>
+    <category>art-history</category>
+    <category>international</category>
+    <category>travel-covered</category>
+    <description><![CDATA[<p><strong>Organisation:</strong> MUUS Collection</p>
+<p><strong>Location:</strong> Remote / hybrid; archive visits to Tenafly, New Jersey, USA</p>
+<p><strong>Award:</strong> USD 20,000 grant plus full coverage of travel costs to the archive. No application fee.</p>
+<p><strong>Duration:</strong> One year, November 2026 - November 2027</p>
+<p><strong>Deadline:</strong> Closed 31 Jul 2026</p>
+<p>MUUS Collection (an American 20th-century photography collection that preserves, researches and reveals work from the archives it owns and represents) launches its first Research Fellowship, inviting a curator or academic to spend a year with the archives to develop an exhibition or publication concept offering a new perspective. The Research Fellow examines physical works and ephemera (journals, contact sheets, cameras, the totality of each photographer's collection) and benefits from the new MUUSEUM online research portal. PROJECT PERIOD: November 2026 to November 2027 (project completes November 2027). ELIGIBILITY: minimum five years professional experience at museums, galleries, universities or similar cultural institutions; international candidates eligible but fluency in English (written and spoken) is required; candidates must be willing to travel to Tenafly, New Jersey for up to a week (mutually agreed dates) and be available for remote collaboration with the archive team and advisory board. Candidates from underrepresented or marginalised communities are encouraged to apply. AWARD: USD 20,000 grant plus full coverage of travel costs to the archive. ANNOUNCEMENT: winner decided in October 2026 and announced at Paris Photo. DEADLINE: 31 July 2026.</p>
+<p><a href="https://on-the-move.org/news/muus-collection-research-fellowship-2026-2027-remote-usa?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
 <p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
   </item>
   <item>
@@ -1226,6 +1164,29 @@
 <p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
   </item>
   <item>
+    <title>Longview Philanthropy: Digital Minds Career Development Fellowships 2026</title>
+    <link>https://www.longview.org/request-for-proposals-research-and-applied-work-on-digital-minds/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
+    <guid isPermaLink="false">longview-digital-minds-career-development-fellowships-2026</guid>
+    <pubDate>Tue, 09 Jun 2026 00:00:00 +0000</pubDate>
+    <category>Worldwide</category>
+    <category>ai</category>
+    <category>digital-minds</category>
+    <category>ai-sentience</category>
+    <category>ai-welfare</category>
+    <category>fellowship</category>
+    <category>career-development</category>
+    <category>longview</category>
+    <category>worldwide</category>
+    <description><![CDATA[<p><strong>Organisation:</strong> Longview Philanthropy (in collaboration with Future Impact Group)</p>
+<p><strong>Location:</strong> Worldwide / remote</p>
+<p><strong>Award:</strong> Stipend calibrated to the duration of the award, cost of living and the recipient's prior experience, plus additional funding for research or logistics on a case-by-case basis. No application fee.</p>
+<p><strong>Duration:</strong> Variable; calibrated per award</p>
+<p><strong>Deadline:</strong> Closed 10 Jul 2026</p>
+<p>Funding to develop a career working on the potential consciousness, sentience, moral status or welfare of artificial intelligence systems (digital minds). The fellowships aim to grow a new generation of researchers, policymakers, communicators, entrepreneurs and practitioners working on digital minds and AI sentience issues. EXAMPLE CANDIDATES: a current or planned PhD or other degree student seeking financial support to study digital minds issues; a technical AI researcher who wants to explore research topics, attend events and meet organisations in the space in order to select a high-impact role; or a communications professional pivoting into digital minds work (for example running surveys or building experts' platforms). SUPPORT: a stipend calibrated to award duration, cost of living and prior experience, plus additional case-by-case funding for research or logistics. APPLY by 10 July 2026. Questions: digitalminds-rfp@longview.org.</p>
+<p><a href="https://www.longview.org/request-for-proposals-research-and-applied-work-on-digital-minds/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
+<p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
+  </item>
+  <item>
     <title>OpenAI Economic Research Exchange 2026</title>
     <link>https://openai.com/index/economic-research-exchange-request-for-proposals/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
     <guid isPermaLink="false">openai-economic-research-exchange-2026</guid>
@@ -1293,6 +1254,54 @@
 <p><strong>Deadline:</strong> Closed 21 Jun 2026</p>
 <p>MEMBERS ONLY: this is a member-led collaboration fund, not an open public call. Projects must be led by a Project Liberty Coalition (Alliance) member organization. The Co-Lab Fund, launched by the coalition's Steering Committee (SteerCo), supports projects that Coalition members undertake together, building on the trust and relationships that already exist within the community so that funding decisions can rest on the strength of the idea, the people behind it, and their track records rather than extensive diligence. In exchange for a streamlined process, grants stay modest and funded teams share their progress with the broader Coalition as projects develop, creating accountability and letting the community learn from what emerges. Two kinds of projects qualify: (1) work that advances the Coalition's active workstreams (listed in the application), and (2) investment in the Coalition's connective infrastructure, such as shared services and resources that strengthen collective capacity. Eligibility: projects must be led by a Coalition member organization, produce value for more than one Coalition organization, begin substantive work within a few weeks of approval, and fall within the active workstreams; full eligibility details are in the Overview and FAQ document. How it works: monthly rounds are planned until December 2026 or until the funds are disbursed; the application is designed to take an hour or less once the project's shape is clear, and decisions are expected within about three weeks of each deadline. This is the first cycle and the Fund is being built as it goes, so the process is expected to improve each round. Round 1 closes Sunday, 21 June 2026; further rounds follow, so there is no need to force an idea into this cycle. Apply via the Fillout application form.</p>
 <p><a href="https://forms.fillout.com/t/6AGEGhTkNJus?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
+<p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
+  </item>
+  <item>
+    <title>Principles of Intelligence: Research Scientist (Ambitious Mechanistic Interpretability)</title>
+    <link>https://princint.ai/now-hiring-research-scientists-at-principles-of-intelligence/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
+    <guid isPermaLink="false">princint-research-scientist-2026</guid>
+    <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
+    <category>Remote</category>
+    <category>remote</category>
+    <category>ai-safety</category>
+    <category>mechanistic-interpretability</category>
+    <category>research-scientist</category>
+    <category>ai</category>
+    <category>princint</category>
+    <category>physics</category>
+    <category>machine-learning</category>
+    <category>job</category>
+    <category>visa-sponsorship</category>
+    <description><![CDATA[<p><strong>Organisation:</strong> Principles of Intelligence (PrincInt)</p>
+<p><strong>Location:</strong> Fully remote (strong preference for candidates in or able to spend time in London, UK and/or the Bay Area, US)</p>
+<p><strong>Award:</strong> Estimated salary USD 100,000 to USD 250,000 gross, depending on location and experience. Benefits include 4 weeks paid holiday plus additional time off and flexible hours. Visa sponsorship possible for candidates based in or relocating to London (UK) or Berkeley/Bay Area (US). No application fee.</p>
+<p><strong>Duration:</strong> Full-time (or contractor); start date July 2026</p>
+<p><strong>Deadline:</strong> Closed 21 Jun 2026</p>
+<p>Principles of Intelligence (PrincInt) is hiring Research Scientists to work on Ambitious Mechanistic Interpretability (AMI): developing tractable, realistic, scale-aware data structure models; quantifying the relationship between data structure and the features AI systems learn; and building synthetic datasets to benchmark and improve interpretability tools. The team is currently exploring a data model based on high-dimensional percolation theory (a statistically self-similar, sparse structure), working at the intersection of physics and mechanistic interpretability. The role is FULLY REMOTE and async. MUST HAVE: a PhD or equivalent research experience in a technical field (math, physics, neuroscience, computer science, or complexity science); ability to communicate complex novel ideas; working knowledge of neural networks and deep learning; experience with scientific computing in Python; comfort in a fully remote environment; and strong motivation to contribute to AI safety. GREAT TO HAVE: a publication record in ML or a quantitative field; knowledge of statistical physics (percolation theory, renormalization), mechanistic interpretability, stochastic/coalescent processes, combinatorics, or network science; experience with fractal geometry, neural scaling laws, graph/tree algorithms, or theories of concepts in cognitive science; or familiarity with the ARENA curriculum. The team meets in person 2-4 times a year. PROCESS: application, screening call, remote interview, research talk, a paid one-day remote work trial, and references. Apply by 21 June 2026; applications reviewed on a rolling basis. Accommodations: info@princint.ai.</p>
+<p><a href="https://princint.ai/now-hiring-research-scientists-at-principles-of-intelligence/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
+<p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
+  </item>
+  <item>
+    <title>Horizon: AI Policy Career Accelerator - Cohort 3 (2026)</title>
+    <link>https://horizonpublicservice.org/applications-open-for-horizons-ai-policy-career-accelerator/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral</link>
+    <guid isPermaLink="false">horizon-ai-policy-career-accelerator-cohort-3-2026</guid>
+    <pubDate>Mon, 01 Jun 2026 00:00:00 +0000</pubDate>
+    <category>Remote</category>
+    <category>fellowship</category>
+    <category>remote</category>
+    <category>horizon-institute</category>
+    <category>ai-policy</category>
+    <category>ai-governance</category>
+    <category>career-accelerator</category>
+    <category>part-time</category>
+    <category>mentorship</category>
+    <description><![CDATA[<p><strong>Organisation:</strong> Horizon Institute for Public Service</p>
+<p><strong>Location:</strong> Remote</p>
+<p><strong>Award:</strong> Up to $100,000 in career-development funding per participant (for unpaid or underpaid placements, courses, conferences, relocation and other career costs), plus 1-on-1 mentorship, dedicated training, application coaching, hiring-manager introductions and exclusive job listings. No application fee.</p>
+<p><strong>Duration:</strong> 9-month part-time programme (typically under 2 hrs/week outside an optional 4-6 week training period)</p>
+<p><strong>Deadline:</strong> Closed 21 Jun 2026</p>
+<p>Horizon's 9-month part-time, remote AI Policy Career Accelerator helps people from a wide range of backgrounds move into AI governance and policy roles in Congress, agencies and think tanks. Cohort 3 participants receive 1-on-1 mentorship from experienced policy practitioners, dedicated training on working in Congress / agencies / think tanks, coaching on resumes, cover letters and writing samples, direct introductions to hiring managers, and access to exclusive (non-public) job listings. Up to $100,000 is available in career-development funding per participant for unpaid or underpaid roles, courses, conferences, relocation and more. ELIGIBILITY: open to all backgrounds and experience levels (students, mid-career professionals, academics, researchers, lawyers, engineers); no prior policy experience required. Time commitment is flexible (typically under 2 hours/week outside an optional 4-6 week training period). Applications close 21 June 2026.</p>
+<p><a href="https://horizonpublicservice.org/applications-open-for-horizons-ai-policy-career-accelerator/?utm_source=artificialnouveaugrantdesk&amp;utm_medium=referral">Open call details</a></p>
 <p>Want to see more grants? Visit <a href="https://www.artificialnouveau.com/smalltools/grants/">The Grant Desk</a> (https://www.artificialnouveau.com/smalltools/grants/).</p>]]></description>
   </item>
   <item>
