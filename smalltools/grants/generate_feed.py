@@ -3,13 +3,15 @@
 from grants.json for The Grant Desk.
 
 Outputs:
-- feed.xml                  (all grants)
-- feed-{region}.xml         (one per region: eu/us/uk/nl/remote/worldwide,
+- feed-weekly.xml           (all grants, one Sunday drop per week)
+- feed-{region}-weekly.xml  (one per region: eu/us/uk/nl/remote/worldwide,
                              plus the merged remote-worldwide slice)
-- feed-30d.xml              (deadlines in next 30 days)
-- feed-90d.xml              (deadlines in next 90 days)
-- feed-{region}-{30d|90d}.xml  (cross product)
+- feed-30d-weekly.xml       (deadlines in next 30 days)
+- feed-90d-weekly.xml       (deadlines in next 90 days)
 - calendar.ics              (all grants with a deadline)
+
+All RSS output is the weekly digest; the per-grant daily feeds were retired
+on 6 September 2026 and their files deleted.
 
 Run manually:
     python3 smalltools/grants/generate_feed.py
@@ -51,7 +53,6 @@ DESCRIPTION = (
     "Paid open calls, fellowships and residencies in AI, tech, research, and digital and mixed-media arts, "
     "sorted into the right pile. Updated as new calls land on the desk."
 )
-MAX_ITEMS = 50
 
 # Hard cap on how many grants may enter the RSS feeds on any single day. Manual
 # feedDate staggering, bot additions and auto-published tranches all funnel through
@@ -173,74 +174,6 @@ def deadline_label(deadline, today):
     if (deadline - today).days < 0:
         return f"Closed {formatted}"
     return formatted
-
-
-def build_item(grant, today):
-    title = grant.get("title", "Untitled")
-    link = grant.get("url") or PAGE_URL
-    guid = grant.get("id") or link
-    apply_link = with_utm(grant.get("url")) or PAGE_URL
-    # pubDate and feed ordering use the RSS-release date (the capped schedule from
-    # apply_release_schedule, falling back to feedDate then addedDate). This keeps a
-    # staggered grant - released today via a future feedDate but added earlier - from
-    # sorting to the middle of the feed with an old pubDate, which would stop RSS
-    # readers from surfacing it as new.
-    release = feed_release(grant)
-    pub = rfc822(release) if release else rfc822(datetime.now(timezone.utc))
-
-    deadline = parse_date(grant.get("deadline"))
-    label = deadline_label(deadline, today)
-
-    # Title stays clean - the grant title only. The amount and deadline
-    # appear once in the bullet list below, not duplicated in the title.
-    title_full = title
-
-    fields = []
-    org = grant.get("organization")
-    if org:
-        fields.append(f"<p><strong>Organisation:</strong> {escape(str(org))}</p>")
-    location = grant.get("location")
-    if location:
-        fields.append(f"<p><strong>Location:</strong> {escape(str(location))}</p>")
-    amount = grant.get("amount")
-    if amount:
-        fields.append(f"<p><strong>Award:</strong> {escape(str(amount))}</p>")
-    duration = grant.get("duration")
-    if duration:
-        fields.append(f"<p><strong>Duration:</strong> {escape(str(duration))}</p>")
-    fields.append(f"<p><strong>Deadline:</strong> {escape(label)}</p>")
-
-    body = ["\n".join(fields)]
-
-    desc = grant.get("description")
-    if desc:
-        body.append(f"<p>{escape(str(desc))}</p>")
-    body.append(f'<p><a href="{escape(apply_link)}">Open call details</a></p>')
-    body.append(
-        f'<p>Want to see more grants? Visit '
-        f'<a href="{escape(PAGE_URL)}">The Grant Desk</a> ({escape(PAGE_URL)}).</p>'
-    )
-    body_html = "\n".join(body)
-
-    cats = []
-    region = grant.get("region")
-    if region:
-        cats.append(f"    <category>{escape(str(region))}</category>\n")
-    # Untagged grants (the bot adds these) fall back to a single "other" tag so
-    # no item ever ships without a category chip.
-    for tag in grant.get("tags") or ["other"]:
-        cats.append(f"    <category>{escape(str(tag))}</category>\n")
-
-    return (
-        "  <item>\n"
-        f"    <title>{escape(title_full)}</title>\n"
-        f"    <link>{escape(apply_link)}</link>\n"
-        f'    <guid isPermaLink="false">{escape(str(guid))}</guid>\n'
-        f"    <pubDate>{pub}</pubDate>\n"
-        + "".join(cats)
-        + f"    <description><![CDATA[{body_html}]]></description>\n"
-        "  </item>\n"
-    )
 
 
 def feed_filename(region, timeline, category=None, weekly=False, opp_type=None):
@@ -375,62 +308,6 @@ def filter_grants(grants, region, timeline, today, category=None, opp_type=None)
                 continue
         out.append(g)
     return out
-
-
-def build_feed(grants, region, timeline, today, category=None, opp_type=None):
-    title, desc = feed_title_desc(region, timeline, category, opp_type=opp_type)
-    filename = feed_filename(region, timeline, category, opp_type=opp_type)
-    feed_url = PAGE_URL + filename
-
-    # Never publish an item that was already expired on its release date (a late
-    # addition or mis-staggered feedDate can land on/after the deadline). Items
-    # that expired AFTER their release stay: they are feed history, and pulling
-    # them would churn readers' archives.
-    def open_at_release(g):
-        deadline = parse_date(g.get("deadline"))
-        release = feed_release(g)
-        return deadline is None or release is None or release <= deadline
-
-    # Which grants are in the feed: the MAX_ITEMS most recent releases (so the
-    # feed stays a stream of what's new). How they are ordered in the file:
-    # closest deadline first, rolling/no-deadline entries last, so renderers
-    # that keep file order surface the most urgent calls at the top.
-    selected = sorted(
-        (g for g in grants if open_at_release(g)),
-        key=lambda g: feed_release(g) or date.min,
-        reverse=True,
-    )[:MAX_ITEMS]
-    def file_order(g):
-        deadline = parse_date(g.get("deadline"))
-        release = feed_release(g) or date.min
-        if deadline is None:
-            band, when = 1, date.max            # rolling: after dated open calls
-        elif deadline < today:
-            band, when = 2, date.max - (deadline - date.min)  # expired history last, newest first
-        else:
-            band, when = 0, deadline            # open: soonest deadline first
-        return (band, when, -release.toordinal(), str(g.get("id") or ""))
-
-    grants_sorted = sorted(selected, key=file_order)
-
-    build_date = rfc822(datetime.now(timezone.utc))
-    items = "".join(build_item(g, today) for g in grants_sorted)
-
-    return (
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
-        "<channel>\n"
-        f"  <title>{escape(title)}</title>\n"
-        f"  <link>{escape(PAGE_URL)}</link>\n"
-        f"  <description>{escape(desc)}</description>\n"
-        "  <language>en</language>\n"
-        "  <ttl>360</ttl>\n"
-        f"  <lastBuildDate>{build_date}</lastBuildDate>\n"
-        f'  <atom:link href="{escape(feed_url)}" rel="self" type="application/rss+xml"/>\n'
-        + items
-        + "</channel>\n"
-        "</rss>\n"
-    )
 
 
 # How many past weeks a digest feed carries. 26 keeps roughly six months of
@@ -622,7 +499,7 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
 
 
 def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=None):
-    """Digest twin of build_feed: same grant slice, grouped into one item per week."""
+    """Weekly digest feed: the slice's grants grouped into one Sunday drop per week."""
     title, desc = feed_title_desc(region, timeline, category, weekly=True, opp_type=opp_type)
     filename = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
     feed_url = PAGE_URL + filename
@@ -1465,8 +1342,7 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     if feed_category and (feed_category not in PICKER_CATEGORIES
                           or feed_region not in PICKER_REGIONS):
         feed_category = None
-    # SEO pages advertise the weekly digest; per-grant feeds still exist but are
-    # no longer offered anywhere on the site.
+    # SEO pages advertise the weekly digest, the only feed cadence generated.
     feed_url = SITE_ROOT_URL + GRANTS_BASE_PATH + feed_filename(
         feed_region, None, category=feed_category, weekly=True
     )
@@ -1956,7 +1832,7 @@ def main():
     typed_manifest = []
 
     def emit(region, timeline, category=None, opp_type=None):
-        """Write the per-grant feed and its weekly-digest twin for one slice.
+        """Write the weekly-digest feed for one slice.
 
         Type-bearing slices are PRUNED: a combination with no matching grants is
         not written at all, because the full type cross-product is mostly empty
@@ -1970,11 +1846,10 @@ def main():
                                  category=category, opp_type=opp_type)
         if opp_type and not filtered:
             return
+        # The manifest keys on the BARE slice name (no -weekly suffix): the
+        # picker strips the suffix before its lookup, so the key survives the
+        # retirement of the per-grant files.
         name = feed_filename(region, timeline, category=category, opp_type=opp_type)
-        (HERE / name).write_text(
-            build_feed(filtered, region, timeline, today, category=category, opp_type=opp_type),
-            encoding="utf-8",
-        )
         written.append((name, len(filtered)))
 
         wname = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
@@ -2009,13 +1884,11 @@ def main():
     for timeline in TIMELINES:
         emit(None, timeline)
 
-    # Manifest of the pruned, type-bearing feeds. The picker fetches this to grey
-    # out combinations that produced no grants. Weekly twins are omitted: a
-    # weekly file exists exactly when its per-grant sibling does.
     # Orphan sweep. Narrowing the axes (or pruning an empty type slice) leaves
     # files on disk that nothing generates any more; without this they linger
-    # forever, get served as stale feeds and bloat the repo.
-    current = {n for n, _ in written} | set(weekly_written)
+    # forever, get served as stale feeds and bloat the repo. Only weekly files
+    # are generated now, so this also clears the retired per-grant files.
+    current = set(weekly_written)
     orphans = sorted(
         f.name for f in HERE.glob("feed*.xml") if f.name not in current
     )
@@ -2084,10 +1957,9 @@ def main():
     if stale_cals:
         print(f"Removed {len(stale_cals)} stale calendar file(s) no longer generated.")
 
-    print(f"Wrote {len(written)} RSS feeds:")
-    for name, count in written:
-        print(f"  {name}: {count} items")
-    print(f"Wrote {len(weekly_written)} weekly-digest RSS feeds (one item per week).")
+    print(f"Wrote {len(weekly_written)} weekly-digest RSS feeds (one Sunday drop per week):")
+    for (name, count), wname in zip(written, weekly_written):
+        print(f"  {wname}: {count} grants in slice")
     print(f"Wrote feeds-manifest.json listing {len(typed_manifest)} type-filtered feeds "
           f"(empty type combinations pruned).")
     print(f"Wrote {len(cals_written)} calendars: {', '.join(cals_written)}")
