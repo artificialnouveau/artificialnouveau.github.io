@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:propublica-emerging-reporters-2026-2027@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260817
 DTEND;VALUE=DATE:20260818
 SUMMARY:Deadline: ProPublica Emerging Reporters Program 2026-2027
@@ -54,7 +54,7 @@ LOCATION:Remote\, with an all-expenses-paid trip to a journalism conference
 END:VEVENT
 BEGIN:VEVENT
 UID:beinecke-short-term-fellowships-2027-2028@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260815
 DTEND;VALUE=DATE:20260816
 SUMMARY:Deadline: Beinecke Library Short-Term Research Fellowships 2027-202
@@ -96,7 +96,7 @@ LOCATION:Onsite at Yale Library Special Collections\, New Haven\, Connectic
 END:VEVENT
 BEGIN:VEVENT
 UID:collider-program-manager-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260823
 DTEND;VALUE=DATE:20260824
 SUMMARY:Deadline: Collider: Program Manager (AI safety fieldbuilding\, New 
@@ -151,7 +151,7 @@ LOCATION:Hybrid in New York City\, USA. No visa sponsorship: candidates mus
 END:VEVENT
 BEGIN:VEVENT
 UID:trusted-creator-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260817
 DTEND;VALUE=DATE:20260818
 SUMMARY:Deadline: Trusted Creator Fellowship 2026 (News Creator Corps)
@@ -184,7 +184,7 @@ LOCATION:Virtual\, meeting once a week. RESTRICTED: US-based creators only.
 END:VEVENT
 BEGIN:VEVENT
 UID:american-academy-berlin-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260925
 DTEND;VALUE=DATE:20260926
 SUMMARY:Deadline: American Academy in Berlin: Berlin Prize Fellowship 2027-
@@ -243,7 +243,7 @@ LOCATION:Berlin\, Germany\, at the Hans Arnhold Center. RESTRICTED: fellows
 END:VEVENT
 BEGIN:VEVENT
 UID:justice-joy-summer-research-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260709
 DTEND;VALUE=DATE:20260710
 SUMMARY:Deadline: Justice + Joy Summer Research Fellowship 2026
@@ -293,7 +293,7 @@ LOCATION:United States\; fully virtual program. Capstone showcase tentative
 END:VEVENT
 BEGIN:VEVENT
 UID:genesis-mission-ai-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260731
 DTEND;VALUE=DATE:20260801
 SUMMARY:Deadline: Genesis Mission AI Fellowship 2026
@@ -355,7 +355,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:tech-workers-coalition-circuit-breakers-2026@artificialnouveau.github.i
  o
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 SUMMARY:Deadline: Circuit Breakers '26: Tech Worker Conference - Call for P
@@ -394,7 +394,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:frame-fellowship-2-ai-safety-content-creators-2026@artificialnouveau.gi
  thub.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260710
 DTEND;VALUE=DATE:20260711
 SUMMARY:Deadline: Frame Fellowship 2.0 (Residential Accelerator for AI Safe
@@ -434,7 +434,7 @@ LOCATION:San Francisco\, USA\; residential (in person).
 END:VEVENT
 BEGIN:VEVENT
 UID:zwillgen-fellowship-2027-2028@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260831
 DTEND;VALUE=DATE:20260901
 SUMMARY:Deadline: ZwillGen Fellowship Program 2027-2028 (Technology Law)
@@ -472,64 +472,45 @@ LOCATION:Washington\, D.C.\, USA (must work out of the DC office)
 END:VEVENT
 BEGIN:VEVENT
 UID:foresight-ai-science-safety-nodes-grants@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: Foresight Institute: AI for Science & Safety Nodes RFP
-DESCRIPTION:Request for proposals for ambitious AI-first projects that make
-  the transition to capable AI go well and use it to unlock science\, acros
- s three layers and seven focus areas. I. LOCAL COMPUTE: (1) building and s
- caling local compute setups that individuals or communities physically own
-  and control\; example deliverables include a prototype AI cluster an aver
- age person can deploy at home\, software that runs a node without expert k
- nowledge\, economic models showing how the hardware pays for itself\, a bu
- siness case for distributing clusters at scale\, and pilot deployments. II
- . COORDINATION AND ACCOUNTABILITY: (2) supercollaboration and decentralize
- d alignment\, tools that use AI to improve collective deliberation and coo
- peration\, distributed oversight\, agent monitoring and verification\, and
-  open coordination protocols built on boundaries as Schelling points for m
- ulti-agent coordination\; (3) human empowerment\, evidence\, decision rule
- s and working tools for when human control genuinely empowers versus when 
- AI delegation is preferable\, including mechanisms to detect and fix hollo
- w oversight\; (4) AI insurance and open governance\, building a middle lay
- er between lab self-governance and government regulation\, such as ways fo
- r insurers to price frontier-lab risk\, independent incident reporting and
-  assessment\, and mechanisms like developer mutuals\, catastrophe bonds or
-  near-miss liability. III. AI-FIRST SCIENCE: (5) automated nanotechnology\
- , AI methods for nanoscale design\, simulation and assembly\, closed-loop 
- fabrication and characterization\, and defensive and safety frameworks\; (
- 6) whole-brain emulation\, cheaper brain preservation and connectomics\, l
- o-fi emulation pathways\, and shorter neurobiology feedback loops\; (7) re
- placement\, enhancement and biostasis\, tissue engineering\, organ synthes
- is\, 3D bioprinting\, reversible stasis and organ banking\, and datasets f
- or testing genetic predictors and measures of aging. AI-first means AI is 
- the primary engine of progress\, not tapped onto an existing research prog
- ram\; strong proposals identify narrow bottlenecks and propose something t
- hat can be built\, tested or measured. Selected projects receive grant fun
- ding\, private local compute\, workspace at the San Francisco or Berlin AI
-  Nodes\, travel-paid field-building events and access to Foresight's advis
- ors and scientific network. ELIGIBILITY: individuals\, teams\, and nonprof
- it or for-profit organisations worldwide (for-profits must justify their n
- eed for grant funding)\; applicants who want to be active in-person contri
- butors at the Nodes are strongly prioritised. Grants typically $30\,000 to
-  $100\,000\, smaller for the Human Empowerment and AI Insurance & Open Gov
- ernance areas and higher for the rest. Review takes about three months aft
- er the deadline. Deadline 31 October 2026\, 23:59 PDT.\n\nOrganisation: Fo
- resight Institute\nLocation: Remote (global\; hubs in San Francisco and Be
- rlin)\nAward: Typically $30\,000 to $100\,000 per grant\, with smaller amo
- unts for the Human Empowerment and AI Insurance & Open Governance focus ar
- eas and higher amounts for the rest (larger possible for the right project
- )\, plus private local compute and workspace at the San Francisco or Berli
- n AI Nodes. No application fee.\nDuration: Project-based\n\nMore: https://
- foresight.org/grants/ai-science-safety-nodes-rfp/?utm_source=artificialnou
- veaugrantdesk&utm_medium=referral
+DESCRIPTION:Umbrella request for proposals for ambitious AI-first projects 
+ that make the transition to capable AI go well and use it to unlock scienc
+ e. Three connected layers\, each with its own detailed call: I. Local Comp
+ ute (compute that individuals or communities physically own and control)\;
+  II. Coordination and Accountability (supercollaboration and decentralized
+  alignment\, human empowerment\, AI insurance and open governance)\; III. 
+ AI-First Science: Bio\, Neuro\, Nano (automated nanotechnology\, whole-bra
+ in emulation\, replacement\, enhancement\, biostasis). AI-first means AI i
+ s the primary engine of progress\, not tapped onto an existing research pr
+ ogram\; strong proposals identify narrow bottlenecks and propose something
+  that can be built\, tested or measured. Selected projects receive grant f
+ unding\, private local compute\, workspace at the San Francisco or Berlin 
+ AI Nodes\, travel-paid field-building events and access to Foresight's adv
+ isors and scientific network. ELIGIBILITY: individuals\, teams\, and nonpr
+ ofit or for-profit organisations worldwide (for-profits must justify their
+  need for grant funding)\; applicants who want to be active in-person cont
+ ributors at the Nodes are strongly prioritised. Grants typically $30\,000 
+ to $100\,000\, smaller for the Human Empowerment and AI Insurance & Open G
+ overnance areas and higher for the rest. Review takes about three months a
+ fter the deadline. Deadline 31 October 2026\, 23:59 PDT.\n\nOrganisation: 
+ Foresight Institute\nLocation: Remote (global\; hubs in San Francisco and 
+ Berlin)\nAward: Typically $30\,000 to $100\,000 per grant\, with smaller a
+ mounts for the Human Empowerment and AI Insurance & Open Governance focus 
+ areas and higher amounts for the rest (larger possible for the right proje
+ ct)\, plus private local compute and workspace at the San Francisco or Ber
+ lin AI Nodes. No application fee.\nDuration: Project-based\n\nMore: https:
+ //foresight.org/grants/ai-science-safety-nodes-rfp/?utm_source=artificialn
+ ouveaugrantdesk&utm_medium=referral
 URL:https://foresight.org/grants/ai-science-safety-nodes-rfp/?utm_source=ar
  tificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Remote (global\; hubs in San Francisco and Berlin)
 END:VEVENT
 BEGIN:VEVENT
 UID:rowland-fellowship-harvard-2027@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260801
 DTEND;VALUE=DATE:20260802
 SUMMARY:Deadline: Rowland Fellowship at Harvard (incoming 2027 cohort)
@@ -568,7 +549,7 @@ LOCATION:Cambridge\, Massachusetts\, USA (Harvard main campus)
 END:VEVENT
 BEGIN:VEVENT
 UID:neh-public-humanities-projects-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20261015
 DTEND;VALUE=DATE:20261016
 SUMMARY:Deadline: NEH: Public Humanities Projects (2026-27 deadlines)
@@ -600,7 +581,7 @@ LOCATION:United States (applicants must be eligible US non-profits - museum
 END:VEVENT
 BEGIN:VEVENT
 UID:future-of-work-reporting-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260724
 DTEND;VALUE=DATE:20260725
 SUMMARY:Deadline: Future of Work Reporting Fellowship 2026 to 2027
@@ -623,7 +604,7 @@ LOCATION:United States (US-based journalists)
 END:VEVENT
 BEGIN:VEVENT
 UID:fund-for-investigative-journalism-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260914
 DTEND;VALUE=DATE:20260915
 SUMMARY:Deadline: Fund for Investigative Journalism (FIJ) Grants
@@ -646,7 +627,7 @@ LOCATION:USA-primary (foreign-based stories require strong U.S. angle)
 END:VEVENT
 BEGIN:VEVENT
 UID:govai-dc-winter-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260712
 DTEND;VALUE=DATE:20260713
 SUMMARY:Deadline: GovAI DC Winter Fellowship 2027
@@ -695,7 +676,7 @@ LOCATION:Washington\, DC\, USA\; in-person\, full-time (part-time possible
 END:VEVENT
 BEGIN:VEVENT
 UID:anthropic-claude-corps-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260717
 DTEND;VALUE=DATE:20260718
 SUMMARY:Deadline: Claude Corps Fellowship
@@ -735,7 +716,7 @@ LOCATION:USA\; in-person at host nonprofit organizations across America (pl
 END:VEVENT
 BEGIN:VEVENT
 UID:new-inc-year-13-mentor-open-call-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260708
 DTEND;VALUE=DATE:20260709
 SUMMARY:Deadline: NEW INC Year 13 Mentor Open Call
@@ -772,7 +753,7 @@ LOCATION:New York\, NY\, USA\; primarily in-person at 250 Hudson St\, lower
 END:VEVENT
 BEGIN:VEVENT
 UID:jhu-agi-governance-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260730
 DTEND;VALUE=DATE:20260731
 SUMMARY:Deadline: AGI Governance Fellowship
@@ -803,7 +784,7 @@ LOCATION:Hopkins Bloomberg Center\, Washington\, D.C. (in-person only)
 END:VEVENT
 BEGIN:VEVENT
 UID:horizon-ai-rapid-response-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260722
 DTEND;VALUE=DATE:20260723
 SUMMARY:Deadline: Horizon Institute for Public Service: AI Rapid Response F
@@ -841,7 +822,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:google-data-center-community-ai-fellowship-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260712
 DTEND;VALUE=DATE:20260713
 SUMMARY:Deadline: Google Data Center Community AI Fellowship
@@ -869,7 +850,7 @@ LOCATION:Google Data Center communities\, United States. Fellowship deliver
 END:VEVENT
 BEGIN:VEVENT
 UID:america-on-tech-tech-flex-leaders-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260817
 DTEND;VALUE=DATE:20260818
 SUMMARY:Deadline: America On Tech: Tech Flex Leaders Program
@@ -892,7 +873,7 @@ LOCATION:United States. Remote/hybrid program.
 END:VEVENT
 BEGIN:VEVENT
 UID:alicia-patterson-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20261001
 DTEND;VALUE=DATE:20261002
 SUMMARY:Deadline: Alicia Patterson Fellowship 2027 (Fund for Investigative 
@@ -921,7 +902,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:data-society-senior-researcher-ai-civics-2026@artificialnouveau.github.
  io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260730
 DTEND;VALUE=DATE:20260731
 SUMMARY:Deadline: Senior Researcher\, AI Civics
@@ -991,7 +972,7 @@ LOCATION:Fully remote within the United States. Data & Society is based in
 END:VEVENT
 BEGIN:VEVENT
 UID:lawai-academic-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260731
 DTEND;VALUE=DATE:20260801
 SUMMARY:Deadline: Law & AI Academic Fellowship
@@ -1034,7 +1015,7 @@ LOCATION:Washington DC\, USA\; Cambridge\, UK\; or remote
 END:VEVENT
 BEGIN:VEVENT
 UID:rand-cast-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260801
 DTEND;VALUE=DATE:20260802
 SUMMARY:Deadline: Center on AI\, Security\, and Technology (CAST) Fellowshi
@@ -1078,7 +1059,7 @@ LOCATION:Washington DC\, San Francisco or Pittsburgh\, USA\, or remote with
 END:VEVENT
 BEGIN:VEVENT
 UID:horizon-fellowship-2027-cohort@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260830
 DTEND;VALUE=DATE:20260831
 SUMMARY:Deadline: Horizon Fellowship\, 2027 Cohort
@@ -1138,7 +1119,7 @@ LOCATION:Washington DC\, USA (residence required for placement). Part-time
 END:VEVENT
 BEGIN:VEVENT
 UID:aaas-stpf-2027-2028@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Science & Technology Policy Fellowships\, 2027-28 Class
@@ -1179,7 +1160,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:human-rights-watch-ai-strategy-solutions-lead-2026@artificialnouveau.gi
  thub.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260830
 DTEND;VALUE=DATE:20260831
 SUMMARY:Deadline: Human Rights Watch: AI Strategy and Solutions Lead (one-y
@@ -1254,7 +1235,7 @@ LOCATION:Must be within commuting distance of an HRW office: Amsterdam\, Am
 END:VEVENT
 BEGIN:VEVENT
 UID:acls-digital-justice-grants-2026-27@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20261103
 DTEND;VALUE=DATE:20261104
 SUMMARY:Deadline: ACLS Digital Justice Grants 2026-27 (Seed and Development
@@ -1302,7 +1283,7 @@ LOCATION:Grant funds must be administered by a US institution of higher edu
 END:VEVENT
 BEGIN:VEVENT
 UID:transfyr-ai-fellowship-2026-2027@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260815
 DTEND;VALUE=DATE:20260816
 SUMMARY:Deadline: Transfyr AI Fellowship 2026-2027 (Boston/Cambridge)
@@ -1363,7 +1344,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:agci-climate-environment-data-stewardship-fellow-2026@artificialnouveau
  .github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260819
 DTEND;VALUE=DATE:20260820
 SUMMARY:Deadline: Aspen Global Change Institute: Climate and Environment Da
@@ -1426,7 +1407,7 @@ LOCATION:Remote anywhere within the continental United States. AGCI's prima
 END:VEVENT
 BEGIN:VEVENT
 UID:kluge-fellowships-library-of-congress-2027@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
 SUMMARY:Deadline: Kluge Fellowships at the Library of Congress 2027
@@ -1478,7 +1459,7 @@ LOCATION:Washington\, DC\, United States (in residence at the Thomas Jeffer
 END:VEVENT
 BEGIN:VEVENT
 UID:new-public-entrepreneur-in-residence-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260909
 DTEND;VALUE=DATE:20260910
 SUMMARY:Deadline: New_ Public Entrepreneur in Residence\, Pilot Cohort
@@ -1541,7 +1522,7 @@ LOCATION:Remote\, with an in-person kickoff retreat in Philadelphia\, USA (
 END:VEVENT
 BEGIN:VEVENT
 UID:asf-fellowships-americans-nordic-2027-28@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: American-Scandinavian Foundation: Fellowships for America
@@ -1584,7 +1565,7 @@ LOCATION:Nordic region (Denmark\, Faroe Islands\, Greenland\, Iceland\, Fin
 END:VEVENT
 BEGIN:VEVENT
 UID:mats-winter-2027-fellowship@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260906
 DTEND;VALUE=DATE:20260907
 SUMMARY:Deadline: MATS Winter 2027 Fellowship (ML Alignment and Theory Scho
@@ -1616,7 +1597,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:fas-ai-safety-policy-entrepreneurship-fellowship-2026@artificialnouveau
  .github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260907
 DTEND;VALUE=DATE:20260908
 SUMMARY:Deadline: FAS: AI Safety Policy Entrepreneurship Fellowship 2026-27
@@ -1651,7 +1632,7 @@ LOCATION:Primarily remote\, US-policy focused\, with two mandatory in-perso
 END:VEVENT
 BEGIN:VEVENT
 UID:iliad-fellowship-fall-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260921
 DTEND;VALUE=DATE:20260922
 SUMMARY:Deadline: ILIAD Fellowship: Mentored AI Alignment Research (Novembe
@@ -1685,7 +1666,7 @@ LOCATION:London\, UK or San Francisco Bay Area\, USA (in-person\, limited r
 END:VEVENT
 BEGIN:VEVENT
 UID:mats-residency-program-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: MATS Residency Program: 6-24 Month Funded AI Safety Resea
@@ -1722,7 +1703,7 @@ LOCATION:In-person at MATS offices in Berkeley\, London\, or Washington DC\
 END:VEVENT
 BEGIN:VEVENT
 UID:lawai-summer-fellowship-us-2027@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20270129
 DTEND;VALUE=DATE:20270130
 SUMMARY:Deadline: Institute for Law & AI: Summer Fellowship US 2027 (Washin
@@ -1758,7 +1739,7 @@ LOCATION:Washington\, DC\, USA (relocation expected\; USD 10\,000 relocatio
 END:VEVENT
 BEGIN:VEVENT
 UID:cbai-fall-ais-research-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260906
 DTEND;VALUE=DATE:20260907
 SUMMARY:Deadline: CBAI Fall Research Fellowship in AI Safety 2026 (Cambridg
@@ -1796,7 +1777,7 @@ LOCATION:Cambridge\, Massachusetts\, USA (24/7 office in Harvard Square). O
 END:VEVENT
 BEGIN:VEVENT
 UID:cbai-aixbiosecurity-fellowship-fall-2026@artificialnouveau.github.io
-DTSTAMP:20260905T174935Z
+DTSTAMP:20260905T175144Z
 DTSTART;VALUE=DATE:20260906
 DTEND;VALUE=DATE:20260907
 SUMMARY:Deadline: CBAI AIxBiosecurity Research Fellowship Fall 2026 (Cambri
@@ -1832,5 +1813,128 @@ LOCATION:Cambridge\, Massachusetts\, USA (24/7 office in Harvard Square). O
  pen to undergraduates through postdocs and recent graduates\, 18+\; requir
  es legal right to work in the US (no visa sponsorship this cycle\; F-1/J-1
   holders may use OPT/CPT).
+END:VEVENT
+BEGIN:VEVENT
+UID:foresight-ai-nodes-rfp-local-compute@artificialnouveau.github.io
+DTSTAMP:20260905T175144Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:Deadline: Foresight Institute AI Nodes RFP\, Track I: Local Compute
+DESCRIPTION:Track I of Foresight Institute's AI for Science & Safety Nodes 
+ RFP funds building and scaling local compute setups that individuals or co
+ mmunities physically own and control. With five companies holding 71 perce
+ nt of the world's AI compute\, researchers relying on APIs and rented comp
+ ute face data exposure\, steep price increases and the risk of losing acce
+ ss altogether\; open models are ready for serious science and safety work\
+ , but the ecosystem lacks sovereign and secure compute infrastructure. LOO
+ KING FOR: local compute clusters in different sizes and configurations tha
+ t are easy to set up and run across varied connectivity and electricity en
+ vironments\; blueprints for easy yet secure cluster management\; models fo
+ r bringing down cost\, like selling idle compute or connecting to communit
+ y clusters\; ideally a business case for building\, selling and distributi
+ ng such clusters at scale. EXAMPLE DELIVERABLES: a prototype AI cluster an
+  average person can deploy at home\, software that runs a node without exp
+ ert knowledge\, economic models showing how the hardware pays for itself\,
+  a pilot deployment for individuals or communities. Selected projects rece
+ ive grant funding\, private local compute\, workspace at the San Francisco
+  or Berlin AI Nodes\, travel-paid field-building events and access to Fore
+ sight's advisors and network\; in-person contributors at the Nodes are str
+ ongly prioritised. Individuals\, teams\, and nonprofit or for-profit organ
+ isations worldwide may apply (for-profits must justify their need for gran
+ t funding). Deadline 31 October 2026\, 23:59 PDT.\n\nOrganisation: Foresig
+ ht Institute\nLocation: Remote (global\; hubs in San Francisco and Berlin)
+ \nAward: Typically $30\,000 to $100\,000 per grant (larger possible for th
+ e right project)\, plus private local compute and workspace at the San Fra
+ ncisco or Berlin AI Nodes. No application fee.\nDuration: Project-based\n\
+ nMore: https://foresight.org/grants/ai-science-safety-nodes-rfp-local-comp
+ ute/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://foresight.org/grants/ai-science-safety-nodes-rfp-local-compute/
+ ?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Remote (global\; hubs in San Francisco and Berlin)
+END:VEVENT
+BEGIN:VEVENT
+UID:foresight-ai-nodes-rfp-coordination-accountability@artificialnouveau.gi
+ thub.io
+DTSTAMP:20260905T175144Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:Deadline: Foresight Institute AI Nodes RFP\, Track II: Coordination
+  and Accountability
+DESCRIPTION:Track II of Foresight Institute's AI for Science & Safety Nodes
+  RFP funds ways for increasingly capable AI systems to coordinate with eac
+ h other\, the people using them\, and the wider world\, without handing po
+ wer to a single model\, lab or government. THREE FOCUS AREAS: (1) Supercol
+ laboration and decentralized alignment: coordination and credit-assignment
+  protocols\, tooling for massive human-AI collectives\, incentive designs 
+ robust to gaming\, mutual monitoring and cross-checking among agents\, sca
+ lable verification\, and open coordination protocols built on boundaries a
+ s Schelling points for multi-agent coordination. (2) Human Empowerment: ev
+ idence\, decision rules and working tools for when human control genuinely
+  empowers people versus when AI delegation is preferable\, including a 'wh
+ en to defer control' framework and mechanisms to detect and fix hollow ove
+ rsight. (3) AI Insurance and Open Governance: building a middle layer betw
+ een lab self-governance and government regulation\, such as ways for insur
+ ers to judge and price frontier-lab risk\, independent incident reporting 
+ and assessment that does not leak lab secrets\, and mechanisms like develo
+ per mutuals\, catastrophe bonds or liability for near-misses. Selected pro
+ jects receive grant funding\, private local compute\, workspace at the San
+  Francisco or Berlin AI Nodes\, travel-paid field-building events and acce
+ ss to Foresight's advisors and network\; in-person contributors at the Nod
+ es are strongly prioritised. Individuals\, teams\, and nonprofit or for-pr
+ ofit organisations worldwide may apply (for-profits must justify their nee
+ d for grant funding). Deadline 31 October 2026\, 23:59 PDT.\n\nOrganisatio
+ n: Foresight Institute\nLocation: Remote (global\; hubs in San Francisco a
+ nd Berlin)\nAward: Typically $30\,000 to $100\,000 per grant\, with smalle
+ r amounts for the Human Empowerment and AI Insurance & Open Governance foc
+ us areas\; plus private local compute and workspace at the San Francisco o
+ r Berlin AI Nodes. No application fee.\nDuration: Project-based\n\nMore: h
+ ttps://foresight.org/grants/ai-science-safety-nodes-rfp-coordination-and-a
+ ccountability/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://foresight.org/grants/ai-science-safety-nodes-rfp-coordination-a
+ nd-accountability/?utm_source=artificialnouveaugrantdesk&utm_medium=referr
+ al
+LOCATION:Remote (global\; hubs in San Francisco and Berlin)
+END:VEVENT
+BEGIN:VEVENT
+UID:foresight-ai-nodes-rfp-ai-first-science@artificialnouveau.github.io
+DTSTAMP:20260905T175144Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:Deadline: Foresight Institute AI Nodes RFP\, Track III: AI-First Sc
+ ience (Bio\, Neuro\, Nano)
+DESCRIPTION:Track III of Foresight Institute's AI for Science & Safety Node
+ s RFP funds AI-first science in bio\, neuro and nano: work that asks what 
+ important science is stuck\, what it is actually stuck on\, and whether we
+  can build the thing that removes that constraint. THREE FOCUS AREAS: (1) 
+ Automated nanotechnology: AI methods for nanoscale design\, simulation and
+  assembly\, closed-loop fabrication and characterization tools\, credible 
+ application pathways from toy problems to medicine\, environment and botto
+ m-up production\, and defensive applications and safety frameworks. (2) Wh
+ ole-brain emulation: cheaper and faster brain mapping and preservation\, b
+ ringing down the cost of connectomics through better imaging or cheaper pr
+ oofreading\, lo-fi emulation pathways that predict organism behavior from 
+ behavioral and neural data\, and shorter experimental feedback loops in ne
+ urobiology. (3) Replacement\, Enhancement\, Biostasis: longevity work incl
+ uding tissue engineering\, organ synthesis\, 3D bioprinting and progressiv
+ e replacement strategies\; reversible biostasis for organs and full humans
+  with improved preservation and revival protocols and organ banking\; and 
+ datasets for independently testing genetic predictors\, gene editing and b
+ etter measures of aging. Selected projects receive grant funding\, private
+  local compute\, workspace at the San Francisco or Berlin AI Nodes\, trave
+ l-paid field-building events and access to Foresight's advisors and networ
+ k\; in-person contributors at the Nodes are strongly prioritised. Individu
+ als\, teams\, and nonprofit or for-profit organisations worldwide may appl
+ y (for-profits must justify their need for grant funding). Deadline 31 Oct
+ ober 2026\, 23:59 PDT.\n\nOrganisation: Foresight Institute\nLocation: Rem
+ ote (global\; hubs in San Francisco and Berlin)\nAward: Typically $30\,000
+  to $100\,000 per grant\, with higher amounts for this track than the Huma
+ n Empowerment and AI Insurance areas (larger possible for the right projec
+ t)\; plus private local compute and workspace at the San Francisco or Berl
+ in AI Nodes. No application fee.\nDuration: Project-based\n\nMore: https:/
+ /foresight.org/grants/ai-science-safety-nodes-rfp-ai-first-science/?utm_so
+ urce=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://foresight.org/grants/ai-science-safety-nodes-rfp-ai-first-scien
+ ce/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Remote (global\; hubs in San Francisco and Berlin)
 END:VEVENT
 END:VCALENDAR
