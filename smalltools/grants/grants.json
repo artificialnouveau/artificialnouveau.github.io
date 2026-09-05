@@ -8833,14 +8833,14 @@
       "organization": "Foresight Institute",
       "location": "Remote (global; hubs in San Francisco and Berlin)",
       "region": "Worldwide",
-      "amount": "Typically $30,000 to $100,000 per grant (larger amounts possible for the right project), plus private local compute and workspace at the San Francisco or Berlin AI Nodes. No application fee.",
+      "amount": "Typically $30,000 to $100,000 per grant, with smaller amounts for the Human Empowerment and AI Insurance & Open Governance focus areas and higher amounts for the rest (larger possible for the right project), plus private local compute and workspace at the San Francisco or Berlin AI Nodes. No application fee.",
       "duration": "Project-based",
       "startDate": null,
       "deadline": "2026-10-31",
       "addedDate": "2026-09-03",
       "category": "ai",
       "applicant": "both",
-      "description": "Request for proposals for ambitious AI-first projects that make the transition to capable AI go well and use it to unlock science. Three layers: local compute that individuals or communities physically own and control; coordination and accountability (supercollaboration and decentralized alignment, human empowerment, AI insurance and open governance); and AI-first science in bio, neuro and nano (automated nanotechnology, whole-brain emulation, replacement, enhancement, biostasis). Selected projects receive grant funding, private local compute, workspace at the San Francisco or Berlin AI Nodes, travel-paid field-building events and access to Foresight's advisors and scientific network. ELIGIBILITY: individuals, teams and organisations worldwide; applicants who want to be active in-person contributors at the Nodes are strongly prioritised. Deadline 31 October 2026, 23:59 PDT.",
+      "description": "Request for proposals for ambitious AI-first projects that make the transition to capable AI go well and use it to unlock science. Three layers: I. LOCAL COMPUTE, building compute that individuals or communities physically own and control (example deliverables: a prototype AI cluster an average person can deploy at home, software that runs a node without expert knowledge, economic models showing how the hardware pays for itself, a business case for distributing clusters at scale, pilot deployments); II. COORDINATION AND ACCOUNTABILITY (supercollaboration and decentralized alignment, human empowerment, AI insurance and open governance); and III. AI-FIRST SCIENCE in bio, neuro and nano (automated nanotechnology, whole-brain emulation, replacement, enhancement, biostasis). AI-first means projects where AI is the primary engine of progress, not tapped onto an existing research program; strong proposals identify narrow bottlenecks and propose something that can be built, tested or measured. Selected projects receive grant funding, private local compute, workspace at the San Francisco or Berlin AI Nodes, travel-paid field-building events and access to Foresight's advisors and scientific network. ELIGIBILITY: individuals, teams, and nonprofit or for-profit organisations worldwide (for-profits must justify their need for grant funding); applicants who want to be active in-person contributors at the Nodes are strongly prioritised. Review takes about three months after the deadline. Deadline 31 October 2026, 23:59 PDT.",
       "url": "https://foresight.org/grants/ai-science-safety-nodes-rfp/",
       "tags": [
         "worldwide",
@@ -8848,10 +8848,16 @@
         "ai-safety",
         "ai-for-science",
         "foresight-institute",
-        "research"
+        "research",
+        "open-compute",
+        "grants"
       ],
       "fee": false,
-      "featured": false
+      "featured": false,
+      "regions": [
+        "US",
+        "EU"
+      ]
     },
     {
       "id": "github-secure-open-source-fund",
