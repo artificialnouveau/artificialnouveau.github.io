@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:tech-policy-press-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260905T151547Z
+DTSTAMP:20260905T151908Z
 DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260925
 SUMMARY:Deadline: Tech Policy Press Fellowship Program 2027
@@ -65,7 +65,7 @@ LOCATION:Fully remote\, worldwide. International applicants explicitly enco
 END:VEVENT
 BEGIN:VEVENT
 UID:lawai-academic-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T151547Z
+DTSTAMP:20260905T151908Z
 DTSTART;VALUE=DATE:20260731
 DTEND;VALUE=DATE:20260801
 SUMMARY:Deadline: Law & AI Academic Fellowship
@@ -109,7 +109,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:kennan-institute-digital-fellowship-2026-2027@artificialnouveau.github.
  io
-DTSTAMP:20260905T151547Z
+DTSTAMP:20260905T151908Z
 DTSTART;VALUE=DATE:20260814
 DTEND;VALUE=DATE:20260815
 SUMMARY:Deadline: Kennan Institute Digital Fellowship 2026-2027
@@ -154,7 +154,7 @@ LOCATION:Fully virtual. No travel is funded and no travel is required.
 END:VEVENT
 BEGIN:VEVENT
 UID:bulletin-editorial-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T151547Z
+DTSTAMP:20260905T151908Z
 DTSTART;VALUE=DATE:20260828
 DTEND;VALUE=DATE:20260829
 SUMMARY:Deadline: Bulletin of the Atomic Scientists Editorial Fellowship 20
@@ -186,5 +186,35 @@ DESCRIPTION:The Bulletin of the Atomic Scientists runs an Editorial Fellows
 URL:https://thebulletin.org/2026/08/apply-to-be-a-2026-bulletin-editorial-f
  ellow/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Remote. No geographic or citizenship restriction is stated.
+END:VEVENT
+BEGIN:VEVENT
+UID:sheer-spite-press-digital-distro-zines-2026@artificialnouveau.github.io
+DTSTAMP:20260905T151908Z
+DTSTART;VALUE=DATE:20261231
+DTEND;VALUE=DATE:20270101
+SUMMARY:Deadline: Sheer Spite Press: Digital Distro Call for Zine Submissio
+ ns
+DESCRIPTION:Sheer Spite Press\, a Montreal-based independent press running 
+ since 2024\, is open for submissions of zines to be distributed digitally 
+ as PDFs through its new digital distro (no print at this time). PRIORITIZI
+ NG work that is long\, text-centric\, passionate\, personal\, anti-authori
+ tarian and accessible (probably not poetry)\, on topics like community car
+ e\, friendship\, history\, food\, sex and kink\, memoir\, DIY and adventur
+ es. TERMS: the press sells your PDFs\, you choose your own pricing and kee
+ p up to 80 percent of sales\, paid quarterly (very modest sums expected)\;
+  distribution is non-exclusive\, so you can keep selling your zines anywhe
+ re else. Note this is a revenue-share distribution arrangement\, not a gra
+ nt or stipend. Submit via the CryptPad form linked from the call\; questio
+ ns to lee@sheerspite.ca. No submission fee. Open until 31 December 2026.\n
+ \nOrganisation: Sheer Spite Press\nLocation: Montreal\, Canada (digital di
+ stribution\, open worldwide)\nAward: Revenue share\, not a grant: creators
+  set their own PDF pricing and keep up to 80 percent of each sale\, paid q
+ uarterly (modest sums expected)\; non-exclusive\, you can keep selling els
+ ewhere\nDuration: Ongoing digital distribution via the Sheer Spite distro\
+ n\nMore: https://sheerspite.ca/blog/2026/09/02/call-for-submissions-digita
+ l-zines/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://sheerspite.ca/blog/2026/09/02/call-for-submissions-digital-zine
+ s/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Montreal\, Canada (digital distribution\, open worldwide)
 END:VEVENT
 END:VCALENDAR
