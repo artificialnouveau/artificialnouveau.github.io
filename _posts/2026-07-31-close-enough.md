@@ -12,6 +12,8 @@ Drawing on pattern-of-life analysis, The Drone Papers, and the Living Under Dron
 
 Close Enough will be presented at [GOGBOT Festival](https://gogbot.nl/) in Enschede in September 2026.
 
+Special thanks to [Flora Reznik](https://florareznik.com/) (film editor) and [Luz Lassizuk](https://www.luzlassizuk.com/en/biography/) (dramaturg) for their help on the project.
+
 <p class="text-muted"><em>In development. Early captures from the drone feed below; full documentation to follow.</em></p>
 
 <style>
