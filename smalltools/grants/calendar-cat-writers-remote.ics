@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:tech-policy-press-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20260905T221958Z
+DTSTAMP:20260907T092518Z
 DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260925
 SUMMARY:Deadline: Tech Policy Press Fellowship Program 2027
@@ -65,7 +65,7 @@ LOCATION:Fully remote\, worldwide. International applicants explicitly enco
 END:VEVENT
 BEGIN:VEVENT
 UID:lawai-academic-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T221958Z
+DTSTAMP:20260907T092518Z
 DTSTART;VALUE=DATE:20260731
 DTEND;VALUE=DATE:20260801
 SUMMARY:Deadline: Law & AI Academic Fellowship
@@ -109,7 +109,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:kennan-institute-digital-fellowship-2026-2027@artificialnouveau.github.
  io
-DTSTAMP:20260905T221958Z
+DTSTAMP:20260907T092518Z
 DTSTART;VALUE=DATE:20260814
 DTEND;VALUE=DATE:20260815
 SUMMARY:Deadline: Kennan Institute Digital Fellowship 2026-2027
@@ -154,7 +154,7 @@ LOCATION:Fully virtual. No travel is funded and no travel is required.
 END:VEVENT
 BEGIN:VEVENT
 UID:bulletin-editorial-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20260905T221958Z
+DTSTAMP:20260907T092518Z
 DTSTART;VALUE=DATE:20260828
 DTEND;VALUE=DATE:20260829
 SUMMARY:Deadline: Bulletin of the Atomic Scientists Editorial Fellowship 20
@@ -189,7 +189,7 @@ LOCATION:Remote. No geographic or citizenship restriction is stated.
 END:VEVENT
 BEGIN:VEVENT
 UID:sheer-spite-press-digital-distro-zines-2026@artificialnouveau.github.io
-DTSTAMP:20260905T221958Z
+DTSTAMP:20260907T092518Z
 DTSTART;VALUE=DATE:20261231
 DTEND;VALUE=DATE:20270101
 SUMMARY:Deadline: Sheer Spite Press: Digital Distro Call for Zine Submissio
@@ -216,5 +216,40 @@ DESCRIPTION:Sheer Spite Press\, a Montreal-based independent press running
 URL:https://sheerspite.ca/blog/2026/09/02/call-for-submissions-digital-zine
  s/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Montreal\, Canada (digital distribution\, open worldwide)
+END:VEVENT
+BEGIN:VEVENT
+UID:briarpatch-ai-resistance-winter-2027-pitches@artificialnouveau.github.i
+ o
+DTSTAMP:20260907T092518Z
+DTSTART;VALUE=DATE:20260918
+DTEND;VALUE=DATE:20260919
+SUMMARY:Deadline: Briarpatch Magazine: AI Resistance Issue\, Winter 2027 Ca
+ ll for Pitches
+DESCRIPTION:Briarpatch\, the Canadian magazine of grassroots politics\, ded
+ icates its Winter 2027 issue to AI Resistance and is paying for articles\,
+  investigative reporting\, historical analysis\, photo essays\, timelines\
+ , profiles\, reading lists and art. SUGGESTED ANGLES include Indigenous-le
+ d and local resistance to data centres\, exploitation and outsourcing of l
+ abour in LLM training\, AI's impact on work and union resistance\, data mi
+ ning and data sovereignty\, environmental and climate impacts\, artists an
+ d AI (crisis of creativity and ownership)\, the language and inevitability
+  narratives of AI\, policing and the surveillance state\, AI and disinform
+ ation\, and investigations into Big Tech lobbying and media influence in C
+ anada. PITCH: outline what ground your contribution covers\, estimated wor
+ d count\, and your relevant experience\; first-time Briarpatch writers sho
+ uld add a brief writing sample. Send to pitch [at] briarpatchmagazine.com.
+  Accepted first drafts are due 14 October 2026 with collaborative editing 
+ until late November\; publication is not guaranteed. No pitch fee. Deadlin
+ e 18 September 2026.\n\nOrganisation: Briarpatch Magazine\nLocation: Regin
+ a\, Canada (remote pitching\; Canadian focus)\nAward: CAD 150 for profiles
+ \, short essays\, book reviews and parting shots (under ~1\,500 words)\; C
+ AD 250 for feature stories and photo essays\; CAD 350 for research-based a
+ rticles and investigative reporting (2\,000-2\,500 words). No pitch fee.\n
+ Duration: First drafts due 14 October 2026\, editing through late November
+ \n\nMore: https://briarpatchmagazine.com/winter-2027-pitches?utm_source=ar
+ tificialnouveaugrantdesk&utm_medium=referral
+URL:https://briarpatchmagazine.com/winter-2027-pitches?utm_source=artificia
+ lnouveaugrantdesk&utm_medium=referral
+LOCATION:Regina\, Canada (remote pitching\; Canadian focus)
 END:VEVENT
 END:VCALENDAR
