@@ -397,14 +397,13 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, 
     pub = rfc822(sunday)
 
     # The title carries the whole message (count and week); the description
-    # stays empty so renderers show the header as a single line. The item's
-    # own <link> still points at the Grant Desk.
+    # stays empty so renderers show the header as a single line. No <link>:
+    # the only links in the feed are the grants' own apply links.
     # Same guid scheme as the digest era so a reader that saw a week as a
     # digest never sees its header twice.
     items = [
         "  <item>\n"
         f"    <title>{escape(f'{count} new {what} - week of {label}')}</title>\n"
-        f"    <link>{escape(PAGE_URL)}</link>\n"
         f'    <guid isPermaLink="false">{escape(f"{PAGE_URL}{slug}#week-{monday.isoformat()}")}</guid>\n'
         f"    <pubDate>{pub}</pubDate>\n"
         "    <description><![CDATA[]]></description>\n"
@@ -476,11 +475,8 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
 
     # The title already says "N new X - week of ...": start straight with the
     # listing so truncating renderers (Slack) spend their budget on grants.
-    body = (
-        f"<ul>\n" + "\n".join(rows) + "\n</ul>\n"
-        f'<p>Full listing with filters: <a href="{escape(PAGE_URL)}">The Grant Desk</a> '
-        f"({escape(PAGE_URL)}).</p>"
-    )
+    # No site footer: the only links in the feed are the grants' own.
+    body = "<ul>\n" + "\n".join(rows) + "\n</ul>"
 
     # The guid MUST include the feed's own filename. Every weekly feed emits an
     # item per calendar week, so a guid keyed on the week alone would collide
@@ -490,7 +486,6 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
     return (
         "  <item>\n"
         f"    <title>{escape(title)}</title>\n"
-        f"    <link>{escape(PAGE_URL)}</link>\n"
         f'    <guid isPermaLink="false">{escape(guid)}</guid>\n'
         f"    <pubDate>{rfc822(stamp)}</pubDate>\n"
         f"    <description><![CDATA[{body}]]></description>\n"
