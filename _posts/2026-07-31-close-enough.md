@@ -14,11 +14,11 @@ For the installation, Close Enough uses autonomous drones, computer vision, and 
 
 The performance unfolds in three acts.
 
-**Act 1, Swarm.** A pilot sleeps beneath their own drones and dreams in the language of the machine, while the audience watches the sleeper through its eyes.
+**Act 1.** A pilot sleeps beneath their own drones and dreams in the language of the machine, while the audience watches the sleeper through its eyes.
 
-**Act 2, Scroll.** A video essay scrolls through the feed of a drone-war veteran, tracing how the remote intimacy of screens, friendships, love, and strangers' last moments became a way of fighting.
+**Act 2.** A video essay scrolls through the feed of a drone-war veteran, tracing how the remote intimacy of screens, friendships, love, and strangers' last moments became a way of fighting.
 
-**Act 3, Stalk.** The pilot wakes and flies live drones over the audience, building a file on each visitor in real time until the shift ends and every file closes.
+**Act 3.** The pilot wakes and flies live drones over the audience, building a file on each visitor in real time until the shift ends and every file closes.
 
 Close Enough will be presented at [GOGBOT Festival](https://gogbot.nl/) in Enschede in September 2026.
 
