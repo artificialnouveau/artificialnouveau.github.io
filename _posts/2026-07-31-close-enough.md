@@ -12,9 +12,13 @@ That intimacy changes with the machine. A MALE (medium-altitude, long-endurance)
 
 For the installation, Close Enough uses autonomous drones, computer vision, and the visual language of military intelligence to recreate this watching and place the audience inside it. Visitors find themselves on both sides of the apparatus at once, watching the surveillance unfold and gradually recognising themselves within it, held in the uneasy position of having been known by something long before they noticed it looking.
 
-The performance unfolds in three acts. In the first, the audience is watched from above: a drone quietly assembles a pattern-of-life picture of the room, the slow familiarity of the Predator's gaze. In the second, the drone comes close: an FPV drone enters the space at body height and meets visitors face to face. In the third, the roles reverse: the audience is invited to the pilot's side of the screen, seeing through the drone's eyes and discovering how quickly watching starts to feel like knowing.
+The performance unfolds in three acts.
 
-The accompanying video essay traces this difference directly, setting the slow, patient familiarity of the Predator's weeks-long watch against the sudden proximity of the FPV strike, and asking what kind of "intimacy" each one actually is.
+**Act 1, Swarm.** A pilot sleeps beneath their own drones and dreams in the language of the machine, while the audience watches the sleeper through its eyes.
+
+**Act 2, Scroll.** A video essay scrolls through the feed of a drone-war veteran, tracing how the remote intimacy of screens, friendships, love, and strangers' last moments became a way of fighting.
+
+**Act 3, Stalk.** The pilot wakes and flies live drones over the audience, building a file on each visitor in real time until the shift ends and every file closes.
 
 Close Enough will be presented at [GOGBOT Festival](https://gogbot.nl/) in Enschede in September 2026.
 
