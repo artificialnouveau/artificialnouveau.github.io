@@ -10,6 +10,8 @@ Close Enough is a performative installation about the intimacy of drone surveill
 
 Drawing on pattern-of-life analysis, The Drone Papers, and the Living Under Drones report, the work turns its attention to the watching itself: the sustained, one-sided accumulation of knowledge about a life, gathered from a distance and without consent, spreading outward from one person to everyone they know. Using autonomous drones, computer vision, and the visual language of military intelligence, Close Enough recreates that logic and places an audience inside it. Visitors find themselves on both sides of the apparatus at once, watching the surveillance unfold and gradually recognising themselves within it, held in the uneasy position of having been known by something long before they noticed it looking.
 
+The accompanying video essay explores the difference between MALE (medium-altitude, long-endurance) drones like the Predator and FPV (first-person view) drones, and how each drone subtype produces its own kind of "intimacy": the slow, patient familiarity of watching a life from ten thousand feet for weeks, versus the sudden, face-to-face proximity of a drone that closes the final metres itself.
+
 Close Enough will be presented at [GOGBOT Festival](https://gogbot.nl/) in Enschede in September 2026.
 
 In collaboration with [Flora Reznik](https://florareznik.com/) (film editor) and [Luz Lassizuk](https://www.luzlassizuk.com/en/biography/) (dramaturg).
