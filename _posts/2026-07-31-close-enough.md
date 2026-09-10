@@ -10,9 +10,9 @@ Close Enough is a live performance and interactive installation about the strang
 
 That intimacy changes with the machine. A MALE (medium-altitude, long-endurance) drone like the Predator holds its operator close enough to see a target's face, to watch them eat breakfast and play with their children, to learn their routines and relationships and small daily habits, yet far enough away to kill without physical consequence; operators have described this in testimony as a form of stalking, weeks spent coming to know someone intimately before ending their life. With an FPV (first-person view) drone the pilot is still physically distant, but the view is not: riding the camera down, they meet a person face to face in their final moments. Each drone subtype creates its own kind of closeness, and the work moves between them.
 
-For the installation, Close Enough uses autonomous drones, computer vision, and the visual language of military intelligence to recreate this watching and place the audience inside it. Visitors find themselves on both sides of the apparatus at once, watching the surveillance unfold and gradually recognising themselves within it, held in the uneasy position of having been known by something long before they noticed it looking.
+Close Enough uses autonomous drones, computer vision, and the visual language of military intelligence to recreate this watching and place the audience inside it. Visitors find themselves on both sides of the apparatus at once, watching the surveillance unfold and gradually recognising themselves within it, held in the uneasy position of having been known by something long before they noticed it looking.
 
-The performance unfolds in three acts.
+The work unfolds in three acts.
 
 **Act 1.** A pilot sleeps beneath their own drones and dreams in the language of the machine, while the audience watches the sleeper through its eyes.
 
