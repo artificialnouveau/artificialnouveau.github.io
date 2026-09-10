@@ -12,7 +12,9 @@ Drawing on pattern-of-life analysis, The Drone Papers, and the Living Under Dron
 
 Close Enough will be presented at [GOGBOT Festival](https://gogbot.nl/) in Enschede in September 2026.
 
-Special thanks to [Flora Reznik](https://florareznik.com/) (film editor) and [Luz Lassizuk](https://www.luzlassizuk.com/en/biography/) (dramaturg) for their help on the project.
+In collaboration with [Flora Reznik](https://florareznik.com/) (film editor) and [Luz Lassizuk](https://www.luzlassizuk.com/en/biography/) (dramaturg).
+
+Special thanks to [CrossFit Coolhaven](https://crossfitcoolhaven.nl/) for letting me train at their space.
 
 <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1225022507?h=b0fb173610&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="CLOSE ENOUGH"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 
