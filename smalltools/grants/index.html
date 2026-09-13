@@ -1736,7 +1736,7 @@ code *, pre *, kbd *, samp * {
     <span class="h1-kicker">Grants, Fellowships and Residencies in AI, Arts, Film, Journalism, Research and Tech</span>
     <span class="h1-brand">The <span class="underline">Grant</span> Desk</span>
   </h1>
-  <p class="lede"><strong id="active-count" role="status" aria-live="polite" aria-atomic="true">--</strong> active grants on the desk right now. <strong>The Grant Desk is a free tool. No account, paywall or subscription required.</strong> The site consists of a hand-picked selection of <strong>paid</strong> open calls, fellowships and residencies for artists, journalists, writers, researchers and technologists working in the realm of digital media, AI, and technology and society, with a few notable unpaid open calls and festival submissions included as clearly flagged exceptions. Star a card to save it to a shortlist you can share as a link or download as an .ics calendar, and use the "Copy info" button on any card to copy the full grant details to your clipboard. The desk also remembers when you last visited (saved in your browser's localStorage only, not on any server) so the "Show only new" filter highlights what has been added since (recent additions stay flagged for at least three days).</p>
+  <p class="lede"><strong id="active-count" role="status" aria-live="polite" aria-atomic="true">--</strong> active grants on the desk right now. <strong>The Grant Desk is a free tool. No account, paywall or subscription required.</strong> The site consists of a hand-picked selection of <strong>paid</strong> open calls, fellowships and residencies for artists, journalists, writers, researchers and technologists working in the realm of digital media, AI, and technology and society, with a few notable unpaid open calls and festival submissions included as clearly flagged exceptions. Star a card to save it to a shortlist you can share as a link or download as an .ics calendar, and use the "Copy info" button on any card to copy the full grant details to your clipboard. The desk also remembers when you last visited (saved in your browser's localStorage only, not on any server) so the "Show only new" filter highlights what has been added since (recent additions stay flagged for at least a full day).</p>
   <p class="lede subtle">Subscribe via RSS or add deadlines to your calendar so you do not miss a thing.</p>
 </header>
 
@@ -9280,7 +9280,7 @@ code *, pre *, kbd *, samp * {
     <span id="new-status">All caught up. Nothing new since your last visit.</span>
     <button type="button" id="new-toggle" aria-pressed="false">Show only new</button>
     <button type="button" class="dismiss-btn" id="new-dismiss">Mark as seen</button>
-    <small class="banner-help"><strong>Show only new</strong> filters the page to grants added in the last 3 days or since your last visit, whichever reaches further back. <strong>Mark as seen</strong> clears the NEW badges and banner. Your history is saved only in this browser on this device, so it will not transfer to other devices or other browsers, and it gets erased if you clear your cookies or site data.</small>
+    <small class="banner-help"><strong>Show only new</strong> filters the page to grants added since yesterday or since your last visit, whichever reaches further back. <strong>Mark as seen</strong> clears the NEW badges and banner. Your history is saved only in this browser on this device, so it will not transfer to other devices or other browsers, and it gets erased if you clear your cookies or site data.</small>
   </div>
 </div>
 
@@ -12311,7 +12311,9 @@ function loadLastSeen() {
 // Minimum number of days an addition stays marked NEW. Without this floor, a
 // grant added late in the evening stopped being "new" at midnight for anyone
 // who had visited that evening, because newness rolled over per calendar day.
-const NEW_MIN_DAYS = 3;
+// 1 means: still flagged through the whole day after it was added, so at least
+// 24 hours (addedDate has day granularity, so this is the finest floor possible).
+const NEW_MIN_DAYS = 1;
 
 function isNewGrant(grant) {
   if (!grant.addedDate) return false;
