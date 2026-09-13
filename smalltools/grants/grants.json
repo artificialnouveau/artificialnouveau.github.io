@@ -3,6 +3,34 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "aapi-fund-creative-catalyst-fellowship-2027",
+      "title": "AAPI Fund: Creative Catalyst Fellowship 2027 (USD 30,000, theme Belonging)",
+      "organization": "AAPI Civic Engagement Fund",
+      "location": "United States; US residency required, no citizenship requirement (W-9 or W-8BEN needed). In-person retreat 16 to 18 February 2027, travel and accommodation covered.",
+      "region": "US",
+      "amount": "Up to eight artists each receive USD 30,000 to produce new work. Also covered: the two-day Fellows retreat (travel and accommodation paid by the AAPI Fund), an accomplished communications consultant, digital advertising, community introductions, exhibition placement support and replica development (posters, books, calendars) promoting the finished work. No application fee.",
+      "duration": "Yearlong fellowship, January to December 2027; artwork completed by 15 August 2027, promotion of completed work August to December 2027.",
+      "startDate": "2027-01-01",
+      "deadline": "2026-10-15",
+      "addedDate": "2026-09-13",
+      "feedDate": "2026-09-21",
+      "category": "arts",
+      "applicant": "individuals",
+      "description": "The Creative Catalyst Fellowship from the AAPI Civic Engagement Fund supports individual artists whose work engages the public on critical issues facing Asian Americans and Pacific Islanders and can serve as a catalyst for civic participation. Up to eight artists each receive USD 30,000 to produce work with the potential to break through to broader audiences and spark conversation around the 2027 theme, Belonging: a sense of community, home, agency and the essential right for AAPI communities to flourish, as a counterweight to racism and violence. Fellows join a yearlong cohort (January to December 2027) convened for peer sharing and learning. REQUIRED: a virtual orientation, the two-day in-person Fellows retreat on 16 to 18 February 2027 (location to be finalised; the AAPI Fund covers travel and accommodation), virtual check-ins through the year, and a narrative report; showcasing at AAPI Fund events is optional. OFFERINGS beyond the grant: the annual retreat connecting fellows with community work and the wider social justice movement, a communications consultant to place local and national news stories, digital advertising promoting the final products, introductions to AAPI organisations, exhibition placement support (priority to venues experienced with social justice themes), and replica development such as posters, books, calendars and stickers. ELIGIBILITY: individual artists only (no organisations or collectives), 18 or older, US residency required; there is no citizenship requirement, but selected fellows provide a W-9 or W-8BEN. Work must connect with AAPI communities. Eligible forms include visual art (printmaking, illustration, photography, modular installations), digital media, written forms and hybrid work; feature-length film, fully staged theater, dance works and large-scale fixed installations are ineligible, though such practices can be adapted into more concise formats. Previous fellows may reapply three years after completing their fellowship. APPLICATION: via the online form with up to five examples of work relating to the proposed project as a single PDF (portfolio or website links allowed). Deadline 15 October 2026 at 11:59pm PT; fellowship announcement 14 January 2027. Artwork must be completed by 15 August 2027. Contact: creative@aapifund.org with subject CC inquiry.",
+      "url": "https://aapifund.org/2027-creative-catalyst-fellowship-open-call/",
+      "tags": [
+        "fellowship",
+        "civic",
+        "social-justice",
+        "aapi",
+        "visual-art",
+        "digital-media",
+        "us"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "cassian-elwes-independent-screenwriting-fellowship-2027",
       "title": "Black List: Cassian Elwes Independent Screenwriting Fellowship 2027 (all-expenses-paid Sundance trip)",
       "organization": "The Black List with producer Cassian Elwes",
