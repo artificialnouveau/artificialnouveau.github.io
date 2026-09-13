@@ -372,43 +372,30 @@ def weekly_count_phrase(count, category, opp_type):
 
 
 def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, opp_type=None):
-    """One week as a Sunday drop: a short header item plus one item per grant.
+    """One week as a Sunday drop: one item per grant, no header item.
 
     Plain-text renderers such as Slack's RSS app truncate every item at a fixed
     length, so a single digest item only ever shows its first entry or two
     there. Splitting the week into per-grant items keeps the weekly cadence
     (nothing is emitted until the week has ended) while every grant arrives
-    complete: title, link, organization, deadline and full amount.
+    complete: title, link, organization, deadline and full amount. The drops
+    carry no "N new grants - week of ..." header item: readers rendered its
+    deliberately empty description as an odd trailing "()" line.
     """
     sunday = monday + timedelta(days=6)
     if sunday > today:
         # The week is still running; hold it back so subscribers get one
         # Sunday batch instead of a daily trickle.
         return ""
-    label = monday.strftime("%d %b %Y")
     open_at_stamp = [
         g for g in grants_in_week
         if (lambda d: d is None or d >= sunday)(parse_date(g.get("deadline")))
     ]
     if not open_at_stamp:
         return ""
-    count = len(open_at_stamp)
-    what = weekly_count_phrase(count, category, opp_type)
     pub = rfc822(sunday)
 
-    # The title carries the whole message (count and week); the description
-    # stays empty so renderers show the header as a single line. No <link>:
-    # the only links in the feed are the grants' own apply links.
-    # Same guid scheme as the digest era so a reader that saw a week as a
-    # digest never sees its header twice.
-    items = [
-        "  <item>\n"
-        f"    <title>{escape(f'{count} new {what} - week of {label}')}</title>\n"
-        f'    <guid isPermaLink="false">{escape(f"{PAGE_URL}{slug}#week-{monday.isoformat()}")}</guid>\n'
-        f"    <pubDate>{pub}</pubDate>\n"
-        "    <description><![CDATA[]]></description>\n"
-        "  </item>\n"
-    ]
+    items = []
     for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
         # No visible URL line here: unlike the digest era, the grant's link is
         # the item's own <link>, which every renderer (Slack included) puts on
