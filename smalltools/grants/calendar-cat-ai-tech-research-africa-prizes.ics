@@ -1,0 +1,53 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Grant Desk//Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:The Grant Desk - Prizes and Awards\, AI\, Tech & Research\, Africa
+X-WR-CALNAME:The Grant Desk - Prizes and Awards\, AI\, Tech & Research\, Af
+ rica deadlines
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Prizes and Awards\, AI\
+ , Tech & Research\, Africa.
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:intron-sahara-codeswitch-africa-challenge-2026@artificialnouveau.github
+ .io
+DTSTAMP:20260914T125600Z
+DTSTART;VALUE=DATE:20260915
+DTEND;VALUE=DATE:20260916
+SUMMARY:Deadline: Intron: Sahara CodeSwitch Africa Challenge (USD 10\,000 p
+ rize pool)
+DESCRIPTION:Intron's Sahara CodeSwitch Africa Challenge awards USD 10\,000 
+ in cash prizes for real applications built on African voice AI: apps that 
+ understand African-language code-switching\, for example when a speaker mo
+ ves between English and Swahili\, English and Igbo\, or French and Wolof m
+ id-conversation. TRACKS: Health (clinical documentation\, patient intake\,
+  maternal health)\; Legal and Public Services (court transcription\, legal
+  aid\, citizen services)\; Fintech\, Telco and Customer Experience (voice 
+ banking\, KYC\, payments\, support)\; Agriculture and Education (farmer ad
+ visory\, tutoring\, classroom learning)\; and Other High-Impact Use Cases 
+ (accessibility\, media\, commerce\, culture). REQUIREMENTS: use voice to a
+ chieve a downstream task (not just speech-to-text)\, build with the Intron
+  Sahara API\, benchmark Sahara against at least three other speech models\
+ , target a specific vertical\, and include code-switched audio samples whe
+ re possible. WHO IS ELIGIBLE: developers\, researchers\, startups\, studen
+ t teams and NGOs across Africa and the diaspora\; solo or teams. DEADLINE:
+  registration and final submissions close 15 September 2026\, 11:59pm WAT\
+ , so move fast. Winners announced 1 October 2026. TO APPLY: register at in
+ tron.io/compete. Free to enter.\n\nOrganisation: Intron\nLocation: Remote\
+ ; open to builders across Africa and the diaspora\, solo or in teams (2 to
+  5 recommended).\nAward: USD 10\,000 total prize pool in cash prizes acros
+ s five tracks. Finalists also get Sahara API credits\, Partner Demo Day ac
+ cess\, visibility with sponsors and judges\, and potential pilot or deploy
+ ment conversations. Free to enter.\nDuration: Main competition winners ann
+ ounced 1 October 2026\n\nMore: https://intron.io/compete?utm_source=artifi
+ cialnouveaugrantdesk&utm_medium=referral
+URL:https://intron.io/compete?utm_source=artificialnouveaugrantdesk&utm_med
+ ium=referral
+LOCATION:Remote\; open to builders across Africa and the diaspora\, solo or
+  in teams (2 to 5 recommended).
+END:VEVENT
+END:VCALENDAR
