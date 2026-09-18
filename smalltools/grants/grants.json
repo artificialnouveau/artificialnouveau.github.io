@@ -3,6 +3,36 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "sim-residency-nordic-baltic-2027",
+      "title": "SÍM Residency: Funded Nordic-Baltic Residency January-February 2027 (Reykjavík)",
+      "organization": "SÍM Residency (Association of Icelandic Visual Artists)",
+      "location": "Seljavegur 32, Reykjavík, Iceland. Open to artists with a permanent address in Denmark, Finland, the Faroe Islands, Greenland, Norway, Sweden, Åland, Estonia, Latvia or Lithuania, regardless of nationality. Artists living in Iceland are explicitly excluded. The apartment is on the second floor, staircase only, no elevator.",
+      "region": "EU",
+      "amount": "EUR 2,000 stipend for the whole period, EUR 600 travel costs and EUR 500 material costs, plus accommodation (private bedroom, shared kitchen and living spaces) and a private studio. Funded by the Nordic-Baltic Mobility Programme for Culture. Four places.",
+      "duration": "Two months, 3 January to 28 February 2027. Full attendance is required; shorter periods are not granted.",
+      "startDate": "2027-01-03",
+      "deadline": "2026-10-01",
+      "addedDate": "2026-09-18",
+      "feedDate": "2026-09-19",
+      "category": "arts",
+      "applicant": "individuals",
+      "description": "The SÍM Residency in Reykjavík announces its January to February 2027 funded residency for four artists from the Nordic-Baltic region. The two-month program invites multidisciplinary artists interested in artistic research and production addressing sustainability, ecology, social equality and Nordic cultural narratives; artists from visual arts, performance, sound, digital media and research are encouraged to apply. Participants develop individual projects while engaging in studio visits with a curator, discussions, public open studios and talks, closing with an exhibition or public presentation at Seljavegur 32. WHAT YOU GET: EUR 2,000 stipend, EUR 600 travel, EUR 500 materials, accommodation with a private bedroom, a private studio, orientation, presentation on the SÍM website and social media, and connections to local workshops (sound recording, Fab Lab, ceramics, textile, darkroom). Funded by the Nordic-Baltic Mobility Programme for Culture; artists are encouraged to seek top-up funding from their home arts councils if needed. ELIGIBILITY: a permanent address in the Nordic countries (Denmark, Finland, the Faroe Islands, Greenland, Norway, Sweden, Åland) or Baltic states (Estonia, Latvia, Lithuania), any nationality; artists living in Iceland are excluded. A BA in visual arts or a similar field is required, or equivalent professional experience; candidates without one may apply with a letter of recommendation from a curator, museum or gallery. Candidates must commit to the full 3 January to 28 February 2027 period, communicate in English, attend all meetings and events, participate in the final exhibition, and have their project documented on the SÍM website. APPLICATION: a 400-word project proposal toward the theme, stating specific interests, why the residency matters for the applicant's career now, openness to collaboration, and environmentally responsible methods and material choices. CONDITIONS: no overnight guests in the residency apartment and no pets; artists are not required to leave artwork behind. DEADLINE: 1 October 2026.",
+      "url": "https://www.sim-residency.info/ncp-2027",
+      "tags": [
+        "residency",
+        "iceland",
+        "nordic",
+        "baltic",
+        "sustainability",
+        "ecology",
+        "multidisciplinary",
+        "exhibition",
+        "cash-award"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "struts-gallery-open-studio-residency-2027",
       "title": "Struts Gallery: Open Studio Residency Program 2027 (Sackville, New Brunswick)",
       "organization": "Struts Gallery",
