@@ -3,6 +3,38 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "graner-creative-grants-2027",
+      "title": "Graner Creative Grants 2027: Residencies for Dance and Live Arts (Barcelona)",
+      "organization": "El Graner Fabrica de Creacio, managed by Mercat de les Flors",
+      "location": "Graner, Barcelona, Spain (with part of the Emerging Artists residencies at Can Gassol, Mataro). Most categories are for local and national artists; one International category is reserved for artists based outside Spain.",
+      "region": "EU",
+      "amount": "12 grants totalling EUR 57,000. EUR 6,000 per project for Associated Artist (1 place, EUR 6,000 each for 2027 and 2028), Creation (3 places), Barcelona Crea Research (2) and Barcelona Crea Critical Thinking (1). EUR 3,000 per project for Stage Research (1), International (1), Emerging Artists (2, endowment topped up with EUR 1,700 from Can Gassol) and Practical Methodologies (1). Plus workspace, possible technical residency, artistic support and covered travel to the two annual APLEC gatherings. No application fee.",
+      "duration": "Residencies between January and December 2027, typically up to four to six weeks, not necessarily consecutive, depending on category. The Associated Artist commits for two years (2027-2028).",
+      "startDate": "2027-01-01",
+      "deadline": "2026-09-29",
+      "addedDate": "2026-09-21",
+      "feedDate": "2026-09-22",
+      "category": "arts",
+      "applicant": "both",
+      "description": "Graner, Barcelona's centre for dance and live arts creation within the city council's Creative Factories Network, managed by Mercat de les Flors with the Catalan dance professionals' associations APDC and ACPDC, opens its 2027 call for residency grants supporting creation and research projects taking place between January and December 2027. EIGHT CATEGORIES: Associated Artist (1 place, EUR 6,000 per year for 2027 and 2028, for Catalonia-based artists who associate with the centre for two years, with a creative residency of up to six weeks); Creation (3 places, EUR 6,000, local and national artists developing projects leading to a production, up to five weeks); Barcelona Crea Research (2 places, EUR 6,000, local researchers and artists in the initial stages of artistic research with body, movement and choreographic thinking as its axes); Barcelona Crea Critical Thinking (1 place, EUR 6,000, theoretical, critical or discursive projects on dance and the live arts); International (1 place, EUR 3,000, for researchers, artists and collectives based outside Spain without a direct connection to the Catalan or Spanish context, two to four weeks; applying here excludes all other categories); Stage Research (1 place, EUR 3,000, research centred on lighting, sound, video or scenography, with technical studio time and support sessions); Emerging Artists (2 places, EUR 3,000, endowment topped up with EUR 1,700 contributed by Can Gassol in Mataro, where part of the residency takes place); and Practical Methodologies (1 place, EUR 3,000). WHAT YOU GET: on top of the grant, a workspace agreed per project, possible technical residency, shared desk and facilities, artistic support and possible specialised mentoring, participation in Graner's labs, workshops and seminars, communication support, and covered national and European travel to the two annual APLEC gatherings. ELIGIBILITY: natural persons, legal persons and groups with or without legal personality; applicants may apply to at most two categories (International is mutually exclusive) and can receive only one grant. Barcelona Crea categories require a demonstrated connection to Barcelona or its metropolitan area and carry municipal-grant incompatibility rules. NOTE: structural renovation works run at Graner throughout 2027 and may affect studio use. APPLICATION: free, via the category-specific forms on the Mercat de les Flors website; an English-language bases PDF details each category. DEADLINE: 29 September 2026 at 14:00 Catalan time (12:00 UTC).",
+      "url": "https://mercatflors.cat/en/beca/2027-call-for-proposals-for-creative-grants-el-graner-fabrica-de-creacio/",
+      "tags": [
+        "grant",
+        "residency",
+        "dance",
+        "performance",
+        "live-arts",
+        "research",
+        "barcelona",
+        "spain",
+        "eu",
+        "no-fee",
+        "cash-award"
+      ],
+      "fee": false,
+      "featured": false
+    },
+    {
       "id": "supporting-act-foundation-artist-grant-2026",
       "title": "The Supporting Act Foundation: Artist Grant 2026",
       "organization": "The Supporting Act Foundation",
