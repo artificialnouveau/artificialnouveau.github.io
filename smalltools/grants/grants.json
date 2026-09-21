@@ -3,6 +3,44 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "a4-residency-chengdu-2028",
+      "title": "A4 Residency Art Center: International Residency Fellowship 2028 (Chengdu)",
+      "organization": "A4 Residency Art Center (A4 Art Museum)",
+      "location": "Luxelakes Eco-City, Tianfu New Area, Chengdu, China. Open worldwide.",
+      "region": "Asia",
+      "amount": "Fully funded fellowship: private studio and accommodation, round-trip economy airfare or second-class train ticket within a set budget, and a production grant of RMB 10,000 per person/team for materials and production (excluding living expenses). No application fee.",
+      "duration": "Approximately 8 weeks, in the Spring 2028 (April to June) or Autumn 2028 (July to October) cycle.",
+      "startDate": "2028-04-01",
+      "deadline": "2026-12-31",
+      "addedDate": "2026-09-21",
+      "feedDate": "2026-10-02",
+      "category": "cross",
+      "applicant": "individuals",
+      "description": "The A4 Residency Art Center in Chengdu, the residency platform of the A4 Art Museum in Luxelakes Eco-City, opens its full-year 2028 recruitment. The interdisciplinary, open and collaborative platform fosters creative exchange among artists, scientists, writers and other professionals, with residents initiating participatory local activities that connect them with the city and community; A4 also organises group activities, sharing sessions, media promotion and exhibition opportunities. CYCLES: Spring 2028 (April to June) and Autumn 2028 (July to October), each approximately eight weeks. WHAT YOU GET (International Residency Fellowship, fully funded): private studio and accommodation, round-trip economy airfare or second-class train within a set budget, a production grant of RMB 10,000 per person or team for materials and production (excluding living expenses), community engagement and cultural experiences, media promotion and networking. ELIGIBILITY: multidisciplinary creators worldwide, including visual and performing artists, musicians, filmmakers, architects, curators, designers and creatives with interdisciplinary backgrounds bridging art, business and culture. APPLICATION: free; submit a photo, portfolio, CV and project proposal in English and Chinese to a4residency@a4am.cn, with the subject line specifying the programme tier and preferred cycle. DEADLINE: 31 December 2026 for the 2028 full-year recruitment. A parallel self-funded light track exists; this listing covers the funded fellowship only.",
+      "url": "https://www.a4artmuseum.com/en/a4-residencyartcenter/residing/latest-recruitment/",
+      "tags": [
+        "residency",
+        "asia",
+        "china",
+        "chengdu",
+        "a4-residency",
+        "interdisciplinary",
+        "curatorial",
+        "design",
+        "production-grant",
+        "travel-covered",
+        "accommodation-provided",
+        "no-fee",
+        "cash-award"
+      ],
+      "fee": false,
+      "featured": false,
+      "categories": [
+        "curator",
+        "design"
+      ]
+    },
+    {
       "id": "graner-creative-grants-2027",
       "title": "Graner Creative Grants 2027: Residencies for Dance and Live Arts (Barcelona)",
       "organization": "El Graner Fabrica de Creacio, managed by Mercat de les Flors",
