@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-21",
+  "lastUpdated": "2026-09-22",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
@@ -30019,6 +30019,75 @@
       "featured": false,
       "categories": [
         "research"
+      ]
+    },
+    {
+      "id": "anthropic-economic-futures-research-fund-2026",
+      "title": "Anthropic Economic Futures Research Fund (research grants on AI's economic impacts)",
+      "organization": "Anthropic",
+      "location": "Global fund with an initially US-centric focus (Anthropic is headquartered in San Francisco and Claude usage is highest in the US). Institutions worldwide may apply.",
+      "region": "US",
+      "regions": [
+        "Worldwide"
+      ],
+      "amount": "USD 200 million committed overall. Grants primarily in the USD 5-30 million range per project, with a USD 1 million minimum and flexibility upward for well-scoped, high-potential-impact projects. The separate small-grant Research Awards tier (USD 10,000-50,000 plus USD 5,000 in Claude API credits) is currently paused. No application fee.",
+      "duration": "Rolling request for proposals; no deadline published. Multi-project fund announced 22 July 2026.",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-09-22",
+      "feedDate": "2026-10-03",
+      "category": "ai",
+      "applicant": "organizations",
+      "description": "NOTE: this tier is institutions-only; individual researchers cannot apply in a personal capacity but can serve as principal investigators through their institution. Anthropic's earlier Economic Futures Research Awards (USD 10,000-50,000 plus USD 5,000 Claude API credits for empirical research on AI's economic impacts, rolling, with results presented within six months) are currently not accepting applications; this entry covers the larger Research Fund now open for proposals. THE FUND: Anthropic has committed USD 200 million to the Economic Futures Research Fund to support ambitious external research on interventions that prepare society for the economic impacts of AI, studying what programs could make the economy more flexible and resilient, ensure AI's benefits are shared, and minimise harm from AI-driven disruption. FIVE RESEARCH PRIORITIES: (1) AI's impact on workers at the firm and workplace level; (2) equipping people for AI-driven transitions; (3) modernising income support for displacement; (4) building worker stakes in AI-driven growth; (5) generating evidence on public investments. FUNDING: projects primarily in the USD 5-30 million range, minimum USD 1 million, flexible upward for well-scoped, high-potential-impact projects. ELIGIBILITY: accredited universities and other degree-granting institutions, independent research institutes and policy research organisations, and nonprofits with a track record of running field experiments at scale; a global fund with an initially US-centric focus. APPLICATION: via the request for proposals linked from the research agenda announcement (Google Form); no deadline published as of September 2026.",
+      "url": "https://www.anthropic.com/news/economic-futures-research-fund-agenda",
+      "tags": [
+        "grant",
+        "ai",
+        "research",
+        "us",
+        "worldwide",
+        "rolling",
+        "no-fee",
+        "economics"
+      ],
+      "fee": false,
+      "featured": false,
+      "categories": [
+        "research"
+      ]
+    },
+    {
+      "id": "visual-imaginaries-gender-uva-2026",
+      "title": "Visual Imaginaries of Gender: Paid Student Research Assistantships in Art and Generative AI (Amsterdam)",
+      "organization": "University of Amsterdam (Visual Imaginaries of Gender project, Piera Riccio)",
+      "location": "Amsterdam, Netherlands. Applicants must be enrolled as a student to be eligible.",
+      "region": "EU",
+      "amount": "Approximately EUR 600 per month, approximately EUR 1,800 over the full three-month project, for a 0.2 FTE appointment (about 8 hours per week). Four positions. No application fee.",
+      "duration": "3 months, October to December 2026, at 0.2 FTE (approximately 8 hours per week).",
+      "startDate": "2026-10-01",
+      "deadline": "2026-09-25",
+      "addedDate": "2026-09-22",
+      "feedDate": "2026-09-22",
+      "category": "ai",
+      "applicant": "individuals",
+      "description": "NOTE: this is a paid student research assistantship (a 0.2 FTE appointment) rather than a grant, and only currently enrolled students are eligible. Four student research assistants with a background in art, design or related fields are sought for a three-month research project on gender representation in text-to-image generative AI systems. The project treats artistic production as a research method: generative AI models increasingly shape contemporary visual culture, and these systems reflect, reproduce, and sometimes challenge cultural assumptions about identity, gender, and social roles. ROLE: each assistant develops an individual artistic exploration of gender representation in generative AI, with considerable creative freedom in approach, themes, prompts, and modes of experimentation; documents their creative and research process; participates in periodic group discussions and research meetings; and contributes to collective reflection on the project's findings. OUTCOMES: the four art projects will be presented in a collective exhibition on the theme 'Visual Imaginaries of Gender in Generative AI', and the students' documented experiences and reflections will feed into an academic publication taking an auto-ethnographic perspective on artistic engagement with generative AI. Applications are particularly encouraged from students interested in the intersection of art, technology, critical inquiry, and questions of gender and representation. APPLICATION: send a motivation letter and art portfolio to Piera Riccio (p.riccio@uva.nl). DEADLINE: 25 September 2026.",
+      "url": "https://multix.io/visual-imaginaries-vacancy.html",
+      "tags": [
+        "ai",
+        "art",
+        "research",
+        "students",
+        "netherlands",
+        "nl",
+        "eu",
+        "exhibition",
+        "stipend",
+        "no-fee"
+      ],
+      "fee": false,
+      "featured": false,
+      "categories": [
+        "cross"
       ]
     }
   ]
