@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-27",
+  "lastUpdated": "2026-09-28",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
@@ -29788,6 +29788,73 @@
       "categories": [
         "cross"
       ]
+    },
+    {
+      "id": "nethope-humanitarian-ai-research-fellowship-2026",
+      "title": "NetHope: Humanitarian AI Research Fellowship 2026 (Remote)",
+      "organization": "NetHope",
+      "location": "Remote, internationally open.",
+      "region": "Remote",
+      "amount": "Stipend; the amount is not published in the call (details are shared with selected fellows and set out in the fellowship agreement). Part-time, approximately 10 hours per week. 4 to 6 fellows selected. No application fee.",
+      "duration": "Mid-November 2026 through February 2027, part-time (approx. 10 hours per week).",
+      "startDate": "2026-11-15",
+      "deadline": "2026-10-09",
+      "addedDate": "2026-09-28",
+      "feedDate": "2026-09-29",
+      "category": "ai",
+      "applicant": "individuals",
+      "description": "NetHope, the consortium of more than 60 humanitarian, development and conservation organizations working with over 70 technology companies, is piloting a short-term Humanitarian AI Research Fellowship to grow the pool of researchers and practitioners who understand how AI can responsibly advance humanitarian work, producing findings its member organizations can put to immediate practical use. Two parallel streams: Stream 1, AI Adoption and Governance (case studies of how humanitarian and nonprofit organizations adopt, govern and manage risk around AI tools; suited to backgrounds in policy, program evaluation or humanitarian systems) and Stream 2, AI Systems and Localization (evaluating open-source and open-weight models for humanitarian use, local versus proprietary systems, low-connectivity deployment, fine-tuning prompt and dataset libraries; suited to computer science, machine learning or applied data science backgrounds, with model evaluation or red-teaming experience a plus). ELIGIBILITY: mid-career to seasoned practitioners with strong writing and analytical skills, internationally open; fellows must pass an OFAC screening. NetHope owns all research outputs and IP; fellows are credited as named authors. HOW TO APPLY: CV, letter of interest answering three set questions, 2-3 references, optional writing sample, via NetHope's online form. NetHope may review applications and select fellows before the closing date, so apply early. DEADLINE: 9 October 2026.",
+      "url": "https://nethope.app.box.com/f/0377bdadf36e4b74b2f244fe07cd9f9b",
+      "tags": [
+        "fellowship",
+        "remote",
+        "ai",
+        "research",
+        "humanitarian",
+        "machine-learning",
+        "ai-governance",
+        "nonprofit",
+        "part-time",
+        "no-fee",
+        "stipend"
+      ],
+      "fee": false,
+      "featured": false,
+      "categories": [
+        "research"
+      ]
+    },
+    {
+      "id": "transluce-governance-policy-fellow-2026",
+      "title": "Transluce: Governance & Policy Fellow (San Francisco)",
+      "organization": "Transluce",
+      "location": "San Francisco, US, in office. International visa sponsorship possible.",
+      "region": "US",
+      "amount": "USD 200,000 to 300,000 per year salary plus benefits. Full-time; part-time possible for exceptional candidates.",
+      "duration": "Full-time position (part-time opportunities available for exceptional candidates).",
+      "startDate": null,
+      "deadline": null,
+      "addedDate": "2026-09-28",
+      "feedDate": "2026-10-02",
+      "category": "ai",
+      "applicant": "individuals",
+      "description": "Transluce, the independent nonprofit AI research lab advancing an industry standard for AI oversight, is hiring a Governance and Policy Fellow to work with its Head of Governance at the intersection of AI evaluation, policy and governance. RESPONSIBILITIES: defining standards and best practices for independent AI oversight (including the AI Evaluator Forum and the AEF-1 standard for evaluator independence), developing partnerships for interdisciplinary AI evaluations (for example on AI impacts on self-harm, suicide risk, mania and psychosis), engaging government and policy stakeholders (including the U.S. Center for AI Standards and Innovation, the EU AI Office and the UK AI Security Institute), and translating technical research on reinforcement learning and interpretability for policymakers, journalists and the public. PROFILE: hybrid technical and policy background; technical fluency in AI evaluation, hands-on policy or legal experience related to AI, academic research experience, and strong communication skills; domain experience in mental health, child safety, fraud, political persuasion or consumer protection is a plus. Based in San Francisco with in-person work expected; visa sponsorship available. Rolling applications.",
+      "url": "https://jobs.gem.com/transluce/am9icG9zdDpVz8DJmgMdoy_WaOqlBt2o",
+      "tags": [
+        "fellowship",
+        "job",
+        "full-time",
+        "ai",
+        "ai-policy",
+        "ai-safety",
+        "ai-evaluation",
+        "governance",
+        "san-francisco",
+        "us",
+        "salary"
+      ],
+      "fee": false,
+      "featured": false
     },
     {
       "id": "elephant-trust-autumn-2026",
