@@ -1313,7 +1313,8 @@ body {
 /* --- Export panel --- */
 .export-panel {
   max-width: 1180px;
-  margin: 10px auto 0;
+  width: calc(100% - 48px);
+  margin: 10px auto 24px;
   padding: 14px 18px;
   border: 1.5px solid var(--line);
   border-radius: 4px;
@@ -1322,7 +1323,7 @@ body {
   font-size: 11.5px;
 }
 @media (max-width: 700px) {
-  .export-panel { margin: 10px 16px 0; }
+  .export-panel { width: calc(100% - 32px); }
 }
 .export-panel[hidden] { display: none; }
 .export-panel .ex-row {
@@ -13966,6 +13967,20 @@ function updateHash() {
   }
 }
 
+// A pick only counts while its grant is still live on the page. Ids whose
+// grants have been filed away (archive) or removed from grants.json stay in
+// storage, so nothing is lost if a deadline gets extended, but they are
+// excluded from the count, the picks-only view, share links, the .ics
+// download and exports.
+function activePickIds() {
+  const out = [];
+  PICKS.forEach(id => {
+    const f = document.querySelector('.folder[data-grant-id="' + CSS.escape(id) + '"]');
+    if (f && !f.classList.contains('is-archive')) out.push(id);
+  });
+  return out;
+}
+
 function refreshPickStates() {
   document.querySelectorAll('.pick-btn').forEach(btn => {
     const id = btn.dataset.pickId;
@@ -13973,13 +13988,17 @@ function refreshPickStates() {
     btn.classList.toggle('is-picked', picked);
     btn.title = picked ? 'Remove from shortlist' : 'Save to shortlist';
   });
-  const count = PICKS.size;
+  const count = activePickIds().length;
   const countEl = document.getElementById('sl-count');
   if (countEl) countEl.textContent = count;
-  ['sl-share', 'sl-ics', 'sl-clear'].forEach(id => {
+  ['sl-share', 'sl-ics'].forEach(id => {
     const b = document.getElementById(id);
     if (b) b.disabled = count === 0;
   });
+  // Clear stays available while stale (archived/removed) picks linger in
+  // storage, so the shortlist can always be emptied for real.
+  const clearBtn = document.getElementById('sl-clear');
+  if (clearBtn) clearBtn.disabled = PICKS.size === 0;
   if (count === 0 && SHORTLIST_ONLY) {
     SHORTLIST_ONLY = false;
     const t = document.getElementById('sl-toggle');
@@ -13994,7 +14013,7 @@ function applyShortlistFilter() {
     if (!SHORTLIST_ONLY) {
       f.classList.remove('not-shortlisted');
     } else {
-      f.classList.toggle('not-shortlisted', !PICKS.has(f.dataset.grantId));
+      f.classList.toggle('not-shortlisted', !PICKS.has(f.dataset.grantId) || f.classList.contains('is-archive'));
     }
   });
   updateSectionCounts();
@@ -14026,8 +14045,9 @@ function setupShortlistBar() {
     applyShortlistFilter();
   });
   share.addEventListener('click', async () => {
-    if (!PICKS.size) return;
-    const url = window.location.origin + window.location.pathname + '#picks=' + encodeURIComponent([...PICKS].join(','));
+    const active = activePickIds();
+    if (!active.length) return;
+    const url = window.location.origin + window.location.pathname + '#picks=' + encodeURIComponent(active.join(','));
     try {
       await navigator.clipboard.writeText(url);
       const original = share.textContent;
@@ -14040,7 +14060,8 @@ function setupShortlistBar() {
   });
   clear.addEventListener('click', () => {
     if (!PICKS.size) return;
-    if (!confirm('Clear all ' + PICKS.size + ' shortlisted grants?')) return;
+    const n = activePickIds().length;
+    if (!confirm(n ? 'Clear all ' + n + ' shortlisted grants?' : 'Clear leftover shortlist data from filed-away grants?')) return;
     PICKS.clear();
     savePicks();
     refreshPickStates();
@@ -14051,7 +14072,8 @@ function setupShortlistBar() {
       const res = await fetch('grants.json', { cache: 'no-cache' });
       const data = await res.json();
       const today = new Date(); today.setHours(0,0,0,0);
-      const picked = (data.grants || []).filter(g => PICKS.has(g.id));
+      const active = new Set(activePickIds());
+      const picked = (data.grants || []).filter(g => active.has(g.id));
       const blob = new Blob([buildShortlistICS(picked)], { type: 'text/calendar;charset=utf-8' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -14146,7 +14168,7 @@ function exportVisibleFolders() {
 // the page (hot first, then new, long, rolling).
 function exportSelection() {
   const folders = EXPORT_STATE.scope === 'picks'
-    ? Array.from(document.querySelectorAll('.folder')).filter(f => PICKS.has(f.dataset.grantId))
+    ? Array.from(document.querySelectorAll('.folder')).filter(f => PICKS.has(f.dataset.grantId) && !f.classList.contains('is-archive'))
     : exportVisibleFolders();
   const seen = new Set();
   const out = [];
@@ -14334,7 +14356,7 @@ function refreshExportCounts() {
   const visibleEl = document.getElementById('ex-count-visible');
   const picksEl = document.getElementById('ex-count-picks');
   if (visibleEl) visibleEl.textContent = exportVisibleFolders().length;
-  if (picksEl) picksEl.textContent = PICKS.size;
+  if (picksEl) picksEl.textContent = activePickIds().length;
   refreshExportSize();
 }
 
