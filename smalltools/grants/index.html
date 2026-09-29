@@ -694,14 +694,22 @@ body {
   gap: 14px;
 }
 .filters-head .search-wrap { flex: 1; max-width: 480px; }
-.filter-result-count {
+.facet-bar-label {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--ink-mute);
-  margin-left: auto;
-  white-space: nowrap;
+  margin-bottom: -4px;
+}
+/* Count line sits at the top of the listings, labelling what the filters left */
+.filter-result-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+  padding: 2px 0 10px;
 }
 .facet-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .facet { position: relative; }
@@ -10689,8 +10697,8 @@ code *, pre *, kbd *, samp * {
       <input type="search" id="filter-search" placeholder="Search title, org, location, description..." aria-label="Search grants">
       <button type="button" id="filter-search-clear" aria-label="Clear search" hidden>&times;</button>
     </div>
-    <span class="filter-result-count" id="filter-result-count"></span>
   </div>
+  <div class="facet-bar-label">Filters</div>
   <div class="facet-bar" id="facet-bar">
     <div class="facet" data-facet-label="Category">
       <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Category</button>
@@ -10823,6 +10831,7 @@ code *, pre *, kbd *, samp * {
 </div>
 
 <main class="sections" id="sections">
+  <div class="filter-result-count" id="filter-result-count" aria-live="polite"></div>
   <section class="section" id="section-hot" data-collapsed="true">
     <div class="section-head">
       <div class="section-title">
