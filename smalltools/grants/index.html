@@ -13551,7 +13551,7 @@ function buildFilterChips() {
     return a.localeCompare(b);
   });
 
-  const typeOrder = ['residency', 'fellowship', 'prize', 'grant', 'travel', 'production', 'publication', 'festival', 'job', 'other'];
+  const typeOrder = ['grant', 'residency', 'fellowship', 'prize', 'travel', 'production', 'publication', 'festival', 'job', 'other'];
   const sortedTypes = [...types].sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b));
 
   const categoryGroup = document.getElementById('filter-category');
