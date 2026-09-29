@@ -13319,16 +13319,17 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// Alphabetical by label; 'Other' stays last as the catch-all.
 const CATEGORY_GROUPS = [
   { values: ['ai', 'tech'], label: 'AI, Tech, Digital Infrastructure' },
-  { values: ['research'], label: 'Research & Journalism' },
-  { values: ['writers'], label: 'Writers' },
-  { values: ['film', 'arts'], label: 'Media Arts, Film & Live Performance' },
-  { values: ['game'], label: 'Game Design' },
-  { values: ['design'], label: 'Design' },
-  { values: ['curator'], label: 'Curator' },
   { values: ['audio'], label: 'Audio, Sound & Music' },
   { values: ['cross'], label: 'Cross-disciplinary & Social Impact' },
+  { values: ['curator'], label: 'Curator' },
+  { values: ['design'], label: 'Design' },
+  { values: ['game'], label: 'Game Design' },
+  { values: ['film', 'arts'], label: 'Media Arts, Film & Live Performance' },
+  { values: ['research'], label: 'Research & Journalism' },
+  { values: ['writers'], label: 'Writers' },
   { values: ['other'], label: 'Other' },
 ];
 
