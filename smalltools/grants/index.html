@@ -677,6 +677,66 @@ body {
 .chip.is-active { background: var(--ink); color: var(--paper); }
 .chip.toggle.is-active { background: var(--hot); border-color: var(--hot); color: #fff; }
 
+/* Faceted filter bar: one compact button per facet, chips live in popover panels */
+.facet-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.facet { position: relative; }
+.facet-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #fff;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.facet-btn::after { content: ' \25BE'; opacity: 0.55; }
+.facet-btn:hover { background: var(--sticky-yellow); }
+.facet-btn.has-selection { background: var(--ink); color: var(--paper); }
+.facet-btn.has-selection:hover { background: var(--ink); }
+.facet.is-open .facet-btn { border-color: var(--ink); }
+.facet-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 60;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 12px;
+  min-width: 250px;
+  max-width: min(360px, calc(100vw - 32px));
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.08);
+}
+.facet-panel .filter-note { display: block; margin: 0 0 8px; }
+.chip .chip-count { opacity: 0.55; margin-left: 4px; font-size: 10px; }
+.chip.is-active .chip-count { opacity: 0.75; }
+.active-filters { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 10px; }
+.active-filters .af-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+  margin-right: 2px;
+}
+.chip.af-chip { background: var(--ink); color: var(--paper); }
+.chip.af-chip .af-x { margin-left: 6px; opacity: 0.7; }
+.chip.af-chip:hover { background: var(--hot); border-color: var(--hot); color: #fff; }
+.chip.af-clear { border-style: dashed; }
+@media (max-width: 640px) {
+  .filters { position: relative; }
+  .facet { position: static; }
+  .facet-panel { left: 0; right: 0; max-width: none; }
+}
+
 .folder.filtered-out { display: none !important; }
 .folder.not-shortlisted { display: none !important; }
 .folder.not-new { display: none !important; }
@@ -10548,55 +10608,80 @@ code *, pre *, kbd *, samp * {
     <input type="search" id="filter-search" placeholder="Search title, org, location, description..." aria-label="Search grants">
     <button type="button" id="filter-search-clear" aria-label="Clear search" hidden>&times;</button>
   </div>
-  <div class="filter-row">
-    <div class="filter-group" data-filter="category" id="filter-category">
-      <span class="filter-label">Category</span>
-      <button class="chip is-active" type="button" data-value="">All</button>
+  <div class="facet-bar" id="facet-bar">
+    <div class="facet" data-facet-label="Category">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Category</button>
+      <div class="facet-panel" hidden>
+        <div class="filter-group" data-filter="category" id="filter-category">
+          <button class="chip is-active" type="button" data-value="">All</button>
+        </div>
+      </div>
     </div>
-    <div class="filter-group" data-filter="type" id="filter-type">
-      <span class="filter-label">Type</span>
-      <button class="chip is-active" type="button" data-value="">All</button>
+    <div class="facet" data-facet-label="Type">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Type</button>
+      <div class="facet-panel" hidden>
+        <div class="filter-group" data-filter="type" id="filter-type">
+          <button class="chip is-active" type="button" data-value="">All</button>
+        </div>
+      </div>
+    </div>
+    <div class="facet" data-facet-label="Region">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Region</button>
+      <div class="facet-panel" hidden>
+        <div class="filter-group" data-filter="region" id="filter-region">
+          <button class="chip is-active" type="button" data-value="">All</button>
+        </div>
+      </div>
+    </div>
+    <div class="facet" data-facet-label="Who can apply">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Who can apply</button>
+      <div class="facet-panel" hidden>
+        <div class="filter-group" data-filter="applicant" id="filter-applicant">
+          <button class="chip is-active" type="button" data-value="">All</button>
+          <button class="chip" type="button" data-value="individuals" title="Individual artists, plus collectives, duos and unincorporated groups applying under their own names">Individuals or collectives</button>
+          <button class="chip" type="button" data-value="organizations" title="Registered legal entities only: incorporated non-profits, companies, charities, foundations, institutions">Organizations (legal entities)</button>
+        </div>
+      </div>
+    </div>
+    <div class="facet" data-facet-label="Amount">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Amount</button>
+      <div class="facet-panel" hidden>
+        <span class="filter-note">*This is based on local currency</span>
+        <div class="filter-group" data-filter="amount" id="filter-amount">
+          <button class="chip is-active" type="button" data-value="">All</button>
+          <button class="chip" type="button" data-value="under-5k">Under $5K</button>
+          <button class="chip" type="button" data-value="5k-25k">$5K to $25K</button>
+          <button class="chip" type="button" data-value="25k-100k">$25K to $100K</button>
+          <button class="chip" type="button" data-value="100k-1m">$100K to $1M</button>
+          <button class="chip" type="button" data-value="1m-plus">$1M+</button>
+          <button class="chip" type="button" data-value="in-kind">Funded / in-kind</button>
+        </div>
+      </div>
+    </div>
+    <div class="facet" data-facet-label="Time to apply">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Time to apply</button>
+      <div class="facet-panel" hidden>
+        <div class="filter-group" data-filter="deadline" id="filter-deadline">
+          <button class="chip is-active" type="button" data-value="">All</button>
+          <button class="chip" type="button" data-value="1">Not closing today</button>
+          <button class="chip" type="button" data-value="3">3+ days left</button>
+          <button class="chip" type="button" data-value="7">1+ week left</button>
+        </div>
+      </div>
+    </div>
+    <div class="facet" data-facet-label="Added">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Added</button>
+      <div class="facet-panel" hidden>
+        <div class="filter-group" data-filter="added" id="filter-added">
+          <button class="chip is-active" type="button" data-value="">All time</button>
+          <button class="chip" type="button" data-value="48h">Last 48h</button>
+          <button class="chip" type="button" data-value="7d">This week</button>
+          <button class="chip" type="button" data-value="30d">This month</button>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="filter-row">
-    <div class="filter-group" data-filter="region" id="filter-region">
-      <span class="filter-label">Region</span>
-      <button class="chip is-active" type="button" data-value="">All</button>
-    </div>
-    <div class="filter-group" data-filter="applicant" id="filter-applicant">
-      <span class="filter-label">Who can apply</span>
-      <button class="chip is-active" type="button" data-value="">All</button>
-      <button class="chip" type="button" data-value="individuals" title="Individual artists, plus collectives, duos and unincorporated groups applying under their own names">Individuals or collectives</button>
-      <button class="chip" type="button" data-value="organizations" title="Registered legal entities only: incorporated non-profits, companies, charities, foundations, institutions">Organizations (legal entities)</button>
-    </div>
-    <div class="filter-group" data-filter="amount" id="filter-amount">
-      <span class="filter-label">Amount</span>
-      <span class="filter-note">*This is based on local currency</span>
-      <button class="chip is-active" type="button" data-value="">All</button>
-      <button class="chip" type="button" data-value="under-5k">Under $5K</button>
-      <button class="chip" type="button" data-value="5k-25k">$5K to $25K</button>
-      <button class="chip" type="button" data-value="25k-100k">$25K to $100K</button>
-      <button class="chip" type="button" data-value="100k-1m">$100K to $1M</button>
-      <button class="chip" type="button" data-value="1m-plus">$1M+</button>
-      <button class="chip" type="button" data-value="in-kind">Funded / in-kind</button>
-    </div>
-  </div>
-  <div class="filter-row">
-    <div class="filter-group" data-filter="deadline" id="filter-deadline">
-      <span class="filter-label">Time to apply</span>
-      <button class="chip is-active" type="button" data-value="">All</button>
-      <button class="chip" type="button" data-value="1">Not closing today</button>
-      <button class="chip" type="button" data-value="3">3+ days left</button>
-      <button class="chip" type="button" data-value="7">1+ week left</button>
-    </div>
-    <div class="filter-group" data-filter="added" id="filter-added">
-      <span class="filter-label">Added</span>
-      <button class="chip is-active" type="button" data-value="">All time</button>
-      <button class="chip" type="button" data-value="48h">Last 48h</button>
-      <button class="chip" type="button" data-value="7d">This week</button>
-      <button class="chip" type="button" data-value="30d">This month</button>
-    </div>
-  </div>
+  <div class="active-filters" id="active-filters" hidden></div>
 </section>
 
 <section class="shortlist-bar" id="shortlist-bar" aria-label="My shortlist">
@@ -10852,10 +10937,6 @@ code *, pre *, kbd *, samp * {
       <li data-watchlist-until="2027-06-30">
         <a href="https://rupert.lt/residencies/" target="_blank" rel="noopener"><strong>Rupert Residencies (Vilnius, Lithuania)</strong></a>
         . Open calls are announced irregularly on the Rupert site and newsletter; the ALTERLIFE co-production with Sonic Acts (Vilnius plus Amsterdam) last closed August 2025. Rupert's residencies are fully funded: accommodation, workspace, a stipend and travel support, with production budgets for the resulting work. Interdisciplinary practices incorporating sound, video and research are a strong fit. Watch the residencies page for the next round.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://nidacolony.lt/" target="_blank" rel="noopener"><strong>Nida Art Colony lens-based residency (Nida, Lithuania)</strong></a>
-        . The Lithuanian Photographers Association x VAA Nida Art Colony call for a one-month residency on the Curonian Spit last closed 1 June 2026 (for May 2027); the next is expected around spring 2027. Funded: a EUR 600 grant, travel up to EUR 300, housing covered, plus up to EUR 300 for printing/digitisation; EUR 20 application fee. For artists working in photography or lens-based media broadly. Note: Nida's separate open-ended individual residency is a paid stay (~EUR 580/month, no stipend), so only this funded lens-based call is tracked here.
       </li>
       <li data-watchlist-until="2027-01-31">
         <a href="https://www.tarbellcenter.org/fellowship" target="_blank" rel="noopener"><strong>Tarbell Fellowship 2027 (AI Journalism)</strong></a>
@@ -13595,6 +13676,148 @@ function bindSingleSelectGroup(group, key) {
   });
 }
 
+// --- Facet bar: popover open/close, button summaries, active-filter row ---
+
+function initFacetBar() {
+  const bar = document.getElementById('facet-bar');
+  if (!bar) return;
+  const facets = Array.from(bar.querySelectorAll('.facet'));
+  const closeAll = () => facets.forEach(f => {
+    f.classList.remove('is-open');
+    const p = f.querySelector('.facet-panel');
+    if (p) p.hidden = true;
+    const b = f.querySelector('.facet-btn');
+    if (b) b.setAttribute('aria-expanded', 'false');
+  });
+  facets.forEach(f => {
+    const btn = f.querySelector('.facet-btn');
+    const panel = f.querySelector('.facet-panel');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasOpen = f.classList.contains('is-open');
+      closeAll();
+      if (!wasOpen) {
+        f.classList.add('is-open');
+        panel.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+    // Clicks inside a panel (toggling chips) keep the panel open.
+    panel.addEventListener('click', (e) => e.stopPropagation());
+  });
+  document.addEventListener('click', closeAll);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+}
+
+function chipLabelText(chip) {
+  const clone = chip.cloneNode(true);
+  clone.querySelectorAll('.chip-count').forEach(n => n.remove());
+  return clone.textContent.trim();
+}
+
+function updateFacetSummaries() {
+  const bar = document.getElementById('facet-bar');
+  if (!bar) return;
+  bar.querySelectorAll('.facet').forEach(f => {
+    const btn = f.querySelector('.facet-btn');
+    const group = f.querySelector('.filter-group');
+    if (!btn || !group) return;
+    const base = f.dataset.facetLabel || '';
+    const active = Array.from(group.querySelectorAll('.chip.is-active:not([data-value=""])'));
+    if (!active.length) {
+      btn.textContent = base;
+      btn.classList.remove('has-selection');
+      return;
+    }
+    btn.classList.add('has-selection');
+    const names = active.map(chipLabelText);
+    btn.textContent = names.length === 1 ? `${base}: ${names[0]}` : `${base}: ${names[0]} +${names.length - 1}`;
+  });
+}
+
+function renderActiveFilters() {
+  const row = document.getElementById('active-filters');
+  const bar = document.getElementById('facet-bar');
+  if (!row || !bar) return;
+  const entries = [];
+  bar.querySelectorAll('.facet').forEach(f => {
+    const group = f.querySelector('.filter-group');
+    if (!group) return;
+    const isSingle = group.dataset.filter === 'deadline';
+    group.querySelectorAll('.chip.is-active:not([data-value=""])').forEach(chip => {
+      // Removing a single-select value means resetting that group to All.
+      const removeTarget = isSingle ? group.querySelector('.chip[data-value=""]') : chip;
+      entries.push({ removeTarget, label: chipLabelText(chip) });
+    });
+  });
+  row.innerHTML = '';
+  if (!entries.length) { row.hidden = true; return; }
+  row.hidden = false;
+  const lbl = document.createElement('span');
+  lbl.className = 'af-label';
+  lbl.textContent = 'Active:';
+  row.appendChild(lbl);
+  entries.forEach(({ removeTarget, label }) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip af-chip';
+    b.appendChild(document.createTextNode(label));
+    const x = document.createElement('span');
+    x.className = 'af-x';
+    x.textContent = '×';
+    b.appendChild(x);
+    b.addEventListener('click', () => { if (removeTarget) removeTarget.click(); });
+    row.appendChild(b);
+  });
+  const clear = document.createElement('button');
+  clear.type = 'button';
+  clear.className = 'chip af-clear';
+  clear.textContent = 'Clear all';
+  clear.addEventListener('click', clearAllFilters);
+  row.appendChild(clear);
+}
+
+function clearAllFilters() {
+  ['category', 'region', 'type', 'applicant', 'amount', 'added'].forEach(k => FILTER_STATE[k].clear());
+  FILTER_STATE.deadline = '';
+  document.querySelectorAll('#facet-bar .filter-group').forEach(g => {
+    if (g.dataset.filter === 'deadline') {
+      g.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('is-active', (c.dataset.value || '') === ''));
+    } else {
+      syncChipGroup(g, g.dataset.filter);
+    }
+  });
+  applyFilters();
+}
+
+// Per-option counts for the browsable facets, computed over live (non-archived)
+// cards once at build time.
+function addChipCounts() {
+  const folders = Array.from(document.querySelectorAll('.folder')).filter(f => !f.closest('#section-archive'));
+  const datasetKeys = {
+    category: ['categories', 'category'],
+    region: ['regions', 'region'],
+    type: ['types', 'type'],
+  };
+  for (const [key, [plural, singular]] of Object.entries(datasetKeys)) {
+    const group = document.getElementById('filter-' + key);
+    if (!group) continue;
+    group.querySelectorAll('.chip:not([data-value=""])').forEach(chip => {
+      const values = (chip.dataset.value || '').split(',').filter(Boolean);
+      const n = folders.filter(f => {
+        const labels = (f.dataset[plural] || f.dataset[singular] || '').split(' ');
+        return values.some(v => labels.includes(v));
+      }).length;
+      const span = document.createElement('span');
+      span.className = 'chip-count';
+      span.textContent = String(n);
+      chip.appendChild(span);
+    });
+  }
+}
+
 const SEED_REGIONS = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Switzerland', 'Asia', 'China-HK-Taiwan', 'Africa', 'Canada', 'Australia', 'LatAm'];
 
 function buildFilterChips() {
@@ -13636,7 +13859,7 @@ function buildFilterChips() {
   const regionGroup = document.getElementById('filter-region');
   const seenRegionChips = new Set();
   for (const r of sortedRegions) {
-    let value = r, label = r;
+    let value = r, label = REGION_LABELS[r] || r;
     if (r === 'Remote' || r === 'Worldwide') {
       value = 'Remote,Worldwide';
       label = 'Remote/Worldwide';
@@ -13694,6 +13917,10 @@ function buildFilterChips() {
       searchInput.focus();
     });
   }
+
+  initFacetBar();
+  addChipCounts();
+  updateFacetSummaries();
 }
 
 function applyFilters() {
@@ -13752,6 +13979,8 @@ function applyFilters() {
   });
 
   updateSectionCounts();
+  updateFacetSummaries();
+  renderActiveFilters();
 }
 
 // Section header counts. A card can be hidden by the regular filters
