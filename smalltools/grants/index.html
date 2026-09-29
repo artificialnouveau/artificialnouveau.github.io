@@ -10458,7 +10458,7 @@ code *, pre *, kbd *, samp * {
   <button type="button" id="sl-share" disabled>Share picks</button>
   <button type="button" id="sl-ics" disabled>Download .ics</button>
   <button type="button" id="sl-clear" disabled>Clear</button>
-  <small class="sl-note">* counts currently listed grants only; picks that get filed away or removed are kept in your browser but drop out of the count, the picks view, shares, .ics and exports.</small>
+  <small class="sl-note">* counts currently listed grants only. Picks that get filed away drop out of the count, shares, .ics and exports, but still show up in the Filed Away drawer when viewing your picks.</small>
 </section>
 
 <section class="shortlist-bar export-bar" aria-label="Export for LLM">
@@ -14020,7 +14020,10 @@ function applyShortlistFilter() {
     if (!SHORTLIST_ONLY) {
       f.classList.remove('not-shortlisted');
     } else {
-      f.classList.toggle('not-shortlisted', !PICKS.has(f.dataset.grantId) || f.classList.contains('is-archive'));
+      // Filed-away picks stay visible in the archive drawer so the shortlist
+      // still shows where they went; they are only excluded from the count,
+      // share links, .ics and exports.
+      f.classList.toggle('not-shortlisted', !PICKS.has(f.dataset.grantId));
     }
   });
   updateSectionCounts();
