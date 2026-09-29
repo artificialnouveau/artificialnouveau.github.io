@@ -64,14 +64,15 @@ DESCRIPTION = (
 FEED_MAX_PER_DAY = 5
 FEED_CAP_START = date(2026, 7, 14)
 
-REGIONS = ["EU", "US", "UK", "NL", "Switzerland", "Asia", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"]
+REGIONS = ["EU", "US", "UK", "NL", "Switzerland", "Asia", "China-HK-Taiwan", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"]
 
 # Regions the RSS subscribe picker does not offer, because they sit almost
 # entirely inside EU (NL 91%, Switzerland 95%) and mostly gave subscribers the
-# same grants twice. This is a SYNDICATION decision only: the website's region
-# filter, the static SEO pages and the calendars all still carry them in full.
-# Their bare feeds stay as compatibility aliases; permutations are not built.
-FEED_REGIONS_EXCLUDED = {"NL", "Switzerland"}
+# same grants twice; China-HK-Taiwan sits inside Asia the same way. This is a
+# SYNDICATION decision only: the website's region filter, the static SEO pages
+# and the calendars all still carry them in full. Their bare feeds stay as
+# compatibility aliases; permutations are not built.
+FEED_REGIONS_EXCLUDED = {"NL", "Switzerland", "China-HK-Taiwan"}
 
 # Remote and Worldwide overlapped by 29 percent (12 shared calls) and read as the
 # same promise to a subscriber, so the pickers offer them as ONE box backed by one
@@ -82,7 +83,7 @@ FEED_REGIONS_EXCLUDED = {"NL", "Switzerland"}
 REGION_GROUPS = {
     "remote-worldwide": ["Remote", "Worldwide"],
 }
-REGION_LABELS = {"remote-worldwide": "Remote & Worldwide"}
+REGION_LABELS = {"remote-worldwide": "Remote & Worldwide", "China-HK-Taiwan": "China, Hong Kong & Taiwan"}
 _GROUPED_REGION_MEMBERS = {m for ms in REGION_GROUPS.values() for m in ms}
 SYNDICATION_REGIONS = REGIONS + list(REGION_GROUPS)
 PICKER_REGIONS = [
@@ -232,7 +233,10 @@ def region_matches(grant, region):
     """True when a grant belongs to a region view. Switzerland is a tag-driven
     sub-region: Swiss grants keep ``region: "EU"`` (so they stay in the EU feeds,
     pages and filter) and additionally populate the Switzerland views via their
-    ``switzerland`` tag.
+    ``switzerland`` tag. China-HK-Taiwan works the same way under Asia, driven
+    by the ``china``, ``hong-kong`` and ``taiwan`` tags (a grant hosted
+    elsewhere, e.g. an NL-funded Hong Kong residency, also surfaces here via
+    its tag).
 
     A grant may also carry an optional ``regions`` list to appear in several
     views at once. The singular ``region`` remains the canonical primary and is
@@ -262,7 +266,11 @@ def region_matches(grant, region):
         return True
     if region in (grant.get("regions") or []):
         return True
-    return region == "Switzerland" and "switzerland" in (grant.get("tags") or [])
+    if region == "Switzerland" and "switzerland" in (grant.get("tags") or []):
+        return True
+    return region == "China-HK-Taiwan" and bool(
+        {"china", "hong-kong", "taiwan"} & set(grant.get("tags") or [])
+    )
 
 
 def category_matches(grant, category):
@@ -697,6 +705,7 @@ REGION_PHRASE = {
     "NL": "the Netherlands",
     "Switzerland": "Switzerland",
     "Asia": "Asia",
+    "China-HK-Taiwan": "China, Hong Kong and Taiwan",
     "Africa": "Africa",
     "Canada": "Canada",
     "Australia": "Australia",
@@ -712,6 +721,7 @@ REGION_TITLE_TAIL = {
     "NL": "in the Netherlands",
     "Switzerland": "in Switzerland",
     "Asia": "in Asia",
+    "China-HK-Taiwan": "in China, Hong Kong and Taiwan",
     "Africa": "in Africa",
     "Canada": "in Canada",
     "Australia": "in Australia",
