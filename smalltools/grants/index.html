@@ -1293,6 +1293,12 @@ body {
   font-weight: 500;
 }
 .shortlist-bar button:hover { background: var(--sticky-yellow); }
+.shortlist-bar .sl-note {
+  flex-basis: 100%;
+  color: var(--ink-mute);
+  font-size: 10.5px;
+  line-height: 1.5;
+}
 .shortlist-bar button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
@@ -10448,10 +10454,11 @@ code *, pre *, kbd *, samp * {
 
 <section class="shortlist-bar" id="shortlist-bar" aria-label="My shortlist">
   <span class="sl-label">My shortlist:</span>
-  <button type="button" id="sl-toggle" aria-pressed="false">Show only my picks (<span id="sl-count">0</span>)</button>
+  <button type="button" id="sl-toggle" aria-pressed="false">Show only my picks (<span id="sl-count">0</span>)*</button>
   <button type="button" id="sl-share" disabled>Share picks</button>
   <button type="button" id="sl-ics" disabled>Download .ics</button>
   <button type="button" id="sl-clear" disabled>Clear</button>
+  <small class="sl-note">* counts currently listed grants only; picks that get filed away or removed are kept in your browser but drop out of the count, the picks view, shares, .ics and exports.</small>
 </section>
 
 <section class="shortlist-bar export-bar" aria-label="Export for LLM">
@@ -10464,7 +10471,7 @@ code *, pre *, kbd *, samp * {
     <span class="ex-label">Export</span>
     <div class="ex-group" id="ex-scope" role="group" aria-label="What to export">
       <button type="button" class="is-active" data-value="visible">Filtered view (<span id="ex-count-visible">0</span>)</button>
-      <button type="button" data-value="picks">My shortlist (<span id="ex-count-picks">0</span>)</button>
+      <button type="button" data-value="picks">My shortlist (<span id="ex-count-picks">0</span>)*</button>
     </div>
   </div>
   <div class="ex-row">
@@ -10488,7 +10495,7 @@ code *, pre *, kbd *, samp * {
     <button type="button" id="ex-close">Close</button>
     <span class="ex-size" id="ex-size"></span>
   </div>
-  <p class="ex-help"><strong>Markdown</strong> is the best default for pasting into an LLM: one heading per opportunity, labelled fields, and a header noting which filters were applied. Use <strong>JSON</strong> if you want the model to sort, score or re-rank entries programmatically, and <strong>CSV</strong> for a spreadsheet. <strong>Summary only</strong> trims each description to its opening paragraph, which keeps a large export inside a smaller context window. Everything is generated in your browser; nothing is uploaded.</p>
+  <p class="ex-help"><strong>Markdown</strong> is the best default for pasting into an LLM: one heading per opportunity, labelled fields, and a header noting which filters were applied. Use <strong>JSON</strong> if you want the model to sort, score or re-rank entries programmatically, and <strong>CSV</strong> for a spreadsheet. <strong>Summary only</strong> trims each description to its opening paragraph, which keeps a large export inside a smaller context window. <strong>My shortlist</strong> exports currently listed grants only; picks that have been filed away or removed are excluded. Everything is generated in your browser; nothing is uploaded.</p>
 </section>
 
 <div class="new-banner" id="new-banner">
