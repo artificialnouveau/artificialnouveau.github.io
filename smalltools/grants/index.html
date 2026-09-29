@@ -677,7 +677,32 @@ body {
 .chip.is-active { background: var(--ink); color: var(--paper); }
 .chip.toggle.is-active { background: var(--hot); border-color: var(--hot); color: #fff; }
 
-/* Faceted filter bar: one compact button per facet, chips live in popover panels */
+/* Faceted filter bar: one compact button per facet, chips live in popover panels.
+   The whole thing sits in one toolbar card so it reads as a single control. */
+.filters-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--paper-2);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.filters-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.filters-head .search-wrap { flex: 1; max-width: 480px; }
+.filter-result-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+  margin-left: auto;
+  white-space: nowrap;
+}
 .facet-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .facet { position: relative; }
 .facet-btn {
@@ -716,7 +741,25 @@ body {
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.08);
 }
 .facet-panel .filter-note { display: block; margin: 0 0 8px; }
-.chip .chip-count { opacity: 0.55; margin-left: 4px; font-size: 10px; }
+/* Inside a panel, options render as a quiet vertical list instead of pills */
+.facet-panel .filter-group {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+}
+.facet-panel .chip {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 10px;
+}
+.facet-panel .chip:hover { background: var(--sticky-yellow); }
+.facet-panel .chip.is-active { background: var(--ink); color: var(--paper); }
+.chip .chip-count { opacity: 0.55; margin-left: auto; padding-left: 16px; font-size: 10px; }
 .chip.is-active .chip-count { opacity: 0.75; }
 .active-filters { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 10px; }
 .active-filters .af-label {
@@ -10640,9 +10683,13 @@ code *, pre *, kbd *, samp * {
 
 
 <section class="filters" id="filters" aria-label="Filter grants">
-  <div class="search-wrap">
-    <input type="search" id="filter-search" placeholder="Search title, org, location, description..." aria-label="Search grants">
-    <button type="button" id="filter-search-clear" aria-label="Clear search" hidden>&times;</button>
+  <div class="filters-inner">
+  <div class="filters-head">
+    <div class="search-wrap">
+      <input type="search" id="filter-search" placeholder="Search title, org, location, description..." aria-label="Search grants">
+      <button type="button" id="filter-search-clear" aria-label="Clear search" hidden>&times;</button>
+    </div>
+    <span class="filter-result-count" id="filter-result-count"></span>
   </div>
   <div class="facet-bar" id="facet-bar">
     <div class="facet" data-facet-label="Category">
@@ -10718,6 +10765,7 @@ code *, pre *, kbd *, samp * {
     </div>
   </div>
   <div class="active-filters" id="active-filters" hidden></div>
+  </div>
 </section>
 
 <section class="shortlist-bar" id="shortlist-bar" aria-label="My shortlist">
@@ -13954,6 +14002,7 @@ function buildFilterChips() {
   initFacetBar();
   addChipCounts();
   updateFacetSummaries();
+  updateSectionCounts();
 }
 
 function applyFilters() {
@@ -14039,6 +14088,15 @@ function updateSectionCounts() {
     } else {
       meta.textContent = `${visible} of ${total} shown`;
     }
+  }
+  const countEl = document.getElementById('filter-result-count');
+  if (countEl) {
+    const live = Array.from(document.querySelectorAll('.folder')).filter(f => !f.closest('#section-archive'));
+    const visible = live.filter(f =>
+      !f.classList.contains('filtered-out') && !f.classList.contains('not-new') && !f.classList.contains('not-shortlisted')).length;
+    countEl.textContent = visible === live.length
+      ? `${live.length} open calls`
+      : `${visible} of ${live.length} open calls`;
   }
   refreshExportCounts();
 }
