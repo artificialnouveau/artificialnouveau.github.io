@@ -4,7 +4,7 @@
     {% if post.hidden_from_gallery %}{% continue %}{% endif %}
     <a href="{{ site.baseurl }}{{ post.url }}" class="gallery-card">
       <!-- thumbnail, not image: `image` would override the site-wide og:image -->
-      <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" class="gallery-image">
+      <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" class="gallery-image" loading="lazy" decoding="async">
       <div class="gallery-content">
         <h2 class="gallery-title">{{ post.title }}</h2>
         <p class="gallery-excerpt">{{ post.excerpt | markdownify | strip_html | truncatewords: 25 }}</p>

@@ -20,17 +20,17 @@ Read more about Screen-to-Soundscape on [www.screentosoundscape.com](https://www
 
 <h2 style="text-align:center; margin-top:0;">Try It: Hear This Page</h2>
 
-<p style="text-align:center; color: #b8a8d8; font-size: 0.8rem;">
+<p style="text-align:center; color:var(--color-muted); font-size: 0.8rem;">
 Enable spatial audio, then hover over any text block below. You'll hear a tone placed at the block's position in 3D space, followed by the text read aloud. Left blocks sound from your left ear, right from your right; top blocks are farther away, bottom blocks are closer. Pick any voice your system has installed. The browser's speech engine plays straight to the output and cannot be routed through the 3D panner, so the voice carries distance as volume while the tone carries the direction. The prototype further down does spatialise the speech itself, by synthesising it as audio data first.
 </p>
 
 <div style="text-align:center; margin: 1rem 0;">
   <button id="spatial-toggle" style="background:var(--color-card-bg); border:2px solid var(--color-accent-cyan); color:var(--color-accent-cyan); font-family:'JetBrains Mono',monospace; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.6rem 1.2rem; cursor:pointer;">[ Enable Spatial Audio ]</button>
-  <label for="voice-pick" style="display:inline-block; margin-left:1rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:#b8a8d8;">Voice</label>
+  <label for="voice-pick" style="display:inline-block; margin-left:1rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--color-muted);">Voice</label>
   <select id="voice-pick" style="margin-left:0.4rem; background:var(--color-card-bg); border:1px solid rgba(20,16,12,0.3); color:inherit; font-family:'JetBrains Mono',monospace; font-size:0.7rem; padding:0.35rem 0.5rem; max-width:16rem;"></select>
 </div>
 
-<div id="spatial-status" style="text-align:center; font-size:0.65rem; color:#b8a8d8; margin-bottom:1.5rem;"></div>
+<div id="spatial-status" style="text-align:center; font-size:0.65rem; color:var(--color-muted); margin-bottom:1.5rem;"></div>
 
 <div id="soundscape-demo" style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; opacity: 0.5; pointer-events: none;">
 
@@ -61,7 +61,7 @@ Enable spatial audio, then hover over any text block below. You'll hear a tone p
 
 </div>
 
-<p style="text-align:center; font-size:0.6rem; color:#b8a8d8; opacity:0.6; margin-top:1rem;">Best experienced with headphones. Each block has its own tone, positioned in 3D; the voice follows with the block's distance as volume.</p>
+<p style="text-align:center; font-size:0.6rem; color:var(--color-muted); opacity:0.6; margin-top:1rem;">Best experienced with headphones. Each block has its own tone, positioned in 3D; the voice follows with the block's distance as volume.</p>
 
 </div>
 
@@ -324,7 +324,7 @@ Enable spatial audio, then hover over any text block below. You'll hear a tone p
 
 <h2 style="text-align:center; margin-top:0;">Phase 1B Prototype: Wikipedia Soundscape Generator</h2>
 
-<p style="text-align:center; color: #b8a8d8; font-size: 0.8rem;">
+<p style="text-align:center; color:var(--color-muted); font-size: 0.8rem;">
 Enter a Wikipedia article to explore it as a 3D soundscape. Walk through sections with arrow keys, hear singing bowl beacons from each element's position, and listen to spatial text-to-speech. Best with headphones.
 </p>
 
@@ -337,7 +337,7 @@ Enter a Wikipedia article to explore it as a 3D soundscape. Walk through section
 </iframe>
 </div>
 
-<p style="text-align:center; font-size:0.6rem; color:#b8a8d8; opacity:0.6; margin-top:0.5rem;">
+<p style="text-align:center; font-size:0.6rem; color:var(--color-muted); opacity:0.6; margin-top:0.5rem;">
 <a href="https://www.screentosoundscape.com/scripts/phase1bprototype.html" target="_blank" style="color:var(--color-accent-cyan);">Open full-screen</a> for the best experience.
 </p>
 

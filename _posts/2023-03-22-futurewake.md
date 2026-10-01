@@ -75,20 +75,20 @@ category: "Installation"
 
 <h2 style="text-align:center; margin-top:0;">Predict Your Risk</h2>
 
-<p style="text-align:center; color: #b8a8d8; font-size: 0.8rem;">
+<p style="text-align:center; color:var(--color-muted); font-size: 0.8rem;">
 Enter your zip code and demographics below. The system will estimate your likelihood of facing a fatal police encounter based on real data.<br>
 <span style="font-size: 0.65rem; opacity: 0.7;">No data is stored or transmitted. All calculations happen in your browser.</span>
 </p>
 
 <div style="max-width: 500px; margin: 0 auto;">
   <div style="margin-bottom: 1rem;">
-    <label style="font-size:0.7rem; color:var(--color-accent-cyan); text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.3rem;">Zip Code <span style="color:#b8a8d8; font-size:0.6rem; text-transform:none;">(or select state below)</span></label>
+    <label style="font-size:0.7rem; color:var(--color-accent-cyan); text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.3rem;">Zip Code <span style="color:var(--color-muted); font-size:0.6rem; text-transform:none;">(or select state below)</span></label>
     <input type="text" id="fw-zip" maxlength="5" placeholder="e.g. 90210" style="width:100%; padding:0.6rem; background:var(--color-card-bg); border:1px solid rgba(20, 16, 12, 0.3); color:var(--color-accent-cyan); font-family:'JetBrains Mono',monospace; font-size:0.85rem;">
-    <div id="fw-zip-state-hint" style="font-size:0.6rem; color:#b8a8d8; margin-top:0.2rem; min-height:1em;"></div>
+    <div id="fw-zip-state-hint" style="font-size:0.6rem; color:var(--color-muted); margin-top:0.2rem; min-height:1em;"></div>
   </div>
 
   <div id="fw-state-row" style="margin-bottom: 1rem;">
-    <label style="font-size:0.7rem; color:var(--color-accent-cyan); text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.3rem;">State <span style="color:#b8a8d8; font-size:0.6rem; text-transform:none;">(auto-filled from zip code if provided)</span></label>
+    <label style="font-size:0.7rem; color:var(--color-accent-cyan); text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.3rem;">State <span style="color:var(--color-muted); font-size:0.6rem; text-transform:none;">(auto-filled from zip code if provided)</span></label>
     <select id="fw-state" style="width:100%; padding:0.6rem; background:var(--color-card-bg); border:1px solid rgba(20, 16, 12, 0.3); color:var(--color-accent-cyan); font-family:'JetBrains Mono',monospace; font-size:0.85rem;">
       <option value="">Select state...</option>
     </select>
@@ -142,9 +142,9 @@ Enter your zip code and demographics below. The system will estimate your likeli
 <div id="fw-results" style="display:none; margin-top:1.5rem;">
 
   <div id="fw-risk-display" style="text-align:center; padding:2rem; border:2px solid var(--color-accent); background:rgba(192, 51, 15, 0.03);">
-    <div style="font-size:0.65rem; color:#b8a8d8; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:0.5rem;">Estimated Annual Risk of Fatal Police Encounter</div>
+    <div style="font-size:0.65rem; color:var(--color-muted); text-transform:uppercase; letter-spacing:0.15em; margin-bottom:0.5rem;">Estimated Annual Risk of Fatal Police Encounter</div>
     <div id="fw-risk-number" style="font-size:clamp(2rem,5vw,3.5rem); font-weight:700; letter-spacing:0.05em;"></div>
-    <div id="fw-risk-label" style="font-size:0.75rem; color:#b8a8d8; margin-top:0.5rem;"></div>
+    <div id="fw-risk-label" style="font-size:0.75rem; color:var(--color-muted); margin-top:0.5rem;"></div>
   </div>
 
   <!-- Breakdown -->
@@ -158,8 +158,8 @@ Enter your zip code and demographics below. The system will estimate your likeli
 
   <!-- Data credit -->
   <div style="margin-top:2rem; padding:1rem; border:1px solid rgba(20, 16, 12, 0.15); background:rgba(0,0,0,0.3);">
-    <p style="font-size:0.7rem; color:#b8a8d8; margin:0;">This prediction is based on data from <a href="https://mappingpoliceviolence.org/" target="_blank" style="color:var(--color-accent-cyan);">Mapping Police Violence</a> covering <strong style="color:var(--color-accent-cyan);">January 1, 2013</strong> to <strong style="color:var(--color-accent-cyan);">September 9, 2025</strong>, a total of <strong style="color:var(--color-accent);">15,419</strong> documented fatal police encounters in the United States.</p>
-    <p style="font-size:0.6rem; color:#b8a8d8; margin-top:0.5rem; opacity:0.7;">Risk estimates are statistical projections based on historical data aggregated by demographic group and geography. They do not predict individual outcomes. This tool is intended to illustrate systemic patterns in policing, not to assess personal danger.</p>
+    <p style="font-size:0.7rem; color:var(--color-muted); margin:0;">This prediction is based on data from <a href="https://mappingpoliceviolence.org/" target="_blank" style="color:var(--color-accent-cyan);">Mapping Police Violence</a> covering <strong style="color:var(--color-accent-cyan);">January 1, 2013</strong> to <strong style="color:var(--color-accent-cyan);">September 9, 2025</strong>, a total of <strong style="color:var(--color-accent);">15,419</strong> documented fatal police encounters in the United States.</p>
+    <p style="font-size:0.6rem; color:var(--color-muted); margin-top:0.5rem; opacity:0.7;">Risk estimates are statistical projections based on historical data aggregated by demographic group and geography. They do not predict individual outcomes. This tool is intended to illustrate systemic patterns in policing, not to assess personal danger.</p>
   </div>
 
 </div>
@@ -235,7 +235,7 @@ Enter your zip code and demographics below. The system will estimate your likeli
     var pct = Math.min(100, (rate / maxRate) * 100);
     return '<div style="margin-bottom:0.6rem;">' +
       '<div style="display:flex; justify-content:space-between; font-size:0.6rem; margin-bottom:0.2rem;">' +
-      '<span style="color:#b8a8d8;">' + label + '</span>' +
+      '<span style="color:var(--color-muted);">' + label + '</span>' +
       '<span style="color:' + color + ';">' + rate.toFixed(2) + ' per million</span>' +
       '</div>' +
       '<div style="background:rgba(20, 16, 12, 0.1); height:8px; width:100%;">' +
@@ -371,7 +371,7 @@ Enter your zip code and demographics below. The system will estimate your likeli
     // Breakdown
     var bd = document.getElementById('fw-breakdown');
     bd.innerHTML = '<h4 style="color:var(--color-accent-cyan); font-size:0.8rem; margin-top:0; margin-bottom:0.75rem;">Risk Factor Breakdown</h4>' +
-      '<div style="font-size:0.7rem; color:#b8a8d8; line-height:2;">' +
+      '<div style="font-size:0.7rem; color:var(--color-muted); line-height:2;">' +
       '<div><span style="color:var(--color-accent-cyan);">State (' + state + '):</span> ' + stateRate.toFixed(2) + ' per million/yr, <span style="color:' + (stateMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + stateMultiplier.toFixed(2) + 'x national avg</span></div>' +
       '<div><span style="color:var(--color-accent-cyan);">Race (' + race + '):</span> ' + raceRate.toFixed(2) + ' per million/yr, <span style="color:' + (raceMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + raceMultiplier.toFixed(2) + 'x national avg</span></div>' +
       '<div><span style="color:var(--color-accent-cyan);">Gender (' + gender + '):</span> ' + genderRate.toFixed(2) + ' per million/yr, <span style="color:' + (genderMultiplier > 1.2 ? 'var(--color-accent)' : 'var(--color-accent-cyan)') + '">' + genderMultiplier.toFixed(2) + 'x national avg</span></div>' +
@@ -392,7 +392,7 @@ Enter your zip code and demographics below. The system will estimate your likeli
         var barColor = cause === 'Gunshot' ? 'var(--color-accent)' : cause === 'Vehicle' ? '#ffaa00' : cause === 'Taser' ? 'var(--color-accent-purple)' : 'var(--color-accent-cyan)';
         codHtml += '<div style="margin-bottom:0.5rem;">' +
           '<div style="display:flex; justify-content:space-between; font-size:0.6rem; margin-bottom:0.2rem;">' +
-          '<span style="color:#b8a8d8;">' + cause + '</span>' +
+          '<span style="color:var(--color-muted);">' + cause + '</span>' +
           '<span style="color:' + barColor + ';">' + count.toLocaleString() + ' (' + pct.toFixed(1) + '%)</span>' +
           '</div>' +
           '<div style="background:rgba(20, 16, 12, 0.1); height:8px; width:100%;">' +
@@ -428,35 +428,35 @@ Enter your zip code and demographics below. The system will estimate your likeli
 
 <div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(20, 16, 12, 0.03); border-left: 3px solid var(--color-accent);">
 <h4 style="margin-top:0;"><span style="color:var(--color-accent);">[2024]</span> Embodying Data, Shifting Perspective</h4>
-<p style="font-size:0.8rem; color:#b8a8d8; margin-bottom:0.5rem;">Book &bull; Amsterdam: Amsterdam University Press &bull; Wevers, R Edited by Ponzanesi, S. and Leurs, Koen.</p>
+<p style="font-size:0.8rem; color:var(--color-muted); margin-bottom:0.5rem;">Book &bull; Amsterdam: Amsterdam University Press &bull; Wevers, R Edited by Ponzanesi, S. and Leurs, Koen.</p>
 <p style="font-size:0.8rem;">This chapter discusses the artistic project Future Wake (2021) by Ahnjili Zhuparris and Tim van Ommeren that examines predictive policing. By shifting the focus from possible future crime offenders to possible future victims of fatal police encounters, using visual and affective means rather than expert knowledge and statistics, the artwork activates critical reflection on the politics and logics of predictive policing systems. The chapter first situates predictive policing in a context of securitization, and discusses how it enhances structures of discrimination. In the second part, Wevers interviews artist Zhuparris about the aims of Future Wake, discussing the artistic and technical process of creating the project, the politics of data, and the role of art in critical discussion on surveillance and AI.</p>
 <p style="font-size:0.75rem;"><a href="https://research.hanze.nl/en/publications/embodying-data-shifting-perspective-a-conversation-with-ahnjili-z" target="_blank">You can find the full PDF here</a></p>
 </div>
 
 <div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(20, 16, 12, 0.03); border-left: 3px solid var(--color-accent-cyan);">
 <h4 style="margin-top:0;"><span style="color:var(--color-accent);">[2022]</span> Can AI imagine the next victims of police violence?</h4>
-<p style="font-size:0.8rem; color:#b8a8d8; margin-bottom:0.5rem;">It's Nice That &bull; London, United Kingdom</p>
+<p style="font-size:0.8rem; color:var(--color-muted); margin-bottom:0.5rem;">It's Nice That &bull; London, United Kingdom</p>
 <p style="font-size:0.8rem;">What are the issues with using AI for predictive policing? Could it reduce crime or does it reinforce racial biases in the criminal justice system? The co-founder of art project Future Wake examines unjust policing using AI and storytelling.</p>
 <p style="font-size:0.75rem;"><a href="http://www.itsnicethat.com/articles/future-wake-can-ai-imagine-police-violence-digital-opinion-120122" target="_blank">You can find the full article on the Its Nice That website</a></p>
 </div>
 
 <div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(20, 16, 12, 0.03); border-left: 3px solid var(--color-accent-cyan);">
 <h4 style="margin-top:0;"><span style="color:var(--color-accent);">[2021]</span> This horrifying AI model predicts future instances of police brutality</h4>
-<p style="font-size:0.8rem; color:#b8a8d8; margin-bottom:0.5rem;">Fast Company &bull; Mark Sullivan &bull; United States</p>
+<p style="font-size:0.8rem; color:var(--color-muted); margin-bottom:0.5rem;">Fast Company &bull; Mark Sullivan &bull; United States</p>
 <p style="font-size:0.8rem;">A searing critique of predictive policing, Future Wake uses past data on police violence to predict where it might occur in the future&mdash;and who will be targeted.</p>
 <p style="font-size:0.75rem;"><a href="http://www.fastcompany.com/90689806/ai-police-brutality-predictions-future-wake" target="_blank">You can find the full article on the Fast Company website</a></p>
 </div>
 
 <div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(20, 16, 12, 0.03); border-left: 3px solid var(--color-accent-cyan);">
 <h4 style="margin-top:0;"><span style="color:var(--color-accent);">[2021]</span> Future Wake: the AI art project that predicts police violence</h4>
-<p style="font-size:0.8rem; color:#b8a8d8; margin-bottom:0.5rem;">Coda Story &bull; Caitlin Thompson &bull; United States</p>
+<p style="font-size:0.8rem; color:var(--color-muted); margin-bottom:0.5rem;">Coda Story &bull; Caitlin Thompson &bull; United States</p>
 <p style="font-size:0.8rem;">Winner of the Mozilla Creative Media award for 2021, an interactive website calculates when and where fatal encounters with law enforcement will occur &mdash; and tells the stories of the victims.</p>
 <p style="font-size:0.75rem;"><a href="http://www.codastory.com/authoritarian-tech/future-wake-predictive-policing/" target="_blank">You can find the full article on the Coda Story website</a></p>
 </div>
 
 <div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(20, 16, 12, 0.03); border-left: 3px solid var(--color-accent-cyan);">
 <h4 style="margin-top:0;"><span style="color:var(--color-accent);">[2021]</span> Artists create AI that predicts who the police will kill next</h4>
-<p style="font-size:0.8rem; color:#b8a8d8; margin-bottom:0.5rem;">The Next Web &bull; Thomas Macaulay &bull; Netherlands</p>
+<p style="font-size:0.8rem; color:var(--color-muted); margin-bottom:0.5rem;">The Next Web &bull; Thomas Macaulay &bull; Netherlands</p>
 <p style="font-size:0.8rem;">Future Wake tells the stories of potential victims.</p>
 <p style="font-size:0.75rem;"><a href="http://thenextweb.com/news/future-wake-ai-predicts-who-police-will-kill-next" target="_blank">You can find the full article on The Next Web website</a></p>
 </div>

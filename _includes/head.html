@@ -1,7 +1,7 @@
 <!-- Metadata -->
 <meta charset="{{ site.encoding | default: 'utf-8' }}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0a0014">
+<meta name="theme-color" content="#efe9dc">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="{{ site.author.name }}">
 <!-- Favicons -->
@@ -14,21 +14,17 @@
 
 {% seo %}
 
-<!-- FontAwesome JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.js" integrity="sha512-HAXr8ULpyrhyIF0miP+mFTwOagNI+UVA38US1XdtBbkU7mse59ar0ck4KBil/jyzkTO37DWLfRQvEeUWgwHu0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- FontAwesome (CSS build: far lighter than the JS bundle it replaces) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
-{% if site.css_inline == true %}
-{% include site-styles.html %}
-{% else %}
-<!-- CSS -->
-<link id="theme-style" rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
-<link id="custom-theme" rel="stylesheet" href="{{ '/assets/css/custom-theme.css' | relative_url }}">
-<!-- PROTOTYPE: print-object theme, loaded last so it overrides the two above -->
-<link id="print-object" rel="stylesheet" href="{{ '/assets/css/print-object.css' | relative_url }}">
-{% endif %}
+<!-- Fonts: JetBrains Mono from Google Fonts, Young Serif self-hosted via paper.css -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-<!-- Drone Cursor Script -->
-<script src="{{ '/assets/js/drone-cursor.js' | relative_url }}" defer></script>
+<!-- CSS: the paper theme, one consolidated stylesheet shared with the
+     standalone subsites. -->
+<link id="theme-style" rel="stylesheet" href="{{ '/assets/css/paper.css' | relative_url }}">
 
 <!-- GoatCounter analytics -->
 <script data-goatcounter="https://artnou.goatcounter.com/count"
