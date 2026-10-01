@@ -55,6 +55,9 @@
 
 * { box-sizing: border-box; }
 
+/* Browser surfaces carry the design too */
+::selection { background: var(--ink); color: var(--paper); }
+
 body {
   margin: 0;
   background: var(--paper);
@@ -119,7 +122,7 @@ h1 {
 
 .tag-sku {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-soft);
@@ -249,11 +252,12 @@ h2 {
 .pub-t a { color: var(--ink); text-decoration-color: rgba(20,16,12,0.35); }
 .pub-t a:hover { color: var(--spot); text-decoration-color: currentColor; }
 
+/* Mixed case: these lines carry venues and full author lists, too long to
+   read comfortably in caps. The mono face and soft ink keep the meta voice. */
 .pub-loc {
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
   color: var(--ink-soft);
   margin-top: 5px;
 }
@@ -264,8 +268,8 @@ h2 {
   padding: 2px 7px;
   border: var(--rule-hair);
   border-radius: 2px;
-  font-size: 9px;
-  letter-spacing: 0.12em;
+  font-size: 11px;
+  letter-spacing: 0.08em;
   color: var(--ink-soft);
   white-space: nowrap;
 }
@@ -274,7 +278,7 @@ h2 {
 .abs { margin-top: 8px; }
 .abs > summary {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-soft);
@@ -327,7 +331,7 @@ h2 {
 
 .item-yr {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.16em;
   color: var(--ink-soft);
 }
@@ -469,7 +473,6 @@ footer { border-top: var(--rule); margin-top: 56px; padding: 26px 0 48px; }
   line-height: 1.7;
   letter-spacing: 0.02em;
   color: var(--ink-soft);
-  text-transform: uppercase;
 }
 
 a:focus-visible, .tag:focus-visible { outline: 3px solid var(--spot); outline-offset: 2px; }

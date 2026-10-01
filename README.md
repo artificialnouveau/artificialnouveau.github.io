@@ -51,7 +51,7 @@ deploy.
 | Homepage | `index.html` (standalone HTML with its own inline `<style>`, not a Jekyll layout) |
 | Shared `<head>`, including stylesheets | `_includes/head.html` |
 | Page templates | `_layouts/` (`default`, `page`, `post`, `blog`, `gallery`) |
-| Site-wide CSS | `assets/css/styles.css` (theme base) then `assets/css/custom-theme.css` (the site's own look) |
+| Site-wide CSS | `assets/css/paper.css` (the paper theme: tokens, base type, shared components) |
 | Self-hosted fonts | `assets/fonts/` |
 | Grant Desk data | `smalltools/grants/grants.json` |
 | Blog posts | `_posts/` |
@@ -60,11 +60,12 @@ The homepage is the exception worth remembering: it does not go through
 `_layouts/`, so a change to the shared layout will not affect it, and a change
 to `index.html` will not affect anything else.
 
-Stylesheets load in the order listed in `_includes/head.html`, and later files
-win. To restyle the whole site, add a stylesheet after the existing two rather
-than editing them. The theme is token-driven, so overriding the `:root`
-variables in `custom-theme.css` (`--color-bg`, `--color-text`, `--color-accent`,
-`--font-display`, `--font-mono`) retones most pages at once.
+All Jekyll pages and the standalone subsites load `assets/css/paper.css`,
+the single consolidated stylesheet. The theme is token-driven, so changing the
+`:root` variables in `paper.css` (`--po-paper`, `--po-ink`, `--po-spot`, and
+the legacy `--color-*` aliases that older inline styles reference) retones
+every page at once. The homepage keeps its own inline copy of the same token
+values in `index.html`; change both together.
 
 ### Adding content
 

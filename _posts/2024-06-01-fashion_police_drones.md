@@ -173,7 +173,7 @@ After exhibiting this work for the first time, I came across a BBC report that I
 
 <h3>TRY ME: Are You a Fashion Criminal?</h3>
 
-<p style="text-align:center; color: #b8a8d8; font-size: 0.75rem;">Upload a photo of yourself (make sure your face is visible, it's important for the scan).<br><span style="font-size: 0.65rem; opacity: 0.7;">Don't worry, your images won't be saved or held as evidence.</span></p>
+<p style="text-align:center; color:var(--color-muted); font-size: 0.75rem;">Upload a photo of yourself (make sure your face is visible, it's important for the scan).<br><span style="font-size: 0.65rem; opacity: 0.7;">Don't worry, your images won't be saved or held as evidence.</span></p>
 
 <div style="text-align:center; margin: 1rem 0;">
   <label for="suspect-upload" style="display:inline-block; background:var(--color-card-bg); border:2px solid var(--color-accent-cyan); color:var(--color-accent-cyan); font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.6rem 1rem; cursor:pointer;">[ Upload Suspect Photo ]</label>
@@ -197,41 +197,41 @@ After exhibiting this work for the first time, I came across a BBC report that I
   <div id="scan-results" style="display:none;">
     <!-- Face comparison grid -->
     <div id="comparison-grid" style="margin-top: 1rem;">
-      <p style="font-size: 0.6rem; color: #b8a8d8; text-transform: uppercase; letter-spacing:0.1em; margin-bottom: 0.75rem; text-align:center;">Cross-referencing against known fashion criminals...</p>
+      <p style="font-size: 0.6rem; color:var(--color-muted); text-transform: uppercase; letter-spacing:0.1em; margin-bottom: 0.75rem; text-align:center;">Cross-referencing against known fashion criminals...</p>
       <div class="fpd-suspects">
         <div style="text-align:center;">
           <img src="/fashionpolluters/shein.jpeg" style="width:100%; aspect-ratio:1; object-fit:cover; border:2px solid var(--color-accent); filter: contrast(1.2);">
           <div style="font-size:0.55rem; color:var(--color-accent); margin-top:0.2rem;">SHEIN</div>
-          <div style="font-size:0.5rem; color:#b8a8d8;">NO MATCH</div>
+          <div style="font-size:0.5rem; color:var(--color-muted);">NO MATCH</div>
         </div>
         <div style="text-align:center;">
           <img src="/fashionpolluters/zara.jpg" style="width:100%; aspect-ratio:1; object-fit:cover; border:2px solid var(--color-accent); filter: contrast(1.2);">
           <div style="font-size:0.55rem; color:var(--color-accent); margin-top:0.2rem;">ZARA</div>
-          <div style="font-size:0.5rem; color:#b8a8d8;">NO MATCH</div>
+          <div style="font-size:0.5rem; color:var(--color-muted);">NO MATCH</div>
         </div>
         <div style="text-align:center;">
           <img src="/fashionpolluters/hm.jpg" style="width:100%; aspect-ratio:1; object-fit:cover; border:2px solid var(--color-accent); filter: contrast(1.2);">
           <div style="font-size:0.55rem; color:var(--color-accent); margin-top:0.2rem;">H&M</div>
-          <div style="font-size:0.5rem; color:#b8a8d8;">NO MATCH</div>
+          <div style="font-size:0.5rem; color:var(--color-muted);">NO MATCH</div>
         </div>
         <div style="text-align:center;">
           <img src="/fashionpolluters/nike.jpg" style="width:100%; aspect-ratio:1; object-fit:cover; border:2px solid var(--color-accent); filter: contrast(1.2);">
           <div style="font-size:0.55rem; color:var(--color-accent); margin-top:0.2rem;">NIKE</div>
-          <div style="font-size:0.5rem; color:#b8a8d8;">NO MATCH</div>
+          <div style="font-size:0.5rem; color:var(--color-muted);">NO MATCH</div>
         </div>
         <div style="text-align:center;">
           <img src="/fashionpolluters/adidas.jpg" style="width:100%; aspect-ratio:1; object-fit:cover; border:2px solid var(--color-accent); filter: contrast(1.2);">
           <div style="font-size:0.55rem; color:var(--color-accent); margin-top:0.2rem;">ADIDAS</div>
-          <div style="font-size:0.5rem; color:#b8a8d8;">NO MATCH</div>
+          <div style="font-size:0.5rem; color:var(--color-muted);">NO MATCH</div>
         </div>
       </div>
     </div>
 
     <!-- Verdict -->
     <div id="verdict" style="margin-top: 1.5rem; text-align:center; padding: 1.5rem; border: 2px solid var(--color-accent-cyan); background: rgba(20, 16, 12, 0.05);">
-      <div style="font-size: 0.6rem; color: #b8a8d8; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.3rem;">Verdict</div>
+      <div style="font-size: 0.6rem; color:var(--color-muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.3rem;">Verdict</div>
       <div style="font-size: 2rem; color: var(--color-accent-cyan); text-shadow: 0 0 20px rgba(20, 16, 12, 0.6); font-weight: 700; letter-spacing: 0.1em;">INNOCENT</div>
-      <p style="color: #b8a8d8; font-size: 0.7rem; margin-top: 0.75rem;">No match found in the Fashion Criminal Database.<br>You're free to go... <em>for now.</em></p>
+      <p style="color:var(--color-muted); font-size: 0.7rem; margin-top: 0.75rem;">No match found in the Fashion Criminal Database.<br>You're free to go... <em>for now.</em></p>
       <p style="color: var(--color-accent); font-size: 0.75rem; margin-top: 1rem; font-weight: 700;">We're only looking for the <em>real</em> fashion criminals.</p>
     </div>
 
@@ -241,7 +241,7 @@ After exhibiting this work for the first time, I came across a BBC report that I
       <p style="font-size: 0.7rem;">Shein is currently identified as the largest polluter in the fast fashion industry, with emissions nearly doubling in 2023 due to rapid, AI-driven production. Other top polluting brands include Zara, H&M, Nike, and Adidas. The industry is responsible for 8–10% of global carbon emissions, primarily driven by synthetic fiber production and coal-powered manufacturing in China, Bangladesh, and India.</p>
 
       <h5 style="color: var(--color-accent-cyan); font-size: 0.75rem; margin-top: 1rem;">Key Polluters and Environmental Impact</h5>
-      <ul style="font-size: 0.65rem; color: #b8a8d8; line-height: 1.8; padding-left: 1.2rem;">
+      <ul style="font-size: 0.65rem; color:var(--color-muted); line-height: 1.8; padding-left: 1.2rem;">
         <li><strong style="color:var(--color-accent-cyan);">Top Polluting Companies:</strong> Shein, Zara, H&M, UNIQLO, Nike, and Adidas are leading contributors to the industry's massive carbon footprint.</li>
         <li><strong style="color:var(--color-accent-cyan);">Primary Pollutants:</strong> The reliance on synthetic fibers (polyester, nylon, acrylic) derived from fossil fuels is a major contributor to pollution.</li>
         <li><strong style="color:var(--color-accent-cyan);">Emissions & Waste:</strong> The fashion industry is responsible for 8–10% of global carbon emissions, exceeding the combined impact of international flights and maritime shipping.</li>
@@ -250,14 +250,14 @@ After exhibiting this work for the first time, I came across a BBC report that I
       </ul>
 
       <h5 style="color: var(--color-accent-cyan); font-size: 0.75rem; margin-top: 1rem;">Factors Driving Pollution</h5>
-      <ul style="font-size: 0.65rem; color: #b8a8d8; line-height: 1.8; padding-left: 1.2rem;">
+      <ul style="font-size: 0.65rem; color:var(--color-muted); line-height: 1.8; padding-left: 1.2rem;">
         <li><strong style="color:var(--color-accent-cyan);">Overproduction & Fast Fashion:</strong> The business model relies on low-quality, high-volume production, which causes significant textile waste.</li>
         <li><strong style="color:var(--color-accent-cyan);">Synthetic Fibers:</strong> Over 60% of clothing is made from synthetic materials, which take hundreds of years to biodegrade.</li>
         <li><strong style="color:var(--color-accent-cyan);">Chemical Use:</strong> The industry uses thousands of harmful chemicals for dyeing and finishing fabrics.</li>
       </ul>
 
       <h5 style="color: var(--color-accent-cyan); font-size: 0.75rem; margin-top: 1rem;">References</h5>
-      <ul style="font-size: 0.55rem; color: #b8a8d8; line-height: 1.8; word-break: break-all; padding-left: 1.2rem;">
+      <ul style="font-size: 0.55rem; color:var(--color-muted); line-height: 1.8; word-break: break-all; padding-left: 1.2rem;">
         <li><a href="https://grist.org/technology/as-fast-fashion-giant-shein-embraces-ai-its-emissions-are-soaring/">Grist: As fast fashion giant Shein embraces AI, its emissions are soaring</a></li>
         <li><a href="https://yaleclimateconnections.org/2024/09/shein-is-officially-the-biggest-polluter-in-fast-fashion-ai-is-making-things-worse/">Yale Climate Connections: Shein is officially the biggest polluter in fast fashion</a></li>
         <li><a href="https://davidsuzuki.org/living-green/the-environmental-cost-of-fast-fashion/">David Suzuki Foundation: The environmental cost of fast fashion</a></li>

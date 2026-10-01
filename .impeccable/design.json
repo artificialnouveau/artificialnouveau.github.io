@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-01T00:00:00Z",
+  "title": "Design System: artificialnouveau.com",
+  "extensions": {
+    "colorMeta": {
+      "paper-stock": {
+        "role": "neutral",
+        "displayName": "Paper Stock",
+        "canonical": "#efe9dc",
+        "tonalRamp": ["oklch(15% 0.015 95)", "oklch(26% 0.015 95)", "oklch(38% 0.015 95)", "oklch(49% 0.015 95)", "oklch(60% 0.015 95)", "oklch(72% 0.015 95)", "oklch(83% 0.015 95)", "oklch(95% 0.015 95)"]
+      },
+      "press-ink": {
+        "role": "neutral",
+        "displayName": "Press Ink",
+        "canonical": "#14100c",
+        "tonalRamp": ["oklch(15% 0.012 70)", "oklch(26% 0.012 70)", "oklch(38% 0.012 70)", "oklch(49% 0.012 70)", "oklch(60% 0.012 70)", "oklch(72% 0.012 70)", "oklch(83% 0.012 70)", "oklch(95% 0.012 70)"]
+      },
+      "faded-ink": {
+        "role": "neutral",
+        "displayName": "Faded Ink",
+        "canonical": "#4a4238",
+        "tonalRamp": ["oklch(15% 0.02 75)", "oklch(26% 0.02 75)", "oklch(38% 0.02 75)", "oklch(49% 0.02 75)", "oklch(60% 0.02 75)", "oklch(72% 0.02 75)", "oklch(83% 0.02 75)", "oklch(95% 0.02 75)"]
+      },
+      "registration-red": {
+        "role": "primary",
+        "displayName": "Registration Red",
+        "canonical": "#c0330f",
+        "tonalRamp": ["oklch(15% 0.19 35)", "oklch(26% 0.19 35)", "oklch(38% 0.19 35)", "oklch(49% 0.19 35)", "oklch(60% 0.19 35)", "oklch(72% 0.17 35)", "oklch(83% 0.12 35)", "oklch(95% 0.05 35)"]
+      },
+      "card-stock": {
+        "role": "neutral",
+        "displayName": "Card Stock",
+        "canonical": "#e7e0d0",
+        "tonalRamp": ["oklch(15% 0.019 90)", "oklch(26% 0.019 90)", "oklch(38% 0.019 90)", "oklch(49% 0.019 90)", "oklch(60% 0.019 90)", "oklch(72% 0.019 90)", "oklch(83% 0.019 90)", "oklch(95% 0.019 90)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page h1; uppercase grotesk, tight tracking. Homepage masthead runs larger: clamp(2.6rem, 8.5vw, 6rem), line-height 0.9." },
+      "headline": { "displayName": "Headline", "purpose": "Section h2, always closed with a 6px ink rule below." },
+      "title": { "displayName": "Title", "purpose": "h3 and work-card titles; bento card titles are the one normal-case title (600 weight)." },
+      "body": { "displayName": "Body", "purpose": "Young Serif prose, lists, excerpts, table cells; project posts at line-height 1.8." },
+      "label": { "displayName": "Label", "purpose": "Mono metadata at the 11px floor; uppercase for short labels only, long meta lines run normal case at 0.04-0.08em tracking." }
+    },
+    "shadows": [
+      { "name": "letterpress-rest", "value": "inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.5)", "purpose": "Default button state; hairline highlight on the top edge, shadow on the bottom, pressed into the stock." },
+      { "name": "letterpress-pressed", "value": "inset 0 2px 3px rgba(0,0,0,0.45), inset 0 -1px 0 rgba(255,255,255,0.12)", "purpose": "Button hover/focus; the press deepens as the block turns Registration Red." },
+      { "name": "bento-ambient", "value": "0 1px 2px rgba(20,16,12,0.05), 0 6px 16px rgba(20,16,12,0.06)", "purpose": "Bento gallery cards at rest; the only outward shadow at rest in the system." },
+      { "name": "bento-lift", "value": "0 2px 4px rgba(20,16,12,0.07), 0 16px 32px rgba(20,16,12,0.11)", "purpose": "Bento gallery card hover, paired with a 4px translateY rise." },
+      { "name": "legacy-image", "value": "0 1px 2px rgba(20,16,12,0.08), 0 4px 12px rgba(20,16,12,0.07)", "purpose": "The .shadow-sm shim for older post images only; not for new surfaces." }
+    ],
+    "motion": [
+      { "name": "press", "value": "0.12s ease", "purpose": "Colour and shadow transitions on buttons, links, nav tags, rows." },
+      { "name": "bento-ease", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Easing for the bento card lift (0.28s) and image drift (0.4s, scale 1.03). Reduced-motion keeps state changes and drops movement." }
+    ],
+    "breakpoints": [
+      { "name": "container-sm", "value": "576px" },
+      { "name": "gutter-collapse", "value": "640px" },
+      { "name": "mobile", "value": "768px" },
+      { "name": "shelf-fold", "value": "900px" },
+      { "name": "container-lg", "value": "992px" },
+      { "name": "bento-fold", "value": "1100px" },
+      { "name": "container-xl", "value": "1200px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Letterpress Button",
+      "kind": "button",
+      "refersTo": "button-letterpress",
+      "description": "Solid ink block with a paper knockout label, pressed into the stock; hover turns Registration Red and deepens the press.",
+      "html": "<a href=\"#\" class=\"ds-btn-press\">View project <span aria-hidden=\"true\">&#8594;</span></a>",
+      "css": ".ds-btn-press { display: inline-flex; align-items: center; gap: 12px; min-height: 46px; padding: 12px 20px; background: #14100c; color: #efe9dc; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.01em; text-decoration: none; border: none; border-radius: 0; box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.5); transition: background-color 0.12s ease, box-shadow 0.12s ease; cursor: pointer; } .ds-btn-press:hover, .ds-btn-press:focus-visible { background: #c0330f; color: #efe9dc; box-shadow: inset 0 2px 3px rgba(0,0,0,0.45), inset 0 -1px 0 rgba(255,255,255,0.12); } .ds-btn-press:focus-visible { outline: 3px solid #c0330f; outline-offset: 2px; }"
+    },
+    {
+      "name": "Bento Gallery Card",
+      "kind": "card",
+      "refersTo": "card-bento",
+      "description": "14px-radius paper card with an image well, ambient ink-tinted shadow, and a 4px lift that turns the border Registration Red on hover.",
+      "html": "<a href=\"#\" class=\"ds-card-bento\"><span class=\"ds-card-bento-img\" role=\"img\" aria-label=\"Project still\"></span><span class=\"ds-card-bento-body\"><span class=\"ds-card-bento-title\">Fashion Police Drones</span><span class=\"ds-card-bento-excerpt\">Aerial surveillance recast as a wearable critique of automated policing.</span><span class=\"ds-card-bento-year\">2024</span></span></a>",
+      "css": ".ds-card-bento { display: flex; flex-direction: column; width: 320px; background: #efe9dc; border: 1px solid rgba(20,16,12,0.35); border-radius: 14px; overflow: hidden; text-decoration: none; box-shadow: 0 1px 2px rgba(20,16,12,0.05), 0 6px 16px rgba(20,16,12,0.06); transition: transform 0.28s cubic-bezier(0.22,1,0.36,1), border-color 0.28s cubic-bezier(0.22,1,0.36,1), box-shadow 0.28s cubic-bezier(0.22,1,0.36,1); } .ds-card-bento:hover { transform: translateY(-4px); border-color: #c0330f; box-shadow: 0 2px 4px rgba(20,16,12,0.07), 0 16px 32px rgba(20,16,12,0.11); } .ds-card-bento:active { transform: translateY(-1px); } .ds-card-bento:focus-visible { outline: 3px solid #c0330f; outline-offset: 3px; } .ds-card-bento-img { display: block; width: 100%; aspect-ratio: 16 / 10; background: #e7e0d0; border-bottom: 1px solid rgba(20,16,12,0.35); } .ds-card-bento-body { display: flex; flex-direction: column; gap: 0.55rem; padding: 1.25rem 1.35rem 1.4rem; } .ds-card-bento-title { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; font-size: 1.05rem; line-height: 1.3; letter-spacing: -0.01em; color: #14100c; } .ds-card-bento-excerpt { font-family: 'Young Serif', Georgia, serif; font-size: 0.845rem; line-height: 1.6; color: #4a4238; } .ds-card-bento-year { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.1em; color: #4a4238; padding-top: 0.85rem; }"
+    },
+    {
+      "name": "SKU Tag Nav Cell",
+      "kind": "nav",
+      "refersTo": "tag-nav",
+      "description": "One cell of the nav shelf: mono SKU label over a bold name with a trailing arrow; the cell inverts to ink on hover.",
+      "html": "<nav class=\"ds-shelf\"><a href=\"#\" class=\"ds-tag\"><span class=\"ds-tag-sku\">AN-003</span><span class=\"ds-tag-name\">Projects <span aria-hidden=\"true\">&#8594;</span></span></a><a href=\"#\" class=\"ds-tag\"><span class=\"ds-tag-sku\">AN-004</span><span class=\"ds-tag-name\">Talks <span aria-hidden=\"true\">&#8594;</span></span></a></nav>",
+      "css": ".ds-shelf { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: #14100c; border-top: 2px solid #14100c; border-bottom: 2px solid #14100c; width: 420px; } .ds-tag { display: flex; flex-direction: column; gap: 6px; padding: 18px 18px 16px; text-decoration: none; color: #14100c; background: #efe9dc; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; transition: background-color 0.12s ease, color 0.12s ease; } .ds-tag:hover, .ds-tag:focus-visible { background: #14100c; color: #efe9dc; } .ds-tag:focus-visible { outline: 3px solid #c0330f; outline-offset: 2px; } .ds-tag-sku { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #4a4238; } .ds-tag:hover .ds-tag-sku, .ds-tag:focus-visible .ds-tag-sku { color: #efe9dc; } .ds-tag-name { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; display: flex; justify-content: space-between; align-items: center; gap: 10px; }"
+    },
+    {
+      "name": "Publication Row with Citation Chip",
+      "kind": "custom",
+      "refersTo": "chip-citation",
+      "description": "Hairline-separated serif title row with mono meta and a 2px-radius citation tally; hover washes the row and inks a red left edge.",
+      "html": "<div class=\"ds-pub-item\"><span class=\"ds-pub-t\"><a href=\"#\">Machine learning for smartphone-based clinical trials</a></span><span class=\"ds-pub-loc\">npj Digital Medicine &middot; ZhuParris A, et al. <span class=\"ds-chip-cite\">CITED 42</span></span></div>",
+      "css": ".ds-pub-item { padding: 13px 0 13px 12px; border-bottom: 1px solid #14100c; transition: background 0.12s ease, box-shadow 0.12s ease; max-width: 560px; } .ds-pub-item:hover { background: rgba(20,16,12,0.035); box-shadow: inset 3px 0 0 #c0330f; } .ds-pub-t { font-family: 'Young Serif', Georgia, serif; font-size: 1rem; line-height: 1.45; display: block; } .ds-pub-t a { color: #14100c; text-decoration: underline; text-decoration-color: rgba(20,16,12,0.35); text-underline-offset: 3px; } .ds-pub-t a:hover, .ds-pub-t a:focus-visible { color: #c0330f; text-decoration-color: currentColor; } .ds-pub-t a:focus-visible { outline: 3px solid #c0330f; outline-offset: 2px; } .ds-pub-loc { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.04em; color: #4a4238; display: block; margin-top: 5px; } .ds-chip-cite { display: inline-block; margin-left: 10px; padding: 2px 7px; border: 1px solid #14100c; border-radius: 2px; font-size: 11px; letter-spacing: 0.08em; color: #4a4238; white-space: nowrap; } .ds-pub-item:hover .ds-chip-cite { border-color: #c0330f; color: #c0330f; }"
+    },
+    {
+      "name": "Entry Row with Year Gutter",
+      "kind": "custom",
+      "refersTo": "tag-nav",
+      "description": "List row with a 118px mono year gutter, bold title underlined in Registration Red, and serif venue line.",
+      "html": "<ul class=\"ds-entries\"><li class=\"ds-entry\"><span class=\"ds-entry-yr\">2025</span><span><a href=\"#\" class=\"ds-entry-t\">Deepfake Archive</a><span class=\"ds-entry-loc\">Group exhibition, Amsterdam</span></span></li></ul>",
+      "css": ".ds-entries { margin: 0; padding: 0; list-style: none; border-top: 2px solid #14100c; max-width: 560px; } .ds-entry { display: grid; grid-template-columns: 118px 1fr; gap: 20px; padding: 15px 0; border-bottom: 1px solid #14100c; align-items: baseline; } .ds-entry-yr { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.08em; color: #4a4238; white-space: nowrap; } .ds-entry-t { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.012em; display: block; color: #14100c; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; text-decoration-color: #c0330f; } .ds-entry-t:hover, .ds-entry-t:focus-visible { color: #c0330f; } .ds-entry-t:focus-visible { outline: 3px solid #c0330f; outline-offset: 2px; } .ds-entry-loc { font-family: 'Young Serif', Georgia, serif; font-size: 0.95rem; line-height: 1.45; color: #4a4238; display: block; margin-top: 3px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "description": "Square paper field with an ink hairline, Registration Red caret, and the standard red focus outline.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Search the archive\" aria-label=\"Search the archive\">",
+      "css": ".ds-input { background: #efe9dc; border: 1px solid #14100c; border-radius: 0; min-height: 38px; padding: 8px 12px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; color: #14100c; caret-color: #c0330f; width: 280px; } .ds-input::placeholder { color: rgba(74,66,56,0.75); opacity: 1; } .ds-input:focus-visible { outline: 3px solid #c0330f; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Print Object",
+    "overview": "The site is a printed artifact. The page is paper stock with a subtle two-layer radial-gradient dot grain, the text is press ink, hierarchy is drawn with ink rules of three weights, and a single spot colour (Registration Red) carries every interactive accent. Interactive elements are letterpress blocks: solid ink with the label knocked out in paper, pressed into the stock rather than floating above it. The codebase itself named this world print-object; even the cursor is a printer's registration mark, drawn in paper-and-ink at rest and closing up in Registration Red over interactive elements.\n\nDensity is editorial: full-width uppercase grotesk mastheads, serif prose at a comfortable measure, and mono metadata in gutters and labels. There is no dark mode; the one dark surface is the near-black (#0b0b0b) background behind canvases and video, kept so media output is not washed out by the paper. The system rejects the site's former vaporwave theme outright: no neon glow, no scanlines, no terminal window chrome, no cyan borders.\n\nEvery Jekyll page and standalone subsite loads the single stylesheet assets/css/paper.css; the homepage index.html carries its own inline copy of the token values, and when a token changes it must change in both places.",
+    "keyCharacteristics": [
+      "Paper ground (#efe9dc) with dot-grain texture; ink (#14100c) does all structural work.",
+      "One spot colour (#c0330f) for links, hovers, focus rings, and accents.",
+      "Three-face type system: grotesk display, serif prose, mono chrome.",
+      "Flat by default; depth only as letterpress insets and soft bento-card lift.",
+      "Hierarchy drawn with rules (6px / 2px / 1px), not boxes or colour fields."
+    ],
+    "rules": [
+      { "name": "The One Spot Colour Rule", "body": "Registration Red is the only chromatic accent in the system. If a second hue appears anywhere outside photographic content, it is a defect.", "section": "colors" },
+      { "name": "The Eleven-Pixel Floor Rule", "body": "No functional text sits below 11px. The mono metadata voice bottoms out there; it never shrinks further.", "section": "typography" },
+      { "name": "The Short-Caps Rule", "body": "Uppercase is reserved for display type and short mono labels. Long meta strings (venues, author lists) run normal case; caps at length are unreadable.", "section": "typography" },
+      { "name": "The Ink Rule Rule", "body": "Hierarchy is drawn with rules and weight, not boxes or colour: 6px rules close section headings, 2px heavy rules bound page headers, shelves, and footers, 1px hairlines separate rows and cells.", "section": "layout" },
+      { "name": "The Letterpress Rule", "body": "Interactive ink blocks read as pressed into the stock, never floating above it. Shadows on buttons are always inset; outward shadows belong to bento cards alone.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep Registration Red (#c0330f) as the only chromatic accent; links, hovers, focus rings, markers, and nothing else carries hue (The One Spot Colour Rule).",
+      "Do draw hierarchy with ink rules: 6px under section headings, 2px around page headers and footers, 1px between rows (The Ink Rule Rule).",
+      "Do keep button depth inset; hover deepens the press and turns the block Registration Red (The Letterpress Rule).",
+      "Do keep all transitions at 0.12s ease for colour and shadow, 0.28s cubic-bezier(0.22,1,0.36,1) for the bento lift, and honor prefers-reduced-motion by keeping state changes while dropping movement.",
+      "Do keep mono metadata at 11px or above, uppercase only when the string is short; long venue and author lines run normal case.",
+      "Do change token values in both assets/css/paper.css and the inline <style> in index.html; they are the same system in two files."
+    ],
+    "donts": [
+      "Don't put cyan (or any second hue) borders on images, or any border-radius on buttons, inputs, or flat cards; the system is square except bento cards (14px), chips (2px), and the pill badges.",
+      "Don't add typing animations, scanlines, glow, text-shadow, or terminal window chrome; the legacy neutralizer exists to kill exactly these.",
+      "Don't set functional text below 11px, and never run long meta strings in uppercase.",
+      "Don't float elements with outward drop shadows; outward shadow belongs to bento gallery cards alone, and even there it stays ink-tinted and soft.",
+      "Don't box content to create hierarchy; use rule weight and type weight instead of panels and background fields."
+    ]
+  }
+}

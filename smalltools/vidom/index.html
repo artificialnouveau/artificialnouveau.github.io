@@ -15,8 +15,8 @@
   #bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: fill; z-index: 1; display: none; background: #fff; }
   #px { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; display: none; }
   /* The annotation layer sits on top of the output, so it has to stay see-through.
-     print-object.css paints every canvas #0b0b0b !important to keep media surfaces
-     dark, which turns this one into an opaque sheet over the whole tool. */
+     paper.css paints canvases #0b0b0b to keep media surfaces dark, which would
+     turn this one into an opaque sheet over the whole tool. */
   #ov { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 5; pointer-events: none; background: transparent !important; }
   #panel {
     position: fixed; top: 12px; left: 12px; z-index: 10;
@@ -89,7 +89,7 @@
   #demo.hidden { display: none; }
 </style>
 <!-- PROTOTYPE: print-object theme -->
-<link rel="stylesheet" href="/assets/css/print-object.css">
+<link rel="stylesheet" href="/assets/css/paper.css">
 </head>
 <body>
 <canvas id="c"></canvas>                                  <!-- Hydra output (face mode) -->
