@@ -1827,7 +1827,7 @@ code *, pre *, kbd *, samp * {
     <span class="h1-kicker">Grants, Fellowships and Residencies in AI, Arts, Film, Journalism, Research and Tech</span>
     <span class="h1-brand">The <span class="underline">Grant</span> Desk</span>
   </h1>
-  <p class="lede"><strong id="active-count" role="status" aria-live="polite" aria-atomic="true">--</strong> active grants on the desk right now. <strong>The Grant Desk is a free tool. No account, paywall or subscription required.</strong> The site consists of a hand-picked selection of <strong>paid</strong> open calls, fellowships and residencies for artists, journalists, writers, researchers and technologists working in the realm of digital media, AI, and technology and society, with a few notable unpaid open calls and festival submissions included as clearly flagged exceptions. Star a card to save it to a shortlist you can share as a link or download as an .ics calendar, and use the "Copy info" button on any card to copy the full grant details to your clipboard. The desk also remembers when you last visited (saved in your browser's localStorage only, not on any server) so the "Show only new" filter highlights what has been added since (recent additions stay flagged for at least a full day).</p>
+  <p class="lede"><strong id="active-count" role="status" aria-live="polite" aria-atomic="true">--</strong> active grants on the desk right now. <strong>The Grant Desk is a free tool. No account, paywall or subscription required.</strong> The site consists of a hand-picked selection of <strong>paid</strong> open calls, fellowships and residencies for artists, journalists, writers, researchers and technologists working in the realm of digital media, AI, and technology and society, with a few notable unpaid open calls and festival submissions included as clearly flagged exceptions. Star a card to save it to a shortlist you can share as a link or download as an .ics calendar, and use the "Copy info" button on any card to copy the full grant details to your clipboard. The desk also remembers when you last visited (saved in your browser's localStorage only, not on any server) so the "Show only new" filter highlights what has been added since (recent additions stay flagged for at least a full day). Filters you set are remembered the same way and restored on your next visit; hit "Clear all" to reset them. The Eligibility, Attendance and Career stage filters are auto-classified from each call's text, so treat them as a first cut and always verify on the official page; anything the text does not state clearly files under Unknown.</p>
   <p class="lede subtle">Subscribe via RSS or add deadlines to your calendar so you do not miss a thing.</p>
 </header>
 
@@ -9269,6 +9269,70 @@ code *, pre *, kbd *, samp * {
         </div>
       </div>
     </div>
+    <div class="facet" data-facet-label="Entry fee">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Entry fee</button>
+      <div class="facet-panel" hidden>
+        <div class="filter-group" data-filter="fee" id="filter-fee">
+          <button class="chip is-active" type="button" data-value="">All</button>
+          <button class="chip" type="button" data-value="false" title="The call states there is no application or entry fee">No entry fee</button>
+          <button class="chip" type="button" data-value="true" title="An application, entry or submission fee applies">Fee required</button>
+          <button class="chip" type="button" data-value="unknown" title="The call does not say either way">Unknown</button>
+        </div>
+      </div>
+    </div>
+    <div class="facet" data-facet-label="Eligibility">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Eligibility</button>
+      <div class="facet-panel" hidden>
+        <span class="filter-note">*Auto-classified from the call text; always verify on the official page</span>
+        <div class="filter-group" data-filter="eligibility" id="filter-eligibility">
+          <button class="chip is-active" type="button" data-value="">All</button>
+          <button class="chip" type="button" data-value="open" title="Anyone worldwide may apply">Open internationally</button>
+          <button class="chip" type="button" data-value="residents" title="Restricted by where you live: a country, region or city">Residence-restricted</button>
+          <button class="chip" type="button" data-value="nationals" title="Restricted by citizenship or nationality">Nationality-restricted</button>
+          <button class="chip" type="button" data-value="unknown" title="The call text does not state it clearly">Unknown</button>
+        </div>
+      </div>
+    </div>
+    <div class="facet" data-facet-label="Attendance">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Attendance</button>
+      <div class="facet-panel" hidden>
+        <span class="filter-note">*Auto-classified from the call text; always verify on the official page</span>
+        <div class="filter-group" data-filter="attendance" id="filter-attendance">
+          <button class="chip is-active" type="button" data-value="">All</button>
+          <button class="chip" type="button" data-value="remote" title="Can be done from where you live">Remote-friendly</button>
+          <button class="chip" type="button" data-value="hybrid" title="A mix of online and in-person moments">Hybrid</button>
+          <button class="chip" type="button" data-value="onsite" title="Requires being on site, e.g. an in-person residency">On-site</button>
+          <button class="chip" type="button" data-value="unknown" title="The call text does not state it clearly">Unknown</button>
+        </div>
+      </div>
+    </div>
+    <div class="facet" data-facet-label="Career stage">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Career stage</button>
+      <div class="facet-panel" hidden>
+        <span class="filter-note">*Auto-classified from the call text; always verify on the official page</span>
+        <div class="filter-group" data-filter="career" id="filter-career">
+          <button class="chip is-active" type="button" data-value="">All</button>
+          <button class="chip" type="button" data-value="any" title="The call states all career stages are welcome">Open to all stages</button>
+          <button class="chip" type="button" data-value="emerging" title="Aimed at emerging or early-career applicants">Emerging-focused</button>
+          <button class="chip" type="button" data-value="established" title="Aimed at mid-career or established applicants">Established-focused</button>
+          <button class="chip" type="button" data-value="age-capped" title="Has a maximum age for applicants">Has age cap</button>
+          <button class="chip" type="button" data-value="unknown" title="The call text does not state it clearly">Unknown</button>
+        </div>
+      </div>
+    </div>
+    <div class="facet" data-facet-label="Duration">
+      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Duration</button>
+      <div class="facet-panel" hidden>
+        <div class="filter-group" data-filter="duration" id="filter-duration">
+          <button class="chip is-active" type="button" data-value="">All</button>
+          <button class="chip" type="button" data-value="short">Under 1 month</button>
+          <button class="chip" type="button" data-value="medium">1 to 3 months</button>
+          <button class="chip" type="button" data-value="long">3 to 12 months</button>
+          <button class="chip" type="button" data-value="multiyear">A year or more</button>
+          <button class="chip" type="button" data-value="unknown" title="Project-based, varies, or not stated">Unknown / project-based</button>
+        </div>
+      </div>
+    </div>
     <div class="facet" data-facet-label="Time to apply">
       <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Time to apply</button>
       <div class="facet-panel" hidden>
@@ -11324,6 +11388,57 @@ function detectApplicant(grant) {
   return 'both';
 }
 
+// Career labels: the stored career value plus an extra 'age-capped' label when
+// the call has a maximum applicant age, so "Has age cap" works as its own chip.
+function detectCareerLabels(grant) {
+  const out = [grant.career || 'unknown'];
+  if (grant.ageCap) out.push('age-capped');
+  return out;
+}
+
+// Duration buckets, derived from the freetext `duration` field. A range like
+// "2 to 6 months" genuinely spans two buckets, so this is multi-label like the
+// amount tiers. Unparseable text ("Per project", "varies") is 'unknown'.
+const DURATION_WORD_NUMS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12 };
+function durationBucketOf(days) {
+  if (days < 30) return 'short';
+  if (days <= 92) return 'medium';
+  if (days <= 366) return 'long';
+  return 'multiyear';
+}
+function detectDurationBuckets(grant) {
+  const text = String(grant.duration || '').toLowerCase();
+  if (!text) return ['unknown'];
+  const unitDays = { day: 1, week: 7, month: 30, year: 365 };
+  const out = [];
+  const numOf = (raw) => DURATION_WORD_NUMS[raw] !== undefined ? DURATION_WORD_NUMS[raw] : parseFloat(raw.replace(',', '.'));
+  const add = (n, unit) => {
+    if (!n || isNaN(n)) return;
+    const bucket = durationBucketOf(n * unitDays[unit]);
+    if (!out.includes(bucket)) out.push(bucket);
+  };
+  const NUM = '(\\d+(?:[.,]\\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)';
+  // Ranges first ("2 to 6 months", "4-8 weeks"): both endpoints count, so a
+  // range genuinely spanning buckets shows under each.
+  const rangeRe = new RegExp(NUM + '\\s*(?:-|–|to)\\s*' + NUM + '[\\s-]*(day|week|month|year)', 'g');
+  let m;
+  const consumed = [];
+  while ((m = rangeRe.exec(text)) !== null) {
+    add(numOf(m[1]), m[3]);
+    add(numOf(m[2]), m[3]);
+    consumed.push([m.index, rangeRe.lastIndex]);
+  }
+  const re = new RegExp(NUM + '[\\s-]*(day|week|month|year)', 'g');
+  while ((m = re.exec(text)) !== null) {
+    const idx = m.index;
+    if (consumed.some(([a, b]) => idx >= a && idx < b)) continue;
+    // "2 days per week" is a cadence, not a duration.
+    if (/^s?\s*(?:per|a|each)\b/.test(text.slice(re.lastIndex))) continue;
+    add(numOf(m[1]), m[2]);
+  }
+  return out.length ? out : ['unknown'];
+}
+
 // Tag an outbound grant link with our UTM attribution only. Strips any pre-existing utm_*
 // params (so only ours shows), preserves other query params and #fragments, and leaves
 // non-http URLs (e.g. '#') untouched.
@@ -11364,6 +11479,10 @@ function renderFolder(grant, category, today) {
   a.dataset.applicant = detectApplicant(grant);
   a.dataset.addedDate = grant.addedDate || '';
   a.dataset.fee = grant.fee === false ? 'false' : (grant.fee === true ? 'true' : 'unknown');
+  a.dataset.eligibility = grant.eligibility || 'unknown';
+  a.dataset.attendance = grant.attendance || 'unknown';
+  a.dataset.careers = detectCareerLabels(grant).join(' ');
+  a.dataset.durations = detectDurationBuckets(grant).join(' ');
   a.dataset.grantId = grant.id || '';
   a.dataset.grantTitle = grant.title || '';
   const _deadline = parseDate(grant.deadline);
@@ -11596,6 +11715,7 @@ async function load() {
   renderInto('grid-archive', buckets.archive, 'archive');
 
   buildFilterChips();
+  restoreFilterState();
   refreshPickStates();
   refreshExportCounts();
   loadLastSeen();
@@ -12084,7 +12204,55 @@ const CATEGORY_GROUPS = [
   { values: ['other'], label: 'Other' },
 ];
 
-const FILTER_STATE = { category: new Set(), region: new Set(), type: new Set(), applicant: new Set(), amount: new Set(), added: new Set(), deadline: '', search: '' };
+const MULTI_FILTER_KEYS = ['category', 'region', 'type', 'applicant', 'amount', 'added', 'fee', 'eligibility', 'attendance', 'career', 'duration'];
+const FILTER_STATE = { deadline: '', search: '' };
+for (const k of MULTI_FILTER_KEYS) FILTER_STATE[k] = new Set();
+
+// --- Remember my filters ---
+// Chip selections and the deadline threshold persist in this browser's
+// localStorage and are restored on the next visit. The free-text search box is
+// deliberately not remembered. "Clear all" resets the saved state too.
+const FILTERS_STORE_KEY = 'grantdesk-filters-v1';
+
+function saveFilterState() {
+  try {
+    const data = {};
+    for (const k of MULTI_FILTER_KEYS) data[k] = [...FILTER_STATE[k]];
+    data.deadline = FILTER_STATE.deadline;
+    localStorage.setItem(FILTERS_STORE_KEY, JSON.stringify(data));
+  } catch (e) {}
+}
+
+function restoreFilterState() {
+  let data = null;
+  try {
+    const raw = localStorage.getItem(FILTERS_STORE_KEY);
+    if (raw) data = JSON.parse(raw);
+  } catch (e) {}
+  if (!data) return;
+  let any = false;
+  for (const k of MULTI_FILTER_KEYS) {
+    if (Array.isArray(data[k]) && data[k].length) {
+      FILTER_STATE[k] = new Set(data[k].map(String));
+      any = true;
+    }
+  }
+  if (typeof data.deadline === 'string' && data.deadline) {
+    FILTER_STATE.deadline = data.deadline;
+    any = true;
+  }
+  if (!any) return;
+  document.querySelectorAll('#facet-bar .filter-group').forEach(g => {
+    const k = g.dataset.filter;
+    if (k === 'deadline') {
+      g.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('is-active', (c.dataset.value || '') === FILTER_STATE.deadline));
+    } else if (FILTER_STATE[k]) {
+      syncChipGroup(g, k);
+    }
+  });
+  applyFilters();
+}
 
 function syncChipGroup(group, key) {
   const all = group.querySelector('.chip[data-value=""]');
@@ -12241,7 +12409,7 @@ function renderActiveFilters() {
 }
 
 function clearAllFilters() {
-  ['category', 'region', 'type', 'applicant', 'amount', 'added'].forEach(k => FILTER_STATE[k].clear());
+  MULTI_FILTER_KEYS.forEach(k => FILTER_STATE[k].clear());
   FILTER_STATE.deadline = '';
   document.querySelectorAll('#facet-bar .filter-group').forEach(g => {
     if (g.dataset.filter === 'deadline') {
@@ -12262,6 +12430,11 @@ function addChipCounts() {
     category: ['categories', 'category'],
     region: ['regions', 'region'],
     type: ['types', 'type'],
+    fee: ['fee', 'fee'],
+    eligibility: ['eligibility', 'eligibility'],
+    attendance: ['attendance', 'attendance'],
+    career: ['careers', 'career'],
+    duration: ['durations', 'duration'],
   };
   for (const [key, [plural, singular]] of Object.entries(datasetKeys)) {
     const group = document.getElementById('filter-' + key);
@@ -12360,6 +12533,10 @@ function buildFilterChips() {
   const addedGroup = document.getElementById('filter-added');
   bindMultiSelectGroup(addedGroup, 'added');
 
+  for (const k of ['fee', 'eligibility', 'attendance', 'career', 'duration']) {
+    bindMultiSelectGroup(document.getElementById('filter-' + k), k);
+  }
+
   const deadlineGroup = document.getElementById('filter-deadline');
   bindSingleSelectGroup(deadlineGroup, 'deadline');
 
@@ -12410,6 +12587,11 @@ function applyFilters() {
       if (ap !== 'both' && !FILTER_STATE.applicant.has(ap)) show = false;
     }
     if (!matchesAny(FILTER_STATE.amount, 'amounts', 'amount')) show = false;
+    if (!matchesAny(FILTER_STATE.fee, 'fee', 'fee')) show = false;
+    if (!matchesAny(FILTER_STATE.eligibility, 'eligibility', 'eligibility')) show = false;
+    if (!matchesAny(FILTER_STATE.attendance, 'attendance', 'attendance')) show = false;
+    if (!matchesAny(FILTER_STATE.career, 'careers', 'career')) show = false;
+    if (!matchesAny(FILTER_STATE.duration, 'durations', 'duration')) show = false;
     if (FILTER_STATE.added.size) {
       const addedDate = parseDate(f.dataset.addedDate);
       if (!addedDate) {
@@ -12444,6 +12626,7 @@ function applyFilters() {
   updateSectionCounts();
   updateFacetSummaries();
   renderActiveFilters();
+  saveFilterState();
 }
 
 // Section header counts. A card can be hidden by the regular filters
