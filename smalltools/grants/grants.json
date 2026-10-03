@@ -26542,7 +26542,7 @@
         "accommodation-provided",
         "early-career"
       ],
-      "fee": null,
+      "fee": false,
       "featured": false,
       "categories": [
         "ai"
@@ -26580,7 +26580,7 @@
         "accommodation-provided",
         "international"
       ],
-      "fee": null,
+      "fee": false,
       "featured": false,
       "eligibility": "open",
       "attendance": "onsite",
@@ -29909,7 +29909,8 @@
       "eligibility": "unknown",
       "attendance": "onsite",
       "career": "unknown",
-      "ageCap": null
+      "ageCap": null,
+      "fee": false
     },
     {
       "id": "apexart-open-calls",
@@ -29942,7 +29943,8 @@
       "eligibility": "open",
       "attendance": "unknown",
       "career": "any",
-      "ageCap": null
+      "ageCap": null,
+      "fee": false
     },
     {
       "id": "nalip-director-incubator-2026-27",
