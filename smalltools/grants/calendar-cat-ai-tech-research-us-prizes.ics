@@ -14,7 +14,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:american-academy-berlin-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20261003T014847Z
+DTSTAMP:20261003T020854Z
 DTSTART;VALUE=DATE:20260925
 DTEND;VALUE=DATE:20260926
 SUMMARY:Deadline: American Academy in Berlin: Berlin Prize Fellowship 2027-
@@ -70,5 +70,39 @@ URL:https://www.americanacademy.de/apply/apply-for-a-fellowship/?utm_source
 LOCATION:Berlin\, Germany\, at the Hans Arnhold Center. RESTRICTED: fellows
  hips are open only to citizens and permanent residents of the United State
  s.
+END:VEVENT
+BEGIN:VEVENT
+UID:rome-prize-2027-28@artificialnouveau.github.io
+DTSTAMP:20261003T020854Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20261102
+SUMMARY:Deadline: American Academy in Rome: Rome Prize Fellowship 2027-28
+DESCRIPTION:The Rome Prize supports roughly 30 artists and scholars a year 
+ with a residential fellowship at the American Academy in Rome\; discipline
+ s include Design and Visual Arts\, where media and new-genre work is regul
+ arly funded. Fellows receive a USD 16\,000 (half-term) or USD 30\,000 (ful
+ l-term) stipend plus housing\, workspace and weekday meals on the Academy'
+ s Janiculum campus. ELIGIBILITY: US citizens for most categories\; foreign
+  nationals who have lived in the US for the three years preceding the dead
+ line may apply in Environmental Arts and Humanities and certain postdoctor
+ al categories. FEES: USD 50 (one category) or USD 60 (multiple) by 1 Novem
+ ber 2026\; a late window runs to 15 November at USD 80/90. DEADLINE: 1 Nov
+ ember 2026.\n\nOrganisation: American Academy in Rome\nLocation: Rome\, It
+ aly (residential fellowship at the Academy\; US organisation with NYC offi
+ ce). RESTRICTED: US citizens for most categories\; foreign nationals resid
+ ent in the US for the 3 years preceding the deadline may apply only in cer
+ tain categories.\nAward: Stipends of USD 16\,000 (half-term\, about 5 mont
+ hs) and USD 30\,000 (full-term\, about 10 months)\, plus housing\, workspa
+ ce and weekday meals. Approximately 30 fellowships per year. APPLICATION F
+ EE: USD 50 by 1 November (USD 60 for multiple categories)\; USD 80/90 in t
+ he late window to 15 November.\nDuration: 5 or 10 months\n\nMore: https://
+ www.aarome.org/apply/rome-prize?utm_source=artificialnouveaugrantdesk&utm_
+ medium=referral
+URL:https://www.aarome.org/apply/rome-prize?utm_source=artificialnouveaugra
+ ntdesk&utm_medium=referral
+LOCATION:Rome\, Italy (residential fellowship at the Academy\; US organisat
+ ion with NYC office). RESTRICTED: US citizens for most categories\; foreig
+ n nationals resident in the US for the 3 years preceding the deadline may 
+ apply only in certain categories.
 END:VEVENT
 END:VCALENDAR

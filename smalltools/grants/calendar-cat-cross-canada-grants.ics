@@ -14,7 +14,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:guggenheim-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261003T014846Z
+DTSTAMP:20261003T020852Z
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
 SUMMARY:Deadline: Guggenheim Fellowship 2027
@@ -51,5 +51,30 @@ URL:https://www.gf.org/program/how-to-apply/?utm_source=artificialnouveaugr
 LOCATION:Anywhere\; the fellowship funds the fellow's own work rather than 
  residence at a host institution. Open to citizens and permanent residents 
  of the United States and Canada.
+END:VEVENT
+BEGIN:VEVENT
+UID:manitoba-create-grant-2026-oct@artificialnouveau.github.io
+DTSTAMP:20261003T020852Z
+DTSTART;VALUE=DATE:20261010
+DTEND;VALUE=DATE:20261011
+SUMMARY:Deadline: Manitoba Arts Council: Create Grant (October 2026 intake)
+DESCRIPTION:Research and creation of new work\, or development of works in 
+ progress\, by professional artists in all disciplines including media arts
+ \; creation-based residencies are also fundable. Professional fees and hon
+ orariums are a required budget line\, so the money genuinely pays the arti
+ st. Amounts rise with career stage: up to CAD 7\,500 (emerging)\, CAD 10\,
+ 000 (mid-career) or CAD 15\,000 (established). ELIGIBILITY: individuals mu
+ st have been resident in Manitoba for at least one year. Deadlines recur (
+ March 20 and October 10)\; this round closes 10 October 2026.\n\nOrganisat
+ ion: Manitoba Arts Council\nLocation: Manitoba\, Canada. Applicants must h
+ ave been Manitoba residents for at least one year.\nAward: Emerging: up to
+  CAD 7\,500\; Mid-career: up to CAD 10\,000\; Established: up to CAD 15\,0
+ 00. No application fee.\nDuration: Per project\n\nMore: https://artscounci
+ l.mb.ca/grants/create/?utm_source=artificialnouveaugrantdesk&utm_medium=re
+ ferral
+URL:https://artscouncil.mb.ca/grants/create/?utm_source=artificialnouveaugr
+ antdesk&utm_medium=referral
+LOCATION:Manitoba\, Canada. Applicants must have been Manitoba residents fo
+ r at least one year.
 END:VEVENT
 END:VCALENDAR

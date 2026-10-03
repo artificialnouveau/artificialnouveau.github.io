@@ -121,8 +121,13 @@ ONSITE_PATTERNS = [
     r"\bhoused at\b",
 ]
 
+# "hybrid" alone is unreliable: calls constantly describe ARTWORKS as hybrid
+# ("hybrid forms", "hybrid approaches"). Only attendance-shaped contexts count.
 HYBRID_PATTERNS = [
-    r"\bhybrid\b",
+    r"\bhybrid (?:working|role|format|participation|programme|program|model|event)\b",
+    r"\(hybrid[);:,\s]",
+    r"\bhybrid:\s",
+    r"\bremote\s*/\s*hybrid\b",
 ]
 
 CAREER_ANY_PATTERNS = [
@@ -180,6 +185,8 @@ def any_match(patterns: list[str], text: str) -> bool:
 
 
 def classify_eligibility(g: dict, text: str) -> str:
+    # "no U.S. citizenship required" style negations must not read as nationals.
+    text = re.sub(r"\bno [a-z.]{0,10}\s?(?:citizenship|nationality) (?:is )?required\b", "", text)
     if any_match(NATIONALS_PATTERNS, text):
         return "nationals"
     if any_match(RESIDENTS_PATTERNS, text):
