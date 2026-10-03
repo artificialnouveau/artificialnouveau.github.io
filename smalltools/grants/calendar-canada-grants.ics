@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:guggenheim-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261003T014846Z
+DTSTAMP:20261003T020852Z
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
 SUMMARY:Deadline: Guggenheim Fellowship 2027
@@ -53,7 +53,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:toronto-arts-council-media-artists-creation-2026@artificialnouveau.gith
  ub.io
-DTSTAMP:20261003T014846Z
+DTSTAMP:20261003T020852Z
 DTSTART;VALUE=DATE:20261015
 DTEND;VALUE=DATE:20261016
 SUMMARY:Deadline: Toronto Arts Council: Media Artists Program - Creation 20
@@ -74,7 +74,7 @@ LOCATION:Toronto\, Canada
 END:VEVENT
 BEGIN:VEVENT
 UID:vimeo-short-film-grant-2026@artificialnouveau.github.io
-DTSTAMP:20261003T014846Z
+DTSTAMP:20261003T020852Z
 DTSTART;VALUE=DATE:20261016
 DTEND;VALUE=DATE:20261017
 SUMMARY:Deadline: Vimeo Short Film Grant (USD 60\,000 for 5 filmmakers)
@@ -104,5 +104,82 @@ URL:https://vimeo.com/shortfilmgrant?utm_source=artificialnouveaugrantdesk&
  utm_medium=referral
 LOCATION:Online application. Open to residents of the United States and Can
  ada.
+END:VEVENT
+BEGIN:VEVENT
+UID:oac-media-artists-creation-2026-oct@artificialnouveau.github.io
+DTSTAMP:20261003T020852Z
+DTSTART;VALUE=DATE:20261008
+DTEND;VALUE=DATE:20261009
+SUMMARY:Deadline: Ontario Arts Council: Media Artists Creation Projects (Oc
+ tober 2026 deadline)
+DESCRIPTION:Production and post-production grants for independent media art
+ works: film\, video\, animation\, audio art\, digital media\, VR/AR and mu
+ ltimedia installation. Two streams by career stage: Emerging media artists
+  can request up to CAD 10\,000\; Mid-Career and Established artists up to 
+ CAD 40\,000. ELIGIBILITY: Ontario-resident directors or principal media ar
+ tists who hold copyright of the work\; currently enrolled students are not
+  eligible in the Emerging stream. Deadlines recur (March and October)\; th
+ is round closes 8 October 2026 at 1 p.m. ET.\n\nOrganisation: Ontario Arts
+  Council\nLocation: Ontario\, Canada. Ontario-resident directors/principal
+  media artists only.\nAward: Emerging: maximum CAD 10\,000\; Mid-Career an
+ d Established: maximum CAD 40\,000. No application fee.\nDuration: Per pro
+ ject\n\nMore: https://www.arts.on.ca/grants/media-artists-creation-project
+ s?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://www.arts.on.ca/grants/media-artists-creation-projects?utm_sourc
+ e=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Ontario\, Canada. Ontario-resident directors/principal media artis
+ ts only.
+END:VEVENT
+BEGIN:VEVENT
+UID:manitoba-create-grant-2026-oct@artificialnouveau.github.io
+DTSTAMP:20261003T020852Z
+DTSTART;VALUE=DATE:20261010
+DTEND;VALUE=DATE:20261011
+SUMMARY:Deadline: Manitoba Arts Council: Create Grant (October 2026 intake)
+DESCRIPTION:Research and creation of new work\, or development of works in 
+ progress\, by professional artists in all disciplines including media arts
+ \; creation-based residencies are also fundable. Professional fees and hon
+ orariums are a required budget line\, so the money genuinely pays the arti
+ st. Amounts rise with career stage: up to CAD 7\,500 (emerging)\, CAD 10\,
+ 000 (mid-career) or CAD 15\,000 (established). ELIGIBILITY: individuals mu
+ st have been resident in Manitoba for at least one year. Deadlines recur (
+ March 20 and October 10)\; this round closes 10 October 2026.\n\nOrganisat
+ ion: Manitoba Arts Council\nLocation: Manitoba\, Canada. Applicants must h
+ ave been Manitoba residents for at least one year.\nAward: Emerging: up to
+  CAD 7\,500\; Mid-career: up to CAD 10\,000\; Established: up to CAD 15\,0
+ 00. No application fee.\nDuration: Per project\n\nMore: https://artscounci
+ l.mb.ca/grants/create/?utm_source=artificialnouveaugrantdesk&utm_medium=re
+ ferral
+URL:https://artscouncil.mb.ca/grants/create/?utm_source=artificialnouveaugr
+ antdesk&utm_medium=referral
+LOCATION:Manitoba\, Canada. Applicants must have been Manitoba residents fo
+ r at least one year.
+END:VEVENT
+BEGIN:VEVENT
+UID:afa-visual-arts-new-media-2027@artificialnouveau.github.io
+DTSTAMP:20261003T020852Z
+DTSTART;VALUE=DATE:20270301
+DTEND;VALUE=DATE:20270302
+SUMMARY:Deadline: Alberta Foundation for the Arts: Visual Arts and New Medi
+ a Individual Project Funding (March 2027)
+DESCRIPTION:Project grants for individual artists in visual arts and new me
+ dia (new media explicitly included)\, covering creation\, development\, tr
+ aining and marketing. A parallel AFA Film and Video Individual Project Fun
+ ding stream shares the same deadline and the same CAD 18\,000 cap. ELIGIBI
+ LITY: Canadian citizen\, permanent resident or Protected Person whose prim
+ ary residence has been Alberta for at least one full year before applying.
+  DEADLINE: 1 March 2027.\n\nOrganisation: Alberta Foundation for the Arts\
+ nLocation: Alberta\, Canada. RESTRICTED: Canadian citizens\, permanent res
+ idents or Protected Persons with primary residence in Alberta for at least
+  one full year before applying.\nAward: Up to CAD 18\,000 per project. No 
+ application fee.\nDuration: Per project\n\nMore: https://affta.ab.ca/fundi
+ ng/find-funding/visual-arts-and-new-media-individual-project-funding?utm_s
+ ource=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://affta.ab.ca/funding/find-funding/visual-arts-and-new-media-indi
+ vidual-project-funding?utm_source=artificialnouveaugrantdesk&utm_medium=re
+ ferral
+LOCATION:Alberta\, Canada. RESTRICTED: Canadian citizens\, permanent reside
+ nts or Protected Persons with primary residence in Alberta for at least on
+ e full year before applying.
 END:VEVENT
 END:VCALENDAR
