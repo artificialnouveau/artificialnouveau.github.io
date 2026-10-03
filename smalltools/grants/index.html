@@ -12024,17 +12024,18 @@ code *, pre *, kbd *, samp * {
 
 <script>
 const REGION_LABELS = {
-  EU: 'EU', US: 'US', UK: 'UK', NL: 'NL', Switzerland: 'Switzerland', Asia: 'Asia', 'China-HK-Taiwan': 'China / HK / Taiwan', Africa: 'Africa', Canada: 'Canada', Australia: 'Australia',
+  EU: 'EU', US: 'US', UK: 'UK', NL: 'NL', Germany: 'Germany', Asia: 'Asia', 'China-HK-Taiwan': 'China / HK / Taiwan', Africa: 'Africa', Canada: 'Canada', Australia: 'Australia',
   LatAm: 'Latin America', Remote: 'Remote', Worldwide: 'Worldwide'
 };
 
 // Every region view a grant belongs to. A grant may carry an optional `regions`
 // array to sit in several views at once (a Dutch fund is both NL and EU); the
 // singular `region` stays the canonical primary and is what the card chip shows.
-// Switzerland is a tag-driven sub-region: Swiss grants keep region EU (so they
-// stay in the EU filter) and additionally match the Switzerland chip via tag.
+// Germany is a tag-driven sub-region: German grants keep region EU (so they
+// stay in the EU filter) and additionally match the Germany chip via tag.
 // China-HK-Taiwan works the same way under Asia, via the china, hong-kong and
-// taiwan tags.
+// taiwan tags. (Switzerland used to work like Germany; its chip was dropped in
+// October 2026 for lack of entries, though its feeds and SEO pages live on.)
 function grantRegions(grant) {
   const out = [];
   if (grant.region) out.push(grant.region);
@@ -12042,7 +12043,7 @@ function grantRegions(grant) {
     for (const r of grant.regions) if (r && !out.includes(r)) out.push(r);
   }
   const tags = grant.tags || [];
-  if (tags.includes('switzerland') && !out.includes('Switzerland')) out.push('Switzerland');
+  if (tags.includes('germany') && !out.includes('Germany')) out.push('Germany');
   if (['china', 'hong-kong', 'taiwan'].some(t => tags.includes(t)) && !out.includes('China-HK-Taiwan')) out.push('China-HK-Taiwan');
   return out;
 }
@@ -13384,7 +13385,7 @@ function addChipCounts() {
   }
 }
 
-const SEED_REGIONS = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Switzerland', 'Asia', 'China-HK-Taiwan', 'Africa', 'Canada', 'Australia', 'LatAm'];
+const SEED_REGIONS = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Germany', 'Asia', 'China-HK-Taiwan', 'Africa', 'Canada', 'Australia', 'LatAm'];
 
 function buildFilterChips() {
   const folders = Array.from(document.querySelectorAll('.folder'));
@@ -13397,7 +13398,7 @@ function buildFilterChips() {
     for (const c of (f.dataset.categories || f.dataset.category || '').split(' ')) if (c) categories.add(c);
   }
 
-  const regionOrder = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Switzerland', 'Asia', 'China-HK-Taiwan', 'Africa', 'Canada', 'Australia', 'LatAm'];
+  const regionOrder = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Germany', 'Asia', 'China-HK-Taiwan', 'Africa', 'Canada', 'Australia', 'LatAm'];
   const sortedRegions = [...regions].sort((a, b) => {
     const ai = regionOrder.indexOf(a);
     const bi = regionOrder.indexOf(b);
