@@ -90,8 +90,18 @@ OTHERWISE return JSON matching this schema strictly:
   "deadline": "YYYY-MM-DD",
   "url": "string (the canonical apply page, NOT the bsky.app post URL)",
   "description": "string (2-4 sentence summary in plain English)",
+  "eligibility": "open"|"residents"|"nationals"|"unknown",
+  "attendance": "remote"|"hybrid"|"onsite"|"unknown",
+  "career": "any"|"emerging"|"established"|"unknown",
+  "ageCap": integer or null,
   "confidence": 0.0-1.0
 }
+
+Field notes:
+- eligibility: "open" = anyone worldwide may apply; "residents" = restricted by where you live (country, region or city); "nationals" = citizenship/nationality requirement. Use "unknown" if the call does not state it.
+- attendance: "remote" = can be done from home; "hybrid" = mix of online and in-person; "onsite" = requires being there (e.g. in-person residency). Use "unknown" if unclear.
+- career: "any" only if the call says all career stages are welcome; "emerging"/"established" if it targets one. Use "unknown" if not stated.
+- ageCap: the maximum applicant age if the call has one (e.g. 35 for an under-35 call), otherwise null. A minimum age like 18+ is NOT a cap.
 
 Set confidence below 0.7 if any field is uncertain. Return ONLY the JSON object. No prose, no code fences, no commentary."""
 
@@ -320,6 +330,19 @@ def set_output(name: str, value: str) -> None:
         f.write(f"{name}={value}\n")
 
 
+def _enum_or_unknown(value, allowed: set[str]) -> str:
+    v = str(value or "").strip().lower()
+    return v if v in allowed else "unknown"
+
+
+def _age_cap_or_none(value) -> int | None:
+    try:
+        n = int(value)
+    except (TypeError, ValueError):
+        return None
+    return n if 20 <= n <= 45 else None
+
+
 def build_candidate(
     extracted: dict | None,
     today: date,
@@ -381,6 +404,10 @@ def build_candidate(
         "tags": category_to_tags(extracted.get("category") or "cross"),
         "fee": False,
         "featured": False,
+        "eligibility": _enum_or_unknown(extracted.get("eligibility"), {"open", "residents", "nationals"}),
+        "attendance": _enum_or_unknown(extracted.get("attendance"), {"remote", "hybrid", "onsite"}),
+        "career": _enum_or_unknown(extracted.get("career"), {"any", "emerging", "established"}),
+        "ageCap": _age_cap_or_none(extracted.get("ageCap")),
     }
 
     existing_ids.add(grant_id)

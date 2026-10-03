@@ -59,7 +59,11 @@ A complete grant entry looks like this:
   "url": "https://...",
   "tags": ["region-tag", "topic-tag", "type-tag"],
   "fee": false,
-  "featured": false
+  "featured": false,
+  "eligibility": "open",
+  "attendance": "onsite",
+  "career": "any",
+  "ageCap": null
 }
 ```
 
@@ -82,6 +86,11 @@ A complete grant entry looks like this:
 - **`fee`** — Boolean. `false` means no application fee charged to the applicant. `true` means there IS an application fee (skip these unless you have a strong reason — the desk's mission excludes pay-to-play submissions).
 - **`featured`** — Boolean. Currently unused for visual emphasis; safe to leave `false`.
 - **`suggestedBy`** — *Optional.* String like `@handle` or `Jane Doe`. Renders a small "Suggested by ..." credit line on the card. Only set this if the submitter explicitly opted in via the Suggest a grant form.
+- **`eligibility`** — Must be exactly one of: `open`, `residents`, `nationals`, `unknown`. Drives the Eligibility filter. `open` = anyone worldwide may apply; `residents` = restricted by where you live (country, region or city); `nationals` = citizenship/nationality requirement. When the call text does not state it clearly, use `unknown` (there is an Unknown chip). `backfill_filters.py` auto-classifies missing values conservatively and never overwrites a value already present, so hand corrections stick.
+- **`attendance`** — Must be exactly one of: `remote`, `hybrid`, `onsite`, `unknown`. Drives the Attendance filter. `remote` = can be done from where you live; `onsite` = requires being there (in-person residencies default here).
+- **`career`** — Must be exactly one of: `any`, `emerging`, `established`, `unknown`. Drives the Career stage filter. `any` only when the call states all stages are welcome.
+- **`ageCap`** — Integer maximum applicant age (e.g. `35` for an under-35 call) or `null`. A minimum age (18+) is NOT a cap. Cards with a cap also match the "Has age cap" chip in the Career stage filter.
+- **Duration buckets** are NOT stored; the site derives them from the freetext `duration` field at render time (`detectDurationBuckets` in `index.html`). Write durations with explicit numbers and units ("6 months", "4-week residency", "2 to 6 months") so they bucket correctly; "Per project" and similar file under Unknown / project-based.
 
 ### Selection criteria
 
