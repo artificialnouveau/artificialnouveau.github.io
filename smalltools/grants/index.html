@@ -47,7 +47,6 @@
   --sticky-yellow: #FFE066;
   --sticky-pink: #FFB3BA;
   --sticky-blue: #B5E8FF;
-  --archive: #6B6357;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -993,17 +992,6 @@ body {
 }
 .section-title:has(.section-collapse) h2 { cursor: pointer; }
 
-.section-title .label {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 4px 8px;
-  border: 1.5px solid var(--line);
-  background: #fff;
-  border-radius: 4px;
-}
-
 .section-title h2 {
   font-size: clamp(26px, 4vw, 38px);
   font-weight: 700;
@@ -1024,11 +1012,6 @@ body {
   letter-spacing: 0.05em;
 }
 
-#section-hot .section-title .label { background: var(--hot-soft); border-color: var(--hot); color: var(--hot); }
-#section-new .section-title .label { background: var(--new-soft); border-color: #B58A1A; color: #7C5D08; }
-#section-long .section-title .label { background: var(--long-soft); border-color: var(--long); color: var(--long); }
-#section-rolling .section-title .label { background: var(--rolling-soft); border-color: var(--rolling); color: var(--rolling); }
-#section-archive .section-title .label { background: #DCD7CC; border-color: var(--archive); color: var(--archive); }
 
 /* --- Folder grid --- */
 .folder-grid {
@@ -1082,9 +1065,6 @@ body {
 .folder.is-rolling { background: #DEEDE3; }
 .folder.is-rolling .folder-tab { background: var(--rolling); }
 
-.folder.is-archive { background: #DCD5C4; opacity: 0.78; box-shadow: 3px 3px 0 var(--ink-mute); border-color: var(--archive); color: var(--ink-soft); }
-.folder.is-archive .folder-tab { background: var(--archive); border-color: var(--archive); }
-.folder.is-archive:hover { transform: translate(-1px, -4px); box-shadow: 4px 6px 0 var(--ink-mute); }
 
 /* Tab label is also the visible tab graphic — sized to fit its content */
 .folder .folder-tab {
@@ -1162,7 +1142,6 @@ body {
   font-weight: 600;
 }
 .folder .desc-toggle:hover { color: var(--ink); }
-.folder.is-archive .desc-toggle { display: none; }
 
 .folder .meta-row {
   display: flex;
@@ -1195,7 +1174,6 @@ body {
 .folder .meta-row .pill.amount { background: var(--sticky-yellow); border-color: var(--line); font-weight: 600; }
 .folder .meta-row .pill.deadline { background: #fff; border-color: var(--line); font-weight: 600; }
 .folder .meta-row .pill.deadline.urgent { background: var(--hot); color: #fff; border-color: var(--hot); }
-.folder .meta-row .pill.deadline.passed { background: var(--archive); color: #fff; border-color: var(--archive); }
 
 .folder .location {
   font-family: 'DM Mono', monospace;
@@ -1203,8 +1181,6 @@ body {
   color: var(--ink-mute);
 }
 
-.folder.is-archive .folder-region,
-.folder.is-archive .meta-row .pill { filter: grayscale(0.5); }
 
 .folder .card-actions {
   position: absolute;
@@ -1257,9 +1233,6 @@ body {
   border-color: var(--ink);
   color: var(--ink);
 }
-.folder.is-archive .copy-btn,
-.folder.is-archive .cal-btn,
-.folder.is-archive .pick-btn { display: none; }
 
 /* --- Shortlist bar --- */
 .shortlist-bar {
@@ -1401,28 +1374,6 @@ body {
   background: rgba(255,255,255,0.4);
 }
 
-/* --- Archive collapse --- */
-#section-archive { opacity: 0.85; }
-
-#section-archive .section-head { border-bottom-style: solid; border-color: var(--archive); }
-
-.archive-toggle {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background: var(--paper-2);
-  border: 1.5px solid var(--archive);
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  color: var(--ink);
-}
-.archive-toggle:hover { background: #fff; }
-
-#section-archive[data-open="false"] .folder-grid,
-#section-archive[data-open="false"] .empty-state { display: none; }
-
 /* --- Per-section collapse --- */
 .section-collapse {
   font-family: 'DM Mono', monospace;
@@ -1501,63 +1452,6 @@ body {
   font-size: 15px;
   line-height: 1.6;
 }
-
-/* --- Watch for next round (collapsible drawer; auto-removes expired entries; NOT counted in active grants) --- */
-#section-watchlist { opacity: 0.92; }
-#section-watchlist .section-title .label { background: var(--paper-2); border-color: var(--line); color: var(--ink-mute); }
-#section-watchlist .section-head { border-bottom-style: solid; border-color: var(--line); }
-#section-watchlist[data-empty="true"] { display: none; }
-
-.watchlist-toggle {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background: var(--paper-2);
-  border: 1.5px solid var(--line);
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  color: var(--ink);
-}
-.watchlist-toggle:hover { background: #fff; }
-
-.watchlist-intro {
-  font-family: 'DM Mono', monospace;
-  font-size: 11.5px;
-  color: var(--ink-mute);
-  letter-spacing: 0.02em;
-  line-height: 1.5;
-  margin-bottom: 14px;
-}
-
-.watchlist-list {
-  list-style: none;
-  padding: 6px 22px;
-  margin: 0;
-  background: #fff;
-  border: 2px solid var(--line);
-  border-radius: 6px;
-  box-shadow: 4px 4px 0 var(--line);
-}
-.watchlist-list li {
-  padding: 16px 0;
-  color: var(--ink-soft);
-  font-size: 14.5px;
-  line-height: 1.55;
-  border-top: 1px solid var(--paper-2);
-}
-.watchlist-list li:first-child { border-top: none; }
-.watchlist-list a {
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 1.5px solid var(--ink);
-  font-family: 'Space Grotesk', sans-serif;
-}
-.watchlist-list a:hover { background: var(--sticky-yellow); }
-
-#section-watchlist[data-open="false"] .watchlist-list,
-#section-watchlist[data-open="false"] .watchlist-intro { display: none; }
 
 /* --- Static fallback grant list (visible only without JS or to crawlers via noscript) --- */
 .static-grant-list {
@@ -1850,7 +1744,7 @@ code *, pre *, kbd *, samp * {
   "@type": "ItemList",
   "name": "The Grant Desk",
   "url": "https://www.artificialnouveau.com/smalltools/grants/",
-  "numberOfItems": 245,
+  "numberOfItems": 248,
   "itemListElement": [
     {
       "@type": "ListItem",
@@ -6197,6 +6091,42 @@ code *, pre *, kbd *, samp * {
       "position": 123,
       "item": {
         "@type": "MonetaryGrant",
+        "name": "USHMM Mandel Center Annual Fellowships 2027-28 (Holocaust and Genocide Studies)",
+        "description": "Residential research fellowships at the Mandel Center for Advanced Holocaust Studies, supporting scholars working on the Holocaust and related genocide studies with access to the museum's collections: millions of pages of archival documents (including the Arolsen Archives), oral history testimonies, photographs, film and the resources of the David M. Rubenstein National Institute for Holocaust Documentation. ELIGIBILITY: open to scholars at all career stages, from PhD candidates (ABD) to senior scholars, from any country and discipline. TERMS: awards run 2, 4 or 8 consecutive months in residence in Washington, DC during the 2027-28 academic year (a minimum of two consecutive months is required), with a USD 5,000 monthly stipend plus a one-time travel stipend. APPLICATION: online form with a project proposal of up to 1,000 words and a CV summary of up to four pages, in English, via ushmmfellowships.smapply.io. Applications for 2027-28 are accepted 15 August to 15 November 2026; outcomes by April 2027.",
+        "url": "https://www.ushmm.org/research/opportunities-for-academics/fellowships/annual",
+        "funder": {
+          "@type": "Organization",
+          "name": "Jack, Joseph and Morton Mandel Center for Advanced Holocaust Studies, United States Holocaust Memorial Museum"
+        },
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "USD",
+          "value": "USD 5,000 per month stipend for 2 to 8 consecutive months in residence, plus a one-time travel stipend covering roundtrip economy transportation to Washington, DC."
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "applicationDeadline",
+            "value": "2026-11-15"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "location",
+            "value": "Washington, DC, USA. Open to scholars worldwide; residential at the museum."
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "region",
+            "value": "US"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 124,
+      "item": {
+        "@type": "MonetaryGrant",
         "name": "UCLA Modern Endangered Archives Program (MEAP): 2026-27 Call for Applications",
         "description": "The UCLA Library Modern Endangered Archives Program (MEAP), funded by Arcadia, grants its ninth cohort of awards to preserve, document and digitize cultural heritage collections at risk from environmental conditions, political uncertainty, inherently unsustainable media, inappropriate storage, or communal and social change. IN SCOPE: 20th and 21st century materials, including print, photographic, film, video, audio, ephemeral and born-digital objects; all funded materials are published open access in the UCLA Library Digital Collections repository. GRANT TYPES: Planning Grants up to USD 20,000 over one year for organization, survey and inventory work before digitization; Project Grants up to USD 70,000 over two years for digitization and metadata creation on collections ready to digitize, or for curating existing digital assets; Regional Grants up to USD 100,000 over two years for digital collections combining materials from three or more institutions, families or archival repositories around one theme, community or historical event, hosted by an organizing institution with prior MEAP grant experience (consult MEAP staff before applying). There is also an invitation-only Emergency Grant track up to USD 10,000 (email meap@library.ucla.edu), and a new AV Grants track up to USD 100,000 for audiovisual archives opening April 2027 with selections in September 2027. TIMELINE: applications opened 14 September 2026; preliminary application webinar 15 October 2026; preliminary applications due Monday 16 November 2026 at 11:59pm Pacific Time via meap.smapply.io; preliminary decisions December 2026; detailed applications due 12 February 2027; awards announced summer 2027. Applications name teams working with the institutions, families or repositories that hold the collections; read the Program Guidelines and Project Eligibility documents on the MEAP site before applying.",
         "url": "https://meap.library.ucla.edu/call-for-applications/",
@@ -6230,7 +6160,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 124,
+      "position": 125,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Unearthodox Exploration Co-Lab 2027: Edges of Possibility",
@@ -6262,7 +6192,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 125,
+      "position": 126,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Puffin Foundation: Grants 2027 cycle (Film/Video and Theater)",
@@ -6298,7 +6228,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 126,
+      "position": 127,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Busan Metropolitan City: Open Call for Land / Ecological Art on Eulsukdo",
@@ -6334,7 +6264,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 127,
+      "position": 128,
       "item": {
         "@type": "MonetaryGrant",
         "name": "ACC Galerie Weimar: 33rd International Studio Program 2027, On Absence",
@@ -6370,7 +6300,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 128,
+      "position": 129,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Open City Documentary Festival 2027 (Call for Entries)",
@@ -6406,7 +6336,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 129,
+      "position": 130,
       "item": {
         "@type": "MonetaryGrant",
         "name": "KHK CURE Fellowships 2027/2028, Saarland University (theme: Things)",
@@ -6442,7 +6372,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 130,
+      "position": 131,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Prototype Fund Class 03 (Open-Source Software)",
@@ -6478,7 +6408,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 131,
+      "position": 132,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Beam Center: 2027 Beam Camp Project Open Call (USD 5,000 commission, remote-friendly)",
@@ -6514,7 +6444,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 132,
+      "position": 133,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Leibniz Summer Fellowships 2027 (ZZF Potsdam, contemporary history)",
@@ -6550,7 +6480,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 133,
+      "position": 134,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Nieman Fellowships at Harvard, Class of 2028",
@@ -6586,7 +6516,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 134,
+      "position": 135,
       "item": {
         "@type": "MonetaryGrant",
         "name": "make-a-thek: Mobility Scheme & Knowledge Exchange Programme (Europe + pilot countries)",
@@ -6622,7 +6552,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 135,
+      "position": 136,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Wave Farm: 2027 Research and Production Program (Transmission Art Residencies and Radio Art Fellowships, NY)",
@@ -6658,7 +6588,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 136,
+      "position": 137,
       "item": {
         "@type": "MonetaryGrant",
         "name": "workspacebrussels Studio Residencies, August to December 2027",
@@ -6694,7 +6624,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 137,
+      "position": 138,
       "item": {
         "@type": "MonetaryGrant",
         "name": "J. Anthony Lukas Work-in-Progress Awards 2027",
@@ -6730,7 +6660,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 138,
+      "position": 139,
       "item": {
         "@type": "MonetaryGrant",
         "name": "NRDC Climate Storytelling Fellowship 2027 (via The Black List)",
@@ -6766,7 +6696,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 139,
+      "position": 140,
       "item": {
         "@type": "MonetaryGrant",
         "name": "CURRENTS 2027 Art & Technology Festival: Call for Submissions (Santa Fe)",
@@ -6802,7 +6732,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 140,
+      "position": 141,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Go Short 2027: International Short Film Festival Nijmegen Submissions",
@@ -6838,7 +6768,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 141,
+      "position": 142,
       "item": {
         "@type": "MonetaryGrant",
         "name": "EMAF 2027: Call for Entries, Film / Installation / Expanded",
@@ -6874,7 +6804,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 142,
+      "position": 143,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Auslandsstipendien von Bund und Laendern 2028 (Villa Massimo, Casa Baldi, Venice, Paris)",
@@ -6910,7 +6840,79 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 143,
+      "position": 144,
+      "item": {
+        "@type": "MonetaryGrant",
+        "name": "USC Center for Advanced Genocide Research: PhD Candidate Research Fellowships 2027-28",
+        "description": "Three USD 5,000 research fellowships for advanced-standing PhD candidates from any discipline whose dissertation research draws on testimony from the USC Shoah Foundation Visual History Archive (over 56,000 audiovisual testimonies of survivors and witnesses of the Holocaust and other genocides) and other USC resources in Holocaust and genocide studies. Projects need not focus exclusively on genocide, but must meaningfully use these materials. Fellows spend one month in residence at the Center in Los Angeles during the 2027-28 academic year. One application is considered for all three fellowships (Greenberg, Katz, and Breslauer/Rutman/Anderson). APPLICATION: via the Smartsheet form linked from the Center's fellowships page; questions to cagr@usc.edu. Deadline 15 December 2026.",
+        "url": "https://dornsife.usc.edu/cagr/fellowships/",
+        "funder": {
+          "@type": "Organization",
+          "name": "USC Dornsife Center for Advanced Genocide Research"
+        },
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "USD",
+          "value": "USD 5,000 per fellowship. Three fellowships are awarded (Margee and Douglas Greenberg, Robert J. Katz, and Breslauer, Rutman and Anderson Research Fellowships); one application covers all three."
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "applicationDeadline",
+            "value": "2026-12-15"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "location",
+            "value": "Los Angeles, California, USA. Open internationally; one month in residence at USC."
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "region",
+            "value": "US"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 145,
+      "item": {
+        "@type": "MonetaryGrant",
+        "name": "Saul Kagan Fellowship in Advanced Shoah Studies 2027-28 (PhD and Postdoc)",
+        "description": "Flagship fellowship strengthening Holocaust studies and Shoah memory worldwide, open to PhD candidates and postdoctoral researchers from around the world for the September 2027 to August 2028 academic year. Eligible disciplines include history, anthropology, cultural studies, Jewish studies, political science, philosophy, religion, sociology and women's studies. TERMS: up to USD 30,000 per academic year, renewable once; no residency requirement beyond attending and presenting at the annual week-long summer workshop, so fellows work from their home institution. CONDITIONS: postdoctoral fellows must be enrolled in a postdoc program focused on or supporting Holocaust study (PhD completed within the last five years) and commit to at least five years of full-time academic work in Holocaust studies afterwards; no full-time outside employment. APPLICATION: via the Fluxx portal at fellowships.claimscon.org by 28 December 2026; questions to Dr. Joanna Sliwa (Joanna.Sliwa@claimscon.org).",
+        "url": "https://fellowships.claimscon.org/",
+        "funder": {
+          "@type": "Organization",
+          "name": "Conference on Jewish Material Claims Against Germany (Claims Conference)"
+        },
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "USD",
+          "value": "Up to USD 30,000 for the academic year, renewable for a second consecutive year at the committee's discretion. Applicants receiving more than USD 25,000 in outside funding (excluding tuition scholarships) are ineligible."
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "applicationDeadline",
+            "value": "2026-12-28"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "location",
+            "value": "Remote / home institution worldwide. Only required gathering is the annual summer workshop."
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "region",
+            "value": "Worldwide"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 146,
       "item": {
         "@type": "MonetaryGrant",
         "name": "A4 Residency Art Center: International Residency Fellowship 2028 (Chengdu)",
@@ -6942,7 +6944,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 144,
+      "position": 147,
       "item": {
         "@type": "MonetaryGrant",
         "name": "CFA Institute x IMGN Grant 2026",
@@ -6978,7 +6980,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 145,
+      "position": 148,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Omidyar Network: Tech Journalism Fund",
@@ -7014,7 +7016,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 146,
+      "position": 149,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Leon Levy Center for Biography Fellowships 2027-28 (incl. Levy/Sloan Science Biography)",
@@ -7050,7 +7052,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 147,
+      "position": 150,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Loeb Fellowship 2027-28 at Harvard Graduate School of Design",
@@ -7086,7 +7088,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 148,
+      "position": 151,
       "item": {
         "@type": "MonetaryGrant",
         "name": "ARDC: Amateur Radio and Digital Communications Grants (January 2027 round)",
@@ -7122,7 +7124,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 149,
+      "position": 152,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Stiftung Kunstfonds: KUNSTFONDS_Publikation 2027 (up to EUR 24,000)",
@@ -7158,7 +7160,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 150,
+      "position": 153,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Internationale Kurzfilmtage Oberhausen: Call for Films, 73rd Festival (2027)",
@@ -7194,7 +7196,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 151,
+      "position": 154,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Institute for Law & AI: Summer Fellowship US 2027 (Washington DC)",
@@ -7230,7 +7232,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 152,
+      "position": 155,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Kulturstiftung des Bundes: General Project Funding, January 2027 round (Allgemeine Projektfoerderung)",
@@ -7266,7 +7268,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 153,
+      "position": 156,
       "item": {
         "@type": "MonetaryGrant",
         "name": "World of WearableArt (WOW) Awards Competition 2027 (Wellington, New Zealand)",
@@ -7298,7 +7300,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 154,
+      "position": 157,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Screen Australia Global Fellowships (AUD 80,000-100,000)",
@@ -7330,7 +7332,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 155,
+      "position": 158,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mid Atlantic Arts: USArtists International (FY28 round, up to USD 11,000)",
@@ -7366,7 +7368,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 156,
+      "position": 159,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Alberta Foundation for the Arts: Visual Arts and New Media Individual Project Funding (March 2027)",
@@ -7402,7 +7404,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 157,
+      "position": 160,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Flemish Government: Kunstendecreet beurzen voor kunstenaars (March 2027 round)",
@@ -7438,7 +7440,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 158,
+      "position": 161,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Region Ile-de-France: Programme regional de residences d'artistes (arts plastiques, numeriques et urbains), March 2027 session",
@@ -7474,7 +7476,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 159,
+      "position": 162,
       "item": {
         "@type": "MonetaryGrant",
         "name": "New Media Film Festival 2027 (AR / MR / AI / TECH category)",
@@ -7510,7 +7512,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 160,
+      "position": 163,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Ars Gratia Artis World Film Festival 2027 (Arboga, Sweden)",
@@ -7546,7 +7548,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 161,
+      "position": 164,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Culture Moves Europe: Call for Individual Mobility 2026-2027",
@@ -7582,7 +7584,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 162,
+      "position": 165,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Bradford Textile Society: Design Competition 2026-27 (UK)",
@@ -7618,7 +7620,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 163,
+      "position": 166,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Blackbird Foundation: Believers Fund III 2026",
@@ -7650,7 +7652,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 164,
+      "position": 167,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Acquisitions (rolling)",
@@ -7681,7 +7683,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 165,
+      "position": 168,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Art Fair International (rolling)",
@@ -7712,7 +7714,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 166,
+      "position": 169,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Artist's Fee (rolling)",
@@ -7743,7 +7745,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 167,
+      "position": 170,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Art Heritage Festival (rolling)",
@@ -7774,7 +7776,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 168,
+      "position": 171,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Art Heritage Presentation (rolling)",
@@ -7805,7 +7807,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 169,
+      "position": 172,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Collection Mobility (rolling)",
@@ -7832,7 +7834,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 170,
+      "position": 173,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Physical AI Safety Institute: Research Fellowship (expression of interest)",
@@ -7859,7 +7861,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 171,
+      "position": 174,
       "item": {
         "@type": "MonetaryGrant",
         "name": "British Council Travel Grant Fund (film and XR, rolling)",
@@ -7890,7 +7892,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 172,
+      "position": 175,
       "item": {
         "@type": "MonetaryGrant",
         "name": "ESA Open Space Innovation Platform (OSIP): rolling open call for ideas",
@@ -7917,7 +7919,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 173,
+      "position": 176,
       "item": {
         "@type": "MonetaryGrant",
         "name": "AIXI Labs: Research Fellowship (rolling, quarterly rounds)",
@@ -7948,7 +7950,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 174,
+      "position": 177,
       "item": {
         "@type": "MonetaryGrant",
         "name": "ESWA Digital Rights Gathering 2026: The (W)horrors Edition (Barcelona)",
@@ -7979,7 +7981,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 175,
+      "position": 178,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Cultuurloket DigitALL: Pilot Contribution (Pilotbijdrage, 2026-2027, rolling)",
@@ -8010,7 +8012,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 176,
+      "position": 179,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Brabant C: ASML x Brabant C Project Scheme (2026-2027, rolling)",
@@ -8041,7 +8043,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 177,
+      "position": 180,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Het Cultuurfonds: Ontwikkelbijdrage for Individual Makers and Collectives (rolling, Netherlands)",
@@ -8072,7 +8074,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 178,
+      "position": 181,
       "item": {
         "@type": "MonetaryGrant",
         "name": "BFI National Lottery Impact Feature Funding (Higher-Budget Features)",
@@ -8103,7 +8105,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 179,
+      "position": 182,
       "item": {
         "@type": "MonetaryGrant",
         "name": "BFI National Lottery Development Funding (Feature Script and Package Development)",
@@ -8130,7 +8132,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 180,
+      "position": 183,
       "item": {
         "@type": "MonetaryGrant",
         "name": "BFI National Lottery Audience Projects Fund",
@@ -8161,7 +8163,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 181,
+      "position": 184,
       "item": {
         "@type": "MonetaryGrant",
         "name": "BFI National Lottery Screen Heritage Fund: Individual Skills Funding",
@@ -8188,7 +8190,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 182,
+      "position": 185,
       "item": {
         "@type": "MonetaryGrant",
         "name": "IAS Civic Science Fellow: AI and Society (Nelson Lab) 2026-27",
@@ -8219,7 +8221,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 183,
+      "position": 186,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Digital Impact Alliance (DIAL) Research Fellowship",
@@ -8250,7 +8252,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 184,
+      "position": 187,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Manifund: AI Safety Regranting (Rolling)",
@@ -8281,7 +8283,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 185,
+      "position": 188,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Field of Vision: Documentary Commissions (Rolling)",
@@ -8308,7 +8310,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 186,
+      "position": 189,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Basel House of Film Filmmakers Residency",
@@ -8335,7 +8337,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 187,
+      "position": 190,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Amarte Fonds: Development and Project Contributions (rolling)",
@@ -8366,7 +8368,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 188,
+      "position": 191,
       "item": {
         "@type": "MonetaryGrant",
         "name": "University of Chicago: Applied Data Fellowship 2026",
@@ -8397,7 +8399,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 189,
+      "position": 192,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Emergent Ventures (Mercatus Center): Grants for Individuals",
@@ -8424,7 +8426,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 190,
+      "position": 193,
       "item": {
         "@type": "MonetaryGrant",
         "name": "CHAI: Research Fellowship (Center for Human-Compatible AI, UC Berkeley)",
@@ -8451,7 +8453,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 191,
+      "position": 194,
       "item": {
         "@type": "MonetaryGrant",
         "name": "GitHub Secure Open Source Fund",
@@ -8482,7 +8484,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 192,
+      "position": 195,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Sovereign Tech Fund",
@@ -8513,7 +8515,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 193,
+      "position": 196,
       "item": {
         "@type": "MonetaryGrant",
         "name": "FLOSS/fund (Zerodha)",
@@ -8544,7 +8546,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 194,
+      "position": 197,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Long-Term Future Fund (EA Funds)",
@@ -8575,7 +8577,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 195,
+      "position": 198,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Pulitzer Center: Global Reporting Grants",
@@ -8606,7 +8608,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 196,
+      "position": 199,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Pulitzer Center: U.S. Local News Reporting Grants (Bringing Stories Home)",
@@ -8633,7 +8635,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 197,
+      "position": 200,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Nederlands Letterenfonds: Ontwikkelbeurzen voor Literaire Makers (Development Grants)",
@@ -8664,7 +8666,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 198,
+      "position": 201,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Coefficient Giving: Career Development and Transition Funding",
@@ -8691,7 +8693,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 199,
+      "position": 202,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Kapor Foundation Research Fellowship",
@@ -8718,7 +8720,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 200,
+      "position": 203,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Pulitzer Center: Data Journalism Grants",
@@ -8749,7 +8751,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 201,
+      "position": 204,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Pulitzer Center: AI Reporting Grants",
@@ -8776,7 +8778,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 202,
+      "position": 205,
       "item": {
         "@type": "MonetaryGrant",
         "name": "C Magazine: Call for Pitches (Art Writing & Criticism)",
@@ -8807,7 +8809,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 203,
+      "position": 206,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Critical Playground: Freelance Writer Commissions",
@@ -8834,7 +8836,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 204,
+      "position": 207,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Art Commission",
@@ -8861,7 +8863,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 205,
+      "position": 208,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Artist Basic",
@@ -8888,7 +8890,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 206,
+      "position": 209,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Artist Project",
@@ -8919,7 +8921,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 207,
+      "position": 210,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Artist Start",
@@ -8946,7 +8948,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 208,
+      "position": 211,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Curator Researcher",
@@ -8973,7 +8975,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 209,
+      "position": 212,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Protected Cultural Heritage",
@@ -9000,7 +9002,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 210,
+      "position": 213,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Voucher Artisan",
@@ -9027,7 +9029,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 211,
+      "position": 214,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Voucher Artist with Child",
@@ -9054,7 +9056,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 212,
+      "position": 215,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Voucher Development",
@@ -9081,7 +9083,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 213,
+      "position": 216,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Mondriaan Fund: Voucher International (rolling)",
@@ -9112,7 +9114,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 214,
+      "position": 217,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Karlsruhe UCCoMA: General Project Funding for Media Art",
@@ -9139,7 +9141,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 215,
+      "position": 218,
       "item": {
         "@type": "MonetaryGrant",
         "name": "OTF Internet Freedom Fund",
@@ -9170,7 +9172,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 216,
+      "position": 219,
       "item": {
         "@type": "MonetaryGrant",
         "name": "BFI Doc Society: Features Production Fund (UK, Documentary)",
@@ -9201,7 +9203,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 217,
+      "position": 220,
       "item": {
         "@type": "MonetaryGrant",
         "name": "microagi Research Fellowship - Cohort 01",
@@ -9232,7 +9234,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 218,
+      "position": 221,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Fonds 21: Kunst & Cultuur Project Grants (rolling, Netherlands)",
@@ -9263,7 +9265,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 219,
+      "position": 222,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Het Cultuurfonds: Project Grants for Foundations and Associations (rolling, Netherlands)",
@@ -9294,7 +9296,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 220,
+      "position": 223,
       "item": {
         "@type": "MonetaryGrant",
         "name": "VSBfonds: Kunst & Cultuur Donations (rolling, Netherlands)",
@@ -9321,7 +9323,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 221,
+      "position": 224,
       "item": {
         "@type": "MonetaryGrant",
         "name": "SIDN fonds: Pioneer Projects for a Strong Internet (rolling, Netherlands)",
@@ -9352,7 +9354,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 222,
+      "position": 225,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Stichting DOEN: Funding for Pioneering Culture and Social Initiatives (rolling, Netherlands)",
@@ -9379,7 +9381,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 223,
+      "position": 226,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Fonds voor Cultuurparticipatie: Open Schemes for Cultural Institutions 2025-2028 (rolling, Netherlands)",
@@ -9410,7 +9412,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 224,
+      "position": 227,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Luminos.AI Legal Engineering Fellowship (Fall 2026)",
@@ -9441,7 +9443,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 225,
+      "position": 228,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Digital Defenders Partnership: Incident Response Fund",
@@ -9472,7 +9474,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 226,
+      "position": 229,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Amsterdams Fonds voor de Kunst: Project Subsidies 2026-2028 (rolling)",
@@ -9503,7 +9505,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 227,
+      "position": 230,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Rest of World: Labor x Tech Reporting Commissions (Year 3)",
@@ -9534,7 +9536,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 228,
+      "position": 231,
       "item": {
         "@type": "MonetaryGrant",
         "name": "ILIAD Intensive: Foundational AI Alignment Program (London and Berkeley)",
@@ -9565,7 +9567,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 229,
+      "position": 232,
       "item": {
         "@type": "MonetaryGrant",
         "name": "apexart Open Calls: Curatorial Proposals for NYC and International Exhibitions",
@@ -9596,7 +9598,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 230,
+      "position": 233,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Anthropic Fellows Program (funded AI research fellowship, January 2027 cohort)",
@@ -9627,7 +9629,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 231,
+      "position": 234,
       "item": {
         "@type": "MonetaryGrant",
         "name": "BlueDot Impact: Rapid Grants for AI Safety Projects",
@@ -9658,7 +9660,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 232,
+      "position": 235,
       "item": {
         "@type": "MonetaryGrant",
         "name": "CLR Fund: Grants for Reducing Long-Term and Suffering Risks",
@@ -9689,7 +9691,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 233,
+      "position": 236,
       "item": {
         "@type": "MonetaryGrant",
         "name": "The Launch Sequence RFP: Paid Project Plans for Advanced AI Preparedness",
@@ -9720,7 +9722,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 234,
+      "position": 237,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Monero Fund Research Grants",
@@ -9751,7 +9753,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 235,
+      "position": 238,
       "item": {
         "@type": "MonetaryGrant",
         "name": "FUTO Grants for Open-Source Software",
@@ -9782,7 +9784,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 236,
+      "position": 239,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Halcyon Futures: Fast Grants for AI Safety Founders",
@@ -9813,7 +9815,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 237,
+      "position": 240,
       "item": {
         "@type": "MonetaryGrant",
         "name": "La Scam: Bourses Brouillon d'un reve Sonore (Radio and Podcast Authors, rolling)",
@@ -9844,7 +9846,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 238,
+      "position": 241,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Anthropic Economic Futures Research Fund (research grants on AI's economic impacts)",
@@ -9875,7 +9877,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 239,
+      "position": 242,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Bertha Artivism Awards 2027",
@@ -9906,7 +9908,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 240,
+      "position": 243,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Screen Australia: International Pitching Forums and Talent Labs (rolling)",
@@ -9933,7 +9935,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 241,
+      "position": 244,
       "item": {
         "@type": "MonetaryGrant",
         "name": "UK Games Fund: Content Fund (rolling expressions of interest)",
@@ -9964,7 +9966,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 242,
+      "position": 245,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Roger Tory Peterson Institute Artist-in-Residence (Jamestown, NY, rolling)",
@@ -9995,7 +9997,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 243,
+      "position": 246,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Experimenter: Generator Cooperative Art Production Fund (rolling)",
@@ -10022,7 +10024,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 244,
+      "position": 247,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Arts Council England: National Lottery Project Grants (rolling)",
@@ -10053,7 +10055,7 @@ code *, pre *, kbd *, samp * {
     },
     {
       "@type": "ListItem",
-      "position": 245,
+      "position": 248,
       "item": {
         "@type": "MonetaryGrant",
         "name": "Creative Scotland: Open Fund for Individuals (rolling)",
@@ -10242,7 +10244,7 @@ code *, pre *, kbd *, samp * {
   <button type="button" id="sl-share" disabled>Share picks</button>
   <button type="button" id="sl-ics" disabled>Download .ics</button>
   <button type="button" id="sl-clear" disabled>Clear</button>
-  <small class="sl-note">* counts currently listed grants only. Picks that get filed away drop out of the count, shares, .ics and exports, but still show up in the Filed Away drawer when viewing your picks.</small>
+  <small class="sl-note">* counts currently listed grants only. Picks whose deadlines have passed drop off the page and out of the count, shares, .ics and exports.</small>
 </section>
 
 <section class="shortlist-bar export-bar" aria-label="Export for LLM">
@@ -10296,12 +10298,10 @@ code *, pre *, kbd *, samp * {
   <section class="section" id="section-hot" data-collapsed="true">
     <div class="section-head">
       <div class="section-title">
-        <span class="label">HOT</span>
-        <h2>Hot Grants</h2>
+        <h2>Deadlines Within 30 Days</h2>
         <span class="meta" id="meta-hot"></span>
-        <button class="section-collapse" type="button" aria-expanded="false" aria-controls="grid-hot" aria-label="Expand Hot Grants">&#9662;</button>
+        <button class="section-collapse" type="button" aria-expanded="false" aria-controls="grid-hot" aria-label="Expand Deadlines Within 30 Days">&#9662;</button>
       </div>
-      <span class="section-help">Closing within 30 days.</span>
     </div>
     <div class="folder-grid" id="grid-hot"></div>
   </section>
@@ -10309,12 +10309,10 @@ code *, pre *, kbd *, samp * {
   <section class="section" id="section-new" data-collapsed="true">
     <div class="section-head">
       <div class="section-title">
-        <span class="label">OPEN</span>
-        <h2>You Got Time</h2>
+        <h2>Deadlines 30 to 90 Days Out</h2>
         <span class="meta" id="meta-new"></span>
-        <button class="section-collapse" type="button" aria-expanded="false" aria-controls="grid-new" aria-label="Expand You Got Time">&#9662;</button>
+        <button class="section-collapse" type="button" aria-expanded="false" aria-controls="grid-new" aria-label="Expand Deadlines 30 to 90 Days Out">&#9662;</button>
       </div>
-      <span class="section-help">Deadlines 30 to 90 days out.</span>
     </div>
     <div class="folder-grid" id="grid-new"></div>
   </section>
@@ -10322,12 +10320,10 @@ code *, pre *, kbd *, samp * {
   <section class="section" id="section-long" data-collapsed="true">
     <div class="section-head">
       <div class="section-title">
-        <span class="label">LONG</span>
         <h2>Deadlines Beyond 90 Days</h2>
         <span class="meta" id="meta-long"></span>
         <button class="section-collapse" type="button" aria-expanded="false" aria-controls="grid-long" aria-label="Expand Deadlines Beyond 90 Days">&#9662;</button>
       </div>
-      <span class="section-help">Plenty of time.</span>
     </div>
     <div class="folder-grid" id="grid-long"></div>
   </section>
@@ -10335,7 +10331,6 @@ code *, pre *, kbd *, samp * {
   <section class="section" id="section-rolling" data-collapsed="true">
     <div class="section-head">
       <div class="section-title">
-        <span class="label">ROLLING</span>
         <h2>Rolling or Continuous Calls</h2>
         <span class="meta" id="meta-rolling"></span>
         <button class="section-collapse" type="button" aria-expanded="false" aria-controls="grid-rolling" aria-label="Expand Rolling or Continuous Calls">&#9662;</button>
@@ -10345,675 +10340,6 @@ code *, pre *, kbd *, samp * {
     <div class="folder-grid" id="grid-rolling"></div>
   </section>
 
-  <section class="section" id="section-archive" data-open="false">
-    <div class="section-head">
-      <div class="section-title">
-        <span class="label">ARCHIVE</span>
-        <h2>Filed Away (for 1 year)</h2>
-        <span class="meta" id="meta-archive"></span>
-      </div>
-      <button class="archive-toggle" id="archive-toggle" type="button">Open drawer</button>
-    </div>
-    <div class="folder-grid" id="grid-archive"></div>
-  </section>
-
-  <section class="section" id="section-watchlist" data-open="false">
-    <div class="section-head">
-      <div class="section-title">
-        <span class="label">WATCHLIST</span>
-        <h2>Watch for next round</h2>
-        <span class="meta" id="meta-watchlist"></span>
-      </div>
-      <button class="watchlist-toggle" id="watchlist-toggle" type="button">Open drawer</button>
-    </div>
-    <p class="watchlist-intro">Funders whose current cycle is closed but whose next call is expected. Not counted in the active grants tally. Entries are auto-removed once their expected window has passed; check the funder page directly for confirmed dates.</p>
-    <ul class="watchlist-list" id="watchlist-list">
-      <li data-watchlist-until="2027-04-15">
-        <a href="https://creativitacontemporanea.cultura.gov.it/italian-council/" target="_blank" rel="noopener"><strong>Italian Council, edition 16 (Italy, artists via institutions; EUR 15,000 individual residency grants)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-06-01">
-        <a href="https://bilbaoarte.eus/" target="_blank" rel="noopener"><strong>BilbaoArte production grants 2027-28 (Bilbao; EUR 1,350/month plus studio)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-06-01">
-        <a href="https://www.tabakalera.eus/en/" target="_blank" rel="noopener"><strong>Tabakalera residency lines 2027-28 (San Sebastian: artists' space, ASTS, Chillida Leku, Ikusmira Berriak)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-02-15">
-        <a href="https://www.accioncultural.es/" target="_blank" rel="noopener"><strong>AC/E PICE 2027 (Spain: mobility, visitors and residencies, applications via host institutions)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-15">
-        <a href="https://gulbenkian.pt/" target="_blank" rel="noopener"><strong>Gulbenkian: Apoio a Criacao Artistica and Internacionalizacao 2027 (Portugal)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://www.dgartes.gov.pt/" target="_blank" rel="noopener"><strong>DGARTES: Programa de Apoio a Projetos 2027 (Portugal)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-10-15">
-        <a href="https://kulturdirektoratet.no/" target="_blank" rel="noopener"><strong>Statens kunstnerstipend (Norway, state artist grants)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-15">
-        <a href="https://kulturdirektoratet.no/sok-stotte" target="_blank" rel="noopener"><strong>Norsk kulturfond: visual arts project support rounds (Norway)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-01">
-        <a href="https://oca.no/" target="_blank" rel="noopener"><strong>OCA international support (Norway-based artists)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-01">
-        <a href="https://www.kunst.dk/english" target="_blank" rel="noopener"><strong>Statens Kunstfond: work grants and project funding 2027 (Denmark)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-15">
-        <a href="https://ars.electronica.art/prix/" target="_blank" rel="noopener"><strong>Prix Ars Electronica 2027 (Linz)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-07-01">
-        <a href="https://www.wien.gv.at/kultur/abteilung/foerderungen/" target="_blank" rel="noopener"><strong>Stadt Wien: Arbeitsstipendien bildende Kunst und Medienkunst 2028</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-06-01">
-        <a href="https://www.bmwkms.gv.at/themen/kunst-und-kultur.html" target="_blank" rel="noopener"><strong>BMWKMS Staats- und Startstipendien Medienkunst 2028 (Austria)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-10-15">
-        <a href="https://www.bmwkms.gv.at/themen/kunst-und-kultur.html" target="_blank" rel="noopener"><strong>BMWKMS Auslandsatelierstipendien 2029 (Austrian artists abroad)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2026-12-15">
-        <a href="https://www.goldenfleeceaward.com/how-to-apply/guidelines" target="_blank" rel="noopener"><strong>Golden Fleece Award 2027 (Ireland)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://www.artscouncil.org.uk/dycp" target="_blank" rel="noopener"><strong>Arts Council England: Developing your Creative Practice, round 25</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-05-15">
-        <a href="https://www.artscouncil.ie/available-funding/" target="_blank" rel="noopener"><strong>Arts Council Ireland: Agility Award 2027</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-07-01">
-        <a href="https://www.centreculturelirlandais.com/en/stay-create/creating-at-the-cci/artist-residency-programme" target="_blank" rel="noopener"><strong>Centre Culturel Irlandais Paris: residencies 2028 (Irish artists)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-02-15">
-        <a href="https://hospitalfield.org.uk/" target="_blank" rel="noopener"><strong>Hospitalfield Interdisciplinary Residency 2027 (Arbroath, Scotland)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-05-01">
-        <a href="https://villakujoyama.jp/" target="_blank" rel="noopener"><strong>Villa Kujoyama 2028 (Kyoto, France-based artists)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-04-15">
-        <a href="https://www.ircam.fr/creation/residence-en-recherche-artistique" target="_blank" rel="noopener"><strong>IRCAM Artistic Research Residency 2027-28 (Paris, with ZKM and SAT)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-15">
-        <a href="https://www.fondationdesartistes.fr/" target="_blank" rel="noopener"><strong>Fondation des Artistes: aide aux projets, spring 2027 commission (France)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-02-15">
-        <a href="https://www.cnc.fr/professionnels/aides-et-financements" target="_blank" rel="noopener"><strong>DICReAM: CNC aid for experimental digital and multimedia creation (France)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-01">
-        <a href="https://www.cnap.fr/" target="_blank" rel="noopener"><strong>CNAP: soutien a un projet artistique (France)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://culture.lacity.gov/grants/independent-master-artist-projects-grant-program" target="_blank" rel="noopener"><strong>COLA-IMAP: Independent Master Artist Projects (Los Angeles)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-10-15">
-        <a href="https://welcometolace.org/" target="_blank" rel="noopener"><strong>LACE Lightning Fund 2028 (Los Angeles County)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-08-31">
-        <a href="https://mikekelleyfoundation.org/grants/overview" target="_blank" rel="noopener"><strong>Mike Kelley Foundation: Infinite Expansion Grants 2028 (Los Angeles County)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-10-15">
-        <a href="https://www.santamonica.gov/arts/grants" target="_blank" rel="noopener"><strong>Santa Monica Individual Artist Grants 2028</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-02-15">
-        <a href="https://www.nyfa.org/awards-grants/nysca-nyfa-artist-fellowship/" target="_blank" rel="noopener"><strong>NYSCA/NYFA Artist Fellowship 2027 (New York State)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-01-15">
-        <a href="https://laundromatproject.org/" target="_blank" rel="noopener"><strong>The Laundromat Project: Create Change Fellowship and Residencies 2027 (NYC)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-04-01">
-        <a href="https://www.onassis.org/initiatives/onassis-air" target="_blank" rel="noopener"><strong>Onassis AiR Open Call 2027/28 (Athens)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-04-15">
-        <a href="https://neon.org.gr/en/" target="_blank" rel="noopener"><strong>NEON Sponsorship Program 2027 (Greece)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-06-01">
-        <a href="https://art-works.gr/en/programs/grants/" target="_blank" rel="noopener"><strong>ARTWORKS (SNF) Grants and Artist Fellowship Program 2027 (Greece)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-04-30">
-        <a href="https://www.emst.gr/en/" target="_blank" rel="noopener"><strong>EMST x WIELS Residency 2027 (artists from Greece, Brussels-based)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-04-01">
-        <a href="https://www.fonds-daku.de/foerderung/foerderprogramme/" target="_blank" rel="noopener"><strong>Fonds Darstellende Kuenste: next general production funding round</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-06-15">
-        <a href="https://wiels.org/en" target="_blank" rel="noopener"><strong>WIELS residency: Belgium-based artists round 2028</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-10-01">
-        <a href="https://www.q-o2.be/en/" target="_blank" rel="noopener"><strong>Q-O2 residencies 2028 (experimental music and sound art, Brussels)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2026-12-31">
-        <a href="https://www.berliner-kuenstlerprogramm.de/en/application/" target="_blank" rel="noopener"><strong>DAAD Artists-in-Berlin Program 2028 (Berliner Kuenstlerprogramm)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-01">
-        <a href="https://hausmedienkunst.de/en/" target="_blank" rel="noopener"><strong>Haus fuer Medienkunst Oldenburg: Stiftung Niedersachsen Media Art Grants 2027 (Edith-Russ-Haus)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://professionals.idfa.nl/training-funding/funding/about-the-idfa-bertha-fund/" target="_blank" rel="noopener"><strong>IDFA Bertha Fund: IBF Classic 2027 (documentary, Global South)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://mophradat.org/en/" target="_blank" rel="noopener"><strong>Mophradat: Grants for Artists' Practice (Arab world)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-04-01">
-        <a href="https://koneensaatio.fi/en/saari-residence/" target="_blank" rel="noopener"><strong>Saari Residence 2028 (Kone Foundation, Finland)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-15">
-        <a href="https://www.nordiskkulturkontakt.org/en/grants/about-the-grant-programmes/culture-and-art-programme/" target="_blank" rel="noopener"><strong>Nordic Culture Point: Culture and Art Programme, spring 2027 round</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-09-30">
-        <a href="https://www.konstnarsnamnden.se/en/international-programmes/iaspis/" target="_blank" rel="noopener"><strong>IASPIS international residencies 2028 (Swedish Arts Grants Committee)</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-07-01">
-        <a href="https://www.tokyoartsandspace.jp/en/application/about_opencall.html" target="_blank" rel="noopener"><strong>Tokyo Arts and Space (TOKAS) residency programs 2028</strong></a>
-        . Last checked 6 October 2026.
-      </li>
-      <li data-watchlist-until="2027-02-10">
-        <a href="https://www.spacescle.org/for-artists/echo-artist-residency-program" target="_blank" rel="noopener"><strong>SPACES: Echo Artist Residency 2027-28 (Cleveland, USA)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-01-15">
-        <a href="https://www.kunstfonds.de/foerderung/" target="_blank" rel="noopener"><strong>Stiftung Kunstfonds: KUNSTFONDS_Stipendium 2027 (Germany)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://www.fondationdesartistes.fr/" target="_blank" rel="noopener"><strong>Fondation des Artistes: commission mecenat, spring 2027 session (France)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://re-humanism.com/" target="_blank" rel="noopener"><strong>re:humanism Art Prize, 5th edition (Rome, AI art)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-05-31">
-        <a href="https://www.schermodellarte.org/" target="_blank" rel="noopener"><strong>VISIO: Lo Schermo dell'Arte production fund (Florence, Italy)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-07-31">
-        <a href="https://overtoon.org/" target="_blank" rel="noopener"><strong>Overtoon: sound art production residencies (Brussels)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-10-31">
-        <a href="https://www.afcn.ro/" target="_blank" rel="noopener"><strong>AFCN: Administration of the National Cultural Fund, 2027 session (Romania)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://daimon.qc.ca/" target="_blank" rel="noopener"><strong>Daimon: production residencies (Gatineau, Canada)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://mutek.org/" target="_blank" rel="noopener"><strong>MUTEK Montreal: call for projects, 2027 edition</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2026-12-15">
-        <a href="https://processingfoundation.org/" target="_blank" rel="noopener"><strong>Processing Foundation: redesigned fellowship (remote)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2026-12-31">
-        <a href="https://newmusicusa.org/program/creator-fund/" target="_blank" rel="noopener"><strong>New Music USA: Creator Fund 2027</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://www.exploratorium.edu/arts/artist-in-residence" target="_blank" rel="noopener"><strong>Exploratorium: Artist-in-Residence 2028 (San Francisco)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://www.lacma.org/lab" target="_blank" rel="noopener"><strong>LACMA Art + Technology Lab: 2027 RFP (Los Angeles)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://cosmosinstitute.org/" target="_blank" rel="noopener"><strong>Cosmos Institute: grants, next round (remote)</strong></a>
-        . Last checked 2 October 2026.
-      </li>
-      <li data-watchlist-until="2027-04-15">
-        <a href="https://koneensaatio.fi/en/saari-residence/residency-applicants/" target="_blank" rel="noopener"><strong>Saari Residence 2028 (Kone Foundation, Mynämäki, Finland)</strong></a>
-        . Last checked 30 September 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://www.cnc.fr/professionnels/aides-et-financements/jeu-video/fonds-d-aide-au-jeu-video-fajv-_191468" target="_blank" rel="noopener"><strong>CNC Fonds d'aide au jeu video (FAJV), next round (France)</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-05-15">
-        <a href="https://tranzfuser.com/" target="_blank" rel="noopener"><strong>Tranzfuser 2027 (UK Games Fund graduate programme)</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://culture.ec.europa.eu/creative-europe/creative-europe-media-strand" target="_blank" rel="noopener"><strong>Creative Europe MEDIA: Video Games and Immersive Content Development 2027</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://novagamesfoundation.org/" target="_blank" rel="noopener"><strong>Nova Games Foundation inaugural grants (US-led, international schools)</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-05-15">
-        <a href="https://www.nfi.no/en" target="_blank" rel="noopener"><strong>Norwegian Film Institute: games development and launch funding 2027</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://www.bmwk.de/" target="_blank" rel="noopener"><strong>German federal games funding (Computerspielefoerderung des Bundes)</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-01-15">
-        <a href="https://alchemyfilmandarts.org.uk/festival/" target="_blank" rel="noopener"><strong>Alchemy Film and Moving Image Festival 2027 (Hawick, Scotland)</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://www.edfringe.com/take-part/artists/support-for-artists/apply-for-keep-it-fringe-funding/" target="_blank" rel="noopener"><strong>Keep it Fringe Fund 2027 (Edinburgh Festival Fringe)</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-02-15">
-        <a href="https://www.pleasance.co.uk/charlie-fund" target="_blank" rel="noopener"><strong>Pleasance Charlie Hartill Fund 2027 (Edinburgh Fringe via London)</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://www.tokyoartsandspace.jp/en/residency/" target="_blank" rel="noopener"><strong>Tokyo Arts and Space (TOKAS) Residency Programs 2028</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-07-31">
-        <a href="https://kiac.jp/en/" target="_blank" rel="noopener"><strong>Kinosaki International Arts Center AiR 2028/29 (Hyogo, Japan)</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-10-15">
-        <a href="https://www.mmca.go.kr/eng/artStudio/artStudioMain.do" target="_blank" rel="noopener"><strong>MMCA International Artist/Researcher Residency 2028 (Seoul)</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-09-30">
-        <a href="https://www.opendemocracy.net/en/job-opportunity-tech-reporting-fellowship/" target="_blank" rel="noopener"><strong>openDemocracy x Tech Policy Press Tech Reporting Fellowship</strong></a>
-        . Last checked 29 September 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://commonwealthfoundation.com/short-story-prize/" target="_blank" rel="noopener"><strong>Commonwealth Short Story Prize 2027</strong></a>
-        . Last checked 26 September 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://rhizome.org/" target="_blank" rel="noopener"><strong>Rhizome Microgrants, 13th annual (worldwide)</strong></a>
-        . Last checked 23 September 2026.
-      </li>
-      <li data-watchlist-until="2027-01-15">
-        <a href="https://ksj.mit.edu/" target="_blank" rel="noopener"><strong>Knight Science Journalism Fellowship 2027/28 (MIT, Cambridge MA)</strong></a>
-        . Last checked 14 September 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://www.investigativejournalismforeu.net/" target="_blank" rel="noopener"><strong>IJ4EU: Investigation and Freelancer Support 2027 (Europe)</strong></a>
-        . Last checked 14 September 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://berthafoundation.org/" target="_blank" rel="noopener"><strong>Bertha Challenge 2028 (worldwide, activists x investigative journalists)</strong></a>
-        . Last checked 14 September 2026.
-      </li>
-      <li data-watchlist-until="2026-12-20">
-        <a href="https://www.europeanpressprize.com/" target="_blank" rel="noopener"><strong>European Press Prize 2027 (Council of Europe countries)</strong></a>
-        . Last checked 14 September 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://bfmaf.org/" target="_blank" rel="noopener"><strong>Berwick Film &amp; Media Arts Festival 2027 (England/Scotland border)</strong></a>
-        . Last checked 9 September 2026.
-      </li>
-      <li data-watchlist-until="2027-08-31">
-        <a href="https://imagesfestival.com/opportunities/" target="_blank" rel="noopener"><strong>Images Festival 2028 (Toronto)</strong></a>
-        . Last checked 9 September 2026.
-      </li>
-      <li data-watchlist-until="2027-09-15">
-        <a href="https://iffr.com/en/blog-rtm-pitch" target="_blank" rel="noopener"><strong>IFFR RTM Pitch (Rotterdam-based filmmakers)</strong></a>
-        . Last checked 1 September 2026.
-      </li>
-      <li data-watchlist-until="2026-12-31">
-        <a href="https://v2.nl/" target="_blank" rel="noopener"><strong>V2_ x IFFR hybrid residency (Rotterdam)</strong></a>
-        . Last checked 1 September 2026.
-      </li>
-      <li data-watchlist-until="2027-04-30">
-        <a href="https://impakt.nl/" target="_blank" rel="noopener"><strong>IMPAKT CODE programme (Utrecht)</strong></a>
-        . Last checked 1 September 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://www.netflixdocfund.co.uk/" target="_blank" rel="noopener"><strong>Netflix Documentary Talent Fund (UK and Ireland)</strong></a>
-        . Last checked 1 September 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://newfest.org/new-voices-filmmaker-grant/" target="_blank" rel="noopener"><strong>NewFest x Netflix: New Voices Filmmaker Grant (US, LGBTQ+ filmmakers)</strong></a>
-        . Last checked 1 September 2026.
-      </li>
-      <li data-watchlist-until="2027-08-31">
-        <a href="https://tasveer.org/tasveer-film-fund/" target="_blank" rel="noopener"><strong>Tasveer Film Fund with Netflix (North America, South Asian stories)</strong></a>
-        . Last checked 1 September 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://pocaccelerator.org/" target="_blank" rel="noopener"><strong>Proof of Concept accelerator (US, women, trans and non-binary perspectives)</strong></a>
-        . Last checked 1 September 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://africanofilter.org/what-we-do/community/last-mile-film-fund/" target="_blank" rel="noopener"><strong>Africa No Filter: Last Mile Film Fund (Africa and diaspora)</strong></a>
-        . Last checked 24 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://africanofilter.org/what-we-do/community/work-reimagined-storylab/" target="_blank" rel="noopener"><strong>Africa No Filter: Work Reimagined StoryLab (Africa and diaspora)</strong></a>
-        . Last checked 24 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://culture.ec.europa.eu/funding/calls" target="_blank" rel="noopener"><strong>Creative Europe Culture strand (EU and associated countries)</strong></a>
-        . Last checked 23 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://ars.electronica.art/prix/en/opencall/" target="_blank" rel="noopener"><strong>Prix Ars Electronica (Linz, Austria)</strong></a>
-        . Last checked 23 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://starts-prize.aec.at/en/open-call/" target="_blank" rel="noopener"><strong>S+T+ARTS Prize (European Commission, administered by Ars Electronica)</strong></a>
-        . Last checked 23 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://www.imal.org/en/fellowship-programme" target="_blank" rel="noopener"><strong>iMAL Fellowship Programme (Brussels, Belgium)</strong></a>
-        . Last checked 23 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://rijksakademie.nl/en/residency-apply/apply" target="_blank" rel="noopener"><strong>Rijksakademie Residency 2028 (Amsterdam, Netherlands)</strong></a>
-        . Last checked 23 August 2026.
-      </li>
-      <li data-watchlist-until="2027-04-30">
-        <a href="https://koneensaatio.fi/en/saari-residence/" target="_blank" rel="noopener"><strong>Saari Residence 2028 (Kone Foundation, Finland)</strong></a>
-        . Last checked 14 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://saltonline.org/en/2702/salt-artistic-research-and-production-grant-program" target="_blank" rel="noopener"><strong>Salt Artistic Research and Production Grant (Istanbul, Turkey)</strong></a>
-        . Last checked 9 August 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://www.depoistanbul.net/en/open-call-istanbul-berlin-residency-program/" target="_blank" rel="noopener"><strong>Istanbul-Berlin Artist-in-Residence Programme (Depo / Anadolu Kultur)</strong></a>
-        . Last checked 9 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://www.saha.org.tr/en/studio/program/saha-studio-open-call" target="_blank" rel="noopener"><strong>SAHA Studio (Istanbul, Turkey)</strong></a>
-        . Last checked 9 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://www.culture-civic.org/en/grants-programme" target="_blank" rel="noopener"><strong>CultureCIVIC (Goethe-Institut Istanbul, EU-funded, Turkey)</strong></a>
-        . Last checked 9 August 2026.
-      </li>
-      <li data-watchlist-until="2027-04-30">
-        <a href="https://www.iksv.org/en/sade-artist-support-fund/about" target="_blank" rel="noopener"><strong>SaDe Artist Support Fund (IKSV, Turkey)</strong></a>
-        . Last checked 9 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://www.ticahealth.org/resources/braidfund" target="_blank" rel="noopener"><strong>Braid Arts and Culture Fund (Kenya, Uganda, Tanzania)</strong></a>
-        . Last checked 9 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://africanofilter.org/our-grants" target="_blank" rel="noopener"><strong>Africa No Filter grants (Africa and diaspora)</strong></a>
-        . Last checked 9 August 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://mydocubox.org/programs.html" target="_blank" rel="noopener"><strong>Docubox, the East African Documentary Film Fund (Nairobi, Kenya)</strong></a>
-        . Last checked 9 August 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://www.mozillafoundation.org/en/what-we-do/grantmaking/fellowship/" target="_blank" rel="noopener"><strong>Mozilla Tech and Society Fellowship 2027</strong></a>
-        . Last checked 9 August 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://www.edsafeai.org/fellowship" target="_blank" rel="noopener"><strong>EDSAFE AI Fellowships 2027 (online, US-centred)</strong></a>
-        . Last checked 28 July 2026.
-      </li>
-      <li data-watchlist-until="2026-12-31">
-        <a href="https://disruption.institute/fellows" target="_blank" rel="noopener"><strong>Disruption Network Institute Fellowships, round three (Berlin, largely remote)</strong></a>
-        . Last checked 28 July 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://nawatfes.org/applications.html" target="_blank" rel="noopener"><strong>Nawat Fes Artist Residencies 2027-28 (Fes, Morocco)</strong></a>
-        . Last checked 22 July 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://on-the-move.org/news/wits-innovation-centre-artist-lab-residency-sydney-brenner-institute-molecular-bioscience" target="_blank" rel="noopener"><strong>Wits Innovation Centre Artist-in-Lab Residency (Johannesburg, South Africa)</strong></a>
-        . Last checked 22 July 2026.
-      </li>
-      <li data-watchlist-until="2027-08-31">
-        <a href="https://wrocenter.pl/en/" target="_blank" rel="noopener"><strong>WRO Media Art Biennale (Wroclaw, Poland)</strong></a>
-        . Last checked 16 July 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://u-jazdowski.pl/en/programme/residencies/open-calls" target="_blank" rel="noopener"><strong>U-jazdowski Residencies (Ujazdowski Castle Centre for Contemporary Art, Warsaw)</strong></a>
-        . Last checked 16 July 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://rupert.lt/residencies/" target="_blank" rel="noopener"><strong>Rupert Residencies (Vilnius, Lithuania)</strong></a>
-        . Last checked 16 July 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://allianzfoundation.org/apply/" target="_blank" rel="noopener"><strong>Allianz Foundation Grants Programme (Europe and the Mediterranean)</strong></a>
-        . Last checked 13 July 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://europeanaifund.org/funding/" target="_blank" rel="noopener"><strong>European AI &amp; Society Fund (Europe)</strong></a>
-        . Last checked 13 July 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://culturehelpssolidarity.eu/calls/" target="_blank" rel="noopener"><strong>Culture Helps Solidarity (European Cultural Foundation, Creative Europe)</strong></a>
-        . Last checked 13 July 2026.
-      </li>
-      <li data-watchlist-until="2026-12-31">
-        <a href="https://www.bloomberg.com/company/values/tech-at-bloomberg/data-science/academic-engagement-programs/data-science-ph-d-fellowship/" target="_blank" rel="noopener"><strong>Bloomberg Data Science Ph.D. Fellowship 2028-29</strong></a>
-        . Last checked 13 July 2026.
-      </li>
-      <li data-watchlist-until="2026-11-30">
-        <a href="https://bibliothekandreaszuest.net/stipendium" target="_blank" rel="noopener"><strong>Bibliothek Andreas Zuest Residency 2027 (Oberegg, Switzerland)</strong></a>
-        . Last checked 13 July 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://www.somersethouse.org.uk/somerset-house-studios" target="_blank" rel="noopener"><strong>Somerset House Studios x UNESCO AI Ethics Residency</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://cyber.harvard.edu/" target="_blank" rel="noopener"><strong>Berkman Klein Center Fellowships 2027-28 (Harvard)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://fccwla.org/open-call-air-2025/" target="_blank" rel="noopener"><strong>Feminist Center for Creative Work: Artist in Residence (LA)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2026-11-30">
-        <a href="https://culture.lacity.gov/grants/independent-master-artist-projects-grant-program" target="_blank" rel="noopener"><strong>City of LA COLA-IMAP Fellowship 2027-28 (LA residents only)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://covepark.org/" target="_blank" rel="noopener"><strong>Cove Park Awarded Residencies (Scotland)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-12-31">
-        <a href="https://surveillance-studies.net/" target="_blank" rel="noopener"><strong>Surveillance Studies Network Arts Prize</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://file.org.br" target="_blank" rel="noopener"><strong>FILE 2027: Electronic Language International Festival (Sao Paulo)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://ars.electronica.art/festival/en/cifo2026/" target="_blank" rel="noopener"><strong>CIFO x Ars Electronica Awards 2027 (Latin American artists only)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-01-15">
-        <a href="https://ficg.mx/en/convocatorias/" target="_blank" rel="noopener"><strong>FICG 42: Guadalajara International Film Festival</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-01-15">
-        <a href="https://ficcifestival.com/convocatorias/" target="_blank" rel="noopener"><strong>FICCI 66: Cartagena International Film Festival</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2026-12-15">
-        <a href="https://www.tsonami.cl/category/convocatoria/" target="_blank" rel="noopener"><strong>Radio Tsonami / Tsonami Sound Art Festival (Valparaiso)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-05-31">
-        <a href="https://pivo.org.br/en/" target="_blank" rel="noopener"><strong>Pivo Research Residency 2027 (Sao Paulo)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-05-31">
-        <a href="https://chinati.org/programs/artists-in-residence/about-the-program/" target="_blank" rel="noopener"><strong>Chinati Foundation Artist in Residence (Marfa)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2026-12-15">
-        <a href="https://www.bfi.org.uk/flare" target="_blank" rel="noopener"><strong>BFI Flare 2027: London LGBTQIA+ Film Festival (40th edition)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2026-12-15">
-        <a href="https://rozefilmdagen.nl/en" target="_blank" rel="noopener"><strong>Roze Filmdagen 2027: 30th Amsterdam LGBTQ+ Film Festival</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://zinegoak.com/en/" target="_blank" rel="noopener"><strong>Zinegoak 2027: Bilbao LGTBIQA+ Film and Performing Arts Festival</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2026-12-31">
-        <a href="https://www.berliner-kuenstlerprogramm.de/en/application/" target="_blank" rel="noopener"><strong>DAAD Artists-in-Berlin Program 2028 (Berliner Kuenstlerprogramm)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://forecast-platform.com/" target="_blank" rel="noopener"><strong>Forecast mentorship program (Skills e.V., Radialsystem Berlin)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://www.harun-farocki-institut.org/" target="_blank" rel="noopener"><strong>Harun Farocki Institut Residency 2027 (Berlin)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-04-20">
-        <a href="https://www.schloss-wiepersdorf.de/en/individual-and-collaborative-fellowships.html" target="_blank" rel="noopener"><strong>Schloss Wiepersdorf fellowships 2028 (Brandenburg)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-04-05">
-        <a href="https://aurora.htw-berlin.de/en/" target="_blank" rel="noopener"><strong>HTW Berlin IUNO Artistic Fellowship (AI + XR)</strong></a>
-        . Last checked 12 July 2026.
-      </li>
-      <li data-watchlist-until="2027-04-30">
-        <a href="https://www.fordfoundation.org/work/our-grants/justfilms/justfilms-application/" target="_blank" rel="noopener"><strong>Ford Foundation JustFilms 2027</strong></a>
-        . Last checked 10 June 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://reutersinstitute.politics.ox.ac.uk/fellowships" target="_blank" rel="noopener"><strong>Reuters Institute Journalist Fellowship 2027-28 (Oxford)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-05-31">
-        <a href="https://www.neh.gov/grants/research/public-scholar-program" target="_blank" rel="noopener"><strong>NEH Public Scholars Program 2027</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-04-30">
-        <a href="https://us.boell.org/en/transatlantic-media-fellowships" target="_blank" rel="noopener"><strong>Heinrich Boell Transatlantic Media Fellowship 2027</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2026-12-31">
-        <a href="https://rsliterature.org/join-in/awards-and-prizes/" target="_blank" rel="noopener"><strong>RSL Giles St Aubyn Awards for Non-Fiction 2027</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-05-31">
-        <a href="https://silversfoundation.org/grants/" target="_blank" rel="noopener"><strong>Robert B. Silvers Foundation Grants for Work in Progress 2027</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-05-31">
-        <a href="https://www.writerstrust.com/programs/berton-house-writers-residency/" target="_blank" rel="noopener"><strong>Berton House Writers' Residency 2027 (Writers' Trust of Canada)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://www.englishpen.org/translation/pen-translates/" target="_blank" rel="noopener"><strong>PEN Translates 2027 (English PEN)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-04-30">
-        <a href="https://www.theafricainstitute.org/institute-program/tejumola-olaniyan-creative-writers-fellowship/" target="_blank" rel="noopener"><strong>Tejumola Olaniyan Creative Writers Fellowship 2027 (The Africa Institute, Sharjah)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2026-12-31">
-        <a href="https://mophradat.org/en/program/writing-sabbaticals/" target="_blank" rel="noopener"><strong>Mophradat Writing Sabbaticals 2026-27</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-03-31">
-        <a href="https://www.goethe.de/en/kul/foe/doc.html" target="_blank" rel="noopener"><strong>Goethe-Institut Documenta Fellowship 2027</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-12-31">
-        <a href="https://www.akademie-solitude.de/en/fellowship/solitude-fellowship/" target="_blank" rel="noopener"><strong>Akademie Schloss Solitude TEXTUAL Fellowship 2028-30</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://meshfestival.ch/EN" target="_blank" rel="noopener"><strong>Mesh Festival 2026/27 (HEK Basel)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-05-31">
-        <a href="https://zkm.de/en/open-call-rauschenberg-residencies-202627" target="_blank" rel="noopener"><strong>ZKM Rauschenberg Residencies 2027/28 (Karlsruhe)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-02-28">
-        <a href="https://www.harvestworks.org/open-call-2026-artists-in-residence-program/" target="_blank" rel="noopener"><strong>Harvestworks 2027 Artists-in-Residence (NYC)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-05-31">
-        <a href="https://www.fact.co.uk/news/2026/03/open-call-2026-digital-artist-residencies" target="_blank" rel="noopener"><strong>FACT Digital Artist Residencies 2027 (Liverpool)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-06-30">
-        <a href="https://michigancentral.com/michigan-central-x-newlab-art-technology-residency/" target="_blank" rel="noopener"><strong>Michigan Central x Newlab Fellows-in-Residence 2027 (Detroit)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-05-31">
-        <a href="https://zer01ne.zone/en/join-us/creator/" target="_blank" rel="noopener"><strong>ZER01NE Creator Open Call 2027 (Hyundai, Seoul)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-05-31">
-        <a href="https://creative-capital.org/creative-capital-award/award-application/" target="_blank" rel="noopener"><strong>Creative Capital Award 2028 (US)</strong></a>
-        . Last checked 17 May 2026.
-      </li>
-      <li data-watchlist-until="2027-04-30">
-        <a href="https://www.onassis.org/initiatives/onassis-air" target="_blank" rel="noopener"><strong>Onassis AiR</strong></a>
-        . Last checked 15 May 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://www.tarbellcenter.org/fellowship" target="_blank" rel="noopener"><strong>Tarbell Fellowship 2027 (AI Journalism)</strong></a>
-        . Last checked 15 May 2026.
-      </li>
-      <li data-watchlist-until="2027-01-31">
-        <a href="https://www.governance.ai/opportunities" target="_blank" rel="noopener"><strong>GovAI Summer Fellowship 2027</strong></a>
-        . Last checked 15 May 2026.
-      </li>
-    </ul>
-  </section>
-</main>
-
-<!-- BEGIN_NOSCRIPT_GRANTS -->
-<noscript>
 <section class="static-grant-list" aria-label="Static list of all active grants">
 <h2>All active grants (text-only list)</h2>
 <ol>
@@ -12395,7 +11721,7 @@ function daysUntil(date, ref) {
   // Normalize ref (today) to local midnight too so we compare calendar dates,
   // not wall-clock times. Without this, Math.ceil on a small negative fraction
   // rounds to 0 and a grant that closed late yesterday gets stuck showing as
-  // "Due today" instead of moving to the Archive section.
+  // "Due today" instead of dropping off the page.
   const refMidnight = new Date(ref.getFullYear(), ref.getMonth(), ref.getDate());
   const ms = date.getTime() - refMidnight.getTime();
   return Math.round(ms / 86400000);
@@ -12410,8 +11736,7 @@ function categorise(grant, today) {
   const deadline = parseDate(grant.deadline);
   if (!deadline) return 'rolling';
   const days = daysUntil(deadline, today);
-  if (days < -365) return null;
-  if (days < 0) return 'archive';
+  if (days < 0) return null;
   if (days <= 30) return 'hot';
   if (days <= 90) return 'new';
   return 'long';
@@ -12728,7 +12053,6 @@ function renderFolder(grant, category, today) {
   if (category === 'hot') a.classList.add('is-hot');
   if (category === 'long') a.classList.add('is-long');
   if (category === 'rolling') a.classList.add('is-rolling');
-  if (category === 'archive') a.classList.add('is-archive');
   a.href = withUtm(grant.url) || '#';
   a.target = '_blank';
   a.rel = 'noopener noreferrer';
@@ -12920,13 +12244,6 @@ function sortByDeadline(a, b) {
   return (a.title || '').localeCompare(b.title || '');
 }
 
-function sortArchive(a, b) {
-  const da = parseDate(a.deadline);
-  const db = parseDate(b.deadline);
-  if (da && db) return db - da;
-  return 0;
-}
-
 // Full grant records keyed by id, so the export can rebuild rich text from the
 // source data instead of scraping it back out of the rendered cards.
 const GRANT_INDEX = new Map();
@@ -12948,10 +12265,10 @@ async function load() {
     return;
   }
 
-  const buckets = { hot: [], new: [], long: [], rolling: [], archive: [] };
+  const buckets = { hot: [], new: [], long: [], rolling: [] };
   for (const grant of (data.grants || [])) {
     const cat = categorise(grant, today);
-    if (!cat) continue; // closed > 365 days ago, hide from page
+    if (!cat) continue; // deadline passed, hide from page
     if (grant.id) GRANT_INDEX.set(grant.id, grant);
     buckets[cat].push(grant);
   }
@@ -12960,7 +12277,6 @@ async function load() {
   buckets.new.sort(sortByDeadline);
   buckets.long.sort(sortByDeadline);
   buckets.rolling.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
-  buckets.archive.sort(sortArchive);
 
   const renderInto = (id, list, cat) => {
     const grid = document.getElementById(id);
@@ -12968,7 +12284,7 @@ async function load() {
     if (!list.length) {
       const empty = document.createElement('div');
       empty.className = 'empty-state';
-      empty.textContent = cat === 'archive' ? 'Drawer empty. Nothing has expired yet.' : 'Empty pile. No grants in this category.';
+      empty.textContent = 'Empty pile. No grants in this category.';
       grid.appendChild(empty);
       return;
     }
@@ -12979,7 +12295,6 @@ async function load() {
   renderInto('grid-new', buckets.new, 'new');
   renderInto('grid-long', buckets.long, 'long');
   renderInto('grid-rolling', buckets.rolling, 'rolling');
-  renderInto('grid-archive', buckets.archive, 'archive');
 
   buildFilterChips();
   restoreFilterState();
@@ -12994,21 +12309,10 @@ async function load() {
   document.getElementById('meta-new').textContent = buckets.new.length === 1 ? '1 grant' : `${buckets.new.length} grants`;
   document.getElementById('meta-long').textContent = buckets.long.length === 1 ? '1 grant' : `${buckets.long.length} grants`;
   document.getElementById('meta-rolling').textContent = buckets.rolling.length === 1 ? '1 grant' : `${buckets.rolling.length} grants`;
-  document.getElementById('meta-archive').textContent = buckets.archive.length === 1 ? '1 grant' : `${buckets.archive.length} grants`;
 
   const activeCount = buckets.hot.length + buckets.new.length + buckets.long.length + buckets.rolling.length;
   const activeEl = document.getElementById('active-count');
   if (activeEl) activeEl.textContent = activeCount;
-
-  const archiveSection = document.getElementById('section-archive');
-  const archiveBtn = document.getElementById('archive-toggle');
-  archiveBtn.addEventListener('click', () => {
-    const open = archiveSection.getAttribute('data-open') === 'true';
-    archiveSection.setAttribute('data-open', open ? 'false' : 'true');
-    archiveBtn.textContent = open ? 'Open drawer' : 'Close drawer';
-  });
-
-  setupWatchlist();
 
   document.querySelectorAll('.section-collapse').forEach(btn => {
     const section = btn.closest('.section');
@@ -13025,40 +12329,6 @@ async function load() {
       btn.setAttribute('aria-label', (collapsed ? 'Collapse ' : 'Expand ') + heading);
     });
   });
-}
-
-function setupWatchlist() {
-  const section = document.getElementById('section-watchlist');
-  if (!section) return;
-  const btn = document.getElementById('watchlist-toggle');
-  const meta = document.getElementById('meta-watchlist');
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const items = section.querySelectorAll('.watchlist-list li');
-  let visible = 0;
-  items.forEach(li => {
-    const until = li.getAttribute('data-watchlist-until');
-    if (until) {
-      const d = new Date(until + 'T23:59:59');
-      if (!isNaN(d) && d < today) {
-        li.remove();
-        return;
-      }
-    }
-    visible++;
-  });
-  if (visible === 0) {
-    section.setAttribute('data-empty', 'true');
-    return;
-  }
-  if (meta) meta.textContent = visible === 1 ? '1 candidate' : visible + ' candidates';
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const open = section.getAttribute('data-open') === 'true';
-      section.setAttribute('data-open', open ? 'false' : 'true');
-      btn.textContent = open ? 'Open drawer' : 'Close drawer';
-    });
-  }
 }
 
 load();
@@ -13689,10 +12959,10 @@ function clearAllFilters() {
   applyFilters();
 }
 
-// Per-option counts for the browsable facets, computed over live (non-archived)
-// cards once at build time.
+// Per-option counts for the browsable facets, computed over all live cards
+// once at build time.
 function addChipCounts() {
-  const folders = Array.from(document.querySelectorAll('.folder')).filter(f => !f.closest('#section-archive'));
+  const folders = Array.from(document.querySelectorAll('.folder'));
   const datasetKeys = {
     category: ['categories', 'category'],
     region: ['regions', 'region'],
@@ -13905,7 +13175,6 @@ function updateSectionCounts() {
     'section-new': 'meta-new',
     'section-long': 'meta-long',
     'section-rolling': 'meta-rolling',
-    'section-archive': 'meta-archive',
   };
   for (const [secId, metaId] of Object.entries(sectionMap)) {
     const section = document.getElementById(secId);
@@ -13922,7 +13191,7 @@ function updateSectionCounts() {
   }
   const countEl = document.getElementById('filter-result-count');
   if (countEl) {
-    const live = Array.from(document.querySelectorAll('.folder')).filter(f => !f.closest('#section-archive'));
+    const live = Array.from(document.querySelectorAll('.folder'));
     const visible = live.filter(f =>
       !f.classList.contains('filtered-out') && !f.classList.contains('not-new') && !f.classList.contains('not-shortlisted')).length;
     countEl.textContent = visible === live.length
@@ -14108,7 +13377,7 @@ function updateHash() {
 }
 
 // A pick only counts while its grant is still live on the page. Ids whose
-// grants have been filed away (archive) or removed from grants.json stay in
+// grants have expired off the page or been removed from grants.json stay in
 // storage, so nothing is lost if a deadline gets extended, but they are
 // excluded from the count, the picks-only view, share links, the .ics
 // download and exports.
@@ -14116,7 +13385,7 @@ function activePickIds() {
   const out = [];
   PICKS.forEach(id => {
     const f = document.querySelector('.folder[data-grant-id="' + CSS.escape(id) + '"]');
-    if (f && !f.classList.contains('is-archive')) out.push(id);
+    if (f) out.push(id);
   });
   return out;
 }
@@ -14135,7 +13404,7 @@ function refreshPickStates() {
     const b = document.getElementById(id);
     if (b) b.disabled = count === 0;
   });
-  // Clear stays available while stale (archived/removed) picks linger in
+  // Clear stays available while stale (expired/removed) picks linger in
   // storage, so the shortlist can always be emptied for real.
   const clearBtn = document.getElementById('sl-clear');
   if (clearBtn) clearBtn.disabled = PICKS.size === 0;
@@ -14153,9 +13422,6 @@ function applyShortlistFilter() {
     if (!SHORTLIST_ONLY) {
       f.classList.remove('not-shortlisted');
     } else {
-      // Filed-away picks stay visible in the archive drawer so the shortlist
-      // still shows where they went; they are only excluded from the count,
-      // share links, .ics and exports.
       f.classList.toggle('not-shortlisted', !PICKS.has(f.dataset.grantId));
     }
   });
@@ -14299,19 +13565,15 @@ CATEGORY_GROUPS.forEach(g => g.values.forEach(v => { CATEGORY_LABELS[v] = g.labe
 
 const EXPORT_MIME = { md: 'text/markdown', json: 'application/json', csv: 'text/csv' };
 
-// The archive drawer holds expired calls. They are only worth exporting if the
-// visitor has deliberately opened the drawer.
 function exportVisibleFolders() {
-  const archiveOpen = document.getElementById('section-archive')?.getAttribute('data-open') === 'true';
-  return Array.from(document.querySelectorAll('.folder:not(.filtered-out):not(.not-new):not(.not-shortlisted)'))
-    .filter(f => archiveOpen || !f.classList.contains('is-archive'));
+  return Array.from(document.querySelectorAll('.folder:not(.filtered-out):not(.not-new):not(.not-shortlisted)'));
 }
 
 // DOM order for both scopes, so an export reads in the same priority order as
 // the page (hot first, then new, long, rolling).
 function exportSelection() {
   const folders = EXPORT_STATE.scope === 'picks'
-    ? Array.from(document.querySelectorAll('.folder')).filter(f => PICKS.has(f.dataset.grantId) && !f.classList.contains('is-archive'))
+    ? Array.from(document.querySelectorAll('.folder')).filter(f => PICKS.has(f.dataset.grantId))
     : exportVisibleFolders();
   const seen = new Set();
   const out = [];
