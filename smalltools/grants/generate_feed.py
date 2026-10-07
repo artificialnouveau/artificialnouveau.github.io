@@ -1495,7 +1495,6 @@ def inject_into_main_index(grants, today):
     text = index_path.read_text(encoding="utf-8")
 
     active = sort_by_deadline(filter_active(grants, today))
-    grant_list_html = render_grant_list_html(active, today)
     page_url = SITE_ROOT_URL + GRANTS_BASE_PATH
     itemlist = itemlist_jsonld(active, page_url, "The Grant Desk")
     website = website_jsonld()
@@ -1506,27 +1505,10 @@ def inject_into_main_index(grants, today):
         f'<script type="application/ld+json">\n{itemlist}\n</script>\n'
         "<!-- END_JSONLD -->"
     )
-    noscript_block = (
-        "<!-- BEGIN_NOSCRIPT_GRANTS -->\n"
-        "<noscript>\n"
-        '<section class="static-grant-list" aria-label="Static list of all active grants">\n'
-        "<h2>All active grants (text-only list)</h2>\n"
-        f"{grant_list_html}\n"
-        "</section>\n"
-        "</noscript>\n"
-        "<!-- END_NOSCRIPT_GRANTS -->"
-    )
-
     import re
     text = re.sub(
         r"<!-- BEGIN_JSONLD -->.*?<!-- END_JSONLD -->",
         lambda m: jsonld_block,
-        text,
-        flags=re.DOTALL,
-    )
-    text = re.sub(
-        r"<!-- BEGIN_NOSCRIPT_GRANTS -->.*?<!-- END_NOSCRIPT_GRANTS -->",
-        lambda m: noscript_block,
         text,
         flags=re.DOTALL,
     )
