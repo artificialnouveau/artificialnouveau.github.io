@@ -53,7 +53,9 @@ deploy.
 | Page templates | `_layouts/` (`default`, `page`, `post`, `blog`, `gallery`) |
 | Site-wide CSS | `assets/css/paper.css` (the paper theme: tokens, base type, shared components) |
 | Self-hosted fonts | `assets/fonts/` |
+| Design system notes | `DESIGN.md` (paper theme tokens, type pairing, component conventions) |
 | Grant Desk data | `smalltools/grants/grants.json` |
+| Grant Desk maintainer docs | `smalltools/grants/README.md` (schema, feed generation, commit workflow) |
 | Blog posts | `_posts/` |
 
 The homepage is the exception worth remembering: it does not go through
@@ -97,6 +99,11 @@ page there does not remove it from an index, and it prevents search engines from
 ever seeing a `noindex` tag on a page that is already indexed. See `CLAUDE.md`
 for the full reasoning and the removal procedure for already-indexed pages.
 
+Note that the repo-root `robots.txt`, `llms.txt` and `sitemap.xml` are written
+by `smalltools/grants/generate_feed.py`, so hand edits to those three files will
+be overwritten the next time the feed generator runs; change the generator
+instead.
+
 ### The Grant Desk automation
 
 Four scheduled workflows maintain `smalltools/grants/grants.json` and push
@@ -108,6 +115,11 @@ directly to `master`. All four can also be run manually from the Actions tab.
 | `recheck-grants.yml` | Mondays 08:30 | Re-checks existing entries |
 | `publish-grants.yml` | Daily 06:00 | Releases entries to the RSS and calendar feeds |
 | `prune-grants.yml` | 1st of the month, 03:00 | Removes expired entries |
+
+The "Watch for next round" drawer on the Grant Desk page is hand-edited HTML
+(`li` items with a `data-watchlist-until` expiry date inside
+`smalltools/grants/index.html`); it is not generated and is not touched by the
+workflows.
 
 Because the bot pushes to `master` on its own schedule, a `git push` can be
 rejected as out of date even when you changed nothing related to grants. Fetch
