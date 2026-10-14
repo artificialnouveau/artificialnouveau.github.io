@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F4ECDC">
+<title>Add a Grant</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F4ECDC;
+  --paper-2: #ECE0C2;
+  --ink: #1F1B16;
+  --ink-soft: #4A413A;
+  --ink-mute: #7A6F63;
+  --line: #2A241D;
+  --manila: #F0D38A;
+  --hot: #D94B3C;
+  --rolling: #2E7D5B;
+  --rolling-soft: #C8E2D2;
+  --sticky-yellow: #FFE066;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.55;
+  min-height: 100vh;
+}
+.wrap { max-width: 980px; margin: 0 auto; padding: 24px 16px 80px; }
+header { border-bottom: 2px solid var(--line); padding-bottom: 14px; margin-bottom: 20px; }
+header h1 { font-size: 26px; letter-spacing: -0.5px; }
+header p { color: var(--ink-soft); font-size: 14px; max-width: 70ch; margin-top: 6px; }
+header a { color: var(--ink); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+fieldset { border: none; margin-bottom: 18px; }
+label { display: block; font-weight: 600; font-size: 13px; margin: 12px 0 3px; }
+label .req { color: var(--hot); }
+.hint { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-mute); margin-bottom: 4px; display: block; }
+input[type=text], input[type=date], input[type=number], textarea, select {
+  width: 100%;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  padding: 7px 9px;
+  border: 1.5px solid var(--line);
+  border-radius: 3px;
+  background: #FFFDF7;
+  color: var(--ink);
+}
+textarea { min-height: 90px; resize: vertical; }
+#f-description { min-height: 200px; }
+.row { display: flex; gap: 12px; }
+.row > div { flex: 1; }
+.check { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; }
+.check input { width: auto; }
+.panel {
+  border: 2px solid var(--line);
+  background: var(--paper-2);
+  border-radius: 4px;
+  padding: 14px;
+  margin-bottom: 18px;
+}
+.panel h2 { font-size: 15px; margin-bottom: 8px; }
+#dupes { font-size: 13px; }
+#dupes .dupe { border-top: 1px dashed var(--ink-mute); padding: 5px 0; }
+#dupes .dupe:first-child { border-top: none; }
+#dupes .ok { color: var(--rolling); font-weight: 600; }
+#dupes .warn { color: var(--hot); font-weight: 600; }
+#output {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  white-space: pre;
+  overflow-x: auto;
+  background: #FFFDF7;
+  border: 1.5px solid var(--line);
+  border-radius: 3px;
+  padding: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+button {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 9px 16px;
+  border: 2px solid var(--line);
+  border-radius: 3px;
+  background: var(--manila);
+  color: var(--ink);
+  cursor: pointer;
+  margin: 10px 8px 0 0;
+}
+button:hover { background: var(--sticky-yellow); }
+#errors { color: var(--hot); font-size: 13px; font-weight: 600; margin-top: 8px; white-space: pre-line; }
+#copied { color: var(--rolling); font-size: 13px; font-weight: 600; margin-left: 4px; }
+ol.steps { margin: 10px 0 0 20px; font-size: 13.5px; }
+ol.steps li { margin-bottom: 7px; }
+ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; background: #FFFDF7; border: 1px solid var(--ink-mute); border-radius: 2px; padding: 0 4px; }
+.sticky-note {
+  background: var(--sticky-yellow);
+  border: 1.5px solid var(--line);
+  border-radius: 2px;
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-top: 12px;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Add a Grant</h1>
+    <p>Maintainer tool for <a href="./">The Grant Desk</a>. Fill in the form, copy the generated JSON entry, and paste it into <code>grants.json</code> following the steps at the bottom. Everything runs in your browser; nothing is submitted anywhere. Full field rules live in the <a href="https://github.com/artificialnouveau/artificialnouveau.github.io/blob/master/smalltools/grants/README.md" target="_blank" rel="noopener">maintainer README</a>.</p>
+  </header>
+
+  <div class="panel">
+    <h2>Duplicate check</h2>
+    <div id="dupes">Start typing a title, organization or URL; existing entries that look similar appear here.</div>
+  </div>
+
+  <div class="cols">
+  <div>
+    <fieldset>
+      <label>Title <span class="req">*</span></label>
+      <span class="hint">Convention: Funder: Programme Name (year or round)</span>
+      <input type="text" id="f-title" placeholder="Funder: Programme Name (2027)">
+
+      <label>Organization <span class="req">*</span></label>
+      <input type="text" id="f-org" placeholder="Funder name as it appears on their site">
+
+      <label>URL <span class="req">*</span></label>
+      <span class="hint">Canonical call page, no UTM parameters</span>
+      <input type="text" id="f-url" placeholder="https://...">
+
+      <label>ID (auto-generated, editable)</label>
+      <span class="hint">Lowercase kebab-case, must be unique</span>
+      <input type="text" id="f-id">
+
+      <label>Location <span class="req">*</span></label>
+      <span class="hint">Where the work happens, plus any geographic eligibility caveat</span>
+      <input type="text" id="f-location">
+
+      <label>Region <span class="req">*</span></label>
+      <span class="hint">Switzerland: use EU + a "switzerland" tag. China/HK/Taiwan: use Asia + a "china", "hong-kong" or "taiwan" tag.</span>
+      <select id="f-region">
+        <option>Worldwide</option><option>EU</option><option>US</option><option>UK</option><option>NL</option>
+        <option>Asia</option><option>Africa</option><option>Canada</option><option>Australia</option>
+        <option>LatAm</option><option>Remote</option>
+      </select>
+
+      <label>Amount <span class="req">*</span></label>
+      <span class="hint">Currency, range, what is covered. House rule: only add calls with actual cash and a published figure. If only travel is covered, say so explicitly.</span>
+      <textarea id="f-amount"></textarea>
+
+      <label>Duration</label>
+      <input type="text" id="f-duration" placeholder="How long the project or residency runs">
+
+      <div class="row">
+        <div>
+          <label>Deadline</label>
+          <input type="date" id="f-deadline">
+          <div class="check"><input type="checkbox" id="f-rolling"><label for="f-rolling" style="margin:0;font-weight:400;">Rolling / undated (stores null)</label></div>
+        </div>
+        <div>
+          <label>Start date (optional)</label>
+          <input type="date" id="f-start">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Added date</label>
+          <input type="date" id="f-added">
+        </div>
+        <div>
+          <label>Feed date</label>
+          <span class="hint" id="feeddate-hint">Queue: ~3 per day, soonest deadlines first</span>
+          <input type="date" id="f-feed">
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div>
+    <fieldset>
+      <label>Category <span class="req">*</span></label>
+      <select id="f-category">
+        <option>arts</option><option>cross</option><option>film</option><option>research</option>
+        <option>ai</option><option>writers</option><option>tech</option><option>audio</option>
+        <option>design</option><option>curator</option><option>game</option><option>media-arts</option>
+      </select>
+
+      <label>Extra categories (optional, comma-separated)</label>
+      <span class="hint">e.g. research, ai; art-science gets "research"; genuine AI or tech content also gets "ai"/"tech"</span>
+      <input type="text" id="f-categories">
+
+      <label>Applicant <span class="req">*</span></label>
+      <select id="f-applicant">
+        <option>individuals</option><option>organizations</option><option>both</option>
+      </select>
+
+      <div class="row">
+        <div>
+          <label>Eligibility</label>
+          <select id="f-eligibility">
+            <option>open</option><option>residents</option><option>nationals</option><option>unknown</option>
+          </select>
+        </div>
+        <div>
+          <label>Attendance</label>
+          <select id="f-attendance">
+            <option>unknown</option><option>onsite</option><option>remote</option><option>hybrid</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Career stage</label>
+          <select id="f-career">
+            <option>any</option><option>emerging</option><option>established</option><option>unknown</option>
+          </select>
+        </div>
+        <div>
+          <label>Age cap (optional)</label>
+          <input type="number" id="f-agecap" min="16" max="99">
+        </div>
+      </div>
+
+      <label>Tags (comma-separated) <span class="req">*</span></label>
+      <span class="hint">Type facet comes from tags and title: "residency", "fellowship", "competition"/"award" (Prize), "travel", "publication". "cash-award" is NOT a type signal. Add country tags like "germany", "switzerland", "china".</span>
+      <input type="text" id="f-tags" placeholder="residency, stipend, open-call, cash-award">
+
+      <div class="check"><input type="checkbox" id="f-fee"><label for="f-fee" style="margin:0;font-weight:400;">Application fee required</label></div>
+
+      <label>Description <span class="req">*</span></label>
+      <span class="hint">Long-form prose. House style: what the call is, then CAPS-labelled sections such as SUPPORT:, ELIGIBILITY:, APPLICATION:, DEADLINE:. No em dashes.</span>
+      <textarea id="f-description"></textarea>
+    </fieldset>
+  </div>
+  </div>
+
+  <div class="panel">
+    <h2>Generated entry</h2>
+    <div id="errors"></div>
+    <div id="output">Fill in the form; the JSON appears here.</div>
+    <button id="btn-build" type="button">Build entry</button>
+    <button id="btn-copy" type="button">Copy JSON</button><span id="copied"></span>
+    <div class="sticky-note">
+      Before pasting: search <code>grants.json</code> for the organization name. The bot adds grants on its own schedule, so duplicates are common even when the panel above shows none.
+    </div>
+    <h2 style="margin-top:16px;">How to publish it (no local tools needed)</h2>
+    <ol class="steps">
+      <li>Open the repo in the browser editor: <a href="https://github.dev/artificialnouveau/artificialnouveau.github.io/blob/master/smalltools/grants/grants.json" target="_blank" rel="noopener">github.dev editor</a> (the file is ~3 MB, too big for the normal github.com editor; github.dev handles it).</li>
+      <li>In <code>grants.json</code>, go to the very end of the file. Before the final <code>]</code> that closes the list, add a comma after the last entry's closing <code>}</code>, then paste the generated entry.</li>
+      <li>Near the top of the file, set <code>"lastUpdated"</code> to today.</li>
+      <li>Commit from the Source Control icon in the left sidebar (message like <code>Grant Desk: add ...</code>, no Co-Authored-By lines).</li>
+      <li>Feeds, calendars and SEO pages regenerate automatically: the daily <a href="https://github.com/artificialnouveau/artificialnouveau.github.io/actions/workflows/publish-grants.yml" target="_blank" rel="noopener">Publish queued grants</a> workflow runs at 06:00 UTC and commits the regenerated files. To publish immediately, open that workflow and press "Run workflow". The entry itself shows on the site as soon as GitHub Pages deploys your commit; only the feeds wait for the workflow.</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var grants = [];
+  var feedCounts = {};
+  var $ = function (id) { return document.getElementById(id); };
+
+  var today = new Date().toISOString().slice(0, 10);
+  $("f-added").value = today;
+
+  fetch("grants.json").then(function (r) { return r.json(); }).then(function (data) {
+    grants = data.grants || [];
+    grants.forEach(function (g) {
+      if (g.feedDate && g.feedDate >= today) {
+        feedCounts[g.feedDate] = (feedCounts[g.feedDate] || 0) + 1;
+      }
+    });
+    suggestFeedDate();
+  }).catch(function () {
+    $("dupes").textContent = "Could not load grants.json (open this page via the website or a local server, not file://). The form still works; check duplicates by hand.";
+  });
+
+  function suggestFeedDate() {
+    var d = new Date();
+    for (var i = 0; i < 365; i++) {
+      var iso = d.toISOString().slice(0, 10);
+      if ((feedCounts[iso] || 0) < 3) {
+        $("f-feed").value = iso;
+        $("feeddate-hint").textContent = "Next free slot in the ~3/day queue: " + iso + ". Urgent deadlines may jump to today.";
+        return;
+      }
+      d.setDate(d.getDate() + 1);
+    }
+  }
+
+  function slugify(s) {
+    return s.toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .split("-").slice(0, 8).join("-");
+  }
+
+  var idTouched = false;
+  $("f-id").addEventListener("input", function () { idTouched = true; });
+  $("f-title").addEventListener("input", function () {
+    if (!idTouched) { $("f-id").value = slugify($("f-title").value); }
+    dupeCheck();
+  });
+  $("f-org").addEventListener("input", dupeCheck);
+  $("f-url").addEventListener("input", dupeCheck);
+
+  function dupeCheck() {
+    if (!grants.length) { return; }
+    var title = $("f-title").value.trim().toLowerCase();
+    var org = $("f-org").value.trim().toLowerCase();
+    var url = $("f-url").value.trim().toLowerCase().replace(/^https?:\/\/(www\.)?/, "");
+    var host = url.split("/")[0];
+    var hits = [];
+    grants.forEach(function (g) {
+      var gt = (g.title || "").toLowerCase();
+      var go = (g.organization || "").toLowerCase();
+      var gu = (g.url || "").toLowerCase();
+      var score = 0;
+      if (org.length > 3 && (go.indexOf(org) !== -1 || org.indexOf(go.split(" (")[0]) !== -1)) { score += 2; }
+      if (title.length > 6 && gt.indexOf(title.slice(0, Math.min(title.length, 25))) !== -1) { score += 2; }
+      if (host.length > 5 && gu.indexOf(host) !== -1) { score += 3; }
+      if (score > 1) { hits.push({ g: g, s: score }); }
+    });
+    hits.sort(function (a, b) { return b.s - a.s; });
+    var box = $("dupes");
+    if (!title && !org && !url) {
+      box.textContent = "Start typing a title, organization or URL; existing entries that look similar appear here.";
+      return;
+    }
+    if (!hits.length) {
+      box.innerHTML = '<span class="ok">No similar entries found.</span>';
+      return;
+    }
+    box.innerHTML = '<span class="warn">Possible duplicates (' + hits.length + '):</span>' +
+      hits.slice(0, 6).map(function (h) {
+        return '<div class="dupe">' + escapeHtml(h.g.title) + " [deadline " + (h.g.deadline || "rolling") + "]</div>";
+      }).join("");
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  function build() {
+    var errs = [];
+    function need(id, name) {
+      var v = $(id).value.trim();
+      if (!v) { errs.push(name + " is required."); }
+      return v;
+    }
+    var title = need("f-title", "Title");
+    var org = need("f-org", "Organization");
+    var url = need("f-url", "URL");
+    var id = need("f-id", "ID");
+    var location = need("f-location", "Location");
+    var amount = need("f-amount", "Amount");
+    var tags = need("f-tags", "Tags");
+    var description = need("f-description", "Description");
+    var rolling = $("f-rolling").checked;
+    var deadline = $("f-deadline").value;
+    if (!rolling && !deadline) { errs.push("Set a deadline or tick rolling/undated."); }
+    if (url && !/^https?:\/\//.test(url)) { errs.push("URL must start with http(s)://."); }
+    if (/[?&]utm_/.test(url)) { errs.push("Strip UTM parameters from the URL."); }
+    if (id && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(id)) { errs.push("ID must be lowercase kebab-case."); }
+    if (grants.some(function (g) { return g.id === id; })) { errs.push('ID "' + id + '" already exists in grants.json.'); }
+    if (/—|–/.test(description + amount + title)) { errs.push("Remove em/en dashes (house style)."); }
+
+    $("errors").textContent = errs.join("\n");
+    if (errs.length) { $("output").textContent = "Fix the errors above, then press Build entry again."; return null; }
+
+    var entry = {
+      id: id,
+      title: title,
+      organization: org,
+      location: location,
+      region: $("f-region").value,
+      amount: amount,
+      duration: $("f-duration").value.trim() || null,
+      startDate: $("f-start").value || null,
+      deadline: rolling ? null : deadline,
+      addedDate: $("f-added").value || today,
+      feedDate: $("f-feed").value || null,
+      category: $("f-category").value,
+      applicant: $("f-applicant").value,
+      description: description,
+      url: url,
+      tags: tags.split(",").map(function (t) { return t.trim().toLowerCase(); }).filter(Boolean),
+      fee: $("f-fee").checked,
+      featured: false,
+      eligibility: $("f-eligibility").value,
+      attendance: $("f-attendance").value,
+      career: $("f-career").value,
+      ageCap: $("f-agecap").value ? parseInt($("f-agecap").value, 10) : null
+    };
+    var extra = $("f-categories").value.split(",").map(function (t) { return t.trim().toLowerCase(); }).filter(Boolean);
+    if (extra.length) { entry.categories = extra; }
+
+    // Indent to sit inside the grants array (entries are indented 4 spaces).
+    var json = JSON.stringify(entry, null, 2)
+      .split("\n").map(function (l) { return "    " + l; }).join("\n");
+    $("output").textContent = json;
+    return json;
+  }
+
+  $("btn-build").addEventListener("click", function () { $("copied").textContent = ""; build(); });
+  $("btn-copy").addEventListener("click", function () {
+    var json = build();
+    if (!json) { return; }
+    navigator.clipboard.writeText(json).then(function () {
+      $("copied").textContent = "Copied.";
+    }, function () {
+      $("copied").textContent = "Copy failed; select the text manually.";
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -116,6 +116,10 @@ directly to `master`. All four can also be run manually from the Actions tab.
 | `publish-grants.yml` | Daily 06:00 | Releases entries to the RSS and calendar feeds |
 | `prune-grants.yml` | 1st of the month, 03:00 | Removes expired entries |
 
+Grants can be added or edited entirely from a browser (form at
+`/smalltools/grants/add.html` plus the github.dev editor); see "Adding a grant
+from the browser" in `smalltools/grants/README.md`.
+
 The "Watch for next round" drawer on the Grant Desk page is hand-edited HTML
 (`li` items with a `data-watchlist-until` expiry date inside
 `smalltools/grants/index.html`); it is not generated and is not touched by the
