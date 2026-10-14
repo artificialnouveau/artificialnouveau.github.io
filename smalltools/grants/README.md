@@ -36,6 +36,37 @@ Pushing to `master` triggers GitHub Pages, which is where the site is hosted. Th
 5. Run the feed generator: `python3 generate_feed.py`. This rewrites all the feeds, calendars, static SEO pages and the JSON-LD inside `index.html`.
 6. Commit and push. See "Committing and pushing" below.
 
+### Adding a grant from the browser (no local tools, no Claude)
+
+You can add a grant entirely from a browser; nothing needs to run on your
+machine, because the daily `publish-grants.yml` workflow runs
+`generate_feed.py` on GitHub's servers and commits the regenerated feeds,
+calendars and SEO pages for you.
+
+1. Open the form at
+   [artificialnouveau.com/smalltools/grants/add.html](https://www.artificialnouveau.com/smalltools/grants/add.html).
+   It knows the schema, checks for duplicates against the live `grants.json`,
+   suggests the next free `feedDate` slot, and generates a correctly
+   formatted JSON entry. It is noindexed and purely client-side.
+2. Copy the generated entry.
+3. Open `grants.json` in the browser editor at
+   [github.dev](https://github.dev/artificialnouveau/artificialnouveau.github.io/blob/master/smalltools/grants/grants.json)
+   (the file is too large for the regular github.com editor; github.dev is
+   GitHub's VS Code web editor and handles it; log in with the repo account).
+4. Go to the end of the file. Before the final `]`, add a comma after the
+   last entry's `}` and paste the new entry. Update `lastUpdated` at the top.
+5. Commit from the Source Control sidebar (message `Grant Desk: add ...`).
+6. The entry is live on the site as soon as GitHub Pages deploys (about a
+   minute). Feeds and calendars follow automatically at the next daily
+   publish run (06:00 UTC); to regenerate immediately, open
+   [the Publish workflow](https://github.com/artificialnouveau/artificialnouveau.github.io/actions/workflows/publish-grants.yml)
+   and press "Run workflow".
+
+The same flow works for edits: change the entry in github.dev, commit, done.
+If a push/commit fails because the bot updated the file in the meantime,
+reload github.dev and redo the paste on the fresh version; never merge by
+hand.
+
 ### The grant schema
 
 A complete grant entry looks like this:
