@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-17",
+  "lastUpdated": "2026-10-19",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
@@ -37874,6 +37874,92 @@
       "eligibility": "open",
       "attendance": "onsite",
       "career": "unknown",
+      "ageCap": null
+    },
+    {
+      "id": "bellingcat-ai-engineer-agentic-contractor-2026",
+      "title": "Bellingcat Contractor: AI Engineer (Open Source Agentic Systems)",
+      "organization": "Bellingcat",
+      "location": "Remote. Requires a time zone with sufficient overlap with Bellingcat's Europe-based team.",
+      "region": "Remote",
+      "regions": [
+        "Remote",
+        "EU"
+      ],
+      "amount": "Annual contractor fee of USD 80,000 to 93,000 for full-time (40 hours/week), depending on experience and track record; a part-time (20 hours/week) option is also offered, rate not stated.",
+      "duration": "Initial 12-month contract, full-time or part-time, starting as soon as possible.",
+      "startDate": null,
+      "deadline": "2026-11-08",
+      "addedDate": "2026-10-19",
+      "feedDate": "2026-10-22",
+      "category": "ai",
+      "applicant": "individuals",
+      "description": "Bellingcat, the open source investigations collective, is hiring a contractor AI engineer to build agentic systems that support its investigators. (Listed on Grant Desk as an exception to the no-jobs rule: a remote, paid, public-interest AI contract.) THE ROLE: build, test, deploy and monitor multi-agent workflows for open source investigations; develop agentic pipelines with human oversight, feedback loops and evaluation metrics; architect and maintain cloud infrastructure for hosting LLM harnesses and monitoring agents using token-as-a-service providers; develop MCP servers and data bridges connecting agents to open source research tools and databases; and create evaluation frameworks for the performance and reasoning of agentic pipelines. WHAT YOU GET: an annual fee of USD 80,000 to 93,000 for full-time work (part-time 20 hours/week also possible), on an initial 12-month contract, working remotely with some flexibility to work from other countries for a limited number of weeks per year. ELIGIBILITY: hands-on full-stack development experience including infrastructure maintenance and server-side data workflows; experience with agentic AI workflows and open-source harnesses; experience with human-in-the-loop design (approval checks, feedback loops); a collaborative record of working with non-technical colleagues on public interest technology; English proficiency; and a time zone overlapping with Europe. Experience with mission-driven organisations or open source / public interest tech is a plus. APPLICATION: via Google Form; Bellingcat asks that applications not be AI-generated (AI for grammar checks is fine). Review is rolling from 21 October and interviews may start before the close. DEADLINE: 8 November 2026.",
+      "url": "https://www.bellingcat.com/contractor-ai-engineer-open-source-agentic-systems/",
+      "tags": [
+        "contract",
+        "remote",
+        "ai",
+        "agentic-ai",
+        "llm",
+        "mcp",
+        "open-source",
+        "osint",
+        "investigations",
+        "journalism",
+        "public-interest-tech",
+        "no-fee"
+      ],
+      "fee": false,
+      "featured": false,
+      "categories": [
+        "tech",
+        "journalism"
+      ],
+      "eligibility": "open",
+      "attendance": "remote",
+      "career": "mid",
+      "ageCap": null
+    },
+    {
+      "id": "princeton-crockett-lab-postdoc-2027",
+      "title": "Postdoctoral Fellow 2027, Crockett Lab (Princeton Psychology and University Center for Human Values)",
+      "organization": "Princeton University, Crockett Lab (Department of Psychology and University Center for Human Values)",
+      "location": "Princeton, New Jersey, USA.",
+      "region": "US",
+      "amount": "USD 80,000 annual salary from a stable institutional funding source (not a cancellable grant).",
+      "duration": "Initial one-year appointment, renewable up to three years, starting summer or fall 2027.",
+      "startDate": "2027-07-01",
+      "deadline": "2026-11-20",
+      "addedDate": "2026-10-19",
+      "feedDate": "2026-10-23",
+      "category": "research",
+      "applicant": "individuals",
+      "description": "Molly Crockett's lab at Princeton, based in the Department of Psychology and the University Center for Human Values, is hiring a postdoc to start in summer or fall 2027. The research topic is flexible. The lab uses methods from computational social science and cognitive science informed by theory from science and technology studies and feminist epistemology, studying feedback loops between individual psychology, institutions and culture, and how the tech industry co-opts these processes to concentrate power. It is especially interested in bridging quantitative and qualitative methods for understanding human experience, and in how culture and power shape which questions are valued and which methods are legitimised. The lab is industry-independent and accepts no research funding from the tech industry; it uses a variety of ML methods and aims to develop thoughtful approaches to automation in scholarship, so it suits researchers excited about AI in science but wary of hype and industry influence. WHAT YOU GET: an USD 80,000 salary from stable institutional funds, initial one-year appointment renewable up to three years. APPLICATION: via Interfolio; questions about fit to mj.crockett@princeton.edu. Review of applications begins 20 November 2026 and continues until the position is filled.",
+      "url": "https://apply.interfolio.com/195297",
+      "tags": [
+        "postdoc",
+        "fellowship",
+        "usa",
+        "princeton",
+        "new-jersey",
+        "computational-social-science",
+        "cognitive-science",
+        "sts",
+        "feminist-epistemology",
+        "ai-ethics",
+        "critical-ai",
+        "no-fee"
+      ],
+      "fee": false,
+      "featured": false,
+      "categories": [
+        "ai",
+        "tech"
+      ],
+      "eligibility": "open",
+      "attendance": "onsite",
+      "career": "emerging",
       "ageCap": null
     }
   ]
