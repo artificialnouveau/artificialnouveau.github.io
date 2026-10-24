@@ -12719,7 +12719,8 @@ function renderFolder(grant, category, today) {
   a.dataset.search = [
     grant.title, grant.organization, grant.location, grant.region,
     grant.description, grant.amount,
-    (grant.tags || []).join(' ')
+    (grant.tags || []).join(' '),
+    searchAliases(grant)
   ].filter(Boolean).join(' ').toLowerCase();
 
   // Tab always shows the opportunity type - first tags vary too much (region,
@@ -12797,6 +12798,33 @@ function shortenForCopy(desc) {
   if (label && label.index >= 60) text = text.slice(0, label.index).trim();
   text = text.replace(/(^|[.;!?])\s*(Deadlines?|DEADLINES?)\b[^.;!?]*[.;!?]?\s*$/, '$1').trim();
   return text;
+}
+
+// Sub-regions with no Region filter of their own. A grant whose title, organisation,
+// location or tags name one of these places gets the alias words added to its search
+// text, so "eastern europe", "baltic" or "balkans" finds it. Descriptions are left out
+// because many of them list every eligible EU country.
+const SEARCH_REGION_ALIASES = [
+  {
+    words: 'baltic baltics eastern europe',
+    places: /lithuania|vilnius|kaunas|nida|latvia|riga|liepaja|estonia|tallinn|tartu|\bbaltic/
+  },
+  {
+    words: 'balkans balkan south-eastern southeastern eastern europe',
+    places: /serbia|belgrade|novi sad|croatia|zagreb|rijeka|slovenia|ljubljana|bosnia|sarajevo|montenegro|macedonia|skopje|albania|tirana|kosovo|pristina|balkan/
+  },
+  {
+    words: 'central eastern europe',
+    places: /poland|polish|warsaw|krakow|lublin|poznan|wroclaw|gdansk|czech|prague|brno|ceske|slovakia|bratislava|kosice|hungary|budapest|romania|bucharest|cluj|timisoara|bulgaria|sofia|plovdiv|ukrain|kyiv|lviv|kharkiv|odesa|moldova|chisinau|belarus|georgia\b|tbilisi|armenia|yerevan|eastern europe/
+  }
+];
+function searchAliases(grant) {
+  const text = [grant.title, grant.organization, grant.location, (grant.tags || []).join(' ')]
+    .filter(Boolean).join(' ').toLowerCase();
+  return SEARCH_REGION_ALIASES
+    .filter(function (g) { return g.places.test(text); })
+    .map(function (g) { return g.words; })
+    .join(' ');
 }
 
 // Region codes map to the country/place words a free-text location might already use,
