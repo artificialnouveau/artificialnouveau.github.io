@@ -9,13 +9,16 @@ indexing: false
 <style>
 /* Short page: the block sits in the middle of the window and the
    footer drops to the bottom, so the space is shared evenly */
-body { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+body { position: relative; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+.contact-back { position: absolute; top: 1.25rem; right: 1.25rem; margin: 0; }
 #main-content { flex: 1; display: flex; align-items: center; justify-content: center; }
 .contact-page { text-align: center; padding: 3rem 16px; }
 .contact-page h1 { margin: 0 0 1.25rem; border: none; }
 .contact-page p { max-width: 36ch; margin: 0 auto; }
 .site-copyright { border-top: none; margin-top: 0; }
 </style>
+
+<a href="/" class="back-link contact-back">&larr; Back to Home</a>
 
 <section class="contact-page">
     <h1>Contact</h1>
