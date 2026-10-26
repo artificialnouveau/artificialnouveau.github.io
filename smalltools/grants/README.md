@@ -130,6 +130,7 @@ What qualifies for the desk, and what gets rejected, regardless of how prestigio
 - **Relevance bar.** Only opportunities that are genuinely tech or art related. Paid civic/ops fellowships (the FUSE Corps type) do not qualify.
 - **No self-funded or pay-to-attend programs.** If the artist pays program, tuition or participation fees, it is out, unless the program is also funded (a stipend or award on top of the fee).
 - **Cash required.** Do not add opportunities without actual cash attached (a stipend, fee, grant or prize). Free housing, expenses-only support, festival passes, exhibition-only showcases and cashless full scholarships do not qualify. The old grandfather clause for free-housing-only entries was retired on 29 September 2026, when the remaining cashless entries were culled.
+- **Festival exception to the cash rule.** Festival open calls may be added without a cash amount, but only when they have a firm deadline (no rolling or undated festival calls). Say so in the `amount` field ("NO PUBLISHED CASH, listed under the desk's festival exception").
 - **Festival and prize submission fees are acceptable** but must be flagged with `"fee": true` and stated in the `amount` field.
 - **No generic photography award contests** (pay-per-image photo prizes), even if they have an aerial category. Drone/aerial-centric calls are the exception.
 - **Audio category** is tech-x-music and experimental/sound-art only, not pure/popular/classical music showcases.
