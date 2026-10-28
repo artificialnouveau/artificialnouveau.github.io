@@ -136,6 +136,8 @@ On May 31st 2024, I was invited by the Privacy Salon to present at the [CPDP con
 
 On June 29th 2024, I presented the Fashion Police Drones at the [New Media Art Conference (2024)](https://cicamuseum.com/new-media-art-2024/) at the CICA Museum in Korea.
 
+From October 22nd to 25th 2026, Fashion Police Drones was shown at [Peckham Digital Festival](https://www.peckhamdigital.org/) in London, as part of the group exhibition [Mediating Behaviours](https://www.tickettailor.com/events/peckhamdigital/2434118) at Copeland Gallery.
+
 The work was also showcased at [AIAIAI.art](https://aiaiai.art/fashion-police), and in May 2024 I was interviewed by dublab about the project: [Artificial Nouveau: Fashion Police Drones](http://dublab.de/broadcasts/artificial-nouveau-fashion-police-drones-may-2024/).
 
 ## Postscript
