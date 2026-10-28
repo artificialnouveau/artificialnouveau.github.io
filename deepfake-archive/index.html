@@ -4,15 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>Deepfake Archive</title>
-  <script>
-    // Until 1 November 2026 (Amsterdam time) this goes to the MozFest
-    // exhibition, Believe the Feed; from then on to the Deepfake Archive.
-    var open = new Date() >= new Date("2026-11-01T00:00:00+01:00");
-    location.replace(open ? "/deepfakearchive/" : "/believethefeed/");
-  </script>
+  <meta http-equiv="refresh" content="0; url=/deepfakearchive/">
+  <title>Believe the Feed</title>
+  <script>location.replace("/deepfakearchive/" + location.search + location.hash);</script>
 </head>
 <body>
-  <p><a href="/believethefeed/">Continue to Believe the Feed</a></p>
+  <p><a href="/deepfakearchive/">Continue to Believe the Feed</a></p>
 </body>
 </html>
