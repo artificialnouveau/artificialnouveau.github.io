@@ -1,21 +1,32 @@
 ---
-title: "Deepfake Archive"
+title: "Believe the Feed: The Deepfake Archive"
 thumbnail: /assets/deepfake-archive-preview/thumbnails/video-by-realdonaldtrump-2026.jpg
-excerpt: "An online archive of synthetic media artifacts, organized as an interactive network graph by intent at creation. Preview only, the full corpus targets several hundred artifacts."
+excerpt: "Believe the Feed is an online interactive archive of synthetic media artifacts, organized by intent at creation into 25 folders under ten headings."
 indexing: false
 category: "Archive"
 ---
 
-An online, interactive archive of synthetic media artifacts, organized as a network graph. The editorial spine is intent at creation, not technique. Twelve rooms: propaganda, activism?, everyone is catfishing, entertainment and artworks, Hollywood deepfakes, AI sex workers, scam and fraud and social engineering, identity protection and pseudonymity, image-based abuse and harassment, blackface and whitewashing, awareness and self-reference, everyone is a commercial.
+Believe the Feed is an online interactive archive of synthetic media artifacts, organized as a network graph. The editorial spine is intent at creation, not technique. The archive holds 25 folders grouped under ten headings:
 
-Each artifact carries a curatorial panel that names the toolchain, the consent status, and the concrete consequence to the people involved, in a register that is allergic to both AI-hype credulity and moral-panic credulity. The room that handles image-based abuse exhibits no media; its panels link to journalism and court documents instead.
+- **Political:** Slopaganda; The Trump Administration
+- **Abuse:** Race: Erasure & Hypervisibility; Porn & Intimate Partner Violence; Harassment and Bullying
+- **Sell:** Faking Yourself for a Living; AI LARP; Demos; Synthetic Performers; The Slop Economy
+- **Steal:** Scam, Fraud, and Social Engineering; Higgsfield + Plagiarism
+- **Evidence:** A Day in Court; News and Documentaries
+- **Resurrect:** Death in the Feed; History and Faith
+- **Restore:** Care; Grief
+- **Entertain:** Hollywood & Gaming; Humor & Satire
+- **Art:** Video Art; Music Videos
+- **?:** Well, wtf?; Is it Porn?; Is it Activism?
+
+Each artifact carries a curatorial panel that names the toolchain, the consent status, and the concrete consequence to the people involved, in a register that is allergic to both AI-hype credulity and moral-panic credulity.
 
 <div class="btf-embed">
-  <iframe id="btf-frame" src="/believethefeed/" title="Believe the Feed: the Deepfake Archive" allow="fullscreen; autoplay" allowfullscreen loading="lazy"></iframe>
+  <iframe id="btf-frame" src="/deepfakearchive/" title="Believe the Feed: The Deepfake Archive" allow="fullscreen; autoplay" allowfullscreen loading="lazy"></iframe>
 </div>
 <p class="btf-actions">
   <button type="button" id="btf-fullscreen">Full screen</button>
-  <a href="/believethefeed/" target="_blank" rel="noopener">Open in a new tab &rarr;</a>
+  <a href="/deepfakearchive/" target="_blank" rel="noopener">Open in a new tab &rarr;</a>
 </p>
 
 <style>
