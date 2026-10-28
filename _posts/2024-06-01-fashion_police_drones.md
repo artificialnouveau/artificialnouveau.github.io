@@ -138,6 +138,8 @@ On June 29th 2024, I presented the Fashion Police Drones at the [New Media Art C
 
 From October 22nd to 25th 2026, Fashion Police Drones was shown at [Peckham Digital Festival](https://www.peckhamdigital.org/) in London, as part of the group exhibition [Mediating Behaviours](https://www.tickettailor.com/events/peckhamdigital/2434118) at Copeland Gallery.
 
+For Peckham Digital I rebuilt the algorithm so that every stop escalates. Three people are stopped, one after another, and the law gets harsher with each one. The first stop polices taste: the outfit is ruled cute or not cute, and either way the stop goes on to a search. The second polices suspicion: the suspect is ordered to show their hands, told they match the description of a suspect in the area, and held for a senior officer whatever was found. The third polices the body and the state: every guess the machine makes is read out as fact, the charges are stacked, and the suspect is classed as an extremist, a subversive, a decadent, a parasite or, if nothing else fits, simply non-conforming. Nobody is let off. Only the last stop ends in a sentence, and then a release, because custody is full.
+
 The work was also showcased at [AIAIAI.art](https://aiaiai.art/fashion-police), and in May 2024 I was interviewed by dublab about the project: [Artificial Nouveau: Fashion Police Drones](http://dublab.de/broadcasts/artificial-nouveau-fashion-police-drones-may-2024/).
 
 ## Postscript
