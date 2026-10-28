@@ -6,7 +6,7 @@ indexing: false
 category: "Archive"
 ---
 
-Believe the Feed is an online interactive archive of synthetic media artifacts, organized as a network graph. The editorial spine is intent at creation, not technique. The archive holds 25 folders grouped under ten headings:
+Believe the Feed is an online interactive archive of synthetic media artifacts, organized as a network graph. Believe the Feed debuted and was showcased at [MozFest 2026](https://www.mozillafestival.org/) in Barcelona. The editorial spine is intent at creation, not technique. The archive holds 25 folders grouped under ten headings:
 
 - **Political:** Slopaganda; The Trump Administration
 - **Abuse:** Race: Erasure & Hypervisibility; Porn & Intimate Partner Violence; Harassment and Bullying
