@@ -8,7 +8,11 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
+
+# All grant workflows write to master; serialise them so they never race.
+concurrency:
+  group: grants-master-writer
+  cancel-in-progress: false
 
 jobs:
   run:
@@ -62,6 +66,12 @@ jobs:
             git commit -m "Grants bot: update state ($(date -u +%Y-%m-%d))"
             # --autostash: grants.json may carry uncommitted candidate edits.
             git pull --rebase --autostash origin master
+            # --autostash exits 0 even when re-applying the stash conflicts, leaving
+            # markers in grants.json; stop before they can be committed.
+            if git diff --name-only --diff-filter=U | grep -q .; then
+              echo "::error::Autostash conflict after pulling master."; exit 1
+            fi
+            python3 -c 'import json; json.load(open("smalltools/grants/grants.json"))'
             git push origin HEAD:master
           fi
 
@@ -83,11 +93,11 @@ jobs:
           # SEO pages, sitemap.xml, robots.txt and llms.txt; committing only
           # the feeds would leave those stale on merge.
           git add -A
-          git commit -m "Grants bot: ${{ steps.bot.outputs.count }} Bluesky candidate(s) (${DATE})"
+          git commit -m "Grants bot: ${{ steps.bot.outputs.count }} candidate(s) (${DATE})"
           git push -u origin "$BRANCH"
           gh pr create \
             --draft \
-            --title "Grants bot: ${{ steps.bot.outputs.count }} Bluesky candidate(s) (${DATE})" \
+            --title "Grants bot: ${{ steps.bot.outputs.count }} candidate(s) (${DATE})" \
             --body-file /tmp/pr_body.md
 
       - name: No candidates

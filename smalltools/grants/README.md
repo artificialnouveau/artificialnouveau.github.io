@@ -9,13 +9,19 @@ Everything is plain HTML, JSON and Python. No build tool, no framework. You can 
 | File | What it does |
 |---|---|
 | `grants.json` | The source of truth. Every grant is one object in the `grants` array. Edit this file to add, change or remove a grant. |
+| `add.html` | Browser-only form that builds a valid grant entry (with duplicate check and feed-date suggestion) to paste into `grants.json`. Keep its options in sync with the schema below. |
 | `index.html` | The single-page app. Loads `grants.json` and renders the cards. Also holds the FAQ, the Watch for next round drawer, and the filter UI. |
-| `generate_feed.py` | Reads `grants.json` and writes the RSS feeds, ICS calendars, static SEO pages, JSON-LD inside `index.html`, and the root `sitemap.xml`. Run it after any change to `grants.json` or to the static-page region/category lists. |
+| `generate_feed.py` | Reads `grants.json` and writes the RSS feeds, ICS calendars, static SEO pages, JSON-LD inside `index.html`, `embed.json`, `feeds-manifest.json`, and the root `sitemap.xml`, `robots.txt` and `llms.txt`. Run it after any change to `grants.json` or to the static-page region/category lists. |
 | `prune_grants.py` | Optional cleanup helper. Drops entries whose deadline is over a year past. Never touches rolling entries. |
-| `check_rolling.py` | Rechecks the rolling/undated entries, which nothing else revisits. Fetches each stored URL and reports dead pages and closed calls. |
+| `check_rolling.py` | Rechecks the rolling/undated entries, which nothing else revisits. Fetches each stored URL and reports dead pages and closed calls. Run by hand; no workflow calls it. |
+| `grants_bot.py` | Weekly bot (`.github/workflows/grants-bot.yml`, Sundays). Reads Bluesky hashtags and RSS sources, asks Claude to extract candidates, and opens a draft PR; only its state file `.bot_state.json` is pushed straight to master. |
+| `recheck_grants.py` | Weekly bot (`recheck-grants.yml`). Rechecks closed entries and Watch for next round items for a new cycle and opens a draft PR with proposals. State in `.recheck_state.json`. |
+| `generate_og_image.py` | Manual tool: regenerates `og-image.png` with Pillow. |
+| `embed.js`, `embed.json` | Embeddable widget for other sites and its data file (generated). |
 | `feed-*.xml`, `calendar-*.ics` | Generated. Do not edit by hand. |
 | `<region>/index.html`, `<category>/index.html`, `<category>-<region>/index.html` | Generated SEO landing pages. Do not edit by hand. |
-| `mockups/` | Local-only sketches. Not deployed. |
+
+Scheduled workflows: `publish-grants.yml` (daily, regenerates and commits so queued feed releases go out), `prune-grants.yml` (monthly, runs `prune_grants.py`), plus the two bots above. All four share one concurrency group so they never push to master at the same time.
 
 ## Workflow at a glance
 
@@ -109,7 +115,9 @@ A complete grant entry looks like this:
 - **`deadline`** — ISO `YYYY-MM-DD` for fixed deadlines. `null` for rolling/continuous calls (the card lands in "Rolling or Continuous Calls"). Categorisation into Hot / Soon / Long / Rolling / Filed Away is automatic from this field.
 - **`addedDate`** — ISO `YYYY-MM-DD`, the true day you added the entry. Drives the website's "NEW since last visit" badge and RSS ordering. Use today's date; do NOT future-date it (that is what `feedDate` is for).
 - **`feedDate`** — Optional ISO `YYYY-MM-DD` or `null`. The RSS-release date, used ONLY to throttle the RSS feeds: batch-add grants and stagger their `feedDate`s into the future (e.g. ~3 per day) so each tranche enters the feeds on its date. It is independent of `addedDate`, so throttling the feeds does NOT make grants look perpetually NEW on the website. If omitted or `null`, the feed falls back to `addedDate`. The website, SEO pages and calendars ignore `feedDate` and show every grant immediately. On top of any manual staggering, `generate_feed.py` enforces a hard cap of `FEED_MAX_PER_DAY` (5) feed releases per day for release dates from `FEED_CAP_START` onward: overflow spills to the next free day, soonest deadlines keep their slots first, and a grant is never pushed past its own deadline. The cap is computed in memory on every run (deterministic, anchored to the fixed `FEED_CAP_START` date, never the run date) and does not modify `grants.json`.
-- **`category`** — Must be exactly one of: `ai`, `tech`, `research`, `writers`, `film`, `arts`, `cross`. If you need a new category, see "Adding a new category" below.
+- **`category`** — Must be exactly one of: `ai`, `tech`, `research`, `writers`, `film`, `arts`, `game`, `design`, `curator`, `audio`, `cross`. (`media-arts`, `ai-tech-research` and `design-games` are feed groupings, not categories.) If you need a new category, see "Adding a new category" below.
+- **`categories`**: *Optional* array of extra category slugs from the same list, never repeating `category`. Widens which category chips and feeds surface the entry.
+- **`regions`**: *Optional* array of extra regions, never repeating `region`. Puts one grant in several region views; `region` stays the canonical primary.
 - **`applicant`** — Must be exactly one of: `individuals`, `organizations`, `both`. Drives the "Who can apply" filter. When the user filters to Individuals, cards tagged `individuals` AND `both` show; same logic for Organizations. So default ambiguous cases to `individuals` (this site is individual-focused) or `both` if a grant is genuinely open to either.
 - **`description`** — Long prose. Include eligibility, what's funded, application process, deadline restated, contact email if relevant.
 - **`url`** — Funder's primary application page if possible. Avoid aggregator URLs (TransArtists, On The Move) unless the funder doesn't have a public page.
@@ -117,7 +125,7 @@ A complete grant entry looks like this:
 - **`fee`** — Boolean. `false` means no application fee charged to the applicant. `true` means there IS an application fee (skip these unless you have a strong reason — the desk's mission excludes pay-to-play submissions).
 - **`featured`** — Boolean. Currently unused for visual emphasis; safe to leave `false`.
 - **`suggestedBy`** — *Optional.* String like `@handle` or `Jane Doe`. Renders a small "Suggested by ..." credit line on the card. Only set this if the submitter explicitly opted in via the Suggest a grant form.
-- **`eligibility`** — Must be exactly one of: `open`, `residents`, `nationals`, `unknown`. Drives the Eligibility filter. `open` = anyone worldwide may apply; `residents` = restricted by where you live (country, region or city); `nationals` = citizenship/nationality requirement. When the call text does not state it clearly, use `unknown` (there is an Unknown chip). `backfill_filters.py` auto-classifies missing values conservatively and never overwrites a value already present, so hand corrections stick.
+- **`eligibility`** — Must be exactly one of: `open`, `residents`, `nationals`, `unknown`. Drives the Eligibility filter. `open` = anyone worldwide may apply; `residents` = restricted by where you live (country, region or city); `nationals` = citizenship/nationality requirement. When the call text does not state it clearly, use `unknown` (there is an Unknown chip).
 - **`attendance`** — Must be exactly one of: `remote`, `hybrid`, `onsite`, `unknown`. Drives the Attendance filter. `remote` = can be done from where you live; `onsite` = requires being there (in-person residencies default here).
 - **`career`** — Must be exactly one of: `any`, `emerging`, `established`, `unknown`. Drives the Career stage filter. `any` only when the call states all stages are welcome.
 - **`ageCap`** — Integer maximum applicant age (e.g. `35` for an under-35 call) or `null`. A minimum age (18+) is NOT a cap. Cards with a cap also match the "Has age cap" chip in the Career stage filter.
@@ -134,7 +142,7 @@ What qualifies for the desk, and what gets rejected, regardless of how prestigio
 - **Festival and prize submission fees are acceptable** but must be flagged with `"fee": true` and stated in the `amount` field.
 - **No generic photography award contests** (pay-per-image photo prizes), even if they have an aerial category. Drone/aerial-centric calls are the exception.
 - **Audio category** is tech-x-music and experimental/sound-art only, not pure/popular/classical music showcases.
-- **Dedupe before adding.** Grep `grants.json` by organization and title first; the bot auto-adds, so duplicates are common. When researching new opportunities, skip organizations already tracked.
+- **Dedupe before adding.** Grep `grants.json` by organization and title first; the bots propose entries via PRs, so duplicates are common. When researching new opportunities, skip organizations already tracked.
 - **Watch-list entries** (calls not yet open) do NOT go in `grants.json`; they belong in the "Watch for next round" drawer in `index.html` (see the drawer section below). Grants.json is for calls that are open now (fixed deadline or genuinely rolling).
 
 ### Conventions worth following

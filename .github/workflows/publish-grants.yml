@@ -10,6 +10,11 @@ on:
 permissions:
   contents: write
 
+# All grant workflows write to master; serialise them so they never race.
+concurrency:
+  group: grants-master-writer
+  cancel-in-progress: false
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -31,17 +36,25 @@ jobs:
           # DTSTAMP), so a plain status check always sees changes. Ignore
           # those lines; only commit when something real changed (or a new
           # untracked file appeared).
-          if git diff -I'<lastBuildDate>' -I'^DTSTAMP:' --quiet \
+          if git diff -I'<lastBuildDate>' -I'^DTSTAMP:' -I'<lastmod>' --quiet \
              && [[ -z "$(git ls-files --others --exclude-standard)" ]]; then
             echo "No grants came due today. Exiting clean."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          MSG="Auto-publish: release grants whose addedDate came due"
           git add smalltools/grants/ sitemap.xml robots.txt llms.txt
-          git commit -m "Auto-publish: release grants whose addedDate came due"
-          # Retry around pushes racing the local bot / other workflows.
+          git commit -m "$MSG"
+          # Retry around pushes racing a human push. Regenerated files conflict on
+          # rebase, so reset to origin and regenerate instead of merging.
           for i in 1 2 3; do
-            git push && break
-            git pull --rebase origin master
+            git push && exit 0
+            git fetch origin master
+            git reset --hard origin/master
+            python3 smalltools/grants/generate_feed.py
+            git add smalltools/grants/ sitemap.xml robots.txt llms.txt
+            git commit -m "$MSG" || exit 0
           done
+          echo "::error::Push failed after 3 attempts."
+          exit 1

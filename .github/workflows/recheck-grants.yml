@@ -13,7 +13,11 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
+
+# All grant workflows write to master; serialise them so they never race.
+concurrency:
+  group: grants-master-writer
+  cancel-in-progress: false
 
 jobs:
   run:
@@ -61,6 +65,12 @@ jobs:
             # --autostash: grants.json/index.html may carry uncommitted proposal
             # edits at this point; a plain pull --rebase refuses to run then.
             git pull --rebase --autostash origin master
+            # --autostash exits 0 even when re-applying the stash conflicts, leaving
+            # markers in grants.json; stop before they can be committed.
+            if git diff --name-only --diff-filter=U | grep -q .; then
+              echo "::error::Autostash conflict after pulling master."; exit 1
+            fi
+            python3 -c 'import json; json.load(open("smalltools/grants/grants.json"))'
             git push origin HEAD:master
           fi
 

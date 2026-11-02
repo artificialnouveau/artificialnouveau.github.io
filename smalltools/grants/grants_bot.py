@@ -19,8 +19,9 @@ import os
 import re
 import sys
 import time
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, timedelta
 from pathlib import Path
+from urllib.parse import urlparse
 
 import feedparser
 import requests
@@ -85,7 +86,7 @@ OTHERWISE return JSON matching this schema strictly:
   "organization": "string",
   "location": "string",
   "region": "EU"|"US"|"UK"|"NL"|"Canada"|"Asia"|"Africa"|"Australia"|"LatAm"|"Remote"|"Worldwide",
-  "category": "ai"|"tech"|"research"|"film"|"arts"|"cross",
+  "category": "ai"|"tech"|"research"|"writers"|"film"|"arts"|"game"|"design"|"curator"|"audio"|"cross",
   "amount": "string (include currency symbol)",
   "deadline": "YYYY-MM-DD",
   "url": "string (the canonical apply page, NOT the bsky.app post URL)",
@@ -343,6 +344,23 @@ def _age_cap_or_none(value) -> int | None:
     return n if 20 <= n <= 45 else None
 
 
+# Switzerland and China-HK-Taiwan are tag-driven sub-regions, never a primary region.
+ALLOWED_REGIONS = {"EU", "US", "UK", "NL", "Asia", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"}
+ALLOWED_CATEGORIES = {"ai", "tech", "research", "writers", "film", "arts", "game", "design",
+                      "curator", "audio", "cross"}
+
+
+def _enum_or_default(value, allowed: set[str], default: str) -> str:
+    return value if value in allowed else default
+
+
+def atomic_write(path: Path, text: str) -> None:
+    """Write via a temp file + rename so a killed run never leaves a truncated file."""
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(text, encoding="utf-8")
+    os.replace(tmp, path)
+
+
 def build_candidate(
     extracted: dict | None,
     today: date,
@@ -375,9 +393,19 @@ def build_candidate(
     if not deadline_date or deadline_date < today:
         return None
 
-    grant_url = (extracted.get("url") or fallback_url).strip()
+    # Scraped pages reach the model, so treat its output as untrusted: only accept
+    # an http(s) URL on the linked page's own host, else keep the link we followed.
+    grant_url = str(extracted.get("url") or "").strip()
+    if (urlparse(grant_url).scheme not in ("http", "https")
+            or urlparse(grant_url).hostname != urlparse(fallback_url).hostname):
+        grant_url = fallback_url.strip()
+    if urlparse(grant_url).scheme not in ("http", "https"):
+        return None
     if grant_url.rstrip("/") in existing_urls:
         return None
+
+    region = _enum_or_default(extracted.get("region"), ALLOWED_REGIONS, "Worldwide")
+    category = _enum_or_default(extracted.get("category"), ALLOWED_CATEGORIES, "cross")
 
     base_id = slugify(extracted.get("title") or "untitled")
     grant_id = base_id
@@ -388,20 +416,20 @@ def build_candidate(
 
     entry = {
         "id": grant_id,
-        "title": extracted.get("title") or "Untitled",
-        "organization": extracted.get("organization") or "",
-        "location": extracted.get("location") or "",
-        "region": extracted.get("region") or "Worldwide",
-        "amount": extracted.get("amount") or "",
+        "title": str(extracted.get("title") or "Untitled")[:160],
+        "organization": str(extracted.get("organization") or "")[:160],
+        "location": str(extracted.get("location") or "")[:300],
+        "region": region,
+        "amount": str(extracted.get("amount") or "")[:400],
         "duration": "Per project",
         "startDate": None,
         "deadline": deadline_str,
         "addedDate": today.isoformat(),
-        "category": extracted.get("category") or "cross",
+        "category": category,
         "applicant": "individuals",
-        "description": extracted.get("description") or "",
+        "description": str(extracted.get("description") or "")[:2000],
         "url": grant_url,
-        "tags": category_to_tags(extracted.get("category") or "cross"),
+        "tags": category_to_tags(category),
         "fee": False,
         "featured": False,
         "eligibility": _enum_or_unknown(extracted.get("eligibility"), {"open", "residents", "nationals"}),
@@ -588,9 +616,7 @@ def main() -> int:
         "grants", []
     )
     grants_data["lastUpdated"] = today.isoformat()
-    GRANTS_FILE.write_text(
-        json.dumps(grants_data, indent=2, ensure_ascii=False) + "\n"
-    )
+    atomic_write(GRANTS_FILE, json.dumps(grants_data, indent=2, ensure_ascii=False) + "\n")
 
     by_source: dict[str, int] = {}
     for c in candidates:

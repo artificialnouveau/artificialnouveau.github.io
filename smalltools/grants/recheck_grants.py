@@ -23,7 +23,7 @@ from __future__ import annotations
 import json
 import os
 import re
-from datetime import date, timedelta
+from datetime import date
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -154,18 +154,44 @@ def safe_confidence(value) -> float:
         return 0.0
 
 
-def next_year_id(old_id: str, deadline: str) -> str:
+def next_year_id(old_id: str, deadline: str, existing_ids: set[str]) -> str:
     year = deadline[:4]
     # strip trailing year or year-range segments: -2026, -2026-27, -2026-2027
     stripped = re.sub(r"(-\d{4})(-\d{2}|-\d{4})?$", "", old_id)
-    return f"{stripped}-{year}"
+    # A new cycle can close in the same year as the old id; fall back to the
+    # deadline month, then a counter, instead of colliding and being dropped.
+    for cand in (f"{stripped}-{year}", f"{stripped}-{deadline[:7]}"):
+        if cand not in existing_ids:
+            return cand
+    n = 2
+    while f"{stripped}-{deadline[:7]}-{n}" in existing_ids:
+        n += 1
+    return f"{stripped}-{deadline[:7]}-{n}"
 
 
-def build_entry(old: dict, ex: dict, today: date) -> dict:
+def atomic_write(path: Path, text: str) -> None:
+    """Write via a temp file + rename so a killed run never leaves a truncated file."""
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(text, encoding="utf-8")
+    os.replace(tmp, path)
+
+
+def safe_url(candidate, fallback: str) -> str:
+    """Model output is untrusted: keep only http(s) URLs, else the known page."""
+    url = str(candidate or "").strip()
+    return url if urlparse(url).scheme in ("http", "https") else fallback
+
+
+def build_entry(old: dict, ex: dict, today: date, existing_ids: set[str]) -> dict:
+    # Carry over the hand-curated filter fields so a new cycle keeps its placement.
     entry = {k: old.get(k) for k in (
-        "organization", "location", "region", "category", "applicant", "tags", "fee")}
+        "organization", "location", "region", "applicant", "tags", "fee",
+        "eligibility", "attendance", "career", "ageCap") if k in old}
+    for k in ("categories", "regions"):
+        if old.get(k):
+            entry[k] = old[k]
     entry.update({
-        "id": next_year_id(old["id"], ex["deadline"]),
+        "id": next_year_id(old["id"], ex["deadline"], existing_ids),
         "title": str(ex.get("title") or old["title"]).strip()[:160],
         "amount": str(ex.get("amount") or old.get("amount", "")).strip(),
         "duration": old.get("duration", ""),
@@ -177,7 +203,7 @@ def build_entry(old: dict, ex: dict, today: date) -> dict:
             str(ex.get("description", "")).strip()
             + f" NOTE: auto-proposed by the recheck bot from the previous cycle ({old['id']}); verify details on the page before publishing."
         ),
-        "url": str(ex.get("url") or old["url"]).strip(),
+        "url": safe_url(ex.get("url"), old["url"]),
         "featured": False,
     })
     return entry
@@ -242,10 +268,14 @@ def build_watchlist_entry(it: dict, ex: dict, today: date) -> dict:
             str(ex.get("description", "")).strip()
             + " NOTE: auto-proposed by the recheck bot from the Watch for next round drawer; verify details on the page before publishing."
         ),
-        "url": str(ex.get("url") or it["url"]).strip(),
+        "url": safe_url(ex.get("url"), it["url"]),
         "tags": [cat, "recheck-bot"],
-        "fee": bool(ex.get("fee", False)),
+        "fee": ex.get("fee") is True,
         "featured": False,
+        "eligibility": "unknown",
+        "attendance": "unknown",
+        "career": "unknown",
+        "ageCap": None,
     }
 
 
@@ -324,7 +354,7 @@ def main() -> int:
             dl = parse_iso_date(ex.get("deadline"))
             conf = safe_confidence(ex.get("confidence"))
             if dl and dl > today and conf >= MIN_CONFIDENCE:
-                entry = build_entry(g, ex, today)
+                entry = build_entry(g, ex, today, existing_ids)
                 if entry["id"] not in existing_ids:
                     proposals.append((g, entry))
                     existing_ids.add(entry["id"])
@@ -350,13 +380,13 @@ def main() -> int:
     for _, entry in proposals + watch_proposals:
         grants.insert(0, entry)
     data["lastUpdated"] = today.isoformat()
-    GRANTS_FILE.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+    atomic_write(GRANTS_FILE, json.dumps(data, indent=2, ensure_ascii=False) + "\n")
 
     # Promoted watchlist items leave the drawer; the removal rides the same PR.
     if watch_proposals:
         for it, _ in watch_proposals:
             index_html = index_html.replace(it["li"], "")
-        INDEX_FILE.write_text(index_html)
+        atomic_write(INDEX_FILE, index_html)
 
     lines = [
         "The recheck bot found likely NEW OR REOPENED CYCLES. Verify each page",

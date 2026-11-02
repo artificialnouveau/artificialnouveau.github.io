@@ -7,7 +7,7 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 ## Primary
 
 - [The Grant Desk (interactive)](https://www.artificialnouveau.com/smalltools/grants/): Filterable list of all active grants, fellowships and residencies.
-- [All grants RSS feed](https://www.artificialnouveau.com/smalltools/grants/feed-weekly.xml): Weekly digest RSS feed of all entries, one item per week.
+- [All grants RSS feed](https://www.artificialnouveau.com/smalltools/grants/feed-weekly.xml): Weekly Sunday drop RSS feed, one item per grant.
 - [All grants calendar (.ics)](https://www.artificialnouveau.com/smalltools/grants/calendar.ics): ICS calendar of all upcoming deadlines.
 
 ## By category
@@ -26,7 +26,7 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 
 ## By region
 
-- [EU](https://www.artificialnouveau.com/smalltools/grants/eu/)
+- [Europe](https://www.artificialnouveau.com/smalltools/grants/eu/)
 - [UK](https://www.artificialnouveau.com/smalltools/grants/uk/)
 - [US](https://www.artificialnouveau.com/smalltools/grants/us/)
 - [Netherlands](https://www.artificialnouveau.com/smalltools/grants/nl/)
@@ -49,9 +49,9 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 
 Country pages are emitted only where enough active entries exist, so this list changes over time. Check the sitemap for the current set.
 
-- [Germany](https://www.artificialnouveau.com/smalltools/grants/germany/) - [France](https://www.artificialnouveau.com/smalltools/grants/france/) - [Spain](https://www.artificialnouveau.com/smalltools/grants/spain/) - [Belgium](https://www.artificialnouveau.com/smalltools/grants/belgium/) - [Italy](https://www.artificialnouveau.com/smalltools/grants/italy/) - [Austria](https://www.artificialnouveau.com/smalltools/grants/austria/) - [Greece](https://www.artificialnouveau.com/smalltools/grants/greece/) - [Norway](https://www.artificialnouveau.com/smalltools/grants/norway/) - [Denmark](https://www.artificialnouveau.com/smalltools/grants/denmark/) - [Japan](https://www.artificialnouveau.com/smalltools/grants/japan/) - [India](https://www.artificialnouveau.com/smalltools/grants/india/) - [China](https://www.artificialnouveau.com/smalltools/grants/china/)
+- [Germany](https://www.artificialnouveau.com/smalltools/grants/germany/) - [France](https://www.artificialnouveau.com/smalltools/grants/france/) - [Spain](https://www.artificialnouveau.com/smalltools/grants/spain/) - [Belgium](https://www.artificialnouveau.com/smalltools/grants/belgium/) - [Italy](https://www.artificialnouveau.com/smalltools/grants/italy/) - [Ireland](https://www.artificialnouveau.com/smalltools/grants/ireland/) - [China](https://www.artificialnouveau.com/smalltools/grants/china/) - [Turkey](https://www.artificialnouveau.com/smalltools/grants/turkey/)
 
 ## Data
 
-- [embed.json](https://www.artificialnouveau.com/smalltools/grants/embed.json): The 30 soonest-closing active entries, factual fields only, powering the embeddable widget at https://www.artificialnouveau.com/smalltools/grants/embed.js.
-- [grants.json](https://www.artificialnouveau.com/smalltools/grants/grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, amount, duration, deadline, addedDate, category, description, url, tags, fee, featured.
+- [embed.json](https://www.artificialnouveau.com/smalltools/grants/embed.json): The soonest-closing active entries (up to 300), factual fields only, powering the embeddable widget at https://www.artificialnouveau.com/smalltools/grants/embed.js.
+- [grants.json](https://www.artificialnouveau.com/smalltools/grants/grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, regions, amount, duration, startDate, deadline, addedDate, feedDate, category, categories, applicant, description, url, tags, fee, featured, eligibility, attendance, career, ageCap.

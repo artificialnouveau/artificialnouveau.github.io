@@ -127,12 +127,11 @@ _GROUPED_MEMBERS = {m for ms in CATEGORY_GROUPS.values() for m in ms}
 #   design-games - 40% of it sits inside the media group; too thin to earn a row.
 # Group slugs are filtered here too, not just loose singles.
 PICKER_EXCLUDED = {"curator", "design-games"}
-_ALL_SYNDICATED = CATEGORIES + list(CATEGORY_GROUPS)
 PICKER_CATEGORIES = [
-    c for c in _ALL_SYNDICATED
+    c for c in SYNDICATION_CATEGORIES
     if c not in _GROUPED_MEMBERS and c not in PICKER_EXCLUDED
 ]
-LEGACY_BARE_CATEGORIES = [c for c in _ALL_SYNDICATED if c not in PICKER_CATEGORIES]
+LEGACY_BARE_CATEGORIES = [c for c in SYNDICATION_CATEGORIES if c not in PICKER_CATEGORIES]
 CATEGORY_LABELS = {
     "ai": "AI & Safety",
     "tech": "Tech & Infrastructure",
@@ -222,7 +221,7 @@ def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None
     if weekly:
         desc += (
             " Released weekly: the week's new grants arrive together on Sunday, "
-            "one entry per grant plus a short roundup header, instead of "
+            "one entry per grant, instead of "
             "trickling out daily. Each drop carries at most 10 grants, closest "
             "deadlines first; the rest follow the next Sunday."
         )
@@ -354,6 +353,22 @@ WEEKLY_DROP_SINCE = date(2026, 9, 6)
 # for a quieter week.
 WEEKLY_DROP_MAX = 10
 
+# From this Sunday on, a grant whose deadline IS the drop Sunday no longer goes
+# out (it would arrive on its closing day). Earlier drops keep the old >= rule so
+# their already-published items and cap decisions, and so their guids, stay put.
+DROP_STRICT_SINCE = date(2026, 11, 8)
+
+
+def open_for_drop(deadline, sunday):
+    """True when a grant with this deadline may go out in the drop on `sunday`."""
+    if deadline is None:
+        return True
+    return deadline > sunday if sunday >= DROP_STRICT_SINCE else deadline >= sunday
+
+# Marker present in every generated static SEO page; the stale-page sweep only
+# ever deletes directories whose page carries it.
+STATIC_PAGE_MARKER = "canary:GD-7F3Q"
+
 
 def weekly_grant_parts(g, today):
     """(escaped title, escaped UTM href, escaped bare url, detail bits) for one
@@ -379,7 +394,7 @@ def weekly_count_phrase(count, category, opp_type):
     return f"{CATEGORY_LABELS.get(category, category)} {noun}" if category else noun
 
 
-def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, opp_type=None):
+def build_weekly_drop_items(monday, grants_in_week, today, slug):
     """One week as a Sunday drop: one item per grant, no header item.
 
     Plain-text renderers such as Slack's RSS app truncate every item at a fixed
@@ -397,7 +412,7 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, 
         return ""
     open_at_stamp = [
         g for g in grants_in_week
-        if (lambda d: d is None or d >= sunday)(parse_date(g.get("deadline")))
+        if open_for_drop(parse_date(g.get("deadline")), sunday)
     ]
     if not open_at_stamp:
         return ""
@@ -408,7 +423,9 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, 
         # No visible URL line here: unlike the digest era, the grant's link is
         # the item's own <link>, which every renderer (Slack included) puts on
         # the title.
-        gtitle, gurl, plain_url, bits = weekly_grant_parts(g, today)
+        # Label against the drop's own Sunday: a frozen item must not rewrite
+        # itself to "deadline Closed" as the deadline later passes.
+        gtitle, gurl, plain_url, bits = weekly_grant_parts(g, sunday)
         guid = f"{PAGE_URL}{slug}#week-{monday.isoformat()}-{g.get('id') or g.get('url') or gtitle}"
         body = f"<p>{' &middot; '.join(bits)}</p>"
         items.append(
@@ -426,16 +443,13 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, category=None, 
 def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_type=None):
     """One digest <item> covering a single week's releases.
 
-    The per-grant feeds emit one item per grant; at the 5/day release cap that is
-    ~35 items a week. This collapses the same content into a single item so a
-    subscriber gets one entry (and, via an RSS-to-email bridge, one email) a week
-    regardless of how often their reader polls.
+    Weeks from WEEKLY_DROP_SINCE on are delegated to build_weekly_drop_items
+    (one item per grant). Earlier weeks keep this single digest item, frozen so
+    existing subscribers' guids stay stable.
     """
     sunday = monday + timedelta(days=6)
     if sunday >= WEEKLY_DROP_SINCE:
-        return build_weekly_drop_items(
-            monday, grants_in_week, today, slug, category=category, opp_type=opp_type
-        )
+        return build_weekly_drop_items(monday, grants_in_week, today, slug)
     label = monday.strftime("%d %b %Y")
 
     # pubDate must not sit in the future or readers may hide the item: for the
@@ -461,7 +475,7 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
     for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
         # The bare-URL line under the title serves plain-text renderers that
         # strip anchor tags; the href keeps the UTM tag.
-        gtitle, gurl, plain_url, bits = weekly_grant_parts(g, today)
+        gtitle, gurl, plain_url, bits = weekly_grant_parts(g, stamp)
         rows.append(
             f'<li><a href="{gurl}"><strong>{gtitle}</strong></a><br>'
             f'<a href="{gurl}">{plain_url}</a><br>'
@@ -517,7 +531,7 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
             continue
         deadline_of = lambda g: parse_date(g.get("deadline")) or date.max
         openable = sorted(
-            (g for g in buckets[monday] if deadline_of(g) >= sunday),
+            (g for g in buckets[monday] if open_for_drop(parse_date(g.get("deadline")), sunday)),
             key=lambda g: (deadline_of(g), str(g.get("id") or "")),
         )
         if len(openable) <= WEEKLY_DROP_MAX:
@@ -1319,8 +1333,9 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
         "Curated weekly. RSS and calendar feeds available."
     )
 
-    # The opportunity-type and country axes have no feeds of their own, so they
-    # point at the closest existing one: the parent region's, or the full feed.
+    # Countries have no feeds of their own, so they point at the parent region's.
+    # Type pages use the typed feed/calendar when one was generated (typed files
+    # are pruned when empty, and feeds/calendars are written before these pages).
     feed_region = region
     if country:
         feed_region = COUNTRIES[country][1]
@@ -1330,15 +1345,26 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     # (NL, Remote) keeps a BARE alias file and nothing else, so pairing the two
     # here would link a name that is never generated. Drop the narrower axis
     # instead and point at the slice that does exist.
-    cal_category = feed_category if feed_category in PICKER_CATEGORIES else None
-    if feed_category and (feed_category not in PICKER_CATEGORIES
-                          or feed_region not in PICKER_REGIONS):
+    # A bare category page (no region) always has its own alias feed/calendar,
+    # merged-away categories included.
+    cal_category = feed_category if (
+        feed_category in PICKER_CATEGORIES
+        or (feed_region is None and feed_category in LEGACY_BARE_CATEGORIES)) else None
+    if feed_category and feed_region is not None and (
+            feed_category not in PICKER_CATEGORIES or feed_region not in PICKER_REGIONS):
         feed_category = None
     # SEO pages advertise the weekly digest, the only feed cadence generated.
-    feed_url = SITE_ROOT_URL + GRANTS_BASE_PATH + feed_filename(
-        feed_region, None, category=feed_category, weekly=True
-    )
-    cal_url = SITE_ROOT_URL + GRANTS_BASE_PATH + calendar_filename(feed_region, category=cal_category)
+    feed_name = feed_filename(feed_region, None, category=feed_category, weekly=True)
+    cal_name = calendar_filename(feed_region, category=cal_category)
+    if opp_type in FEED_TYPES:
+        typed_feed = feed_filename(feed_region, None, weekly=True, opp_type=opp_type)
+        typed_cal = calendar_filename(feed_region, opp_type=opp_type)
+        if (HERE / typed_feed).exists():
+            feed_name = typed_feed
+        if (HERE / typed_cal).exists():
+            cal_name = typed_cal
+    feed_url = SITE_ROOT_URL + GRANTS_BASE_PATH + feed_name
+    cal_url = SITE_ROOT_URL + GRANTS_BASE_PATH + cal_name
 
     related_block = ""
     if related:
@@ -1505,7 +1531,6 @@ def inject_into_main_index(grants, today):
         f'<script type="application/ld+json">\n{itemlist}\n</script>\n'
         "<!-- END_JSONLD -->"
     )
-    import re
     text = re.sub(
         r"<!-- BEGIN_JSONLD -->.*?<!-- END_JSONLD -->",
         lambda m: jsonld_block,
@@ -1676,7 +1701,7 @@ def build_robots_txt():
     )
 
 
-EMBED_COUNT = 30
+EMBED_COUNT = 300
 EMBED_LICENSE = (
     "Factual fields (title, organization, deadline, region, category, apply URL) are free to reuse "
     "and embed with attribution and a link back to The Grant Desk. Original written descriptions are "
@@ -1708,6 +1733,8 @@ def build_embed_json(grants, today):
                 "organization": g.get("organization"),
                 "region": g.get("region"),
                 "category": g.get("category"),
+                "categories": g.get("categories") or [],
+                "regions": g.get("regions") or [],
                 "deadline": g.get("deadline"),
                 "applyUrl": with_utm(g.get("url")) or PAGE_URL,
                 "grantDeskUrl": PAGE_URL + "?utm_source=grantdeskembed&utm_medium=referral",
@@ -1718,8 +1745,10 @@ def build_embed_json(grants, today):
     return json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
 
 
-def build_llms_txt():
+def build_llms_txt(available_slugs):
     base = SITE_ROOT_URL + GRANTS_BASE_PATH
+    countries = " - ".join(
+        f"[{COUNTRIES[c][0]}]({base}{c}/)" for c in COUNTRIES if c in available_slugs)
     return f"""# The Grant Desk
 
 A curated database of paid grants, fellowships and residencies for artists, researchers and technologists working in AI and AI safety, digital and mixed-media arts, film and video, research and journalism, tech and infrastructure, and cross-disciplinary practice.
@@ -1729,7 +1758,7 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 ## Primary
 
 - [The Grant Desk (interactive)]({base}): Filterable list of all active grants, fellowships and residencies.
-- [All grants RSS feed]({base}feed-weekly.xml): Weekly digest RSS feed of all entries, one item per week.
+- [All grants RSS feed]({base}feed-weekly.xml): Weekly Sunday drop RSS feed, one item per grant.
 - [All grants calendar (.ics)]({base}calendar.ics): ICS calendar of all upcoming deadlines.
 
 ## By category
@@ -1748,7 +1777,7 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 
 ## By region
 
-- [EU]({base}eu/)
+- [Europe]({base}eu/)
 - [UK]({base}uk/)
 - [US]({base}us/)
 - [Netherlands]({base}nl/)
@@ -1771,12 +1800,12 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 
 Country pages are emitted only where enough active entries exist, so this list changes over time. Check the sitemap for the current set.
 
-- [Germany]({base}germany/) - [France]({base}france/) - [Spain]({base}spain/) - [Belgium]({base}belgium/) - [Italy]({base}italy/) - [Austria]({base}austria/) - [Greece]({base}greece/) - [Norway]({base}norway/) - [Denmark]({base}denmark/) - [Japan]({base}japan/) - [India]({base}india/) - [China]({base}china/)
+- {countries}
 
 ## Data
 
-- [embed.json]({base}embed.json): The 30 soonest-closing active entries, factual fields only, powering the embeddable widget at {base}embed.js.
-- [grants.json]({base}grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, amount, duration, deadline, addedDate, category, description, url, tags, fee, featured.
+- [embed.json]({base}embed.json): The soonest-closing active entries (up to {EMBED_COUNT}), factual fields only, powering the embeddable widget at {base}embed.js.
+- [grants.json]({base}grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, regions, amount, duration, startDate, deadline, addedDate, feedDate, category, categories, applicant, description, url, tags, fee, featured, eligibility, attendance, career, ageCap.
 """
 
 
@@ -1997,21 +2026,36 @@ def main():
 
     print(f"Wrote {len(static_paths_written)} static SEO pages: {', '.join(static_paths_written)}")
 
+    # Sweep generated pages whose slice fell below its threshold. Left in place
+    # they stay indexable while listing closed calls; a 404 lets search engines
+    # drop them. Only directories holding nothing but a generated page go.
+    swept = []
+    for d in sorted(HERE.iterdir()):
+        idx = d / "index.html"
+        if (d.is_dir() and d.name not in available_slugs and idx.exists()
+                and [p.name for p in d.iterdir()] == ["index.html"]
+                and STATIC_PAGE_MARKER in idx.read_text(encoding="utf-8")):
+            idx.unlink()
+            d.rmdir()
+            swept.append(d.name)
+    if swept:
+        print(f"Removed {len(swept)} stale static pages: {', '.join(swept)}")
+
     # --- embed.json (data source for the embed.js widget) ---
     embed_path = HERE / "embed.json"
     embed_path.write_text(build_embed_json(grants, today), encoding="utf-8")
     print(f"Wrote embed.json ({embed_path})")
 
-    # --- Inject JSON-LD + noscript fallback into main index.html ---
+    # --- Inject JSON-LD into main index.html ---
     inject_into_main_index(grants, today)
-    print("Injected JSON-LD and noscript fallback into smalltools/grants/index.html")
+    print("Injected JSON-LD into smalltools/grants/index.html")
 
     # --- Sitemap, robots.txt, llms.txt at site root ---
     repo_root = HERE.parent.parent
     sitemap_xml = build_sitemap(static_paths_written, today, repo_root)
     (repo_root / "sitemap.xml").write_text(sitemap_xml, encoding="utf-8")
     (repo_root / "robots.txt").write_text(build_robots_txt(), encoding="utf-8")
-    (repo_root / "llms.txt").write_text(build_llms_txt(), encoding="utf-8")
+    (repo_root / "llms.txt").write_text(build_llms_txt(available_slugs), encoding="utf-8")
     print(f"Wrote sitemap.xml, robots.txt, llms.txt at repo root ({repo_root})")
 
     return 0
