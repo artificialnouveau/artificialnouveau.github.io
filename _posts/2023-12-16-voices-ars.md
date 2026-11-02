@@ -1,5 +1,5 @@
 ---
-title: "VOICES at Ars Electronica, 2021"
+title: "VOICES at Ars Electronica"
 thumbnail: /assets/portfolio/voicesars.jpg
 excerpt: "An interactive installation where participants record a secret, watch machine listening algorithms clone their voice, and hear it read out other people's secrets. Exhibited at Ars Electronica 2023."
 category: "Installation"

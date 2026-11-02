@@ -1,10 +1,10 @@
-<div class="gallery-grid gallery-grid--auto">
+<div class="gallery-grid gallery-grid--plates">
   {% for post in site.posts %}
     {% if post.archived %}{% continue %}{% endif %}
     {% if post.hidden_from_gallery %}{% continue %}{% endif %}
     <a href="{{ site.baseurl }}{{ post.url }}" class="gallery-card">
       <!-- thumbnail, not image: `image` would override the site-wide og:image -->
-      <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" class="gallery-image" loading="lazy" decoding="async">
+      <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" class="gallery-image"{% if post.thumbnail_position %} style="object-position: {{ post.thumbnail_position }}"{% endif %} loading="lazy" decoding="async">
       <div class="gallery-content">
         <h2 class="gallery-title">{{ post.title }}</h2>
         <p class="gallery-excerpt">{{ post.excerpt | markdownify | strip_html | truncatewords: 25 }}</p>

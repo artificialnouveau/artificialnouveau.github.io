@@ -1,6 +1,7 @@
 ---
 title: "Believe the Feed: The Deepfake Archive"
 thumbnail: /assets/deepfake-archive-preview/thumbnails/video-by-realdonaldtrump-2026.jpg
+thumbnail_position: top
 excerpt: "Believe the Feed is an online interactive archive of synthetic media artifacts, organized by intent at creation into 25 folders under ten headings."
 indexing: false
 category: "Archive"

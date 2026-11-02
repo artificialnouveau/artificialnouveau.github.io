@@ -184,7 +184,7 @@ blockquote {
 
 .mono, code, pre, kbd, samp,
 .meta-label, .meta-value, .location, .year-label,
-.badge, .nav-group-label, .hero-eyebrow, .tag-sku {
+.badge, .nav-group-label, .hero-eyebrow {
     font-family: var(--po-mono) !important;
     color: var(--po-soft) !important;
     text-transform: uppercase;
@@ -376,13 +376,6 @@ button:not(.btn):hover {
 .gallery-card--wide { grid-column: span 3; }
 .gallery-card--feature { grid-column: span 4; }
 
-/* Auto-generated lists get a repeating 3,3,2,2,2 rhythm that tiles into
-   whole rows. */
-.gallery-grid--auto > .gallery-card:nth-child(5n+1),
-.gallery-grid--auto > .gallery-card:nth-child(5n+2) {
-    grid-column: span 3;
-}
-
 .gallery-card:hover {
     transform: translateY(-4px);
     border-color: var(--po-spot) !important;
@@ -460,18 +453,75 @@ button:not(.btn):hover {
 .gallery-card--wide .gallery-excerpt,
 .gallery-card--feature .gallery-excerpt { font-size: 0.885rem; }
 
-.gallery-grid--auto > .gallery-card:nth-child(5n+1) .gallery-title,
-.gallery-grid--auto > .gallery-card:nth-child(5n+2) .gallery-title { font-size: 1.25rem; }
-
 .gallery-card--feature .gallery-image { aspect-ratio: 16 / 9; }
 
 @media (max-width: 1100px) {
     .gallery-grid { grid-template-columns: repeat(4, 1fr); }
     .gallery-card,
-    .gallery-card--wide,
-    .gallery-grid--auto > .gallery-card:nth-child(5n+1),
-    .gallery-grid--auto > .gallery-card:nth-child(5n+2) { grid-column: span 2; }
+    .gallery-card--wide { grid-column: span 2; }
     .gallery-card--feature { grid-column: span 4; }
+}
+
+/* ---------- Plates gallery (the /gallery/ post list) ----------
+   Unboxed: no card border, rounding or shadow. Every image fills the same
+   4:3 frame (cropped, never letterboxed) so captions line up in rows.
+   A post can move the crop with `thumbnail_position: top` (or any
+   object-position value) in its frontmatter. */
+
+.gallery-grid--plates {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: row;
+    column-gap: 2rem;
+    row-gap: 3rem;
+}
+
+.gallery-grid--plates > .gallery-card {
+    grid-column: span 1;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    transition: none !important;
+}
+.gallery-grid--plates > .gallery-card:hover,
+.gallery-grid--plates > .gallery-card:active {
+    transform: none;
+    box-shadow: none !important;
+}
+
+.gallery-grid--plates .gallery-image {
+    aspect-ratio: 4 / 3;
+    height: auto;
+    object-fit: cover;
+    background: var(--po-card);
+    border-bottom: none;
+    transition: opacity 0.2s ease;
+}
+.gallery-grid--plates > .gallery-card:hover .gallery-image {
+    transform: none;
+    opacity: 0.88;
+}
+
+.gallery-grid--plates .gallery-content {
+    padding: 0.8rem 0 0;
+    margin-top: 0.8rem;
+    border-top: var(--po-hair);
+    gap: 0.4rem;
+}
+.gallery-grid--plates .gallery-title {
+    font-size: 1.1rem;
+    transition: color 0.12s ease;
+}
+.gallery-grid--plates > .gallery-card:hover .gallery-title { color: var(--po-spot) !important; }
+.gallery-grid--plates .year-badge { padding-top: 0.35rem; }
+
+@media (max-width: 1100px) {
+    .gallery-grid--plates { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid--plates > .gallery-card { grid-column: span 1; }
+}
+@media (max-width: 768px) {
+    .gallery-grid.gallery-grid--plates { grid-template-columns: 1fr; row-gap: 2.5rem; }
 }
 
 /* ---------- Project posts ---------- */
@@ -759,9 +809,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
     .gallery-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .gallery-card,
     .gallery-card--wide,
-    .gallery-card--feature,
-    .gallery-grid--auto > .gallery-card:nth-child(5n+1),
-    .gallery-grid--auto > .gallery-card:nth-child(5n+2) { grid-column: span 1; }
+    .gallery-card--feature { grid-column: span 1; }
     .gallery-card__slug { display: none; }
     .gallery-section { padding: 0 0 2.5rem; }
     .gallery-header, .project-post-header { padding: 2rem 0.75rem; }

@@ -135,7 +135,8 @@ Centered single column: the homepage wraps at 1180px (24px side padding); interi
 Recurring spatial devices, all drawn with ink rules rather than boxes:
 - **The nav shelf**: a 4-column grid of SKU-tag cells whose 1px gap is an ink background showing through, bounded by 2px rules top and bottom; collapses to 2 columns under 900px.
 - **The 118px gutter**: publications and entry lists run a 118px mono-year gutter beside a 1fr content column (20px gap). The year is sticky (top: 12px) so it rides beside its group as it scrolls; under 640px the gutter collapses and the year returns above its group.
-- **The bento gallery**: a 6-column grid (gap 1.25rem, dense flow) of 14px-radius cards spanning 2 (standard), 3 (wide), or 4 (feature) columns; auto lists repeat a 3,3,2,2,2 rhythm. Drops to 4 columns at 1100px and a single column at 768px.
+- **The plates gallery** (/gallery/ post list, `.gallery-grid--plates`): unboxed aligned grid, 3 columns (2 under 1100px, 1 under 768px); every image is cropped to fill a 4:3 frame (per-post `thumbnail_position` moves the crop) with no border, rounding or shadow; a 1px ink hairline sits between image and caption; hover dims the image slightly and turns the title Registration Red.
+- **The bento gallery** (Small Tools): a 6-column grid (gap 1.25rem, dense flow) of 14px-radius cards spanning 2 (standard), 3 (wide), or 4 (feature) columns; auto lists repeat a 3,3,2,2,2 rhythm. Drops to 4 columns at 1100px and a single column at 768px.
 - **The work grid**: homepage cards in an auto-fit grid (400px floor) with shared 1px hairline borders under a 2px top rule.
 
 Rows (publication items, entries) are separated by 1px hairlines; row hover is a 3.5% ink wash with an inset 3px Registration Red left edge.
@@ -189,7 +190,7 @@ Square by conviction. Buttons, inputs, cards, blocks, and panels all run border-
 - **Focus:** 3px Registration Red outline, 2px offset.
 
 ### Navigation (the SKU-tag shelf)
-- **Style:** grid cells on Paper Stock separated by 1px ink (the grid gap over an ink background), bounded by 2px rules; each tag stacks a mono SKU label (11px, 0.18em, uppercase, Faded Ink) over a 700-weight name with a trailing →.
+- **Style:** grid cells on Paper Stock separated by 1px ink (the grid gap over an ink background), bounded by 2px rules; each tag is a single 700-weight name with a trailing → (the mono SKU labels above the names were dropped in Nov 2026).
 - **Hover / Focus:** the cell inverts, ink ground with paper text, 0.12s ease; focus-visible adds the standard red outline. Back-links on interior pages reuse the letterpress button.
 
 ### Tables

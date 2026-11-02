@@ -108,23 +108,14 @@ h1 {
 .tag {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 18px 18px 16px;
+  padding: 18px;
   text-decoration: none;
   color: var(--ink);
   background: var(--paper);
   transition: background-color 0.12s ease, color 0.12s ease;
 }
 .tag:hover, .tag:focus-visible { background: var(--ink); color: var(--paper); }
-.tag:hover .tag-sku, .tag:focus-visible .tag-sku { color: var(--paper); }
 
-.tag-sku {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
 .tag-name {
   font-weight: 700;
   font-size: 1.05rem;
@@ -511,14 +502,14 @@ a:focus-visible, .tag:focus-visible { outline: 3px solid var(--spot); outline-of
   <main id="main-content">
 
   <nav class="shelf" aria-label="Primary">
-    <a class="tag" href="/assets/resume/ai.pdf"><span class="tag-sku">Resume</span><span class="tag-name">AI Resume</span></a>
-    <a class="tag" href="/assets/resume/creative.pdf"><span class="tag-sku">Resume</span><span class="tag-name">Creative Resume</span></a>
-    <a class="tag" href="/portfolio/"><span class="tag-sku">Studio</span><span class="tag-name">Portfolio</span></a>
-    <a class="tag" href="/gallery/"><span class="tag-sku">Projects</span><span class="tag-name">Gallery</span></a>
-    <a class="tag" href="/smalltools/"><span class="tag-sku">Demos</span><span class="tag-name">Small Tools</span></a>
-    <a class="tag" href="/talks/"><span class="tag-sku">Projects</span><span class="tag-name">Talks &amp; Workshops</span></a>
-    <a class="tag" href="/smalltools/be-me/"><span class="tag-sku">Demos</span><span class="tag-name">Be Me</span></a>
-    <a class="tag" href="/contact/"><span class="tag-sku">Email</span><span class="tag-name">Contact Me</span></a>
+    <a class="tag" href="/assets/resume/ai.pdf"><span class="tag-name">AI Resume</span></a>
+    <a class="tag" href="/assets/resume/creative.pdf"><span class="tag-name">Creative Resume</span></a>
+    <a class="tag" href="/portfolio/"><span class="tag-name">Portfolio</span></a>
+    <a class="tag" href="/gallery/"><span class="tag-name">Gallery</span></a>
+    <a class="tag" href="/smalltools/"><span class="tag-name">Small Tools</span></a>
+    <a class="tag" href="/talks/"><span class="tag-name">Talks &amp; Workshops</span></a>
+    <a class="tag" href="/smalltools/be-me/"><span class="tag-name">Be Me</span></a>
+    <a class="tag" href="/contact/"><span class="tag-name">Contact Me</span></a>
   </nav>
 
   <section id="about" aria-label="About">
