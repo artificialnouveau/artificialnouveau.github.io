@@ -14,7 +14,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:american-academy-berlin-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20261102T092519Z
+DTSTAMP:20261102T092806Z
 DTSTART;VALUE=DATE:20260925
 DTEND;VALUE=DATE:20260926
 SUMMARY:Deadline: American Academy in Berlin: Berlin Prize Fellowship 2027-
@@ -73,7 +73,7 @@ LOCATION:Berlin\, Germany\, at the Hans Arnhold Center. RESTRICTED: fellows
 END:VEVENT
 BEGIN:VEVENT
 UID:rome-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20261102T092519Z
+DTSTAMP:20261102T092806Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: American Academy in Rome: Rome Prize Fellowship 2027-28
@@ -104,5 +104,39 @@ LOCATION:Rome\, Italy (residential fellowship at the Academy\; US organisat
  ion with NYC office). RESTRICTED: US citizens for most categories\; foreig
  n nationals resident in the US for the 3 years preceding the deadline may 
  apply only in certain categories.
+END:VEVENT
+BEGIN:VEVENT
+UID:van-alen-re-paris-prize-2026-us-open-call@artificialnouveau.github.io
+DTSTAMP:20261102T092806Z
+DTSTART;VALUE=DATE:20261122
+DTEND;VALUE=DATE:20261123
+SUMMARY:Deadline: Van Alen Institute: Re:Paris Prize\, USD 35\,000 travel r
+ esearch fellowship on design in Africa and its diaspora (US-based applican
+ ts)
+DESCRIPTION:The Re:Paris Prize\, run by Van Alen Institute\, funds research
+  into how design plays a transformative role in Africa and its diaspora. E
+ ach winner receives a USD 35\,000 travel fellowship for field research tha
+ t requires international travel to connect with experts and opportunities.
+  Two Africa-based winners were chosen from the 2026 Pan-African Biennale\;
+  a third\, US-based winner is selected through this open call. Proposals a
+ ddress one of five themes\, including 'Data\, algorithms\, and the public 
+ realm'\, on how digital infrastructures reshape public space\, civic life 
+ and spatial perception. Winners present their learnings at Van Alen Instit
+ ute in Fall 2027 and at the second Pan-African Biennale in 2028. ELIGIBILI
+ TY: US-based applicants\; further rules on the call page. APPLY via the Ai
+ rtable form linked from the project page. DEADLINE: Sunday 22 November 202
+ 6.\n\nOrganisation: Van Alen Institute\nLocation: US-based applicants\; in
+ ternational field research travel\, with presentations at Van Alen Institu
+ te (New York) in Fall 2027 and the second Pan-African Biennale in 2028.\nA
+ ward: USD 35\,000 travel fellowship\; one US-based winner selected through
+  this open call (two Africa-based winners were selected via the 2026 Pan-A
+ frican Biennale).\nDuration: Research travel\, with presentations in Fall 
+ 2027 and 2028\n\nMore: https://www.vanalen.org/project/re-paris-prize/?utm
+ _source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://www.vanalen.org/project/re-paris-prize/?utm_source=artificialno
+ uveaugrantdesk&utm_medium=referral
+LOCATION:US-based applicants\; international field research travel\, with p
+ resentations at Van Alen Institute (New York) in Fall 2027 and the second 
+ Pan-African Biennale in 2028.
 END:VEVENT
 END:VCALENDAR
