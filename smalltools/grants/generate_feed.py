@@ -1871,7 +1871,6 @@ def main():
         print(f"RSS throttle: {queued} grant(s) held out of feeds (future release date); shown on the site immediately.")
 
     region_options = [None] + PICKER_REGIONS
-    timeline_options = [None] + TIMELINES
 
     written = []
     weekly_written = []
@@ -1990,7 +1989,6 @@ def main():
         json.dumps({
             "typedFeeds": sorted(typed_manifest),
             "typedCalendars": sorted(typed_cal_manifest),
-            "heavyOverlaps": heavy_overlap_pairs(grants),
         }, separators=(",", ":")),
         encoding="utf-8",
     )

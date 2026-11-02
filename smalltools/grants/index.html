@@ -12401,12 +12401,6 @@ function parseAmountValues(amountStr) {
   return all.map(x => x.n);
 }
 
-// The headline figure: the largest an applicant could actually receive.
-function parseAmountValue(amountStr) {
-  const vals = parseAmountValues(amountStr);
-  return vals.length ? Math.max.apply(null, vals) : null;
-}
-
 function amountTierOf(num) {
   if (num < 5000) return 'under-5k';
   if (num < 25000) return '5k-25k';
@@ -12427,12 +12421,6 @@ function detectAmountTiers(grant) {
     if (!out.includes(t)) out.push(t);
   }
   return out;
-}
-
-// Primary band, driven by the headline figure.
-function detectAmountTier(grant) {
-  const num = parseAmountValue(grant.amount);
-  return num === null ? 'in-kind' : amountTierOf(num);
 }
 
 function detectApplicant(grant) {
@@ -12554,13 +12542,9 @@ function renderFolder(grant, category, today) {
 
   const grantTypes = detectTypes(grant);
   const grantType = grantTypes[0];
-  a.dataset.category = grant.category || '';
   a.dataset.categories = grantCategories(grant).join(' ');
-  a.dataset.region = grant.region || '';
   a.dataset.regions = grantRegions(grant).join(' ');
-  a.dataset.type = grantType;
   a.dataset.types = grantTypes.join(' ');
-  a.dataset.amount = detectAmountTier(grant);
   a.dataset.amounts = detectAmountTiers(grant).join(' ');
   a.dataset.applicant = detectApplicant(grant);
   a.dataset.addedDate = grant.addedDate || '';
@@ -12832,7 +12816,7 @@ async function load() {
   restoreFilterState();
   refreshPickStates();
   refreshExportCounts();
-  loadLastSeen();
+  loadPrevVisit();
   setupNewBanner(data.grants || []);
   markFolderNewness(data.grants || []);
   refreshNewBanner(data.grants || []);
@@ -13050,8 +13034,8 @@ load();
     .catch(() => {});
 
   // Star the individual checkboxes that largely duplicate another one, and add a
-  // short footnote per group naming the pairs. Driven entirely by the generated
-  // manifest so the markers track the live data instead of a hardcoded list.
+  // short footnote per group naming the pairs. Driven by the generator's inline
+  // #overlap-data payload so the markers track the live data.
   const AXIS_FIELDSETS = {
     categories: catFieldset,
     regions: regionFieldset,
@@ -13532,23 +13516,24 @@ function clearAllFilters() {
 // cards once at build time.
 function addChipCounts() {
   const folders = Array.from(document.querySelectorAll('.folder')).filter(f => !f.closest('#section-archive'));
+  // Filter key -> the card's space-separated dataset attribute it matches.
   const datasetKeys = {
-    category: ['categories', 'category'],
-    region: ['regions', 'region'],
-    type: ['types', 'type'],
-    fee: ['fee', 'fee'],
-    eligibility: ['eligibility', 'eligibility'],
-    attendance: ['attendance', 'attendance'],
-    career: ['careers', 'career'],
-    duration: ['durations', 'duration'],
+    category: 'categories',
+    region: 'regions',
+    type: 'types',
+    fee: 'fee',
+    eligibility: 'eligibility',
+    attendance: 'attendance',
+    career: 'careers',
+    duration: 'durations',
   };
-  for (const [key, [plural, singular]] of Object.entries(datasetKeys)) {
+  for (const [key, attr] of Object.entries(datasetKeys)) {
     const group = document.getElementById('filter-' + key);
     if (!group) continue;
     group.querySelectorAll('.chip:not([data-value=""])').forEach(chip => {
       const values = (chip.dataset.value || '').split(',').filter(Boolean);
       const n = folders.filter(f => {
-        const labels = (f.dataset[plural] || f.dataset[singular] || '').split(' ');
+        const labels = (f.dataset[attr] || '').split(' ');
         return values.some(v => labels.includes(v));
       }).length;
       const span = document.createElement('span');
@@ -13567,9 +13552,9 @@ function buildFilterChips() {
   const types = new Set();
   const categories = new Set();
   for (const f of folders) {
-    for (const r of (f.dataset.regions || f.dataset.region || '').split(' ')) if (r) regions.add(r);
-    for (const t of (f.dataset.types || f.dataset.type || '').split(' ')) if (t) types.add(t);
-    for (const c of (f.dataset.categories || f.dataset.category || '').split(' ')) if (c) categories.add(c);
+    for (const r of (f.dataset.regions || '').split(' ')) if (r) regions.add(r);
+    for (const t of (f.dataset.types || '').split(' ')) if (t) types.add(t);
+    for (const c of (f.dataset.categories || '').split(' ')) if (c) categories.add(c);
   }
 
   const sortedRegions = [...regions].sort((a, b) => {
@@ -13676,27 +13661,23 @@ function applyFilters() {
   const now = new Date();
   folders.forEach(f => {
     let show = true;
-    // Multi-label groups: a card matches if ANY of its labels is selected. The
-    // plural dataset attr is the full list, the singular is the pre-multi-label
-    // fallback for any card rendered without one.
-    const labelsOf = (plural, singular) =>
-      (f.dataset[plural] || f.dataset[singular] || '').split(' ').filter(Boolean);
-    const matchesAny = (state, plural, singular) =>
-      !state.size || labelsOf(plural, singular).some(v => state.has(v));
+    // Multi-label groups: a card matches if ANY of its labels is selected.
+    const matchesAny = (state, attr) =>
+      !state.size || (f.dataset[attr] || '').split(' ').some(v => v && state.has(v));
 
-    if (!matchesAny(FILTER_STATE.category, 'categories', 'category')) show = false;
-    if (!matchesAny(FILTER_STATE.region, 'regions', 'region')) show = false;
-    if (!matchesAny(FILTER_STATE.type, 'types', 'type')) show = false;
+    if (!matchesAny(FILTER_STATE.category, 'categories')) show = false;
+    if (!matchesAny(FILTER_STATE.region, 'regions')) show = false;
+    if (!matchesAny(FILTER_STATE.type, 'types')) show = false;
     if (FILTER_STATE.applicant.size) {
       const ap = f.dataset.applicant;
       if (ap !== 'both' && !FILTER_STATE.applicant.has(ap)) show = false;
     }
-    if (!matchesAny(FILTER_STATE.amount, 'amounts', 'amount')) show = false;
-    if (!matchesAny(FILTER_STATE.fee, 'fee', 'fee')) show = false;
-    if (!matchesAny(FILTER_STATE.eligibility, 'eligibility', 'eligibility')) show = false;
-    if (!matchesAny(FILTER_STATE.attendance, 'attendance', 'attendance')) show = false;
-    if (!matchesAny(FILTER_STATE.career, 'careers', 'career')) show = false;
-    if (!matchesAny(FILTER_STATE.duration, 'durations', 'duration')) show = false;
+    if (!matchesAny(FILTER_STATE.amount, 'amounts')) show = false;
+    if (!matchesAny(FILTER_STATE.fee, 'fee')) show = false;
+    if (!matchesAny(FILTER_STATE.eligibility, 'eligibility')) show = false;
+    if (!matchesAny(FILTER_STATE.attendance, 'attendance')) show = false;
+    if (!matchesAny(FILTER_STATE.career, 'careers')) show = false;
+    if (!matchesAny(FILTER_STATE.duration, 'durations')) show = false;
     if (FILTER_STATE.added.size) {
       const addedDate = parseDate(f.dataset.addedDate);
       if (!addedDate) {
@@ -13775,7 +13756,6 @@ function updateSectionCounts() {
 }
 
 // --- "New since last visit" tracking ---
-const SEEN_KEY = 'grantdesk-last-seen';
 const VISIT_TS_KEY = 'grantdesk-last-visit-ts';
 const ACK_KEY = 'grantdesk-ack-date';
 // IDs acknowledged on the ack day itself. addedDate has day granularity, so a date
@@ -13797,7 +13777,6 @@ function loadAckIds() {
   }
   return ACK_IDS_CACHE.ids;
 }
-let LAST_SEEN = null;
 let PREV_VISIT_DATE = null; // calendar date (YYYY-MM-DD) of the previous visit
 let NEW_ONLY = false;
 
@@ -13809,12 +13788,11 @@ function localDayStr(d) {
   return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0');
 }
 
-function loadLastSeen() {
-  LAST_SEEN = localStorage.getItem(SEEN_KEY);
-  // Detect whether the previous visit was within the last 24 hours, then refresh
-  // the timestamp so the next page load can do the same check. This lets the
-  // "Show only new" toggle switch into a sliding-24h window for frequent visitors,
-  // instead of relying solely on the calendar-day "last seen" baseline.
+function loadPrevVisit() {
+  // The retired calendar-day "last seen" key; the previous-visit timestamp
+  // below replaced it, so clear it from older browsers.
+  localStorage.removeItem('grantdesk-last-seen');
+  // Record the previous visit, then refresh the timestamp for the next load.
   const prevVisit = parseInt(localStorage.getItem(VISIT_TS_KEY) || '0', 10);
   const now = Date.now();
   // Calendar date of the previous visit, used to bound the "new since last visit"
@@ -13852,10 +13830,8 @@ function isNewGrant(grant) {
   if (grant.addedDate >= windowStart) return true;
   // Older than the window: new only if added strictly after the previous
   // visit's calendar day (covers visitors who were away longer than the window).
-  if (PREV_VISIT_DATE) return grant.addedDate > PREV_VISIT_DATE;
-  // No prior visit recorded: fall back to the calendar-day "last seen" baseline.
-  if (!LAST_SEEN) return false;
-  return grant.addedDate > LAST_SEEN;
+  // First-ever visit: only the recent window counts, not the whole backlog.
+  return !!PREV_VISIT_DATE && grant.addedDate > PREV_VISIT_DATE;
 }
 
 function markFolderNewness(grants) {
@@ -13911,9 +13887,6 @@ function setupNewBanner(grants) {
     const prevAck = localStorage.getItem(ACK_KEY);
     const ackIds = new Set(prevAck === today ? loadAckIds() : []);
     for (const g of grants) if (g.addedDate === today && g.id) ackIds.add(g.id);
-    LAST_SEEN = today;
-    localStorage.setItem(SEEN_KEY, today);
-    // Also acknowledge today in the sliding-24h mode so the badges clear there too.
     localStorage.setItem(ACK_KEY, today);
     localStorage.setItem(ACK_IDS_KEY, JSON.stringify([...ackIds]));
     NEW_ONLY = false;
@@ -13924,23 +13897,6 @@ function setupNewBanner(grants) {
     applyNewFilter();
     refreshNewBanner(grants);
   });
-  // Auto-update lastSeen when user leaves the tab/page
-  let scheduled = false;
-  const updateSeen = () => {
-    if (scheduled) return;
-    scheduled = true;
-    const today = localDayStr();
-    localStorage.setItem(SEEN_KEY, today);
-  };
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) updateSeen();
-  });
-  window.addEventListener('beforeunload', updateSeen);
-  // First-time visitor: silently set today's date so they don't see "everything is new"
-  if (!LAST_SEEN) {
-    LAST_SEEN = localDayStr();
-    localStorage.setItem(SEEN_KEY, LAST_SEEN);
-  }
 }
 
 // --- Shortlist (localStorage + URL hash) ---
