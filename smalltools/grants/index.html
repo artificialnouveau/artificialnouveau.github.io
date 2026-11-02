@@ -13742,6 +13742,14 @@ function updateSectionCounts() {
 const SEEN_KEY = 'grantdesk-last-seen';
 const VISIT_TS_KEY = 'grantdesk-last-visit-ts';
 const ACK_KEY = 'grantdesk-ack-date';
+// IDs acknowledged on the ack day itself. addedDate has day granularity, so a date
+// alone cannot tell grants seen at click time from ones added later that same day.
+const ACK_IDS_KEY = 'grantdesk-ack-ids';
+
+function loadAckIds() {
+  try { return new Set(JSON.parse(localStorage.getItem(ACK_IDS_KEY) || '[]')); }
+  catch (e) { return new Set(); }
+}
 let LAST_SEEN = null;
 let PREV_VISIT_DATE = null; // calendar date (YYYY-MM-DD) of the previous visit
 let NEW_ONLY = false;
@@ -13784,9 +13792,11 @@ function isNewGrant(grant) {
   // A future (queued) addedDate must not count as new until it actually arrives,
   // otherwise it would show as new forever.
   if (grant.addedDate > todayStr) return false;
-  // "Mark as seen" clears everything added up to the day it was clicked.
+  // "Mark as seen" clears everything added before the day it was clicked, plus the
+  // same-day grants that were on the page at that moment.
   const ack = localStorage.getItem(ACK_KEY);
-  if (ack && grant.addedDate <= ack) return false;
+  if (ack && grant.addedDate < ack) return false;
+  if (ack && grant.addedDate === ack && loadAckIds().has(grant.id)) return false;
   // Anything added within the last NEW_MIN_DAYS days stays new until explicitly
   // acknowledged, so late additions survive the midnight rollover.
   const windowStart = localDayStr(new Date(Date.now() - NEW_MIN_DAYS * 86400000));
@@ -13847,10 +13857,16 @@ function setupNewBanner(grants) {
   });
   dismiss.addEventListener('click', () => {
     const today = localDayStr();
+    // Record exactly which same-day grants were seen, so grants added later today
+    // still show as new. Merge with an earlier click on the same day.
+    const prevAck = localStorage.getItem(ACK_KEY);
+    const ackIds = prevAck === today ? loadAckIds() : new Set();
+    for (const g of grants) if (g.addedDate === today) ackIds.add(g.id);
     LAST_SEEN = today;
     localStorage.setItem(SEEN_KEY, today);
     // Also acknowledge today in the sliding-24h mode so the badges clear there too.
     localStorage.setItem(ACK_KEY, today);
+    localStorage.setItem(ACK_IDS_KEY, JSON.stringify([...ackIds]));
     NEW_ONLY = false;
     toggle.classList.remove('is-active');
     toggle.setAttribute('aria-pressed', 'false');
