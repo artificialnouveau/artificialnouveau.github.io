@@ -14,7 +14,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:a4-residency-chengdu-2028@artificialnouveau.github.io
-DTSTAMP:20261102T153955Z
+DTSTAMP:20261102T154133Z
 DTSTART;VALUE=DATE:20261231
 DTEND;VALUE=DATE:20270101
 SUMMARY:Deadline: A4 Residency Art Center: International Residency Fellowsh
@@ -57,7 +57,7 @@ LOCATION:Luxelakes Eco-City\, Tianfu New Area\, Chengdu\, China. Open world
 END:VEVENT
 BEGIN:VEVENT
 UID:stimuleringsfonds-videotage-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261102T153955Z
+DTSTAMP:20261102T154133Z
 DTSTART;VALUE=DATE:20261021
 DTEND;VALUE=DATE:20261022
 SUMMARY:Deadline: Stimuleringsfonds: Open Call Residency Videotage 2027 (Ho
@@ -116,7 +116,7 @@ LOCATION:Residency takes place at Videotage in Hong Kong. Applicants must b
 END:VEVENT
 BEGIN:VEVENT
 UID:making-space-guangzhou-nl-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261102T153955Z
+DTSTAMP:20261102T154133Z
 DTSTART;VALUE=DATE:20261003
 DTEND;VALUE=DATE:20261004
 SUMMARY:Deadline: Making Space Residency 2027 for Netherlands-Based Practit
@@ -155,7 +155,7 @@ LOCATION:Guangzhou\, China
 END:VEVENT
 BEGIN:VEVENT
 UID:sixi-air-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261102T153955Z
+DTSTAMP:20261102T154133Z
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
 SUMMARY:Deadline: Sixi Museum: SIXI AiR Open Call 2027 Spring & Autumn (Nan
@@ -197,7 +197,7 @@ LOCATION:Nanjing\, China. Open to artists of all disciplines and cultural b
 END:VEVENT
 BEGIN:VEVENT
 UID:yao-residency-02-taiwan-2027@artificialnouveau.github.io
-DTSTAMP:20261102T153955Z
+DTSTAMP:20261102T154133Z
 DTSTART;VALUE=DATE:20261231
 DTEND;VALUE=DATE:20270101
 SUMMARY:Deadline: YAO Residency #02 (Taiwan): Research Residency 2027 and E
@@ -258,7 +258,7 @@ LOCATION:Taiwan. Open worldwide to applicants aged 18 and above\, regardles
 END:VEVENT
 BEGIN:VEVENT
 UID:cifnl-videotage-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261102T153955Z
+DTSTAMP:20261102T154133Z
 DTSTART;VALUE=DATE:20261021
 DTEND;VALUE=DATE:20261022
 SUMMARY:Deadline: Creative Industries Fund NL: Residency Videotage 2027 (Ho
@@ -311,5 +311,36 @@ LOCATION:Hong Kong (Videotage premises). Only for applicants established in
   the Netherlands\, Aruba\, Bonaire\, Curacao\, Saba\, Sint Eustatius or Si
  nt Maarten and registered with a Kingdom of the Netherlands business regis
  ter (KvK).
+END:VEVENT
+BEGIN:VEVENT
+UID:beijing-ai-safety-hub-residency-spring-2027@artificialnouveau.github.io
+DTSTAMP:20261102T154133Z
+DTSTART;VALUE=DATE:20261106
+DTEND;VALUE=DATE:20261107
+SUMMARY:Deadline: Beijing AI Safety Hub (Tsinghua): Spring 2027 AI Safety R
+ esidency (USD 5\,000/month)
+DESCRIPTION:A self-directed research residency at the Beijing AI Safety Hub
+ \, affiliated with Tsinghua University (co-directors Soeren Mindermann and
+  Prof. Xu Wei\; chief scientist Prof. Andrew Yao). Unlike structured mento
+ rship programmes such as MATS or Astra\, residents bring their own researc
+ h agenda. WHO: technical AI safety researchers (alignment\, evaluations\, 
+ oversight\, control) with one to three publications or similar\; no Mandar
+ in or China background needed. WHAT YOU GET: USD 5\,000 per month plus fli
+ ghts\, housing\, visa support and devices. DATES: the Spring 2027 residenc
+ y runs for around three months from April 2027 (an autumn cohort is alread
+ y under way). DEADLINE: applications close 6 November 2026 and are reviewe
+ d on a rolling basis\, so apply early\, via the Airtable form linked from 
+ the announcement\, which also links an FAQ.\n\nOrganisation: Beijing AI Sa
+ fety Hub\, Tsinghua University\nLocation: Beijing\, China. Hosted at the B
+ eijing AI Safety Hub\; no Mandarin or China background needed.\nAward: USD
+  5\,000 per month for about three months\, plus flights\, housing\, visa s
+ upport and devices. No application fee stated.\nDuration: About three mont
+ hs from April 2027.\n\nMore: https://lesswrong.com/posts/bgTP2SrFcTYBSwbxa
+ /tsinghua-started-an-ai-safety-residency?utm_source=artificialnouveaugrant
+ desk&utm_medium=referral
+URL:https://lesswrong.com/posts/bgTP2SrFcTYBSwbxa/tsinghua-started-an-ai-sa
+ fety-residency?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Beijing\, China. Hosted at the Beijing AI Safety Hub\; no Mandarin
+  or China background needed.
 END:VEVENT
 END:VCALENDAR
