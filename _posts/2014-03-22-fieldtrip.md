@@ -1,6 +1,6 @@
 ---
 title: "SYNTHETIC BIOLOGY: A NEW CODE FOR LIFE"
-thumbnail: /assets/portfolio/fieldtrip.png
+thumbnail: /assets/portfolio/synthetic-biology-goats.jpg
 excerpt: "A documentary exploring synthetic biology's first decade, from engineering E. coli to spider silk in goat milk, raising ethical questions about programming life itself."
 category: "Documentary"
 ---
