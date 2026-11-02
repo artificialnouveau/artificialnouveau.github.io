@@ -67,26 +67,40 @@
     });
   }
 
+  var REGION_LABELS = { eu: "Europe", "china-hk-taiwan": "China / HK / Taiwan", latam: "Latin America" };
+  function regionLabel(r) {
+    return REGION_LABELS[String(r).toLowerCase()] || String(r);
+  }
+
+  function localIso(d) {
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  var todayIso = localIso(new Date());
+
+  // Styles are injected once per page, so both themes live in the sheet and each
+  // widget picks one by class; otherwise a second widget inherits the first's theme.
+  function themeCss(sel, dark) {
+    return sel + "{color:" + (dark ? "#e9e4d8" : "#1F1B16") + ";" +
+      "background:" + (dark ? "#211d18" : "#F4ECDC") + ";" +
+      "border-color:" + (dark ? "#3a332a" : "#2A241D") + "}" +
+      sel + " .gde-head{border-bottom-color:" + (dark ? "#3a332a" : "#cbb98f") + "}" +
+      sel + " .gde-item{border-bottom-color:" + (dark ? "#3a332a" : "#cbb98f") + "}";
+  }
+
   function injectStyles() {
     if (document.getElementById("grant-desk-embed-styles")) return;
-    var dark = theme === "dark";
     var css =
       ".gde{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;" +
-      "font-size:15px;line-height:1.45;max-width:640px;" +
-      "color:" + (dark ? "#e9e4d8" : "#1F1B16") + ";" +
-      "background:" + (dark ? "#211d18" : "#F4ECDC") + ";" +
-      "border:1px solid " + (dark ? "#3a332a" : "#2A241D") + ";" +
+      "font-size:15px;line-height:1.45;max-width:640px;border:1px solid;" +
       "border-radius:10px;padding:16px 18px;box-sizing:border-box}" +
       ".gde *{box-sizing:border-box}" +
       ".gde-head{display:flex;align-items:baseline;justify-content:space-between;" +
-      "gap:8px;margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid " +
-      (dark ? "#3a332a" : "#cbb98f") + "}" +
+      "gap:8px;margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid}" +
       ".gde-title{font-weight:700;font-size:15px;letter-spacing:.02em;text-transform:uppercase}" +
       ".gde-title a{color:inherit;text-decoration:none}" +
       ".gde-title a:hover{text-decoration:underline}" +
       ".gde-list{list-style:none;margin:0;padding:0}" +
-      ".gde-item{padding:10px 0;border-bottom:1px dotted " +
-      (dark ? "#3a332a" : "#cbb98f") + "}" +
+      ".gde-item{padding:10px 0;border-bottom:1px dotted}" +
       ".gde-item:last-child{border-bottom:0}" +
       ".gde-name{font-weight:600;font-size:15px;margin:0 0 3px}" +
       ".gde-name a{color:inherit;text-decoration:none}" +
@@ -95,7 +109,8 @@
       ".gde-dl{font-weight:600}" +
       ".gde-foot{margin:12px 0 0;font-size:12px;opacity:.85;text-align:right}" +
       ".gde-foot a{color:inherit;font-weight:600}" +
-      ".gde-empty{opacity:.75;font-size:14px;padding:6px 0}";
+      ".gde-empty{opacity:.75;font-size:14px;padding:6px 0}" +
+      themeCss(".gde", false) + themeCss(".gde.gde-dark", true);
     var style = document.createElement("style");
     style.id = "grant-desk-embed-styles";
     style.textContent = css;
@@ -105,11 +120,11 @@
   function render(container, grants) {
     injectStyles();
     var wrap = document.createElement("div");
-    wrap.className = "gde";
+    wrap.className = theme === "dark" ? "gde gde-dark" : "gde";
 
     var scopeBits = [];
     if (category) scopeBits.push(category);
-    if (region) scopeBits.push(region.toUpperCase());
+    if (region) scopeBits.push(regionLabel(region));
     var scopeLabel = scopeBits.length ? " (" + esc(scopeBits.join(" / ")) + ")" : "";
 
     var html =
@@ -126,9 +141,10 @@
       html += '<ul class="gde-list">';
       grants.forEach(function (g) {
         var link = g.applyUrl || g.grantDeskUrl || HOME_URL;
+        if (!/^https?:\/\//i.test(link)) link = HOME_URL;
         var metaBits = [];
         if (g.organization) metaBits.push(esc(g.organization));
-        if (g.region) metaBits.push(esc(g.region));
+        if (g.region) metaBits.push(esc(regionLabel(g.region)));
         html +=
           '<li class="gde-item">' +
           '<p class="gde-name"><a href="' + esc(link) + '" target="_blank" rel="noopener">' +
@@ -151,6 +167,8 @@
   }
 
   function matches(g) {
+    // Drop calls that closed since embed.json was last generated.
+    if (g.deadline && g.deadline < todayIso) return false;
     if (category && String(g.category || "").toLowerCase() !== category) {
       var extra = (g.categories || []).map(function (c) {
         return String(c).toLowerCase();
@@ -183,7 +201,7 @@
       .catch(function () {
         injectStyles();
         container.innerHTML =
-          '<div class="gde"><p class="gde-empty">Grants are on ' +
+          '<div class="' + (theme === "dark" ? "gde gde-dark" : "gde") + '"><p class="gde-empty">Grants are on ' +
           '<a href="' + HOME_URL + '" target="_blank" rel="noopener">The Grant Desk</a>.</p></div>';
       });
   }

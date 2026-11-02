@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Data, Embed and Reuse | The Grant Desk">
 <meta name="twitter:description" content="Embed and cite The Grant Desk. Free facts-only JSON endpoint, a drop-in widget, and RSS and calendar feeds.">
 <meta name="twitter:image" content="https://www.artificialnouveau.com/smalltools/grants/og-image.png">
-<link rel="alternate" type="application/rss+xml" title="The Grant Desk RSS" href="../feed.xml">
+<link rel="alternate" type="application/rss+xml" title="The Grant Desk RSS" href="../feed-weekly.xml">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -48,7 +48,7 @@
       "@type": "DataDownload",
       "name": "RSS feed",
       "encodingFormat": "application/rss+xml",
-      "contentUrl": "https://www.artificialnouveau.com/smalltools/grants/feed.xml"
+      "contentUrl": "https://www.artificialnouveau.com/smalltools/grants/feed-weekly.xml"
     },
     {
       "@type": "DataDownload",
@@ -170,20 +170,19 @@ footer a { color: var(--ink-soft); }
     <tr><th>URL</th><th>Format</th><th>What it is</th></tr>
     <tr><td><code>grants.json</code></td><td>JSON</td><td>Full source of truth, every entry and all fields.</td></tr>
     <tr><td><code>embed.json</code></td><td>JSON</td><td>Lightweight, facts-only, latest open calls. Powers the widget. Descriptions withheld.</td></tr>
-    <tr><td><code>feed.xml</code></td><td>RSS</td><td>All entries, newest first.</td></tr>
+    <tr><td><code>feed-weekly.xml</code></td><td>RSS</td><td>Weekly digest of new entries, published on Sundays.</td></tr>
     <tr><td><code>calendar.ics</code></td><td>iCalendar</td><td>All upcoming deadlines, subscribe once and stay in sync.</td></tr>
     <tr><td><code>llms.txt</code></td><td>Text</td><td>Machine summary for AI tools and crawlers.</td></tr>
   </table>
   </div>
 
   <h3>Filtered feeds and calendars</h3>
-  <p>Every feed and calendar comes in category, region and timeline variants, following a predictable naming pattern:</p>
+  <p>Every feed and calendar comes in category, region and timeline variants, following a predictable naming pattern. All RSS feeds are weekly digests, so every feed filename ends in <code>-weekly.xml</code>; calendars have no suffix:</p>
   <ul>
-    <li>By category: <code>feed-cat-<em>&lt;category&gt;</em>.xml</code> and <code>calendar-cat-<em>&lt;category&gt;</em>.ics</code> (e.g. <code>feed-cat-ai.xml</code>)</li>
-    <li>By region: <code>feed-<em>&lt;region&gt;</em>.xml</code> and <code>calendar-<em>&lt;region&gt;</em>.ics</code> (e.g. <code>feed-eu.xml</code>)</li>
-    <li>Category and region: <code>feed-cat-<em>&lt;category&gt;</em>-<em>&lt;region&gt;</em>.xml</code> (e.g. <code>feed-cat-ai-tech-research-eu.xml</code>). Also with an opportunity type appended: <code>feed-cat-ai-tech-research-eu-residencies.xml</code></li>
-    <li>Timeline windows stand on their own, uncrossed: <code>feed-30d.xml</code>, <code>feed-90d.xml</code>, <code>feed-added-30d.xml</code></li>
-    <li>Weekly digest twin of any feed: append <code>-weekly</code>, e.g. <code>feed-eu-weekly.xml</code></li>
+    <li>By category: <code>feed-cat-<em>&lt;category&gt;</em>-weekly.xml</code> and <code>calendar-cat-<em>&lt;category&gt;</em>.ics</code> (e.g. <code>feed-cat-ai-weekly.xml</code>)</li>
+    <li>By region: <code>feed-<em>&lt;region&gt;</em>-weekly.xml</code> and <code>calendar-<em>&lt;region&gt;</em>.ics</code> (e.g. <code>feed-eu-weekly.xml</code>)</li>
+    <li>Category and region: <code>feed-cat-<em>&lt;category&gt;</em>-<em>&lt;region&gt;</em>-weekly.xml</code> (e.g. <code>feed-cat-ai-tech-research-eu-weekly.xml</code>). Also with an opportunity type before the suffix: <code>feed-cat-ai-tech-research-eu-residencies-weekly.xml</code></li>
+    <li>Timeline windows stand on their own, uncrossed: <code>feed-30d-weekly.xml</code>, <code>feed-90d-weekly.xml</code>, <code>feed-added-30d-weekly.xml</code></li>
   </ul>
   <p>Region slugs are lowercase (<code>eu</code>, <code>us</code>, <code>uk</code>, <code>nl</code>, <code>switzerland</code>, <code>asia</code>, <code>africa</code>, <code>canada</code>, <code>australia</code>, <code>latam</code>, <code>remote</code>, <code>worldwide</code>), plus the merged <code>remote-worldwide</code> slice the subscribe picker offers as one option. Category slugs are listed in the options table above. Not every pairing exists as a file: the category and region combinations are built for the slugs the subscribe picker offers, while the others (<code>nl</code>, <code>remote</code>, <code>worldwide</code> and the single categories folded into a merged one) keep a bare feed and calendar of their own with no combinations. <a href="feeds-manifest.json">feeds-manifest.json</a> lists the type-filtered files that exist. There is also a browsable HTML page per category and region at <code>/<em>&lt;category&gt;</em>/</code>, <code>/<em>&lt;region&gt;</em>/</code> and <code>/<em>&lt;category&gt;</em>-<em>&lt;region&gt;</em>/</code>.</p>
 
@@ -196,21 +195,28 @@ footer a { color: var(--ink-soft); }
     <tr><td><code>title</code></td><td>string</td><td>Name of the grant, fellowship or residency.</td></tr>
     <tr><td><code>organization</code></td><td>string</td><td>Funder or host organisation.</td></tr>
     <tr><td><code>location</code></td><td>string</td><td>Where it takes place or who is eligible geographically.</td></tr>
-    <tr><td><code>region</code></td><td>string</td><td>Canonical region bucket (EU, US, UK, NL, Asia, Africa, Canada, Australia, LatAm, Remote, Worldwide).</td></tr>
+    <tr><td><code>region</code></td><td>string</td><td>Canonical region bucket (EU, meaning Europe, US, UK, NL, Switzerland, Asia, China-HK-Taiwan, Africa, Canada, Australia, LatAm, Remote, Worldwide).</td></tr>
     <tr><td><code>regions</code></td><td>array (optional)</td><td>Extra regions when a call fits several views.</td></tr>
     <tr><td><code>amount</code></td><td>string</td><td>Award, stipend or support described in words.</td></tr>
     <tr><td><code>duration</code></td><td>string</td><td>Length of the programme, if applicable.</td></tr>
     <tr><td><code>startDate</code></td><td>date (optional)</td><td>Programme start, ISO <code>YYYY-MM-DD</code>.</td></tr>
     <tr><td><code>deadline</code></td><td>date or null</td><td>Application deadline, ISO <code>YYYY-MM-DD</code>. <code>null</code> means rolling or undated.</td></tr>
     <tr><td><code>addedDate</code></td><td>date</td><td>When it was added to the desk.</td></tr>
+    <tr><td><code>feedDate</code></td><td>date or null (optional)</td><td>When the entry is released into the RSS digests; falls back to <code>addedDate</code>.</td></tr>
     <tr><td><code>category</code></td><td>string</td><td>Primary category slug.</td></tr>
     <tr><td><code>categories</code></td><td>array (optional)</td><td>Additional category slugs.</td></tr>
     <tr><td><code>applicant</code></td><td>string</td><td>Who can apply: <code>individuals</code>, <code>organizations</code> or <code>both</code>.</td></tr>
     <tr><td><code>description</code></td><td>string</td><td>Original written summary. Not included in <code>embed.json</code>.</td></tr>
     <tr><td><code>url</code></td><td>string</td><td>Official application or open-call link.</td></tr>
     <tr><td><code>tags</code></td><td>array</td><td>Free-form tags (e.g. <code>open-call</code>, <code>residency</code>).</td></tr>
-    <tr><td><code>fee</code></td><td>string (optional)</td><td>Application fee, if any.</td></tr>
-    <tr><td><code>featured</code></td><td>boolean (optional)</td><td>Editor's pick flag.</td></tr>
+    <tr><td><code>fee</code></td><td>boolean</td><td><code>true</code> if there is an application or entry fee; details are in <code>amount</code> or <code>description</code>.</td></tr>
+    <tr><td><code>featured</code></td><td>boolean</td><td>Editor's pick flag.</td></tr>
+    <tr><td><code>eligibility</code></td><td>string</td><td><code>open</code>, <code>residents</code>, <code>nationals</code> or <code>unknown</code>.</td></tr>
+    <tr><td><code>attendance</code></td><td>string</td><td><code>onsite</code>, <code>remote</code>, <code>hybrid</code> or <code>unknown</code>.</td></tr>
+    <tr><td><code>career</code></td><td>string</td><td><code>any</code>, <code>emerging</code>, <code>established</code> (includes mid-career) or <code>unknown</code>.</td></tr>
+    <tr><td><code>ageCap</code></td><td>integer or null</td><td>Maximum applicant age, if the call sets one.</td></tr>
+    <tr><td><code>suggestedBy</code></td><td>string (optional)</td><td>Credit for a reader who suggested the entry and opted in.</td></tr>
+    <tr><td><code>feed</code></td><td>boolean (optional)</td><td><code>false</code> keeps the entry out of all RSS feeds while still listing it on the site.</td></tr>
   </table>
   </div>
 

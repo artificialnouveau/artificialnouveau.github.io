@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:guggenheim-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261102T125339Z
+DTSTAMP:20261102T130245Z
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
 SUMMARY:Deadline: Guggenheim Fellowship 2027
@@ -53,7 +53,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:toronto-arts-council-media-artists-creation-2026@artificialnouveau.gith
  ub.io
-DTSTAMP:20261102T125339Z
+DTSTAMP:20261102T130245Z
 DTSTART;VALUE=DATE:20261015
 DTEND;VALUE=DATE:20261016
 SUMMARY:Deadline: Toronto Arts Council: Media Artists Program - Creation 20
@@ -74,7 +74,7 @@ LOCATION:Toronto\, Canada
 END:VEVENT
 BEGIN:VEVENT
 UID:vimeo-short-film-grant-2026@artificialnouveau.github.io
-DTSTAMP:20261102T125339Z
+DTSTAMP:20261102T130245Z
 DTSTART;VALUE=DATE:20261016
 DTEND;VALUE=DATE:20261017
 SUMMARY:Deadline: Vimeo Short Film Grant (USD 60\,000 for 5 filmmakers)
@@ -107,7 +107,7 @@ LOCATION:Online application. Open to residents of the United States and Can
 END:VEVENT
 BEGIN:VEVENT
 UID:oac-media-artists-creation-2026-oct@artificialnouveau.github.io
-DTSTAMP:20261102T125339Z
+DTSTAMP:20261102T130245Z
 DTSTART;VALUE=DATE:20261008
 DTEND;VALUE=DATE:20261009
 SUMMARY:Deadline: Ontario Arts Council: Media Artists Creation Projects (Oc
@@ -132,7 +132,7 @@ LOCATION:Ontario\, Canada. Ontario-resident directors/principal media artis
 END:VEVENT
 BEGIN:VEVENT
 UID:manitoba-create-grant-2026-oct@artificialnouveau.github.io
-DTSTAMP:20261102T125339Z
+DTSTAMP:20261102T130245Z
 DTSTART;VALUE=DATE:20261010
 DTEND;VALUE=DATE:20261011
 SUMMARY:Deadline: Manitoba Arts Council: Create Grant (October 2026 intake)
@@ -157,7 +157,7 @@ LOCATION:Manitoba\, Canada. Applicants must have been Manitoba residents fo
 END:VEVENT
 BEGIN:VEVENT
 UID:afa-visual-arts-new-media-2027@artificialnouveau.github.io
-DTSTAMP:20261102T125339Z
+DTSTAMP:20261102T130245Z
 DTSTART;VALUE=DATE:20270301
 DTEND;VALUE=DATE:20270302
 SUMMARY:Deadline: Alberta Foundation for the Arts: Visual Arts and New Medi
@@ -181,5 +181,37 @@ URL:https://affta.ab.ca/funding/find-funding/visual-arts-and-new-media-indi
 LOCATION:Alberta\, Canada. RESTRICTED: Canadian citizens\, permanent reside
  nts or Protected Persons with primary residence in Alberta for at least on
  e full year before applying.
+END:VEVENT
+BEGIN:VEVENT
+UID:iso-production-program-for-all-2026@artificialnouveau.github.io
+DTSTAMP:20261102T130245Z
+DTSTART;VALUE=DATE:20261125
+DTEND;VALUE=DATE:20261126
+SUMMARY:Deadline: Indigenous Screen Office: Production Program for All 2026
+  (up to CAD 75\,000 for individuals)
+DESCRIPTION:The Indigenous Screen Office's Production Program for All funds
+  Indigenous-led screen production: shorts\, features\, series and pilots\,
+  including animation. Individuals\, collectives and community groups can a
+ pply for up to CAD 75\,000\; Indigenous-owned production companies can app
+ ly for larger amounts (from CAD 150\,000 for non-broadcast series or anima
+ ted shorts up to CAD 500\,000-750\,000 depending on budget). ELIGIBILITY: 
+ First Nations\, Inuit or Metis applicants who are Canadian citizens or per
+ manent residents living in Canada\; at least 2 of 3 key creative roles mus
+ t be held by Indigenous people. The criteria mention XR\, apps and games\,
+  but eligible project types list screen formats\, so confirm interactive p
+ rojects with ISO first. The call opened 21 October 2026. DEADLINE: 25 Nove
+ mber 2026\, 5 pm PST.\n\nOrganisation: Indigenous Screen Office (ISO-BEA)\
+ nLocation: Canada. RESTRICTED: First Nations\, Inuit or Metis creators who
+  are Canadian citizens or permanent residents living in Canada.\nAward: Up
+  to CAD 75\,000 for individuals\, collectives or community groups\; Indige
+ nous-owned companies can apply for CAD 150\,000 up to CAD 500\,000-750\,00
+ 0 depending on project type and budget. No application fee stated.\nDurati
+ on: Per project\n\nMore: https://iso-bea.ca/funding-opportunities/producti
+ on-program-for-all-2026/?utm_source=artificialnouveaugrantdesk&utm_medium=
+ referral
+URL:https://iso-bea.ca/funding-opportunities/production-program-for-all-202
+ 6/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Canada. RESTRICTED: First Nations\, Inuit or Metis creators who ar
+ e Canadian citizens or permanent residents living in Canada.
 END:VEVENT
 END:VCALENDAR

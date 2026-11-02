@@ -192,7 +192,7 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
       <select id="f-category">
         <option>arts</option><option>cross</option><option>film</option><option>research</option>
         <option>ai</option><option>writers</option><option>tech</option><option>audio</option>
-        <option>design</option><option>curator</option><option>game</option><option>media-arts</option>
+        <option>design</option><option>curator</option><option>game</option>
       </select>
 
       <label>Extra categories (optional, comma-separated)</label>
@@ -272,14 +272,21 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
   var feedCounts = {};
   var $ = function (id) { return document.getElementById(id); };
 
-  var today = new Date().toISOString().slice(0, 10);
+  var CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"];
+  // Local calendar day; toISOString() gives the UTC day, which is a day early in NL after midnight.
+  function localIso(d) {
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  var today = localIso(new Date());
   $("f-added").value = today;
 
   fetch("grants.json").then(function (r) { return r.json(); }).then(function (data) {
     grants = data.grants || [];
     grants.forEach(function (g) {
-      if (g.feedDate && g.feedDate >= today) {
-        feedCounts[g.feedDate] = (feedCounts[g.feedDate] || 0) + 1;
+      // The publisher falls back to addedDate when feedDate is unset, so count both.
+      var fd = g.feedDate || g.addedDate;
+      if (g.feed !== false && fd && fd >= today) {
+        feedCounts[fd] = (feedCounts[fd] || 0) + 1;
       }
     });
     suggestFeedDate();
@@ -289,8 +296,18 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
 
   function suggestFeedDate() {
     var d = new Date();
+    var dl = $("f-rolling").checked ? "" : $("f-deadline").value;
     for (var i = 0; i < 365; i++) {
-      var iso = d.toISOString().slice(0, 10);
+      var iso = localIso(d);
+      // Never queue past the deadline: a grant must reach the feeds while still open.
+      if (dl && iso >= dl) {
+        var dayBefore = new Date(dl + "T00:00:00");
+        dayBefore.setDate(dayBefore.getDate() - 1);
+        iso = localIso(dayBefore) > today ? localIso(dayBefore) : today;
+        $("f-feed").value = iso;
+        $("feeddate-hint").textContent = "Queue is full before the deadline; using " + iso + " so it is published while open.";
+        return;
+      }
       if ((feedCounts[iso] || 0) < 3) {
         $("f-feed").value = iso;
         $("feeddate-hint").textContent = "Next free slot in the ~3/day queue: " + iso + ". Urgent deadlines may jump to today.";
@@ -300,8 +317,11 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
     }
   }
 
+  $("f-deadline").addEventListener("change", suggestFeedDate);
+  $("f-rolling").addEventListener("change", suggestFeedDate);
+
   function slugify(s) {
-    return s.toLowerCase()
+    return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "")
       .split("-").slice(0, 8).join("-");
@@ -376,8 +396,15 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
     if (url && !/^https?:\/\//.test(url)) { errs.push("URL must start with http(s)://."); }
     if (/[?&]utm_/.test(url)) { errs.push("Strip UTM parameters from the URL."); }
     if (id && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(id)) { errs.push("ID must be lowercase kebab-case."); }
+    var feedDate = $("f-feed").value;
+    if (feedDate && deadline && !rolling && feedDate > deadline) { errs.push("Feed date is after the deadline; it would only reach RSS once closed."); }
+    var category = $("f-category").value;
+    var extra = $("f-categories").value.split(",").map(function (t) { return t.trim().toLowerCase(); }).filter(Boolean);
+    var badCats = extra.filter(function (c) { return CATEGORIES.indexOf(c) === -1; });
+    if (badCats.length) { errs.push("Unknown extra categories: " + badCats.join(", ") + ". Use: " + CATEGORIES.join(", ") + "."); }
+    extra = extra.filter(function (c, i) { return c !== category && extra.indexOf(c) === i; });
     if (grants.some(function (g) { return g.id === id; })) { errs.push('ID "' + id + '" already exists in grants.json.'); }
-    if (/—|–/.test(description + amount + title)) { errs.push("Remove em/en dashes (house style)."); }
+    if (/—|–/.test([description, amount, title, org, location, $("f-duration").value].join(" "))) { errs.push("Remove em/en dashes (house style)."); }
 
     $("errors").textContent = errs.join("\n");
     if (errs.length) { $("output").textContent = "Fix the errors above, then press Build entry again."; return null; }
@@ -393,8 +420,8 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
       startDate: $("f-start").value || null,
       deadline: rolling ? null : deadline,
       addedDate: $("f-added").value || today,
-      feedDate: $("f-feed").value || null,
-      category: $("f-category").value,
+      feedDate: feedDate || null,
+      category: category,
       applicant: $("f-applicant").value,
       description: description,
       url: url,
@@ -406,7 +433,6 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
       career: $("f-career").value,
       ageCap: $("f-agecap").value ? parseInt($("f-agecap").value, 10) : null
     };
-    var extra = $("f-categories").value.split(",").map(function (t) { return t.trim().toLowerCase(); }).filter(Boolean);
     if (extra.length) { entry.categories = extra; }
 
     // Indent to sit inside the grants array (entries are indented 4 spaces).
