@@ -83,7 +83,7 @@ FEED_REGIONS_EXCLUDED = {"NL", "Switzerland", "China-HK-Taiwan"}
 REGION_GROUPS = {
     "remote-worldwide": ["Remote", "Worldwide"],
 }
-REGION_LABELS = {"remote-worldwide": "Remote & Worldwide", "China-HK-Taiwan": "China, Hong Kong & Taiwan"}
+REGION_LABELS = {"EU": "Europe", "remote-worldwide": "Remote & Worldwide", "China-HK-Taiwan": "China, Hong Kong & Taiwan"}
 _GROUPED_REGION_MEMBERS = {m for ms in REGION_GROUPS.values() for m in ms}
 SYNDICATION_REGIONS = REGIONS + list(REGION_GROUPS)
 PICKER_REGIONS = [
@@ -699,7 +699,7 @@ SITE_ROOT_URL = "https://www.artificialnouveau.com/"
 GRANTS_BASE_PATH = "smalltools/grants/"
 
 REGION_PHRASE = {
-    "EU": "the EU",
+    "EU": "Europe",
     "US": "the US",
     "UK": "the UK",
     "NL": "the Netherlands",
@@ -715,7 +715,7 @@ REGION_PHRASE = {
 }
 
 REGION_TITLE_TAIL = {
-    "EU": "in the EU",
+    "EU": "in Europe",
     "US": "in the US",
     "UK": "in the UK",
     "NL": "in the Netherlands",

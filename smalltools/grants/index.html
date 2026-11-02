@@ -1625,7 +1625,7 @@ code *, pre *, kbd *, samp * {
                 <label><input type="checkbox" value="asia"> Asia</label>
                 <label><input type="checkbox" value="australia"> Australia</label>
                 <label><input type="checkbox" value="canada"> Canada</label>
-                <label><input type="checkbox" value="eu"> EU</label>
+                <label><input type="checkbox" value="eu"> Europe</label>
                 <label><input type="checkbox" value="latam"> Latin America</label>
                 <label><input type="checkbox" value="remote-worldwide"> Remote &amp; Worldwide</label>
                 <label><input type="checkbox" value="uk"> UK</label>
@@ -1698,7 +1698,7 @@ code *, pre *, kbd *, samp * {
                 <option value="asia">Asia</option>
                 <option value="australia">Australia</option>
                 <option value="canada">Canada</option>
-                <option value="eu">EU</option>
+                <option value="eu">Europe</option>
                 <option value="latam">Latin America</option>
                 <option value="nl">NL</option>
                 <option value="remote-worldwide">Remote &amp; Worldwide</option>
@@ -12137,7 +12137,7 @@ code *, pre *, kbd *, samp * {
 
 <script>
 const REGION_LABELS = {
-  EU: 'EU', US: 'US', UK: 'UK', NL: 'NL', Germany: 'Germany', Asia: 'Asia', 'China-HK-Taiwan': 'China / HK / Taiwan', Africa: 'Africa', Canada: 'Canada', Australia: 'Australia',
+  EU: 'Europe', US: 'US', UK: 'UK', NL: 'NL', Germany: 'Germany', Asia: 'Asia', 'China-HK-Taiwan': 'China / HK / Taiwan', Africa: 'Africa', Canada: 'Canada', Australia: 'Australia',
   LatAm: 'Latin America', Remote: 'Remote', Worldwide: 'Worldwide'
 };
 
@@ -13746,9 +13746,20 @@ const ACK_KEY = 'grantdesk-ack-date';
 // alone cannot tell grants seen at click time from ones added later that same day.
 const ACK_IDS_KEY = 'grantdesk-ack-ids';
 
+// Acks written before this key existed have no list; they read as empty, so that
+// day's grants show as new once more (deliberate: the old whole-day ack was what hid
+// same-day additions). Parsed once per stored value, since isNewGrant runs per grant.
+let ACK_IDS_CACHE = { raw: undefined, ids: new Set() };
 function loadAckIds() {
-  try { return new Set(JSON.parse(localStorage.getItem(ACK_IDS_KEY) || '[]')); }
-  catch (e) { return new Set(); }
+  const raw = localStorage.getItem(ACK_IDS_KEY);
+  if (raw !== ACK_IDS_CACHE.raw) {
+    let ids = new Set();
+    if (raw !== null) {
+      try { ids = new Set(JSON.parse(raw)); } catch (e) { ids = new Set(); }
+    }
+    ACK_IDS_CACHE = { raw, ids };
+  }
+  return ACK_IDS_CACHE.ids;
 }
 let LAST_SEEN = null;
 let PREV_VISIT_DATE = null; // calendar date (YYYY-MM-DD) of the previous visit
@@ -13796,7 +13807,9 @@ function isNewGrant(grant) {
   // same-day grants that were on the page at that moment.
   const ack = localStorage.getItem(ACK_KEY);
   if (ack && grant.addedDate < ack) return false;
-  if (ack && grant.addedDate === ack && loadAckIds().has(grant.id)) return false;
+  if (ack && grant.addedDate === ack) {
+    if (loadAckIds().has(grant.id)) return false;
+  }
   // Anything added within the last NEW_MIN_DAYS days stays new until explicitly
   // acknowledged, so late additions survive the midnight rollover.
   const windowStart = localDayStr(new Date(Date.now() - NEW_MIN_DAYS * 86400000));
@@ -13860,8 +13873,8 @@ function setupNewBanner(grants) {
     // Record exactly which same-day grants were seen, so grants added later today
     // still show as new. Merge with an earlier click on the same day.
     const prevAck = localStorage.getItem(ACK_KEY);
-    const ackIds = prevAck === today ? loadAckIds() : new Set();
-    for (const g of grants) if (g.addedDate === today) ackIds.add(g.id);
+    const ackIds = new Set(prevAck === today ? loadAckIds() : []);
+    for (const g of grants) if (g.addedDate === today && g.id) ackIds.add(g.id);
     LAST_SEEN = today;
     localStorage.setItem(SEEN_KEY, today);
     // Also acknowledge today in the sliding-24h mode so the badges clear there too.

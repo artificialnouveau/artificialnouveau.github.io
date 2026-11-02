@@ -3,17 +3,18 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - Prizes and Awards\, Writers\, EU
-X-WR-CALNAME:The Grant Desk - Prizes and Awards\, Writers\, EU deadlines
+NAME:The Grant Desk - Prizes and Awards\, Writers\, Europe
+X-WR-CALNAME:The Grant Desk - Prizes and Awards\, Writers\, Europe deadline
+ s
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
  pdated as new calls land on the desk. Filtered to: Prizes and Awards\, Wri
- ters\, EU.
+ ters\, Europe.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:american-academy-berlin-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20261102T113501Z
+DTSTAMP:20261102T125341Z
 DTSTART;VALUE=DATE:20260925
 DTEND;VALUE=DATE:20260926
 SUMMARY:Deadline: American Academy in Berlin: Berlin Prize Fellowship 2027-
@@ -72,7 +73,7 @@ LOCATION:Berlin\, Germany\, at the Hans Arnhold Center. RESTRICTED: fellows
 END:VEVENT
 BEGIN:VEVENT
 UID:european-press-prize-2027@artificialnouveau.github.io
-DTSTAMP:20261102T113501Z
+DTSTAMP:20261102T125341Z
 DTSTART;VALUE=DATE:20261210
 DTEND;VALUE=DATE:20261211
 SUMMARY:Deadline: European Press Prize 2027 (journalism awards\, EUR 10\,00
