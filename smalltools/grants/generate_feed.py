@@ -222,7 +222,7 @@ def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None
         desc += (
             " Released weekly: the week's new grants arrive together on Sunday, "
             "one entry per grant, instead of "
-            "trickling out daily. Each drop carries at most 10 grants, closest "
+            f"trickling out daily. Each drop carries at most {WEEKLY_DROP_MAX} grants, closest "
             "deadlines first; the rest follow the next Sunday."
         )
     return title, desc
@@ -264,6 +264,9 @@ def region_matches(grant, region):
     if grant.get("region") == region:
         return True
     if region in (grant.get("regions") or []):
+        return True
+    # Containment: the Netherlands is part of the Europe view (since 2 Nov 2026).
+    if region == "EU" and grant.get("region") == "NL":
         return True
     if region == "Switzerland" and "switzerland" in (grant.get("tags") or []):
         return True
@@ -345,13 +348,16 @@ WEEKLY_NOUNS = {
 # are not flooded with months of new-looking items at the switch.
 WEEKLY_DROP_SINCE = date(2026, 9, 6)
 
-# Cap on how many grants a single Sunday drop may carry. The 10 with the
+# Cap on how many grants a single Sunday drop may carry. The N with the
 # nearest deadlines publish; the rest roll into the following week's drop.
 # A grant is never deferred past its own deadline: anything that would expire
 # before the NEXT Sunday publishes now, even when that pushes a drop over the
 # cap. Rolling (no-deadline) grants sort last, so in a busy stretch they wait
 # for a quieter week.
-WEEKLY_DROP_MAX = 10
+WEEKLY_DROP_MAX = 15
+# Drops before DROP_STRICT_SINCE were published under a cap of 10; keep that so
+# their cap decisions, and therefore their guids, never change.
+WEEKLY_DROP_MAX_LEGACY = 10
 
 # From this Sunday on, a grant whose deadline IS the drop Sunday no longer goes
 # out (it would arrive on its closing day). Earlier drops keep the old >= rule so
@@ -364,6 +370,42 @@ def open_for_drop(deadline, sunday):
     if deadline is None:
         return True
     return deadline > sunday if sunday >= DROP_STRICT_SINCE else deadline >= sunday
+
+def drop_cap(sunday):
+    return WEEKLY_DROP_MAX if sunday >= DROP_STRICT_SINCE else WEEKLY_DROP_MAX_LEGACY
+
+
+# A grant can join a feed's slice after its release date: a timeline feed picks
+# it up only once its deadline enters the window, and a containment rule (NL in
+# Europe) can widen a region after the fact. Bucketing such a grant by its old
+# release date would add a brand-new item to a Sunday drop that was already
+# published, dated weeks back where readers never look. From this date on, a
+# grant is bucketed by when it actually joined the slice. Joins before it keep
+# the old release-date bucketing so already-published guids stay put.
+SLICE_JOIN_SINCE = date(2026, 11, 2)
+NL_IN_EUROPE_SINCE = date(2026, 11, 2)
+
+
+def slice_join_date(g, region, timeline):
+    """Earliest date the grant belongs to this feed's slice, or None if it always has."""
+    joins = []
+    if timeline in ("30d", "90d"):
+        d = parse_date(g.get("deadline"))
+        if d:
+            joins.append(d - timedelta(days=int(timeline[:-1])))
+    if region == "EU" and g.get("region") == "NL" and "EU" not in (g.get("regions") or []):
+        joins.append(NL_IN_EUROPE_SINCE)
+    return max(joins) if joins else None
+
+
+def bucket_date(g, region, timeline):
+    """Date whose week decides which Sunday drop a grant goes out in."""
+    release = feed_release(g)
+    join = slice_join_date(g, region, timeline)
+    if release and join and join >= SLICE_JOIN_SINCE:
+        return max(release, join)
+    return release
+
 
 # Marker present in every generated static SEO page; the stale-page sweep only
 # ever deletes directories whose page carries it.
@@ -510,7 +552,7 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
 
     buckets = {}
     for g in grants:
-        release = feed_release(g)
+        release = bucket_date(g, region, timeline)
         if not release:
             continue
         buckets.setdefault(week_start(release), []).append(g)
@@ -534,12 +576,13 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
             (g for g in buckets[monday] if open_for_drop(parse_date(g.get("deadline")), sunday)),
             key=lambda g: (deadline_of(g), str(g.get("id") or "")),
         )
-        if len(openable) <= WEEKLY_DROP_MAX:
+        cap = drop_cap(sunday)
+        if len(openable) <= cap:
             continue
         next_sunday = sunday + timedelta(days=7)
         keep_ids, deferred = set(), []
         for g in openable:
-            if deadline_of(g) < next_sunday or len(keep_ids) < WEEKLY_DROP_MAX:
+            if deadline_of(g) < next_sunday or len(keep_ids) < cap:
                 keep_ids.add(id(g))
             else:
                 deferred.append(g)

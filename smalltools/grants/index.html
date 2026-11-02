@@ -168,18 +168,6 @@ body {
   margin-bottom: 14px;
 }
 
-.page-header .h1-kicker {
-  display: block;
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: var(--ink-mute);
-  margin-bottom: 14px;
-  line-height: 1.4;
-}
-
 .page-header .h1-brand {
   display: block;
   font-size: clamp(40px, 7vw, 76px);
@@ -207,69 +195,6 @@ body {
 }
 .page-header p.lede strong { color: var(--ink); background: var(--sticky-yellow); padding: 0 4px; }
 
-.page-header .stats {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  margin-top: 22px;
-  flex-wrap: wrap;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.stat-pill {
-  border: 1.5px solid var(--line);
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: #fff;
-}
-
-/* --- Isometric desk hero --- */
-.desk-hero {
-  padding: 6px 16px 20px;
-  display: flex;
-  justify-content: center;
-  overflow-x: auto;
-}
-
-.desk-scene {
-  width: 100%;
-  max-width: 980px;
-  height: auto;
-  display: block;
-}
-
-.desk-scene .anchor-link { cursor: pointer; }
-.desk-scene .anchor-link:hover .iso-cabinet,
-.desk-scene .anchor-link:hover .iso-tray,
-.desk-scene .anchor-link:hover .iso-drawer {
-  filter: brightness(1.06);
-}
-
-@keyframes wiggle {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(0, -3px); }
-}
-.desk-scene .sticky { transform-origin: center; }
-.desk-scene .sticky:hover { animation: wiggle 0.5s ease; }
-.desk-scene .bmc-mug { cursor: pointer; }
-.desk-scene .bmc-mug:hover g { animation: wiggle 0.5s ease; }
-
-/* --- Subscribe section --- */
-.subscribe-wrap {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 12px 24px 0;
-  display: flex;
-  justify-content: center;
-  gap: 22px;
-  flex-wrap: wrap;
-}
-.subscribe-wrap.subscribe-bottom {
-  padding: 36px 24px 24px;
-}
 
 .sub-note {
   background: var(--sticky-yellow);
@@ -582,17 +507,6 @@ body {
   max-width: 420px;
 }
 
-/* Each cluster of related filters sits in its own subtle card. */
-.filter-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 30px;
-  padding: 11px 16px;
-  background: var(--paper-2);
-  border: 1.5px solid var(--line);
-  border-radius: 10px;
-}
 .search-wrap input[type="search"] {
   width: 100%;
   font-family: 'DM Mono', monospace;
@@ -639,14 +553,6 @@ body {
   align-items: center;
 }
 
-.filter-group .filter-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink-mute);
-  margin-right: 6px;
-}
 
 .filter-group .filter-note {
   font-family: 'DM Mono', monospace;
@@ -872,7 +778,6 @@ body {
   color: var(--ink);
   border: 1.5px solid var(--line);
 }
-.empty-state.filter-empty { background: rgba(255,255,255,0.55); }
 
 /* --- Submit-a-grant --- */
 .submit-card {
@@ -1559,7 +1464,6 @@ body {
 .page-footer a:hover { background: var(--sticky-yellow); }
 
 @media (max-width: 600px) {
-  .desk-hero { padding: 16px 8px 4px; }
   .page-header { padding: 36px 18px 14px; }
   .sections { padding: 8px 16px 60px; }
   .folder-grid { grid-template-columns: 1fr; gap: 18px; }
@@ -12294,6 +12198,8 @@ function grantRegions(grant) {
   if (Array.isArray(grant.regions)) {
     for (const r of grant.regions) if (r && !out.includes(r)) out.push(r);
   }
+  // The Netherlands is part of the Europe view (mirrors region_matches).
+  if (out.includes('NL') && !out.includes('EU')) out.push('EU');
   const tags = grant.tags || [];
   if (tags.includes('germany') && !out.includes('Germany')) out.push('Germany');
   if (['china', 'hong-kong', 'taiwan'].some(t => tags.includes(t)) && !out.includes('China-HK-Taiwan')) out.push('China-HK-Taiwan');
@@ -12351,7 +12257,7 @@ function deadlinePill(grant, today) {
 // 'organizations' is strictly for calls that require a registered legal entity.
 const APPLICANT_LABELS = { individuals: 'Individuals or collectives', organizations: 'Organizations (legal entities)', both: 'Both' };
 const TYPE_LABELS = { residency: 'Residency', fellowship: 'Fellowship', prize: 'Prizes & Awards', grant: 'Grant', travel: 'Travel & Mobility', production: 'Film & TV Production', publication: 'Publications', festival: 'Festivals & Conferences', job: 'Jobs', other: 'Other' };
-// Card tab labels, keyed by detectType(). Short forms of TYPE_LABELS; 'other'
+// Card tab labels, keyed by detectTypes()[0]. Short forms of TYPE_LABELS; 'other'
 // reads as OPEN CALL because an "OTHER" tab tells the reader nothing.
 const TAB_TYPE_LABELS = { residency: 'RESIDENCY', fellowship: 'FELLOWSHIP', prize: 'PRIZE', grant: 'GRANT', travel: 'TRAVEL', production: 'FILM/TV', publication: 'PUBLICATION', festival: 'FESTIVAL', job: 'JOB', other: 'OPEN CALL' };
 const FESTIVAL_TAG_RE = /festival|conference|summit|symposium/;
@@ -12396,10 +12302,6 @@ function detectTypes(grant) {
     }
   }
   return out.length ? out : ['other'];
-}
-
-function detectType(grant) {
-  return detectTypes(grant)[0];
 }
 
 // Every category view a grant belongs to. Mirrors grantRegions: the singular
@@ -12646,7 +12548,7 @@ function renderFolder(grant, category, today) {
   if (category === 'long') a.classList.add('is-long');
   if (category === 'rolling') a.classList.add('is-rolling');
   if (category === 'archive') a.classList.add('is-archive');
-  a.href = withUtm(grant.url) || '#';
+  a.href = /^https?:\/\//i.test(grant.url || '') ? withUtm(grant.url) : '#';
   a.target = '_blank';
   a.rel = 'noopener noreferrer';
 
@@ -12944,32 +12846,6 @@ async function load() {
   const activeCount = buckets.hot.length + buckets.new.length + buckets.long.length + buckets.rolling.length;
   const activeEl = document.getElementById('active-count');
   if (activeEl) activeEl.textContent = activeCount;
-
-  const archiveSection = document.getElementById('section-archive');
-  const archiveBtn = document.getElementById('archive-toggle');
-  archiveBtn.addEventListener('click', () => {
-    const open = archiveSection.getAttribute('data-open') === 'true';
-    archiveSection.setAttribute('data-open', open ? 'false' : 'true');
-    archiveBtn.textContent = open ? 'Open drawer' : 'Close drawer';
-  });
-
-  setupWatchlist();
-
-  document.querySelectorAll('.section-collapse').forEach(btn => {
-    const section = btn.closest('.section');
-    if (!section) return;
-    // Clicking anywhere on the header row (label, title, meta, or the arrow)
-    // toggles the section. The arrow's own click bubbles here, so it is not
-    // bound separately (that would double-toggle and cancel out).
-    const header = section.querySelector('.section-title') || btn;
-    header.addEventListener('click', () => {
-      const collapsed = section.getAttribute('data-collapsed') === 'true';
-      section.setAttribute('data-collapsed', collapsed ? 'false' : 'true');
-      btn.setAttribute('aria-expanded', collapsed ? 'true' : 'false');
-      const heading = section.querySelector('.section-title h2')?.textContent?.trim() || 'section';
-      btn.setAttribute('aria-label', (collapsed ? 'Collapse ' : 'Expand ') + heading);
-    });
-  });
 }
 
 function setupWatchlist() {
@@ -13005,6 +12881,36 @@ function setupWatchlist() {
     });
   }
 }
+
+// Page chrome that does not depend on grants.json, wired before load() so a
+// failed fetch still leaves the sections, archive and watchlist usable.
+(function setupPageChrome() {
+  const archiveSection = document.getElementById('section-archive');
+  const archiveBtn = document.getElementById('archive-toggle');
+  archiveBtn.addEventListener('click', () => {
+    const open = archiveSection.getAttribute('data-open') === 'true';
+    archiveSection.setAttribute('data-open', open ? 'false' : 'true');
+    archiveBtn.textContent = open ? 'Open drawer' : 'Close drawer';
+  });
+
+  setupWatchlist();
+
+  document.querySelectorAll('.section-collapse').forEach(btn => {
+    const section = btn.closest('.section');
+    if (!section) return;
+    // Clicking anywhere on the header row (label, title, meta, or the arrow)
+    // toggles the section. The arrow's own click bubbles here, so it is not
+    // bound separately (that would double-toggle and cancel out).
+    const header = section.querySelector('.section-title') || btn;
+    header.addEventListener('click', () => {
+      const collapsed = section.getAttribute('data-collapsed') === 'true';
+      section.setAttribute('data-collapsed', collapsed ? 'false' : 'true');
+      btn.setAttribute('aria-expanded', collapsed ? 'true' : 'false');
+      const heading = section.querySelector('.section-title h2')?.textContent?.trim() || 'section';
+      btn.setAttribute('aria-label', (collapsed ? 'Collapse ' : 'Expand ') + heading);
+    });
+  });
+})();
 
 load();
 
@@ -13128,7 +13034,6 @@ load();
   const catFieldset = document.getElementById('feed-categories');
   const regionFieldset = document.getElementById('feed-regions');
   const typeFieldset = document.getElementById('feed-types');
-  const cadenceSel = document.getElementById('feed-cadence');
   const noteEl = document.getElementById('feed-note');
   const urlList = document.getElementById('feed-url-list');
   const openBtn = document.getElementById('feed-open-btn');
@@ -13216,12 +13121,6 @@ load();
     }
     allBox.checked = !specific.some(c => c.checked);
   };
-  const labelFor = (fs, value) => {
-    if (!fs) return value;
-    const el = fs.querySelector(`input[value="${value}"]`);
-    return el && el.parentElement ? el.parentElement.textContent.trim() : value;
-  };
-
   // Slot order mirrors feed_filename() in generate_feed.py exactly:
   // feed [cat-<category>] [region] [type] [weekly]. The generator also has a
   // timeline slot, but this picker no longer offers it.
@@ -13240,8 +13139,6 @@ load();
     noteEl.hidden = !msg;
   };
 
-  let currentFeeds = [];
-
   const update = () => {
     if (allCatBox) allCatBox.checked = !ticked(catFieldset).length;
     if (allTypeBox) allTypeBox.checked = !ticked(typeFieldset).length;
@@ -13250,7 +13147,7 @@ load();
     const types = ticked(typeFieldset);
     // The daily (one entry per grant) cadence is fully retired; the weekly
     // digest is the only cadence generated and offered.
-    const cadence = cadenceSel ? cadenceSel.value : 'weekly';
+    const cadence = 'weekly';
 
     // A union across ticked values is the CROSS-PRODUCT of the axes: ticking
     // Design + Game Design yields one feed each, and both together are the union
@@ -13268,18 +13165,8 @@ load();
       const filename = buildName(cat, region, type, cadence);
       const base = filename.replace(/-weekly\.xml$/, '.xml');
       if (type && typedFeeds && !typedFeeds.has(base)) { pruned++; return; }
-      const bits = [];
-      if (cat) bits.push(labelFor(catFieldset, cat));
-      if (region) bits.push(labelFor(regionFieldset, region));
-      if (type) bits.push(labelFor(typeFieldset, type));
-      feeds.push({
-        filename,
-        url: new URL(filename, window.location.href).toString(),
-        title: 'The Grant Desk' + (bits.length ? ' — ' + bits.join(', ') : '')
-          + (cadence ? ' (weekly)' : ''),
-      });
+      feeds.push({ filename, url: new URL(filename, window.location.href).toString() });
     });
-    currentFeeds = feeds;
 
     urlList.innerHTML = '';
     const SHOWN = 12;
@@ -13323,7 +13210,6 @@ load();
       update();
     });
   });
-  if (cadenceSel) cadenceSel.addEventListener('change', update);
 
   copyBtn.addEventListener('click', async () => {
     const url = copyBtn.dataset.url;
@@ -13443,13 +13329,21 @@ function restoreFilterState() {
   } catch (e) {}
   if (!data) return;
   let any = false;
+  // Chips only render for values present in the data, so a saved value whose
+  // chip no longer exists would hide cards with no visible way to clear it.
+  const chipValues = k => new Set([...document.querySelectorAll('#filter-' + k + ' .chip')]
+    .flatMap(c => (c.dataset.value || '').split(',').filter(Boolean)));
   for (const k of MULTI_FILTER_KEYS) {
     if (Array.isArray(data[k]) && data[k].length) {
-      FILTER_STATE[k] = new Set(data[k].map(String));
-      any = true;
+      const valid = chipValues(k);
+      const vals = data[k].map(String).filter(v => valid.has(v));
+      if (vals.length) {
+        FILTER_STATE[k] = new Set(vals);
+        any = true;
+      }
     }
   }
-  if (typeof data.deadline === 'string' && data.deadline) {
+  if (typeof data.deadline === 'string' && data.deadline && chipValues('deadline').has(data.deadline)) {
     FILTER_STATE.deadline = data.deadline;
     any = true;
   }
@@ -13678,10 +13572,9 @@ function buildFilterChips() {
     for (const c of (f.dataset.categories || f.dataset.category || '').split(' ')) if (c) categories.add(c);
   }
 
-  const regionOrder = ['Remote', 'Worldwide', 'EU', 'US', 'UK', 'NL', 'Germany', 'Asia', 'China-HK-Taiwan', 'Africa', 'Canada', 'Australia', 'LatAm'];
   const sortedRegions = [...regions].sort((a, b) => {
-    const ai = regionOrder.indexOf(a);
-    const bi = regionOrder.indexOf(b);
+    const ai = SEED_REGIONS.indexOf(a);
+    const bi = SEED_REGIONS.indexOf(b);
     if (ai >= 0 && bi >= 0) return ai - bi;
     if (ai >= 0) return -1;
     if (bi >= 0) return 1;
@@ -13811,10 +13704,14 @@ function applyFilters() {
       } else {
         const daysSinceAdded = -daysUntil(addedDate, now);
         let matches = false;
+        // A queued future addedDate is not "recently added" yet.
+        if (daysSinceAdded < 0) show = false;
+        else {
         if (FILTER_STATE.added.has('48h') && daysSinceAdded < 2) matches = true;
         if (FILTER_STATE.added.has('7d') && daysSinceAdded <= 7) matches = true;
         if (FILTER_STATE.added.has('30d') && daysSinceAdded <= 30) matches = true;
         if (!matches) show = false;
+        }
       }
     }
     if (FILTER_STATE.deadline) {
@@ -14061,7 +13958,10 @@ function loadPicks() {
   } catch (_) {}
   const m = window.location.hash.match(/picks=([^&]*)/);
   if (m && m[1]) {
-    const ids = decodeURIComponent(m[1]).split(',').filter(Boolean);
+    // A malformed share link must not throw: loadPicks runs at top level.
+    let raw = '';
+    try { raw = decodeURIComponent(m[1]); } catch (_) {}
+    const ids = raw.split(',').filter(Boolean);
     ids.forEach(id => PICKS.add(id));
     try { localStorage.setItem(PICKS_KEY, JSON.stringify([...PICKS])); } catch (_) {}
   }
@@ -14073,7 +13973,7 @@ function savePicks() {
 }
 
 function updateHash() {
-  const ids = [...PICKS];
+  const ids = activePickIds();
   if (ids.length === 0) {
     if (window.location.hash) history.replaceState(null, '', window.location.pathname + window.location.search);
   } else {
@@ -14188,7 +14088,6 @@ function setupShortlistBar() {
     try {
       const res = await fetch('grants.json', { cache: 'no-cache' });
       const data = await res.json();
-      const today = new Date(); today.setHours(0,0,0,0);
       const active = new Set(activePickIds());
       const picked = (data.grants || []).filter(g => active.has(g.id));
       const blob = new Blob([buildShortlistICS(picked)], { type: 'text/calendar;charset=utf-8' });
@@ -14215,6 +14114,22 @@ function icsDate(d) {
 function icsTimestamp(d) {
   return d.getUTCFullYear() + String(d.getUTCMonth()+1).padStart(2,'0') + String(d.getUTCDate()).padStart(2,'0') + 'T' + String(d.getUTCHours()).padStart(2,'0') + String(d.getUTCMinutes()).padStart(2,'0') + String(d.getUTCSeconds()).padStart(2,'0') + 'Z';
 }
+// RFC 5545 3.1: content lines are folded at 75 octets (not characters), with
+// continuation lines starting with a space. Strict importers reject long lines.
+function foldIcsLine(line) {
+  const enc = new TextEncoder();
+  if (enc.encode(line).length <= 75) return line;
+  const parts = [];
+  let cur = '', curLen = 0, limit = 75;
+  for (const ch of line) {
+    const n = enc.encode(ch).length;
+    if (curLen + n > limit) { parts.push(cur); cur = ''; curLen = 0; limit = 74; }
+    cur += ch; curLen += n;
+  }
+  parts.push(cur);
+  return parts.join('\r\n ');
+}
+
 function buildShortlistICS(grants) {
   const now = new Date();
   const lines = [
@@ -14257,7 +14172,7 @@ function buildShortlistICS(grants) {
   if (withDeadline === 0) {
     setTimeout(() => alert('None of your shortlisted grants have a fixed deadline; the calendar will be empty. Rolling/undated grants cannot be added as calendar events.'), 100);
   }
-  return lines.join('\r\n') + '\r\n';
+  return lines.map(foldIcsLine).join('\r\n') + '\r\n';
 }
 
 loadPicks();
@@ -14530,7 +14445,9 @@ function bindExportGroup(id, key) {
 }
 
 function flashButton(btn, label) {
-  const original = btn.textContent;
+  // Keep the real label from the first click: a second click during the flash
+  // would otherwise capture "Copied" as the label to restore.
+  const original = btn.dataset.label || (btn.dataset.label = btn.textContent);
   btn.textContent = label;
   btn.classList.add('copied');
   setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1600);
@@ -14701,6 +14618,9 @@ setupExportPanel();
   document.addEventListener('click', function (e) {
     var a = e.target.closest ? e.target.closest('a.folder') : null;
     if (!a || !a.href || a.getAttribute('href') === '#') return;
+    // Star, calendar, copy and description controls live inside the card link
+    // and cancel navigation; they are not outbound clicks.
+    if (e.target.closest('.card-actions, .desc-toggle')) return;
     if (!window.goatcounter || typeof window.goatcounter.count !== 'function') return;
     var title = a.dataset.grantTitle || a.href;
     var id = a.dataset.grantId || title;
