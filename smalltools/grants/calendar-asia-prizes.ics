@@ -11,13 +11,35 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  a.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VTIMEZONE
-TZID:UTC
-BEGIN:STANDARD
-DTSTART:19700101T000000
-TZOFFSETFROM:+0000
-TZOFFSETTO:+0000
-TZNAME:UTC
-END:STANDARD
-END:VTIMEZONE
+BEGIN:VEVENT
+UID:hkiff-51-call-for-entries-2027@artificialnouveau.github.io
+DTSTAMP:20261104T234826Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261231
+DTEND;VALUE=DATE:20270101
+SUMMARY:Deadline: 51st Hong Kong International Film Festival 2027: Call for
+  Entries (features\, documentaries\, Short Film Competition)
+DESCRIPTION:The Hong Kong International Film Festival\, one of Asia's oldes
+ t film festivals\, is taking submissions for its 51st edition (16-29 March
+  2027). Categories: feature films (60 minutes plus)\, short films (20-60 m
+ inutes)\, documentary features and documentary shorts\, and the Short Film
+  Competition (any genre\, including fiction\, documentary\, animation and 
+ experimental\, under 20 minutes).\n\nOrganisation: Hong Kong International
+  Film Festival Society (HKIFF)\nLocation: Hong Kong (festival 16-29 March 
+ 2027). Open internationally\; except Hong Kong productions\, films must no
+ t have screened in Hong Kong before the festival.\nAward: NO PUBLISHED CAS
+ H\, listed as a prestige festival exception (selection for one of Asia's o
+ ldest film festivals and its competitions\; prize amounts not stated in th
+ e call). Entry fees from 4 November to 31 December 2026: Short Film Compet
+ ition (under 20 minutes) USD 50 / HKD 390\; all other categories USD 80 / 
+ HKD 624. Fee waiver for documentaries by directors holding a Hong Kong Per
+ manent Identity Card. Fees non-refundable.\nDuration: Festival 16-29 March
+  2027.\n\nMore: https://www.hkiff.org.hk/society/CallForEntries/?utm_sourc
+ e=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://www.hkiff.org.hk/society/CallForEntries/?utm_source=artificialn
+ ouveaugrantdesk&utm_medium=referral
+LOCATION:Hong Kong (festival 16-29 March 2027). Open internationally\; exce
+ pt Hong Kong productions\, films must not have screened in Hong Kong befor
+ e the festival.
+END:VEVENT
 END:VCALENDAR
