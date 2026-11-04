@@ -540,7 +540,7 @@ def drop_title(g, gtitle, sunday):
         return gtitle
     d = parse_date(g.get("deadline"))
     if not d:
-        return f"{gtitle} (rolling)"
+        return gtitle if "rolling" in gtitle.lower() else f"{gtitle} (rolling)"
     when = f"{d.day} {d:%b}" + (f" {d.year}" if d.year != sunday.year else "")
     return f"{gtitle} (closes {when})"
 
@@ -565,6 +565,31 @@ def drop_categories(g, sunday):
         if label not in seen:
             seen.append(label)
     return "".join(f"    <category>{escape(label)}</category>\n" for label in seen)
+
+
+def drop_body(g, sunday, gurl, bits):
+    """Item description. Added-era drops get one fact per line, a short lead
+    and an explicit apply link; earlier drops keep their published one-liner."""
+    if sunday < WEEKLY_BY_ADDED_SINCE:
+        return f"<p>{' &middot; '.join(bits)}</p>"
+    d = parse_date(g.get("deadline"))
+    moment = deadline_moment(g)
+    if d:
+        when = f"{d.day} {d:%b %Y}" + (f", {moment[1]}" if moment else "")
+    else:
+        when = "Rolling, apply any time"
+    lines = []
+    if g.get("organization"):
+        lines.append(f"<strong>{escape(str(g['organization']))}</strong>")
+    lines.append(f"Deadline: {escape(when)}")
+    if g.get("amount"):
+        lines.append(f"Award: {escape(str(g['amount']))}")
+    parts = [f"<p>{'<br>'.join(lines)}</p>"]
+    lead = lead_text(g.get("description"), 300)
+    if lead:
+        parts.append(f"<p>{escape(lead)}</p>")
+    parts.append(f'<p><a href="{gurl}">Apply on the organiser\'s site</a></p>')
+    return "".join(parts)
 
 
 def build_weekly_drop_items(monday, grants_in_week, today, slug):
@@ -600,7 +625,7 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug):
         # itself to "deadline Closed" as the deadline later passes.
         gtitle, gurl, plain_url, bits = weekly_grant_parts(g, sunday)
         guid = f"{PAGE_URL}{slug}#week-{monday.isoformat()}-{g.get('id') or g.get('url') or gtitle}"
-        body = f"<p>{' &middot; '.join(bits)}</p>"
+        body = drop_body(g, sunday, gurl, bits)
         items.append(
             "  <item>\n"
             f"    <title>{drop_title(g, gtitle, sunday)}</title>\n"
