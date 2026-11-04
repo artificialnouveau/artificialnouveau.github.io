@@ -3,16 +3,17 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Fellowships\, Writers
-X-WR-CALNAME:The Grant Desk deadlines - Fellowships\, Writers
+NAME:The Grant Desk deadlines - Fellowships\, Journalism & Writers
+X-WR-CALNAME:The Grant Desk deadlines - Fellowships\, Journalism & Writers
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Fellowships\, Writers.
+ pdated as new calls land on the desk. Filtered to: Fellowships\, Journalis
+ m & Writers.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:leon-levy-biography-fellowships-2027-28@artificialnouveau.github.io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151253Z
 DTSTART;VALUE=DATE:20270104
 DTEND;VALUE=DATE:20270105
 SUMMARY:Deadline: Leon Levy Center for Biography Fellowships 2027-28 (incl.
@@ -34,7 +35,7 @@ LOCATION:New York City\, USA (in residence at the CUNY Graduate Center\, Se
 END:VEVENT
 BEGIN:VEVENT
 UID:harry-ransom-center-fellowships-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151253Z
 DTSTART;VALUE=DATE:20261106
 DTEND;VALUE=DATE:20261107
 SUMMARY:Deadline: Harry Ransom Center Research Fellowships 2027-2028 (Austi
@@ -63,7 +64,7 @@ LOCATION:Austin\, Texas\, USA. On-site research in the Ransom Center's coll
 END:VEVENT
 BEGIN:VEVENT
 UID:nieman-fellowship-class-of-2028@artificialnouveau.github.io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151253Z
 DTSTART;VALUE=DATE:20261201
 DTEND;VALUE=DATE:20261202
 SUMMARY:Deadline: Nieman Fellowships at Harvard\, Class of 2028
@@ -86,7 +87,7 @@ LOCATION:Cambridge\, Massachusetts\, USA (residential academic year at Harv
 END:VEVENT
 BEGIN:VEVENT
 UID:open-notebook-early-career-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151253Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: The Open Notebook Early-Career Fellowship 2027 (remote)
@@ -108,8 +109,33 @@ LOCATION:Remote\, worldwide. Application materials in English\; internation
  al applicants welcome.
 END:VEVENT
 BEGIN:VEVENT
+UID:jsk-journalism-fellowship-2027-28@artificialnouveau.github.io
+DTSTAMP:20261104T151253Z
+DTSTART;VALUE=DATE:20261202
+DTEND;VALUE=DATE:20261203
+SUMMARY:Deadline: JSK Journalism Fellowship 2027-28 (John S. Knight Fellows
+ hips at Stanford)
+DESCRIPTION:Stanford's nine-month residential fellowship for journalists an
+ d people who work in service of journalism (editors\, producers\, photogra
+ phers\, audience and community builders\, publishers\, operations and stra
+ tegy staff).\n\nOrganisation: John S. Knight Journalism Fellowships at Sta
+ nford\nLocation: Stanford\, California\, USA (residential 9-month fellowsh
+ ip). Citizens of countries where the US has suspended J visa issuance cann
+ ot be offered a fellowship unless they apply with another unrestricted cit
+ izenship.\nAward: USD 135\,000 stipend for nine months\, plus Stanford tui
+ tion and health insurance and a health supplement for dependents on Stanfo
+ rd coverage. No application fee.\nDuration: 9 months in residence at Stanf
+ ord\, September 2027 to May 2028\n\nMore: https://jsk.stanford.edu/become-
+ a-fellow?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://jsk.stanford.edu/become-a-fellow?utm_source=artificialnouveaugr
+ antdesk&utm_medium=referral
+LOCATION:Stanford\, California\, USA (residential 9-month fellowship). Citi
+ zens of countries where the US has suspended J visa issuance cannot be off
+ ered a fellowship unless they apply with another unrestricted citizenship.
+END:VEVENT
+BEGIN:VEVENT
 UID:tarbell-fellowship-2027-28@artificialnouveau.github.io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151253Z
 DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261123
 SUMMARY:Deadline: Tarbell Fellowship 2027-28 (AI journalism)
@@ -131,5 +157,32 @@ URL:https://www.tarbellcenter.org/fellowship?utm_source=artificialnouveaugr
  antdesk&utm_medium=referral
 LOCATION:Remote training\, then newsroom placement in the US\, UK or Hong K
  ong. In person.
+END:VEVENT
+BEGIN:VEVENT
+UID:rji-professional-innovation-fellowships-2027@artificialnouveau.github.i
+ o
+DTSTAMP:20261104T151253Z
+DTSTART;VALUE=DATE:20270108
+DTEND;VALUE=DATE:20270109
+SUMMARY:Deadline: RJI Professional Innovation Fellowships 2027 (Individual\
+ , Institutional and Emerging Technology tracks)
+DESCRIPTION:The Reynolds Journalism Institute at the University of Missouri
+  funds people and teams to build and launch a tool\, workflow or product t
+ hat helps newsrooms\, in three tracks: Individual (USD 75\,000)\, Institut
+ ional (USD 75\,000\, paid to a host organisation or the fellow) and Emergi
+ ng Technology (USD 100\,000\, where AI or another new technology must be e
+ ssential to the solution).\n\nOrganisation: Reynolds Journalism Institute 
+ (University of Missouri)\nLocation: Remote\, with a few paid visits to the
+  Reynolds Journalism Institute in Columbia\, Missouri\, United States.\nAw
+ ard: USD 75\,000 for the Individual and Institutional tracks\, USD 100\,00
+ 0 for the Emerging Technology track\, paid in three instalments tied to de
+ liverables\; RJI also pays for the fellow's visits to its Columbia\, Misso
+ uri campus. No application fee.\nDuration: Eight months from 28 June 2027.
+ \n\nMore: https://rjionline.org/about-rji-fellowships/?utm_source=artifici
+ alnouveaugrantdesk&utm_medium=referral
+URL:https://rjionline.org/about-rji-fellowships/?utm_source=artificialnouve
+ augrantdesk&utm_medium=referral
+LOCATION:Remote\, with a few paid visits to the Reynolds Journalism Institu
+ te in Columbia\, Missouri\, United States.
 END:VEVENT
 END:VCALENDAR

@@ -69,10 +69,11 @@ REGIONS = ["EU", "US", "UK", "NL", "Switzerland", "Asia", "China-HK-Taiwan", "Af
 # same grants twice; China-HK-Taiwan sits inside Asia the same way. This is a
 # SYNDICATION decision only: the website's region filter, the static SEO pages
 # and the calendars all still carry them in full. Since 4 Nov 2026 no feed of
-# any kind is built for them. Africa, Canada and Latin America were dropped
-# from RSS the same day because they held too few open calls to sustain a
-# weekly feed; their calendars stay.
-FEED_REGIONS_EXCLUDED = {"NL", "Switzerland", "China-HK-Taiwan", "Africa", "Canada", "LatAm"}
+# any kind is built for them. Rule since 4 Nov 2026 (stated in the picker):
+# a region gets RSS feeds only if it averages at least 2 new calls a week.
+# Africa (0.5), Canada (0.9), Latin America (0.8) and Australia (1.1) fell
+# short over 7 Sep - 1 Nov 2026 and were dropped; their calendars stay.
+FEED_REGIONS_EXCLUDED = {"NL", "Switzerland", "China-HK-Taiwan", "Africa", "Canada", "LatAm", "Australia"}
 
 # Remote and Worldwide overlapped by 29 percent (12 shared calls) and read as the
 # same promise to a subscriber, so the pickers offer them as ONE box backed by one
@@ -189,8 +190,8 @@ def picker_region(region):
     for group, members in REGION_GROUPS.items():
         if region in members:
             return group
-    # Africa, Canada and Latin America have no feed of their own: their pages
-    # offer the all-grants feed.
+    # Africa, Canada, Latin America and Australia have no feed of their own:
+    # their pages offer the all-grants feed.
     return {"NL": "EU", "Switzerland": "EU", "China-HK-Taiwan": "Asia"}.get(region)
 
 
@@ -231,7 +232,7 @@ def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None
     if opp_type:
         suffix.append(OPPORTUNITY_TYPE_TITLE_PHRASE.get(opp_type, opp_type))
     if category:
-        suffix.append(CATEGORY_LABELS.get(category, category))
+        suffix.append(SYNDICATION_LABELS.get(category, category))
     if region:
         suffix.append(REGION_LABELS.get(region, region))
     if timeline == "30d":
@@ -316,6 +317,21 @@ def category_matches(grant, category):
     return category in (grant.get("categories") or [])
 
 
+# Syndication-only widening (4 Nov 2026): the Writers feed and calendar became
+# "Journalism & Writers" and also carry journalism-tagged calls, most of which
+# are filed under "research". Slug and URLs stay "writers" so subscriptions
+# keep working; the website's own category filter and SEO pages are unchanged.
+SYNDICATION_LABELS = {**CATEGORY_LABELS, "writers": "Journalism & Writers"}
+
+
+def syndication_category_matches(grant, category):
+    if category_matches(grant, category):
+        return True
+    if category == "writers":
+        return any("journalism" in str(t).lower() for t in (grant.get("tags") or []))
+    return False
+
+
 def filter_grants(grants, region, timeline, today, category=None, opp_type=None, stable=False):
     """``stable`` (weekly feeds): added-era grants join a timeline slice by date
     alone, with no today-based window, so a published drop never gains or loses
@@ -325,7 +341,7 @@ def filter_grants(grants, region, timeline, today, category=None, opp_type=None,
     for g in grants:
         if opp_type and not type_matches(g, opp_type):
             continue
-        if category and not category_matches(g, category):
+        if category and not syndication_category_matches(g, category):
             continue
         if region and not region_matches(g, region):
             continue
@@ -537,7 +553,7 @@ def weekly_count_phrase(count, category, opp_type):
     """'2 new AI, Tech & Research grants' style phrase naming the feed's slice."""
     singular, plural = WEEKLY_NOUNS.get(opp_type, ("grant", "grants"))
     noun = singular if count == 1 else plural
-    return f"{CATEGORY_LABELS.get(category, category)} {noun}" if category else noun
+    return f"{SYNDICATION_LABELS.get(category, category)} {noun}" if category else noun
 
 
 def drop_title(g, gtitle, sunday):
@@ -953,7 +969,7 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
     if opp_type:
         suffix_parts.append(OPPORTUNITY_TYPE_TITLE_PHRASE.get(opp_type, opp_type))
     if category:
-        suffix_parts.append(CATEGORY_LABELS.get(category, category))
+        suffix_parts.append(SYNDICATION_LABELS.get(category, category))
     if region:
         suffix_parts.append(REGION_LABELS.get(region, region))
     name_suffix = f" - {', '.join(suffix_parts)}" if suffix_parts else ""
@@ -973,7 +989,7 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
     if opp_type:
         grants = [g for g in grants if type_matches(g, opp_type)]
     if category:
-        grants = [g for g in grants if category_matches(g, category)]
+        grants = [g for g in grants if syndication_category_matches(g, category)]
     if region:
         grants = [g for g in grants if region_matches(g, region)]
     for grant in cal_events(grants, today):
@@ -1791,8 +1807,8 @@ def heavy_overlap_pairs(grants):
     axes = [
         ("regions", PICKER_REGIONS, region_matches,
          {r: REGION_LABELS.get(r, r) for r in PICKER_REGIONS}, True),
-        ("categories", PICKER_CATEGORIES, category_matches,
-         {c: CATEGORY_LABELS.get(c, c) for c in PICKER_CATEGORIES}, False),
+        ("categories", PICKER_CATEGORIES, syndication_category_matches,
+         {c: SYNDICATION_LABELS.get(c, c) for c in PICKER_CATEGORIES}, False),
         ("types", FEED_TYPES, type_matches,
          {t: OPPORTUNITY_TYPE_TITLE_PHRASE.get(t, t) for t in FEED_TYPES}, False),
     ]
@@ -2203,9 +2219,7 @@ def main():
         filtered = filter_grants(feed_grants, region, timeline, today,
                                  category=category, opp_type=opp_type, stable=True)
         wname = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
-        # A type slice that empties out keeps its file if one was ever published,
-        # so existing subscribers get an empty feed rather than a 404.
-        if opp_type and not filtered and not (HERE / wname).exists():
+        if opp_type and not filtered:
             return
         # The manifest keys on the BARE slice name (no -weekly suffix): the
         # picker strips the suffix before its lookup, so the key survives the
@@ -2225,6 +2239,11 @@ def main():
             }
         xml = build_weekly_feed(filtered, region, timeline, today, category=category,
                                 opp_type=opp_type, frozen=frozen, by_id=by_id)
+        # No upkeep of dead slices (4 Nov 2026): a type feed with no items and
+        # no grant on its way is not written, and the sweep deletes its file.
+        # Untyped feeds are always written so the picker's default paths work.
+        if opp_type and "<item>" not in xml and not any(in_added_era(g) for g in filtered):
+            return
         new_ledger[wname] = frozen
         (HERE / wname).write_text(xml, encoding="utf-8")
         weekly_written.append(wname)
@@ -2279,7 +2298,7 @@ def main():
         written calendar that has none, so the picker can say so."""
         sliced = [g for g in grants if type_matches(g, opp_type)] if opp_type else grants
         if category:
-            sliced = [g for g in sliced if category_matches(g, category)]
+            sliced = [g for g in sliced if syndication_category_matches(g, category)]
         if region:
             sliced = [g for g in sliced if region_matches(g, region)]
         name = calendar_filename(region, category=category, opp_type=opp_type)

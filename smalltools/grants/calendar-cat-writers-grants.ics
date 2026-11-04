@@ -3,16 +3,37 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Grants\, Writers
-X-WR-CALNAME:The Grant Desk deadlines - Grants\, Writers
+NAME:The Grant Desk deadlines - Grants\, Journalism & Writers
+X-WR-CALNAME:The Grant Desk deadlines - Grants\, Journalism & Writers
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Grants\, Writers.
+ pdated as new calls land on the desk. Filtered to: Grants\, Journalism & W
+ riters.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:omidyar-network-tech-journalism-fund-2026@artificialnouveau.github.io
+DTSTAMP:20261104T151252Z
+DTSTART;VALUE=DATE:20261231
+DTEND;VALUE=DATE:20270101
+SUMMARY:Deadline: Omidyar Network: Tech Journalism Fund
+DESCRIPTION:The Omidyar Network Tech Journalism Fund offers rolling grants 
+ of $5\,000-$25\,000 for technology journalism projects. Relevant for journ
+ alists and media organizations investigating AI\, tech policy\, and AI's i
+ mpacts on culture\, society\, and creative industries.\n\nOrganisation: Om
+ idyar Network\nLocation: Open to journalists and media organizations world
+ wide.\nAward: $5\,000-$25\,000 per project. Rolling deadline through Decem
+ ber 31\, 2026. No application fee.\nDuration: Per-project\; scope and time
+ line defined in the proposal.\n\nMore: https://omidyar.com/tech-journalism
+ -fund-application/?utm_source=artificialnouveaugrantdesk&utm_medium=referr
+ al
+URL:https://omidyar.com/tech-journalism-fund-application/?utm_source=artifi
+ cialnouveaugrantdesk&utm_medium=referral
+LOCATION:Open to journalists and media organizations worldwide.
+END:VEVENT
+BEGIN:VEVENT
 UID:kunstfonds-publikation-2027@artificialnouveau.github.io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151252Z
 DTSTART;VALUE=DATE:20270115
 DTEND;VALUE=DATE:20270116
 SUMMARY:Deadline: Stiftung Kunstfonds: KUNSTFONDS_Publikation 2027 (up to E
@@ -36,7 +57,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:inciter-art-open-call-tending-to-the-hearth-2026@artificialnouveau.gith
  ub.io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151252Z
 DTSTART;VALUE=DATE:20261102
 DTEND;VALUE=DATE:20261103
 SUMMARY:Deadline: Inciter Art (Fractured Atlas): quarterly open call for es
@@ -61,7 +82,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:extra-residence-livre-objet-fabrique-pola-2027@artificialnouveau.github
  .io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151252Z
 DTSTART;VALUE=DATE:20261109
 DTEND;VALUE=DATE:20261110
 SUMMARY:Deadline: EXTRA Residency 2027: Book-Object on Architecture\, Publi
@@ -84,5 +105,36 @@ URL:https://www.alternatif-art.com/appel-a-candidature/residence-extra-2027
  esk&utm_medium=referral
 LOCATION:Fabrique POLA\, Bordeaux\, France. No geographic restriction state
  d\; the call is published in French.
+END:VEVENT
+BEGIN:VEVENT
+UID:creative-europe-journalism-partnerships-2027@artificialnouveau.github.i
+ o
+DTSTAMP:20261104T151252Z
+DTSTART:20270204T153000Z
+DTEND:20270204T160000Z
+SUMMARY:Deadline 17:00 CET: Creative Europe Journalism Partnerships 2027: C
+ ollaborations and Pluralism (up to EUR 2-2.5 million per project)
+DESCRIPTION:Closes 04 Feb 2027 at 17:00 CET.\n\nCreative Europe's Journalis
+ m Partnerships call (CREA-CROSS-2027-JOURPART) has two topics supporting t
+ he news media sector. COLLABORATIONS funds cross-border collaboration and 
+ business transformation among news media organisations\; consortia need at
+  least three independent entities from three eligible countries.\n\nOrgani
+ sation: Creative Europe Cross-sectoral strand (European Commission / EACEA
+ )\nLocation: EU Member States and countries associated to Creative Europe.
+  For organisations (legal entities) established in an eligible country\; n
+ atural persons cannot apply.\nAward: Total EUR 14\,000\,000 (EUR 7\,000\,0
+ 00 per topic). Collaborations: up to EUR 2\,000\,000 per project at 80 per
+ cent funding. Pluralism: up to EUR 2\,500\,000 per project at 90 percent f
+ unding\, with re-granting of up to EUR 60\,000 per third party. No applica
+ tion fee.\nDuration: Projects normally up to 24 months. Call opened 22 Oct
+ ober 2026.\n\nMore: https://ec.europa.eu/info/funding-tenders/opportunitie
+ s/portal/screen/opportunities/topic-details/CREA-CROSS-2027-JOURPART-PLURA
+ LISM?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/o
+ pportunities/topic-details/CREA-CROSS-2027-JOURPART-PLURALISM?utm_source=a
+ rtificialnouveaugrantdesk&utm_medium=referral
+LOCATION:EU Member States and countries associated to Creative Europe. For 
+ organisations (legal entities) established in an eligible country\; natura
+ l persons cannot apply.
 END:VEVENT
 END:VCALENDAR

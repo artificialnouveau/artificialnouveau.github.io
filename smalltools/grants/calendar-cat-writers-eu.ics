@@ -3,16 +3,17 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Writers\, Europe
-X-WR-CALNAME:The Grant Desk deadlines - Writers\, Europe
+NAME:The Grant Desk deadlines - Journalism & Writers\, Europe
+X-WR-CALNAME:The Grant Desk deadlines - Journalism & Writers\, Europe
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Writers\, Europe.
+ pdated as new calls land on the desk. Filtered to: Journalism & Writers\, 
+ Europe.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:kunstfonds-publikation-2027@artificialnouveau.github.io
-DTSTAMP:20261104T150945Z
+DTSTAMP:20261104T151252Z
 DTSTART;VALUE=DATE:20270115
 DTEND;VALUE=DATE:20270116
 SUMMARY:Deadline: Stiftung Kunstfonds: KUNSTFONDS_Publikation 2027 (up to E
@@ -34,8 +35,31 @@ LOCATION:Bonn\, Germany (foundation). RESTRICTED: freelance visual artists
  or duos with primary residence in Germany\; enrolled students excluded.
 END:VEVENT
 BEGIN:VEVENT
+UID:bellingcat-ai-engineer-agentic-contractor-2026@artificialnouveau.github
+ .io
+DTSTAMP:20261104T151252Z
+DTSTART;VALUE=DATE:20261108
+DTEND;VALUE=DATE:20261109
+SUMMARY:Deadline: Bellingcat Contractor: AI Engineer (Open Source Agentic S
+ ystems)
+DESCRIPTION:Bellingcat\, the open source investigations collective\, is hir
+ ing a contractor AI engineer to build agentic systems that support its inv
+ estigators.\n\nOrganisation: Bellingcat\nLocation: Remote. Requires a time
+  zone with sufficient overlap with Bellingcat's Europe-based team.\nAward:
+  Annual contractor fee of USD 80\,000 to 93\,000 for full-time (40 hours/w
+ eek)\, depending on experience and track record\; a part-time (20 hours/we
+ ek) option is also offered\, rate not stated.\nDuration: Initial 12-month 
+ contract\, full-time or part-time\, starting as soon as possible.\n\nMore:
+  https://www.bellingcat.com/contractor-ai-engineer-open-source-agentic-sys
+ tems/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://www.bellingcat.com/contractor-ai-engineer-open-source-agentic-s
+ ystems/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Remote. Requires a time zone with sufficient overlap with Bellingc
+ at's Europe-based team.
+END:VEVENT
+BEGIN:VEVENT
 UID:daad-artists-in-berlin-2028@artificialnouveau.github.io
-DTSTAMP:20261104T150945Z
+DTSTAMP:20261104T151252Z
 DTSTART:20261215T222900Z
 DTEND:20261215T225900Z
 SUMMARY:Deadline 23:59 CET: DAAD Artists-in-Berlin Program 2028 (Berliner K
@@ -60,7 +84,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:extra-residence-livre-objet-fabrique-pola-2027@artificialnouveau.github
  .io
-DTSTAMP:20261104T150945Z
+DTSTAMP:20261104T151252Z
 DTSTART;VALUE=DATE:20261109
 DTEND;VALUE=DATE:20261110
 SUMMARY:Deadline: EXTRA Residency 2027: Book-Object on Architecture\, Publi
@@ -85,8 +109,39 @@ LOCATION:Fabrique POLA\, Bordeaux\, France. No geographic restriction state
  d\; the call is published in French.
 END:VEVENT
 BEGIN:VEVENT
+UID:creative-europe-journalism-partnerships-2027@artificialnouveau.github.i
+ o
+DTSTAMP:20261104T151252Z
+DTSTART:20270204T153000Z
+DTEND:20270204T160000Z
+SUMMARY:Deadline 17:00 CET: Creative Europe Journalism Partnerships 2027: C
+ ollaborations and Pluralism (up to EUR 2-2.5 million per project)
+DESCRIPTION:Closes 04 Feb 2027 at 17:00 CET.\n\nCreative Europe's Journalis
+ m Partnerships call (CREA-CROSS-2027-JOURPART) has two topics supporting t
+ he news media sector. COLLABORATIONS funds cross-border collaboration and 
+ business transformation among news media organisations\; consortia need at
+  least three independent entities from three eligible countries.\n\nOrgani
+ sation: Creative Europe Cross-sectoral strand (European Commission / EACEA
+ )\nLocation: EU Member States and countries associated to Creative Europe.
+  For organisations (legal entities) established in an eligible country\; n
+ atural persons cannot apply.\nAward: Total EUR 14\,000\,000 (EUR 7\,000\,0
+ 00 per topic). Collaborations: up to EUR 2\,000\,000 per project at 80 per
+ cent funding. Pluralism: up to EUR 2\,500\,000 per project at 90 percent f
+ unding\, with re-granting of up to EUR 60\,000 per third party. No applica
+ tion fee.\nDuration: Projects normally up to 24 months. Call opened 22 Oct
+ ober 2026.\n\nMore: https://ec.europa.eu/info/funding-tenders/opportunitie
+ s/portal/screen/opportunities/topic-details/CREA-CROSS-2027-JOURPART-PLURA
+ LISM?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/o
+ pportunities/topic-details/CREA-CROSS-2027-JOURPART-PLURALISM?utm_source=a
+ rtificialnouveaugrantdesk&utm_medium=referral
+LOCATION:EU Member States and countries associated to Creative Europe. For 
+ organisations (legal entities) established in an eligible country\; natura
+ l persons cannot apply.
+END:VEVENT
+BEGIN:VEVENT
 UID:european-press-prize-2027@artificialnouveau.github.io
-DTSTAMP:20261104T150945Z
+DTSTAMP:20261104T151252Z
 DTSTART;VALUE=DATE:20261210
 DTEND;VALUE=DATE:20261211
 SUMMARY:Deadline: European Press Prize 2027 (journalism awards\, EUR 10\,00

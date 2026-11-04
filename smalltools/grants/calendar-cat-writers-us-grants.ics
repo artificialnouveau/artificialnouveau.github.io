@@ -3,17 +3,18 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Grants\, Writers\, US
-X-WR-CALNAME:The Grant Desk deadlines - Grants\, Writers\, US
+NAME:The Grant Desk deadlines - Grants\, Journalism & Writers\, US
+X-WR-CALNAME:The Grant Desk deadlines - Grants\, Journalism & Writers\, US
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Grants\, Writers\, US.
+ pdated as new calls land on the desk. Filtered to: Grants\, Journalism & W
+ riters\, US.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:inciter-art-open-call-tending-to-the-hearth-2026@artificialnouveau.gith
  ub.io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151252Z
 DTSTART;VALUE=DATE:20261102
 DTEND;VALUE=DATE:20261103
 SUMMARY:Deadline: Inciter Art (Fractured Atlas): quarterly open call for es

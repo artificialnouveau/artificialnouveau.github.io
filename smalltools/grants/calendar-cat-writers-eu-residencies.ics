@@ -3,18 +3,19 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Artist Residencies\, Writers\, Europe
-X-WR-CALNAME:The Grant Desk deadlines - Artist Residencies\, Writers\, Euro
- pe
+NAME:The Grant Desk deadlines - Artist Residencies\, Journalism & Writers\,
+  Europe
+X-WR-CALNAME:The Grant Desk deadlines - Artist Residencies\, Journalism & W
+ riters\, Europe
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Artist Residencies\, Wr
- iters\, Europe.
+ pdated as new calls land on the desk. Filtered to: Artist Residencies\, Jo
+ urnalism & Writers\, Europe.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:daad-artists-in-berlin-2028@artificialnouveau.github.io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151253Z
 DTSTART:20261215T222900Z
 DTEND:20261215T225900Z
 SUMMARY:Deadline 23:59 CET: DAAD Artists-in-Berlin Program 2028 (Berliner K
@@ -39,7 +40,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:extra-residence-livre-objet-fabrique-pola-2027@artificialnouveau.github
  .io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151253Z
 DTSTART;VALUE=DATE:20261109
 DTEND;VALUE=DATE:20261110
 SUMMARY:Deadline: EXTRA Residency 2027: Book-Object on Architecture\, Publi

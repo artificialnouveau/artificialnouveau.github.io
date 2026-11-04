@@ -3,19 +3,40 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Grants\, Writers\, Remote & Worldwide
-X-WR-CALNAME:The Grant Desk deadlines - Grants\, Writers\, Remote & Worldwi
- de
+NAME:The Grant Desk deadlines - Grants\, Journalism & Writers\, Remote & Wo
+ rldwide
+X-WR-CALNAME:The Grant Desk deadlines - Grants\, Journalism & Writers\, Rem
+ ote & Worldwide
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Grants\, Writers\, Remo
- te & Worldwide.
+ pdated as new calls land on the desk. Filtered to: Grants\, Journalism & W
+ riters\, Remote & Worldwide.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:omidyar-network-tech-journalism-fund-2026@artificialnouveau.github.io
+DTSTAMP:20261104T151252Z
+DTSTART;VALUE=DATE:20261231
+DTEND;VALUE=DATE:20270101
+SUMMARY:Deadline: Omidyar Network: Tech Journalism Fund
+DESCRIPTION:The Omidyar Network Tech Journalism Fund offers rolling grants 
+ of $5\,000-$25\,000 for technology journalism projects. Relevant for journ
+ alists and media organizations investigating AI\, tech policy\, and AI's i
+ mpacts on culture\, society\, and creative industries.\n\nOrganisation: Om
+ idyar Network\nLocation: Open to journalists and media organizations world
+ wide.\nAward: $5\,000-$25\,000 per project. Rolling deadline through Decem
+ ber 31\, 2026. No application fee.\nDuration: Per-project\; scope and time
+ line defined in the proposal.\n\nMore: https://omidyar.com/tech-journalism
+ -fund-application/?utm_source=artificialnouveaugrantdesk&utm_medium=referr
+ al
+URL:https://omidyar.com/tech-journalism-fund-application/?utm_source=artifi
+ cialnouveaugrantdesk&utm_medium=referral
+LOCATION:Open to journalists and media organizations worldwide.
+END:VEVENT
+BEGIN:VEVENT
 UID:inciter-art-open-call-tending-to-the-hearth-2026@artificialnouveau.gith
  ub.io
-DTSTAMP:20261104T150946Z
+DTSTAMP:20261104T151252Z
 DTSTART;VALUE=DATE:20261102
 DTEND;VALUE=DATE:20261103
 SUMMARY:Deadline: Inciter Art (Fractured Atlas): quarterly open call for es
