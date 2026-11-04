@@ -54,4 +54,4 @@ Country pages are emitted only where enough active entries exist, so this list c
 ## Data
 
 - [embed.json](https://www.artificialnouveau.com/smalltools/grants/embed.json): The soonest-closing active entries (up to 300), factual fields only, powering the embeddable widget at https://www.artificialnouveau.com/smalltools/grants/embed.js.
-- [grants.json](https://www.artificialnouveau.com/smalltools/grants/grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, regions, amount, duration, startDate, deadline, addedDate, feedDate, category, categories, applicant, description, url, tags, fee, featured, eligibility, attendance, career, ageCap.
+- [grants.json](https://www.artificialnouveau.com/smalltools/grants/grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, regions, amount, duration, startDate, deadline, deadlineTime, deadlineTz, addedDate, feedDate, category, categories, applicant, description, url, tags, fee, featured, eligibility, attendance, career, ageCap.

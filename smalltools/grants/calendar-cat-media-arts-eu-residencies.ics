@@ -3,10 +3,10 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - Artist Residencies\, Media Arts\, Film & Sound\, Euro
- pe
-X-WR-CALNAME:The Grant Desk - Artist Residencies\, Media Arts\, Film & Soun
- d\, Europe deadlines
+NAME:The Grant Desk deadlines - Artist Residencies\, Media Arts\, Film & So
+ und\, Europe
+X-WR-CALNAME:The Grant Desk deadlines - Artist Residencies\, Media Arts\, F
+ ilm & Sound\, Europe
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
  pdated as new calls land on the desk. Filtered to: Artist Residencies\, Me
@@ -16,49 +16,29 @@ X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:casa-de-velazquez-artists-in-residence-2027-2028@artificialnouveau.gith
  ub.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261127
-DTEND;VALUE=DATE:20261128
-SUMMARY:Deadline: Casa de Velazquez: Artists in Residence 2027-2028 (Academ
- ie de France a Madrid)
-DESCRIPTION:The Academie de France a Madrid at the Casa de Velazquez offers
-  12 one-year residencies for 2027-2028 to young graduates and established 
- artists developing a creative project in the Iberian Peninsula. Applicants
-  declare one main discipline: drawing\, printmaking\, sculpture\, painting
- \, architecture\, music composition\, choreography\, photography\, or film
-  and video (multidisciplinary development during the year is welcome). REQ
- UIREMENTS: over 18\; a higher arts diploma or a body of work judged by the
-  committee\; good French (application and interview in French)\; individua
- l applications only (no collectives)\; at most three applications per life
- time. STATUS: EU/Schengen nationals must show affiliation to an artist/aut
- hor or self-employed scheme\; non-EU applicants need a French residence pe
- rmit allowing work (to join URSSAF artists/authors) or a Schengen residenc
- e and work permit from another EU state plus artist-author status there\, 
- covering the whole residency. APPLICATION: online portal with a project of
-  up to 5\,000 characters in French\, expectations and career fit (600 char
- acters each)\, CV in French (max 3 pages)\, portfolio (A3 landscape PDF\, 
- max 10 pages)\, up to two video links of max 10 minutes\, audio files (com
- posers must include a chamber or orchestral work with score)\, up to 10 ph
- otos and up to two recommendation letters. SELECTION: pre-selection the we
- ek of 8 March 2027\, interviews in French in Paris the week of 5 April 202
- 7\, results mid-April 2027. Residents must live at the Casa outside closur
- e periods and take part in its exhibitions and concerts. DEADLINE: 27 Nove
- mber 2026\, 13:00 Madrid time. Questions: candidatures-cvz@casadevelazquez
- .org.\n\nOrganisation: Casa de Velazquez\, Academie de France a Madrid\nLo
- cation: Madrid\, Spain (residence at the Casa de Velazquez). No nationalit
- y requirement\, but EU/Schengen nationals must be affiliated to an artist/
- author or self-employed scheme in their country of residence\, and non-EU 
- applicants need a French residence permit allowing work or a Schengen work
-  and residence permit from another EU state. Good French required.\nAward:
-  Monthly residency grant voted each year\; for 2026-2027 it was EUR 3\,600
-  per month for artists housed at the Casa and EUR 4\,600 per month for art
- ists living outside (with children). Twelve monthly payments\, September 2
- 027 to August 2028. Housing and studio provided\; a production support fun
- d is also available on project. No application fee.\nDuration: 12 months (
- 1 September 2027 to 31 August 2028\; on site mid-September to about 20 Jul
- y)\n\nMore: https://www.casadevelazquez.org/que-pasa-en-la-casa/detail/app
- el-artistes-en-residence-2027-2028?utm_source=artificialnouveaugrantdesk&u
- tm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261127T113000Z
+DTEND:20261127T120000Z
+SUMMARY:Deadline 13:00 CET: Casa de Velazquez: Artists in Residence 2027-20
+ 28 (Academie de France a Madrid)
+DESCRIPTION:Closes 27 Nov 2026 at 13:00 CET.\n\nThe Academie de France a Ma
+ drid at the Casa de Velazquez offers 12 one-year residencies for 2027-2028
+  to young graduates and established artists developing a creative project 
+ in the Iberian Peninsula.\n\nOrganisation: Casa de Velazquez\, Academie de
+  France a Madrid\nLocation: Madrid\, Spain (residence at the Casa de Velaz
+ quez). No nationality requirement\, but EU/Schengen nationals must be affi
+ liated to an artist/author or self-employed scheme in their country of res
+ idence\, and non-EU applicants need a French residence permit allowing wor
+ k or a Schengen work and residence permit from another EU state. Good Fren
+ ch required.\nAward: Monthly residency grant voted each year\; for 2026-20
+ 27 it was EUR 3\,600 per month for artists housed at the Casa and EUR 4\,6
+ 00 per month for artists living outside (with children). Twelve monthly pa
+ yments\, September 2027 to August 2028. Housing and studio provided\; a pr
+ oduction support fund is also available on project. No application fee.\nD
+ uration: 12 months (1 September 2027 to 31 August 2028\; on site mid-Septe
+ mber to about 20 July)\n\nMore: https://www.casadevelazquez.org/que-pasa-e
+ n-la-casa/detail/appel-artistes-en-residence-2027-2028?utm_source=artifici
+ alnouveaugrantdesk&utm_medium=referral
 URL:https://www.casadevelazquez.org/que-pasa-en-la-casa/detail/appel-artist
  es-en-residence-2027-2028?utm_source=artificialnouveaugrantdesk&utm_medium
  =referral
@@ -69,484 +49,26 @@ LOCATION:Madrid\, Spain (residence at the Casa de Velazquez). No nationalit
   and residence permit from another EU state. Good French required.
 END:VEVENT
 BEGIN:VEVENT
-UID:graner-creative-grants-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260929
-DTEND;VALUE=DATE:20260930
-SUMMARY:Deadline: Graner Creative Grants 2027: Residencies for Dance and Li
- ve Arts (Barcelona)
-DESCRIPTION:Graner\, Barcelona's centre for dance and live arts creation wi
- thin the city council's Creative Factories Network\, managed by Mercat de 
- les Flors with the Catalan dance professionals' associations APDC and ACPD
- C\, opens its 2027 call for residency grants supporting creation and resea
- rch projects taking place between January and December 2027. EIGHT CATEGOR
- IES: Associated Artist (1 place\, EUR 6\,000 per year for 2027 and 2028\, 
- for Catalonia-based artists who associate with the centre for two years\, 
- with a creative residency of up to six weeks)\; Creation (3 places\, EUR 6
- \,000\, local and national artists developing projects leading to a produc
- tion\, up to five weeks)\; Barcelona Crea Research (2 places\, EUR 6\,000\
- , local researchers and artists in the initial stages of artistic research
-  with body\, movement and choreographic thinking as its axes)\; Barcelona 
- Crea Critical Thinking (1 place\, EUR 6\,000\, theoretical\, critical or d
- iscursive projects on dance and the live arts)\; International (1 place\, 
- EUR 3\,000\, for researchers\, artists and collectives based outside Spain
-  without a direct connection to the Catalan or Spanish context\, two to fo
- ur weeks\; applying here excludes all other categories)\; Stage Research (
- 1 place\, EUR 3\,000\, research centred on lighting\, sound\, video or sce
- nography\, with technical studio time and support sessions)\; Emerging Art
- ists (2 places\, EUR 3\,000\, endowment topped up with EUR 1\,700 contribu
- ted by Can Gassol in Mataro\, where part of the residency takes place)\; a
- nd Practical Methodologies (1 place\, EUR 3\,000). WHAT YOU GET: on top of
-  the grant\, a workspace agreed per project\, possible technical residency
- \, shared desk and facilities\, artistic support and possible specialised 
- mentoring\, participation in Graner's labs\, workshops and seminars\, comm
- unication support\, and covered national and European travel to the two an
- nual APLEC gatherings. ELIGIBILITY: natural persons\, legal persons and gr
- oups with or without legal personality\; applicants may apply to at most t
- wo categories (International is mutually exclusive) and can receive only o
- ne grant. Barcelona Crea categories require a demonstrated connection to B
- arcelona or its metropolitan area and carry municipal-grant incompatibilit
- y rules. NOTE: structural renovation works run at Graner throughout 2027 a
- nd may affect studio use. APPLICATION: free\, via the category-specific fo
- rms on the Mercat de les Flors website\; an English-language bases PDF det
- ails each category. DEADLINE: 29 September 2026 at 14:00 Catalan time (12:
- 00 UTC).\n\nOrganisation: El Graner Fabrica de Creacio\, managed by Mercat
-  de les Flors\nLocation: Graner\, Barcelona\, Spain (with part of the Emer
- ging Artists residencies at Can Gassol\, Mataro). Most categories are for 
- local and national artists\; one International category is reserved for ar
- tists based outside Spain.\nAward: 12 grants totalling EUR 57\,000. EUR 6\
- ,000 per project for Associated Artist (1 place\, EUR 6\,000 each for 2027
-  and 2028)\, Creation (3 places)\, Barcelona Crea Research (2) and Barcelo
- na Crea Critical Thinking (1). EUR 3\,000 per project for Stage Research (
- 1)\, International (1)\, Emerging Artists (2\, endowment topped up with EU
- R 1\,700 from Can Gassol) and Practical Methodologies (1). Plus workspace\
- , possible technical residency\, artistic support and covered travel to th
- e two annual APLEC gatherings. No application fee.\nDuration: Residencies 
- between January and December 2027\, typically up to four to six weeks\, no
- t necessarily consecutive\, depending on category. The Associated Artist c
- ommits for two years (2027-2028).\n\nMore: https://mercatflors.cat/en/beca
- /2027-call-for-proposals-for-creative-grants-el-graner-fabrica-de-creacio/
- ?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://mercatflors.cat/en/beca/2027-call-for-proposals-for-creative-gr
- ants-el-graner-fabrica-de-creacio/?utm_source=artificialnouveaugrantdesk&u
- tm_medium=referral
-LOCATION:Graner\, Barcelona\, Spain (with part of the Emerging Artists resi
- dencies at Can Gassol\, Mataro). Most categories are for local and nationa
- l artists\; one International category is reserved for artists based outsi
- de Spain.
-END:VEVENT
-BEGIN:VEVENT
-UID:sim-residency-nordic-baltic-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261001
-DTEND;VALUE=DATE:20261002
-SUMMARY:Deadline: SÍM Residency: Funded Nordic-Baltic Residency January-Fe
- bruary 2027 (Reykjavík)
-DESCRIPTION:The SÍM Residency in Reykjavík announces its January to Febru
- ary 2027 funded residency for four artists from the Nordic-Baltic region. 
- The two-month program invites multidisciplinary artists interested in arti
- stic research and production addressing sustainability\, ecology\, social 
- equality and Nordic cultural narratives\; artists from visual arts\, perfo
- rmance\, sound\, digital media and research are encouraged to apply. Parti
- cipants develop individual projects while engaging in studio visits with a
-  curator\, discussions\, public open studios and talks\, closing with an e
- xhibition or public presentation at Seljavegur 32. WHAT YOU GET: EUR 2\,00
- 0 stipend\, EUR 600 travel\, EUR 500 materials\, accommodation with a priv
- ate bedroom\, a private studio\, orientation\, presentation on the SÍM we
- bsite and social media\, and connections to local workshops (sound recordi
- ng\, Fab Lab\, ceramics\, textile\, darkroom). Funded by the Nordic-Baltic
-  Mobility Programme for Culture\; artists are encouraged to seek top-up fu
- nding from their home arts councils if needed. ELIGIBILITY: a permanent ad
- dress in the Nordic countries (Denmark\, Finland\, the Faroe Islands\, Gre
- enland\, Norway\, Sweden\, Åland) or Baltic states (Estonia\, Latvia\, Li
- thuania)\, any nationality\; artists living in Iceland are excluded. A BA 
- in visual arts or a similar field is required\, or equivalent professional
-  experience\; candidates without one may apply with a letter of recommenda
- tion from a curator\, museum or gallery. Candidates must commit to the ful
- l 3 January to 28 February 2027 period\, communicate in English\, attend a
- ll meetings and events\, participate in the final exhibition\, and have th
- eir project documented on the SÍM website. APPLICATION: a 400-word projec
- t proposal toward the theme\, stating specific interests\, why the residen
- cy matters for the applicant's career now\, openness to collaboration\, an
- d environmentally responsible methods and material choices. CONDITIONS: no
-  overnight guests in the residency apartment and no pets\; artists are not
-  required to leave artwork behind. DEADLINE: 1 October 2026.\n\nOrganisati
- on: SÍM Residency (Association of Icelandic Visual Artists)\nLocation: Se
- ljavegur 32\, Reykjavík\, Iceland. Open to artists with a permanent addre
- ss in Denmark\, Finland\, the Faroe Islands\, Greenland\, Norway\, Sweden\
- , Åland\, Estonia\, Latvia or Lithuania\, regardless of nationality. Arti
- sts living in Iceland are explicitly excluded. The apartment is on the sec
- ond floor\, staircase only\, no elevator.\nAward: EUR 2\,000 stipend for t
- he whole period\, EUR 600 travel costs and EUR 500 material costs\, plus a
- ccommodation (private bedroom\, shared kitchen and living spaces) and a pr
- ivate studio. Funded by the Nordic-Baltic Mobility Programme for Culture. 
- Four places.\nDuration: Two months\, 3 January to 28 February 2027. Full a
- ttendance is required\; shorter periods are not granted.\n\nMore: https://
- www.sim-residency.info/ncp-2027?utm_source=artificialnouveaugrantdesk&utm_
- medium=referral
-URL:https://www.sim-residency.info/ncp-2027?utm_source=artificialnouveaugra
- ntdesk&utm_medium=referral
-LOCATION:Seljavegur 32\, Reykjavík\, Iceland. Open to artists with a perma
- nent address in Denmark\, Finland\, the Faroe Islands\, Greenland\, Norway
- \, Sweden\, Åland\, Estonia\, Latvia or Lithuania\, regardless of nationa
- lity. Artists living in Iceland are explicitly excluded. The apartment is 
- on the second floor\, staircase only\, no elevator.
-END:VEVENT
-BEGIN:VEVENT
-UID:can-serrat-visual-art-residency-full-grants-2027@artificialnouveau.gith
- ub.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260923
-DTEND;VALUE=DATE:20260924
-SUMMARY:Deadline: Can Serrat: Visual Art Residency 2027 full grants (El Bru
- c\, Catalonia)
-DESCRIPTION:Can Serrat is a long-running international residency in a forme
- r winery in El Bruc\, at the foot of the Montserrat massif about an hour f
- rom Barcelona. Its 2027 visual art open call is aimed at visual and multid
- isciplinary artists of all career levels and nationalities\, with the resi
- dency window running 2 August to 12 December 2027. THE FUNDED PLACES: one 
- full grant with honoraries\, comprising a EUR 2\,000 honorarium (subject t
- o public funding) and a private room at Can Serrat for six consecutive wee
- ks from 2 August 2027\; and one full grant with shared accommodation for o
- ne month in October 2027. Both full grants include two weekly communal din
- ners and basic food supplies (coffee\, tea\, condiments\, select dry goods
- ). ALL RESIDENTS additionally get studio and workspace access\, shared fac
- ilities\, monthly public presentations\, an unlimited public transport pas
- s\, publication of the project in Can Serrat's digital archive and visibil
- ity through its channels. POST-RESIDENCY: a EUR 3\,000 visual arts product
- ion grant and return grants (one-month return stays) are available to 2027
-  residents in December 2027. NOTE ON THE REST OF THE CALL: the same applic
- ation also allocates around 20 partial grants\, where residents pay EUR 1\
- ,130 per month for a shared room or EUR 1\,745 per month for a private roo
- m (both with the dinners and basics included)\, or EUR 305 per month for s
- tudio-only without accommodation\; only the two full grants are fully fund
- ed. APPLICATIONS: window 1 to 23 September 2026 via the open call page. No
-  application fee stated.\n\nOrganisation: Can Serrat International Art Res
- idency\nLocation: Can Serrat\, El Bruc\, at the foot of Montserrat near Ba
- rcelona\, Catalonia\, Spain. Open to visual and multidisciplinary artists 
- of all career levels and nationalities.\nAward: Two fully funded places: o
- ne full grant with a EUR 2\,000 honorarium (subject to public funding) plu
- s a private room for six consecutive weeks from 2 August 2027\, and one fu
- ll grant with shared accommodation for one month in October 2027\; both in
- clude two weekly communal dinners and basic food supplies. A EUR 3\,000 pr
- oduction grant and return grants are additionally available to 2027 reside
- nts in December 2027. No application fee stated. The same call also offers
-  around 20 partial grants where residents pay EUR 1\,130 per month (shared
-  room)\, EUR 1\,745 per month (private room) or EUR 305 per month (studio 
- only).\nDuration: Full grant with honorarium: six consecutive weeks from 2
-  August 2027. Second full grant: one month in October 2027. The overall 20
- 27 residency window runs 2 August to 12 December 2027\; partial-grant stay
- s are minimum one month.\n\nMore: https://canserrat.org/es/en-visual-art-r
- esidency-open-call-2027?utm_source=artificialnouveaugrantdesk&utm_medium=r
- eferral
-URL:https://canserrat.org/es/en-visual-art-residency-open-call-2027?utm_sou
- rce=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Can Serrat\, El Bruc\, at the foot of Montserrat near Barcelona\, 
- Catalonia\, Spain. Open to visual and multidisciplinary artists of all car
- eer levels and nationalities.
-END:VEVENT
-BEGIN:VEVENT
-UID:ctm-resynthesising-traditional-at-the-extreme-2027@artificialnouveau.gi
- thub.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260928
-DTEND;VALUE=DATE:20260929
-SUMMARY:Deadline: CTM Festival: Resynthesising the Traditional 2027 Artisti
- c Lab (At the Extreme)
-DESCRIPTION:Resynthesising the Traditional is CTM Festival's long-term init
- iative co-curated by Stas Sharifulla\, taking resynthesis (the computer-mu
- sic method of analysing a sound to extract its components) as a metaphor f
- or critically engaging with tradition and heritage\, against conservative 
- views of culture as frozen and untouchable. The artistic lab at its heart 
- is an open toolbox for artists connecting to the traditional outside exoti
- cisation\, cultural essentialism and uneven power dynamics. THEME\, AT THE
-  EXTREME: this edition invites artists and practice-based researchers whos
- e work examines the ethical\, aesthetic and political implications of trad
- itions entangled with extremity: intensity\, transgression\, transformatio
- n\, marginality\, outsiderness\, endurance\, conflict and excess. The call
-  explicitly looks past the usual noise\, violence and loud-popular-music t
- ropes and past masculine codings of the extreme\, toward current queer and
-  feminist reframings\, treating extremity as a relational condition\, chos
- en or imposed\, produced between majoritarian centres and their minoritari
- an outsides. Guiding questions include what it means to follow a tradition
-  to its extreme consequences\, who is allowed to push tradition to its lim
- its and whose practices get framed as inauthentic or dangerous\, what it m
- eans to practise tradition under war\, displacement\, repression or ecolog
- ical crisis\, and how traditions might offer ways of inhabiting extreme ti
- mes. Preference goes to work engaging technological\, bodily\, aesthetic a
- nd theoretical forms at that intersection\, especially in unexpected or ra
- rely recognised ways. WHAT HAPPENS: theory and practice workshops from the
-  co-hosts with individual and group exercises\, closed 15 to 20 minute ora
- l presentations by each participant\, a solo public performance or present
- ation (15 to 20 minutes) at a free-entry event\, inputs from specialists s
- uch as artists\, researchers and technologists\, guided individual and gro
- up sonic improvisations\, field trips and site visits\, and feedback sessi
- ons with the co-hosts and curators. AFTERWARDS: participants may propose n
- ew artistic work or research\, solo or in collaborations formed at the lab
- \, to the artistic team\; selected works are shortlisted\, and up to two a
- re commissioned and presented at CTM in January/February 2028. ELIGIBILITY
- : an existing practice tied to (re)connecting with traditional ideas and s
- ounds through a contemporary lens and how that overlaps with the extreme\,
-  plus clear ideas or questions about the next step you want to take. Appro
- aches may be technological\, instrument-focused\, compositional\, aestheti
- c\, research-oriented or otherwise. Working knowledge of English is recomm
- ended\, and any concerns about that can be flagged in the form. Up to six 
- participants are selected by co-hosts Karina Utomo (extreme metal vocalist
- \, composer and collaborative artist) and Luigi Monteanni (sound researche
- r and ethnomusicologist completing a PhD at SOAS on extreme metal in Bandu
- ng). The lab is a time-intensive full-day commitment and participants must
-  agree to give the short public performance. APPLY through the form with a
-  portfolio link (PDF\, max 10 pages\, public access\, works from the last 
- five years\, text kept minimal) and a link to a specific audio track or se
- ction (max five minutes) that best represents your current practice. CTM a
- sks that AI support rather than replace your own voice in the application.
-  TIMELINE: deadline 28 September 2026\; participants announced mid to late
-  October 2026. Questions to resynth@ctm-festival.de.\n\nOrganisation: CTM 
- Festival\, co-curated by Stas Sharifulla\nLocation: Berlin\, Germany. Open
-  to artists worldwide\; solo artists and projects only.\nAward: Travel bud
- get of up to EUR 300 per person\, plus accommodation and catering for the 
- duration of the lab and a festival pass to CTM 2027 events. Visa fees are 
- supported where required\, and letters of invitation are provided for visa
-  or funding applications. NO artist fee or stipend for the lab itself. Aft
- erwards\, up to two new works arising from the lab may be commissioned and
-  presented at CTM Festival in January/February 2028. No application fee.\n
- Duration: Seven days: arrival 24 January\, lab 26 to 31 January 2027 (10:0
- 0 to 19:00 daily)\, public presentations 26 January\, departure 1 February
-  2027.\n\nMore: https://www.ctm-festival.de/festival-2027/open-calls/resyn
- thesising-the-traditional-2027?utm_source=artificialnouveaugrantdesk&utm_m
- edium=referral
-URL:https://www.ctm-festival.de/festival-2027/open-calls/resynthesising-the
- -traditional-2027?utm_source=artificialnouveaugrantdesk&utm_medium=referra
- l
-LOCATION:Berlin\, Germany. Open to artists worldwide\; solo artists and pro
- jects only.
-END:VEVENT
-BEGIN:VEVENT
-UID:delfina-gulbenkian-artists-portugal-lusophone-africa-2027@artificialnou
- veau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261004
-DTEND;VALUE=DATE:20261005
-SUMMARY:Deadline: Delfina Foundation x Calouste Gulbenkian Foundation: Open
-  Call for Artists from Portugal and Portuguese-Speaking African Nations (L
- ondon residency)
-DESCRIPTION:In partnership with the Calouste Gulbenkian Foundation (UK Bran
- ch)\, Delfina Foundation welcomes applications from contemporary visual ar
- tists from Portugal\, Angola\, Mozambique\, Guinea-Bissau\, Cape Verde and
-  Sao Tome and Principe for a London residency from 28 June to 17 September
-  2027\, during Delfina's open summer season dedicated to independent resea
- rch. ELIGIBILITY: applicants must be born in one of the six eligible count
- ries (individuals currently based in the UK are not eligible)\; be seeking
-  to develop their practice through research\; be able to explain how an in
- ternational residency may benefit their career development and local netwo
- rks\; and be proficient in English (the interview is conducted in English)
- . Collectives and duos are advised to put forth one member to be in reside
- nce. THE PROGRAMME: alongside time and space to develop their work\, resid
- ents get guided visits to museums\, galleries\, non-profits\, artist-run s
- paces and studios\, plus trips to institutions outside London\; opportunit
- ies to meet artists\, curators\, academics and researchers through organis
- ed presentations\, studio visits\, events and meals\; professional develop
- ment including presentations and crits\, portfolio reviews and mentoring\;
-  and collaborative exchange between residents through informal gatherings 
- and meals. APPLY via the online application form (Cognito Forms\, save-and
- -resume supported)\; Delfina strongly recommends reading the Guidance Note
- s document carefully before starting. All applicants notified by mid-Novem
- ber 2026. Deadline Sunday 4 October 2026\, 23:59 BST.\n\nOrganisation: Del
- fina Foundation\, in partnership with the Calouste Gulbenkian Foundation (
- UK Branch)\nLocation: Delfina Foundation\, 29-31 Catherine Place\, London\
- , UK. Applicants must be born in Portugal\, Angola\, Mozambique\, Guinea-B
- issau\, Cape Verde or Sao Tome and Principe\; individuals currently based 
- in the UK are not eligible.\nAward: Twelve-week fully funded residency: a 
- return economy-class flight\, airport transfers in the UK\, reimbursement 
- of visa fees if required\, a living allowance of GBP 40 per day\, a materi
- als budget of GBP 1\,200\, a travel pass for London's public transport net
- work\, and a single bedroom with a desk at Delfina Foundation\, a house ho
- sting up to eight residents with shared bathrooms\, laundry rooms\, kitche
- n\, library and dining room. No application fee.\nDuration: Twelve weeks\,
-  28 June to 17 September 2027\, during Delfina's open summer 2027 residenc
- y season.\n\nMore: https://www.delfinafoundation.com/open-calls/current/op
- en-call-for-artists-from-portugal-or-portugese-speaking-african-nations/?u
- tm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.delfinafoundation.com/open-calls/current/open-call-for-arti
- sts-from-portugal-or-portugese-speaking-african-nations/?utm_source=artifi
- cialnouveaugrantdesk&utm_medium=referral
-LOCATION:Delfina Foundation\, 29-31 Catherine Place\, London\, UK. Applican
- ts must be born in Portugal\, Angola\, Mozambique\, Guinea-Bissau\, Cape V
- erde or Sao Tome and Principe\; individuals currently based in the UK are 
- not eligible.
-END:VEVENT
-BEGIN:VEVENT
-UID:ars-biologica-artxscience-residency-2027-2028@artificialnouveau.github.
- io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260928
-DTEND;VALUE=DATE:20260929
-SUMMARY:Deadline: Ars Biologica ArtXScience Residency 2027-2028 (Ars Electr
- onica x Ceske Budejovice ECoC 2028)
-DESCRIPTION:A fully funded art-science residency from Ars Electronica and C
- eske Budejovice\, European Capital of Culture 2028\, exploring how art and
-  science can collaborate on urgent environmental challenges: climate emerg
- ence\, sustainable agriculture\, geoengineering\, permaculture\, water res
- ource management\, and the broader ecological impacts on local communities
- . Selected residents work in direct collaboration with local scientists in
-  Ceske Budejovice. WHO CAN APPLY: artists\, designers\, creatives and arti
- st collectives with more than 5 years of professional creative practice an
- d documented interdisciplinary work\; experience in community engagement a
- nd science collaborations is essential\; applicants must be 18+\, of any n
- ationality\, and legally eligible to work and travel in the EU. WHAT YOU G
- ET: a EUR 24\,000 package (EUR 6\,000 artist fee\, up to EUR 15\,000 produ
- ction\, up to EUR 3\,000 travel and subsistence) plus one month of housing
-  covered separately\; two winners are selected. STRUCTURE: the residency r
- uns January 2027 to April 2028\, with a required on-site stay of up to one
-  month in February/March 2027\, an optional stay in August/September 2027\
- , and a March 2028 stay for festival installation\, exhibition and deinsta
- llation. HOW TO APPLY: online form with project title\, a written proposal
-  of max 250 words\, a scientific direction statement (max 100 words)\, art
- istic vision (max 100 words)\, community connection plan (max 100 words)\,
-  a super short pitch (3 to 30 words)\, 3 to 7 images\, an optional 1-minut
- e video\, a portfolio link and contact information. Two-round selection (o
- nline application then interview)\; winners notified by November 2026. Dea
- dline 28 September 2026 at midnight CET.\n\nOrganisation: Ars Electronica 
- and Ceske Budejovice - European Capital of Culture 2028\nLocation: Ceske B
- udejovice\, Czech Republic. Open to applicants of any nationality aged 18+
-  who are legally eligible to work and travel in the EU. Required on-site s
- tays: up to one month in February/March 2027\, an optional stay in August/
- September 2027\, and March 2028 for installation\, exhibition and deinstal
- lation.\nAward: EUR 24\,000 total package per winner: EUR 6\,000 artist fe
- e\, up to EUR 15\,000 production budget\, and up to EUR 3\,000 for travel\
- , accommodation and subsistence\, plus a separate budget covering one mont
- h of housing in Ceske Budejovice. Two positions available. Free to apply.\
- nDuration: January 2027 to April 2028\, with on-site blocks in early 2027 
- and March 2028\n\nMore: https://ars.electronica.art/export/en/ecoc2028-ars
- -biologica-art-science-residency/?utm_source=artificialnouveaugrantdesk&ut
- m_medium=referral
-URL:https://ars.electronica.art/export/en/ecoc2028-ars-biologica-art-scienc
- e-residency/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Ceske Budejovice\, Czech Republic. Open to applicants of any natio
- nality aged 18+ who are legally eligible to work and travel in the EU. Req
- uired on-site stays: up to one month in February/March 2027\, an optional 
- stay in August/September 2027\, and March 2028 for installation\, exhibiti
- on and deinstallation.
-END:VEVENT
-BEGIN:VEVENT
-UID:cannes-residence-cinema-de-demain-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260930
-DTEND;VALUE=DATE:20261001
-SUMMARY:Deadline: La Résidence du Festival de Cannes (Cinéma de Demain): 
- Screenwriting Residency in Paris
-DESCRIPTION:La Résidence of the Festival de Cannes (part of Cinéma de Dem
- ain\, formerly La Cinéfondation) invites 12 directors each year to write 
- their screenplay in Paris. The programme provides a place of residence in 
- the heart of Paris\, a personalised programme accompanying the writing of 
- their scripts\, and a collective programme of forums with film industry pr
- ofessionals. The 12 directors from the two annual sessions present their p
- rojects at the CNC pavilion in Cannes\, giving 10-minute presentations to 
- an audience of professionals and a jury of three film industry personaliti
- es\; the CNC then awards a EUR 5\,000 grant to one director from each sess
- ion\, based on the project that most inspires the jury. The Cinef & Résid
- ence offices serve as a hub where directors meet and schedule private meet
- ings with potential producers. ELIGIBILITY: open to young filmmakers who h
- ave made one or several short films and no more than one feature film\; ca
- ndidates must NOT be residents or citizens of France. Selected filmmakers 
- must stay at the Résidence in Paris for the full session. SESSIONS: two p
- er year\, each lasting four and a half months\, the first running 15 March
-  to 31 July and the second 1 October to 15 February. Artistic fields: film
- \, writing\, interdisciplinary. Deadline: 30 September 2026 at 16:00 UTC. 
- Free to apply.\n\nOrganisation: Festival de Cannes (Cinéma de Demain / La
-  Résidence)\nLocation: Paris\, France. Candidates must not be residents o
- r citizens of France.\nAward: Fully supported: a place of residence in cen
- tral Paris\, a personalised script-writing programme\, and a collective pr
- ogramme of forums with film industry professionals. Directors present at t
- he CNC pavilion in Cannes\, where the CNC awards a EUR 5\,000 grant to one
-  director per session. Free to apply.\nDuration: Four and a half months pe
- r session (two sessions a year)\n\nMore: https://cinemadedemain.festival-c
- annes.com/en/take-part/register-to-the-residence/?utm_source=artificialnou
- veaugrantdesk&utm_medium=referral
-URL:https://cinemadedemain.festival-cannes.com/en/take-part/register-to-the
- -residence/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Paris\, France. Candidates must not be residents or citizens of Fr
- ance.
-END:VEVENT
-BEGIN:VEVENT
-UID:q-o2-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260915
-DTEND;VALUE=DATE:20260916
-SUMMARY:Deadline: Q-O2: Residency Programme 2027 (Experimental Music & Soun
- d Art)
-DESCRIPTION:The residencies at Q-O2 offer time and space for artistic resea
- rch\, reflection and creation in the field of experimental music and sound
-  art. In 2027\, Q-O2 will host 20 residencies\, 10 for international artis
- ts and 10 for local artists living in Belgium\, working with\, on or aroun
- d sound. The programme is open to artists\, art workers and theorists who 
- wish to pursue a research-oriented project\; note that Q-O2 does not organ
- ise production-directed residencies and is not a rehearsal space. Duos are
-  possible\, and exceptionally small groups too. SUPPORT: a work studio and
-  materials\, a creative and communicative environment\, and the possibilit
- y to present work to a public and/or propose a workshop\; for internationa
- l residents\, accommodation in a shared apartment and a contribution to tr
- avel expenses of up to EUR 200\; and a small subsistence budget reserved f
- or artists who do not come with other funding. There is no artist fee. A f
- inal public presentation can be arranged if the artist wishes but is not e
- xpected\; what Q-O2 requires are some traces of the residency in word\, im
- age and/or audio form. APPLY by 15 September 2026: email a concise project
-  proposal of no more than one page plus a permanent link to your website o
- r other secondary information (no temporary links) to info@q-o2.be with th
- e subject 'Residency27 - your name'. State where you would travel from\, h
- ow long you would like to stay (4 to 6 weeks)\, and your interest in Q-O2 
- as a working environment\, and make sure you receive an email confirmation
-  of receipt.\n\nOrganisation: Q-O2 (workspace for experimental music and s
- ound art)\nLocation: Brussels\, Belgium\; 10 residencies for international
-  artists and 10 for artists living in Belgium.\nAward: NO artist fee. Inte
- rnational residents: shared accommodation in the Q-O2 apartment plus a tra
- vel contribution up to EUR 200. A small subsistence budget is reserved for
-  artists who do not come with other funding. Work studio\, materials and t
- echnical equipment provided. No application fee.\nDuration: Usually 3 to 6
-  weeks (international applicants: 4 to 6 weeks\; stays over 4 weeks not gu
- aranteed)\n\nMore: https://www.q-o2.be/en/in-residency/?utm_source=artific
- ialnouveaugrantdesk&utm_medium=referral
-URL:https://www.q-o2.be/en/in-residency/?utm_source=artificialnouveaugrantd
- esk&utm_medium=referral
-LOCATION:Brussels\, Belgium\; 10 residencies for international artists and 
- 10 for artists living in Belgium.
-END:VEVENT
-BEGIN:VEVENT
 UID:emap-emare-media-art-residencies-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261106
-DTEND;VALUE=DATE:20261107
-SUMMARY:Deadline: EMAP / EMARE: European Media Art Platform Residencies 202
- 7
-DESCRIPTION:The European Media Art Platform (EMAP/EMARE) is a network of le
- ading European media-art organisations offering fully funded two-month pro
- duction residencies for artists working with digital media\, including med
- ia art\, bio art and robotic art. Each residency provides a EUR 4\,000 gra
- nt to the applying artist (including subsistence)\, a EUR 4\,000 project b
- udget\, host-provided accommodation\, travel covered according to EU ceili
- ngs\, and access to technical facilities and media labs\; a collaborating 
- artist receives an additional EUR 2\,000 (EUR 6\,000 total for a duo). Res
- idencies take place at one of 15 host institutions across Austria\, France
- \, Slovakia\, Portugal\, Belgium\, the Netherlands\, Slovenia\, Croatia\, 
- Spain\, Italy\, Cyprus\, Greece\, Latvia\, Germany and Poland. ELIGIBILITY
- : applicants must be EU residents or taxpayers in an EU member state\, or 
- residents/taxpayers of one of the eligible non-EU countries (Netherlands-b
- ased artists qualify). Undergraduate and Master's students are not eligibl
- e\; PhD candidates and emerging artists of any age and academic background
-  may apply. IMPORTANT: applicants must apply as a duo or collective\, or p
- ropose a collaborative project\, rather than as a purely solo applicant. T
- he 2027 open call runs from 3 September 2026 to 6 November 2026 at 14:00 C
- ET. Apply online at call.emare.eu. No application fee.\n\nOrganisation: Eu
- ropean Media Art Platform (EMAP / EMARE)\nLocation: Two-month production r
- esidency at one of 15 host institutions across Austria\, France\, Slovakia
- \, Portugal\, Belgium\, Netherlands\, Slovenia\, Croatia\, Spain\, Italy\,
-  Cyprus\, Greece\, Latvia\, Germany and Poland\nAward: EUR 4\,000 grant fo
- r the applying artist (including subsistence)\; EUR 2\,000 for a collabora
- ting artist (EUR 6\,000 total for a duo)\; EUR 4\,000 project budget\; acc
- ommodation provided by the host\; travel covered per EU ceilings\; access 
- to technical facilities and media labs. No application fee.\nDuration: Two
-  months\n\nMore: https://call.emare.eu/?utm_source=artificialnouveaugrantd
- esk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261106T123000Z
+DTEND:20261106T130000Z
+SUMMARY:Deadline 14:00 CET: EMAP / EMARE: European Media Art Platform Resid
+ encies 2027
+DESCRIPTION:Closes 06 Nov 2026 at 14:00 CET.\n\nThe European Media Art Plat
+ form (EMAP/EMARE) is a network of leading European media-art organisations
+  offering fully funded two-month production residencies for artists workin
+ g with digital media\, including media art\, bio art and robotic art.\n\nO
+ rganisation: European Media Art Platform (EMAP / EMARE)\nLocation: Two-mon
+ th production residency at one of 15 host institutions across Austria\, Fr
+ ance\, Slovakia\, Portugal\, Belgium\, Netherlands\, Slovenia\, Croatia\, 
+ Spain\, Italy\, Cyprus\, Greece\, Latvia\, Germany and Poland\nAward: EUR 
+ 4\,000 grant for the applying artist (including subsistence)\; EUR 2\,000 
+ for a collaborating artist (EUR 6\,000 total for a duo)\; EUR 4\,000 proje
+ ct budget\; accommodation provided by the host\; travel covered per EU cei
+ lings\; access to technical facilities and media labs. No application fee.
+ \nDuration: Two months\n\nMore: https://call.emare.eu/?utm_source=artifici
+ alnouveaugrantdesk&utm_medium=referral
 URL:https://call.emare.eu/?utm_source=artificialnouveaugrantdesk&utm_medium
  =referral
 LOCATION:Two-month production residency at one of 15 host institutions acro
@@ -555,699 +77,8 @@ LOCATION:Two-month production residency at one of 15 host institutions acro
  nd
 END:VEVENT
 BEGIN:VEVENT
-UID:stichting-stokroos-residency-fundaziun-nairs-2026@artificialnouveau.git
- hub.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260911
-DTEND;VALUE=DATE:20260912
-SUMMARY:Deadline: Stichting Stokroos: Residency at Fundaziun Nairs 2026
-DESCRIPTION:Stichting Stokroos funds a three-month reflective residency at 
- Fundaziun Nairs in Scuol\, Switzerland\, for one selected visual artist\, 
- designer or craft practitioner (overlap possible). Both emerging and estab
- lished makers may apply. Stokroos covers full accommodation and meals dire
- ctly with Fundaziun Nairs and provides a discretionary EUR 7\,000 budget f
- or living\, travel and production. The application should include a propos
- al that engages specifically with the residency\, its Alpine surroundings 
- and/or its historical and cultural context. Eligibility: you completed you
- r first subject-specific (vocational or higher) programme in 2022 or earli
- er\, or have an equivalent established practice\, or started without forma
- l training (first presentation marks the start of your practice)\; at leas
- t 21 years old\; living and working in the Kingdom of the Netherlands (inc
- luding its Caribbean parts) or Suriname for at least one year\; not curren
- tly enrolled in a study or post-academic programme. Applications are indiv
- idual only\; duos and collectives cannot apply. Makers already selected by
-  Fundaziun Nairs may still apply if they meet the criteria. You may submit
-  only one application per year across all Stokroos grants\, and must not h
- ave received a Seed Grant rejection in the previous calendar year. Apply v
- ia the online form (Dutch or English) with a portfolio PDF up to 20 pages\
- , optional video up to 10 minutes total\, CV up to 2 pages\, and work/plan
-  descriptions up to 2\,500 characters each. Selection includes an introduc
- tory interview with up to three candidates\; Stokroos aims to respond with
- in 8 weeks. No appeal is possible. Application window: 1 to 11 September 2
- 026. More information at nairs.ch.\n\nOrganisation: Stichting Stokroos\nLo
- cation: Residency in Scuol\, Switzerland (Fundaziun Nairs). Applicants mus
- t live and work in the Kingdom of the Netherlands (including its Caribbean
-  parts) or Suriname for at least one year. Applicants outside the Randstad
-  particularly encouraged.\nAward: Fully supported stay (accommodation and 
- meals paid directly to Fundaziun Nairs) plus an unrestricted living\, trav
- el and production budget of EUR 7\,000. 80% paid before the residency\, th
- e remainder on receipt of a brief final report. No application fee.\nDurat
- ion: Intensive three-month working period (July through September).\n\nMor
- e: https://stokroos.nl/en/grant-rules/guidelines-residency-fundaziun-nairs
- /?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://stokroos.nl/en/grant-rules/guidelines-residency-fundaziun-nairs
- /?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Residency in Scuol\, Switzerland (Fundaziun Nairs). Applicants mus
- t live and work in the Kingdom of the Netherlands (including its Caribbean
-  parts) or Suriname for at least one year. Applicants outside the Randstad
-  particularly encouraged.
-END:VEVENT
-BEGIN:VEVENT
-UID:les-antipodes-numeric-2026-the-word@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260908
-DTEND;VALUE=DATE:20260909
-SUMMARY:Deadline: Numeric 2026: The Word (Les antipodes Research and Creati
- on Residency)
-DESCRIPTION:Two research and creation residency grants in Agullana\, Catalo
- nia\, for artists\, thinkers and scientists of any branch (formal\, natura
- l\, social\, applied) working at the intersection of art\, culture\, scien
- ce and thought. THIS YEAR'S THEME\, The Word\, is squarely about large lan
- guage models. The framework moves from the word as creative principle acro
- ss traditions (the Judeo-Christian creating God\, the Quran as uncreated w
- ord\, the Sanskrit Om and the Vedas\, mantras that summon rather than desc
- ribe) to science relocating that intuition in the cell (Sagan's four-lette
- r alphabet of DNA as a material text\, Margulis countering that the langua
- ge of life is chemistry\, Witzany holding that all cell interactions are s
- ign-mediated)\, and then to LLMs\, which for the first time detach the wor
- d from the flesh and generate text through a probabilistic architecture tr
- ained on human language. The call asks what LLMs reveal about authorship\,
-  originality and meaning when a system generates text that moves\, persuad
- es or deceives without experience or intention\, and whether we can still 
- say the models operate exclusively on human experience once they ingest th
- eir own output. It explicitly wants work that blurs comprehension and simu
- lation\, authorship and recombination\, and it names antecedents worth kno
- wing before applying: Ramon Llull's Ars Magna\, Joan Brossa's Sextina cibe
- rnetica\, Oulipo constraint writing\, oracles and divination\, oral-formul
- aic transmission\, translation as probabilistic approximation\, exquisite 
- corpses\, Burroughs's cut-ups\, automatic writing\, musical improvisation 
- and scientific simulation. Les antipodes asks for engagement 'beyond the i
- nstrumental use of the tools' and away from utopian and dystopian framings
- . WHAT YOU GET: spacious\, luminous\, independent work spaces plus a share
- d terrace in the centre of the village\, spaces for meeting\, dialogue and
-  public presentation\, introductions to local\, academic\, artistic and pr
- ofessional contacts on request\, and support organising any activities tha
- t arise. The residency ends with an informal presentation\, and results ma
- y feed into the publications or public programme of Les antipodes. IMPORTA
- NTLY\, this is not an acquisition prize and involves no transfer of rights
- : authorship and intellectual property stay with the creators\, and select
- ion implies no acquisition of the work. Credits on resulting work must ack
- nowledge Numeric 2026 and its collaborators. WHO CAN APPLY: open to everyo
- ne of legal age\, any discipline or origin\, individually or as a collecti
- ve\, with the stipend shared among collective members. Applications must b
- e in Catalan or English whatever the working language of the project\, sub
- mitted through the online form with an optional PDF of up to 5 pages and 1
- 0 MB. One application per person or collective. EVALUATION\, in order of w
- eight: singularity and innovation\; relevance to this year's LLM framework
- \; and interaction and transfer of value\, meaning relations with the soci
- al and geographical environment of Agullana and the Emporda and a plan for
-  presenting the outcome in editorial\, on-site\, performative\, sound\, au
- diovisual or other form. The call may be declared void if no proposal reac
- hes the required level. PRACTICAL: residents must hold their own health co
- ver (EHIC for EU citizens\, or valid travel or health insurance for Spain 
- otherwise) and are responsible for their own equipment. Supported by the G
- eneralitat de Catalunya\, Agullana and Figueres town councils\, and Accion
-  Cultural Espanola through the PICE national residencies programme. Terms 
- are published in Arabic\, Catalan\, English\, Spanish\, French and Chinese
- .\n\nOrganisation: Les antipodes\, with Bolit Centre d'Art Contemporani Gi
- rona and Museu de l'Emporda Figueres\nLocation: Agullana\, Alt Emporda\, C
- atalonia\, Spain. A village of 900 people\, 20 km from Figueres and the Vi
- lafant high-speed rail station\, 40 km from Perpignan\, 60 km from Girona\
- , 160 km from Barcelona.\nAward: Two grants. Each provides a stipend of EU
- R 1\,000 as taxable base (taxes and withholdings apply)\, round-trip trave
- l within the European Union\, and accommodation and meals for the four wee
- ks in Agullana. Travel and meals cover the resident only\, though the shar
- ed apartment can host immediate family by arrangement. Numeric also provid
- es the resources specified in the application and agreed during preparatio
- n. No application fee. Note that if a selected candidate lacks the profess
- ional registration needed to receive the stipend and payment has to be arr
- anged through Les antipodes\, the resulting costs are deducted from the st
- ipend.\nDuration: Four weeks\, 2 to 30 November 2026\, with both residenci
- es running simultaneously. Preceded by one month of preparation and follow
- ed by a two-month closing period. Applications 23 July to 8 September 2026
- \; decision announced 22 September 2026.\n\nMore: https://lesantipodes.com
- /numeric/2026_bases_en.html?utm_source=artificialnouveaugrantdesk&utm_medi
- um=referral
-URL:https://lesantipodes.com/numeric/2026_bases_en.html?utm_source=artifici
- alnouveaugrantdesk&utm_medium=referral
-LOCATION:Agullana\, Alt Emporda\, Catalonia\, Spain. A village of 900 peopl
- e\, 20 km from Figueres and the Vilafant high-speed rail station\, 40 km f
- rom Perpignan\, 60 km from Girona\, 160 km from Barcelona.
-END:VEVENT
-BEGIN:VEVENT
-UID:unidee-cittadellarte-visiting-research-curator-2027-28@artificialnouvea
- u.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260913
-DTEND;VALUE=DATE:20260914
-SUMMARY:Deadline: UNIDEE Residency Programs: Visiting Research Curator 2027
- -28
-DESCRIPTION:Cittadellarte is recruiting a Visiting Research Curator to shap
- e the research arc of the UNIDEE Residency Modules for 2027-2028\, the rol
- e most recently held by Nina Fiocco and Gaia Martino. Founded by Michelang
- elo Pistoletto in 1999\, the residency has hosted thousands of artists and
-  cultural professionals from 52 countries. WHAT THEY WANT: rather than a f
- ixed theme set in advance\, they want a curator who brings their own line 
- of inquiry and develops it collectively through the modules. Suggested the
- matic areas are the evolving landscape of socially engaged art practices\,
-  research-driven and process-oriented practice\, and the conditions of cul
- tural work and cultural workers\, aligned with UNIDEE's focus on artistic 
- research in response to ecological\, geopolitical and technological challe
- nges. They also flag a specific interest in how contemporary art practices
-  are archived\, drawing on the UNIDEE archive\, which documents over two d
- ecades of socially engaged art initiatives. THIS IS A JOB\, NOT A GRANT: t
- he duties list is long and operational. It covers proposing the overarchin
- g curatorial theme\, designing and delivering a minimum of 8 weekly reside
- ntial modules per year\, writing the curatorial statement and resident ope
- n call\, recruiting mentors and guests\, selecting residents\, hosting and
-  facilitating every module in person\, communications and website texts\, 
- a dissemination strategy\, and conceiving and editing publications. There 
- is also teaching-adjacent work with the Unidee Academy of Contemporary Art
- s\, including public lectures and studio visits. Budget the time before ap
- plying. PROFILE: experience curating art in the public sphere and socially
-  engaged art\, specialised knowledge of international contemporary art\, e
- xperience designing experimental and collaborative educational activities\
- , and experience with artistic research and dissemination standards. Excel
- lent English required\; Italian welcome but not essential. APPLYING: onlin
- e form with a project proposal of maximum 5000 characters stating your vis
- ion for the modules programme and a development strategy including possibl
- e mentors and guests\, plus a CV\, a portfolio of maximum three relevant p
- rojects\, and TWO LETTERS OF RECOMMENDATION\, so line up your referees ear
- ly. A jury of the UNIDEE Advisory Board\, the Director of Cittadellarte an
- d invited experts decides. They do not give feedback on unsuccessful propo
- sals.\n\nOrganisation: Fondazione Pistoletto Cittadellarte and UNIDEE Resi
- dency Programs\nLocation: Cittadellarte\, Biella\, Italy. Requires in-pers
- on presence at Cittadellarte for a minimum of one month plus the full leng
- th of each module.\nAward: Compensation and contractual terms commensurate
-  with the candidate's level of professional experience\, starting from a g
- ross amount of EUR 22\,000 for the appointment\, excluding travel and hosp
- itality\, which are covered separately. No application fee.\nDuration: Tem
- porary appointment from November 2026 to December 2028\, covering the 2027
- -2028 research arc and a minimum of 8 residency modules per year. Deadline
-  13 September 2026 at 23:59 CEST\; shortlisted candidates interviewed onli
- ne by mid-October 2026\, with the selected candidate announced a few days 
- later.\n\nMore: https://unidee.cittadellarte.it/activity.html?id=269&utm_s
- ource=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://unidee.cittadellarte.it/activity.html?id=269&utm_source=artific
- ialnouveaugrantdesk&utm_medium=referral
-LOCATION:Cittadellarte\, Biella\, Italy. Requires in-person presence at Cit
- tadellarte for a minimum of one month plus the full length of each module.
-END:VEVENT
-BEGIN:VEVENT
-UID:futures-of-listening-earth-immersion-trembling-planet-2027@artificialno
- uveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260913
-DTEND;VALUE=DATE:20260914
-SUMMARY:Deadline: Futures of Listening x KNMI: Earth Immersion\, Trembling 
- Planet Residency
-DESCRIPTION:One residency for an artist\, designer or maker working with so
- und\, exploring spatial sound in relation to seismology\, climate and disc
- harge-related acoustics\, run with the Royal Netherlands Meteorological In
- stitute. THE PREMISE: climate change is making major landslides\, ice-brea
- koff events from marine-terminating glaciers\, and sound-producing ice mov
- ements more common. These generate infrasonic vibrations inaudible to huma
- ns that sometimes spread across the entire planet and into the atmosphere.
-  The residency asks how immersive sound techniques can make these events t
- angible and build meaningful sonic narratives from them. WHAT YOU GET ACCE
- SS TO: scientific data on seismological events\, vibrations\, infrasound a
- nd the movement of land and ice masses\, with scientific expertise from KN
- MI (lead researcher Jelle Assink) and artistic guidance from the Futures o
- f Listening team\, relating local events to global impact. RESEARCH QUESTI
- ONS to position your proposal against include how immersive sound can cult
- ivate situated listening to ecological processes and more-than-human encou
- nters\, how artistic and scientific methods of working with environmental 
- data can inform each other\, and what is gained\, lost or ethically at sta
- ke when environmental sounds are translated\, interpreted or reconstructed
-  through spatial and synthetic means. DELIVERABLE: residents are expected 
- to create a final spatial sound production using the 4DSOUND system. Other
-  outcomes may include immersive installations\, data-driven sonic works\, 
- audiovisual pieces\, software prototypes or reusable methodologies. Experi
- ence in art-science environments is welcome but not required\; you may ins
- tead explain why working in one would benefit your practice. HARD ELIGIBIL
- ITY GATE: applicants must be based in the Netherlands AND registered as an
-  artist with the Dutch Chamber of Commerce (KvK). This is not negotiable a
- nd rules out non-NL applicants. Futures of Listening is a Netherlands-base
- d platform for spatial sound\, immersive experience\, performance and inst
- allation art\, founded by FIBER Festival\, 4DSOUND\, Robin Koek and Art of
-  Sound at the Royal Conservatoire The Hague\, supported by CIIIC and Stimu
- leringsfonds.\n\nOrganisation: Futures of Listening (FIBER\, 4DSOUND\, Rob
- in Koek\, Art of Sound) in collaboration with KNMI\, the Royal Netherlands
-  Meteorological Institute\nLocation: Partially self-hosted\, partially at 
- the 4DSOUND studio in Amsterdam\, and partially at KNMI in De Bilt near Ut
- recht\, Netherlands.\nAward: Total residency fee of EUR 7\,125\, calculate
- d as 25 commissioned days at a day rate of EUR 285. Six of those 25 days c
- an be spent at the 4DSOUND studio working with their team. Some additional
-  financial support is available if needed\, including material and travel 
- costs\, but these must be clearly defined and agreed before the residency 
- starts. No application fee.\nDuration: January to March 2027\, structured 
- as 25 commissioned days. Deadline 13 September 2026.\n\nMore: https://fibe
- r.homerun.co/artist-residency-earth-immersion/en?utm_source=artificialnouv
- eaugrantdesk&utm_medium=referral
-URL:https://fiber.homerun.co/artist-residency-earth-immersion/en?utm_source
- =artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Partially self-hosted\, partially at the 4DSOUND studio in Amsterd
- am\, and partially at KNMI in De Bilt near Utrecht\, Netherlands.
-END:VEVENT
-BEGIN:VEVENT
-UID:futures-of-listening-architecture-on-sound-2027@artificialnouveau.githu
- b.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260913
-DTEND;VALUE=DATE:20260914
-SUMMARY:Deadline: Futures of Listening: Architecture on Sound Residency
-DESCRIPTION:One residency for an individual practitioner\, a duo or a studi
- o working at the intersection of sound and space\, exploring architecture 
- through spatial audio. THE PREMISE: architecture is traditionally conceive
- d through form\, structure\, material and light\, with sound treated as so
- mething to be controlled or optimised afterwards. This residency asks what
-  happens if architecture begins with sound\, shifting the question from ho
- w a space should sound to how sound can generate space. Spatial audio\, vi
- rtual acoustics and immersive media now allow prototyping of responsive en
- vironments\, impossible architectures and sonic spaces beyond physical con
- straints. RESEARCH QUESTIONS include how sound can become a first principl
- e in architectural and spatial design\, how the acoustic properties of spa
- ce inform the creation and perception of spatial sound\, and how artistic 
- research can shape the future tools\, interfaces and methods of spatial so
- und creation. NOT JUST ARTWORKS: they explicitly say they want new methods
- \, insights and creative infrastructures too. Outcomes may include install
- ations\, spatial audio compositions\, performances\, audiovisual works\, s
- oftware prototypes\, reusable methodologies or modular interfaces. Residen
- ts may collaborate with a 4DSOUND software developer to prototype new tool
- s\, and practitioners who already build their own software\, hardware or c
- reative technologies are encouraged to advance those as part of the reside
- ncy. WHO: architects are the named invitees\, with scenographers\, spatial
-  designers\, installation artists\, sound artists\, composers and creative
-  technologists also encouraged. Creative coding experience is welcome but 
- not required. Lead researcher is Poul Holleman\, co-founder and director o
- f 4DSOUND. HARD ELIGIBILITY GATE: applicants must be based in the Netherla
- nds AND registered as an artist with the Dutch Chamber of Commerce (KvK). 
- This is not negotiable and rules out non-NL applicants. Futures of Listeni
- ng is a Netherlands-based platform for spatial sound\, immersive experienc
- e\, performance and installation art\, founded by FIBER Festival\, 4DSOUND
- \, Robin Koek and Art of Sound at the Royal Conservatoire The Hague\, supp
- orted by CIIIC and Stimuleringsfonds.\n\nOrganisation: Futures of Listenin
- g (FIBER\, 4DSOUND\, Robin Koek\, Art of Sound)\nLocation: Amsterdam\, Net
- herlands\, with work at the 4DSOUND studio.\nAward: Total residency fee of
-  EUR 7\,125\, calculated as 25 commissioned days at a day rate of EUR 285.
-  Six of those 25 days can be spent at the 4DSOUND studio working with thei
- r team. Some additional financial support is available if needed\, includi
- ng material and travel costs\, but these must be clearly defined and agree
- d before the residency starts. No application fee.\nDuration: December 202
- 6 to February 2027\, structured as 25 commissioned days. Deadline 13 Septe
- mber 2026.\n\nMore: https://fiber.homerun.co/artist-residency-architecture
- -on-sound/en?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://fiber.homerun.co/artist-residency-architecture-on-sound/en?utm_
- source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Amsterdam\, Netherlands\, with work at the 4DSOUND studio.
-END:VEVENT
-BEGIN:VEVENT
-UID:futures-of-listening-worlding-narratives-roaming-sound-space-2027@artif
- icialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260913
-DTEND;VALUE=DATE:20260914
-SUMMARY:Deadline: Futures of Listening: Worlding Narratives\, Roaming Sound
-  Space Residency
-DESCRIPTION:One residency to research and develop an interactive listening 
- experience built on non-linear sound narratives\, experienced by navigatin
- g through a series of virtual spaces or layers. NO VISUALS: Worlding Narra
- tives centres sound as the primary medium for immersion and intentionally 
- removes dominant visual layers such as VR\, AR\, projection or video. THE 
- DESIGN PROBLEM they want tackled is translation and adaptation\, specifica
- lly the shift from one visitor in a headphone-mediated experience to rende
- ring for a multi-speaker system for group interaction. That change in dyna
- mics\, reproduction and perspective is integral to the residency scope. RE
- SEARCH QUESTIONS include how immersive sound can function as a primary nar
- rative medium across speculative and non-fictional realities\, what new na
- rrative structures and dramaturgical methods become possible when the crea
- tive process originates from sound rather than adapting frameworks from ot
- her media\, and how interactive sonic structures can create navigable list
- ening experiences designed for and by multiple intelligences. Outcomes may
-  include interactive sonic prototypes\, spatial audio compositions\, immer
- sive listening experiences\, narrative sound works or software prototypes.
-  WORTH NOTING: your residency runs in tandem with resident Pinar Temiz\, a
- n expert in sound design for gaming environments\, with the opportunity to
-  work together. Lead researcher is Dr Angela McArthur of UCL\, with resear
- ch support from Dr meLe yamomo of the University of Amsterdam. WHO: media 
- and sound artists\, sound designers\, musicians producing their own sonic 
- work\, field recordists\, writers\, composers and game sound designers. Ex
- perience with interactive audio\, spatial sound tools or game-sound workfl
- ows is welcome but not required. HARD ELIGIBILITY GATE: applicants must be
-  based in the Netherlands AND registered as an artist with the Dutch Chamb
- er of Commerce (KvK). This is not negotiable and rules out non-NL applican
- ts. Futures of Listening is a Netherlands-based platform for spatial sound
- \, immersive experience\, performance and installation art\, founded by FI
- BER Festival\, 4DSOUND\, Robin Koek and Art of Sound at the Royal Conserva
- toire The Hague\, supported by CIIIC and Stimuleringsfonds.\n\nOrganisatio
- n: Futures of Listening (FIBER\, 4DSOUND\, Robin Koek\, Art of Sound)\nLoc
- ation: Amsterdam\, Netherlands\, with remote and studio access to the 4DSO
- UND infrastructure.\nAward: Total residency fee of EUR 7\,125\, calculated
-  as 25 commissioned days at a day rate of EUR 285. Six of those 25 days ca
- n be spent at the 4DSOUND studio working with their team. Some additional 
- financial support is available if needed\, including material and travel c
- osts\, but these must be clearly defined and agreed before the residency s
- tarts. No application fee.\nDuration: January to March 2027\, structured a
- s 25 commissioned days\, running in tandem with fellow Worlding Narratives
-  resident Pinar Temiz. Deadline 13 September 2026.\n\nMore: https://fiber.
- homerun.co/artist-residency-worlding-narratives/en?utm_source=artificialno
- uveaugrantdesk&utm_medium=referral
-URL:https://fiber.homerun.co/artist-residency-worlding-narratives/en?utm_so
- urce=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Amsterdam\, Netherlands\, with remote and studio access to the 4DS
- OUND infrastructure.
-END:VEVENT
-BEGIN:VEVENT
-UID:eofa-artistic-research-residency-geneva-2027@artificialnouveau.github.i
- o
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260915
-DTEND;VALUE=DATE:20260916
-SUMMARY:Deadline: Embassy of Foreign Artists: Artistic Research Residency i
- n International Organisation Archives (Geneva\, 2027)
-DESCRIPTION:The Embassy of Foreign Artists\, in partnership with the Centre
-  for Digital Humanities and Multilateralism at the Geneva Graduate Institu
- te\, invites artists worldwide to a three-month artistic research residenc
- y in Geneva during 2027. The programme centres on archival research in the
-  archives of Geneva-based international intergovernmental and non-governme
- ntal organisations (UN\, Red Cross and others): uncovering untold stories\
- , examining international decision-making\, reflecting on multilateral suc
- cesses and failures\, and imagining new possibilities for international co
- operation. Selected artists receive a CHF 1\,400 monthly residency grant\,
-  accommodation in a private room with shared common areas\, artistic guida
- nce from EOFA\, connections with archive personnel\, and access to partici
- pating archives as primary research resource\; travel and production costs
-  are the artist's own. ELIGIBILITY: professional artistic practice with a 
- demonstrable body of work (creations\, publications and/or performances)\,
-  over 28 years old\, fluent in French or English\, not enrolled in basic a
- rt training\; individuals\, duos or groups may apply (same stipend). APPLY
-  via the online form plus a single PDF (cover letter\, project description
- \, portfolio\, CV) emailed to application@eofa.ch. No application fee. Dea
- dline: 15 September 2026.\n\nOrganisation: Embassy of Foreign Artists / Ce
- ntre for Digital Humanities and Multilateralism\, Geneva Graduate Institut
- e\nLocation: Geneva\, Switzerland\nAward: CHF 1\,400 monthly residency gra
- nt plus accommodation in a private room\; travel and artistic production c
- osts are not covered\nDuration: 3 months\, during 2027\n\nMore: https://ww
- w.eofa.ch/en/open-call/?utm_source=artificialnouveaugrantdesk&utm_medium=r
- eferral
-URL:https://www.eofa.ch/en/open-call/?utm_source=artificialnouveaugrantdesk
- &utm_medium=referral
-LOCATION:Geneva\, Switzerland
-END:VEVENT
-BEGIN:VEVENT
-UID:welcome-to-my-homepage-oulu-edition-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261015
-DTEND;VALUE=DATE:20261016
-SUMMARY:Deadline: Welcome to my Homepage: Online Net Art Residency\, Oulu E
- dition
-DESCRIPTION:Welcome to my Homepage is an international online residency hos
- ted by The Museum of Human Achievement in Austin\, Texas\, offering artist
- s a low-stakes opportunity to experiment\, explore the web as a site for c
- reative production\, and reach new audiences with net art (artwork created
-  on and experienced exclusively through the internet). Founded in 2014\, i
- t has hosted over 150 artists. THIS ROUND (Oulu Edition) is open only to a
- pplicants in the Oulu\, Finland area\, as a collaboration between the UNES
- CO Cities of Media Arts Oulu and Austin\, and especially seeks proposals t
- hat consider digital culture from a northern perspective\, bring an Arctic
-  point of view\, or take inspiration from the edges rather than the center
- . Selected residents (3 per cycle) receive a EUR 500 stipend\, the mmm.pag
- e drag-and-drop web builder (no coding needed\; hosting on your own domain
-  is also fine)\, virtual studio visits\, mentor conversations and promotio
- n. Projects are shown online at welcometomyhomepage.net and in person at p
- op-up exhibitions alongside 3 Austin artists at the Frozen People Festival
-  in Oulu and at MoHA in Austin. WHO IT IS FOR: all types of creative folks
- \, no coding necessary and no need to be a net or digital artist (past res
- idents include performers\, poets\, puppeteers\, filmmakers\, healthcare w
- orkers and musicians)\; the programme especially welcomes people who have 
- not had an opportunity like this before\, would benefit from a flexible on
- line residency\, or want time to experiment. Collectives can apply via a p
- rimary contact. NOT ELIGIBLE: applicants outside the Oulu area (this round
-  only)\, under-18s\, undergrad or grad students enrolled in an art\, desig
- n or media programme during the residency\, and full-time university facul
- ty in such programmes. Jurors look for thoughtful\, interesting\, fun or c
- hallenging proposals achievable within the 3-week online residency\; propo
- sals for existing creative projects\, promotional pages (portfolio or band
-  sites) or projects relying heavily on visitor submissions are less succes
- sful\, and the work should be experienceable fully from the browser. APPLI
- CATION: statement of interest or residency proposal (max 300 words)\, arti
- st statement (max 200 words)\, bio (max 200 words)\, and work samples (up 
- to 4 links and/or a PDF of up to 10 images)\; brief and honest is preferre
- d over fancy and academic. Selection is by a jury of Oulu Urban Culture st
- aff\, an Oulu artist\, MoHA staff and a past resident\, led by Residency D
- irector Rachel Stuckey. Applicant info session online on 1 October 2026\, 
- 5pm EEST. Notification by late October 2026. Deadline 15 October 2026\, 23
- :59 EEST. The next call open to applicants from anywhere is expected in ea
- rly 2027.\n\nOrganisation: The Museum of Human Achievement (MoHA)\, Austin
- \, TX\, with Oulu UNESCO City of Media Arts\, Oulu Urban Culture and Froze
- n People\nLocation: Fully online residency. This round is restricted to ap
- plicants based in Oulu\, Finland and surrounding areas (a UNESCO Cities of
-  Media Arts collaboration between Oulu and Austin). Pop-up showcases at th
- e Frozen People Festival in Oulu and at MoHA in Austin.\nAward: EUR 500 st
- ipend\, plus a user-friendly web builder (mmm.page)\, virtual studio visit
- s and mentor conversations\, promotion\, a year-round showcase at welcomet
- omyhomepage.net and a kiosk at the Austin Public Library's Innovate Lab\, 
- and in-person pop-up exhibitions at the Frozen People Festival in Oulu and
-  at MoHA in Austin (Austin installation handled by the organisers\; no res
- ident travel funds to Austin). Free to apply.\nDuration: Online residency 
- 8 to 31 January 2027 (about 3 weeks)\; Frozen People show in mid/late Febr
- uary 2027\; MoHA show and virtual artist talk in spring 2027\n\nMore: http
- s://welcometomyhomepage.net/apply?utm_source=artificialnouveaugrantdesk&ut
- m_medium=referral
-URL:https://welcometomyhomepage.net/apply?utm_source=artificialnouveaugrant
- desk&utm_medium=referral
-LOCATION:Fully online residency. This round is restricted to applicants bas
- ed in Oulu\, Finland and surrounding areas (a UNESCO Cities of Media Arts 
- collaboration between Oulu and Austin). Pop-up showcases at the Frozen Peo
- ple Festival in Oulu and at MoHA in Austin.
-END:VEVENT
-BEGIN:VEVENT
-UID:cultural-horizons-residencies-subgrants-2027@artificialnouveau.github.i
- o
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260930
-DTEND;VALUE=DATE:20261001
-SUMMARY:Deadline: Cultural Horizons Residencies: Subgrants for EU Organisat
- ions Hosting Ukrainian Artists
-DESCRIPTION:Cultural Horizons strengthens the cultural sector in Ukraine by
-  promoting joint EU-Ukrainian cultural initiatives and expanding access fo
- r Ukrainians affected by the war to European cultural and artistic network
- s. The Residencies strand provides subgrants for EU-based institutions to 
- implement (a) residency placements and/or (b) education projects organised
-  on the basis of residencies\, for and with Ukrainian artistic and cultura
- l professionals in 2027. WHO CAN APPLY: artistic and cultural organisation
- s and initiatives registered within the EU\; consortia designate one lead 
- organisation to submit and manage funding. Applicants must demonstrate the
-  ability to host Ukrainian artistic and cultural professionals in 2027 and
-  complete projects between January and August 2027\, confirm the absence o
- f ties with the Russian Federation (no working partnerships with Russia or
-  Russian organisations\, no visits to Russian-occupied territories after 2
- 014)\, commit to refraining from glorification of Russian imperialism\, co
- mply with the EU sanctions regime\, and demonstrate a commitment to divers
- ity\, equity and inclusion. NGOs and public sector institutions working wi
- th displaced and vulnerable groups are prioritised. WHO IT SUPPORTS: Ukrai
- nian artists and cultural practitioners (independent and employed professi
- onals\, early-career specialists\, debut artists\, cultural managers\, res
- earchers\, analysts\, conservators)\, vulnerable groups from Ukraine inclu
- ding internally displaced persons\, young artists and communities in front
- line and conflict-affected areas\, and Ukrainian cultural organisations wi
- th a focus on small communities\, local initiatives\, independent cultural
-  spaces and NGOs. TIMELINE: applications 29 June to 30 September 2026\; ev
- aluation October to November 2026\; implementation 1 January to 30 July 20
- 27. The programme runs 2026-2027 and also builds a Europe-wide network of 
- cultural expert mentors. Queries: culturalhorizons[at]culturalvistas.eu.\n
- \nOrganisation: Ukrainian Cultural Foundation and Cultural Vistas\, funded
-  by the Creative Europe Programme of the European Union\nLocation: Europea
- n Union. Open to artistic and cultural organisations and initiatives regis
- tered within the EU\; residency and education projects host Ukrainian arti
- stic and cultural professionals during 2027.\nAward: Subgrants of EUR 5\,0
- 00 to 20\,000 each\; a minimum of 20 subgrants will be awarded. No applica
- tion fee.\nDuration: Projects run 1 January to 30 July 2027\, minimum 3 an
- d maximum 8 months\; final reports due within one month of completion and 
- no later than 15 August 2027\n\nMore: https://culturalvistas.eu/our-progra
- ms/professional-study-tours/cultural-horizons?utm_source=artificialnouveau
- grantdesk&utm_medium=referral#residencies
-URL:https://culturalvistas.eu/our-programs/professional-study-tours/cultura
- l-horizons?utm_source=artificialnouveaugrantdesk&utm_medium=referral#resid
- encies
-LOCATION:European Union. Open to artistic and cultural organisations and in
- itiatives registered within the EU\; residency and education projects host
-  Ukrainian artistic and cultural professionals during 2027.
-END:VEVENT
-BEGIN:VEVENT
-UID:braunschweig-projects-hbk-fellowships-2027-28@artificialnouveau.github.
- io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261004
-DTEND;VALUE=DATE:20261005
-SUMMARY:Deadline: Braunschweig Projects 2027/28: Artistic Fellowships at HB
- K Braunschweig (Fine Arts and Sound Art)
-DESCRIPTION:With Braunschweig Projects\, HBK Braunschweig (one of Germany's
-  largest art academies\, with fine arts\, art education\, performing arts\
- , design\, visual communication\, art history and media studies) offers 7 
- artistic fellowships on behalf of the State of Lower Saxony for 2027/28: 5
-  in fine arts and 2 in sound art. The programme promotes young artists and
-  internationalisation\, and is aimed at artists who want to work on a proj
- ect in the immediate vicinity of HBK\; proposals should make a significant
-  contribution to the further development of forms of artistic practice. Ea
- ch fellow is assigned a self-chosen mentor from the fine arts professors\,
-  all professors of the fine arts department are available for artistic dis
- course\, and fellows can present their project's progress within the unive
- rsity. Fellows are expected to participate in the Welcome Weeks (19 to 30 
- April 2027) and a joint final presentation in January/February 2028\, and 
- must reside at HBK for at least 8 months during the summer and winter seme
- ster lecture periods. FUNDING: EUR 1\,600 per month for 12 months from 1 A
- pril 2027\, a rent-free one-person studio apartment (EUR 250 per month con
- tribution to incidental costs)\, and an allowance for project and travel c
- osts\; a short final report (about 1 page) is due at the end. ELIGIBILITY:
-  a successfully completed art degree\, with the most recent studies comple
- ted after 31 March 2016 and before 1 April 2023\; proof of extensive artis
- tic practice and exhibition participation\; no regular third-party benefit
- s (salary\, work scholarships or state subsidy) during the funding period.
-  APPLICATION: in German or English by email to application-bsprojects[at]h
- bk-bs.de\, addressed to President Prof. Dr. Ana Dimke\, with the completed
-  and signed application form\, an artistic profile (one file\, max 15MB: n
- ame\, website and social media\, artist statement max 350 words\, project 
- description max 350 words\, portfolio of 10 to 15 works\, short CV\, links
-  to 3 password-free video/audio files) and the diploma of the most recent 
- degree (PDF\, max 1MB). DEADLINE: 4 October 2026. A separate Braunschweig 
- Projects curatorial fellowship for 2027/28 runs in parallel.\n\nOrganisati
- on: Braunschweig University of Art (HBK Braunschweig)\, on behalf of the S
- tate of Lower Saxony\nLocation: Braunschweig\, Germany. Open international
- ly (application in German or English)\; fellows must reside at HBK for at 
- least 8 months during the lecture periods.\nAward: Stipend of EUR 1\,600 p
- er month for 12 months\, plus a rent-free one-person studio apartment in B
- raunschweig (fellows pay EUR 250 per month towards incidental living costs
- ) and an allowance for project and travel costs. 7 fellowships: 5 in fine 
- arts and 2 in sound art. No application fee.\nDuration: 12 months from 1 A
- pril 2027 (accommodation from 15 April 2027)\; Welcome Weeks 19 to 30 Apri
- l 2027\; joint final presentation January/February 2028\n\nMore: https://w
- ww.hbk-bs.de/hochschule/stipendienprogramme/braunschweig-projects-deutsch/
- ausschreibung-bewerbung-1?utm_source=artificialnouveaugrantdesk&utm_medium
- =referral
-URL:https://www.hbk-bs.de/hochschule/stipendienprogramme/braunschweig-proje
- cts-deutsch/ausschreibung-bewerbung-1?utm_source=artificialnouveaugrantdes
- k&utm_medium=referral
-LOCATION:Braunschweig\, Germany. Open internationally (application in Germa
- n or English)\; fellows must reside at HBK for at least 8 months during th
- e lecture periods.
-END:VEVENT
-BEGIN:VEVENT
-UID:ses12naus-two-phase-residency-2026-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260930
-DTEND;VALUE=DATE:20261001
-SUMMARY:Deadline: Fundacion Ses12naus: Two-Phase Residency for Visual Artis
- ts and Curators\, Ibiza (2026-2027)
-DESCRIPTION:Ses12naus\, a non-profit founded in 2016 to strengthen the cult
- ural and artistic fabric of Ibiza and develop the island as an internation
- al reference for contemporary artistic creation\, is launching a two-phase
-  residency for visual artists and curators at any career stage. Four proje
- cts are selected for the 2026-2027 edition: two by artists or curators bas
- ed in the Balearic Islands\, one from the rest of Spain and one from anoth
- er European country. STRUCTURE: Phase 1 (21 November to 13 December 2026) 
- is dedicated to research and exploration of the territory and an in-depth 
- understanding of the local context\, with a required public activity linke
- d to the process\; between phases the Foundation's team actively follows u
- p on the conceptualisation and formalisation of the proposal\; in Phase 2 
- (17 May to 7 June 2027) residents return to produce and present: artists p
- roduce their works\, curators continue their research\, and both present r
- esults. The format supports developing a new project or giving continuity 
- to an ongoing one\, in dialogue with Ibiza and its communities. FUNDING: E
- UR 1\,800 honorarium plus EUR 300 public-activity fee per resident\; trave
- l up to EUR 330 (Spain) or EUR 770 (Europe) booked by the Foundation (no t
- ravel between phases is financed)\; production up to EUR 3\,000 for artist
- s plus EUR 500 installation and EUR 200 public-activity costs (curators: E
- UR 500 plus EUR 200). RESOURCES: private bedroom and bathroom with shared 
- kitchen and living room\, a workspace at La Carpinteria sized to the proje
- ct with projectors\, speakers\, machinery and tools (specific materials no
- t in the inventory come from the production budget)\, production assistanc
- e\, a shared car for the duration (valid driving licence required) and air
- port transfers. APPLICATION: online form\, deadline 30 September 2026\, 23
- :59 CET.\n\nOrganisation: Fundacion Ses12naus\nLocation: Ibiza\, Balearic 
- Islands\, Spain (at La Carpinteria creation centre\, Can Bufi). Open to vi
- sual artists and curators residing in the Balearic Islands\, Spain and Eur
- ope: of four selected projects\, two go to the Balearic Islands\, one to t
- he rest of Spain and one to another European country. No age limit.\nAward
- : Honorarium of EUR 1\,800 per resident (EUR 900 per phase) plus EUR 300 f
- or the public activity (all subject to taxes and withholdings). Travel up 
- to EUR 330 for participants from Spain or EUR 770 from other European coun
- tries (booked by the Foundation). Production: artists up to EUR 3\,000 for
-  production and public presentation (including transport of the work)\, pl
- us up to EUR 500 installation costs and EUR 200 for public activities\; cu
- rators up to EUR 500 for the final presentation and EUR 200 for the public
-  activity. Also included: private bedroom with private bathroom\, shared k
- itchen and living room\, workspace at La Carpinteria with technical resour
- ces\, production assistance\, a shared car (driving licence required) and 
- airport transfers. Free to apply.\nDuration: Two 3-week phases: 21 Novembe
- r to 13 December 2026 (research and territory exploration\, with a public 
- activity) and 17 May to 7 June 2027 (production and presentation)\, with a
- ctive follow-up between phases\n\nMore: https://ses12naus.org/en/applicati
- on-form-open-call-2026-2027/?utm_source=artificialnouveaugrantdesk&utm_med
- ium=referral
-URL:https://ses12naus.org/en/application-form-open-call-2026-2027/?utm_sour
- ce=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Ibiza\, Balearic Islands\, Spain (at La Carpinteria creation centr
- e\, Can Bufi). Open to visual artists and curators residing in the Baleari
- c Islands\, Spain and Europe: of four selected projects\, two go to the Ba
- learic Islands\, one to the rest of Spain and one to another European coun
- try. No age limit.
-END:VEVENT
-BEGIN:VEVENT
-UID:mq-air-2027-vienna-whw@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260915
-DTEND;VALUE=DATE:20260916
-SUMMARY:Deadline: MQ Artist-in-Residence Programme 2027\, Vienna
-DESCRIPTION:The MQ Artist-in-Residence (MQ AiR) programme offers artists th
- e opportunity to step away from everyday production pressure and focus on 
- a specific artistic interest or research project\, living and working in o
- ne of the MQ studios in the MuseumsQuartier in the heart of Vienna. This 2
- 027 call is run with tranzit and the WHW Akademija (supported by Erste Fou
- ndation and the Igor Zabel Association). SUPPORT: EUR 1\,300 monthly stipe
- nd and a EUR 300 travel grant (EUR 500 for participants from outside the E
- U)\, plus the live-work MQ studio. TO APPLY: send your application with th
- e subject line 'MQ AiR 2027' to office@tranzit.org\; the full call details
-  and application form are at akademija.whw.hr. DEADLINE: 15 September 2026
-  at midnight.\n\nOrganisation: MuseumsQuartier Wien (MQ AiR)\, with tranzi
- t and WHW Akademija\nLocation: MuseumsQuartier\, Vienna\, Austria. Live-wo
- rk residency in one of the MQ studios\; non-EU participants are eligible (
- higher travel grant).\nAward: EUR 1\,300 monthly stipend plus a EUR 300 tr
- avel grant (EUR 500 for non-EU participants). Live-work studio at the Muse
- umsQuartier included.\nDuration: Residency during 2027 in an MQ studio in 
- Vienna\n\nMore: https://www.akademija.whw.hr?utm_source=artificialnouveaug
- rantdesk&utm_medium=referral
-URL:https://www.akademija.whw.hr?utm_source=artificialnouveaugrantdesk&utm_
- medium=referral
-LOCATION:MuseumsQuartier\, Vienna\, Austria. Live-work residency in one of 
- the MQ studios\; non-EU participants are eligible (higher travel grant).
-END:VEVENT
-BEGIN:VEVENT
-UID:stage-ix-round-2-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261016
-DTEND;VALUE=DATE:20261017
-SUMMARY:Deadline: Stage IX Round 2: Immersive Art-Tech Research Residency (
- Fort Penningsveer)
-DESCRIPTION:Stage IX is a practice-based research residency for immersive a
- rt\, technology and science\, run by Ruimtetijd at Fort Penningsveer with 
- NXT Museum\, 4DSOUND\, the Amsterdam University of the Arts (AHK)\, CWI an
- d POPKRAFT\, and funded through CIIIC/Stimuleringsfonds. Round 2 opened 15
-  September 2026 and offers four positions: two on the Emerging track (2 to
-  4 years of professional practice) and two on the Established track (5 or 
- more years). Residents pursue eight months of supported research from Janu
- ary 2027 (extendable to ten) in practice areas including spatial sound\, V
- R/XR/AR\, gamified and interactive media\, kinetic and light-based install
- ation\, scenography and immersive theatre\, with access to the partners' s
- tudios\, technology and mentorship. Open to Netherlands-based artists only
- . An online info session ran 23 September 2026\; details at stage-ix.com. 
- TO APPLY: submit via the Tally application form. DEADLINE: 16 October 2026
- .\n\nOrganisation: Stage IX (Ruimtetijd\, NXT Museum\, 4DSOUND\, AHK\, CWI
- \, POPKRAFT)\nLocation: Fort Penningsveer\, near Haarlem\, Netherlands. Ne
- therlands-based artists only.\nAward: Emerging track (2 to 4 years of prac
- tice\, 2 positions): EUR 18\,000 artist fee plus EUR 5\,000 R&D budget. Es
- tablished track (5+ years\, 2 positions): EUR 26\,000 artist fee plus EUR 
- 15\,000 R&D budget. No application fee.\nDuration: 8 months of supported r
- esearch from January 2027\, extendable to 10 months.\n\nMore: https://tall
- y.so/r/PdxbrQ?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://tally.so/r/PdxbrQ?utm_source=artificialnouveaugrantdesk&utm_med
- ium=referral
-LOCATION:Fort Penningsveer\, near Haarlem\, Netherlands. Netherlands-based 
- artists only.
-END:VEVENT
-BEGIN:VEVENT
 UID:art-explora-cite-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261030
 DTEND;VALUE=DATE:20261031
 SUMMARY:Deadline: Art Explora x Cité internationale des arts Residency\, 7
@@ -1255,25 +86,16 @@ SUMMARY:Deadline: Art Explora x Cité internationale des arts Residency\, 7
 DESCRIPTION:The 7th call of the Art Explora residency programme at the Cit
  é internationale des arts opened 21 September 2026. The programme support
  s projects exploring the crossovers of art with science\, technology and e
- cology\, which makes it one of the stronger art-science fits in Europe. Re
- sidents receive a furnished live-work studio of around 50 m2 in Paris\, EU
- R 1\,000 per month living stipend\, up to EUR 3\,000 production budget\, r
- ound-trip travel and mentoring\, with residencies of 3 or 6 months for sol
- o artists and 3 months for duos of an artist with a researcher\, curator o
- r writer. Open to visual\, performing and digital artists of all nationali
- ties and ages with at least 5 years of professional experience and an inte
- rnational exhibition record. Programme details at artexplora.org. TO APPLY
- : submit via the Art Explora application platform. DEADLINE: 30 October 20
- 26\, 11:59 PM Paris time.\n\nOrganisation: Art Explora Foundation and Cit
- é internationale des arts\nLocation: Paris\, France. Open worldwide to ar
- tists with at least 5 years of professional practice.\nAward: EUR 1\,000 p
- er month living stipend plus up to EUR 3\,000 production grant\, a furnish
- ed live-work studio of around 50 m2 at the Cité internationale des arts\,
-  round-trip travel to Paris and curatorial mentoring. No application fee.\
- nDuration: 3- or 6-month residencies during 2027\; 3 months for duos (arti
- st plus researcher\, curator or writer).\n\nMore: https://artexplora.plate
- formecandidature.com/?utm_source=artificialnouveaugrantdesk&utm_medium=ref
- erral
+ cology\, which makes it one of the stronger art-science fits in Europe.\n\
+ nOrganisation: Art Explora Foundation and Cité internationale des arts\nL
+ ocation: Paris\, France. Open worldwide to artists with at least 5 years o
+ f professional practice.\nAward: EUR 1\,000 per month living stipend plus 
+ up to EUR 3\,000 production grant\, a furnished live-work studio of around
+  50 m2 at the Cité internationale des arts\, round-trip travel to Paris a
+ nd curatorial mentoring. No application fee.\nDuration: 3- or 6-month resi
+ dencies during 2027\; 3 months for duos (artist plus researcher\, curator 
+ or writer).\n\nMore: https://artexplora.plateformecandidature.com/?utm_sou
+ rce=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://artexplora.plateformecandidature.com/?utm_source=artificialnouv
  eaugrantdesk&utm_medium=referral
 LOCATION:Paris\, France. Open worldwide to artists with at least 5 years of
@@ -1282,7 +104,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ernest-albert-invitational-artistic-development-residency-2027@artifici
  alnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261028
 DTEND;VALUE=DATE:20261029
 SUMMARY:Deadline: Ernest Albert Invitational 2027: Artistic Development Res
@@ -1291,36 +113,18 @@ DESCRIPTION:Cas-co and Kunsthal Mechelen invite four Belgium-based early-ca
  reer visual artists to the Ernest Albert Invitational 2027\, a four-month 
  Artistic Development Residency at Cas-co in Leuven within the Off the Grid
   programme\, running in parallel with a Reflective Residency for a researc
- her who accompanies the group. Residents receive a studio\, curatorial gui
- dance and peer exchange\, and develop new work towards a group exhibition 
- at Kunsthal Mechelen\, 4 June to 29 August 2027\, curated by Jessica Meule
- man (Kunsthal Mechelen)\, Zuzanna Rachowska and Arthur Cordier (Cas-co). T
- HEME: the edition departs from landscape understood as a field of relation
- s shaped by memory\, ecology\, migration and lived experience\, and welcom
- es practices that move between inner and outer worlds across installation\
- , performance\, moving image\, sound and other experimental forms. SUPPORT
- : EUR 1\,100 artist fee per month\, EUR 120 transportation allowance per m
- onth\, and a one-time production budget of EUR 1\,200 (EUR 6\,080 total in
- cluding VAT)\, plus additional artist and production fees from Kunsthal Me
- chelen for the exhibition. ELIGIBILITY: Belgium-based visual artists at an
-  early stage of their career with limited institutional or commercial visi
- bility\, committed to professionalising their practice through research an
- d experimentation\, and open to dialogue and collective participation. HOW
-  TO APPLY: one PDF (max 10 MB) with a description of your practice\, a res
- idency proposal\, an exhibition proposal\, CV and portfolio\, via the onli
- ne application form (Google Form linked from the call page). Deadline 28 O
- ctober 2026 at 23:59 CET.\n\nOrganisation: Cas-co\, Leuven and Kunsthal Me
- chelen\nLocation: Cas-co\, Leuven\, Belgium\, within the Off the Grid prog
- ramme\, with the closing group exhibition at Kunsthal Mechelen. Open only 
- to Belgium-based visual artists.\nAward: EUR 6\,080 total including VAT: a
- n artist fee of EUR 1\,100 per month\, a transportation allowance of EUR 1
- 20 per month\, and a one-time production budget of EUR 1\,200. Kunsthal Me
- chelen provides additional artist and production fees for the exhibition. 
- No application fee.\nDuration: Four months\, 14 January to 14 May 2027\, f
- ollowed by a group exhibition at Kunsthal Mechelen from 4 June to 29 Augus
- t 2027\n\nMore: https://cas-co.be/nieuws/cas-coxkunsthalmechelen-artist-op
- en-call-deadline-28-10-26?utm_source=artificialnouveaugrantdesk&utm_medium
- =referral
+ her who accompanies the group.\n\nOrganisation: Cas-co\, Leuven and Kunsth
+ al Mechelen\nLocation: Cas-co\, Leuven\, Belgium\, within the Off the Grid
+  programme\, with the closing group exhibition at Kunsthal Mechelen. Open 
+ only to Belgium-based visual artists.\nAward: EUR 6\,080 total including V
+ AT: an artist fee of EUR 1\,100 per month\, a transportation allowance of 
+ EUR 120 per month\, and a one-time production budget of EUR 1\,200. Kunsth
+ al Mechelen provides additional artist and production fees for the exhibit
+ ion. No application fee.\nDuration: Four months\, 14 January to 14 May 202
+ 7\, followed by a group exhibition at Kunsthal Mechelen from 4 June to 29 
+ August 2027\n\nMore: https://cas-co.be/nieuws/cas-coxkunsthalmechelen-arti
+ st-open-call-deadline-28-10-26?utm_source=artificialnouveaugrantdesk&utm_m
+ edium=referral
 URL:https://cas-co.be/nieuws/cas-coxkunsthalmechelen-artist-open-call-deadl
  ine-28-10-26?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Cas-co\, Leuven\, Belgium\, within the Off the Grid programme\, wi
@@ -1329,7 +133,7 @@ LOCATION:Cas-co\, Leuven\, Belgium\, within the Off the Grid programme\, wi
 END:VEVENT
 BEGIN:VEVENT
 UID:transatlantic-stars-visual-arts-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261030
 DTEND;VALUE=DATE:20261031
 SUMMARY:Deadline: Transatlantic Stars Visual Arts Program 2027: US residenc
@@ -1338,31 +142,18 @@ DESCRIPTION:The EU Delegation to the United States invites mid-career and e
  stablished visual artists from the 27 EU Member States to apply for the Tr
  ansatlantic Stars Visual Arts Program 2027\, an eight-week artist-in-resid
  ence placement at one of six residency sites across the United States from
-  April to early June 2027. Each artist is paired one-to-one with a local A
- merican collaborator to co-create work\, and must produce at least one phy
- sical artwork\; the programme concludes with a mandatory two-day summit in
-  Washington\, D.C.\, where the resulting works are exhibited. All visual m
- ediums with a physical space component are accepted. SUPPORT: a living sti
- pend and a materials budget\, plus airfare\, visa assistance\, on-site lod
- ging\, studio space\, and access to host facilities\, equipment and commun
- ity networks. ELIGIBILITY: citizens of an EU Member State with a valid pas
- sport\; mid-career or established artists who meet at least four of five p
- rofessional standing criteria\; English proficiency\; availability for the
-  full April to early June 2027 period. APPLICATIONS: via the Airtable form
-  linked from the call page. DEADLINE: 30 October 2026 at 11:59 PM CET\, or
-  earlier if the cap of 300 applications is reached first. Contact: arts@tr
- sproject.eu. Parallel Transatlantic Stars calls for film and music run on 
- the same deadline.\n\nOrganisation: European Union Delegation to the Unite
- d States\nLocation: Eight-week residencies at six host sites across the Un
- ited States\, April to early June 2027\, ending with a two-day summit in W
- ashington\, D.C. Open to citizens of EU Member States.\nAward: Fully funde
- d: each selected artist receives a living stipend and a materials budget (
- amounts not published)\, plus airfare\, visa assistance\, on-site lodging\
- , studio space and access to host facilities. Six placements. Free to appl
- y.\nDuration: Eight weeks\, April to early June 2027\, concluding with a m
- andatory two-day summit in Washington\, D.C.\n\nMore: https://www.eeas.eur
- opa.eu/delegations/united-states-america/transatlantic-rising-stars-projec
- t-visual-arts_en?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+  April to early June 2027.\n\nOrganisation: European Union Delegation to t
+ he United States\nLocation: Eight-week residencies at six host sites acros
+ s the United States\, April to early June 2027\, ending with a two-day sum
+ mit in Washington\, D.C. Open to citizens of EU Member States.\nAward: Ful
+ ly funded: each selected artist receives a living stipend and a materials 
+ budget (amounts not published)\, plus airfare\, visa assistance\, on-site 
+ lodging\, studio space and access to host facilities. Six placements. Free
+  to apply.\nDuration: Eight weeks\, April to early June 2027\, concluding 
+ with a mandatory two-day summit in Washington\, D.C.\n\nMore: https://www.
+ eeas.europa.eu/delegations/united-states-america/transatlantic-rising-star
+ s-project-visual-arts_en?utm_source=artificialnouveaugrantdesk&utm_medium=
+ referral
 URL:https://www.eeas.europa.eu/delegations/united-states-america/transatlan
  tic-rising-stars-project-visual-arts_en?utm_source=artificialnouveaugrantd
  esk&utm_medium=referral
@@ -1371,84 +162,8 @@ LOCATION:Eight-week residencies at six host sites across the United States\
  D.C. Open to citizens of EU Member States.
 END:VEVENT
 BEGIN:VEVENT
-UID:schlossmediale-werdenberg-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261018
-DTEND;VALUE=DATE:20261019
-SUMMARY:Deadline: Schlossmediale Call for Art Residency 2027 (Schloss Werde
- nberg\, Switzerland)
-DESCRIPTION:Schlossmediale\, the international festival of early music\, ne
- w music and audiovisual art at Werdenberg Castle in the canton of St. Gall
- en\, invites three solo artists to a five-week residency from 17 May to 27
-  June 2027. The works developed on site are shown in the castle during the
-  14th festival edition (17-26 June 2027). The 2027 theme is KLATSCH! (Rumo
- ur-Impact): sound and rumour\, applause and gossip\, oral tradition\, coll
- ective memory\, and the ways every era spreads its information. MEDIUMS: s
- ound art\, sound studies\, audiovisual art\, experimental instrument build
- ing\, visual art\, installation\, sculpture\, land art and performance\; s
- ound installations without a visual dimension are not considered. SUPPORT:
-  CHF 4\,000 grant\, CHF 1\,000 for travel\, transport and meals\, up to CH
- F 1\,000 for materials\, and accommodation in a shared house in Werdenberg
-  (individual rooms\, shared kitchen and living areas). ELIGIBILITY: solo a
- rtists with professional experience (no groups or duos) who can live and w
- ork on site for the full period and complete a finished\, functional work 
- by the festival opening\; residents present their work on castle tours and
-  attend the whole festival. Working space at the castle is limited and no 
- studios are provided. HOW TO APPLY: exclusively online via the application
-  portal linked from the open-call page. DEADLINE: 18 October 2026.\n\nOrga
- nisation: Schlossmediale Werdenberg\nLocation: Werdenberg Castle\, canton 
- of St. Gallen\, Switzerland. Open internationally to solo artists\; accomm
- odation in a shared house in Werdenberg.\nAward: CHF 4\,000 grant per resi
- dent\, plus CHF 1\,000 for travel\, transport and meals\, up to CHF 1\,000
-  for material costs\, and accommodation in a shared house (individual room
- s). Three residencies awarded.\nDuration: Five-week residency from 17 May 
- to 27 June 2027\, with the 14th Schlossmediale festival on 17-26 June 2027
- \n\nMore: https://schlossmediale.ch/festival-schlossmediale/ausstellung/op
- en-call-2027-en?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://schlossmediale.ch/festival-schlossmediale/ausstellung/open-call
- -2027-en?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Werdenberg Castle\, canton of St. Gallen\, Switzerland. Open inter
- nationally to solo artists\; accommodation in a shared house in Werdenberg
- .
-END:VEVENT
-BEGIN:VEVENT
-UID:hessische-kulturstiftung-stipendien-2027-28@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261015
-DTEND;VALUE=DATE:20261016
-SUMMARY:Deadline: Hessische Kulturstiftung: Reise- und Residenzstipendien 2
- 027/2028 (18th round)
-DESCRIPTION:Hesse's flagship stipend programme for visual artists: 14 grant
- s across two years\, split between free travel grants (3 to 12 months\, EU
- R 25\,000)\, residency grants at the foundation's studios in New York\, Lo
- ndon\, Paris\, Istanbul and Kyoto\, and two combined grants. Former recipi
- ents can access up to EUR 7\,700 in additional production funding. ELIGIBI
- LITY (strict): visual artists born in Hesse\, OR with primary residence in
-  Hesse since 1 January 2025\, OR graduates of a Hessian art academy\; prev
- ious recipients are excluded. Apply via bewerberportal.hkst.de\; the porta
- l is open 1 August to 15 October 2026. DEADLINE: 15 October 2026.\n\nOrgan
- isation: Hessische Kulturstiftung\nLocation: Wiesbaden\, Germany (administ
- ration)\; residencies in New York\, London\, Paris\, Istanbul and Kyoto\, 
- or free travel. RESTRICTED: visual artists born in Hesse\, resident in Hes
- se since 1 January 2025\, or graduates of a Hessian art academy.\nAward: T
- ravel grants of EUR 25\,000 (3 to 12 months)\, plus access to up to EUR 7\
- ,700 additional production funding after the grant. 14 grants over two yea
- rs: 5 travel\, 7 residency (NYC\, London\, Paris\, Istanbul\, Kyoto)\, 2 c
- ombined. NOTE: figures are from the call text as republished verbatim by l
- isting sites\; the official funding-guidelines PDF was unavailable at the 
- time of adding\, so verify on hkst.de. No application fee.\nDuration: 3 to
-  12 months\n\nMore: https://hkst.de/stipendien/?utm_source=artificialnouve
- augrantdesk&utm_medium=referral
-URL:https://hkst.de/stipendien/?utm_source=artificialnouveaugrantdesk&utm_m
- edium=referral
-LOCATION:Wiesbaden\, Germany (administration)\; residencies in New York\, L
- ondon\, Paris\, Istanbul and Kyoto\, or free travel. RESTRICTED: visual ar
- tists born in Hesse\, resident in Hesse since 1 January 2025\, or graduate
- s of a Hessian art academy.
-END:VEVENT
-BEGIN:VEVENT
 UID:acc-weimar-studio-program-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261123
 SUMMARY:Deadline: ACC Galerie Weimar: 33rd International Studio Program 202
@@ -1458,15 +173,13 @@ DESCRIPTION:Themed international residency: three artists\, duos or collect
  7 and January 2028 to work on the 2027 theme 'On Absence'. Each resident r
  eceives EUR 1\,100 per month and a rent-free furnished studio apartment in
   central Weimar\; the programme closes with a group exhibition the followi
- ng year. ELIGIBILITY: open worldwide\, all ages and disciplines\; currentl
- y enrolled students are excluded\; applications in English or German. DEAD
- LINE: 22 November 2026.\n\nOrganisation: ACC Galerie Weimar and the City o
- f Weimar\nLocation: Weimar\, Germany. Open worldwide\, all ages\; enrolled
-  students excluded\; working language English or German.\nAward: EUR 1\,10
- 0 per month stipend for four months\, plus a rent-free furnished studio ap
- artment and a group exhibition the following year. No application fee.\nDu
- ration: 4 months\n\nMore: https://acc-weimar.de/atelierprogramm/?utm_sourc
- e=artificialnouveaugrantdesk&utm_medium=referral
+ ng year.\n\nOrganisation: ACC Galerie Weimar and the City of Weimar\nLocat
+ ion: Weimar\, Germany. Open worldwide\, all ages\; enrolled students exclu
+ ded\; working language English or German.\nAward: EUR 1\,100 per month sti
+ pend for four months\, plus a rent-free furnished studio apartment and a g
+ roup exhibition the following year. No application fee.\nDuration: 4 month
+ s\n\nMore: https://acc-weimar.de/atelierprogramm/?utm_source=artificialnou
+ veaugrantdesk&utm_medium=referral
 URL:https://acc-weimar.de/atelierprogramm/?utm_source=artificialnouveaugran
  tdesk&utm_medium=referral
 LOCATION:Weimar\, Germany. Open worldwide\, all ages\; enrolled students ex
@@ -1474,33 +187,24 @@ LOCATION:Weimar\, Germany. Open worldwide\, all ages\; enrolled students ex
 END:VEVENT
 BEGIN:VEVENT
 UID:auslandsstipendien-bund-laender-2028@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
 SUMMARY:Deadline: Auslandsstipendien von Bund und Laendern 2028 (Villa Mass
  imo\, Casa Baldi\, Venice\, Paris)
 DESCRIPTION:Germany's flagship residency awards for visual artists\, archit
  ects\, writers and composers\, administered by the Kulturstiftung der Laen
- der for the federal government. One application window covers the Rome Pri
- ze at Villa Massimo (10 months\, EUR 3\,000/month\, international visibili
- ty expected)\, Casa Baldi in Olevano Romano (3 months\, EUR 3\,000/month)\
- , the Deutsches Studienzentrum in Venice (3 months\, EUR 1\,534/month) and
-  a 6-month Paris residency (approx. EUR 1\,500/month). Accommodation and s
- tudio are provided everywhere. ELIGIBILITY: German citizenship\, or primar
- y residence and artistic practice in Germany. Application window 1 October
-  to 15 December 2026 for residencies in 2028\, via auslandsstipendien-von-
- bund-und-laendern.de. DEADLINE: 15 December 2026\, 23:59.\n\nOrganisation:
-  Kulturstiftung der Laender / BKM (German federal and state governments)\n
- Location: Residencies in Rome (Villa Massimo\, 10 months)\, Olevano Romano
-  (Casa Baldi\, 3 months)\, Venice (Deutsches Studienzentrum\, 3 months) an
- d Paris (6 months). RESTRICTED: German citizenship OR primary residence an
- d artistic practice in Germany.\nAward: Villa Massimo: EUR 3\,000/month\; 
- Casa Baldi: EUR 3\,000/month\; Deutsches Studienzentrum Venedig: EUR 1\,53
- 4/month\; Paris: approx. EUR 1\,500/month. Accommodation and studio provid
- ed at all locations. No application fee.\nDuration: 3 to 10 months dependi
- ng on residency\n\nMore: https://www.kulturstiftung.de/auslandsstipendien-
- von-bund-und-laendern-allgemeines/?utm_source=artificialnouveaugrantdesk&u
- tm_medium=referral
+ der for the federal government.\n\nOrganisation: Kulturstiftung der Laende
+ r / BKM (German federal and state governments)\nLocation: Residencies in R
+ ome (Villa Massimo\, 10 months)\, Olevano Romano (Casa Baldi\, 3 months)\,
+  Venice (Deutsches Studienzentrum\, 3 months) and Paris (6 months). RESTRI
+ CTED: German citizenship OR primary residence and artistic practice in Ger
+ many.\nAward: Villa Massimo: EUR 3\,000/month\; Casa Baldi: EUR 3\,000/mon
+ th\; Deutsches Studienzentrum Venedig: EUR 1\,534/month\; Paris: approx. E
+ UR 1\,500/month. Accommodation and studio provided at all locations. No ap
+ plication fee.\nDuration: 3 to 10 months depending on residency\n\nMore: h
+ ttps://www.kulturstiftung.de/auslandsstipendien-von-bund-und-laendern-allg
+ emeines/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.kulturstiftung.de/auslandsstipendien-von-bund-und-laendern-
  allgemeines/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Residencies in Rome (Villa Massimo\, 10 months)\, Olevano Romano (
@@ -1511,7 +215,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ile-de-france-residences-arts-numeriques-2027@artificialnouveau.github.
  io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20270318
 DTEND;VALUE=DATE:20270319
 SUMMARY:Deadline: Region Ile-de-France: Programme regional de residences d'
@@ -1520,18 +224,15 @@ DESCRIPTION:Regional residency programme pairing an artist with an Ile-de-F
  rance venue for a creation residency in visual\, digital or urban arts. Th
  e artist receives a bourse of EUR 2\,400 gross per month for 2 to 10 month
  s\, and the venue receives support for its mediation programme around the 
- residency. ELIGIBILITY: professional artists affiliated to the French arti
- st social-security regime (in practice\, artists working in France)\, appl
- ying jointly with the host venue. The May 2026 session is closed. DEADLINE
- : 18 March 2027 for the next session.\n\nOrganisation: Region Ile-de-Franc
- e\nLocation: Ile-de-France\, France. Professional artists affiliated to th
- e French artist social-security regime\, applying jointly with an Ile-de-F
- rance host venue.\nAward: EUR 2\,400 gross per month bourse to the artist 
- for a residency of 2 to 10 months\; the programme also funds the host venu
- e's mediation programme. No application fee.\nDuration: 2 to 10 months\n\n
- More: https://www.iledefrance.fr/aides-et-appels-a-projets/programme-regio
- nal-de-residences-dartistes-arts-plastiques-numeriques-et-urbains?utm_sour
- ce=artificialnouveaugrantdesk&utm_medium=referral
+ residency.\n\nOrganisation: Region Ile-de-France\nLocation: Ile-de-France\
+ , France. Professional artists affiliated to the French artist social-secu
+ rity regime\, applying jointly with an Ile-de-France host venue.\nAward: E
+ UR 2\,400 gross per month bourse to the artist for a residency of 2 to 10 
+ months\; the programme also funds the host venue's mediation programme. No
+  application fee.\nDuration: 2 to 10 months\n\nMore: https://www.iledefran
+ ce.fr/aides-et-appels-a-projets/programme-regional-de-residences-dartistes
+ -arts-plastiques-numeriques-et-urbains?utm_source=artificialnouveaugrantde
+ sk&utm_medium=referral
 URL:https://www.iledefrance.fr/aides-et-appels-a-projets/programme-regional
  -de-residences-dartistes-arts-plastiques-numeriques-et-urbains?utm_source=
  artificialnouveaugrantdesk&utm_medium=referral
@@ -1542,7 +243,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:workspacebrussels-studio-residency-aug-dec-2027@artificialnouveau.githu
  b.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261201
 DTEND;VALUE=DATE:20261202
 SUMMARY:Deadline: workspacebrussels Studio Residencies\, August to December
@@ -1550,24 +251,15 @@ SUMMARY:Deadline: workspacebrussels Studio Residencies\, August to December
 DESCRIPTION:Research and creation studio residencies in Brussels for artist
  s working in the performing arts in the broad sense: dance\, performance\,
   theatre and crossovers with other disciplines (projects that are purely c
- ircus\, visual art\, music or for young audiences are excluded). WHAT YOU 
- GET: one to two weeks of free studio space tailored to your project\, a EU
- R 750 flat fee per selected project for travel and lunch\, overnight guest
- house accommodation for international artists subject to availability\, ba
- sic technical equipment in some studios\, and an optional moment to share 
- work with other residents. ELIGIBILITY: open to Belgian and international 
- artists and collectives at any career stage. Applications can be written o
- r submitted as audio or video\, in Dutch\, French or English. DEADLINE: 1 
- December 2026 for residencies between August and December 2027\; selection
- s announced end of February 2027.\n\nOrganisation: workspacebrussels\nLoca
- tion: Brussels\, Belgium. Open to Belgian and international performing art
- ists\; guesthouse accommodation available for internationals (limited avai
- lability).\nAward: EUR 750 flat fee per selected project for travel and lu
- nch costs\, plus a free studio for one to two weeks\, basic technical equi
- pment in some studios\, communal lunches and optional work sharings. No ap
- plication fee.\nDuration: 1 to 2 weeks between August and December 2027\n\
- nMore: https://www.workspacebrussels.be/en/studio-residency?utm_source=art
- ificialnouveaugrantdesk&utm_medium=referral
+ ircus\, visual art\, music or for young audiences are excluded).\n\nOrgani
+ sation: workspacebrussels\nLocation: Brussels\, Belgium. Open to Belgian a
+ nd international performing artists\; guesthouse accommodation available f
+ or internationals (limited availability).\nAward: EUR 750 flat fee per sel
+ ected project for travel and lunch costs\, plus a free studio for one to t
+ wo weeks\, basic technical equipment in some studios\, communal lunches an
+ d optional work sharings. No application fee.\nDuration: 1 to 2 weeks betw
+ een August and December 2027\n\nMore: https://www.workspacebrussels.be/en/
+ studio-residency?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.workspacebrussels.be/en/studio-residency?utm_source=artific
  ialnouveaugrantdesk&utm_medium=referral
 LOCATION:Brussels\, Belgium. Open to Belgian and international performing a
@@ -1575,79 +267,28 @@ LOCATION:Brussels\, Belgium. Open to Belgian and international performing a
  ailability).
 END:VEVENT
 BEGIN:VEVENT
-UID:institut-francais-cite-internationale-des-arts-2027@artificialnouveau.g
- ithub.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261008
-DTEND;VALUE=DATE:20261009
-SUMMARY:Deadline: Institut francais x Cite internationale des arts Residenc
- y 2027 (Paris)
-DESCRIPTION:The Institut francais' flagship international residency line at
-  the Cite internationale des arts in Paris: around 70 live-in studios a ye
- ar for artists and cultural professionals across 15 disciplines\, from vis
- ual arts\, film\, music\, dance and literature to architecture\, fashion a
- nd gastronomy. WHAT YOU GET: a live-in studio in the Marais or Montmartre 
- covered by the Institut francais\, with a residency grant of at least EUR 
- 1\,100 per month plus travel\, insurance and visa costs funded by the part
- ner organization that nominates you. ELIGIBILITY: professional artists per
- manently residing outside France for at least five years\, free of obligat
- ions during the residency\, with working French and/or English. IMPORTANT:
-  you apply through a supporting partner (local Institut francais\, embassy
-  cultural service or cultural organization)\, not directly\; contact your 
- local branch before the deadline. DEADLINE: 8 October 2026 for residencies
-  of 3\, 6 or 9 months starting between April 2027 and April 2028.\n\nOrgan
- isation: Institut francais and Cite internationale des arts\nLocation: Par
- is\, France. Open worldwide to artists who have lived outside France for a
- t least five years\; applications go through a partner organization (Insti
- tut francais network\, cultural institutions)\, not directly.\nAward: Resi
- dency grant of minimum EUR 1\,100 per month funded by the nominating partn
- er\, plus international travel\, insurance and visa costs\; the Institut f
- rancais covers the monthly costs of the live-in studio (25 to 40 m2). Arou
- nd 70 places. No application fee.\nDuration: 3\, 6 or 9 months between Apr
- il 2027 and April 2028\n\nMore: https://www.citeinternationaledesarts.fr/e
- n/appels-a-candidature/institut-francais-x-cite-internationale-des-arts/?u
- tm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.citeinternationaledesarts.fr/en/appels-a-candidature/instit
- ut-francais-x-cite-internationale-des-arts/?utm_source=artificialnouveaugr
- antdesk&utm_medium=referral
-LOCATION:Paris\, France. Open worldwide to artists who have lived outside F
- rance for at least five years\; applications go through a partner organiza
- tion (Institut francais network\, cultural institutions)\, not directly.
-END:VEVENT
-BEGIN:VEVENT
 UID:witte-rook-izolyatsia-digital-explorers-2027@artificialnouveau.github.i
  o
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261115
-DTEND;VALUE=DATE:20261116
-SUMMARY:Deadline: Witte Rook x IZOLYATSIA: Digital Explorers (Across Border
- s) Online Residency 2027
-DESCRIPTION:Witte Rook (Breda) and the Ukrainian platform IZOLYATSIA run Di
- gital Explorers (Across Borders)\, a fully online residency program explor
- ing the artist-in-residence of the future through cross-border collaborati
- on. Each of three phases pairs one artist from the Netherlands with one fr
- om Ukraine\, working together for about three months on the common.garden 
- platform. WHAT YOU GET: EUR 1\,800 fee plus EUR 1\,000 material budget per
-  artist (both excluding VAT)\, expert discussions\, technical support\, a 
- physical and online exhibition (final exhibitions planned for spring 2028)
-  and a published article about the creative process. ELIGIBILITY: artists 
- and makers working in digital culture and interested in new technology who
-  live and work in the Netherlands or Ukraine\; proficiency in English requ
- ired. APPLICATION: in English via the IZOLYATSIA platform\; motivation let
- ter (max 1\,000 words)\, CV (max 3 A4 pages) and portfolio (max 10 A4 page
- s\, 20 MB)\; applicants indicate a first and second priority phase. PHASES
- : 'Form' (January to March 2027)\, 'Content' (May to July 2027)\, 'Analysi
- s' (September to December 2027). DEADLINE: 15 November 2026\, 23:59 CET.\n
- \nOrganisation: Witte Rook and IZOLYATSIA\nLocation: Online\, on the commo
- n.garden platform. Open to artists living and working in the Netherlands o
- r Ukraine. Organizers based in Breda (NL) and Ukraine.\nAward: EUR 1\,800 
- artist fee (excluding VAT) plus EUR 1\,000 material budget (excluding VAT)
-  per artist. Six artists selected in total (three Dutch-Ukrainian pairs). 
- No application fee.\nDuration: Approximately three months per phase: Phase
-  1 'Form' (January to March 2027)\, Phase 2 'Content' (May to July 2027)\,
-  Phase 3 'Analysis' (September to December 2027).\n\nMore: https://wittero
- ok.nl/agenda/open-call-digital-explorers/?utm_source=artificialnouveaugran
- tdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261115T222900Z
+DTEND:20261115T225900Z
+SUMMARY:Deadline 23:59 CET: Witte Rook x IZOLYATSIA: Digital Explorers (Acr
+ oss Borders) Online Residency 2027
+DESCRIPTION:Closes 15 Nov 2026 at 23:59 CET.\n\nWitte Rook (Breda) and the 
+ Ukrainian platform IZOLYATSIA run Digital Explorers (Across Borders)\, a f
+ ully online residency program exploring the artist-in-residence of the fut
+ ure through cross-border collaboration. Each of three phases pairs one art
+ ist from the Netherlands with one from Ukraine\, working together for abou
+ t three months on the common.garden platform.\n\nOrganisation: Witte Rook 
+ and IZOLYATSIA\nLocation: Online\, on the common.garden platform. Open to 
+ artists living and working in the Netherlands or Ukraine. Organizers based
+  in Breda (NL) and Ukraine.\nAward: EUR 1\,800 artist fee (excluding VAT) 
+ plus EUR 1\,000 material budget (excluding VAT) per artist. Six artists se
+ lected in total (three Dutch-Ukrainian pairs). No application fee.\nDurati
+ on: Approximately three months per phase: Phase 1 'Form' (January to March
+  2027)\, Phase 2 'Content' (May to July 2027)\, Phase 3 'Analysis' (Septem
+ ber to December 2027).\n\nMore: https://witterook.nl/agenda/open-call-digi
+ tal-explorers/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://witterook.nl/agenda/open-call-digital-explorers/?utm_source=art
  ificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Online\, on the common.garden platform. Open to artists living and
@@ -1657,7 +298,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:hiap-usrp-ukraine-solidarity-residencies-2027@artificialnouveau.github.
  io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261102
 DTEND;VALUE=DATE:20261103
 SUMMARY:Deadline: HIAP: Ukraine Solidarity Residencies Programme 2027 (Finl
@@ -1666,35 +307,19 @@ DESCRIPTION:The Ukraine Solidarity Residencies Programme (USRP)\, run by HI
  AP with partner residencies and supported by the Finnish Ministry of Educa
  tion and Culture\, offers residencies across Finland for professional Ukra
  inian or Ukraine-based artists and arts practitioners affected by the war\
- , whether still in Ukraine or based elsewhere. WHAT YOU GET: a working gra
- nt of EUR 1\,200 per month\, free living and working space\, one return tr
- ip from the artist's home\, and a small access budget for disabled artists
- . HOSTS: HIAP Suomenlinna in Helsinki (families welcome)\, AARK in the Tur
- ku Archipelago (families welcome)\, Art Centre Salmela in Mantyharju\, eco
-  art residency Fairres in Porvoo\, Nelimarkka Artist Residency in Alajarvi
- \, Vartsila Art House in North Karelia (prioritises artists with families)
-  and Gjutars Artists House in Vantaa\; some hosts take up to four people i
- ncluding family members\, and applicants state their preferred location an
- d length in the form. ELIGIBILITY: professional Ukrainian or Ukraine-based
-  artists and arts practitioners from all disciplines\, affected by the war
-  in Ukraine. APPLICATION: in English via the online form only (hiap.fi/usr
- p-application-form)\; professional background and current situation (up to
-  250 words or 2 minutes each\, text\, audio or video accepted) and a portf
- olio link of up to 10 pages or 5 minutes\; access requirements can be shar
- ed confidentially. DEADLINE: 2 November 2026\, 15:00 (GMT+2)\; jury meets 
- in November.\n\nOrganisation: HIAP (Helsinki International Artist Programm
- e) and partner residencies\nLocation: Seven residencies across Finland: HI
- AP Suomenlinna (Helsinki)\, AARK (Korpo\, Turku Archipelago)\, Art Centre 
- Salmela (Mantyharju)\, Fairres (Porvoo)\, Nelimarkka Artist Residency (Ala
- jarvi)\, Vartsila Art House (North Karelia) and Gjutars Artists House (Van
- taa). Open to Ukrainian or Ukraine-based artists.\nAward: Working grant of
-  EUR 1\,200 per month (EUR 1\,200 to 3\,600 depending on residency length)
- \, plus free living and working space\, one return trip from the artist's 
- home\, and a small access budget for disabled artists. No application fee.
- \nDuration: 1 to 3 months (extension possible)\, between January and July 
- 2027.\n\nMore: https://www.hiap.fi/open-call/open-call-for-ukrainian-and-u
- kraine-based-artists-in-finland-2027/?utm_source=artificialnouveaugrantdes
- k&utm_medium=referral
+ , whether still in Ukraine or based elsewhere.\n\nOrganisation: HIAP (Hels
+ inki International Artist Programme) and partner residencies\nLocation: Se
+ ven residencies across Finland: HIAP Suomenlinna (Helsinki)\, AARK (Korpo\
+ , Turku Archipelago)\, Art Centre Salmela (Mantyharju)\, Fairres (Porvoo)\
+ , Nelimarkka Artist Residency (Alajarvi)\, Vartsila Art House (North Karel
+ ia) and Gjutars Artists House (Vantaa). Open to Ukrainian or Ukraine-based
+  artists.\nAward: Working grant of EUR 1\,200 per month (EUR 1\,200 to 3\,
+ 600 depending on residency length)\, plus free living and working space\, 
+ one return trip from the artist's home\, and a small access budget for dis
+ abled artists. No application fee.\nDuration: 1 to 3 months (extension pos
+ sible)\, between January and July 2027.\n\nMore: https://www.hiap.fi/open-
+ call/open-call-for-ukrainian-and-ukraine-based-artists-in-finland-2027/?ut
+ m_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.hiap.fi/open-call/open-call-for-ukrainian-and-ukraine-based
  -artists-in-finland-2027/?utm_source=artificialnouveaugrantdesk&utm_medium
  =referral
@@ -1706,50 +331,30 @@ LOCATION:Seven residencies across Finland: HIAP Suomenlinna (Helsinki)\, AA
 END:VEVENT
 BEGIN:VEVENT
 UID:jan-van-eyck-residency-2028@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261201
-DTEND;VALUE=DATE:20261202
-SUMMARY:Deadline: Jan van Eyck Academie Residency 2028 (Maastricht\, 11 mon
- ths)
-DESCRIPTION:The Jan van Eyck Academie's general open call for its 2028 resi
- dency year: 30 to 32 artists\, curators\, designers\, writers\, architects
-  and other artistic researchers spend 11 months (15 January to 15 December
-  2028) in Maastricht\, across material-based and research-driven practices
- \, with access to the academy's labs and community. Individuals\, duos\, c
- ollectives and candidates with children can apply\; duos and collectives s
- ubmit one application and pay one fee. SUPPORT: monthly stipend of EUR 1\,
- 500 (EUR 2\,000 with children\; duos EUR 1\,500 each or EUR 2\,500 combine
- d for life partners\; collectives up to EUR 4\,500 combined)\, with rent i
- ncluding service costs deducted\; EUR 2\,000 annual working budget\; newly
-  built furnished private studio apartments (families get a spacious privat
- e apartment\; collectives up to three studio apartments\, possibly on rota
- tion). ELIGIBILITY: no nationality or age restriction\; sufficient English
-  required (Dutch and English are the working languages)\; full-time alumni
-  of the Rijksakademie or De Ateliers are not eligible\; the academy is not
-  an educational institute and provides no degrees or ECTS. FEES: applicati
- on fee EUR 65 excl. VAT (EUR 78.65 incl. VAT)\, waived for applicants from
-  and living in OECD DAC-list ODA recipient countries\; enrolment fee EUR 2
- \,750 excl. VAT for accepted participants. APPLY via the Dapple platform w
- ith an artist statement (250 words)\, motivation (500 words) and project p
- roposal (500 words) in English (or one video/audio/link covering all three
- )\, plus one PDF (max 10 MB) with recent work from the last five years (ma
- x 25 pages) and a CV (max 2 pages)\; applications cannot be changed after 
- submission. TIMELINE: call opened 5 October 2026\; selection outcome mid-M
- ay 2027. DEADLINE: 1 December 2026\, 23:59 CET.\n\nOrganisation: Jan van E
- yck Academie\nLocation: Maastricht\, Netherlands. Open worldwide\; partici
- pants must settle in Maastricht and register with the municipality (the ac
- ademy applies for visas where relevant).\nAward: Monthly stipend of EUR 1\
- ,500 (EUR 2\,000 for participants with children\; EUR 1\,500 per duo membe
- r or EUR 2\,500 combined for life partners\; collectives up to EUR 4\,500 
- combined\, max three stipends)\, with rent including service costs deducte
- d from the stipend. Plus a EUR 2\,000 annual working budget and a newly bu
- ilt\, furnished private studio apartment. Application fee EUR 65 excl. VAT
-  (EUR 78.65 incl. VAT)\, waived for applicants from and living in OECD DAC
- -list countries\; enrolment fee for accepted participants EUR 2\,750 excl.
-  VAT.\nDuration: 11 months\, 15 January to 15 December 2028\; 30 to 32 pos
- itions\; selection outcome mid-May 2027.\n\nMore: https://www.janvaneyck.n
- l/calendar/apply-now-jve-residency-2028?utm_source=artificialnouveaugrantd
- esk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261201T222900Z
+DTEND:20261201T225900Z
+SUMMARY:Deadline 23:59 CET: Jan van Eyck Academie Residency 2028 (Maastrich
+ t\, 11 months)
+DESCRIPTION:Closes 01 Dec 2026 at 23:59 CET.\n\nThe Jan van Eyck Academie's
+  general open call for its 2028 residency year: 30 to 32 artists\, curator
+ s\, designers\, writers\, architects and other artistic researchers spend 
+ 11 months (15 January to 15 December 2028) in Maastricht\, across material
+ -based and research-driven practices\, with access to the academy's labs a
+ nd community.\n\nOrganisation: Jan van Eyck Academie\nLocation: Maastricht
+ \, Netherlands. Open worldwide\; participants must settle in Maastricht an
+ d register with the municipality (the academy applies for visas where rele
+ vant).\nAward: Monthly stipend of EUR 1\,500 (EUR 2\,000 for participants 
+ with children\; EUR 1\,500 per duo member or EUR 2\,500 combined for life 
+ partners\; collectives up to EUR 4\,500 combined\, max three stipends)\, w
+ ith rent including service costs deducted from the stipend. Plus a EUR 2\,
+ 000 annual working budget and a newly built\, furnished private studio apa
+ rtment. Application fee EUR 65 excl. VAT (EUR 78.65 incl. VAT)\, waived fo
+ r applicants from and living in OECD DAC-list countries\; enrolment fee fo
+ r accepted participants EUR 2\,750 excl. VAT.\nDuration: 11 months\, 15 Ja
+ nuary to 15 December 2028\; 30 to 32 positions\; selection outcome mid-May
+  2027.\n\nMore: https://www.janvaneyck.nl/calendar/apply-now-jve-residency
+ -2028?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.janvaneyck.nl/calendar/apply-now-jve-residency-2028?utm_sou
  rce=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Maastricht\, Netherlands. Open worldwide\; participants must settl
@@ -1758,53 +363,29 @@ LOCATION:Maastricht\, Netherlands. Open worldwide\; participants must settl
 END:VEVENT
 BEGIN:VEVENT
 UID:cifnl-videotage-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261021
 DTEND;VALUE=DATE:20261022
 SUMMARY:Deadline: Creative Industries Fund NL: Residency Videotage 2027 (Ho
  ng Kong)
 DESCRIPTION:The Creative Industries Fund NL offers one residency at Videota
  ge\, the Hong Kong media art institute (est. 1986) known for critical work
-  on XR\, AI\, blockchain and video games. The 2027 edition takes the techn
- ological 'black box' phenomenon as its starting point: deep neural network
- s now shape social media\, healthcare\, finance\, governance and justice w
- hile their inner workings remain hard to grasp\, and the resident is invit
- ed to explore this through media art in Hong Kong's urban context. WHO: an
-  individual designer\, maker or observer within digital culture\, establis
- hed in the Netherlands or the Caribbean parts of the Kingdom\, registered 
- with the KvK (or another Kingdom business register)\, with at least four y
- ears of professional practice. NOT for duos\, collectives\, or recipients 
- of CIFNL Talent Development\, Self-taught Designer or Emerging Design Prac
- tices ABCSSS grants during the work period (winning this excludes applying
-  to those schemes in 2027). SUPPORT: EUR 5\,000 (two months) or EUR 6\,500
-  (three months) for travel\, insurance\, living costs\, time and materials
- \; housing\, workspace\, curatorial guidance and production costs are paid
-  directly to Videotage\; accommodation arranged by Videotage\; access to e
- quipment and the Videotage Media Art Collection archive. SELECTION: tender
- -style ranking by an external advisory committee on artistic quality\, pro
- ject quality and motivation\; the top five proposals go to Videotage\, whi
- ch co-decides\; decision within eight weeks of closing. APPLY via the Fund
- 's application platform (aanvragen.stimuleringsfonds.nl)\, round 'Open Cal
- l Residencies 2027'\, preferably in English: work plan (max 4 A4 / 4 MB PD
- F)\, brief CV (max 2 A4)\, portfolio (max 8 A4 / 8 MB)\, certified KvK ext
- ract under one year old\, and a representative JPG image. NOTE: account ac
- tivation on the platform takes one working day\, so register early. DEADLI
- NE: 21 October 2026\, 16:00 CEST.\n\nOrganisation: Creative Industries Fun
- d NL (Stimuleringsfonds Creatieve Industrie)\, with Videotage\nLocation: H
- ong Kong (Videotage premises). Only for applicants established in the Neth
- erlands\, Aruba\, Bonaire\, Curacao\, Saba\, Sint Eustatius or Sint Maarte
- n and registered with a Kingdom of the Netherlands business register (KvK)
- .\nAward: One residency grant: EUR 5\,000 for a two-month work period or E
- UR 6\,500 for three months\, covering travel\, insurance\, living expenses
- \, compensation for time invested\, and material and transport costs. Hous
- ing\, work space\, Videotage guidance and production costs are paid by the
-  Fund directly to Videotage on top of the grant\; accommodation is arrange
- d by Videotage. No application fee.\nDuration: 23 March to 18 May 2027 (tw
- o months) or 23 March to 15 June 2027 (three months)\; state your preferre
- d period. Research period plus a concluding public presentation event for 
- Videotage's Hong Kong network.\n\nMore: https://www.stimuleringsfonds.nl/e
- n/grants/open-call-videotage?utm_source=artificialnouveaugrantdesk&utm_med
- ium=referral
+  on XR\, AI\, blockchain and video games.\n\nOrganisation: Creative Indust
+ ries Fund NL (Stimuleringsfonds Creatieve Industrie)\, with Videotage\nLoc
+ ation: Hong Kong (Videotage premises). Only for applicants established in 
+ the Netherlands\, Aruba\, Bonaire\, Curacao\, Saba\, Sint Eustatius or Sin
+ t Maarten and registered with a Kingdom of the Netherlands business regist
+ er (KvK).\nAward: One residency grant: EUR 5\,000 for a two-month work per
+ iod or EUR 6\,500 for three months\, covering travel\, insurance\, living 
+ expenses\, compensation for time invested\, and material and transport cos
+ ts. Housing\, work space\, Videotage guidance and production costs are pai
+ d by the Fund directly to Videotage on top of the grant\; accommodation is
+  arranged by Videotage. No application fee.\nDuration: 23 March to 18 May 
+ 2027 (two months) or 23 March to 15 June 2027 (three months)\; state your 
+ preferred period. Research period plus a concluding public presentation ev
+ ent for Videotage's Hong Kong network.\n\nMore: https://www.stimuleringsfo
+ nds.nl/en/grants/open-call-videotage?utm_source=artificialnouveaugrantdesk
+ &utm_medium=referral
 URL:https://www.stimuleringsfonds.nl/en/grants/open-call-videotage?utm_sour
  ce=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Hong Kong (Videotage premises). Only for applicants established in
@@ -1814,7 +395,7 @@ LOCATION:Hong Kong (Videotage premises). Only for applicants established in
 END:VEVENT
 BEGIN:VEVENT
 UID:creart-lublin-residency-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261023
 DTEND;VALUE=DATE:20261024
 SUMMARY:Deadline: CreArt 3.0: Artist Residency in Lublin 2026
@@ -1822,31 +403,18 @@ DESCRIPTION:The City of Lublin and Warsztaty Kultury host a 17-day CreArt 3
  .0 residency for two artists (one from Lublin\, one from another CreArt ne
  twork city) who develop a joint project based on a 1.5-metre movable globe
   originally made for the Planet Lublin installation\, to be presented in L
- ublin's public space. WHAT YOU GET: EUR 800 gross grant per artist (paid w
- ithin 21 days after the residency\; 20 percent income tax reduction for ar
- tists from abroad)\, up to EUR 460 gross production budget\, and\, for art
- ists from CreArt cities\, flights to Warsaw or Lublin\, accommodation and 
- two meals a day (Warsaw to Lublin transfer at the artist's own cost). ELIG
- IBILITY: individual artists (no groups) born or residing in a CreArt netwo
- rk city\, HDLU members\, or Ukrainian artists via the Lviv Artistic Counci
- l Dialogue\; an arts degree or equivalent documented track record is requi
- red\; no age limit\; a European Health Insurance Card or equivalent is req
- uired. Application: one English PDF (ID\, proof of network-city connection
- \, CV\, portfolio\, project proposal) via the CreArt website. Results by 3
- 0 October 2026. An English final report of at least 6 pages is due afterwa
- rds. DEADLINE: 23 October 2026.\n\nOrganisation: City of Lublin and Warszt
- aty Kultury (CreArt network)\nLocation: Lublin\, Poland. Open to artists b
- orn or residing in a CreArt network city (Kaunas\, Liepaja\, Skopje\, Avei
- ro\, Valladolid\, Lublin\, Venice\, Clermont-Ferrand\, Rouen\, Regensburg\
- , Ceske Budejovice\, Oulu)\, plus HDLU members (Croatia) and Ukrainian art
- ists via the Lviv Artistic Council Dialogue.\nAward: EUR 800 gross grant p
- er artist plus up to EUR 460 gross for materials and production\; flights\
- , accommodation and two meals a day covered for artists from CreArt networ
- k cities. No application fee.\nDuration: 17-day residency\, 12 to 28 Novem
- ber 2026\, with a public presentation in Lublin on 27 November.\n\nMore: h
- ttps://creart2-eu.org/open-calls/open-call-creart-3-0-artist-residency-pro
- gram-in-lublin-2026?utm_source=artificialnouveaugrantdesk&utm_medium=refer
- ral
+ ublin's public space.\n\nOrganisation: City of Lublin and Warsztaty Kultur
+ y (CreArt network)\nLocation: Lublin\, Poland. Open to artists born or res
+ iding in a CreArt network city (Kaunas\, Liepaja\, Skopje\, Aveiro\, Valla
+ dolid\, Lublin\, Venice\, Clermont-Ferrand\, Rouen\, Regensburg\, Ceske Bu
+ dejovice\, Oulu)\, plus HDLU members (Croatia) and Ukrainian artists via t
+ he Lviv Artistic Council Dialogue.\nAward: EUR 800 gross grant per artist 
+ plus up to EUR 460 gross for materials and production\; flights\, accommod
+ ation and two meals a day covered for artists from CreArt network cities. 
+ No application fee.\nDuration: 17-day residency\, 12 to 28 November 2026\,
+  with a public presentation in Lublin on 27 November.\n\nMore: https://cre
+ art2-eu.org/open-calls/open-call-creart-3-0-artist-residency-program-in-lu
+ blin-2026?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://creart2-eu.org/open-calls/open-call-creart-3-0-artist-residency
  -program-in-lublin-2026?utm_source=artificialnouveaugrantdesk&utm_medium=r
  eferral
@@ -1858,52 +426,25 @@ LOCATION:Lublin\, Poland. Open to artists born or residing in a CreArt netw
 END:VEVENT
 BEGIN:VEVENT
 UID:salta-art-ebenboeckhaus-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261115
-DTEND;VALUE=DATE:20261116
-SUMMARY:Deadline: Salta art / AIR-M Ebenböckhaus Residency 2027 for South 
- American Artists (Munich)
-DESCRIPTION:AIR-M Ebenböckhaus and the non-profit Salta art\, in partnersh
- ip with ERA Foundation\, offer a residency for two contemporary visual art
- ists from South America at the Ebenböckhaus in Munich-Pasing\, Germany\, 
- from 7 July to 29 September 2027. Since 2022 the Department of Arts and Cu
- lture of the City of Munich has collaborated with Salta art to extend the 
- residency programme to South America\; ERA Foundation's support funds the 
- second position. WHAT YOU GET: a grant and accommodation contract of EUR 1
- \,300 per month from the City of Munich\, rent-free accommodation in a sha
- red apartment with individual lockable rooms\, three work and presentation
-  rooms (52 m2) in the house\, return tickets from South America (economy /
-  2nd class)\, a shared studio at Empfangshalle in the Museumsquartier\, a 
- EUR 600 research trip allowance and a MakerPlus membership at MakerSpace M
- unich (wood\, metal\, electronics\, IoT\, laser cutting\, additive manufac
- turing\, textile workshops). A mentoring initiative pairs each resident wi
- th a Munich-based curator for up to three meetings\, a research trip is or
- ganised\, and an Open Studio event closes the residency. A curator from So
- uth America will also live and work at the house for part of the period. E
- LIGIBILITY: professional visual artists (painting\, drawing\, sculpture\, 
- photography\, film\, video\, digital art\, performance or interdisciplinar
- y practices) born and based or residing in South America\, over 18\, not s
- tudents\, who pursue art as their main occupation and can demonstrate prof
- essional experience\; former residents of Villa Waldberta or Ebenböckhaus
-  are not eligible. A good level of spoken English is required and applicat
- ions must be completed in English. APPLICATION: free\, via Google Form wit
- h one PDF (max 10MB\, 20 pages) containing personal information\, one refe
- ree contact\, a 200-word biography\, CV (max 4 pages)\, letter of intent\,
-  practice description (max 500 words) and work samples. Selection is decid
- ed by the City of Munich on the recommendation of the Salta art jury (Aman
- da Carneiro\, MASP\; Chus Martinez\; Anna Schneider\, DAS MINSK)\; outcome
- s by end of December 2026. Note: the Ebenböckhaus is not barrier-free. DE
- ADLINE: 15 November 2026\, midnight CET.\n\nOrganisation: Salta art with A
- IR-M Ebenböckhaus (City of Munich) and ERA Foundation\nLocation: Ebenböc
- khaus\, Munich-Pasing\, Germany. Open only to visual artists born and base
- d or residing in South America.\nAward: Grant and accommodation contract o
- f EUR 1\,300 per month per artist from the City of Munich (accommodation i
- s rent-free)\, plus return travel from South America (economy / 2nd class)
- \, a shared studio at Empfangshalle in Munich's Museumsquartier\, a EUR 60
- 0 research trip allowance and a MakerPlus membership at MakerSpace Munich.
-  No application fee.\nDuration: 7 July to 29 September 2027 (about 12 week
- s\, 2 positions).\n\nMore: https://saltaart.org/application?utm_source=art
- ificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261115T222900Z
+DTEND:20261115T225900Z
+SUMMARY:Deadline 23:59 CET: Salta art / AIR-M Ebenböckhaus Residency 2027 
+ for South American Artists (Munich)
+DESCRIPTION:Closes 15 Nov 2026 at 23:59 CET.\n\nAIR-M Ebenböckhaus and the
+  non-profit Salta art\, in partnership with ERA Foundation\, offer a resid
+ ency for two contemporary visual artists from South America at the Ebenbö
+ ckhaus in Munich-Pasing\, Germany\, from 7 July to 29 September 2027.\n\nO
+ rganisation: Salta art with AIR-M Ebenböckhaus (City of Munich) and ERA F
+ oundation\nLocation: Ebenböckhaus\, Munich-Pasing\, Germany. Open only to
+  visual artists born and based or residing in South America.\nAward: Grant
+  and accommodation contract of EUR 1\,300 per month per artist from the Ci
+ ty of Munich (accommodation is rent-free)\, plus return travel from South 
+ America (economy / 2nd class)\, a shared studio at Empfangshalle in Munich
+ 's Museumsquartier\, a EUR 600 research trip allowance and a MakerPlus mem
+ bership at MakerSpace Munich. No application fee.\nDuration: 7 July to 29 
+ September 2027 (about 12 weeks\, 2 positions).\n\nMore: https://saltaart.o
+ rg/application?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://saltaart.org/application?utm_source=artificialnouveaugrantdesk&
  utm_medium=referral
 LOCATION:Ebenböckhaus\, Munich-Pasing\, Germany. Open only to visual artis
@@ -1911,36 +452,31 @@ LOCATION:Ebenböckhaus\, Munich-Pasing\, Germany. Open only to visual artis
 END:VEVENT
 BEGIN:VEVENT
 UID:daad-artists-in-berlin-2028@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261215
-DTEND;VALUE=DATE:20261216
-SUMMARY:Deadline: DAAD Artists-in-Berlin Program 2028 (Berliner Kuenstlerpr
- ogramm: literature\, music and sound\, film)
-DESCRIPTION:One of the best-known international artist residencies: establi
- shed artists live and work in Berlin for a year (six months for film) and 
- become part of the city's cultural scene. Applications are open in literat
- ure\, music and sound\, and film\; visual arts fellows are nominated by a 
- jury and cannot apply. ELIGIBILITY: established artists with their own voi
- ce and standing\, no upper age limit\; students and recent graduates are n
- ot eligible (doctoral students are). German nationals and artists residing
-  primarily in Germany are excluded\, with narrow exceptions for German dua
- l nationals abroad and recent arrivals. Alumni cannot reapply. Window open
- ed 19 October 2026\; deadline 15 December 2026\, 23:59 CET.\n\nOrganisatio
- n: DAAD Artists-in-Berlin Program (Berliner Kuenstlerprogramm)\nLocation: 
- Berlin\, Germany. In person.\nAward: Monthly stipend to cover living expen
- ses and rent (amount not published)\, furnished apartment\, and economy tr
- avel and luggage costs (also for partners and children living in Berlin fo
- r the full fellowship). No application fee.\nDuration: 12 months for liter
- ature and music and sound\; 6 months for film.\n\nMore: https://www.berlin
- er-kuenstlerprogramm.de/en/application/?utm_source=artificialnouveaugrantd
- esk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261215T222900Z
+DTEND:20261215T225900Z
+SUMMARY:Deadline 23:59 CET: DAAD Artists-in-Berlin Program 2028 (Berliner K
+ uenstlerprogramm: literature\, music and sound\, film)
+DESCRIPTION:Closes 15 Dec 2026 at 23:59 CET.\n\nOne of the best-known inter
+ national artist residencies: established artists live and work in Berlin f
+ or a year (six months for film) and become part of the city's cultural sce
+ ne. Applications are open in literature\, music and sound\, and film\; vis
+ ual arts fellows are nominated by a jury and cannot apply.\n\nOrganisation
+ : DAAD Artists-in-Berlin Program (Berliner Kuenstlerprogramm)\nLocation: B
+ erlin\, Germany. In person.\nAward: Monthly stipend to cover living expens
+ es and rent (amount not published)\, furnished apartment\, and economy tra
+ vel and luggage costs (also for partners and children living in Berlin for
+  the full fellowship). No application fee.\nDuration: 12 months for litera
+ ture and music and sound\; 6 months for film.\n\nMore: https://www.berline
+ r-kuenstlerprogramm.de/en/application/?utm_source=artificialnouveaugrantde
+ sk&utm_medium=referral
 URL:https://www.berliner-kuenstlerprogramm.de/en/application/?utm_source=ar
  tificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Berlin\, Germany. In person.
 END:VEVENT
 BEGIN:VEVENT
 UID:schaufler-residency-tu-dresden-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261109
 DTEND;VALUE=DATE:20261110
 SUMMARY:Deadline: Schaufler Residency@TU Dresden 2027 (six-month art and sc
@@ -1948,33 +484,15 @@ SUMMARY:Deadline: Schaufler Residency@TU Dresden 2027 (six-month art and sc
 DESCRIPTION:The Schaufler Lab at TUD Dresden University of Technology\, a j
  oint project with The Schaufler Foundation\, invites applications for its 
  six-month artist-in-residence at the interface of art and science for 2027
- . The theme of the Lab's third funding phase (2027 to 2030) is Energy Cult
- ures in Transition: how forms of energy and energy transitions shape and a
- re shaped by cultural practices\, value systems\, power relations\, enviro
- nmental relationships and imaginaries of the future. Residents work with t
- he researchers of the Schaufler Kolleg graduate college and the wider univ
- ersity\, with access to humanities\, natural-science and engineering labs\
- , and give lectures\, talks and workshops\, including a collaboration with
-  the Dresden University of Fine Arts. Past residents include Quadrature\, 
- Mario Pfeifer\, Rosa Barba and Esmeralda Conde Ruiz. ELIGIBILITY: internat
- ionally active artists or artist groups in media art\, conceptual art\, pe
- rformance and related fields with completed international projects and exh
- ibitions\, an interest in exchange between artistic and scientific researc
- h\, and proficient German or English\; presence on site in Dresden is requ
- ired by arrangement. Apply with a form\, CV\, portfolio\, project proposal
-  (up to 10\,000 characters)\, project plan with potential TUD collaborator
- s\, a three-minute video and a recent letter of recommendation\, as one PD
- F by email. The call is subject to final funding approval. Residency start
- s April 2027. DEADLINE: 9 November 2026.\n\nOrganisation: Schaufler Lab@TU
-  Dresden (TUD Dresden University of Technology and The Schaufler Foundatio
- n)\nLocation: Dresden\, Germany. Studio on the TU Dresden campus\; on-site
-  presence by arrangement.\nAward: Fellowship of EUR 3\,000 net per month f
- or six months (EUR 18\,000)\, plus a production grant of up to EUR 10\,000
-  for a solo exhibition at the TUD University Gallery in autumn 2027\, a st
- udio on campus and help finding accommodation. No application fee.\nDurati
- on: Six months from April 2027.\n\nMore: https://tu-dresden.de/gsw/schaufl
- erlab/schaufler-residency?utm_source=artificialnouveaugrantdesk&utm_medium
- =referral
+ .\n\nOrganisation: Schaufler Lab@TU Dresden (TUD Dresden University of Tec
+ hnology and The Schaufler Foundation)\nLocation: Dresden\, Germany. Studio
+  on the TU Dresden campus\; on-site presence by arrangement.\nAward: Fello
+ wship of EUR 3\,000 net per month for six months (EUR 18\,000)\, plus a pr
+ oduction grant of up to EUR 10\,000 for a solo exhibition at the TUD Unive
+ rsity Gallery in autumn 2027\, a studio on campus and help finding accommo
+ dation. No application fee.\nDuration: Six months from April 2027.\n\nMore
+ : https://tu-dresden.de/gsw/schauflerlab/schaufler-residency?utm_source=ar
+ tificialnouveaugrantdesk&utm_medium=referral
 URL:https://tu-dresden.de/gsw/schauflerlab/schaufler-residency?utm_source=a
  rtificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Dresden\, Germany. Studio on the TU Dresden campus\; on-site prese
@@ -1982,7 +500,7 @@ LOCATION:Dresden\, Germany. Studio on the TU Dresden campus\; on-site prese
 END:VEVENT
 BEGIN:VEVENT
 UID:dance-ireland-residencies-ss-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261109
 DTEND;VALUE=DATE:20261110
 SUMMARY:Deadline: Dance Ireland Residencies\, Spring/Summer 2027 (DanceHous
@@ -1990,27 +508,18 @@ SUMMARY:Deadline: Dance Ireland Residencies\, Spring/Summer 2027 (DanceHous
 DESCRIPTION:Dance Ireland's residency programme at DanceHouse\, Dublin\, gi
  ves dance artists paid studio time to develop ideas for a new work\, carry
   out artistic research or maintain a studio practice. It is aimed at artis
- ts and projects that are not otherwise funded. WHAT YOU GET: EUR 750 per w
- eek for the participating artist\, subsidised studio space\, an additional
-  EUR 750 distance bursary for artists based more than 100 km from Dublin\,
-  and one dedicated Disabled Dance Artist residency with a EUR 750 bursary 
- and access budget. ELIGIBILITY: Professional Members of Dance Ireland for 
- the general residencies (allow at least a week to renew membership before 
- the deadline)\; the Disabled Dance Artist residency does not require membe
- rship but is for Irish or Ireland-based artists. APPLICATION: read the gui
- delines PDF\, then complete the Google Form linked from the opportunity pa
- ge\; late applications are not accepted. DEADLINE: Monday 9 November 2026 
- at 12 noon.\n\nOrganisation: Dance Ireland\nLocation: Dublin\, Ireland (Da
- nceHouse). For Professional Members of Dance Ireland\; the Disabled Dance 
- Artist residency is open to Irish or Ireland-based artists without members
- hip.\nAward: EUR 750 per week stipend plus subsidised studio space. An ext
- ra EUR 750 bursary for artists living more than 100 km from Dublin (accomm
- odation or travel). One Disabled Dance Artist residency with a EUR 750 bur
- sary and an access budget. No application fee.\nDuration: Week-long reside
- ncies (Monday to Friday) between January and July 2027\; listed Studio 6 w
- eeks run 25 January to 14 May 2027\, other weeks can be proposed.\n\nMore:
-  https://www.danceireland.ie/whats-on/opportunities/ss-2027-dance-ireland-
- residencies/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ ts and projects that are not otherwise funded.\n\nOrganisation: Dance Irel
+ and\nLocation: Dublin\, Ireland (DanceHouse). For Professional Members of 
+ Dance Ireland\; the Disabled Dance Artist residency is open to Irish or Ir
+ eland-based artists without membership.\nAward: EUR 750 per week stipend p
+ lus subsidised studio space. An extra EUR 750 bursary for artists living m
+ ore than 100 km from Dublin (accommodation or travel). One Disabled Dance 
+ Artist residency with a EUR 750 bursary and an access budget. No applicati
+ on fee.\nDuration: Week-long residencies (Monday to Friday) between Januar
+ y and July 2027\; listed Studio 6 weeks run 25 January to 14 May 2027\, ot
+ her weeks can be proposed.\n\nMore: https://www.danceireland.ie/whats-on/o
+ pportunities/ss-2027-dance-ireland-residencies/?utm_source=artificialnouve
+ augrantdesk&utm_medium=referral
 URL:https://www.danceireland.ie/whats-on/opportunities/ss-2027-dance-irelan
  d-residencies/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Dublin\, Ireland (DanceHouse). For Professional Members of Dance I
@@ -2020,7 +529,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:extra-residence-livre-objet-fabrique-pola-2027@artificialnouveau.github
  .io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261109
 DTEND;VALUE=DATE:20261110
 SUMMARY:Deadline: EXTRA Residency 2027: Book-Object on Architecture\, Publi
@@ -2028,33 +537,16 @@ SUMMARY:Deadline: EXTRA Residency 2027: Book-Object on Architecture\, Publi
 DESCRIPTION:EXTRA\, a Bordeaux association that publishes book-objects abou
  t space\, invites proposals for a residency to create a book-object at the
   crossroads of architecture\, publishing and pedagogy\, hosted at Fabrique
-  POLA in Bordeaux. Residents spend four weeks of research and creation bet
- ween January and June 2027 and test the project with a public of their cho
- osing (for example early childhood\, school groups or older people). WHO: 
- artists\, architects\, landscape architects\, urban planners\, graphic des
- igners\, authors and other professionals interested in questions of space\
- ; individual\, duo or collective applications\; no age limit and no stated
-  geographic restriction\, though the call is in French. The project must b
- e unpublished and not already under a publishing contract\, and applicants
-  must be able to step away from other work during the residency periods. W
- HAT YOU GET: a EUR 6\,000 bursary in three instalments (one bursary per pr
- oject\, even for collectives)\, up to EUR 500 for materials and up to EUR 
- 1\,000 for travel on receipts (sustainable transport preferred)\, accommod
- ation for up to two people\, a workspace at Fabrique POLA\, support from E
- XTRA for the research and public experiments\, a presentation at the venue
- \, and possible publication of the book-object under a separate contract w
- ith EXTRA. APPLICATION: free\; see the call page for conditions\, criteria
-  and application guidance\, or contact extra.editeurdespaces@gmail.com. DE
- ADLINE: 9 November 2026.\n\nOrganisation: EXTRA (Editeur d'espaces)\, host
- ed at Fabrique POLA\nLocation: Fabrique POLA\, Bordeaux\, France. No geogr
- aphic restriction stated\; the call is published in French.\nAward: EUR 6\
- ,000 bursary (paid in three instalments\; not multiplied for duos or colle
- ctives)\, up to EUR 500 for materials and up to EUR 1\,000 for travel on r
- eceipts\, accommodation covered. No application fee.\nDuration: 4 weeks of
-  research and creation between January and June 2027.\n\nMore: https://www
- .alternatif-art.com/appel-a-candidature/residence-extra-2027-livre-objet-a
- rchitecture-et-pedagogie/?utm_source=artificialnouveaugrantdesk&utm_medium
- =referral
+  POLA in Bordeaux.\n\nOrganisation: EXTRA (Editeur d'espaces)\, hosted at 
+ Fabrique POLA\nLocation: Fabrique POLA\, Bordeaux\, France. No geographic 
+ restriction stated\; the call is published in French.\nAward: EUR 6\,000 b
+ ursary (paid in three instalments\; not multiplied for duos or collectives
+ )\, up to EUR 500 for materials and up to EUR 1\,000 for travel on receipt
+ s\, accommodation covered. No application fee.\nDuration: 4 weeks of resea
+ rch and creation between January and June 2027.\n\nMore: https://www.alter
+ natif-art.com/appel-a-candidature/residence-extra-2027-livre-objet-archite
+ cture-et-pedagogie/?utm_source=artificialnouveaugrantdesk&utm_medium=refer
+ ral
 URL:https://www.alternatif-art.com/appel-a-candidature/residence-extra-2027
  -livre-objet-architecture-et-pedagogie/?utm_source=artificialnouveaugrantd
  esk&utm_medium=referral
@@ -2064,7 +556,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:hordaland-kunstsenter-nordic-baltic-residency-2027-2028@artificialnouve
  au.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261201
 DTEND;VALUE=DATE:20261202
 SUMMARY:Deadline: Hordaland Kunstsenter Nordic and Baltic Residency 2027/20
@@ -2072,33 +564,17 @@ SUMMARY:Deadline: Hordaland Kunstsenter Nordic and Baltic Residency 2027/20
 DESCRIPTION:Hordaland Kunstsenter\, founded in 1976 as Norway's first artis
  t-run art centre\, invites artists based in the Nordic and Baltic countrie
  s to apply for its 2027/2028 residency programme in central Bergen\, suppo
- rted by the Nordic-Baltic Mobility Programme for Culture. The centre does 
- not privilege any medium and is especially interested in practices that mo
- ve between disciplines\, including exhibition-making\, performance\, sound
- \, publishing\, moving image\, socially engaged and research-based or disc
- ursive work. WHO: artists with a permanent address in Sapmi\, Denmark\, Fi
- nland\, the Faroe Islands\, Greenland\, Iceland\, Sweden\, Aland\, Estonia
- \, Latvia or Lithuania (citizenship not required)\; artists based in Norwa
- y\, full-time students and artistic PhD candidates are not eligible\; visa
-  costs are the resident's own. WHAT YOU GET: a NOK 30\,000 stipend for the
-  full-time two-month residency\, a furnished one-bedroom self-catering apa
- rtment near the centre\, up to EUR 500 travel support booked by the reside
- ncy coordinator\, a dedicated desk and workspace\, access to the project r
- oom\, and connections to studios\, specialist workspaces and production ne
- tworks in Bergen. Residents give a public presentation or talk during thei
- r stay. APPLICATION: fill in the Google form on the call page and email on
- e PDF (CV\, motivation letter on intentions and use of time\, up to 5 slid
- es of recent work) to residency@kunstsenter.no\; questions to scott@kunsts
- enter.no. DEADLINE: 1 December 2026.\n\nOrganisation: Hordaland Kunstsente
- r\nLocation: Bergen\, Norway. For artists with a permanent address in the 
- Nordic region (Sapmi\, Denmark\, Finland\, the Faroe Islands\, Greenland\,
-  Iceland\, Sweden\, Aland) or the Baltic countries (Estonia\, Latvia\, Lit
- huania)\; citizenship not required. Not open to artists based in Norway.\n
- Award: NOK 30\,000 stipend for the two-month residency\, accommodation cov
- ered\, up to EUR 500 travel support\, and a dedicated desk and workspace. 
- No application fee.\nDuration: 2 months\, in one of four periods: spring 2
- 027\, fall 2027\, winter 2027 or spring 2028.\n\nMore: https://kunstsenter
- .no/triangle/5?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ rted by the Nordic-Baltic Mobility Programme for Culture.\n\nOrganisation:
+  Hordaland Kunstsenter\nLocation: Bergen\, Norway. For artists with a perm
+ anent address in the Nordic region (Sapmi\, Denmark\, Finland\, the Faroe 
+ Islands\, Greenland\, Iceland\, Sweden\, Aland) or the Baltic countries (E
+ stonia\, Latvia\, Lithuania)\; citizenship not required. Not open to artis
+ ts based in Norway.\nAward: NOK 30\,000 stipend for the two-month residenc
+ y\, accommodation covered\, up to EUR 500 travel support\, and a dedicated
+  desk and workspace. No application fee.\nDuration: 2 months\, in one of f
+ our periods: spring 2027\, fall 2027\, winter 2027 or spring 2028.\n\nMore
+ : https://kunstsenter.no/triangle/5?utm_source=artificialnouveaugrantdesk&
+ utm_medium=referral
 URL:https://kunstsenter.no/triangle/5?utm_source=artificialnouveaugrantdesk
  &utm_medium=referral
 LOCATION:Bergen\, Norway. For artists with a permanent address in the Nordi
@@ -2109,37 +585,27 @@ END:VEVENT
 BEGIN:VEVENT
 UID:realities-in-transition-rit2-oc3-uncharted-grounds-lev-2027@artificialn
  ouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261106
-DTEND;VALUE=DATE:20261107
-SUMMARY:Deadline: Realities in Transition RiT2 Open Call #3: Uncharted Grou
- nds\, a VRChat world residency with L.E.V. Festival (EUR 10\,000 fee plus 
- up to EUR 15\,000 production)
-DESCRIPTION:Realities in Transition (RiT2)\, a Creative Europe XR cooperati
- on project\, and host partner L.E.V. Festival invite artists with VR devel
- opment experience to co-create a walkable VRChat world conceived as a voya
- ge\, with 5 to 7 environments\, 3 to 5 avatars and optional NPC players\; 
- events\, social worlds and theatre pieces are not wanted. Three individual
-  artists are selected and work together with a creative technologist\, eac
- h indicating the skills they bring (for example Unity development\, 3D art
- \, animation\, sound art or narrative writing) with portfolio examples. WH
- AT YOU GET: an artist fee of EUR 10\,000 gross per artist (EUR 6\,000 on s
- igning\, EUR 2\,000 after the Test Lab\, EUR 2\,000 at the end) and a prod
- uction budget of up to EUR 15\,000 gross for working hours or external ass
- istance. The residency is fully online from January to June 2027\, with a 
- Test Lab at L.E.V. Gijon in May 2027 and a premiere at L.E.V. Matadero in 
- September 2027\; no travel or accommodation is included. APPLICATION: onli
- ne form linked from the call page. DEADLINE (extended): 6 November 2026\, 
- 23:59 CEST.\n\nOrganisation: Realities in Transition (RiT2\, Creative Euro
- pe)\, with L.E.V. Festival\nLocation: Online residency\, with a Test Lab a
- t L.E.V. Gijon and a premiere at L.E.V. Matadero (Madrid)\, Spain. Check t
- he RiT residencies page for country eligibility.\nAward: EUR 10\,000 gross
-  artist fee per selected artist (paid in three instalments) plus up to EUR
-  15\,000 gross production budget shared among the team. No travel or accom
- modation included. No application fee mentioned.\nDuration: 6 months onlin
- e\, January to June 2027\; Test Lab in May 2027\, final presentation in Se
- ptember 2027.\n\nMore: https://www.realities-in-transition.eu/rit-2-open-c
- all-3/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261106T222900Z
+DTEND:20261106T225900Z
+SUMMARY:Deadline 23:59 CET: Realities in Transition RiT2 Open Call #3: Unch
+ arted Grounds\, a VRChat world residency with L.E.V. Festival (EUR 10\,000
+  fee plus up to EUR 15\,000 production)
+DESCRIPTION:Closes 06 Nov 2026 at 23:59 CET.\n\nRealities in Transition (Ri
+ T2)\, a Creative Europe XR cooperation project\, and host partner L.E.V. F
+ estival invite artists with VR development experience to co-create a walka
+ ble VRChat world conceived as a voyage\, with 5 to 7 environments\, 3 to 5
+  avatars and optional NPC players\; events\, social worlds and theatre pie
+ ces are not wanted.\n\nOrganisation: Realities in Transition (RiT2\, Creat
+ ive Europe)\, with L.E.V. Festival\nLocation: Online residency\, with a Te
+ st Lab at L.E.V. Gijon and a premiere at L.E.V. Matadero (Madrid)\, Spain.
+  Check the RiT residencies page for country eligibility.\nAward: EUR 10\,0
+ 00 gross artist fee per selected artist (paid in three instalments) plus u
+ p to EUR 15\,000 gross production budget shared among the team. No travel 
+ or accommodation included. No application fee mentioned.\nDuration: 6 mont
+ hs online\, January to June 2027\; Test Lab in May 2027\, final presentati
+ on in September 2027.\n\nMore: https://www.realities-in-transition.eu/rit-
+ 2-open-call-3/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.realities-in-transition.eu/rit-2-open-call-3/?utm_source=ar
  tificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Online residency\, with a Test Lab at L.E.V. Gijon and a premiere 
@@ -2149,32 +615,26 @@ END:VEVENT
 BEGIN:VEVENT
 UID:realities-in-transition-rit2-oc4-relational-realities-beta-2027@artific
  ialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261110
-DTEND;VALUE=DATE:20261111
-SUMMARY:Deadline: Realities in Transition RiT2 Open Call #4: Relational Rea
- lities with Beta Festival (XR\, three EUR 15\,000 grants)
-DESCRIPTION:Realities in Transition (RiT2)\, a Creative Europe XR cooperati
- on project\, and Beta Festival in Ireland invite artists\, technologists\,
-  storytellers\, engineers\, hackers and designers to develop XR\, interact
- ive\, multi-user work that explores technology through relationships betwe
- en human\, artificial and more-than-human intelligence\, with a focus on d
- ecolonial thinking and interdependence. Three artists are selected\, each 
- paired with a creative technologist and working as a group. WHAT YOU GET: 
- a EUR 15\,000 grant per artist for a six-month hybrid residency from March
-  to August 2027\, with an in-person period at Beta in May to June 2027\, a
-  Test Lab in June 2027 and a showcase at Beta Festival in November 2027. A
- PPLICATION: online form linked from the call page\; see the RiT residencie
- s page for eligibility. DEADLINE: 10 November 2026\, 23:59 CEST.\n\nOrgani
- sation: Realities in Transition (RiT2\, Creative Europe)\, with Beta Festi
- val\nLocation: Hybrid residency hosted by Beta Festival\, Dublin\, Ireland
-  (in person May to June 2027). Check the RiT residencies page for country 
- eligibility.\nAward: Three grants of EUR 15\,000 each\, one per selected a
- rtist. No application fee mentioned.\nDuration: 6-month hybrid residency\,
-  March to August 2027\, in person at Beta in May to June 2027\; Test Lab i
- n June 2027 and showcase at Beta Festival in November 2027.\n\nMore: https
- ://www.realities-in-transition.eu/rit-2-open-call-4/?utm_source=artificial
- nouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261110T222900Z
+DTEND:20261110T225900Z
+SUMMARY:Deadline 23:59 CET: Realities in Transition RiT2 Open Call #4: Rela
+ tional Realities with Beta Festival (XR\, three EUR 15\,000 grants)
+DESCRIPTION:Closes 10 Nov 2026 at 23:59 CET.\n\nRealities in Transition (Ri
+ T2)\, a Creative Europe XR cooperation project\, and Beta Festival in Irel
+ and invite artists\, technologists\, storytellers\, engineers\, hackers an
+ d designers to develop XR\, interactive\, multi-user work that explores te
+ chnology through relationships between human\, artificial and more-than-hu
+ man intelligence\, with a focus on decolonial thinking and interdependence
+ .\n\nOrganisation: Realities in Transition (RiT2\, Creative Europe)\, with
+  Beta Festival\nLocation: Hybrid residency hosted by Beta Festival\, Dubli
+ n\, Ireland (in person May to June 2027). Check the RiT residencies page f
+ or country eligibility.\nAward: Three grants of EUR 15\,000 each\, one per
+  selected artist. No application fee mentioned.\nDuration: 6-month hybrid 
+ residency\, March to August 2027\, in person at Beta in May to June 2027\;
+  Test Lab in June 2027 and showcase at Beta Festival in November 2027.\n\n
+ More: https://www.realities-in-transition.eu/rit-2-open-call-4/?utm_source
+ =artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.realities-in-transition.eu/rit-2-open-call-4/?utm_source=ar
  tificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Hybrid residency hosted by Beta Festival\, Dublin\, Ireland (in pe
@@ -2183,7 +643,7 @@ LOCATION:Hybrid residency hosted by Beta Festival\, Dublin\, Ireland (in pe
 END:VEVENT
 BEGIN:VEVENT
 UID:emma-pforzheim-designers-in-residence-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261102
 DTEND;VALUE=DATE:20261103
 SUMMARY:Deadline: EMMA Kreativzentrum Pforzheim: Designers in Residence 202
@@ -2193,22 +653,16 @@ DESCRIPTION:EMMA Kreativzentrum Pforzheim\, with Pforzheim University of Ap
  olarships for international young designers to spend three months working 
  in Pforzheim. WHO: designers in jewellery\, fashion\, accessories\, indust
  rial design\, communication design and other design disciplines\; interdis
- ciplinary approaches are welcome. No age limit or nationality rule is stat
- ed. WHAT YOU GET: EUR 1\,000 per month\, coverage of material costs\, free
-  accommodation\, reimbursed travel to and from Pforzheim\, a fully equippe
- d workstation at the creative centre and optional use of the university wo
- rkshops. The residency runs from 1 April to 30 June 2027 and ends with an 
- exhibition at EMMA. APPLICATION: online via the EMMA application portal on
- ly. DEADLINE: 2 November 2026\, 23:59 CET.\n\nOrganisation: EMMA Kreativze
- ntrum Pforzheim (City of Pforzheim)\, with Pforzheim University and Design
-  Center Baden-Wuerttemberg\nLocation: Pforzheim\, Germany. Open to interna
- tional young designers\; no nationality restriction stated.\nAward: EUR 1\
- ,000 per month (EUR 3\,000 over the residency)\, plus material costs cover
- ed\, free accommodation and reimbursed travel. No application fee mentione
- d.\nDuration: 3 months\, 1 April to 30 June 2027\, ending with an exhibiti
- on at EMMA.\n\nMore: https://www.emma-pf.de/en/designers-in-residence/desi
- gners-in-residence-scholarship/?utm_source=artificialnouveaugrantdesk&utm_
- medium=referral
+ ciplinary approaches are welcome.\n\nOrganisation: EMMA Kreativzentrum Pfo
+ rzheim (City of Pforzheim)\, with Pforzheim University and Design Center B
+ aden-Wuerttemberg\nLocation: Pforzheim\, Germany. Open to international yo
+ ung designers\; no nationality restriction stated.\nAward: EUR 1\,000 per 
+ month (EUR 3\,000 over the residency)\, plus material costs covered\, free
+  accommodation and reimbursed travel. No application fee mentioned.\nDurat
+ ion: 3 months\, 1 April to 30 June 2027\, ending with an exhibition at EMM
+ A.\n\nMore: https://www.emma-pf.de/en/designers-in-residence/designers-in-
+ residence-scholarship/?utm_source=artificialnouveaugrantdesk&utm_medium=re
+ ferral
 URL:https://www.emma-pf.de/en/designers-in-residence/designers-in-residence
  -scholarship/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Pforzheim\, Germany. Open to international young designers\; no na
@@ -2217,40 +671,27 @@ END:VEVENT
 BEGIN:VEVENT
 UID:culture-moves-europe-residency-hosts-2026-2027@artificialnouveau.github
  .io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20270118
 DTEND;VALUE=DATE:20270119
 SUMMARY:Deadline: Culture Moves Europe: Call for Residency Hosts 2026-2027 
  (EUR 50/day per resident for hosting organisations)
 DESCRIPTION:The organisation-side strand of Culture Moves Europe\, the EU's
   flagship mobility scheme for artists and cultural professionals\, funds o
- rganisations to host artists in residence. WHO: newly or well-established 
- legal entities registered and based in a Creative Europe country and activ
- e in architecture\, cultural heritage\, design and fashion design\, litera
- ture\, music\, performing arts or visual arts\, with capacity to host one 
- to five residents from other Creative Europe countries. WHAT YOU GET: EUR 
- 50 per day per resident for the host\, plus accessibility support of EUR 3
- 75\, 675 or 1\,200\; residents receive EUR 30 per day\, a travel allowance
-  of EUR 400 or EUR 800 and optional top-ups (green travel\, overseas regio
- ns\, family\, visa). PROCESS: apply in English via the Goethe Application 
- Portal\, registering as Organisation/Enterprise and selecting the 2026-202
- 7 call for residency hosts\; results by 9 March 2027\, then hosts select r
- esidents and submit residency info cards between 9 March and 31 July 2027\
- , with residencies starting from 12 April 2027. The call opened 15 October
-  2026. DEADLINE: 18 January 2027.\n\nOrganisation: Culture Moves Europe (C
- reative Europe\, European Commission)\, implemented by the Goethe-Institut
- \nLocation: Legal entities registered in a Creative Europe country (includ
- ing overseas countries and territories and outermost regions)\, hosting 1 
- to 5 residents from other Creative Europe countries.\nAward: Hosts: EUR 50
-  per day per resident plus accessibility support of EUR 375\, 675 or 1\,20
- 0 depending on residency length. Residents: EUR 30 per day\, travel allowa
- nce of EUR 400 (under 5\,000 km) or EUR 800\, and top-ups for green travel
-  (EUR 400)\, OCT/outermost regions (EUR 175)\, family (EUR 200 per child) 
- and visa (EUR 120). No application fee.\nDuration: Residencies from 12 Apr
- il 2027 onward\; hosts choose residents and submit residency info between 
- 9 March and 31 July 2027.\n\nMore: https://culture.ec.europa.eu/culture-mo
- ves-europe/call-for-residency-hosts?utm_source=artificialnouveaugrantdesk&
- utm_medium=referral
+ rganisations to host artists in residence.\n\nOrganisation: Culture Moves 
+ Europe (Creative Europe\, European Commission)\, implemented by the Goethe
+ -Institut\nLocation: Legal entities registered in a Creative Europe countr
+ y (including overseas countries and territories and outermost regions)\, h
+ osting 1 to 5 residents from other Creative Europe countries.\nAward: Host
+ s: EUR 50 per day per resident plus accessibility support of EUR 375\, 675
+  or 1\,200 depending on residency length. Residents: EUR 30 per day\, trav
+ el allowance of EUR 400 (under 5\,000 km) or EUR 800\, and top-ups for gre
+ en travel (EUR 400)\, OCT/outermost regions (EUR 175)\, family (EUR 200 pe
+ r child) and visa (EUR 120). No application fee.\nDuration: Residencies fr
+ om 12 April 2027 onward\; hosts choose residents and submit residency info
+  between 9 March and 31 July 2027.\n\nMore: https://culture.ec.europa.eu/c
+ ulture-moves-europe/call-for-residency-hosts?utm_source=artificialnouveaug
+ rantdesk&utm_medium=referral
 URL:https://culture.ec.europa.eu/culture-moves-europe/call-for-residency-ho
  sts?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Legal entities registered in a Creative Europe country (including 
@@ -2260,7 +701,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:follow-fluxus-after-fluxus-scholarship-2026-27@artificialnouveau.github
  .io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Follow Fluxus: After Fluxus Scholarship 2026/27 (EUR 10\,
@@ -2268,21 +709,7 @@ SUMMARY:Deadline: Follow Fluxus: After Fluxus Scholarship 2026/27 (EUR 10\,
 DESCRIPTION:The Follow Fluxus scholarship\, awarded by the Nassauischer Kun
  stverein Wiesbaden and the City of Wiesbaden in memory of the Fluxus movem
  ent that began in Wiesbaden in 1962\, supports artists whose work continue
- s the open\, intermedia and experimental spirit of Fluxus. WHO: internatio
- nal and national artists with a completed art degree and relevant professi
- onal and exhibition experience\; self-taught artists with notable achievem
- ents documented through exhibitions and awards may also apply. WHAT YOU GE
- T: EUR 10\,000\, a rent-free furnished live/work space with studio at the 
- Kunsthaus Wiesbaden (70.88 sqm) from 1 June to 31 August 2027\, during whi
- ch the fellow is expected to spend most of their time in Wiesbaden\, and a
- n exhibition at the Nassauischer Kunstverein afterwards. APPLICATION: uplo
- ad three PDFs (max 10 MB\; German or English) to nowtransfer.de: APF_Appli
- cantName.pdf (application letter\, CV and project outline\, one A4 page ea
- ch)\, Portfolio_ApplicantName.pdf (work examples\, exhibitions\, video/aud
- io links) and Degree_ApplicantName.pdf\; then email the download link to f
- luxus@kunstverein-wiesbaden.de with the subject 'Follow Fluxus Scholarship
-  2026_27'. Postal applications are also accepted. Results by December 2026
- . DEADLINE: 1 November 2026\, email received by 23:59 CET.\n\nOrganisation
+ s the open\, intermedia and experimental spirit of Fluxus.\n\nOrganisation
  : Nassauischer Kunstverein Wiesbaden\, with the City of Wiesbaden\nLocatio
  n: Wiesbaden\, Germany. Open to international and national artists.\nAward
  : EUR 10\,000 grant plus a rent-free 70.88 sqm live/work studio at the Kun
@@ -2298,7 +725,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:hiap-sumud-palestinian-artists-helsinki-2027@artificialnouveau.github.i
  o
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261102
 DTEND;VALUE=DATE:20261103
 SUMMARY:Deadline: HIAP x Sumud: Residency for Palestinian Artists in Helsin
@@ -2306,26 +733,16 @@ SUMMARY:Deadline: HIAP x Sumud: Residency for Palestinian Artists in Helsin
 DESCRIPTION:HIAP and Sumud\, the Finnish Palestine Network\, invite a Pales
  tinian artist to a spring 2027 residency at the Cable Factory in Helsinki\
  , delivered through HIAP's Ukraine Solidarity Residency Programme and supp
- orted by the Finnish Ministry of Education and Culture. WHO: professional 
- contemporary artists currently based in Palestine or of Palestinian descen
- t living in the diaspora\; formal education\, exhibition history or instit
- utional recognition is not required. Family members are welcome\; collecti
- ves receive no extra grant or travel budget. WHAT YOU GET: a EUR 3\,600 wo
- rking grant\, a free 63 sqm live/work studio with kitchenette\, sleeping l
- oft and private bathroom (suited to two adults or a small family)\, one tr
- ip to and from home\, and a visa budget for application fees and travel to
-  a visa office or embassy (HIAP cannot guarantee visas). APPLICATION: onli
- ne form only\, in English\; emailed applications are not considered. DEADL
- INE: 2 November 2026\, 15:00 (GMT+2).\n\nOrganisation: HIAP Helsinki Inter
- national Artist Programme\, with Sumud - The Finnish Palestine Network\nLo
- cation: Cable Factory\, Helsinki\, Finland. For professional contemporary 
- artists based in Palestine or of Palestinian descent\, including the diasp
- ora.\nAward: EUR 3\,600 working grant\, a free 63 sqm live/work studio\, o
- ne return trip\, and a visa budget covering application fees and visa-offi
- ce travel. No application fee.\nDuration: About 3 months\, 12 April to 11 
- July 2027.\n\nMore: https://www.hiap.fi/open-call/open-call-for-palestinia
- n-artists-in-helsinki-finland-spring-2027/?utm_source=artificialnouveaugra
- ntdesk&utm_medium=referral
+ orted by the Finnish Ministry of Education and Culture.\n\nOrganisation: H
+ IAP Helsinki International Artist Programme\, with Sumud - The Finnish Pal
+ estine Network\nLocation: Cable Factory\, Helsinki\, Finland. For professi
+ onal contemporary artists based in Palestine or of Palestinian descent\, i
+ ncluding the diaspora.\nAward: EUR 3\,600 working grant\, a free 63 sqm li
+ ve/work studio\, one return trip\, and a visa budget covering application 
+ fees and visa-office travel. No application fee.\nDuration: About 3 months
+ \, 12 April to 11 July 2027.\n\nMore: https://www.hiap.fi/open-call/open-c
+ all-for-palestinian-artists-in-helsinki-finland-spring-2027/?utm_source=ar
+ tificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.hiap.fi/open-call/open-call-for-palestinian-artists-in-hels
  inki-finland-spring-2027/?utm_source=artificialnouveaugrantdesk&utm_medium
  =referral
@@ -2335,34 +752,27 @@ LOCATION:Cable Factory\, Helsinki\, Finland. For professional contemporary
 END:VEVENT
 BEGIN:VEVENT
 UID:saha-studio-13th-term-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261114
-DTEND;VALUE=DATE:20261115
-SUMMARY:Deadline: SAHA Studio Open Call\, 13th Term (Istanbul\, up to TRY 2
- 00\,000)
-DESCRIPTION:SAHA Studio is SAHA Association's research and production resid
- ency in Istanbul. The 13th term selects five professionally practising vis
- ual artists (duos and collectives allowed\; no medium or age requirement) 
- for six months of studio work with a budget\, curatorial feedback\, mid-te
- rm gatherings and a closing 'SAHA Studio Open' presentation. Projects must
-  not be preparation for a commercial gallery show. SELECTION: a preliminar
- y jury of seven former residents\, then a Selection and Advisory Board int
- erviews a shortlist of ten\; evaluation runs 15 November to 22 December 20
- 26. APPLICATION: one merged PDF (max 7 MB) emailed to sahastudio@saha.org.
- tr with the subject 'SAHA Studio 13 - Application'\, containing the applic
- ation form\, a proposal (max 500 words)\, a draft budget\, a CV (max 2 pag
- es)\, a 10 to 20 page portfolio\, and optional press and a reference lette
- r. DEADLINE: 14 November 2026\, 18:00 Istanbul time (GMT+3).\n\nOrganisati
- on: SAHA Association\nLocation: SAHA's IMC venue\, Fatih\, Istanbul\, Turk
- iye. No nationality rule stated\; aimed at artists working in Turkiye\, wi
- th preference for artists from outside Istanbul.\nAward: Budget of up to T
- RY 200\,000 per artist covering honorarium plus research\, production\, ex
- hibition and event costs. Also a personal studio for 6 months\, accommodat
- ion and transport for artists from outside Istanbul\, equipment and crew s
- upport\, and curatorial\, editorial and legal counselling. 5 artists selec
- ted. No application fee.\nDuration: 6 months (January to June 2027)\n\nMor
- e: https://www.saha.org.tr/en/programs/open-call-from-saha-studio-13th-ter
- m/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261114T143000Z
+DTEND:20261114T150000Z
+SUMMARY:Deadline 18:00 Istanbul time: SAHA Studio Open Call\, 13th Term (Is
+ tanbul\, up to TRY 200\,000)
+DESCRIPTION:Closes 14 Nov 2026 at 18:00 Istanbul time.\n\nSAHA Studio is SA
+ HA Association's research and production residency in Istanbul. The 13th t
+ erm selects five professionally practising visual artists (duos and collec
+ tives allowed\; no medium or age requirement) for six months of studio wor
+ k with a budget\, curatorial feedback\, mid-term gatherings and a closing 
+ 'SAHA Studio Open' presentation.\n\nOrganisation: SAHA Association\nLocati
+ on: SAHA's IMC venue\, Fatih\, Istanbul\, Turkiye. No nationality rule sta
+ ted\; aimed at artists working in Turkiye\, with preference for artists fr
+ om outside Istanbul.\nAward: Budget of up to TRY 200\,000 per artist cover
+ ing honorarium plus research\, production\, exhibition and event costs. Al
+ so a personal studio for 6 months\, accommodation and transport for artist
+ s from outside Istanbul\, equipment and crew support\, and curatorial\, ed
+ itorial and legal counselling. 5 artists selected. No application fee.\nDu
+ ration: 6 months (January to June 2027)\n\nMore: https://www.saha.org.tr/e
+ n/programs/open-call-from-saha-studio-13th-term/?utm_source=artificialnouv
+ eaugrantdesk&utm_medium=referral
 URL:https://www.saha.org.tr/en/programs/open-call-from-saha-studio-13th-ter
  m/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:SAHA's IMC venue\, Fatih\, Istanbul\, Turkiye. No nationality rule
@@ -2371,39 +781,27 @@ LOCATION:SAHA's IMC venue\, Fatih\, Istanbul\, Turkiye. No nationality rule
 END:VEVENT
 BEGIN:VEVENT
 UID:mophradat-buda-next-festival-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20270104
-DTEND;VALUE=DATE:20270105
-SUMMARY:Deadline: Mophradat x BUDA: Performance Residency with a Premiere a
- t NEXT Festival (Kortrijk\, 2027)
-DESCRIPTION:Part of Mophradat's Art Time residencies: a three-week residenc
- y at BUDA in Kortrijk\, Belgium\, for a performing artist from the Arab wo
- rld finalising a new production\, culminating in its premiere at NEXT Fest
- ival. Fields: performance\, dance and interdisciplinary contemporary perfo
- rmance\; unconventional projects with experimental forms or progressive di
- scourses are encouraged. Concert proposals are not eligible. ELIGIBILITY: 
- Mophradat's general criteria (artists from the Arab world) plus: must have
-  developed and presented previous works\; must be working on a new\, origi
- nal project in contemporary performance\; must be in the final development
-  phase by September 2027 with confirmed co-producers and/or a financing pl
- an\, since the residency only partially covers production costs. Previous 
- unsuccessful applicants may reapply. SUPPORT: an overall EUR 10\,000\, all
-  included\, covering travel and visa costs\, residency per diems\, coprodu
- ction costs and a presentation fee for the NEXT Festival performance\, plu
- s accommodation\; partners help with visa applications and compensate the 
- project if travel is impossible due to visa refusal. NOTE: the online appl
- ication form cannot be saved\, so prepare answers in advance. DEADLINE: 4 
- January 2027\, 22:00 UTC.\n\nOrganisation: Mophradat\, with BUDA Kortrijk 
- and NEXT Festival\nLocation: BUDA\, Kortrijk\, Belgium (3-week residency\,
-  premiere at NEXT Festival). For performing artists from the Arab world.\n
- Award: EUR 10\,000 all-inclusive\, covering travel and visa costs\, reside
- ncy per diems\, coproduction costs and a presentation fee for the NEXT Fes
- tival performance. Accommodation provided. Compensation if the project can
- not travel due to visa refusal. No application fee.\nDuration: 3-week resi
- dency at BUDA\, then premiere at NEXT Festival (dates TBC\; project must b
- e in final development by September 2027)\n\nMore: https://mophradat.org/p
- rogram/art-time-residencies/performance/apply-buda/?utm_source=artificialn
- ouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20270104T213000Z
+DTEND:20270104T220000Z
+SUMMARY:Deadline 22:00 UTC: Mophradat x BUDA: Performance Residency with a 
+ Premiere at NEXT Festival (Kortrijk\, 2027)
+DESCRIPTION:Closes 04 Jan 2027 at 22:00 UTC.\n\nPart of Mophradat's Art Tim
+ e residencies: a three-week residency at BUDA in Kortrijk\, Belgium\, for 
+ a performing artist from the Arab world finalising a new production\, culm
+ inating in its premiere at NEXT Festival. Fields: performance\, dance and 
+ interdisciplinary contemporary performance\; unconventional projects with 
+ experimental forms or progressive discourses are encouraged.\n\nOrganisati
+ on: Mophradat\, with BUDA Kortrijk and NEXT Festival\nLocation: BUDA\, Kor
+ trijk\, Belgium (3-week residency\, premiere at NEXT Festival). For perfor
+ ming artists from the Arab world.\nAward: EUR 10\,000 all-inclusive\, cove
+ ring travel and visa costs\, residency per diems\, coproduction costs and 
+ a presentation fee for the NEXT Festival performance. Accommodation provid
+ ed. Compensation if the project cannot travel due to visa refusal. No appl
+ ication fee.\nDuration: 3-week residency at BUDA\, then premiere at NEXT F
+ estival (dates TBC\; project must be in final development by September 202
+ 7)\n\nMore: https://mophradat.org/program/art-time-residencies/performance
+ /apply-buda/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://mophradat.org/program/art-time-residencies/performance/apply-bu
  da/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:BUDA\, Kortrijk\, Belgium (3-week residency\, premiere at NEXT Fes
@@ -2411,48 +809,28 @@ LOCATION:BUDA\, Kortrijk\, Belgium (3-week residency\, premiere at NEXT Fes
 END:VEVENT
 BEGIN:VEVENT
 UID:ehin-dirty-lab-residencies-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261204
-DTEND;VALUE=DATE:20261205
-SUMMARY:Deadline: EHIN European Hybrid Intelligence Network: Dirty Lab Arti
- st Residencies in Biocomputing (2027)
-DESCRIPTION:EHIN invites artists to explore hybrid intelligence through the
-  shared agency of the more-than-human world: biocomputing\, interspecies a
- nd multi-species communication\, biofabrication\, sensing and biohybrid sy
- stems\, building new artistic narratives rooted in ecological knowledge. S
- ix artists are selected\, one per host (Kersnikova Dirty Lab in Ljubljana\
- , ZKM Hertzlab in Karlsruhe\, Kontejner in Zagreb\, LABoral in Gijon\, CPN
-  in Belgrade\, GLUON in Brussels with Malda Lab Utrecht)\, each paired wit
- h a biocomputing expert. STRUCTURE (about 12 months): Phase 1\, February t
- o September 2027\, on-site residency at the first host ending in an Open D
- irty Lab public event\; Phase 2\, October 2027 to January 2028\, co-produc
- tion at a partner lab of the artist's choice\, ending in an exhibition-rea
- dy artwork\; works are then shown locally and in a final group exhibition 
- and symposium at ZKM (Phase 3\, to October 2028). FUNDING: a fixed EUR 25\
- ,000 grant per artist covering artist fee (max 35%) and production/technic
- al costs\, paid 40/40/20\; travel and accommodation arranged separately wi
- th the host institution(s)\; the second host may add a conditional co-prod
- uction budget. ELIGIBILITY: individual artists or artist collectives who a
- re residents or taxpayers in an EU member state or an eligible non-EU coun
- try (list in the guide)\, able to travel to the hosts\, with a fiscal ID (
- VAT or similar)\, and not affiliated with consortium partners. Some hosts 
- prefer wet-lab\, electronics\, data or digital fabrication experience\; LA
- Boral requires 6 to 8 weeks on site. SELECTION: top 3 per residency invite
- d to pitch\; results by end of January 2027. APPLY via the Jotform applica
- tion form linked from the call page (proposal\, budget overview\, CV). DEA
- DLINE: 4 December 2026\, 23:59 CET.\n\nOrganisation: European Hybrid Intel
- ligence Network (Kersnikova\, ZKM\, Kontejner\, LABoral\, CPN\, GLUON)\, c
- o-funded by Creative Europe\nLocation: Six host labs: Kersnikova (Ljubljan
- a)\, ZKM (Karlsruhe)\, Kontejner (Zagreb)\, LABoral (Gijon)\, CPN (Belgrad
- e)\, GLUON (Brussels\, with Utrecht). Applicants must be residents or taxp
- ayers in the EU or an eligible non-EU country.\nAward: EUR 25\,000 fixed r
- esidency grant per artist (6 artists)\, covering fee (max 35%) and product
- ion\; travel and accommodation arranged separately with the host\; optiona
- l extra co-production budget in Phase 2. No application fee.\nDuration: Ab
- out 12 months: Phase 1 February to September 2027 on site\, Phase 2 Octobe
- r 2027 to January 2028 co-production\n\nMore: https://europeanhybridintell
- igencenetwork.eu/open-call/?utm_source=artificialnouveaugrantdesk&utm_medi
- um=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261204T222900Z
+DTEND:20261204T225900Z
+SUMMARY:Deadline 23:59 CET: EHIN European Hybrid Intelligence Network: Dirt
+ y Lab Artist Residencies in Biocomputing (2027)
+DESCRIPTION:Closes 04 Dec 2026 at 23:59 CET.\n\nEHIN invites artists to exp
+ lore hybrid intelligence through the shared agency of the more-than-human 
+ world: biocomputing\, interspecies and multi-species communication\, biofa
+ brication\, sensing and biohybrid systems\, building new artistic narrativ
+ es rooted in ecological knowledge.\n\nOrganisation: European Hybrid Intell
+ igence Network (Kersnikova\, ZKM\, Kontejner\, LABoral\, CPN\, GLUON)\, co
+ -funded by Creative Europe\nLocation: Six host labs: Kersnikova (Ljubljana
+ )\, ZKM (Karlsruhe)\, Kontejner (Zagreb)\, LABoral (Gijon)\, CPN (Belgrade
+ )\, GLUON (Brussels\, with Utrecht). Applicants must be residents or taxpa
+ yers in the EU or an eligible non-EU country.\nAward: EUR 25\,000 fixed re
+ sidency grant per artist (6 artists)\, covering fee (max 35%) and producti
+ on\; travel and accommodation arranged separately with the host\; optional
+  extra co-production budget in Phase 2. No application fee.\nDuration: Abo
+ ut 12 months: Phase 1 February to September 2027 on site\, Phase 2 October
+  2027 to January 2028 co-production\n\nMore: https://europeanhybridintelli
+ gencenetwork.eu/open-call/?utm_source=artificialnouveaugrantdesk&utm_mediu
+ m=referral
 URL:https://europeanhybridintelligencenetwork.eu/open-call/?utm_source=arti
  ficialnouveaugrantdesk&utm_medium=referral
 LOCATION:Six host labs: Kersnikova (Ljubljana)\, ZKM (Karlsruhe)\, Kontejne
@@ -2462,7 +840,7 @@ LOCATION:Six host labs: Kersnikova (Ljubljana)\, ZKM (Karlsruhe)\, Kontejne
 END:VEVENT
 BEGIN:VEVENT
 UID:arcathens-athens-residency-spring-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261114
 DTEND;VALUE=DATE:20261115
 SUMMARY:Deadline: ARCAthens: Athens Residency Fellowships (Spring 2027)
@@ -2471,24 +849,14 @@ DESCRIPTION:The Athens Residency is the flagship program of ARCAthens\, a n
  al artists and curators to live and work in Athens. The residency is struc
  tured and research-driven\, built around arranged studio and private colle
  ction visits\, institutional access and community events\, balanced with t
- ime for independent work. Fellows take part in one public engagement event
-  organized by ARCAthens and must stay based in Athens for the full residen
- cy. ELIGIBILITY: international curators and visual artists residing outsid
- e Greece. SUPPORT: ARCAthens provides housing (private bedroom and bathroo
- m\, shared common spaces)\, travel\, a Fellowship Prize and a weekly stipe
- nd\; Visual Art Fellows get studio access. In the Fall 2026 round this was
-  a USD 3\,000 Fellowship Prize plus USD 200 per week. Fellows cover food\,
-  local transport and any production or shipping costs\; there is no produc
- tion budget. TIMELINE: applications 16 October to 14 November 2026 (closes
-  11:00 p.m. ET)\; notification late November\; residency 4 February to 26 
- April 2027.\n\nOrganisation: ARCAthens\nLocation: Athens\, Greece (in-pers
- on residency). Open to international visual artists and curators residing 
- outside Greece.\nAward: Fully funded: housing\, travel\, a Fellowship Priz
- e and a weekly stipend (most recent published terms\, Fall 2026: USD 3\,00
- 0 Fellowship Prize and USD 200/week stipend\, round-trip airfare reimburse
- d). No application fee.\nDuration: About 12 weeks\, 4 February to 26 April
-  2027\n\nMore: https://arcathens.org/aa-application/?utm_source=artificial
- nouveaugrantdesk&utm_medium=referral
+ ime for independent work.\n\nOrganisation: ARCAthens\nLocation: Athens\, G
+ reece (in-person residency). Open to international visual artists and cura
+ tors residing outside Greece.\nAward: Fully funded: housing\, travel\, a F
+ ellowship Prize and a weekly stipend (most recent published terms\, Fall 2
+ 026: USD 3\,000 Fellowship Prize and USD 200/week stipend\, round-trip air
+ fare reimbursed). No application fee.\nDuration: About 12 weeks\, 4 Februa
+ ry to 26 April 2027\n\nMore: https://arcathens.org/aa-application/?utm_sou
+ rce=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://arcathens.org/aa-application/?utm_source=artificialnouveaugrant
  desk&utm_medium=referral
 LOCATION:Athens\, Greece (in-person residency). Open to international visua

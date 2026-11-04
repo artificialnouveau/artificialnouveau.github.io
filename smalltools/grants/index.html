@@ -1586,7 +1586,7 @@ code *, pre *, kbd *, samp * {
           <span class="pin" aria-hidden="true"></span>
           <h4>Add deadlines to your calendar</h4>
           <p class="blurb">A live calendar of upcoming deadlines. Stays in sync as new calls land or details change.</p>
-          <p class="coverage-note"><strong>Rolling and undated calls never appear here</strong>, because a calendar entry needs a date. Recently closed deadlines stay visible for 60 days. Subscribing to several calendars can show the same call once per calendar.</p>
+          <p class="coverage-note"><strong>Rolling and undated calls never appear here</strong>, because a calendar entry needs a date. Deadlines with a stated time show at that time in your own time zone; the rest are all-day entries. Closed deadlines drop off after 14 days. Subscribing to several calendars can show the same call once per calendar.</p>
           <div class="feed-options">
             <fieldset class="cat-checks" id="cal-categories">
               <legend>Categories</legend>
@@ -1640,7 +1640,7 @@ code *, pre *, kbd *, samp * {
               <li><strong>Google Calendar:</strong> "Other calendars" &rarr; "+" &rarr; "From URL", paste, Add.</li>
               <li><strong>Apple Calendar:</strong> "File" &rarr; "New Calendar Subscription", paste, OK.</li>
               <li><strong>Outlook:</strong> "Add calendar" &rarr; "Subscribe from web", paste.</li>
-              <li>Your calendar refreshes every few hours, so new grants and changes flow in automatically.</li>
+              <li>New grants and changes flow in automatically. How often depends on your app: Apple and Outlook check every few hours, Google Calendar can take a day or more.</li>
             </ol>
           </details>
         </div>
@@ -12933,9 +12933,15 @@ load();
   // call, so check the manifest before offering one. On fetch failure we stop
   // checking rather than blocking every choice.
   let typedCalendars = null;
+  let emptyCalendars = new Set();
   fetch('feeds-manifest.json')
     .then(r => r.ok ? r.json() : null)
-    .then(j => { if (j && j.typedCalendars) { typedCalendars = new Set(j.typedCalendars); update(); } })
+    .then(j => {
+      if (!j) return;
+      if (j.emptyCalendars) emptyCalendars = new Set(j.emptyCalendars);
+      if (j.typedCalendars) typedCalendars = new Set(j.typedCalendars);
+      update();
+    })
     .catch(() => {});
 
   const ticked = (fs) => fs
@@ -13004,6 +13010,10 @@ load();
     if (!names.length) notes.push('No upcoming deadlines match that combination, so there is no calendar for it. Untick something to widen it.');
     else if (names.length > 1) notes.push(`<strong>${names.length} calendars.</strong> Ticking several options gives one each; subscribe to them all to see every deadline in one view.`);
     if (pruned) notes.push(`${pruned} combination${pruned > 1 ? 's have' : ' has'} no upcoming deadlines and ${pruned > 1 ? 'were' : 'was'} left out.`);
+    const empty = names.filter(n => emptyCalendars.has(n)).length;
+    if (empty) notes.push(empty === names.length
+      ? `${empty > 1 ? 'These calendars have' : 'This calendar has'} no upcoming deadlines right now. You can still subscribe; entries appear as matching calls land.`
+      : `${empty} of these calendars ${empty > 1 ? 'have' : 'has'} no upcoming deadlines right now.`);
     setNote(notes.join(' '));
 
     if (openBtn) {

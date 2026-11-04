@@ -3,8 +3,8 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - Game Design
-X-WR-CALNAME:The Grant Desk - Game Design deadlines
+NAME:The Grant Desk deadlines - Game Design
+X-WR-CALNAME:The Grant Desk deadlines - Game Design
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
  pdated as new calls land on the desk. Filtered to: Game Design.
@@ -12,60 +12,28 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:she-got-game-emerging-talents-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20270901
 DTEND;VALUE=DATE:20270902
 SUMMARY:Deadline: Game Design Emerging Talents: She Got Game
 DESCRIPTION:She Got Game is a Pro Helvetia mentoring programme promoting eq
  ual opportunities in the Swiss and international game industry\, supportin
  g the representation of women in management positions through dialogue wit
- h experienced international experts from the game industry. The call is ai
- med at professional game designers who identify as women from the regions 
- of Pro Helvetia's liaison offices: the Arab region\, East Asia\, South Ame
- rica\, South Asia and Vietnam\, and West\, Central\, East and Southern Afr
- ica. ELIGIBILITY: Emerging Talents are game developers or game studios who
- se relevant training or registration (self-employed\, sole proprietorship\
- , or company) dates back less than seven years. Selection criteria include
-  digital content for devices such as computers\, consoles\, mobile devices
- \, or mixed-reality devices requiring a high level of interaction\; clearl
- y defined objectives in terms of participation and career\; originality\, 
- feasibility\, degree of innovation\, and marketability of the project\; an
- d project leaders holding the copyright and rights of use. Excluded: commi
- ssioned work and projects that are part of an advertising or promotional c
- ampaign\, and purely technological projects without obvious narrative and/
- or aesthetic content. WHAT IS OFFERED: individual coaching and input talks
-  on project development\, business strategy and finances\, marketing\, PR\
- , and pitch training\; involvement in a growing community of female game d
- evelopers\; potential access to international trade fairs\; CHF 3\,000 tow
- ard the production of a prototype or demo version\; and up to CHF 250 per 
- week toward childcare or children's travel expenses when attending interna
- tional trade fairs (a budget must be presented in advance). All modules ar
- e conducted in English\; the programme is a time-consuming commitment of r
- oughly 30 hours over six months\, plus potential additional time attending
-  events or trade fairs. APPLICATION: submit a short CV (including educatio
- n/training\, nationality\, and residency status in Switzerland)\, a short 
- description of the current project (type and genre\, gameplay\, platform\,
-  development status\, target audience\, with relevant visual material\, ma
- x. 10 A4 pages)\, a project portfolio\, and expectations regarding the pro
- gramme's objectives. All documents should be submitted in English\; if not
-  possible\, applications may be submitted in German\, French\, or Italian.
-  KEY DATES: applications open 1 July 2026\; submission deadline 1 Septembe
- r 2026\, 23:59 CEST\; notification of decision in November 2026\; earliest
-  project start 1 January 2027. Apply via the Pro Helvetia application port
- al.\n\nOrganisation: Pro Helvetia (Swiss Arts Council)\nLocation: Remote/i
- nternational mentoring programme\; applicants must be based in one of Pro 
- Helvetia's liaison-office regions (Arab region\, East Asia\, South America
- \, South Asia and Vietnam\, and West\, Central\, East and Southern Africa)
- .\nAward: CHF 3\,000 toward the production of a prototype or demo version\
- , plus individual coaching and community access\; potential access to inte
- rnational trade fairs. When attending trade fairs\, applicants with childc
- are responsibilities can request up to CHF 250 per week for childcare or c
- hildren's travel expenses. No application fee.\nDuration: Six-month mentor
- ing programme\, approximately 30 hours total commitment\; notification in 
- November 2027\; earliest project start 1 January 2028. Next application wi
- ndow 1 July to 1 September 2027.\n\nMore: https://prohelvetia.ch/en/find-s
- upport/game-design-emerging-talents-she-got-game-3/?utm_source=artificialn
- ouveaugrantdesk&utm_medium=referral
+ h experienced international experts from the game industry.\n\nOrganisatio
+ n: Pro Helvetia (Swiss Arts Council)\nLocation: Remote/international mento
+ ring programme\; applicants must be based in one of Pro Helvetia's liaison
+ -office regions (Arab region\, East Asia\, South America\, South Asia and 
+ Vietnam\, and West\, Central\, East and Southern Africa).\nAward: CHF 3\,0
+ 00 toward the production of a prototype or demo version\, plus individual 
+ coaching and community access\; potential access to international trade fa
+ irs. When attending trade fairs\, applicants with childcare responsibiliti
+ es can request up to CHF 250 per week for childcare or children's travel e
+ xpenses. No application fee.\nDuration: Six-month mentoring programme\, ap
+ proximately 30 hours total commitment\; notification in November 2027\; ea
+ rliest project start 1 January 2028. Next application window 1 July to 1 S
+ eptember 2027.\n\nMore: https://prohelvetia.ch/en/find-support/game-design
+ -emerging-talents-she-got-game-3/?utm_source=artificialnouveaugrantdesk&ut
+ m_medium=referral
 URL:https://prohelvetia.ch/en/find-support/game-design-emerging-talents-she
  -got-game-3/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Remote/international mentoring programme\; applicants must be base
@@ -75,7 +43,7 @@ LOCATION:Remote/international mentoring programme\; applicants must be base
 END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-game-design-pre-production-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20270301
 DTEND;VALUE=DATE:20270302
 SUMMARY:Deadline: Game Design Emerging Talents: Pre-Production
@@ -83,27 +51,20 @@ DESCRIPTION:Pro Helvetia's Game Design Emerging Talents pre-production gran
  t supports early-career game designers in developing playable prototypes f
  or digital games. Emerging Talents are game developers or studios whose ga
  me-design education or company foundation dates back less than seven years
- . ELIGIBILITY: requires a connection to Switzerland (Swiss citizenship\, o
- r permanent residency with regular artistic activity in Switzerland)\; not
-  open to practitioners without a Swiss connection. At least 50 percent of 
- participants must be Swiss citizens or permanent residents whose place of 
- work is in Switzerland. AMOUNT: up to CHF 20\,000\, plus possible addition
- al coaching. Deadlines twice a year: 1 March (23:59 CET) and 1 September (
- 23:59 CEST). Apply via the Pro Helvetia portal.\n\nOrganisation: Pro Helve
- tia (Swiss Arts Council)\nLocation: Switzerland-based emerging game design
- ers and studios.\nAward: Up to CHF 20\,000\, plus possible additional coac
- hing. No application fee.\nDuration: Pre-production / prototype phase\; de
- adlines twice yearly (1 March and 1 September)\; next window opens 1 Janua
- ry 2027 for the 1 March 2027 deadline.\n\nMore: https://prohelvetia.ch/en/
- find-support/game-design-emerging-talents-pre-production?utm_source=artifi
- cialnouveaugrantdesk&utm_medium=referral
+ .\n\nOrganisation: Pro Helvetia (Swiss Arts Council)\nLocation: Switzerlan
+ d-based emerging game designers and studios.\nAward: Up to CHF 20\,000\, p
+ lus possible additional coaching. No application fee.\nDuration: Pre-produ
+ ction / prototype phase\; deadlines twice yearly (1 March and 1 September)
+ \; next window opens 1 January 2027 for the 1 March 2027 deadline.\n\nMore
+ : https://prohelvetia.ch/en/find-support/game-design-emerging-talents-pre-
+ production?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://prohelvetia.ch/en/find-support/game-design-emerging-talents-pre
  -production?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Switzerland-based emerging game designers and studios.
 END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-game-design-production-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20270301
 DTEND;VALUE=DATE:20270302
 SUMMARY:Deadline: Game Design Emerging Talents: Production
@@ -111,22 +72,14 @@ DESCRIPTION:Pro Helvetia's Game Design Emerging Talents production grant fu
  nds the production of digital games based on advanced prototypes or vertic
  al slices. Emerging Talents are studios whose game-design education or com
  pany foundation dates back less than seven years. Applicants must be legal
-  entities (sole proprietorships accepted if willing to convert). ELIGIBILI
- TY: requires a connection to Switzerland (Swiss citizenship\, or permanent
-  residency with regular artistic activity in Switzerland)\; not open to pr
- actitioners without a Swiss connection. At least 50 percent of participant
- s must be Swiss citizens or permanent residents whose place of work is in 
- Switzerland. AMOUNT: up to CHF 50\,000\, requiring a matching grant of equ
- al value from own or third-party funding. Deadlines twice a year: 1 March 
- (23:59 CET) and 1 September (23:59 CEST). Apply via the Pro Helvetia porta
- l.\n\nOrganisation: Pro Helvetia (Swiss Arts Council)\nLocation: Switzerla
- nd-based emerging game studios.\nAward: Up to CHF 50\,000\, requiring a ma
- tching grant of equal value from own or third-party funding. No applicatio
- n fee.\nDuration: Production phase\; deadlines twice yearly (1 March and 1
-  September)\; next window opens 1 January 2027 for the 1 March 2027 deadli
- ne.\n\nMore: https://prohelvetia.ch/en/find-support/game-design-emerging-t
- alents-production?utm_source=artificialnouveaugrantdesk&utm_medium=referra
- l
+  entities (sole proprietorships accepted if willing to convert).\n\nOrgani
+ sation: Pro Helvetia (Swiss Arts Council)\nLocation: Switzerland-based eme
+ rging game studios.\nAward: Up to CHF 50\,000\, requiring a matching grant
+  of equal value from own or third-party funding. No application fee.\nDura
+ tion: Production phase\; deadlines twice yearly (1 March and 1 September)\
+ ; next window opens 1 January 2027 for the 1 March 2027 deadline.\n\nMore:
+  https://prohelvetia.ch/en/find-support/game-design-emerging-talents-produ
+ ction?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://prohelvetia.ch/en/find-support/game-design-emerging-talents-pro
  duction?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Switzerland-based emerging game studios.
@@ -134,7 +87,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-game-design-post-production-2026@artificialnouveau.github.i
  o
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20270301
 DTEND;VALUE=DATE:20270302
 SUMMARY:Deadline: Game Design Emerging Talents: Post-Production
@@ -142,153 +95,64 @@ DESCRIPTION:Pro Helvetia's Game Design Emerging Talents post-production gra
  nt funds the dissemination and marketing of advanced game-design projects.
   Emerging Talents are studios whose game-design education or company found
  ation dates back less than seven years. Applicants must be legal entities 
- (sole proprietorships accepted if willing to convert). ELIGIBILITY: requir
- es a connection to Switzerland (Swiss citizenship\, or permanent residency
-  with regular artistic activity in Switzerland)\; not open to practitioner
- s without a Swiss connection. At least 50 percent of participants must be 
- Swiss citizens or permanent residents whose place of work is in Switzerlan
- d. AMOUNT: up to CHF 20\,000\, plus potential individual coaching. Deadlin
- es twice a year: 1 March (23:59 CET) and 1 September (23:59 CEST). Apply v
- ia the Pro Helvetia portal.\n\nOrganisation: Pro Helvetia (Swiss Arts Coun
- cil)\nLocation: Switzerland-based emerging game studios.\nAward: Up to CHF
-  20\,000\, plus potential individual coaching. No application fee.\nDurati
- on: Post-production\, dissemination and marketing phase\; deadlines twice 
- yearly (1 March and 1 September)\; next window opens 1 January 2027 for th
- e 1 March 2027 deadline.\n\nMore: https://prohelvetia.ch/en/find-support/g
- ame-design-emerging-talents-post-production?utm_source=artificialnouveaugr
- antdesk&utm_medium=referral
+ (sole proprietorships accepted if willing to convert).\n\nOrganisation: Pr
+ o Helvetia (Swiss Arts Council)\nLocation: Switzerland-based emerging game
+  studios.\nAward: Up to CHF 20\,000\, plus potential individual coaching. 
+ No application fee.\nDuration: Post-production\, dissemination and marketi
+ ng phase\; deadlines twice yearly (1 March and 1 September)\; next window 
+ opens 1 January 2027 for the 1 March 2027 deadline.\n\nMore: https://prohe
+ lvetia.ch/en/find-support/game-design-emerging-talents-post-production?utm
+ _source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://prohelvetia.ch/en/find-support/game-design-emerging-talents-pos
  t-production?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Switzerland-based emerging game studios.
 END:VEVENT
 BEGIN:VEVENT
 UID:prohelvetia-she-got-game-switzerland-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20270901
 DTEND;VALUE=DATE:20270902
 SUMMARY:Deadline: Game Design Emerging Talents: She Got Game (Switzerland)
 DESCRIPTION:She Got Game is a Pro Helvetia mentoring programme promoting eq
  ual opportunities for women in the Swiss and international game industry\,
   supporting the representation of women in management positions through di
- alogue with experienced international experts. This is the variant for pro
- fessional game designers FROM Switzerland who identify as women (a separat
- e variant exists for practitioners in the liaison-office regions). Emergin
- g Talents are developers or studios whose relevant training or registratio
- n dates back less than seven years. ELIGIBILITY: requires a connection to 
- Switzerland (Swiss citizenship\, or permanent residency with regular artis
- tic activity in Switzerland)\; not open to practitioners without a Swiss c
- onnection. WHAT IS OFFERED: individual coaching on project development\, b
- usiness strategy\, finances\, marketing\, PR\, and pitch training\; a grow
- ing community of female game developers\; potential access to internationa
- l trade fairs\; CHF 3\,000 toward a prototype or demo\; and up to CHF 250 
- per week toward childcare or children's travel when attending trade fairs.
-  Roughly 30 hours over six months. Submission deadline 1 September 2026 (2
- 3:59 CEST)\; notification November 2026. Apply via the Pro Helvetia portal
- .\n\nOrganisation: Pro Helvetia (Swiss Arts Council)\nLocation: Profession
- al game designers from Switzerland who identify as women.\nAward: CHF 3\,0
- 00 toward prototype/demo production\, plus mentoring\, community access\, 
- and potential trade-fair access\; up to CHF 250 per week childcare support
-  for international events. No application fee.\nDuration: Six-month mentor
- ing programme (approximately 30 hours total)\; notification November 2027.
-  Next application window 1 July to 1 September 2027.\n\nMore: https://proh
- elvetia.ch/en/find-support/game-design-emerging-talents-she-got-game?utm_s
- ource=artificialnouveaugrantdesk&utm_medium=referral
+ alogue with experienced international experts.\n\nOrganisation: Pro Helvet
+ ia (Swiss Arts Council)\nLocation: Professional game designers from Switze
+ rland who identify as women.\nAward: CHF 3\,000 toward prototype/demo prod
+ uction\, plus mentoring\, community access\, and potential trade-fair acce
+ ss\; up to CHF 250 per week childcare support for international events. No
+  application fee.\nDuration: Six-month mentoring programme (approximately 
+ 30 hours total)\; notification November 2027. Next application window 1 Ju
+ ly to 1 September 2027.\n\nMore: https://prohelvetia.ch/en/find-support/ga
+ me-design-emerging-talents-she-got-game?utm_source=artificialnouveaugrantd
+ esk&utm_medium=referral
 URL:https://prohelvetia.ch/en/find-support/game-design-emerging-talents-she
  -got-game?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Professional game designers from Switzerland who identify as women
  .
 END:VEVENT
 BEGIN:VEVENT
-UID:futures-of-listening-worlding-narratives-roaming-sound-space-2027@artif
- icialnouveau.github.io
-DTSTAMP:20261104T145753Z
-DTSTART;VALUE=DATE:20260913
-DTEND;VALUE=DATE:20260914
-SUMMARY:Deadline: Futures of Listening: Worlding Narratives\, Roaming Sound
-  Space Residency
-DESCRIPTION:One residency to research and develop an interactive listening 
- experience built on non-linear sound narratives\, experienced by navigatin
- g through a series of virtual spaces or layers. NO VISUALS: Worlding Narra
- tives centres sound as the primary medium for immersion and intentionally 
- removes dominant visual layers such as VR\, AR\, projection or video. THE 
- DESIGN PROBLEM they want tackled is translation and adaptation\, specifica
- lly the shift from one visitor in a headphone-mediated experience to rende
- ring for a multi-speaker system for group interaction. That change in dyna
- mics\, reproduction and perspective is integral to the residency scope. RE
- SEARCH QUESTIONS include how immersive sound can function as a primary nar
- rative medium across speculative and non-fictional realities\, what new na
- rrative structures and dramaturgical methods become possible when the crea
- tive process originates from sound rather than adapting frameworks from ot
- her media\, and how interactive sonic structures can create navigable list
- ening experiences designed for and by multiple intelligences. Outcomes may
-  include interactive sonic prototypes\, spatial audio compositions\, immer
- sive listening experiences\, narrative sound works or software prototypes.
-  WORTH NOTING: your residency runs in tandem with resident Pinar Temiz\, a
- n expert in sound design for gaming environments\, with the opportunity to
-  work together. Lead researcher is Dr Angela McArthur of UCL\, with resear
- ch support from Dr meLe yamomo of the University of Amsterdam. WHO: media 
- and sound artists\, sound designers\, musicians producing their own sonic 
- work\, field recordists\, writers\, composers and game sound designers. Ex
- perience with interactive audio\, spatial sound tools or game-sound workfl
- ows is welcome but not required. HARD ELIGIBILITY GATE: applicants must be
-  based in the Netherlands AND registered as an artist with the Dutch Chamb
- er of Commerce (KvK). This is not negotiable and rules out non-NL applican
- ts. Futures of Listening is a Netherlands-based platform for spatial sound
- \, immersive experience\, performance and installation art\, founded by FI
- BER Festival\, 4DSOUND\, Robin Koek and Art of Sound at the Royal Conserva
- toire The Hague\, supported by CIIIC and Stimuleringsfonds.\n\nOrganisatio
- n: Futures of Listening (FIBER\, 4DSOUND\, Robin Koek\, Art of Sound)\nLoc
- ation: Amsterdam\, Netherlands\, with remote and studio access to the 4DSO
- UND infrastructure.\nAward: Total residency fee of EUR 7\,125\, calculated
-  as 25 commissioned days at a day rate of EUR 285. Six of those 25 days ca
- n be spent at the 4DSOUND studio working with their team. Some additional 
- financial support is available if needed\, including material and travel c
- osts\, but these must be clearly defined and agreed before the residency s
- tarts. No application fee.\nDuration: January to March 2027\, structured a
- s 25 commissioned days\, running in tandem with fellow Worlding Narratives
-  resident Pinar Temiz. Deadline 13 September 2026.\n\nMore: https://fiber.
- homerun.co/artist-residency-worlding-narratives/en?utm_source=artificialno
- uveaugrantdesk&utm_medium=referral
-URL:https://fiber.homerun.co/artist-residency-worlding-narratives/en?utm_so
- urce=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Amsterdam\, Netherlands\, with remote and studio access to the 4DS
- OUND infrastructure.
-END:VEVENT
-BEGIN:VEVENT
 UID:screen-australia-future-leaders-bitsummit-2027@artificialnouveau.github
  .io
-DTSTAMP:20261104T145753Z
-DTSTART;VALUE=DATE:20261105
-DTEND;VALUE=DATE:20261106
-SUMMARY:Deadline: Screen Australia Future Leaders Delegation: BitSummit 202
- 7 (Kyoto)
-DESCRIPTION:Screen Australia's Future Leaders Delegation sends up to eight 
- early-to-mid career Australian gamemakers to BitSummit 2027 in Kyoto\, Jap
- an (21-23 May 2027)\, one of Asia's leading independent games festivals. S
- UPPORT: AUD 6\,000 per delegate towards flights\, accommodation\, event ti
- ckets\, ground transportation and meals\; travel costs for a mandatory pre
- -departure workshop in Melbourne (mid-April 2027) are covered separately\;
-  delegates can exhibit their game as part of an Australia stand. ELIGIBILI
- TY: Australian citizens or permanent residents (individuals) or incorporat
- ed Australian companies with an active ABN and GST registration\; must hav
- e released and/or published at least one game on a public platform\; must 
- be actively developing a game ready for public presentation by May 2027\; 
- must be available for both the workshop and event dates\; must not have pr
- eviously participated in a Screen Australia Future Leaders Delegation. Ass
- essment weighs project quality\, career relevance\, anticipated impact\, a
- nd commitment to diversity and inclusion. HOW TO APPLY: via Screen Austral
- ia's funding portal. Decisions announced by 11 December 2026. DEADLINE: 5 
- November 2026 at 5pm AEST.\n\nOrganisation: Screen Australia\nLocation: De
- legation to BitSummit 2027 in Kyoto\, Japan (21-23 May 2027)\, with a pre-
- departure workshop in Melbourne. Open to Australian citizens or permanent 
- residents\, or incorporated Australian companies.\nAward: AUD 6\,000 per d
- elegate towards flights\, accommodation\, event tickets\, ground transport
- ation and meals\, plus covered travel costs for the pre-departure workshop
-  and the opportunity to exhibit a game on the Australia stand. Up to eight
-  delegates.\nDuration: BitSummit runs 21-23 May 2027 in Kyoto\; mandatory 
- pre-departure workshop in Melbourne in mid-April 2027\n\nMore: https://www
- .screenaustralia.gov.au/fund/future-leaders-delegation-bitsummit-2027/?utm
- _source=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261105T053000Z
+DTEND:20261105T060000Z
+SUMMARY:Deadline 17:00 AEDT: Screen Australia Future Leaders Delegation: Bi
+ tSummit 2027 (Kyoto)
+DESCRIPTION:Closes 05 Nov 2026 at 17:00 AEDT.\n\nScreen Australia's Future 
+ Leaders Delegation sends up to eight early-to-mid career Australian gamema
+ kers to BitSummit 2027 in Kyoto\, Japan (21-23 May 2027)\, one of Asia's l
+ eading independent games festivals.\n\nOrganisation: Screen Australia\nLoc
+ ation: Delegation to BitSummit 2027 in Kyoto\, Japan (21-23 May 2027)\, wi
+ th a pre-departure workshop in Melbourne. Open to Australian citizens or p
+ ermanent residents\, or incorporated Australian companies.\nAward: AUD 6\,
+ 000 per delegate towards flights\, accommodation\, event tickets\, ground 
+ transportation and meals\, plus covered travel costs for the pre-departure
+  workshop and the opportunity to exhibit a game on the Australia stand. Up
+  to eight delegates.\nDuration: BitSummit runs 21-23 May 2027 in Kyoto\; m
+ andatory pre-departure workshop in Melbourne in mid-April 2027\n\nMore: ht
+ tps://www.screenaustralia.gov.au/fund/future-leaders-delegation-bitsummit-
+ 2027/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.screenaustralia.gov.au/fund/future-leaders-delegation-bitsu
  mmit-2027/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Delegation to BitSummit 2027 in Kyoto\, Japan (21-23 May 2027)\, w
@@ -297,38 +161,22 @@ LOCATION:Delegation to BitSummit 2027 in Kyoto\, Japan (21-23 May 2027)\, w
 END:VEVENT
 BEGIN:VEVENT
 UID:processing-foundation-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Processing Foundation Fellowship 2027
 DESCRIPTION:The Processing Foundation's 2027 fellowship cycle supports arti
  sts\, educators and creative technologists working on open-source projects
- \, with a USD 10\,000 stipend over an 8-month fellowship period. THREE TRA
- CKS: Collective Intelligence (remote\, US-based)\, co-designing AI educati
- on tools with youth\, aimed at educators with software development or AI/M
- L experience\; Gaming the System (hybrid\, Los Angeles)\, building an open
- -source toolkit for video game design with underserved communities\, for g
- ame makers and creative coders based in LA\; and DIY Computing (hybrid\, N
- ew York City)\, developing open-source hardware and software environments 
- for custom computers\, for early-career hardware artists in NYC (applicant
- s currently enrolled in degree programs are ineligible for this track). EL
- IGIBILITY: US applicants only\; hybrid tracks require residency in LA or N
- YC respectively. International applicants are pointed to the Foundation's 
- Microgrants and Processing Community Day instead. APPLICATION: via nominat
- ion form\, selecting one track\; self-nominations are allowed. Selection b
- y a panel of the Processing Foundation team and external reviewers\, judgi
- ng strength of the project\, fit with the Foundation's mission and potenti
- al impact. TIMELINE: nominations open 7 October 2026\, close 1 November 20
- 26 at 11:59 PM PST\; fellows notified 14 December 2026\; fellowship runs 2
- 5 January to 26 September 2027.\n\nOrganisation: Processing Foundation\nLo
- cation: USA only. The Collective Intelligence track is remote (US-based)\;
-  Gaming the System is hybrid in Los Angeles\; DIY Computing is hybrid in N
- ew York City.\nAward: USD 10\,000 stipend over the 8-month fellowship\, pl
- us open-source software mentorship\, cohort collaboration\, professional d
- evelopment and public presentation opportunities. No application fee.\nDur
- ation: Approximately 8 months\, 25 January to 26 September 2027.\n\nMore: 
- https://processingfoundation.org/programs/fellowships/fellowship-2027/?utm
- _source=artificialnouveaugrantdesk&utm_medium=referral
+ \, with a USD 10\,000 stipend over an 8-month fellowship period.\n\nOrgani
+ sation: Processing Foundation\nLocation: USA only. The Collective Intellig
+ ence track is remote (US-based)\; Gaming the System is hybrid in Los Angel
+ es\; DIY Computing is hybrid in New York City.\nAward: USD 10\,000 stipend
+  over the 8-month fellowship\, plus open-source software mentorship\, coho
+ rt collaboration\, professional development and public presentation opport
+ unities. No application fee.\nDuration: Approximately 8 months\, 25 Januar
+ y to 26 September 2027.\n\nMore: https://processingfoundation.org/programs
+ /fellowships/fellowship-2027/?utm_source=artificialnouveaugrantdesk&utm_me
+ dium=referral
 URL:https://processingfoundation.org/programs/fellowships/fellowship-2027/?
  utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:USA only. The Collective Intelligence track is remote (US-based)\;
@@ -338,39 +186,26 @@ END:VEVENT
 BEGIN:VEVENT
 UID:creative-europe-media-video-games-immersive-content-2027@artificialnouv
  eau.github.io
-DTSTAMP:20261104T145753Z
-DTSTART;VALUE=DATE:20270202
-DTEND;VALUE=DATE:20270203
-SUMMARY:Deadline: Creative Europe MEDIA: European Video Games and Immersive
-  Content Development 2027 (up to EUR 200\,000)
-DESCRIPTION:The MEDIA strand's annual development scheme for video games an
- d immersive content (call CREA-MEDIA-2027-DEVVGIM) funds the pre-productio
- n of interactive narrative works with original content and quality gamepla
- y intended for commercial release on PC\, console\, mobile or XR platforms
- . WHAT IT FUNDS: concept and prototype development up to a first playable\
- , vertical slice\, alpha or demo\; production-phase work is excluded\, as 
- are puzzle\, sports\, racing\, quiz and party genres. WHO: European video 
- game production companies\, XR studios and audiovisual production companie
- s whose main activity is game or software development or audiovisual produ
- ction\, established in a country fully participating in MEDIA and majority
- -owned by nationals of such countries. Publishers and natural persons cann
- ot apply. The coordinator must have produced or developed a game or immers
- ive experience commercially distributed between 1 January 2024 and the dea
- dline\, evidenced by a sales report (work-for-hire and Early Access titles
-  do not count)\, and must hold the majority of rights. WHAT YOU GET: a lum
- p sum of up to EUR 200\,000 (60 percent of the estimated budget) from a EU
- R 13.5 million pot. APPLICATION: single stage via the EU Funding and Tende
- rs Portal. DEADLINE: 2 February 2027 at 17:00 Brussels time.\n\nOrganisati
- on: Creative Europe MEDIA (European Commission / EACEA)\nLocation: EU Memb
- er States\, EEA and countries associated to Creative Europe MEDIA. For gam
- e and XR production companies established and majority-owned in a MEDIA co
- untry.\nAward: Lump-sum grant of up to EUR 200\,000 per project\, set at 6
- 0 percent of the estimated budget. Total call budget EUR 13\,500\,000. No 
- application fee.\nDuration: Development from concept to first playable pro
- totype (first playable\, vertical slice\, alpha\, demo). Call opened 30 Se
- ptember 2026.\n\nMore: https://ec.europa.eu/info/funding-tenders/opportuni
- ties/portal/screen/opportunities/topic-details/CREA-MEDIA-2027-DEVVGIM?utm
- _source=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20270202T153000Z
+DTEND:20270202T160000Z
+SUMMARY:Deadline 17:00 CET: Creative Europe MEDIA: European Video Games and
+  Immersive Content Development 2027 (up to EUR 200\,000)
+DESCRIPTION:Closes 02 Feb 2027 at 17:00 CET.\n\nThe MEDIA strand's annual d
+ evelopment scheme for video games and immersive content (call CREA-MEDIA-2
+ 027-DEVVGIM) funds the pre-production of interactive narrative works with 
+ original content and quality gameplay intended for commercial release on P
+ C\, console\, mobile or XR platforms.\n\nOrganisation: Creative Europe MED
+ IA (European Commission / EACEA)\nLocation: EU Member States\, EEA and cou
+ ntries associated to Creative Europe MEDIA. For game and XR production com
+ panies established and majority-owned in a MEDIA country.\nAward: Lump-sum
+  grant of up to EUR 200\,000 per project\, set at 60 percent of the estima
+ ted budget. Total call budget EUR 13\,500\,000. No application fee.\nDurat
+ ion: Development from concept to first playable prototype (first playable\
+ , vertical slice\, alpha\, demo). Call opened 30 September 2026.\n\nMore: 
+ https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/oppo
+ rtunities/topic-details/CREA-MEDIA-2027-DEVVGIM?utm_source=artificialnouve
+ augrantdesk&utm_medium=referral
 URL:https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/o
  pportunities/topic-details/CREA-MEDIA-2027-DEVVGIM?utm_source=artificialno
  uveaugrantdesk&utm_medium=referral
@@ -381,30 +216,22 @@ END:VEVENT
 BEGIN:VEVENT
 UID:screen-australia-emerging-gamemakers-fund-2027@artificialnouveau.github
  .io
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20270225
 DTEND;VALUE=DATE:20270226
 SUMMARY:Deadline: Screen Australia: Emerging Gamemakers Fund (round closing
   25 February 2027\, up to AUD 30\,000)
 DESCRIPTION:Screen Australia's Emerging Gamemakers Fund backs early-career 
  Australian game makers with small grants to build a prototype or to finish
-  and release a micro-scale original game. WHO: Australian citizens and per
- manent residents applying as individuals\, or incorporated companies carry
- ing on business in Australia with central management and control in Austra
- lia\; all applicants need an ABN and must control the rights to the projec
- t with a clear chain of title. Projects must have budgets of up to AUD 500
- \,000 at the time of applying. WHAT YOU GET: up to AUD 30\,000. APPLICATIO
- N: via SmartyGrants\; the next round opens 14 December 2026 and the fund i
- s scheduled to run as rounds until financial year 2026/27. DEADLINE: 5pm A
- EDT\, Thursday 25 February 2027.\n\nOrganisation: Screen Australia\nLocati
- on: Australia. Individuals must be Australian citizens or permanent reside
- nts\; companies must be incorporated and run from Australia. ABN required.
- \nAward: Up to AUD 30\,000 per project. No application fee.\nDuration: Pro
- totype creation or completion and release of a micro-scale game with a tot
- al budget of up to AUD 500\,000. Round opens 14 December 2026\; outcomes a
- bout 12 weeks after the deadline.\n\nMore: https://www.screenaustralia.gov
- .au/fund/emerging-gamemakers-fund-2/?utm_source=artificialnouveaugrantdesk
- &utm_medium=referral
+  and release a micro-scale original game.\n\nOrganisation: Screen Australi
+ a\nLocation: Australia. Individuals must be Australian citizens or permane
+ nt residents\; companies must be incorporated and run from Australia. ABN 
+ required.\nAward: Up to AUD 30\,000 per project. No application fee.\nDura
+ tion: Prototype creation or completion and release of a micro-scale game w
+ ith a total budget of up to AUD 500\,000. Round opens 14 December 2026\; o
+ utcomes about 12 weeks after the deadline.\n\nMore: https://www.screenaust
+ ralia.gov.au/fund/emerging-gamemakers-fund-2/?utm_source=artificialnouveau
+ grantdesk&utm_medium=referral
 URL:https://www.screenaustralia.gov.au/fund/emerging-gamemakers-fund-2/?utm
  _source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Australia. Individuals must be Australian citizens or permanent re
@@ -413,7 +240,7 @@ LOCATION:Australia. Individuals must be Australian citizens or permanent re
 END:VEVENT
 BEGIN:VEVENT
 UID:screen-australia-games-production-fund-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20270225
 DTEND;VALUE=DATE:20270226
 SUMMARY:Deadline: Screen Australia: Games Production Fund (round closing 25
@@ -422,22 +249,15 @@ DESCRIPTION:Screen Australia's Games Production Fund supports Australian in
  dependent studios whose game already has an early-stage prototype and need
  s funding to reach a significant development milestone: completion or rele
  ase\, Early Access\, a demo\, a vertical slice or an accolade-ready protot
- ype. WHO: incorporated companies carrying on business in Australia with ce
- ntral management and control in Australia\, holding an ABN\; sole traders\
- , trusts and public companies are excluded. Games must be original Austral
- ian independent games with budgets of up to AUD 500\,000 at the time of ap
- plying. WHAT YOU GET: up to AUD 100\,000. APPLICATION: via SmartyGrants\; 
- the next round opens 14 December 2026 and the fund is scheduled to run as 
- rounds until financial year 2026/27. DEADLINE: 5pm AEDT\, Thursday 25 Febr
- uary 2027.\n\nOrganisation: Screen Australia\nLocation: Australia. Incorpo
- rated companies carrying on business in Australia with central management 
- and control in Australia\; sole traders\, trusts and public companies are 
- not eligible.\nAward: Up to AUD 100\,000 per project. No application fee.\
- nDuration: Takes an original Australian independent game with an existing 
- early prototype to a significant milestone (completion\, release\, Early A
- ccess\, demo\, vertical slice or accolade-ready prototype). Round opens 14
-  December 2026.\n\nMore: https://www.screenaustralia.gov.au/fund/games-pro
- duction-fund/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ ype.\n\nOrganisation: Screen Australia\nLocation: Australia. Incorporated 
+ companies carrying on business in Australia with central management and co
+ ntrol in Australia\; sole traders\, trusts and public companies are not el
+ igible.\nAward: Up to AUD 100\,000 per project. No application fee.\nDurat
+ ion: Takes an original Australian independent game with an existing early 
+ prototype to a significant milestone (completion\, release\, Early Access\
+ , demo\, vertical slice or accolade-ready prototype). Round opens 14 Decem
+ ber 2026.\n\nMore: https://www.screenaustralia.gov.au/fund/games-productio
+ n-fund/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.screenaustralia.gov.au/fund/games-production-fund/?utm_sour
  ce=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Australia. Incorporated companies carrying on business in Australi
@@ -446,7 +266,7 @@ LOCATION:Australia. Incorporated companies carrying on business in Australi
 END:VEVENT
 BEGIN:VEVENT
 UID:zoud-gamelab-finlit-game-jam-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
 SUMMARY:Deadline: Zoud GameLab 2026: Global Game Jam financial-literacy jam
@@ -455,27 +275,17 @@ DESCRIPTION:Zoud GameLab is a month-long virtual game jam run by Global Gam
  e Jam and Zoud\, the UAE's national financial wellbeing initiative\, under
   the theme Make FinLit Fun. Participants build a game that integrates fina
  ncial literacy in a meaningful way\; this is part of the judging criteria\
- , and a scoring rubric is published on the jam page. WHO: anyone aged 18 o
- r over by 15 November 2026\, anywhere in the world\; solo developers\, tea
- ms of any size and studios\, each member registering individually. Prior G
- lobal Game Jam participation is not required. WHAT YOU GET: a share of up 
- to USD 140\,000 in prizes and development-support funding\; entrants who w
- ant to be considered for development funding submit the game\, a concept o
- r design document\, a two-minute gameplay video and a game budget. A pre-j
- am learning programme of webinars\, resources and expert sessions ran from
-  September. APPLICATION: register and submit on itch.io (and the Global Ga
- me Jam Discord). DEADLINE: 15 November 2026 at 23:59 anywhere on earth (th
- e itch.io counter may show 16 November in some time zones).\n\nOrganisatio
- n: Zoud (UAE National Financial Wellbeing and Sustainability Initiative) w
- ith Global Game Jam\nLocation: Online\, worldwide. Open to participants ag
- ed 18 and over in any country\; solo developers\, teams of any size and st
- udios.\nAward: Shared prize and development-support funding pool of up to 
- USD 140\,000 across best overall game\, runner-up\, third place\, financia
- l-literacy impact\, regional perspective\, compelling gameplay and a Best 
- Game from the UAE award\; individual prize amounts are not published. No e
- ntry fee.\nDuration: Month-long online jam\, 15 October to 15 November 202
- 6\; winners announced December 2026.\n\nMore: https://itch.io/jam/zoud-gam
- elab?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ , and a scoring rubric is published on the jam page.\n\nOrganisation: Zoud
+  (UAE National Financial Wellbeing and Sustainability Initiative) with Glo
+ bal Game Jam\nLocation: Online\, worldwide. Open to participants aged 18 a
+ nd over in any country\; solo developers\, teams of any size and studios.\
+ nAward: Shared prize and development-support funding pool of up to USD 140
+ \,000 across best overall game\, runner-up\, third place\, financial-liter
+ acy impact\, regional perspective\, compelling gameplay and a Best Game fr
+ om the UAE award\; individual prize amounts are not published. No entry fe
+ e.\nDuration: Month-long online jam\, 15 October to 15 November 2026\; win
+ ners announced December 2026.\n\nMore: https://itch.io/jam/zoud-gamelab?ut
+ m_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://itch.io/jam/zoud-gamelab?utm_source=artificialnouveaugrantdesk&
  utm_medium=referral
 LOCATION:Online\, worldwide. Open to participants aged 18 and over in any c
@@ -484,7 +294,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:playful-obscura-arthouse-games-residency-africa-2027@artificialnouveau.
  github.io
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Playful Obscura 2027: Arthouse Games Residency Africa (Ad
@@ -493,27 +303,17 @@ DESCRIPTION:Playful Obscura is the Goethe-Institut's arthouse games residen
  cy for Africa\, co-run with the Berlin playful-media festival A MAZE. Afte
  r editions in Ho (2025) and Accra (2026)\, the third edition moves to Addi
  s Ababa with Creative HUB Ethiopia\, the British Council and Alliance Ethi
- o-Francaise. WHAT IT IS: a three-week residency hosting two artists simult
- aneously to develop experimental\, artistic games and playful media\, with
-  mentoring from the A MAZE. network and a public showcase. WHO: artists\, 
- game developers and creative technologists based in Africa who can work in
- dependently on a project\; the 2026 call drew 77 applications from 16 Afri
- can countries. WHAT YOU GET: travel and accommodation plus production supp
- ort\; the 2026 edition offered a production budget of up to EUR 1\,000 and
-  a EUR 300 stipend\, and the 2027 figures should be confirmed in the full 
- call. APPLICATION: via the Goethe-Institut South Africa Playful Obscura pa
- ge. DEADLINE: 1 November 2026.\n\nOrganisation: Goethe-Institut Addis Abeb
- a\, with Creative HUB Ethiopia\, A MAZE.\, British Council and Alliance Et
- hio-Francaise\nLocation: Addis Ababa\, Ethiopia. For artists and game deve
- lopers based in Africa working in playful media and arthouse games.\nAward
- : Three-week funded residency hosting two artists at a time. 2027 financia
- l terms were not published in the call excerpt we could verify\; the 2026 
- Accra edition provided accommodation\, a production budget of up to EUR 1\
- ,000 and a EUR 300 stipend. No application fee.\nDuration: Residency 25 Ja
- nuary to 14 February 2027 in Addis Ababa\; open call 16 October to 1 Novem
- ber 2026\, with an online Q&A on 22 October.\n\nMore: https://www.goethe.d
- e/ins/za/en/kul/mut/p27.html?utm_source=artificialnouveaugrantdesk&utm_med
- ium=referral
+ o-Francaise.\n\nOrganisation: Goethe-Institut Addis Abeba\, with Creative 
+ HUB Ethiopia\, A MAZE.\, British Council and Alliance Ethio-Francaise\nLoc
+ ation: Addis Ababa\, Ethiopia. For artists and game developers based in Af
+ rica working in playful media and arthouse games.\nAward: Three-week funde
+ d residency hosting two artists at a time. 2027 financial terms were not p
+ ublished in the call excerpt we could verify\; the 2026 Accra edition prov
+ ided accommodation\, a production budget of up to EUR 1\,000 and a EUR 300
+  stipend. No application fee.\nDuration: Residency 25 January to 14 Februa
+ ry 2027 in Addis Ababa\; open call 16 October to 1 November 2026\, with an
+  online Q&A on 22 October.\n\nMore: https://www.goethe.de/ins/za/en/kul/mu
+ t/p27.html?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.goethe.de/ins/za/en/kul/mut/p27.html?utm_source=artificialn
  ouveaugrantdesk&utm_medium=referral
 LOCATION:Addis Ababa\, Ethiopia. For artists and game developers based in A
@@ -522,31 +322,23 @@ END:VEVENT
 BEGIN:VEVENT
 UID:big-festival-gamescom-latam-2027-indie-submissions@artificialnouveau.gi
  thub.io
-DTSTAMP:20261104T145753Z
-DTSTART;VALUE=DATE:20270115
-DTEND;VALUE=DATE:20270116
-SUMMARY:Deadline: BIG Festival at gamescom latam 2027: free indie game subm
- issions (Sao Paulo\, awards with cash prizes)
-DESCRIPTION:BIG Festival\, the indie games competition inside gamescom lata
- m in Sao Paulo\, has opened free submissions for its 2027 edition. The 202
- 6 edition drew a record 966 submissions from 75 countries. WHO: independen
- t developers and studios anywhere in the world\, with a playable game or d
- emo\; see the official rules for category requirements (BIG Starter\, BIG 
- Highlight and the WINGS Award for teams where women and marginalised group
- s hold prominent roles). WHAT YOU GET: selected titles are exhibited at no
-  cost on the show floor\, playtested by visitors\, and compete for the BIG
-  Festival awards\; past editions paid cash to winners (BRL 5\,000 for Best
-  Game 2025\, EUR 2\,000 for the 2026 WINGS Award). A separate free call fo
- r conference speakers closes 18 January 2027. APPLICATION: via the gamesco
- m latam website. DEADLINE: 15 January 2027 at 21:59 Eastern time.\n\nOrgan
- isation: gamescom latam / BIG Festival\nLocation: Sao Paulo\, Brazil (Dist
- rito Anhembi). Open to independent developers anywhere in the world.\nAwar
- d: Free submission and a no-cost exhibition slot for selected games\, plus
-  eligibility for the BIG Festival awards. 2027 prize amounts are not yet p
- ublished\; in 2025 Best Game carried BRL 5\,000 and in 2026 the WINGS Awar
- d carried EUR 2\,000 in cash.\nDuration: Submissions 16 October 2026 to 15
-  January 2027\; festival 22 to 25 April 2027.\n\nMore: https://latam.games
- com.global/en/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20270116T022900Z
+DTEND:20270116T025900Z
+SUMMARY:Deadline 21:59 EST: BIG Festival at gamescom latam 2027: free indie
+  game submissions (Sao Paulo\, awards with cash prizes)
+DESCRIPTION:Closes 15 Jan 2027 at 21:59 EST.\n\nBIG Festival\, the indie ga
+ mes competition inside gamescom latam in Sao Paulo\, has opened free submi
+ ssions for its 2027 edition. The 2026 edition drew a record 966 submission
+ s from 75 countries.\n\nOrganisation: gamescom latam / BIG Festival\nLocat
+ ion: Sao Paulo\, Brazil (Distrito Anhembi). Open to independent developers
+  anywhere in the world.\nAward: Free submission and a no-cost exhibition s
+ lot for selected games\, plus eligibility for the BIG Festival awards. 202
+ 7 prize amounts are not yet published\; in 2025 Best Game carried BRL 5\,0
+ 00 and in 2026 the WINGS Award carried EUR 2\,000 in cash.\nDuration: Subm
+ issions 16 October 2026 to 15 January 2027\; festival 22 to 25 April 2027.
+ \n\nMore: https://latam.gamescom.global/en/?utm_source=artificialnouveaugr
+ antdesk&utm_medium=referral
 URL:https://latam.gamescom.global/en/?utm_source=artificialnouveaugrantdesk
  &utm_medium=referral
 LOCATION:Sao Paulo\, Brazil (Distrito Anhembi). Open to independent develop
@@ -555,37 +347,27 @@ END:VEVENT
 BEGIN:VEVENT
 UID:realities-in-transition-rit2-oc3-uncharted-grounds-lev-2027@artificialn
  ouveau.github.io
-DTSTAMP:20261104T145753Z
-DTSTART;VALUE=DATE:20261106
-DTEND;VALUE=DATE:20261107
-SUMMARY:Deadline: Realities in Transition RiT2 Open Call #3: Uncharted Grou
- nds\, a VRChat world residency with L.E.V. Festival (EUR 10\,000 fee plus 
- up to EUR 15\,000 production)
-DESCRIPTION:Realities in Transition (RiT2)\, a Creative Europe XR cooperati
- on project\, and host partner L.E.V. Festival invite artists with VR devel
- opment experience to co-create a walkable VRChat world conceived as a voya
- ge\, with 5 to 7 environments\, 3 to 5 avatars and optional NPC players\; 
- events\, social worlds and theatre pieces are not wanted. Three individual
-  artists are selected and work together with a creative technologist\, eac
- h indicating the skills they bring (for example Unity development\, 3D art
- \, animation\, sound art or narrative writing) with portfolio examples. WH
- AT YOU GET: an artist fee of EUR 10\,000 gross per artist (EUR 6\,000 on s
- igning\, EUR 2\,000 after the Test Lab\, EUR 2\,000 at the end) and a prod
- uction budget of up to EUR 15\,000 gross for working hours or external ass
- istance. The residency is fully online from January to June 2027\, with a 
- Test Lab at L.E.V. Gijon in May 2027 and a premiere at L.E.V. Matadero in 
- September 2027\; no travel or accommodation is included. APPLICATION: onli
- ne form linked from the call page. DEADLINE (extended): 6 November 2026\, 
- 23:59 CEST.\n\nOrganisation: Realities in Transition (RiT2\, Creative Euro
- pe)\, with L.E.V. Festival\nLocation: Online residency\, with a Test Lab a
- t L.E.V. Gijon and a premiere at L.E.V. Matadero (Madrid)\, Spain. Check t
- he RiT residencies page for country eligibility.\nAward: EUR 10\,000 gross
-  artist fee per selected artist (paid in three instalments) plus up to EUR
-  15\,000 gross production budget shared among the team. No travel or accom
- modation included. No application fee mentioned.\nDuration: 6 months onlin
- e\, January to June 2027\; Test Lab in May 2027\, final presentation in Se
- ptember 2027.\n\nMore: https://www.realities-in-transition.eu/rit-2-open-c
- all-3/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20261106T222900Z
+DTEND:20261106T225900Z
+SUMMARY:Deadline 23:59 CET: Realities in Transition RiT2 Open Call #3: Unch
+ arted Grounds\, a VRChat world residency with L.E.V. Festival (EUR 10\,000
+  fee plus up to EUR 15\,000 production)
+DESCRIPTION:Closes 06 Nov 2026 at 23:59 CET.\n\nRealities in Transition (Ri
+ T2)\, a Creative Europe XR cooperation project\, and host partner L.E.V. F
+ estival invite artists with VR development experience to co-create a walka
+ ble VRChat world conceived as a voyage\, with 5 to 7 environments\, 3 to 5
+  avatars and optional NPC players\; events\, social worlds and theatre pie
+ ces are not wanted.\n\nOrganisation: Realities in Transition (RiT2\, Creat
+ ive Europe)\, with L.E.V. Festival\nLocation: Online residency\, with a Te
+ st Lab at L.E.V. Gijon and a premiere at L.E.V. Matadero (Madrid)\, Spain.
+  Check the RiT residencies page for country eligibility.\nAward: EUR 10\,0
+ 00 gross artist fee per selected artist (paid in three instalments) plus u
+ p to EUR 15\,000 gross production budget shared among the team. No travel 
+ or accommodation included. No application fee mentioned.\nDuration: 6 mont
+ hs online\, January to June 2027\; Test Lab in May 2027\, final presentati
+ on in September 2027.\n\nMore: https://www.realities-in-transition.eu/rit-
+ 2-open-call-3/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.realities-in-transition.eu/rit-2-open-call-3/?utm_source=ar
  tificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Online residency\, with a Test Lab at L.E.V. Gijon and a premiere 
@@ -595,33 +377,25 @@ END:VEVENT
 BEGIN:VEVENT
 UID:creative-europe-media-innovative-tools-business-models-2027@artificialn
  ouveau.github.io
-DTSTAMP:20261104T145753Z
-DTSTART;VALUE=DATE:20270114
-DTEND;VALUE=DATE:20270115
-SUMMARY:Deadline: Creative Europe MEDIA: Innovative Tools and Business Mode
- ls 2027 (EUR 14 million call\, AI\, data and virtual worlds for audiovisua
- l)
-DESCRIPTION:The MEDIA strand's Innovative Tools and Business Models call (C
- REA-MEDIA-2027-INNOVBUSMOD) funds tools and business models that strengthe
- n the competitiveness of the European audiovisual and video games industri
- es. WHAT IT FUNDS: tools for subtitling\, accessibility\, discoverability 
- and recommendation\; automated rights management and data analytics\; busi
- ness models linking festivals\, cinemas and VOD\; new modes of production\
- , financing or distribution using AI\, big data\, blockchain\, virtual wor
- lds or NFTs\; and greening the audiovisual and video games industry. WHO: 
- a single organisation or a consortium of two or more\, established in a ME
- DIA country\; individuals cannot apply. WHAT YOU GET: grants at an 80 perc
- ent funding rate from a total budget of EUR 14\,000\,000. APPLICATION: via
-  the EU Funding and Tenders portal. DEADLINE: 14 January 2027\, 17:00 CET 
- (Brussels).\n\nOrganisation: Creative Europe MEDIA (European Commission / 
- EACEA)\nLocation: EU Member States\, EEA and countries associated to Creat
- ive Europe MEDIA. For organisations (legal entities) established in a MEDI
- A country\; natural persons cannot apply.\nAward: Total call budget EUR 14
- \,000\,000\; no fixed cap per project\; 80 percent funding rate. No applic
- ation fee.\nDuration: Projects normally up to 36 months. Call opened 30 Se
- ptember 2026.\n\nMore: https://ec.europa.eu/info/funding-tenders/opportuni
- ties/portal/screen/opportunities/topic-details/CREA-MEDIA-2027-INNOVBUSMOD
- ?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20270114T153000Z
+DTEND:20270114T160000Z
+SUMMARY:Deadline 17:00 CET: Creative Europe MEDIA: Innovative Tools and Bus
+ iness Models 2027 (EUR 14 million call\, AI\, data and virtual worlds for 
+ audiovisual)
+DESCRIPTION:Closes 14 Jan 2027 at 17:00 CET.\n\nThe MEDIA strand's Innovati
+ ve Tools and Business Models call (CREA-MEDIA-2027-INNOVBUSMOD) funds tool
+ s and business models that strengthen the competitiveness of the European 
+ audiovisual and video games industries.\n\nOrganisation: Creative Europe M
+ EDIA (European Commission / EACEA)\nLocation: EU Member States\, EEA and c
+ ountries associated to Creative Europe MEDIA. For organisations (legal ent
+ ities) established in a MEDIA country\; natural persons cannot apply.\nAwa
+ rd: Total call budget EUR 14\,000\,000\; no fixed cap per project\; 80 per
+ cent funding rate. No application fee.\nDuration: Projects normally up to 
+ 36 months. Call opened 30 September 2026.\n\nMore: https://ec.europa.eu/in
+ fo/funding-tenders/opportunities/portal/screen/opportunities/topic-details
+ /CREA-MEDIA-2027-INNOVBUSMOD?utm_source=artificialnouveaugrantdesk&utm_med
+ ium=referral
 URL:https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/o
  pportunities/topic-details/CREA-MEDIA-2027-INNOVBUSMOD?utm_source=artifici
  alnouveaugrantdesk&utm_medium=referral
@@ -632,35 +406,27 @@ END:VEVENT
 BEGIN:VEVENT
 UID:creative-europe-creative-innovation-lab-2027@artificialnouveau.github.i
  o
-DTSTAMP:20261104T145753Z
-DTSTART;VALUE=DATE:20270422
-DTEND;VALUE=DATE:20270423
-SUMMARY:Deadline: Creative Europe Cross-sectoral: Creative Innovation Lab 2
- 027 (EUR 7.18 million call\, AI\, virtual worlds and data tools)
-DESCRIPTION:The Creative Innovation Lab (call CREA-CROSS-2027-INNOVLAB) fun
- ds innovative tools\, models and solutions applicable across the audiovisu
- al and other cultural and creative sectors. Every project must involve the
-  audiovisual sector (video games included) plus at least one of music\, bo
- oks or museums. The 2027 call is explicitly aligned with the EU Apply AI S
- trategy\, including AI for content discoverability\, and covers virtual wo
- rlds\, AI-\, data- and blockchain-based business tools (rights management\
- , monetisation\, data analytics) and greener practices. WHO: a single orga
- nisation or a consortium of two or more\, established in a Creative Europe
-  country\; individuals cannot apply. WHAT YOU GET: an actual-cost grant at
-  an 80 percent funding rate from a total budget of EUR 7\,183\,502\, with 
- financial support to third parties of up to EUR 60\,000 each allowed. APPL
- ICATION: via the EU Funding and Tenders portal. DEADLINE: 22 April 2027\, 
- 17:00 CET (Brussels).\n\nOrganisation: Creative Europe Cross-sectoral stra
- nd (European Commission / EACEA)\nLocation: EU Member States and countries
-  associated to Creative Europe. For organisations (legal entities) establi
- shed in an eligible country\; natural persons cannot apply.\nAward: Total 
- call budget EUR 7\,183\,502\; no fixed cap per project\; actual-cost grant
-  at an 80 percent funding rate. Projects may re-grant up to EUR 60\,000 pe
- r third party. No application fee.\nDuration: Projects normally up to 24 m
- onths. Call opened 22 October 2026.\n\nMore: https://ec.europa.eu/info/fun
- ding-tenders/opportunities/portal/screen/opportunities/topic-details/CREA-
- CROSS-2027-INNOVLAB?utm_source=artificialnouveaugrantdesk&utm_medium=refer
- ral
+DTSTAMP:20261104T150309Z
+DTSTART:20270422T143000Z
+DTEND:20270422T150000Z
+SUMMARY:Deadline 17:00 CEST: Creative Europe Cross-sectoral: Creative Innov
+ ation Lab 2027 (EUR 7.18 million call\, AI\, virtual worlds and data tools
+ )
+DESCRIPTION:Closes 22 Apr 2027 at 17:00 CEST.\n\nThe Creative Innovation La
+ b (call CREA-CROSS-2027-INNOVLAB) funds innovative tools\, models and solu
+ tions applicable across the audiovisual and other cultural and creative se
+ ctors. Every project must involve the audiovisual sector (video games incl
+ uded) plus at least one of music\, books or museums.\n\nOrganisation: Crea
+ tive Europe Cross-sectoral strand (European Commission / EACEA)\nLocation:
+  EU Member States and countries associated to Creative Europe. For organis
+ ations (legal entities) established in an eligible country\; natural perso
+ ns cannot apply.\nAward: Total call budget EUR 7\,183\,502\; no fixed cap 
+ per project\; actual-cost grant at an 80 percent funding rate. Projects ma
+ y re-grant up to EUR 60\,000 per third party. No application fee.\nDuratio
+ n: Projects normally up to 24 months. Call opened 22 October 2026.\n\nMore
+ : https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/op
+ portunities/topic-details/CREA-CROSS-2027-INNOVLAB?utm_source=artificialno
+ uveaugrantdesk&utm_medium=referral
 URL:https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/o
  pportunities/topic-details/CREA-CROSS-2027-INNOVLAB?utm_source=artificialn
  ouveaugrantdesk&utm_medium=referral
@@ -670,7 +436,7 @@ LOCATION:EU Member States and countries associated to Creative Europe. For
 END:VEVENT
 BEGIN:VEVENT
 UID:rhizome-microgrants-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145753Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261120
 DTEND;VALUE=DATE:20261121
 SUMMARY:Deadline: Rhizome Microgrants 2026 (USD 500-1\,500 for digital art 
@@ -679,27 +445,14 @@ DESCRIPTION:Rhizome's annual microgrants\, running since 2014\, fund new cr
  eative projects related to digital art and networked culture\, especially 
  web-based works. Past awardees include a multilingual archive of printed "
  Internet directory" books\, a browser-based adventure game about caring fo
- r "small but alive" creatures\, and a free pop-up school in Portland. THIS
-  YEAR'S CATEGORIES: PERMANENCE\, with Larva Labs (digital projects built t
- o endure)\; MISUSE (projects that misuse the technologies they depend on)\
- ; HANDMADE (non-AI works and handmade digital practices)\; and CO-OP (cult
- ural artifacts that result from collective online behaviour). TERRELL DAVI
- S FUND: with Joygill Moriah and Liz Mputu (LVLZ Healing Hub)\, Rhizome off
- ers additional grants honouring the legacy of digital artist and curator T
- errell Davis\, for work speaking to Black and Afrodiasporic experiences\; 
- projects in any category may opt in. WHO CAN APPLY: artists\, hackers\, re
- searchers\, game masters\, designers\, storytellers\, tinkerers\, communit
- y builders\, scientists\, archivists and culture workers\, regardless of t
- echnical or demographic background. JURY: Rhizome staff with guest jurors 
- Larva Labs and Natalie Stone\, Joygill Moriah\, Herdimas Anggara and Annie
-  Rau. DEADLINE: 20 November 2026.\n\nOrganisation: Rhizome\nLocation: Onli
- ne. Open call for web-based and networked projects\; no location requireme
- nt is stated in the announcement.\nAward: USD 500 to 1\,500 per project. A
- dditional annual grants through the Terrell Davis fund (with Joygill Moria
- h and LVLZ Healing Hub) for work speaking to Black and Afrodiasporic exper
- iences\; projects in any category can opt in.\nDuration: Per project.\n\nM
- ore: https://microgrants.rhizome.org/?utm_source=artificialnouveaugrantdes
- k&utm_medium=referral
+ r "small but alive" creatures\, and a free pop-up school in Portland.\n\nO
+ rganisation: Rhizome\nLocation: Online. Open call for web-based and networ
+ ked projects\; no location requirement is stated in the announcement.\nAwa
+ rd: USD 500 to 1\,500 per project. Additional annual grants through the Te
+ rrell Davis fund (with Joygill Moriah and LVLZ Healing Hub) for work speak
+ ing to Black and Afrodiasporic experiences\; projects in any category can 
+ opt in.\nDuration: Per project.\n\nMore: https://microgrants.rhizome.org/?
+ utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://microgrants.rhizome.org/?utm_source=artificialnouveaugrantdesk&
  utm_medium=referral
 LOCATION:Online. Open call for web-based and networked projects\; no locati

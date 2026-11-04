@@ -3,9 +3,10 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - Grants\, Cross-disciplinary & Social Impact\, US
-X-WR-CALNAME:The Grant Desk - Grants\, Cross-disciplinary & Social Impact\,
-  US deadlines
+NAME:The Grant Desk deadlines - Grants\, Cross-disciplinary & Social Impact
+ \, US
+X-WR-CALNAME:The Grant Desk deadlines - Grants\, Cross-disciplinary & Socia
+ l Impact\, US
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
  pdated as new calls land on the desk. Filtered to: Grants\, Cross-discipli
@@ -13,49 +14,9 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
-UID:guggenheim-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260915
-DTEND;VALUE=DATE:20260916
-SUMMARY:Deadline: Guggenheim Fellowship 2027
-DESCRIPTION:The Guggenheim Fellowship is awarded to mid-career individuals 
- who have already demonstrated exceptional capacity for productive scholars
- hip or exceptional creative ability in the arts\, giving them six to twelv
- e months of funded time to work with as much creative freedom as possible.
-  Around 175 to 200 fellows are chosen each year from a field of several th
- ousand applicants (a success rate of roughly five percent)\, across more t
- han 50 fields spanning the creative arts\, the humanities\, the natural sc
- iences and the social sciences\, including architecture\, film\, music\, p
- hotography\, fine arts\, computer science and interdisciplinary work. ELIG
- IBILITY: citizens and permanent residents of the United States and Canada\
- ; applicants must be mid-career with a significant record of published or 
- exhibited work\, and current students and previous Guggenheim Fellows are 
- not eligible. APPLICATION: through the Foundation's own portal\, which ope
- ns in late summer 2026\, so check the site if it is not yet live. The appl
- ication deadline is 15 September 2026 with no late submissions accepted\; 
- work samples are due 29 September 2026 and reference letters 13 October 20
- 26. Results are announced in late April 2027. No fee.\n\nOrganisation: Joh
- n Simon Guggenheim Memorial Foundation\nLocation: Anywhere\; the fellowshi
- p funds the fellow's own work rather than residence at a host institution.
-  Open to citizens and permanent residents of the United States and Canada.
- \nAward: Variable cash grant sized to the applicant's proposed budget and 
- needs\; the Foundation does not publish a fixed figure or range\, and rece
- nt awards have typically run into the tens of thousands of US dollars. Rou
- ghly 175 to 200 fellowships are awarded each year across more than 50 fiel
- ds. The Foundation charges no application fee and has no affiliated applic
- ation consultants.\nDuration: Six to twelve months of supported work\n\nMo
- re: https://www.gf.org/program/how-to-apply/?utm_source=artificialnouveaug
- rantdesk&utm_medium=referral
-URL:https://www.gf.org/program/how-to-apply/?utm_source=artificialnouveaugr
- antdesk&utm_medium=referral
-LOCATION:Anywhere\; the fellowship funds the fellow's own work rather than 
- residence at a host institution. Open to citizens and permanent residents 
- of the United States and Canada.
-END:VEVENT
-BEGIN:VEVENT
 UID:simons-foundation-open-interval-turbulence-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261021
 DTEND;VALUE=DATE:20261022
 SUMMARY:Deadline: Open Interval: An Artist-Scientist Exploration of Turbule
@@ -64,21 +25,12 @@ DESCRIPTION:Open Interval is a Simons Foundation program that supports trio
  s consisting of an artist\, a scientist\, and a representative from a 501(
  c)(3) arts organization to collaborate around a shared scientific theme. T
  he current cycle centers on the theme of turbulence\, a phenomenon at the 
- edge of chaos and beauty. Awarded trios receive USD 30\,000 to support a s
- ustained period of thought partnership and exploration rather than the pro
- duction of finished works or exhibitions. The program runs from April to D
- ecember 2027 with a touchstone meeting in May 2027 and possible cohort con
- venings. Trio members must be regionally co-located anywhere in the United
-  States so they can collaborate in person. The scientist should hold a Ph.
- D. and be conducting basic research\, with priority given to fields such a
- s astrophysics\, neuroscience\, quantum physics\, biology\, or mathematics
- . The application portal opens September 9\, 2026\, and all three trio mem
- bers must submit for the application to be complete.\n\nOrganisation: Simo
- ns Foundation\nLocation: United States (trio must be regionally co-located
- )\nAward: USD 30\,000 per awarded trio\nDuration: April to December 2027 (
- several months of collaboration)\n\nMore: https://www.simonsfoundation.org
- /2026/06/01/coming-soon-open-interval-an-artist-scientist-exploration-of-t
- urbulence/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ edge of chaos and beauty.\n\nOrganisation: Simons Foundation\nLocation: Un
+ ited States (trio must be regionally co-located)\nAward: USD 30\,000 per a
+ warded trio\nDuration: April to December 2027 (several months of collabora
+ tion)\n\nMore: https://www.simonsfoundation.org/2026/06/01/coming-soon-ope
+ n-interval-an-artist-scientist-exploration-of-turbulence/?utm_source=artif
+ icialnouveaugrantdesk&utm_medium=referral
 URL:https://www.simonsfoundation.org/2026/06/01/coming-soon-open-interval-a
  n-artist-scientist-exploration-of-turbulence/?utm_source=artificialnouveau
  grantdesk&utm_medium=referral
@@ -86,7 +38,7 @@ LOCATION:United States (trio must be regionally co-located)
 END:VEVENT
 BEGIN:VEVENT
 UID:mit-museum-brain-digital-content-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150309Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: MIT Museum: BRAIN Digital Content Open Call
@@ -94,25 +46,13 @@ DESCRIPTION:The MIT Museum seeks proposals for compelling digital content e
  xploring humanity's relationship with the BRAIN\, the museum's thematic fo
  cus from April to September 2027 bringing together art\, science\, technol
  ogy and design on cognition\, neurotechnology\, brain-computer interfaces\
- , mental health and the boundaries of ability. Selected proposals run as a
- mbient content on the two-story digital screen (3840x3024\, 80:63 aspect r
- atio\, 20'3" x 16'2") in the museum's central Exchange amphitheater. The m
- useum wants immersive\, non-linear\, experimental\, non-didactic work\, su
- ch as artful visualizations of data or scientific phenomena\; interactivit
- y (touchscreens\, QR codes) is out of scope and content-critical audio is 
- discouraged. Content must run on the museum's existing hardware (Windows P
- C with RTX 3090\, NEC LED wall with Analog Way 4K system). WHO CAN APPLY: 
- artists\, scientists\, engineers\, designers and other creative practition
- ers\, from MIT or the broader community. SUPPORT: flat honorarium of USD 2
- \,500-5\,000 per selected proposal\; no additional development funding. Ap
- plications reviewed from 2 November\, accepted list finalized January 2027
- . Deadline: 1 November 2026.\n\nOrganisation: MIT Museum\nLocation: Cambri
- dge\, Massachusetts\, US (content shown on-site\; remote creation possible
- )\nAward: Flat honorarium of USD 2\,500 to 5\,000 per selected proposal\, 
- at the Museum's discretion\nDuration: BRAIN thematic focus runs April - Se
- ptember 2027\; selection finalized January 2027\n\nMore: https://mitmuseum
- .mit.edu/brain-digital-content-open-call?utm_source=artificialnouveaugrant
- desk&utm_medium=referral
+ , mental health and the boundaries of ability.\n\nOrganisation: MIT Museum
+ \nLocation: Cambridge\, Massachusetts\, US (content shown on-site\; remote
+  creation possible)\nAward: Flat honorarium of USD 2\,500 to 5\,000 per se
+ lected proposal\, at the Museum's discretion\nDuration: BRAIN thematic foc
+ us runs April - September 2027\; selection finalized January 2027\n\nMore:
+  https://mitmuseum.mit.edu/brain-digital-content-open-call?utm_source=arti
+ ficialnouveaugrantdesk&utm_medium=referral
 URL:https://mitmuseum.mit.edu/brain-digital-content-open-call?utm_source=ar
  tificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Cambridge\, Massachusetts\, US (content shown on-site\; remote cre
@@ -120,27 +60,24 @@ LOCATION:Cambridge\, Massachusetts\, US (content shown on-site\; remote cre
 END:VEVENT
 BEGIN:VEVENT
 UID:usartists-international-fy28@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20270224
-DTEND;VALUE=DATE:20270225
-SUMMARY:Deadline: Mid Atlantic Arts: USArtists International (FY28 round\, 
- up to USD 11\,000)
-DESCRIPTION:Matching grants supporting US-based performing artists and ense
- mbles\, all performing-arts practices including experimental music and per
- formance\, appearing at international festivals and significant presenting
-  engagements outside the United States. GRANT: up to USD 11\,000 toward el
- igible travel and engagement expenses\, matched 1:1. ELIGIBILITY: artists/
- ensembles based in any US state or territory\; not open to non-US-based ar
- tists. The portal opens early December 2026\; the round covers projects be
- tween 1 July 2027 and 30 August 2028. DEADLINE: 24 February 2027\, 11:59pm
-  ET.\n\nOrganisation: Mid Atlantic Arts\, with the National Endowment for 
- the Arts and the Mellon Foundation\nLocation: Baltimore\, Maryland\, USA (
- administration). RESTRICTED: artists and ensembles based in any US state o
- r territory\, performing at engagements outside the US.\nAward: Grants of 
- up to USD 11\,000 toward eligible expenses\, with a 1:1 cost match require
- d. No application fee.\nDuration: Projects 1 July 2027 to 30 August 2028\n
- \nMore: https://www.midatlanticarts.org/grants-programs/usartists-internat
- ional/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20270225T042900Z
+DTEND:20270225T045900Z
+SUMMARY:Deadline 23:59 EST: Mid Atlantic Arts: USArtists International (FY2
+ 8 round\, up to USD 11\,000)
+DESCRIPTION:Closes 24 Feb 2027 at 23:59 EST.\n\nMatching grants supporting 
+ US-based performing artists and ensembles\, all performing-arts practices 
+ including experimental music and performance\, appearing at international 
+ festivals and significant presenting engagements outside the United States
+ . GRANT: up to USD 11\,000 toward eligible travel and engagement expenses\
+ , matched 1:1.\n\nOrganisation: Mid Atlantic Arts\, with the National Endo
+ wment for the Arts and the Mellon Foundation\nLocation: Baltimore\, Maryla
+ nd\, USA (administration). RESTRICTED: artists and ensembles based in any 
+ US state or territory\, performing at engagements outside the US.\nAward: 
+ Grants of up to USD 11\,000 toward eligible expenses\, with a 1:1 cost mat
+ ch required. No application fee.\nDuration: Projects 1 July 2027 to 30 Aug
+ ust 2028\n\nMore: https://www.midatlanticarts.org/grants-programs/usartist
+ s-international/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.midatlanticarts.org/grants-programs/usartists-international
  /?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Baltimore\, Maryland\, USA (administration). RESTRICTED: artists a

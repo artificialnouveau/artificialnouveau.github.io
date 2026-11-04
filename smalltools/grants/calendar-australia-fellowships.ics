@@ -3,8 +3,8 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - Fellowships\, Australia
-X-WR-CALNAME:The Grant Desk - Fellowships\, Australia deadlines
+NAME:The Grant Desk deadlines - Fellowships\, Australia
+X-WR-CALNAME:The Grant Desk deadlines - Fellowships\, Australia
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
  pdated as new calls land on the desk. Filtered to: Fellowships\, Australia
@@ -13,37 +13,25 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:screen-australia-global-fellowships-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20270211
-DTEND;VALUE=DATE:20270212
-SUMMARY:Deadline: Screen Australia Global Fellowships (AUD 80\,000-100\,000
- )
-DESCRIPTION:Screen Australia's Global Fellowships support Australian screen
-  practitioners (producers\, directors\, writers and development executives
- ) pursuing international professional development and career acceleration 
- through placements with leading global screen organizations. SUPPORT: up t
- o 10 fellows annually\, each receiving a non-recoupable grant of AUD 80\,0
- 00 for a single continuous placement of up to 6 months\, or AUD 100\,000 f
- or multiple placements over up to 12 months\, plus up to AUD 5\,000 for ca
- rers' and/or accessibility costs. ELIGIBILITY: Australian citizens or perm
- anent residents (sole traders) or incorporated Australian companies with a
- n ABN\; applicants must secure their own fellowship opportunity with host 
- organizations and mentors (Screen Australia does not broker placements) an
- d be eligible for required visas. ASSESSMENT: track record and professiona
- l achievement\, quality of the fellowship opportunity\, career impact\, an
- d anticipated benefit to Australia's screen sector\, weighted equally. HOW
-  TO APPLY: one application per deadline via Screen Australia's funding por
- tal. Notification 2 April 2027. DEADLINE: 11 February 2027 at 5pm AEST.\n\
- nOrganisation: Screen Australia\nLocation: International placements with l
- eading global screen organizations\, self-arranged by the fellow. Open to 
- Australian citizens or permanent residents (sole traders) or incorporated 
- Australian companies.\nAward: Non-recoupable grants of AUD 80\,000 (single
-  continuous placement of up to 6 months) or AUD 100\,000 (multiple placeme
- nts over up to 12 months)\, plus up to AUD 5\,000 for carers' and/or acces
- sibility costs. Up to 10 fellows annually.\nDuration: Placements of up to 
- 6 months (single) or up to 12 months (multiple)\n\nMore: https://www.scree
- naustralia.gov.au/fund/global-fellowships/?utm_source=artificialnouveaugra
- ntdesk&utm_medium=referral
+DTSTAMP:20261104T150309Z
+DTSTART:20270211T053000Z
+DTEND:20270211T060000Z
+SUMMARY:Deadline 17:00 AEDT: Screen Australia Global Fellowships (AUD 80\,0
+ 00-100\,000)
+DESCRIPTION:Closes 11 Feb 2027 at 17:00 AEDT.\n\nScreen Australia's Global 
+ Fellowships support Australian screen practitioners (producers\, directors
+ \, writers and development executives) pursuing international professional
+  development and career acceleration through placements with leading globa
+ l screen organizations.\n\nOrganisation: Screen Australia\nLocation: Inter
+ national placements with leading global screen organizations\, self-arrang
+ ed by the fellow. Open to Australian citizens or permanent residents (sole
+  traders) or incorporated Australian companies.\nAward: Non-recoupable gra
+ nts of AUD 80\,000 (single continuous placement of up to 6 months) or AUD 
+ 100\,000 (multiple placements over up to 12 months)\, plus up to AUD 5\,00
+ 0 for carers' and/or accessibility costs. Up to 10 fellows annually.\nDura
+ tion: Placements of up to 6 months (single) or up to 12 months (multiple)\
+ n\nMore: https://www.screenaustralia.gov.au/fund/global-fellowships/?utm_s
+ ource=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.screenaustralia.gov.au/fund/global-fellowships/?utm_source=
  artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:International placements with leading global screen organizations\

@@ -89,6 +89,8 @@ PICKER_REGIONS = [
     if r not in FEED_REGIONS_EXCLUDED and r not in _GROUPED_REGION_MEMBERS
 ]
 LEGACY_BARE_REGIONS = [r for r in REGIONS if r not in PICKER_REGIONS]
+# The calendar picker's region menu: the feed regions plus NL.
+CAL_PICKER_REGIONS = PICKER_REGIONS + ["NL"]
 TIMELINES = ["30d", "90d", "added-30d"]
 CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"]
 
@@ -865,6 +867,54 @@ def calendar_filename(region, category=None, opp_type=None):
     return "-".join(parts) + ".ics"
 
 
+# Closed deadlines stay on calendars this long (was 60 days: most of
+# calendar.ics was past events, 1.2 MB). The picker's coverage note says the same.
+CAL_LINGER_DAYS = 14
+# Event descriptions carry a lead, not the full write-up (avg 1,240 chars).
+CAL_DESC_MAX = 400
+
+
+def deadline_moment(grant):
+    """(aware datetime, label like '17:00 CET') when the grant states a deadline
+    time and IANA zone (deadlineTime/deadlineTz), else None."""
+    d = parse_date(grant.get("deadline"))
+    t, tz = grant.get("deadlineTime"), grant.get("deadlineTz")
+    if not (d and t and tz):
+        return None
+    try:
+        from zoneinfo import ZoneInfo
+        hh, mm = (int(x) for x in str(t).split(":"))
+        moment = datetime(d.year, d.month, d.day, hh, mm, tzinfo=ZoneInfo(str(tz)))
+    except (ValueError, KeyError, Exception):
+        return None
+    abbr = moment.tzname() or str(tz)
+    if str(tz) == "Etc/GMT+12":
+        abbr = "AoE"
+    elif abbr.startswith(("+", "-")):
+        abbr = str(tz).split("/")[-1].replace("_", " ") + " time"
+    return moment, f"{hh:02d}:{mm:02d} {abbr}"
+
+
+def cal_events(grants, today):
+    """Grants that appear on a calendar: dated, closed no longer than CAL_LINGER_DAYS ago."""
+    out = []
+    for g in grants:
+        d = parse_date(g.get("deadline"))
+        if d and (today - d).days <= CAL_LINGER_DAYS:
+            out.append(g)
+    return out
+
+
+def lead_text(text, limit=CAL_DESC_MAX):
+    """First sentences of ``text`` up to ``limit`` characters."""
+    text = " ".join(str(text or "").split())
+    if len(text) <= limit:
+        return text
+    cut = text[:limit]
+    stop = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
+    return (cut[:stop + 1] if stop > limit // 3 else cut.rsplit(" ", 1)[0] + "...")
+
+
 def build_calendar(grants, today, region=None, category=None, opp_type=None):
     now_stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     suffix_parts = []
@@ -882,8 +932,8 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
         "PRODID:-//The Grant Desk//Calendar//EN",
         "CALSCALE:GREGORIAN",
         "METHOD:PUBLISH",
-        f"NAME:{ics_escape(TITLE + name_suffix)}",
-        f"X-WR-CALNAME:{ics_escape(TITLE + name_suffix + ' deadlines')}",
+        f"NAME:{ics_escape(TITLE + ' deadlines' + name_suffix)}",
+        f"X-WR-CALNAME:{ics_escape(TITLE + ' deadlines' + name_suffix)}",
         f"X-WR-CALDESC:{ics_escape(DESCRIPTION + desc_suffix)}",
         "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
         "X-PUBLISHED-TTL:PT12H",
@@ -894,13 +944,10 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
         grants = [g for g in grants if category_matches(g, category)]
     if region:
         grants = [g for g in grants if region_matches(g, region)]
-    for grant in grants:
+    for grant in cal_events(grants, today):
         deadline = parse_date(grant.get("deadline"))
-        if not deadline:
-            continue
-        if (today - deadline).days > 60:
-            continue
         end = deadline + timedelta(days=1)
+        moment = deadline_moment(grant)
         title = grant.get("title", "Untitled")
         url = grant.get("url") or ""
         guid = grant.get("id") or url or title
@@ -913,8 +960,10 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
         duration = grant.get("duration", "")
 
         desc_parts = []
+        if moment:
+            desc_parts.append(f"Closes {deadline.strftime('%d %b %Y')} at {moment[1]}.")
         if grant.get("description"):
-            desc_parts.append(grant["description"])
+            desc_parts.append(lead_text(grant["description"]))
         meta_bits = []
         if org:
             meta_bits.append(f"Organisation: {org}")
@@ -934,9 +983,24 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
             "BEGIN:VEVENT",
             f"UID:{uid}",
             f"DTSTAMP:{now_stamp}",
-            f"DTSTART;VALUE=DATE:{deadline.strftime('%Y%m%d')}",
-            f"DTEND;VALUE=DATE:{end.strftime('%Y%m%d')}",
-            f"SUMMARY:{ics_escape('Deadline: ' + title)}",
+        ]
+        if moment:
+            # A stated time and zone becomes a timed event (in UTC, so no
+            # VTIMEZONE is needed) ending at the deadline, so every subscriber
+            # sees it in their own time zone.
+            close = moment[0].astimezone(timezone.utc)
+            event += [
+                f"DTSTART:{(close - timedelta(minutes=30)).strftime('%Y%m%dT%H%M%SZ')}",
+                f"DTEND:{close.strftime('%Y%m%dT%H%M%SZ')}",
+                f"SUMMARY:{ics_escape(f'Deadline {moment[1]}: ' + title)}",
+            ]
+        else:
+            event += [
+                f"DTSTART;VALUE=DATE:{deadline.strftime('%Y%m%d')}",
+                f"DTEND;VALUE=DATE:{end.strftime('%Y%m%d')}",
+                f"SUMMARY:{ics_escape('Deadline: ' + title)}",
+            ]
+        event += [
             f"DESCRIPTION:{ics_escape(desc)}",
         ]
         if url:
@@ -1599,7 +1663,14 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     # picker slice that contains it.
     feed_name = feed_filename(picker_region(feed_region), None,
                               category=picker_category(feed_category), weekly=True)
-    cal_name = calendar_filename(feed_region, category=cal_category)
+    # Calendars exist for the calendar picker's regions (crossed with its
+    # categories) and as bare files for every other region and for each single
+    # category; link the nearest one that exists.
+    if feed_region is None or feed_region in CAL_PICKER_REGIONS:
+        cal_name = calendar_filename(feed_region, category=cal_category if feed_region is None
+                                     else picker_category(cal_category))
+    else:
+        cal_name = calendar_filename(feed_region)
     if opp_type in FEED_TYPES:
         typed_feed = feed_filename(picker_region(feed_region), None, weekly=True, opp_type=opp_type)
         typed_cal = calendar_filename(feed_region, opp_type=opp_type)
@@ -2049,7 +2120,7 @@ Country pages are emitted only where enough active entries exist, so this list c
 ## Data
 
 - [embed.json]({base}embed.json): The soonest-closing active entries (up to {EMBED_COUNT}), factual fields only, powering the embeddable widget at {base}embed.js.
-- [grants.json]({base}grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, regions, amount, duration, startDate, deadline, addedDate, feedDate, category, categories, applicant, description, url, tags, fee, featured, eligibility, attendance, career, ageCap.
+- [grants.json]({base}grants.json): Source of truth, machine-readable. Each entry has: id, title, organization, location, region, regions, amount, duration, startDate, deadline, deadlineTime, deadlineTz, addedDate, feedDate, category, categories, applicant, description, url, tags, fee, featured, eligibility, attendance, career, ageCap.
 """
 
 
@@ -2166,40 +2237,47 @@ def main():
     cals_written = []
     typed_cal_manifest = []
 
+    empty_cals = []
+
     def emit_cal(region, category=None, opp_type=None):
-        """Mirrors emit() for feeds: type-bearing calendars are pruned when empty
-        and recorded in the manifest so the calendar picker never offers a dead
-        link. Untyped calendars are always written."""
+        """Mirrors emit() for feeds. A typed calendar with no events is not
+        created, but one that was ever published keeps being written (empty), so
+        subscribers never hit a 404; Google freezes a calendar whose URL 404s.
+        The manifest lists typed calendars with upcoming deadlines, plus every
+        written calendar that has none, so the picker can say so."""
         sliced = [g for g in grants if type_matches(g, opp_type)] if opp_type else grants
         if category:
             sliced = [g for g in sliced if category_matches(g, category)]
         if region:
             sliced = [g for g in sliced if region_matches(g, region)]
-        # An .ics only carries dated, not-long-expired calls, so judge emptiness
-        # on that same basis rather than on the raw slice.
-        if opp_type and not any(
-            parse_date(g.get("deadline")) and (today - parse_date(g["deadline"])).days <= 60
-            for g in sliced
-        ):
-            return
         name = calendar_filename(region, category=category, opp_type=opp_type)
+        upcoming = any(
+            parse_date(g.get("deadline")) and parse_date(g["deadline"]) >= today for g in sliced
+        )
+        if opp_type and not cal_events(sliced, today) and not (HERE / name).exists():
+            return
         (HERE / name).write_text(
             build_calendar(grants, today, region=region, category=category, opp_type=opp_type),
             encoding="utf-8",
         )
         cals_written.append(name)
-        if opp_type:
+        if opp_type and upcoming:
             typed_cal_manifest.append(name)
+        if not upcoming:
+            empty_cals.append(name)
 
-    # Calendars span every REGION, not PICKER_REGIONS. Dropping NL and
-    # Switzerland was a SYNDICATION decision: the calendar picker still offers
-    # NL, so narrowing this loop would 404 every NL-plus-category calendar.
+    # Only calendars someone can reach (4 Nov 2026): the calendar picker's own
+    # combinations (its region menu adds NL to the feed regions), plus the bare
+    # region and category calendars the static SEO pages link. Everything else
+    # (category x Switzerland/Remote/... permutations, typed region-only files
+    # for regions the picker lacks) is swept below.
     for opp_type in [None] + FEED_TYPES:
         for category in [None] + PICKER_CATEGORIES:
-            for region in [None] + REGIONS + list(REGION_GROUPS):
+            for region in [None] + CAL_PICKER_REGIONS:
                 emit_cal(region, category=category, opp_type=opp_type)
-
-    # Compatibility aliases: bare calendars for categories the picker dropped.
+    for region in REGIONS:
+        if region not in CAL_PICKER_REGIONS:
+            emit_cal(region)
     for category in LEGACY_BARE_CATEGORIES:
         emit_cal(None, category=category)
 
@@ -2210,6 +2288,7 @@ def main():
         json.dumps({
             "typedFeeds": sorted(typed_manifest),
             "typedCalendars": sorted(typed_cal_manifest),
+            "emptyCalendars": sorted(empty_cals),
         }, separators=(",", ":")),
         encoding="utf-8",
     )

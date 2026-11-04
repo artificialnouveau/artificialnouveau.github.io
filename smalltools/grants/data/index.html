@@ -200,6 +200,8 @@ footer a { color: var(--ink-soft); }
     <tr><td><code>duration</code></td><td>string</td><td>Length of the programme, if applicable.</td></tr>
     <tr><td><code>startDate</code></td><td>date (optional)</td><td>Programme start, ISO <code>YYYY-MM-DD</code>.</td></tr>
     <tr><td><code>deadline</code></td><td>date or null</td><td>Application deadline, ISO <code>YYYY-MM-DD</code>. <code>null</code> means rolling or undated.</td></tr>
+    <tr><td><code>deadlineTime</code></td><td>string or null</td><td>Stated closing time, 24-hour <code>HH:MM</code>, when the call gives one.</td></tr>
+    <tr><td><code>deadlineTz</code></td><td>string or null</td><td>IANA time zone for <code>deadlineTime</code>, e.g. <code>Europe/Paris</code>.</td></tr>
     <tr><td><code>addedDate</code></td><td>date</td><td>When it was added to the desk.</td></tr>
     <tr><td><code>feedDate</code></td><td>date or null (optional)</td><td>When the entry is released into the RSS digests; falls back to <code>addedDate</code>.</td></tr>
     <tr><td><code>category</code></td><td>string</td><td>Primary category slug.</td></tr>

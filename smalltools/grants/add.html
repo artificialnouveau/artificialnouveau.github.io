@@ -165,6 +165,11 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
           <label>Deadline</label>
           <input type="date" id="f-deadline">
           <div class="check"><input type="checkbox" id="f-rolling"><label for="f-rolling" style="margin:0;font-weight:400;">Rolling / undated (stores null)</label></div>
+          <label>Deadline time (optional)</label>
+          <span class="hint">Only if the call states one. 24-hour time plus an IANA zone, e.g. 17:00 and Europe/Paris for "17:00 CET", 23:59 and America/New_York for "11:59pm ET". Calendars then show it as a timed event.</span>
+          <input type="time" id="f-dtime">
+          <input type="text" id="f-dtz" placeholder="Europe/Paris" list="tz-list">
+          <datalist id="tz-list"><option value="Europe/Paris"><option value="Europe/London"><option value="Europe/Amsterdam"><option value="Europe/Brussels"><option value="Europe/Berlin"><option value="UTC"><option value="America/New_York"><option value="America/Los_Angeles"><option value="America/Chicago"><option value="Australia/Sydney"><option value="Asia/Tokyo"><option value="Asia/Seoul"><option value="Etc/GMT+12"></datalist>
         </div>
         <div>
           <label>Start date (optional)</label>
@@ -378,6 +383,8 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
       duration: $("f-duration").value.trim() || null,
       startDate: $("f-start").value || null,
       deadline: rolling ? null : deadline,
+      deadlineTime: (!rolling && $("f-dtime").value && $("f-dtz").value.trim()) ? $("f-dtime").value : null,
+      deadlineTz: (!rolling && $("f-dtime").value && $("f-dtz").value.trim()) ? $("f-dtz").value.trim() : null,
       addedDate: $("f-added").value || today,
       feedDate: null,
       category: category,

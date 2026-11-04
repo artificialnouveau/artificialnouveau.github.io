@@ -3,8 +3,8 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - AI\, Tech & Research\, US
-X-WR-CALNAME:The Grant Desk - AI\, Tech & Research\, US deadlines
+NAME:The Grant Desk deadlines - AI\, Tech & Research\, US
+X-WR-CALNAME:The Grant Desk deadlines - AI\, Tech & Research\, US
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
  pdated as new calls land on the desk. Filtered to: AI\, Tech & Research\, 
@@ -13,31 +13,23 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:nber-i3-open-data-fellows-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: NBER i3: Open Data Fellows Program 2027
 DESCRIPTION:The fourth cohort of the NBER Innovation Information Initiative
   (i3) Open Data Fellows supports graduate students building public dataset
  s\, tools\, code or metadata for research on innovation and entrepreneursh
- ip. Fellows receive USD 1\,500\, join periodic one-on-one and group meetin
- gs through 2027\, and present their work at the i3 Technical Working Group
-  meeting in December 2027\, with travel reimbursed. ELIGIBILITY: current M
- aster's or PhD students\, or those who graduated within the past six month
- s\, in economics\, innovation\, entrepreneurship or related fields\; inter
- national applicants welcome. Apply with a proposal for a new or in-progres
- s project intended for public release\, via the Google form linked on the 
- call page\, by 1 November 2026. Fellows are announced in November 2026. Co
- ntact: info@nber.org.\n\nOrganisation: National Bureau of Economic Researc
- h (NBER)\, Innovation Information Initiative (i3)\nLocation: United States
-  (NBER\, Cambridge\, MA)\; international applicants welcome\, including th
- ose on US student visas (payment may be affected\, check with your interna
- tional student office)\nAward: USD 1\,500 per fellow\, at least five fello
- wships\, plus travel reimbursement to present at the i3 Technical Working 
- Group meeting in December 2027. No application fee.\nDuration: 12 months (
- January to December 2027)\n\nMore: https://www.nber.org/calls-papers-and-p
- roposals/open-data-fellows-program-2027?utm_source=artificialnouveaugrantd
- esk&utm_medium=referral
+ ip.\n\nOrganisation: National Bureau of Economic Research (NBER)\, Innovat
+ ion Information Initiative (i3)\nLocation: United States (NBER\, Cambridge
+ \, MA)\; international applicants welcome\, including those on US student 
+ visas (payment may be affected\, check with your international student off
+ ice)\nAward: USD 1\,500 per fellow\, at least five fellowships\, plus trav
+ el reimbursement to present at the i3 Technical Working Group meeting in D
+ ecember 2027. No application fee.\nDuration: 12 months (January to Decembe
+ r 2027)\n\nMore: https://www.nber.org/calls-papers-and-proposals/open-data
+ -fellows-program-2027?utm_source=artificialnouveaugrantdesk&utm_medium=ref
+ erral
 URL:https://www.nber.org/calls-papers-and-proposals/open-data-fellows-progr
  am-2027?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:United States (NBER\, Cambridge\, MA)\; international applicants w
@@ -46,47 +38,26 @@ LOCATION:United States (NBER\, Cambridge\, MA)\; international applicants w
 END:VEVENT
 BEGIN:VEVENT
 UID:coding-it-forward-winter-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261025
 DTEND;VALUE=DATE:20261026
 SUMMARY:Deadline: Coding it Forward: Winter Fellowship 2027 (US civic tech 
  placements)
 DESCRIPTION:Coding it Forward's Winter Fellowship is a paid\, full-time\, t
  en-week job placement that embeds early-career technologists in city\, sta
- te and federal government offices across the United States. The Winter 202
- 7 cohort (11 January to 19 March 2027) hires for roles in data\, design\, 
- product and software engineering in partnership with the State of North Ca
- rolina and the State of New Jersey\; some roles are fully remote and some 
- involve an in-person component. Fellows receive a mentor for professional 
- development\, weekly public interest technology educational events\, cohor
- t check-in calls\, community events and access to a 700+ alumni network. P
- AY: USD 20 per hour with a Bachelor's degree\, USD 25 per hour pursuing or
-  holding a graduate degree\; pay and dates cannot be negotiated. ELIGIBILI
- TY: strictly recent graduates whose most recent graduation date falls betw
- een 30 April 2025 and 1 January 2027\, not actively enrolled in school dur
- ing the fellowship\, at least 18 years old by 11 January 2027\, available 
- for a full-time commitment with no additional employment\; must be a US ci
- tizen\, US national or permanent resident physically residing in the US fo
- r the duration (international students are ineligible regardless of visa t
- ype or CPT/OPT authorization). APPLICATION: pick one track (data\, design\
- , product or software engineering) and submit short answers plus a standar
- dized resume (and a design portfolio where applicable) via the Coding it F
- orward application portal\; role descriptions are published on the program
- 's public Notion page. Interviews with Coding it Forward and with governme
- nt partners run mid to late November 2026\, offers in early December 2026.
-  DEADLINE: 25 October 2026\, 11:59pm PT\, reviewed on a rolling basis.\n\n
- Organisation: Coding it Forward\nLocation: United States. Winter 2027 plac
- ements are with the State of North Carolina and the State of New Jersey\; 
- some roles are fully remote (within the US)\, some involve an in-person co
- mponent. Applicants must be US citizens\, US nationals or permanent reside
- nts and must physically reside in the US for the duration.\nAward: Paid fu
- ll-time job placement: USD 20 per hour for applicants with a Bachelor's de
- gree\, USD 25 per hour for applicants pursuing or holding a graduate degre
- e (Master's or PhD)\, at 40 hours per week for ten weeks (roughly USD 8\,0
- 00 to 10\,000 in total). Pay rates and work dates are non-negotiable. No a
- pplication fee.\nDuration: Ten weeks full-time (40 hours per week)\, 11 Ja
- nuary to 19 March 2027.\n\nMore: https://codingitforward.com/fellowship?ut
- m_source=artificialnouveaugrantdesk&utm_medium=referral
+ te and federal government offices across the United States.\n\nOrganisatio
+ n: Coding it Forward\nLocation: United States. Winter 2027 placements are 
+ with the State of North Carolina and the State of New Jersey\; some roles 
+ are fully remote (within the US)\, some involve an in-person component. Ap
+ plicants must be US citizens\, US nationals or permanent residents and mus
+ t physically reside in the US for the duration.\nAward: Paid full-time job
+  placement: USD 20 per hour for applicants with a Bachelor's degree\, USD 
+ 25 per hour for applicants pursuing or holding a graduate degree (Master's
+  or PhD)\, at 40 hours per week for ten weeks (roughly USD 8\,000 to 10\,0
+ 00 in total). Pay rates and work dates are non-negotiable. No application 
+ fee.\nDuration: Ten weeks full-time (40 hours per week)\, 11 January to 19
+  March 2027.\n\nMore: https://codingitforward.com/fellowship?utm_source=ar
+ tificialnouveaugrantdesk&utm_medium=referral
 URL:https://codingitforward.com/fellowship?utm_source=artificialnouveaugran
  tdesk&utm_medium=referral
 LOCATION:United States. Winter 2027 placements are with the State of North 
@@ -97,7 +68,7 @@ LOCATION:United States. Winter 2027 placements are with the State of North
 END:VEVENT
 BEGIN:VEVENT
 UID:surf-artist-in-residence-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Sanford Underground Research Facility: Artist-in-Residenc
@@ -106,30 +77,7 @@ DESCRIPTION:The SURF Artist-in-Residence program invites artists to create
  work inspired by the Sanford Underground Research Facility in Lead\, South
   Dakota. At 4\,850 feet deep\, SURF is the deepest underground laboratory 
  in the United States\, housed in the former Homestake Gold Mine\, and host
- s experiments in physics\, biology\, geology and engineering. The residenc
- y is modeled after programs run by the National Park Service\, CERN and Fe
- rmilab\, and aims to create awareness of the science and encourage interdi
- sciplinary work. STRUCTURE: a four-week on-site visit in summer 2027 (betw
- een 22 May and 31 July\, timed to the artist's schedule) with studio time\
- , guided underground visits\, tours of Lead and the surrounding Black Hill
- s sites\, and dinners with scientists\; then a one-week visit in October 2
- 027 to install an art exhibition\, give up to two lectures based on the pr
- oposal\, and run promotional or outreach events in the local community (wh
- ich may include schools\, universities\, interviews or documentation of th
- e residency). FUNDING: a USD 5\,000 stipend paid in two installments\; the
-  artist may apply for up to USD 5\,000 in additional funds for creating th
- e artwork\; transportation\, housing and per diem for both visits\; and re
- turn shipping covered up to USD 7\,000. CONDITIONS: each artist donates at
-  least one artwork\, selected by a SURF representative\, to SURF's permane
- nt art collection\, and is responsible for installation and de-installatio
- n in coordination with SURF and the exhibition space. A timeline and expec
- tations are agreed in an MOU before the residency begins. PHYSICAL REQUIRE
- MENTS: working underground requires being comfortable in dark spaces\, fol
- lowing all safety protocols\, walking on uneven surfaces for at least a mi
- le at a time\, and negotiating wet\, slippery conditions and an elevator r
- ide in the dark\; safety training and loaned personal protective equipment
-  are mandatory\, and a SURF guide accompanies the artist at all times. DEA
- DLINE: 1 November 2026\, via the SURF AiR application portal.\n\nOrganisat
+ s experiments in physics\, biology\, geology and engineering.\n\nOrganisat
  ion: Sanford Underground Research Facility (SURF)\nLocation: Sanford Under
  ground Research Facility\, Lead\, South Dakota\, USA\, in the Black Hills.
   The call does not state a residency or nationality restriction\; travel\,
@@ -150,80 +98,23 @@ LOCATION:Sanford Underground Research Facility\, Lead\, South Dakota\, USA\
  estriction\; travel\, housing and per diem for both visits are covered.
 END:VEVENT
 BEGIN:VEVENT
-UID:iaps-ai-policy-fellowship-spring-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260927
-DTEND;VALUE=DATE:20260928
-SUMMARY:Deadline: IAPS: AI Policy Fellowship Spring 2027 (DC\, London or re
- mote)
-DESCRIPTION:The Institute for AI Policy and Strategy (IAPS) runs a three-mo
- nth\, fully funded AI policy fellowship placing fellows on concrete AI gov
- ernance and policy research projects. Spring 2027 cohort: 22 February to 1
- 4 May 2027\, opening with a mandatory in-person component in Washington DC
-  from 22 February to 5 March 2027\, after which fellows work from the DC o
- ffice\, the London office or remotely. STIPENDS: USD 18\,000 for Fellows a
- nd USD 24\,000 for Senior Fellows\, plus USD 3\,000 extra on the in-person
-  DC or London tracks\, healthcare benefits and a USD 500 professional deve
- lopment stipend. ELIGIBILITY: no technical background or prior policy expe
- rience required\; the DC track requires the right to work in the US betwee
- n 22 February and 14 May 2027\, and no visa sponsorship is available for t
- he US or UK\; the remote track is open globally with country-specific exce
- ptions. TIMELINE: initial responses mid-October 2026\, live interviews in 
- November\, final selections early December. Deadline 27 September 2026. Ap
- ply at https://www.guidedtrack.com/programs/ll4vpg7/run.\n\nOrganisation: 
- Institute for AI Policy and Strategy (IAPS)\nLocation: Washington DC or Lo
- ndon track (desk space provided)\, or fully remote from most countries. Ma
- ndatory in-person opening in Washington DC\, 22 February to 5 March 2027. 
- No visa sponsorship for the US or UK.\nAward: Fellows receive USD 18\,000 
- and Senior Fellows USD 24\,000 as a stipend for the three-month full-time 
- program\, plus an additional USD 3\,000 stipend on the in-person DC or Lon
- don tracks\, healthcare benefits and a USD 500 professional development st
- ipend. Up to 45 fellows. No application fee.\nDuration: Three months full-
- time\, 22 February to 14 May 2027\; extensions of 4 to 12 weeks were offer
- ed to more than half of the previous cohort\n\nMore: https://www.iaps.ai/f
- ellowship?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.iaps.ai/fellowship?utm_source=artificialnouveaugrantdesk&ut
- m_medium=referral
-LOCATION:Washington DC or London track (desk space provided)\, or fully rem
- ote from most countries. Mandatory in-person opening in Washington DC\, 22
-  February to 5 March 2027. No visa sponsorship for the US or UK.
-END:VEVENT
-BEGIN:VEVENT
 UID:humanity-ai-open-call-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261021
 DTEND;VALUE=DATE:20261022
 SUMMARY:Deadline: Humanity AI: Open Call for Proposals 2026
 DESCRIPTION:Humanity AI\, an initiative of ten leading philanthropies\, ope
  ns a USD 10 million call for community-led initiatives that shape how AI a
- ffects people's lives. ISSUE AREAS: Education (student and educator-center
- ed work shaping AI's educational impact)\; Labor and Economy (worker-led e
- fforts to ensure AI enhances rather than replaces employment)\; and Humani
- ties\, Arts\, and Culture (artist and creator-focused work protecting cult
- ural contributions). ELIGIBLE APPROACHES: shaping the rules for AI governa
- nce and deployment\; building AI controlled by communities rather than cor
- porations\; and challenging misaligned AI deployments. Community-led means
-  the affected community defines the goals and shapes the approach. Priorit
- y goes to open-weight and open-source AI models over proprietary ones. OUT
-  OF SCOPE: AI literacy training\, AI adoption promotion\, and research-onl
- y work. GRANTS: three tiers from USD 75\,000 to 1\,000\,000\, up to three 
- years. ELIGIBILITY: US-based 501(c)(3) organizations as lead applicants\; 
- individuals via fiscal sponsors or collaborations\; Tribal governments tre
- ated as States under IRC Section 7871\; for-profit entities only as collab
- orators\, not leads\; all proposals must serve US-based communities. TIMEL
- INE: launched 10 September 2026\; applicant webinar 14 September 2026\; in
- itial applications due 21 October 2026 at 4:59pm PT\; finalists notified D
- ecember 2026\; awards announced early spring 2027. Apply via Submittable\;
-  an organizational readiness tool on the site helps assess eligibility fir
- st.\n\nOrganisation: Humanity AI (coalition of 10 philanthropies)\nLocatio
- n: United States. Lead applicants must be US-based 501(c)(3) organizations
-  (or Tribal governments)\; all proposals must serve US-based communities. 
- Individuals can apply through a fiscal sponsor or as part of a collaborati
- on.\nAward: USD 10 million total pool\, grants of USD 75\,000 to 1\,000\,0
- 00 across three tiers: Tier 1 USD 75\,000-150\,000\; Tier 2 USD 150\,000-5
- 00\,000\; Tier 3 USD 500\,000-1\,000\,000. Grants run up to three years. N
- o application fee.\nDuration: Up to three years\n\nMore: https://humanitya
- i.ai/open-call/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ ffects people's lives.\n\nOrganisation: Humanity AI (coalition of 10 phila
+ nthropies)\nLocation: United States. Lead applicants must be US-based 501(
+ c)(3) organizations (or Tribal governments)\; all proposals must serve US-
+ based communities. Individuals can apply through a fiscal sponsor or as pa
+ rt of a collaboration.\nAward: USD 10 million total pool\, grants of USD 7
+ 5\,000 to 1\,000\,000 across three tiers: Tier 1 USD 75\,000-150\,000\; Ti
+ er 2 USD 150\,000-500\,000\; Tier 3 USD 500\,000-1\,000\,000. Grants run u
+ p to three years. No application fee.\nDuration: Up to three years\n\nMore
+ : https://humanityai.ai/open-call/?utm_source=artificialnouveaugrantdesk&u
+ tm_medium=referral
 URL:https://humanityai.ai/open-call/?utm_source=artificialnouveaugrantdesk&
  utm_medium=referral
 LOCATION:United States. Lead applicants must be US-based 501(c)(3) organiza
@@ -232,68 +123,9 @@ LOCATION:United States. Lead applicants must be US-based 501(c)(3) organiza
  oration.
 END:VEVENT
 BEGIN:VEVENT
-UID:american-academy-berlin-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260925
-DTEND;VALUE=DATE:20260926
-SUMMARY:Deadline: American Academy in Berlin: Berlin Prize Fellowship 2027-
- 28
-DESCRIPTION:The American Academy in Berlin is an independent\, nonprofit in
- stitute for advanced study in the arts\, humanities\, social sciences\, la
- w\, journalism and public policy\, whose primary mission is to strengthen 
- the cultural and intellectual ties between the United States and Germany. 
- Each year\, after a rigorous selection process\, the Academy awards roughl
- y two dozen semester-long Berlin Prize fellowships to individuals who demo
- nstrate excellence in their fields. DISCIPLINES: applications are welcome 
- across the humanities\, social sciences\, law\, journalism and various are
- as of public policy. The Academy generally encourages projects addressing 
- pressing issues of the day\, specifically naming democracy\, security\, te
- chnology and society (especially AI)\, energy including climate\, and glob
- al order. Dedicated fellowships also support projects in Jewish studies\, 
- German studies\, and public health and biotechnology. Project proposals ne
- ed not focus on Germany\, but candidates should explain how a residency in
-  Berlin would enhance their work. NOT ACCEPTED: proposals in mathematics o
- r the natural sciences. NOTE FOR ARTISTS: visual artists and composers are
-  invited through separate\, nomination-based competitions\, so there is no
-  open application route for them here. ELIGIBILITY: fellowships are restri
- cted to citizens and permanent residents of the United States. Both emergi
- ng and established figures are eligible. PhD holders qualify as emerging s
- cholars with a strong record of peer-reviewed work beyond the dissertation
- \; candidates in non-academic fields such as journalism\, filmmaking and p
- olicy need a significant record of publication or production\; fiction and
-  nonfiction writers must have published at least one book with a reputable
-  press. WHAT FELLOWS DO: fellows present their work to audiences in and ar
- ound Berlin through lectures\, readings\, public discussions\, performance
- s and film screenings\, and should be willing to engage with relevant Germ
- an institutions\, organizations and the media\; these activities are integ
- ral to the Academy's mission of fostering transatlantic dialogue. APPLICAT
- ION MATERIALS: a project proposal of 1\,500 to 1\,750 words plus a one-pag
- e bibliography\; a curriculum vitae of up to 10 pages\; two writing sample
- s totalling no more than 60 pages\; and three letters of recommendation\, 
- which are due 2 October 2026. DEADLINE: Friday 25 September 2026 at 12:00 
- noon Eastern Time (18:00 Central European Time). TIMELINE: all candidates 
- are notified of the competition outcome by email in late March 2027\; the 
- 2027-28 Berlin Prize recipients are announced in May 2027.\n\nOrganisation
- : American Academy in Berlin\nLocation: Berlin\, Germany\, at the Hans Arn
- hold Center. RESTRICTED: fellowships are open only to citizens and permane
- nt residents of the United States.\nAward: Monthly stipend of USD 5\,000\,
-  plus roundtrip airfare\, accommodation at or near the Hans Arnhold Center
- \, partial board\, in-house library services and professional networking o
- pportunities. Roughly two dozen fellowships awarded each year. No applicat
- ion fee.\nDuration: One full academic semester (about 4 months). Fall runs
-  mid-August to mid-December\; spring runs late January to late May.\n\nMor
- e: https://www.americanacademy.de/apply/apply-for-a-fellowship/?utm_source
- =artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.americanacademy.de/apply/apply-for-a-fellowship/?utm_source
- =artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Berlin\, Germany\, at the Hans Arnhold Center. RESTRICTED: fellows
- hips are open only to citizens and permanent residents of the United State
- s.
-END:VEVENT
-BEGIN:VEVENT
 UID:simons-foundation-open-interval-turbulence-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261021
 DTEND;VALUE=DATE:20261022
 SUMMARY:Deadline: Open Interval: An Artist-Scientist Exploration of Turbule
@@ -302,21 +134,12 @@ DESCRIPTION:Open Interval is a Simons Foundation program that supports trio
  s consisting of an artist\, a scientist\, and a representative from a 501(
  c)(3) arts organization to collaborate around a shared scientific theme. T
  he current cycle centers on the theme of turbulence\, a phenomenon at the 
- edge of chaos and beauty. Awarded trios receive USD 30\,000 to support a s
- ustained period of thought partnership and exploration rather than the pro
- duction of finished works or exhibitions. The program runs from April to D
- ecember 2027 with a touchstone meeting in May 2027 and possible cohort con
- venings. Trio members must be regionally co-located anywhere in the United
-  States so they can collaborate in person. The scientist should hold a Ph.
- D. and be conducting basic research\, with priority given to fields such a
- s astrophysics\, neuroscience\, quantum physics\, biology\, or mathematics
- . The application portal opens September 9\, 2026\, and all three trio mem
- bers must submit for the application to be complete.\n\nOrganisation: Simo
- ns Foundation\nLocation: United States (trio must be regionally co-located
- )\nAward: USD 30\,000 per awarded trio\nDuration: April to December 2027 (
- several months of collaboration)\n\nMore: https://www.simonsfoundation.org
- /2026/06/01/coming-soon-open-interval-an-artist-scientist-exploration-of-t
- urbulence/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ edge of chaos and beauty.\n\nOrganisation: Simons Foundation\nLocation: Un
+ ited States (trio must be regionally co-located)\nAward: USD 30\,000 per a
+ warded trio\nDuration: April to December 2027 (several months of collabora
+ tion)\n\nMore: https://www.simonsfoundation.org/2026/06/01/coming-soon-ope
+ n-interval-an-artist-scientist-exploration-of-turbulence/?utm_source=artif
+ icialnouveaugrantdesk&utm_medium=referral
 URL:https://www.simonsfoundation.org/2026/06/01/coming-soon-open-interval-a
  n-artist-scientist-exploration-of-turbulence/?utm_source=artificialnouveau
  grantdesk&utm_medium=referral
@@ -324,7 +147,7 @@ LOCATION:United States (trio must be regionally co-located)
 END:VEVENT
 BEGIN:VEVENT
 UID:foresight-ai-science-safety-nodes-grants@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: Foresight Institute: AI for Science & Safety Nodes RFP
@@ -332,152 +155,39 @@ DESCRIPTION:Umbrella request for proposals for ambitious AI-first projects
  that make the transition to capable AI go well and use it to unlock scienc
  e. Three connected layers\, each with its own detailed call: I. Local Comp
  ute (compute that individuals or communities physically own and control)\;
-  II. Coordination and Accountability (supercollaboration and decentralized
-  alignment\, human empowerment\, AI insurance and open governance)\; III. 
- AI-First Science: Bio\, Neuro\, Nano (automated nanotechnology\, whole-bra
- in emulation\, replacement\, enhancement\, biostasis). AI-first means AI i
- s the primary engine of progress\, not tapped onto an existing research pr
- ogram\; strong proposals identify narrow bottlenecks and propose something
-  that can be built\, tested or measured. Selected projects receive grant f
- unding\, private local compute\, workspace at the San Francisco or Berlin 
- AI Nodes\, travel-paid field-building events and access to Foresight's adv
- isors and scientific network. ELIGIBILITY: individuals\, teams\, and nonpr
- ofit or for-profit organisations worldwide (for-profits must justify their
-  need for grant funding)\; applicants who want to be active in-person cont
- ributors at the Nodes are strongly prioritised. Grants typically $30\,000 
- to $100\,000\, smaller for the Human Empowerment and AI Insurance & Open G
- overnance areas and higher for the rest. Review takes about three months a
- fter the deadline. Deadline 31 October 2026\, 23:59 PDT.\n\nOrganisation: 
- Foresight Institute\nLocation: Remote (global\; hubs in San Francisco and 
- Berlin)\nAward: Typically $30\,000 to $100\,000 per grant\, with smaller a
- mounts for the Human Empowerment and AI Insurance & Open Governance focus 
- areas and higher amounts for the rest (larger possible for the right proje
- ct)\, plus private local compute and workspace at the San Francisco or Ber
- lin AI Nodes. No application fee.\nDuration: Project-based\n\nMore: https:
- //foresight.org/grants/ai-science-safety-nodes-rfp/?utm_source=artificialn
- ouveaugrantdesk&utm_medium=referral
+  II.\n\nOrganisation: Foresight Institute\nLocation: Remote (global\; hubs
+  in San Francisco and Berlin)\nAward: Typically $30\,000 to $100\,000 per 
+ grant\, with smaller amounts for the Human Empowerment and AI Insurance & 
+ Open Governance focus areas and higher amounts for the rest (larger possib
+ le for the right project)\, plus private local compute and workspace at th
+ e San Francisco or Berlin AI Nodes. No application fee.\nDuration: Project
+ -based\n\nMore: https://foresight.org/grants/ai-science-safety-nodes-rfp/?
+ utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://foresight.org/grants/ai-science-safety-nodes-rfp/?utm_source=ar
  tificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Remote (global\; hubs in San Francisco and Berlin)
 END:VEVENT
 BEGIN:VEVENT
-UID:neh-public-humanities-projects-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261015
-DTEND;VALUE=DATE:20261016
-SUMMARY:Deadline: NEH: Public Humanities Projects (2026-27 deadlines)
-DESCRIPTION:NEH project grants supporting interpretive exhibitions\, histor
- ic-place programming and discussion programmes that bring humanities schol
- arship to public audiences. Aimed at strengthening the humanities in publi
- c life through scholarship-informed public engagement (rather than primary
-  research). Two upcoming application windows: 15 October 2026 and 9 Decemb
- er 2026. Two scales: Planning grants up to USD 75\,000\, and Implementatio
- n grants up to USD 1\,000\,000 (most awards substantially smaller than the
-  cap). ELIGIBILITY: US-incorporated non-profits with appropriate IRS statu
- s\, libraries\, museums\, historical organisations\, or accredited US coll
- eges and universities\; individual scholars participate as project directo
- rs on behalf of an eligible institution. Aimed at projects that engage bro
- ad public audiences with humanities content (history\, culture\, philosoph
- y\, literature\, etc.).\n\nOrganisation: National Endowment for the Humani
- ties (NEH)\nLocation: United States (applicants must be eligible US non-pr
- ofits - museums\, libraries\, historical organisations\, or accredited US 
- colleges and universities)\nAward: Planning grants up to USD 75\,000\; Imp
- lementation grants up to USD 1\,000\,000 (most awards substantially smalle
- r). Two upcoming deadlines: 15 October 2026 and 9 December 2026.\nDuration
- : Project-based\n\nMore: https://www.neh.gov/grants/public/public-humaniti
- es-projects?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.neh.gov/grants/public/public-humanities-projects?utm_source
- =artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:United States (applicants must be eligible US non-profits - museum
- s\, libraries\, historical organisations\, or accredited US colleges and u
- niversities)
-END:VEVENT
-BEGIN:VEVENT
-UID:fund-for-investigative-journalism-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260914
-DTEND;VALUE=DATE:20260915
-SUMMARY:Deadline: Fund for Investigative Journalism (FIJ) Grants
-DESCRIPTION:Grants for in-depth investigative reporting that exposes corrup
- tion\, malfeasance or misuse of power across public and private sectors. C
- overs print\, online\, broadcast\, books\, documentaries and podcasts. Sur
- veillance\, abuse-of-power and accountability investigations all fit. Lett
- er of Commitment from a news outlet required for full proposals (not for s
- eed). Seed deadline ~10 May 2026\; regular deadline 14 September 2026\, 23
- :59 ET. Reviewed three to four times per year. Stories must be published i
- n English with a U.S. media outlet. Ethnic media and journalists of colour
-  particularly encouraged.\n\nOrganisation: Fund for Investigative Journali
- sm\nLocation: USA-primary (foreign-based stories require strong U.S. angle
- )\nAward: Up to $10\,000 (regular) or $1\,000 to $2\,500 (seed)\nDuration:
-  Story-based\n\nMore: https://fij.org/apply-for-a-grant/?utm_source=artifi
- cialnouveaugrantdesk&utm_medium=referral
-URL:https://fij.org/apply-for-a-grant/?utm_source=artificialnouveaugrantdes
- k&utm_medium=referral
-LOCATION:USA-primary (foreign-based stories require strong U.S. angle)
-END:VEVENT
-BEGIN:VEVENT
-UID:alicia-patterson-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261001
-DTEND;VALUE=DATE:20261002
-SUMMARY:Deadline: Alicia Patterson Fellowship 2027 (Fund for Investigative 
- Journalism)
-DESCRIPTION:Long-running fellowship for in-depth\, investigative written re
- porting on subjects of public interest\, now administered by the Fund for 
- Investigative Journalism after the foundation's December 2025 merger. For 
- seasoned reporters with a body of in-depth written work\; freelancers are 
- encouraged and staff journalists may apply if they take leave (part-time w
- ork is allowed during the fellowship\, full-time is not). Twelve-month fel
- lows produce four articles\, six-month fellows two. Decisions by end of 20
- 26. Distinct from FIJ's regular reporting grants. No application fee.\n\nO
- rganisation: Fund for Investigative Journalism (Alicia Patterson Foundatio
- n program)\nLocation: Remote\; fellows may live anywhere\, but projects mu
- st be U.S.-focused for publication in American outlets\nAward: $40\,000 (1
- 2-month fellowship) or $20\,000 (6-month fellowship)\, paid monthly\; cove
- rs living and reporting costs\nDuration: 6 or 12 months\, beginning early 
- 2027\n\nMore: https://investigate.submittable.com/submit/355041/alicia-pat
- terson-fellowship-2027?utm_source=artificialnouveaugrantdesk&utm_medium=re
- ferral
-URL:https://investigate.submittable.com/submit/355041/alicia-patterson-fell
- owship-2027?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Remote\; fellows may live anywhere\, but projects must be U.S.-foc
- used for publication in American outlets
-END:VEVENT
-BEGIN:VEVENT
 UID:aaas-stpf-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Science & Technology Policy Fellowships\, 2027-28 Class
 DESCRIPTION:The AAAS Science & Technology Policy Fellowships place scientis
  ts and engineers inside US federal agencies\, congressional offices and th
  e judicial branch for a year of hands-on policymaking\, contributing techn
- ical knowledge and analytical skills to the federal policy process. AI\, d
- ata and computing policy placements are among the largest tracks\, and AAA
- S runs a dedicated AI legislative branch cohort that places AI experts in 
- congressional offices at GS-12 Step 10 on the DC locality scale. ELIGIBILI
- TY: US citizens holding a PhD or equivalent doctoral degree in any science
-  or engineering field\, or a master's degree in engineering plus three yea
- rs of post-degree professional experience\; some tracks accept a bachelor'
- s plus five years. Relevant expertise includes AI\, machine learning\, com
- puter science\, robotics and data science. Fellows must reside in DC\, Mar
- yland or northern Virginia during the fellowship year. TIMELINE: the appli
- cation portal opens 1 August 2026 and closes 1 November 2026 at 11:59pm ET
- \, with eligibility notification in late November\, interview notification
-  January to February 2027\, semi-finalist interviews in March\, placement 
- offers by early May\, and the fellowship year running 1 September 2027 to 
- 31 August 2028. Apply through fellowshipapp.aaas.org.\n\nOrganisation: Ame
- rican Association for the Advancement of Science (AAAS)\nLocation: Washing
- ton DC\, USA. Fellows are placed in US federal executive\, legislative and
-  judicial branch offices and must reside in the DC area.\nAward: Stipend d
- epending on experience and placement\, roughly USD 85\,000 to 140\,000\; t
- he dedicated AI legislative branch cohort is paid at GS-12 Step 10 on the 
- DC locality scale. Includes health insurance\, a travel and professional d
- evelopment allowance\, and relocation support for some placements. No appl
- ication fee.\nDuration: One year\, 1 September 2027 to 31 August 2028\, re
- newable in some placements\n\nMore: https://www.aaas.org/programs/science-
- technology-policy-fellowships?utm_source=artificialnouveaugrantdesk&utm_me
- dium=referral
+ ical knowledge and analytical skills to the federal policy process.\n\nOrg
+ anisation: American Association for the Advancement of Science (AAAS)\nLoc
+ ation: Washington DC\, USA. Fellows are placed in US federal executive\, l
+ egislative and judicial branch offices and must reside in the DC area.\nAw
+ ard: Stipend depending on experience and placement\, roughly USD 85\,000 t
+ o 140\,000\; the dedicated AI legislative branch cohort is paid at GS-12 S
+ tep 10 on the DC locality scale. Includes health insurance\, a travel and 
+ professional development allowance\, and relocation support for some place
+ ments. No application fee.\nDuration: One year\, 1 September 2027 to 31 Au
+ gust 2028\, renewable in some placements\n\nMore: https://www.aaas.org/pro
+ grams/science-technology-policy-fellowships?utm_source=artificialnouveaugr
+ antdesk&utm_medium=referral
 URL:https://www.aaas.org/programs/science-technology-policy-fellowships?utm
  _source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Washington DC\, USA. Fellows are placed in US federal executive\, 
@@ -485,7 +195,7 @@ LOCATION:Washington DC\, USA. Fellows are placed in US federal executive\,
 END:VEVENT
 BEGIN:VEVENT
 UID:acls-digital-justice-grants-2026-27@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261103
 DTEND;VALUE=DATE:20261104
 SUMMARY:Deadline: ACLS Digital Justice Grants 2026-27 (Seed and Development
@@ -494,37 +204,17 @@ DESCRIPTION:ACLS Digital Justice Grants fund digital projects in the humani
  ties and interpretive social sciences that critically engage with the inte
  rests and histories of people of colour and other historically marginalise
  d communities\, including Black\, Latinx\, Indigenous\, disabled and LGBTQ
- + communities. The programme's stated aims are to diversify the digital do
- main\, advance justice and equity in digital scholarly practice\, and cont
- ribute to public understanding of racial and social justice issues\, with 
- an explicit interest in scholars working with under-utilised or understudi
- ed source materials and those at institutions with less infrastructure for
-  digital work. TWO TRACKS\, one deadline: SEED GRANTS of USD 10\,000 to 25
- \,000 for projects in the start-up or prototyping phase\, covering plannin
- g\, prototyping and methodology testing\; and DEVELOPMENT GRANTS of USD 50
- \,000 to 100\,000 for projects that have moved past proof of concept and c
- an show preliminary work and evidence of engagement. ELIGIBILITY: at least
-  one principal investigator must be a scholar in the humanities or interpr
- etive social sciences\, and awarded funds must be administered by a US ins
- titution of higher education. WHAT IS NOT FUNDED: creative works such as n
- ovels or films\, textbooks\, straightforward translations\, purely pedagog
- ical projects\, and institutional indirect costs. Note that outputs are ex
- pected to be made as widely available as intellectual property allows\, id
- eally under the most liberal open-source or Creative Commons licence. TIMI
- NG: applications go through the ACLS online fellowship and grant administr
- ation system (ofa.acls.org) by 3 November 2026 at 17:00 ET\; grant terms b
- egin between 1 July and 31 December 2027 and run 12 to 18 months. The prog
- ramme is funded by the Mellon Foundation.\n\nOrganisation: American Counci
- l of Learned Societies (ACLS)\, funded by the Mellon Foundation\nLocation:
-  Grant funds must be administered by a US institution of higher education.
-  No citizenship or residency restriction is stated for the principal inves
- tigator.\nAward: Seed Grants USD 10\,000 to 25\,000 for start-up and proto
- typing work\; Development Grants USD 50\,000 to 100\,000 for projects past
-  proof of concept. Institutional indirect costs are not covered. No applic
- ation fee.\nDuration: Grant terms run 12 to 18 months\, starting between 1
-  July 2027 and 31 December 2027. Deadline 3 November 2026\, 17:00 ET.\n\nM
- ore: https://www.acls.org/programs/acls-digital-justice-grants/?utm_source
- =artificialnouveaugrantdesk&utm_medium=referral
+ + communities.\n\nOrganisation: American Council of Learned Societies (ACL
+ S)\, funded by the Mellon Foundation\nLocation: Grant funds must be admini
+ stered by a US institution of higher education. No citizenship or residenc
+ y restriction is stated for the principal investigator.\nAward: Seed Grant
+ s USD 10\,000 to 25\,000 for start-up and prototyping work\; Development G
+ rants USD 50\,000 to 100\,000 for projects past proof of concept. Institut
+ ional indirect costs are not covered. No application fee.\nDuration: Grant
+  terms run 12 to 18 months\, starting between 1 July 2027 and 31 December 
+ 2027. Deadline 3 November 2026\, 17:00 ET.\n\nMore: https://www.acls.org/p
+ rograms/acls-digital-justice-grants/?utm_source=artificialnouveaugrantdesk
+ &utm_medium=referral
 URL:https://www.acls.org/programs/acls-digital-justice-grants/?utm_source=a
  rtificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Grant funds must be administered by a US institution of higher edu
@@ -532,123 +222,8 @@ LOCATION:Grant funds must be administered by a US institution of higher edu
  l investigator.
 END:VEVENT
 BEGIN:VEVENT
-UID:kluge-fellowships-library-of-congress-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260915
-DTEND;VALUE=DATE:20260916
-SUMMARY:Deadline: Kluge Fellowships at the Library of Congress 2027
-DESCRIPTION:The John W. Kluge Center awards twelve residential fellowships 
- a year for humanistic and social science research that draws on the Librar
- y of Congress collections\, with interdisciplinary and cross-cultural proj
- ects particularly welcome. Fellows get four to eleven months in residence 
- at a stipend of USD 5\,000 per month\, work and discussion space in the Je
- fferson Building\, and access to the Library's specialist staff\, the worl
- d's largest law library\, extensive multilingual books and periodicals\, a
- nd deep special collections of manuscripts\, maps\, music\, films\, record
- ed sound\, prints and photographs\, alongside the wider scholarly communit
- y in Washington. The Center was established in 2000 through a USD 60 milli
- on endowment from John W. Kluge. ELIGIBILITY: scholars who received a term
- inal advanced degree (the highest degree available in the discipline\, usu
- ally a PhD\, JD or international equivalent) within the past seven years\,
-  in the humanities\, social sciences\, or a professional field such as arc
- hitecture or law. The degree must be in hand at the time of submission\, a
- nd full-time students are therefore out of scope. Open to U.S. citizens an
- d foreign nationals\; selected foreign nationals are assisted in obtaining
-  a Library-sponsored J-1 visa\, though holders of H-1B visas are not eligi
- ble. APPLICATION: through the Library's online portal\, opening 15 April 2
- 026 and closing 11:59pm on 15 September 2026. Materials required are an ap
- plication form in English\, a CV (max 2 pages)\, a 500-word research abstr
- act\, a one-page statement on how the Library's collections will serve the
-  work\, a project proposal with work plan (max 3 pages)\, a bibliography (
- max 3 pages)\, and two reference letters from referees who have read the p
- roposal. No fee.\n\nOrganisation: John W. Kluge Center\, Library of Congre
- ss\nLocation: Washington\, DC\, United States (in residence at the Thomas 
- Jefferson Building\, 101 Independence Ave SE). Open to applicants of any n
- ationality: U.S. citizens and foreign nationals alike\, with J-1 exchange 
- visitor visa sponsorship provided for those who need it.\nAward: Stipend o
- f USD 5\,000 per month for a residency of four to eleven months\, so USD 2
- 0\,000 to USD 55\,000 depending on the tenure awarded. Twelve Kluge Fellow
- ships are awarded each year. Stipends are paid monthly by electronic trans
- fer to a U.S. bank account. No application fee\, no participation fee.\nDu
- ration: Four to eleven months in residence\; fellows may take up residence
-  at any point in the 18-month window after receiving the fellowship letter
- \n\nMore: https://www.loc.gov/programs/john-w-kluge-center/chairs-fellowsh
- ips/fellowships/kluge-fellowships/?utm_source=artificialnouveaugrantdesk&u
- tm_medium=referral
-URL:https://www.loc.gov/programs/john-w-kluge-center/chairs-fellowships/fel
- lowships/kluge-fellowships/?utm_source=artificialnouveaugrantdesk&utm_medi
- um=referral
-LOCATION:Washington\, DC\, United States (in residence at the Thomas Jeffer
- son Building\, 101 Independence Ave SE). Open to applicants of any nationa
- lity: U.S. citizens and foreign nationals alike\, with J-1 exchange visito
- r visa sponsorship provided for those who need it.
-END:VEVENT
-BEGIN:VEVENT
-UID:new-public-entrepreneur-in-residence-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260909
-DTEND;VALUE=DATE:20260910
-SUMMARY:Deadline: New_ Public Entrepreneur in Residence\, Pilot Cohort
-DESCRIPTION:New_ Public is piloting a virtual Entrepreneur in Residence pro
- gramme for solo founders building alternatives to the mainstream social pl
- atforms. Its framing: people are turning away from algorithmic social medi
- a\, AI bots are taking over the big platforms\, and users are retreating i
- nto private closed spaces\, which leaves an opening for builders working o
- n a new information ecosystem rather than the status quo. The residency su
- pplies research\, experts\, connections and tools\; the founder brings the
-  vision and experience. TWO FOCUS AREAS: humans connecting to humans\, mea
- ning products that bring people into meaningful contact online (forums\, m
- essaging apps\, groups\, microblogging\, in-person meetups)\, including AI
- -powered platforms and tools as long as they connect people to people rath
- er than people to bots\; and local and civic information environments\, me
- aning tools for distributing local news\, building community knowledge and
-  facilitating collective sensemaking\, so people can get trustworthy infor
- mation about their communities. WHAT RESIDENTS DO: use self-directed time 
- to prototype ideas\, test assumptions and gain clarity\; participate in re
- gular check-ins\, engage with the other resident and the wider team\, and 
- take candid feedback on product and strategy\; engage seriously with go-to
- -market questions about who the user is\, how they find you\, and the path
-  to sustainability\; and help shape the programme itself\, since the pilot
-  cohort's feedback directly informs how the EIR programme runs going forwa
- rd. WHO THEY WANT: entrepreneurial founders ready to build their next thin
- g within the focus areas\, with a track record of or clear drive toward wo
- rk that builds social trust\, connection and belonging\; strong product th
- inkers with good judgment\, a relentless focus on user needs\, and opennes
- s to coaching on mission-aligned business models. An early idea is enough\
- , no working product required. The pilot is open to founders with somethin
- g else going on alongside\, though the full programme will most likely be 
- full time. APPLICATION PROCESS: submit the written application online\; sh
- ortlisted applicants submit a short video by 18 September 2026 covering ba
- ckground\, motivation and a quick pitch\; full applications and videos go 
- to the advisory board\, with offers made in early October ahead of the kic
- koff. FUTURE COHORTS: New_ Public plans to open the next cohort to the UK 
- and EU from spring 2027. Deadline 11:59pm Pacific on Wednesday 9 September
-  2026.\n\nOrganisation: New_ Public\nLocation: Remote\, with an in-person 
- kickoff retreat in Philadelphia\, USA (19 to 22 October 2026). Open to app
- licants based in the United States or Canada.\nAward: Stipend of USD 22\,5
- 00\, paid in three monthly installments across the residency\, each contin
- gent on continued active participation. Plus USD 1\,500 toward an AI tool 
- of the resident's choice for coding\, prototyping or design. Two residents
-  are selected in the pilot cohort. Also provided: hands-on product and str
- ategy support from senior New_ Public staff and outside experts\; access t
- o New_ Public's five years of original research on moderation\, governance
- \, community stewardship and platform design\, plus direct access to the r
- esearchers behind it\; and introductions across New_ Public's network of m
- ajor platforms\, startups\, university researchers and funders for hiring\
- , fundraising\, early user testing and community partnerships. Residents m
- ust submit a Form W-9 or W-8BEN to receive the stipend. No application fee
- .\nDuration: Three months\, from the week of 19 October 2026 to 29 January
-  2027\, run remotely apart from the opening retreat\n\nMore: https://newpu
- blic.org/EIR?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://newpublic.org/EIR?utm_source=artificialnouveaugrantdesk&utm_med
- ium=referral
-LOCATION:Remote\, with an in-person kickoff retreat in Philadelphia\, USA (
- 19 to 22 October 2026). Open to applicants based in the United States or C
- anada.
-END:VEVENT
-BEGIN:VEVENT
 UID:asf-fellowships-americans-nordic-2027-28@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: American-Scandinavian Foundation: Fellowships for America
@@ -657,31 +232,20 @@ DESCRIPTION:The American-Scandinavian Foundation's award program for study
  and research abroad is its longest-standing commitment to educational exch
  ange: over the past 100 years\, more than 4\,000 fellowships and grants ha
  ve gone to Americans working in the Nordic region and Scandinavians in the
-  US engaged in study\, research\, or creative arts projects. Fellowships f
- or Americans in the Nordic Countries support projects in Denmark\, the Far
- oe Islands\, Greenland\, Iceland\, Finland\, Norway\, Sweden\, and Sapmi. 
- AMOUNTS: long-term fellowships of up to USD 23\,000 for 4 to 12 months\, a
- nd short-term grants of up to USD 5\,000 for 1 to 3 months\; awards are gi
- ven in all fields\, with graduate students (preferably dissertation-relate
- d)\, academic professionals\, and creative artists eligible. In 2026\, 31 
- American Fellows were granted over USD 277\,390 in total. REPORTING: fello
- ws abroad more than six months submit an interim report mid-project\, and 
- all fellows submit a final narrative report within 60 days of the fellowsh
- ip period's end. DEADLINE: 1 November 2026 for the 2027-28 cycle. See ASF'
- s Program Guidelines for full requirements and apply via the ASF applicati
- on portal.\n\nOrganisation: American-Scandinavian Foundation\nLocation: No
- rdic region (Denmark\, Faroe Islands\, Greenland\, Iceland\, Finland\, Nor
- way\, Sweden\, and Sapmi). For American graduate students\, academic profe
- ssionals\, and creative artists\; project must take place in the Nordic co
- untries.\nAward: Long-term fellowships of up to USD 23\,000 for 4 to 12 mo
- nths\; short-term grants of up to USD 5\,000 for 1 to 3 months. In 2026\, 
- 31 American Fellows received over USD 277\,390 in total funding. Awards ar
- e given in all fields\, including creative arts projects.\nDuration: 1 to 
- 3 months (grants) or 4 to 12 months (fellowships)\; year-long fellows subm
- it an interim report\, and all fellows submit a final narrative report wit
- hin 60 days of the fellowship's end.\n\nMore: https://www.amscan.org/fello
- wships-grants/grants-and-awards-for-americans/?utm_source=artificialnouvea
- ugrantdesk&utm_medium=referral
+  US engaged in study\, research\, or creative arts projects.\n\nOrganisati
+ on: American-Scandinavian Foundation\nLocation: Nordic region (Denmark\, F
+ aroe Islands\, Greenland\, Iceland\, Finland\, Norway\, Sweden\, and Sapmi
+ ). For American graduate students\, academic professionals\, and creative 
+ artists\; project must take place in the Nordic countries.\nAward: Long-te
+ rm fellowships of up to USD 23\,000 for 4 to 12 months\; short-term grants
+  of up to USD 5\,000 for 1 to 3 months. In 2026\, 31 American Fellows rece
+ ived over USD 277\,390 in total funding. Awards are given in all fields\, 
+ including creative arts projects.\nDuration: 1 to 3 months (grants) or 4 t
+ o 12 months (fellowships)\; year-long fellows submit an interim report\, a
+ nd all fellows submit a final narrative report within 60 days of the fello
+ wship's end.\n\nMore: https://www.amscan.org/fellowships-grants/grants-and
+ -awards-for-americans/?utm_source=artificialnouveaugrantdesk&utm_medium=re
+ ferral
 URL:https://www.amscan.org/fellowships-grants/grants-and-awards-for-america
  ns/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Nordic region (Denmark\, Faroe Islands\, Greenland\, Iceland\, Fin
@@ -690,109 +254,8 @@ LOCATION:Nordic region (Denmark\, Faroe Islands\, Greenland\, Iceland\, Fin
   Nordic countries.
 END:VEVENT
 BEGIN:VEVENT
-UID:mats-winter-2027-fellowship@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260906
-DTEND;VALUE=DATE:20260907
-SUMMARY:Deadline: MATS Winter 2027 Fellowship (ML Alignment and Theory Scho
- lars)
-DESCRIPTION:MATS is the leading independent fellowship pipeline into AI ali
- gnment and safety research\, pairing fellows with mentors from top labs an
- d research organizations. The Winter 2027 cohort offers a USD 19\,200 stip
- end plus a USD 24\,000 compute budget\, free housing and food\, covered tr
- avel\, and J-1 visa sponsorship where needed. Seven tracks: Empirical\, Th
- eory\, Strategy and Forecasting\, Policy and Governance\, Systems Security
- \, Founding and Field-Building\, and Biosecurity. SELECTION: initial appli
- cation\, central evaluations by track in September\, mentor review in Octo
- ber to early November\, with offers by mid-November. The program starts 19
-  January 2027 in Berkeley. DEADLINES: general applications close 6 Septemb
- er 2026\; the Neel Nanda stream closes earlier\, on 4 September 2026.\n\nO
- rganisation: MATS (ML Alignment and Theory Scholars)\nLocation: Berkeley\,
-  California\, USA (in-person\; travel and J-1 visa covered if needed). Ope
- n internationally.\nAward: USD 19\,200 stipend plus USD 24\,000 compute bu
- dget\, with free housing and food\, travel covered\, and J-1 visa sponsors
- hip if needed. No application fee.\nDuration: Program starts 19 January 20
- 27\; in-person research phase with a possible funded extension.\n\nMore: h
- ttps://www.matsprogram.org/apply?utm_source=artificialnouveaugrantdesk&utm
- _medium=referral
-URL:https://www.matsprogram.org/apply?utm_source=artificialnouveaugrantdesk
- &utm_medium=referral
-LOCATION:Berkeley\, California\, USA (in-person\; travel and J-1 visa cover
- ed if needed). Open internationally.
-END:VEVENT
-BEGIN:VEVENT
-UID:fas-ai-safety-policy-entrepreneurship-fellowship-2026@artificialnouveau
- .github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260907
-DTEND;VALUE=DATE:20260908
-SUMMARY:Deadline: FAS: AI Safety Policy Entrepreneurship Fellowship 2026-27
-  (part-time\, remote)
-DESCRIPTION:The Federation of American Scientists' AI Safety Policy Entrepr
- eneurship Fellowship helps early- to mid-career professionals advance a fr
- ontier-AI-safety policy idea from concept toward implementation as a FAS a
- ffiliate. Fellows get policy-entrepreneurship training\, reading groups\, 
- and twice-monthly check-ins while developing a policy memo and advocacy pl
- an\; the strongest receives a USD 1\,000 merit award on top of the USD 5\,
- 000 stipend. ELIGIBILITY: subject-matter expertise from technical AI resea
- rch\, academia\, think tanks\, civil society\, industry\, law\, cybersecur
- ity\, or national security\, with limited prior policy experience\; the wo
- rk is primarily remote with two mandatory US in-person events (California 
- retreat 4-7 November 2026\, DC capstone week of 22 February 2027). Runs 30
-  September 2026 to 28 February 2027 at about 5 hours per week. DEADLINE: 7
-  September 2026\, 11:59PM ET.\n\nOrganisation: Federation of American Scie
- ntists (Day One Project)\nLocation: Primarily remote\, US-policy focused\,
-  with two mandatory in-person events in the US (California retreat 4-7 Nov
- ember 2026\; Washington DC capstone the week of 22 February 2027).\nAward:
-  USD 5\,000 stipend for the part-time fellowship (about 5 hours per week)\
- , plus a USD 1\,000 merit award for the most actionable policy memo and ad
- vocacy plan. No application fee.\nDuration: 30 September 2026 to 28 Februa
- ry 2027\, about 5 hours per week alongside your job.\n\nMore: https://fas.
- org/career/ai-safety-pef/?utm_source=artificialnouveaugrantdesk&utm_medium
- =referral
-URL:https://fas.org/career/ai-safety-pef/?utm_source=artificialnouveaugrant
- desk&utm_medium=referral
-LOCATION:Primarily remote\, US-policy focused\, with two mandatory in-perso
- n events in the US (California retreat 4-7 November 2026\; Washington DC c
- apstone the week of 22 February 2027).
-END:VEVENT
-BEGIN:VEVENT
-UID:iliad-fellowship-fall-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260921
-DTEND;VALUE=DATE:20260922
-SUMMARY:Deadline: ILIAD Fellowship: Mentored AI Alignment Research (Novembe
- r and December 2026 cohorts)
-DESCRIPTION:The ILIAD Fellowship is a 3-month mentored research fellowship 
- producing concrete outputs in applied-mathematical AI alignment research\,
-  distinct from ILIAD's four-week taught Intensive. Fellows work in person 
- in London or the SF Bay Area with a USD 6\,000 per month travel-and-housin
- g allowance. ELIGIBILITY: primarily PhD and postdoc researchers in mathema
- tics\, theoretical physics\, theoretical computer science or related field
- s\, though a degree is not a hard requirement given substantial research e
- xperience\; limited remote flexibility. DEADLINES: 21 September 2026 for t
- he November cohort (2 November 2026 to 5 February 2027)\; 19 October 2026 
- for the December cohort (1 December 2026 to 5 March 2027). A single common
-  application at iliad.ac/apply covers the Fellowship and the Intensive.\n\
- nOrganisation: ILIAD\nLocation: London\, UK or San Francisco Bay Area\, US
- A (in-person\, limited remote flexibility). Primarily for PhD/postdoc-leve
- l researchers in maths\, theoretical physics\, or theoretical CS\; a degre
- e is not a hard requirement given substantial research experience.\nAward:
-  USD 6\,000 per month travel-and-housing allowance for the 3-month fellows
- hip. No tuition or application fee.\nDuration: 3 months. November cohort: 
- 2 November 2026 to 5 February 2027\; December cohort: 1 December 2026 to 5
-  March 2027.\n\nMore: https://www.iliad.ac/fellowship?utm_source=artificia
- lnouveaugrantdesk&utm_medium=referral
-URL:https://www.iliad.ac/fellowship?utm_source=artificialnouveaugrantdesk&u
- tm_medium=referral
-LOCATION:London\, UK or San Francisco Bay Area\, USA (in-person\, limited r
- emote flexibility). Primarily for PhD/postdoc-level researchers in maths\,
-  theoretical physics\, or theoretical CS\; a degree is not a hard requirem
- ent given substantial research experience.
-END:VEVENT
-BEGIN:VEVENT
 UID:mats-residency-program-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: MATS Residency Program: 6-24 Month Funded AI Safety Resea
@@ -800,27 +263,17 @@ SUMMARY:Deadline: MATS Residency Program: 6-24 Month Funded AI Safety Resea
 DESCRIPTION:The MATS Residency\, announced in August 2026 as a new track al
  ongside the seasonal MATS fellowship\, funds 6 to 24 months of high-indepe
  ndence AI safety research for experienced researchers\, whether already in
-  AI safety or moving in from adjacent fields. COMPENSATION: USD 155\,000 t
- o 285\,000 per year gross depending on location\, seniority and experience
- \, plus insurance\, retirement plan\, PTO (17 days US / 20 days UK)\, conf
- erence funding\, catered meals\, and up to USD 25\,000 in relocation suppo
- rt. ELIGIBILITY: at least one substantial piece of research-caliber work\;
-  credentials are not required. Full-time (part-time case by case for acade
- mics on sabbatical)\, in person at MATS offices in Berkeley\, London\, or 
- Washington DC\, with visa support where required. TIMELINE: the Winter 202
- 7 intake window runs 25 August to 31 October 2026 (AoE)\, with decisions b
- y end of November and interviews plus a paid work test in the first week o
- f December\; three intake windows per year.\n\nOrganisation: MATS (ML Alig
- nment and Theory Scholars)\nLocation: In-person at MATS offices in Berkele
- y\, London\, or Washington DC\; visa support provided where required. For 
- experienced researchers with at least one substantial piece of research-ca
- liber work.\nAward: USD 155\,000 to 285\,000 per year gross (set by locati
- on\, seniority\, and experience)\, plus medical/dental/vision/life insuran
- ce\, retirement plan\, paid time off\, conference funding\, catered meals\
- , and up to USD 25\,000 relocation support. No application fee.\nDuration:
-  6 to 24 months with rolling start dates\; three intake windows per year.\
- n\nMore: https://www.matsprogram.org/residency?utm_source=artificialnouvea
- ugrantdesk&utm_medium=referral
+  AI safety or moving in from adjacent fields.\n\nOrganisation: MATS (ML Al
+ ignment and Theory Scholars)\nLocation: In-person at MATS offices in Berke
+ ley\, London\, or Washington DC\; visa support provided where required. Fo
+ r experienced researchers with at least one substantial piece of research-
+ caliber work.\nAward: USD 155\,000 to 285\,000 per year gross (set by loca
+ tion\, seniority\, and experience)\, plus medical/dental/vision/life insur
+ ance\, retirement plan\, paid time off\, conference funding\, catered meal
+ s\, and up to USD 25\,000 relocation support. No application fee.\nDuratio
+ n: 6 to 24 months with rolling start dates\; three intake windows per year
+ .\n\nMore: https://www.matsprogram.org/residency?utm_source=artificialnouv
+ eaugrantdesk&utm_medium=referral
 URL:https://www.matsprogram.org/residency?utm_source=artificialnouveaugrant
  desk&utm_medium=referral
 LOCATION:In-person at MATS offices in Berkeley\, London\, or Washington DC\
@@ -829,7 +282,7 @@ LOCATION:In-person at MATS offices in Berkeley\, London\, or Washington DC\
 END:VEVENT
 BEGIN:VEVENT
 UID:lawai-summer-fellowship-us-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20270129
 DTEND;VALUE=DATE:20270130
 SUMMARY:Deadline: Institute for Law & AI: Summer Fellowship US 2027 (Washin
@@ -837,26 +290,17 @@ SUMMARY:Deadline: Institute for Law & AI: Summer Fellowship US 2027 (Washin
 DESCRIPTION:The Institute for Law & AI's US Summer Fellowship is a paid res
  earch fellowship at the leading edge of US AI law and policy for law stude
  nts\, professionals\, and academics\, including the Summer Institute on La
- w and AI in Washington DC and mentorship from LawAI research staff. FUNDIN
- G: USD 2\,000 per week\, a USD 10\,000 relocation/housing stipend for DC-b
- ased fellows\, covered flights\, accommodation and meals for the Convening
-  Week\, and potentially higher subsidies for exceptional candidates. ELIGI
- BILITY: a strong grasp of US legal principles applicable to AI regulation 
- via formal US legal study (incoming 1L and up) or comparable professional 
- experience\; full-time commitment 14 June to 20 August 2027\; valid US wor
- k authorization required (visa sponsorship possible but not guaranteed). T
- he application takes about 20 minutes. DEADLINE: 29 January 2027\, 11:59PM
-  ET.\n\nOrganisation: Institute for Law & AI (LawAI)\nLocation: Washington
- \, DC\, USA (relocation expected\; USD 10\,000 relocation/housing stipend 
- for DC-based fellows). Requires valid US work authorization\; visa sponsor
- ship available but not guaranteed.\nAward: USD 2\,000 per week subsidy\, p
- lus a USD 10\,000 relocation/housing stipend for DC-based fellows and cove
- red travel\, accommodation and meals for the Convening Week\; higher subsi
- dies possible for exceptional candidates. No application fee.\nDuration: 1
- 4 June to 20 August 2027\, full-time\; Convening Week (Summer Institute on
-  Law and AI) 21-25 June in Washington DC.\n\nMore: https://law-ai.org/summ
- er-fellowship-us/?utm_source=artificialnouveaugrantdesk&utm_medium=referra
- l
+ w and AI in Washington DC and mentorship from LawAI research staff.\n\nOrg
+ anisation: Institute for Law & AI (LawAI)\nLocation: Washington\, DC\, USA
+  (relocation expected\; USD 10\,000 relocation/housing stipend for DC-base
+ d fellows). Requires valid US work authorization\; visa sponsorship availa
+ ble but not guaranteed.\nAward: USD 2\,000 per week subsidy\, plus a USD 1
+ 0\,000 relocation/housing stipend for DC-based fellows and covered travel\
+ , accommodation and meals for the Convening Week\; higher subsidies possib
+ le for exceptional candidates. No application fee.\nDuration: 14 June to 2
+ 0 August 2027\, full-time\; Convening Week (Summer Institute on Law and AI
+ ) 21-25 June in Washington DC.\n\nMore: https://law-ai.org/summer-fellowsh
+ ip-us/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://law-ai.org/summer-fellowship-us/?utm_source=artificialnouveaugr
  antdesk&utm_medium=referral
 LOCATION:Washington\, DC\, USA (relocation expected\; USD 10\,000 relocatio
@@ -865,7 +309,7 @@ LOCATION:Washington\, DC\, USA (relocation expected\; USD 10\,000 relocatio
 END:VEVENT
 BEGIN:VEVENT
 UID:harry-ransom-center-fellowships-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261106
 DTEND;VALUE=DATE:20261107
 SUMMARY:Deadline: Harry Ransom Center Research Fellowships 2027-2028 (Austi
@@ -874,31 +318,18 @@ DESCRIPTION:The Harry Ransom Center at The University of Texas at Austin aw
  ards research fellowships for on-site work in its collections spanning lit
  erature\, photography\, film\, art\, performing arts\, music and cultural 
  history\, supporting scholarly articles\, dissertations\, creative works\,
-  digital humanities projects and exhibition proposals. FELLOWSHIP TYPES: P
- ostdoctoral Fellowships of USD 3\,500 per month for one or two months\, op
- en to holders of a PhD or terminal degree (MFA\, MLIS)\, current or former
-  faculty\, and similarly qualified researchers without institutional affil
- iation\; Dissertation Fellowships of USD 2\,500 for graduate students with
-  doctoral dissertations in progress\; and Travel Stipends of USD 2\,000 op
- en to graduate students\, current or former faculty and independent resear
- chers including journalists and artists (not combinable with other Ransom 
- Center fellowships). International recipients in all categories receive an
-  additional one-time USD 500 stipend toward visa and travel costs. Fellows
-  spend most days in the Reading Room consulting the collections\, with acc
- ess to a shared office\, during a residency period between 1 June 2027 and
-  31 August 2028. APPLY with a three-page proposal PDF and letters of recom
- mendation\; recommendation letters are also due by the deadline. DEADLINE:
-  6 November 2026\, 5:00 PM CST.\n\nOrganisation: Harry Ransom Center\, The
-  University of Texas at Austin\nLocation: Austin\, Texas\, USA. On-site re
- search in the Ransom Center's collections\; international applicants welco
- me and receive an additional one-time USD 500 stipend for visa and travel 
- costs.\nAward: Postdoctoral Fellowships: USD 3\,500 per month for one or t
- wo months. Dissertation Fellowships: USD 2\,500. Travel Stipends: USD 2\,0
- 00 (open to graduate students\, faculty and independent researchers includ
- ing artists and journalists). International recipients get an extra USD 50
- 0. No application fee.\nDuration: One to two months on-site\, taken betwee
- n 1 June 2027 and 31 August 2028.\n\nMore: https://www.hrc.utexas.edu/fell
- owships/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+  digital humanities projects and exhibition proposals.\n\nOrganisation: Ha
+ rry Ransom Center\, The University of Texas at Austin\nLocation: Austin\, 
+ Texas\, USA. On-site research in the Ransom Center's collections\; interna
+ tional applicants welcome and receive an additional one-time USD 500 stipe
+ nd for visa and travel costs.\nAward: Postdoctoral Fellowships: USD 3\,500
+  per month for one or two months. Dissertation Fellowships: USD 2\,500. Tr
+ avel Stipends: USD 2\,000 (open to graduate students\, faculty and indepen
+ dent researchers including artists and journalists). International recipie
+ nts get an extra USD 500. No application fee.\nDuration: One to two months
+  on-site\, taken between 1 June 2027 and 31 August 2028.\n\nMore: https://
+ www.hrc.utexas.edu/fellowships/?utm_source=artificialnouveaugrantdesk&utm_
+ medium=referral
 URL:https://www.hrc.utexas.edu/fellowships/?utm_source=artificialnouveaugra
  ntdesk&utm_medium=referral
 LOCATION:Austin\, Texas\, USA. On-site research in the Ransom Center's coll
@@ -906,116 +337,20 @@ LOCATION:Austin\, Texas\, USA. On-site research in the Ransom Center's coll
  ime USD 500 stipend for visa and travel costs.
 END:VEVENT
 BEGIN:VEVENT
-UID:cbai-fall-ais-research-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260906
-DTEND;VALUE=DATE:20260907
-SUMMARY:Deadline: CBAI Fall Research Fellowship in AI Safety 2026 (Cambridg
- e\, MA)
-DESCRIPTION:The Cambridge Boston Alignment Initiative's Fall Research Fello
- wship in AI Safety is an intensive\, fully funded 10-week program for rese
- archers aiming to advance their careers in AI safety\, run from CBAI's Har
- vard Square office. Around 30 fellows work with 25+ mentors from leading i
- nstitutions\, including David Bau\, Stephen Casper\, Dylan Hadfield-Menell
- \, and James Mickens. FUNDING: USD 15\,000 stipend\, roughly USD 1\,500 pe
- r week in compute support via API credits\, housing through Airbnb and cor
- porate rentals\, free weekday meals\, and covered conference costs for acc
- epted papers. ELIGIBILITY: undergraduates\, Master's and PhD students\, po
- stdocs\, and recent graduates\, 18+\, with legal US work authorization (no
-  visa sponsorship\; F-1/J-1 holders can use OPT/CPT). SELECTION: general f
- orm\, a 15-minute CBAI interview\, a mentor-specific assessment\, and a me
- ntor interview. Runs 13 October to 18 December 2026. DEADLINE: 6 September
-  2026\, 11:59PM ET.\n\nOrganisation: Cambridge Boston Alignment Initiative
-  (CBAI)\nLocation: Cambridge\, Massachusetts\, USA (24/7 office in Harvard
-  Square). Open to undergraduates through postdocs and recent graduates\, 1
- 8+\; requires legal right to work in the US (no visa sponsorship this cycl
- e\; F-1/J-1 holders may use OPT/CPT).\nAward: USD 15\,000 stipend over 10 
- weeks\, plus roughly USD 1\,500 per week of compute support (API credits)\
- , housing via corporate rentals\, free weekday meals and snacks\, and conf
- erence costs for accepted papers. No application fee.\nDuration: 10 weeks\
- , 13 October to 18 December 2026\; spring cycle applications open late Sep
- tember.\n\nMore: https://www.cbai.ai/ais-research-fellowship?utm_source=ar
- tificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.cbai.ai/ais-research-fellowship?utm_source=artificialnouvea
- ugrantdesk&utm_medium=referral
-LOCATION:Cambridge\, Massachusetts\, USA (24/7 office in Harvard Square). O
- pen to undergraduates through postdocs and recent graduates\, 18+\; requir
- es legal right to work in the US (no visa sponsorship this cycle\; F-1/J-1
-  holders may use OPT/CPT).
-END:VEVENT
-BEGIN:VEVENT
-UID:cbai-aixbiosecurity-fellowship-fall-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20260906
-DTEND;VALUE=DATE:20260907
-SUMMARY:Deadline: CBAI AIxBiosecurity Research Fellowship Fall 2026 (Cambri
- dge\, MA)
-DESCRIPTION:CBAI's AIxBiosecurity Research Fellowship is a fully funded 10-
- week program on research at the intersection of AI and biosecurity: danger
- ous capability evaluations\, safety standards\, safeguards and unlearning 
- for bio-relevant models\, and threat modeling. Fellows work with mentors\,
-  attend weekly workshops and speaker events\, and run independent research
-  projects from CBAI's Harvard Square office. FUNDING: USD 15\,000 stipend\
- , roughly USD 1\,500 per week of compute support via API credits and GPUs\
- , housing through Airbnb and corporate rentals\, free weekday meals\, and 
- covered conference costs for accepted papers. ELIGIBILITY: undergraduates 
- through postdocs from AI or life-sciences backgrounds\, 18+\, with the leg
- al right to work in the US (no visa sponsorship for fall\; J-1 sponsorship
-  available for the spring cycle). SELECTION: general form\, 15-minute CBAI
-  interview\, mentor-specific screening task\, and mentor interview\, on a 
- rolling basis. Runs 13 October to 18 December 2026. DEADLINE: 6 September 
- 2026\, 11:59PM ET.\n\nOrganisation: Cambridge Boston Alignment Initiative 
- (CBAI)\nLocation: Cambridge\, Massachusetts\, USA (24/7 office in Harvard 
- Square). Open to undergraduates through postdocs and recent graduates\, 18
- +\; requires legal right to work in the US (no visa sponsorship this cycle
- \; F-1/J-1 holders may use OPT/CPT).\nAward: USD 15\,000 stipend over 10 w
- eeks\, plus roughly USD 1\,500 per week of compute support (API credits an
- d GPUs)\, housing via corporate rentals\, free weekday meals and snacks\, 
- and conference costs for accepted papers. No application fee.\nDuration: 1
- 0 weeks\, 13 October to 18 December 2026\; spring cycle applications open 
- late September.\n\nMore: https://www.cbai.ai/aixbiosecurity-fellowship-pro
- gram?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.cbai.ai/aixbiosecurity-fellowship-program?utm_source=artifi
- cialnouveaugrantdesk&utm_medium=referral
-LOCATION:Cambridge\, Massachusetts\, USA (24/7 office in Harvard Square). O
- pen to undergraduates through postdocs and recent graduates\, 18+\; requir
- es legal right to work in the US (no visa sponsorship this cycle\; F-1/J-1
-  holders may use OPT/CPT).
-END:VEVENT
-BEGIN:VEVENT
 UID:foresight-ai-nodes-rfp-local-compute@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: Foresight Institute AI Nodes RFP\, Track I: Local Compute
 DESCRIPTION:Track I of Foresight Institute's AI for Science & Safety Nodes 
  RFP funds building and scaling local compute setups that individuals or co
- mmunities physically own and control. With five companies holding 71 perce
- nt of the world's AI compute\, researchers relying on APIs and rented comp
- ute face data exposure\, steep price increases and the risk of losing acce
- ss altogether\; open models are ready for serious science and safety work\
- , but the ecosystem lacks sovereign and secure compute infrastructure. LOO
- KING FOR: local compute clusters in different sizes and configurations tha
- t are easy to set up and run across varied connectivity and electricity en
- vironments\; blueprints for easy yet secure cluster management\; models fo
- r bringing down cost\, like selling idle compute or connecting to communit
- y clusters\; ideally a business case for building\, selling and distributi
- ng such clusters at scale. EXAMPLE DELIVERABLES: a prototype AI cluster an
-  average person can deploy at home\, software that runs a node without exp
- ert knowledge\, economic models showing how the hardware pays for itself\,
-  a pilot deployment for individuals or communities. Selected projects rece
- ive grant funding\, private local compute\, workspace at the San Francisco
-  or Berlin AI Nodes\, travel-paid field-building events and access to Fore
- sight's advisors and network\; in-person contributors at the Nodes are str
- ongly prioritised. Individuals\, teams\, and nonprofit or for-profit organ
- isations worldwide may apply (for-profits must justify their need for gran
- t funding). Deadline 31 October 2026\, 23:59 PDT.\n\nOrganisation: Foresig
- ht Institute\nLocation: Remote (global\; hubs in San Francisco and Berlin)
- \nAward: Typically $30\,000 to $100\,000 per grant (larger possible for th
- e right project)\, plus private local compute and workspace at the San Fra
- ncisco or Berlin AI Nodes. No application fee.\nDuration: Project-based\n\
- nMore: https://foresight.org/grants/ai-science-safety-nodes-rfp-local-comp
- ute/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ mmunities physically own and control.\n\nOrganisation: Foresight Institute
+ \nLocation: Remote (global\; hubs in San Francisco and Berlin)\nAward: Typ
+ ically $30\,000 to $100\,000 per grant (larger possible for the right proj
+ ect)\, plus private local compute and workspace at the San Francisco or Be
+ rlin AI Nodes. No application fee.\nDuration: Project-based\n\nMore: https
+ ://foresight.org/grants/ai-science-safety-nodes-rfp-local-compute/?utm_sou
+ rce=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://foresight.org/grants/ai-science-safety-nodes-rfp-local-compute/
  ?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Remote (global\; hubs in San Francisco and Berlin)
@@ -1023,7 +358,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:foresight-ai-nodes-rfp-coordination-accountability@artificialnouveau.gi
  thub.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: Foresight Institute AI Nodes RFP\, Track II: Coordination
@@ -1031,33 +366,14 @@ SUMMARY:Deadline: Foresight Institute AI Nodes RFP\, Track II: Coordination
 DESCRIPTION:Track II of Foresight Institute's AI for Science & Safety Nodes
   RFP funds ways for increasingly capable AI systems to coordinate with eac
  h other\, the people using them\, and the wider world\, without handing po
- wer to a single model\, lab or government. THREE FOCUS AREAS: (1) Supercol
- laboration and decentralized alignment: coordination and credit-assignment
-  protocols\, tooling for massive human-AI collectives\, incentive designs 
- robust to gaming\, mutual monitoring and cross-checking among agents\, sca
- lable verification\, and open coordination protocols built on boundaries a
- s Schelling points for multi-agent coordination. (2) Human Empowerment: ev
- idence\, decision rules and working tools for when human control genuinely
-  empowers people versus when AI delegation is preferable\, including a 'wh
- en to defer control' framework and mechanisms to detect and fix hollow ove
- rsight. (3) AI Insurance and Open Governance: building a middle layer betw
- een lab self-governance and government regulation\, such as ways for insur
- ers to judge and price frontier-lab risk\, independent incident reporting 
- and assessment that does not leak lab secrets\, and mechanisms like develo
- per mutuals\, catastrophe bonds or liability for near-misses. Selected pro
- jects receive grant funding\, private local compute\, workspace at the San
-  Francisco or Berlin AI Nodes\, travel-paid field-building events and acce
- ss to Foresight's advisors and network\; in-person contributors at the Nod
- es are strongly prioritised. Individuals\, teams\, and nonprofit or for-pr
- ofit organisations worldwide may apply (for-profits must justify their nee
- d for grant funding). Deadline 31 October 2026\, 23:59 PDT.\n\nOrganisatio
- n: Foresight Institute\nLocation: Remote (global\; hubs in San Francisco a
- nd Berlin)\nAward: Typically $30\,000 to $100\,000 per grant\, with smalle
- r amounts for the Human Empowerment and AI Insurance & Open Governance foc
- us areas\; plus private local compute and workspace at the San Francisco o
- r Berlin AI Nodes. No application fee.\nDuration: Project-based\n\nMore: h
- ttps://foresight.org/grants/ai-science-safety-nodes-rfp-coordination-and-a
- ccountability/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ wer to a single model\, lab or government.\n\nOrganisation: Foresight Inst
+ itute\nLocation: Remote (global\; hubs in San Francisco and Berlin)\nAward
+ : Typically $30\,000 to $100\,000 per grant\, with smaller amounts for the
+  Human Empowerment and AI Insurance & Open Governance focus areas\; plus p
+ rivate local compute and workspace at the San Francisco or Berlin AI Nodes
+ . No application fee.\nDuration: Project-based\n\nMore: https://foresight.
+ org/grants/ai-science-safety-nodes-rfp-coordination-and-accountability/?ut
+ m_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://foresight.org/grants/ai-science-safety-nodes-rfp-coordination-a
  nd-accountability/?utm_source=artificialnouveaugrantdesk&utm_medium=referr
  al
@@ -1065,7 +381,7 @@ LOCATION:Remote (global\; hubs in San Francisco and Berlin)
 END:VEVENT
 BEGIN:VEVENT
 UID:foresight-ai-nodes-rfp-ai-first-science@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: Foresight Institute AI Nodes RFP\, Track III: AI-First Sc
@@ -1073,110 +389,22 @@ SUMMARY:Deadline: Foresight Institute AI Nodes RFP\, Track III: AI-First Sc
 DESCRIPTION:Track III of Foresight Institute's AI for Science & Safety Node
  s RFP funds AI-first science in bio\, neuro and nano: work that asks what 
  important science is stuck\, what it is actually stuck on\, and whether we
-  can build the thing that removes that constraint. THREE FOCUS AREAS: (1) 
- Automated nanotechnology: AI methods for nanoscale design\, simulation and
-  assembly\, closed-loop fabrication and characterization tools\, credible 
- application pathways from toy problems to medicine\, environment and botto
- m-up production\, and defensive applications and safety frameworks. (2) Wh
- ole-brain emulation: cheaper and faster brain mapping and preservation\, b
- ringing down the cost of connectomics through better imaging or cheaper pr
- oofreading\, lo-fi emulation pathways that predict organism behavior from 
- behavioral and neural data\, and shorter experimental feedback loops in ne
- urobiology. (3) Replacement\, Enhancement\, Biostasis: longevity work incl
- uding tissue engineering\, organ synthesis\, 3D bioprinting and progressiv
- e replacement strategies\; reversible biostasis for organs and full humans
-  with improved preservation and revival protocols and organ banking\; and 
- datasets for independently testing genetic predictors\, gene editing and b
- etter measures of aging. Selected projects receive grant funding\, private
-  local compute\, workspace at the San Francisco or Berlin AI Nodes\, trave
- l-paid field-building events and access to Foresight's advisors and networ
- k\; in-person contributors at the Nodes are strongly prioritised. Individu
- als\, teams\, and nonprofit or for-profit organisations worldwide may appl
- y (for-profits must justify their need for grant funding). Deadline 31 Oct
- ober 2026\, 23:59 PDT.\n\nOrganisation: Foresight Institute\nLocation: Rem
- ote (global\; hubs in San Francisco and Berlin)\nAward: Typically $30\,000
-  to $100\,000 per grant\, with higher amounts for this track than the Huma
- n Empowerment and AI Insurance areas (larger possible for the right projec
- t)\; plus private local compute and workspace at the San Francisco or Berl
- in AI Nodes. No application fee.\nDuration: Project-based\n\nMore: https:/
- /foresight.org/grants/ai-science-safety-nodes-rfp-ai-first-science/?utm_so
- urce=artificialnouveaugrantdesk&utm_medium=referral
+  can build the thing that removes that constraint.\n\nOrganisation: Foresi
+ ght Institute\nLocation: Remote (global\; hubs in San Francisco and Berlin
+ )\nAward: Typically $30\,000 to $100\,000 per grant\, with higher amounts 
+ for this track than the Human Empowerment and AI Insurance areas (larger p
+ ossible for the right project)\; plus private local compute and workspace 
+ at the San Francisco or Berlin AI Nodes. No application fee.\nDuration: Pr
+ oject-based\n\nMore: https://foresight.org/grants/ai-science-safety-nodes-
+ rfp-ai-first-science/?utm_source=artificialnouveaugrantdesk&utm_medium=ref
+ erral
 URL:https://foresight.org/grants/ai-science-safety-nodes-rfp-ai-first-scien
  ce/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Remote (global\; hubs in San Francisco and Berlin)
 END:VEVENT
 BEGIN:VEVENT
-UID:moha-cats-plus-residency-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261001
-DTEND;VALUE=DATE:20261002
-SUMMARY:Deadline: MoHA: CATS+ Residency 2026 (Austin)
-DESCRIPTION:CATS+ (Collaborative Art + Technology Situation) is a local res
- idency program at The Museum of Human Achievement in Austin for artists an
- d tech wizards\, grounded in hands-on experimentation\, critical thought a
- nd community-building in media art and live AV production. Cohorts take pa
- rt in weekly gatherings to learn and share on a broad range of resident-dr
- iven topics\, build troubleshooting and collaboration skills\, co-create p
- rojects\, and contribute work to MoHA's media art exhibition during the Au
- stin Studio Tour in November and/or MoHA's Holiday Show in December. WHAT 
- YOU GET: a USD 1\,500 honorarium and access to MoHA equipment and workspac
- es. WHO IS ELIGIBLE: applicants of all skill levels and fields are welcome
- \, especially those experiencing barriers to media and tech community\, kn
- owledge and tools\; must be in the Austin area\, 18 or older\, not a full-
- time student and not a CATS+ alum. DEADLINE: 1 October 2026. Info session 
- at MoHA on 28 September 2026\, 7 to 9pm (RSVP via the application page). T
- O APPLY: via the application and info page on the MoHA wiki.\n\nOrganisati
- on: The Museum of Human Achievement (MoHA)\nLocation: Austin\, Texas. Loca
- l residency: applicants must be based in the Austin area.\nAward: USD 1\,5
- 00 honorarium\, plus access to MoHA equipment and workspaces.\nDuration: C
- ohort residency with weekly gatherings at MoHA\, culminating in work for M
- oHA's media art exhibition during the Austin Studio Tour in November and/o
- r MoHA's Holiday Show in December\n\nMore: https://moha.wiki/CATS%2B_Resid
- ency_Application_2026?utm_source=artificialnouveaugrantdesk&utm_medium=ref
- erral
-URL:https://moha.wiki/CATS%2B_Residency_Application_2026?utm_source=artific
- ialnouveaugrantdesk&utm_medium=referral
-LOCATION:Austin\, Texas. Local residency: applicants must be based in the A
- ustin area.
-END:VEVENT
-BEGIN:VEVENT
-UID:transluce-governance-policy-fellow-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261020
-DTEND;VALUE=DATE:20261021
-SUMMARY:Deadline: Transluce: Governance & Policy Fellow (San Francisco)
-DESCRIPTION:Transluce\, the independent nonprofit AI research lab advancing
-  an industry standard for AI oversight\, is hiring a Governance and Policy
-  Fellow to work with its Head of Governance at the intersection of AI eval
- uation\, policy and governance. RESPONSIBILITIES: defining standards and b
- est practices for independent AI oversight (including the AI Evaluator For
- um and the AEF-1 standard for evaluator independence)\, developing partner
- ships for interdisciplinary AI evaluations (for example on AI impacts on s
- elf-harm\, suicide risk\, mania and psychosis)\, engaging government and p
- olicy stakeholders (including the U.S. Center for AI Standards and Innovat
- ion\, the EU AI Office and the UK AI Security Institute)\, and translating
-  technical research on reinforcement learning and interpretability for pol
- icymakers\, journalists and the public. PROFILE: hybrid technical and poli
- cy background\; technical fluency in AI evaluation\, hands-on policy or le
- gal experience related to AI\, academic research experience\, and strong c
- ommunication skills\; domain experience in mental health\, child safety\, 
- fraud\, political persuasion or consumer protection is a plus. Based in Sa
- n Francisco with in-person work expected\; visa sponsorship available. Rol
- ling applications.\n\nOrganisation: Transluce\nLocation: San Francisco\, U
- S\, in office. International visa sponsorship possible.\nAward: USD 200\,0
- 00 to 300\,000 per year salary plus benefits. Full-time\; part-time possib
- le for exceptional candidates.\nDuration: Full-time position (part-time op
- portunities available for exceptional candidates).\n\nMore: https://jobs.g
- em.com/transluce/am9icG9zdDpVz8DJmgMdoy_WaOqlBt2o?utm_source=artificialnou
- veaugrantdesk&utm_medium=referral
-URL:https://jobs.gem.com/transluce/am9icG9zdDpVz8DJmgMdoy_WaOqlBt2o?utm_sou
- rce=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:San Francisco\, US\, in office. International visa sponsorship pos
- sible.
-END:VEVENT
-BEGIN:VEVENT
 UID:andrew-carnegie-fellows-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
 SUMMARY:Deadline: Andrew Carnegie Fellows Program 2027
@@ -1184,26 +412,15 @@ DESCRIPTION:The Andrew Carnegie Fellows Program awards USD 200\,000 each to
   scholars\, journalists\, authors and public intellectuals for one to two 
  years of research and writing toward a book or major study in the social s
  ciences and humanities\, with recent classes framed around understanding U
- S political polarization and strengthening social cohesion. HOW IT WORKS: 
- this is a nomination-based program\; individuals cannot apply directly. No
- minations come from designated nominators at universities\, colleges\, thi
- nk tanks\, publishers and other institutions\, and most nominating institu
- tions run internal selection rounds with deadlines in early October 2026 (
- check your institution's research office). Carnegie Corporation's nominati
- on deadline is 13 November 2026\, with fellows announced in spring 2027. E
- LIGIBILITY: US-based candidates put forward by their institutions\; both s
- enior and junior scholars are considered. If you are affiliated with a uni
- versity or think tank and want to be considered\, contact your institution
- 's limited-submissions or research development office well before its inte
- rnal deadline. NOMINATION DEADLINE: 13 November 2026.\n\nOrganisation: Car
- negie Corporation of New York\nLocation: US. For US-based scholars\, journ
- alists\, authors and public intellectuals\; candidates must be nominated b
- y their institution (direct applications are not accepted).\nAward: USD 20
- 0\,000 over one to two years for research and writing toward a book or maj
- or study. NOTE: institutional nomination required\; individuals cannot app
- ly directly.\nDuration: One to two years of funded research and writing.\n
- \nMore: https://carnegie.org/our-work/special-projects/andrew-carnegie-fel
- lows/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ S political polarization and strengthening social cohesion.\n\nOrganisatio
+ n: Carnegie Corporation of New York\nLocation: US. For US-based scholars\,
+  journalists\, authors and public intellectuals\; candidates must be nomin
+ ated by their institution (direct applications are not accepted).\nAward: 
+ USD 200\,000 over one to two years for research and writing toward a book 
+ or major study. NOTE: institutional nomination required\; individuals cann
+ ot apply directly.\nDuration: One to two years of funded research and writ
+ ing.\n\nMore: https://carnegie.org/our-work/special-projects/andrew-carneg
+ ie-fellows/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://carnegie.org/our-work/special-projects/andrew-carnegie-fellows/
  ?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:US. For US-based scholars\, journalists\, authors and public intel
@@ -1212,33 +429,23 @@ LOCATION:US. For US-based scholars\, journalists\, authors and public intel
 END:VEVENT
 BEGIN:VEVENT
 UID:wave-farm-research-production-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261201
-DTEND;VALUE=DATE:20261202
-SUMMARY:Deadline: Wave Farm: 2027 Research and Production Program (Transmis
- sion Art Residencies and Radio Art Fellowships\, NY)
-DESCRIPTION:Wave Farm\, the Warhol Foundation-backed transmission arts cent
- er in Acra\, NY\, opens one application covering all its 2027 opportunitie
- s: the Transmission Art Residency\, the Spatial Sound Residency\, and two 
- Radio Art Fellowship tracks (Research\, and Community Engagement) connecte
- d to Wave Farm's WGXC radio station. WHAT YOU GET: a USD 1\,000 stipend fo
- r each 10-day residency and USD 2\,000 for each two-month fellowship\, wit
- h access to Wave Farm's research library\, transmitter and receiver equipm
- ent\, and on-site staff support to develop a new transmission artwork. ELI
- GIBILITY: international\; collaborations allowed\; full-time students are 
- ineligible except rare post-graduate cases\; past residents and fellows ma
- y reapply\; applicants may apply to as many opportunities as they wish but
-  will be offered at most one\; DJ sets are explicitly ineligible. A strong
-  fit for signal-based\, broadcast\, spatial sound and radio-adjacent work.
-  DEADLINE: 1 December 2026 at 11:59 pm EST. Finalists are interviewed by Z
- oom\, with notifications in late February 2027 and residencies during 2027
- .\n\nOrganisation: Wave Farm\nLocation: Wave Farm\, Acra\, NY\, US (Catski
- ll Mountain Park). International open call.\nAward: USD 1\,000 stipend for
-  each 10-day residency\; USD 2\,000 for each two-month Radio Art Fellowshi
- p. No application fee.\nDuration: 10 days (Transmission Art and Spatial So
- und residencies) or 2 months (Radio Art Fellowships)\, during 2027.\n\nMor
- e: https://wavefarm.org/ta/residency-program/info-apply?utm_source=artific
- ialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150308Z
+DTSTART:20261202T042900Z
+DTEND:20261202T045900Z
+SUMMARY:Deadline 23:59 EST: Wave Farm: 2027 Research and Production Program
+  (Transmission Art Residencies and Radio Art Fellowships\, NY)
+DESCRIPTION:Closes 01 Dec 2026 at 23:59 EST.\n\nWave Farm\, the Warhol Foun
+ dation-backed transmission arts center in Acra\, NY\, opens one applicatio
+ n covering all its 2027 opportunities: the Transmission Art Residency\, th
+ e Spatial Sound Residency\, and two Radio Art Fellowship tracks (Research\
+ , and Community Engagement) connected to Wave Farm's WGXC radio station.\n
+ \nOrganisation: Wave Farm\nLocation: Wave Farm\, Acra\, NY\, US (Catskill 
+ Mountain Park). International open call.\nAward: USD 1\,000 stipend for ea
+ ch 10-day residency\; USD 2\,000 for each two-month Radio Art Fellowship. 
+ No application fee.\nDuration: 10 days (Transmission Art and Spatial Sound
+  residencies) or 2 months (Radio Art Fellowships)\, during 2027.\n\nMore: 
+ https://wavefarm.org/ta/residency-program/info-apply?utm_source=artificial
+ nouveaugrantdesk&utm_medium=referral
 URL:https://wavefarm.org/ta/residency-program/info-apply?utm_source=artific
  ialnouveaugrantdesk&utm_medium=referral
 LOCATION:Wave Farm\, Acra\, NY\, US (Catskill Mountain Park). International
@@ -1246,7 +453,7 @@ LOCATION:Wave Farm\, Acra\, NY\, US (Catskill Mountain Park). International
 END:VEVENT
 BEGIN:VEVENT
 UID:currents-2027-art-technology-festival@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261208
 DTEND;VALUE=DATE:20261209
 SUMMARY:Deadline: CURRENTS 2027 Art & Technology Festival: Call for Submiss
@@ -1254,85 +461,25 @@ SUMMARY:Deadline: CURRENTS 2027 Art & Technology Festival: Call for Submiss
 DESCRIPTION:CURRENTS presents one of the leading art and technology festiva
  ls in the United States\, held every summer in Santa Fe\, New Mexico since
   2010\, bringing together established and emerging new media artists from 
- the USA and worldwide. The 2027 edition (11-20 June 2027) accepts submissi
- ons in: installations (interactive and non-interactive)\; audio experience
- s\; virtual\, augmented and mixed reality environments\; robotics\, kineti
- c and electro-mechanical objects and installations\; multimedia performanc
- e\; fabrication\, 2D/3D printing and wearables\; and experimental single c
- hannel video\, documentary and animation. The festival is a collaboration 
- between the non-profit Parallel Studios\, partners throughout the city\, a
- nd interns and volunteers. SUPPORT: selected artists may be eligible for t
- ravel\, lodging and shipping support\, though the festival warns it may no
- t be able to cover international shipping given costs and risks\, and may 
- instead be able to supply needed equipment\; no artist fee is published. S
- UBMISSION FEE: USD 30 single\, USD 25 each for multiple. DEADLINE: 8 Decem
- ber 2026\; participating artists announced March 2027. Questions to connec
- t@currentsnewmedia.org.\n\nOrganisation: CURRENTS New Media / Parallel Stu
- dios\nLocation: Santa Fe\, New Mexico\, USA. Festival 11-20 June 2027. Ope
- n to established and emerging new media artists from the USA and around th
- e world.\nAward: NO GUARANTEED CASH\, listed as a deliberate exception to 
- the desk's paid-only rule: selected artists may be eligible for travel\, l
- odging and shipping support\, decided case by case\, and the festival may 
- be able to supply needed equipment. International shipping support is expl
- icitly uncertain due to cost. SUBMISSION FEE: USD 30 for a single work\, U
- SD 25 each for multiple works.\n\nMore: https://currentsnewmedia.org/festi
- vals/currents-2027-art-technology-festival/?utm_source=artificialnouveaugr
- antdesk&utm_medium=referral
+ the USA and worldwide.\n\nOrganisation: CURRENTS New Media / Parallel Stud
+ ios\nLocation: Santa Fe\, New Mexico\, USA. Festival 11-20 June 2027. Open
+  to established and emerging new media artists from the USA and around the
+  world.\nAward: NO GUARANTEED CASH\, listed as a deliberate exception to t
+ he desk's paid-only rule: selected artists may be eligible for travel\, lo
+ dging and shipping support\, decided case by case\, and the festival may b
+ e able to supply needed equipment. International shipping support is expli
+ citly uncertain due to cost. SUBMISSION FEE: USD 30 for a single work\, US
+ D 25 each for multiple works.\n\nMore: https://currentsnewmedia.org/festiv
+ als/currents-2027-art-technology-festival/?utm_source=artificialnouveaugra
+ ntdesk&utm_medium=referral
 URL:https://currentsnewmedia.org/festivals/currents-2027-art-technology-fes
  tival/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Santa Fe\, New Mexico\, USA. Festival 11-20 June 2027. Open to est
  ablished and emerging new media artists from the USA and around the world.
 END:VEVENT
 BEGIN:VEVENT
-UID:eyebeam-agency-virtual-residency-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261011
-DTEND;VALUE=DATE:20261012
-SUMMARY:Deadline: Eyebeam AGENCY Virtual Residency\, Fall 2026 (US-based ar
- tists)
-DESCRIPTION:Eyebeam's 2026-27 program year runs under the theme AGENCY: pre
- serving human agency as AI systems increasingly act\, decide and carry out
-  tasks on our behalf\, asserting agency in imagining and building the soci
- eties we inhabit\, and rethinking agency as collective\, relational\, enta
- ngled and more-than-human. The Virtual Residency (Fall/Winter) supports US
- -based artists working outside New York City with time\, community and str
- ucture to develop new work around the theme\; it is well-suited to early-s
- tage projects where shared research\, discussion groups and feedback on na
- scent ideas would advance concept development and prototyping. Projects mi
- ght engage AI directly but do not have to\; Eyebeam welcomes critical and 
- creative approaches to power\, autonomy\, technological systems\, collecti
- ve action\, human and nonhuman relationships\, and the structures through 
- which agency is exercised\, including reimagining AI systems through colle
- ctive governance\, repair\, rehearsal or mischief\, and repurposing AI tow
- ard tools for the public good. STRUCTURE: six artists\, 12 weeks\, minimum
-  3-4 hours per week\, with weekly cohort sessions\, independent project de
- velopment\, work-in-progress shares with peers and guest critics\, a closi
- ng virtual process presentation\, and a contribution to an end-of-year pub
- lication. ELIGIBILITY: individuals only (no collectives this cycle)\; not 
- enrolled in a full-time degree program\; not committed to another residenc
- y during the term\; US-based outside NYC for the full term. TIMELINE: dead
- line Sunday 11 October 2026\, 11:59 PM ET (no late applications)\; intervi
- ews 26-28 October\; notifications 29 October\; residency 4 November 2026 t
- o 12 February 2027. Info session Monday 28 September 2026\, 1 PM ET. Apply
-  via Submittable\, free.\n\nOrganisation: Eyebeam\nLocation: Online. Appli
- cants must be based in the United States\, OUTSIDE New York City\, and rem
- ain US-based for the full residency term (4 November 2026 to 12 February 2
- 027).\nAward: USD 2\,000 stipend for each of six selected artists\, plus w
- eekly residency programming\, mentorship with Eyebeam alumni and visiting 
- professionals\, technical consultation\, and access to tools and expertise
-  through Eyebeam's network. No application fee (via Submittable).\nDuratio
- n: 12 weeks\, 4 November 2026 to 12 February 2027\; minimum commitment 3-4
-  hours per week.\n\nMore: https://eyebeam.org/articles/agency-virtual-resi
- dency?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://eyebeam.org/articles/agency-virtual-residency?utm_source=artifi
- cialnouveaugrantdesk&utm_medium=referral
-LOCATION:Online. Applicants must be based in the United States\, OUTSIDE Ne
- w York City\, and remain US-based for the full residency term (4 November 
- 2026 to 12 February 2027).
-END:VEVENT
-BEGIN:VEVENT
 UID:eyebeam-agency-nyc-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
 SUMMARY:Deadline: Eyebeam AGENCY NYC Residency\, Spring 2027
@@ -1341,30 +488,15 @@ DESCRIPTION:The NYC track of Eyebeam's AGENCY residency cycle supports New
  systems increasingly act\, decide and carry out tasks on our behalf: how t
  o preserve human agency as these systems shape human behavior\, how to ass
  ert agency in imagining and building the societies we inhabit\, and what a
- gency becomes when understood as collective\, relational\, entangled and m
- ore-than-human. Projects might engage AI directly but do not have to\; cri
- tical and creative approaches to power\, autonomy\, technological systems\
- , collective action\, human and nonhuman relationships\, and the social an
- d material structures of agency are all welcome\, including reimagining AI
-  through collective governance\, repair\, rehearsal or mischief\, and repu
- rposing AI systems toward new tools\, methods and models for the public go
- od. Residents receive a USD 5\,000 stipend\, mentorship\, and access to to
- ols and technical expertise through Eyebeam's network. ELIGIBILITY: indivi
- duals only (no collectives this cycle)\; not enrolled in a full-time degre
- e program\; not committed to another residency during the term\; must live
-  in New York City within the five boroughs and be able to work on site at 
- Eyebeam at least one day a week for the full term. TIMELINE: deadline Sund
- ay 15 November 2026\, 11:59 PM ET\; interviews 7-10 December\; notificatio
- ns 14 December\; residency 15 March to 11 June 2027. Info session Monday 1
- 9 October 2026\, 1 PM ET. Apply via Submittable\, free.\n\nOrganisation: E
- yebeam\nLocation: New York City\, USA. Applicants must live within the fiv
- e boroughs and be able to work on site at Eyebeam at least one day a week 
- for the full residency term (15 March to 11 June 2027).\nAward: USD 5\,000
-  stipend per selected artist\, plus mentorship and access to tools and tec
- hnical expertise through Eyebeam's network. No application fee (via Submit
- table).\nDuration: 15 March to 11 June 2027\; on site at Eyebeam at least 
- one day per week.\n\nMore: https://eyebeam.org/articles/agency-nyc-residen
- cy?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ gency becomes when understood as...\n\nOrganisation: Eyebeam\nLocation: Ne
+ w York City\, USA. Applicants must live within the five boroughs and be ab
+ le to work on site at Eyebeam at least one day a week for the full residen
+ cy term (15 March to 11 June 2027).\nAward: USD 5\,000 stipend per selecte
+ d artist\, plus mentorship and access to tools and technical expertise thr
+ ough Eyebeam's network. No application fee (via Submittable).\nDuration: 1
+ 5 March to 11 June 2027\; on site at Eyebeam at least one day per week.\n\
+ nMore: https://eyebeam.org/articles/agency-nyc-residency?utm_source=artifi
+ cialnouveaugrantdesk&utm_medium=referral
 URL:https://eyebeam.org/articles/agency-nyc-residency?utm_source=artificial
  nouveaugrantdesk&utm_medium=referral
 LOCATION:New York City\, USA. Applicants must live within the five boroughs
@@ -1373,7 +505,7 @@ LOCATION:New York City\, USA. Applicants must live within the five boroughs
 END:VEVENT
 BEGIN:VEVENT
 UID:loeb-fellowship-harvard-gsd-2027-28@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20270105
 DTEND;VALUE=DATE:20270106
 SUMMARY:Deadline: Loeb Fellowship 2027-28 at Harvard Graduate School of Des
@@ -1383,30 +515,17 @@ DESCRIPTION:The Loeb Fellowship at Harvard Graduate School of Design is a y
  shaping the built and natural environment: urban designers\, public artist
  s\, architects\, landscape architects\, urban planners\, developers\, jour
  nalists\, civic leaders\, policymakers and community development leaders (
- past fellows have included a theater director\, public artists and a docum
- entary filmmaker). Fellows audit courses at the GSD and across Harvard (mi
- nimum one GSD course per semester)\, engage with the school community\, an
- d join a lifelong global alumni network. SUPPORT: a stipend of USD 57\,500
-  for the academic year (taxable income)\, housing through 30 June for fell
- ows and families of modest size coming from outside the Boston/Cambridge a
- rea\, and a travel grant covering roughly one economy round trip home per 
- semester. ELIGIBILITY: minimum 8 years of experience in the field (a typic
- al class averages about 42 years of age)\; international candidates are en
- couraged to apply and must be eligible for a J-1 visa at selection\; fello
- ws must remain in residence in the Cambridge area while classes are in ses
- sion. HOW TO APPLY: via SlideRoom with a resume\, three recommendation let
- ters (due 7 days after the deadline) and optional supplemental materials. 
- No application fee. DEADLINE: 5 January 2027 at 11:59 PM ET for the 2027-2
- 8 class.\n\nOrganisation: Harvard Graduate School of Design\nLocation: Har
- vard Graduate School of Design\, Cambridge\, Massachusetts\, US. Open inte
- rnationally\; fellows must remain in residence in the Cambridge area while
-  classes are in session (J-1 visa for international fellows).\nAward: Stip
- end of USD 57\,500 for the academic year (taxable)\, plus housing for fell
- ows and their families coming from outside the Boston/Cambridge area throu
- gh 30 June\, and a travel grant covering approximately one economy round t
- rip home per semester. No application fee.\nDuration: One academic year in
-  residence\, through 30 June\n\nMore: https://loebfellowship.gsd.harvard.e
- du/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ past fellows have included a theater director\,...\n\nOrganisation: Harvar
+ d Graduate School of Design\nLocation: Harvard Graduate School of Design\,
+  Cambridge\, Massachusetts\, US. Open internationally\; fellows must remai
+ n in residence in the Cambridge area while classes are in session (J-1 vis
+ a for international fellows).\nAward: Stipend of USD 57\,500 for the acade
+ mic year (taxable)\, plus housing for fellows and their families coming fr
+ om outside the Boston/Cambridge area through 30 June\, and a travel grant 
+ covering approximately one economy round trip home per semester. No applic
+ ation fee.\nDuration: One academic year in residence\, through 30 June\n\n
+ More: https://loebfellowship.gsd.harvard.edu/?utm_source=artificialnouveau
+ grantdesk&utm_medium=referral
 URL:https://loebfellowship.gsd.harvard.edu/?utm_source=artificialnouveaugra
  ntdesk&utm_medium=referral
 LOCATION:Harvard Graduate School of Design\, Cambridge\, Massachusetts\, US
@@ -1415,43 +534,23 @@ LOCATION:Harvard Graduate School of Design\, Cambridge\, Massachusetts\, US
 END:VEVENT
 BEGIN:VEVENT
 UID:data-through-design-2027-open-call@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261115
-DTEND;VALUE=DATE:20261116
-SUMMARY:Deadline: Data Through Design 2027 Open Call: 10th Anniversary Exhi
- bition (New York City)
-DESCRIPTION:Data Through Design\, the annual exhibition of artworks that cr
- eatively analyze\, interpret and interrogate data from New York City's Ope
- n Data portal\, opens its 10th anniversary call\, held in conjunction with
-  NYC Open Data Week. THEME: reflections\, reverberations and the arc of da
- ta over time\; the evidence of time (footprints\, traces\, scars\, markers
-  of change)\, temporal mirrors and kaleidoscopes\, messages from the past 
- and future\, fractals of time and visuals of scale. Artists may also respo
- nd to a previous DxD theme in light of time\, and alumni artists are parti
- cularly encouraged to apply\, including by revisiting past projects. FORMA
- TS: digital\, analog\, physical\, performance\, sound works\, walks\, inst
- allations\, creative coding\, participatory mapping\, drawings and more\; 
- the organizers highlight participatory data collection\, radical and cogni
- tive mapping\, and data experienced through time\, sound and the senses. R
- EQUIREMENT: projects must reference or use at least one NYC Open Data data
- set\; other data\, including novel and experimental collection systems\, i
- s welcome alongside it. WHAT YOU GET: USD 900 stipend\, half before and ha
- lf after the exhibition\, plus inclusion in the multi-media group show in 
- New York City\, tentatively 26 March to 11 April 2027. Work must be instal
- lation-ready by 19 March 2027 and delivered to the venue 22 to 24 March. E
- LIGIBILITY: open to artists\, civic technologists\, data enthusiasts\, cit
- y dwellers and creative practitioners\; applicants must be approved to wor
- k in the US to be paid the stipend. The submission process has been revamp
- ed for this edition\, with a new rubric and submission materials to review
- . APPLICATION: free\, via the submission form on the DxD website. DEADLINE
- : 15 November 2026 at 23:59 EST.\n\nOrganisation: Data Through Design (DxD
- )\nLocation: New York City\, USA. Open call\; applicants must be approved 
- to work in the US to be paid the stipend.\nAward: USD 900 stipend per sele
- cted project\, paid half in the weeks leading up to the exhibition and hal
- f after. No application fee.\nDuration: Exhibition tentatively 26 March to
-  11 April 2027\; work installation-ready by 19 March and delivered to the 
- venue 22 to 24 March 2027.\n\nMore: https://datathroughdesign.com/open-cal
- l-2027?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150308Z
+DTSTART:20261116T042900Z
+DTEND:20261116T045900Z
+SUMMARY:Deadline 23:59 EST: Data Through Design 2027 Open Call: 10th Annive
+ rsary Exhibition (New York City)
+DESCRIPTION:Closes 15 Nov 2026 at 23:59 EST.\n\nData Through Design\, the a
+ nnual exhibition of artworks that creatively analyze\, interpret and inter
+ rogate data from New York City's Open Data portal\, opens its 10th anniver
+ sary call\, held in conjunction with NYC Open Data Week.\n\nOrganisation: 
+ Data Through Design (DxD)\nLocation: New York City\, USA. Open call\; appl
+ icants must be approved to work in the US to be paid the stipend.\nAward: 
+ USD 900 stipend per selected project\, paid half in the weeks leading up t
+ o the exhibition and half after. No application fee.\nDuration: Exhibition
+  tentatively 26 March to 11 April 2027\; work installation-ready by 19 Mar
+ ch and delivered to the venue 22 to 24 March 2027.\n\nMore: https://datath
+ roughdesign.com/open-call-2027?utm_source=artificialnouveaugrantdesk&utm_m
+ edium=referral
 URL:https://datathroughdesign.com/open-call-2027?utm_source=artificialnouve
  augrantdesk&utm_medium=referral
 LOCATION:New York City\, USA. Open call\; applicants must be approved to wo
@@ -1459,7 +558,7 @@ LOCATION:New York City\, USA. Open call\; applicants must be approved to wo
 END:VEVENT
 BEGIN:VEVENT
 UID:burning-man-brc-honoraria-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261029
 DTEND;VALUE=DATE:20261030
 SUMMARY:Deadline: Burning Man: BRC Honoraria Art Grants 2027 (Letter of Int
@@ -1467,23 +566,16 @@ SUMMARY:Deadline: Burning Man: BRC Honoraria Art Grants 2027 (Letter of Int
 DESCRIPTION:Grants for large-scale interactive installation art shown at Bl
  ack Rock City 2027\; much of the funded work is creative-tech\, light and 
  kinetic. Two-stage process: a Letter of Intent now\, with invited full pro
- posals due mid-January 2027. FUNDING STRUCTURE: the official page publishe
- s the overall picture rather than a per-award figure: a USD 1.5 million an
- nual budget across roughly 75 projects\, grants covering 40 to 60% of a pr
- oject's proposed budget\, and grants over USD 20\,000 described as rare. E
- LIGIBILITY: open internationally\, individuals and collectives\; attending
-  the event is recommended but not required. DEADLINE: Letter of Intent due
-  29 October 2026\, 5pm PDT\; late LOIs are not accepted.\n\nOrganisation: 
- Burning Man Project\nLocation: Black Rock City\, Nevada\, USA (artwork ins
- talled at the 2027 event). Open internationally to individuals and collect
- ives\; artist attendance is recommended but not required.\nAward: USD 1.5 
- million annual art-grant budget across approximately 75 projects\; grants 
- fund 40 to 60% of the proposed total budget\, and the official page notes 
- grants over USD 20\,000 are rare. No fixed per-award figure is published. 
- No application fee.\nDuration: Per project (build for the 2027 event)\n\nM
- ore: https://burningman.org/black-rock-city/bring-your-art/art-grants-prog
- rams/brc-honoraria/?utm_source=artificialnouveaugrantdesk&utm_medium=refer
- ral
+ posals due mid-January 2027.\n\nOrganisation: Burning Man Project\nLocatio
+ n: Black Rock City\, Nevada\, USA (artwork installed at the 2027 event). O
+ pen internationally to individuals and collectives\; artist attendance is 
+ recommended but not required.\nAward: USD 1.5 million annual art-grant bud
+ get across approximately 75 projects\; grants fund 40 to 60% of the propos
+ ed total budget\, and the official page notes grants over USD 20\,000 are 
+ rare. No fixed per-award figure is published. No application fee.\nDuratio
+ n: Per project (build for the 2027 event)\n\nMore: https://burningman.org/
+ black-rock-city/bring-your-art/art-grants-programs/brc-honoraria/?utm_sour
+ ce=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://burningman.org/black-rock-city/bring-your-art/art-grants-progra
  ms/brc-honoraria/?utm_source=artificialnouveaugrantdesk&utm_medium=referra
  l
@@ -1493,7 +585,7 @@ LOCATION:Black Rock City\, Nevada\, USA (artwork installed at the 2027 even
 END:VEVENT
 BEGIN:VEVENT
 UID:rome-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: American Academy in Rome: Rome Prize Fellowship 2027-28
@@ -1502,22 +594,17 @@ DESCRIPTION:The Rome Prize supports roughly 30 artists and scholars a year
  s include Design and Visual Arts\, where media and new-genre work is regul
  arly funded. Fellows receive a USD 16\,000 (half-term) or USD 30\,000 (ful
  l-term) stipend plus housing\, workspace and weekday meals on the Academy'
- s Janiculum campus. ELIGIBILITY: US citizens for most categories\; foreign
-  nationals who have lived in the US for the three years preceding the dead
- line may apply in Environmental Arts and Humanities and certain postdoctor
- al categories. FEES: USD 50 (one category) or USD 60 (multiple) by 1 Novem
- ber 2026\; a late window runs to 15 November at USD 80/90. DEADLINE: 1 Nov
- ember 2026.\n\nOrganisation: American Academy in Rome\nLocation: Rome\, It
- aly (residential fellowship at the Academy\; US organisation with NYC offi
- ce). RESTRICTED: US citizens for most categories\; foreign nationals resid
- ent in the US for the 3 years preceding the deadline may apply only in cer
- tain categories.\nAward: Stipends of USD 16\,000 (half-term\, about 5 mont
- hs) and USD 30\,000 (full-term\, about 10 months)\, plus housing\, workspa
- ce and weekday meals. Approximately 30 fellowships per year. APPLICATION F
- EE: USD 50 by 1 November (USD 60 for multiple categories)\; USD 80/90 in t
- he late window to 15 November.\nDuration: 5 or 10 months\n\nMore: https://
- www.aarome.org/apply/rome-prize?utm_source=artificialnouveaugrantdesk&utm_
- medium=referral
+ s Janiculum campus.\n\nOrganisation: American Academy in Rome\nLocation: R
+ ome\, Italy (residential fellowship at the Academy\; US organisation with 
+ NYC office). RESTRICTED: US citizens for most categories\; foreign nationa
+ ls resident in the US for the 3 years preceding the deadline may apply onl
+ y in certain categories.\nAward: Stipends of USD 16\,000 (half-term\, abou
+ t 5 months) and USD 30\,000 (full-term\, about 10 months)\, plus housing\,
+  workspace and weekday meals. Approximately 30 fellowships per year. APPLI
+ CATION FEE: USD 50 by 1 November (USD 60 for multiple categories)\; USD 80
+ /90 in the late window to 15 November.\nDuration: 5 or 10 months\n\nMore: 
+ https://www.aarome.org/apply/rome-prize?utm_source=artificialnouveaugrantd
+ esk&utm_medium=referral
 URL:https://www.aarome.org/apply/rome-prize?utm_source=artificialnouveaugra
  ntdesk&utm_medium=referral
 LOCATION:Rome\, Italy (residential fellowship at the Academy\; US organisat
@@ -1527,28 +614,25 @@ LOCATION:Rome\, Italy (residential fellowship at the Academy\; US organisat
 END:VEVENT
 BEGIN:VEVENT
 UID:beam-camp-project-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261130
-DTEND;VALUE=DATE:20261201
-SUMMARY:Deadline: Beam Center: 2027 Beam Camp Project Open Call (USD 5\,000
-  commission\, remote-friendly)
-DESCRIPTION:Annual design commission for an ambitious\, technically challen
- ging large-scale public artwork or structure\, built over summer 2027 by m
- ore than 100 young people working with Beam staff. The selected designer c
- ollaborates through bi-weekly remote planning meetings and may visit the b
- uild with travel reimbursed\, making this genuinely remote-friendly for a 
- physical commission. A strong fit for creative-technology and installation
-  practices. AWARD: USD 5\,000 to the proposer plus roughly USD 15\,000 in 
- fabrication budget. ELIGIBILITY: open worldwide\, any age\, individuals or
-  teams. DEADLINE: 30 November 2026\, 11:59pm EST.\n\nOrganisation: Beam Ce
- nter\nLocation: Brooklyn\, New York\, USA (organisation)\; the work is bui
- lt in Strafford\, New Hampshire by 100+ youth. Designer collaborates remot
- ely\; optional site visit with travel reimbursed. Open worldwide\, any age
- \, individuals or teams.\nAward: USD 5\,000 award to the selected proposer
- \, plus a fabrication budget of approximately USD 15\,000. No application 
- fee.\nDuration: Design phase plus summer 2027 build\n\nMore: https://www.b
- eamcenter.org/events/2027-beam-camp-project-call-3bpb9?utm_source=artifici
- alnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150308Z
+DTSTART:20261201T042900Z
+DTEND:20261201T045900Z
+SUMMARY:Deadline 23:59 EST: Beam Center: 2027 Beam Camp Project Open Call (
+ USD 5\,000 commission\, remote-friendly)
+DESCRIPTION:Closes 30 Nov 2026 at 23:59 EST.\n\nAnnual design commission fo
+ r an ambitious\, technically challenging large-scale public artwork or str
+ ucture\, built over summer 2027 by more than 100 young people working with
+  Beam staff. The selected designer collaborates through bi-weekly remote p
+ lanning meetings and may visit the build with travel reimbursed\, making t
+ his genuinely remote-friendly for a physical commission.\n\nOrganisation: 
+ Beam Center\nLocation: Brooklyn\, New York\, USA (organisation)\; the work
+  is built in Strafford\, New Hampshire by 100+ youth. Designer collaborate
+ s remotely\; optional site visit with travel reimbursed. Open worldwide\, 
+ any age\, individuals or teams.\nAward: USD 5\,000 award to the selected p
+ roposer\, plus a fabrication budget of approximately USD 15\,000. No appli
+ cation fee.\nDuration: Design phase plus summer 2027 build\n\nMore: https:
+ //www.beamcenter.org/events/2027-beam-camp-project-call-3bpb9?utm_source=a
+ rtificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.beamcenter.org/events/2027-beam-camp-project-call-3bpb9?utm
  _source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Brooklyn\, New York\, USA (organisation)\; the work is built in St
@@ -1558,38 +642,22 @@ LOCATION:Brooklyn\, New York\, USA (organisation)\; the work is built in St
 END:VEVENT
 BEGIN:VEVENT
 UID:processing-foundation-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Processing Foundation Fellowship 2027
 DESCRIPTION:The Processing Foundation's 2027 fellowship cycle supports arti
  sts\, educators and creative technologists working on open-source projects
- \, with a USD 10\,000 stipend over an 8-month fellowship period. THREE TRA
- CKS: Collective Intelligence (remote\, US-based)\, co-designing AI educati
- on tools with youth\, aimed at educators with software development or AI/M
- L experience\; Gaming the System (hybrid\, Los Angeles)\, building an open
- -source toolkit for video game design with underserved communities\, for g
- ame makers and creative coders based in LA\; and DIY Computing (hybrid\, N
- ew York City)\, developing open-source hardware and software environments 
- for custom computers\, for early-career hardware artists in NYC (applicant
- s currently enrolled in degree programs are ineligible for this track). EL
- IGIBILITY: US applicants only\; hybrid tracks require residency in LA or N
- YC respectively. International applicants are pointed to the Foundation's 
- Microgrants and Processing Community Day instead. APPLICATION: via nominat
- ion form\, selecting one track\; self-nominations are allowed. Selection b
- y a panel of the Processing Foundation team and external reviewers\, judgi
- ng strength of the project\, fit with the Foundation's mission and potenti
- al impact. TIMELINE: nominations open 7 October 2026\, close 1 November 20
- 26 at 11:59 PM PST\; fellows notified 14 December 2026\; fellowship runs 2
- 5 January to 26 September 2027.\n\nOrganisation: Processing Foundation\nLo
- cation: USA only. The Collective Intelligence track is remote (US-based)\;
-  Gaming the System is hybrid in Los Angeles\; DIY Computing is hybrid in N
- ew York City.\nAward: USD 10\,000 stipend over the 8-month fellowship\, pl
- us open-source software mentorship\, cohort collaboration\, professional d
- evelopment and public presentation opportunities. No application fee.\nDur
- ation: Approximately 8 months\, 25 January to 26 September 2027.\n\nMore: 
- https://processingfoundation.org/programs/fellowships/fellowship-2027/?utm
- _source=artificialnouveaugrantdesk&utm_medium=referral
+ \, with a USD 10\,000 stipend over an 8-month fellowship period.\n\nOrgani
+ sation: Processing Foundation\nLocation: USA only. The Collective Intellig
+ ence track is remote (US-based)\; Gaming the System is hybrid in Los Angel
+ es\; DIY Computing is hybrid in New York City.\nAward: USD 10\,000 stipend
+  over the 8-month fellowship\, plus open-source software mentorship\, coho
+ rt collaboration\, professional development and public presentation opport
+ unities. No application fee.\nDuration: Approximately 8 months\, 25 Januar
+ y to 26 September 2027.\n\nMore: https://processingfoundation.org/programs
+ /fellowships/fellowship-2027/?utm_source=artificialnouveaugrantdesk&utm_me
+ dium=referral
 URL:https://processingfoundation.org/programs/fellowships/fellowship-2027/?
  utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:USA only. The Collective Intelligence track is remote (US-based)\;
@@ -1598,30 +666,23 @@ LOCATION:USA only. The Collective Intelligence track is remote (US-based)\;
 END:VEVENT
 BEGIN:VEVENT
 UID:palo-alto-code-art-2027-lytton-plaza@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261116
-DTEND;VALUE=DATE:20261117
-SUMMARY:Deadline: City of Palo Alto Code:ART 2027: Lytton Plaza Installatio
- n Commission (USD 20\,000)
-DESCRIPTION:Code:ART is the City of Palo Alto's digital art festival celebr
- ating creative technology in public space\, returning 13 to 16 October 202
- 7. This call commissions one artist or team to create a signature interact
- ive installation for Lytton Plaza with a USD 20\,000 budget. ELIGIBILITY: 
- open to individual artists and teams based in the US or internationally\; 
- individuals must be over 18\, and for teams at least one member must be ov
- er 18 and able to contract with the City\; applicants in Santa Clara and S
- an Mateo counties are particularly encouraged. You may also apply to the p
- arallel Interactive Media Installations call\, but can receive only one co
- mmission across both. APPLICATION: via SlideRoom. DEADLINE: Monday 16 Nove
- mber 2026\, 23:59 Pacific Time.\n\nOrganisation: City of Palo Alto Public 
- Art Program\nLocation: Lytton Plaza\, Palo Alto\, California\, USA. Open t
- o artists based in the US or internationally\; applicants in Santa Clara a
- nd San Mateo counties particularly encouraged.\nAward: USD 20\,000 commiss
- ion budget. No application fee.\nDuration: Installation presented at the C
- ode:ART 2027 festival\, 13 to 16 October 2027.\n\nMore: https://www.paloal
- to.gov/Departments/Community-Services/Arts-Sciences/Public-Art-Program/Art
- ist-Opportunities?utm_source=artificialnouveaugrantdesk&utm_medium=referra
- l
+DTSTAMP:20261104T150308Z
+DTSTART:20261117T072900Z
+DTEND:20261117T075900Z
+SUMMARY:Deadline 23:59 PST: City of Palo Alto Code:ART 2027: Lytton Plaza I
+ nstallation Commission (USD 20\,000)
+DESCRIPTION:Closes 16 Nov 2026 at 23:59 PST.\n\nCode:ART is the City of Pal
+ o Alto's digital art festival celebrating creative technology in public sp
+ ace\, returning 13 to 16 October 2027. This call commissions one artist or
+  team to create a signature interactive installation for Lytton Plaza with
+  a USD 20\,000 budget.\n\nOrganisation: City of Palo Alto Public Art Progr
+ am\nLocation: Lytton Plaza\, Palo Alto\, California\, USA. Open to artists
+  based in the US or internationally\; applicants in Santa Clara and San Ma
+ teo counties particularly encouraged.\nAward: USD 20\,000 commission budge
+ t. No application fee.\nDuration: Installation presented at the Code:ART 2
+ 027 festival\, 13 to 16 October 2027.\n\nMore: https://www.paloalto.gov/De
+ partments/Community-Services/Arts-Sciences/Public-Art-Program/Artist-Oppor
+ tunities?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/P
  ublic-Art-Program/Artist-Opportunities?utm_source=artificialnouveaugrantde
  sk&utm_medium=referral
@@ -1631,26 +692,24 @@ LOCATION:Lytton Plaza\, Palo Alto\, California\, USA. Open to artists based
 END:VEVENT
 BEGIN:VEVENT
 UID:palo-alto-code-art-2027-interactive-media@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
-DTSTART;VALUE=DATE:20261116
-DTEND;VALUE=DATE:20261117
-SUMMARY:Deadline: City of Palo Alto Code:ART 2027: Interactive Media Instal
- lations (up to USD 9\,000 each)
-DESCRIPTION:Code:ART is the City of Palo Alto's digital art festival celebr
- ating creative technology in public space\, returning 13 to 16 October 202
- 7. This call selects up to five interactive media installations for the fe
- stival\, each with a budget of up to USD 9\,000. ELIGIBILITY: open to arti
- sts nationally and internationally\, individuals and teams. You may also a
- pply to the parallel Lytton Plaza Installation call (USD 20\,000)\, but ca
- n receive only one commission across both. APPLICATION: via SlideRoom. DEA
- DLINE: Monday 16 November 2026\, 23:59 Pacific Time.\n\nOrganisation: City
-  of Palo Alto Public Art Program\nLocation: Downtown Palo Alto\, Californi
- a\, USA. Open to artists based in the US or internationally.\nAward: Up to
-  USD 9\,000 per installation\, for up to five installations. No applicatio
- n fee.\nDuration: Installations presented at the Code:ART 2027 festival\, 
- 13 to 16 October 2027.\n\nMore: https://www.paloalto.gov/Departments/Commu
- nity-Services/Arts-Sciences/Public-Art-Program/Artist-Opportunities?utm_so
- urce=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150308Z
+DTSTART:20261117T072900Z
+DTEND:20261117T075900Z
+SUMMARY:Deadline 23:59 PST: City of Palo Alto Code:ART 2027: Interactive Me
+ dia Installations (up to USD 9\,000 each)
+DESCRIPTION:Closes 16 Nov 2026 at 23:59 PST.\n\nCode:ART is the City of Pal
+ o Alto's digital art festival celebrating creative technology in public sp
+ ace\, returning 13 to 16 October 2027. This call selects up to five intera
+ ctive media installations for the festival\, each with a budget of up to U
+ SD 9\,000. ELIGIBILITY: open to artists nationally and internationally\, i
+ ndividuals and teams.\n\nOrganisation: City of Palo Alto Public Art Progra
+ m\nLocation: Downtown Palo Alto\, California\, USA. Open to artists based 
+ in the US or internationally.\nAward: Up to USD 9\,000 per installation\, 
+ for up to five installations. No application fee.\nDuration: Installations
+  presented at the Code:ART 2027 festival\, 13 to 16 October 2027.\n\nMore:
+  https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Pub
+ lic-Art-Program/Artist-Opportunities?utm_source=artificialnouveaugrantdesk
+ &utm_medium=referral
 URL:https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/P
  ublic-Art-Program/Artist-Opportunities?utm_source=artificialnouveaugrantde
  sk&utm_medium=referral
@@ -1659,7 +718,7 @@ LOCATION:Downtown Palo Alto\, California\, USA. Open to artists based in th
 END:VEVENT
 BEGIN:VEVENT
 UID:cisac-fellowships-2027-28@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261202
 DTEND;VALUE=DATE:20261203
 SUMMARY:Deadline: CISAC (Stanford): Fellowships 2027-2028 (AI\, Nuclear & I
@@ -1667,35 +726,17 @@ SUMMARY:Deadline: CISAC (Stanford): Fellowships 2027-2028 (AI\, Nuclear & I
 DESCRIPTION:CISAC's 2027-2028 fellowship application is open across seven t
  racks: Artificial Intelligence and Laws of Armed Conflict\; AI in Strategi
  c Stability and Military Competition\; Geopolitics of Artificial Intellige
- nce\; India-U.S. Security Studies\; Natural Sciences or Engineering Intern
- ational Security (for natural scientists and engineers researching scienti
- fic and technical aspects of security topics)\; Nuclear Security\; and Int
- ernational Security. Applicants are considered for all fellowships they ar
- e eligible for. Fellows spend the academic year in residence at Stanford e
- ngaged in research and writing\, participating in seminars and collaborati
- ng with CISAC faculty and the wider community. CAREER STAGES: predoctoral 
- (currently enrolled PhD students)\, postdoctoral (completed PhD or DPhil)\
- , and junior faculty or professionals. FUNDING: stipends are provided (pre
- doctoral comparable to Stanford Graduate Fellowships plus tuition\; postdo
- ctoral and professional stipends commensurate with experience)\, though ex
- act amounts are not published\; non-US citizens may apply and visas are av
- ailable through the fellowship. APPLY via the SlideRoom portal (Stanford C
- ISAC Fellowship Program) with the application form\, CV\, graduate transcr
- ipt (required for pre- and postdoctoral applicants)\, research prospectus 
- (max 1\,500 words)\, abstract (max 200 words)\, writing sample (max 50 pag
- es)\, and three confidential recommendation letters uploaded directly by r
- ecommenders\; all materials in English. DEADLINE: 2 December 2026. Questio
- ns: cisacfellowship@stanford.edu.\n\nOrganisation: Center for Internationa
- l Security and Cooperation (CISAC)\, Stanford FSI\nLocation: Stanford\, Ca
- lifornia\, USA (in-residence\; fellows are expected to be fully present an
- d engaged at CISAC)\nAward: Funded in-residence fellowship. Predoctoral fe
- llows receive stipends comparable to the Stanford Graduate Fellowships pro
- gram\, plus CISAC pays non-matriculated student tuition\; postdoctoral and
-  junior-faculty/professional fellows receive stipends commensurate with ex
- perience and Stanford's established minimums. Specific dollar figures are 
- not published. No application fee.\nDuration: 2027-2028 academic year in r
- esidence at Stanford\n\nMore: https://cisac.fsi.stanford.edu/content/cisac
- -fellowships?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ nce\; India-U.S.\n\nOrganisation: Center for International Security and Co
+ operation (CISAC)\, Stanford FSI\nLocation: Stanford\, California\, USA (i
+ n-residence\; fellows are expected to be fully present and engaged at CISA
+ C)\nAward: Funded in-residence fellowship. Predoctoral fellows receive sti
+ pends comparable to the Stanford Graduate Fellowships program\, plus CISAC
+  pays non-matriculated student tuition\; postdoctoral and junior-faculty/p
+ rofessional fellows receive stipends commensurate with experience and Stan
+ ford's established minimums. Specific dollar figures are not published. No
+  application fee.\nDuration: 2027-2028 academic year in residence at Stanf
+ ord\n\nMore: https://cisac.fsi.stanford.edu/content/cisac-fellowships?utm_
+ source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://cisac.fsi.stanford.edu/content/cisac-fellowships?utm_source=art
  ificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Stanford\, California\, USA (in-residence\; fellows are expected t
@@ -1703,43 +744,28 @@ LOCATION:Stanford\, California\, USA (in-residence\; fellows are expected t
 END:VEVENT
 BEGIN:VEVENT
 UID:princeton-crockett-lab-postdoc-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261120
 DTEND;VALUE=DATE:20261121
 SUMMARY:Deadline: Postdoctoral Fellow 2027\, Crockett Lab (Princeton Psycho
  logy and University Center for Human Values)
 DESCRIPTION:Molly Crockett's lab at Princeton\, based in the Department of 
  Psychology and the University Center for Human Values\, is hiring a postdo
- c to start in summer or fall 2027. The research topic is flexible. The lab
-  uses methods from computational social science and cognitive science info
- rmed by theory from science and technology studies and feminist epistemolo
- gy\, studying feedback loops between individual psychology\, institutions 
- and culture\, and how the tech industry co-opts these processes to concent
- rate power. It is especially interested in bridging quantitative and quali
- tative methods for understanding human experience\, and in how culture and
-  power shape which questions are valued and which methods are legitimised.
-  The lab is industry-independent and accepts no research funding from the 
- tech industry\; it uses a variety of ML methods and aims to develop though
- tful approaches to automation in scholarship\, so it suits researchers exc
- ited about AI in science but wary of hype and industry influence. WHAT YOU
-  GET: an USD 80\,000 salary from stable institutional funds\, initial one-
- year appointment renewable up to three years. APPLICATION: via Interfolio\
- ; questions about fit to mj.crockett@princeton.edu. Review of applications
-  begins 20 November 2026 and continues until the position is filled.\n\nOr
- ganisation: Princeton University\, Crockett Lab (Department of Psychology 
- and University Center for Human Values)\nLocation: Princeton\, New Jersey\
- , USA.\nAward: USD 80\,000 annual salary from a stable institutional fundi
- ng source (not a cancellable grant).\nDuration: Initial one-year appointme
- nt\, renewable up to three years\, starting summer or fall 2027.\n\nMore: 
- https://apply.interfolio.com/195297?utm_source=artificialnouveaugrantdesk&
- utm_medium=referral
+ c to start in summer or fall 2027. The research topic is flexible.\n\nOrga
+ nisation: Princeton University\, Crockett Lab (Department of Psychology an
+ d University Center for Human Values)\nLocation: Princeton\, New Jersey\, 
+ USA.\nAward: USD 80\,000 annual salary from a stable institutional funding
+  source (not a cancellable grant).\nDuration: Initial one-year appointment
+ \, renewable up to three years\, starting summer or fall 2027.\n\nMore: ht
+ tps://apply.interfolio.com/195297?utm_source=artificialnouveaugrantdesk&ut
+ m_medium=referral
 URL:https://apply.interfolio.com/195297?utm_source=artificialnouveaugrantde
  sk&utm_medium=referral
 LOCATION:Princeton\, New Jersey\, USA.
 END:VEVENT
 BEGIN:VEVENT
 UID:generator-residency-winter-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Generator Residency (Kairos x Constellation\, Winter 2027
@@ -1747,23 +773,15 @@ SUMMARY:Deadline: Generator Residency (Kairos x Constellation\, Winter 2027
 DESCRIPTION:A three-month residency for AI safety generalists: builders\, o
  perators and organizers rather than researchers. Residents pitch\, build a
  nd ship their own projects with weekly advice from field leaders\, then ge
- t support landing a full-time AI safety role. ELIGIBILITY: open worldwide 
- to early- and mid-career people from operations\, communications\, policy\
- , engineering\, computer science and similar fields\; the main criteria ar
- e a track record of execution and a genuine commitment to AI safety. TIMEL
- INE: applications close end of day 1 November 2026 (Anywhere on Earth)\; i
- nternational applicants are strongly encouraged to apply by 26 October for
-  visa time. Work tests by 9 November\, interviews mid-November\, decisions
-  by 25 November. Free-response answers must be written without AI assistan
- ce.\n\nOrganisation: Kairos and Constellation\nLocation: Berkeley\, Califo
- rnia\, USA (Constellation office). Core residency is in person\; J-1 visa 
- sponsorship available for most international applicants.\nAward: USD 8\,50
- 0 per month stipend (some Embedded track residents employed at a roughly e
- quivalent salary)\, plus travel to and from Berkeley. No application fee.\
- nDuration: 3 months full-time (18 January to 9 April 2027)\; selected resi
- dents can extend in person until late May and remotely until early July 20
- 27.\n\nMore: https://generatorresidency.org/?utm_source=artificialnouveaug
- rantdesk&utm_medium=referral
+ t support landing a full-time AI safety role.\n\nOrganisation: Kairos and 
+ Constellation\nLocation: Berkeley\, California\, USA (Constellation office
+ ). Core residency is in person\; J-1 visa sponsorship available for most i
+ nternational applicants.\nAward: USD 8\,500 per month stipend (some Embedd
+ ed track residents employed at a roughly equivalent salary)\, plus travel 
+ to and from Berkeley. No application fee.\nDuration: 3 months full-time (1
+ 8 January to 9 April 2027)\; selected residents can extend in person until
+  late May and remotely until early July 2027.\n\nMore: https://generatorre
+ sidency.org/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://generatorresidency.org/?utm_source=artificialnouveaugrantdesk&u
  tm_medium=referral
 LOCATION:Berkeley\, California\, USA (Constellation office). Core residency
@@ -1772,7 +790,7 @@ LOCATION:Berkeley\, California\, USA (Constellation office). Core residency
 END:VEVENT
 BEGIN:VEVENT
 UID:tarbell-fellowship-2027-28@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261123
 SUMMARY:Deadline: Tarbell Fellowship 2027-28 (AI journalism)
@@ -1781,19 +799,15 @@ DESCRIPTION:A year-long fellowship for journalists covering artificial inte
  and journalism fundamentals\, attend a weeklong summit\, then work for nin
  e months as reporters embedded in a partner newsroom (current partners are
   in Hong Kong\, London\, Los Angeles\, New York\, San Francisco\, Seattle\
- , Washington DC and Cambridge). ELIGIBILITY: journalism or AI expertise\, 
- aged 18+ by 7 June 2027\, no degree required\; primarily for applicants wi
- th the right to work in the US\, UK or Hong Kong\, as visa sponsorship is 
- uncommon and needs partner-outlet approval.\n\nOrganisation: Tarbell Cente
- r for AI Journalism\nLocation: Remote training\, then newsroom placement i
- n the US\, UK or Hong Kong. In person.\nAward: USD 75\,000 to 120\,000 dep
- ending on experience and placement cost of living\; senior fellows (7+ yea
- rs experience) USD 115\,000 to 135\,000. Summit travel and accommodation c
- overed. No application fee.\nDuration: 12 months: remote training 7 June t
- o 6 August 2027\, in-person summit August 2027\, newsroom placement Septem
- ber 2027 to May 2028 (extendable by one year).\n\nMore: https://www.tarbel
- lcenter.org/fellowship?utm_source=artificialnouveaugrantdesk&utm_medium=re
- ferral
+ , Washington DC and Cambridge).\n\nOrganisation: Tarbell Center for AI Jou
+ rnalism\nLocation: Remote training\, then newsroom placement in the US\, U
+ K or Hong Kong. In person.\nAward: USD 75\,000 to 120\,000 depending on ex
+ perience and placement cost of living\; senior fellows (7+ years experienc
+ e) USD 115\,000 to 135\,000. Summit travel and accommodation covered. No a
+ pplication fee.\nDuration: 12 months: remote training 7 June to 6 August 2
+ 027\, in-person summit August 2027\, newsroom placement September 2027 to 
+ May 2028 (extendable by one year).\n\nMore: https://www.tarbellcenter.org/
+ fellowship?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.tarbellcenter.org/fellowship?utm_source=artificialnouveaugr
  antdesk&utm_medium=referral
 LOCATION:Remote training\, then newsroom placement in the US\, UK or Hong K
@@ -1801,35 +815,23 @@ LOCATION:Remote training\, then newsroom placement in the US\, UK or Hong K
 END:VEVENT
 BEGIN:VEVENT
 UID:fas-metascience-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261109
 DTEND;VALUE=DATE:20261110
 SUMMARY:Deadline: FAS Metascience Fellowship 2027 (full-time placement in a
   US federal research agency)
 DESCRIPTION:The Federation of American Scientists' Metascience Fellowship p
  laces three full-time fellows inside federal research agencies such as the
-  NSF or DOE for one year\, after a pre-service residency at FAS. Fellows a
- dvise agency leaders on evidence-based research reform\, analyse grantmaki
- ng\, peer review and open-science practices\, design experiments with buil
- t-in evaluation\, write briefing memos\, coordinate metascience work acros
- s agencies and give hands-on technical help. Placements may be extended de
- pending on funding and performance. ELIGIBILITY: US citizens only\; curren
- t federal employees cannot apply. Mid- to senior-career professionals with
-  an advanced degree or equivalent experience in a scientific\, engineering
-  or public-policy field\, willing to work mostly in person in the Washingt
- on\, DC area. Fellows must start at FAS no later than 4 January 2027. Appl
- ications take a CV and three responses of up to 300 words each\, submitted
-  through the FAS platform. DEADLINE: 9 November 2026\, 11:59PM ET\; late a
- pplications are not reviewed.\n\nOrganisation: Federation of American Scie
- ntists (FAS)\nLocation: Washington\, DC area\, United States. Full-time an
- d mostly in person at agency offices.\nAward: USD 174\,000 per year\, pror
- ated monthly\, plus USD 1\,500 for travel and USD 1\,500 for professional 
- development. Fellows are not eligible for employer-sponsored benefits\; th
- e salary is expected to cover health and living costs. No application fee.
- \nDuration: One year at a federal agency (extension possible)\, preceded b
- y a residency at FAS\; start no later than 4 January 2027.\n\nMore: https:
- //fas.org/career/metascience-fellowship/?utm_source=artificialnouveaugrant
- desk&utm_medium=referral
+  NSF or DOE for one year\, after a pre-service residency at FAS.\n\nOrgani
+ sation: Federation of American Scientists (FAS)\nLocation: Washington\, DC
+  area\, United States. Full-time and mostly in person at agency offices.\n
+ Award: USD 174\,000 per year\, prorated monthly\, plus USD 1\,500 for trav
+ el and USD 1\,500 for professional development. Fellows are not eligible f
+ or employer-sponsored benefits\; the salary is expected to cover health an
+ d living costs. No application fee.\nDuration: One year at a federal agenc
+ y (extension possible)\, preceded by a residency at FAS\; start no later t
+ han 4 January 2027.\n\nMore: https://fas.org/career/metascience-fellowship
+ /?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://fas.org/career/metascience-fellowship/?utm_source=artificialnou
  veaugrantdesk&utm_medium=referral
 LOCATION:Washington\, DC area\, United States. Full-time and mostly in pers
@@ -1837,7 +839,7 @@ LOCATION:Washington\, DC area\, United States. Full-time and mostly in pers
 END:VEVENT
 BEGIN:VEVENT
 UID:foresight-ai-science-safety-nodes-rfp-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
 SUMMARY:Deadline: Foresight Institute: AI for Science and Safety Nodes RFP 
@@ -1845,34 +847,17 @@ SUMMARY:Deadline: Foresight Institute: AI for Science and Safety Nodes RFP
 DESCRIPTION:Foresight Institute's AI for Science and Safety Nodes request f
  or proposals funds open\, AI-first projects across three calls: I. Local C
  ompute (compute that individuals and communities physically own and contro
- l)\, II. Coordination and Accountability (supercollaboration and decentral
- ised alignment\, human empowerment\, and AI insurance and open governance:
-  multi-agent oversight and verification\, tools for collective deliberatio
- n\, decision rules for when human control adds value\, and independent ris
- k assessment or insurance mechanisms for frontier labs)\, and III. AI-firs
- t Science (automated nanotechnology\, whole-brain emulation\, frontier bio
- ). Grantees can also get workspace in the San Francisco or Berlin AI Nodes
-  (a community xNode runs in Cape Town) and private compute. All funded cod
- e\, data and outputs must be open-sourced. Projects are judged on fit with
-  the focus area\, impact on reducing existential risk from AI\, feasibilit
- y within 1 to 3 years\, AI-first working methods\, ability to execute\, an
- d high-risk\, high-reward potential. ELIGIBILITY: individuals\, teams and 
- organisations worldwide\; nonprofits and for-profits welcome (for-profits 
- must justify the need for grant funding). Priority goes to applicants who 
- want to work in person at one of the Nodes\, but it is not required. Revie
- w takes about three months\; applications can opt in to sharing with Light
- cone Commons. DEADLINE: 31 October 2026\, 23:59 PDT.\n\nOrganisation: Fore
- sight Institute\nLocation: Remote-friendly worldwide\; optional in-person 
- membership at the Foresight AI Nodes in San Francisco or Berlin.\nAward: G
- rants typically USD 30\,000 to 100\,000 (smaller awards for the Human Empo
- werment and AI Insurance and Open Governance areas\, larger for the rest\;
-  bigger amounts possible for the right project)\, usually paid as one lump
-  sum\, with up to 10 percent overhead. Optional office space in San Franci
- sco or Berlin and access to private compute clusters. No application fee.\
- nDuration: Short-term and multi-year projects\; larger multi-year grants a
- re paid in milestone tranches.\n\nMore: https://foresight.org/grants/ai-sc
- ience-safety-nodes-rfp/?utm_source=artificialnouveaugrantdesk&utm_medium=r
- eferral
+ l)\, II.\n\nOrganisation: Foresight Institute\nLocation: Remote-friendly w
+ orldwide\; optional in-person membership at the Foresight AI Nodes in San 
+ Francisco or Berlin.\nAward: Grants typically USD 30\,000 to 100\,000 (sma
+ ller awards for the Human Empowerment and AI Insurance and Open Governance
+  areas\, larger for the rest\; bigger amounts possible for the right proje
+ ct)\, usually paid as one lump sum\, with up to 10 percent overhead. Optio
+ nal office space in San Francisco or Berlin and access to private compute 
+ clusters. No application fee.\nDuration: Short-term and multi-year project
+ s\; larger multi-year grants are paid in milestone tranches.\n\nMore: http
+ s://foresight.org/grants/ai-science-safety-nodes-rfp/?utm_source=artificia
+ lnouveaugrantdesk&utm_medium=referral
 URL:https://foresight.org/grants/ai-science-safety-nodes-rfp/?utm_source=ar
  tificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Remote-friendly worldwide\; optional in-person membership at the F
@@ -1880,37 +865,23 @@ LOCATION:Remote-friendly worldwide\; optional in-person membership at the F
 END:VEVENT
 BEGIN:VEVENT
 UID:anthropic-stem-fellows-program-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261028
 DTEND;VALUE=DATE:20261029
 SUMMARY:Deadline: Anthropic STEM Fellows Program 2027 (four-month AI-for-sc
  ience fellowship\, January to May 2027)
 DESCRIPTION:Anthropic's four-month STEM Fellows Program brings mathematicia
  ns\, physicists\, biologists\, chemists\, engineers and other domain scien
- tists in to work on unsolved problems in their own fields using Claude. Fe
- llows join small pods of peers from related disciplines\, define hard open
-  problems that Claude currently struggles with\, build datasets\, simulati
- ons and evaluations\, test how the model plans experiments and interprets 
- data\, and map where its answers are confidently wrong\, with access to fr
- ontier models and internal tools and weekly meetings with Anthropic resear
- chers. Some fellowships may be extended. ELIGIBILITY: a STEM PhD plus seve
- ral years of experience (for example postdoc or faculty)\, hands-on experi
- ence with Claude and Claude Code\, full-time availability\, and existing U
- S work authorisation (no visa sponsorship)\; prior machine-learning experi
- ence helps but is not required. Runs 12 January to 8 May 2027\, full time\
- , San Francisco by default with a required one-week in-person orientation 
- there\; remote within the US may be considered case by case. Later stages 
- include a take-home exercise and conversations with the research team. DEA
- DLINE: 28 October 2026 (no time zone stated)\; offers planned by 20 Novemb
- er 2026.\n\nOrganisation: Anthropic\nLocation: San Francisco\, United Stat
- es\, by default (one-week in-person orientation required)\; remote within 
- the US considered in some cases.\nAward: USD 100\,000 to 167\,000 for the 
- four-month fellowship (equivalent to USD 300\,000 to 500\,000 annualised)\
- , plus benefits\; fellows are engaged through an employer of record on a f
- ixed-term contract. No application fee.\nDuration: Four months full time\,
-  12 January to 8 May 2027\; some fellowships may be extended.\n\nMore: htt
- ps://job-boards.greenhouse.io/anthropic/jobs/5452403008?utm_source=artific
- ialnouveaugrantdesk&utm_medium=referral
+ tists in to work on unsolved problems in their own fields using Claude.\n\
+ nOrganisation: Anthropic\nLocation: San Francisco\, United States\, by def
+ ault (one-week in-person orientation required)\; remote within the US cons
+ idered in some cases.\nAward: USD 100\,000 to 167\,000 for the four-month 
+ fellowship (equivalent to USD 300\,000 to 500\,000 annualised)\, plus bene
+ fits\; fellows are engaged through an employer of record on a fixed-term c
+ ontract. No application fee.\nDuration: Four months full time\, 12 January
+  to 8 May 2027\; some fellowships may be extended.\n\nMore: https://job-bo
+ ards.greenhouse.io/anthropic/jobs/5452403008?utm_source=artificialnouveaug
+ rantdesk&utm_medium=referral
 URL:https://job-boards.greenhouse.io/anthropic/jobs/5452403008?utm_source=a
  rtificialnouveaugrantdesk&utm_medium=referral
 LOCATION:San Francisco\, United States\, by default (one-week in-person ori
@@ -1919,7 +890,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rji-professional-innovation-fellowships-2027@artificialnouveau.github.i
  o
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20270108
 DTEND;VALUE=DATE:20270109
 SUMMARY:Deadline: RJI Professional Innovation Fellowships 2027 (Individual\
@@ -1929,24 +900,15 @@ DESCRIPTION:The Reynolds Journalism Institute at the University of Missouri
  hat helps newsrooms\, in three tracks: Individual (USD 75\,000)\, Institut
  ional (USD 75\,000\, paid to a host organisation or the fellow) and Emergi
  ng Technology (USD 100\,000\, where AI or another new technology must be e
- ssential to the solution). The output must be a free\, open-source resourc
- e usable by US journalists\; tools limited to one city or state are unlike
- ly to be funded. The fellowship is remote and runs for eight months from 2
- 8 June 2027 with an in-person kickoff at RJI and a couple of paid visits. 
- ELIGIBILITY: anyone\, anywhere\; no age\, background or journalism credent
- ial required. Applications open 2 November 2026 on Submittable\; a shortli
- st is invited in early to mid February 2027 to submit a fuller application
- \, with finalist interviews 5 to 23 April 2027. DEADLINE: 8 January 2027 (
- first round\; no time zone stated\, RJI is on US Central time).\n\nOrganis
- ation: Reynolds Journalism Institute (University of Missouri)\nLocation: R
- emote\, with a few paid visits to the Reynolds Journalism Institute in Col
- umbia\, Missouri\, United States.\nAward: USD 75\,000 for the Individual a
- nd Institutional tracks\, USD 100\,000 for the Emerging Technology track\,
-  paid in three instalments tied to deliverables\; RJI also pays for the fe
- llow's visits to its Columbia\, Missouri campus. No application fee.\nDura
- tion: Eight months from 28 June 2027.\n\nMore: https://rjionline.org/about
- -rji-fellowships/?utm_source=artificialnouveaugrantdesk&utm_medium=referra
- l
+ ssential to the solution).\n\nOrganisation: Reynolds Journalism Institute 
+ (University of Missouri)\nLocation: Remote\, with a few paid visits to the
+  Reynolds Journalism Institute in Columbia\, Missouri\, United States.\nAw
+ ard: USD 75\,000 for the Individual and Institutional tracks\, USD 100\,00
+ 0 for the Emerging Technology track\, paid in three instalments tied to de
+ liverables\; RJI also pays for the fellow's visits to its Columbia\, Misso
+ uri campus. No application fee.\nDuration: Eight months from 28 June 2027.
+ \n\nMore: https://rjionline.org/about-rji-fellowships/?utm_source=artifici
+ alnouveaugrantdesk&utm_medium=referral
 URL:https://rjionline.org/about-rji-fellowships/?utm_source=artificialnouve
  augrantdesk&utm_medium=referral
 LOCATION:Remote\, with a few paid visits to the Reynolds Journalism Institu
@@ -1955,64 +917,45 @@ END:VEVENT
 BEGIN:VEVENT
 UID:fai-conservative-ai-policy-fellowship-winter-2027@artificialnouveau.git
  hub.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261030
 DTEND;VALUE=DATE:20261031
 SUMMARY:Deadline: FAI Conservative AI Policy Fellowship\, Winter 2027 (Wash
  ington DC\, part-time\, USD 1\,500 stipend)
 DESCRIPTION:The Foundation for American Innovation's Conservative AI Policy
   Fellowship is an eight-week\, part-time\, work-compatible programme on AI
-  policy for conservative policy professionals in Washington DC. WHO: congr
- essional and executive branch staff\, policy researchers and think tank st
- aff\, tech professionals moving into AI policy\, and exceptional early-car
- eer applicants\; no technical AI background is required. FORMAT: weekly in
- -person sessions at FAI's Capitol Hill office (usually Fridays 12:00-13:30
-  or Tuesdays 18:30-20:30)\, about 2-3 hours a week\, plus a required weeke
- nd retreat in February. WHAT YOU GET: a USD 1\,500 stipend for eligible fe
- llows (subject to ethics rules for government employees)\, with meals and 
- retreat costs covered. APPLICATION: online form linked from the FAI fellow
- ships page. DEADLINE: 30 October 2026.\n\nOrganisation: Foundation for Ame
- rican Innovation (FAI)\nLocation: FAI office on Capitol Hill\, Washington 
- DC\, USA (in person).\nAward: USD 1\,500 stipend for eligible fellows (gov
- ernment employees should check with their ethics office)\, with meals and 
- retreat expenses covered. No application fee.\nDuration: 8 weeks part-time
- \, 19 January to 12 March 2027 (about 2-3 hours a week plus a required wee
- kend retreat in February).\n\nMore: https://www.thefai.org/fellowships?utm
- _source=artificialnouveaugrantdesk&utm_medium=referral
+  policy for conservative policy professionals in Washington DC.\n\nOrganis
+ ation: Foundation for American Innovation (FAI)\nLocation: FAI office on C
+ apitol Hill\, Washington DC\, USA (in person).\nAward: USD 1\,500 stipend 
+ for eligible fellows (government employees should check with their ethics 
+ office)\, with meals and retreat expenses covered. No application fee.\nDu
+ ration: 8 weeks part-time\, 19 January to 12 March 2027 (about 2-3 hours a
+  week plus a required weekend retreat in February).\n\nMore: https://www.t
+ hefai.org/fellowships?utm_source=artificialnouveaugrantdesk&utm_medium=ref
+ erral
 URL:https://www.thefai.org/fellowships?utm_source=artificialnouveaugrantdes
  k&utm_medium=referral
 LOCATION:FAI office on Capitol Hill\, Washington DC\, USA (in person).
 END:VEVENT
 BEGIN:VEVENT
 UID:nsf-satc-2-security-privacy-trust-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20270125
 DTEND;VALUE=DATE:20270126
 SUMMARY:Deadline: NSF: Security\, Privacy\, and Trust in Cyberspace (SaTC 2
  .0)\, January 2027 target date
 DESCRIPTION:NSF's SaTC 2.0 programme (solicitation NSF 25-515) funds resear
  ch and education on the security\, privacy and trustworthiness of digital 
- systems. Named topics include privacy-enhancing technologies\, attacks on 
- and trustworthiness of AI systems\, and 'human aspects' work using social\
- , behavioural and economic methods\, so policy-oriented and socio-technica
- l research on tech is in scope alongside technical work. ELIGIBILITY: US i
- nstitutions of higher education and US-based non-profit\, non-academic org
- anizations such as independent research labs and professional societies. E
- ach person may appear on at most 4 SaTC proposals in any 12-month period\;
-  projects over USD 600\,000 need additional collaboration and participatio
- n plans. PROCESS: proposals via Research.gov or Grants.gov. Target date is
-  the last Monday in January annually (25 January 2027\, 5 p.m. submitter's
-  local time by NSF default)\; proposals are accepted anytime but may miss 
- that review panel.\n\nOrganisation: U.S. National Science Foundation (NSF)
- \nLocation: United States. US universities and colleges and US-based non-p
- rofit\, non-academic organizations only.\nAward: Research projects up to U
- SD 1\,200\,000 over up to 4 years\; education projects up to USD 500\,000 
- over up to 3 years\; seedling projects up to USD 300\,000 over up to 2 yea
- rs. About 75 awards (around 60 research\, 15 education)\, roughly USD 60\,
- 000\,000 per year subject to available funds. No application fee.\nDuratio
- n: 2 to 4 years depending on project type\n\nMore: https://www.nsf.gov/fun
- ding/opportunities/satc-20-security-privacy-trust-cyberspace/nsf25-515/sol
- icitation?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ systems.\n\nOrganisation: U.S. National Science Foundation (NSF)\nLocation
+ : United States. US universities and colleges and US-based non-profit\, no
+ n-academic organizations only.\nAward: Research projects up to USD 1\,200\
+ ,000 over up to 4 years\; education projects up to USD 500\,000 over up to
+  3 years\; seedling projects up to USD 300\,000 over up to 2 years. About 
+ 75 awards (around 60 research\, 15 education)\, roughly USD 60\,000\,000 p
+ er year subject to available funds. No application fee.\nDuration: 2 to 4 
+ years depending on project type\n\nMore: https://www.nsf.gov/funding/oppor
+ tunities/satc-20-security-privacy-trust-cyberspace/nsf25-515/solicitation?
+ utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.nsf.gov/funding/opportunities/satc-20-security-privacy-trus
  t-cyberspace/nsf25-515/solicitation?utm_source=artificialnouveaugrantdesk&
  utm_medium=referral
@@ -2021,7 +964,7 @@ LOCATION:United States. US universities and colleges and US-based non-profi
 END:VEVENT
 BEGIN:VEVENT
 UID:van-alen-re-paris-prize-2026-us-open-call@artificialnouveau.github.io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261123
 SUMMARY:Deadline: Van Alen Institute: Re:Paris Prize\, USD 35\,000 travel r
@@ -2031,22 +974,14 @@ DESCRIPTION:The Re:Paris Prize\, run by Van Alen Institute\, funds research
   into how design plays a transformative role in Africa and its diaspora. E
  ach winner receives a USD 35\,000 travel fellowship for field research tha
  t requires international travel to connect with experts and opportunities.
-  Two Africa-based winners were chosen from the 2026 Pan-African Biennale\;
-  a third\, US-based winner is selected through this open call. Proposals a
- ddress one of five themes\, including 'Data\, algorithms\, and the public 
- realm'\, on how digital infrastructures reshape public space\, civic life 
- and spatial perception. Winners present their learnings at Van Alen Instit
- ute in Fall 2027 and at the second Pan-African Biennale in 2028. ELIGIBILI
- TY: US-based applicants\; further rules on the call page. APPLY via the Ai
- rtable form linked from the project page. DEADLINE: Sunday 22 November 202
- 6.\n\nOrganisation: Van Alen Institute\nLocation: US-based applicants\; in
- ternational field research travel\, with presentations at Van Alen Institu
- te (New York) in Fall 2027 and the second Pan-African Biennale in 2028.\nA
- ward: USD 35\,000 travel fellowship\; one US-based winner selected through
-  this open call (two Africa-based winners were selected via the 2026 Pan-A
- frican Biennale).\nDuration: Research travel\, with presentations in Fall 
- 2027 and 2028\n\nMore: https://www.vanalen.org/project/re-paris-prize/?utm
- _source=artificialnouveaugrantdesk&utm_medium=referral
+ \n\nOrganisation: Van Alen Institute\nLocation: US-based applicants\; inte
+ rnational field research travel\, with presentations at Van Alen Institute
+  (New York) in Fall 2027 and the second Pan-African Biennale in 2028.\nAwa
+ rd: USD 35\,000 travel fellowship\; one US-based winner selected through t
+ his open call (two Africa-based winners were selected via the 2026 Pan-Afr
+ ican Biennale).\nDuration: Research travel\, with presentations in Fall 20
+ 27 and 2028\n\nMore: https://www.vanalen.org/project/re-paris-prize/?utm_s
+ ource=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.vanalen.org/project/re-paris-prize/?utm_source=artificialno
  uveaugrantdesk&utm_medium=referral
 LOCATION:US-based applicants\; international field research travel\, with p
@@ -2056,7 +991,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:jane-street-graduate-research-fellowship-2027@artificialnouveau.github.
  io
-DTSTAMP:20261104T145752Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
 SUMMARY:Deadline: Jane Street Graduate Research Fellowship 2027 (tuition pl
@@ -2064,26 +999,14 @@ SUMMARY:Deadline: Jane Street Graduate Research Fellowship 2027 (tuition pl
 DESCRIPTION:Jane Street's Graduate Research Fellowship supports exceptional
   doctoral students in electrical engineering and computer science\, mathem
  atics\, physics or statistics\; research does not need to relate to tradin
- g. ELIGIBILITY: PhD students with at least one year remaining in their pro
- gramme\, or those committed to start a PhD at a specified university in fa
- ll 2027\; fellows must be active full-time PhD students at an accredited r
- esearch institution in the United States\, Canada\, the United Kingdom\, E
- urope\, Australia\, New Zealand or Singapore during the award year. Intern
- ational students are eligible and encouraged. WHAT YOU GET: full tuition a
- nd fees for the upcoming academic year plus a USD 50\,000 stipend (or loca
- l-currency equivalent\; taxable)\; finalists receive USD 5\,000. APPLICATI
- ON: CV\, an optional one-to-two-page research statement and recommender co
- ntact details. DEADLINES: student applications 13 November 2026 AoE\; reco
- mmendation letters 1 December 2026\; notifications in February 2027. Quest
- ions: graduate-research-fellowship@janestreet.com.\n\nOrganisation: Jane S
- treet\nLocation: For full-time PhD students at accredited research institu
- tions in the US\, Canada\, UK\, Europe\, Australia\, New Zealand or Singap
- ore. International students welcome.\nAward: Full tuition and fees for the
-  award year plus a USD 50\,000 stipend (or local-currency equivalent\; tax
- able). Finalists receive USD 5\,000. No application fee.\nDuration: One ac
- ademic year.\n\nMore: https://www.janestreet.com/join-jane-street/programs
- -and-events/graduate-research-fellowship/?utm_source=artificialnouveaugran
- tdesk&utm_medium=referral
+ g.\n\nOrganisation: Jane Street\nLocation: For full-time PhD students at a
+ ccredited research institutions in the US\, Canada\, UK\, Europe\, Austral
+ ia\, New Zealand or Singapore. International students welcome.\nAward: Ful
+ l tuition and fees for the award year plus a USD 50\,000 stipend (or local
+ -currency equivalent\; taxable). Finalists receive USD 5\,000. No applicat
+ ion fee.\nDuration: One academic year.\n\nMore: https://www.janestreet.com
+ /join-jane-street/programs-and-events/graduate-research-fellowship/?utm_so
+ urce=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.janestreet.com/join-jane-street/programs-and-events/graduat
  e-research-fellowship/?utm_source=artificialnouveaugrantdesk&utm_medium=re
  ferral

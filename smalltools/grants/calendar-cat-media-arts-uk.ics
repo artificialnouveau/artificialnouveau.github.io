@@ -3,8 +3,8 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk - Media Arts\, Film & Sound\, UK
-X-WR-CALNAME:The Grant Desk - Media Arts\, Film & Sound\, UK deadlines
+NAME:The Grant Desk deadlines - Media Arts\, Film & Sound\, UK
+X-WR-CALNAME:The Grant Desk deadlines - Media Arts\, Film & Sound\, UK
 X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  esearch\, and digital and mixed-media arts\, sorted into the right pile. U
  pdated as new calls land on the desk. Filtered to: Media Arts\, Film & Sou
@@ -13,27 +13,25 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:bfi-flare-2027-submissions@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20261204
-DTEND;VALUE=DATE:20261205
-SUMMARY:Deadline: BFI Flare 2027: London LGBTQIA+ Film Festival Submissions
-  (40th edition)
-DESCRIPTION:BFI Flare\, the UK's longest-running LGBTQIA+ film festival\, i
- s open for submissions to its 40th edition at BFI Southbank in March 2027.
-  CATEGORIES (new length bands this year): short films of 35 minutes or les
- s\, mid-length films of 36 to 60 minutes and feature-length films over 61 
- minutes\, each open to UK and international work. Check eligibility agains
- t the 2027 guidelines and regulations PDF on the BFI page\, then submit th
- rough the online form. DEADLINE: online forms and screeners by 4 December 
- 2026\, 17:00 GMT.\n\nOrganisation: BFI (British Film Institute)\nLocation:
-  BFI Southbank\, London\, UK (March 2027\, dates to be confirmed). Open to
-  UK and international films.\nAward: NO PUBLISHED CASH\, listed under the 
- desk's festival exception. Past editions charged no entry fee\; the 2027 f
- ee is stated in the submission guidelines PDF and could not be confirmed.\
- nDuration: Festival in March 2027 (dates to be confirmed)\n\nMore: https:/
- /www.bfi.org.uk/explore-our-festivals/submissions-are-now-open-2027-editio
- n-bfi-flare-london-lgbtqia-film-festival?utm_source=artificialnouveaugrant
- desk&utm_medium=referral
+DTSTAMP:20261104T150308Z
+DTSTART:20261204T163000Z
+DTEND:20261204T170000Z
+SUMMARY:Deadline 17:00 GMT: BFI Flare 2027: London LGBTQIA+ Film Festival S
+ ubmissions (40th edition)
+DESCRIPTION:Closes 04 Dec 2026 at 17:00 GMT.\n\nBFI Flare\, the UK's longes
+ t-running LGBTQIA+ film festival\, is open for submissions to its 40th edi
+ tion at BFI Southbank in March 2027. CATEGORIES (new length bands this yea
+ r): short films of 35 minutes or less\, mid-length films of 36 to 60 minut
+ es and feature-length films over 61 minutes\, each open to UK and internat
+ ional work.\n\nOrganisation: BFI (British Film Institute)\nLocation: BFI S
+ outhbank\, London\, UK (March 2027\, dates to be confirmed). Open to UK an
+ d international films.\nAward: NO PUBLISHED CASH\, listed under the desk's
+  festival exception. Past editions charged no entry fee\; the 2027 fee is 
+ stated in the submission guidelines PDF and could not be confirmed.\nDurat
+ ion: Festival in March 2027 (dates to be confirmed)\n\nMore: https://www.b
+ fi.org.uk/explore-our-festivals/submissions-are-now-open-2027-edition-bfi-
+ flare-london-lgbtqia-film-festival?utm_source=artificialnouveaugrantdesk&u
+ tm_medium=referral
 URL:https://www.bfi.org.uk/explore-our-festivals/submissions-are-now-open-2
  027-edition-bfi-flare-london-lgbtqia-film-festival?utm_source=artificialno
  uveaugrantdesk&utm_medium=referral
@@ -41,191 +39,22 @@ LOCATION:BFI Southbank\, London\, UK (March 2027\, dates to be confirmed).
  Open to UK and international films.
 END:VEVENT
 BEGIN:VEVENT
-UID:supporting-act-foundation-artist-grant-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20261001
-DTEND;VALUE=DATE:20261002
-SUMMARY:Deadline: The Supporting Act Foundation: Artist Grant 2026
-DESCRIPTION:The Supporting Act Foundation\, the charitable foundation estab
- lished by WeTransfer\, awards ten unrestricted Artist Grants of EUR 10\,00
- 0 to emerging artists from underrepresented groups whose work involves col
- laborative\, collective or creative processes that benefit their communiti
- es. The grant is paid as EUR 1\,000 per month over one year and can be use
- d freely\; applicants should explain how it would help them overcome econo
- mic\, social\, cultural\, physical or health barriers to their practice. E
- LIGIBILITY: identify as an emerging artist with at least two and no more t
- han ten years of professional experience\; identify as belonging to an und
- errepresented group or face systemic barriers to your career\; be born in 
- or before 2005\; be based in Belgium\, France\, Germany\, Greece\, Ireland
- \, Italy\, the Netherlands\, Portugal\, Spain or the United Kingdom with a
-  personal IBAN bank account there\; and have an updated website or public 
- social media profile. Former and current TSAF grantees cannot apply. TIMEL
- INE: applications close 1 October 2026 at 11:00 CET\, notifications go to 
- all applicants in late October 2026\, shortlisted applicants get a final r
- eview in November 2026\, and the public announcement and first transfer fo
- llow in January 2027. APPLICATION: free\, via the open call platform on th
- e foundation's website. The parallel Impact Grant strand for arts nonprofi
- ts runs on the same deadline.\n\nOrganisation: The Supporting Act Foundati
- on\nLocation: Remote\; for artists based in Belgium\, France\, Germany\, G
- reece\, Ireland\, Italy\, the Netherlands\, Portugal\, Spain or the United
-  Kingdom.\nAward: 10 unrestricted grants of EUR 10\,000 each\, paid out at
-  EUR 1\,000 per month over one year\, with the first installment transferr
- ed in January 2027. No application fee.\nDuration: One year\, from January
-  2027.\n\nMore: https://thesupportingact.org/programs/artist-grant/2026?ut
- m_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://thesupportingact.org/programs/artist-grant/2026?utm_source=arti
- ficialnouveaugrantdesk&utm_medium=referral
-LOCATION:Remote\; for artists based in Belgium\, France\, Germany\, Greece\
- , Ireland\, Italy\, the Netherlands\, Portugal\, Spain or the United Kingd
- om.
-END:VEVENT
-BEGIN:VEVENT
-UID:supporting-act-foundation-impact-grant-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20261001
-DTEND;VALUE=DATE:20261002
-SUMMARY:Deadline: The Supporting Act Foundation: Impact Grant 2026 for Arts
-  Nonprofits
-DESCRIPTION:The Supporting Act Foundation\, the charitable foundation estab
- lished by WeTransfer\, awards ten unrestricted Impact Grants of EUR 50\,00
- 0 (EUR 25\,000 per year over two years) to arts-focused nonprofits that em
- power emerging artists from underrepresented groups through non-financial 
- support: improving artists' living conditions\, enabling practice developm
- ent\, increasing the visibility of their work and building their confidenc
- e. ELIGIBILITY: nonprofits registered as arts organizations between 2016 a
- nd 2024\, based in Belgium\, France\, Germany\, Greece\, Ireland\, Italy\,
-  the Netherlands\, Portugal\, Spain or the United Kingdom\, or working wit
- h a fiscal host in one of these countries\; annual expenditures between EU
- R 50\,000 and EUR 300\,000\; an active website demonstrating supported pro
- jects\; and an IBAN bank account. Individuals\, commercial entities\, curr
- ent or past TSAF grantees\, and proposals for ongoing projects rather than
-  established organizations are not eligible. TIMELINE: applications close 
- 1 October 2026 at 11:00 CET\, are reviewed in October\, notifications go o
- ut in late October 2026\, shortlisted organizations get a final review in 
- November 2026\, and the public announcement and first installment follow i
- n January 2027. APPLICATION: free\, via the open call platform on the foun
- dation's website. The parallel Artist Grant strand for individual emerging
-  artists runs on the same deadline.\n\nOrganisation: The Supporting Act Fo
- undation\nLocation: Remote\; for nonprofits registered in Belgium\, France
- \, Germany\, Greece\, Ireland\, Italy\, the Netherlands\, Portugal\, Spain
-  or the United Kingdom\, or working with a fiscal host there.\nAward: 10 u
- nrestricted grants of EUR 50\,000 each\, paid as EUR 25\,000 per year over
-  two years\, with the first transfer in January 2027. No application fee.\
- nDuration: Two years\, from January 2027.\n\nMore: https://thesupportingac
- t.org/programs/impact-grant/2026?utm_source=artificialnouveaugrantdesk&utm
- _medium=referral
-URL:https://thesupportingact.org/programs/impact-grant/2026?utm_source=arti
- ficialnouveaugrantdesk&utm_medium=referral
-LOCATION:Remote\; for nonprofits registered in Belgium\, France\, Germany\,
-  Greece\, Ireland\, Italy\, the Netherlands\, Portugal\, Spain or the Unit
- ed Kingdom\, or working with a fiscal host there.
-END:VEVENT
-BEGIN:VEVENT
-UID:fluxus-cpga-prize-frieze-london-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20260928
-DTEND;VALUE=DATE:20260929
-SUMMARY:Deadline: Fluxus-CPGA Prize at Frieze London 2026
-DESCRIPTION:The Fluxus-CPGA Prize at Frieze London\, a collaboration betwee
- n Fluxus Art Projects\, the Comite Professionnel des Galeries d'Art and Fr
- ieze London\, supports talent from the French art scene and promotes its v
- isibility internationally. It also celebrates the relationship between art
- ists and their galleries: the GBP 15\,000 prize is shared between the two.
-  WHO APPLIES: galleries of any nationality exhibiting at Frieze London 202
- 6\, presenting the work of one French or French-based artist on their stan
- d\; artists cannot apply directly. HOW TO APPLY: via the Google Form linke
- d from the apply page\, with gallery contact information\, the artist's na
- me and number of works presented\, an artist biography (200 words)\, a gal
- lery description (200 words) and 1 to 2 images. Free of charge. Previous l
- aureates include Daiga Grantina (Emalin\, 2025)\, Stephanie Saade (Marfa' 
- Projects\, 2024) and Josefa Ntjam (Nicoletti\, 2023)\; jurors have include
- d Hans Ulrich Obrist\, Zoe Whitley\, Catherine Wood and Valeria Napoleone.
-  Deadline 28 September 2026.\n\nOrganisation: Fluxus Art Projects\, with t
- he Comite Professionnel des Galeries d'Art and Frieze London\nLocation: Fr
- ieze London\, Regent's Park\, London\, UK (October 2026). Galleries of any
-  nationality can apply\, provided they present the work of a French or Fre
- nch-based artist on their stand.\nAward: GBP 15\,000 prize\, shared betwee
- n the artist and their gallery. Participation is free of charge.\nDuration
- : Awarded during Frieze London in October 2026\n\nMore: https://fluxusartp
- rojects.com/apply?utm_source=artificialnouveaugrantdesk&utm_medium=referra
- l
-URL:https://fluxusartprojects.com/apply?utm_source=artificialnouveaugrantde
- sk&utm_medium=referral
-LOCATION:Frieze London\, Regent's Park\, London\, UK (October 2026). Galler
- ies of any nationality can apply\, provided they present the work of a Fre
- nch or French-based artist on their stand.
-END:VEVENT
-BEGIN:VEVENT
-UID:fluxus-prize-art-basel-paris-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20260929
-DTEND;VALUE=DATE:20260930
-SUMMARY:Deadline: Fluxus Prize at Art Basel Paris 2026
-DESCRIPTION:The Fluxus Prize at Art Basel Paris\, from Fluxus Art Projects\
- , supports talent from the British art scene and promotes its visibility i
- nternationally\, honouring the relationship between artists and their gall
- eries: the EUR 15\,000 prize is shared between the two. This edition is su
- pported by Belinda de Gaudemar and Laurent Issaurat. WHO APPLIES: gallerie
- s of any nationality exhibiting at Art Basel Paris 2026 in the Galleries o
- r Premise sectors\, presenting the work of one British or UK-based artist\
- ; artists cannot apply directly. HOW TO APPLY: by email to visual.arts[at]
- institut-francais.org.uk with gallery contact information\, the artist's n
- ame and number of works presented\, an artist biography (200 words)\, a ga
- llery description (200 words) and 1 to 2 images. Free of charge. Previous 
- laureates include Olu Ogunnaike (Hollybush Gardens\, 2025) and Jesse Darli
- ng (Sultana\, 2024)\; jurors have included Hans Ulrich Obrist\, Caroline B
- ourgeois and Daria de Beauvais. Deadline 29 September 2026.\n\nOrganisatio
- n: Fluxus Art Projects\, with Art Basel Paris\nLocation: Art Basel Paris\,
-  France (October 2026). Galleries of any nationality can apply\, provided 
- they present the work of one British or UK-based artist in the Galleries o
- r Premise sectors.\nAward: EUR 15\,000 prize\, shared between the artist a
- nd their gallery. Participation is free of charge.\nDuration: Awarded duri
- ng Art Basel Paris in October 2026\n\nMore: https://fluxusartprojects.com/
- apply?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://fluxusartprojects.com/apply?utm_source=artificialnouveaugrantde
- sk&utm_medium=referral
-LOCATION:Art Basel Paris\, France (October 2026). Galleries of any national
- ity can apply\, provided they present the work of one British or UK-based 
- artist in the Galleries or Premise sectors.
-END:VEVENT
-BEGIN:VEVENT
 UID:tpg-future-of-archives-whose-archive-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: The Photographers' Gallery: Future of Archives\, Whose Ar
  chive is it Anyway? (Call for Speakers)
 DESCRIPTION:Whose Archive is it Anyway? is the first in a three-part series
   of events at The Photographers' Gallery exploring the future of archives 
- and archiving. This one-day event on Friday 16 April 2027 kickstarts the c
- onversation with commissioned talks addressing what it means to make an ar
- chive today\, who decides what an archive consists of\, who creates an arc
- hive\, who an archive is for\, and who has access. The gallery welcomes su
- bmissions of real-life experiences rather than academic papers that challe
- nge or answer these or other points related to the future of archives. SUG
- GESTED TOPICS: artist and photographers' legacies\; institutional archives
- \; memory (forgotten or lost histories made visible again)\; truth within 
- archives (who is telling the stories and how)\; ownership (who has the aut
- hority to tell stories\, who owns the images and their stories)\; relation
- ships between those who create archives and those who use them\; radical\,
-  non-traditional archives that redesign how stories are gathered and held 
- to safeguard living memories\; family archives\; reclaimed photographic ar
- chives\; counter archives that question dominant historical narratives\; g
- rassroots archives\; technologies that reduce barriers to archives while s
- afeguarding material\; digital preservation and digitisation\; and dialogi
- c archives. ELIGIBILITY: open to all\, especially those with experience of
-  working with archives and the stories within them\; applicants must be 18
-  or older and available to attend The Photographers' Gallery in London on 
- 16 April 2027 to speak at the event. Selected speakers receive a fee of GB
- P 200 and will be notified by 18 January 2027. Questions to archive@tpg.or
- g.uk. Deadline 1 November 2026\, 11:59pm GMT.\n\nOrganisation: The Photogr
- aphers' Gallery\nLocation: London\, UK. Selected speakers must be availabl
- e to speak in person at The Photographers' Gallery on 16 April 2027.\nAwar
- d: GBP 200 speaker fee for each selected speaker. No application fee.\nDur
- ation: One-day event on Friday 16 April 2027\n\nMore: https://forms.cloud.
- microsoft/pages/responsepage.aspx?id=Sykm7fNJbU-mcP8tt-A2n-2SkeDTc21FsI7Zw
- hvDxVtUNTc3RVExTjRRUDRUSVU5MzUzWDMwMlBQMC4u&route=shorturl&utm_source=arti
- ficialnouveaugrantdesk&utm_medium=referral
+ and archiving.\n\nOrganisation: The Photographers' Gallery\nLocation: Lond
+ on\, UK. Selected speakers must be available to speak in person at The Pho
+ tographers' Gallery on 16 April 2027.\nAward: GBP 200 speaker fee for each
+  selected speaker. No application fee.\nDuration: One-day event on Friday 
+ 16 April 2027\n\nMore: https://forms.cloud.microsoft/pages/responsepage.as
+ px?id=Sykm7fNJbU-mcP8tt-A2n-2SkeDTc21FsI7ZwhvDxVtUNTc3RVExTjRRUDRUSVU5MzUz
+ WDMwMlBQMC4u&route=shorturl&utm_source=artificialnouveaugrantdesk&utm_medi
+ um=referral
 URL:https://forms.cloud.microsoft/pages/responsepage.aspx?id=Sykm7fNJbU-mcP
  8tt-A2n-2SkeDTc21FsI7ZwhvDxVtUNTc3RVExTjRRUDRUSVU5MzUzWDMwMlBQMC4u&route=s
  horturl&utm_source=artificialnouveaugrantdesk&utm_medium=referral
@@ -233,400 +62,28 @@ LOCATION:London\, UK. Selected speakers must be available to speak in perso
  n at The Photographers' Gallery on 16 April 2027.
 END:VEVENT
 BEGIN:VEVENT
-UID:delfina-gulbenkian-artists-portugal-lusophone-africa-2027@artificialnou
- veau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20261004
-DTEND;VALUE=DATE:20261005
-SUMMARY:Deadline: Delfina Foundation x Calouste Gulbenkian Foundation: Open
-  Call for Artists from Portugal and Portuguese-Speaking African Nations (L
- ondon residency)
-DESCRIPTION:In partnership with the Calouste Gulbenkian Foundation (UK Bran
- ch)\, Delfina Foundation welcomes applications from contemporary visual ar
- tists from Portugal\, Angola\, Mozambique\, Guinea-Bissau\, Cape Verde and
-  Sao Tome and Principe for a London residency from 28 June to 17 September
-  2027\, during Delfina's open summer season dedicated to independent resea
- rch. ELIGIBILITY: applicants must be born in one of the six eligible count
- ries (individuals currently based in the UK are not eligible)\; be seeking
-  to develop their practice through research\; be able to explain how an in
- ternational residency may benefit their career development and local netwo
- rks\; and be proficient in English (the interview is conducted in English)
- . Collectives and duos are advised to put forth one member to be in reside
- nce. THE PROGRAMME: alongside time and space to develop their work\, resid
- ents get guided visits to museums\, galleries\, non-profits\, artist-run s
- paces and studios\, plus trips to institutions outside London\; opportunit
- ies to meet artists\, curators\, academics and researchers through organis
- ed presentations\, studio visits\, events and meals\; professional develop
- ment including presentations and crits\, portfolio reviews and mentoring\;
-  and collaborative exchange between residents through informal gatherings 
- and meals. APPLY via the online application form (Cognito Forms\, save-and
- -resume supported)\; Delfina strongly recommends reading the Guidance Note
- s document carefully before starting. All applicants notified by mid-Novem
- ber 2026. Deadline Sunday 4 October 2026\, 23:59 BST.\n\nOrganisation: Del
- fina Foundation\, in partnership with the Calouste Gulbenkian Foundation (
- UK Branch)\nLocation: Delfina Foundation\, 29-31 Catherine Place\, London\
- , UK. Applicants must be born in Portugal\, Angola\, Mozambique\, Guinea-B
- issau\, Cape Verde or Sao Tome and Principe\; individuals currently based 
- in the UK are not eligible.\nAward: Twelve-week fully funded residency: a 
- return economy-class flight\, airport transfers in the UK\, reimbursement 
- of visa fees if required\, a living allowance of GBP 40 per day\, a materi
- als budget of GBP 1\,200\, a travel pass for London's public transport net
- work\, and a single bedroom with a desk at Delfina Foundation\, a house ho
- sting up to eight residents with shared bathrooms\, laundry rooms\, kitche
- n\, library and dining room. No application fee.\nDuration: Twelve weeks\,
-  28 June to 17 September 2027\, during Delfina's open summer 2027 residenc
- y season.\n\nMore: https://www.delfinafoundation.com/open-calls/current/op
- en-call-for-artists-from-portugal-or-portugese-speaking-african-nations/?u
- tm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.delfinafoundation.com/open-calls/current/open-call-for-arti
- sts-from-portugal-or-portugese-speaking-african-nations/?utm_source=artifi
- cialnouveaugrantdesk&utm_medium=referral
-LOCATION:Delfina Foundation\, 29-31 Catherine Place\, London\, UK. Applican
- ts must be born in Portugal\, Angola\, Mozambique\, Guinea-Bissau\, Cape V
- erde or Sao Tome and Principe\; individuals currently based in the UK are 
- not eligible.
-END:VEVENT
-BEGIN:VEVENT
-UID:bfi-national-lottery-creative-challenge-fund-round-2-2026@artificialnou
- veau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20260921
-DTEND;VALUE=DATE:20260922
-SUMMARY:Deadline: BFI National Lottery Creative Challenge Fund (Round Two)
-DESCRIPTION:The Creative Challenge Fund does not fund films directly. It fu
- nds the organisations that run project-development programmes for UK creat
- ives working on narrative\, documentary or animation features\, or on narr
- ative immersive media projects. The BFI's stated aim is to decentralise de
- velopment away from a small number of London-centric gatekeepers and build
-  a wider\, more resilient ecosystem of talent-development providers across
-  the UK\, with a recently added emphasis on independent producers. ELIGIBI
- LITY: only legally constituted UK-based organisations may apply. Individua
- l filmmakers seeking development money should look to the BFI Filmmaking F
- und's Development strand instead. TIMING: Round One closed in March 2026 a
- nd has made its first awards. Round Two closes Monday 21 September 2026\, 
- with funded programme activity required to begin between 1 January and 30 
- June 2027. NOTE: award amounts are not published on the fund page. Success
- ful applicants must prominently credit BFI National Lottery support.\n\nOr
- ganisation: British Film Institute (BFI National Lottery)\nLocation: Unite
- d Kingdom (UK-based organisations running development programmes for UK cr
- eatives)\nAward: Award amounts are not published on the fund page. No appl
- ication fee.\nDuration: Funded programme activity must start between 1 Jan
- uary and 30 June 2027 and\, in most cases\, be delivered within 12 months 
- unless the applicant is running multiple editions.\n\nMore: https://www.bf
- i.org.uk/get-funding-support/create-films-tv-or-new-formats-storytelling/b
- fi-national-lottery-creative-challenge-fund?utm_source=artificialnouveaugr
- antdesk&utm_medium=referral
-URL:https://www.bfi.org.uk/get-funding-support/create-films-tv-or-new-forma
- ts-storytelling/bfi-national-lottery-creative-challenge-fund?utm_source=ar
- tificialnouveaugrantdesk&utm_medium=referral
-LOCATION:United Kingdom (UK-based organisations running development program
- mes for UK creatives)
-END:VEVENT
-BEGIN:VEVENT
-UID:waag-trust-me-im-an-airtist-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20260930
-DTEND;VALUE=DATE:20261001
-SUMMARY:Deadline: Trust me\, I'm an AI/rtist: Open Call for Creative Interv
- entions
-DESCRIPTION:Waag Futurelab invites artists\, theatre makers\, choreographer
- s\, dancers\, game designers and other creative practitioners to engage di
- rectly with seven experimental generative AI Enablers being co-created wit
- h technologists and dance\, theatre and gaming professionals. The call is 
- an invitation into the development process: selected artists get access to
-  the technologies\, datasets\, interfaces and assumptions that shape these
-  systems while they are still being built. Rather than testing whether the
-  systems work\, artists are asked to interrogate why they work the way the
- y do\, who they are designed for\, what forms of creativity they enable or
-  constrain\, and what assumptions about culture\, intelligence\, authorshi
- p\, labour\, bodies\, audiences and society are embedded in them. Waag is 
- looking for individuals and collectives willing to move beyond adoption in
- to investigation\, and welcomes proposals that are speculative\, critical\
- , poetic\, provocative\, humorous\, performative\, constructive or disrupt
- ive\, including work that challenges\, misuses\, reimagines\, hacks\, subv
- erts or plays with the tools\, exposes hidden biases\, questions environme
- ntal costs\, or imagines alternative technological futures. THE SEVEN AI E
- NABLERS\, each requiring an on-site visit to its technology partner: the G
- eneric Procedural Content Generation Enabler (text-to-3D assets and avatar
- s\, CERTH\, Greece)\; the Data-Driven Cultural Content Adaptation Enabler 
- (audience-aware creative content ideation with ranked candidate ideas\, CE
- RTH\, Greece)\; the Cross-Domain Audience Engagement Analytics Enabler (tu
- rning heterogeneous cultural participation data into interpretable engagem
- ent signals\, The Audience Agency\, Warrington\, UK)\; the Dance Style Ana
- lysis and Generation Enabler (dance video into virtual 3D choreography\, d
- issected into body\, effort\, shape and space components\, Centre of Excel
- lence for Research & Innovation\, Cyprus)\; the Immersive Design Integrati
- on Enabler for Dance & Theatre (NLP-driven XR environments with speech-to-
- 3D scene editing\, Cyprus)\; the Music-to-Movement Translation Enabler (au
- dio into a time-aligned feature set spanning genre classification\, emotio
- nal valence-arousal analysis\, rhythm extraction and latent-space projecti
- on\, feeding motion generation\, spatial audio and visual choreography\, A
- ristotle University of Thessaloniki\, Greece)\; and the Adaptive Narrative
-  Enabler for Games & Theatre (an evolutionary AI trained on creator-writte
- n story elements that generates infinite story variations\, explicitly rej
- ecting LLMs because of their dependence on copyrighted or public-domain co
- rpora that encode 19th and early 20th century sexism\, racism and imperial
- ism\, CAUSA Creation\, Austria). ELIGIBILITY: artists\, designers\, creati
- ve technologists\, theatre makers\, dancers\, choreographers and game desi
- gners\, as individuals or collectives\; applicants must hold a European VA
- T number. An info session with live demonstrations of the AI Enablers runs
-  31 July 2026\, 10:00 to 11:30 CEST (meeting ID 995 7016 2341). Applicatio
- ns go through Homerun using the official Application Template\, uploaded a
- s a PDF\; read the Guide for Applicants\, which contains the full Enabler 
- descriptions\, before applying. Questions: zoenie at waag dot org. The AI 
- Enablers and this call are part of the Horizon Europe project HAMLET\, whi
- ch aims to make generative AI accessible to cultural organisations of all 
- sizes. Closes 30 September 2026\, 23:59 CEST. Free to apply.\n\nOrganisati
- on: Waag Futurelab (Horizon Europe project HAMLET)\nLocation: Europe. Enga
- ging with a specific AI Enabler includes an on-site visit to its technolog
- y partner: CERTH (Greece)\, The Audience Agency (Warrington\, UK)\, the Ce
- ntre of Excellence for Research & Innovation (Cyprus)\, Aristotle Universi
- ty of Thessaloniki (Greece)\, or CAUSA Creation (Austria). Final presentat
- ions September 2027.\nAward: EUR 20\,000 commission fee excluding VAT\, in
- clusive of artist fee\, travel\, accommodation and production costs. Appli
- cants must have a VAT number in Europe. No application fee.\nDuration: Jan
- uary to September 2027\, with final presentations in September 2027\n\nMor
- e: https://waag.org/en/article/open-call-creative-interventions-trust-me-i
- m-airtist/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://waag.org/en/article/open-call-creative-interventions-trust-me-i
- m-airtist/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Europe. Engaging with a specific AI Enabler includes an on-site vi
- sit to its technology partner: CERTH (Greece)\, The Audience Agency (Warri
- ngton\, UK)\, the Centre of Excellence for Research & Innovation (Cyprus)\
- , Aristotle University of Thessaloniki (Greece)\, or CAUSA Creation (Austr
- ia). Final presentations September 2027.
-END:VEVENT
-BEGIN:VEVENT
-UID:ual-storytelling-research-fellows-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20260911
-DTEND;VALUE=DATE:20260912
-SUMMARY:Deadline: UAL AKO Storytelling Institute: Storytelling Research Fel
- lows 2026 (six posts)
-DESCRIPTION:The UAL AKO Storytelling Institute\, with the Power of Pop Fund
- \, is recruiting six Storytelling Research Fellows to run independent rese
- arch projects on how storytelling in popular culture shapes attitudes\, be
- haviour and public discourse. Fellows work across media including televisi
- on\, film\, gaming\, podcasts and digital culture\, are supported by the I
- nstitute's Head of Research and a peer cohort\, and produce actionable fin
- dings for creative practitioners\, funders and social-impact organisations
- \, presented at a closing public symposium. ELIGIBILITY: experienced resea
- rchers with a PhD or equivalent research expertise gained academically\, i
- ndependently or through professional practice\, with a track record of del
- ivering high-quality research and working with external partners. Practice
- -based and non-academic researchers are explicitly in scope. APPLICATION: 
- CV\, record of publications\, a research proposal of 1\,000 to 1\,200 word
- s\, and a supporting statement including at least one example of a researc
- h project you designed and delivered. Applications via the UAL jobs portal
- \; closes 11 September 2026.\n\nOrganisation: University of the Arts Londo
- n (UAL AKO Storytelling Institute)\, with the Power of Pop Fund\nLocation:
-  High Holborn\, London\, United Kingdom (hybrid)\nAward: GBP 48\,563 per a
- nnum pro rata (around GBP 19\,425 for the part-time fellowship hours)\, pl
- us UAL benefits. No application fee.\nDuration: Nine-month fellowship\, pa
- rt-time\, culminating in a public symposium\n\nMore: https://jobs.arts.ac.
- uk/job/12629-storytelling-research-fellows/?utm_source=artificialnouveaugr
- antdesk&utm_medium=referral
-URL:https://jobs.arts.ac.uk/job/12629-storytelling-research-fellows/?utm_so
- urce=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:High Holborn\, London\, United Kingdom (hybrid)
-END:VEVENT
-BEGIN:VEVENT
-UID:gmac-little-pictures-2026-27@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20260909
-DTEND;VALUE=DATE:20260910
-SUMMARY:Deadline: GMAC Film: Little Pictures 2026/27 (Scotland)
-DESCRIPTION:GMAC Film's Little Pictures scheme funds Scotland-based filmmak
- ers making their first funded short film\, with up to GBP 6\,000 productio
- n funding per film plus a year of training\, workshops\, industry mentorsh
- ip and free access to equipment and resources. Fiction\, documentary\, ani
- mation and experimental work are all eligible\, and the scheme has produce
- d over 50 films across Scotland in its six years\, prioritizing underrepre
- sented voices in the screen sector. ELIGIBILITY: 18+\, based anywhere in S
- cotland\, not in full-time education\, and not previously commissioned to 
- make a film (Opening Shot alumni excepted)\; no prior filmmaking experienc
- e required\, and separate tracks exist for filmmakers and producers. Acces
- s support provisions are available for applicants facing additional barrie
- rs. Deadline: 9 September 2026\, 10am.\n\nOrganisation: GMAC Film (Glasgow
-  Media Access Centre)\nLocation: Scotland\, UK\nAward: Up to GBP 6\,000 pr
- oduction funding per film\, plus training\, workshops\, industry mentorshi
- p and free equipment and resource access\nDuration: Year-long programme\n\
- nMore: https://www.gmacfilm.com/little-pictures/?utm_source=artificialnouv
- eaugrantdesk&utm_medium=referral
-URL:https://www.gmacfilm.com/little-pictures/?utm_source=artificialnouveaug
- rantdesk&utm_medium=referral
-LOCATION:Scotland\, UK
-END:VEVENT
-BEGIN:VEVENT
-UID:sdi-bridging-the-gap-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20260909
-DTEND;VALUE=DATE:20260910
-SUMMARY:Deadline: Scottish Documentary Institute: Bridging the Gap 2026/27
-DESCRIPTION:Bridging the Gap is the Scottish Documentary Institute's flagsh
- ip short documentary talent scheme for new and emerging filmmakers based i
- n Scotland and Northern Ireland. From an initial shortlist of 12 projects\
- , up to 4 films receive full commissions with cash budgets (GBP 8\,500 per
-  film in the previous round) plus production and distribution support\, wi
- th finished films distributed to cinemas and international festivals\; BtG
-  shorts have a long track record of festival play and awards. The programm
- e combines professional development\, production funding and distribution:
-  shortlisted filmmakers take part in intensive workshops and pitch to a pa
- nel of experts. The scheme looks for surprising\, challenging and moving s
- ubmissions that embrace the possibilities of the documentary genre and sub
- vert expectations in form and content. Access support is available for dis
- abled applicants\, and information is available in alternative formats on 
- request. Deadline: 9 September 2026\, midnight.\n\nOrganisation: Scottish 
- Documentary Institute\, with Screen Scotland and Northern Ireland Screen\n
- Location: Scotland and Northern Ireland\, UK\nAward: Up to 4 films receive
-  a full commission with a cash production budget (GBP 8\,500 per film in t
- he previous round) plus production and distribution support\nDuration: 12 
- projects shortlisted for intensive workshops and a commissioning pitch\; c
- ommissioned films delivered for cinema and festival distribution\n\nMore: 
- https://www.scottishdocinstitute.com/opportunities/bridging-the-gap/?utm_s
- ource=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.scottishdocinstitute.com/opportunities/bridging-the-gap/?ut
- m_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Scotland and Northern Ireland\, UK
-END:VEVENT
-BEGIN:VEVENT
 UID:open-city-documentary-festival-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261127
 DTEND;VALUE=DATE:20261128
 SUMMARY:Deadline: Open City Documentary Festival 2027 (Call for Entries)
 DESCRIPTION:The 17th Open City Documentary Festival takes place at venues a
  cross London in April 2027\, presenting international contemporary and ret
  rospective non-fiction film\, audio and cross-media work alongside filmmak
- er Q&As\, panels\, talks and workshops. The festival nurtures experimentat
- ion within the expanded field of non-fiction cinema\, from artists' moving
-  image to documentary\, the essay film\, audio and cross-media works\; rec
- ent artists screened include Sky Hopinka\, Onyeka Igwe\, Luke Fowler\, Ana
-  Vaz\, Jessica Sarah Rinland and Morgan Quaintance. ELIGIBILITY: non-ficti
- on film and video\, cross-platform projects and audio works completed afte
- r 1 January 2026\; no strict premiere requirement\, but works not yet publ
- icly screened in London are prioritized. All selected filmmakers receive s
- creening fees: GBP 275 for works over 60 minutes\, GBP 140 for works over 
- 40 minutes\, GBP 70 for works under 40 minutes\, GBP 100 for cross-platfor
- m projects (all incl. VAT). Submissions via FilmFreeway with tiered entry 
- fees (lower before the early deadline). EARLY DEADLINE: 25 September 2026.
-  FINAL DEADLINE: 27 November 2026\; all entrants notified by 22 February 2
- 027.\n\nOrganisation: Open City Documentary Festival / UCL\nLocation: Lond
- on\, UK\nAward: Screening fees for all selected works: GBP 275 for works o
- ver 60 min\, GBP 140 for works over 40 min\, GBP 70 for works under 40 min
- \, GBP 100 for cross-platform projects (all incl. VAT)\nDuration: Festival
-  runs 9-18 April 2027 at venues across London\n\nMore: https://opencitylon
- don.com/entries/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ er Q&As\, panels\, talks and workshops.\n\nOrganisation: Open City Documen
+ tary Festival / UCL\nLocation: London\, UK\nAward: Screening fees for all 
+ selected works: GBP 275 for works over 60 min\, GBP 140 for works over 40 
+ min\, GBP 70 for works under 40 min\, GBP 100 for cross-platform projects 
+ (all incl. VAT)\nDuration: Festival runs 9-18 April 2027 at venues across 
+ London\n\nMore: https://opencitylondon.com/entries/?utm_source=artificialn
+ ouveaugrantdesk&utm_medium=referral
 URL:https://opencitylondon.com/entries/?utm_source=artificialnouveaugrantde
  sk&utm_medium=referral
 LOCATION:London\, UK
 END:VEVENT
 BEGIN:VEVENT
-UID:rbharts-organ-donation-artworks-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20260927
-DTEND;VALUE=DATE:20260928
-SUMMARY:Deadline: rb&hArts: Organ Donation Artworks Commission 2026 (Royal 
- Brompton and Harefield Hospitals\, London)
-DESCRIPTION:rb&hArts\, the arts programme of the Royal Brompton and Harefie
- ld hospitals (part of Guy's and St Thomas' NHS Foundation Trust)\, commiss
- ions one artist to create two permanent artworks\, one for each hospital\,
-  exploring organ donation and transplantation through themes of hope\, gen
- erosity\, connection\, renewal and the gift of life. WHAT YOU GET: a GBP 9
- \,000 budget for the entire commission\, covering design\, production and 
- stakeholder engagement across both artworks. PROCESS: strong emphasis on c
- o-creation\; the artist works directly with patients\, transplant recipien
- ts\, donor families and clinical staff\, with rb&hArts organising stakehol
- der meetings\, workshops and interviews. ELIGIBILITY: the call states no r
- estrictions on who can apply\, though the participatory process happens on
-  site in London. APPLICATION: by proposal via an online form linked from t
- he call listing. DEADLINE: 27 September 2026.\n\nOrganisation: rb&hArts (R
- oyal Brompton and Harefield hospitals\, Guy's and St Thomas' NHS Foundatio
- n Trust)\nLocation: Royal Brompton Hospital (Chelsea\, London) and Harefie
- ld Hospital\, UK. No stated restrictions on who can apply\, but on-site co
- -creation implies UK-feasible artists.\nAward: GBP 9\,000 total budget for
-  the two-artwork commission\, covering design\, production and stakeholder
-  engagement. No application fee.\nDuration: Commission period not specifie
- d\; permanent artworks for both hospital sites.\n\nMore: https://www.artra
- bbit.com/artist-opportunities/2026/september/rbharts-artist-open-call-orga
- n-donation-artworks?utm_source=artificialnouveaugrantdesk&utm_medium=refer
- ral
-URL:https://www.artrabbit.com/artist-opportunities/2026/september/rbharts-a
- rtist-open-call-organ-donation-artworks?utm_source=artificialnouveaugrantd
- esk&utm_medium=referral
-LOCATION:Royal Brompton Hospital (Chelsea\, London) and Harefield Hospital\
- , UK. No stated restrictions on who can apply\, but on-site co-creation im
- plies UK-feasible artists.
-END:VEVENT
-BEGIN:VEVENT
-UID:unlimited-partner-awards-2026-27@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20260928
-DTEND;VALUE=DATE:20260929
-SUMMARY:Deadline: Unlimited: Partner Awards for Disabled Artists 2026/27 (U
- K)
-DESCRIPTION:Unlimited\, the UK's flagship commissioning body for disability
-  arts\, opens eleven Partner Awards for 2026/27 delivered with named partn
- er organisations including the Sainsbury Centre\, Norfolk & Norwich Festiv
- al\, Without Walls\, Cryptic\, Scottish Sculpture Workshop and Sherman The
- atre. The awards fund ambitious new work by disabled artists across theatr
- e\, performance\, digital media\, music and visual arts. WHAT YOU GET: awa
- rds of GBP 15\,000 to GBP 40\,000 (the Wales award is GBP 20\,000)\, total
- ling GBP 280\,000 across England\, Scotland and Wales\, supporting R&D thr
- ough to presentation and touring with a named partner. ELIGIBILITY: applic
- ants must be a disabled artist or lead a disabled-led company\, be based i
- n England\, Scotland or Wales\, be 18 or older\, and not be in full-time e
- ducation. ACCESS: application materials are provided in audio\, BSL\, Easy
-  Read\, large print\, Scottish Gaelic and Welsh\, and access support for a
- pplying is available via commissions@weareunlimited.org.uk. DEADLINE: 28 S
- eptember 2026 at midday.\n\nOrganisation: Unlimited\nLocation: England\, S
- cotland and Wales\, UK. Open to disabled artists and disabled-led companie
- s based there.\nAward: Eleven awards totalling GBP 280\,000: eight awards 
- of GBP 15\,000 to GBP 40\,000 in England\, two awards of GBP 15\,000 to GB
- P 40\,000 in Scotland\, and one award of GBP 20\,000 in Wales. No applicat
- ion fee.\nDuration: Award period 2026/27\; supports R&D through to present
- ation and touring\, varying per award.\n\nMore: https://weareunlimited.org
- .uk/opportunities/apply/partner-awards-2026-27/?utm_source=artificialnouve
- augrantdesk&utm_medium=referral
-URL:https://weareunlimited.org.uk/opportunities/apply/partner-awards-2026-2
- 7/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:England\, Scotland and Wales\, UK. Open to disabled artists and di
- sabled-led companies based there.
-END:VEVENT
-BEGIN:VEVENT
-UID:elephant-trust-autumn-2026@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20261018
-DTEND;VALUE=DATE:20261019
-SUMMARY:Deadline: The Elephant Trust: Autumn 2026 Grant Round (UK)
-DESCRIPTION:The Elephant Trust\, founded by Roland Penrose and Lee Miller\,
-  funds experimental visual art in the UK and is one of the few no-fee UK f
- unds for individual artists with a live deadline this autumn\; the round o
- pened 18 September 2026. It funds making new work and realising exhibition
- s and is historically sympathetic to experimental and unconventional proje
- cts\, so media and installation work is fundable even though the Trust is 
- an art fund rather than an art-tech institution. WHAT YOU GET: grants of u
- p to GBP 5\,000\, with typical awards between GBP 2\,000 and GBP 5\,000\; 
- projects with a total budget exceeding GBP 30\,000 are not supported. ELIG
- IBILITY: individual fine artists and small organisations and galleries\, w
- ith projects taking place in the UK\; students and educational studies are
-  excluded\; successful applicants must wait two years before reapplying. A
- PPLICATION: direct to the Trust per its apply page. DEADLINE: 18 October 2
- 026.\n\nOrganisation: The Elephant Trust\nLocation: UK. Projects must take
-  place in the UK\; priority to fine artists and small organisations and ga
- lleries.\nAward: Grants to visual artists of up to GBP 5\,000\; typical aw
- ards range GBP 2\,000 to GBP 5\,000. Projects with a total budget exceedin
- g GBP 30\,000 are not supported. No application fee.\nDuration: Project gr
- ant\, no fixed duration.\n\nMore: https://elephanttrust.org.uk/apply/?utm_
- source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://elephanttrust.org.uk/apply/?utm_source=artificialnouveaugrantde
- sk&utm_medium=referral
-LOCATION:UK. Projects must take place in the UK\; priority to fine artists 
- and small organisations and galleries.
-END:VEVENT
-BEGIN:VEVENT
 UID:shape-arts-emergent-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Shape Arts: Emergent Residency 2026/27 (Tate St Ives / Po
@@ -635,24 +92,17 @@ DESCRIPTION:Shape Arts' Emergent Residency places an early-career disabled
  artist at Porthmeor Studios in St Ives\, in partnership with Tate St Ives.
   SUPPORT: GBP 3\,000 bursary and a one-week residency (18 to 24 January 20
  27\, plus travel days)\; a wider shortlisted cohort of disabled artists re
- ceives mentoring and support. ELIGIBILITY: self-identify as disabled\; age
- d 18+\; within the first five years of your artistic career (career pauses
-  allowed)\; not in full-time education\; not previously shortlisted for Em
- ergent. The bursary and residency are only for artists who live or work in
-  Cornwall\, Devon or Somerset\; disabled artists elsewhere in the UK can a
- pply for the shortlisted cohort. APPLICATION: via Google Form\, or a Word 
- form by email\; FAQs available in text\, audio\, BSL and Easy Read formats
- . DEADLINE: 1 November 2026\, 23:59.\n\nOrganisation: Shape Arts\, with Ta
- te St Ives\nLocation: Porthmeor Studios\, St Ives\, Cornwall\, UK. Residen
- cy bursary only for artists who live or work in Cornwall\, Devon or Somers
- et\; disabled artists elsewhere in the UK can apply for the shortlisted co
- hort.\nAward: GBP 3\,000 bursary for the selected residency artist (restri
- cted to artists living or working in Cornwall\, Devon or Somerset). Disabl
- ed artists in the rest of the UK can join the shortlisted cohort\, which b
- rings mentoring and profile but no stated bursary. No application fee.\nDu
- ration: One-week residency\, 18 to 24 January 2027\, plus travel days.\n\n
- More: https://www.shapearts.org.uk/Blog/apply-to-our-emergent-residency-pr
- ogramme?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ ceives mentoring and support.\n\nOrganisation: Shape Arts\, with Tate St I
+ ves\nLocation: Porthmeor Studios\, St Ives\, Cornwall\, UK. Residency burs
+ ary only for artists who live or work in Cornwall\, Devon or Somerset\; di
+ sabled artists elsewhere in the UK can apply for the shortlisted cohort.\n
+ Award: GBP 3\,000 bursary for the selected residency artist (restricted to
+  artists living or working in Cornwall\, Devon or Somerset). Disabled arti
+ sts in the rest of the UK can join the shortlisted cohort\, which brings m
+ entoring and profile but no stated bursary. No application fee.\nDuration:
+  One-week residency\, 18 to 24 January 2027\, plus travel days.\n\nMore: h
+ ttps://www.shapearts.org.uk/Blog/apply-to-our-emergent-residency-programme
+ ?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.shapearts.org.uk/Blog/apply-to-our-emergent-residency-progr
  amme?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Porthmeor Studios\, St Ives\, Cornwall\, UK. Residency bursary onl
@@ -662,7 +112,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ace-national-portfolio-investment-programme-2028-33@artificialnouveau.g
  ithub.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
 SUMMARY:Deadline: Arts Council England: National Portfolio Investment Progr
@@ -671,26 +121,16 @@ DESCRIPTION:Arts Council England has opened applications for its next Natio
  nal Portfolio\, the core structural funding programme for England's cultur
  al sector. For the first time the programme offers five-year funding from 
  the outset\, covering April 2028 to March 2033\, after the current portfol
- io was extended to March 2028. WHO: properly constituted arts organisation
- s\, non-national museums and libraries across England\, with an independen
- t board or oversight group in place\; festivals\, venues\, companies\, stu
- dios and digital and media-arts organisations are all within scope. Museum
- s working towards Accreditation must achieve it by 1 April 2028. Applicati
- ons must be viable without additional investment\, and ACE warns that dema
- nd will exceed the available funding. WHAT YOU GET: regular annual funding
-  for five years\, minimum GBP 50\,000 a year with no upper limit. APPLICAT
- ION: via the National Portfolio Applicant Hub\, which holds the eligibilit
- y guidance\, the full applicant guidance (published September 2026) and th
- e online application. The window opened 20 October 2026. DEADLINE: 15 Dece
- mber 2026.\n\nOrganisation: Arts Council England\nLocation: England\, UK. 
- For arts organisations\, non-national museums and libraries based in Engla
- nd.\nAward: Annual funding from April 2028 to March 2033. Minimum request 
- GBP 50\,000 per year\, no maximum\; current National Portfolio Organisatio
- ns received a planning figure in September 2026 (their 2026/27 investment 
- plus the 5 percent uplift). No application fee.\nDuration: Five years\, 1 
- April 2028 to 31 March 2033. Assessment December 2026 to June 2027\; decis
- ions announced July 2027.\n\nMore: https://www.artscouncil.org.uk/National
- Portfolio28?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ io was extended to March 2028.\n\nOrganisation: Arts Council England\nLoca
+ tion: England\, UK. For arts organisations\, non-national museums and libr
+ aries based in England.\nAward: Annual funding from April 2028 to March 20
+ 33. Minimum request GBP 50\,000 per year\, no maximum\; current National P
+ ortfolio Organisations received a planning figure in September 2026 (their
+  2026/27 investment plus the 5 percent uplift). No application fee.\nDurat
+ ion: Five years\, 1 April 2028 to 31 March 2033. Assessment December 2026 
+ to June 2027\; decisions announced July 2027.\n\nMore: https://www.artscou
+ ncil.org.uk/NationalPortfolio28?utm_source=artificialnouveaugrantdesk&utm_
+ medium=referral
 URL:https://www.artscouncil.org.uk/NationalPortfolio28?utm_source=artificia
  lnouveaugrantdesk&utm_medium=referral
 LOCATION:England\, UK. For arts organisations\, non-national museums and li
@@ -698,7 +138,7 @@ LOCATION:England\, UK. For arts organisations\, non-national museums and li
 END:VEVENT
 BEGIN:VEVENT
 UID:alpaca-festival-2027-open-call@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:Deadline: Alpaca Festival 2027: Open Call for Pattern-Based Perform
@@ -707,32 +147,19 @@ DESCRIPTION:Alpaca is a festival and conference on algorithmic patterns in
  the creative arts\, run by the non-profit Pattern Club in Sheffield. It br
  ings together live coders\, weavers\, braiders\, origami makers\, musician
  s and other practitioners who make patterns by procedure\, and it welcomes
-  contemporary algorithmic art that is human-authored. THEME (talks): makin
- g languages and notations for making patterns\, with unexpected interpreta
- tions welcome. WHAT YOU CAN PROPOSE: live performances\, hands-on workshop
- s\, and roughly 20-minute conference talks\; accepted abstracts (max two p
- ages) are published open access with a DOI and may be invited into an edit
- ed volume. WHAT YOU GET: performers receive an artist fee plus national tr
- avel\; workshop leaders receive an artist fee\, materials and national tra
- vel. The organisers state they cannot confirm fee amounts at this stage an
- d may cover extra costs on request\; international travel is not covered a
- part from a small European train budget. Talks are unpaid: in-person speak
- ers get a free festival pass and lunch on the conference days. EXCLUSIONS:
-  submissions focused on generative AI or unsupervised pattern generation b
- y LLMs. APPLICATION: via the online form at calls.alpaca.cc\; questions to
-  contact@alpaca.cc. DEADLINE: 1 November 2026.\n\nOrganisation: Pattern Cl
- ub (Alpaca Festival)\nLocation: Sheffield\, UK\, with some talks and activ
- ities online. Open internationally\, but only national (UK) travel is cove
- red\, plus a small budget for European train travel.\nAward: Performances:
-  artist fee plus national travel expenses. Workshops: artist fee\, materia
- ls expenses and national travel expenses. Fee amounts are not yet confirme
- d (tight budget)\; additional costs may be covered on request. Internation
- al travel is not covered beyond a small European train budget. Conference 
- talks: no fee or expenses\, in-person speakers get a free festival weekend
-  pass and lunch on 6 and 7 May. No application fee.\nDuration: Festival 6 
- to 9 May 2027: conference talks 6 and 7 May\, workshops and performances 7
-  to 9 May. Decisions expected December 2026.\n\nMore: https://alpaca.cc/ca
- ll/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+  contemporary algorithmic art that is human-authored.\n\nOrganisation: Pat
+ tern Club (Alpaca Festival)\nLocation: Sheffield\, UK\, with some talks an
+ d activities online. Open internationally\, but only national (UK) travel 
+ is covered\, plus a small budget for European train travel.\nAward: Perfor
+ mances: artist fee plus national travel expenses. Workshops: artist fee\, 
+ materials expenses and national travel expenses. Fee amounts are not yet c
+ onfirmed (tight budget)\; additional costs may be covered on request. Inte
+ rnational travel is not covered beyond a small European train budget. Conf
+ erence talks: no fee or expenses\, in-person speakers get a free festival 
+ weekend pass and lunch on 6 and 7 May. No application fee.\nDuration: Fest
+ ival 6 to 9 May 2027: conference talks 6 and 7 May\, workshops and perform
+ ances 7 to 9 May. Decisions expected December 2026.\n\nMore: https://alpac
+ a.cc/call/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://alpaca.cc/call/?utm_source=artificialnouveaugrantdesk&utm_mediu
  m=referral
 LOCATION:Sheffield\, UK\, with some talks and activities online. Open inter
@@ -742,7 +169,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:sadlers-wells-digital-stage-the-future-remembers-2027@artificialnouveau
  .github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261123
 SUMMARY:Deadline: Sadler's Wells Digital Stage: The Future Remembers\, thre
@@ -750,26 +177,16 @@ SUMMARY:Deadline: Sadler's Wells Digital Stage: The Future Remembers\, thre
 DESCRIPTION:Sadler's Wells Digital Stage commissions three new Dance on Scr
  een films of up to four minutes on the theme The Future Remembers\, asking
   artists to consider legacy\, responsibility and the futures we are creati
- ng together. WHO: filmmakers and dance artists of any style working across
-  dance and moving image\, aged 18 or over\, applying as individuals\, grou
- ps or companies\; international applicants are welcome and filming can hap
- pen anywhere. WHAT YOU GET: a flat GBP 6\,000 per commission regardless of
-  team size\, which must cover equipment and any external filmmaker or prod
- ucer\; a Sadler's Wells producer helps shape the idea and source collabora
- tors\, and the in-house filmmaker may support editing. Finished films prem
- iere at the Dance Digital Film Festival in November 2027. APPLICATION: onl
- ine form describing your practice and the idea\; shortlisted artists are i
- nterviewed in early December 2026. Contact digitalstage@sadlerswells.com. 
- DEADLINE: midnight\, 22 November 2026.\n\nOrganisation: Sadler's Wells (Di
- gital Stage)\nLocation: London\, UK (Sadler's Wells)\; open to internation
- al applicants and filming can take place anywhere in the world.\nAward: GB
- P 6\,000 per commission (three commissions)\, inclusive of all production 
- costs\, plus a Sadler's Wells producer on each project and in-house editin
- g support subject to availability. No application fee.\nDuration: Intervie
- ws early December 2026\; development from January 2027\; films premiere at
-  the Sadler's Wells Dance Digital Film Festival in November 2027.\n\nMore:
-  https://www.sadlerswells.com/digital-stage/commission-the-future-remember
- s/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ ng together.\n\nOrganisation: Sadler's Wells (Digital Stage)\nLocation: Lo
+ ndon\, UK (Sadler's Wells)\; open to international applicants and filming 
+ can take place anywhere in the world.\nAward: GBP 6\,000 per commission (t
+ hree commissions)\, inclusive of all production costs\, plus a Sadler's We
+ lls producer on each project and in-house editing support subject to avail
+ ability. No application fee.\nDuration: Interviews early December 2026\; d
+ evelopment from January 2027\; films premiere at the Sadler's Wells Dance 
+ Digital Film Festival in November 2027.\n\nMore: https://www.sadlerswells.
+ com/digital-stage/commission-the-future-remembers/?utm_source=artificialno
+ uveaugrantdesk&utm_medium=referral
 URL:https://www.sadlerswells.com/digital-stage/commission-the-future-rememb
  ers/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:London\, UK (Sadler's Wells)\; open to international applicants an
@@ -778,7 +195,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:braid-creative-commissions-a-promise-in-return-2027@artificialnouveau.g
  ithub.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261102
 DTEND;VALUE=DATE:20261103
 SUMMARY:Deadline: BRAID Creative Commissions 2027: A Promise in Return (Res
@@ -787,27 +204,16 @@ DESCRIPTION:BRAID\, the UKRI AHRC-funded Responsible AI programme at the Un
  iversity of Edinburgh\, is commissioning around seven creative works that 
  treat Responsible AI as a question of relationships\, commitments and obli
  gations rather than a technical checklist or a set of rules\, under the ti
- tle A Promise in Return. WHO: UK-based creative practitioners in any mediu
- m: artists\, designers\, musicians and performers\, architects and urban d
- esigners\, craftspeople and artisans\, writers and poets. Full-time underg
- raduate and taught postgraduate students are not eligible\; PhD students m
- ay apply if registered as self-employed freelancers. WHAT YOU GET: a commi
- ssion budget of GBP 8\,000 to 12\,000\, production support from Inspace an
- d the Institute for Design Informatics\, and presentation during the Edinb
- urgh Art Festival in August 2027 with the Edinburgh Futures Institute. APP
- LICATION: online form (written or an eight-minute video application) plus 
- a single PDF of portfolio\, CV and budget emailed to braid@ed.ac.uk\; late
-  submissions are not accepted. DEADLINE: Monday 2 November 2026 at 17:00 G
- MT.\n\nOrganisation: BRAID (Bridging Responsible AI Divides)\, University 
- of Edinburgh\, with Inspace\, the Institute for Design Informatics and the
-  Edinburgh Futures Institute\nLocation: UK. For UK-based creative practiti
- oners\; work is presented in Edinburgh during the Edinburgh Art Festival\,
-  August 2027.\nAward: Around seven commissions with budgets of GBP 8\,000 
- to 12\,000 each\, inclusive of VAT and all costs. No application fee.\nDur
- ation: Projects run January to August 2027\, presented during the Edinburg
- h Art Festival in August 2027\, with possible further displays through 202
- 8.\n\nMore: https://braiduk.org/creative-commissions?utm_source=artificial
- nouveaugrantdesk&utm_medium=referral
+ tle A Promise in Return.\n\nOrganisation: BRAID (Bridging Responsible AI D
+ ivides)\, University of Edinburgh\, with Inspace\, the Institute for Desig
+ n Informatics and the Edinburgh Futures Institute\nLocation: UK. For UK-ba
+ sed creative practitioners\; work is presented in Edinburgh during the Edi
+ nburgh Art Festival\, August 2027.\nAward: Around seven commissions with b
+ udgets of GBP 8\,000 to 12\,000 each\, inclusive of VAT and all costs. No 
+ application fee.\nDuration: Projects run January to August 2027\, presente
+ d during the Edinburgh Art Festival in August 2027\, with possible further
+  displays through 2028.\n\nMore: https://braiduk.org/creative-commissions?
+ utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://braiduk.org/creative-commissions?utm_source=artificialnouveaugr
  antdesk&utm_medium=referral
 LOCATION:UK. For UK-based creative practitioners\; work is presented in Edi
@@ -816,33 +222,27 @@ END:VEVENT
 BEGIN:VEVENT
 UID:upe-foundation-curatorial-fellow-gasworks-2027-2028@artificialnouveau.g
  ithub.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20261109
-DTEND;VALUE=DATE:20261110
-SUMMARY:Deadline: Upe Foundation Curatorial Fellow at Gasworks 2027-2028 (L
- ondon\, GBP 32\,000\, Baltic connection)
-DESCRIPTION:The Upe Foundation and Gasworks are recruiting a full-time Cura
- torial Fellow for 12 to 18 months\, embedded in Gasworks' curatorial team 
- in south London. The Fellow works closely with the artist selected for the
-  2027 Gasworks residency for artists based in the Baltics and co-develops 
- their 2028 solo exhibition\, alongside wider exhibition\, registrar\, inte
- rpretation and residency duties. WHO: early-career curators with a connect
- ion to the Baltic region (Lithuania\, Latvia\, Estonia or their diasporas)
- \; Gasworks will consider visa sponsorship for this fixed-term role. WHAT 
- YOU GET: a GBP 32\,000 per year salary\, a 5% employer pension contributio
- n and up to GBP 250 towards relocation flights. APPLICATION: download the 
- job description and application form from the call page and upload the com
- pleted form\; questions to rosaharvest@gasworks.org.uk. DEADLINE: 9 Novemb
- er 2026\, 13:00 UK time.\n\nOrganisation: Upe Foundation (in partnership w
- ith Gasworks)\nLocation: London\, UK. For early-career curators with a con
- nection to the Baltic region (Lithuania\, Latvia\, Estonia or their diaspo
- ras)\; Gasworks will consider visa sponsorship.\nAward: GBP 32\,000 per ye
- ar salary\, 5% employer pension contribution\, relocation flights up to GB
- P 250 where relevant\, visa sponsorship considered. No application fee.\nD
- uration: Full-time fixed-term fellowship of 12 to 18 months\, spanning the
-  2027 residency and 2028 solo exhibition.\n\nMore: https://gasworks.org.uk
- /opportunities/upe-foundation-curatorial-fellow?utm_source=artificialnouve
- augrantdesk&utm_medium=referral
+DTSTAMP:20261104T150308Z
+DTSTART:20261109T123000Z
+DTEND:20261109T130000Z
+SUMMARY:Deadline 13:00 GMT: Upe Foundation Curatorial Fellow at Gasworks 20
+ 27-2028 (London\, GBP 32\,000\, Baltic connection)
+DESCRIPTION:Closes 09 Nov 2026 at 13:00 GMT.\n\nThe Upe Foundation and Gasw
+ orks are recruiting a full-time Curatorial Fellow for 12 to 18 months\, em
+ bedded in Gasworks' curatorial team in south London. The Fellow works clos
+ ely with the artist selected for the 2027 Gasworks residency for artists b
+ ased in the Baltics and co-develops their 2028 solo exhibition\, alongside
+  wider exhibition\, registrar\, interpretation and residency duties.\n\nOr
+ ganisation: Upe Foundation (in partnership with Gasworks)\nLocation: Londo
+ n\, UK. For early-career curators with a connection to the Baltic region (
+ Lithuania\, Latvia\, Estonia or their diasporas)\; Gasworks will consider 
+ visa sponsorship.\nAward: GBP 32\,000 per year salary\, 5% employer pensio
+ n contribution\, relocation flights up to GBP 250 where relevant\, visa sp
+ onsorship considered. No application fee.\nDuration: Full-time fixed-term 
+ fellowship of 12 to 18 months\, spanning the 2027 residency and 2028 solo 
+ exhibition.\n\nMore: https://gasworks.org.uk/opportunities/upe-foundation-
+ curatorial-fellow?utm_source=artificialnouveaugrantdesk&utm_medium=referra
+ l
 URL:https://gasworks.org.uk/opportunities/upe-foundation-curatorial-fellow?
  utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:London\, UK. For early-career curators with a connection to the Ba
@@ -852,34 +252,26 @@ END:VEVENT
 BEGIN:VEVENT
 UID:gasworks-residency-artists-based-in-the-baltics-2027@artificialnouveau.
  github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20270202
-DTEND;VALUE=DATE:20270203
-SUMMARY:Deadline: Gasworks Residency 2027 for Artists Based in the Baltics 
- (London\, with Upe Foundation\; solo show 2028)
-DESCRIPTION:Gasworks and the Upe Foundation offer a fully funded eleven-wee
- k London residency for one contemporary visual artist at a pivotal stage i
- n their career who is based in Lithuania\, Latvia or Estonia\, as part of 
- a multi-year partnership for artists and curators connected to the Baltic 
- region. The resident develops their practice in London from 7 July to 21 S
- eptember 2027 and returns for a solo exhibition at Gasworks in July to Sep
- tember 2028\, developed with the Upe Foundation Curatorial Fellow. WHAT YO
- U GET: a private studio at Gasworks\, accommodation in the Gasworks reside
- ncy house\, economy return flights and taxi transfers\, all visa costs and
-  application support\, a weekly living stipend of GBP 175\, a materials bu
- dget of up to GBP 800\, studio visits and curatorial support. APPLICATION:
-  read the Application Guidelines and Residency FAQ\, then submit via the o
- nline form on the call page. DEADLINE: 2 February 2027\, 13:00 UK time.\n\
- nOrganisation: Gasworks (London)\, with Upe Foundation\nLocation: London\,
-  UK. For contemporary visual artists based in Lithuania\, Latvia or Estoni
- a.\nAward: Fully funded 11-week residency: weekly stipend of GBP 175\, mat
- erials budget up to GBP 800\, private studio\, accommodation\, economy ret
- urn flights and transfers\, all visa costs\, plus a solo exhibition at Gas
- works in 2028. No application fee mentioned.\nDuration: 11 weeks\, 7 July 
- to 21 September 2027\, followed by a solo exhibition at Gasworks in July t
- o September 2028.\n\nMore: https://gasworks.org.uk/opportunities/residency
- -open-call-for-artists-based-in-the-baltics-2027?utm_source=artificialnouv
- eaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150308Z
+DTSTART:20270202T123000Z
+DTEND:20270202T130000Z
+SUMMARY:Deadline 13:00 GMT: Gasworks Residency 2027 for Artists Based in th
+ e Baltics (London\, with Upe Foundation\; solo show 2028)
+DESCRIPTION:Closes 02 Feb 2027 at 13:00 GMT.\n\nGasworks and the Upe Founda
+ tion offer a fully funded eleven-week London residency for one contemporar
+ y visual artist at a pivotal stage in their career who is based in Lithuan
+ ia\, Latvia or Estonia\, as part of a multi-year partnership for artists a
+ nd curators connected to the Baltic region.\n\nOrganisation: Gasworks (Lon
+ don)\, with Upe Foundation\nLocation: London\, UK. For contemporary visual
+  artists based in Lithuania\, Latvia or Estonia.\nAward: Fully funded 11-w
+ eek residency: weekly stipend of GBP 175\, materials budget up to GBP 800\
+ , private studio\, accommodation\, economy return flights and transfers\, 
+ all visa costs\, plus a solo exhibition at Gasworks in 2028. No applicatio
+ n fee mentioned.\nDuration: 11 weeks\, 7 July to 21 September 2027\, follo
+ wed by a solo exhibition at Gasworks in July to September 2028.\n\nMore: h
+ ttps://gasworks.org.uk/opportunities/residency-open-call-for-artists-based
+ -in-the-baltics-2027?utm_source=artificialnouveaugrantdesk&utm_medium=refe
+ rral
 URL:https://gasworks.org.uk/opportunities/residency-open-call-for-artists-b
  ased-in-the-baltics-2027?utm_source=artificialnouveaugrantdesk&utm_medium=
  referral
@@ -888,7 +280,7 @@ LOCATION:London\, UK. For contemporary visual artists based in Lithuania\,
 END:VEVENT
 BEGIN:VEVENT
 UID:welcome-to-the-fringe-palestine-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261209
 DTEND;VALUE=DATE:20261210
 SUMMARY:Deadline: Welcome to the Fringe Palestine 2027: Call for Palestinia
@@ -896,30 +288,18 @@ SUMMARY:Deadline: Welcome to the Fringe Palestine 2027: Call for Palestinia
 DESCRIPTION:Welcome to the Fringe Palestine is an 8-day festival of Palesti
  nian performance inside the 2027 Edinburgh Festival Fringe\, run with Inde
  pendent Arts Projects and the Workers Theatre Co-operative. WHO: Palestini
- an performance artists in any discipline\, based anywhere in the world. Wo
- rk must be live (visual art or film needs a live element)\, small-scale (a
-  team of no more than two\, simple tech\, everything in reasonable hand lu
- ggage)\, in 60-minute slots (shows of 30 minutes or less may share a slot)
- \, and finished or a presentable work in progress\; no development or resi
- dency support is offered. Non-English shows need a finished translation an
- d surtitles. Past participants may apply\, but artists not previously prog
- rammed get priority. WHAT YOU GET: a GBP 2\,000 fee per artist or company\
- , plus travel and visa costs\, accommodation\, per diem and bus passes\, F
- ringe registration\, marketing and PR\, a dedicated venue with simple tech
- \, documentation\, and networking events. APPLICATION: Google Form linked 
- from the call page\, in English or Arabic\; contact sara@i-a-p.net. Result
- s by February 2027. DEADLINE: Wednesday 9 December 2026\, 23:59.\n\nOrgani
- sation: Welcome to the Fringe Palestine\, with Independent Arts Projects a
- nd Workers Theatre Co-operative\nLocation: Edinburgh\, UK (Edinburgh Festi
- val Fringe\, August 2027). For Palestinian performance artists based anywh
- ere in the world.\nAward: GBP 2\,000 fee per artist or company (instead of
-  a box-office split)\, plus travel and visa costs\, accommodation\, per di
- em\, bus passes\, Fringe registration\, marketing and PR\, a dedicated ven
- ue with simple tech\, and performance documentation. Production costs are 
- not covered. No application fee mentioned.\nDuration: 8-day festival withi
- n the Edinburgh Festival Fringe\, August 2027.\n\nMore: https://www.indepe
- ndentartsprojects.com/welcome-to-the-fringe-palestine-2027-call-out-for-ar
- tists/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ an performance artists in any discipline\, based anywhere in the world.\n\
+ nOrganisation: Welcome to the Fringe Palestine\, with Independent Arts Pro
+ jects and Workers Theatre Co-operative\nLocation: Edinburgh\, UK (Edinburg
+ h Festival Fringe\, August 2027). For Palestinian performance artists base
+ d anywhere in the world.\nAward: GBP 2\,000 fee per artist or company (ins
+ tead of a box-office split)\, plus travel and visa costs\, accommodation\,
+  per diem\, bus passes\, Fringe registration\, marketing and PR\, a dedica
+ ted venue with simple tech\, and performance documentation. Production cos
+ ts are not covered. No application fee mentioned.\nDuration: 8-day festiva
+ l within the Edinburgh Festival Fringe\, August 2027.\n\nMore: https://www
+ .independentartsprojects.com/welcome-to-the-fringe-palestine-2027-call-out
+ -for-artists/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://www.independentartsprojects.com/welcome-to-the-fringe-palestine
  -2027-call-out-for-artists/?utm_source=artificialnouveaugrantdesk&utm_medi
  um=referral
@@ -928,7 +308,7 @@ LOCATION:Edinburgh\, UK (Edinburgh Festival Fringe\, August 2027). For Pale
 END:VEVENT
 BEGIN:VEVENT
 UID:daiwa-foundation-small-grants-march-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20270331
 DTEND;VALUE=DATE:20270401
 SUMMARY:Deadline: Daiwa Foundation Small Grants\, March 2027 round (GBP 2\,
@@ -937,26 +317,15 @@ DESCRIPTION:The Daiwa Foundation Small Grants support projects that promote
   interaction between the UK and Japan in any field\, including arts exchan
  ges\, exhibitions\, conferences\, grassroots and educational exchanges and
   research travel\, with travel between the two countries as the main focus
- . New initiatives are encouraged\, and gender equality and SDG themes are 
- welcome\; continuing or regular events (such as an annual festival edition
- ) are unlikely to be funded without a strong reason or special occasion. N
- OT ELIGIBLE: commissions of artworks\, capital costs\, consumables\, salar
- ies or professional fees\, tuition and commercial activity. WHAT YOU GET: 
- GBP 2\,000 to 9\,000 (most awards GBP 3\,000-4\,000)\, with flights funded
-  up to GBP 1\,200 each and subsistence up to GBP 100 per person per day\, 
- plus GBP 50 extra per flight for environmental projects in Japan. APPLICAT
- ION: read the Application Notes\, then apply via the Foundation's online p
- ortal (separate forms for UK- and Japan-based applicants)\; advice from gr
- ants@dajf.org.uk. Decisions by late May or early June 2027. DEADLINE: 31 M
- arch 2027 (the following round closes 30 September).\n\nOrganisation: Daiw
- a Anglo-Japanese Foundation\nLocation: For individuals\, societies\, assoc
- iations and other bodies in the UK or Japan running projects that connect 
- the two countries.\nAward: GBP 2\,000 to 9\,000 (typical awards GBP 3\,000
- -4\,000)\; flights up to GBP 1\,200 each and subsistence up to GBP 100 per
-  person per day. A contribution\, not full funding. No application fee.\nD
- uration: Per project\; activity can start from late May or early June 2027
- .\n\nMore: https://dajf.org.uk/grants-awards-and-prizes/daiwa-foundation-s
- mall-grants?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ .\n\nOrganisation: Daiwa Anglo-Japanese Foundation\nLocation: For individu
+ als\, societies\, associations and other bodies in the UK or Japan running
+  projects that connect the two countries.\nAward: GBP 2\,000 to 9\,000 (ty
+ pical awards GBP 3\,000-4\,000)\; flights up to GBP 1\,200 each and subsis
+ tence up to GBP 100 per person per day. A contribution\, not full funding.
+  No application fee.\nDuration: Per project\; activity can start from late
+  May or early June 2027.\n\nMore: https://dajf.org.uk/grants-awards-and-pr
+ izes/daiwa-foundation-small-grants?utm_source=artificialnouveaugrantdesk&u
+ tm_medium=referral
 URL:https://dajf.org.uk/grants-awards-and-prizes/daiwa-foundation-small-gra
  nts?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:For individuals\, societies\, associations and other bodies in the
@@ -965,36 +334,27 @@ END:VEVENT
 BEGIN:VEVENT
 UID:costar-southbank-creative-intelligence-award-2027@artificialnouveau.git
  hub.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20261217
-DTEND;VALUE=DATE:20261218
-SUMMARY:Deadline: The Creative Intelligence Award 2027 (CoSTAR National Lab
-  x Southbank Centre)
-DESCRIPTION:A new co-commission from CoSTAR National Lab and Southbank Cent
- re to take a creative technology idea that is ready to be completed\, hone
- d or technically advanced through focused R&D\, then present it to audienc
- es at Southbank Centre's Creative Intelligence festival in autumn 2027. Th
- ey want original concepts where AI\, immersive\, real-time\, virtual produ
- ction or other emerging technology is integral rather than an add-on\, acr
- oss any artform (music\, theatre\, dance\, literature\, visual and live ar
- t\, design\, architecture\, food\, film\, games)\, with cross-disciplinary
-  work encouraged and touring potential valued. ELIGIBILITY: lead applicant
-  must be a UK-registered\, trading company or other eligible UK legal enti
- ty\; consortia welcome\, and artists\, technologists\, researchers and sol
- e traders can take part as collaborators. Team and funded activity must be
-  UK-based. Webinar Q&A on 16 November 2026\, 14:00 GMT. DEADLINE: 17 Decem
- ber 2026\, 14:00 GMT.\n\nOrganisation: CoSTAR National Lab and Southbank C
- entre\, supported by UKRI\nLocation: UK (lead applicant must be a UK-regis
- tered company\; project activity UK-based). Prototyping at Pinewood Studio
- s\; showcase at Southbank Centre\, London.\nAward: GBP 50\,000 grant (one 
- award)\, plus up to GBP 25\,000 in AI compute and cloud credits\, 2 x 5 da
- ys studio access at Pinewood Studios\, a six-week CoSTAR prototyping team 
- sprint\, 3 days pre-show testing\, Southbank curatorial and producing supp
- ort\, and 20 hours of mentorship. No application fee.\nDuration: R&D devel
- opment through 2027\, presented at Creative Intelligence festival\, Southb
- ank Centre\, autumn 2027\n\nMore: https://www.costarnetwork.co.uk/calls/th
- e-creative-intelligence-award?utm_source=artificialnouveaugrantdesk&utm_me
- dium=referral
+DTSTAMP:20261104T150308Z
+DTSTART:20261217T133000Z
+DTEND:20261217T140000Z
+SUMMARY:Deadline 14:00 GMT: The Creative Intelligence Award 2027 (CoSTAR Na
+ tional Lab x Southbank Centre)
+DESCRIPTION:Closes 17 Dec 2026 at 14:00 GMT.\n\nA new co-commission from Co
+ STAR National Lab and Southbank Centre to take a creative technology idea 
+ that is ready to be completed\, honed or technically advanced through focu
+ sed R&D\, then present it to audiences at Southbank Centre's Creative Inte
+ lligence festival in autumn 2027.\n\nOrganisation: CoSTAR National Lab and
+  Southbank Centre\, supported by UKRI\nLocation: UK (lead applicant must b
+ e a UK-registered company\; project activity UK-based). Prototyping at Pin
+ ewood Studios\; showcase at Southbank Centre\, London.\nAward: GBP 50\,000
+  grant (one award)\, plus up to GBP 25\,000 in AI compute and cloud credit
+ s\, 2 x 5 days studio access at Pinewood Studios\, a six-week CoSTAR proto
+ typing team sprint\, 3 days pre-show testing\, Southbank curatorial and pr
+ oducing support\, and 20 hours of mentorship. No application fee.\nDuratio
+ n: R&D development through 2027\, presented at Creative Intelligence festi
+ val\, Southbank Centre\, autumn 2027\n\nMore: https://www.costarnetwork.co
+ .uk/calls/the-creative-intelligence-award?utm_source=artificialnouveaugran
+ tdesk&utm_medium=referral
 URL:https://www.costarnetwork.co.uk/calls/the-creative-intelligence-award?u
  tm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:UK (lead applicant must be a UK-registered company\; project activ
@@ -1003,42 +363,27 @@ LOCATION:UK (lead applicant must be a UK-registered company\; project activ
 END:VEVENT
 BEGIN:VEVENT
 UID:kccuk-open-call-emerging-artists-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20261115
-DTEND;VALUE=DATE:20261116
-SUMMARY:Deadline: 2027 KCCUK Open Call for Emerging Korean Artists (Korean 
- Cultural Centre UK)
-DESCRIPTION:The Korean Cultural Centre UK's annual open call for emerging K
- orean or Korean-heritage artists\, particularly UK art school graduates\, 
- leading to a group exhibition from February to April 2027 (exact dates to 
- be confirmed). Open theme\; all fine art genres welcome\, including video\
- , sound and performance (submit a video link of max. 5 minutes plus stills
- ). Selection by a panel of external curators and art professionals\; resul
- ts announced on the KCCUK website in early December 2026. ELIGIBILITY (all
-  required): Korean nationality or Korean heritage\; graduated from a UK-ba
- sed art school (BA\, MA or PhD) or currently living and working in the UK\
- ; aged 18+\; at least one previous solo or group exhibition\; works made w
- ithin the past 5 years and not previously shown at KCCUK. SUPPORT: exhibit
- ion space and invigilation\, opening event\, certificate of participation\
- , promotion via KCCUK channels (Korean and English press release\, social 
- media) and a GBP 250 participant support fee per artist\; all other costs 
- (production\, transport\, equipment\, install) are borne by the artist\, a
- nd support may change depending on KCCUK's circumstances. APPLY: one PDF (
- max. 7MB\, in English) with artist bio (max. 200 words)\, portfolio of up 
- to 5 works (max. 3 images each\, with title\, materials\, dimensions\, yea
- r\, technical requirements) and artwork statements (150 words per work\, m
- ax. 700 total)\, emailed to kccuk.opencall@gmail.com. Enquiries: Jaemin Ch
- a\, Curator\, jaemin.cha@kccuk.org.uk. DEADLINE: Sunday 15 November 2026\,
-  midnight GMT.\n\nOrganisation: Korean Cultural Centre UK (KCCUK)\nLocatio
- n: London\, UK (group exhibition\, February to April 2027\, dates TBC). Ko
- rean nationality or Korean heritage required\, plus a UK art school degree
-  (BA\, MA or PhD) or current UK residence.\nAward: GBP 250 participant sup
- port fee per selected artist (number of artists not stated)\, plus exhibit
- ion space\, invigilation\, opening event and KCCUK press/social promotion.
-  Artists cover production\, transport and installation costs. No applicati
- on fee.\nDuration: Group exhibition\, February to April 2027 (dates TBC)\n
- \nMore: https://uk.korean-culture.org/en/2123/board/1737/read/149139?utm_s
- ource=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150308Z
+DTSTART:20261115T232900Z
+DTEND:20261115T235900Z
+SUMMARY:Deadline 23:59 GMT: 2027 KCCUK Open Call for Emerging Korean Artist
+ s (Korean Cultural Centre UK)
+DESCRIPTION:Closes 15 Nov 2026 at 23:59 GMT.\n\nThe Korean Cultural Centre 
+ UK's annual open call for emerging Korean or Korean-heritage artists\, par
+ ticularly UK art school graduates\, leading to a group exhibition from Feb
+ ruary to April 2027 (exact dates to be confirmed). Open theme\; all fine a
+ rt genres welcome\, including video\, sound and performance (submit a vide
+ o link of max. 5 minutes plus stills).\n\nOrganisation: Korean Cultural Ce
+ ntre UK (KCCUK)\nLocation: London\, UK (group exhibition\, February to Apr
+ il 2027\, dates TBC). Korean nationality or Korean heritage required\, plu
+ s a UK art school degree (BA\, MA or PhD) or current UK residence.\nAward:
+  GBP 250 participant support fee per selected artist (number of artists no
+ t stated)\, plus exhibition space\, invigilation\, opening event and KCCUK
+  press/social promotion. Artists cover production\, transport and installa
+ tion costs. No application fee.\nDuration: Group exhibition\, February to 
+ April 2027 (dates TBC)\n\nMore: https://uk.korean-culture.org/en/2123/boar
+ d/1737/read/149139?utm_source=artificialnouveaugrantdesk&utm_medium=referr
+ al
 URL:https://uk.korean-culture.org/en/2123/board/1737/read/149139?utm_source
  =artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:London\, UK (group exhibition\, February to April 2027\, dates TBC
@@ -1047,54 +392,28 @@ LOCATION:London\, UK (group exhibition\, February to April 2027\, dates TBC
 END:VEVENT
 BEGIN:VEVENT
 UID:cove-park-awarded-residencies-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
-DTSTART;VALUE=DATE:20261211
-DTEND;VALUE=DATE:20261212
-SUMMARY:Deadline: Cove Park Awarded Residencies 2027-2028 (Scotland\, UK\, 
- Central and South America and diasporas)
-DESCRIPTION:Cove Park's biennial call for fully funded Awarded Residencies 
- at its 50-acre rural residency site in Argyll\, on the west coast of Scotl
- and\, programmed between May 2027 and December 2028. Residencies run from 
- 2 weeks up to 12 weeks (average four weeks) and can be split across the tw
- o years around caring or work commitments\; international residents can co
- unt slow-travel time as part of the funded period. Open to artists\, creat
- ive practitioners\, writers\, translators and researchers in all art forms
-  and at every career stage\, including collectives and collaborative group
- s\; no formal qualification needed. Priorities include work responding to 
- climate breakdown\, sound artists and musicians (new Sound Studio)\, and w
- ork on home\, place\, language (Scots\, Gaelic\, BSL)\, displacement and b
- elonging. No final presentation is required. ELIGIBILITY: based in the UK\
- , Central America or South America\; Central and South American diaspora a
- rtists based in Europe or North America\; or born in Scotland and living e
- lsewhere. Anyone in full- or part-time formal education on 11 December 202
- 6 is not eligible. SUPPORT: GBP 775 per week fee\; travel allowance (Scotl
- and GBP 65 to 100 Central Belt\, up to GBP 200 Borders/Highlands/Islands\;
-  rest of UK up to GBP 250\; Europe up to GBP 400\; other international up 
- to GBP 1\,250)\; materials up to GBP 150\; visa support\; private self-cat
- ering accommodation (suitable for collaborators and those attending with c
- hildren) and private studios. An Application Access Bursary (e.g. to pay a
-  support worker) is available for applicants facing barriers due to disabi
- lity or neurodivergence\; request it from Alex Marrs by 30 November 2026. 
- Video or audio applications accepted. Applicants are asked not to use gene
- rative AI in their application. APPLY via the online form: 500-word statem
- ent\, 100-word bio\, CV\, up to 8 images or video/audio links or writing s
- amples. SELECTION: shortlisting by the programme team and former residents
- \; shortlist notified by 12 February 2027\; Zoom interviews the week of 22
-  February 2027. Contact: Alex Marrs\, alex@covepark.org. DEADLINE: Friday 
- 11 December 2026\, 5pm GMT.\n\nOrganisation: Cove Park\nLocation: Cove Par
- k\, Peaton Hill\, Argyll and Bute\, Scotland (in person\, private self-cat
- ering accommodation and studio). Open to people based in the UK\, Central 
- or South America\, Central and South American diaspora artists based in Eu
- rope or North America\, and Scotland-born artists living anywhere. Student
- s in formal education are not eligible.\nAward: Fully funded: GBP 775 per 
- week fee (VAT inclusive\, freelance)\, travel allowance (Scotland GBP 65 t
- o 200\, rest of UK up to GBP 250\, Europe up to GBP 400\, other internatio
- nal up to GBP 1\,250)\, materials up to GBP 150 for studio-based practitio
- ners\, private accommodation and studio\, visa and access support. Applica
- tion Access Bursary available (request by 30 November 2026). No applicatio
- n fee.\nDuration: 2 to 12 weeks (average 4)\, between May 2027 and Decembe
- r 2028\n\nMore: https://covepark.org/awarded-residencies-2027-2028/?utm_so
- urce=artificialnouveaugrantdesk&utm_medium=referral
+DTSTAMP:20261104T150308Z
+DTSTART:20261211T163000Z
+DTEND:20261211T170000Z
+SUMMARY:Deadline 17:00 GMT: Cove Park Awarded Residencies 2027-2028 (Scotla
+ nd\, UK\, Central and South America and diasporas)
+DESCRIPTION:Closes 11 Dec 2026 at 17:00 GMT.\n\nCove Park's biennial call f
+ or fully funded Awarded Residencies at its 50-acre rural residency site in
+  Argyll\, on the west coast of Scotland\, programmed between May 2027 and 
+ December 2028.\n\nOrganisation: Cove Park\nLocation: Cove Park\, Peaton Hi
+ ll\, Argyll and Bute\, Scotland (in person\, private self-catering accommo
+ dation and studio). Open to people based in the UK\, Central or South Amer
+ ica\, Central and South American diaspora artists based in Europe or North
+  America\, and Scotland-born artists living anywhere. Students in formal e
+ ducation are not eligible.\nAward: Fully funded: GBP 775 per week fee (VAT
+  inclusive\, freelance)\, travel allowance (Scotland GBP 65 to 200\, rest 
+ of UK up to GBP 250\, Europe up to GBP 400\, other international up to GBP
+  1\,250)\, materials up to GBP 150 for studio-based practitioners\, privat
+ e accommodation and studio\, visa and access support. Application Access B
+ ursary available (request by 30 November 2026). No application fee.\nDurat
+ ion: 2 to 12 weeks (average 4)\, between May 2027 and December 2028\n\nMor
+ e: https://covepark.org/awarded-residencies-2027-2028/?utm_source=artifici
+ alnouveaugrantdesk&utm_medium=referral
 URL:https://covepark.org/awarded-residencies-2027-2028/?utm_source=artifici
  alnouveaugrantdesk&utm_medium=referral
 LOCATION:Cove Park\, Peaton Hill\, Argyll and Bute\, Scotland (in person\, 
@@ -1105,7 +424,7 @@ LOCATION:Cove Park\, Peaton Hill\, Argyll and Bute\, Scotland (in person\,
 END:VEVENT
 BEGIN:VEVENT
 UID:hidden-door-2027-visual-art-open-call@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261203
 DTEND;VALUE=DATE:20261204
 SUMMARY:Deadline: Hidden Door 2027: Visual Art Open Call (Edinburgh\, up to
@@ -1115,26 +434,15 @@ DESCRIPTION:Hidden Door is a volunteer-run\, multi-arts festival that reope
  still secret\, anticipated early June 2027) runs on the theme "Afterlives 
  of Use"\, and this open call invites visual artists to propose existing wo
  rk or work in progress that can be shown in the festival's site-specific s
- paces. The call does not fund the production of entirely new work. ELIGIBI
- LITY: practising artists who either hold an art-related degree or are self
- -taught with at least five years of sustained practice\, and who are based
-  wholly or partly in Scotland or graduated from a Scottish art school in t
- he last three years. Current undergraduates are not eligible\; postgraduat
- es are. SUPPORT: up to GBP 1\,500 per artwork/application including all ar
- tist fees and expenses\, in line with Scottish Artists' Union rates\; most
-  awards will be lower. Parallel open calls for dance and spoken word close
-  on the same date\, and calls for film\, theatre and music are to follow. 
- APPLY via the online form linked from the call page. Notification by 11 Ja
- nuary 2027. DEADLINE: Thursday 3 December 2026.\n\nOrganisation: Hidden Do
- or Festival\nLocation: Edinburgh\, Scotland (in person\; venue to be annou
- nced\, festival anticipated early June 2027). Open to artists based wholly
-  or partly in Scotland\, or graduates of a Scottish art school within the 
- last three years.\nAward: Up to GBP 1\,500 per artwork/application\, cover
- ing all artist fees and expenses\, budgeted against Scottish Artists' Unio
- n rates (most awards will be lower). No application fee.\nDuration: Festiv
- al\, early June 2027\n\nMore: https://hiddendoorarts.org/call-for-submissi
- ons/hidden-door-2027-visual-art-open-call/?utm_source=artificialnouveaugra
- ntdesk&utm_medium=referral
+ paces.\n\nOrganisation: Hidden Door Festival\nLocation: Edinburgh\, Scotla
+ nd (in person\; venue to be announced\, festival anticipated early June 20
+ 27). Open to artists based wholly or partly in Scotland\, or graduates of 
+ a Scottish art school within the last three years.\nAward: Up to GBP 1\,50
+ 0 per artwork/application\, covering all artist fees and expenses\, budget
+ ed against Scottish Artists' Union rates (most awards will be lower). No a
+ pplication fee.\nDuration: Festival\, early June 2027\n\nMore: https://hid
+ dendoorarts.org/call-for-submissions/hidden-door-2027-visual-art-open-call
+ /?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://hiddendoorarts.org/call-for-submissions/hidden-door-2027-visual
  -art-open-call/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Edinburgh\, Scotland (in person\; venue to be announced\, festival
@@ -1144,7 +452,7 @@ LOCATION:Edinburgh\, Scotland (in person\; venue to be announced\, festival
 END:VEVENT
 BEGIN:VEVENT
 UID:eastside-projects-radical-sabbatical-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261120
 DTEND;VALUE=DATE:20261121
 SUMMARY:Deadline: Radical Sabbatical 2027: six-month residencies on touch a
@@ -1152,28 +460,14 @@ SUMMARY:Deadline: Radical Sabbatical 2027: six-month residencies on touch a
  ased artists)
 DESCRIPTION:Radical Sabbatical is a collaboration between Eastside Projects
   and University Collections at the University of Birmingham that gives two
-  artists a six-month residency centred on research and development. The 20
- 27 edition is themed around touch: artists are matched with one or more ac
- ademics and asked to interrogate and interpret academic research\, with ar
- eas including digital touch and technology\, haptic and sensory experience
- \, embodied knowledge\, disability and inclusive design\, medical perspect
- ives\, materiality and craft\, memory and emotion\, and human and non-huma
- n sensory connection. Academic partners include the Active Touch Lab and t
- he Department of Creative Industries. Artists have regular one-to-one conv
- ersations with staff and present at a final sharing event. ELIGIBILITY: ar
- tists based in the UK. SUPPORT: GBP 3\,500 artist fee plus GBP 500 product
- ion budget. TIMELINE: deadline Friday 20 November 2026\, 11:59pm\; intervi
- ews for shortlisted artists 10 December 2026\; residencies begin January 2
- 027\; final sharing event and evaluation June/July 2027. APPLY using the a
- rtists' callout pack linked from the call page\; questions to info@eastsid
- eprojects.org.\n\nOrganisation: Eastside Projects with University Collecti
- ons\, University of Birmingham\nLocation: University of Birmingham\, Birmi
- ngham\, UK (in person\, research residency). Open to artists based in the 
- UK only.\nAward: GBP 3\,500 artist fee plus GBP 500 production budget per 
- artist\; two artists selected.\nDuration: 6 months\, January to June/July 
- 2027\n\nMore: https://eastsideprojects.org/projects/apply-now-radical-sabb
- atical-2027-residencies/?utm_source=artificialnouveaugrantdesk&utm_medium=
- referral
+  artists a six-month residency centred on research and development.\n\nOrg
+ anisation: Eastside Projects with University Collections\, University of B
+ irmingham\nLocation: University of Birmingham\, Birmingham\, UK (in person
+ \, research residency). Open to artists based in the UK only.\nAward: GBP 
+ 3\,500 artist fee plus GBP 500 production budget per artist\; two artists 
+ selected.\nDuration: 6 months\, January to June/July 2027\n\nMore: https:/
+ /eastsideprojects.org/projects/apply-now-radical-sabbatical-2027-residenci
+ es/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 URL:https://eastsideprojects.org/projects/apply-now-radical-sabbatical-2027
  -residencies/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:University of Birmingham\, Birmingham\, UK (in person\, research r
@@ -1181,7 +475,7 @@ LOCATION:University of Birmingham\, Birmingham\, UK (in person\, research r
 END:VEVENT
 BEGIN:VEVENT
 UID:refugee-festival-scotland-opening-shot-2027@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261123
 SUMMARY:Deadline: Refugee Festival Scotland 2027 x Opening Shot: Open Call 
@@ -1190,33 +484,19 @@ SUMMARY:Deadline: Refugee Festival Scotland 2027 x Opening Shot: Open Call
 DESCRIPTION:Refugee Festival Scotland (run by the Scottish Refugee Council\
  , festival 11 to 20 June 2027) and Opening Shot invite four first-time fil
  mmakers with lived experience of seeking safety to make a short film of ab
- out five minutes. WHAT YOU GET: a GBP 1\,500 participation fee\, a GBP 3\,
- 000 production budget\, six in-person workshop days in Glasgow (December 2
- 026 to March 2027)\, a 14-week supported production period with mentoring\
- , and a premiere screening at the festival in June 2027. ELIGIBILITY: aged
-  18 and over\; you consider yourself a refugee or asylum seeker\, or your 
- family has lived experience of seeking safety\; you live in Scotland\; you
-  are not currently enrolled in full-time formal education\; you can travel
-  to Glasgow for all six workshop days. Beginners welcome\, no previous exp
- erience or script needed. DEADLINE: Sunday 22 November 2026 at midnight. O
- THER 2027 FESTIVAL STRANDS: the Artists Professional Development Programme
-  (GBP 1\,000 grants) closed on 8 October 2026\; the Small Grants round for
-  refugee-led and refugee-focused groups in Scotland (up to GBP 750 in 2026
- ) runs from early December 2026 to mid-February 2027\; event registration 
- for organisers opens early December 2026 and closes late March 2027. Conta
- ct: festival@scottishrefugeecouncil.org.uk.\n\nOrganisation: Refugee Festi
- val Scotland (Scottish Refugee Council) with Opening Shot\nLocation: Glasg
- ow\, Scotland\, UK (six in-person workshop days in Glasgow). RESTRICTED: a
- pplicants must live in Scotland and consider themselves a refugee or asylu
- m seeker\, or have family lived experience of seeking safety\; not in full
- -time formal education.\nAward: GBP 1\,500 participation fee plus a GBP 3\
- ,000 production budget per filmmaker\, with mentoring and a premiere scree
- ning at Refugee Festival Scotland in June 2027. Four filmmakers selected. 
- No application fee stated.\nDuration: 7 months\, December 2026 to June 202
- 7 (six workshop days December 2026 to March 2027\, then a 14-week supporte
- d production period).\n\nMore: https://www.refugeefestivalscotland.co.uk/o
- pening-shot-x-refugee-festival-scotland-open-call-for-first-time-filmmaker
- s/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+ out five minutes.\n\nOrganisation: Refugee Festival Scotland (Scottish Ref
+ ugee Council) with Opening Shot\nLocation: Glasgow\, Scotland\, UK (six in
+ -person workshop days in Glasgow). RESTRICTED: applicants must live in Sco
+ tland and consider themselves a refugee or asylum seeker\, or have family 
+ lived experience of seeking safety\; not in full-time formal education.\nA
+ ward: GBP 1\,500 participation fee plus a GBP 3\,000 production budget per
+  filmmaker\, with mentoring and a premiere screening at Refugee Festival S
+ cotland in June 2027. Four filmmakers selected. No application fee stated.
+ \nDuration: 7 months\, December 2026 to June 2027 (six workshop days Decem
+ ber 2026 to March 2027\, then a 14-week supported production period).\n\nM
+ ore: https://www.refugeefestivalscotland.co.uk/opening-shot-x-refugee-fest
+ ival-scotland-open-call-for-first-time-filmmakers/?utm_source=artificialno
+ uveaugrantdesk&utm_medium=referral
 URL:https://www.refugeefestivalscotland.co.uk/opening-shot-x-refugee-festiv
  al-scotland-open-call-for-first-time-filmmakers/?utm_source=artificialnouv
  eaugrantdesk&utm_medium=referral
@@ -1227,36 +507,25 @@ LOCATION:Glasgow\, Scotland\, UK (six in-person workshop days in Glasgow).
 END:VEVENT
 BEGIN:VEVENT
 UID:sheffield-docfest-2027-film-entries@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20270219
 DTEND;VALUE=DATE:20270220
 SUMMARY:Deadline: Sheffield DocFest 2027: Film Programme Entries (34th edit
  ion\, 9-14 June 2027)
 DESCRIPTION:Sheffield DocFest\, the UK's leading documentary festival\, is 
  open for film entries to its June 2027 edition\, for feature\, mid-length 
- and short documentaries and non-fiction series. ELIGIBILITY: world premier
- e after 1 April 2026\; at minimum a UK premiere\; not available on any onl
- ine platform accessible to UK audiences\; previously submitted films only 
- if significantly changed\; English dialogue or English subtitles\; series 
- up to 120 minutes\; one form and fee per film. DEADLINES AND FEES (12:00 n
- oon GMT): early 20 November 2026 (features GBP 40\, shorts GBP 30)\, stand
- ard 29 January 2027 (GBP 48 / GBP 38)\, final late deadline 19 February 20
- 27 (GBP 58 / GBP 48)\, plus VAT as listed. Notification late April 2027. N
- OTE: the festival's Alternate Realities strand (immersive\, interactive an
- d digital non-fiction) had not announced a 2027 call as of 2 November 2026
- \; past AR calls closed in January or February. Rules PDF linked from the 
- entries page\; contact films@sheffdocfest.com.\n\nOrganisation: Sheffield 
- DocFest\nLocation: Sheffield\, UK (festival 9-14 June 2027). Open internat
- ionally\; no nationality or residency restriction stated.\nAward: NO PUBLI
- SHED CASH\, listed under the desk's festival exception (selection for the 
- festival programme\; award amounts not stated on the entry page). Entry fe
- es: features and mid-length films over 40 minutes GBP 40 early (to 20 Nove
- mber 2026)\, GBP 48 standard (to 29 January 2027)\, GBP 58 late (to 19 Feb
- ruary 2027)\; shorts under 40 minutes GBP 30 / GBP 38 / GBP 48 on the same
-  dates (plus VAT as listed). Student and film-school discounts on request.
- \nDuration: Festival 9-14 June 2027.\n\nMore: https://www.sheffdocfest.com
- /film-programme-entries?utm_source=artificialnouveaugrantdesk&utm_medium=r
- eferral
+ and short documentaries and non-fiction series.\n\nOrganisation: Sheffield
+  DocFest\nLocation: Sheffield\, UK (festival 9-14 June 2027). Open interna
+ tionally\; no nationality or residency restriction stated.\nAward: NO PUBL
+ ISHED CASH\, listed under the desk's festival exception (selection for the
+  festival programme\; award amounts not stated on the entry page). Entry f
+ ees: features and mid-length films over 40 minutes GBP 40 early (to 20 Nov
+ ember 2026)\, GBP 48 standard (to 29 January 2027)\, GBP 58 late (to 19 Fe
+ bruary 2027)\; shorts under 40 minutes GBP 30 / GBP 38 / GBP 48 on the sam
+ e dates (plus VAT as listed). Student and film-school discounts on request
+ .\nDuration: Festival 9-14 June 2027.\n\nMore: https://www.sheffdocfest.co
+ m/film-programme-entries?utm_source=artificialnouveaugrantdesk&utm_medium=
+ referral
 URL:https://www.sheffdocfest.com/film-programme-entries?utm_source=artifici
  alnouveaugrantdesk&utm_medium=referral
 LOCATION:Sheffield\, UK (festival 9-14 June 2027). Open internationally\; n
@@ -1264,7 +533,7 @@ LOCATION:Sheffield\, UK (festival 9-14 June 2027). Open internationally\; n
 END:VEVENT
 BEGIN:VEVENT
 UID:eva-london-2027-call-for-proposals@artificialnouveau.github.io
-DTSTAMP:20261104T145751Z
+DTSTAMP:20261104T150308Z
 DTSTART;VALUE=DATE:20270111
 DTEND;VALUE=DATE:20270112
 SUMMARY:Deadline: EVA London 2027: Call for Proposals (Electronic Visualisa
@@ -1272,29 +541,16 @@ SUMMARY:Deadline: EVA London 2027: Call for Proposals (Electronic Visualisa
 DESCRIPTION:EVA London is a long-running hybrid conference on electronic vi
  sualisation and the arts\, covering digital art\, creative technology\, co
  mputing and visual culture\, held at BCS in Moorgate\, London\, and online
- . STRANDS: long papers (8 pages\, draft PDF required) and short papers (2 
- pages\, abstract-only proposal)\, both in 20-minute slots\; papers with de
- monstration (8 pages)\; demonstrations (2 pages\, 10 or 20 minutes\, onlin
- e demos possible)\; panel sessions (30 minutes)\; workshops and tutorials 
- (usually 90 or 120 minutes)\; and a Research Workshop for postgraduate stu
- dents and unaffiliated digital artists (15-minute talks\, optional two-pag
- e written submission). TO APPLY: a summary proposal of up to 400 words via
-  EasyChair (https://easychair.org/conferences/?conf=evalondon2027). DEADLI
- NES: main proposals Monday 11 January 2027\; Research Workshop application
- s by email to Graham Diprose (grahamdiprose@gmail.com) by Monday 22 Februa
- ry 2027\, only while places remain. Notification 22 February 2027\; final 
- papers 12 March 2027\; fees published 12 April 2027\; registration opens 1
- 1 May 2027. Presenters must register\; no honorarium\, prize or current bu
- rsary scheme is stated.\n\nOrganisation: EVA London (BCS Computer Arts Soc
- iety)\nLocation: BCS London offices\, Moorgate\, London\, UK\, and online 
- via Zoom (hybrid). Open internationally.\nAward: NO CASH\, listed as an ex
- ception at the editor's request (conference presentation slot and publicat
- ion in the proceedings). Free to submit\, but at least one author of each 
- paper and all panel and workshop presenters must pay conference registrati
- on (rates not yet published\; to be set in spring 2027\, with a special ra
- te for Research Workshop presenters).\nDuration: Five-day conference\, 12-
- 16 July 2027.\n\nMore: https://eva-london.org/eva-london-2027/propose/?utm
- _source=artificialnouveaugrantdesk&utm_medium=referral
+ .\n\nOrganisation: EVA London (BCS Computer Arts Society)\nLocation: BCS L
+ ondon offices\, Moorgate\, London\, UK\, and online via Zoom (hybrid). Ope
+ n internationally.\nAward: NO CASH\, listed as an exception at the editor'
+ s request (conference presentation slot and publication in the proceedings
+ ). Free to submit\, but at least one author of each paper and all panel an
+ d workshop presenters must pay conference registration (rates not yet publ
+ ished\; to be set in spring 2027\, with a special rate for Research Worksh
+ op presenters).\nDuration: Five-day conference\, 12-16 July 2027.\n\nMore:
+  https://eva-london.org/eva-london-2027/propose/?utm_source=artificialnouv
+ eaugrantdesk&utm_medium=referral
 URL:https://eva-london.org/eva-london-2027/propose/?utm_source=artificialno
  uveaugrantdesk&utm_medium=referral
 LOCATION:BCS London offices\, Moorgate\, London\, UK\, and online via Zoom 
