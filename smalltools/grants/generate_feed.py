@@ -3,12 +3,10 @@
 from grants.json for The Grant Desk.
 
 Outputs:
-- feed-weekly.xml           (all grants, one Sunday drop per week)
-- feed-{region}-weekly.xml  (one per region: eu/us/uk/nl/remote/worldwide,
-                             plus the merged remote-worldwide slice)
-- feed-30d-weekly.xml       (deadlines in next 30 days)
-- feed-90d-weekly.xml       (deadlines in next 90 days)
-- calendar.ics              (all grants with a deadline)
+- feed-weekly.xml and feed-[cat-<category>]-[<region>]-[<type>]-weekly.xml:
+  exactly the combinations the subscribe picker offers (since 4 Nov 2026 the
+  compatibility aliases and the 30d/90d/added-30d timeline feeds are gone)
+- calendar*.ics             (all grants with a deadline, per slice)
 
 All RSS output is the weekly digest; the per-grant daily feeds were retired
 on 6 September 2026 and their files deleted.
@@ -176,6 +174,28 @@ def deadline_label(deadline, today):
     return formatted
 
 
+def picker_region(region):
+    """Nearest region the feed picker offers (NL and Switzerland sit in Europe,
+    China-HK-Taiwan in Asia, Remote and Worldwide in the merged box)."""
+    if region is None or region in PICKER_REGIONS:
+        return region
+    for group, members in REGION_GROUPS.items():
+        if region in members:
+            return group
+    return {"NL": "EU", "Switzerland": "EU", "China-HK-Taiwan": "Asia"}.get(region)
+
+
+def picker_category(category):
+    """Nearest category the feed picker offers: a merged single maps to its group;
+    an unoffered one (curator, design, game) falls back to all categories."""
+    if category is None or category in PICKER_CATEGORIES:
+        return category
+    for group, members in CATEGORY_GROUPS.items():
+        if category in members and group in PICKER_CATEGORIES:
+            return group
+    return None
+
+
 def feed_filename(region, timeline, category=None, weekly=False, opp_type=None):
     """Fixed slot order: feed [cat-<category>] [region] [type] [timeline] [weekly].
 
@@ -336,10 +356,14 @@ MAX_WEEKS = 26
 # short of 26 weeks; freeing those slots must not bring months-old items back.
 HISTORY_FLOOR = date(2026, 6, 22)
 
-# Frozen grant ids per legacy week, per feed: {feed filename: {monday: [ids]}}.
-# Written once (and extended for slices it does not know yet); never regenerate
-# it from scratch, or deletions since will reshuffle the old drops.
-LEGACY_SNAPSHOT = "feed-legacy-weeks.json"
+# Ledger of released drops per feed: {feed filename: {monday: [grant ids]}}.
+# Legacy weeks (before WEEKLY_BY_ADDED_SINCE) were frozen once on 4 Nov 2026;
+# every run then records the most recently released added-era drop. Released
+# weeks replay from here, so data edits (deadline, region, category, type tags,
+# a late-merged PR with an old addedDate) can never slip an item into a drop
+# that already went out: such grants go into the next unreleased drop instead.
+# Never regenerate it from scratch. The daily publish workflow commits it.
+DROP_LEDGER = "feed-drop-ledger.json"
 
 
 def week_start(d):
@@ -507,6 +531,40 @@ def weekly_count_phrase(count, category, opp_type):
     return f"{CATEGORY_LABELS.get(category, category)} {noun}" if category else noun
 
 
+def drop_title(g, gtitle, sunday):
+    """Added-era item title with the deadline appended, for renderers (Slack)
+    that show little more than the title."""
+    if sunday < WEEKLY_BY_ADDED_SINCE:
+        return gtitle
+    d = parse_date(g.get("deadline"))
+    if not d:
+        return f"{gtitle} (rolling)"
+    when = f"{d.day} {d:%b}" + (f" {d.year}" if d.year != sunday.year else "")
+    return f"{gtitle} (closes {when})"
+
+
+def drop_categories(g, sunday):
+    """Added-era <category> elements: categories, regions and types, so readers
+    can filter or tag. Legacy items stay exactly as published."""
+    if sunday < WEEKLY_BY_ADDED_SINCE:
+        return ""
+    labels = []
+    for c in (g.get("categories") or [g.get("category")]):
+        if c:
+            labels.append(CATEGORY_LABELS.get(c, str(c)))
+    for r in [g.get("region")] + list(g.get("regions") or []):
+        if r:
+            labels.append(REGION_LABELS.get(r, str(r)))
+    for t in FEED_TYPES:
+        if type_matches(g, t):
+            labels.append(WEEKLY_NOUNS[t][0].capitalize())
+    seen = []
+    for label in labels:
+        if label not in seen:
+            seen.append(label)
+    return "".join(f"    <category>{escape(label)}</category>\n" for label in seen)
+
+
 def build_weekly_drop_items(monday, grants_in_week, today, slug):
     """One week as a Sunday drop: one item per grant, no header item.
 
@@ -543,10 +601,11 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug):
         body = f"<p>{' &middot; '.join(bits)}</p>"
         items.append(
             "  <item>\n"
-            f"    <title>{gtitle}</title>\n"
+            f"    <title>{drop_title(g, gtitle, sunday)}</title>\n"
             f"    <link>{gurl}</link>\n"
             f'    <guid isPermaLink="false">{escape(guid)}</guid>\n'
             f"    <pubDate>{pub}</pubDate>\n"
+            + drop_categories(g, sunday) +
             f"    <description><![CDATA[{body}]]></description>\n"
             "  </item>\n"
         )
@@ -618,7 +677,7 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
 def legacy_buckets(grants, region, timeline, today):
     """Weeks before WEEKLY_BY_ADDED_SINCE, computed the old way: release-date
     bucketing (5/day drip) plus the 10-15 item cap cascade. Only used to build
-    the frozen snapshot, and for a slice the snapshot does not know yet."""
+    the ledger's legacy weeks, for a slice the ledger does not know yet."""
     grants = [
         g for g in grants
         if not in_added_era(g) and feed_release(g) and feed_release(g) <= today
@@ -684,22 +743,58 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
     filename = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
     feed_url = PAGE_URL + filename
 
-    if frozen is not None:
-        # Legacy weeks (before WEEKLY_BY_ADDED_SINCE) replay the committed
-        # snapshot, so deleting, opting out or editing a grant can no longer
-        # reshuffle the old cap cascade into new guids in published drops.
-        buckets = {}
-        for monday_iso, ids in frozen.items():
-            week = [by_id[i] for i in ids if i in by_id]
-            if week:
-                buckets[date.fromisoformat(monday_iso)] = week
-    else:
-        buckets = legacy_buckets(grants, region, timeline, today)
-    for g in grants:
-        if in_added_era(g):
-            buckets.setdefault(bucket_date(g, region, timeline), []).append(g)
+    if frozen is None:
+        frozen = {
+            m.isoformat(): [g["id"] for g in gs if g.get("id")]
+            for m, gs in sorted(legacy_buckets(grants, region, timeline, today).items())
+        }
+    # Released weeks replay the ledger (``frozen``, updated in place below).
+    # by_id holds only feed-eligible grants, so "feed": false still removes an
+    # item from a published drop.
+    buckets = {}
+    for monday_iso, ids in frozen.items():
+        week = [by_id[i] for i in ids if i in by_id]
+        if week:
+            buckets[date.fromisoformat(monday_iso)] = week
+    recorded = {i for ids in frozen.values() for i in ids}
 
-    weeks = sorted((w for w in buckets if w >= HISTORY_FLOOR), reverse=True)[:MAX_WEEKS]
+    # The earliest drop not yet out, and the one released just before it. Only
+    # that latest released week may still be recorded; any other released week
+    # is closed, and a grant computed into it goes into the open drop instead.
+    open_monday = week_start(today)
+    if drop_released(open_monday + timedelta(days=6), today):
+        open_monday += timedelta(days=7)
+    last_released = open_monday - timedelta(days=7)
+    recording = (last_released + timedelta(days=6) >= WEEKLY_BY_ADDED_SINCE
+                 and last_released.isoformat() not in frozen)
+    for g in grants:
+        if not in_added_era(g) or g.get("id") in recorded:
+            continue
+        b = bucket_date(g, region, timeline)
+        # Earliest week still open on this run: the just-released drop while it
+        # is being recorded, else the next unreleased one.
+        first_open = last_released if recording else open_monday
+        if b < first_open:
+            b = first_open
+        buckets.setdefault(b, []).append(g)
+    if recording:
+        sunday = last_released + timedelta(days=6)
+        frozen[last_released.isoformat()] = sorted(
+            g["id"] for g in buckets.get(last_released, [])
+            if g.get("id") and open_for_drop(parse_date(g.get("deadline")), sunday)
+        )
+    # Keep the ledger to the weeks a feed can still show.
+    horizon = open_monday - timedelta(weeks=MAX_WEEKS + 2)
+    for monday_iso in [m for m in frozen if date.fromisoformat(m) < horizon]:
+        del frozen[monday_iso]
+
+    # Count only released drops toward MAX_WEEKS: held future weeks must not
+    # push published history out of the window.
+    weeks = sorted(
+        (w for w in buckets
+         if w >= HISTORY_FLOOR and drop_released(w + timedelta(days=6), today)),
+        reverse=True,
+    )[:MAX_WEEKS]
     items = "".join(
         build_weekly_item(w, buckets[w], today, filename, category=category, opp_type=opp_type)
         for w in weeks
@@ -1499,11 +1594,14 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     if feed_category and feed_region is not None and (
             feed_category not in PICKER_CATEGORIES or feed_region not in PICKER_REGIONS):
         feed_category = None
-    # SEO pages advertise the weekly digest, the only feed cadence generated.
-    feed_name = feed_filename(feed_region, None, category=feed_category, weekly=True)
+    # SEO pages advertise the weekly digest, and only picker-selectable feeds
+    # exist: point a page for a dropped region or merged category at the
+    # picker slice that contains it.
+    feed_name = feed_filename(picker_region(feed_region), None,
+                              category=picker_category(feed_category), weekly=True)
     cal_name = calendar_filename(feed_region, category=cal_category)
     if opp_type in FEED_TYPES:
-        typed_feed = feed_filename(feed_region, None, weekly=True, opp_type=opp_type)
+        typed_feed = feed_filename(picker_region(feed_region), None, weekly=True, opp_type=opp_type)
         typed_cal = calendar_filename(feed_region, opp_type=opp_type)
         if (HERE / typed_feed).exists():
             feed_name = typed_feed
@@ -1968,7 +2066,7 @@ def main():
     # `grants` list and show every grant immediately - throttling applies to
     # RSS subscribers, not the page.
     # The 5/day drip (apply_release_schedule) only matters for legacy weeks,
-    # which normally replay LEGACY_SNAPSHOT; added-era grants go by addedDate.
+    # which normally replay DROP_LEDGER; added-era grants go by addedDate.
     apply_release_schedule(grants)
     # Queued legacy grants (release still in the future) can never go out, so
     # they must not make a slice look populated.
@@ -1977,10 +2075,10 @@ def main():
         if g.get("feed") is not False
         and (in_added_era(g) or not feed_release(g) or feed_release(g) <= today)
     ]
-    by_id = {g["id"]: g for g in grants if g.get("id")}
-    snapshot_path = HERE / LEGACY_SNAPSHOT
-    snapshot = json.loads(snapshot_path.read_text(encoding="utf-8")) if snapshot_path.exists() else None
-    new_snapshot = {}
+    by_id = {g["id"]: g for g in grants if g.get("id") and g.get("feed") is not False}
+    ledger_path = HERE / DROP_LEDGER
+    ledger = json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.exists() else {}
+    new_ledger = {}
 
     region_options = [None] + PICKER_REGIONS
 
@@ -2012,16 +2110,19 @@ def main():
         name = feed_filename(region, timeline, category=category, opp_type=opp_type)
         written.append((name, len(filtered)))
 
-        if snapshot is not None and wname in snapshot:
-            frozen = snapshot[wname]
+        # A slice the ledger does not know yet gets its legacy weeks computed
+        # (and recorded) on first sight.
+        frozen = ledger.get(wname)
+        if frozen is not None:
+            frozen = {m: list(ids) for m, ids in frozen.items()}
         else:
             frozen = {
                 m.isoformat(): [g["id"] for g in gs if g.get("id")]
                 for m, gs in sorted(legacy_buckets(filtered, region, timeline, today).items())
             }
-        new_snapshot[wname] = frozen
         xml = build_weekly_feed(filtered, region, timeline, today, category=category,
                                 opp_type=opp_type, frozen=frozen, by_id=by_id)
+        new_ledger[wname] = frozen
         (HERE / wname).write_text(xml, encoding="utf-8")
         weekly_written.append(wname)
         # Offer a type feed in the picker only if it has items now or a grant on
@@ -2041,16 +2142,9 @@ def main():
             for region in region_options:
                 emit(region, None, category=category, opp_type=opp_type)
 
-    # Compatibility aliases: bare feeds for the pre-merge single categories and
-    # for regions the picker no longer offers, with no permutations.
-    for category in LEGACY_BARE_CATEGORIES:
-        emit(None, None, category=category)
-    for region in LEGACY_BARE_REGIONS:
-        emit(region, None)
-
-    # Standalone timeline feeds, uncrossed.
-    for timeline in TIMELINES:
-        emit(None, timeline)
+    # Only picker-selectable feeds are built (4 Nov 2026): the bare aliases for
+    # merged categories and dropped regions, and the standalone 30d/90d/added-30d
+    # timeline feeds, were retired and the orphan sweep below deletes them.
 
     # Orphan sweep. Narrowing the axes (or pruning an empty type slice) leaves
     # files on disk that nothing generates any more; without this they linger
@@ -2062,11 +2156,10 @@ def main():
     )
     for name in orphans:
         (HERE / name).unlink()
-    if snapshot is None or set(new_snapshot) - set(snapshot):
-        if snapshot:
-            new_snapshot = {**new_snapshot, **snapshot}
-        snapshot_path.write_text(json.dumps(new_snapshot, sort_keys=True, separators=(",", ":")), encoding="utf-8")
-        print(f"Wrote {LEGACY_SNAPSHOT} for {len(new_snapshot)} feeds.")
+    # Retired feeds drop out of the ledger with their files.
+    if new_ledger != ledger:
+        ledger_path.write_text(json.dumps(new_ledger, sort_keys=True, separators=(",", ":")), encoding="utf-8")
+        print(f"Updated {DROP_LEDGER} ({len(new_ledger)} feeds).")
     if orphans:
         print(f"Removed {len(orphans)} stale feed file(s) no longer generated.")
 

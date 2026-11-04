@@ -11,6 +11,14 @@ on:
   push:
     branches: ["master"]
 
+  # Commits pushed by other workflows with GITHUB_TOKEN never trigger `push`,
+  # so the daily grants publish (which releases the Sunday RSS drops) would
+  # otherwise only go live on the next human push. Deploy after each run.
+  workflow_run:
+    workflows: ["Publish queued grants (daily)"]
+    types: [completed]
+    branches: ["master"]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 

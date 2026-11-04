@@ -395,6 +395,7 @@ body {
 }
 .sub-note .feed-url-list .feed-url { margin-bottom: 0; }
 
+#feed-opml-btn[hidden] { display: none; }
 .sub-note .feed-note {
   font-family: 'DM Mono', monospace; font-size: 11.5px; line-height: 1.5;
   color: var(--ink-mute); margin: 8px 0 0;
@@ -1559,15 +1560,17 @@ code *, pre *, kbd *, samp * {
 <p class="overlap-axis">Categories</p><ul><li><strong>Cross-disciplinary &amp; Social Impact</strong> and <strong>Media Arts, Film &amp; Sound</strong> &mdash; 70 shared</li><li><strong>Writers</strong> and <strong>AI, Tech &amp; Research</strong> &mdash; 27 shared</li><li><strong>Cross-disciplinary &amp; Social Impact</strong> and <strong>AI, Tech &amp; Research</strong> &mdash; 52 shared</li><li><strong>AI, Tech &amp; Research</strong> and <strong>Media Arts, Film &amp; Sound</strong> &mdash; 109 shared</li></ul>
 </details>
 <!-- END_OVERLAP_NOTE -->
+          <p class="feed-note" id="feed-next-drop">Next drop: Sunday, 06:00 UTC.</p>
           <div class="row">
             <button type="button" id="copy-feed">Copy URL</button>
             <a class="btn" id="feed-open-btn" href="feed-weekly.xml" target="_blank" rel="noopener">Open feed</a>
+            <a class="btn" id="feed-opml-btn" href="#" download="grant-desk-feeds.opml" hidden>Download OPML</a>
           </div>
           <details>
             <summary>How to subscribe (RSS reader or email)</summary>
             <ol>
               <li>Keep All grants ticked for everything, or narrow the feed with the checkboxes. Every feed releases weekly: each Sunday brings one entry per grant added that week (Sunday to Saturday). Calls that close before their drop goes out are not sent, so check the site for last-minute deadlines.</li>
-              <li>Ticking several boxes gives one feed URL each; Copy URL grabs them all. Put them in one folder in your reader to read them as a single stream. A grant that fits two of your feeds appears in both, though readers with a duplicate filter (Inoreader has one built in) collapse it to a single entry.</li>
+              <li>Ticking several boxes gives one feed URL each; Copy URL grabs them all, and Download OPML gives one file most readers (Feedly, Inoreader, NetNewsWire, Thunderbird) can import to subscribe to all of them at once. Put them in one folder in your reader to read them as a single stream. A grant that fits two of your feeds appears in both, though readers with a duplicate filter (Inoreader has one built in) collapse it to a single entry.</li>
               <li>Paste the URL into an RSS reader (Feedly, NetNewsWire, Inoreader, Reeder, Thunderbird), or into a free RSS-to-email service such as <a href="https://kill-the-newsletter.com/" target="_blank" rel="noopener">Kill the Newsletter</a>, <a href="https://blogtrottr.com/" target="_blank" rel="noopener">Blogtrottr</a> or <a href="https://feedrabbit.com/" target="_blank" rel="noopener">Feedrabbit</a> for roughly one email a week.</li>
             </ol>
           </details>
@@ -1703,7 +1706,7 @@ code *, pre *, kbd *, samp * {
   "@type": "ItemList",
   "name": "The Grant Desk",
   "url": "https://www.artificialnouveau.com/smalltools/grants/",
-  "numberOfItems": 283,
+  "numberOfItems": 284,
   "itemListElement": [
     {
       "@type": "ListItem",
@@ -11168,6 +11171,37 @@ code *, pre *, kbd *, samp * {
           }
         ]
       }
+    },
+    {
+      "@type": "ListItem",
+      "position": 284,
+      "item": {
+        "@type": "MonetaryGrant",
+        "name": "Caza d'Oro Residency for Visual Artists (Le Mas d'Azil, France, rolling)",
+        "description": "Caza d'Oro is an international contemporary art centre and residency in Le Mas d'Azil, Ariège, that invites artists to research and make work in the area, with public activities, outreach and an exhibition of the work made during the stay. It offers three three-month residencies for visual artists each year, selected by committee. TO APPLY: applications are accepted all year by email (cazadoro@cazadoro.org) or post, using the application form on the candidatures page. Artists selected for the following year are notified in July. No application fee is stated, and the published pages give no nationality, age or career-stage limits.",
+        "url": "https://cazadoro.org/candidatures/",
+        "funder": {
+          "@type": "Organization",
+          "name": "Caza d'Oro, Centre International d'Art Contemporain"
+        },
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "EUR",
+          "value": "EUR 1,200 per month residency grant (EUR 3,600 over three months), plus a production budget of EUR 1,800 (Caza d'Oro's own site; the Arts en Résidence network lists EUR 2,000), housing, studio, outreach support and an end-of-residency exhibition. Travel costs are not mentioned."
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "location",
+            "value": "Le Mas d'Azil, Ariège, southwestern France. Housing (a furnished 50 m² apartment) and a 50 m² studio on site; families and pets cannot be accommodated."
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "region",
+            "value": "EU"
+          }
+        ]
+      }
     }
   ]
 }
@@ -13009,7 +13043,28 @@ load();
   const urlList = document.getElementById('feed-url-list');
   const openBtn = document.getElementById('feed-open-btn');
   const copyBtn = document.getElementById('copy-feed');
+  const opmlBtn = document.getElementById('feed-opml-btn');
+  const nextDropEl = document.getElementById('feed-next-drop');
   if (!urlList || !copyBtn) return;
+
+  // Next Sunday drop: generate_feed.py stamps and releases drops at 06:00 UTC
+  // (DROP_HOUR_UTC); each carries grants added Sunday to Saturday before it.
+  if (nextDropEl) {
+    const now = new Date();
+    const drop = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 6));
+    drop.setUTCDate(drop.getUTCDate() + ((7 - drop.getUTCDay()) % 7));
+    if (drop <= now) drop.setUTCDate(drop.getUTCDate() + 7);
+    const day = drop.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
+    nextDropEl.textContent = `Next drop: ${day} (published during the day, UTC). It brings every grant added in the week before.`;
+  }
+
+  // Human label for a combo, from the checkbox labels, for OPML outline titles.
+  const labelFor = (fs, value) => {
+    const input = fs && value ? fs.querySelector(`input[value="${value}"]`) : null;
+    return input && input.parentElement ? input.parentElement.textContent.replace('*', '').trim() : '';
+  };
+  const xmlEsc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  let opmlUrl = null;
 
   // Type-filtered feeds are pruned to combinations that actually contain grants,
   // so the picker checks this manifest before offering one. If the fetch fails we
@@ -13136,7 +13191,12 @@ load();
       const filename = buildName(cat, region, type, cadence);
       const base = filename.replace(/-weekly\.xml$/, '.xml');
       if (type && typedFeeds && !typedFeeds.has(base)) { pruned++; return; }
-      feeds.push({ filename, url: new URL(filename, window.location.href).toString() });
+      const bits = [labelFor(catFieldset, cat), labelFor(regionFieldset, region), labelFor(typeFieldset, type)].filter(Boolean);
+      feeds.push({
+        filename,
+        url: new URL(filename, window.location.href).toString(),
+        title: 'The Grant Desk' + (bits.length ? ': ' + bits.join(', ') : ''),
+      });
     });
 
     urlList.innerHTML = '';
@@ -13168,6 +13228,19 @@ load();
       openBtn.setAttribute('href', feeds.length ? feeds[0].filename : '#');
       openBtn.textContent = feeds.length > 1 ? 'Open first' : 'Open feed';
       openBtn.classList.toggle('is-disabled', !feeds.length);
+    }
+    // OPML: one file a reader imports to subscribe to every ticked feed at once.
+    if (opmlBtn) {
+      if (opmlUrl) { URL.revokeObjectURL(opmlUrl); opmlUrl = null; }
+      opmlBtn.hidden = feeds.length < 2;
+      if (feeds.length >= 2) {
+        const outlines = feeds.map(f =>
+          `      <outline type="rss" text="${xmlEsc(f.title)}" title="${xmlEsc(f.title)}" xmlUrl="${xmlEsc(f.url)}" htmlUrl="${xmlEsc(new URL('./', window.location.href).toString())}"/>`
+        ).join('\n');
+        const opml = `<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0">\n  <head><title>The Grant Desk feeds</title></head>\n  <body>\n    <outline text="The Grant Desk" title="The Grant Desk">\n${outlines}\n    </outline>\n  </body>\n</opml>\n`;
+        opmlUrl = URL.createObjectURL(new Blob([opml], { type: 'text/x-opml' }));
+        opmlBtn.href = opmlUrl;
+      }
     }
     copyBtn.disabled = !feeds.length;
     copyBtn.dataset.url = feeds.map(f => f.url).join('\n');
@@ -14502,6 +14575,23 @@ setupExportPanel();
 })();
 
 (function setupPopovers() {
+  // The popovers hang off their pill (right- or left-anchored), which at some
+  // window widths pushes them past the screen edge. After opening, measure and
+  // slide the panel back inside the viewport with a small gutter.
+  const GUTTER = 12;
+  const clampIntoView = (pop) => {
+    pop.style.transform = '';
+    const r = pop.getBoundingClientRect();
+    const vw = document.documentElement.clientWidth;
+    let dx = 0;
+    if (r.right > vw - GUTTER) dx = (vw - GUTTER) - r.right;
+    if (r.left + dx < GUTTER) dx = GUTTER - r.left;
+    if (dx) pop.style.transform = `translateX(${Math.round(dx)}px)`;
+  };
+  const clampOpen = () => {
+    document.querySelectorAll('.strip-pop:not([hidden])').forEach(clampIntoView);
+  };
+  window.addEventListener('resize', clampOpen);
   const closeAll = () => {
     document.querySelectorAll('.strip-pop').forEach(p => p.setAttribute('hidden', ''));
     document.querySelectorAll('.strip-pill').forEach(b => b.setAttribute('aria-expanded', 'false'));
@@ -14517,6 +14607,7 @@ setupExportPanel();
       if (!wasOpen) {
         pop.removeAttribute('hidden');
         btn.setAttribute('aria-expanded', 'true');
+        clampIntoView(pop);
       }
     });
   });
