@@ -68,9 +68,11 @@ REGIONS = ["EU", "US", "UK", "NL", "Switzerland", "Asia", "China-HK-Taiwan", "Af
 # entirely inside EU (NL 91%, Switzerland 95%) and mostly gave subscribers the
 # same grants twice; China-HK-Taiwan sits inside Asia the same way. This is a
 # SYNDICATION decision only: the website's region filter, the static SEO pages
-# and the calendars all still carry them in full. Their bare feeds stay as
-# compatibility aliases; permutations are not built.
-FEED_REGIONS_EXCLUDED = {"NL", "Switzerland", "China-HK-Taiwan"}
+# and the calendars all still carry them in full. Since 4 Nov 2026 no feed of
+# any kind is built for them. Africa, Canada and Latin America were dropped
+# from RSS the same day because they held too few open calls to sustain a
+# weekly feed; their calendars stay.
+FEED_REGIONS_EXCLUDED = {"NL", "Switzerland", "China-HK-Taiwan", "Africa", "Canada", "LatAm"}
 
 # Remote and Worldwide overlapped by 29 percent (12 shared calls) and read as the
 # same promise to a subscriber, so the pickers offer them as ONE box backed by one
@@ -90,7 +92,10 @@ PICKER_REGIONS = [
 ]
 LEGACY_BARE_REGIONS = [r for r in REGIONS if r not in PICKER_REGIONS]
 # The calendar picker's region menu: the feed regions plus NL.
-CAL_PICKER_REGIONS = PICKER_REGIONS + ["NL"]
+# Listed in full, not derived from PICKER_REGIONS: dropping a region from RSS
+# must not delete its calendars.
+CAL_PICKER_REGIONS = ["EU", "US", "UK", "Asia", "Africa", "Canada", "Australia", "LatAm",
+                      "remote-worldwide", "NL"]
 TIMELINES = ["30d", "90d", "added-30d"]
 CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"]
 
@@ -184,6 +189,8 @@ def picker_region(region):
     for group, members in REGION_GROUPS.items():
         if region in members:
             return group
+    # Africa, Canada and Latin America have no feed of their own: their pages
+    # offer the all-grants feed.
     return {"NL": "EU", "Switzerland": "EU", "China-HK-Taiwan": "Asia"}.get(region)
 
 
