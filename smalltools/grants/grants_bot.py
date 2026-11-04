@@ -423,7 +423,7 @@ def build_candidate(
         "amount": str(extracted.get("amount") or "")[:400],
         "duration": "Per project",
         "startDate": None,
-        "deadline": deadline_str,
+        "deadline": deadline_date.isoformat(),
         "addedDate": today.isoformat(),
         "category": category,
         "applicant": "individuals",
@@ -460,8 +460,10 @@ def main() -> int:
         return 1
 
     state = load_state()
-    processed_uris: set[str] = set(state.get("processed_uris", []))
-    processed_guids: set[str] = set(state.get("processed_guids", []))
+    # Dicts as insertion-ordered sets: save_state keeps the LAST entries, so the
+    # order must be oldest-to-newest (a sorted list would drop the newest).
+    processed_uris: dict[str, None] = dict.fromkeys(state.get("processed_uris", []))
+    processed_guids: dict[str, None] = dict.fromkeys(state.get("processed_guids", []))
 
     grants_data = json.loads(GRANTS_FILE.read_text())
     existing_ids: set[str] = {g["id"] for g in grants_data.get("grants", [])}
@@ -502,7 +504,7 @@ def main() -> int:
             link_url = resolve_redirects(urls[0])
             normalised = link_url.rstrip("/")
             if normalised in existing_urls or link_url in seen_link_urls:
-                processed_uris.add(uri)
+                processed_uris[uri] = None
                 continue
             seen_link_urls.add(link_url)
 
@@ -515,6 +517,10 @@ def main() -> int:
                 client, post_text, link_url, page_text, category_hint_for(tag)
             )
             time.sleep(INTER_CALL_SLEEP_S)
+            if extracted is None:
+                # API error or unreadable reply: leave the post unprocessed so
+                # next week's run retries it (a dead key must not mark a week done).
+                continue
 
             cand = build_candidate(
                 extracted,
@@ -528,7 +534,7 @@ def main() -> int:
             )
             if cand:
                 candidates.append(cand)
-            processed_uris.add(uri)
+            processed_uris[uri] = None
 
     # --- RSS feeds -------------------------------------------------------- #
 
@@ -559,19 +565,19 @@ def main() -> int:
                         published.tm_year, published.tm_mon, published.tm_mday
                     )
                     if pub_date < cutoff:
-                        processed_guids.add(guid)
+                        processed_guids[guid] = None
                         continue
                 except (TypeError, ValueError):
                     pass
 
             link_url = (entry_obj.get("link") or "").strip()
             if not link_url:
-                processed_guids.add(guid)
+                processed_guids[guid] = None
                 continue
             link_url = resolve_redirects(link_url)
             normalised = link_url.rstrip("/")
             if normalised in existing_urls or link_url in seen_link_urls:
-                processed_guids.add(guid)
+                processed_guids[guid] = None
                 continue
             seen_link_urls.add(link_url)
 
@@ -586,6 +592,8 @@ def main() -> int:
 
             extracted = call_claude(client, entry_text, link_url, page_text, hint)
             time.sleep(INTER_CALL_SLEEP_S)
+            if extracted is None:
+                continue  # retried next run, as for Bluesky posts
 
             cand = build_candidate(
                 extracted,
@@ -599,10 +607,10 @@ def main() -> int:
             )
             if cand:
                 candidates.append(cand)
-            processed_guids.add(guid)
+            processed_guids[guid] = None
 
-    state["processed_uris"] = sorted(processed_uris)
-    state["processed_guids"] = sorted(processed_guids)
+    state["processed_uris"] = list(processed_uris)
+    state["processed_guids"] = list(processed_guids)
     save_state(state)
 
     set_output("has_candidates", "true" if candidates else "false")

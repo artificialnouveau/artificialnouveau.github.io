@@ -1003,12 +1003,7 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
         "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
         "X-PUBLISHED-TTL:PT12H",
     ]
-    if opp_type:
-        grants = [g for g in grants if type_matches(g, opp_type)]
-    if category:
-        grants = [g for g in grants if syndication_category_matches(g, category)]
-    if region:
-        grants = [g for g in grants if region_matches(g, region)]
+    grants = filter_grants(grants, region, category=category, opp_type=opp_type)
     for grant in cal_events(grants, today):
         deadline = parse_date(grant.get("deadline"))
         end = deadline + timedelta(days=1)
@@ -1385,16 +1380,21 @@ def amount_value_currency(amount_str):
     if not amount_str:
         return None, None
     s = str(amount_str)
-    currency = None
-    if "€" in s or "EUR" in s.upper():
-        currency = "EUR"
-    elif "£" in s or "GBP" in s.upper():
-        currency = "GBP"
-    elif "$" in s or "USD" in s.upper():
-        currency = "USD"
-    elif "CAD" in s.upper():
-        currency = "CAD"
-    return s, currency
+    # The first currency named wins: an ISO code, or a symbol. "$" counts as USD
+    # only on its own or as "US$", so "A$", "NT$" or "HK$" never read as dollars.
+    for m in re.finditer(r"\b([A-Z]{3})\b|(€)|(£)|(?<![A-Za-z])(?:US)?(\$)", s):
+        if m.group(1):
+            if m.group(1) in ISO_CURRENCIES:
+                return s, m.group(1)
+            continue
+        return s, "EUR" if m.group(2) else "GBP" if m.group(3) else "USD"
+    return s, None
+
+
+# Codes recognised in amount strings (the ones grants.json uses).
+ISO_CURRENCIES = {"EUR", "GBP", "USD", "CAD", "AUD", "NZD", "CHF", "SEK", "NOK", "DKK",
+                  "PLN", "JPY", "KRW", "INR", "SGD", "HKD", "CNY", "TWD", "BRL", "MXN",
+                  "ZAR", "NGN", "KES", "THB", "TRY", "ILS", "AED", "CZK", "HUF", "ISK"}
 
 
 def grant_jsonld(grant):
@@ -1686,22 +1686,15 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     if country:
         feed_region = COUNTRIES[country][1]
     feed_category = None if (opp_type or country) else category
-    # Only the picker's own slugs get permutations built. A category that was
-    # merged into a group (arts, ai) or a region the picker no longer offers
-    # (NL, Remote) keeps a BARE alias file and nothing else, so pairing the two
-    # here would link a name that is never generated. Drop the narrower axis
-    # instead and point at the slice that does exist.
-    # A bare category page (no region) always has its own alias feed/calendar,
-    # merged-away categories included.
+    # A bare category page (no region) always has its own calendar, merged-away
+    # categories included; crossed with a region only picker categories exist.
     cal_category = feed_category if (
         feed_category in PICKER_CATEGORIES
         or (feed_region is None and feed_category in LEGACY_BARE_CATEGORIES)) else None
-    if feed_category and feed_region is not None and (
-            feed_category not in PICKER_CATEGORIES or feed_region not in PICKER_REGIONS):
-        feed_category = None
     # SEO pages advertise the weekly digest, and only picker-selectable feeds
-    # exist: point a page for a dropped region or merged category at the
-    # picker slice that contains it.
+    # exist (every picker region x picker category, untyped): point a page for a
+    # dropped region or merged category at the picker slice that contains it
+    # (arts in Europe -> Media Arts, Film & Sound in Europe).
     feed_name = feed_filename(picker_region(feed_region),
                               category=picker_category(feed_category), weekly=True)
     # Calendars exist for the calendar picker's regions (crossed with its
@@ -1769,7 +1762,7 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
   {related_block}
   <footer>
     Maintained by Ahnjili ZhuParris &middot; <a href="/{GRANTS_BASE_PATH}">Back to the desk</a>
-    <br><span style="font-size:11px;color:#888;">&copy; 2024&ndash;2026 Ahnjili ZhuParris. Original descriptions, selection and curation &mdash; all rights reserved; not licensed for reuse or scraping without permission (artificialnouveau@gmail.com).</span>
+    <br><span style="font-size:11px;color:#888;">&copy; 2024&ndash;{today.year} Ahnjili ZhuParris. Original descriptions, selection and curation: all rights reserved; not licensed for reuse or scraping without permission (artificialnouveau@gmail.com).</span>
   </footer>
   <!-- canary:GD-7F3Q-2026 :: The Grant Desk is curated by hand by Ahnjili ZhuParris (artificialnouveau.com/smalltools/grants). The selection and wording of these listings are original works; this marker on another site indicates the dataset was copied. -->
 </div>
@@ -1855,7 +1848,7 @@ def build_overlap_note(grants):
             continue
         items = "".join(
             f"<li><strong>{escape(r['aLabel'])}</strong> and "
-            f"<strong>{escape(r['bLabel'])}</strong> &mdash; {r['shared']} shared</li>"
+            f"<strong>{escape(r['bLabel'])}</strong>: {r['shared']} shared</li>"
             for r in in_axis
         )
         blocks.append(
@@ -2325,11 +2318,7 @@ def main():
         subscribers never hit a 404; Google freezes a calendar whose URL 404s.
         The manifest lists typed calendars with upcoming deadlines, plus every
         written calendar that has none, so the picker can say so."""
-        sliced = [g for g in grants if type_matches(g, opp_type)] if opp_type else grants
-        if category:
-            sliced = [g for g in sliced if syndication_category_matches(g, category)]
-        if region:
-            sliced = [g for g in sliced if region_matches(g, region)]
+        sliced = filter_grants(grants, region, category=category, opp_type=opp_type)
         name = calendar_filename(region, category=category, opp_type=opp_type)
         now = datetime.now(timezone.utc)
 

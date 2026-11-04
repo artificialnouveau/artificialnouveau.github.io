@@ -14,8 +14,40 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:hkadc-cultural-exchange-project-grant-2026-dec@artificialnouveau.github
+ .io
+DTSTAMP:20261104T230337Z
+TRANSP:TRANSPARENT
+DTSTART:20261231T093000Z
+DTEND:20261231T100000Z
+SUMMARY:Deadline 18:00 Hong Kong time: HKADC Cultural Exchange Project Gran
+ t (up to HKD 500\,000 for Hong Kong artists working abroad)
+DESCRIPTION:Closes 31 Dec 2026 at 18:00 Hong Kong time.\n\nThe Hong Kong Ar
+ ts Development Council's Cultural Exchange Project Grant supports Hong Kon
+ g artists and arts organisations taking work abroad: overseas exhibitions\
+ , performances\, festival participation\, residencies\, touring and simila
+ r exchange activity\, across music\, dance\, xiqu\, drama\, visual arts\, 
+ literary arts\, film and media arts (each including multi-disciplinary wor
+ k) and arts...\n\nOrganisation: Hong Kong Arts Development Council (HKADC)
+ \nLocation: Exchange activities held outside Hong Kong. Individual applica
+ nts must hold a Hong Kong identity card\; organisations must be registered
+  in Hong Kong.\nAward: General Version: up to HKD 500\,000 for individual 
+ artists and arts organisations\, covering all project expenditure except l
+ isted exclusions\; up to HKD 800\,000 for experienced organisations with l
+ arge-scale\, outstanding exchange projects. Trial Version: up to HKD 150\,
+ 000 for transportation\, freight\, insurance and documentation only. No ap
+ plication fee stated.\nDuration: Per project\n\nMore: https://www.hkadc.or
+ g.hk/en/grants-and-scholarship/grants/project-grant?utm_source=artificialn
+ ouveaugrantdesk&utm_medium=referral
+URL:https://www.hkadc.org.hk/en/grants-and-scholarship/grants/project-grant
+ ?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Exchange activities held outside Hong Kong. Individual applicants 
+ must hold a Hong Kong identity card\; organisations must be registered in 
+ Hong Kong.
+END:VEVENT
+BEGIN:VEVENT
 UID:a4-residency-chengdu-2028@artificialnouveau.github.io
-DTSTAMP:20261104T222340Z
+DTSTAMP:20261104T230337Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261231
 DTEND;VALUE=DATE:20270101
@@ -40,7 +72,7 @@ LOCATION:Luxelakes Eco-City\, Tianfu New Area\, Chengdu\, China. Open world
 END:VEVENT
 BEGIN:VEVENT
 UID:stimuleringsfonds-videotage-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261104T222340Z
+DTSTAMP:20261104T230337Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261021
 DTEND;VALUE=DATE:20261022
@@ -73,7 +105,7 @@ LOCATION:Residency takes place at Videotage in Hong Kong. Applicants must b
 END:VEVENT
 BEGIN:VEVENT
 UID:yao-residency-02-taiwan-2027@artificialnouveau.github.io
-DTSTAMP:20261104T222340Z
+DTSTAMP:20261104T230337Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261231
 DTEND;VALUE=DATE:20270101
@@ -112,7 +144,7 @@ LOCATION:Taiwan. Open worldwide to applicants aged 18 and above\, regardles
 END:VEVENT
 BEGIN:VEVENT
 UID:daiwa-foundation-small-grants-march-2027@artificialnouveau.github.io
-DTSTAMP:20261104T222340Z
+DTSTAMP:20261104T230337Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270331
 DTEND;VALUE=DATE:20270401

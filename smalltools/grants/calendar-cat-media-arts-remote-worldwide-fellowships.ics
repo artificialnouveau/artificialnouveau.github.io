@@ -13,13 +13,42 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  s\, Film & Sound\, Remote & Worldwide.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VTIMEZONE
-TZID:UTC
-BEGIN:STANDARD
-DTSTART:19700101T000000
-TZOFFSETFROM:+0000
-TZOFFSETTO:+0000
-TZNAME:UTC
-END:STANDARD
-END:VTIMEZONE
+BEGIN:VEVENT
+UID:hong-kong-phd-fellowship-scheme-2027-28@artificialnouveau.github.io
+DTSTAMP:20261104T230338Z
+TRANSP:TRANSPARENT
+DTSTART:20261201T033000Z
+DTEND:20261201T040000Z
+SUMMARY:Deadline 12:00 Hong Kong time: Hong Kong PhD Fellowship Scheme 2027
+ /28 (HKD 344\,400 a year for up to three years\; 400 fellowships\, practic
+ e-led art PhDs included)
+DESCRIPTION:Closes 01 Dec 2026 at 12:00 Hong Kong time.\n\nThe Hong Kong Ph
+ D Fellowship Scheme\, run by the Research Grants Council\, funds around 40
+ 0 new full-time PhD students a year at eight Hong Kong universities\, in a
+ ny discipline\, including AI\, computing and data science programmes and p
+ ractice-led art research (Hong Kong Baptist University's Academy of Visual
+  Arts promotes the scheme for practice-led and practice-based PhDs with ac
+ cess to its...\n\nOrganisation: Research Grants Council (RGC) of Hong Kong
+ \, with eight Hong Kong universities\nLocation: Hong Kong: City University
+  of Hong Kong\, Hong Kong Baptist University\, Lingnan University\, The Ch
+ inese University of Hong Kong\, The Education University of Hong Kong\, Th
+ e Hong Kong Polytechnic University\, HKUST and The University of Hong Kong
+ . Open to applicants of any country of origin.\nAward: Annual stipend of H
+ KD 344\,400 (about USD 44\,150) plus a conference and research travel allo
+ wance of HKD 14\,400 a year\, for up to three years (2026/27 rates as publ
+ ished by the RGC). Some universities add top-ups: HKBU lists a HKD 40\,000
+ -a-year Elite Scholar Award for three years\, a further HKD 20\,000 travel
+  top-up\, four years of tuition waiver and two years of guaranteed accommo
+ dation. 400 fellowships for 2027/28.\nDuration: Full-time PhD\, up to thre
+ e years of fellowship funding (HKBU programmes run four years).\n\nMore: h
+ ttps://cerg1.ugc.edu.hk/hkpfs/index.html?utm_source=artificialnouveaugrant
+ desk&utm_medium=referral
+URL:https://cerg1.ugc.edu.hk/hkpfs/index.html?utm_source=artificialnouveaug
+ rantdesk&utm_medium=referral
+LOCATION:Hong Kong: City University of Hong Kong\, Hong Kong Baptist Univer
+ sity\, Lingnan University\, The Chinese University of Hong Kong\, The Educ
+ ation University of Hong Kong\, The Hong Kong Polytechnic University\, HKU
+ ST and The University of Hong Kong. Open to applicants of any country of o
+ rigin.
+END:VEVENT
 END:VCALENDAR

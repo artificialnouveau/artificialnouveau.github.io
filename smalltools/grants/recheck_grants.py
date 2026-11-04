@@ -322,6 +322,7 @@ def main() -> int:
             dl = parse_iso_date(ex.get("deadline"))
             conf = safe_confidence(ex.get("confidence"))
             if dl and dl > today and conf >= MIN_CONFIDENCE:
+                ex["deadline"] = dl.isoformat()  # store zero-padded YYYY-MM-DD
                 entry = build_watchlist_entry(it, ex, today)
                 if entry["id"] not in existing_ids:
                     watch_proposals.append((it, entry))
@@ -354,6 +355,7 @@ def main() -> int:
             dl = parse_iso_date(ex.get("deadline"))
             conf = safe_confidence(ex.get("confidence"))
             if dl and dl > today and conf >= MIN_CONFIDENCE:
+                ex["deadline"] = dl.isoformat()  # store zero-padded YYYY-MM-DD
                 entry = build_entry(g, ex, today, existing_ids)
                 if entry["id"] not in existing_ids:
                     proposals.append((g, entry))
