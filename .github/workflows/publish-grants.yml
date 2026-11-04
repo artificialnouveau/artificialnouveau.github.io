@@ -53,6 +53,13 @@ jobs:
             git fetch origin master
             git reset --hard origin/master
             python3 smalltools/grants/generate_feed.py
+            # Regeneration always rewrites timestamps, so check for a real
+            # change again before committing on top of origin.
+            if git diff -I'<lastBuildDate>' -I'^DTSTAMP:' -I'<lastmod>' --quiet \
+               && [[ -z "$(git ls-files --others --exclude-standard)" ]]; then
+              echo "Nothing left to commit on top of origin. Exiting clean."
+              exit 0
+            fi
             git add smalltools/grants/ sitemap.xml robots.txt llms.txt
             git commit -m "$MSG" || exit 0
           done

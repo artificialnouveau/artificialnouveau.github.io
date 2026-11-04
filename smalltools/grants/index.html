@@ -13061,7 +13061,7 @@ load();
     const drop = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 6));
     drop.setUTCDate(drop.getUTCDate() + ((7 - drop.getUTCDay()) % 7));
     if (drop <= now) drop.setUTCDate(drop.getUTCDate() + 7);
-    const day = drop.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
+    const day = drop.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' });
     nextDropEl.textContent = `Next drop: ${day} (published during the day, UTC). It brings every grant added in the week before.`;
   }
 

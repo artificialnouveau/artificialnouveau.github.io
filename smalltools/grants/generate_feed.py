@@ -891,8 +891,15 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
     )
     # Count only released drops toward MAX_WEEKS: held future weeks must not
     # push published history out of the window.
-    weeks = sorted((w for w in buckets if w >= HISTORY_FLOOR and released(w)),
-                   reverse=True)[:MAX_WEEKS]
+    # Weeks that render empty (everything closed before the drop) must not take
+    # a MAX_WEEKS slot, or the oldest items flicker in and out between runs.
+    weeks = sorted(
+        (w for w in buckets
+         if w >= HISTORY_FLOOR and released(w)
+         and any(open_for_drop(parse_date(g.get("deadline")), w + timedelta(days=6))
+                 for g in buckets[w])),
+        reverse=True,
+    )[:MAX_WEEKS]
     items = "".join(
         build_weekly_item(w, buckets[w], today, filename, category=category, opp_type=opp_type)
         for w in weeks
@@ -2277,6 +2284,10 @@ def main():
                                  category=category, opp_type=opp_type, stable=True)
         wname = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
         if opp_type and not filtered:
+            # Keep the tombstone: an emptied slice that refills must not
+            # re-seed (losing legacy weeks and re-sending what it sent).
+            if wname in ledger:
+                new_ledger[wname] = ledger_entry(ledger[wname])
             return
         # The manifest keys on the BARE slice name (no -weekly suffix): the
         # picker strips the suffix before its lookup, so the key survives the
