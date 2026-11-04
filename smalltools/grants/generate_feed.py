@@ -68,8 +68,9 @@ FEED_REGIONS_EXCLUDED = {"NL", "Switzerland", "China-HK-Taiwan", "Africa", "Cana
 # same promise to a subscriber, so the pickers offer them as ONE box backed by one
 # real combined slice, exactly like CATEGORY_GROUPS below. Syndication only: the
 # website's region filter and the static SEO pages still carry each region on its
-# own, and both members keep their bare feed and their own calendars as
-# compatibility aliases for anyone who subscribed before the merge.
+# own, and both members keep their own calendars as compatibility aliases for
+# anyone who subscribed before the merge. No member-only feed is built any more
+# (4 Nov 2026); the orphan sweep removed them.
 REGION_GROUPS = {
     "remote-worldwide": ["Remote", "Worldwide"],
 }
@@ -80,7 +81,6 @@ PICKER_REGIONS = [
     r for r in SYNDICATION_REGIONS
     if r not in FEED_REGIONS_EXCLUDED and r not in _GROUPED_REGION_MEMBERS
 ]
-LEGACY_BARE_REGIONS = [r for r in REGIONS if r not in PICKER_REGIONS]
 # The calendar picker's region menu: the feed regions plus NL.
 # Listed in full, not derived from PICKER_REGIONS: dropping a region from RSS
 # must not delete its calendars.
@@ -207,7 +207,8 @@ def feed_filename(region, category=None, weekly=False, opp_type=None):
     return "-".join(parts) + ".xml"
 
 
-def feed_title_desc(region, category=None, weekly=False, opp_type=None):
+def feed_title_desc(region, category=None, opp_type=None):
+    """Title and description of a weekly feed (the only kind built)."""
     suffix = []
     if opp_type:
         suffix.append(OPPORTUNITY_TYPE_TITLE_PHRASE.get(opp_type, opp_type))
@@ -215,19 +216,14 @@ def feed_title_desc(region, category=None, weekly=False, opp_type=None):
         suffix.append(SYNDICATION_LABELS.get(category, category))
     if region:
         suffix.append(REGION_LABELS.get(region, region))
-    if weekly:
-        suffix.append("weekly digest")
-    if suffix:
-        title = f"{TITLE} - {', '.join(suffix)}"
-        desc = f"{DESCRIPTION} Filtered to: {', '.join(suffix)}."
-    else:
-        title, desc = TITLE, DESCRIPTION
-    if weekly:
-        desc += (
-            " Released weekly: each Sunday's drop carries one entry per grant added "
-            "in the week before it (Sunday to Saturday). A call that closes before "
-            "its drop goes out is not sent; the website lists those."
-        )
+    suffix.append("weekly digest")
+    title = f"{TITLE} - {', '.join(suffix)}"
+    desc = f"{DESCRIPTION} Filtered to: {', '.join(suffix)}."
+    desc += (
+        " Released weekly: each Sunday's drop carries one entry per grant added "
+        "in the week before it (Sunday to Saturday). A call that closes before "
+        "its drop goes out is not sent; the website lists those."
+    )
     return title, desc
 
 
@@ -268,8 +264,10 @@ def region_matches(grant, region):
         return True
     if region in (grant.get("regions") or []):
         return True
-    # Containment: the Netherlands is part of the Europe view (since 2 Nov 2026).
-    if region == "EU" and grant.get("region") == "NL":
+    # Containment: the Netherlands is part of the Europe view (since 2 Nov 2026),
+    # whether NL is the primary region or one of regions[]. Mirrors grantRegions()
+    # in index.html; check_rules_match_site() fails a strict run if they drift.
+    if region == "EU" and "NL" in [grant.get("region")] + list(grant.get("regions") or []):
         return True
     if region == "Switzerland" and "switzerland" in (grant.get("tags") or []):
         return True
@@ -360,12 +358,6 @@ WEEKLY_NOUNS = {
 # are not flooded with months of new-looking items at the switch.
 WEEKLY_DROP_SINCE = date(2026, 9, 6)
 
-# From this Sunday on, a grant whose deadline IS the drop Sunday no longer goes
-# out (it would arrive on its closing day). Earlier drops keep the old >= rule so
-# their already-published items and cap decisions, and so their guids, stay put.
-DROP_STRICT_SINCE = date(2026, 11, 8)
-
-
 # From this Sunday on, drops are uncapped and keyed on addedDate: each Sunday
 # carries every grant added Monday-Sunday of that week. The earlier design (a
 # 5/day release drip feeding a 10-15 item cap, soonest deadlines first) took in
@@ -374,6 +366,7 @@ DROP_STRICT_SINCE = date(2026, 11, 8)
 # Grants added before this week (the queued backlog) are deliberately never
 # released into drops from this date on; they stay on the site and calendars.
 # Earlier drops keep the old logic so their guids stay put.
+# The same Sunday also starts the strict deadline rule (see open_for_drop).
 WEEKLY_BY_ADDED_SINCE = date(2026, 11, 8)
 
 
@@ -414,16 +407,46 @@ def drop_released(sunday, today):
 
 
 def in_added_era(g):
-    """True when a grant is released by addedDate (added in or after the cutover week)."""
+    """True when a grant is released by addedDate: it joined in the window of the
+    first added-era drop (from the Sunday before it, 1 Nov 2026, after that day's
+    06:00 legacy drop) or later."""
     a = added_date(g)
-    return bool(a) and a >= week_start(WEEKLY_BY_ADDED_SINCE)
+    return bool(a) and added_week(a) >= week_start(WEEKLY_BY_ADDED_SINCE)
 
 
-def open_for_drop(deadline, sunday):
-    """True when a grant with this deadline may go out in the drop on `sunday`."""
+def open_for_drop(g, sunday):
+    """True when grant ``g`` may go out in the drop on ``sunday``.
+
+    From WEEKLY_BY_ADDED_SINCE a grant must still be open after the drop Sunday
+    (one closing that day would arrive on its closing day), and a stated closing
+    time counts: a call closing Monday 00:30 CET is closed by Sunday 23:30 UTC.
+    Earlier drops keep the old date-only >= rule so their items stay put."""
+    deadline = parse_date(g.get("deadline"))
     if deadline is None:
         return True
-    return deadline > sunday if sunday >= DROP_STRICT_SINCE else deadline >= sunday
+    if sunday < WEEKLY_BY_ADDED_SINCE:
+        return deadline >= sunday
+    moment = deadline_moment(g)
+    if moment:
+        deadline = moment[0].astimezone(timezone.utc).date()
+    return deadline > sunday
+
+
+def drop_window(today):
+    """(open_monday, last_released): the earliest drop not yet out, and the one
+    released just before it. Only that latest released week may still be
+    recorded; any other released week is closed, and a grant computed into it
+    goes into the open drop instead."""
+    open_monday = week_start(today)
+    if drop_released(open_monday + timedelta(days=6), today):
+        open_monday += timedelta(days=7)
+    return open_monday, open_monday - timedelta(days=7)
+
+
+def needs_recording(entry, last_released):
+    """True when the latest released added-era drop is not yet in this feed's ledger."""
+    return (last_released + timedelta(days=6) >= WEEKLY_BY_ADDED_SINCE
+            and last_released.isoformat() not in entry["weeks"])
 
 
 def bucket_date(g):
@@ -437,11 +460,10 @@ STATIC_PAGE_MARKER = "canary:GD-7F3Q"
 
 
 def weekly_grant_parts(g, today):
-    """(escaped title, escaped UTM href, escaped bare url, detail bits) for one
-    grant's line in a weekly feed."""
+    """(escaped title, escaped UTM href, detail bits) for one grant's line in a
+    weekly feed."""
     gtitle = escape(str(g.get("title", "Untitled")))
     gurl = escape(with_utm(g.get("url")) or PAGE_URL)
-    plain_url = escape(g.get("url") or PAGE_URL)
     bits = []
     org = g.get("organization")
     if org:
@@ -450,7 +472,7 @@ def weekly_grant_parts(g, today):
     amount = g.get("amount")
     if amount:
         bits.append(escape(str(amount)))
-    return gtitle, gurl, plain_url, bits
+    return gtitle, gurl, bits
 
 
 def weekly_count_phrase(count, category, opp_type):
@@ -539,7 +561,7 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=None):
         return ""
     open_at_stamp = [
         g for g in grants_in_week
-        if open_for_drop(parse_date(g.get("deadline")), sunday)
+        if open_for_drop(g, sunday)
     ]
     if not open_at_stamp:
         return ""
@@ -552,7 +574,7 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=None):
         # the title.
         # Label against the drop's own Sunday: a frozen item must not rewrite
         # itself to "deadline Closed" as the deadline later passes.
-        gtitle, gurl, plain_url, bits = weekly_grant_parts(g, sunday)
+        gtitle, gurl, bits = weekly_grant_parts(g, sunday)
         key = g.get("id") or g.get("url") or str(g.get("title", "Untitled"))
         guid = f"{PAGE_URL}{slug}#week-{monday.isoformat()}-{key}"
         body = drop_body(g, sunday, gurl, bits)
@@ -605,7 +627,8 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
     for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
         # The bare-URL line under the title serves plain-text renderers that
         # strip anchor tags; the href keeps the UTM tag.
-        gtitle, gurl, plain_url, bits = weekly_grant_parts(g, stamp)
+        gtitle, gurl, bits = weekly_grant_parts(g, stamp)
+        plain_url = escape(g.get("url") or PAGE_URL)
         rows.append(
             f'<li><a href="{gurl}"><strong>{gtitle}</strong></a><br>'
             f'<a href="{gurl}">{plain_url}</a><br>'
@@ -695,7 +718,7 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
 
     Returns (xml, pending) where pending is True when a grant is still on its
     way to a future drop."""
-    title, desc = feed_title_desc(region, category, weekly=True, opp_type=opp_type)
+    title, desc = feed_title_desc(region, category, opp_type=opp_type)
     filename = feed_filename(region, category=category, weekly=True, opp_type=opp_type)
     feed_url = PAGE_URL + filename
     by_id = by_id if by_id is not None else {g["id"]: g for g in grants if g.get("id")}
@@ -712,15 +735,8 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
         if week:
             buckets[date.fromisoformat(monday_iso)] = week
 
-    # The earliest drop not yet out, and the one released just before it. Only
-    # that latest released week may still be recorded; any other released week
-    # is closed, and a grant computed into it goes into the open drop instead.
-    open_monday = week_start(today)
-    if drop_released(open_monday + timedelta(days=6), today):
-        open_monday += timedelta(days=7)
-    last_released = open_monday - timedelta(days=7)
-    recording = (last_released + timedelta(days=6) >= WEEKLY_BY_ADDED_SINCE
-                 and last_released.isoformat() not in weeks_l)
+    open_monday, last_released = drop_window(today)
+    recording = needs_recording(entry, last_released)
     first_open = last_released if recording else open_monday
     for g in grants:
         if not in_added_era(g) or g.get("id") in sent:
@@ -734,7 +750,7 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
         sunday = monday + timedelta(days=6)
         ids = sorted(
             g["id"] for g in buckets.get(monday, [])
-            if g.get("id") and open_for_drop(parse_date(g.get("deadline")), sunday)
+            if g.get("id") and open_for_drop(g, sunday)
         )
         weeks_l[monday.isoformat()] = ids
         sent.update(ids)
@@ -772,7 +788,7 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
         return drop_released(sunday, today)
 
     pending = any(
-        not released(w) and any(open_for_drop(parse_date(g.get("deadline")), w + timedelta(days=6))
+        not released(w) and any(open_for_drop(g, w + timedelta(days=6))
                                 for g in gs)
         for w, gs in buckets.items()
     )
@@ -783,7 +799,7 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
     weeks = sorted(
         (w for w in buckets
          if w >= HISTORY_FLOOR and released(w)
-         and any(open_for_drop(parse_date(g.get("deadline")), w + timedelta(days=6))
+         and any(open_for_drop(g, w + timedelta(days=6))
                  for g in buckets[w])),
         reverse=True,
     )[:MAX_WEEKS]
@@ -913,6 +929,20 @@ def lead_text(text, limit=CAL_DESC_MAX):
     return (cut[:stop + 1] if stop > limit // 3 else cut.rsplit(" ", 1)[0] + "...")
 
 
+# The one component an event-less calendar carries (RFC 5545 forbids none).
+EMPTY_CALENDAR_COMPONENT = [
+    "BEGIN:VTIMEZONE",
+    "TZID:UTC",
+    "BEGIN:STANDARD",
+    "DTSTART:19700101T000000",
+    "TZOFFSETFROM:+0000",
+    "TZOFFSETTO:+0000",
+    "TZNAME:UTC",
+    "END:STANDARD",
+    "END:VTIMEZONE",
+]
+
+
 def build_calendar(grants, today, region=None, category=None, opp_type=None):
     now_stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     suffix_parts = []
@@ -1011,6 +1041,10 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
         event.append("END:VEVENT")
         lines.extend(event)
 
+    if not any(line == "BEGIN:VEVENT" for line in lines):
+        # RFC 5545 needs at least one component. A quiet calendar carries a bare
+        # UTC time zone rather than a placeholder event subscribers would see.
+        lines += EMPTY_CALENDAR_COMPONENT
     lines.append("END:VCALENDAR")
     return "\r\n".join(fold_line(line) for line in lines) + "\r\n"
 
@@ -1185,9 +1219,14 @@ def type_matches(grant, opp_type):
     return any(tag_re.search(t) for t in tags) or bool(title_re.search(title))
 
 
-def check_type_rules_match_site():
-    """Warn when index.html's TYPE_RULES no longer match FEED_TYPE_RULES.
-    Returns True when they drifted."""
+# The line in index.html's grantRegions() that puts NL grants in the Europe view
+# (see region_matches). The drift check fails when it is changed on one side only.
+SITE_NL_IN_EU_LINE = "if (out.includes('NL') && !out.includes('EU')) out.push('EU');"
+
+
+def check_rules_match_site():
+    """Warn when index.html's TYPE_RULES no longer match FEED_TYPE_RULES, or its
+    NL-in-Europe region rule is gone. Returns True when they drifted."""
     try:
         html = (HERE / "index.html").read_text(encoding="utf-8")
     except OSError:
@@ -1199,6 +1238,10 @@ def check_type_rules_match_site():
             drifted = True
             print(f"WARNING: index.html TYPE_RULES '{site_key}' differs from "
                   f"FEED_TYPE_RULES['{feed_type}']; site filter and feeds disagree.")
+    if SITE_NL_IN_EU_LINE not in html:
+        drifted = True
+        print("WARNING: index.html grantRegions() no longer has the NL-in-Europe rule "
+              "that region_matches() applies; site filter and feeds disagree.")
     return drifted
 
 
@@ -1703,8 +1746,9 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
 # several categories (the optional `categories` array), and match several types
 # (type matching is tag- and title-driven). So ticking two boxes can surface the
 # same grant twice. Rather than hand-maintain a list of "watch out for EU and
-# NL", the note is COMPUTED from the live data each build, so it can never drift
-# from what the feeds actually contain.
+# NL", the note is COMPUTED from the live data each build. It counts what the
+# feeds actually carry: feed-eligible grants added in the last MAX_WEEKS weeks
+# (a feed's window), not the whole archive.
 # ONE threshold for both the asterisks on the checkboxes and the explanatory
 # note, so the two can never disagree. Running two different bars meant the note
 # listed pairs that carried no star, which just read as a bug to anyone looking
@@ -1751,6 +1795,13 @@ def heavy_overlap_pairs(grants):
     return out
 
 
+def overlap_sample(grants, today):
+    """Grants the feeds can carry now: not opted out, added within MAX_WEEKS weeks."""
+    since = today - timedelta(weeks=MAX_WEEKS)
+    return [g for g in grants
+            if g.get("feed") is not False and (added_date(g) or date.min) >= since]
+
+
 def build_overlap_note(grants):
     """Explain the asterisks. Renders exactly the pairs heavy_overlap_pairs()
     marks, so the prose and the checkbox markers are the same list by
@@ -1787,7 +1838,8 @@ def build_overlap_note(grants):
         "<summary>Why some filters are marked *</summary>\n"
         "<p>A single grant can sit in more than one region, category or type, so two "
         "filters can hand you the same call twice. The pairs below overlap enough to "
-        "be worth flagging, and every filter involved carries an asterisk above.</p>\n"
+        "be worth flagging, and every filter involved carries an asterisk above. "
+        f"Counted over the grants added in the last {MAX_WEEKS} weeks.</p>\n"
         + "\n".join(blocks)
         + "\n</details>\n"
         "<!-- END_OVERLAP_NOTE -->"
@@ -1815,7 +1867,7 @@ def inject_into_main_index(grants, today):
         text,
         flags=re.DOTALL,
     )
-    overlap_block = build_overlap_note(grants)
+    overlap_block = build_overlap_note(overlap_sample(grants, today))
     text = re.sub(
         r"<!-- BEGIN_OVERLAP_NOTE -->.*?<!-- END_OVERLAP_NOTE -->",
         lambda m: overlap_block,
@@ -2097,14 +2149,17 @@ def main():
     # GRANT_DESK_STRICT=1 (set by the daily publish workflow) turns type-rule
     # drift into a failed run, before anything is written. Deploy builds stay
     # warning-only so the site never stops deploying over it.
-    if check_type_rules_match_site() and os.environ.get("GRANT_DESK_STRICT") == "1":
-        print("ERROR: fix the drift between TYPE_RULES and FEED_TYPE_RULES, then rerun.")
+    if check_rules_match_site() and os.environ.get("GRANT_DESK_STRICT") == "1":
+        print("ERROR: fix the drift between index.html and generate_feed.py, then rerun.")
         return 1
 
     for g in grants:
         if (g.get("deadlineTime") or g.get("deadlineTz")) and not deadline_moment(g):
             print(f"WARNING: {g.get('id')}: deadlineTime/deadlineTz unreadable "
                   f"({g.get('deadlineTime')!r}, {g.get('deadlineTz')!r}); calendar shows an all-day event.")
+        elif str(g.get("deadlineTime") or "") in ("00:00", "24:00"):
+            print(f"WARNING: {g.get('id')}: deadlineTime {g['deadlineTime']} is ambiguous; store "
+                  "midnight as 23:59 on the last day applications are accepted.")
     # Per-grant opt-out: "feed": false keeps an entry off every RSS feed while
     # leaving it on the website, static pages and calendars. Grants added before
     # the addedDate era only ever appear through the ledger's frozen weeks.
@@ -2147,10 +2202,17 @@ def main():
         seed = entry is None
         if seed:
             entry = {"weeks": {}, "sent": []}
-        if opp_type and not filtered and not entry["weeks"] and not published:
+        if opp_type and not filtered and not any(entry["weeks"].values()) and not published:
             # Nothing to show and nothing published. Keep the tombstone: an
-            # emptied slice that refills must not re-seed and re-send.
+            # emptied slice that refills must not re-seed and re-send. It still
+            # records each released drop (as empty, keeping only the latest), so
+            # a grant edited into the slice later goes into the next drop instead
+            # of being recorded late into one that already went out.
             if not seed:
+                _, last_released = drop_window(today)
+                if not READONLY and needs_recording(entry, last_released):
+                    entry["weeks"] = {last_released.isoformat(): []}
+                    entry.pop("stamps", None)
                 new_ledger[wname] = entry
             return
         xml, pending = build_weekly_feed(filtered, region, today, category=category,

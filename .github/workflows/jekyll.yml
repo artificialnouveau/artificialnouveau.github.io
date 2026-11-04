@@ -14,8 +14,9 @@ on:
   # Commits pushed by other workflows with GITHUB_TOKEN never trigger `push`,
   # so the daily grants publish (which releases the Sunday RSS drops) would
   # otherwise only go live on the next human push. Deploy after each run.
+  # The monthly prune can record a drop as well, so it deploys the same way.
   workflow_run:
-    workflows: ["Publish queued grants (daily)"]
+    workflows: ["Publish queued grants (daily)", "Prune old archived grants (monthly)"]
     types: [completed]
     branches: ["master"]
 
@@ -37,8 +38,8 @@ concurrency:
 jobs:
   # Build job
   build:
-    # A failed or cancelled publish run must not deploy (it would release a
-    # drop the ledger never recorded).
+    # A failed or cancelled publish/prune run must not deploy (it would release
+    # a drop the ledger never recorded).
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:

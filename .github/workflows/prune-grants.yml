@@ -10,6 +10,11 @@ on:
 permissions:
   contents: write
 
+# This run records drops too (it is not read-only), so it is strict like the
+# daily publish: drifted type or region rules fail it before anything is written.
+env:
+  GRANT_DESK_STRICT: "1"
+
 # All grant workflows write to master; serialise them so they never race.
 concurrency:
   group: grants-master-writer

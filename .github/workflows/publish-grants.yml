@@ -10,6 +10,12 @@ on:
 permissions:
   contents: write
 
+# Every regenerate here records drops, so all of them run strict: fail (before
+# writing anything) if index.html and generate_feed.py disagree on type or
+# region rules, instead of recording a drop built from drifted rules.
+env:
+  GRANT_DESK_STRICT: "1"
+
 # All grant workflows write to master; serialise them so they never race.
 concurrency:
   group: grants-master-writer
@@ -29,10 +35,6 @@ jobs:
 
       - name: Regenerate feeds, calendars and pages
         run: python3 smalltools/grants/generate_feed.py
-        env:
-          # Fail (before writing anything) if the site's TYPE_RULES and the
-          # generator's FEED_TYPE_RULES drift apart.
-          GRANT_DESK_STRICT: "1"
 
       - name: Commit changes (if any)
         run: |
