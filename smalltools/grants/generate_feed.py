@@ -359,7 +359,7 @@ WEEKLY_NOUNS = {
 WEEKLY_DROP_SINCE = date(2026, 9, 6)
 
 # From this Sunday on, drops are uncapped and keyed on addedDate: each Sunday
-# carries every grant added Monday-Sunday of that week. The earlier design (a
+# carries every grant added Sunday-Saturday of the week before it (added_week). The earlier design (a
 # 5/day release drip feeding a 10-15 item cap, soonest deadlines first) took in
 # ~35-40 grants a week but let only 10-15 out, so grants queued until their
 # deadline forced them through and every drop item closed within 7 days.
@@ -430,6 +430,18 @@ def open_for_drop(g, sunday):
     if moment:
         deadline = moment[0].astimezone(timezone.utc).date()
     return deadline > sunday
+
+
+def open_at(g, now):
+    """True when grant ``g`` is still accepting applications at ``now`` (aware UTC):
+    before its stated closing moment, else on or before its deadline date."""
+    deadline = parse_date(g.get("deadline"))
+    if deadline is None:
+        return True
+    moment = deadline_moment(g)
+    if moment:
+        return moment[0] > now
+    return deadline >= now.date()
 
 
 def drop_window(today):
@@ -568,7 +580,11 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=None):
     pub = rfc822(stamp or drop_stamp(sunday))
 
     items = []
-    for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
+    # Ties on deadline break on id: the recording run sees grants.json order and
+    # every later run the ledger's sorted ids, so without the id the items of a
+    # recorded drop would reshuffle (and commit) on the next run.
+    for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max,
+                                                  str(x.get("id") or ""))):
         # No visible URL line here: unlike the digest era, the grant's link is
         # the item's own <link>, which every renderer (Slack included) puts on
         # the title.
@@ -746,14 +762,21 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
             b = first_open
         buckets.setdefault(b, []).append(g)
 
-    def record(monday):
+    def record(monday, now=None):
+        """Freeze one released week. With ``now`` (the late-safe recording of
+        the latest drop), a grant must also still be open at that moment: a
+        drop recorded on Monday after a failed Sunday run must not send a call
+        that closed overnight."""
         sunday = monday + timedelta(days=6)
         ids = sorted(
             g["id"] for g in buckets.get(monday, [])
             if g.get("id") and open_for_drop(g, sunday)
+            and (now is None or open_at(g, now))
         )
         weeks_l[monday.isoformat()] = ids
         sent.update(ids)
+        # Render exactly what was recorded, in this run as in every later one.
+        buckets[monday] = [g for g in buckets.get(monday, []) if g.get("id") in ids]
 
     # Read-only runs (deploy builds, bot PR branches) record nothing: whatever
     # they wrote would never be committed, so it could not stay consistent.
@@ -765,7 +788,7 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
                     and drop_released(monday + timedelta(days=6), today)):
                 record(monday)
     elif recording:
-        record(last_released)
+        record(last_released, now=datetime.now(timezone.utc))
         # Freeze the real release moment as this drop's pubDate.
         entry.setdefault("stamps", {})[last_released.isoformat()] = (
             datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
@@ -891,21 +914,35 @@ def deadline_moment(grant):
     t, tz = grant.get("deadlineTime"), grant.get("deadlineTz")
     if not (d and t and tz):
         return None
+    # Strict HH:MM, 00:00-23:59, exactly what deadlineMoment() in index.html accepts.
+    tm = re.fullmatch(r"([01]\d|2[0-3]):([0-5]\d)", str(t))
+    if not tm:
+        return None
+    hh, mm = int(tm.group(1)), int(tm.group(2))
+    tz = str(tz)
     try:
         from zoneinfo import ZoneInfo
-        hh, mm = (int(x) for x in str(t).split(":"))
-        moment = datetime(d.year, d.month, d.day, hh, mm, tzinfo=ZoneInfo(str(tz)))
-    except Exception:  # bad time string or unknown zone
+        moment = datetime(d.year, d.month, d.day, hh, mm, tzinfo=ZoneInfo(tz))
+    except Exception:  # unknown zone
         return None
-    abbr = moment.tzname() or str(tz)
-    if str(tz) == "Etc/GMT+12":
+    if moment.replace(fold=1).utcoffset() != moment.utcoffset():
+        # A wall time skipped or repeated by a DST change names no single
+        # instant (and the site's JS would pick another one): unreadable.
+        return None
+    # One labelling rule, shared with deadlineMoment() in index.html: letter
+    # abbreviations only for European, American and Australian zones (the ones
+    # browsers can name too), "<City> time" elsewhere.
+    abbr = moment.tzname() or tz
+    if tz == "Etc/GMT+12":
         abbr = "AoE"
-    elif str(tz).startswith("Etc/GMT") and len(str(tz)) > 7:
+    elif tz.startswith("Etc/GMT") and len(tz) > 7:
         # POSIX sign is inverted: Etc/GMT-5 is UTC+5.
-        off = str(tz)[7:]
+        off = tz[7:]
         abbr = "UTC" + ("+" if off.startswith("-") else "-") + off[1:]
-    elif abbr.startswith(("+", "-")):
-        abbr = str(tz).split("/")[-1].replace("_", " ") + " time"
+    elif tz.startswith("Etc/") or tz == "UTC":
+        abbr = "UTC"
+    elif abbr.startswith(("+", "-")) or not tz.startswith(("Europe/", "America/", "Australia/")):
+        abbr = tz.split("/")[-1].replace("_", " ") + " time"
     return moment, f"{hh:02d}:{mm:02d} {abbr}"
 
 
@@ -2146,7 +2183,7 @@ def main():
     # UTC, matching the drop stamps and the 06:00 UTC workflow: a local run just
     # after midnight CET on a Sunday must not publish that Sunday's drop early.
     today = datetime.now(timezone.utc).date()
-    # GRANT_DESK_STRICT=1 (set by the daily publish workflow) turns type-rule
+    # GRANT_DESK_STRICT=1 (set by the publish and prune workflows) turns rule
     # drift into a failed run, before anything is written. Deploy builds stay
     # warning-only so the site never stops deploying over it.
     if check_rules_match_site() and os.environ.get("GRANT_DESK_STRICT") == "1":
@@ -2156,8 +2193,10 @@ def main():
     for g in grants:
         if (g.get("deadlineTime") or g.get("deadlineTz")) and not deadline_moment(g):
             print(f"WARNING: {g.get('id')}: deadlineTime/deadlineTz unreadable "
-                  f"({g.get('deadlineTime')!r}, {g.get('deadlineTz')!r}); calendar shows an all-day event.")
-        elif str(g.get("deadlineTime") or "") in ("00:00", "24:00"):
+                  f"({g.get('deadlineTime')!r}, {g.get('deadlineTz')!r}; needs HH:MM 00:00-23:59, a "
+                  "known IANA zone, and a time not skipped or repeated by a DST change); "
+                  "calendar shows an all-day event.")
+        elif g.get("deadlineTime") == "00:00":
             print(f"WARNING: {g.get('id')}: deadlineTime {g['deadlineTime']} is ambiguous; store "
                   "midnight as 23:59 on the last day applications are accepted.")
     # Per-grant opt-out: "feed": false keeps an entry off every RSS feed while

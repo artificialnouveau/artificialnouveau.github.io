@@ -58,6 +58,9 @@ jobs:
             git push && exit 0
             git fetch origin master
             git reset --hard origin/master
+            # Also drop files the rejected attempt created: a leftover new feed
+            # or calendar would otherwise look "already published" and be kept.
+            git clean -fdq -- smalltools/grants
             python3 smalltools/grants/generate_feed.py
             # Regeneration always rewrites timestamps, so check for a real
             # change again before committing on top of origin.

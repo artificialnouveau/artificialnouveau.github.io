@@ -58,7 +58,13 @@ jobs:
             git push && exit 0
             git fetch origin master
             git reset --hard origin/master
-            python3 smalltools/grants/prune_grants.py --apply --auto && python3 smalltools/grants/generate_feed.py
+            # Also drop files the rejected attempt created: a leftover new feed
+            # or calendar would otherwise look "already published" and be kept.
+            git clean -fdq -- smalltools/grants
+            # Separate lines, not &&: under bash -e a failure on the left of
+            # && does not stop the step, so a failed prune would pass silently.
+            python3 smalltools/grants/prune_grants.py --apply --auto
+            python3 smalltools/grants/generate_feed.py
             # Regeneration always rewrites timestamps, so check for a real
             # change again before committing on top of origin.
             if git diff -I'<lastBuildDate>' -I'^DTSTAMP:' -I'<lastmod>' --quiet \

@@ -13032,7 +13032,8 @@ function renderFolder(grant, category, today) {
 // "Add to Google Calendar" link match the subscribed calendars.
 function deadlineMoment(grant) {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(grant.deadline || '');
-  const t = /^(\d{1,2}):(\d{2})$/.exec(grant.deadlineTime || '');
+  // Strict HH:MM, 00:00-23:59, exactly what deadline_moment() accepts.
+  const t = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(grant.deadlineTime || '');
   const tz = grant.deadlineTz;
   if (!m || !t || !tz) return null;
   try {
@@ -13043,21 +13044,27 @@ function deadlineMoment(grant) {
     // Wall-clock time in `tz` -> instant: start from the time read as UTC and
     // correct by the zone's offset twice (the second pass settles DST edges).
     const wall = Date.UTC(+m[1], +m[2] - 1, +m[3], +t[1], +t[2]);
-    let ts = wall;
-    for (let i = 0; i < 2; i++) {
+    const wallAt = ts => {
       const p = {};
       for (const part of fmt.formatToParts(new Date(ts))) p[part.type] = +part.value;
-      ts = wall - (Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute) - ts);
-    }
+      return Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute);
+    };
+    let ts = wall;
+    for (let i = 0; i < 2; i++) ts = wall - (wallAt(ts) - ts);
+    // A wall time skipped or repeated by a DST change names no single instant:
+    // treat it as unreadable, like deadline_moment() (an all-day event).
+    if (wallAt(ts) !== wall || wallAt(ts - 3600000) === wall || wallAt(ts + 3600000) === wall) return null;
     const close = new Date(ts);
-    // English locales only name their own region's zones (en-GB knows CET,
-    // en-AU knows AEDT); anything else falls back like the generator does.
+    // Same labelling rule as deadline_moment(): letter abbreviations only for
+    // European, American and Australian zones (en-GB knows CET, en-US EST,
+    // en-AU AEDT), "<City> time" elsewhere.
+    const city = tz.split('/').pop().replace(/_/g, ' ') + ' time';
     const locale = tz.startsWith('Australia/') ? 'en-AU' : tz.startsWith('America/') ? 'en-US' : 'en-GB';
     let abbr = new Intl.DateTimeFormat(locale, { timeZone: tz, timeZoneName: 'short' })
       .formatToParts(close).find(part => part.type === 'timeZoneName')?.value || tz;
     if (tz === 'Etc/GMT+12') abbr = 'AoE';
-    else if (tz.startsWith('Etc/') || tz === 'UTC') abbr = abbr.replace('GMT', 'UTC');
-    else if (/^GMT[+-]/.test(abbr)) abbr = tz.split('/').pop().replace(/_/g, ' ') + ' time';
+    else if (tz.startsWith('Etc/') || tz === 'UTC') abbr = abbr === 'GMT' ? 'UTC' : abbr.replace('GMT', 'UTC');
+    else if (/^GMT[+-]/.test(abbr) || !/^(Europe|America|Australia)\//.test(tz)) abbr = city;
     return { close, label: t[1].padStart(2, '0') + ':' + t[2] + ' ' + abbr };
   } catch (e) {
     return null; // unknown zone
