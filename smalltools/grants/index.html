@@ -1550,11 +1550,12 @@ code *, pre *, kbd *, samp * {
           </div>
           <p class="feed-note" id="feed-note" hidden></p>
 <!-- BEGIN_OVERLAP_NOTE -->
-<script type="application/json" id="overlap-data">[{"axis":"categories","a":"writers","b":"ai-tech-research","aLabel":"Journalism & Writers","bLabel":"AI, Tech & Research","shared":62,"share":0.459},{"axis":"categories","a":"cross","b":"media-arts","aLabel":"Cross-disciplinary & Social Impact","bLabel":"Media Arts, Film & Sound","shared":70,"share":0.345},{"axis":"categories","a":"cross","b":"ai-tech-research","aLabel":"Cross-disciplinary & Social Impact","bLabel":"AI, Tech & Research","shared":56,"share":0.276},{"axis":"categories","a":"ai-tech-research","b":"media-arts","aLabel":"AI, Tech & Research","bLabel":"Media Arts, Film & Sound","shared":112,"share":0.256}]</script>
+<script type="application/json" id="overlap-data">[{"axis":"categories","a":"writers","b":"ai-tech-research","aLabel":"Journalism & Writers","bLabel":"AI, Tech & Research","shared":62,"share":0.459},{"axis":"types","a":"residencies","b":"grants","aLabel":"Artist Residencies","bLabel":"Grants","shared":133,"share":0.445},{"axis":"types","a":"fellowships","b":"grants","aLabel":"Fellowships","bLabel":"Grants","shared":94,"share":0.355},{"axis":"categories","a":"cross","b":"media-arts","aLabel":"Cross-disciplinary & Social Impact","bLabel":"Media Arts, Film & Sound","shared":70,"share":0.345},{"axis":"categories","a":"cross","b":"ai-tech-research","aLabel":"Cross-disciplinary & Social Impact","bLabel":"AI, Tech & Research","shared":56,"share":0.276},{"axis":"categories","a":"ai-tech-research","b":"media-arts","aLabel":"AI, Tech & Research","bLabel":"Media Arts, Film & Sound","shared":112,"share":0.256}]</script>
 <details class="overlap-note">
 <summary>Why some filters are marked *</summary>
 <p>A single grant can sit in more than one region, category or type, so two filters can hand you the same call twice. The pairs below overlap enough to be worth flagging, and every filter involved carries an asterisk above.</p>
 <p class="overlap-axis">Categories</p><ul><li><strong>Journalism &amp; Writers</strong> and <strong>AI, Tech &amp; Research</strong> &mdash; 62 shared</li><li><strong>Cross-disciplinary &amp; Social Impact</strong> and <strong>Media Arts, Film &amp; Sound</strong> &mdash; 70 shared</li><li><strong>Cross-disciplinary &amp; Social Impact</strong> and <strong>AI, Tech &amp; Research</strong> &mdash; 56 shared</li><li><strong>AI, Tech &amp; Research</strong> and <strong>Media Arts, Film &amp; Sound</strong> &mdash; 112 shared</li></ul>
+<p class="overlap-axis">Types</p><ul><li><strong>Artist Residencies</strong> and <strong>Grants</strong> &mdash; 133 shared</li><li><strong>Fellowships</strong> and <strong>Grants</strong> &mdash; 94 shared</li></ul>
 </details>
 <!-- END_OVERLAP_NOTE -->
           <p class="feed-note" id="feed-next-drop">Next drop: Sunday, 06:00 UTC.</p>
@@ -1588,6 +1589,7 @@ code *, pre *, kbd *, samp * {
             <fieldset class="cat-checks" id="cal-categories">
               <legend>Categories</legend>
               <div class="check-list">
+                <label><input type="checkbox" value="" checked data-all="1"> All categories</label>
                 <label><input type="checkbox" value="ai-tech-research"> AI, Tech &amp; Research</label>
                 <label><input type="checkbox" value="cross"> Cross-disciplinary &amp; Social Impact</label>
                 <label><input type="checkbox" value="media-arts"> Media Arts, Film &amp; Sound</label>
@@ -1632,7 +1634,7 @@ code *, pre *, kbd *, samp * {
           <details>
             <summary>How to subscribe</summary>
             <ol>
-              <li>Optionally tick one or more Categories and/or pick a Region to narrow the calendar. If you tick multiple categories, you'll get one .ics URL per category, which you can subscribe to separately.</li>
+              <li>Optionally tick Categories or Types and/or pick a Region to narrow the calendar. Ticking several categories or types gives one .ics URL per combination; subscribe to each separately.</li>
               <li>Copy the calendar URL.</li>
               <li><strong>Google Calendar:</strong> "Other calendars" &rarr; "+" &rarr; "From URL", paste, Add.</li>
               <li><strong>Apple Calendar:</strong> "File" &rarr; "New Calendar Subscription", paste, OK.</li>
@@ -12694,15 +12696,21 @@ const TYPE_RULES = [
   ['festival',    FESTIVAL_TAG_RE, FESTIVAL_TITLE_RE],
   ['prize',       /prize|award|competition|contest/, /prize|award|competition|contest/],
   ['job',         /job|vacancy/, null],
-  ['grant',       /grant|fund|fonds|subsid|bursar|stipend|scholarship|commission/, /grant|fund|fonds|bursar|subsid|stipend|scholarship/],
+  // grant: keep identical to FEED_TYPE_RULES["grants"] in generate_feed.py (it
+  // warns on drift). Whole words, so "Funded residency", "Grantham", "Immigrant"
+  // and fully-funded tags are not grants; stipend/fonds match inside compounds.
+  ['grant',       /(^|-)((micro|sub|mega)?grants?|regranting|funds?|funding|subsid(y|ies)|bursar(y|ies)|stipends?|scholarships?|commissions?)(-|$)|fonds/, /\b((micro|sub|mega)?grants?|regranting|funds?|funding|bursar(y|ies)|subsid(y|ies)|scholarships?|support scheme)\b|stipend|fonds/],
   ['production',  /production|cash-rebate|documentary|feature-film|television|tv-drama|screenwriting|filmmak|episodic/, /film production|production incentive|documentary|feature film|screenwriting|tv drama|filmmak/],
   ['publication', /call-for-papers|call-for-pitches|journal|publication|publishing|magazine|editorial|essay|long-read|zine|anthology|writing/, /call for papers|call for pitches|journal|magazine|anthology|essay/],
 ];
 
 function detectTypes(grant) {
   // 'cash-award' marks that money is attached (residencies and grants carry it
-  // too), so it says nothing about type and must not trip the prize rule.
-  const tags = (grant.tags || []).map(t => String(t).toLowerCase()).filter(t => t !== 'cash-award');
+  // too), so it says nothing about type and must not trip the prize rule. Tags
+  // starting "no-" (no-stipend) state an absence. Same filter as type_tags() in
+  // generate_feed.py.
+  const tags = (grant.tags || []).map(t => String(t).toLowerCase())
+    .filter(t => t !== 'cash-award' && !t.startsWith('no-'));
   const title = String(grant.title || '').toLowerCase();
   const out = [];
   for (const [type, tagRe, titleRe] of TYPE_RULES) {
@@ -13336,19 +13344,21 @@ load();
     ? Array.from(fs.querySelectorAll('input[type=checkbox]:checked')).map(c => c.value).filter(Boolean)
     : [];
 
-  // "All types" is on by default and mutually exclusive with the specific types,
-  // matching the RSS picker: an empty type is what "all" means to the filename.
+  // "All categories" and "All types" are on by default and mutually exclusive
+  // with the specific options, matching the RSS picker: an empty value is what
+  // "all" means to the filename.
+  const allCatBox = catFieldset ? catFieldset.querySelector('input[data-all]') : null;
   const allTypeBox = typeFieldset ? typeFieldset.querySelector('input[data-all]') : null;
-  const normaliseTypes = (clicked) => {
-    if (!typeFieldset || !allTypeBox) return;
-    const specific = Array.from(typeFieldset.querySelectorAll('input[type=checkbox]'))
-      .filter(c => c !== allTypeBox);
-    if (clicked === allTypeBox) {
-      if (allTypeBox.checked) specific.forEach(c => { c.checked = false; });
-      else if (!specific.some(c => c.checked)) allTypeBox.checked = true;
+  const normaliseAll = (fs, allBox, clicked) => {
+    if (!fs || !allBox) return;
+    const specific = Array.from(fs.querySelectorAll('input[type=checkbox]'))
+      .filter(c => c !== allBox);
+    if (clicked === allBox) {
+      if (allBox.checked) specific.forEach(c => { c.checked = false; });
+      else if (!specific.some(c => c.checked)) allBox.checked = true;
       return;
     }
-    allTypeBox.checked = !specific.some(c => c.checked);
+    allBox.checked = !specific.some(c => c.checked);
   };
 
   // Same slot order as calendar_filename() in generate_feed.py.
@@ -13368,6 +13378,7 @@ load();
   };
 
   const update = () => {
+    if (allCatBox) allCatBox.checked = !ticked(catFieldset).length;
     if (allTypeBox) allTypeBox.checked = !ticked(typeFieldset).length;
     const cats = ticked(catFieldset);
     const types = ticked(typeFieldset);
@@ -13415,8 +13426,8 @@ load();
   };
 
   regionSel.addEventListener('change', update);
-  if (catFieldset) catFieldset.addEventListener('change', update);
-  if (typeFieldset) typeFieldset.addEventListener('change', (e) => { normaliseTypes(e.target); update(); });
+  if (catFieldset) catFieldset.addEventListener('change', (e) => { normaliseAll(catFieldset, allCatBox, e.target); update(); });
+  if (typeFieldset) typeFieldset.addEventListener('change', (e) => { normaliseAll(typeFieldset, allTypeBox, e.target); update(); });
   copyBtn.addEventListener('click', async () => {
     const url = copyBtn.dataset.url;
     if (!url) return;
@@ -13546,8 +13557,7 @@ load();
     allBox.checked = !specific.some(c => c.checked);
   };
   // Slot order mirrors feed_filename() in generate_feed.py exactly:
-  // feed [cat-<category>] [region] [type] [weekly]. The generator also has a
-  // timeline slot, but this picker no longer offers it.
+  // feed [cat-<category>] [region] [type] [weekly].
   const buildName = (cat, region, type, cadence) => {
     const parts = ['feed'];
     if (cat) { parts.push('cat'); parts.push(cat); }

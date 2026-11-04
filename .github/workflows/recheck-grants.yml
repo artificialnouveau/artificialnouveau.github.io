@@ -77,6 +77,12 @@ jobs:
       - name: Regenerate feeds
         if: steps.recheck.outputs.has_candidates == 'true'
         run: python3 smalltools/grants/generate_feed.py
+        env:
+          # The PR may merge days later, after the daily publish has recorded
+          # newer drops; a ledger committed here would then be stale and could
+          # re-send a week. Read-only runs leave feed-drop-ledger.json untouched,
+          # and the daily publish regenerates everything after the merge.
+          GRANT_DESK_READONLY: "1"
 
       - name: Open draft PR
         if: ${{ steps.recheck.outputs.has_candidates == 'true' && steps.pat.outputs.set == 'true' }}

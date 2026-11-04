@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Generate per-region and per-timeline RSS feeds, plus calendar.ics,
+"""Generate the weekly RSS feeds and the deadline calendars,
 from grants.json for The Grant Desk.
 
 Outputs:
 - feed-weekly.xml and feed-[cat-<category>]-[<region>]-[<type>]-weekly.xml:
-  exactly the combinations the subscribe picker offers (since 4 Nov 2026 the
-  compatibility aliases and the 30d/90d/added-30d timeline feeds are gone)
+  the combinations the subscribe picker offers
 - calendar*.ics             (all grants with a deadline, per slice)
 
 All RSS output is the weekly digest; the per-grant daily feeds were retired
@@ -19,7 +18,6 @@ Pages deploy. No external dependencies, only stdlib.
 """
 from __future__ import annotations
 
-import bisect
 import json
 import os
 import re
@@ -52,16 +50,6 @@ DESCRIPTION = (
     "Paid open calls, fellowships and residencies in AI, tech, research, and digital and mixed-media arts, "
     "sorted into the right pile. Updated as new calls land on the desk."
 )
-
-# Hard cap on how many grants may enter the RSS feeds on any single day. Manual
-# feedDate staggering, bot additions and auto-published tranches all funnel through
-# this: overflow spills to the next day with a free slot (soonest deadlines first).
-# Releases dated before FEED_CAP_START are grandfathered untouched: the cap must not
-# rewrite feed history, and anchoring at a FIXED date (rather than the run day) keeps
-# the schedule identical across daily regenerates so deferred grants cannot leak back
-# in early. Do not move FEED_CAP_START backwards.
-FEED_MAX_PER_DAY = 5
-FEED_CAP_START = date(2026, 7, 14)
 
 REGIONS = ["EU", "US", "UK", "NL", "Switzerland", "Asia", "China-HK-Taiwan", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"]
 
@@ -98,7 +86,6 @@ LEGACY_BARE_REGIONS = [r for r in REGIONS if r not in PICKER_REGIONS]
 # must not delete its calendars.
 CAL_PICKER_REGIONS = ["EU", "US", "UK", "Asia", "Africa", "Canada", "Australia", "LatAm",
                       "remote-worldwide", "NL"]
-TIMELINES = ["30d", "90d", "added-30d"]
 CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"]
 
 # Two of the subscribe-picker checkboxes bundle a pair of categories under one
@@ -115,12 +102,6 @@ CATEGORY_GROUPS = {
     "design-games": ["design", "game"],
 }
 SYNDICATION_CATEGORIES = CATEGORIES + list(CATEGORY_GROUPS)
-
-# Single categories the picker no longer offers because they were merged into a
-# group (or excluded). Their BARE feed is still built as a compatibility alias so
-# anyone who subscribed before the merge keeps receiving items, but none of their
-# region/type permutations are: nothing can reach those, and they were half the
-# feed directory. Populated after PICKER_CATEGORIES is derived, below.
 
 # What the subscribe picker actually offers as tickboxes: the grouped slugs plus
 # the singles no group absorbed. Overlap reporting must use THIS list, not
@@ -207,12 +188,12 @@ def picker_category(category):
     return None
 
 
-def feed_filename(region, timeline, category=None, weekly=False, opp_type=None):
-    """Fixed slot order: feed [cat-<category>] [region] [type] [timeline] [weekly].
+def feed_filename(region, category=None, weekly=False, opp_type=None):
+    """Fixed slot order: feed [cat-<category>] [region] [type] [weekly].
 
     The order is a contract with the subscribe picker's JS, which assembles the
-    same slots client-side. No type slug collides with a region or timeline slug,
-    so the flat name stays unambiguous."""
+    same slots client-side. No type slug collides with a region slug, so the
+    flat name stays unambiguous."""
     parts = ["feed"]
     if category:
         parts.append("cat")
@@ -221,14 +202,12 @@ def feed_filename(region, timeline, category=None, weekly=False, opp_type=None):
         parts.append(region.lower())
     if opp_type:
         parts.append(opp_type)
-    if timeline:
-        parts.append(timeline)
     if weekly:
         parts.append("weekly")
     return "-".join(parts) + ".xml"
 
 
-def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None):
+def feed_title_desc(region, category=None, weekly=False, opp_type=None):
     suffix = []
     if opp_type:
         suffix.append(OPPORTUNITY_TYPE_TITLE_PHRASE.get(opp_type, opp_type))
@@ -236,12 +215,6 @@ def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None
         suffix.append(SYNDICATION_LABELS.get(category, category))
     if region:
         suffix.append(REGION_LABELS.get(region, region))
-    if timeline == "30d":
-        suffix.append("next 30 days")
-    elif timeline == "90d":
-        suffix.append("next 90 days")
-    elif timeline == "added-30d":
-        suffix.append("added in last 30 days")
     if weekly:
         suffix.append("weekly digest")
     if suffix:
@@ -333,11 +306,7 @@ def syndication_category_matches(grant, category):
     return False
 
 
-def filter_grants(grants, region, timeline, today, category=None, opp_type=None, stable=False):
-    """``stable`` (weekly feeds): added-era grants join a timeline slice by date
-    alone, with no today-based window, so a published drop never gains or loses
-    items as days pass. bucket_date already holds a 30d/90d grant back until its
-    deadline enters the window, and open_for_drop skips closed calls."""
+def filter_grants(grants, region, category=None, opp_type=None):
     out = []
     for g in grants:
         if opp_type and not type_matches(g, opp_type):
@@ -346,30 +315,6 @@ def filter_grants(grants, region, timeline, today, category=None, opp_type=None,
             continue
         if region and not region_matches(g, region):
             continue
-        if timeline and stable and in_added_era(g):
-            if timeline in ("30d", "90d") and not parse_date(g.get("deadline")):
-                continue
-            out.append(g)
-            continue
-        if timeline and timeline.startswith("added-"):
-            window_days = int(timeline.split("-")[1].rstrip("d"))
-            added = parse_date(g.get("addedDate"))
-            if not added:
-                continue
-            age_days = (today - added).days
-            if age_days < 0 or age_days > window_days:
-                continue
-        elif timeline:
-            d = parse_date(g.get("deadline"))
-            if not d:
-                continue
-            days = (d - today).days
-            if days < 0:
-                continue
-            if timeline == "30d" and days > 30:
-                continue
-            if timeline == "90d" and days > 90:
-                continue
         out.append(g)
     return out
 
@@ -414,17 +359,6 @@ WEEKLY_NOUNS = {
 # the single digest item so existing subscribers' guids stay stable and readers
 # are not flooded with months of new-looking items at the switch.
 WEEKLY_DROP_SINCE = date(2026, 9, 6)
-
-# Cap on how many grants a single Sunday drop may carry. The N with the
-# nearest deadlines publish; the rest roll into the following week's drop.
-# A grant is never deferred past its own deadline: anything that would expire
-# before the NEXT Sunday publishes now, even when that pushes a drop over the
-# cap. Rolling (no-deadline) grants sort last, so in a busy stretch they wait
-# for a quieter week.
-WEEKLY_DROP_MAX = 15
-# Drops before DROP_STRICT_SINCE were published under a cap of 10; keep that so
-# their cap decisions, and therefore their guids, never change.
-WEEKLY_DROP_MAX_LEGACY = 10
 
 # From this Sunday on, a grant whose deadline IS the drop Sunday no longer goes
 # out (it would arrive on its closing day). Earlier drops keep the old >= rule so
@@ -489,43 +423,10 @@ def open_for_drop(deadline, sunday):
         return True
     return deadline > sunday if sunday >= DROP_STRICT_SINCE else deadline >= sunday
 
-def drop_cap(sunday):
-    return WEEKLY_DROP_MAX if sunday >= DROP_STRICT_SINCE else WEEKLY_DROP_MAX_LEGACY
 
-
-# A grant can join a feed's slice after its release date: a timeline feed picks
-# it up only once its deadline enters the window, and a containment rule (NL in
-# Europe) can widen a region after the fact. Bucketing such a grant by its old
-# release date would add a brand-new item to a Sunday drop that was already
-# published, dated weeks back where readers never look. From this date on, a
-# grant is bucketed by when it actually joined the slice. Joins before it keep
-# the old release-date bucketing so already-published guids stay put.
-SLICE_JOIN_SINCE = date(2026, 11, 2)
-NL_IN_EUROPE_SINCE = date(2026, 11, 2)
-
-
-def slice_join_date(g, region, timeline):
-    """Earliest date the grant belongs to this feed's slice, or None if it always has."""
-    joins = []
-    if timeline in ("30d", "90d"):
-        d = parse_date(g.get("deadline"))
-        if d:
-            joins.append(d - timedelta(days=int(timeline[:-1])))
-    if region == "EU" and g.get("region") == "NL" and "EU" not in (g.get("regions") or []):
-        joins.append(NL_IN_EUROPE_SINCE)
-    return max(joins) if joins else None
-
-
-def bucket_date(g, region, timeline):
-    """Date whose week decides which Sunday drop a grant goes out in."""
-    join = slice_join_date(g, region, timeline)
-    if in_added_era(g):
-        added = added_date(g)
-        return added_week(max(added, join) if join else added)
-    release = feed_release(g)
-    if release and join and join >= SLICE_JOIN_SINCE:
-        return max(release, join)
-    return release
+def bucket_date(g):
+    """Monday of the week whose Sunday drop carries an added-era grant."""
+    return added_week(added_date(g))
 
 
 # Marker present in every generated static SEO page; the stale-page sweep only
@@ -575,7 +476,9 @@ def drop_categories(g, sunday):
     if sunday < WEEKLY_BY_ADDED_SINCE:
         return ""
     labels = []
-    for c in (g.get("categories") or [g.get("category")]):
+    # The canonical category first: a categories[] list only widens the views,
+    # and often leaves the primary out.
+    for c in [g.get("category")] + list(g.get("categories") or []):
         if c:
             labels.append(CATEGORY_LABELS.get(c, str(c)))
     for r in [g.get("region")] + list(g.get("regions") or []):
@@ -648,7 +551,8 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug):
         # Label against the drop's own Sunday: a frozen item must not rewrite
         # itself to "deadline Closed" as the deadline later passes.
         gtitle, gurl, plain_url, bits = weekly_grant_parts(g, sunday)
-        guid = f"{PAGE_URL}{slug}#week-{monday.isoformat()}-{g.get('id') or g.get('url') or gtitle}"
+        key = g.get("id") or g.get("url") or str(g.get("title", "Untitled"))
+        guid = f"{PAGE_URL}{slug}#week-{monday.isoformat()}-{key}"
         body = drop_body(g, sunday, gurl, bits)
         items.append(
             "  <item>\n"
@@ -725,68 +629,6 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
     )
 
 
-def legacy_buckets(grants, region, timeline, today):
-    """Weeks before WEEKLY_BY_ADDED_SINCE, computed the old way: release-date
-    bucketing (5/day drip) plus the 10-15 item cap cascade. Only used to build
-    the ledger's legacy weeks, for a slice the ledger does not know yet."""
-    grants = [
-        g for g in grants
-        if not in_added_era(g) and feed_release(g) and feed_release(g) <= today
-    ]
-    buckets = {}
-    for g in grants:
-        release = bucket_date(g, region, timeline)
-        if not release:
-            continue
-        buckets.setdefault(week_start(release), []).append(g)
-
-    # Enforce WEEKLY_DROP_MAX per Sunday drop, chronologically so overflow
-    # cascades week to week. Only drop-era weeks are capped: digest-era items
-    # are frozen history. The choice of which grants stay is deterministic
-    # (deadline, then id), so daily regenerates reproduce the same drops.
-    # Expired-at-stamp grants stay in their bucket (the drop builder already
-    # skips them) and do not count against the cap.
-    mondays = sorted(buckets)
-    i = 0
-    while i < len(mondays):
-        monday = mondays[i]
-        i += 1
-        sunday = monday + timedelta(days=6)
-        if sunday < WEEKLY_DROP_SINCE or sunday >= WEEKLY_BY_ADDED_SINCE:
-            continue
-        deadline_of = lambda g: parse_date(g.get("deadline")) or date.max
-        openable = sorted(
-            (g for g in buckets[monday] if open_for_drop(parse_date(g.get("deadline")), sunday)),
-            key=lambda g: (deadline_of(g), str(g.get("id") or "")),
-        )
-        cap = drop_cap(sunday)
-        if len(openable) <= cap:
-            continue
-        next_sunday = sunday + timedelta(days=7)
-        keep_ids, deferred = set(), []
-        for g in openable:
-            if deadline_of(g) < next_sunday or len(keep_ids) < cap:
-                keep_ids.add(id(g))
-            else:
-                deferred.append(g)
-        if not deferred:
-            continue
-        deferred_ids = {id(g) for g in deferred}
-        buckets[monday] = [g for g in buckets[monday] if id(g) not in deferred_ids]
-        nxt = monday + timedelta(days=7)
-        if nxt not in buckets:
-            buckets[nxt] = []
-            bisect.insort(mondays, nxt)
-        buckets[nxt].extend(deferred)
-
-    # The queued backlog the cap cascaded past the switch never goes out.
-    return {
-        m: gs for m, gs in buckets.items()
-        if m + timedelta(days=6) < WEEKLY_BY_ADDED_SINCE and m >= HISTORY_FLOOR
-    }
-
-
-
 # Deploy builds (jekyll.yml) regenerate feeds but cannot commit, so whatever
 # they record would be lost. With GRANT_DESK_READONLY=1 a build never releases
 # a drop the committed ledger has not recorded: that drop waits for the daily
@@ -832,7 +674,7 @@ def ledger_entry(raw):
     return {"weeks": weeks, "sent": sorted(sent)}
 
 
-def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=None,
+def build_weekly_feed(grants, region, today, category=None, opp_type=None,
                       entry=None, by_id=None, seed=False):
     """Weekly digest feed: the slice's grants grouped into one Sunday drop per week.
 
@@ -845,8 +687,8 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
 
     Returns (xml, pending) where pending is True when a grant is still on its
     way to a future drop."""
-    title, desc = feed_title_desc(region, timeline, category, weekly=True, opp_type=opp_type)
-    filename = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
+    title, desc = feed_title_desc(region, category, weekly=True, opp_type=opp_type)
+    filename = feed_filename(region, category=category, weekly=True, opp_type=opp_type)
     feed_url = PAGE_URL + filename
     by_id = by_id if by_id is not None else {g["id"]: g for g in grants if g.get("id")}
     if entry is None:
@@ -871,12 +713,11 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
     last_released = open_monday - timedelta(days=7)
     recording = (last_released + timedelta(days=6) >= WEEKLY_BY_ADDED_SINCE
                  and last_released.isoformat() not in weeks_l)
-    hold = recording and READONLY and not seed
     first_open = last_released if recording else open_monday
     for g in grants:
         if not in_added_era(g) or g.get("id") in sent:
             continue
-        b = bucket_date(g, region, timeline)
+        b = bucket_date(g)
         if not seed and b < first_open:
             b = first_open
         buckets.setdefault(b, []).append(g)
@@ -890,12 +731,16 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
         weeks_l[monday.isoformat()] = ids
         sent.update(ids)
 
-    if seed:
+    # Read-only runs (deploy builds, bot PR branches) record nothing: whatever
+    # they wrote would never be committed, so it could not stay consistent.
+    if READONLY:
+        pass
+    elif seed:
         for monday in sorted(buckets):
             if (monday + timedelta(days=6) >= WEEKLY_BY_ADDED_SINCE
                     and drop_released(monday + timedelta(days=6), today)):
                 record(monday)
-    elif recording and not hold:
+    elif recording:
         record(last_released)
     entry["sent"] = sorted(sent)
     # Keep the replayable weeks to what a feed can still show; ``sent`` stays.
@@ -904,9 +749,13 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
         del weeks_l[monday_iso]
 
     def released(w):
-        if hold and w == last_released:
+        # A read-only run never publishes an added-era drop the committed ledger
+        # has not recorded (this covers both the week awaiting its recording and
+        # every week of a slice being seeded): it waits for the daily publish run.
+        sunday = w + timedelta(days=6)
+        if READONLY and sunday >= WEEKLY_BY_ADDED_SINCE and w.isoformat() not in weeks_l:
             return False
-        return drop_released(w + timedelta(days=6), today)
+        return drop_released(sunday, today)
 
     pending = any(
         not released(w) and any(open_for_drop(parse_date(g.get("deadline")), w + timedelta(days=6))
@@ -1013,7 +862,7 @@ def deadline_moment(grant):
         from zoneinfo import ZoneInfo
         hh, mm = (int(x) for x in str(t).split(":"))
         moment = datetime(d.year, d.month, d.day, hh, mm, tzinfo=ZoneInfo(str(tz)))
-    except (ValueError, KeyError, Exception):
+    except Exception:  # bad time string or unknown zone
         return None
     abbr = moment.tzname() or str(tz)
     if str(tz) == "Etc/GMT+12":
@@ -1210,27 +1059,36 @@ OPPORTUNITY_TYPES = ["residencies", "fellowships", "prizes", "open-calls"]
 # picker, because as a type it mostly restated categories people already filter.
 FEED_TYPES = ["grants", "residencies", "fellowships", "prizes"]
 
-# A "grants" type earns its place: 38% of the desk (project subsidies, funds,
-# commissions) matched none of the four original types and so was unreachable
-# from the type filter entirely. This catches ~70% of that gap; what remains is
-# mostly jobs and calls for papers, which genuinely are not any of these types.
-OPPORTUNITY_TYPE_TAGS = {
-    "grants": {"grant", "grants", "funding", "fund", "project-grant", "bursary",
-               "subsidy", "production-grant", "travel-grant", "mobility",
-               "commission", "microgrant", "micro-grant"},
-    "residencies": {"residency", "residencies", "artist-in-residence"},
-    "fellowships": {"fellowship", "fellowships"},
-    "prizes": {"prize", "award", "competition"},
-    "open-calls": {"open-call", "exhibition", "festival"},
+# Type rules for the four feed/picker types. These MUST stay identical to the
+# website's TYPE_RULES in index.html (residency, fellowship, prize, grant), so a
+# call the site labels "Grant" is in the Grants feed and calendar too, and vice
+# versa. main() warns when the two drift. Each rule is (tag regex, title regex),
+# searched in lowercase; tags starting "no-" (no-stipend) and the cash-award tag
+# say nothing about type and are ignored. The grant rule matches whole words so
+# "Funded residency", "Grantham" and "Immigrant" do not count as grants, and
+# fully-funded / eu-funded tags do not either. "stipend" and "fonds" match inside
+# words for German and Dutch compounds (Arbeitsstipendium, Stimuleringsfonds).
+FEED_TYPE_RULES = {
+    "residencies": (r"residenc|artist-in-residence", r"residenc"),
+    "fellowships": (r"fellowship", r"fellowship"),
+    "prizes": (r"prize|award|competition|contest", r"prize|award|competition|contest"),
+    "grants": (
+        r"(^|-)((micro|sub|mega)?grants?|regranting|funds?|funding|subsid(y|ies)|bursar(y|ies)|stipends?|scholarships?|commissions?)(-|$)|fonds",
+        r"\b((micro|sub|mega)?grants?|regranting|funds?|funding|bursar(y|ies)|subsid(y|ies)|scholarships?|support scheme)\b|stipend|fonds",
+    ),
 }
+# The site's TYPE_RULES key for each feed type, for the drift check.
+SITE_TYPE_KEYS = {"residencies": "residency", "fellowships": "fellowship",
+                  "prizes": "prize", "grants": "grant"}
+# re.ASCII: JavaScript regexes without the u flag treat accented letters as
+# non-word characters for \b, so Python must too or the two could disagree.
+_FEED_TYPE_RES = {t: (re.compile(a, re.ASCII), re.compile(b, re.ASCII))
+                  for t, (a, b) in FEED_TYPE_RULES.items()}
 
-OPPORTUNITY_TYPE_TITLE_KEYS = {
-    "grants": ["grant", "fund", "bursary", "subsidy", "stipend", "support scheme", "scholarship"],
-    "residencies": ["residency", "residencies", "artist in residence", "artist-in-residence"],
-    "fellowships": ["fellowship"],
-    "prizes": ["prize", "award"],
-    "open-calls": ["open call", "submissions"],
-}
+# "open-calls" is a static SEO page type only (not in the picker); it keeps its
+# own exact-tag and title-phrase rule.
+OPEN_CALL_TAGS = {"open-call", "exhibition", "festival"}
+OPEN_CALL_TITLE_KEYS = ["open call", "submissions"]
 
 OPPORTUNITY_TYPE_TITLE_PHRASE = {
     "grants": "Grants",
@@ -1290,14 +1148,33 @@ _COUNTRY_PATTERNS = {
 }
 
 
+def type_tags(grant):
+    return [t for t in (str(x).lower() for x in (grant.get("tags") or []))
+            if t != "cash-award" and not t.startswith("no-")]
+
+
 def type_matches(grant, opp_type):
     if not opp_type:
         return True
-    tags = {str(t).lower() for t in (grant.get("tags") or [])}
-    if tags & OPPORTUNITY_TYPE_TAGS[opp_type]:
-        return True
+    tags = type_tags(grant)
     title = str(grant.get("title") or "").lower()
-    return any(k in title for k in OPPORTUNITY_TYPE_TITLE_KEYS[opp_type])
+    if opp_type == "open-calls":
+        return bool(set(tags) & OPEN_CALL_TAGS) or any(k in title for k in OPEN_CALL_TITLE_KEYS)
+    tag_re, title_re = _FEED_TYPE_RES[opp_type]
+    return any(tag_re.search(t) for t in tags) or bool(title_re.search(title))
+
+
+def check_type_rules_match_site():
+    """Warn when index.html's TYPE_RULES no longer match FEED_TYPE_RULES."""
+    try:
+        html = (HERE / "index.html").read_text(encoding="utf-8")
+    except OSError:
+        return
+    for feed_type, site_key in SITE_TYPE_KEYS.items():
+        m = re.search(r"\['" + site_key + r"',\s*/(.+?)/,\s*/(.+?)/\]", html)
+        if not m or (m.group(1), m.group(2)) != FEED_TYPE_RULES[feed_type]:
+            print(f"WARNING: index.html TYPE_RULES '{site_key}' differs from "
+                  f"FEED_TYPE_RULES['{feed_type}']; site filter and feeds disagree.")
 
 
 def country_matches(grant, country):
@@ -1511,86 +1388,6 @@ def website_jsonld():
     return jsonld_dumps(payload)
 
 
-def feed_release(grant):
-    """Effective RSS-release date for a grant: the capped schedule computed by
-    apply_release_schedule when available, else feedDate, else addedDate."""
-    return parse_date(grant.get("_feedRelease") or grant.get("feedDate") or grant.get("addedDate"))
-
-
-def apply_release_schedule(grants, cap=FEED_MAX_PER_DAY):
-    """Enforce a hard cap of ``cap`` feed releases per day, in memory only.
-
-    Each grant's nominal release date is feedDate (falling back to addedDate). When a
-    day holds more than ``cap`` nominal releases - manual staggering, bot additions and
-    auto-published tranches can all collide on one day - the overflow spills forward to
-    the next day with a free slot. The result is stored on the grant as ``_feedRelease``
-    (ISO string), which feed_release() prefers; grants.json on disk is never modified.
-
-    Releases nominally dated before FEED_CAP_START keep their date and consume no
-    slots: they are feed history, and rescheduling them would cascade the whole backlog
-    forward and pull long-published grants back out of the feeds. From FEED_CAP_START
-    onward the schedule is a pure function of grants.json (no dependence on today's
-    date), so the daily scheduled regenerate recomputes the identical schedule and
-    queued grants drip out at most ``cap`` per day. Slot order within a day is
-    soonest-deadline-first, then id, so time-critical calls are never the ones
-    deferred. A grant is never pushed past its own deadline: rather than miss the feed
-    entirely, it releases on its deadline day even if that day is full.
-
-    Returns the number of grants deferred beyond their nominal date."""
-    def nominal(g):
-        return parse_date(g.get("feedDate") or g.get("addedDate"))
-
-    eligible = [g for g in grants if g.get("feed") is not False and nominal(g)]
-    eligible.sort(key=lambda g: (
-        nominal(g),
-        parse_date(g.get("deadline")) or date.max,
-        str(g.get("id") or ""),
-    ))
-
-    counts = {}
-    deferred = 0
-    for g in eligible:
-        day = nominal(g)
-        if day < FEED_CAP_START:
-            g["_feedRelease"] = day.isoformat()
-            continue
-        deadline = parse_date(g.get("deadline"))
-        while counts.get(day, 0) >= cap and not (deadline and day >= deadline):
-            day += timedelta(days=1)
-        counts[day] = counts.get(day, 0) + 1
-        if day != nominal(g):
-            deferred += 1
-        g["_feedRelease"] = day.isoformat()
-    return deferred
-
-
-def filter_published(grants, today):
-    """Drop grants whose RSS release date is in the future. This is the RSS throttle:
-    set a staggered future ``feedDate`` on a batch of grants and each tranche only
-    enters the RSS FEEDS once its feedDate arrives. apply_release_schedule() additionally
-    caps releases at FEED_MAX_PER_DAY per day, spilling overflow to later days.
-
-    ``feedDate`` is the RSS-release date ONLY; it is independent of ``addedDate``, which
-    is the true upload date that drives the website's "new since last visit" badge. This
-    keeps the throttle from making grants look perpetually new on the site. A grant with
-    no ``feedDate`` falls back to ``addedDate``; with neither, it is always published.
-
-    The website, static SEO pages and calendars are NOT throttled - they show every grant
-    immediately. A daily scheduled regenerate (see .github/workflows/publish-grants.yml)
-    re-runs this so queued tranches reach the feeds on schedule even without a manual push."""
-    out = []
-    for g in grants:
-        # Per-grant opt-out: ``"feed": false`` keeps an entry off ALL RSS feeds
-        # while leaving it on the website, static SEO pages and calendars.
-        if g.get("feed") is False:
-            continue
-        release = feed_release(g)
-        if release and (release - today).days > 0:
-            continue
-        out.append(g)
-    return out
-
-
 def filter_active(grants, today):
     out = []
     for g in grants:
@@ -1793,7 +1590,7 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     # SEO pages advertise the weekly digest, and only picker-selectable feeds
     # exist: point a page for a dropped region or merged category at the
     # picker slice that contains it.
-    feed_name = feed_filename(picker_region(feed_region), None,
+    feed_name = feed_filename(picker_region(feed_region),
                               category=picker_category(feed_category), weekly=True)
     # Calendars exist for the calendar picker's regions (crossed with its
     # categories) and as bare files for every other region and for each single
@@ -1804,7 +1601,7 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     else:
         cal_name = calendar_filename(feed_region)
     if opp_type in FEED_TYPES:
-        typed_feed = feed_filename(picker_region(feed_region), None, weekly=True, opp_type=opp_type)
+        typed_feed = feed_filename(picker_region(feed_region), weekly=True, opp_type=opp_type)
         typed_cal = calendar_filename(feed_region, opp_type=opp_type)
         if (HERE / typed_feed).exists():
             feed_name = typed_feed
@@ -2263,25 +2060,16 @@ def main():
     # UTC, matching the drop stamps and the 06:00 UTC workflow: a local run just
     # after midnight CET on a Sunday must not publish that Sunday's drop early.
     today = datetime.now(timezone.utc).date()
+    check_type_rules_match_site()
 
-    # RSS throttle: grants with a future release date are held out of the FEEDS
-    # only. The website, static SEO pages and calendars below use the full
-    # `grants` list and show every grant immediately - throttling applies to
-    # RSS subscribers, not the page.
-    # The 5/day drip (apply_release_schedule) only matters for legacy weeks,
-    # which normally replay DROP_LEDGER; added-era grants go by addedDate.
-    apply_release_schedule(grants)
     for g in grants:
         if (g.get("deadlineTime") or g.get("deadlineTz")) and not deadline_moment(g):
             print(f"WARNING: {g.get('id')}: deadlineTime/deadlineTz unreadable "
                   f"({g.get('deadlineTime')!r}, {g.get('deadlineTz')!r}); calendar shows an all-day event.")
-    # Queued legacy grants (release still in the future) can never go out, so
-    # they must not make a slice look populated.
-    feed_grants = [
-        g for g in grants
-        if g.get("feed") is not False
-        and (in_added_era(g) or not feed_release(g) or feed_release(g) <= today)
-    ]
+    # Per-grant opt-out: "feed": false keeps an entry off every RSS feed while
+    # leaving it on the website, static pages and calendars. Grants added before
+    # the addedDate era only ever appear through the ledger's frozen weeks.
+    feed_grants = [g for g in grants if g.get("feed") is not False and in_added_era(g)]
     by_id = {g["id"]: g for g in grants if g.get("id") and g.get("feed") is not False}
     ledger_path = HERE / DROP_LEDGER
     ledger = json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.exists() else {}
@@ -2297,56 +2085,49 @@ def main():
 
     region_options = [None] + PICKER_REGIONS
 
-    written = []
-    weekly_written = []
+    written = []  # (filename, grants in slice) for every feed file written
     typed_manifest = []
 
-    def emit(region, timeline, category=None, opp_type=None):
+    def emit(region, category=None, opp_type=None):
         """Write the weekly-digest feed for one slice.
 
-        Type-bearing slices are PRUNED: a combination with no matching grants is
-        not written at all, because the full type cross-product is mostly empty
-        (5,824 permutations, roughly a third of them populated). The names that
-        do get written are recorded in feeds-manifest.json so the subscribe
-        picker can avoid offering a combination that would 404. Untyped slices
-        are always written, empty or not, so the picker's default paths and any
-        existing subscriptions can never break.
+        Untyped slices are always written, empty or not, so the picker's default
+        paths can never break. Typed slices are pruned: most of the type
+        cross-product is empty, so a typed feed is only CREATED once it has an
+        item or a grant on its way. Once published, though, it keeps being
+        written even when it goes quiet, exactly like the calendars: a feed URL
+        that starts returning 404 makes readers give up on it. The manifest
+        lists only typed feeds with something in them, so the picker never
+        offers a dead one.
         """
-        filtered = filter_grants(feed_grants, region, timeline, today,
-                                 category=category, opp_type=opp_type, stable=True)
-        wname = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
-        if opp_type and not filtered:
-            # Keep the tombstone: an emptied slice that refills must not
-            # re-seed (losing legacy weeks and re-sending what it sent).
-            if wname in ledger:
-                new_ledger[wname] = ledger_entry(ledger[wname])
-            return
-        # The manifest keys on the BARE slice name (no -weekly suffix): the
-        # picker strips the suffix before its lookup, so the key survives the
-        # retirement of the per-grant files.
-        name = feed_filename(region, timeline, category=category, opp_type=opp_type)
-        written.append((name, len(filtered)))
-
-        # A slice the ledger has never seen starts empty (no legacy recompute
-        # after the 4 Nov 2026 freeze) and is seeded from addedDate.
+        filtered = filter_grants(feed_grants, region, category=category, opp_type=opp_type)
+        wname = feed_filename(region, category=category, weekly=True, opp_type=opp_type)
+        published = (HERE / wname).exists()
+        # A slice the ledger has never seen starts empty and is seeded from addedDate.
         entry = ledger_entry(ledger.get(wname))
         seed = entry is None
         if seed:
             entry = {"weeks": {}, "sent": []}
-        xml, pending = build_weekly_feed(filtered, region, timeline, today, category=category,
+        if opp_type and not filtered and not entry["weeks"] and not published:
+            # Nothing to show and nothing published. Keep the tombstone: an
+            # emptied slice that refills must not re-seed and re-send.
+            if not seed:
+                new_ledger[wname] = entry
+            return
+        xml, pending = build_weekly_feed(filtered, region, today, category=category,
                                          opp_type=opp_type, entry=entry, by_id=by_id, seed=seed)
         # The entry is kept even when the file is not written, so a type feed
         # that comes back never re-sends or back-dates what it already sent.
         new_ledger[wname] = entry
-        # No upkeep of dead slices (4 Nov 2026): a type feed with no items and
-        # no open grant on its way is not written, and the sweep deletes it.
-        # Untyped feeds are always written so the picker's default paths work.
-        if opp_type and "<item>" not in xml and not pending:
+        live = "<item>" in xml or pending
+        if opp_type and not live and not published:
             return
         (HERE / wname).write_text(xml, encoding="utf-8")
-        weekly_written.append(wname)
-        if opp_type:
-            typed_manifest.append(name)
+        written.append((wname, len(filtered)))
+        if opp_type and live:
+            # The manifest keys on the BARE slice name (no -weekly suffix): the
+            # picker strips the suffix before its lookup.
+            typed_manifest.append(feed_filename(region, category=category, opp_type=opp_type))
 
     type_options = [None] + FEED_TYPES
 
@@ -2358,17 +2139,16 @@ def main():
     for opp_type in type_options:
         for category in [None] + PICKER_CATEGORIES:
             for region in region_options:
-                emit(region, None, category=category, opp_type=opp_type)
+                emit(region, category=category, opp_type=opp_type)
 
-    # Only picker-selectable feeds are built (4 Nov 2026): the bare aliases for
-    # merged categories and dropped regions, and the standalone 30d/90d/added-30d
-    # timeline feeds, were retired and the orphan sweep below deletes them.
+    # Only picker-selectable feeds are built (4 Nov 2026); the orphan sweep
+    # below deletes anything else.
 
     # Orphan sweep. Narrowing the axes (or pruning an empty type slice) leaves
     # files on disk that nothing generates any more; without this they linger
     # forever, get served as stale feeds and bloat the repo. Only weekly files
     # are generated now, so this also clears the retired per-grant files.
-    current = set(weekly_written)
+    current = {w for w, _ in written}
     orphans = sorted(
         f.name for f in HERE.glob("feed*.xml") if f.name not in current
     )
@@ -2468,9 +2248,9 @@ def main():
     if stale_cals:
         print(f"Removed {len(stale_cals)} stale calendar file(s) no longer generated.")
 
-    print(f"Wrote {len(weekly_written)} weekly-digest RSS feeds (one Sunday drop per week):")
-    for (name, count), wname in zip(written, weekly_written):
-        print(f"  {wname}: {count} grants in slice")
+    print(f"Wrote {len(written)} weekly-digest RSS feeds (one Sunday drop per week):")
+    for wname, count in written:
+        print(f"  {wname}: {count} added-era grants in slice")
     print(f"Wrote feeds-manifest.json listing {len(typed_manifest)} type-filtered feeds "
           f"(empty type combinations pruned).")
     print(f"Wrote {len(cals_written)} calendars: {', '.join(cals_written)}")
