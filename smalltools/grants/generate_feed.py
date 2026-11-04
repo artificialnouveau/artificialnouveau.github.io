@@ -794,9 +794,33 @@ def legacy_buckets(grants, region, timeline, today):
 READONLY = os.environ.get("GRANT_DESK_READONLY") == "1"
 
 
+def local_ledger_is_stale():
+    """True when this is a local (non-CI) run and origin/master has ledger
+    changes this checkout lacks. Recording from a stale ledger would treat last
+    week's already-sent grants as new and send them again under new guids, so
+    such a run must not record anything. Best effort: if git or the network is
+    unavailable, it says so and returns False."""
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        return False
+    import subprocess
+    repo = HERE.parent.parent
+    try:
+        subprocess.run(["git", "fetch", "--quiet", "origin", "master"], cwd=repo,
+                       timeout=30, check=True, capture_output=True)
+        out = subprocess.run(
+            ["git", "rev-list", "--count", "HEAD..origin/master", "--",
+             str(HERE / DROP_LEDGER)],
+            cwd=repo, timeout=30, check=True, capture_output=True, text=True,
+        ).stdout.strip()
+    except Exception as exc:  # no git, offline, no remote
+        print(f"Note: could not compare the drop ledger with origin ({exc}); recording anyway.")
+        return False
+    return out not in ("", "0")
+
+
 def ledger_entry(raw):
     """Normalise a ledger entry to {"weeks": {monday: [ids]}, "sent": [ids]}.
-    Entries written before 5 Nov 2026 were the bare weeks mapping."""
+    Entries written before the round-3 fixes (4 Nov 2026) were the bare weeks mapping."""
     if raw is None:
         return None
     if "weeks" not in raw:
@@ -2261,6 +2285,14 @@ def main():
     by_id = {g["id"]: g for g in grants if g.get("id") and g.get("feed") is not False}
     ledger_path = HERE / DROP_LEDGER
     ledger = json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.exists() else {}
+    global READONLY
+    if not READONLY and local_ledger_is_stale():
+        READONLY = True
+        print("WARNING: origin/master has newer drop-ledger commits than this checkout. "
+              "Running read-only (no drop recorded, nothing re-sent). Pull, then run again.")
+    # Ids of grants that no longer exist can never be sent again: drop them so
+    # the ledger does not grow forever.
+    all_ids = {g["id"] for g in grants if g.get("id")}
     new_ledger = {}
 
     region_options = [None] + PICKER_REGIONS
@@ -2342,6 +2374,12 @@ def main():
     )
     for name in orphans:
         (HERE / name).unlink()
+    for entry in new_ledger.values():
+        entry["sent"] = [i for i in entry["sent"] if i in all_ids]
+        for m in list(entry["weeks"]):
+            entry["weeks"][m] = [i for i in entry["weeks"][m] if i in all_ids]
+    if READONLY:
+        new_ledger = ledger  # read-only runs never change the ledger on disk
     # Retired feeds drop out of the ledger with their files. One feed per line
     # keeps bot/recheck PR merges from conflicting on a single huge line.
     if new_ledger != ledger:
