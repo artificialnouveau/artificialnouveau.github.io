@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import bisect
 import json
+import os
 import re
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -786,27 +787,56 @@ def legacy_buckets(grants, region, timeline, today):
 
 
 
+# Deploy builds (jekyll.yml) regenerate feeds but cannot commit, so whatever
+# they record would be lost. With GRANT_DESK_READONLY=1 a build never releases
+# a drop the committed ledger has not recorded: that drop waits for the daily
+# publish run, which records and commits it, then triggers the deploy.
+READONLY = os.environ.get("GRANT_DESK_READONLY") == "1"
+
+
+def ledger_entry(raw):
+    """Normalise a ledger entry to {"weeks": {monday: [ids]}, "sent": [ids]}.
+    Entries written before 5 Nov 2026 were the bare weeks mapping."""
+    if raw is None:
+        return None
+    if "weeks" not in raw:
+        raw = {"weeks": raw, "sent": []}
+    weeks = {m: list(ids) for m, ids in raw["weeks"].items()}
+    sent = set(raw.get("sent") or [])
+    for ids in weeks.values():
+        sent.update(ids)
+    return {"weeks": weeks, "sent": sorted(sent)}
+
+
 def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=None,
-                      frozen=None, by_id=None):
-    """Weekly digest feed: the slice's grants grouped into one Sunday drop per week."""
+                      entry=None, by_id=None, seed=False):
+    """Weekly digest feed: the slice's grants grouped into one Sunday drop per week.
+
+    ``entry`` is this feed's ledger entry, updated in place: ``weeks`` holds the
+    released drops (replayed verbatim) and ``sent`` every grant id that has ever
+    gone out in this feed. ``sent`` is never pruned, so a long-lived grant whose
+    week has aged out of ``weeks`` is not mistaken for new and sent again.
+    ``seed`` marks a slice the ledger has never seen: its added-era history is
+    laid out by addedDate and recorded, instead of dumped into one drop.
+
+    Returns (xml, pending) where pending is True when a grant is still on its
+    way to a future drop."""
     title, desc = feed_title_desc(region, timeline, category, weekly=True, opp_type=opp_type)
     filename = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
     feed_url = PAGE_URL + filename
+    by_id = by_id if by_id is not None else {g["id"]: g for g in grants if g.get("id")}
+    if entry is None:
+        entry, seed = {"weeks": {}, "sent": []}, True
+    weeks_l = entry["weeks"]
+    sent = set(entry["sent"])
 
-    if frozen is None:
-        frozen = {
-            m.isoformat(): [g["id"] for g in gs if g.get("id")]
-            for m, gs in sorted(legacy_buckets(grants, region, timeline, today).items())
-        }
-    # Released weeks replay the ledger (``frozen``, updated in place below).
-    # by_id holds only feed-eligible grants, so "feed": false still removes an
-    # item from a published drop.
+    # Released weeks replay the ledger. by_id holds only feed-eligible grants,
+    # so "feed": false still removes an item from a published drop.
     buckets = {}
-    for monday_iso, ids in frozen.items():
+    for monday_iso, ids in weeks_l.items():
         week = [by_id[i] for i in ids if i in by_id]
         if week:
             buckets[date.fromisoformat(monday_iso)] = week
-    recorded = {i for ids in frozen.values() for i in ids}
 
     # The earliest drop not yet out, and the one released just before it. Only
     # that latest released week may still be recorded; any other released week
@@ -816,42 +846,60 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
         open_monday += timedelta(days=7)
     last_released = open_monday - timedelta(days=7)
     recording = (last_released + timedelta(days=6) >= WEEKLY_BY_ADDED_SINCE
-                 and last_released.isoformat() not in frozen)
+                 and last_released.isoformat() not in weeks_l)
+    hold = recording and READONLY and not seed
+    first_open = last_released if recording else open_monday
     for g in grants:
-        if not in_added_era(g) or g.get("id") in recorded:
+        if not in_added_era(g) or g.get("id") in sent:
             continue
         b = bucket_date(g, region, timeline)
-        # Earliest week still open on this run: the just-released drop while it
-        # is being recorded, else the next unreleased one.
-        first_open = last_released if recording else open_monday
-        if b < first_open:
+        if not seed and b < first_open:
             b = first_open
         buckets.setdefault(b, []).append(g)
-    if recording:
-        sunday = last_released + timedelta(days=6)
-        frozen[last_released.isoformat()] = sorted(
-            g["id"] for g in buckets.get(last_released, [])
+
+    def record(monday):
+        sunday = monday + timedelta(days=6)
+        ids = sorted(
+            g["id"] for g in buckets.get(monday, [])
             if g.get("id") and open_for_drop(parse_date(g.get("deadline")), sunday)
         )
-    # Keep the ledger to the weeks a feed can still show.
-    horizon = open_monday - timedelta(weeks=MAX_WEEKS + 2)
-    for monday_iso in [m for m in frozen if date.fromisoformat(m) < horizon]:
-        del frozen[monday_iso]
+        weeks_l[monday.isoformat()] = ids
+        sent.update(ids)
 
+    if seed:
+        for monday in sorted(buckets):
+            if (monday + timedelta(days=6) >= WEEKLY_BY_ADDED_SINCE
+                    and drop_released(monday + timedelta(days=6), today)):
+                record(monday)
+    elif recording and not hold:
+        record(last_released)
+    entry["sent"] = sorted(sent)
+    # Keep the replayable weeks to what a feed can still show; ``sent`` stays.
+    horizon = open_monday - timedelta(weeks=MAX_WEEKS + 2)
+    for monday_iso in [m for m in weeks_l if date.fromisoformat(m) < horizon]:
+        del weeks_l[monday_iso]
+
+    def released(w):
+        if hold and w == last_released:
+            return False
+        return drop_released(w + timedelta(days=6), today)
+
+    pending = any(
+        not released(w) and any(open_for_drop(parse_date(g.get("deadline")), w + timedelta(days=6))
+                                for g in gs)
+        for w, gs in buckets.items()
+    )
     # Count only released drops toward MAX_WEEKS: held future weeks must not
     # push published history out of the window.
-    weeks = sorted(
-        (w for w in buckets
-         if w >= HISTORY_FLOOR and drop_released(w + timedelta(days=6), today)),
-        reverse=True,
-    )[:MAX_WEEKS]
+    weeks = sorted((w for w in buckets if w >= HISTORY_FLOOR and released(w)),
+                   reverse=True)[:MAX_WEEKS]
     items = "".join(
         build_weekly_item(w, buckets[w], today, filename, category=category, opp_type=opp_type)
         for w in weeks
     )
     build_date = rfc822(datetime.now(timezone.utc))
 
-    return (
+    xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" '
         'xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">\n'
@@ -869,6 +917,7 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
         + "</channel>\n"
         "</rss>\n"
     )
+    return xml, pending
 
 
 def ics_escape(value):
@@ -938,6 +987,10 @@ def deadline_moment(grant):
     abbr = moment.tzname() or str(tz)
     if str(tz) == "Etc/GMT+12":
         abbr = "AoE"
+    elif str(tz).startswith("Etc/GMT") and len(str(tz)) > 7:
+        # POSIX sign is inverted: Etc/GMT-5 is UTC+5.
+        off = str(tz)[7:]
+        abbr = "UTC" + ("+" if off.startswith("-") else "-") + off[1:]
     elif abbr.startswith(("+", "-")):
         abbr = str(tz).split("/")[-1].replace("_", " ") + " time"
     return moment, f"{hh:02d}:{mm:02d} {abbr}"
@@ -2187,6 +2240,10 @@ def main():
     # The 5/day drip (apply_release_schedule) only matters for legacy weeks,
     # which normally replay DROP_LEDGER; added-era grants go by addedDate.
     apply_release_schedule(grants)
+    for g in grants:
+        if (g.get("deadlineTime") or g.get("deadlineTz")) and not deadline_moment(g):
+            print(f"WARNING: {g.get('id')}: deadlineTime/deadlineTz unreadable "
+                  f"({g.get('deadlineTime')!r}, {g.get('deadlineTz')!r}); calendar shows an all-day event.")
     # Queued legacy grants (release still in the future) can never go out, so
     # they must not make a slice look populated.
     feed_grants = [
@@ -2227,29 +2284,25 @@ def main():
         name = feed_filename(region, timeline, category=category, opp_type=opp_type)
         written.append((name, len(filtered)))
 
-        # A slice the ledger does not know yet gets its legacy weeks computed
-        # (and recorded) on first sight.
-        frozen = ledger.get(wname)
-        if frozen is not None:
-            frozen = {m: list(ids) for m, ids in frozen.items()}
-        else:
-            frozen = {
-                m.isoformat(): [g["id"] for g in gs if g.get("id")]
-                for m, gs in sorted(legacy_buckets(filtered, region, timeline, today).items())
-            }
-        xml = build_weekly_feed(filtered, region, timeline, today, category=category,
-                                opp_type=opp_type, frozen=frozen, by_id=by_id)
+        # A slice the ledger has never seen starts empty (no legacy recompute
+        # after the 4 Nov 2026 freeze) and is seeded from addedDate.
+        entry = ledger_entry(ledger.get(wname))
+        seed = entry is None
+        if seed:
+            entry = {"weeks": {}, "sent": []}
+        xml, pending = build_weekly_feed(filtered, region, timeline, today, category=category,
+                                         opp_type=opp_type, entry=entry, by_id=by_id, seed=seed)
+        # The entry is kept even when the file is not written, so a type feed
+        # that comes back never re-sends or back-dates what it already sent.
+        new_ledger[wname] = entry
         # No upkeep of dead slices (4 Nov 2026): a type feed with no items and
-        # no grant on its way is not written, and the sweep deletes its file.
+        # no open grant on its way is not written, and the sweep deletes it.
         # Untyped feeds are always written so the picker's default paths work.
-        if opp_type and "<item>" not in xml and not any(in_added_era(g) for g in filtered):
+        if opp_type and "<item>" not in xml and not pending:
             return
-        new_ledger[wname] = frozen
         (HERE / wname).write_text(xml, encoding="utf-8")
         weekly_written.append(wname)
-        # Offer a type feed in the picker only if it has items now or a grant on
-        # its way; slices whose only grants were the skipped backlog stay unlisted.
-        if opp_type and ("<item>" in xml or any(in_added_era(g) for g in filtered)):
+        if opp_type:
             typed_manifest.append(name)
 
     type_options = [None] + FEED_TYPES
@@ -2278,9 +2331,16 @@ def main():
     )
     for name in orphans:
         (HERE / name).unlink()
-    # Retired feeds drop out of the ledger with their files.
+    # Retired feeds drop out of the ledger with their files. One feed per line
+    # keeps bot/recheck PR merges from conflicting on a single huge line.
     if new_ledger != ledger:
-        ledger_path.write_text(json.dumps(new_ledger, sort_keys=True, separators=(",", ":")), encoding="utf-8")
+        ledger_path.write_text(
+            "{\n" + ",\n".join(
+                json.dumps(k) + ":" + json.dumps(v, sort_keys=True, separators=(",", ":"))
+                for k, v in sorted(new_ledger.items())
+            ) + "\n}\n",
+            encoding="utf-8",
+        )
         print(f"Updated {DROP_LEDGER} ({len(new_ledger)} feeds).")
     if orphans:
         print(f"Removed {len(orphans)} stale feed file(s) no longer generated.")
@@ -2302,9 +2362,16 @@ def main():
         if region:
             sliced = [g for g in sliced if region_matches(g, region)]
         name = calendar_filename(region, category=category, opp_type=opp_type)
-        upcoming = any(
-            parse_date(g.get("deadline")) and parse_date(g["deadline"]) >= today for g in sliced
-        )
+        now = datetime.now(timezone.utc)
+
+        def still_open(g):
+            m = deadline_moment(g)
+            if m:
+                return m[0] >= now
+            d = parse_date(g.get("deadline"))
+            return bool(d) and d >= today
+
+        upcoming = any(still_open(g) for g in sliced)
         if opp_type and not cal_events(sliced, today) and not (HERE / name).exists():
             return
         (HERE / name).write_text(

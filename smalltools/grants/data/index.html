@@ -203,7 +203,7 @@ footer a { color: var(--ink-soft); }
     <tr><td><code>deadlineTime</code></td><td>string or null</td><td>Stated closing time, 24-hour <code>HH:MM</code>, when the call gives one.</td></tr>
     <tr><td><code>deadlineTz</code></td><td>string or null</td><td>IANA time zone for <code>deadlineTime</code>, e.g. <code>Europe/Paris</code>.</td></tr>
     <tr><td><code>addedDate</code></td><td>date</td><td>When it was added to the desk.</td></tr>
-    <tr><td><code>feedDate</code></td><td>date or null (optional)</td><td>When the entry is released into the RSS digests; falls back to <code>addedDate</code>.</td></tr>
+    <tr><td><code>feedDate</code></td><td>date or null (optional)</td><td>No longer used: since 8 Nov 2026 the weekly RSS drops go by <code>addedDate</code>. Leave it <code>null</code>.</td></tr>
     <tr><td><code>category</code></td><td>string</td><td>Primary category slug.</td></tr>
     <tr><td><code>categories</code></td><td>array (optional)</td><td>Additional category slugs.</td></tr>
     <tr><td><code>applicant</code></td><td>string</td><td>Who can apply: <code>individuals</code>, <code>organizations</code> or <code>both</code>.</td></tr>

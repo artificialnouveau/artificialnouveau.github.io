@@ -37,6 +37,9 @@ concurrency:
 jobs:
   # Build job
   build:
+    # A failed or cancelled publish run must not deploy (it would release a
+    # drop the ledger never recorded).
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -51,7 +54,11 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
       - name: Regenerate Grant Desk RSS feed
+        # Read-only: this job cannot commit, so it must not release a Sunday
+        # drop the committed ledger has not recorded (publish-grants does that).
         run: python3 smalltools/grants/generate_feed.py
+        env:
+          GRANT_DESK_READONLY: "1"
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"

@@ -14588,8 +14588,11 @@ setupExportPanel();
   const GUTTER = 12;
   const clampIntoView = (pop) => {
     pop.style.transform = '';
-    const r = pop.getBoundingClientRect();
     const vw = document.documentElement.clientWidth;
+    // 100vw in the CSS max-width includes a classic scrollbar; cap to the
+    // usable width so the clamp can keep both gutters.
+    pop.style.maxWidth = (vw - 2 * GUTTER) + 'px';
+    const r = pop.getBoundingClientRect();
     let dx = 0;
     if (r.right > vw - GUTTER) dx = (vw - GUTTER) - r.right;
     if (r.left + dx < GUTTER) dx = GUTTER - r.left;

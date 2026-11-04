@@ -169,7 +169,7 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
           <span class="hint">Only if the call states one. 24-hour time plus an IANA zone, e.g. 17:00 and Europe/Paris for "17:00 CET", 23:59 and America/New_York for "11:59pm ET". Calendars then show it as a timed event.</span>
           <input type="time" id="f-dtime">
           <input type="text" id="f-dtz" placeholder="Europe/Paris" list="tz-list">
-          <datalist id="tz-list"><option value="Europe/Paris"><option value="Europe/London"><option value="Europe/Amsterdam"><option value="Europe/Brussels"><option value="Europe/Berlin"><option value="UTC"><option value="America/New_York"><option value="America/Los_Angeles"><option value="America/Chicago"><option value="Australia/Sydney"><option value="Asia/Tokyo"><option value="Asia/Seoul"><option value="Etc/GMT+12"></datalist>
+          <datalist id="tz-list"><option value="Europe/Paris"><option value="Europe/London"><option value="Europe/Amsterdam"><option value="Europe/Brussels"><option value="Europe/Berlin"><option value="UTC"><option value="America/New_York"><option value="America/Los_Angeles"><option value="America/Chicago"><option value="Australia/Sydney"><option value="Asia/Tokyo"><option value="Asia/Seoul"><option value="Asia/Hong_Kong"><option value="Europe/Istanbul"><option value="Europe/Madrid"><option value="Europe/Zurich"><option value="Etc/GMT+12"></datalist>
         </div>
         <div>
           <label>Start date (optional)</label>
@@ -360,6 +360,11 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
     var deadline = $("f-deadline").value;
     if (!rolling && !deadline) { errs.push("Set a deadline or tick rolling/undated."); }
     if (url && !/^https?:\/\//.test(url)) { errs.push("URL must start with http(s)://."); }
+    var dtime = $("f-dtime").value, dtz = $("f-dtz").value.trim();
+    if (!rolling && (dtime || dtz)) {
+      if (!dtime || !dtz) { errs.push("Deadline time needs both a time and a time zone (or leave both empty)."); }
+      else { try { new Intl.DateTimeFormat("en", { timeZone: dtz }); } catch (e) { errs.push("Unknown time zone \"" + dtz + "\". Use an IANA name such as Europe/Paris."); } }
+    }
     if (/[?&]utm_/.test(url)) { errs.push("Strip UTM parameters from the URL."); }
     if (id && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(id)) { errs.push("ID must be lowercase kebab-case."); }
     var category = $("f-category").value;
