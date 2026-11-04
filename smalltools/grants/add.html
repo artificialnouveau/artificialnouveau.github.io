@@ -175,12 +175,8 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
       <div class="row">
         <div>
           <label>Added date</label>
+          <span class="hint">Leave as today: the weekly RSS drop is picked by this date, so back-dating sends the grant into a drop that already went out.</span>
           <input type="date" id="f-added">
-        </div>
-        <div>
-          <label>Feed date</label>
-          <span class="hint" id="feeddate-hint">Queue: ~3 per day, soonest deadlines first</span>
-          <input type="date" id="f-feed">
         </div>
       </div>
     </fieldset>
@@ -269,7 +265,6 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
 (function () {
   "use strict";
   var grants = [];
-  var feedCounts = {};
   var $ = function (id) { return document.getElementById(id); };
 
   var CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"];
@@ -282,43 +277,9 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
 
   fetch("grants.json").then(function (r) { return r.json(); }).then(function (data) {
     grants = data.grants || [];
-    grants.forEach(function (g) {
-      // The publisher falls back to addedDate when feedDate is unset, so count both.
-      var fd = g.feedDate || g.addedDate;
-      if (g.feed !== false && fd && fd >= today) {
-        feedCounts[fd] = (feedCounts[fd] || 0) + 1;
-      }
-    });
-    suggestFeedDate();
   }).catch(function () {
     $("dupes").textContent = "Could not load grants.json (open this page via the website or a local server, not file://). The form still works; check duplicates by hand.";
   });
-
-  function suggestFeedDate() {
-    var d = new Date();
-    var dl = $("f-rolling").checked ? "" : $("f-deadline").value;
-    for (var i = 0; i < 365; i++) {
-      var iso = localIso(d);
-      // Never queue past the deadline: a grant must reach the feeds while still open.
-      if (dl && iso >= dl) {
-        var dayBefore = new Date(dl + "T00:00:00");
-        dayBefore.setDate(dayBefore.getDate() - 1);
-        iso = localIso(dayBefore) > today ? localIso(dayBefore) : today;
-        $("f-feed").value = iso;
-        $("feeddate-hint").textContent = "Queue is full before the deadline; using " + iso + " so it is published while open.";
-        return;
-      }
-      if ((feedCounts[iso] || 0) < 3) {
-        $("f-feed").value = iso;
-        $("feeddate-hint").textContent = "Next free slot in the ~3/day queue: " + iso + ". Urgent deadlines may jump to today.";
-        return;
-      }
-      d.setDate(d.getDate() + 1);
-    }
-  }
-
-  $("f-deadline").addEventListener("change", suggestFeedDate);
-  $("f-rolling").addEventListener("change", suggestFeedDate);
 
   function slugify(s) {
     return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
@@ -396,8 +357,6 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
     if (url && !/^https?:\/\//.test(url)) { errs.push("URL must start with http(s)://."); }
     if (/[?&]utm_/.test(url)) { errs.push("Strip UTM parameters from the URL."); }
     if (id && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(id)) { errs.push("ID must be lowercase kebab-case."); }
-    var feedDate = $("f-feed").value;
-    if (feedDate && deadline && !rolling && feedDate > deadline) { errs.push("Feed date is after the deadline; it would only reach RSS once closed."); }
     var category = $("f-category").value;
     var extra = $("f-categories").value.split(",").map(function (t) { return t.trim().toLowerCase(); }).filter(Boolean);
     var badCats = extra.filter(function (c) { return CATEGORIES.indexOf(c) === -1; });
@@ -420,7 +379,7 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
       startDate: $("f-start").value || null,
       deadline: rolling ? null : deadline,
       addedDate: $("f-added").value || today,
-      feedDate: feedDate || null,
+      feedDate: null,
       category: category,
       applicant: $("f-applicant").value,
       description: description,

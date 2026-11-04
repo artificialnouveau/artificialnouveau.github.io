@@ -220,10 +220,9 @@ def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None
         title, desc = TITLE, DESCRIPTION
     if weekly:
         desc += (
-            " Released weekly: the week's new grants arrive together on Sunday, "
-            "one entry per grant, instead of "
-            "trickling out daily. Each Sunday's drop carries every grant added that week, "
-            "except any closing on the drop day itself."
+            " Released weekly: each Sunday's drop carries one entry per grant added "
+            "in the week before it (Sunday to Saturday). A call that closes before "
+            "its drop goes out is not sent; the website lists those."
         )
     return title, desc
 
@@ -288,7 +287,11 @@ def category_matches(grant, category):
     return category in (grant.get("categories") or [])
 
 
-def filter_grants(grants, region, timeline, today, category=None, opp_type=None):
+def filter_grants(grants, region, timeline, today, category=None, opp_type=None, stable=False):
+    """``stable`` (weekly feeds): added-era grants join a timeline slice by date
+    alone, with no today-based window, so a published drop never gains or loses
+    items as days pass. bucket_date already holds a 30d/90d grant back until its
+    deadline enters the window, and open_for_drop skips closed calls."""
     out = []
     for g in grants:
         if opp_type and not type_matches(g, opp_type):
@@ -296,6 +299,11 @@ def filter_grants(grants, region, timeline, today, category=None, opp_type=None)
         if category and not category_matches(g, category):
             continue
         if region and not region_matches(g, region):
+            continue
+        if timeline and stable and in_added_era(g):
+            if timeline in ("30d", "90d") and not parse_date(g.get("deadline")):
+                continue
+            out.append(g)
             continue
         if timeline and timeline.startswith("added-"):
             window_days = int(timeline.split("-")[1].rstrip("d"))
@@ -327,6 +335,11 @@ MAX_WEEKS = 26
 # switch, queued future weeks used up MAX_WEEKS slots, so most feeds stopped well
 # short of 26 weeks; freeing those slots must not bring months-old items back.
 HISTORY_FLOOR = date(2026, 6, 22)
+
+# Frozen grant ids per legacy week, per feed: {feed filename: {monday: [ids]}}.
+# Written once (and extended for slices it does not know yet); never regenerate
+# it from scratch, or deletions since will reshuffle the old drops.
+LEGACY_SNAPSHOT = "feed-legacy-weeks.json"
 
 
 def week_start(d):
@@ -384,6 +397,36 @@ def added_date(g):
     return parse_date(g.get("addedDate") or g.get("feedDate"))
 
 
+# Added-era drops cover Sunday to Saturday: the grants bot runs Sundays at
+# 09:00 UTC, after that Sunday's 06:00 drop, so a Sunday addition goes into the
+# NEXT drop instead of one already published.
+def added_week(d):
+    """Monday-keyed week whose Sunday drop carries a grant that joined on ``d``."""
+    return week_start(d + timedelta(days=1))
+
+
+# Added-era drops are stamped at the scheduled run (06:00 UTC), not midnight:
+# a midnight stamp predates the moment the drop is actually visible, and readers
+# that only take items newer than their last poll could skip the whole drop.
+DROP_HOUR_UTC = 6
+
+
+def drop_stamp(sunday):
+    if sunday >= WEEKLY_BY_ADDED_SINCE:
+        return datetime(sunday.year, sunday.month, sunday.day, DROP_HOUR_UTC, tzinfo=timezone.utc)
+    return sunday
+
+
+def drop_released(sunday, today):
+    """True once the drop for ``sunday`` may be published (never with a future pubDate)."""
+    if sunday > today:
+        return False
+    now = datetime.now(timezone.utc)
+    if sunday == today == now.date() and isinstance(drop_stamp(sunday), datetime):
+        return now >= drop_stamp(sunday)
+    return True
+
+
 def in_added_era(g):
     """True when a grant is released by addedDate (added in or after the cutover week)."""
     a = added_date(g)
@@ -428,7 +471,7 @@ def bucket_date(g, region, timeline):
     join = slice_join_date(g, region, timeline)
     if in_added_era(g):
         added = added_date(g)
-        return max(added, join) if join else added
+        return added_week(max(added, join) if join else added)
     release = feed_release(g)
     if release and join and join >= SLICE_JOIN_SINCE:
         return max(release, join)
@@ -476,7 +519,7 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug):
     deliberately empty description as an odd trailing "()" line.
     """
     sunday = monday + timedelta(days=6)
-    if sunday > today:
+    if not drop_released(sunday, today):
         # The week is still running; hold it back so subscribers get one
         # Sunday batch instead of a daily trickle.
         return ""
@@ -486,7 +529,7 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug):
     ]
     if not open_at_stamp:
         return ""
-    pub = rfc822(sunday)
+    pub = rfc822(drop_stamp(sunday))
 
     items = []
     for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
@@ -572,12 +615,14 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
     )
 
 
-def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=None):
-    """Weekly digest feed: the slice's grants grouped into one Sunday drop per week."""
-    title, desc = feed_title_desc(region, timeline, category, weekly=True, opp_type=opp_type)
-    filename = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
-    feed_url = PAGE_URL + filename
-
+def legacy_buckets(grants, region, timeline, today):
+    """Weeks before WEEKLY_BY_ADDED_SINCE, computed the old way: release-date
+    bucketing (5/day drip) plus the 10-15 item cap cascade. Only used to build
+    the frozen snapshot, and for a slice the snapshot does not know yet."""
+    grants = [
+        g for g in grants
+        if not in_added_era(g) and feed_release(g) and feed_release(g) <= today
+    ]
     buckets = {}
     for g in grants:
         release = bucket_date(g, region, timeline)
@@ -624,13 +669,35 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
             bisect.insort(mondays, nxt)
         buckets[nxt].extend(deferred)
 
-    # Added-era drops carry only grants added in their own week: legacy grants
-    # cascaded forward by the old cap (the queued backlog) are dropped here.
-    for monday in list(buckets):
-        if monday + timedelta(days=6) >= WEEKLY_BY_ADDED_SINCE:
-            buckets[monday] = [g for g in buckets[monday] if in_added_era(g)]
-            if not buckets[monday]:
-                del buckets[monday]
+    # The queued backlog the cap cascaded past the switch never goes out.
+    return {
+        m: gs for m, gs in buckets.items()
+        if m + timedelta(days=6) < WEEKLY_BY_ADDED_SINCE and m >= HISTORY_FLOOR
+    }
+
+
+
+def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=None,
+                      frozen=None, by_id=None):
+    """Weekly digest feed: the slice's grants grouped into one Sunday drop per week."""
+    title, desc = feed_title_desc(region, timeline, category, weekly=True, opp_type=opp_type)
+    filename = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
+    feed_url = PAGE_URL + filename
+
+    if frozen is not None:
+        # Legacy weeks (before WEEKLY_BY_ADDED_SINCE) replay the committed
+        # snapshot, so deleting, opting out or editing a grant can no longer
+        # reshuffle the old cap cascade into new guids in published drops.
+        buckets = {}
+        for monday_iso, ids in frozen.items():
+            week = [by_id[i] for i in ids if i in by_id]
+            if week:
+                buckets[date.fromisoformat(monday_iso)] = week
+    else:
+        buckets = legacy_buckets(grants, region, timeline, today)
+    for g in grants:
+        if in_added_era(g):
+            buckets.setdefault(bucket_date(g, region, timeline), []).append(g)
 
     weeks = sorted((w for w in buckets if w >= HISTORY_FLOOR), reverse=True)[:MAX_WEEKS]
     items = "".join(
@@ -1892,25 +1959,28 @@ def main():
     src = HERE / "grants.json"
     data = json.loads(src.read_text(encoding="utf-8"))
     grants = data.get("grants", []) or []
-    today = date.today()
+    # UTC, matching the drop stamps and the 06:00 UTC workflow: a local run just
+    # after midnight CET on a Sunday must not publish that Sunday's drop early.
+    today = datetime.now(timezone.utc).date()
 
     # RSS throttle: grants with a future release date are held out of the FEEDS
     # only. The website, static SEO pages and calendars below use the full
     # `grants` list and show every grant immediately - throttling applies to
     # RSS subscribers, not the page.
-    deferred = apply_release_schedule(grants)
-    if deferred:
-        print(f"Feed cap: {deferred} grant(s) deferred past their nominal date to keep releases at <= {FEED_MAX_PER_DAY}/day.")
-    # Added-era grants skip the daily drip: they reach the weekly drops by
-    # addedDate (the drop builder still holds each week until its Sunday).
-    published_ids = {id(g) for g in filter_published(grants, today)}
+    # The 5/day drip (apply_release_schedule) only matters for legacy weeks,
+    # which normally replay LEGACY_SNAPSHOT; added-era grants go by addedDate.
+    apply_release_schedule(grants)
+    # Queued legacy grants (release still in the future) can never go out, so
+    # they must not make a slice look populated.
     feed_grants = [
         g for g in grants
-        if g.get("feed") is not False and (id(g) in published_ids or in_added_era(g))
+        if g.get("feed") is not False
+        and (in_added_era(g) or not feed_release(g) or feed_release(g) <= today)
     ]
-    queued = len(grants) - len(feed_grants)
-    if queued:
-        print(f"RSS throttle: {queued} grant(s) held out of feeds (future release date); shown on the site immediately.")
+    by_id = {g["id"]: g for g in grants if g.get("id")}
+    snapshot_path = HERE / LEGACY_SNAPSHOT
+    snapshot = json.loads(snapshot_path.read_text(encoding="utf-8")) if snapshot_path.exists() else None
+    new_snapshot = {}
 
     region_options = [None] + PICKER_REGIONS
 
@@ -1930,8 +2000,11 @@ def main():
         existing subscriptions can never break.
         """
         filtered = filter_grants(feed_grants, region, timeline, today,
-                                 category=category, opp_type=opp_type)
-        if opp_type and not filtered:
+                                 category=category, opp_type=opp_type, stable=True)
+        wname = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
+        # A type slice that empties out keeps its file if one was ever published,
+        # so existing subscribers get an empty feed rather than a 404.
+        if opp_type and not filtered and not (HERE / wname).exists():
             return
         # The manifest keys on the BARE slice name (no -weekly suffix): the
         # picker strips the suffix before its lookup, so the key survives the
@@ -1939,13 +2012,21 @@ def main():
         name = feed_filename(region, timeline, category=category, opp_type=opp_type)
         written.append((name, len(filtered)))
 
-        wname = feed_filename(region, timeline, category=category, weekly=True, opp_type=opp_type)
-        (HERE / wname).write_text(
-            build_weekly_feed(filtered, region, timeline, today, category=category, opp_type=opp_type),
-            encoding="utf-8",
-        )
+        if snapshot is not None and wname in snapshot:
+            frozen = snapshot[wname]
+        else:
+            frozen = {
+                m.isoformat(): [g["id"] for g in gs if g.get("id")]
+                for m, gs in sorted(legacy_buckets(filtered, region, timeline, today).items())
+            }
+        new_snapshot[wname] = frozen
+        xml = build_weekly_feed(filtered, region, timeline, today, category=category,
+                                opp_type=opp_type, frozen=frozen, by_id=by_id)
+        (HERE / wname).write_text(xml, encoding="utf-8")
         weekly_written.append(wname)
-        if opp_type:
+        # Offer a type feed in the picker only if it has items now or a grant on
+        # its way; slices whose only grants were the skipped backlog stay unlisted.
+        if opp_type and ("<item>" in xml or any(in_added_era(g) for g in filtered)):
             typed_manifest.append(name)
 
     type_options = [None] + FEED_TYPES
@@ -1981,6 +2062,11 @@ def main():
     )
     for name in orphans:
         (HERE / name).unlink()
+    if snapshot is None or set(new_snapshot) - set(snapshot):
+        if snapshot:
+            new_snapshot = {**new_snapshot, **snapshot}
+        snapshot_path.write_text(json.dumps(new_snapshot, sort_keys=True, separators=(",", ":")), encoding="utf-8")
+        print(f"Wrote {LEGACY_SNAPSHOT} for {len(new_snapshot)} feeds.")
     if orphans:
         print(f"Removed {len(orphans)} stale feed file(s) no longer generated.")
 
