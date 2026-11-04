@@ -222,8 +222,8 @@ def feed_title_desc(region, timeline, category=None, weekly=False, opp_type=None
         desc += (
             " Released weekly: the week's new grants arrive together on Sunday, "
             "one entry per grant, instead of "
-            f"trickling out daily. Each drop carries at most {WEEKLY_DROP_MAX} grants, closest "
-            "deadlines first; the rest follow the next Sunday."
+            "trickling out daily. Each Sunday's drop carries every grant added that week, "
+            "except any closing on the drop day itself."
         )
     return title, desc
 
@@ -323,6 +323,10 @@ def filter_grants(grants, region, timeline, today, category=None, opp_type=None)
 # How many past weeks a digest feed carries. 26 keeps roughly six months of
 # history in a file that stays small, since each item is a whole week.
 MAX_WEEKS = 26
+# Weeks before this Monday are never emitted again. Until the WEEKLY_BY_ADDED_SINCE
+# switch, queued future weeks used up MAX_WEEKS slots, so most feeds stopped well
+# short of 26 weeks; freeing those slots must not bring months-old items back.
+HISTORY_FLOOR = date(2026, 6, 22)
 
 
 def week_start(d):
@@ -365,6 +369,27 @@ WEEKLY_DROP_MAX_LEGACY = 10
 DROP_STRICT_SINCE = date(2026, 11, 8)
 
 
+# From this Sunday on, drops are uncapped and keyed on addedDate: each Sunday
+# carries every grant added Monday-Sunday of that week. The earlier design (a
+# 5/day release drip feeding a 10-15 item cap, soonest deadlines first) took in
+# ~35-40 grants a week but let only 10-15 out, so grants queued until their
+# deadline forced them through and every drop item closed within 7 days.
+# Grants added before this week (the queued backlog) are deliberately never
+# released into drops from this date on; they stay on the site and calendars.
+# Earlier drops keep the old logic so their guids stay put.
+WEEKLY_BY_ADDED_SINCE = date(2026, 11, 8)
+
+
+def added_date(g):
+    return parse_date(g.get("addedDate") or g.get("feedDate"))
+
+
+def in_added_era(g):
+    """True when a grant is released by addedDate (added in or after the cutover week)."""
+    a = added_date(g)
+    return bool(a) and a >= week_start(WEEKLY_BY_ADDED_SINCE)
+
+
 def open_for_drop(deadline, sunday):
     """True when a grant with this deadline may go out in the drop on `sunday`."""
     if deadline is None:
@@ -400,8 +425,11 @@ def slice_join_date(g, region, timeline):
 
 def bucket_date(g, region, timeline):
     """Date whose week decides which Sunday drop a grant goes out in."""
-    release = feed_release(g)
     join = slice_join_date(g, region, timeline)
+    if in_added_era(g):
+        added = added_date(g)
+        return max(added, join) if join else added
+    release = feed_release(g)
     if release and join and join >= SLICE_JOIN_SINCE:
         return max(release, join)
     return release
@@ -569,7 +597,7 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
         monday = mondays[i]
         i += 1
         sunday = monday + timedelta(days=6)
-        if sunday < WEEKLY_DROP_SINCE:
+        if sunday < WEEKLY_DROP_SINCE or sunday >= WEEKLY_BY_ADDED_SINCE:
             continue
         deadline_of = lambda g: parse_date(g.get("deadline")) or date.max
         openable = sorted(
@@ -596,7 +624,15 @@ def build_weekly_feed(grants, region, timeline, today, category=None, opp_type=N
             bisect.insort(mondays, nxt)
         buckets[nxt].extend(deferred)
 
-    weeks = sorted(buckets.keys(), reverse=True)[:MAX_WEEKS]
+    # Added-era drops carry only grants added in their own week: legacy grants
+    # cascaded forward by the old cap (the queued backlog) are dropped here.
+    for monday in list(buckets):
+        if monday + timedelta(days=6) >= WEEKLY_BY_ADDED_SINCE:
+            buckets[monday] = [g for g in buckets[monday] if in_added_era(g)]
+            if not buckets[monday]:
+                del buckets[monday]
+
+    weeks = sorted((w for w in buckets if w >= HISTORY_FLOOR), reverse=True)[:MAX_WEEKS]
     items = "".join(
         build_weekly_item(w, buckets[w], today, filename, category=category, opp_type=opp_type)
         for w in weeks
@@ -1865,7 +1901,13 @@ def main():
     deferred = apply_release_schedule(grants)
     if deferred:
         print(f"Feed cap: {deferred} grant(s) deferred past their nominal date to keep releases at <= {FEED_MAX_PER_DAY}/day.")
-    feed_grants = filter_published(grants, today)
+    # Added-era grants skip the daily drip: they reach the weekly drops by
+    # addedDate (the drop builder still holds each week until its Sunday).
+    published_ids = {id(g) for g in filter_published(grants, today)}
+    feed_grants = [
+        g for g in grants
+        if g.get("feed") is not False and (id(g) in published_ids or in_added_era(g))
+    ]
     queued = len(grants) - len(feed_grants)
     if queued:
         print(f"RSS throttle: {queued} grant(s) held out of feeds (future release date); shown on the site immediately.")
