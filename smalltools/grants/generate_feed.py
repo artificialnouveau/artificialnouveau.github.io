@@ -389,9 +389,11 @@ def added_week(d):
     return week_start(d + timedelta(days=1))
 
 
-# Added-era drops are stamped at the scheduled run (06:00 UTC), not midnight:
-# a midnight stamp predates the moment the drop is actually visible, and readers
-# that only take items newer than their last poll could skip the whole drop.
+# Added-era drops are released from 06:00 UTC on Sunday. Each drop's pubDate is
+# the moment the publish run recorded it (kept in the ledger's "stamps"), not a
+# fixed 06:00: cron runs start late, and readers that only take items newer than
+# their last poll could otherwise skip a drop stamped before it was visible.
+# drop_stamp() is the fallback for drops recorded without a stamp (seeded ones).
 DROP_HOUR_UTC = 6
 
 
@@ -519,7 +521,7 @@ def drop_body(g, sunday, gurl, bits):
     return "".join(parts)
 
 
-def build_weekly_drop_items(monday, grants_in_week, today, slug):
+def build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=None):
     """One week as a Sunday drop: one item per grant, no header item.
 
     Plain-text renderers such as Slack's RSS app truncate every item at a fixed
@@ -541,7 +543,7 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug):
     ]
     if not open_at_stamp:
         return ""
-    pub = rfc822(drop_stamp(sunday))
+    pub = rfc822(stamp or drop_stamp(sunday))
 
     items = []
     for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max)):
@@ -567,7 +569,8 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug):
     return "".join(items)
 
 
-def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_type=None):
+def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_type=None,
+                      stamp=None):
     """One digest <item> covering a single week's releases.
 
     Weeks from WEEKLY_DROP_SINCE on are delegated to build_weekly_drop_items
@@ -576,7 +579,7 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
     """
     sunday = monday + timedelta(days=6)
     if sunday >= WEEKLY_DROP_SINCE:
-        return build_weekly_drop_items(monday, grants_in_week, today, slug)
+        return build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=stamp)
     label = monday.strftime("%d %b %Y")
 
     # pubDate must not sit in the future or readers may hide the item: for the
@@ -661,8 +664,10 @@ def local_ledger_is_stale():
 
 
 def ledger_entry(raw):
-    """Normalise a ledger entry to {"weeks": {monday: [ids]}, "sent": [ids]}.
-    Entries written before the round-3 fixes (4 Nov 2026) were the bare weeks mapping."""
+    """Normalise a ledger entry to {"weeks": {monday: [ids]}, "sent": [ids]},
+    plus "stamps": {monday: ISO UTC time the drop was recorded} once any drop has
+    one. Entries written before the round-3 fixes (4 Nov 2026) were the bare
+    weeks mapping."""
     if raw is None:
         return None
     if "weeks" not in raw:
@@ -671,7 +676,10 @@ def ledger_entry(raw):
     sent = set(raw.get("sent") or [])
     for ids in weeks.values():
         sent.update(ids)
-    return {"weeks": weeks, "sent": sorted(sent)}
+    entry = {"weeks": weeks, "sent": sorted(sent)}
+    if raw.get("stamps"):
+        entry["stamps"] = dict(raw["stamps"])
+    return entry
 
 
 def build_weekly_feed(grants, region, today, category=None, opp_type=None,
@@ -742,11 +750,17 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
                 record(monday)
     elif recording:
         record(last_released)
+        # Freeze the real release moment as this drop's pubDate.
+        entry.setdefault("stamps", {})[last_released.isoformat()] = (
+            datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
     entry["sent"] = sorted(sent)
     # Keep the replayable weeks to what a feed can still show; ``sent`` stays.
     horizon = open_monday - timedelta(weeks=MAX_WEEKS + 2)
     for monday_iso in [m for m in weeks_l if date.fromisoformat(m) < horizon]:
         del weeks_l[monday_iso]
+        entry.get("stamps", {}).pop(monday_iso, None)
+    if "stamps" in entry and not entry["stamps"]:
+        del entry["stamps"]
 
     def released(w):
         # A read-only run never publishes an added-era drop the committed ledger
@@ -773,8 +787,11 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
                  for g in buckets[w])),
         reverse=True,
     )[:MAX_WEEKS]
+    stamps = {m: datetime.strptime(v, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+              for m, v in (entry.get("stamps") or {}).items()}
     items = "".join(
-        build_weekly_item(w, buckets[w], today, filename, category=category, opp_type=opp_type)
+        build_weekly_item(w, buckets[w], today, filename, category=category, opp_type=opp_type,
+                          stamp=stamps.get(w.isoformat()))
         for w in weeks
     )
     build_date = rfc822(datetime.now(timezone.utc))
@@ -964,6 +981,9 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
             "BEGIN:VEVENT",
             f"UID:{uid}",
             f"DTSTAMP:{now_stamp}",
+            # A deadline is a reminder, not a meeting: never mark the subscriber
+            # busy (free/busy lookups and booking tools would block the slot).
+            "TRANSP:TRANSPARENT",
         ]
         if moment:
             # A stated time and zone becomes a timed event (in UTC, so no
@@ -1064,14 +1084,15 @@ FEED_TYPES = ["grants", "residencies", "fellowships", "prizes"]
 # call the site labels "Grant" is in the Grants feed and calendar too, and vice
 # versa. main() warns when the two drift. Each rule is (tag regex, title regex),
 # searched in lowercase; tags starting "no-" (no-stipend) and the cash-award tag
-# say nothing about type and are ignored. The grant rule matches whole words so
-# "Funded residency", "Grantham" and "Immigrant" do not count as grants, and
-# fully-funded / eu-funded tags do not either. "stipend" and "fonds" match inside
+# say nothing about type and are ignored. Every rule matches whole words (tags
+# split on hyphens): "Funded residency", "Grantham" and "Immigrant" are not
+# grants, "monaco-presidency" is not a residency, "Awarded Residency" is not a
+# prize, and fully-funded / eu-funded tags say nothing. XPRIZE is a prize. "stipend" and "fonds" match inside
 # words for German and Dutch compounds (Arbeitsstipendium, Stimuleringsfonds).
 FEED_TYPE_RULES = {
-    "residencies": (r"residenc|artist-in-residence", r"residenc"),
+    "residencies": (r"(^|-)(residenc(y|ies|es?)|artist-in-residence)(-|$)", r"\bresidenc(y|ies|es?)\b"),
     "fellowships": (r"fellowship", r"fellowship"),
-    "prizes": (r"prize|award|competition|contest", r"prize|award|competition|contest"),
+    "prizes": (r"(^|-)(x?prizes?|awards?|competitions?|contests?)(-|$)", r"\b(x?prizes?|awards?|competitions?|contests?)\b"),
     "grants": (
         r"(^|-)((micro|sub|mega)?grants?|regranting|funds?|funding|subsid(y|ies)|bursar(y|ies)|stipends?|scholarships?|commissions?)(-|$)|fonds",
         r"\b((micro|sub|mega)?grants?|regranting|funds?|funding|bursar(y|ies)|subsid(y|ies)|scholarships?|support scheme)\b|stipend|fonds",
@@ -1165,16 +1186,20 @@ def type_matches(grant, opp_type):
 
 
 def check_type_rules_match_site():
-    """Warn when index.html's TYPE_RULES no longer match FEED_TYPE_RULES."""
+    """Warn when index.html's TYPE_RULES no longer match FEED_TYPE_RULES.
+    Returns True when they drifted."""
     try:
         html = (HERE / "index.html").read_text(encoding="utf-8")
     except OSError:
-        return
+        return False
+    drifted = False
     for feed_type, site_key in SITE_TYPE_KEYS.items():
         m = re.search(r"\['" + site_key + r"',\s*/(.+?)/,\s*/(.+?)/\]", html)
         if not m or (m.group(1), m.group(2)) != FEED_TYPE_RULES[feed_type]:
+            drifted = True
             print(f"WARNING: index.html TYPE_RULES '{site_key}' differs from "
                   f"FEED_TYPE_RULES['{feed_type}']; site filter and feeds disagree.")
+    return drifted
 
 
 def country_matches(grant, country):
@@ -1549,6 +1574,13 @@ footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #7A6F63; fon
 """
 
 
+# Typed feeds (bare names) and typed calendars that currently have items or
+# upcoming deadlines, filled in by main() from the manifest before the static
+# pages are built.
+LIVE_TYPED_FEEDS = set()
+LIVE_TYPED_CALENDARS = set()
+
+
 def build_static_page(grants_for_slice, today, region=None, category=None,
                       opp_type=None, country=None, available=None):
     title = static_page_title(region=region, category=category, opp_type=opp_type, country=country)
@@ -1603,9 +1635,11 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     if opp_type in FEED_TYPES:
         typed_feed = feed_filename(picker_region(feed_region), weekly=True, opp_type=opp_type)
         typed_cal = calendar_filename(feed_region, opp_type=opp_type)
-        if (HERE / typed_feed).exists():
+        # Only typed files with something in them: quiet ones stay on disk for
+        # existing subscribers but should not be advertised.
+        if typed_feed.replace("-weekly.xml", ".xml") in LIVE_TYPED_FEEDS:
             feed_name = typed_feed
-        if (HERE / typed_cal).exists():
+        if typed_cal in LIVE_TYPED_CALENDARS:
             cal_name = typed_cal
     feed_url = SITE_ROOT_URL + GRANTS_BASE_PATH + feed_name
     cal_url = SITE_ROOT_URL + GRANTS_BASE_PATH + cal_name
@@ -2060,7 +2094,12 @@ def main():
     # UTC, matching the drop stamps and the 06:00 UTC workflow: a local run just
     # after midnight CET on a Sunday must not publish that Sunday's drop early.
     today = datetime.now(timezone.utc).date()
-    check_type_rules_match_site()
+    # GRANT_DESK_STRICT=1 (set by the daily publish workflow) turns type-rule
+    # drift into a failed run, before anything is written. Deploy builds stay
+    # warning-only so the site never stops deploying over it.
+    if check_type_rules_match_site() and os.environ.get("GRANT_DESK_STRICT") == "1":
+        print("ERROR: fix the drift between TYPE_RULES and FEED_TYPE_RULES, then rerun.")
+        return 1
 
     for g in grants:
         if (g.get("deadlineTime") or g.get("deadlineTz")) and not deadline_moment(g):
@@ -2239,6 +2278,9 @@ def main():
         }, separators=(",", ":")),
         encoding="utf-8",
     )
+
+    LIVE_TYPED_FEEDS.update(typed_manifest)
+    LIVE_TYPED_CALENDARS.update(typed_cal_manifest)
 
     stale_cals = sorted(
         f.name for f in HERE.glob("calendar*.ics") if f.name not in set(cals_written)

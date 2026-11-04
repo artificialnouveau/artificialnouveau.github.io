@@ -1550,7 +1550,7 @@ code *, pre *, kbd *, samp * {
           </div>
           <p class="feed-note" id="feed-note" hidden></p>
 <!-- BEGIN_OVERLAP_NOTE -->
-<script type="application/json" id="overlap-data">[{"axis":"categories","a":"writers","b":"ai-tech-research","aLabel":"Journalism & Writers","bLabel":"AI, Tech & Research","shared":62,"share":0.459},{"axis":"types","a":"residencies","b":"grants","aLabel":"Artist Residencies","bLabel":"Grants","shared":133,"share":0.445},{"axis":"types","a":"fellowships","b":"grants","aLabel":"Fellowships","bLabel":"Grants","shared":94,"share":0.355},{"axis":"categories","a":"cross","b":"media-arts","aLabel":"Cross-disciplinary & Social Impact","bLabel":"Media Arts, Film & Sound","shared":70,"share":0.345},{"axis":"categories","a":"cross","b":"ai-tech-research","aLabel":"Cross-disciplinary & Social Impact","bLabel":"AI, Tech & Research","shared":56,"share":0.276},{"axis":"categories","a":"ai-tech-research","b":"media-arts","aLabel":"AI, Tech & Research","bLabel":"Media Arts, Film & Sound","shared":112,"share":0.256}]</script>
+<script type="application/json" id="overlap-data">[{"axis":"categories","a":"writers","b":"ai-tech-research","aLabel":"Journalism & Writers","bLabel":"AI, Tech & Research","shared":62,"share":0.459},{"axis":"types","a":"residencies","b":"grants","aLabel":"Artist Residencies","bLabel":"Grants","shared":133,"share":0.446},{"axis":"types","a":"fellowships","b":"grants","aLabel":"Fellowships","bLabel":"Grants","shared":94,"share":0.355},{"axis":"categories","a":"cross","b":"media-arts","aLabel":"Cross-disciplinary & Social Impact","bLabel":"Media Arts, Film & Sound","shared":70,"share":0.345},{"axis":"categories","a":"cross","b":"ai-tech-research","aLabel":"Cross-disciplinary & Social Impact","bLabel":"AI, Tech & Research","shared":56,"share":0.276},{"axis":"categories","a":"ai-tech-research","b":"media-arts","aLabel":"AI, Tech & Research","bLabel":"Media Arts, Film & Sound","shared":112,"share":0.256}]</script>
 <details class="overlap-note">
 <summary>Why some filters are marked *</summary>
 <p>A single grant can sit in more than one region, category or type, so two filters can hand you the same call twice. The pairs below overlap enough to be worth flagging, and every filter involved carries an asterisk above.</p>
@@ -12690,15 +12690,16 @@ const FESTIVAL_TITLE_RE = /festival|conference|summit|symposium|biennale|biennia
 // Art Media Grant) keeps GRANT as its card tab while still answering to the
 // Publications chip.
 const TYPE_RULES = [
-  ['residency',   /residenc|artist-in-residence/, /residenc/],
+  // residency, fellowship, prize and grant: keep identical to FEED_TYPE_RULES in
+  // generate_feed.py (it warns, and the daily publish fails, on drift).
+  ['residency',   /(^|-)(residenc(y|ies|es?)|artist-in-residence)(-|$)/, /\bresidenc(y|ies|es?)\b/],
   ['fellowship',  /fellowship/, /fellowship/],
   ['travel',      /travel|mobility/, /travel grant|travel fund|travel bursar|mobility/],
   ['festival',    FESTIVAL_TAG_RE, FESTIVAL_TITLE_RE],
-  ['prize',       /prize|award|competition|contest/, /prize|award|competition|contest/],
+  ['prize',       /(^|-)(x?prizes?|awards?|competitions?|contests?)(-|$)/, /\b(x?prizes?|awards?|competitions?|contests?)\b/],
   ['job',         /job|vacancy/, null],
-  // grant: keep identical to FEED_TYPE_RULES["grants"] in generate_feed.py (it
-  // warns on drift). Whole words, so "Funded residency", "Grantham", "Immigrant"
-  // and fully-funded tags are not grants; stipend/fonds match inside compounds.
+  // grant: whole words, so "Funded residency", "Grantham", "Immigrant" and
+  // fully-funded tags are not grants; stipend/fonds match inside compounds.
   ['grant',       /(^|-)((micro|sub|mega)?grants?|regranting|funds?|funding|subsid(y|ies)|bursar(y|ies)|stipends?|scholarships?|commissions?)(-|$)|fonds/, /\b((micro|sub|mega)?grants?|regranting|funds?|funding|bursar(y|ies)|subsid(y|ies)|scholarships?|support scheme)\b|stipend|fonds/],
   ['production',  /production|cash-rebate|documentary|feature-film|television|tv-drama|screenwriting|filmmak|episodic/, /film production|production incentive|documentary|feature film|screenwriting|tv drama|filmmak/],
   ['publication', /call-for-papers|call-for-pitches|journal|publication|publishing|magazine|editorial|essay|long-read|zine|anthology|writing/, /call for papers|call for pitches|journal|magazine|anthology|essay/],

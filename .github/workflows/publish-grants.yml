@@ -29,6 +29,10 @@ jobs:
 
       - name: Regenerate feeds, calendars and pages
         run: python3 smalltools/grants/generate_feed.py
+        env:
+          # Fail (before writing anything) if the site's TYPE_RULES and the
+          # generator's FEED_TYPE_RULES drift apart.
+          GRANT_DESK_STRICT: "1"
 
       - name: Commit changes (if any)
         run: |

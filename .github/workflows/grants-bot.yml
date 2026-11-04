@@ -75,16 +75,6 @@ jobs:
             git push origin HEAD:master
           fi
 
-      - name: Regenerate feeds
-        if: steps.bot.outputs.has_candidates == 'true'
-        run: python3 smalltools/grants/generate_feed.py
-        env:
-          # The PR may merge days later, after the daily publish has recorded
-          # newer drops; a ledger committed here would then be stale and could
-          # re-send a week. Read-only runs leave feed-drop-ledger.json untouched,
-          # and the daily publish regenerates everything after the merge.
-          GRANT_DESK_READONLY: "1"
-
       - name: Open draft PR
         if: ${{ steps.bot.outputs.has_candidates == 'true' && steps.pat.outputs.set == 'true' }}
         env:
@@ -95,9 +85,10 @@ jobs:
           # Run id suffix avoids branch collisions on same-day reruns.
           BRANCH="grants-bot/${DATE}-${GITHUB_RUN_ID}"
           git checkout -b "$BRANCH"
-          # -A: generate_feed.py also rewrites index.html (JSON-LD), static
-          # SEO pages, sitemap.xml, robots.txt and llms.txt; committing only
-          # the feeds would leave those stale on merge.
+          # The PR carries only the bot's own edits (grants.json). Feeds,
+          # calendars and pages are not regenerated here: they change on master
+          # every day, so committing them made every late merge conflict. The
+          # deploy regenerates on merge and the daily publish commits them.
           git add -A
           git commit -m "Grants bot: ${{ steps.bot.outputs.count }} candidate(s) (${DATE})"
           git push -u origin "$BRANCH"

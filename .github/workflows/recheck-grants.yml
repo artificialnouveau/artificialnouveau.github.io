@@ -74,16 +74,6 @@ jobs:
             git push origin HEAD:master
           fi
 
-      - name: Regenerate feeds
-        if: steps.recheck.outputs.has_candidates == 'true'
-        run: python3 smalltools/grants/generate_feed.py
-        env:
-          # The PR may merge days later, after the daily publish has recorded
-          # newer drops; a ledger committed here would then be stale and could
-          # re-send a week. Read-only runs leave feed-drop-ledger.json untouched,
-          # and the daily publish regenerates everything after the merge.
-          GRANT_DESK_READONLY: "1"
-
       - name: Open draft PR
         if: ${{ steps.recheck.outputs.has_candidates == 'true' && steps.pat.outputs.set == 'true' }}
         env:
@@ -93,6 +83,8 @@ jobs:
           DATE=$(date -u +%Y-%m-%d)
           BRANCH="recheck-grants/${DATE}-${GITHUB_RUN_ID}"
           git checkout -b "$BRANCH"
+          # Only the bot's own edits: feeds, calendars and pages are left to
+          # the deploy and the daily publish (see grants-bot.yml).
           git add -A
           git commit -m "Recheck bot: ${{ steps.recheck.outputs.count }} likely new cycle(s) (${DATE})"
           git push -u origin "$BRANCH"
