@@ -321,9 +321,19 @@ def filter_grants(grants, region, category=None, opp_type=None):
     return out
 
 
-# How many past weeks a digest feed carries. 26 keeps roughly six months of
-# history in a file that stays small, since each item is a whole week.
-MAX_WEEKS = 26
+# How many past drops a feed file carries (5 Nov 2026, her call: 4). Drops are
+# uncapped (~46 grants a week in the main feed), so 26 weeks would have grown
+# feed-weekly.xml to ~1,200 items; readers re-download the whole file on every
+# check but only show new items. Four weeks still covers any reader that checks
+# at least once a month.
+MAX_WEEKS = 4
+# How far back the ledger keeps each feed's released weeks (``sent`` is never
+# pruned). Kept independent of MAX_WEEKS so the history window can be widened
+# again later without losing the frozen legacy weeks.
+LEDGER_WEEKS = 28
+# Window the overlap note counts over: a stable sample, independent of how many
+# weeks the feed files happen to show.
+OVERLAP_WEEKS = 26
 # Weeks before this Monday are never emitted again. Until the WEEKLY_BY_ADDED_SINCE
 # switch, queued future weeks used up MAX_WEEKS slots, so most feeds stopped well
 # short of 26 weeks; freeing those slots must not bring months-old items back.
@@ -798,7 +808,7 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
             datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
     entry["sent"] = sorted(sent)
     # Keep the replayable weeks to what a feed can still show; ``sent`` stays.
-    horizon = open_monday - timedelta(weeks=MAX_WEEKS + 2)
+    horizon = open_monday - timedelta(weeks=LEDGER_WEEKS)
     for monday_iso in [m for m in weeks_l if date.fromisoformat(m) < horizon]:
         del weeks_l[monday_iso]
         entry.get("stamps", {}).pop(monday_iso, None)
@@ -1791,7 +1801,7 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
 # (type matching is tag- and title-driven). So ticking two boxes can surface the
 # same grant twice. Rather than hand-maintain a list of "watch out for EU and
 # NL", the note is COMPUTED from the live data each build. It counts what the
-# feeds actually carry: feed-eligible grants added in the last MAX_WEEKS weeks
+# feeds carry: feed-eligible grants added in the last OVERLAP_WEEKS weeks
 # (a feed's window), not the whole archive.
 # ONE threshold for both the asterisks on the checkboxes and the explanatory
 # note, so the two can never disagree. Running two different bars meant the note
@@ -1840,8 +1850,8 @@ def heavy_overlap_pairs(grants):
 
 
 def overlap_sample(grants, today):
-    """Grants the feeds can carry now: not opted out, added within MAX_WEEKS weeks."""
-    since = today - timedelta(weeks=MAX_WEEKS)
+    """Feed-eligible grants (not opted out) added within OVERLAP_WEEKS weeks."""
+    since = today - timedelta(weeks=OVERLAP_WEEKS)
     return [g for g in grants
             if g.get("feed") is not False and (added_date(g) or date.min) >= since]
 
@@ -1883,7 +1893,7 @@ def build_overlap_note(grants):
         "<p>A single grant can sit in more than one region, category or type, so two "
         "filters can hand you the same call twice. The pairs below overlap enough to "
         "be worth flagging, and every filter involved carries an asterisk above. "
-        f"Counted over the grants added in the last {MAX_WEEKS} weeks.</p>\n"
+        f"Counted over the grants added in the last {OVERLAP_WEEKS} weeks.</p>\n"
         + "\n".join(blocks)
         + "\n</details>\n"
         "<!-- END_OVERLAP_NOTE -->"
