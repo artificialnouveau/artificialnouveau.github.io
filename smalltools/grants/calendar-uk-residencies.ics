@@ -13,7 +13,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:mats-residency-program-2026@artificialnouveau.github.io
-DTSTAMP:20261105T132116Z
+DTSTAMP:20261105T181829Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
@@ -41,7 +41,7 @@ LOCATION:In-person at MATS offices in Berkeley\, London\, or Washington DC\
 END:VEVENT
 BEGIN:VEVENT
 UID:shape-arts-emergent-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261105T132116Z
+DTSTAMP:20261105T181829Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
@@ -71,7 +71,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:gasworks-residency-artists-based-in-the-baltics-2027@artificialnouveau.
  github.io
-DTSTAMP:20261105T132116Z
+DTSTAMP:20261105T181829Z
 TRANSP:TRANSPARENT
 DTSTART:20270202T123000Z
 DTEND:20270202T130000Z
@@ -100,7 +100,7 @@ LOCATION:London\, UK. For contemporary visual artists based in Lithuania\,
 END:VEVENT
 BEGIN:VEVENT
 UID:cove-park-awarded-residencies-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261105T132116Z
+DTSTAMP:20261105T181829Z
 TRANSP:TRANSPARENT
 DTSTART:20261211T163000Z
 DTEND:20261211T170000Z
@@ -133,7 +133,7 @@ LOCATION:Cove Park\, Peaton Hill\, Argyll and Bute\, Scotland (in person\,
 END:VEVENT
 BEGIN:VEVENT
 UID:eastside-projects-radical-sabbatical-2027@artificialnouveau.github.io
-DTSTAMP:20261105T132116Z
+DTSTAMP:20261105T181829Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261120
 DTEND;VALUE=DATE:20261121
@@ -157,7 +157,7 @@ LOCATION:University of Birmingham\, Birmingham\, UK (in person\, research r
 END:VEVENT
 BEGIN:VEVENT
 UID:cryptic-nights-2027-28-open-call@artificialnouveau.github.io
-DTSTAMP:20261105T132116Z
+DTSTAMP:20261105T181829Z
 TRANSP:TRANSPARENT
 DTSTART:20261119T113000Z
 DTEND:20261119T120000Z
@@ -178,5 +178,35 @@ DESCRIPTION:Closes 19 Nov 2026 at 12:00 GMT.\n\nCryptic Nights supports eme
 URL:https://www.cryptic.org.uk/cryptic-nights-2027-28-open-call/?utm_source
  =artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Glasgow\, Scotland. Open to emerging artists based in Scotland.
+END:VEVENT
+BEGIN:VEVENT
+UID:futures-of-listening-immersive-audio-network-2027@artificialnouveau.git
+ hub.io
+DTSTAMP:20261105T181829Z
+TRANSP:TRANSPARENT
+DTSTART:20261121T222900Z
+DTEND:20261121T225900Z
+SUMMARY:Deadline 23:59 CET: Futures of Listening x Immersive Audio Network:
+  Residency Open Call (Bristol\, IAN Festival 2027)
+DESCRIPTION:Closes 21 Nov 2026 at 23:59 CET.\n\nOne residency for a freelan
+ ce audio practitioner (composer\, sound designer\, audio maker\, artist or
+  researcher) registered in the Netherlands\, to develop an existing projec
+ t into a spatial\, story-led sound work.\n\nOrganisation: Futures of Liste
+ ning (FIBER\, 4DSOUND\, Robin Koek\, Art of Sound) and the Immersive Audio
+  Network (IAN)\nLocation: Bristol\, UK (Arnolfini and IAN's mobile Immersi
+ ve Audio Lab). Open only to practitioners registered with the Dutch Chambe
+ r of Commerce (KvK).\nAward: EUR 1\,750 residency fee (excl. VAT\, paid on
+  invoice)\, plus return travel from the Netherlands to Bristol and private
+  accommodation for 22 to 30 January 2027. No application fee.\nDuration: 5
+ -day residency\, 22 to 27 January 2027\, with a public work-in-progress pr
+ esentation at the IAN Festival on 29 January 2027.\n\nMore: https://www.fi
+ ber-space.nl/news/open-call-futures-of-listening-x-immersive-audio-network
+ /?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://www.fiber-space.nl/news/open-call-futures-of-listening-x-immers
+ ive-audio-network/?utm_source=artificialnouveaugrantdesk&utm_medium=referr
+ al
+LOCATION:Bristol\, UK (Arnolfini and IAN's mobile Immersive Audio Lab). Ope
+ n only to practitioners registered with the Dutch Chamber of Commerce (KvK
+ ).
 END:VEVENT
 END:VCALENDAR

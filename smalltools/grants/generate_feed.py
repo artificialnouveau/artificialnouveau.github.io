@@ -23,7 +23,7 @@ import os
 import re
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import unquote_plus, urlsplit, urlunsplit
 from xml.sax.saxutils import escape
 
 HERE = Path(__file__).parent
@@ -36,15 +36,16 @@ TITLE = "The Grant Desk"
 def with_utm(url):
     """Return an http(s) URL tagged with our UTM attribution only. Any pre-existing utm_*
     params on the URL are stripped first so only ours shows. Existing non-utm query params
-    and #fragments are preserved. Falsy/non-http values are returned unchanged."""
+    and #fragments are preserved byte for byte: the query is edited as raw &-separated
+    pieces, never decoded and re-encoded, so %20 stays %20 and a bare ?flag stays bare.
+    Falsy/non-http values are returned unchanged. Mirrors withUtm() in index.html."""
     if not url or not (url.startswith("http://") or url.startswith("https://")):
         return url
     parts = urlsplit(url)
-    kept = [(k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
-            if not k.lower().startswith("utm_")]
-    kept.extend([("utm_source", "artificialnouveaugrantdesk"), ("utm_medium", "referral")])
-    query = urlencode(kept)
-    return urlunsplit((parts.scheme, parts.netloc, parts.path, query, parts.fragment))
+    kept = [p for p in parts.query.split("&")
+            if p and not unquote_plus(p.split("=", 1)[0]).lower().startswith("utm_")]
+    kept += ["utm_source=artificialnouveaugrantdesk", "utm_medium=referral"]
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, "&".join(kept), parts.fragment))
 
 DESCRIPTION = (
     "Paid open calls, fellowships and residencies in AI, tech, research, and digital and mixed-media arts, "
@@ -868,6 +869,23 @@ def build_weekly_feed(grants, region, today, category=None, opp_type=None,
         "</rss>\n"
     )
     return xml, pending
+
+
+_BUILD_DATE_LINE = re.compile(r"  <lastBuildDate>[^<]*</lastBuildDate>\n")
+
+
+def write_feed_if_changed(path, xml):
+    """Write a feed only when something other than its lastBuildDate changed.
+    Without this every run rewrote ~150 files for the timestamp alone: noisy
+    commits, more bot push races, and readers re-downloading unchanged feeds.
+    An untouched file keeps the lastBuildDate of its last real change, which is
+    what the element means. Returns True when the file was written."""
+    if path.exists():
+        old = path.read_text(encoding="utf-8")
+        if _BUILD_DATE_LINE.sub("", old) == _BUILD_DATE_LINE.sub("", xml):
+            return False
+    path.write_text(xml, encoding="utf-8")
+    return True
 
 
 def ics_escape(value):
@@ -2279,7 +2297,7 @@ def main():
         live = "<item>" in xml or pending
         if opp_type and not live and not published:
             return
-        (HERE / wname).write_text(xml, encoding="utf-8")
+        write_feed_if_changed(HERE / wname, xml)
         written.append((wname, len(filtered)))
         if opp_type and live:
             # The manifest keys on the BARE slice name (no -weekly suffix): the
