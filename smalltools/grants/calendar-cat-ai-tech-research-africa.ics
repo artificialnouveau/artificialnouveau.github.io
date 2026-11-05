@@ -3,72 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - AI\, Tech & Research\, Africa
-X-WR-CALNAME:The Grant Desk deadlines - AI\, Tech & Research\, Africa
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: AI\, Tech & Research\, 
- Africa.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:gainssa-ai-safety-essentials-fellowship-2026@artificialnouveau.github.i
- o
-DTSTAMP:20261104T234824Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261108
-DTEND;VALUE=DATE:20261109
-SUMMARY:Deadline: GAIN SSA: AI Safety Essentials Fellowship (inaugural coho
- rt)
-DESCRIPTION:GAIN SSA (Global AI Youth Network\, Sub-Saharan Africa) runs th
- e AI Safety Essentials Fellowship for residents of Africa considering how 
- they can be effective contributors in shaping the continent's transition t
- oward containing risks from transformative AI.\n\nOrganisation: GAIN SSA (
- Global AI Youth Network\, Sub-Saharan Africa)\nLocation: Online (virtual\,
-  facilitated). Open to residents of African countries.\nAward: Micro-grant
-  pool funding top capstone proposals at USD 500 to 1\,000 each (capped at 
- USD 1\,000)\, usable for compute access\, communication work such as Subst
- ack Pro subscriptions for writers\, or travel to AI alignment conferences 
- in Sub-Saharan Africa. The fellowship itself is free to attend (no partici
- pation fee\, no application fee)\; no stipend is paid during the program.\
- nDuration: 6-week facilitated virtual curriculum plus an onboarding pre-re
- quisites module (the site also describes it as 7 weeks)\, about 5 hours pe
- r week with one live group call per week\; capstone proposals are funded a
- fterwards\, with results within 10 days of submission.\n\nMore: https://ga
- inssa.org/initiatives/fellowship?utm_source=artificialnouveaugrantdesk&utm
- _medium=referral
-URL:https://gainssa.org/initiatives/fellowship?utm_source=artificialnouveau
- grantdesk&utm_medium=referral
-LOCATION:Online (virtual\, facilitated). Open to residents of African count
- ries.
-END:VEVENT
-BEGIN:VEVENT
-UID:playful-obscura-arthouse-games-residency-africa-2027@artificialnouveau.
- github.io
-DTSTAMP:20261104T234824Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261101
-DTEND;VALUE=DATE:20261102
-SUMMARY:Deadline: Playful Obscura 2027: Arthouse Games Residency Africa (Ad
- dis Ababa\, Goethe-Institut and A MAZE.)
-DESCRIPTION:Playful Obscura is the Goethe-Institut's arthouse games residen
- cy for Africa\, co-run with the Berlin playful-media festival A MAZE. Afte
- r editions in Ho (2025) and Accra (2026)\, the third edition moves to Addi
- s Ababa with Creative HUB Ethiopia\, the British Council and Alliance Ethi
- o-Francaise.\n\nOrganisation: Goethe-Institut Addis Abeba\, with Creative 
- HUB Ethiopia\, A MAZE.\, British Council and Alliance Ethio-Francaise\nLoc
- ation: Addis Ababa\, Ethiopia. For artists and game developers based in Af
- rica working in playful media and arthouse games.\nAward: Three-week funde
- d residency hosting two artists at a time. 2027 financial terms were not p
- ublished in the call excerpt we could verify\; the 2026 Accra edition prov
- ided accommodation\, a production budget of up to EUR 1\,000 and a EUR 300
-  stipend. No application fee.\nDuration: Residency 25 January to 14 Februa
- ry 2027 in Addis Ababa\; open call 16 October to 1 November 2026\, with an
-  online Q&A on 22 October.\n\nMore: https://www.goethe.de/ins/za/en/kul/mu
- t/p27.html?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.goethe.de/ins/za/en/kul/mut/p27.html?utm_source=artificialn
- ouveaugrantdesk&utm_medium=referral
-LOCATION:Addis Ababa\, Ethiopia. For artists and game developers based in A
- frica working in playful media and arthouse games.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR

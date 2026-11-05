@@ -3,41 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Cross-disciplinary & Social Impact\, Africa
-X-WR-CALNAME:The Grant Desk deadlines - Cross-disciplinary & Social Impact\
- , Africa
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Cross-disciplinary & So
- cial Impact\, Africa.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:goethe-institut-aep-mobility-grants-2026-q2@artificialnouveau.github.io
-DTSTAMP:20261104T234824Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261215
-DTEND;VALUE=DATE:20261216
-SUMMARY:Deadline: Goethe-Institut: Africa-Europe Mobility Grants (15 Decemb
- er 2026 Cut-Off)
-DESCRIPTION:Sub-Saharan Component (Connect & Create) of the Africa-Europe P
- artnerships for Culture programme\, an EUR 8 million 42-month initiative (
- 2025-2028) implemented by the Goethe-Institut in partnership with Expertis
- e France and Institut francais. PRIMARY FOCUS: transcontinental Africa-Afr
- ica short-term mobility for artists and culture professionals.\n\nOrganisa
- tion: Goethe-Institut (with Expertise France and Institut francais)\nLocat
- ion: Mobility within Sub-Saharan Africa (primary focus) and between Sub-Sa
- haran Africa and Europe\nAward: Up to EUR 4\,000 per mobility. Eligible co
- sts: travel (including visa and insurance)\, accommodation\, subsistence\,
-  digital costs\, and top-up support for family\, disability\, and green mo
- bility. No application fee.\nDuration: Rolling call with quarterly cut-off
- s: 15 December 2026\, 15 March 2027\, 15 June 2027 and a final cut-off on 
- 15 September 2027. Mobilities for the December cut-off take place between 
- 1 January and 31 August 2027.\n\nMore: https://www.goethe.de/prj/aep/en/ca
- l/ssa/mga.html?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.goethe.de/prj/aep/en/cal/ssa/mga.html?utm_source=artificial
- nouveaugrantdesk&utm_medium=referral
-LOCATION:Mobility within Sub-Saharan Africa (primary focus) and between Sub
- -Saharan Africa and Europe
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR

@@ -218,7 +218,7 @@ python3 generate_feed.py
 This regenerates:
 
 - One weekly RSS feed per category x region x type combination the subscribe picker offers (`feed-*-weekly.xml`), plus `feed-drop-ledger.json`.
-- One ICS calendar per combination the calendar picker offers, plus the bare region and category calendars the static pages link (`calendar-*.ics`).
+- One ICS calendar per combination the calendar picker offers (`calendar-*.ics`), the same slices as the RSS feeds. Static pages link the nearest one, the same way they pick their feed.
 - One static SEO page per region, per category, per region+category combination, per type (alone and by region) and per country (`<region>/index.html`, `<category>/index.html`, `<type>-<region>/index.html`, `<country>/index.html`, etc.). Each page's RSS link points at the nearest feed the picker offers: a dropped region maps to its container (NL and Switzerland to Europe, China-HK-Taiwan to Asia, Africa/Canada/LatAm/Australia to all regions) and a merged category to its group, so the Arts in Europe page links the Media Arts, Film & Sound in Europe feed. In each grant's JSON-LD, the amount's currency is the first ISO code (EUR, AUD, CHF, ...) or symbol (EUR sign, GBP sign, a bare `$` or `US$`) named in `amount`; `A$`, `NT$` or `HK$` never count as US dollars, and an amount with no recognisable currency is emitted as plain text.
 - `feeds-manifest.json` (which typed feeds and calendars exist, for the pickers) and `embed.json`.
 - The JSON-LD `<script type="application/ld+json">` block and the overlap note (the asterisks in the RSS picker, counted over grants added in the last 26 weeks) injected into `index.html`.
@@ -280,11 +280,13 @@ If you need a new region (say, "Africa"), update **both** the JavaScript filter 
 
 `REGIONS` is the full set. What the RSS and calendar pickers offer is narrower, and lives in three constants at the top of `generate_feed.py`:
 
-- `FEED_REGIONS_EXCLUDED` drops regions from RSS entirely: NL, Switzerland and China-HK-Taiwan (they sit almost entirely inside EU or Asia), and Africa, Canada, LatAm and Australia (under 2 new calls a week). Their calendars stay.
+- `FEED_REGIONS_EXCLUDED` drops regions from RSS entirely: NL, Switzerland and China-HK-Taiwan (they sit almost entirely inside EU or Asia), and Africa, Canada, LatAm and Australia (under 2 new calls a week). Since 5 Nov 2026 they have no calendars either (see below).
 - `REGION_GROUPS` merges regions that overlap heavily into a single option with a single real feed, the same way `CATEGORY_GROUPS` does for categories. `remote-worldwide` is the one group: Remote and Worldwide shared 29 percent of their calls and read as the same promise, so one tick now gives one URL covering both.
-- `PICKER_REGIONS` is what falls out of those two, and is what the RSS picker in `index.html` must mirror. The calendar picker mirrors `CAL_PICKER_REGIONS`, listed in full (the feed regions plus Africa, Canada, Australia, LatAm and NL), so dropping a region from RSS never deletes its calendars. A checkbox value there is used verbatim as the filename slug, so `remote-worldwide` in the HTML has to match the `REGION_GROUPS` key exactly.
+- `PICKER_REGIONS` is what falls out of those two, and is what the RSS picker in `index.html` must mirror. The calendar picker offers the same regions (`CAL_PICKER_REGIONS = PICKER_REGIONS`), so calendars and feeds cover exactly the same slices. A checkbox value there is used verbatim as the filename slug, so `remote-worldwide` in the HTML has to match the `REGION_GROUPS` key exactly.
 
-Members of a group keep their bare `calendar-remote.ics` and `calendar-worldwide.ics` as compatibility aliases for anyone who subscribed before the merge, but get no category or type permutations. They get no feeds of their own any more: since 4 Nov 2026 only picker feeds are built. The website's region filter, the static SEO pages and the per-region calendars still carry every region separately: merging is a syndication decision only.
+Group members get no feeds or calendars of their own: since 4 Nov 2026 only picker feeds are built, and since 5 Nov 2026 only picker calendars. The website's region filter and the static SEO pages still carry every region separately: merging is a syndication decision only.
+
+**Retired calendars (5 Nov 2026).** Matching the calendars to the feeds retired 118 calendar files: everything for NL, Africa, Canada, Australia and Latin America, the bare Remote, Worldwide, Switzerland and China-HK-Taiwan calendars, and the single-category calendars (AI, Arts, Film and so on). Until `CAL_RETIRE_UNTIL` (5 Dec 2026) the generator still serves each of them with no events and the name "The Grant Desk deadlines (retired)", so subscribers' copies empty out instead of freezing with old deadlines (Google and Apple keep the last synced events of a URL that starts returning 404). From that date the stale-calendar sweep deletes them, and any calendar that later drops out of generation is deleted straight away.
 
 ---
 

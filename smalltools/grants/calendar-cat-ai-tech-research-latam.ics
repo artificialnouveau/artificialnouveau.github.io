@@ -3,71 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - AI\, Tech & Research\, LatAm
-X-WR-CALNAME:The Grant Desk deadlines - AI\, Tech & Research\, LatAm
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: AI\, Tech & Research\, 
- LatAm.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:big-festival-gamescom-latam-2027-indie-submissions@artificialnouveau.gi
- thub.io
-DTSTAMP:20261104T234824Z
-TRANSP:TRANSPARENT
-DTSTART:20270116T022900Z
-DTEND:20270116T025900Z
-SUMMARY:Deadline 21:59 EST: BIG Festival at gamescom latam 2027: free indie
-  game submissions (Sao Paulo\, awards with cash prizes)
-DESCRIPTION:Closes 15 Jan 2027 at 21:59 EST.\n\nBIG Festival\, the indie ga
- mes competition inside gamescom latam in Sao Paulo\, has opened free submi
- ssions for its 2027 edition. The 2026 edition drew a record 966 submission
- s from 75 countries.\n\nOrganisation: gamescom latam / BIG Festival\nLocat
- ion: Sao Paulo\, Brazil (Distrito Anhembi). Open to independent developers
-  anywhere in the world.\nAward: Free submission and a no-cost exhibition s
- lot for selected games\, plus eligibility for the BIG Festival awards. 202
- 7 prize amounts are not yet published\; in 2025 Best Game carried BRL 5\,0
- 00 and in 2026 the WINGS Award carried EUR 2\,000 in cash.\nDuration: Subm
- issions 16 October 2026 to 15 January 2027\; festival 22 to 25 April 2027.
- \n\nMore: https://latam.gamescom.global/en/?utm_source=artificialnouveaugr
- antdesk&utm_medium=referral
-URL:https://latam.gamescom.global/en/?utm_source=artificialnouveaugrantdesk
- &utm_medium=referral
-LOCATION:Sao Paulo\, Brazil (Distrito Anhembi). Open to independent develop
- ers anywhere in the world.
-END:VEVENT
-BEGIN:VEVENT
-UID:cove-park-awarded-residencies-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261104T234824Z
-TRANSP:TRANSPARENT
-DTSTART:20261211T163000Z
-DTEND:20261211T170000Z
-SUMMARY:Deadline 17:00 GMT: Cove Park Awarded Residencies 2027-2028 (Scotla
- nd\, UK\, Central and South America and diasporas)
-DESCRIPTION:Closes 11 Dec 2026 at 17:00 GMT.\n\nCove Park's biennial call f
- or fully funded Awarded Residencies at its 50-acre rural residency site in
-  Argyll\, on the west coast of Scotland\, programmed between May 2027 and 
- December 2028.\n\nOrganisation: Cove Park\nLocation: Cove Park\, Peaton Hi
- ll\, Argyll and Bute\, Scotland (in person\, private self-catering accommo
- dation and studio). Open to people based in the UK\, Central or South Amer
- ica\, Central and South American diaspora artists based in Europe or North
-  America\, and Scotland-born artists living anywhere. Students in formal e
- ducation are not eligible.\nAward: Fully funded: GBP 775 per week fee (VAT
-  inclusive\, freelance)\, travel allowance (Scotland GBP 65 to 200\, rest 
- of UK up to GBP 250\, Europe up to GBP 400\, other international up to GBP
-  1\,250)\, materials up to GBP 150 for studio-based practitioners\, privat
- e accommodation and studio\, visa and access support. Application Access B
- ursary available (request by 30 November 2026). No application fee.\nDurat
- ion: 2 to 12 weeks (average 4)\, between May 2027 and December 2028\n\nMor
- e: https://covepark.org/awarded-residencies-2027-2028/?utm_source=artifici
- alnouveaugrantdesk&utm_medium=referral
-URL:https://covepark.org/awarded-residencies-2027-2028/?utm_source=artifici
- alnouveaugrantdesk&utm_medium=referral
-LOCATION:Cove Park\, Peaton Hill\, Argyll and Bute\, Scotland (in person\, 
- private self-catering accommodation and studio). Open to people based in t
- he UK\, Central or South America\, Central and South American diaspora art
- ists based in Europe or North America\, and Scotland-born artists living a
- nywhere. Students in formal education are not eligible.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR

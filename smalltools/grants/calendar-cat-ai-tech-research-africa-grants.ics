@@ -3,44 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Grants\, AI\, Tech & Research\, Africa
-X-WR-CALNAME:The Grant Desk deadlines - Grants\, AI\, Tech & Research\, Afr
- ica
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Grants\, AI\, Tech & Re
- search\, Africa.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:gainssa-ai-safety-essentials-fellowship-2026@artificialnouveau.github.i
- o
-DTSTAMP:20261104T234825Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261108
-DTEND;VALUE=DATE:20261109
-SUMMARY:Deadline: GAIN SSA: AI Safety Essentials Fellowship (inaugural coho
- rt)
-DESCRIPTION:GAIN SSA (Global AI Youth Network\, Sub-Saharan Africa) runs th
- e AI Safety Essentials Fellowship for residents of Africa considering how 
- they can be effective contributors in shaping the continent's transition t
- oward containing risks from transformative AI.\n\nOrganisation: GAIN SSA (
- Global AI Youth Network\, Sub-Saharan Africa)\nLocation: Online (virtual\,
-  facilitated). Open to residents of African countries.\nAward: Micro-grant
-  pool funding top capstone proposals at USD 500 to 1\,000 each (capped at 
- USD 1\,000)\, usable for compute access\, communication work such as Subst
- ack Pro subscriptions for writers\, or travel to AI alignment conferences 
- in Sub-Saharan Africa. The fellowship itself is free to attend (no partici
- pation fee\, no application fee)\; no stipend is paid during the program.\
- nDuration: 6-week facilitated virtual curriculum plus an onboarding pre-re
- quisites module (the site also describes it as 7 weeks)\, about 5 hours pe
- r week with one live group call per week\; capstone proposals are funded a
- fterwards\, with results within 10 days of submission.\n\nMore: https://ga
- inssa.org/initiatives/fellowship?utm_source=artificialnouveaugrantdesk&utm
- _medium=referral
-URL:https://gainssa.org/initiatives/fellowship?utm_source=artificialnouveau
- grantdesk&utm_medium=referral
-LOCATION:Online (virtual\, facilitated). Open to residents of African count
- ries.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR

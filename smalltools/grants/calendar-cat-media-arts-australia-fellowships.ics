@@ -3,42 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Fellowships\, Media Arts\, Film & Sound\, A
- ustralia
-X-WR-CALNAME:The Grant Desk deadlines - Fellowships\, Media Arts\, Film & S
- ound\, Australia
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Fellowships\, Media Art
- s\, Film & Sound\, Australia.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:screen-australia-global-fellowships-2027@artificialnouveau.github.io
-DTSTAMP:20261104T234826Z
-TRANSP:TRANSPARENT
-DTSTART:20270211T053000Z
-DTEND:20270211T060000Z
-SUMMARY:Deadline 17:00 AEDT: Screen Australia Global Fellowships (AUD 80\,0
- 00-100\,000)
-DESCRIPTION:Closes 11 Feb 2027 at 17:00 AEDT.\n\nScreen Australia's Global 
- Fellowships support Australian screen practitioners (producers\, directors
- \, writers and development executives) pursuing international professional
-  development and career acceleration through placements with leading globa
- l screen organizations.\n\nOrganisation: Screen Australia\nLocation: Inter
- national placements with leading global screen organizations\, self-arrang
- ed by the fellow. Open to Australian citizens or permanent residents (sole
-  traders) or incorporated Australian companies.\nAward: Non-recoupable gra
- nts of AUD 80\,000 (single continuous placement of up to 6 months) or AUD 
- 100\,000 (multiple placements over up to 12 months)\, plus up to AUD 5\,00
- 0 for carers' and/or accessibility costs. Up to 10 fellows annually.\nDura
- tion: Placements of up to 6 months (single) or up to 12 months (multiple)\
- n\nMore: https://www.screenaustralia.gov.au/fund/global-fellowships/?utm_s
- ource=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.screenaustralia.gov.au/fund/global-fellowships/?utm_source=
- artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:International placements with leading global screen organizations\
- , self-arranged by the fellow. Open to Australian citizens or permanent re
- sidents (sole traders) or incorporated Australian companies.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR

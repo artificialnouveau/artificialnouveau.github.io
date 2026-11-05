@@ -3,92 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Canada
-X-WR-CALNAME:The Grant Desk deadlines - Canada
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Canada.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:est-nord-est-residency-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261104T234824Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261108
-DTEND;VALUE=DATE:20261109
-SUMMARY:Deadline: Est-Nord-Est Artist Residency 2027-2028 (Saint-Jean-Port-
- Joli\, Quebec)
-DESCRIPTION:Est-Nord-Est offers eight-week residencies in Saint-Jean-Port-J
- oli\, Quebec\, welcoming professional visual artists\, whether established
-  or emerging\, from Quebec\, Canada and other countries\, with four artist
- s per season.\n\nOrganisation: Est-Nord-Est\, residence d'artistes\nLocati
- on: Saint-Jean-Port-Joli\, Quebec\, Canada. Open to professional visual ar
- tists\, established or emerging\, from Quebec\, Canada and other countries
- \; materials\, travel and additional living expenses are the resident's ow
- n responsibility.\nAward: CAD 2\,080 residency honorarium\, plus a free in
- dividual studio-workshop with lodging\, access to specialized wood\, metal
-  and ceramics equipment\, a documentation center\, and technical\, artisti
- c and logistical support. Four artists per session. No application fee.\nD
- uration: Eight weeks. Sessions: Spring 19 April - 11 June 2027\; Summer 5 
- July - 27 August 2027 (curated\, priority to artists of African descent)\;
-  Fall 27 September - 19 November 2027\; Winter 24 January - 18 March 2028.
- \n\nMore: https://estnordest.org/en/artist-residency/artist-residency-regu
- lar/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://estnordest.org/en/artist-residency/artist-residency-regular/?ut
- m_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Saint-Jean-Port-Joli\, Quebec\, Canada. Open to professional visua
- l artists\, established or emerging\, from Quebec\, Canada and other count
- ries\; materials\, travel and additional living expenses are the resident'
- s own responsibility.
-END:VEVENT
-BEGIN:VEVENT
-UID:afa-visual-arts-new-media-2027@artificialnouveau.github.io
-DTSTAMP:20261104T234824Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20270301
-DTEND;VALUE=DATE:20270302
-SUMMARY:Deadline: Alberta Foundation for the Arts: Visual Arts and New Medi
- a Individual Project Funding (March 2027)
-DESCRIPTION:Project grants for individual artists in visual arts and new me
- dia (new media explicitly included)\, covering creation\, development\, tr
- aining and marketing. A parallel AFA Film and Video Individual Project Fun
- ding stream shares the same deadline and the same CAD 18\,000 cap.\n\nOrga
- nisation: Alberta Foundation for the Arts\nLocation: Alberta\, Canada. RES
- TRICTED: Canadian citizens\, permanent residents or Protected Persons with
-  primary residence in Alberta for at least one full year before applying.\
- nAward: Up to CAD 18\,000 per project. No application fee.\nDuration: Per 
- project\n\nMore: https://affta.ab.ca/funding/find-funding/visual-arts-and-
- new-media-individual-project-funding?utm_source=artificialnouveaugrantdesk
- &utm_medium=referral
-URL:https://affta.ab.ca/funding/find-funding/visual-arts-and-new-media-indi
- vidual-project-funding?utm_source=artificialnouveaugrantdesk&utm_medium=re
- ferral
-LOCATION:Alberta\, Canada. RESTRICTED: Canadian citizens\, permanent reside
- nts or Protected Persons with primary residence in Alberta for at least on
- e full year before applying.
-END:VEVENT
-BEGIN:VEVENT
-UID:iso-production-program-for-all-2026@artificialnouveau.github.io
-DTSTAMP:20261104T234824Z
-TRANSP:TRANSPARENT
-DTSTART:20261126T003000Z
-DTEND:20261126T010000Z
-SUMMARY:Deadline 17:00 PST: Indigenous Screen Office: Production Program fo
- r All 2026 (up to CAD 75\,000 for individuals)
-DESCRIPTION:Closes 25 Nov 2026 at 17:00 PST.\n\nThe Indigenous Screen Offic
- e's Production Program for All funds Indigenous-led screen production: sho
- rts\, features\, series and pilots\, including animation.\n\nOrganisation:
-  Indigenous Screen Office (ISO-BEA)\nLocation: Canada. RESTRICTED: First N
- ations\, Inuit or Metis creators who are Canadian citizens or permanent re
- sidents living in Canada.\nAward: Up to CAD 75\,000 for individuals\, coll
- ectives or community groups\; Indigenous-owned companies can apply for CAD
-  150\,000 up to CAD 500\,000-750\,000 depending on project type and budget
- . No application fee stated.\nDuration: Per project\n\nMore: https://iso-b
- ea.ca/funding-opportunities/production-program-for-all-2026/?utm_source=ar
- tificialnouveaugrantdesk&utm_medium=referral
-URL:https://iso-bea.ca/funding-opportunities/production-program-for-all-202
- 6/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Canada. RESTRICTED: First Nations\, Inuit or Metis creators who ar
- e Canadian citizens or permanent residents living in Canada.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR

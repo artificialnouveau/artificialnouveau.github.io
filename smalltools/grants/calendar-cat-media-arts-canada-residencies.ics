@@ -3,45 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Artist Residencies\, Media Arts\, Film & So
- und\, Canada
-X-WR-CALNAME:The Grant Desk deadlines - Artist Residencies\, Media Arts\, F
- ilm & Sound\, Canada
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Artist Residencies\, Me
- dia Arts\, Film & Sound\, Canada.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:est-nord-est-residency-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261104T234825Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261108
-DTEND;VALUE=DATE:20261109
-SUMMARY:Deadline: Est-Nord-Est Artist Residency 2027-2028 (Saint-Jean-Port-
- Joli\, Quebec)
-DESCRIPTION:Est-Nord-Est offers eight-week residencies in Saint-Jean-Port-J
- oli\, Quebec\, welcoming professional visual artists\, whether established
-  or emerging\, from Quebec\, Canada and other countries\, with four artist
- s per season.\n\nOrganisation: Est-Nord-Est\, residence d'artistes\nLocati
- on: Saint-Jean-Port-Joli\, Quebec\, Canada. Open to professional visual ar
- tists\, established or emerging\, from Quebec\, Canada and other countries
- \; materials\, travel and additional living expenses are the resident's ow
- n responsibility.\nAward: CAD 2\,080 residency honorarium\, plus a free in
- dividual studio-workshop with lodging\, access to specialized wood\, metal
-  and ceramics equipment\, a documentation center\, and technical\, artisti
- c and logistical support. Four artists per session. No application fee.\nD
- uration: Eight weeks. Sessions: Spring 19 April - 11 June 2027\; Summer 5 
- July - 27 August 2027 (curated\, priority to artists of African descent)\;
-  Fall 27 September - 19 November 2027\; Winter 24 January - 18 March 2028.
- \n\nMore: https://estnordest.org/en/artist-residency/artist-residency-regu
- lar/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://estnordest.org/en/artist-residency/artist-residency-regular/?ut
- m_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Saint-Jean-Port-Joli\, Quebec\, Canada. Open to professional visua
- l artists\, established or emerging\, from Quebec\, Canada and other count
- ries\; materials\, travel and additional living expenses are the resident'
- s own responsibility.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR

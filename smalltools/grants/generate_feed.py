@@ -81,11 +81,14 @@ PICKER_REGIONS = [
     r for r in SYNDICATION_REGIONS
     if r not in FEED_REGIONS_EXCLUDED and r not in _GROUPED_REGION_MEMBERS
 ]
-# The calendar picker's region menu: the feed regions plus NL.
-# Listed in full, not derived from PICKER_REGIONS: dropping a region from RSS
-# must not delete its calendars.
-CAL_PICKER_REGIONS = ["EU", "US", "UK", "Asia", "Africa", "Canada", "Australia", "LatAm",
-                      "remote-worldwide", "NL"]
+# The calendar picker offers exactly the RSS picker's slices (5 Nov 2026):
+# the NL, Africa, Canada, Australia and Latin America calendars, the bare
+# Remote/Worldwide/Switzerland/China-HK-Taiwan calendars and the single-category
+# ones were retired. Until CAL_RETIRE_UNTIL a retired calendar is still served,
+# with no events, so subscribers' copies clear out instead of freezing with old
+# deadlines; from that date the stale-calendar sweep deletes it.
+CAL_PICKER_REGIONS = PICKER_REGIONS
+CAL_RETIRE_UNTIL = date(2026, 12, 5)
 CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"]
 
 # Two of the subscribe-picker checkboxes bundle a pair of categories under one
@@ -119,7 +122,6 @@ PICKER_CATEGORIES = [
     c for c in SYNDICATION_CATEGORIES
     if c not in _GROUPED_MEMBERS and c not in PICKER_EXCLUDED
 ]
-LEGACY_BARE_CATEGORIES = [c for c in SYNDICATION_CATEGORIES if c not in PICKER_CATEGORIES]
 CATEGORY_LABELS = {
     "ai": "AI & Safety",
     "tech": "Tech & Infrastructure",
@@ -1081,6 +1083,26 @@ def build_calendar(grants, today, region=None, category=None, opp_type=None):
     return "\r\n".join(fold_line(line) for line in lines) + "\r\n"
 
 
+def retired_calendar():
+    """A retired calendar: no events, and a name and description that point
+    subscribers to the picker, so their copy empties instead of going stale."""
+    lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//The Grant Desk//Calendar//EN",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        f"NAME:{ics_escape(TITLE + ' deadlines (retired)')}",
+        f"X-WR-CALNAME:{ics_escape(TITLE + ' deadlines (retired)')}",
+        "X-WR-CALDESC:" + ics_escape(
+            "This calendar has been retired and no longer lists deadlines. Subscribe "
+            f"to a current Grant Desk calendar at {PAGE_URL} instead."),
+        "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
+        "X-PUBLISHED-TTL:PT12H",
+    ] + EMPTY_CALENDAR_COMPONENT + ["END:VCALENDAR"]
+    return "\r\n".join(fold_line(line) for line in lines) + "\r\n"
+
+
 SITE_ROOT_URL = "https://www.artificialnouveau.com/"
 GRANTS_BASE_PATH = "smalltools/grants/"
 
@@ -1686,28 +1708,18 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
     if country:
         feed_region = COUNTRIES[country][1]
     feed_category = None if (opp_type or country) else category
-    # A bare category page (no region) always has its own calendar, merged-away
-    # categories included; crossed with a region only picker categories exist.
-    cal_category = feed_category if (
-        feed_category in PICKER_CATEGORIES
-        or (feed_region is None and feed_category in LEGACY_BARE_CATEGORIES)) else None
     # SEO pages advertise the weekly digest, and only picker-selectable feeds
     # exist (every picker region x picker category, untyped): point a page for a
     # dropped region or merged category at the picker slice that contains it
     # (arts in Europe -> Media Arts, Film & Sound in Europe).
     feed_name = feed_filename(picker_region(feed_region),
                               category=picker_category(feed_category), weekly=True)
-    # Calendars exist for the calendar picker's regions (crossed with its
-    # categories) and as bare files for every other region and for each single
-    # category; link the nearest one that exists.
-    if feed_region is None or feed_region in CAL_PICKER_REGIONS:
-        cal_name = calendar_filename(feed_region, category=cal_category if feed_region is None
-                                     else picker_category(cal_category))
-    else:
-        cal_name = calendar_filename(feed_region)
+    # Calendars cover the same slices as the feeds: link the same nearest one.
+    cal_name = calendar_filename(picker_region(feed_region),
+                                 category=picker_category(feed_category))
     if opp_type in FEED_TYPES:
         typed_feed = feed_filename(picker_region(feed_region), weekly=True, opp_type=opp_type)
-        typed_cal = calendar_filename(feed_region, opp_type=opp_type)
+        typed_cal = calendar_filename(picker_region(feed_region), opp_type=opp_type)
         # Only typed files with something in them: quiet ones stay on disk for
         # existing subscribers but should not be advertised.
         if typed_feed.replace("-weekly.xml", ".xml") in LIVE_TYPED_FEEDS:
@@ -2342,20 +2354,12 @@ def main():
         if not upcoming:
             empty_cals.append(name)
 
-    # Only calendars someone can reach (4 Nov 2026): the calendar picker's own
-    # combinations (its region menu adds NL to the feed regions), plus the bare
-    # region and category calendars the static SEO pages link. Everything else
-    # (category x Switzerland/Remote/... permutations, typed region-only files
-    # for regions the picker lacks) is swept below.
+    # Only the calendar picker's combinations, the same slices as the RSS
+    # feeds. Everything else is retired (served empty, then swept) below.
     for opp_type in [None] + FEED_TYPES:
         for category in [None] + PICKER_CATEGORIES:
             for region in [None] + CAL_PICKER_REGIONS:
                 emit_cal(region, category=category, opp_type=opp_type)
-    for region in REGIONS:
-        if region not in CAL_PICKER_REGIONS:
-            emit_cal(region)
-    for category in LEGACY_BARE_CATEGORIES:
-        emit_cal(None, category=category)
 
     # Written here, after BOTH the feed and calendar loops, so the manifest can
     # record the pruned type slices for each. The pickers read it to avoid
@@ -2375,10 +2379,17 @@ def main():
     stale_cals = sorted(
         f.name for f in HERE.glob("calendar*.ics") if f.name not in set(cals_written)
     )
-    for nm in stale_cals:
-        (HERE / nm).unlink()
-    if stale_cals:
-        print(f"Removed {len(stale_cals)} stale calendar file(s) no longer generated.")
+    if today < CAL_RETIRE_UNTIL:
+        for nm in stale_cals:
+            (HERE / nm).write_text(retired_calendar(), encoding="utf-8")
+        if stale_cals:
+            print(f"Served {len(stale_cals)} retired calendar(s) empty until "
+                  f"{CAL_RETIRE_UNTIL.isoformat()}.")
+    else:
+        for nm in stale_cals:
+            (HERE / nm).unlink()
+        if stale_cals:
+            print(f"Removed {len(stale_cals)} stale calendar file(s) no longer generated.")
 
     print(f"Wrote {len(written)} weekly-digest RSS feeds (one Sunday drop per week):")
     for wname, count in written:

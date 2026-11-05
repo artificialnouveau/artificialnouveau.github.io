@@ -3,72 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Artist Residencies\, Africa
-X-WR-CALNAME:The Grant Desk deadlines - Artist Residencies\, Africa
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Artist Residencies\, Af
- rica.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:stimuleringsfonds-think-tanger-residency-2027@artificialnouveau.github.
- io
-DTSTAMP:20261104T234825Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261021
-DTEND;VALUE=DATE:20261022
-SUMMARY:Deadline: Stimuleringsfonds: Open Call Residency Think Tanger 2027 
- (Tangier\, Morocco)
-DESCRIPTION:The Creative Industries Fund NL (Stimuleringsfonds) is recruiti
- ng one Netherlands-based designer\, architect\, spatial practitioner or ma
- ker for a two-month residency in 2027 at Think Tanger\, a multidisciplinar
- y cultural platform dedicated to stimulating culture\, creativity\, innova
- tion and exchange in Tangier\, Morocco.\n\nOrganisation: Stimuleringsfonds
-  Creatieve Industrie (Creative Industries Fund NL) in collaboration with T
- hink Tanger\, Morocco\nLocation: Residency takes place at Think Tanger in 
- Tangier\, Morocco. Applicants must be established in the Netherlands\, Aru
- ba\, Bonaire\, Curacao\, Saba\, Sint Eustatius or Sint Maarten (Kingdom of
-  the Netherlands) and registered in a business register within the Kingdom
-  of the Netherlands.\nAward: EUR 5\,500 subsidy for a two-month residency\
- , paid by the Creative Industries Fund NL. No application fee.\nDuration: 
- Two months in 2027\n\nMore: https://www.stimuleringsfonds.nl/en/grants/ope
- n-call-residency-think-tanger?utm_source=artificialnouveaugrantdesk&utm_me
- dium=referral
-URL:https://www.stimuleringsfonds.nl/en/grants/open-call-residency-think-ta
- nger?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Residency takes place at Think Tanger in Tangier\, Morocco. Applic
- ants must be established in the Netherlands\, Aruba\, Bonaire\, Curacao\, 
- Saba\, Sint Eustatius or Sint Maarten (Kingdom of the Netherlands) and reg
- istered in a business register within the Kingdom of the Netherlands.
-END:VEVENT
-BEGIN:VEVENT
-UID:playful-obscura-arthouse-games-residency-africa-2027@artificialnouveau.
- github.io
-DTSTAMP:20261104T234825Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261101
-DTEND;VALUE=DATE:20261102
-SUMMARY:Deadline: Playful Obscura 2027: Arthouse Games Residency Africa (Ad
- dis Ababa\, Goethe-Institut and A MAZE.)
-DESCRIPTION:Playful Obscura is the Goethe-Institut's arthouse games residen
- cy for Africa\, co-run with the Berlin playful-media festival A MAZE. Afte
- r editions in Ho (2025) and Accra (2026)\, the third edition moves to Addi
- s Ababa with Creative HUB Ethiopia\, the British Council and Alliance Ethi
- o-Francaise.\n\nOrganisation: Goethe-Institut Addis Abeba\, with Creative 
- HUB Ethiopia\, A MAZE.\, British Council and Alliance Ethio-Francaise\nLoc
- ation: Addis Ababa\, Ethiopia. For artists and game developers based in Af
- rica working in playful media and arthouse games.\nAward: Three-week funde
- d residency hosting two artists at a time. 2027 financial terms were not p
- ublished in the call excerpt we could verify\; the 2026 Accra edition prov
- ided accommodation\, a production budget of up to EUR 1\,000 and a EUR 300
-  stipend. No application fee.\nDuration: Residency 25 January to 14 Februa
- ry 2027 in Addis Ababa\; open call 16 October to 1 November 2026\, with an
-  online Q&A on 22 October.\n\nMore: https://www.goethe.de/ins/za/en/kul/mu
- t/p27.html?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.goethe.de/ins/za/en/kul/mut/p27.html?utm_source=artificialn
- ouveaugrantdesk&utm_medium=referral
-LOCATION:Addis Ababa\, Ethiopia. For artists and game developers based in A
- frica working in playful media and arthouse games.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR
