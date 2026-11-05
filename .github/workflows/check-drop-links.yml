@@ -1,0 +1,30 @@
+name: Check apply links before the Sunday drop
+
+on:
+  schedule:
+    # Saturdays 08:00 UTC, the day before the Sunday RSS drop
+    - cron: '0 8 * * 6'
+  workflow_dispatch:
+
+# Report only: reads grants.json and the drop ledger, writes nothing back.
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Fails (and GitHub emails you) only when a link is broken: a 404/410 or
+      # a page that says the call is closed. Sites that refuse scripts are
+      # listed in the run summary to open by hand, without failing the run.
+      - name: Check the next drop's apply links
+        run: python3 smalltools/grants/check_drop_links.py

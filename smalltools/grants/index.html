@@ -1541,7 +1541,7 @@ code *, pre *, kbd *, samp * {
 <p class="overlap-axis">Types</p><ul><li><strong>Artist Residencies</strong> and <strong>Grants</strong>: 132 shared</li><li><strong>Fellowships</strong> and <strong>Grants</strong>: 93 shared</li></ul>
 </details>
 <!-- END_OVERLAP_NOTE -->
-          <p class="feed-note" id="feed-next-drop">Next drop: Sunday, 06:00 UTC.</p>
+          <p class="feed-note" id="feed-next-drop">Next drop: Sunday.</p>
           <div class="row">
             <button type="button" id="copy-feed">Copy URL</button>
             <a class="btn" id="feed-open-btn" href="feed-weekly.xml" target="_blank" rel="noopener">Open feed</a>
@@ -13646,7 +13646,7 @@ load();
     drop.setUTCDate(drop.getUTCDate() + ((7 - drop.getUTCDay()) % 7));
     if (drop <= now) drop.setUTCDate(drop.getUTCDate() + 7);
     const day = drop.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' });
-    nextDropEl.textContent = `Next drop: ${day} (published during the day, UTC). It brings every grant added in the week before.`;
+    nextDropEl.textContent = `Next drop: ${day}. It brings every grant added in the week before.`;
   }
 
   // Human label for a combo, from the checkbox labels, for OPML outline titles.
