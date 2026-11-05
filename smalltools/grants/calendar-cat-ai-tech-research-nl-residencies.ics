@@ -3,20 +3,105 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines (retired)
-X-WR-CALNAME:The Grant Desk deadlines (retired)
-X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
- Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
- u.com/smalltools/grants/ instead.
+NAME:The Grant Desk deadlines - Artist Residencies\, AI\, Tech & Research\,
+  NL
+X-WR-CALNAME:The Grant Desk deadlines - Artist Residencies\, AI\, Tech & Re
+ search\, NL
+X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
+ esearch\, and digital and mixed-media arts\, sorted into the right pile. U
+ pdated as new calls land on the desk. Filtered to: Artist Residencies\, AI
+ \, Tech & Research\, NL.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VTIMEZONE
-TZID:UTC
-BEGIN:STANDARD
-DTSTART:19700101T000000
-TZOFFSETFROM:+0000
-TZOFFSETTO:+0000
-TZNAME:UTC
-END:STANDARD
-END:VTIMEZONE
+BEGIN:VEVENT
+UID:stroom-den-haag-pro-research-2026@artificialnouveau.github.io
+DTSTAMP:20261105T001523Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261025
+DTEND;VALUE=DATE:20261026
+SUMMARY:Deadline: Stroom Den Haag: PRO Research
+DESCRIPTION:Stroom Den Haag's PRO Research scheme contributes to the costs 
+ of a research project or artist-in-residency that feeds the development of
+  new work and benefits The Hague's art climate.\n\nOrganisation: Stroom De
+ n Haag\nLocation: The Hague\, Netherlands. Open to Hague artists registere
+ d with Stroom and to curators\, mediators\, critics\, publicists and other
+ s professionally active in the contemporary art world\; applicants from ou
+ tside The Hague apply with a CV.\nAward: Maximum EUR 5\,000 per research p
+ roject\, up to EUR 20\,000 per applicant per calendar year. Amounts exclud
+ e VAT and grants are only awarded on demonstrable financial need. No appli
+ cation fee.\nDuration: Project-based\; the grant remains valid for up to t
+ wo years after the decision meeting\, with 80 percent paid upfront and 20 
+ percent on the final report\n\nMore: https://www.stroom.nl/en/stroom-for-a
+ rtists/financial-support/pro-research?utm_source=artificialnouveaugrantdes
+ k&utm_medium=referral
+URL:https://www.stroom.nl/en/stroom-for-artists/financial-support/pro-resea
+ rch?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:The Hague\, Netherlands. Open to Hague artists registered with Str
+ oom and to curators\, mediators\, critics\, publicists and others professi
+ onally active in the contemporary art world\; applicants from outside The 
+ Hague apply with a CV.
+END:VEVENT
+BEGIN:VEVENT
+UID:witte-rook-izolyatsia-digital-explorers-2027@artificialnouveau.github.i
+ o
+DTSTAMP:20261105T001523Z
+TRANSP:TRANSPARENT
+DTSTART:20261115T222900Z
+DTEND:20261115T225900Z
+SUMMARY:Deadline 23:59 CET: Witte Rook x IZOLYATSIA: Digital Explorers (Acr
+ oss Borders) Online Residency 2027
+DESCRIPTION:Closes 15 Nov 2026 at 23:59 CET.\n\nWitte Rook (Breda) and the 
+ Ukrainian platform IZOLYATSIA run Digital Explorers (Across Borders)\, a f
+ ully online residency program exploring the artist-in-residence of the fut
+ ure through cross-border collaboration. Each of three phases pairs one art
+ ist from the Netherlands with one from Ukraine\, working together for abou
+ t three months on the common.garden platform.\n\nOrganisation: Witte Rook 
+ and IZOLYATSIA\nLocation: Online\, on the common.garden platform. Open to 
+ artists living and working in the Netherlands or Ukraine. Organizers based
+  in Breda (NL) and Ukraine.\nAward: EUR 1\,800 artist fee (excluding VAT) 
+ plus EUR 1\,000 material budget (excluding VAT) per artist. Six artists se
+ lected in total (three Dutch-Ukrainian pairs). No application fee.\nDurati
+ on: Approximately three months per phase: Phase 1 'Form' (January to March
+  2027)\, Phase 2 'Content' (May to July 2027)\, Phase 3 'Analysis' (Septem
+ ber to December 2027).\n\nMore: https://witterook.nl/agenda/open-call-digi
+ tal-explorers/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://witterook.nl/agenda/open-call-digital-explorers/?utm_source=art
+ ificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Online\, on the common.garden platform. Open to artists living and
+  working in the Netherlands or Ukraine. Organizers based in Breda (NL) and
+  Ukraine.
+END:VEVENT
+BEGIN:VEVENT
+UID:jan-van-eyck-residency-2028@artificialnouveau.github.io
+DTSTAMP:20261105T001523Z
+TRANSP:TRANSPARENT
+DTSTART:20261201T222900Z
+DTEND:20261201T225900Z
+SUMMARY:Deadline 23:59 CET: Jan van Eyck Academie Residency 2028 (Maastrich
+ t\, 11 months)
+DESCRIPTION:Closes 01 Dec 2026 at 23:59 CET.\n\nThe Jan van Eyck Academie's
+  general open call for its 2028 residency year: 30 to 32 artists\, curator
+ s\, designers\, writers\, architects and other artistic researchers spend 
+ 11 months (15 January to 15 December 2028) in Maastricht\, across material
+ -based and research-driven practices\, with access to the academy's labs a
+ nd community.\n\nOrganisation: Jan van Eyck Academie\nLocation: Maastricht
+ \, Netherlands. Open worldwide\; participants must settle in Maastricht an
+ d register with the municipality (the academy applies for visas where rele
+ vant).\nAward: Monthly stipend of EUR 1\,500 (EUR 2\,000 for participants 
+ with children\; EUR 1\,500 per duo member or EUR 2\,500 combined for life 
+ partners\; collectives up to EUR 4\,500 combined\, max three stipends)\, w
+ ith rent including service costs deducted from the stipend. Plus a EUR 2\,
+ 000 annual working budget and a newly built\, furnished private studio apa
+ rtment. Application fee EUR 65 excl. VAT (EUR 78.65 incl. VAT)\, waived fo
+ r applicants from and living in OECD DAC-list countries\; enrolment fee fo
+ r accepted participants EUR 2\,750 excl. VAT.\nDuration: 11 months\, 15 Ja
+ nuary to 15 December 2028\; 30 to 32 positions\; selection outcome mid-May
+  2027.\n\nMore: https://www.janvaneyck.nl/calendar/apply-now-jve-residency
+ -2028?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://www.janvaneyck.nl/calendar/apply-now-jve-residency-2028?utm_sou
+ rce=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Maastricht\, Netherlands. Open worldwide\; participants must settl
+ e in Maastricht and register with the municipality (the academy applies fo
+ r visas where relevant).
+END:VEVENT
 END:VCALENDAR

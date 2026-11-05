@@ -53,16 +53,18 @@ DESCRIPTION = (
 
 REGIONS = ["EU", "US", "UK", "NL", "Switzerland", "Asia", "China-HK-Taiwan", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"]
 
-# Regions the RSS subscribe picker does not offer, because they sit almost
-# entirely inside EU (NL 91%, Switzerland 95%) and mostly gave subscribers the
-# same grants twice; China-HK-Taiwan sits inside Asia the same way. This is a
+# Regions the RSS subscribe picker does not offer. Switzerland sits almost
+# entirely inside EU (95%) and mostly gave subscribers the same grants twice;
+# China-HK-Taiwan sits inside Asia the same way. NL (91% inside EU) was excluded
+# for the same reason until 5 Nov 2026, when it came back at her request as a
+# home-region feed and calendar (3.5 new calls a week). This is a
 # SYNDICATION decision only: the website's region filter, the static SEO pages
 # and the calendars all still carry them in full. Since 4 Nov 2026 no feed of
 # any kind is built for them. Rule since 4 Nov 2026 (stated in the picker):
 # a region gets RSS feeds only if it averages at least 2 new calls a week.
 # Africa (0.5), Canada (0.9), Latin America (0.8) and Australia (1.1) fell
 # short over 7 Sep - 1 Nov 2026 and were dropped; their calendars stay.
-FEED_REGIONS_EXCLUDED = {"NL", "Switzerland", "China-HK-Taiwan", "Africa", "Canada", "LatAm", "Australia"}
+FEED_REGIONS_EXCLUDED = {"Switzerland", "China-HK-Taiwan", "Africa", "Canada", "LatAm", "Australia"}
 
 # Remote and Worldwide overlapped by 29 percent (12 shared calls) and read as the
 # same promise to a subscriber, so the pickers offer them as ONE box backed by one
@@ -82,7 +84,7 @@ PICKER_REGIONS = [
     if r not in FEED_REGIONS_EXCLUDED and r not in _GROUPED_REGION_MEMBERS
 ]
 # The calendar picker offers exactly the RSS picker's slices (5 Nov 2026):
-# the NL, Africa, Canada, Australia and Latin America calendars, the bare
+# the Africa, Canada, Australia and Latin America calendars, the bare
 # Remote/Worldwide/Switzerland/China-HK-Taiwan calendars and the single-category
 # ones were retired. Until CAL_RETIRE_UNTIL a retired calendar is still served,
 # with no events, so subscribers' copies clear out instead of freezing with old
@@ -167,7 +169,7 @@ def deadline_label(deadline, today):
 
 
 def picker_region(region):
-    """Nearest region the feed picker offers (NL and Switzerland sit in Europe,
+    """Nearest region the feed picker offers (Switzerland sits in Europe,
     China-HK-Taiwan in Asia, Remote and Worldwide in the merged box)."""
     if region is None or region in PICKER_REGIONS:
         return region
@@ -176,7 +178,7 @@ def picker_region(region):
             return group
     # Africa, Canada, Latin America and Australia have no feed of their own:
     # their pages offer the all-grants feed.
-    return {"NL": "EU", "Switzerland": "EU", "China-HK-Taiwan": "Asia"}.get(region)
+    return {"Switzerland": "EU", "China-HK-Taiwan": "Asia"}.get(region)
 
 
 def picker_category(category):
