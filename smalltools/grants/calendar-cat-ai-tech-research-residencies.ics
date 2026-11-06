@@ -14,7 +14,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:surf-artist-in-residence-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
@@ -46,7 +46,7 @@ LOCATION:Sanford Underground Research Facility\, Lead\, South Dakota\, USA\
 END:VEVENT
 BEGIN:VEVENT
 UID:emap-emare-media-art-residencies-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261106T123000Z
 DTEND:20261106T130000Z
@@ -75,7 +75,7 @@ LOCATION:Two-month production residency at one of 15 host institutions acro
 END:VEVENT
 BEGIN:VEVENT
 UID:mats-residency-program-2026@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
@@ -103,7 +103,7 @@ LOCATION:In-person at MATS offices in Berkeley\, London\, or Washington DC\
 END:VEVENT
 BEGIN:VEVENT
 UID:stroom-den-haag-pro-research-2026@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261025
 DTEND;VALUE=DATE:20261026
@@ -131,7 +131,7 @@ LOCATION:The Hague\, Netherlands. Open to Hague artists registered with Str
 END:VEVENT
 BEGIN:VEVENT
 UID:wave-farm-research-production-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261202T042900Z
 DTEND:20261202T045900Z
@@ -156,7 +156,7 @@ LOCATION:Wave Farm\, Acra\, NY\, US (Catskill Mountain Park). International
 END:VEVENT
 BEGIN:VEVENT
 UID:art-explora-cite-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261030
 DTEND;VALUE=DATE:20261031
@@ -182,7 +182,7 @@ LOCATION:Paris\, France. Open worldwide to artists with at least 5 years of
 END:VEVENT
 BEGIN:VEVENT
 UID:eyebeam-agency-nyc-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
@@ -209,7 +209,7 @@ LOCATION:New York City\, USA. Applicants must live within the five boroughs
 END:VEVENT
 BEGIN:VEVENT
 UID:rome-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
@@ -239,7 +239,7 @@ LOCATION:Rome\, Italy (residential fellowship at the Academy\; US organisat
 END:VEVENT
 BEGIN:VEVENT
 UID:oasis-bom-dia-cultivamos-cultura-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261030
 DTEND;VALUE=DATE:20261031
@@ -264,7 +264,7 @@ LOCATION:Sao Luis\, Odemira\, Portugal. Open to international applicants.
 END:VEVENT
 BEGIN:VEVENT
 UID:hiap-learning-materials-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261026
 DTEND;VALUE=DATE:20261027
@@ -292,7 +292,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:witte-rook-izolyatsia-digital-explorers-2027@artificialnouveau.github.i
  o
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261115T222900Z
 DTEND:20261115T225900Z
@@ -321,7 +321,7 @@ LOCATION:Online\, on the common.garden platform. Open to artists living and
 END:VEVENT
 BEGIN:VEVENT
 UID:yao-residency-02-taiwan-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261231
 DTEND;VALUE=DATE:20270101
@@ -360,7 +360,7 @@ LOCATION:Taiwan. Open worldwide to applicants aged 18 and above\, regardles
 END:VEVENT
 BEGIN:VEVENT
 UID:jan-van-eyck-residency-2028@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T222900Z
 DTEND:20261201T225900Z
@@ -392,35 +392,8 @@ LOCATION:Maastricht\, Netherlands. Open worldwide\; participants must settl
  r visas where relevant).
 END:VEVENT
 BEGIN:VEVENT
-UID:cisac-fellowships-2027-28@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261202
-DTEND;VALUE=DATE:20261203
-SUMMARY:Deadline: CISAC (Stanford): Fellowships 2027-2028 (AI\, Nuclear & I
- nternational Security)
-DESCRIPTION:CISAC's 2027-2028 fellowship application is open across seven t
- racks: Artificial Intelligence and Laws of Armed Conflict\; AI in Strategi
- c Stability and Military Competition\; Geopolitics of Artificial Intellige
- nce\; India-U.S.\n\nOrganisation: Center for International Security and Co
- operation (CISAC)\, Stanford FSI\nLocation: Stanford\, California\, USA (i
- n-residence\; fellows are expected to be fully present and engaged at CISA
- C)\nAward: Funded in-residence fellowship. Predoctoral fellows receive sti
- pends comparable to the Stanford Graduate Fellowships program\, plus CISAC
-  pays non-matriculated student tuition\; postdoctoral and junior-faculty/p
- rofessional fellows receive stipends commensurate with experience and Stan
- ford's established minimums. Specific dollar figures are not published. No
-  application fee.\nDuration: 2027-2028 academic year in residence at Stanf
- ord\n\nMore: https://cisac.fsi.stanford.edu/content/cisac-fellowships?utm_
- source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://cisac.fsi.stanford.edu/content/cisac-fellowships?utm_source=art
- ificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Stanford\, California\, USA (in-residence\; fellows are expected t
- o be fully present and engaged at CISAC)
-END:VEVENT
-BEGIN:VEVENT
 UID:mensch-maschine-visit-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T222900Z
 DTEND:20261201T225900Z
@@ -452,7 +425,7 @@ LOCATION:E-WERK Luckenwalde\, Brandenburg\, Germany (3 fellows) and Akademi
 END:VEVENT
 BEGIN:VEVENT
 UID:generator-residency-winter-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
@@ -478,7 +451,7 @@ LOCATION:Berkeley\, California\, USA (Constellation office). Core residency
 END:VEVENT
 BEGIN:VEVENT
 UID:schaufler-residency-tu-dresden-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261109
 DTEND;VALUE=DATE:20261110
@@ -504,7 +477,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:traces-art-science-energypolis-residency-2027@artificialnouveau.github.
  io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261122T222900Z
 DTEND:20261122T225900Z
@@ -530,7 +503,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:playful-obscura-arthouse-games-residency-africa-2027@artificialnouveau.
  github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
@@ -559,7 +532,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:realities-in-transition-rit2-oc3-uncharted-grounds-lev-2027@artificialn
  ouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261106T222900Z
 DTEND:20261106T225900Z
@@ -590,7 +563,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:realities-in-transition-rit2-oc4-relational-realities-beta-2027@artific
  ialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261110T222900Z
 DTEND:20261110T225900Z
@@ -619,7 +592,7 @@ LOCATION:Hybrid residency hosted by Beta Festival\, Dublin\, Ireland (in pe
 END:VEVENT
 BEGIN:VEVENT
 UID:cove-park-awarded-residencies-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261211T163000Z
 DTEND:20261211T170000Z
@@ -652,7 +625,7 @@ LOCATION:Cove Park\, Peaton Hill\, Argyll and Bute\, Scotland (in person\,
 END:VEVENT
 BEGIN:VEVENT
 UID:ehin-dirty-lab-residencies-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261204T222900Z
 DTEND:20261204T225900Z
@@ -684,7 +657,7 @@ LOCATION:Six host labs: Kersnikova (Ljubljana)\, ZKM (Karlsruhe)\, Kontejne
 END:VEVENT
 BEGIN:VEVENT
 UID:eastside-projects-radical-sabbatical-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261120
 DTEND;VALUE=DATE:20261121
@@ -708,7 +681,7 @@ LOCATION:University of Birmingham\, Birmingham\, UK (in person\, research r
 END:VEVENT
 BEGIN:VEVENT
 UID:beijing-ai-safety-hub-residency-spring-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261106
 DTEND;VALUE=DATE:20261107
@@ -732,7 +705,7 @@ LOCATION:Beijing\, China. Hosted at the Beijing AI Safety Hub\; no Mandarin
 END:VEVENT
 BEGIN:VEVENT
 UID:cryptic-nights-2027-28-open-call@artificialnouveau.github.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261119T113000Z
 DTEND:20261119T120000Z
@@ -757,7 +730,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:knight-wallace-journalism-fellowships-2027-28@artificialnouveau.github.
  io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261202T042900Z
 DTEND:20261202T045900Z
@@ -782,7 +755,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:democracy-foundation-european-dream-residency-2027@artificialnouveau.gi
  thub.io
-DTSTAMP:20261106T133055Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
@@ -806,5 +779,32 @@ URL:https://liepaja2027.lv/en/news/kuldiga-invites-europe-to-reimagine-demo
  -dream/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Kuldiga Old Town\, Latvia (in-person). RESTRICTED: applicants must
   be residents of European countries.
+END:VEVENT
+BEGIN:VEVENT
+UID:knight-science-journalism-fellowship-2027-28@artificialnouveau.github.i
+ o
+DTSTAMP:20261106T133328Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20270109
+DTEND;VALUE=DATE:20270110
+SUMMARY:Deadline: Knight Science Journalism Academic-Year Fellowship 2027-2
+ 8 (MIT)
+DESCRIPTION:An academic-year fellowship at MIT for journalists covering sci
+ ence\, health\, technology or the environment\, with seminars\, MIT and Ha
+ rvard courses and a self-directed study project. ELIGIBILITY: full-time st
+ aff or freelance journalists with at least 3 consecutive years of science\
+ , health\, technology or environment coverage\; international applicants w
+ elcome.\n\nOrganisation: Knight Science Journalism Program at MIT\nLocatio
+ n: Cambridge\, Massachusetts\, USA (in residence for the academic year). I
+ nternational applicants welcome\; MIT sponsors a J-1 visa.\nAward: USD 87\
+ ,500 stipend over 9.5 months\, plus USD 5\,000 for travel and housing\, he
+ alth insurance and a childcare subsidy. No application fee.\nDuration: Aca
+ demic year 2027-28\, about 9.5 months.\n\nMore: https://ksj.mit.edu/fellow
+ ships/academic-year-fellowship/?utm_source=artificialnouveaugrantdesk&utm_
+ medium=referral
+URL:https://ksj.mit.edu/fellowships/academic-year-fellowship/?utm_source=ar
+ tificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Cambridge\, Massachusetts\, USA (in residence for the academic yea
+ r). International applicants welcome\; MIT sponsors a J-1 visa.
 END:VEVENT
 END:VCALENDAR

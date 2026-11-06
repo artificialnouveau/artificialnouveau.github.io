@@ -14,7 +14,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:mensch-maschine-visit-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261106T133054Z
+DTSTAMP:20261106T133328Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T222900Z
 DTEND:20261201T225900Z
@@ -43,5 +43,32 @@ URL:https://adk.de/news/2026/10/open-call-mensch-maschine-stipendium?utm_so
 LOCATION:E-WERK Luckenwalde\, Brandenburg\, Germany (3 fellows) and Akademi
  e der Künste\, Berlin (1 fellow)\, with a retreat at Ujazdowski Castle CC
  A in Warsaw\, Poland. Open to artists worldwide.
+END:VEVENT
+BEGIN:VEVENT
+UID:knight-science-journalism-fellowship-2027-28@artificialnouveau.github.i
+ o
+DTSTAMP:20261106T133328Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20270109
+DTEND;VALUE=DATE:20270110
+SUMMARY:Deadline: Knight Science Journalism Academic-Year Fellowship 2027-2
+ 8 (MIT)
+DESCRIPTION:An academic-year fellowship at MIT for journalists covering sci
+ ence\, health\, technology or the environment\, with seminars\, MIT and Ha
+ rvard courses and a self-directed study project. ELIGIBILITY: full-time st
+ aff or freelance journalists with at least 3 consecutive years of science\
+ , health\, technology or environment coverage\; international applicants w
+ elcome.\n\nOrganisation: Knight Science Journalism Program at MIT\nLocatio
+ n: Cambridge\, Massachusetts\, USA (in residence for the academic year). I
+ nternational applicants welcome\; MIT sponsors a J-1 visa.\nAward: USD 87\
+ ,500 stipend over 9.5 months\, plus USD 5\,000 for travel and housing\, he
+ alth insurance and a childcare subsidy. No application fee.\nDuration: Aca
+ demic year 2027-28\, about 9.5 months.\n\nMore: https://ksj.mit.edu/fellow
+ ships/academic-year-fellowship/?utm_source=artificialnouveaugrantdesk&utm_
+ medium=referral
+URL:https://ksj.mit.edu/fellowships/academic-year-fellowship/?utm_source=ar
+ tificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Cambridge\, Massachusetts\, USA (in residence for the academic yea
+ r). International applicants welcome\; MIT sponsors a J-1 visa.
 END:VEVENT
 END:VCALENDAR
