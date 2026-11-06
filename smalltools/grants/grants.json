@@ -38,7 +38,7 @@
       "eligibility": "residents",
       "attendance": "onsite",
       "career": "unknown",
-      "ageCap": null,
+      "ageCap": 25,
       "deadlineTime": "17:00",
       "deadlineTz": "Europe/London"
     },
@@ -347,7 +347,8 @@
         "gallery",
         "artist-fee",
         "open-call",
-        "no-fee"
+        "no-fee",
+        "commission"
       ],
       "fee": false,
       "featured": false,
@@ -1547,7 +1548,7 @@
       "fee": false,
       "featured": false,
       "eligibility": "open",
-      "attendance": "unknown",
+      "attendance": "onsite",
       "career": "unknown",
       "ageCap": null
     },
@@ -1943,7 +1944,8 @@
         "libraries",
         "counter-archives",
         "research",
-        "no-fee"
+        "no-fee",
+        "grant"
       ],
       "fee": false,
       "featured": false,
@@ -2658,7 +2660,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -2742,7 +2744,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -2784,7 +2786,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -2829,7 +2831,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -2870,7 +2872,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -3407,7 +3409,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "emerging",
       "ageCap": null
@@ -4982,7 +4984,6 @@
         "technology",
         "prototype",
         "rolling",
-        "festival",
         "nl"
       ],
       "startDate": null,
@@ -4993,7 +4994,7 @@
       "regions": [
         "EU"
       ],
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -5014,7 +5015,6 @@
       "tags": [
         "grant",
         "art-and-technology",
-        "festival",
         "rolling",
         "noord-brabant",
         "regional",
@@ -5031,7 +5031,10 @@
       "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
-      "ageCap": null
+      "ageCap": null,
+      "categories": [
+        "tech"
+      ]
     },
     {
       "id": "kulturstiftung-des-bundes-general-project-funding-2026",
@@ -5440,7 +5443,7 @@
       "regions": [
         "EU"
       ],
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -5563,7 +5566,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -5594,7 +5597,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -5627,7 +5630,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -5659,7 +5662,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -6989,7 +6992,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "open",
       "attendance": "unknown",
       "career": "any",
       "ageCap": null
@@ -7668,7 +7671,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "open",
       "attendance": "onsite",
       "career": "emerging",
       "ageCap": null
@@ -10267,7 +10270,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -10595,7 +10598,7 @@
         "tech"
       ],
       "eligibility": "unknown",
-      "attendance": "unknown",
+      "attendance": "onsite",
       "career": "unknown",
       "ageCap": null
     },
@@ -11041,9 +11044,10 @@
       "fee": false,
       "featured": false,
       "categories": [
-        "film"
+        "film",
+        "tech"
       ],
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "onsite",
       "career": "unknown",
       "ageCap": null
@@ -11784,7 +11788,7 @@
       "fee": false,
       "featured": false,
       "eligibility": "open",
-      "attendance": "unknown",
+      "attendance": "remote",
       "career": "unknown",
       "ageCap": null
     },
@@ -12239,7 +12243,7 @@
       "fee": false,
       "featured": false,
       "eligibility": "open",
-      "attendance": "unknown",
+      "attendance": "remote",
       "career": "unknown",
       "ageCap": null
     },
@@ -12272,7 +12276,7 @@
       "fee": false,
       "featured": false,
       "eligibility": "open",
-      "attendance": "unknown",
+      "attendance": "remote",
       "career": "unknown",
       "ageCap": null
     },
@@ -13357,7 +13361,6 @@
       "description": "Sub-Saharan Component (Connect & Create) of the Africa-Europe Partnerships for Culture programme, an EUR 8 million 42-month initiative (2025-2028) implemented by the Goethe-Institut in partnership with Expertise France and Institut francais. PRIMARY FOCUS: transcontinental Africa-Africa short-term mobility for artists and culture professionals. European artists and organisations may also apply, provided they have an existing partnership with an African artist, institution or organisation. ACTIVITIES: artistic and professional development (research, co-creation/co-development, non-formal learning, building international professional relationships); cultural exchange and networking (residencies, exhibitions, conferences, workshops, training, collaborative international projects). Mobility may be physical, digital/virtual or hybrid. ELIGIBLE COUNTRIES: all Sub-Saharan Africa countries and all EU Member States. DISCIPLINES: visual arts, performing arts, music, literature, film, media arts, cultural heritage, design, architecture, fashion design. SCHEME TOTALS: up to 195 grants across the programme period; rolling intake with quarterly cut-offs. DEADLINE: this card is for the 15 June 2026 cut-off (other cut-offs each have their own card). APPLY via the Goethe-Institut Africa-Europe Partnerships page.",
       "url": "https://www.goethe.de/prj/aep/en/cal/ssa/mga.html",
       "tags": [
-        "worldwide",
         "sub-saharan-africa",
         "europe",
         "goethe-institut",
@@ -13379,7 +13382,10 @@
       "eligibility": "residents",
       "attendance": "hybrid",
       "career": "unknown",
-      "ageCap": null
+      "ageCap": null,
+      "regions": [
+        "EU"
+      ]
     },
     {
       "id": "amr-paper-of-the-future-prize-2026",
@@ -14869,7 +14875,10 @@
       "eligibility": "unknown",
       "attendance": "unknown",
       "career": "unknown",
-      "ageCap": null
+      "ageCap": null,
+      "categories": [
+        "writers"
+      ]
     },
     {
       "id": "whiting-nonfiction-grant-2026",
@@ -14997,7 +15006,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -16392,8 +16401,8 @@
         "fellowship",
         "research",
         "journalism",
-        "AI",
-        "tech-ethics"
+        "tech-ethics",
+        "ai"
       ],
       "fee": false,
       "featured": false,
@@ -16402,7 +16411,10 @@
       "eligibility": "open",
       "attendance": "remote",
       "career": "unknown",
-      "ageCap": null
+      "ageCap": null,
+      "categories": [
+        "research"
+      ]
     },
     {
       "id": "ngi-fediversity-11",
@@ -16597,8 +16609,8 @@
       "tags": [
         "grant",
         "journalism",
-        "AI",
-        "data-society"
+        "data-society",
+        "ai"
       ],
       "fee": false,
       "featured": false,
@@ -16607,7 +16619,10 @@
       "eligibility": "open",
       "attendance": "unknown",
       "career": "unknown",
-      "ageCap": null
+      "ageCap": null,
+      "categories": [
+        "research"
+      ]
     },
     {
       "id": "pulitzer-center-us-civil-society-microgrants-2026",
@@ -19083,10 +19098,13 @@
       "featured": false,
       "category": "arts",
       "applicant": "both",
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
-      "ageCap": null
+      "ageCap": null,
+      "categories": [
+        "tech"
+      ]
     },
     {
       "id": "hmk-rotating-airs-colonialism-climate",
@@ -22543,7 +22561,7 @@
       "feedDate": "2026-06-19",
       "category": "arts",
       "applicant": "individuals",
-      "description": "The BFI Doc Society Features Production Fund (delivered via BFI with Doc Society as delegate partner) supports UK filmmakers producing non-fiction feature films intended for theatrical release. Two strands: Directions (first- or second-time directors) and Momentum (established talent). AMOUNT: up to £150,000 non-recoupable grant (the total Doc Society contribution per project cannot exceed £150,000). ELIGIBILITY: UK-based filmmakers, both emerging and established directors; experienced and debut producers eligible; projects must meet at least three of six stated priorities: equity/diversity, audience impact, talent development, creative risk, UK-wide access, and environmental sustainability. PROCESS: two-stage — submit an Expression of Interest, then a Full Application if invited. Rolling intake year-round. Opened May 2026. APPLY via BFI Doc Society website. Contact: hellobfi@docsociety.org.",
+      "description": "The BFI Doc Society Features Production Fund (delivered via BFI with Doc Society as delegate partner) supports UK filmmakers producing non-fiction feature films intended for theatrical release. Two strands: Directions (first- or second-time directors) and Momentum (established talent). AMOUNT: up to £150,000 non-recoupable grant (the total Doc Society contribution per project cannot exceed £150,000). ELIGIBILITY: UK-based filmmakers, both emerging and established directors; experienced and debut producers eligible; projects must meet at least three of six stated priorities: equity/diversity, audience impact, talent development, creative risk, UK-wide access, and environmental sustainability. PROCESS: two-stage, submit an Expression of Interest, then a Full Application if invited. Rolling intake year-round. Opened May 2026. APPLY via BFI Doc Society website. Contact: hellobfi@docsociety.org.",
       "url": "https://bfi.docsociety.org/funds/features-production",
       "tags": [
         "uk",
@@ -22564,7 +22582,7 @@
       "categories": [
         "film"
       ],
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "any",
       "ageCap": null
@@ -23113,21 +23131,26 @@
         "mentoring",
         "women",
         "equal-opportunities",
-        "residency",
         "prototype",
         "pro-helvetia",
         "global-south",
         "africa",
         "asia",
         "south-america",
-        "worldwide"
+        "worldwide",
+        "grant"
       ],
       "fee": false,
       "featured": false,
       "eligibility": "residents",
-      "attendance": "onsite",
+      "attendance": "remote",
       "career": "emerging",
-      "ageCap": null
+      "ageCap": null,
+      "regions": [
+        "Asia",
+        "Africa",
+        "LatAm"
+      ]
     },
     {
       "id": "prohelvetia-emerging-talents-concept-grant-2026",
@@ -23307,11 +23330,12 @@
         "emerging-talents",
         "pro-helvetia",
         "switzerland",
-        "prototype"
+        "prototype",
+        "grant"
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "nationals",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "emerging",
       "ageCap": null
@@ -23338,11 +23362,12 @@
         "production",
         "emerging-talents",
         "pro-helvetia",
-        "switzerland"
+        "switzerland",
+        "grant"
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "nationals",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "emerging",
       "ageCap": null
@@ -23370,11 +23395,12 @@
         "emerging-talents",
         "pro-helvetia",
         "switzerland",
-        "marketing"
+        "marketing",
+        "grant"
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "nationals",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "emerging",
       "ageCap": null
@@ -23403,11 +23429,12 @@
         "equal-opportunities",
         "she-got-game",
         "pro-helvetia",
-        "switzerland"
+        "switzerland",
+        "grant"
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "emerging",
       "ageCap": null
@@ -24374,7 +24401,7 @@
       "feedDate": "2026-06-23",
       "category": "research",
       "applicant": "both",
-      "description": "The Omidyar Network Tech Journalism Fund offers rolling grants of $5,000-$25,000 for technology journalism projects. Relevant for journalists and media organizations investigating AI, tech policy, and AI's impacts on culture, society, and creative industries. Applications are accepted on a rolling basis through December 31, 2026 — one of the few currently open opportunities with a confirmed near-term deadline. Apply via the application form on omidyar.com.",
+      "description": "The Omidyar Network Tech Journalism Fund offers rolling grants of $5,000-$25,000 for technology journalism projects. Relevant for journalists and media organizations investigating AI, tech policy, and AI's impacts on culture, society, and creative industries. Applications are accepted on a rolling basis through December 31, 2026, one of the few currently open opportunities with a confirmed near-term deadline. Apply via the application form on omidyar.com.",
       "url": "https://omidyar.com/tech-journalism-fund-application/",
       "tags": [
         "journalism",
@@ -26556,7 +26583,7 @@
       "regions": [
         "EU"
       ],
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -26622,7 +26649,7 @@
       "regions": [
         "EU"
       ],
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -26907,8 +26934,8 @@
       "featured": false,
       "category": "writers",
       "applicant": "individuals",
-      "eligibility": "unknown",
-      "attendance": "unknown",
+      "eligibility": "open",
+      "attendance": "onsite",
       "career": "any",
       "ageCap": null
     },
@@ -30756,7 +30783,8 @@
         "open-call",
         "curators",
         "exhibition",
-        "no-fee"
+        "no-fee",
+        "grant"
       ],
       "eligibility": "open",
       "attendance": "unknown",
@@ -30861,7 +30889,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "remote",
       "career": "unknown",
       "ageCap": null
@@ -31101,7 +31129,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "onsite",
       "career": "unknown",
       "ageCap": null
@@ -31141,7 +31169,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "open",
       "attendance": "onsite",
       "career": "unknown",
       "ageCap": null
@@ -31173,7 +31201,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "open",
       "attendance": "onsite",
       "career": "any",
       "ageCap": null
@@ -31657,7 +31685,8 @@
         "writing",
         "honorarium",
         "rolling",
-        "remote"
+        "remote",
+        "commission"
       ],
       "fee": false,
       "featured": false,
@@ -33073,7 +33102,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "emerging",
       "ageCap": null
@@ -33970,7 +33999,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "open",
       "attendance": "onsite",
       "career": "unknown",
       "ageCap": null
@@ -34094,7 +34123,7 @@
         "design"
       ],
       "eligibility": "residents",
-      "attendance": "hybrid",
+      "attendance": "onsite",
       "career": "unknown",
       "ageCap": null
     },
@@ -34165,7 +34194,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -34242,7 +34271,7 @@
       ],
       "eligibility": "open",
       "attendance": "unknown",
-      "career": "unknown",
+      "career": "emerging",
       "ageCap": 30
     },
     {
@@ -34283,7 +34312,7 @@
         "arts",
         "tech"
       ],
-      "eligibility": "unknown",
+      "eligibility": "open",
       "attendance": "onsite",
       "career": "unknown",
       "ageCap": null
@@ -34355,7 +34384,7 @@
       "fee": false,
       "featured": false,
       "categories": [],
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -34372,7 +34401,7 @@
       "deadline": null,
       "addedDate": "2026-09-22",
       "feedDate": "2026-10-08",
-      "category": "audio",
+      "category": "writers",
       "applicant": "individuals",
       "description": "La Scam's Brouillon d'un reve Sonore category funds documentary, educational or informational audio works for radio or podcast: reportage, narrative, portrait, chronicle, interview and testimony. WHAT YOU GET: a development bourse of EUR 2,500 to EUR 6,000, paid directly to the author 4 to 5 weeks after contract signing. ELIGIBILITY: explicitly no age, residence or nationality restrictions, and open to non-members, though the application process and repertoire are in French. RULES: one application per year across all Brouillon d'un reve categories; the same project may be submitted at most twice; past laureates must wait three years before reapplying. APPLICATION: rolling, via the online form on the Scam site, with monthly consultation slots running September to July; contact brouillondunreve@scam.fr. The fund leans documentary rather than experimental radio art, but it is a solidly current cash fund for radio and podcast authorship.",
       "url": "https://www.lascam.fr/actions-culturelles/bourses-brouillon-dun-reve/",
@@ -34390,10 +34419,8 @@
       ],
       "fee": false,
       "featured": false,
-      "categories": [
-        "writers"
-      ],
-      "eligibility": "unknown",
+      "categories": [],
+      "eligibility": "open",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -34472,7 +34499,7 @@
       "categories": [
         "research"
       ],
-      "eligibility": "unknown",
+      "eligibility": "open",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -35373,7 +35400,7 @@
       "addedDate": "2026-09-26",
       "feedDate": "2026-10-15",
       "category": "film",
-      "applicant": "individuals",
+      "applicant": "both",
       "description": "Screen Australia's Global Fellowships support Australian screen practitioners (producers, directors, writers and development executives) pursuing international professional development and career acceleration through placements with leading global screen organizations. SUPPORT: up to 10 fellows annually, each receiving a non-recoupable grant of AUD 80,000 for a single continuous placement of up to 6 months, or AUD 100,000 for multiple placements over up to 12 months, plus up to AUD 5,000 for carers' and/or accessibility costs. ELIGIBILITY: Australian citizens or permanent residents (sole traders) or incorporated Australian companies with an ABN; applicants must secure their own fellowship opportunity with host organizations and mentors (Screen Australia does not broker placements) and be eligible for required visas. ASSESSMENT: track record and professional achievement, quality of the fellowship opportunity, career impact, and anticipated benefit to Australia's screen sector, weighted equally. HOW TO APPLY: one application per deadline via Screen Australia's funding portal. Notification 2 April 2027. DEADLINE: 11 February 2027 at 5pm AEST.",
       "url": "https://www.screenaustralia.gov.au/fund/global-fellowships/",
       "tags": [
@@ -35385,7 +35412,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "nationals",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -35403,7 +35430,7 @@
       "addedDate": "2026-09-26",
       "feedDate": "2026-10-15",
       "category": "film",
-      "applicant": "individuals",
+      "applicant": "both",
       "description": "Screen Australia supports Australian producers attending competitive overseas pitching forums to secure financing and partnerships, and above-the-line creatives invited to premium international talent labs for professional development and networking. SUPPORT: up to AUD 6,000 (or AUD 12,000 for teams) for events of up to 14 days; up to AUD 10,000 for talent labs or fellowships over 14 days and under 12 months; up to AUD 20,000 for programs over 12 months; one grant per 12-month period except in exceptional cases. ELIGIBILITY: individuals must be Australian citizens or permanent residents with an ABN; companies must be incorporated and conducting business in Australia with central management and control there, hold an ABN, and be GST-registered if required; applicants need an invitation to a qualifying event (the guidelines list eligible opportunities). HOW TO APPLY: rolling, via the SmartyGrants application portal, at least three weeks before the event start date (six weeks recommended); applications cannot be retroactive. Decisions take approximately three weeks.",
       "url": "https://www.screenaustralia.gov.au/fund/international-pitching-forums-and-talent-labs/",
       "tags": [
@@ -35416,7 +35443,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "nationals",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -35644,7 +35671,7 @@
       "fee": false,
       "featured": false,
       "eligibility": "unknown",
-      "attendance": "unknown",
+      "attendance": "onsite",
       "career": "unknown",
       "ageCap": null
     },
@@ -35677,7 +35704,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "nationals",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -35710,7 +35737,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "unknown",
       "ageCap": null
@@ -35930,7 +35957,7 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "unknown",
+      "eligibility": "open",
       "attendance": "onsite",
       "career": "unknown",
       "ageCap": null
@@ -36793,8 +36820,8 @@
       "fee": true,
       "featured": false,
       "eligibility": "open",
-      "attendance": "remote",
-      "career": "any",
+      "attendance": "unknown",
+      "career": "unknown",
       "ageCap": null
     },
     {
@@ -36897,7 +36924,7 @@
       "featured": false,
       "eligibility": "open",
       "attendance": "onsite",
-      "career": "any",
+      "career": "unknown",
       "ageCap": null
     },
     {
@@ -36984,7 +37011,7 @@
       "addedDate": "2026-10-06",
       "feedDate": "2026-10-19",
       "category": "arts",
-      "applicant": "both",
+      "applicant": "individuals",
       "description": "Research and creation studio residencies in Brussels for artists working in the performing arts in the broad sense: dance, performance, theatre and crossovers with other disciplines (projects that are purely circus, visual art, music or for young audiences are excluded). WHAT YOU GET: one to two weeks of free studio space tailored to your project, a EUR 750 flat fee per selected project for travel and lunch, overnight guesthouse accommodation for international artists subject to availability, basic technical equipment in some studios, and an optional moment to share work with other residents. ELIGIBILITY: open to Belgian and international artists and collectives at any career stage. Applications can be written or submitted as audio or video, in Dutch, French or English. DEADLINE: 1 December 2026 for residencies between August and December 2027; selections announced end of February 2027.",
       "url": "https://www.workspacebrussels.be/en/studio-residency",
       "tags": [
@@ -37394,14 +37421,14 @@
         "flanders",
         "southeastern-europe",
         "balkans",
-        "jobshadowing",
         "visual-arts",
         "performing-arts",
         "music",
         "sound",
         "travel-covered",
         "accommodation-provided",
-        "no-fee"
+        "no-fee",
+        "work-shadowing"
       ],
       "fee": false,
       "featured": false,
@@ -37716,7 +37743,8 @@
         "emerging",
         "visarts",
         "no-fee",
-        "cash-award"
+        "cash-award",
+        "commission"
       ],
       "fee": false,
       "featured": false,
@@ -37782,7 +37810,7 @@
       "categories": [
         "arts"
       ],
-      "applicant": "both",
+      "applicant": "individuals",
       "description": "Code:ART is the City of Palo Alto's digital art festival celebrating creative technology in public space, returning 13 to 16 October 2027. This call commissions one artist or team to create a signature interactive installation for Lytton Plaza with a USD 20,000 budget. ELIGIBILITY: open to individual artists and teams based in the US or internationally; individuals must be over 18, and for teams at least one member must be over 18 and able to contract with the City; applicants in Santa Clara and San Mateo counties are particularly encouraged. You may also apply to the parallel Interactive Media Installations call, but can receive only one commission across both. APPLICATION: via SlideRoom. DEADLINE: Monday 16 November 2026, 23:59 Pacific Time.",
       "url": "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Public-Art-Program/Artist-Opportunities",
       "tags": [
@@ -37823,7 +37851,7 @@
       "categories": [
         "arts"
       ],
-      "applicant": "both",
+      "applicant": "individuals",
       "description": "Code:ART is the City of Palo Alto's digital art festival celebrating creative technology in public space, returning 13 to 16 October 2027. This call selects up to five interactive media installations for the festival, each with a budget of up to USD 9,000. ELIGIBILITY: open to artists nationally and internationally, individuals and teams. You may also apply to the parallel Lytton Plaza Installation call (USD 20,000), but can receive only one commission across both. APPLICATION: via SlideRoom. DEADLINE: Monday 16 November 2026, 23:59 Pacific Time.",
       "url": "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Public-Art-Program/Artist-Opportunities",
       "tags": [
@@ -37858,7 +37886,7 @@
       "addedDate": "2026-10-13",
       "feedDate": "2026-10-24",
       "category": "arts",
-      "applicant": "both",
+      "applicant": "individuals",
       "description": "Run by Seattle's Northwest Film Forum as part of the Warhol Foundation's Regional Regranting Program, the Collective Power Fund supports visionary new arts projects that incite public dialogue, push boundaries, explore genre fluidity, and are often non-traditional, anti-institutional, socially responsible or disruptive of existing structures. AWARDS: one USD 10,000 grant for an artist team or artist-run collective and ten USD 5,000 grants for individual artists, USD 60,000 in total. ELIGIBILITY: artists aged 21 or older living in incorporated or unincorporated King County, Washington (proof of residency at finalist status); work grounded in the visual arts or with a strong visual context; applicant must be the primary creator, able to receive income in the US, and hold creative control and rights; projects must include a publicly accessible component and be completed by 31 December 2027; one project per cycle. APPLICATION: via Submittable (nwfilmforum.submittable.com). DEADLINE: the 2026 application is open but the closing date was not published at the time of listing; the 2025 cycle closed mid-November, so apply early and confirm the deadline with grants manager jade@nwfilmforum.org.",
       "url": "https://www.collectivepowerfund.org/",
       "tags": [
@@ -38072,7 +38100,7 @@
         "cross",
         "research"
       ],
-      "applicant": "both",
+      "applicant": "individuals",
       "description": "The Jan van Eyck Academie's general open call for its 2028 residency year: 30 to 32 artists, curators, designers, writers, architects and other artistic researchers spend 11 months (15 January to 15 December 2028) in Maastricht, across material-based and research-driven practices, with access to the academy's labs and community. Individuals, duos, collectives and candidates with children can apply; duos and collectives submit one application and pay one fee. SUPPORT: monthly stipend of EUR 1,500 (EUR 2,000 with children; duos EUR 1,500 each or EUR 2,500 combined for life partners; collectives up to EUR 4,500 combined), with rent including service costs deducted; EUR 2,000 annual working budget; newly built furnished private studio apartments (families get a spacious private apartment; collectives up to three studio apartments, possibly on rotation). ELIGIBILITY: no nationality or age restriction; sufficient English required (Dutch and English are the working languages); full-time alumni of the Rijksakademie or De Ateliers are not eligible; the academy is not an educational institute and provides no degrees or ECTS. FEES: application fee EUR 65 excl. VAT (EUR 78.65 incl. VAT), waived for applicants from and living in OECD DAC-list ODA recipient countries; enrolment fee EUR 2,750 excl. VAT for accepted participants. APPLY via the Dapple platform with an artist statement (250 words), motivation (500 words) and project proposal (500 words) in English (or one video/audio/link covering all three), plus one PDF (max 10 MB) with recent work from the last five years (max 25 pages) and a CV (max 2 pages); applications cannot be changed after submission. TIMELINE: call opened 5 October 2026; selection outcome mid-May 2027. DEADLINE: 1 December 2026, 23:59 CET.",
       "url": "https://www.janvaneyck.nl/calendar/apply-now-jve-residency-2028",
       "tags": [
@@ -38283,10 +38311,13 @@
       ],
       "fee": false,
       "featured": false,
-      "eligibility": "nationals",
+      "eligibility": "residents",
       "attendance": "unknown",
       "career": "any",
-      "ageCap": null
+      "ageCap": null,
+      "regions": [
+        "UK"
+      ]
     },
     {
       "id": "invisible-cartographies-buinho-residency-2027",
@@ -38756,7 +38787,8 @@
         "investigations",
         "journalism",
         "public-interest-tech",
-        "no-fee"
+        "no-fee",
+        "job"
       ],
       "fee": false,
       "featured": false,
@@ -38788,7 +38820,6 @@
       "tags": [
         "postdoc",
         "fellowship",
-        "usa",
         "princeton",
         "new-jersey",
         "computational-social-science",
@@ -38797,7 +38828,8 @@
         "feminist-epistemology",
         "ai-ethics",
         "critical-ai",
-        "no-fee"
+        "no-fee",
+        "us"
       ],
       "fee": false,
       "featured": false,
@@ -39095,9 +39127,10 @@
       "startDate": "2027-06-07",
       "deadline": "2026-11-22",
       "feedDate": "2026-11-01",
-      "category": "writers",
+      "category": "research",
       "categories": [
-        "ai"
+        "ai",
+        "writers"
       ],
       "applicant": "individuals",
       "description": "A year-long fellowship for journalists covering artificial intelligence. Fellows complete a three-month full-time remote programme on AI and journalism fundamentals, attend a weeklong summit, then work for nine months as reporters embedded in a partner newsroom (current partners are in Hong Kong, London, Los Angeles, New York, San Francisco, Seattle, Washington DC and Cambridge). ELIGIBILITY: journalism or AI expertise, aged 18+ by 7 June 2027, no degree required; primarily for applicants with the right to work in the US, UK or Hong Kong, as visa sponsorship is uncommon and needs partner-outlet approval.",
@@ -39231,7 +39264,8 @@
         "non-dilutive",
         "remote",
         "worldwide",
-        "no-fee"
+        "no-fee",
+        "grant"
       ],
       "title": "Mozilla Foundation Incubator: Human-Scale AI cohort 2027 (call for proposals)",
       "url": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/call-for-proposals/"
@@ -39365,7 +39399,8 @@
       "attendance": "remote",
       "career": "any",
       "categories": [
-        "research"
+        "research",
+        "ai"
       ],
       "category": "tech",
       "deadline": "2027-01-08",
@@ -39439,7 +39474,7 @@
       "addedDate": "2026-10-23",
       "ageCap": null,
       "amount": "Fellowship of EUR 3,000 net per month for six months (EUR 18,000), plus a production grant of up to EUR 10,000 for a solo exhibition at the TUD University Gallery in autumn 2027, a studio on campus and help finding accommodation. No application fee.",
-      "applicant": "both",
+      "applicant": "individuals",
       "attendance": "onsite",
       "career": "established",
       "categories": [
@@ -40125,7 +40160,7 @@
       "categories": [
         "tech"
       ],
-      "applicant": "individuals",
+      "applicant": "both",
       "description": "Zoud GameLab is a month-long virtual game jam run by Global Game Jam and Zoud, the UAE's national financial wellbeing initiative, under the theme Make FinLit Fun. Participants build a game that integrates financial literacy in a meaningful way; this is part of the judging criteria, and a scoring rubric is published on the jam page. WHO: anyone aged 18 or over by 15 November 2026, anywhere in the world; solo developers, teams of any size and studios, each member registering individually. Prior Global Game Jam participation is not required. WHAT YOU GET: a share of up to USD 140,000 in prizes and development-support funding; entrants who want to be considered for development funding submit the game, a concept or design document, a two-minute gameplay video and a game budget. A pre-jam learning programme of webinars, resources and expert sessions ran from September. APPLICATION: register and submit on itch.io (and the Global Game Jam Discord). DEADLINE: 15 November 2026 at 23:59 anywhere on earth (the itch.io counter may show 16 November in some time zones).",
       "url": "https://itch.io/jam/zoud-gamelab",
       "tags": [
@@ -40452,9 +40487,7 @@
       "addedDate": "2026-10-24",
       "feedDate": "2026-11-08",
       "category": "arts",
-      "categories": [
-        "research"
-      ],
+      "categories": [],
       "applicant": "individuals",
       "description": "FOTODOKS, the Munich festival for contemporary documentary photography, invites existing lens-based, documentary-driven projects on the theme of care and its connections to politics, emotions and intimate relationships for its 13th edition in October 2027. Selected works are shown in a group exhibition and included in the festival catalogue and on the FOTODOKS website; the curatorial team also invites some artists directly. WHO: individuals, collectives and groups of all backgrounds, ages and genders; submissions in English or German. WHAT YOU GET: an artist fee of EUR 500 for a single artist, EUR 800 for a duo or up to EUR 1,200 for a collective depending on size; travel support of up to EUR 150 within Germany, EUR 300 within Europe or EUR 500 from outside Europe; accommodation during the 4-day opening week; and production of the work for the exhibition in agreement with FOTODOKS. APPLICATION: free, via the Picter submission page; questions to opencall@fotodoks.de. Results are announced in March 2027. DEADLINE: 20 November 2026.",
       "url": "https://site.picter.com/fotodoks-open-call-2027",
@@ -40540,7 +40573,7 @@
         "arts",
         "curator"
       ],
-      "applicant": "both",
+      "applicant": "individuals",
       "description": "The Sigg Fellowship for Chinese Art Research supports new research on Chinese art in dialogue with the M+ Collections; the 2026/27 edition focuses on tradition and contemporary Chinese art. WHO: individuals or research groups of any nationality and any age, with a postgraduate degree in a relevant discipline, or an undergraduate degree plus at least three years of relevant professional or academic research experience; proficiency in spoken and written Chinese or English is required, and the fellowship is subject to obtaining a Hong Kong visa. WHAT YOU GET: HKD 200,000 to cover all expenses, including travel, living, insurance and research costs, for a three-to-six-month attachment to M+. Fellows give a public lecture in Hong Kong and write an essay of at least 5,000 English words or 7,500 Chinese characters for M+ Magazine. APPLICATION: submit a research proposal (max 1,000 words) and full CV via the Google form on the call page, in English or Chinese, and have two academic or professional referees email recommendation letters directly. Results are announced in early 2027. DEADLINE: 30 November 2026, 23:59 (UTC+8).",
       "url": "https://www.mplus.org.hk/en/awards-and-fellowships/sigg-fellowship-for-chinese-art-research/",
       "tags": [
@@ -40658,9 +40691,9 @@
       "deadlineTz": "Europe/London",
       "addedDate": "2026-10-25",
       "feedDate": "2026-11-09",
-      "category": "arts",
+      "category": "curator",
       "categories": [
-        "curator"
+        "arts"
       ],
       "applicant": "individuals",
       "description": "The Upe Foundation and Gasworks are recruiting a full-time Curatorial Fellow for 12 to 18 months, embedded in Gasworks' curatorial team in south London. The Fellow works closely with the artist selected for the 2027 Gasworks residency for artists based in the Baltics and co-develops their 2028 solo exhibition, alongside wider exhibition, registrar, interpretation and residency duties. WHO: early-career curators with a connection to the Baltic region (Lithuania, Latvia, Estonia or their diasporas); Gasworks will consider visa sponsorship for this fixed-term role. WHAT YOU GET: a GBP 32,000 per year salary, a 5% employer pension contribution and up to GBP 250 towards relocation flights. APPLICATION: download the job description and application form from the call page and upload the completed form; questions to rosaharvest@gasworks.org.uk. DEADLINE: 9 November 2026, 13:00 UK time.",
@@ -40788,8 +40821,7 @@
       "feedDate": "2026-11-10",
       "category": "arts",
       "categories": [
-        "audio",
-        "research"
+        "audio"
       ],
       "applicant": "individuals",
       "description": "France Culture and LaScam offer two EUR 5,000 grants (Brouillon d'un reve) to write a first creative audio documentary in the spirit of L'Experience, France Culture's strand of auteur sound documentaries. The target format is a 57'30 documentary for broadcast or a native podcast series with variable episode length. WHO: authors writing their first creative audio documentary, in French; reportage, news programmes and more classic documentaries are excluded. WHAT YOU GET: EUR 5,000 to fund the writing; production and inclusion in France Culture's output are decided separately afterwards by its Fictions et Creation department. APPLICATION: email bourses.documentaires@radiofrance.com with a 5-line summary (max 500 characters), the intended duration, a two-page PDF (statement of intent plus a note on the sound design), names, detailed CV and contact details, optional links to earlier work, and an IBAN. The committee meets in mid-January 2027 and results are announced by 5 February 2027. Submission window: 20 October 2026, 08:00 to 20 December 2026, 23:59 (Paris time).",
@@ -41882,7 +41914,7 @@
       "fee": false,
       "featured": false,
       "eligibility": "open",
-      "attendance": "unknown",
+      "attendance": "hybrid",
       "career": "unknown",
       "ageCap": null
     },
@@ -42588,7 +42620,7 @@
       "title": "GovAI Summer Fellowship 2027 (AI governance, London or Washington DC, GBP 14,000 for 3 months)",
       "organization": "Centre for the Governance of AI (GovAI)",
       "location": "London, UK or Washington, DC, USA; in person, full time. Open worldwide; temporary work visa sponsorship available.",
-      "region": "Worldwide",
+      "region": "UK",
       "amount": "GBP 14,000 for 3 months plus travel support (UK Research Track figure; DC track has its own stipend). No application fee.",
       "duration": "7 June to 27 August 2027, full time",
       "startDate": "2027-06-07",
@@ -42618,7 +42650,10 @@
       "eligibility": "open",
       "attendance": "onsite",
       "career": "emerging",
-      "ageCap": null
+      "ageCap": null,
+      "regions": [
+        "US"
+      ]
     },
     {
       "id": "ushmm-genocide-prevention-fellowship-2027-28",
@@ -42679,7 +42714,7 @@
       "fee": false,
       "featured": false,
       "eligibility": "residents",
-      "attendance": "unknown",
+      "attendance": "remote",
       "career": "any",
       "ageCap": null
     },
@@ -42695,9 +42730,9 @@
       "deadline": "2026-12-10",
       "addedDate": "2026-11-02",
       "feedDate": "2026-11-05",
-      "category": "writers",
+      "category": "research",
       "categories": [
-        "research"
+        "cross"
       ],
       "applicant": "individuals",
       "description": "Europe's main journalism award, recognising outstanding reporting published in the previous year. Entries opened 1 November 2026. CATEGORIES (2026 edition; 2027 list not yet confirmed): Distinguished Reporting, Investigative Reporting, Innovation, Migration Journalism and Public Discourse. The Innovation category rewards new formats and digital storytelling. ELIGIBILITY: journalists and teams from the 46 Council of Europe countries plus Belarus and Russia; work must have been published in the eligible window (the 2026 edition covered work published 1 December 2024 to 31 December 2025). Check the official FAQ for the exact 2027 window before entering. DEADLINE: 10 December 2026.",
@@ -43089,7 +43124,6 @@
         "cities",
         "local-government",
         "public-health",
-        "economic-mobility",
         "climate-resilience",
         "civic-engagement",
         "nonprofits",
@@ -43097,7 +43131,8 @@
         "rockefeller-foundation",
         "openai-foundation",
         "large-grant",
-        "no-fee"
+        "no-fee",
+        "economic-opportunity"
       ],
       "fee": false,
       "featured": false,
@@ -43158,7 +43193,10 @@
       "region": "US",
       "regions": [
         "EU",
-        "UK"
+        "UK",
+        "Canada",
+        "Australia",
+        "Asia"
       ],
       "amount": "Full tuition and fees for the award year plus a USD 50,000 stipend (or local-currency equivalent; taxable). Finalists receive USD 5,000. No application fee.",
       "duration": "One academic year.",
@@ -43765,7 +43803,7 @@
       "fee": false,
       "featured": false,
       "eligibility": "residents",
-      "attendance": "unknown",
+      "attendance": "remote",
       "career": "any",
       "ageCap": null
     },

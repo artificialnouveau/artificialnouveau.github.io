@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:quindici-minuti-di-riflessione-2027@artificialnouveau.github.io
-DTSTAMP:20261106T131944Z
+DTSTAMP:20261106T132114Z
 TRANSP:TRANSPARENT
 DTSTART:20261130T222900Z
 DTEND:20261130T225900Z
@@ -48,7 +48,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:movies-that-matter-festival-2027-submissions@artificialnouveau.github.i
  o
-DTSTAMP:20261106T131944Z
+DTSTAMP:20261106T132114Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
@@ -76,8 +76,34 @@ LOCATION:The Hague\, Netherlands (festival 19-27 March 2027)\; submissions
  open worldwide\, attendance not required for submission.
 END:VEVENT
 BEGIN:VEVENT
+UID:european-press-prize-2027@artificialnouveau.github.io
+DTSTAMP:20261106T132114Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261210
+DTEND;VALUE=DATE:20261211
+SUMMARY:Deadline: European Press Prize 2027 (journalism awards\, EUR 10\,00
+ 0 per category\, Council of Europe countries)
+DESCRIPTION:Europe's main journalism award\, recognising outstanding report
+ ing published in the previous year. Entries opened 1 November 2026. CATEGO
+ RIES (2026 edition\; 2027 list not yet confirmed): Distinguished Reporting
+ \, Investigative Reporting\, Innovation\, Migration Journalism and Public 
+ Discourse. The Innovation category rewards new formats and digital storyte
+ lling.\n\nOrganisation: European Press Prize\nLocation: Europe. Journalist
+ s from the 46 Council of Europe member states plus Belarus and Russia\, or
+  of European nationality\, working in Europe or for a European outlet.\nAw
+ ard: EUR 10\,000 per category winner in the 2026 edition (five categories)
+ \; 2027 amounts not yet confirmed. No entry fee found.\nDuration: One-off 
+ award for published work\n\nMore: https://www.europeanpressprize.com/award
+ s/faq/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://www.europeanpressprize.com/awards/faq/?utm_source=artificialnou
+ veaugrantdesk&utm_medium=referral
+LOCATION:Europe. Journalists from the 46 Council of Europe member states pl
+ us Belarus and Russia\, or of European nationality\, working in Europe or 
+ for a European outlet.
+END:VEVENT
+BEGIN:VEVENT
 UID:stringer-awards-2027@artificialnouveau.github.io
-DTSTAMP:20261106T131944Z
+DTSTAMP:20261106T132114Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261231
 DTEND;VALUE=DATE:20270101
