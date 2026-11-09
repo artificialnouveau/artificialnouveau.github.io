@@ -28,6 +28,22 @@ Special thanks to [CrossFit Coolhaven](https://crossfitcoolhaven.nl/) for lettin
   <figcaption style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.04em;color:var(--color-muted);margin-top:0.5rem;">The pilot's shift: flying in FPV goggles at GOGBOT Festival, Enschede, 2026.</figcaption>
 </figure>
 
+<style>
+.ce-act1 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: #0a0a0a; padding: 6px; margin: 2.5rem 0 0.5rem; }
+.project-content .ce-act1 img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; margin: 0; border: none; }
+@media (max-width: 600px) { .ce-act1 { grid-template-columns: 1fr 1fr; } }
+</style>
+
+<div class="ce-act1">
+  <img src="/assets/portfolio/closeenough/act1-line1.jpg" alt="Act 1: the pilot seen through the drone's eyes, captioned: There is a sound above the house small like a wasp" loading="lazy">
+  <img src="/assets/portfolio/closeenough/act1-line2.jpg" alt="Act 1: the pilot seen through the drone's eyes, captioned: I used to sit where it sits, I know the checklist" loading="lazy">
+  <img src="/assets/portfolio/closeenough/act1-line3.jpg" alt="Act 1: the pilot seen through the drone's eyes, captioned: It knows I sleep on the roof in the summer heat" loading="lazy">
+  <img src="/assets/portfolio/closeenough/act1-line4.jpg" alt="Act 1: the pilot seen through the drone's eyes, captioned: At night I am a warm shape" loading="lazy">
+  <img src="/assets/portfolio/closeenough/act1-line5.jpg" alt="Act 1: the pilot seen through the drone's eyes, captioned: Down here it feels like war, up there it feels like work" loading="lazy">
+  <img src="/assets/portfolio/closeenough/act1-line6.jpg" alt="Act 1: the pilot seen through the drone's eyes, captioned: Every day down here and up there we go home, we sleep, we dream" loading="lazy">
+</div>
+<p class="text-muted" style="font-size:0.8rem;margin-top:0.5rem;"><em>Act 1: the pilot sleeps beneath their own drones and dreams in the language of the machine.</em></p>
+
 <p class="text-muted"><em>Captures from the drone feed.</em></p>
 
 <style>
