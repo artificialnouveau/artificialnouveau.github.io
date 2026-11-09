@@ -457,7 +457,10 @@ html, body {
 .fw-logo { width: 13mm; height: 13mm; display: block; }
 
 .strip.dfa-pair { grid-template-columns: 1fr 55mm; }
-.strip.dfa-pair .slot { height: 76mm; }
+.strip.dfa-pair .slot { height: 58mm; }
+.strip.dfa-hero { grid-template-columns: 1fr; }
+.strip.dfa-hero .slot { height: 58mm; }
+.strip.dfa-pair { margin-top: 3mm; }
 
 /* ---------- Motion (screen only) ---------- */
 @media screen {
@@ -811,10 +814,17 @@ html, body {
   </div>
   <p class="medium">The Deepfake Archive &middot; online archive, interactive network graph, curatorial panels</p>
 
-  <div class="strip dfa-pair">
-    <div class="slot"><img src="../assets/deepfake-archive-preview/archive-graph.jpg" alt="The archive drawn as a network graph of artifacts over an aerial view of a data centre, with sixteen labelled rooms"></div>
-    <div class="slot"><img src="../assets/portfolio/print/dfa-panel.jpg" alt="A curatorial panel from the racism room, naming the source, the trope and what was generated"></div>
+  <div class="strip dfa-hero">
+    <div class="slot"><img src="../assets/deepfake-archive-preview/btf-overview-2026-11.jpg" alt="The archive's front page: twenty-five blue folders under ten headings, wired together over an aerial photo of the xAI Memphis data centre"></div>
   </div>
+  <div class="strip dfa-pair">
+    <div class="slot contain"><img src="../assets/deepfake-archive-preview/btf-panel-2026-11.jpg" alt="An open entry: the bby wow party dance and its Genjutsu copies, with the curatorial panel listing medium, toolchain, consent and sources"></div>
+    <div class="slot">
+      <img class="m-print" src="../assets/deepfake-archive-preview/bby-wow-dance-poster.jpg" alt="Still from the bby wow dance grid: the original party dance beside AI copies as Ken, Chani, Wednesday, Kobe Bryant and Obama">
+      <video class="m-screen" src="../assets/deepfake-archive-preview/bby-wow-dance.mp4" poster="../assets/deepfake-archive-preview/bby-wow-dance-poster.jpg" autoplay muted loop playsinline></video>
+    </div>
+  </div>
+  <p class="caption">Top: the archive's front page. Bottom: an entry from Higgsfield + Plagiarism, a party dance copied onto Ken, Chani, Wednesday, Kobe Bryant and Obama with Higgsfield Genjutsu.</p>
 
   <div class="cols">
     <div class="prose">
