@@ -13,8 +13,36 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:nias-kb-fellowship-2027-28@artificialnouveau.github.io
+DTSTAMP:20261109T125825Z
+TRANSP:TRANSPARENT
+DTSTART:20270315T103000Z
+DTEND:20270315T110000Z
+SUMMARY:Deadline 12:00 CET: KB Fellowship at NIAS 2027-2028 (National Libra
+ ry of the Netherlands collections incl. born-digital\; artists and researc
+ hers)
+DESCRIPTION:Closes 15 Mar 2027 at 12:00 CET.\n\nOne fellowship a year for w
+ ork with the KB's collections\, facilities and expertise\, including its l
+ arge digitised and born-digital holdings. Artists are explicitly eligible\
+ , both for artistic production as a research strategy and for research ahe
+ ad of production\, though NIAS provides no studio\, materials or tools.\n\
+ nOrganisation: NIAS-KNAW (Netherlands Institute for Advanced Study) with t
+ he KB\, National Library of the Netherlands\nLocation: Amsterdam (NIAS) wi
+ th access to the KB in The Hague. Present 4 days a week.\nAward: Personal 
+ stipend (figure not published)\; scholars at Dutch institutions get a Dutc
+ h University Grant paid to their institution instead. Office\, subsidised 
+ Amsterdam housing where eligible (otherwise local transport reimbursement)
+ . No application fee.\nDuration: 5 months\, September 2027 to end of Janua
+ ry 2028\n\nMore: https://nias.knaw.nl/fellowships/kb-fellowship?utm_source
+ =artificialnouveaugrantdesk&utm_medium=referral
+URL:https://nias.knaw.nl/fellowships/kb-fellowship?utm_source=artificialnou
+ veaugrantdesk&utm_medium=referral
+LOCATION:Amsterdam (NIAS) with access to the KB in The Hague. Present 4 day
+ s a week.
+END:VEVENT
+BEGIN:VEVENT
 UID:schloss-wiepersdorf-fellowships-2028@artificialnouveau.github.io
-DTSTAMP:20261109T125714Z
+DTSTAMP:20261109T125825Z
 TRANSP:TRANSPARENT
 DTSTART:20270415T212900Z
 DTEND:20270415T215900Z
@@ -41,7 +69,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ecf-erasmus-40-creative-research-fellowship-2027@artificialnouveau.gith
  ub.io
-DTSTAMP:20261109T125714Z
+DTSTAMP:20261109T125825Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T153000Z
 DTEND:20261201T160000Z
@@ -73,7 +101,7 @@ LOCATION:Research stay in Florence\, Italy (Historical Archives of the EU)
 END:VEVENT
 BEGIN:VEVENT
 UID:khk-cure-fellowships-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261109T125714Z
+DTSTAMP:20261109T125825Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
@@ -106,7 +134,7 @@ LOCATION:Saarbruecken\, Germany. Fellows must live in Saarbruecken during t
 END:VEVENT
 BEGIN:VEVENT
 UID:zzf-leibniz-summer-fellowships-2027@artificialnouveau.github.io
-DTSTAMP:20261109T125714Z
+DTSTAMP:20261109T125825Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
@@ -132,7 +160,7 @@ LOCATION:Potsdam / Berlin\, Germany. Open to international postdoctoral res
 END:VEVENT
 BEGIN:VEVENT
 UID:ku-leuven-ai-safety-lab-fellowships-2027@artificialnouveau.github.io
-DTSTAMP:20261109T125714Z
+DTSTAMP:20261109T125825Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
@@ -155,7 +183,7 @@ LOCATION:Leuven\, Belgium. Open internationally\; three months in residence
 END:VEVENT
 BEGIN:VEVENT
 UID:mensch-maschine-visit-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261109T125714Z
+DTSTAMP:20261109T125825Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T222900Z
 DTEND:20261201T225900Z
@@ -187,7 +215,7 @@ LOCATION:E-WERK Luckenwalde\, Brandenburg\, Germany (3 fellows) and Akademi
 END:VEVENT
 BEGIN:VEVENT
 UID:eth-ai-center-fellowships-2027@artificialnouveau.github.io
-DTSTAMP:20261109T125714Z
+DTSTAMP:20261109T125825Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261027
 DTEND;VALUE=DATE:20261028
@@ -210,7 +238,7 @@ LOCATION:Zurich\, Switzerland. In person at ETH Zurich.
 END:VEVENT
 BEGIN:VEVENT
 UID:hiig-impact-ai-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261109T125714Z
+DTSTAMP:20261109T125825Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270115
 DTEND;VALUE=DATE:20270116
@@ -240,7 +268,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:jane-street-graduate-research-fellowship-2027@artificialnouveau.github.
  io
-DTSTAMP:20261109T125714Z
+DTSTAMP:20261109T125825Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
