@@ -385,6 +385,31 @@ WEEKLY_DROP_SINCE = date(2026, 9, 6)
 WEEKLY_BY_ADDED_SINCE = date(2026, 11, 8)
 
 
+# From this Sunday on, each drop is grouped by opportunity type: items run
+# Grants, Residencies, Fellowships, Prizes, then anything untyped, by deadline
+# within each group, and every title starts with its type ("Residency: ...").
+# Feeds filtered to one type keep plain titles, since the group says nothing.
+# Readers sort by pubDate, so items in a grouped drop are stamped one second
+# apart (the first item at the recorded release moment, each later one a
+# second earlier); readers showing newest first then keep the group order.
+# Drops before this date keep their published order and titles.
+DROP_GROUPED_SINCE = date(2026, 11, 15)
+# Display order of the groups. Shared with feed_group() below.
+DROP_GROUP_ORDER = ["grants", "residencies", "fellowships", "prizes", None]
+DROP_GROUP_LABELS = {"grants": "Grant", "residencies": "Residency",
+                     "fellowships": "Fellowship", "prizes": "Prize", None: "Open call"}
+
+
+def feed_group(g):
+    """The one group a grant is listed under in a grouped drop. Many grants
+    match several types (a residency with a stipend also reads as a grant), so
+    the most specific type wins: residency, then fellowship, prize, grant."""
+    for t in ("residencies", "fellowships", "prizes", "grants"):
+        if type_matches(g, t):
+            return t
+    return None
+
+
 def added_date(g):
     return parse_date(g.get("addedDate") or g.get("feedDate"))
 
@@ -570,7 +595,7 @@ def drop_body(g, sunday, gurl, bits):
     return "".join(parts)
 
 
-def build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=None):
+def build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=None, opp_type=None):
     """One week as a Sunday drop: one item per grant, no header item.
 
     Plain-text renderers such as Slack's RSS app truncate every item at a fixed
@@ -592,14 +617,21 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=None):
     ]
     if not open_at_stamp:
         return ""
-    pub = rfc822(stamp or drop_stamp(sunday))
+    base = stamp or drop_stamp(sunday)
+    grouped = sunday >= DROP_GROUPED_SINCE
+
+    def order(x):
+        # Ties on deadline break on id: the recording run sees grants.json order and
+        # every later run the ledger's sorted ids, so without the id the items of a
+        # recorded drop would reshuffle (and commit) on the next run.
+        key = (parse_date(x.get("deadline")) or date.max, str(x.get("id") or ""))
+        if grouped:
+            return (DROP_GROUP_ORDER.index(feed_group(x)),) + key
+        return key
 
     items = []
-    # Ties on deadline break on id: the recording run sees grants.json order and
-    # every later run the ledger's sorted ids, so without the id the items of a
-    # recorded drop would reshuffle (and commit) on the next run.
-    for g in sorted(open_at_stamp, key=lambda x: (parse_date(x.get("deadline")) or date.max,
-                                                  str(x.get("id") or ""))):
+    for pos, g in enumerate(sorted(open_at_stamp, key=order)):
+        pub = rfc822(base - timedelta(seconds=pos)) if grouped else rfc822(base)
         # No visible URL line here: unlike the digest era, the grant's link is
         # the item's own <link>, which every renderer (Slack included) puts on
         # the title.
@@ -609,9 +641,11 @@ def build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=None):
         key = g.get("id") or g.get("url") or str(g.get("title", "Untitled"))
         guid = f"{PAGE_URL}{slug}#week-{monday.isoformat()}-{key}"
         body = drop_body(g, sunday, gurl, bits)
+        prefix = (f"{DROP_GROUP_LABELS[feed_group(g)]}: "
+                  if grouped and opp_type is None else "")
         items.append(
             "  <item>\n"
-            f"    <title>{drop_title(g, gtitle, sunday)}</title>\n"
+            f"    <title>{prefix}{drop_title(g, gtitle, sunday)}</title>\n"
             f"    <link>{gurl}</link>\n"
             f'    <guid isPermaLink="false">{escape(guid)}</guid>\n'
             f"    <pubDate>{pub}</pubDate>\n"
@@ -632,7 +666,8 @@ def build_weekly_item(monday, grants_in_week, today, slug, category=None, opp_ty
     """
     sunday = monday + timedelta(days=6)
     if sunday >= WEEKLY_DROP_SINCE:
-        return build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=stamp)
+        return build_weekly_drop_items(monday, grants_in_week, today, slug, stamp=stamp,
+                                       opp_type=opp_type)
     label = monday.strftime("%d %b %Y")
 
     # pubDate must not sit in the future or readers may hide the item: for the

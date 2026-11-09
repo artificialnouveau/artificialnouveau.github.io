@@ -3,6 +3,48 @@
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
+      "id": "computala-2027-superstition-and-the-machine",
+      "title": "COMPUTALA 2027 open call: Superstition and the Machine (LCB Depot x New Media Art Club, Leicester)",
+      "organization": "LCB Depot with New Media Art Club",
+      "location": "Leicester, UK (LCB Depot). Open to UK and international applicants; international work can only be shown digitally.",
+      "region": "UK",
+      "amount": "GBP 50 participation fee for each selected artist (funded by Arts Council England Project Grants). Free to enter. Work can be sold; the retail partner takes a 20 percent admin fee on sales.",
+      "duration": "Exhibition 11 to 30 January 2027 (launch 8 January)",
+      "startDate": "2027-01-08",
+      "deadline": "2026-12-04",
+      "deadlineTime": "23:59",
+      "deadlineTz": "Europe/London",
+      "addedDate": "2026-11-09",
+      "feedDate": null,
+      "category": "arts",
+      "categories": [
+        "tech"
+      ],
+      "applicant": "individuals",
+      "description": "COMPUTALA is LCB Depot's annual January season on technology in contemporary art practice, made this year with New Media Art Club. The 2027 exhibition, Superstition and the Machine, invites artists, technologists and creative practitioners to explore the intersections of technology, magic, ritual and digital folklore, from any perspective. Work in all media is welcome: digital art, interactive installations, creative coding, video, sound, performance, net art, games, physical computing and experimental forms. OFFER: GBP 50 participation fee for selected applicants, exhibition at LCB Depot (and possibly other venues) plus online promotion, the option to sell work, and free use of the space as a studio during the season. The season also hosts events, workshops, talks and screenings (family day 9 January, closing 29 January); send proposals to hi@newmediaart.club. ELIGIBILITY: open to all, whether based in Leicester/shire, the East Midlands or elsewhere; international work is shown digitally only. Existing work is recommended given the tight turnaround; selected work must be delivered by 18 December 2026. APPLY via the Google Form; free to enter, alternative formats available on request. DEADLINE: 4 December 2026, 23:59.",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSd1B0w4TuOQ42R9W3cZSTPtH2ZdMQRL3if7w8qw_tTTrpkvXg/viewform",
+      "tags": [
+        "open-call",
+        "exhibition",
+        "digital-art",
+        "creative-coding",
+        "net-art",
+        "digital-folklore",
+        "physical-computing",
+        "games",
+        "leicester",
+        "uk",
+        "honorarium",
+        "no-fee"
+      ],
+      "fee": false,
+      "featured": false,
+      "eligibility": "open",
+      "attendance": "hybrid",
+      "career": "any",
+      "ageCap": null
+    },
+    {
       "addedDate": "2026-11-09",
       "feedDate": null,
       "featured": false,
@@ -391,7 +433,8 @@
         "socially-engaged",
         "organisations",
         "international-collaboration",
-        "no-fee"
+        "no-fee",
+        "grant"
       ],
       "fee": false,
       "eligibility": "residents",
