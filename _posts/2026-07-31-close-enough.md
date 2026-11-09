@@ -23,6 +23,11 @@ Special thanks to [CrossFit Coolhaven](https://crossfitcoolhaven.nl/) for lettin
 <div style="padding:56.25% 0 0 0;position:relative;margin-top:2rem;"><iframe src="https://www.youtube-nocookie.com/embed/yO1R1qSRDXM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="GOGBOT 2026 aftermovie"></iframe></div>
 <p class="text-muted" style="font-size:0.8rem;margin-top:0.5rem;"><em>GOGBOT 2026 aftermovie, by GOGBOT &amp; TEC ART Festivals.</em></p>
 
+<figure style="max-width:720px;margin:2.5rem auto;">
+  <img src="/assets/portfolio/closeenough/gogbot-2026-fpv-pilot.jpg" alt="The pilot in FPV goggles at GOGBOT Festival 2026, a drone hovering behind a site fence" loading="lazy" style="width:100%;height:auto;display:block;margin:0;border:none;">
+  <figcaption style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.04em;color:var(--color-muted);margin-top:0.5rem;">The pilot's shift: flying in FPV goggles at GOGBOT Festival, Enschede, 2026.</figcaption>
+</figure>
+
 <p class="text-muted"><em>In development. Early captures from the drone feed below; full documentation to follow.</em></p>
 
 <style>
