@@ -1,7 +1,7 @@
 ---
 title: "Close Enough"
 thumbnail: /assets/portfolio/closeenough/close-enough-thumb.png
-excerpt: "A performative installation about the intimacy of drone surveillance, using autonomous drones, computer vision, and the visual language of military intelligence. To be presented at GOGBOT Festival 2026."
+excerpt: "A live performance and interactive installation about the intimacy of drone surveillance, using autonomous drones, computer vision, and the visual language of military intelligence. Premiered at GOGBOT Festival 2026."
 indexing: false
 category: "Installation"
 ---
@@ -12,7 +12,7 @@ That intimacy changes with the machine. A MALE (medium-altitude, long-endurance)
 
 Close Enough uses autonomous drones, computer vision, and the visual language of military intelligence to recreate this watching and place the audience inside it. Visitors find themselves on both sides of the apparatus at once, watching the surveillance unfold and gradually recognising themselves within it, held in the uneasy position of having been known by something long before they noticed it looking. The work unfolds in three acts. In the first act, a pilot sleeps beneath their own drones and dreams in the language of the machine, while the audience watches the sleeper through its eyes. In the second act, a video essay scrolls through the feed of a drone-war veteran, tracing how the screens that carry friendships and love came to carry war as well, until strangers' last moments scrolled past in the same feed. In the third act, the pilot's shift begins and the watching turns onto the room itself: wearing FPV goggles, the pilot hunts the audience with live drones, and each visitor is noticed, followed, recorded, and filed. After the show, the recordings are cut into clips and uploaded to social media for views, and the audience joins the feed they have just been watching.
 
-Close Enough will be presented at [GOGBOT Festival](https://gogbot.nl/) in Enschede in September 2026.
+Close Enough premiered at [GOGBOT Festival](https://gogbot.nl/) in Enschede in September 2026.
 
 In collaboration with [Flora Reznik](https://florareznik.com/) (film editor) and [Luz Lassizuk](https://www.luzlassizuk.com/en/biography/) (dramaturg).
 
@@ -28,7 +28,7 @@ Special thanks to [CrossFit Coolhaven](https://crossfitcoolhaven.nl/) for lettin
   <figcaption style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.04em;color:var(--color-muted);margin-top:0.5rem;">The pilot's shift: flying in FPV goggles at GOGBOT Festival, Enschede, 2026.</figcaption>
 </figure>
 
-<p class="text-muted"><em>In development. Early captures from the drone feed below; full documentation to follow.</em></p>
+<p class="text-muted"><em>Captures from the drone feed.</em></p>
 
 <style>
 .ce-wall {
