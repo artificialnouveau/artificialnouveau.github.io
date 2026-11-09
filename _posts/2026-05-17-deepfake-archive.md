@@ -7,7 +7,7 @@ indexing: false
 category: "Archive"
 ---
 
-Welcome to Believe the Feed, an active archive of deepfakes and synthetic media, sourced and curated by Ahnjili ZhuParris. Believe the Feed premiered at [MozFest 2026](https://www.mozillafestival.org/) in Barcelona.
+Welcome to Believe the Feed, an active archive of deepfakes and synthetic media, sourced and curated by me, Ahnjili ZhuParris. Believe the Feed premiered at [MozFest 2026](https://www.mozillafestival.org/) in Barcelona.
 
 Much of the discourse and legislation around deepfakes focuses on porn and political disinformation. Ever since the first deepfake was uploaded to Reddit in 2017, synthetic media has also moved into scams, grief, care, advertising, fake lifestyles, music videos, satire and the courtroom. The archive gathers these uses so we can think together about how this technology should be regulated.
 
