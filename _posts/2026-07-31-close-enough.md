@@ -20,6 +20,9 @@ Special thanks to [CrossFit Coolhaven](https://crossfitcoolhaven.nl/) for lettin
 
 <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1225022507?h=b0fb173610&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="CLOSE ENOUGH"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 
+<div style="padding:56.25% 0 0 0;position:relative;margin-top:2rem;"><iframe src="https://www.youtube-nocookie.com/embed/yO1R1qSRDXM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="GOGBOT 2026 aftermovie"></iframe></div>
+<p class="text-muted" style="font-size:0.8rem;margin-top:0.5rem;"><em>GOGBOT 2026 aftermovie, by GOGBOT &amp; TEC ART Festivals.</em></p>
+
 <p class="text-muted"><em>In development. Early captures from the drone feed below; full documentation to follow.</em></p>
 
 <style>
