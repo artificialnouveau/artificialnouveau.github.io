@@ -456,11 +456,10 @@ html, body {
 .fw-yr { display: flex; flex-direction: column; align-items: flex-end; gap: 3mm; }
 .fw-logo { width: 13mm; height: 13mm; display: block; }
 
-.strip.dfa-pair { grid-template-columns: 1fr 55mm; }
-.strip.dfa-pair .slot { height: 58mm; }
-.strip.dfa-hero { grid-template-columns: 1fr; }
-.strip.dfa-hero .slot { height: 58mm; }
-.strip.dfa-pair { margin-top: 3mm; }
+/* Believe the Feed: full folder layout (uncropped, 16:10) beside the clip (720x852) */
+.strip.dfa-pair { grid-template-columns: 1600fr 845fr; margin-top: 6mm; }
+.strip.dfa-pair .slot { height: auto; aspect-ratio: 1920 / 1200; }
+.strip.dfa-pair .slot.dfa-clip { aspect-ratio: 720 / 852; }
 
 /* ---------- Motion (screen only) ---------- */
 @media screen {
@@ -815,21 +814,18 @@ html, body {
   </div>
   <p class="medium">The Deepfake Archive &middot; online archive, interactive network graph, curatorial panels</p>
 
-  <div class="strip dfa-hero">
-    <div class="slot"><img src="../assets/deepfake-archive-preview/btf-overview-2026-11.jpg" alt="The archive's front page: twenty-five blue folders under ten headings, wired together over an aerial photo of the xAI Memphis data centre"></div>
-  </div>
   <div class="strip dfa-pair">
-    <div class="slot contain"><img src="../assets/deepfake-archive-preview/btf-panel-2026-11.jpg" alt="An open entry: the bby wow party dance and its Genjutsu copies, with the curatorial panel listing medium, toolchain, consent and sources"></div>
-    <div class="slot">
+    <div class="slot"><img src="../assets/deepfake-archive-preview/btf-overview-2026-11.jpg" alt="The archive's front page: blue folders grouped by intent, wired together over an aerial photo of the xAI Memphis data centre"></div>
+    <div class="slot dfa-clip">
       <img class="m-print" src="../assets/deepfake-archive-preview/bby-wow-dance-poster.jpg" alt="Still from the bby wow dance grid: the original party dance beside AI copies as Ken, Chani, Wednesday, Kobe Bryant and Obama">
       <video class="m-screen" src="../assets/deepfake-archive-preview/bby-wow-dance.mp4" poster="../assets/deepfake-archive-preview/bby-wow-dance-poster.jpg" autoplay muted loop playsinline></video>
     </div>
   </div>
-  <p class="caption">Top: the archive's front page. Bottom: an entry from Higgsfield + Plagiarism, a party dance copied onto Ken, Chani, Wednesday, Kobe Bryant and Obama with Higgsfield Genjutsu.</p>
+  <p class="caption">Left: the archive's folder layout. Right: a party dance copied onto Ken, Chani, Wednesday, Kobe Bryant and Obama with Higgsfield Genjutsu.</p>
 
   <div class="cols">
     <div class="prose">
-      <p>Believe the Feed is an online, interactive archive of synthetic media artifacts, organised as a network graph. The editorial spine is intent at creation, not technique. Twenty-five folders sit under ten headings (Political, Abuse, Sell, Steal, Evidence, Resurrect, Restore, Entertain, Art and a final question mark), running from slopaganda and the Trump administration through synthetic performers, the slop economy, scams and plagiarism to courtrooms, grief, music videos and the cases that refuse to settle: is it porn, is it activism, or simply, wtf?</p>
+      <p>Believe the Feed is an active archive of deepfakes and synthetic media. Much of the discourse and legislation around deepfakes focuses on porn and political disinformation, but since the first deepfake was uploaded to Reddit in 2017, synthetic media has also moved into scams, grief, care, advertising, fake lifestyles, music videos, satire and the courtroom. Since making <em>DEEPFAKE: A Video Essay</em>, I have been cataloguing these unusual and emerging uses, organised by intent at creation rather than technique, so that researchers and legislators can think together about how the technology should be regulated.</p>
       <p>Each artifact carries a curatorial panel that names the toolchain, the consent status and the concrete consequence to the people involved, in a register that is allergic to both AI-hype credulity and moral-panic credulity. Where the artifact itself is abuse, the panels link to journalism and court documents instead of exhibiting the media.</p>
     </div>
     <aside class="meta">
@@ -837,7 +833,7 @@ html, body {
         <dt>Medium</dt>
         <dd>Online archive. Interactive network graph, curatorial panels, structured metadata.</dd>
         <dt>Structure</dt>
-        <dd>Twenty-five folders under ten headings, one artifact per node, edges by shared intent and toolchain.</dd>
+        <dd>Folders by intent at creation, one artifact per node, edges by shared intent and toolchain.</dd>
         <dt>Premiered</dt>
         <dd>MozFest 2026, Barcelona, Spain</dd>
         <dt>Status</dt>

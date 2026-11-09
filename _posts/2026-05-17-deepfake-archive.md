@@ -2,29 +2,24 @@
 title: "Believe the Feed: The Deepfake Archive"
 thumbnail: /assets/deepfake-archive-preview/btf-overview-2026-11.jpg
 thumbnail_position: center
-excerpt: "Believe the Feed is an online interactive archive of synthetic media artifacts, organized by intent at creation into 25 folders under ten headings."
+excerpt: "An active archive of deepfakes and synthetic media, from scams and grief to advertising, satire and the courtroom. Premiered at MozFest 2026."
 indexing: false
 category: "Archive"
 ---
 
-Believe the Feed is an online interactive archive of synthetic media artifacts, organized as a network graph. Believe the Feed premiered at [MozFest 2026](https://www.mozillafestival.org/) in Barcelona. The editorial spine is intent at creation, not technique. The archive holds 25 folders grouped under ten headings:
+Welcome to Believe the Feed, an active archive of deepfakes and synthetic media, sourced and curated by Ahnjili ZhuParris. Believe the Feed premiered at [MozFest 2026](https://www.mozillafestival.org/) in Barcelona.
 
-- **Political:** Slopaganda; The Trump Administration
-- **Abuse:** Race: Erasure & Hypervisibility; Porn & Intimate Partner Violence; Harassment and Bullying
-- **Sell:** Faking Yourself for a Living; AI LARP; Demos; Synthetic Performers; The Slop Economy
-- **Steal:** Scam, Fraud, and Social Engineering; Higgsfield + Plagiarism
-- **Evidence:** A Day in Court; News and Documentaries
-- **Resurrect:** Death in the Feed; History and Faith
-- **Restore:** Care; Grief
-- **Entertain:** Hollywood & Gaming; Humor & Satire
-- **Art:** Video Art; Music Videos
-- **?:** Well, wtf?; Is it Porn?; Is it Activism?
+Much of the discourse and legislation around deepfakes focuses on porn and political disinformation. Ever since the first deepfake was uploaded to Reddit in 2017, synthetic media has also moved into scams, grief, care, advertising, fake lifestyles, music videos, satire and the courtroom. The archive gathers these uses so we can think together about how this technology should be regulated.
 
-Each artifact carries a curatorial panel that names the toolchain, the consent status, and the concrete consequence to the people involved, in a register that is allergic to both AI-hype credulity and moral-panic credulity.
+Since making [DEEPFAKE: A Video Essay](/gallery/deepfake/), I have been cataloguing the unusual and emerging ways deepfakes and synthetic media are being used. New tools, genres and harms appear every few months, and most of them scroll out of the feed before anyone has had the chance to name them. Policy tends to be written for the cases that make headlines; this archive is an attempt to keep a record of everything else.
+
+The archive is organised by intent at creation rather than by technique: who made a piece, and what it was made to do. Each artifact carries a curatorial panel that names the toolchain, the consent status and the concrete consequence for the people involved, steering clear of both AI-hype credulity and moral panic.
+
+I hope the archive is useful to researchers and legislators trying to understand the current and still developing ecosystem of AI-generated social media.
 
 <figure class="btf-clip">
   <video src="/assets/deepfake-archive-preview/bby-wow-dance.mp4" poster="/assets/deepfake-archive-preview/bby-wow-dance-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-  <figcaption>From Higgsfield + Plagiarism: a party dance posted to YouTube, copied onto Ken, Chani, Wednesday, Kobe Bryant and Obama with Higgsfield Genjutsu, without the dancers' consent.</figcaption>
+  <figcaption><a href="/deepfakearchive/?item=bby-wow-dance-genjutsu-copies-2026" target="_blank" rel="noopener">View in the archive &rarr;</a></figcaption>
 </figure>
 
 <div class="btf-embed">
