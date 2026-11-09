@@ -13,8 +13,34 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
+UID:weizenbaum-affiliated-fellowship-rolling@artificialnouveau.github.io
+DTSTAMP:20261109T131813Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Deadline: Weizenbaum Institute: Affiliated Fellowship with a resear
+ ch group (Berlin\; EUR 3\,000 to 5\,000/month\, deadline 30 Nov 2026)
+DESCRIPTION:Short guest fellowships embedded in Weizenbaum Institute resear
+ ch groups working on platforms\, digital society\, AI and technology. ELIG
+ IBILITY: researchers from doctoral candidates upward\; artists are not men
+ tioned.\n\nOrganisation: Weizenbaum Institute for the Networked Society\nL
+ ocation: Berlin\, Germany. In person.\nAward: Monthly allowance of EUR 3\,
+ 000 (doctoral)\, EUR 4\,000 (postdoc incl. assistant/associate professors)
+  or EUR 5\,000 (professors)\; EUR 2\,500 / 3\,500 if salary continues. Plu
+ s EUR 500/month child allowance and a travel lump sum of EUR 200 (Germany)
+ \, 500 (Europe) or 1\,200 (outside Europe). No application fee.\nDuration:
+  1 to 3 months\n\nMore: https://www.weizenbaum-institut.de/en/institute/wo
+ rk-and-career/fellowships/translate-to-english-fellowship-bei-einer-forsch
+ ungsgruppe/-einheit/?utm_source=artificialnouveaugrantdesk&utm_medium=refe
+ rral
+URL:https://www.weizenbaum-institut.de/en/institute/work-and-career/fellows
+ hips/translate-to-english-fellowship-bei-einer-forschungsgruppe/-einheit/?
+ utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Berlin\, Germany. In person.
+END:VEVENT
+BEGIN:VEVENT
 UID:nias-kb-fellowship-2027-28@artificialnouveau.github.io
-DTSTAMP:20261109T125825Z
+DTSTAMP:20261109T131813Z
 TRANSP:TRANSPARENT
 DTSTART:20270315T103000Z
 DTEND:20270315T110000Z
@@ -42,7 +68,7 @@ LOCATION:Amsterdam (NIAS) with access to the KB in The Hague. Present 4 day
 END:VEVENT
 BEGIN:VEVENT
 UID:schloss-wiepersdorf-fellowships-2028@artificialnouveau.github.io
-DTSTAMP:20261109T125825Z
+DTSTAMP:20261109T131813Z
 TRANSP:TRANSPARENT
 DTSTART:20270415T212900Z
 DTEND:20270415T215900Z
@@ -69,7 +95,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ecf-erasmus-40-creative-research-fellowship-2027@artificialnouveau.gith
  ub.io
-DTSTAMP:20261109T125825Z
+DTSTAMP:20261109T131813Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T153000Z
 DTEND:20261201T160000Z
@@ -101,7 +127,7 @@ LOCATION:Research stay in Florence\, Italy (Historical Archives of the EU)
 END:VEVENT
 BEGIN:VEVENT
 UID:khk-cure-fellowships-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261109T125825Z
+DTSTAMP:20261109T131813Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
@@ -134,7 +160,7 @@ LOCATION:Saarbruecken\, Germany. Fellows must live in Saarbruecken during t
 END:VEVENT
 BEGIN:VEVENT
 UID:zzf-leibniz-summer-fellowships-2027@artificialnouveau.github.io
-DTSTAMP:20261109T125825Z
+DTSTAMP:20261109T131813Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
@@ -160,7 +186,7 @@ LOCATION:Potsdam / Berlin\, Germany. Open to international postdoctoral res
 END:VEVENT
 BEGIN:VEVENT
 UID:ku-leuven-ai-safety-lab-fellowships-2027@artificialnouveau.github.io
-DTSTAMP:20261109T125825Z
+DTSTAMP:20261109T131813Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
@@ -183,7 +209,7 @@ LOCATION:Leuven\, Belgium. Open internationally\; three months in residence
 END:VEVENT
 BEGIN:VEVENT
 UID:mensch-maschine-visit-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261109T125825Z
+DTSTAMP:20261109T131813Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T222900Z
 DTEND:20261201T225900Z
@@ -215,7 +241,7 @@ LOCATION:E-WERK Luckenwalde\, Brandenburg\, Germany (3 fellows) and Akademi
 END:VEVENT
 BEGIN:VEVENT
 UID:eth-ai-center-fellowships-2027@artificialnouveau.github.io
-DTSTAMP:20261109T125825Z
+DTSTAMP:20261109T131813Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261027
 DTEND;VALUE=DATE:20261028
@@ -238,7 +264,7 @@ LOCATION:Zurich\, Switzerland. In person at ETH Zurich.
 END:VEVENT
 BEGIN:VEVENT
 UID:hiig-impact-ai-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261109T125825Z
+DTSTAMP:20261109T131813Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270115
 DTEND;VALUE=DATE:20270116
@@ -268,7 +294,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:jane-street-graduate-research-fellowship-2027@artificialnouveau.github.
  io
-DTSTAMP:20261109T125825Z
+DTSTAMP:20261109T131813Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
