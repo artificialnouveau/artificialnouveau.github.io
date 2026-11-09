@@ -139,6 +139,21 @@ On June 29th 2024, I presented the Fashion Police Drones at the [New Media Art C
 
 From October 22nd to 25th 2026, Fashion Police Drones was shown at [Peckham Digital Festival](https://www.peckhamdigital.org/) in London, as part of the group exhibition [Mediating Behaviours](https://www.tickettailor.com/events/peckhamdigital/2434118) at Copeland Gallery.
 
+<div class="fpd-grid">
+  <figure>
+    <img src="/assets/portfolio/fpd/peckham-2026-install.jpg" alt="Installation view at Peckham Digital 2026: a red carpet runway running up the wall to two screens and drone shelves, a rail of costumes and wigs to the left" loading="lazy">
+    <figcaption>Installation view, Copeland Gallery</figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/portfolio/fpd/peckham-2026-drone.jpg" alt="A drone hovering beside the artist in camouflage in front of the costume rail and the red carpet wall" loading="lazy">
+    <figcaption>A drone on patrol beside the costume rail</figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/portfolio/fpd/peckham-2026-visitors.jpg" alt="Two visitors watching the screens on the red carpet wall, where the drone feed outlines and annotates a smiling face" loading="lazy">
+    <figcaption>Visitors reading the drone feed</figcaption>
+  </figure>
+</div>
+
 In this current phase of Fashion Police Drones, my algorithms enforce three different stages of the law. The first stage polices taste, and the taste is mine: the outfit is ruled cute or not cute by my own personal rules. The second polices identity. The drone guesses who you are (a student, a tourist, a protester, how old you are) and then judges whether your type belongs in the space. The third is a compilation of real dress and morality laws from around the world, applied all at once: every guess the machine makes is read out as fact, the charges are stacked, and the suspect is classed as an extremist, a subversive, a decadent, a parasite or, if nothing else fits, simply non-conforming.
 
 The work was also showcased at [AIAIAI.art](https://aiaiai.art/fashion-police), and in May 2024 I was interviewed by dublab about the project: [Artificial Nouveau: Fashion Police Drones](http://dublab.de/broadcasts/artificial-nouveau-fashion-police-drones-may-2024/).
