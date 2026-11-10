@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:first-plinth-public-art-award-2027@artificialnouveau.github.io
-DTSTAMP:20261110T175142Z
+DTSTAMP:20261110T192332Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270112
 DTEND;VALUE=DATE:20270113
@@ -40,7 +40,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bfi-network-england-early-development-fund-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20261110T175142Z
+DTSTAMP:20261110T192332Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261111
 DTEND;VALUE=DATE:20261112
@@ -67,7 +67,7 @@ LOCATION:England. Writers must be based in England.
 END:VEVENT
 BEGIN:VEVENT
 UID:golden-fleece-award-2027@artificialnouveau.github.io
-DTSTAMP:20261110T175142Z
+DTSTAMP:20261110T192332Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261211
 DTEND;VALUE=DATE:20261212
@@ -94,7 +94,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:costar-southbank-creative-intelligence-award-2027@artificialnouveau.git
  hub.io
-DTSTAMP:20261110T175142Z
+DTSTAMP:20261110T192332Z
 TRANSP:TRANSPARENT
 DTSTART:20261217T133000Z
 DTEND:20261217T140000Z
@@ -121,5 +121,27 @@ URL:https://www.costarnetwork.co.uk/calls/the-creative-intelligence-award?u
 LOCATION:UK (lead applicant must be a UK-registered company\; project activ
  ity UK-based). Prototyping at Pinewood Studios\; showcase at Southbank Cen
  tre\, London.
+END:VEVENT
+BEGIN:VEVENT
+UID:whickers-film-tv-funding-award-2027@artificialnouveau.github.io
+DTSTAMP:20261110T192332Z
+TRANSP:TRANSPARENT
+DTSTART:20270122T113000Z
+DTEND:20270122T120000Z
+SUMMARY:Deadline 12:00 GMT: The Whickers Film & TV Funding Award 2027 (GBP 
+ 120\,000 for a first feature documentary)
+DESCRIPTION:Closes 22 Jan 2027 at 12:00 GMT.\n\nThe Whickers Film & TV Fund
+ ing Award backs a director-led documentary by a first-time feature directo
+ r. The winner receives GBP 120\,000 and the runner-up a GBP 25\,000 develo
+ pment award.\n\nOrganisation: The Whickers\nLocation: Open worldwide. Shor
+ tlisted directors pitch in person at Sheffield DocFest\, UK\, June 2027 (t
+ ravel and accommodation covered).\nAward: GBP 120\,000 main award\; GBP 25
+ \,000 development award for the runner-up. Free to enter.\n\nMore: https:/
+ /www.whickerawards.com/apply/film-and-tv/?utm_source=artificialnouveaugran
+ tdesk&utm_medium=referral
+URL:https://www.whickerawards.com/apply/film-and-tv/?utm_source=artificialn
+ ouveaugrantdesk&utm_medium=referral
+LOCATION:Open worldwide. Shortlisted directors pitch in person at Sheffield
+  DocFest\, UK\, June 2027 (travel and accommodation covered).
 END:VEVENT
 END:VCALENDAR
