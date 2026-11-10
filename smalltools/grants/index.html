@@ -14788,9 +14788,11 @@ async function load() {
   refreshPickStates();
   refreshExportCounts();
   loadPrevVisit();
+  loadSeenIds();
   setupNewBanner(data.grants || []);
   markFolderNewness(data.grants || []);
   refreshNewBanner(data.grants || []);
+  recordSeenIds(data.grants || []);
 
   document.getElementById('meta-hot').textContent = buckets.hot.length === 1 ? '1 grant' : `${buckets.hot.length} grants`;
   document.getElementById('meta-new').textContent = buckets.new.length === 1 ? '1 grant' : `${buckets.new.length} grants`;
@@ -15800,6 +15802,45 @@ function loadAckIds() {
 let PREV_VISIT_DATE = null; // calendar date (YYYY-MM-DD) of the previous visit
 let NEW_ONLY = false;
 
+// Grant IDs this browser has already been shown, each with the time it was first
+// shown while flagged NEW (0 = was already old when recorded). This is what decides
+// newness once it exists: a grant is new only until a later visit has seen it, so
+// yesterday's additions stop being NEW as soon as you've looked at them, while a
+// late-evening addition you never saw stays NEW. null = nothing recorded yet (first
+// visit, or a browser from before this key existed), which falls back to the
+// date-based rules in isNewGrant for that one visit.
+const SEEN_KEY = 'grantdesk-seen-ids';
+// Reloads and quick return trips within this span keep the badges, so a refresh
+// does not wipe what you were in the middle of reading.
+const SEEN_GRACE_MS = 30 * 60 * 1000;
+let PREV_SEEN = null;
+
+function loadSeenIds() {
+  PREV_SEEN = null;
+  try {
+    const raw = localStorage.getItem(SEEN_KEY);
+    if (raw) {
+      const obj = JSON.parse(raw);
+      if (obj && typeof obj === 'object') PREV_SEEN = new Map(Object.entries(obj));
+    }
+  } catch (e) { PREV_SEEN = null; }
+}
+
+// Store every grant that has arrived (not future-queued) as seen. IDs already on
+// record keep their first-seen time; newcomers get "now" if they are showing as
+// NEW on this visit, else 0. IDs no longer in the data are dropped.
+function recordSeenIds(grants) {
+  const today = localDayStr();
+  const now = Date.now();
+  const out = {};
+  for (const g of grants) {
+    if (!g.id || (g.addedDate && g.addedDate > today)) continue;
+    const first = PREV_SEEN ? PREV_SEEN.get(g.id) : undefined;
+    out[g.id] = first !== undefined ? first : (isNewGrant(g) ? now : 0);
+  }
+  try { localStorage.setItem(SEEN_KEY, JSON.stringify(out)); } catch (e) { /* storage full or blocked */ }
+}
+
 // Local calendar day (YYYY-MM-DD). toISOString() would give the UTC day, which
 // misclassifies today's additions as "future queued" for visitors east of UTC
 // (e.g. NL between midnight and 1-2am).
@@ -15844,6 +15885,14 @@ function isNewGrant(grant) {
   if (ack && grant.addedDate === ack) {
     if (loadAckIds().has(grant.id)) return false;
   }
+  // Once this browser has a seen-ID record, it alone decides: new until a visit
+  // after the grace period has shown it.
+  if (PREV_SEEN) {
+    const first = PREV_SEEN.get(grant.id);
+    if (first === undefined) return true;
+    return first > 0 && (Date.now() - first) < SEEN_GRACE_MS;
+  }
+  // Fallback for a browser with no seen-ID record yet (one visit only).
   // Anything added within the last NEW_MIN_DAYS days stays new until explicitly
   // acknowledged, so late additions survive the midnight rollover.
   const windowStart = localDayStr(new Date(Date.now() - NEW_MIN_DAYS * 86400000));
