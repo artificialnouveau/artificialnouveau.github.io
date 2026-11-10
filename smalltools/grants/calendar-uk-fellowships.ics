@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:mats-residency-program-2026@artificialnouveau.github.io
-DTSTAMP:20261110T152903Z
+DTSTAMP:20261110T152929Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
@@ -40,7 +40,7 @@ LOCATION:In-person at MATS offices in Berkeley\, London\, or Washington DC\
 END:VEVENT
 BEGIN:VEVENT
 UID:pivotal-research-fellowship-2027-q1@artificialnouveau.github.io
-DTSTAMP:20261110T152903Z
+DTSTAMP:20261110T152929Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
@@ -67,7 +67,7 @@ LOCATION:London (London Initiative for Safe AI / LISA). In person\; meeting
 END:VEVENT
 BEGIN:VEVENT
 UID:tarbell-fellowship-2027-28@artificialnouveau.github.io
-DTSTAMP:20261110T152903Z
+DTSTAMP:20261110T152929Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261123
@@ -94,7 +94,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:upe-foundation-curatorial-fellow-gasworks-2027-2028@artificialnouveau.g
  ithub.io
-DTSTAMP:20261110T152903Z
+DTSTAMP:20261110T152929Z
 TRANSP:TRANSPARENT
 DTSTART:20261109T123000Z
 DTEND:20261109T130000Z
@@ -124,7 +124,7 @@ LOCATION:London\, UK. For early-career curators with a connection to the Ba
 END:VEVENT
 BEGIN:VEVENT
 UID:govai-summer-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261110T152903Z
+DTSTAMP:20261110T152929Z
 TRANSP:TRANSPARENT
 DTSTART:20261122T232900Z
 DTEND:20261122T235900Z
@@ -150,7 +150,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:jane-street-graduate-research-fellowship-2027@artificialnouveau.github.
  io
-DTSTAMP:20261110T152903Z
+DTSTAMP:20261110T152929Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
@@ -177,7 +177,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:exeter-arts-and-culture-creative-fellowships-2026-27@artificialnouveau.
  github.io
-DTSTAMP:20261110T152903Z
+DTSTAMP:20261110T152929Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
@@ -200,5 +200,35 @@ URL:https://www.artsandcultureexeter.co.uk/news/callout-for-artists-creativ
  erral
 LOCATION:Exeter\, UK (Exeter campus). No nationality or residence restricti
  on stated.
+END:VEVENT
+BEGIN:VEVENT
+UID:net-plus-centre-creative-fellowships-2027@artificialnouveau.github.io
+DTSTAMP:20261110T152929Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261115
+DTEND;VALUE=DATE:20261116
+SUMMARY:Deadline: Net+ Centre for Health and Climate Solutions: Creative Fe
+ llowships 2027 (incl. AI and environmental intelligence topic)
+DESCRIPTION:The Net+ Centre for Health and Climate Solutions offers three C
+ reative Fellowships in 2027: hosted\, exploratory placements that bring a 
+ creative practitioner of any artform (visual\, digital\, sound\, performin
+ g arts\, craft\, design\, film\, literature\, music) into a research or po
+ licy setting.\n\nOrganisation: Net+ Centre for Health and Climate Solution
+ s (University of Exeter)\, with the Centre for Environmental Intelligence\
+ , the National Trust and Natural England\nLocation: UK\; host-based placem
+ ents (University of Exeter Centre for Environmental Intelligence\, Nationa
+ l Trust\, Natural England). Interviews online. No nationality or residence
+  restriction stated.\nAward: GBP 6\,000 per fellowship (incl. VAT)\, cover
+ ing a 5-week practitioner fee\, equipment\, travel\, accommodation and pro
+ duction\, plus GBP 1\,000 for dissemination and engagement. Interviewees r
+ eceive GBP 100. No application fee.\nDuration: 5 weeks (in one block or sp
+ read over several months)\, completed between January and October 2027.\n\
+ nMore: https://netpositivecentre.com/collaborate/net-creative-fellowships-
+ 2027/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://netpositivecentre.com/collaborate/net-creative-fellowships-2027
+ /?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:UK\; host-based placements (University of Exeter Centre for Enviro
+ nmental Intelligence\, National Trust\, Natural England). Interviews onlin
+ e. No nationality or residence restriction stated.
 END:VEVENT
 END:VCALENDAR
