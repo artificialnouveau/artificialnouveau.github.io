@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:lukas-work-in-progress-awards-2027@artificialnouveau.github.io
-DTSTAMP:20261110T143937Z
+DTSTAMP:20261110T144436Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261203
 DTEND;VALUE=DATE:20261204
@@ -34,5 +34,30 @@ DESCRIPTION:The J. Anthony Lukas Work-in-Progress Awards\, given jointly by
 URL:https://columbiajournalismawards.submittable.com/submit?utm_source=arti
  ficialnouveaugrantdesk&utm_medium=referral
 LOCATION:USA. Requires a fully executed contract with a US-based publisher.
+END:VEVENT
+BEGIN:VEVENT
+UID:hillman-prizes-2027@artificialnouveau.github.io
+DTSTAMP:20261110T144436Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20270130
+DTEND;VALUE=DATE:20270131
+SUMMARY:Deadline: Hillman Prizes 2027 for Journalism (incl. Broadcast and D
+ ocumentary)
+DESCRIPTION:The Hillman Prizes honour journalism in service of the common g
+ ood\, with priority for work with US impact. Five categories: Book (nonfic
+ tion)\; Newspaper Journalism (story\, series or multimedia\, print or onli
+ ne)\; Magazine Journalism (longform)\; Broadcast Journalism (local news\, 
+ television\, documentary\, radio or podcast\, at least 20 minutes total pa
+ ckage length)\; and Opinion and Analysis (any...\n\nOrganisation: The Sidn
+ ey Hillman Foundation\nLocation: Open to journalists globally\; work must 
+ have been widely accessible to a US audience. Ceremony in New York City\, 
+ May 2027.\nAward: USD 5\,000 honorarium and a certificate for each Hillman
+  Prize winner. No entry fee.\n\nMore: https://www.hillmanfoundation.org/hi
+ llman-prizes/nominations?utm_source=artificialnouveaugrantdesk&utm_medium=
+ referral
+URL:https://www.hillmanfoundation.org/hillman-prizes/nominations?utm_source
+ =artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Open to journalists globally\; work must have been widely accessib
+ le to a US audience. Ceremony in New York City\, May 2027.
 END:VEVENT
 END:VCALENDAR
