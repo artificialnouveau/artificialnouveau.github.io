@@ -154,7 +154,9 @@ From October 22nd to 25th 2026, Fashion Police Drones was shown at [Peckham Digi
   </figure>
 </div>
 
-In this current phase of Fashion Police Drones, my algorithms enforce three different stages of the law. The first stage polices taste, and the taste is mine: the outfit is ruled cute or not cute by my own personal rules. The second polices identity. The drone guesses who you are (a student, a tourist, a protester, how old you are) and then judges whether your type belongs in the space. The third is a compilation of real dress and morality laws from around the world, applied all at once: every guess the machine makes is read out as fact, the charges are stacked, and the suspect is classed as an extremist, a subversive, a decadent, a parasite or, if nothing else fits, simply non-conforming.
+In the current phase of Fashion Police Drones, my algorithms enforce three stages of the law, and every stop escalates to the next. In the first, Cute Patrol, you are judged on what you are wearing and on whether I, the pilot, think your outfit is cute or not; either answer sends the stop further. In the second, Stop and Search, the drone guesses who you are (a protester, a student, a tourist, how old you are) and judges whether your type belongs in the space. In the third, Morality Police, you are judged under real dress and morality laws from around the world, applied all at once: every guess the machine makes is read out as fact, the charges are stacked, and you are sentenced.
+
+The point is how little it takes. One person with a few commercial drones can build the apparatus of a fascist state and inflict it on a room of strangers, watching, sorting and punishing people for how they look and who they appear to be.
 
 The work was also showcased at [AIAIAI.art](https://aiaiai.art/fashion-police), and in May 2024 I was interviewed by dublab about the project: [Artificial Nouveau: Fashion Police Drones](http://dublab.de/broadcasts/artificial-nouveau-fashion-police-drones-may-2024/).
 
