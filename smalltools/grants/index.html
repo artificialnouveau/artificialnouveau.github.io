@@ -13603,17 +13603,6 @@ code *, pre *, kbd *, samp * {
         </div>
       </div>
     </div>
-    <div class="facet" data-facet-label="Time to apply">
-      <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Time to apply</button>
-      <div class="facet-panel" hidden>
-        <div class="filter-group" data-filter="deadline" id="filter-deadline">
-          <button class="chip is-active" type="button" data-value="">All</button>
-          <button class="chip" type="button" data-value="1">Not closing today</button>
-          <button class="chip" type="button" data-value="3">3+ days left</button>
-          <button class="chip" type="button" data-value="7">1+ week left</button>
-        </div>
-      </div>
-    </div>
     <div class="facet" data-facet-label="Added">
       <button type="button" class="facet-btn" aria-expanded="false" aria-haspopup="true">Added</button>
       <div class="facet-panel" hidden>
@@ -15894,17 +15883,14 @@ function buildFilterChips() {
     for (const c of (f.dataset.categories || '').split(' ')) if (c) categories.add(c);
   }
 
-  const sortedRegions = [...regions].sort((a, b) => {
-    const ai = SEED_REGIONS.indexOf(a);
-    const bi = SEED_REGIONS.indexOf(b);
-    if (ai >= 0 && bi >= 0) return ai - bi;
-    if (ai >= 0) return -1;
-    if (bi >= 0) return 1;
-    return a.localeCompare(b);
-  });
+  // Region chips sort alphabetically by their visible label.
+  const regionLabel = r => (r === 'Remote' || r === 'Worldwide') ? 'Remote/Worldwide'
+    : r === 'LatAm' ? 'Latin America' : (REGION_LABELS[r] || r);
+  const sortedRegions = [...regions].sort((a, b) => regionLabel(a).localeCompare(regionLabel(b)));
 
-  const typeOrder = ['grant', 'residency', 'fellowship', 'prize', 'travel', 'production', 'publication', 'festival', 'job', 'other'];
-  const sortedTypes = [...types].sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b));
+  // Type chips sort alphabetically by label, with Other always last.
+  const typeLabel = t => TYPE_LABELS[t] || t;
+  const sortedTypes = [...types].sort((a, b) => (a === 'other') - (b === 'other') || typeLabel(a).localeCompare(typeLabel(b)));
 
   const categoryGroup = document.getElementById('filter-category');
   for (const g of CATEGORY_GROUPS) {
