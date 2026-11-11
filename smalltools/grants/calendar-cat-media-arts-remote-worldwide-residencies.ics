@@ -13,13 +13,31 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  dia Arts\, Film & Sound\, Remote & Worldwide.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VTIMEZONE
-TZID:UTC
-BEGIN:STANDARD
-DTSTART:19700101T000000
-TZOFFSETFROM:+0000
-TZOFFSETTO:+0000
-TZNAME:UTC
-END:STANDARD
-END:VTIMEZONE
+BEGIN:VEVENT
+UID:smartwear-revolution-air-2027@artificialnouveau.github.io
+DTSTAMP:20261111T135856Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261215
+DTEND;VALUE=DATE:20261216
+SUMMARY:Deadline: Smartwear Revolution Artist-in-Residence 2027 (University
+  of Alberta): In-Person and Virtual Residencies
+DESCRIPTION:Two artist residencies with Co-Designing a Smartwear Revolution
+ \, a University of Alberta research network of 100+ researchers in textile
+  science\, AI and robotics building smart garments with sensors and actuat
+ ors. The in-person resident gets lab and studio access in Edmonton\; the v
+ irtual resident works remotely.\n\nOrganisation: Co-Designing a Smartwear 
+ Revolution\, University of Alberta (Art & Design Working Group)\, funded b
+ y the New Frontiers in Research Fund\nLocation: Edmonton\, Alberta\, Canad
+ a (one in-person residency) or virtual (one residency). Open international
+ ly.\nAward: In-person: CAD 12\,000 covering artist fee\, materials\, trave
+ l\, accommodation and production. Virtual: CAD 8\,000 covering materials a
+ nd production. Stage-2 interviewees receive a CAD 100 honorarium. No appli
+ cation fee.\nDuration: In-person May to June 2027\; virtual flexible betwe
+ en February and December 2027\n\nMore: https://smartwearrevolution.com/air
+ /?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://smartwearrevolution.com/air/?utm_source=artificialnouveaugrantd
+ esk&utm_medium=referral
+LOCATION:Edmonton\, Alberta\, Canada (one in-person residency) or virtual (
+ one residency). Open internationally.
+END:VEVENT
 END:VCALENDAR
