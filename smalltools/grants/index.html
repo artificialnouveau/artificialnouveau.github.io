@@ -18192,9 +18192,9 @@ let NEW_ONLY = false;
 // visit, or a browser from before this key existed), which falls back to the
 // date-based rules in isNewGrant for that one visit.
 const SEEN_KEY = 'grantdesk-seen-ids';
-// Reloads and quick return trips within this span keep the badges, so a refresh
-// does not wipe what you were in the middle of reading.
-const SEEN_GRACE_MS = 30 * 60 * 1000;
+// Return trips within this span keep the badges, so a refresh or coming back
+// later the same day does not wipe what you were in the middle of reading.
+const SEEN_GRACE_MS = 6 * 60 * 60 * 1000;
 let PREV_SEEN = null;
 
 function loadSeenIds() {
