@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:first-plinth-public-art-award-2027@artificialnouveau.github.io
-DTSTAMP:20261111T143617Z
+DTSTAMP:20261111T152050Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270112
 DTEND;VALUE=DATE:20270113
@@ -40,7 +40,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bfi-network-england-early-development-fund-2026@artificialnouveau.githu
  b.io
-DTSTAMP:20261111T143617Z
+DTSTAMP:20261111T152050Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261111
 DTEND;VALUE=DATE:20261112
@@ -67,7 +67,7 @@ LOCATION:England. Writers must be based in England.
 END:VEVENT
 BEGIN:VEVENT
 UID:golden-fleece-award-2027@artificialnouveau.github.io
-DTSTAMP:20261111T143617Z
+DTSTAMP:20261111T152050Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261211
 DTEND;VALUE=DATE:20261212
@@ -94,7 +94,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:costar-southbank-creative-intelligence-award-2027@artificialnouveau.git
  hub.io
-DTSTAMP:20261111T143617Z
+DTSTAMP:20261111T152050Z
 TRANSP:TRANSPARENT
 DTSTART:20261217T133000Z
 DTEND:20261217T140000Z
@@ -124,7 +124,7 @@ LOCATION:UK (lead applicant must be a UK-registered company\; project activ
 END:VEVENT
 BEGIN:VEVENT
 UID:whickers-film-tv-funding-award-2027@artificialnouveau.github.io
-DTSTAMP:20261111T143617Z
+DTSTAMP:20261111T152050Z
 TRANSP:TRANSPARENT
 DTSTART:20270122T113000Z
 DTEND:20270122T120000Z
@@ -143,5 +143,29 @@ URL:https://www.whickerawards.com/apply/film-and-tv/?utm_source=artificialn
  ouveaugrantdesk&utm_medium=referral
 LOCATION:Open worldwide. Shortlisted directors pitch in person at Sheffield
   DocFest\, UK\, June 2027 (travel and accommodation covered).
+END:VEVENT
+BEGIN:VEVENT
+UID:iris-prize-2027@artificialnouveau.github.io
+DTSTAMP:20261111T152050Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20270602
+DTEND;VALUE=DATE:20270603
+SUMMARY:Deadline: Iris Prize 2027: International LGBTQ+ Short Film Prize (G
+ BP 40\,000)
+DESCRIPTION:Billed as the world's largest LGBTQ+ short film prize\, the Iri
+ s Prize international shorts strand is open worldwide\; the Best British\,
+  student\, community and education strands are UK only. Submissions open 1
+ 1 January 2027\; deadlines: early bird 31 March\, regular 24 May\, late 2 
+ June 2027.\n\nOrganisation: Iris Prize\nLocation: Cardiff\, Wales\, UK. In
+ ternational strand open worldwide\; other strands UK only.\nAward: GBP 40\
+ ,000 for the winner to make their next short film in the UK\; smaller UK-o
+ nly awards (Community and Education GBP 250\, Micro Short GBP 100). Submis
+ sion fee not stated on the official page\; Iris alumni get a full waiver.\
+ nDuration: Festival in October 2027\n\nMore: https://irisprize.org/submiss
+ ions/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://irisprize.org/submissions/?utm_source=artificialnouveaugrantdes
+ k&utm_medium=referral
+LOCATION:Cardiff\, Wales\, UK. International strand open worldwide\; other 
+ strands UK only.
 END:VEVENT
 END:VCALENDAR
