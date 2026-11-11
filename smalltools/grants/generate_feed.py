@@ -1817,7 +1817,7 @@ def build_static_page(grants_for_slice, today, region=None, category=None,
 <meta name="twitter:description" content="{html_escape(description)}">
 <meta name="twitter:image" content="https://www.artificialnouveau.com/smalltools/grants/og-image.png">
 <link rel="alternate" type="application/rss+xml" title="{html_escape(title)}" href="{html_escape(feed_url)}">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="/assets/fonts/google/space-grotesk_inter_dm-mono-25d2ec.css" rel="stylesheet">
 <style>{STATIC_PAGE_CSS}</style>
 <script type="application/ld+json">
 {itemlist}
