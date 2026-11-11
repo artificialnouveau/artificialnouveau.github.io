@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:ars-electronica-u19-create-your-world-2027@artificialnouveau.github.io
-DTSTAMP:20261111T135856Z
+DTSTAMP:20261111T141802Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270303
 DTEND;VALUE=DATE:20270304
@@ -40,7 +40,7 @@ LOCATION:Linz\, Austria\; open only to people aged 19 or younger who live i
 END:VEVENT
 BEGIN:VEVENT
 UID:ai-horizons-parma-360-2027@artificialnouveau.github.io
-DTSTAMP:20261111T135856Z
+DTSTAMP:20261111T141802Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
@@ -73,7 +73,7 @@ LOCATION:Parma\, Italy. Open to Italian and international artists under 35
 END:VEVENT
 BEGIN:VEVENT
 UID:after-the-palace-resonance-2026@artificialnouveau.github.io
-DTSTAMP:20261111T135856Z
+DTSTAMP:20261111T141802Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261030
 DTEND;VALUE=DATE:20261031
@@ -100,7 +100,7 @@ LOCATION:Krakow-Nowa Huta\, Poland. Fully digital submission from anywhere\
 END:VEVENT
 BEGIN:VEVENT
 UID:newimages-festival-2027-competitions@artificialnouveau.github.io
-DTSTAMP:20261111T135856Z
+DTSTAMP:20261111T141802Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261222
 DTEND;VALUE=DATE:20261223
@@ -128,7 +128,7 @@ LOCATION:Paris\, France (festival presentation\; open internationally)
 END:VEVENT
 BEGIN:VEVENT
 UID:dm-award-connecting-worlds-karlsruhe-2027@artificialnouveau.github.io
-DTSTAMP:20261111T135856Z
+DTSTAMP:20261111T141802Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261125
 DTEND;VALUE=DATE:20261126
@@ -160,7 +160,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ljudmila-parameter-generative-arts-fair-2027@artificialnouveau.github.i
  o
-DTSTAMP:20261111T135856Z
+DTSTAMP:20261111T141802Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261126
 DTEND;VALUE=DATE:20261127
@@ -186,7 +186,7 @@ LOCATION:Kino Siska\, Ljubljana\, Slovenia (fair on Saturday 6 March 2027\,
 END:VEVENT
 BEGIN:VEVENT
 UID:european-press-prize-2027@artificialnouveau.github.io
-DTSTAMP:20261111T135856Z
+DTSTAMP:20261111T141802Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261210
 DTEND;VALUE=DATE:20261211
@@ -212,7 +212,7 @@ LOCATION:Europe. Journalists from the 46 Council of Europe member states pl
 END:VEVENT
 BEGIN:VEVENT
 UID:journalismuspreis-informatik-2026@artificialnouveau.github.io
-DTSTAMP:20261111T135856Z
+DTSTAMP:20261111T141802Z
 TRANSP:TRANSPARENT
 DTSTART:20270115T222900Z
 DTEND:20270115T225900Z
@@ -237,7 +237,7 @@ LOCATION:Remote submission\; award ceremony in Saarbrücken\, Germany\, on
 END:VEVENT
 BEGIN:VEVENT
 UID:bbbank-award-projection-mapping-2027@artificialnouveau.github.io
-DTSTAMP:20261111T135856Z
+DTSTAMP:20261111T141802Z
 TRANSP:TRANSPARENT
 DTSTART:20261125T113000Z
 DTEND:20261125T120000Z
@@ -259,5 +259,31 @@ DESCRIPTION:Closes 25 Nov 2026 at 13:00 CET.\n\nOpen call for a 7-minute pr
 URL:https://zkm.de/en/call-for-entries-bbbank-award-in-projection-mapping-2
  027?utm_source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:Karlsruhe\, Germany (palace facade). Open internationally.
+END:VEVENT
+BEGIN:VEVENT
+UID:hdh-fbbva-premio-tesis-humanidades-digitales-vi@artificialnouveau.githu
+ b.io
+DTSTAMP:20261111T141802Z
+TRANSP:TRANSPARENT
+DTSTART:20270108T123000Z
+DTEND:20270108T130000Z
+SUMMARY:Deadline 14:00 CET: VI Premio a la Mejor Tesis Doctoral en Humanida
+ des Digitales (HDH and Fundación BBVA)
+DESCRIPTION:Closes 08 Jan 2027 at 14:00 CET.\n\nPrize for the best doctoral
+  thesis in digital humanities\, awarded by the Hispanic Digital Humanities
+  society with Fundación BBVA. The thesis must have been defended at a Spa
+ nish university between 1 January and 31 December 2025\; current HDH board
+  members are excluded. Applications open 11 November 2026 and close 8 Janu
+ ary 2027\, 14:00 Spanish peninsular time.\n\nOrganisation: Sociedad Intern
+ acional de Humanidades Digitales Hispánicas (HDH) with Fundación BBVA\nL
+ ocation: Spain. For PhD theses defended at Spanish universities\; national
+ ity and residence do not matter.\nAward: EUR 5\,000 plus a diploma (subjec
+ t to tax withholding). No application fee.\nDuration: One-off prize\n\nMor
+ e: https://www.fbbva.es/premios/vi-premio-mejor-tesis-doctoral-humanidades
+ -digitales?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://www.fbbva.es/premios/vi-premio-mejor-tesis-doctoral-humanidades
+ -digitales?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Spain. For PhD theses defended at Spanish universities\; nationali
+ ty and residence do not matter.
 END:VEVENT
 END:VCALENDAR
