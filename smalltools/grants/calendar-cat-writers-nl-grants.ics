@@ -11,13 +11,27 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  riters\, NL.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VTIMEZONE
-TZID:UTC
-BEGIN:STANDARD
-DTSTART:19700101T000000
-TZOFFSETFROM:+0000
-TZOFFSETTO:+0000
-TZNAME:UTC
-END:STANDARD
-END:VTIMEZONE
+BEGIN:VEVENT
+UID:fonds-bjp-press-play-2027@artificialnouveau.github.io
+DTSTAMP:20261111T143615Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Deadline: Fonds BJP Press Play 2027: Development Programme for Jour
+ nalistic Makers
+DESCRIPTION:Press Play helps makers develop and pitch a journalistic or cre
+ ative project\, with five places in each of four tracks: audio\, video\, w
+ riting and photo. You do not need to be a professional journalist\, but yo
+ u must attend in person in the Netherlands and work in Dutch\; past Fonds 
+ BJP project-subsidy recipients and books\, comics and fiction are excluded
+ .\n\nOrganisation: Fonds BJP (Fonds voor Bijzondere Journalistieke Project
+ en)\nLocation: Netherlands (in person\; programme in Dutch)\nAward: EUR 3\
+ ,200 towards about 20 days of time invested\, plus a personal coach and wo
+ rkshops. No application fee.\nDuration: March to May 2027\n\nMore: https:/
+ /fondsbjp.nl/subsidies/press-play/?utm_source=artificialnouveaugrantdesk&u
+ tm_medium=referral
+URL:https://fondsbjp.nl/subsidies/press-play/?utm_source=artificialnouveaug
+ rantdesk&utm_medium=referral
+LOCATION:Netherlands (in person\; programme in Dutch)
+END:VEVENT
 END:VCALENDAR
