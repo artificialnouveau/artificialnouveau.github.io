@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:rome-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20261111T152050Z
+DTSTAMP:20261111T152532Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
@@ -45,7 +45,7 @@ LOCATION:Rome\, Italy (residential fellowship at the Academy\; US organisat
 END:VEVENT
 BEGIN:VEVENT
 UID:vsa-emerging-young-artists-2027@artificialnouveau.github.io
-DTSTAMP:20261111T152050Z
+DTSTAMP:20261111T152532Z
 TRANSP:TRANSPARENT
 DTSTART:20261120T042900Z
 DTEND:20261120T045900Z
@@ -72,7 +72,7 @@ LOCATION:USA (50 states\, DC\, Puerto Rico and territories\; right to work
 END:VEVENT
 BEGIN:VEVENT
 UID:oregon-media-arts-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20261111T152050Z
+DTSTAMP:20261111T152532Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
@@ -94,7 +94,7 @@ LOCATION:Oregon\, United States (Oregon residents only).
 END:VEVENT
 BEGIN:VEVENT
 UID:att-untold-stories-tribeca-2027@artificialnouveau.github.io
-DTSTAMP:20261111T152050Z
+DTSTAMP:20261111T152532Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270118
 DTEND;VALUE=DATE:20270119
@@ -116,5 +116,32 @@ URL:https://tribecafilm.com/attuntoldstories?utm_source=artificialnouveaugr
  antdesk&utm_medium=referral
 LOCATION:USA. Applicants must be 18+ and live in the US or Puerto Rico. Fin
  alists pitch in person at the Tribeca Festival\, New York\, June 2027.
+END:VEVENT
+BEGIN:VEVENT
+UID:tag-queer-shorts-festival-2027@artificialnouveau.github.io
+DTSTAMP:20261111T152532Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261201
+DTEND;VALUE=DATE:20261202
+SUMMARY:Deadline: Tag! Queer Shorts Festival 2027: Call for Submissions (Po
+ rtland)
+DESCRIPTION:Tag! invites LGBTQIA+ filmmakers to submit finished shorts of 1
+ 5 minutes or under\, including credits\, in any genre (theme for 2027: "Yo
+ u're It!"). About 40 to 45 shorts are selected. English captions are requi
+ red\; films made with generative AI are not programmed\; no works in progr
+ ess. Submissions open 1 July to 1 December 2026\, exclusively via FilmFree
+ way.\n\nOrganisation: Tag! Queer Shorts Festival\nLocation: Portland\, Ore
+ gon\, USA (Clinton Street Theater). International.\nAward: Award categorie
+ s with cash prizes (amounts not stated): Hispanic/Latine Creativity\, Powe
+ r of Community\, Best Erotic Short and Radical Futures Student Film\, plus
+  a Festival Director's Award. Modest submission fees on FilmFreeway\; fee 
+ waivers for historically excluded communities and filmmakers from countrie
+ s that criminalize queer identities\, and discount codes for Pacific North
+ west filmmakers.\nDuration: Festival 20 and 21 March 2027\n\nMore: https:/
+ /tagqsf.org/call-2027/?utm_source=artificialnouveaugrantdesk&utm_medium=re
+ ferral
+URL:https://tagqsf.org/call-2027/?utm_source=artificialnouveaugrantdesk&utm
+ _medium=referral
+LOCATION:Portland\, Oregon\, USA (Clinton Street Theater). International.
 END:VEVENT
 END:VCALENDAR
