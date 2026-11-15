@@ -14,7 +14,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:nias-kb-fellowship-2027-28@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART:20270315T103000Z
 DTEND:20270315T110000Z
@@ -42,7 +42,7 @@ LOCATION:Amsterdam (NIAS) with access to the KB in The Hague. Present 4 day
 END:VEVENT
 BEGIN:VEVENT
 UID:schloss-wiepersdorf-fellowships-2028@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART:20270415T212900Z
 DTEND:20270415T215900Z
@@ -69,7 +69,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ecf-erasmus-40-creative-research-fellowship-2027@artificialnouveau.gith
  ub.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T153000Z
 DTEND:20261201T160000Z
@@ -101,7 +101,7 @@ LOCATION:Research stay in Florence\, Italy (Historical Archives of the EU)
 END:VEVENT
 BEGIN:VEVENT
 UID:khk-cure-fellowships-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
@@ -134,7 +134,7 @@ LOCATION:Saarbruecken\, Germany. Fellows must live in Saarbruecken during t
 END:VEVENT
 BEGIN:VEVENT
 UID:zzf-leibniz-summer-fellowships-2027@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
@@ -160,7 +160,7 @@ LOCATION:Potsdam / Berlin\, Germany. Open to international postdoctoral res
 END:VEVENT
 BEGIN:VEVENT
 UID:mensch-maschine-visit-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T222900Z
 DTEND:20261201T225900Z
@@ -196,7 +196,7 @@ LOCATION:E-WERK Luckenwalde\, Brandenburg\, Germany (3 fellows) and Akademi
 END:VEVENT
 BEGIN:VEVENT
 UID:hiig-impact-ai-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270115
 DTEND;VALUE=DATE:20270116
@@ -226,7 +226,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:jane-street-graduate-research-fellowship-2027@artificialnouveau.github.
  io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
@@ -249,5 +249,39 @@ URL:https://www.janestreet.com/join-jane-street/programs-and-events/graduat
 LOCATION:For full-time PhD students at accredited research institutions in 
  the US\, Canada\, UK\, Europe\, Australia\, New Zealand or Singapore. Inte
  rnational students welcome.
+END:VEVENT
+BEGIN:VEVENT
+UID:humboldt-residency-programme-2027@artificialnouveau.github.io
+DTSTAMP:20261115T174206Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261214
+DTEND;VALUE=DATE:20261215
+SUMMARY:Deadline: Humboldt Residency Programme 2027\, "Oceanic Horizons: Th
+ e Future of our Blue Planet" (funded six-week residency for researchers\, 
+ creatives and practitioners)
+DESCRIPTION:Each year the Humboldt Foundation brings twelve people from res
+ earch\, the arts and civil society together to work on one topic and find 
+ new ways of communicating it to audiences beyond academia. The 2027 topic 
+ is Oceanic Horizons: The Future of our Blue Planet.\n\nOrganisation: Alexa
+ nder von Humboldt Foundation\nLocation: Schloss Wiepersdorf (Brandenburg) 
+ and Berlin\, Germany. In person. Researchers must be based outside Germany
+ \; people from civil society\, journalism and the arts can apply from anyw
+ here\, including Germany.\nAward: Monthly allowance for the six-week resid
+ ency (figure not published: researchers get standard Humboldt fellowship r
+ ates\, creatives and practitioners a competitive honorarium)\, travel allo
+ wance to and from Germany\, accommodation at Schloss Wiepersdorf and a Ber
+ lin aparthotel\, and a budget for public formats. No family allowance. No 
+ application fee.\nDuration: Virtual kick-off 29 June 2027\; residency 2 Au
+ gust to 10 September 2027 (two weeks at Schloss Wiepersdorf\, four weeks i
+ n Berlin)\; remote wrap-up to 26 October 2027\n\nMore: https://www.humbold
+ t-foundation.de/en/apply/sponsorship-programmes/humboldt-residency-program
+ me/humboldt-residency-programme-call-for-applications?utm_source=artificia
+ lnouveaugrantdesk&utm_medium=referral
+URL:https://www.humboldt-foundation.de/en/apply/sponsorship-programmes/humb
+ oldt-residency-programme/humboldt-residency-programme-call-for-application
+ s?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Schloss Wiepersdorf (Brandenburg) and Berlin\, Germany. In person.
+  Researchers must be based outside Germany\; people from civil society\, j
+ ournalism and the arts can apply from anywhere\, including Germany.
 END:VEVENT
 END:VCALENDAR

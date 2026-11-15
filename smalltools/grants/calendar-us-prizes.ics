@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:lukas-work-in-progress-awards-2027@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261203
 DTEND;VALUE=DATE:20261204
@@ -34,7 +34,7 @@ LOCATION:USA. Requires a fully executed contract with a US-based publisher.
 END:VEVENT
 BEGIN:VEVENT
 UID:rome-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
@@ -64,7 +64,7 @@ LOCATION:Rome\, Italy (residential fellowship at the Academy\; US organisat
 END:VEVENT
 BEGIN:VEVENT
 UID:vsa-emerging-young-artists-2027@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART:20261120T042900Z
 DTEND:20261120T045900Z
@@ -91,7 +91,7 @@ LOCATION:USA (50 states\, DC\, Puerto Rico and territories\; right to work
 END:VEVENT
 BEGIN:VEVENT
 UID:oregon-media-arts-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
@@ -113,7 +113,7 @@ LOCATION:Oregon\, United States (Oregon residents only).
 END:VEVENT
 BEGIN:VEVENT
 UID:van-alen-re-paris-prize-2026-us-open-call@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261123
@@ -140,7 +140,7 @@ LOCATION:US-based applicants\; international field research travel\, with p
 END:VEVENT
 BEGIN:VEVENT
 UID:att-untold-stories-tribeca-2027@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270118
 DTEND;VALUE=DATE:20270119
@@ -165,7 +165,7 @@ LOCATION:USA. Applicants must be 18+ and live in the US or Puerto Rico. Fin
 END:VEVENT
 BEGIN:VEVENT
 UID:hillman-prizes-2027@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270130
 DTEND;VALUE=DATE:20270131
@@ -190,7 +190,7 @@ LOCATION:Open to journalists globally\; work must have been widely accessib
 END:VEVENT
 BEGIN:VEVENT
 UID:tag-queer-shorts-festival-2027@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261201
 DTEND;VALUE=DATE:20261202
@@ -217,7 +217,7 @@ LOCATION:Portland\, Oregon\, USA (Clinton Street Theater). International.
 END:VEVENT
 BEGIN:VEVENT
 UID:opc-foundation-scholar-awards-2027@artificialnouveau.github.io
-DTSTAMP:20261115T134406Z
+DTSTAMP:20261115T174206Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
@@ -241,5 +241,33 @@ URL:https://www.overseaspressclubfoundation.org/scholar-awards-program?utm_
  source=artificialnouveaugrantdesk&utm_medium=referral
 LOCATION:USA. For students at US colleges and universities\, or US citizens
   studying at a university abroad\; any nationality.
+END:VEVENT
+BEGIN:VEVENT
+UID:amdocs-american-documentary-film-fund-2027@artificialnouveau.github.io
+DTSTAMP:20261115T174206Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20270108
+DTEND;VALUE=DATE:20270109
+SUMMARY:Deadline: American Documentary Film Fund 2027: AmDocs pitch competi
+ tion for US documentary projects (up to USD 50\,000)
+DESCRIPTION:The American Documentary Film Fund is the pitch competition of 
+ AmDocs\, the American Documentary and Animation Film Festival in Palm Spri
+ ngs. A select group of documentary projects is invited to pitch to an indu
+ stry panel during the festival\, and the fund distributes upwards of USD 5
+ 0\,000 a year to the winning project or projects. WHO: documentary filmmak
+ ers who are US citizens or legal residents.\n\nOrganisation: American Docu
+ mentary and Animation Film Festival (AmDocs)\nLocation: Palm Springs\, Cal
+ ifornia\, USA. In person: finalists must attend the festival to pitch. US 
+ citizens and legal residents only.\nAward: Up to USD 50\,000 in cash prize
+ s may be distributed each year among the winning project(s)\; the number o
+ f winners and the split are not published. Entry fee USD 60 until 11 Decem
+ ber 2026\, then USD 70 until 8 January 2027.\nDuration: Pitches and awards
+  during the 16th AmDocs festival\, 17 to 21 March 2027\n\nMore: https://fi
+ lmmakers.festhome.com/f/829?utm_source=artificialnouveaugrantdesk&utm_medi
+ um=referral
+URL:https://filmmakers.festhome.com/f/829?utm_source=artificialnouveaugrant
+ desk&utm_medium=referral
+LOCATION:Palm Springs\, California\, USA. In person: finalists must attend 
+ the festival to pitch. US citizens and legal residents only.
 END:VEVENT
 END:VCALENDAR
