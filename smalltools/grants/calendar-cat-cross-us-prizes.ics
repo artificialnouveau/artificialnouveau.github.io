@@ -13,13 +13,29 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
  ss-disciplinary & Social Impact\, US.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VTIMEZONE
-TZID:UTC
-BEGIN:STANDARD
-DTSTART:19700101T000000
-TZOFFSETFROM:+0000
-TZOFFSETTO:+0000
-TZNAME:UTC
-END:STANDARD
-END:VTIMEZONE
+BEGIN:VEVENT
+UID:the-david-prize-2026-27@artificialnouveau.github.io
+DTSTAMP:20261116T151333Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Deadline: The David Prize 2026/27: USD 200\,000 each\, no strings a
+ ttached\, for five New Yorkers with ideas for a better New York City
+DESCRIPTION:The David Prize gives five New Yorkers USD 200\,000 each\, no s
+ trings attached\, to pursue an idea that would make New York City better. 
+ It is not an arts prize: no field or sector is named\, and ideas are judge
+ d on being urgent and additive to the city. Artists\, technologists\, orga
+ nisers\, researchers and anyone else can enter\, provided the idea is root
+ ed in New York.\n\nOrganisation: The David Prize (Walentas Family Foundati
+ on)\nLocation: New York City\, USA. For individuals who live and work in o
+ ne of the five boroughs.\nAward: USD 200\,000 each to five individuals\, u
+ nrestricted\, with no metrics or reporting asked of winners. No applicatio
+ n fee mentioned.\nDuration: Open call to 30 November 2026\; finalists and 
+ in-person interviews in summer 2027\n\nMore: https://thedavidprize.org/ste
+ ps/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://thedavidprize.org/steps/?utm_source=artificialnouveaugrantdesk&
+ utm_medium=referral
+LOCATION:New York City\, USA. For individuals who live and work in one of t
+ he five boroughs.
+END:VEVENT
 END:VCALENDAR

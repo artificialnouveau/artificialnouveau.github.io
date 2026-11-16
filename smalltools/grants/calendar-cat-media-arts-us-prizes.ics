@@ -14,38 +14,8 @@ X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
-UID:rome-prize-2027-28@artificialnouveau.github.io
-DTSTAMP:20261115T174207Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261101
-DTEND;VALUE=DATE:20261102
-SUMMARY:Deadline: American Academy in Rome: Rome Prize Fellowship 2027-28
-DESCRIPTION:The Rome Prize supports roughly 30 artists and scholars a year 
- with a residential fellowship at the American Academy in Rome\; discipline
- s include Design and Visual Arts\, where media and new-genre work is regul
- arly funded. Fellows receive a USD 16\,000 (half-term) or USD 30\,000 (ful
- l-term) stipend plus housing\, workspace and weekday meals on the Academy'
- s Janiculum campus.\n\nOrganisation: American Academy in Rome\nLocation: R
- ome\, Italy (residential fellowship at the Academy\; US organisation with 
- NYC office). RESTRICTED: US citizens for most categories\; foreign nationa
- ls resident in the US for the 3 years preceding the deadline may apply onl
- y in certain categories.\nAward: Stipends of USD 16\,000 (half-term\, abou
- t 5 months) and USD 30\,000 (full-term\, about 10 months)\, plus housing\,
-  workspace and weekday meals. Approximately 30 fellowships per year. APPLI
- CATION FEE: USD 50 by 1 November (USD 60 for multiple categories)\; USD 80
- /90 in the late window to 15 November.\nDuration: 5 or 10 months\n\nMore: 
- https://www.aarome.org/apply/rome-prize?utm_source=artificialnouveaugrantd
- esk&utm_medium=referral
-URL:https://www.aarome.org/apply/rome-prize?utm_source=artificialnouveaugra
- ntdesk&utm_medium=referral
-LOCATION:Rome\, Italy (residential fellowship at the Academy\; US organisat
- ion with NYC office). RESTRICTED: US citizens for most categories\; foreig
- n nationals resident in the US for the 3 years preceding the deadline may 
- apply only in certain categories.
-END:VEVENT
-BEGIN:VEVENT
 UID:vsa-emerging-young-artists-2027@artificialnouveau.github.io
-DTSTAMP:20261115T174207Z
+DTSTAMP:20261116T151333Z
 TRANSP:TRANSPARENT
 DTSTART:20261120T042900Z
 DTEND:20261120T045900Z
@@ -72,7 +42,7 @@ LOCATION:USA (50 states\, DC\, Puerto Rico and territories\; right to work
 END:VEVENT
 BEGIN:VEVENT
 UID:oregon-media-arts-fellowship-2026@artificialnouveau.github.io
-DTSTAMP:20261115T174207Z
+DTSTAMP:20261116T151333Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
@@ -94,7 +64,7 @@ LOCATION:Oregon\, United States (Oregon residents only).
 END:VEVENT
 BEGIN:VEVENT
 UID:att-untold-stories-tribeca-2027@artificialnouveau.github.io
-DTSTAMP:20261115T174207Z
+DTSTAMP:20261116T151333Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270118
 DTEND;VALUE=DATE:20270119
@@ -119,7 +89,7 @@ LOCATION:USA. Applicants must be 18+ and live in the US or Puerto Rico. Fin
 END:VEVENT
 BEGIN:VEVENT
 UID:tag-queer-shorts-festival-2027@artificialnouveau.github.io
-DTSTAMP:20261115T174207Z
+DTSTAMP:20261116T151333Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261201
 DTEND;VALUE=DATE:20261202
@@ -146,7 +116,7 @@ LOCATION:Portland\, Oregon\, USA (Clinton Street Theater). International.
 END:VEVENT
 BEGIN:VEVENT
 UID:amdocs-american-documentary-film-fund-2027@artificialnouveau.github.io
-DTSTAMP:20261115T174207Z
+DTSTAMP:20261116T151333Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270108
 DTEND;VALUE=DATE:20270109
@@ -171,5 +141,30 @@ URL:https://filmmakers.festhome.com/f/829?utm_source=artificialnouveaugrant
  desk&utm_medium=referral
 LOCATION:Palm Springs\, California\, USA. In person: finalists must attend 
  the festival to pitch. US citizens and legal residents only.
+END:VEVENT
+BEGIN:VEVENT
+UID:the-david-prize-2026-27@artificialnouveau.github.io
+DTSTAMP:20261116T151333Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Deadline: The David Prize 2026/27: USD 200\,000 each\, no strings a
+ ttached\, for five New Yorkers with ideas for a better New York City
+DESCRIPTION:The David Prize gives five New Yorkers USD 200\,000 each\, no s
+ trings attached\, to pursue an idea that would make New York City better. 
+ It is not an arts prize: no field or sector is named\, and ideas are judge
+ d on being urgent and additive to the city. Artists\, technologists\, orga
+ nisers\, researchers and anyone else can enter\, provided the idea is root
+ ed in New York.\n\nOrganisation: The David Prize (Walentas Family Foundati
+ on)\nLocation: New York City\, USA. For individuals who live and work in o
+ ne of the five boroughs.\nAward: USD 200\,000 each to five individuals\, u
+ nrestricted\, with no metrics or reporting asked of winners. No applicatio
+ n fee mentioned.\nDuration: Open call to 30 November 2026\; finalists and 
+ in-person interviews in summer 2027\n\nMore: https://thedavidprize.org/ste
+ ps/?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://thedavidprize.org/steps/?utm_source=artificialnouveaugrantdesk&
+ utm_medium=referral
+LOCATION:New York City\, USA. For individuals who live and work in one of t
+ he five boroughs.
 END:VEVENT
 END:VCALENDAR
