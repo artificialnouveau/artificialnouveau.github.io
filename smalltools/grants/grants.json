@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-15",
+  "lastUpdated": "2026-11-16",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
@@ -42558,6 +42558,186 @@
         "duos",
         "cash-award",
         "no-fee"
+      ]
+    },
+    {
+      "addedDate": "2026-11-16",
+      "feedDate": null,
+      "fee": true,
+      "featured": false,
+      "ageCap": null,
+      "applicant": "individuals",
+      "region": "EU",
+      "regions": [
+        "Worldwide"
+      ],
+      "startDate": null,
+      "eligibility": "open",
+      "attendance": "unknown",
+      "career": "any",
+      "id": "fracto-experimental-film-encounter-2027-call-for-entries",
+      "title": "Fracto Experimental Film Encounter 2027: call for entries, experimental film and expanded cinema (Berlin, 10th edition)",
+      "organization": "Fracto Experimental Film Encounter",
+      "location": "ACUD, Berlin, Germany. No nationality or residency restriction is stated.",
+      "amount": "EXCEPTION: NOT FUNDED (festival call). A submission fee is charged (amount not stated in the listing). No screening fee, prize or travel support is mentioned.",
+      "duration": "Festival in Berlin, expected in May 2027 (2027 dates not yet published; the 2026 edition ran 27 to 31 May)",
+      "deadline": "2027-03-01",
+      "category": "film",
+      "categories": [
+        "film",
+        "arts"
+      ],
+      "description": "Fracto is an artist-run encounter for experimental film at ACUD in Berlin, and the call for its 10th edition is open. WHAT TO SUBMIT: experimental films and expanded cinema works; short, mid-length and expanded cinema projects are all welcome. Each artist or filmmaker can submit up to 2 works, and works must have been completed after 1 January 2025. No age, residency or premiere requirements are stated. MONEY: a submission fee is charged (the listing does not give the amount), and no payment to selected artists is mentioned. HOW TO SUBMIT: the call is published through the EXP Cinema listing linked here, which points to the festival for submissions; as of 16 November 2026 the festival's own site (fractofilm.com) still shows the 2026 edition, so check there and with the organisers for the submission form and fee. DEADLINE: 1 March 2027 (time not stated).",
+      "url": "https://cloud.expcinema.org/site/en/call/fracto-2027-call-entries",
+      "tags": [
+        "festival",
+        "open-call",
+        "experimental-film",
+        "expanded-cinema",
+        "moving-image",
+        "artists-film",
+        "berlin",
+        "germany",
+        "eu",
+        "international",
+        "entry-fee"
+      ]
+    },
+    {
+      "addedDate": "2026-11-16",
+      "feedDate": null,
+      "fee": true,
+      "featured": false,
+      "ageCap": null,
+      "applicant": "individuals",
+      "region": "Worldwide",
+      "regions": [
+        "EU"
+      ],
+      "startDate": "2027-04-18",
+      "eligibility": "open",
+      "attendance": "remote",
+      "career": "any",
+      "id": "delete-tv-open-call-2027-season-13",
+      "title": "DELETE TV Open Call 2027 (Season 13): video art, experimental shorts and AI films for TV broadcast and livestream",
+      "organization": "DELETE TV",
+      "location": "Remote submission, open to artists worldwide. Selected works are broadcast in Austria on OKTO TV and livestreamed.",
+      "amount": "EXCEPTION: NOT FUNDED (festival call). The overall winner receives the DELETE TV Award; no cash amount or artist payment is stated. Entry fee USD 20 at the regular deadline, USD 35 at the extended deadline (non-refundable).",
+      "duration": "Broadcast and events 18 April to 31 August 2027; notification 14 March 2027",
+      "deadline": "2027-02-17",
+      "category": "film",
+      "categories": [
+        "film",
+        "arts",
+        "ai"
+      ],
+      "description": "DELETE TV is a television and livestream platform for moving-image art, and its Season 13 open call takes video art, experimental short films and AI-assisted or AI-generated films from artists worldwide. CATEGORIES: Experimental Video Art, Experimental Shorts and Narrative Shorts. RULES: maximum runtime 10 minutes (longer films are not accepted); English or English subtitles; no premiere requirement. AI-assisted and AI-generated films are explicitly welcome alongside video art and experimental shorts. WHAT YOU GET: selected works are broadcast in Austria on OKTO TV and livestreamed worldwide during the season (18 April to 31 August 2027); the overall winner receives the DELETE TV Award. No cash prize or screening fee is stated. FEES: USD 20 at the regular deadline, USD 35 at the extended deadline, non-refundable. HOW TO SUBMIT: via FilmFreeway, linked from the call page. DEADLINES: regular deadline 31 December 2026, 23:59 London time; extended deadline 17 February 2027. Notification 14 March 2027.",
+      "url": "https://www.delete-tv.com/open-call-2027",
+      "tags": [
+        "festival",
+        "open-call",
+        "video-art",
+        "experimental-film",
+        "short-film",
+        "ai-film",
+        "generative-ai",
+        "broadcast",
+        "livestream",
+        "moving-image",
+        "austria",
+        "worldwide",
+        "entry-fee"
+      ]
+    },
+    {
+      "addedDate": "2026-11-16",
+      "feedDate": null,
+      "fee": false,
+      "featured": false,
+      "ageCap": null,
+      "applicant": "individuals",
+      "region": "EU",
+      "regions": [
+        "Worldwide"
+      ],
+      "startDate": "2026-12-26",
+      "eligibility": "open",
+      "attendance": "unknown",
+      "career": "any",
+      "id": "avvistamenti-experimental-film-festival-2026-open-call",
+      "title": "Avvistamenti 2026: open call for experimental and non-narrative short films (3 production awards, Puglia)",
+      "organization": "Avvistamenti Experimental Film Festival",
+      "location": "Puglia, Italy. Open to works from around the world, with no age or nationality limits.",
+      "amount": "3 awards supporting the production of new audiovisual works (amounts not published): Best Experimental Work, Jury Special Mention and a Made in Italy Special Award for works produced in Italy. The festival's FilmFreeway rules say there is no entry fee for 2026.",
+      "duration": "Festival 26 to 30 December 2026",
+      "deadline": "2026-11-30",
+      "category": "film",
+      "categories": [
+        "film",
+        "arts"
+      ],
+      "description": "Avvistamenti is an experimental film festival founded in Bisceglie in 2002, held in Puglia from 26 to 30 December 2026. Its open call takes experimental and non-narrative short films and video works from around the world, in any language and format, including silent films and films without dialogue. AWARDS: 3 prizes in support of the production of new audiovisual works: Best Experimental Work, a Jury Special Mention, and a Made in Italy Special Award for works produced in Italy (which cannot be combined with the other two). The rules describe these as grants for making new, unpublished audiovisual work; the amounts are not published. FEES: the festival's FilmFreeway rules say there is no entry fee for the 2026 competition; one third-party listing shows a fee field, so confirm on the submission page. HOW TO SUBMIT: via the FilmFreeway link in the Open Call section of the festival homepage; contact info@avvistamenti.it. DEADLINE: 30 November 2026 (time not stated).",
+      "url": "https://www.avvistamenti.it/",
+      "tags": [
+        "festival",
+        "open-call",
+        "experimental-film",
+        "short-film",
+        "video-art",
+        "non-narrative",
+        "production-award",
+        "prize",
+        "cash-award",
+        "puglia",
+        "italy",
+        "eu",
+        "international",
+        "no-fee"
+      ]
+    },
+    {
+      "addedDate": "2026-11-16",
+      "feedDate": null,
+      "fee": true,
+      "featured": false,
+      "ageCap": null,
+      "applicant": "individuals",
+      "region": "EU",
+      "regions": [
+        "Worldwide"
+      ],
+      "startDate": "2027-06-01",
+      "eligibility": "open",
+      "attendance": "unknown",
+      "career": "any",
+      "id": "kurzfilm-festival-hamburg-2027-call-for-entries",
+      "title": "Kurzfilm Festival Hamburg 2027: call for entries, 43rd edition (prizes worth EUR 15,500)",
+      "organization": "Kurzfilm Festival Hamburg (Kurzfilm Agentur Hamburg)",
+      "location": "Hamburg, Germany. International Competition open to films from any country; separate German Competition, Triple Axel and Mo&Friese (young audiences) competitions.",
+      "amount": "Prizes worth EUR 15,500 in total: Hamburg Short Film Award EUR 3,000, Deframed Award EUR 2,000, Semra Ertan Short Film Award EUR 1,500 (German Competition), Triple Axel Audience Award EUR 1,000, Mo&Friese prizes worth EUR 3,000 in total, plus the Kodak, German Film Critics, ECFA and ARTE awards (ARTE acquires the winning film). A submission fee applies (amounts are on the submission platforms; the early-bird tier was EUR 12).",
+      "duration": "Festival 1 to 6 June 2027",
+      "deadline": "2027-01-31",
+      "category": "film",
+      "categories": [
+        "film",
+        "arts"
+      ],
+      "description": "The 43rd Kurzfilm Festival Hamburg (1 to 6 June 2027), with its young-audience section Mo&Friese, is open for entries. One of Germany's main short film festivals, it is known for formally adventurous and artists' short film. COMPETITIONS: International Competition and German Competition (films of all genres, maximum 30 minutes, not older than January 2026); Triple Axel (maximum three minutes, on the theme POP, produced after January 2025); and Mo&Friese for children and young people (produced after January 2025). PRIZES: EUR 15,500 in total, including the Hamburg Short Film Award (EUR 3,000, International Jury), the Deframed Award (EUR 2,000, for a film that engages with reality in a poetic, formal, analytical and unconventional way), the Semra Ertan Short Film Award (EUR 1,500, German Competition), the Triple Axel Audience Award (EUR 1,000) and Mo&Friese prizes worth EUR 3,000; also a Kodak award for the best analogue film, the German Film Critics Association award, a European Film Awards nomination and the ARTE Short Film Award. FEES: a submission fee applies and is shown on the submission platforms (the submission page itself does not list amounts). Screening fees and travel support are not stated. HOW TO SUBMIT: via Shortfilmdepot or FilmFreeway, both linked from the submission page; English subtitles required. DEADLINE: 31 January 2027 (time not stated).",
+      "url": "https://festival.shortfilm.com/en/submissions",
+      "tags": [
+        "festival",
+        "open-call",
+        "film",
+        "short-film",
+        "experimental-film",
+        "artists-film",
+        "prize",
+        "cash-award",
+        "hamburg",
+        "germany",
+        "eu",
+        "worldwide",
+        "entry-fee"
       ]
     }
   ]
