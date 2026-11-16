@@ -137,7 +137,7 @@ conflict by hand-merging generated feed files.
 The site's original content, including written text, artwork, images, and the
 selection, wording and curation of the grant listings, is the original work of
 Ahnjili ZhuParris and is not licensed for reuse, republication, redistribution
-or scraping without prior written permission (artificialnouveau@gmail.com).
+or scraping without prior written permission.
 Individual facts (such as a grant deadline or amount) are not owned, but the
 descriptions and the compilation as a whole are. See `LICENSE.txt` for the full
 content notice and the third-party theme's MIT license.
