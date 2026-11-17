@@ -3,58 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Prizes and Awards\, Cross-disciplinary & So
- cial Impact\, Remote & Worldwide
-X-WR-CALNAME:The Grant Desk deadlines - Prizes and Awards\, Cross-disciplin
- ary & Social Impact\, Remote & Worldwide
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Prizes and Awards\, Cro
- ss-disciplinary & Social Impact\, Remote & Worldwide.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:erase-indifference-challenge-2026@artificialnouveau.github.io
-DTSTAMP:20261117T131308Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261204
-DTEND;VALUE=DATE:20261205
-SUMMARY:Deadline: Erase Indifference Challenge 2026 (Auschwitz Pledge Found
- ation\; EUR 90\,000 in awards for projects countering hate)
-DESCRIPTION:The annual Erase Indifference Challenge rewards existing projec
- ts that move bystanders to act against discrimination and hate\, through a
- rt\, education or technology. The project must already exist with demonstr
- ated impact\; completed projects must have ended no earlier than December 
- 2023 and the organisation must still be operating.\n\nOrganisation: Auschw
- itz Pledge Foundation\nLocation: Worldwide. Remote application.\nAward: EU
- R 90\,000 in total: one EUR 20\,000 Main Award plus seven EUR 10\,000 awar
- ds. Unrestricted\, no reporting requirement. No application fee.\nDuration
- : Award for an existing project\; finalists meet the jury 15 to 26 Februar
- y 2027\, winners announced 28 February 2027\n\nMore: https://www.eraseindi
- fference.org/challenge/?utm_source=artificialnouveaugrantdesk&utm_medium=r
- eferral
-URL:https://www.eraseindifference.org/challenge/?utm_source=artificialnouve
- augrantdesk&utm_medium=referral
-LOCATION:Worldwide. Remote application.
-END:VEVENT
-BEGIN:VEVENT
-UID:stringer-awards-2027@artificialnouveau.github.io
-DTSTAMP:20261117T131308Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261231
-DTEND;VALUE=DATE:20270101
-SUMMARY:Deadline: The Stringer Awards 2027 (independent accountability jour
- nalism)
-DESCRIPTION:The Stringer Awards give unrestricted\, multi-year funding to i
- ndependent journalists who expose abuses of power\, in Senior and Emerging
-  categories. No nationality restriction is stated. No application fee.\n\n
- Organisation: Stringer Journalism Foundation\nLocation: Remote. Open to in
- dependent journalists internationally.\nAward: USD 9\,000 to 100\,000 per 
- award\, multi-year and unrestricted\; the size depends on funds raised.\nD
- uration: Multi-year unrestricted award.\n\nMore: https://stringerjournalis
- m.org/awards?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://stringerjournalism.org/awards?utm_source=artificialnouveaugrant
- desk&utm_medium=referral
-LOCATION:Remote. Open to independent journalists internationally.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR

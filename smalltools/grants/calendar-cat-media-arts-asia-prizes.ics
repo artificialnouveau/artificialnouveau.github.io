@@ -3,73 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Prizes and Awards\, Media Arts\, Film & Sou
- nd\, Asia
-X-WR-CALNAME:The Grant Desk deadlines - Prizes and Awards\, Media Arts\, Fi
- lm & Sound\, Asia
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Prizes and Awards\, Med
- ia Arts\, Film & Sound\, Asia.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:hkiff-51-call-for-entries-2027@artificialnouveau.github.io
-DTSTAMP:20261117T131308Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261231
-DTEND;VALUE=DATE:20270101
-SUMMARY:Deadline: 51st Hong Kong International Film Festival 2027: Call for
-  Entries (features\, documentaries\, Short Film Competition)
-DESCRIPTION:The Hong Kong International Film Festival\, one of Asia's oldes
- t film festivals\, is taking submissions for its 51st edition (16-29 March
-  2027). Categories: feature films (60 minutes plus)\, short films (20-60 m
- inutes)\, documentary features and documentary shorts\, and the Short Film
-  Competition (any genre\, including fiction\, documentary\, animation and 
- experimental\, under 20 minutes).\n\nOrganisation: Hong Kong International
-  Film Festival Society (HKIFF)\nLocation: Hong Kong (festival 16-29 March 
- 2027). Open internationally\; except Hong Kong productions\, films must no
- t have screened in Hong Kong before the festival.\nAward: EXCEPTION: NOT F
- UNDED (festival call). Selection for one of Asia's oldest film festivals a
- nd its competitions\; prize amounts not stated in the call. Entry fees fro
- m 4 November to 31 December 2026: Short Film Competition (under 20 minutes
- ) USD 50 / HKD 390\; all other categories USD 80 / HKD 624. Fee waiver for
-  documentaries by directors holding a Hong Kong Permanent Identity Card. F
- ees non-refundable.\nDuration: Festival 16-29 March 2027.\n\nMore: https:/
- /www.hkiff.org.hk/society/CallForEntries/?utm_source=artificialnouveaugran
- tdesk&utm_medium=referral
-URL:https://www.hkiff.org.hk/society/CallForEntries/?utm_source=artificialn
- ouveaugrantdesk&utm_medium=referral
-LOCATION:Hong Kong (festival 16-29 March 2027). Open internationally\; exce
- pt Hong Kong productions\, films must not have screened in Hong Kong befor
- e the festival.
-END:VEVENT
-BEGIN:VEVENT
-UID:futuretense-awards-4th-edition-2026@artificialnouveau.github.io
-DTSTAMP:20261117T131308Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261231
-DTEND;VALUE=DATE:20270101
-SUMMARY:Deadline: FutureTense Awards\, 4th Edition "Oneiric": media art and
-  digital art awards for artists aged 30 or under based in Asia (up to HKD 
- 15\,000)
-DESCRIPTION:FutureTense is a Hong Kong non-profit platform for art\, design
-  and technology\, running since 2019. The 4th edition of its awards takes 
- the theme Oneiric (of dreams): an open call for works at the intersection 
- of mind\, machine and myth\, with threads including the Cybernetic Unconsc
- ious\, Organic Digital\, Kantian Threshold\, Archetypal Dreamscape and Fra
- gmented Self.\n\nOrganisation: FutureTense (Hong Kong)\nLocation: Hong Kon
- g. For artists based in Asia: Hong Kong\, Macau\, China\, Taiwan\, Mongoli
- a\, Japan\, Korea and South East Asia.\nAward: Media Art Award and Digital
-  Art Award: up to HKD 15\,000 each for artwork production\, with honourabl
- e mentions of HKD 5\,000. Best Popularity Award: up to HKD 10\,000 for art
- work production. No entry fee stated.\nDuration: Judging February to April
-  2027\; winners announced May 2027\; award ceremony and exhibition August 
- to September 2027\n\nMore: https://award.futuretense.hk/?utm_source=artifi
- cialnouveaugrantdesk&utm_medium=referral
-URL:https://award.futuretense.hk/?utm_source=artificialnouveaugrantdesk&utm
- _medium=referral
-LOCATION:Hong Kong. For artists based in Asia: Hong Kong\, Macau\, China\, 
- Taiwan\, Mongolia\, Japan\, Korea and South East Asia.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR

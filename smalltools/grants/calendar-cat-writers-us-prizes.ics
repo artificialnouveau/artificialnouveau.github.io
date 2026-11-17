@@ -3,88 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Prizes and Awards\, Journalism & Writers\, 
- US
-X-WR-CALNAME:The Grant Desk deadlines - Prizes and Awards\, Journalism & Wr
- iters\, US
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Prizes and Awards\, Jou
- rnalism & Writers\, US.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:lukas-work-in-progress-awards-2027@artificialnouveau.github.io
-DTSTAMP:20261117T131308Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261203
-DTEND;VALUE=DATE:20261204
-SUMMARY:Deadline: J. Anthony Lukas Work-in-Progress Awards 2027
-DESCRIPTION:The J. Anthony Lukas Work-in-Progress Awards\, given jointly by
-  Columbia Journalism School and the Nieman Foundation at Harvard\, are ope
- n for 2027 submissions. Two annual awards of USD 25\,000 each help writers
-  complete a book-length work of narrative nonfiction on a topic of America
- n political or social concern\; books on science\, technology and media ac
- countability have won in past years.\n\nOrganisation: Columbia Journalism 
- School and the Nieman Foundation\nLocation: USA. Requires a fully executed
-  contract with a US-based publisher.\nAward: Two awards of USD 25\,000 eac
- h. No entry fee for the Work-in-Progress awards.\n\nMore: https://columbia
- journalismawards.submittable.com/submit?utm_source=artificialnouveaugrantd
- esk&utm_medium=referral
-URL:https://columbiajournalismawards.submittable.com/submit?utm_source=arti
- ficialnouveaugrantdesk&utm_medium=referral
-LOCATION:USA. Requires a fully executed contract with a US-based publisher.
-END:VEVENT
-BEGIN:VEVENT
-UID:hillman-prizes-2027@artificialnouveau.github.io
-DTSTAMP:20261117T131308Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20270130
-DTEND;VALUE=DATE:20270131
-SUMMARY:Deadline: Hillman Prizes 2027 for Journalism (incl. Broadcast and D
- ocumentary)
-DESCRIPTION:The Hillman Prizes honour journalism in service of the common g
- ood\, with priority for work with US impact. Five categories: Book (nonfic
- tion)\; Newspaper Journalism (story\, series or multimedia\, print or onli
- ne)\; Magazine Journalism (longform)\; Broadcast Journalism (local news\, 
- television\, documentary\, radio or podcast\, at least 20 minutes total pa
- ckage length)\; and Opinion and Analysis (any...\n\nOrganisation: The Sidn
- ey Hillman Foundation\nLocation: Open to journalists globally\; work must 
- have been widely accessible to a US audience. Ceremony in New York City\, 
- May 2027.\nAward: USD 5\,000 honorarium and a certificate for each Hillman
-  Prize winner. No entry fee.\n\nMore: https://www.hillmanfoundation.org/hi
- llman-prizes/nominations?utm_source=artificialnouveaugrantdesk&utm_medium=
- referral
-URL:https://www.hillmanfoundation.org/hillman-prizes/nominations?utm_source
- =artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:Open to journalists globally\; work must have been widely accessib
- le to a US audience. Ceremony in New York City\, May 2027.
-END:VEVENT
-BEGIN:VEVENT
-UID:opc-foundation-scholar-awards-2027@artificialnouveau.github.io
-DTSTAMP:20261117T131308Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261115
-DTEND;VALUE=DATE:20261116
-SUMMARY:Deadline: Overseas Press Club Foundation Scholar Awards 2027 (inter
- national journalism\, USD 3\,000 scholarships and USD 4\,000 bureau fellow
- ships)
-DESCRIPTION:The OPC Foundation's Scholar Awards support students who want t
- o become international correspondents. WHO: college juniors\, seniors and 
- graduate students enrolled full-time at the deadline at a US college or un
- iversity\, or US citizens studying at a university abroad\; any nationalit
- y.\n\nOrganisation: Overseas Press Club Foundation\nLocation: USA. For stu
- dents at US colleges and universities\, or US citizens studying at a unive
- rsity abroad\; any nationality.\nAward: About 18 awards a year: USD 3\,000
-  scholarships for independent work or USD 4\,000 fellowships funding time 
- in an overseas news bureau (such as AP\, Reuters or Bloomberg). Four are r
- eserved for international business or economic coverage. No application fe
- e.\nDuration: 2027 award year\; fellowships place winners in an overseas b
- ureau\n\nMore: https://www.overseaspressclubfoundation.org/scholar-awards-
- program?utm_source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.overseaspressclubfoundation.org/scholar-awards-program?utm_
- source=artificialnouveaugrantdesk&utm_medium=referral
-LOCATION:USA. For students at US colleges and universities\, or US citizens
-  studying at a university abroad\; any nationality.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR

@@ -3,68 +3,20 @@ VERSION:2.0
 PRODID:-//The Grant Desk//Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-NAME:The Grant Desk deadlines - Prizes and Awards\, Journalism & Writers\, 
- UK
-X-WR-CALNAME:The Grant Desk deadlines - Prizes and Awards\, Journalism & Wr
- iters\, UK
-X-WR-CALDESC:Paid open calls\, fellowships and residencies in AI\, tech\, r
- esearch\, and digital and mixed-media arts\, sorted into the right pile. U
- pdated as new calls land on the desk. Filtered to: Prizes and Awards\, Jou
- rnalism & Writers\, UK.
+NAME:The Grant Desk deadlines (retired)
+X-WR-CALNAME:The Grant Desk deadlines (retired)
+X-WR-CALDESC:This calendar has been retired and no longer lists deadlines. 
+ Subscribe to a current Grant Desk calendar at https://www.artificialnouvea
+ u.com/smalltools/grants/ instead.
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
-BEGIN:VEVENT
-UID:bfi-network-england-early-development-fund-2026@artificialnouveau.githu
- b.io
-DTSTAMP:20261117T131308Z
-TRANSP:TRANSPARENT
-DTSTART;VALUE=DATE:20261111
-DTEND;VALUE=DATE:20261112
-SUMMARY:Deadline: BFI NETWORK England: Early Development Fund (GBP 3\,000-5
- \,000 treatment awards for debut long-form writers)
-DESCRIPTION:BFI NETWORK's Early Development Fund supports writers at the ve
- ry start of a debut long-form project: those who do not yet have a first d
- raft of a script (or the equivalent format for immersive work). Stage one 
- awards GBP 3\,000 to 5\,000 to produce an initial treatment setting out st
- ory\, characters\, themes and structure\, plus related materials such as a
-  mood board or other visual content.\n\nOrganisation: BFI NETWORK (BFI\, N
- ational Lottery funding)\nLocation: England. Writers must be based in Engl
- and.\nAward: GBP 3\,000 to 5\,000 per project to develop a treatment (stag
- e one). Projects completed to schedule can then apply for second-stage fun
- ding to write a full first draft. National Lottery funding\; no applicatio
- n fee stated.\nDuration: Treatment stage\, then optional first-draft stage
- \n\nMore: https://www.bfi.org.uk/get-funding-support/bfi-network/bfi-netwo
- rk-funding-finder/bfi-network-england-early-development-fund?utm_source=ar
- tificialnouveaugrantdesk&utm_medium=referral
-URL:https://www.bfi.org.uk/get-funding-support/bfi-network/bfi-network-fund
- ing-finder/bfi-network-england-early-development-fund?utm_source=artificia
- lnouveaugrantdesk&utm_medium=referral
-LOCATION:England. Writers must be based in England.
-END:VEVENT
-BEGIN:VEVENT
-UID:royal-institute-philosophy-essay-prize-2026-humans-and-ai@artificialnou
- veau.github.io
-DTSTAMP:20261117T131308Z
-TRANSP:TRANSPARENT
-DTSTART:20261231T232900Z
-DTEND:20261231T235900Z
-SUMMARY:Deadline 23:59 GMT: Royal Institute of Philosophy Essay Prize 2026:
-  Humans and AI
-DESCRIPTION:Closes 31 Dec 2026 at 23:59 GMT.\n\nThe Royal Institute of Phil
- osophy's annual essay prize asks for an original philosophical essay on th
- e 2026 topic\, Humans and AI. Essays of up to 8\,000 words\, anonymised fo
- r review\, are submitted by email. No eligibility restrictions are stated.
-  Note: the Cambridge Core prize page still shows the older 2024 call at a 
- different amount\; the institute's own announcement is current.\n\nOrganis
- ation: Royal Institute of Philosophy\nLocation: Remote submission by email
- . Open internationally.\nAward: GBP 1\,000 cash plus GBP 500 of Cambridge 
- University Press books\; the winning essay is published in the journal Phi
- losophy.\nDuration: One-off essay prize.\n\nMore: https://royalinstituteph
- ilosophy.org/news/humans-and-ai-our-2026-philosophy-essay-prize-topic/?utm
- _source=artificialnouveaugrantdesk&utm_medium=referral
-URL:https://royalinstitutephilosophy.org/news/humans-and-ai-our-2026-philos
- ophy-essay-prize-topic/?utm_source=artificialnouveaugrantdesk&utm_medium=r
- eferral
-LOCATION:Remote submission by email. Open internationally.
-END:VEVENT
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR
