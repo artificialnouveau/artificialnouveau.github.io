@@ -362,7 +362,6 @@ WEEKLY_NOUNS = {
     "grants": ("grant", "grants"),
     "residencies": ("residency", "residencies"),
     "fellowships": ("fellowship", "fellowships"),
-    "prizes": ("prize", "prizes"),
     "open-calls": ("open call", "open calls"),
 }
 
@@ -386,7 +385,7 @@ WEEKLY_BY_ADDED_SINCE = date(2026, 11, 8)
 
 
 # From this Sunday on, each drop is grouped by opportunity type: items run
-# Grants, Residencies, Fellowships, Prizes, then anything untyped, by deadline
+# Grants, Residencies, Fellowships, then anything untyped, by deadline
 # within each group, and every title starts with its type ("Residency: ...").
 # Feeds filtered to one type keep plain titles, since the group says nothing.
 # Readers sort by pubDate, so items in a grouped drop are stamped one second
@@ -395,16 +394,16 @@ WEEKLY_BY_ADDED_SINCE = date(2026, 11, 8)
 # Drops before this date keep their published order and titles.
 DROP_GROUPED_SINCE = date(2026, 11, 15)
 # Display order of the groups. Shared with feed_group() below.
-DROP_GROUP_ORDER = ["grants", "residencies", "fellowships", "prizes", None]
+DROP_GROUP_ORDER = ["grants", "residencies", "fellowships", None]
 DROP_GROUP_LABELS = {"grants": "Grant", "residencies": "Residency",
-                     "fellowships": "Fellowship", "prizes": "Prize", None: "Open call"}
+                     "fellowships": "Fellowship", None: "Open call"}
 
 
 def feed_group(g):
     """The one group a grant is listed under in a grouped drop. Many grants
     match several types (a residency with a stipend also reads as a grant), so
-    the most specific type wins: residency, then fellowship, prize, grant."""
-    for t in ("residencies", "fellowships", "prizes", "grants"):
+    the most specific type wins: residency, then fellowship, grant."""
+    for t in ("residencies", "fellowships", "grants"):
         if type_matches(g, t):
             return t
     return None
@@ -1224,28 +1223,29 @@ CATEGORY_TITLE_PHRASE = {
 # than either axis expresses. Matching is precision-first - an explicit tag, or
 # the word in the title. Nothing is inferred from descriptions, because a
 # description that merely mentions a residency does not make the entry one.
-OPPORTUNITY_TYPES = ["residencies", "fellowships", "prizes", "open-calls"]
+# "prizes" was a type until 17 Nov 2026, when prize, award and competition
+# entries were dropped from the desk; its pages, feeds and calendars are swept.
+OPPORTUNITY_TYPES = ["residencies", "fellowships", "open-calls"]
 
 # What the subscribe picker offers and what type-sliced feeds are built for.
 # Deliberately NOT the same list as OPPORTUNITY_TYPES: "grants" is a feed/picker
 # type only, and "open-calls" stays a static SEO page but is dropped from the
 # picker, because as a type it mostly restated categories people already filter.
-FEED_TYPES = ["grants", "residencies", "fellowships", "prizes"]
+FEED_TYPES = ["grants", "residencies", "fellowships"]
 
 # Type rules for the four feed/picker types. These MUST stay identical to the
-# website's TYPE_RULES in index.html (residency, fellowship, prize, grant), so a
+# website's TYPE_RULES in index.html (residency, fellowship, grant), so a
 # call the site labels "Grant" is in the Grants feed and calendar too, and vice
 # versa. main() warns when the two drift. Each rule is (tag regex, title regex),
 # searched in lowercase; tags starting "no-" (no-stipend) and the cash-award tag
 # say nothing about type and are ignored. Every rule matches whole words (tags
 # split on hyphens): "Funded residency", "Grantham" and "Immigrant" are not
 # grants, "monaco-presidency" is not a residency, "Awarded Residency" is not a
-# prize, and fully-funded / eu-funded tags say nothing. XPRIZE is a prize. "stipend" and "fonds" match inside
+# prize, and fully-funded / eu-funded tags say nothing. "stipend" and "fonds" match inside
 # words for German and Dutch compounds (Arbeitsstipendium, Stimuleringsfonds).
 FEED_TYPE_RULES = {
     "residencies": (r"(^|-)(residenc(y|ies|es?)|artist-in-residence)(-|$)", r"\bresidenc(y|ies|es?)\b"),
     "fellowships": (r"fellowship", r"fellowship"),
-    "prizes": (r"(^|-)(x?prizes?|awards?|competitions?|contests?)(-|$)", r"\b(x?prizes?|awards?|competitions?|contests?)\b"),
     "grants": (
         r"(^|-)((micro|sub|mega)?grants?|regranting|funds?|funding|subsid(y|ies)|bursar(y|ies)|stipends?|scholarships?|commissions?)(-|$)|fonds",
         r"\b((micro|sub|mega)?grants?|regranting|funds?|funding|bursar(y|ies)|subsid(y|ies)|scholarships?|support scheme)\b|stipend|fonds",
@@ -1253,7 +1253,7 @@ FEED_TYPE_RULES = {
 }
 # The site's TYPE_RULES key for each feed type, for the drift check.
 SITE_TYPE_KEYS = {"residencies": "residency", "fellowships": "fellowship",
-                  "prizes": "prize", "grants": "grant"}
+                  "grants": "grant"}
 # re.ASCII: JavaScript regexes without the u flag treat accented letters as
 # non-word characters for \b, so Python must too or the two could disagree.
 _FEED_TYPE_RES = {t: (re.compile(a, re.ASCII), re.compile(b, re.ASCII))
@@ -1268,7 +1268,6 @@ OPPORTUNITY_TYPE_TITLE_PHRASE = {
     "grants": "Grants",
     "residencies": "Artist Residencies",
     "fellowships": "Fellowships",
-    "prizes": "Prizes and Awards",
     "open-calls": "Open Calls",
 }
 
@@ -1276,7 +1275,6 @@ OPPORTUNITY_TYPE_PHRASE = {
     "grants": "grants and funds",
     "residencies": "funded artist residencies",
     "fellowships": "fellowships",
-    "prizes": "prizes and awards",
     "open-calls": "open calls",
 }
 
@@ -2230,7 +2228,6 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 
 - [Artist residencies]({base}residencies/)
 - [Fellowships]({base}fellowships/)
-- [Prizes and awards]({base}prizes/)
 - [Open calls]({base}open-calls/)
 
 ## By country
