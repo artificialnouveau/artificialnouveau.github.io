@@ -14,7 +14,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:nias-kb-fellowship-2027-28@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART:20270315T103000Z
 DTEND:20270315T110000Z
@@ -42,7 +42,7 @@ LOCATION:Amsterdam (NIAS) with access to the KB in The Hague. Present 4 day
 END:VEVENT
 BEGIN:VEVENT
 UID:schloss-wiepersdorf-fellowships-2028@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART:20270415T212900Z
 DTEND:20270415T215900Z
@@ -69,7 +69,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ecf-erasmus-40-creative-research-fellowship-2027@artificialnouveau.gith
  ub.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T153000Z
 DTEND:20261201T160000Z
@@ -101,7 +101,7 @@ LOCATION:Research stay in Florence\, Italy (Historical Archives of the EU)
 END:VEVENT
 BEGIN:VEVENT
 UID:khk-cure-fellowships-2027-2028@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
@@ -134,7 +134,7 @@ LOCATION:Saarbruecken\, Germany. Fellows must live in Saarbruecken during t
 END:VEVENT
 BEGIN:VEVENT
 UID:zzf-leibniz-summer-fellowships-2027@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
@@ -160,7 +160,7 @@ LOCATION:Potsdam / Berlin\, Germany. Open to international postdoctoral res
 END:VEVENT
 BEGIN:VEVENT
 UID:mensch-maschine-visit-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T222900Z
 DTEND:20261201T225900Z
@@ -196,7 +196,7 @@ LOCATION:E-WERK Luckenwalde\, Brandenburg\, Germany (3 fellows) and Akademi
 END:VEVENT
 BEGIN:VEVENT
 UID:hiig-impact-ai-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART:20261120T222900Z
 DTEND:20261120T225900Z
@@ -226,7 +226,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:jane-street-graduate-research-fellowship-2027@artificialnouveau.github.
  io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
@@ -252,7 +252,7 @@ LOCATION:For full-time PhD students at accredited research institutions in
 END:VEVENT
 BEGIN:VEVENT
 UID:humboldt-residency-programme-2027@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261214
 DTEND;VALUE=DATE:20261215
@@ -287,7 +287,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:mopga-2027-visiting-fellowship-early-career-researchers@artificialnouve
  au.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
@@ -306,5 +306,29 @@ DESCRIPTION:Tenth call of Make Our Planet Great Again\, a French government
 URL:https://www.campusfrance.org/en/mopga-2027?utm_source=artificialnouveau
  grantdesk&utm_medium=referral
 LOCATION:France (host laboratory of the applicant's choice)
+END:VEVENT
+BEGIN:VEVENT
+UID:ias-ceu-giu-artist-writer-in-residence-2027-28@artificialnouveau.github
+ .io
+DTSTAMP:20261118T152912Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Deadline: IAS CEU: Global Invisible University Artist and Writer in
+  Residence Fellowships 2027/28 (Budapest\, EUR 2\,000 a month)
+DESCRIPTION:Two residential fellowships within the Global Invisible Univers
+ ity programme: one Writer in Residence (poetry\, prose\, drama\, screen an
+ d playwriting) and one Visual or New Media Artist in Residence (from paint
+ ing and film to digital art\, computer graphics and interactive art).\n\nO
+ rganisation: Institute for Advanced Study\, Central European University (I
+ AS CEU)\nLocation: Budapest\, Hungary\nAward: Net allowance of EUR 2\,000 
+ a month\, plus accommodation at the Raoul Wallenberg Guesthouse and/or off
+ ice space at IAS CEU as available. Travel and health insurance are not cov
+ ered.\nDuration: Up to 5 months\, minimum 3 months\; fellowships may start
+  in October 2027\n\nMore: https://ias.ceu.edu/artist-residence-fellowship?
+ utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://ias.ceu.edu/artist-residence-fellowship?utm_source=artificialno
+ uveaugrantdesk&utm_medium=referral
+LOCATION:Budapest\, Hungary
 END:VEVENT
 END:VCALENDAR

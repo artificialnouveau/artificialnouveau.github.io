@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:unearthodox-exploration-co-lab-2027@artificialnouveau.github.io
-DTSTAMP:20261118T152516Z
+DTSTAMP:20261118T152911Z
 TRANSP:TRANSPARENT
 DTSTART:20261116T222900Z
 DTEND:20261116T225900Z
@@ -42,7 +42,7 @@ LOCATION:Online\; group sessions designed around time zones UTC-6 to UTC+6.
 END:VEVENT
 BEGIN:VEVENT
 UID:mensch-maschine-visit-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261118T152516Z
+DTSTAMP:20261118T152911Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T222900Z
 DTEND:20261201T225900Z
@@ -78,7 +78,7 @@ LOCATION:E-WERK Luckenwalde\, Brandenburg\, Germany (3 fellows) and Akademi
 END:VEVENT
 BEGIN:VEVENT
 UID:humboldt-residency-programme-2027@artificialnouveau.github.io
-DTSTAMP:20261118T152516Z
+DTSTAMP:20261118T152911Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261214
 DTEND;VALUE=DATE:20261215
@@ -109,5 +109,27 @@ URL:https://www.humboldt-foundation.de/en/apply/sponsorship-programmes/humb
 LOCATION:Schloss Wiepersdorf (Brandenburg) and Berlin\, Germany. In person.
   Researchers must be based outside Germany\; people from civil society\, j
  ournalism and the arts can apply from anywhere\, including Germany.
+END:VEVENT
+BEGIN:VEVENT
+UID:kinship-nature-culture-fellowship-2027@artificialnouveau.github.io
+DTSTAMP:20261118T152911Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261201
+DTEND;VALUE=DATE:20261202
+SUMMARY:Deadline: Kinship: Nature Culture Fellowship 2027 (online\; micro-g
+ rants of USD 1\,000 to 2\,000 for selected fellows)
+DESCRIPTION:Global fellowship on culture\, storytelling and ecological chan
+ ge for artists\, storytellers\, scientists\, educators\, community organis
+ ers\, researchers and activists aged 18 and over. Fellows join a weekly on
+ line Learning Journey from 5 February to April 2027 (Fridays\, 14:00 UTC)\
+ , followed by a community project phase from April to August 2027.\n\nOrga
+ nisation: Kinship\nLocation: Online (worldwide)\nAward: Micro-grants of US
+ D 1\,000 to 2\,000 plus mentorship for selected fellows' community project
+ s\; not every fellow is funded\nDuration: February to August 2027\n\nMore:
+  https://www.kinship.earth/nature-culture-fellowship?utm_source=artificial
+ nouveaugrantdesk&utm_medium=referral
+URL:https://www.kinship.earth/nature-culture-fellowship?utm_source=artifici
+ alnouveaugrantdesk&utm_medium=referral
+LOCATION:Online (worldwide)
 END:VEVENT
 END:VCALENDAR

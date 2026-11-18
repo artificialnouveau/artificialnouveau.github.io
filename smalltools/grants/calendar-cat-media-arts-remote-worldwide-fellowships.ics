@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:hong-kong-phd-fellowship-scheme-2027-28@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T033000Z
 DTEND:20261201T040000Z
@@ -53,7 +53,7 @@ LOCATION:Hong Kong: City University of Hong Kong\, Hong Kong Baptist Univer
 END:VEVENT
 BEGIN:VEVENT
 UID:iie-oceanx-ocean-futures-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART:20261118T042900Z
 DTEND:20261118T045900Z
@@ -83,7 +83,7 @@ LOCATION:Fully remote from fellows' home countries\, with sessions on Singa
 END:VEVENT
 BEGIN:VEVENT
 UID:humboldt-residency-programme-2027@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261214
 DTEND;VALUE=DATE:20261215
@@ -117,7 +117,7 @@ LOCATION:Schloss Wiepersdorf (Brandenburg) and Berlin\, Germany. In person.
 END:VEVENT
 BEGIN:VEVENT
 UID:mpi-short-film-lab-2027@artificialnouveau.github.io
-DTSTAMP:20261118T152518Z
+DTSTAMP:20261118T152912Z
 TRANSP:TRANSPARENT
 DTSTART:20261130T072900Z
 DTEND:20261130T075900Z
@@ -143,5 +143,27 @@ URL:https://thempi.org/short-film-lab/?utm_source=artificialnouveaugrantdes
  k&utm_medium=referral
 LOCATION:Mostly virtual\, with an in-person summit in Los Angeles\, USA\, f
  or the directing stage. Applicants may be based anywhere in the world.
+END:VEVENT
+BEGIN:VEVENT
+UID:kinship-nature-culture-fellowship-2027@artificialnouveau.github.io
+DTSTAMP:20261118T152912Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20261201
+DTEND;VALUE=DATE:20261202
+SUMMARY:Deadline: Kinship: Nature Culture Fellowship 2027 (online\; micro-g
+ rants of USD 1\,000 to 2\,000 for selected fellows)
+DESCRIPTION:Global fellowship on culture\, storytelling and ecological chan
+ ge for artists\, storytellers\, scientists\, educators\, community organis
+ ers\, researchers and activists aged 18 and over. Fellows join a weekly on
+ line Learning Journey from 5 February to April 2027 (Fridays\, 14:00 UTC)\
+ , followed by a community project phase from April to August 2027.\n\nOrga
+ nisation: Kinship\nLocation: Online (worldwide)\nAward: Micro-grants of US
+ D 1\,000 to 2\,000 plus mentorship for selected fellows' community project
+ s\; not every fellow is funded\nDuration: February to August 2027\n\nMore:
+  https://www.kinship.earth/nature-culture-fellowship?utm_source=artificial
+ nouveaugrantdesk&utm_medium=referral
+URL:https://www.kinship.earth/nature-culture-fellowship?utm_source=artifici
+ alnouveaugrantdesk&utm_medium=referral
+LOCATION:Online (worldwide)
 END:VEVENT
 END:VCALENDAR
