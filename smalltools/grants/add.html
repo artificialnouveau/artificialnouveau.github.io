@@ -193,7 +193,7 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
       <select id="f-category">
         <option>arts</option><option>cross</option><option>film</option><option>research</option>
         <option>ai</option><option>writers</option><option>tech</option><option>audio</option>
-        <option>design</option><option>curator</option><option>game</option>
+        <option>design</option><option>game</option>
       </select>
 
       <label>Extra categories (optional, comma-separated)</label>
@@ -234,7 +234,7 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
       </div>
 
       <label>Tags (comma-separated) <span class="req">*</span></label>
-      <span class="hint">Type facet comes from tags and title: "residency", "fellowship", "grant"/"funding", "travel", "publication". Prizes, awards and competitions are no longer listed. "cash-award" is NOT a type signal. Add country tags like "germany", "switzerland", "china".</span>
+      <span class="hint">Type facet comes from tags and title: "residency", "fellowship", "grant"/"funding", "travel", "publication", "curatorial" (or "curators"). Prizes, awards and competitions are no longer listed. "cash-award" is NOT a type signal. Add country tags like "germany", "switzerland", "china".</span>
       <input type="text" id="f-tags" placeholder="residency, stipend, open-call, cash-award">
 
       <div class="check"><input type="checkbox" id="f-fee"><label for="f-fee" style="margin:0;font-weight:400;">Application fee required</label></div>
@@ -272,7 +272,7 @@ ol.steps code, p code { font-family: 'DM Mono', monospace; font-size: 12px; back
   var grants = [];
   var $ = function (id) { return document.getElementById(id); };
 
-  var CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"];
+  var CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "audio", "cross"];
   // Local calendar day; toISOString() gives the UTC day, which is a day early in NL after midnight.
   function localIso(d) {
     return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");

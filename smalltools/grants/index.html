@@ -17170,10 +17170,10 @@ function deadlinePill(grant, today) {
 // legal entity, which includes collectives, duos and other unincorporated groups.
 // 'organizations' is strictly for calls that require a registered legal entity.
 const APPLICANT_LABELS = { individuals: 'Individuals or collectives', organizations: 'Organizations (legal entities)', both: 'Both' };
-const TYPE_LABELS = { residency: 'Residency', fellowship: 'Fellowship', grant: 'Grant', travel: 'Travel & Mobility', production: 'Film & TV Production', publication: 'Publications', festival: 'Festivals & Conferences', job: 'Research Jobs', other: 'Other' };
+const TYPE_LABELS = { residency: 'Residency', fellowship: 'Fellowship', grant: 'Grant', travel: 'Travel & Mobility', production: 'Film & TV Production', publication: 'Writing & Publications', curatorial: 'Curatorial', festival: 'Festivals & Conferences', job: 'Research Jobs', other: 'Other' };
 // Card tab labels, keyed by detectTypes()[0]. Short forms of TYPE_LABELS; 'other'
 // reads as OPEN CALL because an "OTHER" tab tells the reader nothing.
-const TAB_TYPE_LABELS = { residency: 'RESIDENCY', fellowship: 'FELLOWSHIP', grant: 'GRANT', travel: 'TRAVEL', production: 'FILM/TV', publication: 'PUBLICATION', festival: 'FESTIVAL', job: 'JOB', other: 'OPEN CALL' };
+const TAB_TYPE_LABELS = { residency: 'RESIDENCY', fellowship: 'FELLOWSHIP', grant: 'GRANT', travel: 'TRAVEL', production: 'FILM/TV', publication: 'PUBLICATION', curatorial: 'CURATORIAL', festival: 'FESTIVAL', job: 'JOB', other: 'OPEN CALL' };
 const FESTIVAL_TAG_RE = /festival|conference|summit|symposium/;
 // Biennale counts only in the title (a call from the biennale itself); as a tag
 // it is usually just context, e.g. a prize whose winners show at a biennale.
@@ -17191,7 +17191,7 @@ const FESTIVAL_TITLE_RE = /festival|conference|summit|symposium|biennale|biennia
 // inconsistent ("CFA x IMGN Grant 2026" arrived with no grant-ish tag at all).
 // 'publication' sits after 'grant' so a funded writing scheme (e.g. Mondriaan
 // Art Media Grant) keeps GRANT as its card tab while still answering to the
-// Publications chip.
+// Writing & Publications chip.
 const TYPE_RULES = [
   // residency, fellowship and grant: keep identical to FEED_TYPE_RULES in
   // generate_feed.py (it warns, and the daily publish fails, on drift).
@@ -17208,6 +17208,10 @@ const TYPE_RULES = [
   // grant: whole words, so "Funded residency", "Grantham", "Immigrant" and
   // fully-funded tags are not grants; stipend/fonds match inside compounds.
   ['grant',       /(^|-)((micro|sub|mega)?grants?|regranting|funds?|funding|subsid(y|ies)|bursar(y|ies)|stipends?|scholarships?|commissions?)(-|$)|fonds/, /\b((micro|sub|mega)?grants?|regranting|funds?|funding|bursar(y|ies)|subsid(y|ies)|scholarships?|support scheme)\b|stipend|fonds/],
+  // curatorial: a category ('curator') until 19 Nov 2026. Sits after grant so a
+  // curatorial residency or grant keeps that as its card tab. Keep identical to
+  // CURATOR_TAG_RE / CURATOR_TITLE_RE in generate_feed.py.
+  ['curatorial',  /(^|-)(curators?|curatorial|curating|curation)(-|$)/, /\bcurat(ors?|orial|ing|ion)\b/],
   ['production',  /production|cash-rebate|documentary|feature-film|television|tv-drama|screenwriting|filmmak|episodic/, /film production|production incentive|documentary|feature film|screenwriting|tv drama|filmmak/],
   ['publication', /call-for-papers|call-for-pitches|journal|publication|publishing|magazine|editorial|essay|long-read|zine|anthology|writing/, /call for papers|call for pitches|journal|magazine|anthology|essay/],
 ];
@@ -17236,7 +17240,7 @@ function detectTypes(grant) {
 // Category slugs the picker knows. Anything else (or a missing category, which
 // the intake bot can produce) is normalised to 'other' so it stays filterable
 // instead of vanishing from the Category chips.
-const KNOWN_GRANT_CATEGORIES = new Set(['ai','tech','research','writers','film','arts','game','design','curator','audio','cross']);
+const KNOWN_GRANT_CATEGORIES = new Set(['ai','tech','research','writers','film','arts','game','design','audio','cross']);
 function grantCategories(grant) {
   const out = [];
   if (grant.category) out.push(grant.category);
@@ -18310,7 +18314,6 @@ const CATEGORY_GROUPS = [
   { values: ['ai', 'tech'], label: 'AI, Tech, Digital Infrastructure' },
   { values: ['audio'], label: 'Audio, Sound & Music' },
   { values: ['cross'], label: 'Cross-disciplinary & Social Impact' },
-  { values: ['curator'], label: 'Curator' },
   { values: ['design'], label: 'Design' },
   { values: ['game'], label: 'Game Design' },
   { values: ['film', 'arts'], label: 'Media Arts, Film & Live Performance' },

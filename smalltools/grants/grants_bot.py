@@ -86,7 +86,7 @@ OTHERWISE return JSON matching this schema strictly:
   "organization": "string",
   "location": "string",
   "region": "EU"|"US"|"UK"|"NL"|"Canada"|"Asia"|"Africa"|"Australia"|"LatAm"|"Remote"|"Worldwide",
-  "category": "ai"|"tech"|"research"|"writers"|"film"|"arts"|"game"|"design"|"curator"|"audio"|"cross",
+  "category": "ai"|"tech"|"research"|"writers"|"film"|"arts"|"game"|"design"|"audio"|"cross",
   "amount": "string (include currency symbol)",
   "deadline": "YYYY-MM-DD",
   "url": "string (the canonical apply page, NOT the bsky.app post URL)",
@@ -347,7 +347,7 @@ def _age_cap_or_none(value) -> int | None:
 # Switzerland and China-HK-Taiwan are tag-driven sub-regions, never a primary region.
 ALLOWED_REGIONS = {"EU", "US", "UK", "NL", "Asia", "Africa", "Canada", "Australia", "LatAm", "Remote", "Worldwide"}
 ALLOWED_CATEGORIES = {"ai", "tech", "research", "writers", "film", "arts", "game", "design",
-                      "curator", "audio", "cross"}
+                      "audio", "cross"}
 
 
 def _enum_or_default(value, allowed: set[str], default: str) -> str:

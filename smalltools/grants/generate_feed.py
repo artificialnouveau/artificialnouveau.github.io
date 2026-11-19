@@ -92,7 +92,9 @@ PICKER_REGIONS = [
 # deadlines; from that date the stale-calendar sweep deletes it.
 CAL_PICKER_REGIONS = PICKER_REGIONS
 CAL_RETIRE_UNTIL = date(2026, 12, 5)
-CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "curator", "audio", "cross"]
+# "curator" was a category until 19 Nov 2026; it is now an opportunity type
+# (see OPPORTUNITY_TYPES), because curating is a kind of call, not a discipline.
+CATEGORIES = ["ai", "tech", "research", "writers", "film", "arts", "game", "design", "audio", "cross"]
 
 # Two of the subscribe-picker checkboxes bundle a pair of categories under one
 # label. Without a real combined slice, one ticked box produced TWO feed URLs
@@ -117,10 +119,9 @@ _GROUPED_MEMBERS = {m for ms in CATEGORY_GROUPS.values() for m in ms}
 # Categories the picker deliberately does not offer despite being ungrouped.
 # Being ungrouped is not the same as being offered; without this the derivation
 # below hands every loose single a checkbox automatically.
-#   curator      - 73% of curatorial calls already surface under another category.
 #   design-games - 40% of it sits inside the media group; too thin to earn a row.
 # Group slugs are filtered here too, not just loose singles.
-PICKER_EXCLUDED = {"curator", "design-games"}
+PICKER_EXCLUDED = {"design-games"}
 PICKER_CATEGORIES = [
     c for c in SYNDICATION_CATEGORIES
     if c not in _GROUPED_MEMBERS and c not in PICKER_EXCLUDED
@@ -134,7 +135,6 @@ CATEGORY_LABELS = {
     "arts": "Visual & Media Arts",
     "game": "Game Design",
     "design": "Design",
-    "curator": "Curatorial",
     "audio": "Audio, Sound & Music",
     "cross": "Cross-disciplinary & Social Impact",
     "media-arts": "Media Arts, Film & Sound",
@@ -184,7 +184,7 @@ def picker_region(region):
 
 def picker_category(category):
     """Nearest category the feed picker offers: a merged single maps to its group;
-    an unoffered one (curator, design, game) falls back to all categories."""
+    an unoffered one (design, game) falls back to all categories."""
     if category is None or category in PICKER_CATEGORIES:
         return category
     for group, members in CATEGORY_GROUPS.items():
@@ -1211,7 +1211,6 @@ CATEGORY_TITLE_PHRASE = {
     "arts": "Visual and Media Arts",
     "game": "Game Design",
     "design": "Design",
-    "curator": "Curatorial",
     "audio": "Audio, Sound and Music",
     "cross": "Cross-Disciplinary and Social Impact",
 }
@@ -1225,7 +1224,9 @@ CATEGORY_TITLE_PHRASE = {
 # description that merely mentions a residency does not make the entry one.
 # "prizes" was a type until 17 Nov 2026, when prize, award and competition
 # entries were dropped from the desk; its pages, feeds and calendars are swept.
-OPPORTUNITY_TYPES = ["residencies", "fellowships", "open-calls"]
+# "curator" (a category until 19 Nov 2026) keeps its singular slug so the old
+# category pages (curator/, curator-eu/ ...) stay at the same URLs.
+OPPORTUNITY_TYPES = ["residencies", "fellowships", "open-calls", "curator"]
 
 # What the subscribe picker offers and what type-sliced feeds are built for.
 # Deliberately NOT the same list as OPPORTUNITY_TYPES: "grants" is a feed/picker
@@ -1264,11 +1265,17 @@ _FEED_TYPE_RES = {t: (re.compile(a, re.ASCII), re.compile(b, re.ASCII))
 OPEN_CALL_TAGS = {"open-call", "exhibition", "festival"}
 OPEN_CALL_TITLE_KEYS = ["open call", "submissions"]
 
+# "curator" is a static SEO page type too. Keep both patterns identical to the
+# 'curatorial' entry of TYPE_RULES in index.html.
+CURATOR_TAG_RE = re.compile(r"(^|-)(curators?|curatorial|curating|curation)(-|$)", re.ASCII)
+CURATOR_TITLE_RE = re.compile(r"\bcurat(ors?|orial|ing|ion)\b", re.ASCII)
+
 OPPORTUNITY_TYPE_TITLE_PHRASE = {
     "grants": "Grants",
     "residencies": "Artist Residencies",
     "fellowships": "Fellowships",
     "open-calls": "Open Calls",
+    "curator": "Curatorial Opportunities",
 }
 
 OPPORTUNITY_TYPE_PHRASE = {
@@ -1276,6 +1283,7 @@ OPPORTUNITY_TYPE_PHRASE = {
     "residencies": "funded artist residencies",
     "fellowships": "fellowships",
     "open-calls": "open calls",
+    "curator": "curatorial calls, residencies and fellowships",
 }
 
 # --- Country axis ------------------------------------------------------------
@@ -1332,6 +1340,8 @@ def type_matches(grant, opp_type):
     title = str(grant.get("title") or "").lower()
     if opp_type == "open-calls":
         return bool(set(tags) & OPEN_CALL_TAGS) or any(k in title for k in OPEN_CALL_TITLE_KEYS)
+    if opp_type == "curator":
+        return any(CURATOR_TAG_RE.search(t) for t in tags) or bool(CURATOR_TITLE_RE.search(title))
     tag_re, title_re = _FEED_TYPE_RES[opp_type]
     return any(tag_re.search(t) for t in tags) or bool(title_re.search(title))
 
@@ -2206,7 +2216,6 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 - [Visual and media arts]({base}arts/)
 - [Games and interactive]({base}game/)
 - [Design]({base}design/)
-- [Curatorial]({base}curator/)
 - [Audio and sound art]({base}audio/)
 - [Cross-disciplinary and social impact]({base}cross/)
 
@@ -2229,6 +2238,7 @@ Maintained by Ahnjili ZhuParris. Updated weekly. Almost every entry is funded; a
 - [Artist residencies]({base}residencies/)
 - [Fellowships]({base}fellowships/)
 - [Open calls]({base}open-calls/)
+- [Curatorial opportunities]({base}curator/)
 
 ## By country
 
