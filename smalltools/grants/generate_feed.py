@@ -1267,7 +1267,7 @@ OPEN_CALL_TITLE_KEYS = ["open call", "submissions"]
 
 # "curator" is a static SEO page type too. Keep both patterns identical to the
 # 'curatorial' entry of TYPE_RULES in index.html.
-CURATOR_TAG_RE = re.compile(r"(^|-)(curators?|curatorial|curating|curation)(-|$)", re.ASCII)
+CURATOR_TAG_RE = re.compile(r"(^|-)(curatorial|curating|curation)(-|$)", re.ASCII)
 CURATOR_TITLE_RE = re.compile(r"\bcurat(ors?|orial|ing|ion)\b", re.ASCII)
 
 OPPORTUNITY_TYPE_TITLE_PHRASE = {

@@ -17173,7 +17173,7 @@ const APPLICANT_LABELS = { individuals: 'Individuals or collectives', organizati
 const TYPE_LABELS = { residency: 'Residency', fellowship: 'Fellowship', grant: 'Grant', travel: 'Travel & Mobility', production: 'Film & TV Production', publication: 'Writing & Publications', curatorial: 'Curatorial', festival: 'Festivals & Conferences', job: 'Research Jobs', other: 'Other' };
 // Card tab labels, keyed by detectTypes()[0]. Short forms of TYPE_LABELS; 'other'
 // reads as OPEN CALL because an "OTHER" tab tells the reader nothing.
-const TAB_TYPE_LABELS = { residency: 'RESIDENCY', fellowship: 'FELLOWSHIP', grant: 'GRANT', travel: 'TRAVEL', production: 'FILM/TV', publication: 'PUBLICATION', curatorial: 'CURATORIAL', festival: 'FESTIVAL', job: 'JOB', other: 'OPEN CALL' };
+const TAB_TYPE_LABELS = { residency: 'RESIDENCY', fellowship: 'FELLOWSHIP', grant: 'GRANT', travel: 'TRAVEL', production: 'FILM/TV', publication: 'WRITING', curatorial: 'CURATORIAL', festival: 'FESTIVAL', job: 'JOB', other: 'OPEN CALL' };
 const FESTIVAL_TAG_RE = /festival|conference|summit|symposium/;
 // Biennale counts only in the title (a call from the biennale itself); as a tag
 // it is usually just context, e.g. a prize whose winners show at a biennale.
@@ -17209,9 +17209,10 @@ const TYPE_RULES = [
   // fully-funded tags are not grants; stipend/fonds match inside compounds.
   ['grant',       /(^|-)((micro|sub|mega)?grants?|regranting|funds?|funding|subsid(y|ies)|bursar(y|ies)|stipends?|scholarships?|commissions?)(-|$)|fonds/, /\b((micro|sub|mega)?grants?|regranting|funds?|funding|bursar(y|ies)|subsid(y|ies)|scholarships?|support scheme)\b|stipend|fonds/],
   // curatorial: a category ('curator') until 19 Nov 2026. Sits after grant so a
-  // curatorial residency or grant keeps that as its card tab. Keep identical to
+  // curatorial residency or grant keeps that as its card tab. A bare 'curators'
+  // tag only says curators may apply, so it is not a type signal. Keep identical to
   // CURATOR_TAG_RE / CURATOR_TITLE_RE in generate_feed.py.
-  ['curatorial',  /(^|-)(curators?|curatorial|curating|curation)(-|$)/, /\bcurat(ors?|orial|ing|ion)\b/],
+  ['curatorial',  /(^|-)(curatorial|curating|curation)(-|$)/, /\bcurat(ors?|orial|ing|ion)\b/],
   ['production',  /production|cash-rebate|documentary|feature-film|television|tv-drama|screenwriting|filmmak|episodic/, /film production|production incentive|documentary|feature film|screenwriting|tv drama|filmmak/],
   ['publication', /call-for-papers|call-for-pitches|journal|publication|publishing|magazine|editorial|essay|long-read|zine|anthology|writing/, /call for papers|call for pitches|journal|magazine|anthology|essay/],
 ];
