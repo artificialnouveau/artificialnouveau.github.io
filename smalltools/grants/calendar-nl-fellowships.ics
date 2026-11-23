@@ -12,7 +12,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:nias-kb-fellowship-2027-28@artificialnouveau.github.io
-DTSTAMP:20261123T141226Z
+DTSTAMP:20261123T141508Z
 TRANSP:TRANSPARENT
 DTSTART:20270315T103000Z
 DTEND:20270315T110000Z
@@ -37,5 +37,36 @@ URL:https://nias.knaw.nl/fellowships/kb-fellowship?utm_source=artificialnou
  veaugrantdesk&utm_medium=referral
 LOCATION:Amsterdam (NIAS) with access to the KB in The Hague. Present 4 day
  s a week.
+END:VEVENT
+BEGIN:VEVENT
+UID:nias-individual-fellowship-2028-29@artificialnouveau.github.io
+DTSTAMP:20261123T141508Z
+TRANSP:TRANSPARENT
+DTSTART:20270315T103000Z
+DTEND:20270315T110000Z
+SUMMARY:Deadline 12:00 CET: NIAS Individual Fellowship 2028-2029 (5 or 10 m
+ onths in Amsterdam\; EUR 3\,500 per month stipend)
+DESCRIPTION:Closes 15 Mar 2027 at 12:00 CET.\n\nNIAS offers individual fell
+ owships to scholars who want to pursue a research project of their own cho
+ osing\, working for five or ten months inside an international\, interdisc
+ iplinary community of scholars\, writers and artists in the centre of Amst
+ erdam.\n\nOrganisation: NIAS-KNAW (Netherlands Institute for Advanced Stud
+ y in the Humanities and Social Sciences)\nLocation: Amsterdam\, Netherland
+ s. Present at the institute 4 days a week. Open to scholars from the Nethe
+ rlands and abroad\; no applications from researchers affiliated with insti
+ tutions in Russia or Belarus.\nAward: Personal stipend of EUR 3\,500 per m
+ onth\, paid directly to fellows without an affiliation and fellows from ou
+ tside the Netherlands. Fellows employed at Dutch universities get a Dutch 
+ University Grant of EUR 3\,500 per month paid to the university instead. T
+ ravel expenses\, an office and subsidised accommodation are also offered\;
+  extra support can be requested by fellows from low-income countries. No a
+ pplication fee stated.\nDuration: 5 or 10 months in the academic year 2028
+ -2029\n\nMore: https://nias.knaw.nl/fellowships/nias-individual-fellowship
+ /?utm_source=artificialnouveaugrantdesk&utm_medium=referral
+URL:https://nias.knaw.nl/fellowships/nias-individual-fellowship/?utm_source
+ =artificialnouveaugrantdesk&utm_medium=referral
+LOCATION:Amsterdam\, Netherlands. Present at the institute 4 days a week. O
+ pen to scholars from the Netherlands and abroad\; no applications from res
+ earchers affiliated with institutions in Russia or Belarus.
 END:VEVENT
 END:VCALENDAR
