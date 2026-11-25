@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-24",
+  "lastUpdated": "2026-11-25",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
@@ -32326,7 +32326,7 @@
       "location": "Six host labs: Kersnikova (Ljubljana), ZKM (Karlsruhe), Kontejner (Zagreb), LABoral (Gijon), CPN (Belgrade), GLUON (Brussels, with Utrecht). Applicants must be residents or taxpayers in the EU or an eligible non-EU country.",
       "region": "EU",
       "url": "https://europeanhybridintelligencenetwork.eu/open-call/",
-      "deadline": "2026-12-04",
+      "deadline": "2026-12-11",
       "deadlineTime": "23:59",
       "deadlineTz": "Europe/Paris",
       "amount": "EUR 25,000 fixed residency grant per artist (6 artists), covering fee (max 35%) and production; travel and accommodation arranged separately with the host; optional extra co-production budget in Phase 2. No application fee.",
@@ -32337,7 +32337,7 @@
         "research"
       ],
       "applicant": "individuals",
-      "description": "EHIN invites artists to explore hybrid intelligence through the shared agency of the more-than-human world: biocomputing, interspecies and multi-species communication, biofabrication, sensing and biohybrid systems, building new artistic narratives rooted in ecological knowledge. Six artists are selected, one per host (Kersnikova Dirty Lab in Ljubljana, ZKM Hertzlab in Karlsruhe, Kontejner in Zagreb, LABoral in Gijon, CPN in Belgrade, GLUON in Brussels with Malda Lab Utrecht), each paired with a biocomputing expert. STRUCTURE (about 12 months): Phase 1, February to September 2027, on-site residency at the first host ending in an Open Dirty Lab public event; Phase 2, October 2027 to January 2028, co-production at a partner lab of the artist's choice, ending in an exhibition-ready artwork; works are then shown locally and in a final group exhibition and symposium at ZKM (Phase 3, to October 2028). FUNDING: a fixed EUR 25,000 grant per artist covering artist fee (max 35%) and production/technical costs, paid 40/40/20; travel and accommodation arranged separately with the host institution(s); the second host may add a conditional co-production budget. ELIGIBILITY: individual artists or artist collectives who are residents or taxpayers in an EU member state or an eligible non-EU country (list in the guide), able to travel to the hosts, with a fiscal ID (VAT or similar), and not affiliated with consortium partners; an established practice with public exhibitions is expected. Artists apply to one host only and must spend at least 30 days on site and run two public Open Dirty Labs. Some hosts prefer wet-lab, electronics, data or digital fabrication experience; LABoral requires 6 to 8 weeks on site. SELECTION: top 3 per residency invited to pitch; results by end of January 2027. APPLY via the Jotform application form linked from the call page (in English: project description up to 1,500 words, CV and portfolio as PDFs up to 5 MB each, sketches, draft budget, and why this host; no edits after submission). DEADLINE: 4 December 2026, 23:59 CET.",
+      "description": "EHIN invites artists to explore hybrid intelligence through the shared agency of the more-than-human world: biocomputing, interspecies and multi-species communication, biofabrication, sensing and biohybrid systems, building new artistic narratives rooted in ecological knowledge. Six artists are selected, one per host (Kersnikova Dirty Lab in Ljubljana, ZKM Hertzlab in Karlsruhe, Kontejner in Zagreb, LABoral in Gijon, CPN in Belgrade, GLUON in Brussels with Malda Lab Utrecht), each paired with a biocomputing expert. STRUCTURE (about 12 months): Phase 1, February to September 2027, on-site residency at the first host ending in an Open Dirty Lab public event; Phase 2, October 2027 to January 2028, co-production at a partner lab of the artist's choice, ending in an exhibition-ready artwork; works are then shown locally and in a final group exhibition and symposium at ZKM (Phase 3, to October 2028). FUNDING: a fixed EUR 25,000 grant per artist covering artist fee (max 35%) and production/technical costs, paid 40/40/20; travel and accommodation arranged separately with the host institution(s); the second host may add a conditional co-production budget. ELIGIBILITY: individual artists or artist collectives who are residents or taxpayers in an EU member state or an eligible non-EU country (list in the guide), able to travel to the hosts, with a fiscal ID (VAT or similar), and not affiliated with consortium partners; an established practice with public exhibitions is expected. Artists apply to one host only and must spend at least 30 days on site and run two public Open Dirty Labs. Some hosts prefer wet-lab, electronics, data or digital fabrication experience; LABoral requires 6 to 8 weeks on site. SELECTION: top 3 per residency invited to pitch; results by end of January 2027. APPLY via the Jotform application form linked from the call page (in English: project description up to 1,500 words, CV and portfolio as PDFs up to 5 MB each, sketches, draft budget, and why this host; no edits after submission). DEADLINE: extended to 11 December 2026, 23:59 CET (originally 4 December).",
       "tags": [
         "residency",
         "biocomputing",
@@ -44755,6 +44755,156 @@
         "the-hague",
         "netherlands",
         "nl"
+      ]
+    },
+    {
+      "addedDate": "2026-11-25",
+      "feedDate": null,
+      "featured": false,
+      "ageCap": null,
+      "fee": false,
+      "region": "US",
+      "regions": [
+        "US",
+        "EU"
+      ],
+      "applicant": "individuals",
+      "startDate": "2028-01-01",
+      "eligibility": "open",
+      "attendance": "onsite",
+      "career": "unknown",
+      "id": "villa-albertine-arts-in-the-age-of-ai-residency-2028",
+      "title": "Villa Albertine: Arts in the Age of AI, 2028 Residencies in the United States (two-month funded residency, about USD 3,300 per month plus travel and housing)",
+      "organization": "Villa Albertine (Embassy of France in the United States)",
+      "location": "A single US city or territory chosen by the applicant. Open to any nationality and to French and non-French speakers, but every application needs a letter of support from a partner organisation based in France. Minimum age 21.",
+      "amount": "Residency stipend of about USD 110 per day (roughly USD 3,300 per month, adjusted to the city), paid as a lump sum. International travel, accommodation, insurance and, where needed, a rental car are covered separately. No application fee stated.",
+      "duration": "2 months during 2028",
+      "deadline": "2027-01-21",
+      "deadlineTime": "23:59",
+      "deadlineTz": "Europe/Paris",
+      "category": "ai",
+      "categories": [
+        "arts",
+        "tech",
+        "research"
+      ],
+      "description": "Villa Albertine, the French Embassy's residency institution in the United States, runs a dedicated call within its 2028 season for projects on creation in the age of artificial intelligence. Two creators are selected for a two-month exploratory residency in 2028. WHAT IT WANTS: projects that deal with AI either as a creative tool or as a subject of study, and that can only take shape through a stay in a specific American city or territory. Roving, multi-city projects are not accepted in this call, and projects that specifically target AI must apply here rather than to the general call. WHAT YOU GET: Villa Albertine pays a residency stipend as a lump sum (about USD 110 per day in Washington, D.C., roughly USD 3,300 per month, adjusted to each city's cost of living) and arranges and pays for international travel, accommodation, health, liability and repatriation insurance, and a rental car where the city or project requires one. Extra needs such as equipment or a workspace are the resident's own responsibility, and accompanying guests are not covered. WHO: individuals only (no duos or groups), aged at least 21 before departure, of any nationality, living in or outside the US. The call is not limited to French citizens or French speakers, but each applicant must be backed by a French partner: a public or private organisation governed by French law and based in France, which writes a letter of support. Partners pay nothing, though a tangible commitment is encouraged. Working English is required and shown in a video of up to three minutes; applications are written in English. One application per season across all Villa Albertine calls, and no more than three in total. TIMELINE: calls opened 19 November 2026; online information session (in French) on 10 December 2026; results in early June 2027. DEADLINE: 21 January 2027, 23:59 Paris time, with no extensions. Apply through the Villa Albertine application portal: https://candidatures.villa-albertine.org/en/applications/calls-for-applications-villa-albertine-2028-season",
+      "url": "https://villa-albertine.org/va/professionals/arts-in-the-age-of-ai-appel-a-candidatures-pour-des-residences-dartistes-aux-etats-unis-sur-la-creation-a-lere-de-lintelligence-artificielle/",
+      "tags": [
+        "residency",
+        "artificial-intelligence",
+        "ai-art",
+        "art-and-technology",
+        "stipend",
+        "travel-covered",
+        "accommodation-provided",
+        "france",
+        "french-partner-required",
+        "international",
+        "us",
+        "eu"
+      ]
+    },
+    {
+      "addedDate": "2026-11-25",
+      "feedDate": null,
+      "featured": false,
+      "ageCap": null,
+      "fee": false,
+      "region": "US",
+      "regions": [
+        "US",
+        "EU"
+      ],
+      "applicant": "individuals",
+      "startDate": "2028-01-01",
+      "eligibility": "open",
+      "attendance": "onsite",
+      "career": "unknown",
+      "id": "villa-albertine-residencies-2028",
+      "title": "Villa Albertine: 2028 Exploratory Residencies in the United States (one to three months, about USD 3,300 per month plus travel and housing; French partner required)",
+      "organization": "Villa Albertine (Embassy of France in the United States)",
+      "location": "Cities across the United States, usually one city per residency, with a few roving residencies. Open to any nationality and to French and non-French speakers, but every application needs a letter of support from a partner organisation based in France. Minimum age 21.",
+      "amount": "Residency stipend of about USD 110 per day (roughly USD 3,300 per month, adjusted to the city), paid as a lump sum. International travel (and domestic travel for roving residencies), accommodation, insurance and, where needed, a rental car are covered separately. No application fee stated.",
+      "duration": "1 to 3 months between January and December 2028",
+      "deadline": "2027-01-21",
+      "deadlineTime": "23:59",
+      "deadlineTz": "Europe/Paris",
+      "category": "cross",
+      "categories": [
+        "arts",
+        "film",
+        "writers",
+        "design",
+        "research"
+      ],
+      "description": "Villa Albertine, the French Embassy's residency institution in the United States, will host around fifty exploratory residencies between January and December 2028 for artists, thinkers and cultural professionals whose projects can only take shape through a stay in the US. DISCIPLINES: visual arts, architecture, performing and street arts, music, film and television series, literature, nonfiction, graphic novels and comics, children's literature, museum studies and heritage, art history, new media, podcasts, culinary arts and more; interdisciplinary projects are welcome. WHAT YOU GET: Villa Albertine pays a residency stipend as a lump sum (about USD 110 per day in Washington, D.C., roughly USD 3,300 per month, adjusted to each city's cost of living) and arranges and pays for international travel, accommodation, health, liability and repatriation insurance, and a rental car where the city or project requires one. Extra needs such as equipment or a workspace are the resident's own responsibility, and accompanying guests are not covered. Residencies are a single continuous stay of one to three months. WHO: individuals, or duos with a genuinely shared practice (no larger groups), aged at least 21 before departure, of any nationality, living in or outside the US. The call is not limited to French citizens or French speakers, but each applicant must be backed by a French partner: a public or private organisation governed by French law and based in France, which writes a letter of support. Partners pay nothing, though a tangible commitment is encouraged. Working English is required and shown in a video of up to three minutes; applications are written in English. One application per season, and no more than three in total. DEDICATED CALLS in the same season, each with its own page and for individuals only: Arts in the Age of AI (listed separately on Grant Desk), Craft and Design (two months, New York residencies with Industry City and WantedDesign), Classical Music (with the Philharmonie de Paris), and the Recanati-Kaplan Prize for creators from the Arab world (USD 15,000 plus a two-month residency in autumn 2027 or in 2028). TIMELINE: calls opened 19 November 2026; online information session (in French) on 10 December 2026; results in early June 2027. DEADLINE: 21 January 2027, 23:59 Paris time, with no extensions. Apply through the Villa Albertine application portal: https://candidatures.villa-albertine.org/en/applications/calls-for-applications-villa-albertine-2028-season",
+      "url": "https://villa-albertine.org/va/professionals/appel-a-candidatures-de-la-villa-albertine-residences-2028/",
+      "tags": [
+        "residency",
+        "interdisciplinary",
+        "visual-arts",
+        "new-media",
+        "literature",
+        "film",
+        "architecture",
+        "stipend",
+        "travel-covered",
+        "accommodation-provided",
+        "france",
+        "french-partner-required",
+        "international",
+        "us",
+        "eu"
+      ]
+    },
+    {
+      "addedDate": "2026-11-25",
+      "feedDate": null,
+      "featured": false,
+      "ageCap": null,
+      "fee": false,
+      "region": "EU",
+      "regions": [
+        "EU",
+        "Worldwide"
+      ],
+      "applicant": "individuals",
+      "startDate": "2027-07-04",
+      "eligibility": "open",
+      "attendance": "onsite",
+      "career": "unknown",
+      "id": "bibliothek-andreas-zuest-residency-summer-2027",
+      "title": "Bibliothek Andreas Züst: Studio Residency for Duos and Collectives, Summer 2027 (six weeks in the Swiss Alps; room, board and travel covered, living subsidy up to CHF 750)",
+      "organization": "Bibliothek Andreas Züst",
+      "location": "Alpenhof panorama lodge, St. Anton (Oberegg), Switzerland, at 1,110 m above the Rhine Valley and Lake Constance. Open to national and international cultural workers; no nationality or age rule is stated.",
+      "amount": "Accommodation, food and use of the studio are free, and travel costs are covered. An additional subsidy for living costs of up to CHF 750 can be requested separately. No application fee stated.",
+      "duration": "6 weeks (4 July to 15 August 2027)",
+      "deadline": "2026-12-15",
+      "category": "cross",
+      "categories": [
+        "arts",
+        "writers",
+        "design",
+        "film",
+        "audio"
+      ],
+      "description": "The Bibliothek Andreas Züst, the 12,000-volume private library of the Swiss photographer, collector and polymath Andreas Züst, is housed at the Alpenhof lodge above the Rhine Valley and offers studio residency stipends for work in and around the collection. The summer 2027 round is for duos and collectives of up to five people. WHO: national and international cultural workers across disciplines, including visual arts, literature, new media, music, theatre, design, architecture, film, photography and art-related fields. The call is framed for duos and collectives, and the application assumes collaborators. WHAT YOU GET: a private bedroom for each member and a shared studio at the Alpenhof, with accommodation, food and studio use free of charge and travel costs covered. A further subsidy towards living costs of up to CHF 750 can be requested separately. WHEN: 4 July to 15 August 2027. APPLICATION: by email to residency@bibliothekandreaszuest.net as one PDF of at most 7 MB, containing the completed application form (a PDF linked from the residency page), a project description of at most one A4 page, documentation of previous work including CV (five pages in total), a one-page CV for each collaborator, and a one-page statement on your motivation for working together as a collective. Results are announced by the end of January 2027. DEADLINE: 15 December 2026 (no time stated).",
+      "url": "https://bibliothekandreaszuest.net/en/residency",
+      "tags": [
+        "residency",
+        "eu",
+        "switzerland",
+        "collectives",
+        "duos",
+        "library",
+        "research",
+        "interdisciplinary",
+        "new-media",
+        "stipend",
+        "travel-covered",
+        "accommodation-provided",
+        "international"
       ]
     }
   ]

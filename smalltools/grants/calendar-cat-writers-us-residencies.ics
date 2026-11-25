@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:craigardan-trillium-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261125T165929Z
+DTSTAMP:20261125T194352Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
@@ -42,7 +42,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:knight-wallace-journalism-fellowships-2027-28@artificialnouveau.github.
  io
-DTSTAMP:20261125T165929Z
+DTSTAMP:20261125T194352Z
 TRANSP:TRANSPARENT
 DTSTART:20261202T042900Z
 DTEND:20261202T045900Z
@@ -66,7 +66,7 @@ LOCATION:Ann Arbor\, Michigan\, USA (in residence for the academic year). O
 END:VEVENT
 BEGIN:VEVENT
 UID:mfah-core-residency-2027-29@artificialnouveau.github.io
-DTSTAMP:20261125T165929Z
+DTSTAMP:20261125T194352Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270108
 DTEND;VALUE=DATE:20270109
@@ -97,7 +97,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:knight-science-journalism-fellowship-2027-28@artificialnouveau.github.i
  o
-DTSTAMP:20261125T165929Z
+DTSTAMP:20261125T194352Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270109
 DTEND;VALUE=DATE:20270110
@@ -123,7 +123,7 @@ LOCATION:Cambridge\, Massachusetts\, USA (in residence for the academic yea
 END:VEVENT
 BEGIN:VEVENT
 UID:efa-shift-x-momus-residency-2027@artificialnouveau.github.io
-DTSTAMP:20261125T165929Z
+DTSTAMP:20261125T194352Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
@@ -152,7 +152,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:kent-cultural-alliance-sfw-residency-spring-2027@artificialnouveau.gith
  ub.io
-DTSTAMP:20261125T165929Z
+DTSTAMP:20261125T194352Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T213000Z
 DTEND:20261201T220000Z
@@ -181,7 +181,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:playwrights-center-mcknight-national-residency-commission-2027-28@artif
  icialnouveau.github.io
-DTSTAMP:20261125T165929Z
+DTSTAMP:20261125T194352Z
 TRANSP:TRANSPARENT
 DTSTART:20270115T052900Z
 DTEND:20270115T055900Z
@@ -210,7 +210,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:schomburg-center-scholars-in-residence-2027-28@artificialnouveau.github
  .io
-DTSTAMP:20261125T165929Z
+DTSTAMP:20261125T194352Z
 TRANSP:TRANSPARENT
 DTSTART:20261202T042900Z
 DTEND:20261202T045900Z
@@ -239,5 +239,39 @@ URL:https://www.nypl.org/about/fellowships-institutes/schomburg-center-scho
 LOCATION:Schomburg Center\, Harlem\, New York City\, USA. RESTRICTED: US ci
  tizens\, permanent residents and foreign nationals with the legal right to
   work in the United States.
+END:VEVENT
+BEGIN:VEVENT
+UID:villa-albertine-residencies-2028@artificialnouveau.github.io
+DTSTAMP:20261125T194352Z
+TRANSP:TRANSPARENT
+DTSTART:20270121T222900Z
+DTEND:20270121T225900Z
+SUMMARY:Deadline 23:59 CET: Villa Albertine: 2028 Exploratory Residencies i
+ n the United States (one to three months\, about USD 3\,300 per month plus
+  travel and housing\; French partner required)
+DESCRIPTION:Closes 21 Jan 2027 at 23:59 CET.\n\nVilla Albertine\, the Frenc
+ h Embassy's residency institution in the United States\, will host around 
+ fifty exploratory residencies between January and December 2028 for artist
+ s\, thinkers and cultural professionals whose projects can only take shape
+  through a stay in the US.\n\nOrganisation: Villa Albertine (Embassy of Fr
+ ance in the United States)\nLocation: Cities across the United States\, us
+ ually one city per residency\, with a few roving residencies. Open to any 
+ nationality and to French and non-French speakers\, but every application 
+ needs a letter of support from a partner organisation based in France. Min
+ imum age 21.\nAward: Residency stipend of about USD 110 per day (roughly U
+ SD 3\,300 per month\, adjusted to the city)\, paid as a lump sum. Internat
+ ional travel (and domestic travel for roving residencies)\, accommodation\
+ , insurance and\, where needed\, a rental car are covered separately. No a
+ pplication fee stated.\nDuration: 1 to 3 months between January and Decemb
+ er 2028\n\nMore: https://villa-albertine.org/va/professionals/appel-a-cand
+ idatures-de-la-villa-albertine-residences-2028/?utm_source=artificialnouve
+ augrantdesk&utm_medium=referral
+URL:https://villa-albertine.org/va/professionals/appel-a-candidatures-de-la
+ -villa-albertine-residences-2028/?utm_source=artificialnouveaugrantdesk&ut
+ m_medium=referral
+LOCATION:Cities across the United States\, usually one city per residency\,
+  with a few roving residencies. Open to any nationality and to French and 
+ non-French speakers\, but every application needs a letter of support from
+  a partner organisation based in France. Minimum age 21.
 END:VEVENT
 END:VCALENDAR
