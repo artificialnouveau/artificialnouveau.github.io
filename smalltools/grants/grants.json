@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-25",
+  "lastUpdated": "2026-11-27",
   "note": "Add new grants here. Dates are ISO format (YYYY-MM-DD). Set deadline to null for rolling/undated. Set addedDate to the date you added the entry (it controls RSS ordering and the 'new' badge). Categorisation in the page is automatic based on deadline. Field 'applicant' is one of 'individuals', 'organizations' or 'both' and drives the Who Can Apply filter; existing entries were seeded by a keyword heuristic that defaults to 'individuals' when ambiguous (this site is individual-focused), so correct it by hand when you know better. Optional field: 'suggestedBy' (string, e.g. '@handle' or a name) renders a small 'Suggested by ...' credit line on the card; only set this if the submitter opted in via the Suggest a grant form. Optional field: 'feed' set to false keeps the entry out of ALL RSS feeds while still showing it on the website, static SEO pages and calendars.",
   "grants": [
     {
@@ -45032,6 +45032,101 @@
         "infrastructure",
         "remote",
         "opens-soon"
+      ]
+    },
+    {
+      "addedDate": "2026-11-25",
+      "feedDate": null,
+      "featured": false,
+      "ageCap": null,
+      "fee": false,
+      "startDate": null,
+      "deadlineTime": "17:00",
+      "deadlineTz": "America/New_York",
+      "id": "nysca-nyfa-artist-fellowship-2027",
+      "title": "NYSCA/NYFA Artist Fellowship 2027 (USD 8,000 unrestricted; Fiction, Folk/Traditional Arts, Interdisciplinary Work, Painting, Video/Film)",
+      "organization": "New York Foundation for the Arts (NYFA), with the New York State Council on the Arts (NYSCA)",
+      "location": "New York State, USA. Residents of New York State and/or one of the Tribal Nations located there, for at least the last two consecutive years (2025 and 2026).",
+      "region": "US",
+      "amount": "USD 8,000 unrestricted cash grant per fellow; three finalists per category receive USD 1,000. In 2026 NYFA awarded 126 fellowships. The application is free.",
+      "duration": "One-off unrestricted grant; applicants are notified in summer 2027.",
+      "deadline": "2027-01-12",
+      "category": "arts",
+      "categories": [
+        "arts",
+        "writers",
+        "film"
+      ],
+      "applicant": "individuals",
+      "eligibility": "residents",
+      "attendance": "remote",
+      "career": "any",
+      "description": "The NYSCA/NYFA Artist Fellowship is an unrestricted cash grant for artists living in New York State. It is not a project grant: it funds an artist's practice and is awarded on the strength of the work. Fifteen disciplines rotate over three years, five a year. 2027 DISCIPLINES: Fiction (including graphic fiction and writing for story-driven video games), Folk/Traditional Arts, Interdisciplinary Work, Painting, and Video/Film. Digital/Electronic Arts returns in the 2029 cycle and Music/Sound in 2028. WHO: artists aged 25 or over by the deadline who have lived in New York State, or one of the Tribal Nations located in it, for at least the last two consecutive years (2025 and 2026), are not enrolled in a degree-seeking programme, and are the originators of the work. Not eligible: anyone who received this fellowship in the past five years (2022 to 2026). Collaborations of up to three artists may apply, and you may apply in at most two categories. WHAT YOU GET: USD 8,000 unrestricted. APPLICATION: free, through Submittable, with work samples (the most important part; work from the past five years is recommended) and short support statements including a 250-word artist statement. If an AI-powered tool was used in the creative process, disclose which tool and how. Applications are reviewed by a panel over three elimination rounds. The form closes automatically at the deadline. DEADLINE: Tuesday 12 January 2027, 5:00 PM ET.",
+      "url": "https://www.nyfa.org/awards-grants/nysca-nyfa-artist-fellowship/",
+      "tags": [
+        "fellowship",
+        "grant",
+        "unrestricted",
+        "new-york",
+        "us",
+        "fiction",
+        "painting",
+        "video",
+        "film",
+        "interdisciplinary",
+        "folk-arts",
+        "no-fee"
+      ]
+    },
+    {
+      "addedDate": "2026-11-27",
+      "feedDate": null,
+      "featured": false,
+      "ageCap": null,
+      "fee": false,
+      "startDate": "2027-05-21",
+      "deadline": "2027-01-20",
+      "deadlineTime": null,
+      "deadlineTz": "Europe/Paris",
+      "id": "arcan-dna-festival-2027-open-call",
+      "title": "DNA 2027, Grenoble: open call for digital artworks (EUR 1,000 fee plus travel, accommodation and meals)",
+      "organization": "ARCAN",
+      "location": "Grenoble, France. No nationality or residency limit stated; artists must be on site for the three festival days.",
+      "region": "EU",
+      "regions": [
+        "EU",
+        "Worldwide"
+      ],
+      "amount": "EUR 1,000 total fee per exhibited work, plus lunch and dinner from 20 to 23 May, travel expenses and accommodation if needed. Conditions for the performance evening are agreed case by case. No application fee mentioned.",
+      "duration": "Festival 21 to 23 May 2027; setup one or two days before, takedown on 23 May or the day after.",
+      "category": "cross",
+      "categories": [
+        "cross",
+        "arts",
+        "tech"
+      ],
+      "applicant": "individuals",
+      "eligibility": "open",
+      "attendance": "onsite",
+      "career": "any",
+      "description": "DNA is the digital arts festival run by ARCAN in Grenoble under the motto 'arts numériques indisciplinés' (undisciplined digital arts). The 2027 edition is a three-day exhibition of installations and performances shown throughout, plus one evening of performances. Any aesthetic is welcome as long as the work has a digital element; analogue electronics count. The festival is a small, volunteer-run event that describes itself as a space for free experimentation and for meeting audiences and other artists. WHO: artists with a digital or electronic work; no nationality, residency or career-stage limit is stated. You must be present for all three days and available to mediate your work for visitors. WHAT YOU GET: a total fee of EUR 1,000 for exhibition participants, lunch and dinner from 20 to 23 May, travel expenses and accommodation if needed (transport and lodging are pooled where possible). Performance-evening terms are tailored per act. All works are documented in photo and video, which is sent to the artists. Selected artists sign a cession contract covering cancellation, reimbursement and equipment insurance. APPLICATION: online form linked from the call page (the call is published in French). Decisions by 15 February 2027. DEADLINE: 20 January 2027.",
+      "url": "https://arcan.io/evenements/dna2027-appel/",
+      "tags": [
+        "festival",
+        "open-call",
+        "digital-art",
+        "media-art",
+        "installation",
+        "performance",
+        "electronic-art",
+        "experimental",
+        "artist-fee",
+        "travel-covered",
+        "accommodation-provided",
+        "grenoble",
+        "france",
+        "eu",
+        "no-fee"
       ]
     }
   ]

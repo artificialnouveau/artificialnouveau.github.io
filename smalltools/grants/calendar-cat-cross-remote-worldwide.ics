@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:unearthodox-exploration-co-lab-2027@artificialnouveau.github.io
-DTSTAMP:20261126T164023Z
+DTSTAMP:20261127T130845Z
 TRANSP:TRANSPARENT
 DTSTART:20261116T222900Z
 DTEND:20261116T225900Z
@@ -42,7 +42,7 @@ LOCATION:Online\; group sessions designed around time zones UTC-6 to UTC+6.
 END:VEVENT
 BEGIN:VEVENT
 UID:mensch-maschine-visit-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261126T164023Z
+DTSTAMP:20261127T130845Z
 TRANSP:TRANSPARENT
 DTSTART:20261201T222900Z
 DTEND:20261201T225900Z
@@ -78,7 +78,7 @@ LOCATION:E-WERK Luckenwalde\, Brandenburg\, Germany (3 fellows) and Akademi
 END:VEVENT
 BEGIN:VEVENT
 UID:smartwear-revolution-air-2027@artificialnouveau.github.io
-DTSTAMP:20261126T164023Z
+DTSTAMP:20261127T130845Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
@@ -105,7 +105,7 @@ LOCATION:Edmonton\, Alberta\, Canada (one in-person residency) or virtual (
 END:VEVENT
 BEGIN:VEVENT
 UID:smartwear-revolution-support-2028-open-call@artificialnouveau.github.io
-DTSTAMP:20261126T164023Z
+DTSTAMP:20261127T130845Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
@@ -135,7 +135,7 @@ LOCATION:Edmonton\, Alberta\, Canada (University of Alberta venues\, May 20
 END:VEVENT
 BEGIN:VEVENT
 UID:humboldt-residency-programme-2027@artificialnouveau.github.io
-DTSTAMP:20261126T164023Z
+DTSTAMP:20261127T130845Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261214
 DTEND;VALUE=DATE:20261215
@@ -169,7 +169,7 @@ LOCATION:Schloss Wiepersdorf (Brandenburg) and Berlin\, Germany. In person.
 END:VEVENT
 BEGIN:VEVENT
 UID:kinship-nature-culture-fellowship-2027@artificialnouveau.github.io
-DTSTAMP:20261126T164023Z
+DTSTAMP:20261127T130845Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261201
 DTEND;VALUE=DATE:20261202
@@ -191,7 +191,7 @@ LOCATION:Online (worldwide)
 END:VEVENT
 BEGIN:VEVENT
 UID:stringer-awards-2027@artificialnouveau.github.io
-DTSTAMP:20261126T164023Z
+DTSTAMP:20261127T130845Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261231
 DTEND;VALUE=DATE:20270101
@@ -216,7 +216,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bibliothek-andreas-zuest-residency-summer-2027@artificialnouveau.github
  .io
-DTSTAMP:20261126T164023Z
+DTSTAMP:20261127T130845Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
@@ -242,5 +242,32 @@ URL:https://bibliothekandreaszuest.net/en/residency?utm_source=artificialno
 LOCATION:Alpenhof panorama lodge\, St. Anton (Oberegg)\, Switzerland\, at 1
  \,110 m above the Rhine Valley and Lake Constance. Open to national and in
  ternational cultural workers\; no nationality or age rule is stated.
+END:VEVENT
+BEGIN:VEVENT
+UID:arcan-dna-festival-2027-open-call@artificialnouveau.github.io
+DTSTAMP:20261127T130845Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20270120
+DTEND;VALUE=DATE:20270121
+SUMMARY:Deadline: DNA 2027\, Grenoble: open call for digital artworks (EUR 
+ 1\,000 fee plus travel\, accommodation and meals)
+DESCRIPTION:DNA is the digital arts festival run by ARCAN in Grenoble under
+  the motto 'arts numériques indisciplinés' (undisciplined digital arts).
+  The 2027 edition is a three-day exhibition of installations and performan
+ ces shown throughout\, plus one evening of performances. Any aesthetic is 
+ welcome as long as the work has a digital element\; analogue electronics c
+ ount.\n\nOrganisation: ARCAN\nLocation: Grenoble\, France. No nationality 
+ or residency limit stated\; artists must be on site for the three festival
+  days.\nAward: EUR 1\,000 total fee per exhibited work\, plus lunch and di
+ nner from 20 to 23 May\, travel expenses and accommodation if needed. Cond
+ itions for the performance evening are agreed case by case. No application
+  fee mentioned.\nDuration: Festival 21 to 23 May 2027\; setup one or two d
+ ays before\, takedown on 23 May or the day after.\n\nMore: https://arcan.i
+ o/evenements/dna2027-appel/?utm_source=artificialnouveaugrantdesk&utm_medi
+ um=referral
+URL:https://arcan.io/evenements/dna2027-appel/?utm_source=artificialnouveau
+ grantdesk&utm_medium=referral
+LOCATION:Grenoble\, France. No nationality or residency limit stated\; arti
+ sts must be on site for the three festival days.
 END:VEVENT
 END:VCALENDAR
