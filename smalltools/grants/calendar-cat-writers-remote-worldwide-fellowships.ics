@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:nieman-fellowship-class-of-2028@artificialnouveau.github.io
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261201
 DTEND;VALUE=DATE:20261202
@@ -39,7 +39,7 @@ LOCATION:Cambridge\, Massachusetts\, USA (residential academic year at Harv
 END:VEVENT
 BEGIN:VEVENT
 UID:jsk-journalism-fellowship-2027-28@artificialnouveau.github.io
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261202
 DTEND;VALUE=DATE:20261203
@@ -66,7 +66,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rji-professional-innovation-fellowships-2027@artificialnouveau.github.i
  o
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270108
 DTEND;VALUE=DATE:20270109
@@ -94,7 +94,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:knight-science-journalism-fellowship-2027-28@artificialnouveau.github.i
  o
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20270109
 DTEND;VALUE=DATE:20270110
@@ -120,7 +120,7 @@ LOCATION:Cambridge\, Massachusetts\, USA (in residence for the academic yea
 END:VEVENT
 BEGIN:VEVENT
 UID:humboldt-residency-programme-2027@artificialnouveau.github.io
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261214
 DTEND;VALUE=DATE:20261215
@@ -154,7 +154,7 @@ LOCATION:Schloss Wiepersdorf (Brandenburg) and Berlin\, Germany. In person.
 END:VEVENT
 BEGIN:VEVENT
 UID:mpi-short-film-lab-2027@artificialnouveau.github.io
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART:20261130T072900Z
 DTEND:20261130T075900Z
@@ -183,7 +183,7 @@ LOCATION:Mostly virtual\, with an in-person summit in Los Angeles\, USA\, f
 END:VEVENT
 BEGIN:VEVENT
 UID:new-america-fellows-class-of-2028@artificialnouveau.github.io
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART:20270202T042900Z
 DTEND:20270202T045900Z
@@ -213,5 +213,28 @@ LOCATION:Nonresidential: Fellows stay in their jobs and home city. Two requ
  tober 2027\; closing\, May 2028)\, with travel\, lodging and most meals co
  vered\, plus monthly virtual gatherings. Non-US citizens and applicants ba
  sed abroad may apply.
+END:VEVENT
+BEGIN:VEVENT
+UID:newberry-library-artists-in-residence-2027-28@artificialnouveau.github.
+ io
+DTSTAMP:20261127T142823Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20270115
+DTEND;VALUE=DATE:20270116
+SUMMARY:Deadline: Newberry Library Artists-in-Residence Fellowships 2027-28
+ \, Chicago (USD 3\,000 for a one-month research residency)
+DESCRIPTION:One-month residencies for artists and writers whose projects ne
+ ed time with the Newberry's collections: maps\, prints\, manuscripts\, pri
+ nting history\, Indigenous studies\, genealogy and local history\, music a
+ nd dance archives. The library has hosted creative fellows alongside its s
+ cholars since the 1940s.\n\nOrganisation: Newberry Library\nLocation: Newb
+ erry Library\, Chicago\, USA. No nationality limit stated.\nAward: USD 3\,
+ 000 stipend for a one-month residency. No application fee mentioned.\nDura
+ tion: One month\, taken between June 2027 and August 2028.\n\nMore: https:
+ //www.newberry.org/research/artists-in-residence?utm_source=artificialnouv
+ eaugrantdesk&utm_medium=referral
+URL:https://www.newberry.org/research/artists-in-residence?utm_source=artif
+ icialnouveaugrantdesk&utm_medium=referral
+LOCATION:Newberry Library\, Chicago\, USA. No nationality limit stated.
 END:VEVENT
 END:VCALENDAR

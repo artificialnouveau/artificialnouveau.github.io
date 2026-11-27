@@ -15,7 +15,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
 UID:smartwear-revolution-air-2027@artificialnouveau.github.io
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
@@ -42,7 +42,7 @@ LOCATION:Edmonton\, Alberta\, Canada (one in-person residency) or virtual (
 END:VEVENT
 BEGIN:VEVENT
 UID:humboldt-residency-programme-2027@artificialnouveau.github.io
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261214
 DTEND;VALUE=DATE:20261215
@@ -77,7 +77,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ligeti-zentrum-artists-scientists-residence-2027@artificialnouveau.gith
  ub.io
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART:20270110T222900Z
 DTEND:20270110T225900Z
@@ -103,7 +103,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bibliothek-andreas-zuest-residency-summer-2027@artificialnouveau.github
  .io
-DTSTAMP:20261127T130846Z
+DTSTAMP:20261127T142823Z
 TRANSP:TRANSPARENT
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
@@ -129,5 +129,28 @@ URL:https://bibliothekandreaszuest.net/en/residency?utm_source=artificialno
 LOCATION:Alpenhof panorama lodge\, St. Anton (Oberegg)\, Switzerland\, at 1
  \,110 m above the Rhine Valley and Lake Constance. Open to national and in
  ternational cultural workers\; no nationality or age rule is stated.
+END:VEVENT
+BEGIN:VEVENT
+UID:newberry-library-artists-in-residence-2027-28@artificialnouveau.github.
+ io
+DTSTAMP:20261127T142823Z
+TRANSP:TRANSPARENT
+DTSTART;VALUE=DATE:20270115
+DTEND;VALUE=DATE:20270116
+SUMMARY:Deadline: Newberry Library Artists-in-Residence Fellowships 2027-28
+ \, Chicago (USD 3\,000 for a one-month research residency)
+DESCRIPTION:One-month residencies for artists and writers whose projects ne
+ ed time with the Newberry's collections: maps\, prints\, manuscripts\, pri
+ nting history\, Indigenous studies\, genealogy and local history\, music a
+ nd dance archives. The library has hosted creative fellows alongside its s
+ cholars since the 1940s.\n\nOrganisation: Newberry Library\nLocation: Newb
+ erry Library\, Chicago\, USA. No nationality limit stated.\nAward: USD 3\,
+ 000 stipend for a one-month residency. No application fee mentioned.\nDura
+ tion: One month\, taken between June 2027 and August 2028.\n\nMore: https:
+ //www.newberry.org/research/artists-in-residence?utm_source=artificialnouv
+ eaugrantdesk&utm_medium=referral
+URL:https://www.newberry.org/research/artists-in-residence?utm_source=artif
+ icialnouveaugrantdesk&utm_medium=referral
+LOCATION:Newberry Library\, Chicago\, USA. No nationality limit stated.
 END:VEVENT
 END:VCALENDAR
